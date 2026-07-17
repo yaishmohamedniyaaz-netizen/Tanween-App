@@ -403,7 +403,8 @@ textarea:focus-visible {
   user-select: none;
   -webkit-user-select: none;
   -webkit-touch-callout: none;
-  touch-action: none;
+  /* Keep tap-to-mark, but let phones scroll and pinch-zoom naturally. */
+  touch-action: pan-y pinch-zoom;
 }
 .page-special {
   max-width: 72%;
@@ -680,7 +681,7 @@ textarea:focus-visible {
   position: absolute;
   pointer-events: auto;
   cursor: pointer;
-  touch-action: none;
+  touch-action: pan-y pinch-zoom;
   background: transparent;
 }
 .glyph-ink {
@@ -1751,5 +1752,59 @@ textarea:focus-visible {
   }
   .records-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .app-header {
+    gap: 8px;
+    padding: 10px 14px;
+  }
+  .brand {
+    min-width: 0;
+    gap: 6px;
+  }
+  .brand-mark {
+    font-size: 23px;
+  }
+  .brand-name {
+    display: none;
+  }
+  .reciter-chip {
+    min-width: 0;
+    max-width: 112px;
+    padding: 0 10px;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .reciter-chip .chip-dot,
+  .reciter-chip .chip-idx {
+    display: none;
+  }
+  .view-toggle {
+    width: 34px;
+    padding: 0;
+    gap: 0;
+    font-size: 0;
+  }
+  .view-toggle-count {
+    display: none;
+  }
+  .workspace,
+  .records-main {
+    padding: 14px;
+  }
+  .workspace {
+    gap: 14px;
+  }
+  .page {
+    border-radius: var(--r-md);
+    padding: 32px 16px 16px;
+  }
+  .page-special {
+    max-width: 100%;
+  }
+  .page-nav {
+    margin-bottom: 12px;
   }
 }

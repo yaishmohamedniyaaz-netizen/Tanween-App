@@ -413,15 +413,19 @@ export function Mushaf({ page: currentPage, onPageChange }: MushafProps) {
       if (pinned) closeAll();
       return;
     }
-    e.preventDefault();
+    // Mouse/pen marking owns the pointer. On touch, leave the browser free to
+    // begin a vertical page scroll; a stationary tap still opens the menu.
+    if (e.pointerType !== "touch") e.preventDefault();
     const tid = target.dataset.tid!;
     const box = boxes.find((b) => b.tid === tid);
     if (!box) return;
     const rect = target.getBoundingClientRect();
-    try {
-      (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
-    } catch {
-      /* ignore */
+    if (e.pointerType !== "touch") {
+      try {
+        (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
+      } catch {
+        /* ignore */
+      }
     }
     startRef.current = {
       x: e.clientX,

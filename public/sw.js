@@ -1,21 +1,17 @@
 /**
  * Tahqeeq Service Worker
- * Hand-rolled (no Workbox). Precaches fonts + all 604 page JSONs.
+ * Hand-rolled (no Workbox). Precaches only the small app essentials; mushaf
+ * pages are cached as they are opened so first load stays fast on phones.
  * NOTE: this file is served verbatim from /public — it must stay plain
  * JavaScript (no TypeScript annotations; browsers parse it directly).
  */
 
-const CACHE_VERSION = 2;
+const CACHE_VERSION = 3;
 const STATIC_CACHE = "tahqeeq-static-v" + CACHE_VERSION;
 
 const FONT_URLS = ["/fonts/hafs.18.woff2", "/fonts/InterVariable.woff2"];
 
-const PAGE_URLS = [];
-for (let i = 1; i <= 604; i++) {
-  PAGE_URLS.push("/pages/p" + i + ".json");
-}
-
-const PRECACHE_URLS = FONT_URLS.concat(PAGE_URLS);
+const PRECACHE_URLS = FONT_URLS.concat(["/pages/p604.json"]);
 
 // Install: precache everything; individual failures are logged, not fatal.
 self.addEventListener("install", (event) => {
