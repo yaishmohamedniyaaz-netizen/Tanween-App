@@ -15,6 +15,11 @@ export function isAyahEndWord(word: string): boolean {
   return ARABIC_INDIC.test(word.trim());
 }
 
+/** Standalone print ornaments that are displayed but never recited. */
+export function isNonRecitationWord(word: string): boolean {
+  return /^[\u06DE\u06E9]+$/u.test(word.trim());
+}
+
 const segmenter =
   typeof Intl !== "undefined" && "Segmenter" in Intl
     ? new Intl.Segmenter("ar", { granularity: "grapheme" })

@@ -1,5 +1,6 @@
 import type { TokenRole } from "../types";
 import staticPage604 from "../data/page604.json";
+import { isNonRecitationWord } from "./tokenize";
 
 export interface PageWord {
   wid: string; // stable word address: "<surah>.<ayah|b>.<index>"
@@ -40,7 +41,10 @@ function castPage(data: any): MushafPage {
         text: w.text,
         surah: w.surah,
         ayah: w.ayah ?? null,
-        role: w.role as TokenRole,
+        role:
+          w.role === "letter" && isNonRecitationWord(w.text)
+            ? "ornament"
+            : (w.role as TokenRole),
       }));
       return l.type === "basmala"
         ? { n: l.n, type: "basmala", surah: l.surah as number, words }

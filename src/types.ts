@@ -14,7 +14,7 @@ export interface CategoryConfig {
 
 export type ScoreConfig = Record<CategoryId, CategoryConfig>;
 
-export type TokenRole = "letter" | "ayah-end";
+export type TokenRole = "letter" | "ayah-end" | "ornament";
 
 /** One pinpointed deduction tied to an exact glyph on the page. */
 export interface Mistake {

@@ -1,4 +1,5 @@
 import {
+  Fragment,
   useCallback,
   useEffect,
   useLayoutEffect,
@@ -15,6 +16,7 @@ import { useJudging } from "../state/store";
 import type { CategoryId, Mistake, TokenRole } from "../types";
 import { DragMenu, type MenuAnchor } from "./DragMenu";
 import { juzByPage, sajdahVerses } from "../data/marginalia";
+import surahIndex from "../data/surah-index.json";
 
 interface Hitbox {
   tid: string;
@@ -46,7 +48,7 @@ const SEVERITY: Record<CategoryId, number> = { jali: 3, khafi: 2, fasaha: 1 };
 const HIT_MIN_W = 20;
 const HIT_PAD_Y = 5;
 const MOVE_THRESHOLD = 6;
-const BASE_FONT = 28;
+const BASE_FONT = 30;
 // Lines that would need a wider-than-this inter-word gap to justify are
 // centered instead (real inter-word gap, print-like) rather than stretched.
 const MAX_GAP_EM = 0.62;
@@ -68,7 +70,22 @@ function dominant(ms: Mistake[]): CategoryId {
   ).category;
 }
 
-function SurahBand({ nameAr }: { nameAr: string }) {
+const SURAH_INDEX = surahIndex as Array<{
+  number: number;
+  nameAr: string;
+  firstPage: number;
+}>;
+
+function surahsForPage(page: number) {
+  const starting = SURAH_INDEX.filter((surah) => surah.firstPage === page);
+  if (starting.length) return starting;
+  const active = [...SURAH_INDEX]
+    .reverse()
+    .find((surah) => surah.firstPage <= page);
+  return active ? [active] : [];
+}
+
+function SurahBand({ nameAr, line }: { nameAr: string; line: number }) {
   const motif = (
     <svg viewBox="0 0 26 26" fill="none" stroke="currentColor" strokeWidth="1.2">
       <circle cx="13" cy="13" r="8" />
@@ -77,7 +94,7 @@ function SurahBand({ nameAr }: { nameAr: string }) {
     </svg>
   );
   return (
-    <div className="surah-band">
+    <div className="surah-band" style={{ gridRow: line }}>
       <span className="surah-band-motif left" aria-hidden="true">
         {motif}
       </span>
@@ -99,8 +116,10 @@ export function Mushaf({ page: currentPage, onPageChange }: MushafProps) {
   const [pageData, setPageData] = useState<MushafPage | null>(null);
   const pageRef = useRef<HTMLDivElement>(null);
   const [boxes, setBoxes] = useState<Hitbox[]>([]);
+  const [boxesPage, setBoxesPage] = useState<number | null>(null);
   const [fontPx, setFontPx] = useState(BASE_FONT);
   const [centered, setCentered] = useState<Set<number>>(new Set());
+  const [layoutEpoch, setLayoutEpoch] = useState(0);
   const [flashTid, setFlashTid] = useState<string | null>(null);
   const [pendingFlashTid, setPendingFlashTid] = useState<string | null>(null);
 
@@ -169,34 +188,37 @@ export function Mushaf({ page: currentPage, onPageChange }: MushafProps) {
     return () => window.removeEventListener("keydown", onKey);
   }, [currentPage, onPageChange]);
 
-  const fontAdjustsRef = useRef(0);
-  const settleKeyRef = useRef("");
+  const fittedLayoutRef = useRef("");
 
   /* --- layout: fit the print's nowrap lines to the container, like paper.
      A line that would need an unnaturally wide inter-word gap to justify is
      centered with a normal fixed gap instead of being stretched. */
-  const fitLines = useCallback(() => {
+  const fitLines = useCallback((): boolean => {
     const root = pageRef.current;
-    if (!root || !pageData) return;
+    if (!root || !pageData) return false;
+    const layoutKey = `${pageData.page}:${Math.round(root.clientWidth)}`;
+    if (fittedLayoutRef.current === layoutKey) return false;
+    fittedLayoutRef.current = layoutKey;
+
     // Special pages: all lines centered, skip auto-fit
     if (pageData.special) {
       const all = new Set<number>();
       pageData.lines.forEach((l) => all.add(l.n));
-      setCentered(all);
-      return;
+      const changed =
+        centered.size !== all.size || [...all].some((n) => !centered.has(n));
+      if (changed) setCentered(all);
+      return changed;
     }
     const lineEls = root.querySelectorAll<HTMLElement>("[data-mline]");
-    if (!lineEls.length) return;
-
-    const settleKey = `${pageData.page}:${root.clientWidth}`;
-    if (settleKey !== settleKeyRef.current) {
-      settleKeyRef.current = settleKey;
-      fontAdjustsRef.current = 0;
-    }
+    if (!lineEls.length) return false;
 
     let widestRatio = 0;
-    const centerNext = new Set<number>();
-    const maxGap = MAX_GAP_EM * fontPx;
+    const metrics: Array<{
+      line: number;
+      lineWidth: number;
+      naturalWordsWidth: number;
+      words: number;
+    }> = [];
 
     lineEls.forEach((el) => {
       const lineWidth = el.clientWidth;
@@ -211,35 +233,50 @@ export function Mushaf({ page: currentPage, onPageChange }: MushafProps) {
         naturalWordsWidth + Math.max(0, words - 1) * fontPx * 0.32;
       const ratio = natural / lineWidth;
       widestRatio = Math.max(widestRatio, ratio);
-
-      if (words > 1) {
-        const gapNeeded = (lineWidth - naturalWordsWidth) / (words - 1);
-        if (gapNeeded > maxGap) centerNext.add(Number(el.dataset.mline));
-      }
+      metrics.push({
+        line: Number(el.dataset.mline),
+        lineWidth,
+        naturalWordsWidth,
+        words,
+      });
     });
 
-    if (widestRatio > 0 && fontAdjustsRef.current < 8) {
-      const ideal = Math.min(44, Math.max(17, (fontPx * 0.985) / widestRatio));
-      if (Math.abs(ideal - fontPx) > 0.75) {
-        fontAdjustsRef.current += 1;
-        setFontPx(ideal);
-        return; // re-run after the font settles
+    const ideal =
+      widestRatio > 0
+        ? Math.round(
+            Math.min(40, Math.max(17, (fontPx * 0.985) / widestRatio)) * 4,
+          ) / 4
+        : fontPx;
+    const scale = ideal / Math.max(fontPx, 1);
+    const maxGap = MAX_GAP_EM * ideal;
+    const centerNext = new Set<number>();
+    for (const metric of metrics) {
+      if (metric.words > 1) {
+        const projectedWordsWidth = metric.naturalWordsWidth * scale;
+        const gapNeeded =
+          (metric.lineWidth - projectedWordsWidth) / (metric.words - 1);
+        if (gapNeeded > maxGap) centerNext.add(metric.line);
       }
     }
 
-    setCentered((prev) => {
-      if (prev.size === centerNext.size && [...centerNext].every((n) => prev.has(n)))
-        return prev;
-      return centerNext;
-    });
-  }, [fontPx, pageData]);
+    const fontChanged = Math.abs(ideal - fontPx) > 0.25;
+    const centeredChanged =
+      centered.size !== centerNext.size ||
+      [...centerNext].some((n) => !centered.has(n));
+    if (fontChanged) setFontPx(ideal);
+    if (centeredChanged) setCentered(centerNext);
+    return fontChanged || centeredChanged;
+  }, [centered, fontPx, pageData]);
 
   /* --- hitboxes: tight ink rect + generous invisible target --- */
   const measure = useCallback(() => {
     const root = pageRef.current;
     if (!root) return;
     const rootRect = root.getBoundingClientRect();
-    const words = root.querySelectorAll<HTMLElement>(".m-word");
+    // Decorative ayah markers stay visible, but are never selectable targets.
+    const words = root.querySelectorAll<HTMLElement>(
+      '.m-word[data-role="letter"]',
+    );
     const next: Hitbox[] = [];
     words.forEach((wEl) => {
       const node = wEl.firstChild;
@@ -247,6 +284,7 @@ export function Mushaf({ page: currentPage, onPageChange }: MushafProps) {
       const text = node.textContent ?? "";
       const wid = wEl.dataset.wid!;
       const role = (wEl.dataset.role as TokenRole) ?? "letter";
+      if (role !== "letter") return;
       const surah = Number(wEl.dataset.surah);
       const ayahAttr = wEl.dataset.ayah;
       const ayah = ayahAttr === "b" ? null : Number(ayahAttr);
@@ -299,33 +337,61 @@ export function Mushaf({ page: currentPage, onPageChange }: MushafProps) {
       });
     });
     setBoxes(next);
+    setBoxesPage(Number(root.dataset.page));
   }, []);
 
   useLayoutEffect(() => {
+    // One fitting pass per page width. Hitbox work is deliberately deferred so
+    // the newly selected Quran page can paint before its interaction layer.
     fitLines();
-  }, [fitLines]);
-
-  useLayoutEffect(() => {
-    measure();
-  }, [measure, fontPx, centered]);
+  }, [fitLines, layoutEpoch]);
 
   useEffect(() => {
-    let ro: ResizeObserver | null = null;
-    const refit = () => {
-      fitLines();
-      measure();
+    let timer = 0;
+    const frame = requestAnimationFrame(() => {
+      timer = window.setTimeout(measure, 0);
+    });
+    return () => {
+      cancelAnimationFrame(frame);
+      if (timer) window.clearTimeout(timer);
     };
-    if (document.fonts?.ready) document.fonts.ready.then(refit);
-    if (pageRef.current && "ResizeObserver" in window) {
-      ro = new ResizeObserver(refit);
-      ro.observe(pageRef.current);
-    }
-    window.addEventListener("resize", refit);
+  }, [centered, fontPx, layoutEpoch, measure, pageData?.page]);
+
+  useEffect(() => {
+    let cancelled = false;
+    document.fonts
+      ?.load(`${BASE_FONT}px "HafsUthmanic"`)
+      .then(() => {
+        if (cancelled) return;
+        fittedLayoutRef.current = "";
+        setLayoutEpoch((value) => value + 1);
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  useEffect(() => {
+    const root = pageRef.current;
+    if (!root) return;
+    let lastWidth = Math.round(root.getBoundingClientRect().width);
+    const handleWidth = () => {
+      const nextWidth = Math.round(root.getBoundingClientRect().width);
+      if (Math.abs(nextWidth - lastWidth) < 2) return;
+      lastWidth = nextWidth;
+      fittedLayoutRef.current = "";
+      setLayoutEpoch((value) => value + 1);
+    };
+    const ro =
+      "ResizeObserver" in window ? new ResizeObserver(handleWidth) : null;
+    ro?.observe(root);
+    window.addEventListener("resize", handleWidth);
     return () => {
       ro?.disconnect();
-      window.removeEventListener("resize", refit);
+      window.removeEventListener("resize", handleWidth);
     };
-  }, [fitLines, measure]);
+  }, [pageData?.page]);
 
   /* --- handle pending flash after page load --- */
   useEffect(() => {
@@ -413,19 +479,17 @@ export function Mushaf({ page: currentPage, onPageChange }: MushafProps) {
       if (pinned) closeAll();
       return;
     }
-    // Mouse/pen marking owns the pointer. On touch, leave the browser free to
-    // begin a vertical page scroll; a stationary tap still opens the menu.
-    if (e.pointerType !== "touch") e.preventDefault();
+    // A press that starts on a letter owns the pointer on every input type.
+    // Blank page areas still keep the page's normal vertical touch scrolling.
+    e.preventDefault();
     const tid = target.dataset.tid!;
     const box = boxes.find((b) => b.tid === tid);
     if (!box) return;
     const rect = target.getBoundingClientRect();
-    if (e.pointerType !== "touch") {
-      try {
-        (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
-      } catch {
-        /* ignore */
-      }
+    try {
+      (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
+    } catch {
+      /* ignore */
     }
     startRef.current = {
       x: e.clientX,
@@ -503,11 +567,12 @@ export function Mushaf({ page: currentPage, onPageChange }: MushafProps) {
     return (
       <span
         key={w.wid}
-        className={`m-word ${w.role === "ayah-end" ? "ayah-num" : ""} ${isSajdah ? "sajdah" : ""}`}
+        className={`m-word ${w.role === "ayah-end" ? "ayah-num" : ""} ${w.role === "ornament" ? "m-ornament" : ""} ${isSajdah ? "sajdah" : ""}`}
         data-wid={w.wid}
         data-role={w.role}
         data-surah={w.surah}
         data-ayah={w.ayah === null ? "b" : String(w.ayah)}
+        aria-hidden={w.role !== "letter" ? true : undefined}
       >
         {w.text}
         {isSajdah && <span className="sajdah-mark" aria-label="Sajdah">۩</span>}
@@ -525,30 +590,41 @@ export function Mushaf({ page: currentPage, onPageChange }: MushafProps) {
     );
   }
 
+  const pageSurahs = surahsForPage(pageData.page);
+  const visibleBoxes = boxesPage === pageData.page ? boxes : [];
+
   return (
     <div className="mushaf-scroll">
       <div
         className={`page ${pageData.special ? "page-special" : ""}`}
         ref={pageRef}
+        data-page={pageData.page}
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}
         onPointerCancel={closeAll}
         onContextMenu={(e) => e.preventDefault()}
       >
+        <div className="page-marginalia">
+          <span className="page-juz">Juz&apos; {juzByPage[pageData.page]}</span>
+          <span className="page-surahs" dir="rtl">
+            {pageSurahs.map((surah) => surah.nameAr).join(" - ")}
+          </span>
+        </div>
         {juzByPage[currentPage] > 0 && (
           <div className="juz-label">الجزء {toArabicNum(juzByPage[currentPage])}</div>
         )}
+        <div className="mushaf-lines">
         {pageData.lines.map((line) => {
           if (line.type === "surah-header") {
-            return <SurahBand key={line.n} nameAr={line.nameAr} />;
+            return <SurahBand key={line.n} nameAr={line.nameAr} line={line.n} />;
           }
           if (line.type === "basmala") {
             return (
               <div
                 key={line.n}
                 className="m-line m-line-basmala"
-                style={{ fontSize: fontPx * 0.78 }}
+                style={{ gridRow: line.n, fontSize: fontPx * 0.78 }}
               >
                 {line.words.map(renderWord)}
               </div>
@@ -560,17 +636,18 @@ export function Mushaf({ page: currentPage, onPageChange }: MushafProps) {
               key={line.n}
               data-mline={line.n}
               className={`m-line ${center ? "m-line-center" : "m-line-ayah"}`}
-              style={{ fontSize: fontPx }}
+              style={{ gridRow: line.n, fontSize: fontPx }}
             >
               {line.words.map(renderWord)}
             </div>
           );
         })}
+        </div>
 
         <div className="page-number">{pageData.page}</div>
 
         <div className="hit-layer">
-          {boxes.map((b) => {
+          {visibleBoxes.map((b) => {
             const ms = byTid.get(b.tid);
             const dom = ms && ms.length ? dominant(ms) : null;
             const inkCls = [
@@ -581,8 +658,11 @@ export function Mushaf({ page: currentPage, onPageChange }: MushafProps) {
             ]
               .filter(Boolean)
               .join(" ");
+            const showInk = Boolean(
+              dom || active?.tid === b.tid || flashTid === b.tid,
+            );
             return (
-              <div key={b.tid}>
+              <Fragment key={b.tid}>
                 <div
                   data-tid={b.tid}
                   className="hit"
@@ -595,15 +675,17 @@ export function Mushaf({ page: currentPage, onPageChange }: MushafProps) {
                       : `mark ${b.glyph}`
                   }
                 />
-                <div
-                  className={inkCls}
-                  style={{ left: b.x, top: b.y, width: b.w, height: b.h }}
-                >
-                  {ms && ms.length > 1 && (
-                    <span className="mark-count">{ms.length}</span>
-                  )}
-                </div>
-              </div>
+                {showInk && (
+                  <div
+                    className={inkCls}
+                    style={{ left: b.x, top: b.y, width: b.w, height: b.h }}
+                  >
+                    {ms && ms.length > 1 && (
+                      <span className="mark-count">{ms.length}</span>
+                    )}
+                  </div>
+                )}
+              </Fragment>
             );
           })}
         </div>
