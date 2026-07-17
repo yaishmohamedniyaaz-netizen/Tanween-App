@@ -309,6 +309,15 @@ tab. Rather than patch it further, **kashida is now fully removed**:
 - Also confirmed the dev-mode stale-service-worker purge (from the prior stabilization)
   is still intact — a leftover SW from an earlier prod/preview run can't reappear.
 
+## On GitHub (2026-07-05)
+Repo: https://github.com/yaishmohamedniyaaz-netizen/tahqeeq (PRIVATE, branch main).
+Pre-upload check: tsc + build clean; 604 page JSONs valid (p1 special, spot-parsed
+p1/p300/p604); 114-surah index; 0 kashida leftovers. Cleaned before first commit:
+Kimi scratch (tmp-*.cjs/js, req-*.json, screenshots/, broken build-data-new.mjs,
+build-test.mjs, stray temp file), tsbuildinfo caches, settings.local.json — all now
+gitignored. Kept: scripts/build-data.mjs (real 604-page generator), build-marginalia.mjs,
+slim-pages.mjs.
+
 ## DECISION NEEDED — which big feature next? (pick one and I'll go deep)
 1. Full-mushaf coverage — exact printed-page fidelity via QPC v1/v2 page-glyph fonts + QUL
    layout data, so any surah/page can be judged (currently 3 short surahs).
