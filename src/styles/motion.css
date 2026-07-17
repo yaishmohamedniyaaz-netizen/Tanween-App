@@ -1,0 +1,179 @@
+/* ---- Motion language ----
+   One easing family, 120–240ms. Enters use --ease-out, moves use --ease-in-out.
+   Nothing exceeds 300ms except the log→mushaf flash. */
+:root {
+  --ease-out: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-in-out: cubic-bezier(0.76, 0, 0.24, 1);
+  --t-fast: 120ms;
+  --t-base: 200ms;
+  --t-slow: 240ms;
+}
+
+@keyframes pill-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px) scale(0.86);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes pill-commit {
+  40% {
+    transform: scale(1.06);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.02);
+    opacity: 0;
+  }
+}
+
+@keyframes log-in {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  60% {
+    transform: translateY(1px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes flash-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 transparent;
+    background: var(--c-wash);
+  }
+  18%,
+  55% {
+    background: var(--c-wash-strong);
+    box-shadow: 0 0 0 3px var(--c-wash);
+  }
+  36% {
+    background: var(--c-wash);
+  }
+}
+
+@keyframes backdrop-in {
+  from {
+    opacity: 0;
+    backdrop-filter: blur(0);
+    -webkit-backdrop-filter: blur(0);
+  }
+  to {
+    opacity: 1;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+}
+
+@keyframes dialog-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes view-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes underline-draw {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes score-pulse {
+  0%,
+  100% {
+    color: inherit;
+  }
+  30% {
+    color: var(--c);
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --t-fast: 60ms;
+    --t-base: 80ms;
+    --t-slow: 80ms;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 80ms !important;
+    transition-duration: 80ms !important;
+  }
+  @keyframes pill-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @keyframes log-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @keyframes dialog-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @keyframes view-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @keyframes underline-draw {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+}

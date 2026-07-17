@@ -1,0 +1,139 @@
+{
+  "source": "KFGQPC Uthmanic Hafs v18 (thetruetruth/quran-data-kfgqpc)",
+  "font": "hafs.18",
+  "generatedAt": "2026-07-03T19:39:40.966Z",
+  "surahs": [
+    {
+      "number": 112,
+      "nameEn": "Al-Ikhlāṣ",
+      "nameAr": "الإخلَاص",
+      "page": 604,
+      "basmala": "بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ",
+      "ayahs": [
+        {
+          "no": 1,
+          "text": "قُلۡ هُوَ ٱللَّهُ أَحَدٌ ١",
+          "page": 604,
+          "lineStart": 3,
+          "lineEnd": 3
+        },
+        {
+          "no": 2,
+          "text": "ٱللَّهُ ٱلصَّمَدُ ٢",
+          "page": 604,
+          "lineStart": 3,
+          "lineEnd": 3
+        },
+        {
+          "no": 3,
+          "text": "لَمۡ يَلِدۡ وَلَمۡ يُولَدۡ ٣",
+          "page": 604,
+          "lineStart": 3,
+          "lineEnd": 3
+        },
+        {
+          "no": 4,
+          "text": "وَلَمۡ يَكُن لَّهُۥ كُفُوًا أَحَدُۢ ٤",
+          "page": 604,
+          "lineStart": 4,
+          "lineEnd": 4
+        }
+      ]
+    },
+    {
+      "number": 113,
+      "nameEn": "Al-Falaq",
+      "nameAr": "الفَلَق",
+      "page": 604,
+      "basmala": "بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ",
+      "ayahs": [
+        {
+          "no": 1,
+          "text": "قُلۡ أَعُوذُ بِرَبِّ ٱلۡفَلَقِ ١",
+          "page": 604,
+          "lineStart": 7,
+          "lineEnd": 7
+        },
+        {
+          "no": 2,
+          "text": "مِن شَرِّ مَا خَلَقَ ٢",
+          "page": 604,
+          "lineStart": 7,
+          "lineEnd": 7
+        },
+        {
+          "no": 3,
+          "text": "وَمِن شَرِّ غَاسِقٍ إِذَا وَقَبَ ٣",
+          "page": 604,
+          "lineStart": 7,
+          "lineEnd": 8
+        },
+        {
+          "no": 4,
+          "text": "وَمِن شَرِّ ٱلنَّفَّٰثَٰتِ فِي ٱلۡعُقَدِ ٤",
+          "page": 604,
+          "lineStart": 8,
+          "lineEnd": 8
+        },
+        {
+          "no": 5,
+          "text": "وَمِن شَرِّ حَاسِدٍ إِذَا حَسَدَ ٥",
+          "page": 604,
+          "lineStart": 9,
+          "lineEnd": 9
+        }
+      ]
+    },
+    {
+      "number": 114,
+      "nameEn": "An-Nās",
+      "nameAr": "النَّاس",
+      "page": 604,
+      "basmala": "بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ",
+      "ayahs": [
+        {
+          "no": 1,
+          "text": "قُلۡ أَعُوذُ بِرَبِّ ٱلنَّاسِ ١",
+          "page": 604,
+          "lineStart": 12,
+          "lineEnd": 12
+        },
+        {
+          "no": 2,
+          "text": "مَلِكِ ٱلنَّاسِ ٢",
+          "page": 604,
+          "lineStart": 12,
+          "lineEnd": 12
+        },
+        {
+          "no": 3,
+          "text": "إِلَٰهِ ٱلنَّاسِ ٣",
+          "page": 604,
+          "lineStart": 12,
+          "lineEnd": 13
+        },
+        {
+          "no": 4,
+          "text": "مِن شَرِّ ٱلۡوَسۡوَاسِ ٱلۡخَنَّاسِ ٤",
+          "page": 604,
+          "lineStart": 13,
+          "lineEnd": 13
+        },
+        {
+          "no": 5,
+          "text": "ٱلَّذِي يُوَسۡوِسُ فِي صُدُورِ ٱلنَّاسِ ٥",
+          "page": 604,
+          "lineStart": 13,
+          "lineEnd": 14
+        },
+        {
+          "no": 6,
+          "text": "مِنَ ٱلۡجِنَّةِ وَٱلنَّاسِ ٦",
+          "page": 604,
+          "lineStart": 15,
+          "lineEnd": 15
+        }
+      ]
+    }
+  ]
+}

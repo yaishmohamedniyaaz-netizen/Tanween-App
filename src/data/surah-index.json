@@ -1,0 +1,572 @@
+[
+  {
+    "number": 1,
+    "nameAr": "الفَاتِحة",
+    "firstPage": 1
+  },
+  {
+    "number": 2,
+    "nameAr": "البَقَرَة",
+    "firstPage": 2
+  },
+  {
+    "number": 3,
+    "nameAr": "آل عِمران",
+    "firstPage": 50
+  },
+  {
+    "number": 4,
+    "nameAr": "النِّسَاء",
+    "firstPage": 77
+  },
+  {
+    "number": 5,
+    "nameAr": "المَائدة",
+    "firstPage": 106
+  },
+  {
+    "number": 6,
+    "nameAr": "الأنعَام",
+    "firstPage": 128
+  },
+  {
+    "number": 7,
+    "nameAr": "الأعرَاف",
+    "firstPage": 151
+  },
+  {
+    "number": 8,
+    "nameAr": "الأنفَال",
+    "firstPage": 177
+  },
+  {
+    "number": 9,
+    "nameAr": "التوبَة",
+    "firstPage": 187
+  },
+  {
+    "number": 10,
+    "nameAr": "يُونس",
+    "firstPage": 208
+  },
+  {
+    "number": 11,
+    "nameAr": "هُود",
+    "firstPage": 221
+  },
+  {
+    "number": 12,
+    "nameAr": "يُوسُف",
+    "firstPage": 235
+  },
+  {
+    "number": 13,
+    "nameAr": "الرَّعد",
+    "firstPage": 249
+  },
+  {
+    "number": 14,
+    "nameAr": "إبراهِيم",
+    "firstPage": 255
+  },
+  {
+    "number": 15,
+    "nameAr": "الحِجر",
+    "firstPage": 262
+  },
+  {
+    "number": 16,
+    "nameAr": "النَّحل",
+    "firstPage": 267
+  },
+  {
+    "number": 17,
+    "nameAr": "الإسرَاء",
+    "firstPage": 282
+  },
+  {
+    "number": 18,
+    "nameAr": "الكَهف",
+    "firstPage": 293
+  },
+  {
+    "number": 19,
+    "nameAr": "مَريَم",
+    "firstPage": 305
+  },
+  {
+    "number": 20,
+    "nameAr": "طه",
+    "firstPage": 312
+  },
+  {
+    "number": 21,
+    "nameAr": "الأنبيَاء",
+    "firstPage": 322
+  },
+  {
+    "number": 22,
+    "nameAr": "الحج",
+    "firstPage": 332
+  },
+  {
+    "number": 23,
+    "nameAr": "المؤمنُون",
+    "firstPage": 342
+  },
+  {
+    "number": 24,
+    "nameAr": "النور",
+    "firstPage": 350
+  },
+  {
+    "number": 25,
+    "nameAr": "الفُرقَان",
+    "firstPage": 359
+  },
+  {
+    "number": 26,
+    "nameAr": "الشعراء",
+    "firstPage": 367
+  },
+  {
+    "number": 27,
+    "nameAr": "النَّمل",
+    "firstPage": 377
+  },
+  {
+    "number": 28,
+    "nameAr": "القَصَص",
+    "firstPage": 385
+  },
+  {
+    "number": 29,
+    "nameAr": "العَنكبُوت",
+    "firstPage": 396
+  },
+  {
+    "number": 30,
+    "nameAr": "الرُّوم",
+    "firstPage": 404
+  },
+  {
+    "number": 31,
+    "nameAr": "لُقمَان",
+    "firstPage": 411
+  },
+  {
+    "number": 32,
+    "nameAr": "السَّجدة",
+    "firstPage": 415
+  },
+  {
+    "number": 33,
+    "nameAr": "الأحزَاب",
+    "firstPage": 418
+  },
+  {
+    "number": 34,
+    "nameAr": "سَبإ",
+    "firstPage": 428
+  },
+  {
+    "number": 35,
+    "nameAr": "فَاطِر",
+    "firstPage": 434
+  },
+  {
+    "number": 36,
+    "nameAr": "يسٓ",
+    "firstPage": 440
+  },
+  {
+    "number": 37,
+    "nameAr": "الصَّافَات",
+    "firstPage": 446
+  },
+  {
+    "number": 38,
+    "nameAr": "صٓ",
+    "firstPage": 453
+  },
+  {
+    "number": 39,
+    "nameAr": "الزُّمَر",
+    "firstPage": 458
+  },
+  {
+    "number": 40,
+    "nameAr": "غَافِر",
+    "firstPage": 467
+  },
+  {
+    "number": 41,
+    "nameAr": "فُصِّلَت",
+    "firstPage": 477
+  },
+  {
+    "number": 42,
+    "nameAr": "الشُّوري",
+    "firstPage": 483
+  },
+  {
+    "number": 43,
+    "nameAr": "الزُّخرُف",
+    "firstPage": 489
+  },
+  {
+    "number": 44,
+    "nameAr": "الدُّخان",
+    "firstPage": 496
+  },
+  {
+    "number": 45,
+    "nameAr": "الجاثِية",
+    "firstPage": 499
+  },
+  {
+    "number": 46,
+    "nameAr": "الأحقَاف",
+    "firstPage": 502
+  },
+  {
+    "number": 47,
+    "nameAr": "مُحمد",
+    "firstPage": 507
+  },
+  {
+    "number": 48,
+    "nameAr": "الفَتح",
+    "firstPage": 511
+  },
+  {
+    "number": 49,
+    "nameAr": "الحُجُرَات",
+    "firstPage": 515
+  },
+  {
+    "number": 50,
+    "nameAr": "قٓ",
+    "firstPage": 518
+  },
+  {
+    "number": 51,
+    "nameAr": "الذَّاريَات",
+    "firstPage": 520
+  },
+  {
+    "number": 52,
+    "nameAr": "الطُّور",
+    "firstPage": 523
+  },
+  {
+    "number": 53,
+    "nameAr": "النَّجم",
+    "firstPage": 526
+  },
+  {
+    "number": 54,
+    "nameAr": "القَمَر",
+    "firstPage": 528
+  },
+  {
+    "number": 55,
+    "nameAr": "الرَّحمٰن",
+    "firstPage": 531
+  },
+  {
+    "number": 56,
+    "nameAr": "الوَاقِعة",
+    "firstPage": 534
+  },
+  {
+    "number": 57,
+    "nameAr": "الحدِيد",
+    "firstPage": 537
+  },
+  {
+    "number": 58,
+    "nameAr": "المُجَادلة",
+    "firstPage": 542
+  },
+  {
+    "number": 59,
+    "nameAr": "الحَشر",
+    "firstPage": 545
+  },
+  {
+    "number": 60,
+    "nameAr": "المُمتَحنَة",
+    "firstPage": 549
+  },
+  {
+    "number": 61,
+    "nameAr": "الصَّف",
+    "firstPage": 551
+  },
+  {
+    "number": 62,
+    "nameAr": "الجُمعَة",
+    "firstPage": 553
+  },
+  {
+    "number": 63,
+    "nameAr": "المُنَافِقُونَ",
+    "firstPage": 554
+  },
+  {
+    "number": 64,
+    "nameAr": "التغَابُن",
+    "firstPage": 556
+  },
+  {
+    "number": 65,
+    "nameAr": "الطَّلَاق",
+    "firstPage": 558
+  },
+  {
+    "number": 66,
+    "nameAr": "التَّحرِيم",
+    "firstPage": 560
+  },
+  {
+    "number": 67,
+    "nameAr": "المُلك",
+    "firstPage": 562
+  },
+  {
+    "number": 68,
+    "nameAr": "القَلَم",
+    "firstPage": 564
+  },
+  {
+    "number": 69,
+    "nameAr": "الحَاقة",
+    "firstPage": 566
+  },
+  {
+    "number": 70,
+    "nameAr": "المَعَارج",
+    "firstPage": 568
+  },
+  {
+    "number": 71,
+    "nameAr": "نُوح",
+    "firstPage": 570
+  },
+  {
+    "number": 72,
+    "nameAr": "الجِن",
+    "firstPage": 572
+  },
+  {
+    "number": 73,
+    "nameAr": "المُزمل",
+    "firstPage": 574
+  },
+  {
+    "number": 74,
+    "nameAr": "المُدثر",
+    "firstPage": 575
+  },
+  {
+    "number": 75,
+    "nameAr": "القِيَامة",
+    "firstPage": 577
+  },
+  {
+    "number": 76,
+    "nameAr": "الإنسَان",
+    "firstPage": 578
+  },
+  {
+    "number": 77,
+    "nameAr": "المُرسَلات",
+    "firstPage": 580
+  },
+  {
+    "number": 78,
+    "nameAr": "النَّبَإ",
+    "firstPage": 582
+  },
+  {
+    "number": 79,
+    "nameAr": "النَّازعَات",
+    "firstPage": 583
+  },
+  {
+    "number": 80,
+    "nameAr": "عَبَسَ",
+    "firstPage": 585
+  },
+  {
+    "number": 81,
+    "nameAr": "التَّكوير",
+    "firstPage": 586
+  },
+  {
+    "number": 82,
+    "nameAr": "الانفِطَار",
+    "firstPage": 587
+  },
+  {
+    "number": 83,
+    "nameAr": "المُطَففين",
+    "firstPage": 587
+  },
+  {
+    "number": 84,
+    "nameAr": "الانشِقَاق",
+    "firstPage": 589
+  },
+  {
+    "number": 85,
+    "nameAr": "البُرُوج",
+    "firstPage": 590
+  },
+  {
+    "number": 86,
+    "nameAr": "الطَّارق",
+    "firstPage": 591
+  },
+  {
+    "number": 87,
+    "nameAr": "الأعلى",
+    "firstPage": 591
+  },
+  {
+    "number": 88,
+    "nameAr": "الغَاشِية",
+    "firstPage": 592
+  },
+  {
+    "number": 89,
+    "nameAr": "الفَجر",
+    "firstPage": 593
+  },
+  {
+    "number": 90,
+    "nameAr": "البَلَد",
+    "firstPage": 594
+  },
+  {
+    "number": 91,
+    "nameAr": "الشَّمس",
+    "firstPage": 595
+  },
+  {
+    "number": 92,
+    "nameAr": "اللَّيل",
+    "firstPage": 595
+  },
+  {
+    "number": 93,
+    "nameAr": "الضُّحى",
+    "firstPage": 596
+  },
+  {
+    "number": 94,
+    "nameAr": "الشَّرح",
+    "firstPage": 596
+  },
+  {
+    "number": 95,
+    "nameAr": "التِّين",
+    "firstPage": 597
+  },
+  {
+    "number": 96,
+    "nameAr": "العَلَق",
+    "firstPage": 597
+  },
+  {
+    "number": 97,
+    "nameAr": "القَدر",
+    "firstPage": 598
+  },
+  {
+    "number": 98,
+    "nameAr": "البَينَة",
+    "firstPage": 598
+  },
+  {
+    "number": 99,
+    "nameAr": "الزَّلزَلة",
+    "firstPage": 599
+  },
+  {
+    "number": 100,
+    "nameAr": "العَاديَات",
+    "firstPage": 599
+  },
+  {
+    "number": 101,
+    "nameAr": "القَارعَة",
+    "firstPage": 600
+  },
+  {
+    "number": 102,
+    "nameAr": "التَّكاثُر",
+    "firstPage": 600
+  },
+  {
+    "number": 103,
+    "nameAr": "العَصر",
+    "firstPage": 601
+  },
+  {
+    "number": 104,
+    "nameAr": "الهُمَزة",
+    "firstPage": 601
+  },
+  {
+    "number": 105,
+    "nameAr": "الفِيل",
+    "firstPage": 601
+  },
+  {
+    "number": 106,
+    "nameAr": "قُرَيش",
+    "firstPage": 602
+  },
+  {
+    "number": 107,
+    "nameAr": "المَاعُون",
+    "firstPage": 602
+  },
+  {
+    "number": 108,
+    "nameAr": "الكَوثر",
+    "firstPage": 602
+  },
+  {
+    "number": 109,
+    "nameAr": "الكافِرون",
+    "firstPage": 603
+  },
+  {
+    "number": 110,
+    "nameAr": "النَّصر",
+    "firstPage": 603
+  },
+  {
+    "number": 111,
+    "nameAr": "المَسَد",
+    "firstPage": 603
+  },
+  {
+    "number": 112,
+    "nameAr": "الإخلَاص",
+    "firstPage": 604
+  },
+  {
+    "number": 113,
+    "nameAr": "الفَلَق",
+    "firstPage": 604
+  },
+  {
+    "number": 114,
+    "nameAr": "النَّاس",
+    "firstPage": 604
+  }
+]

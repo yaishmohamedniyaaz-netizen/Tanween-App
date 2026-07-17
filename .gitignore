@@ -1,0 +1,13 @@
+node_modules
+dist
+dist-ssr
+*.local
+.claude/settings.local.json
+.vite
+.DS_Store
+npm-debug.log*
+.env
+.env.*
+!.env.example
+tmp-*
+*.tsbuildinfo
