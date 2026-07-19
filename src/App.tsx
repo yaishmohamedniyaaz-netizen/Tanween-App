@@ -1,4 +1,10 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import {
+  type CSSProperties,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { Header } from "./components/Header";
 import { Mushaf } from "./components/Mushaf";
 import { ScorePanel } from "./components/ScorePanel";
@@ -13,6 +19,7 @@ import { useJudging } from "./state/store";
 import surahIndex from "./data/surah-index.json";
 
 const LS_PAGE_KEY = "tahqeeq:lastPage";
+const LS_PAGE_ZOOM_KEY = "tahqeeq:pageZoom";
 
 function PageNav({
   page,
@@ -25,6 +32,7 @@ function PageNav({
   const [jumpInput, setJumpInput] = useState("");
   const popoverRef = useRef<HTMLDivElement>(null);
   const pageBtnRef = useRef<HTMLButtonElement>(null);
+  const jumpInputRef = useRef<HTMLInputElement>(null);
   const lastWheelRef = useRef(0);
 
   useEffect(() => {
@@ -36,6 +44,15 @@ function PageNav({
     };
     document.addEventListener("mousedown", onDoc);
     return () => document.removeEventListener("mousedown", onDoc);
+  }, [popoverOpen]);
+
+  useEffect(() => {
+    if (!popoverOpen) return;
+    const frame = requestAnimationFrame(() => {
+      jumpInputRef.current?.focus();
+      jumpInputRef.current?.select();
+    });
+    return () => cancelAnimationFrame(frame);
   }, [popoverOpen]);
 
   const handleJump = () => {
@@ -86,12 +103,12 @@ function PageNav({
         ‹
       </button>
 
-      <div className="page-nav-center">
+      <div className="page-nav-center" ref={popoverRef}>
         <button
           ref={pageBtnRef}
           type="button"
           className="page-nav-page"
-          title="Scroll to flip pages"
+          title="Type a page number"
           onClick={() => {
             setPopoverOpen((v) => !v);
             setJumpInput(String(page));
@@ -101,25 +118,39 @@ function PageNav({
         </button>
 
         {popoverOpen && (
-          <div className="page-nav-popover" ref={popoverRef}>
+          <div className="page-nav-popover">
             <div className="page-nav-popover-head">
               <span className="t-label">Jump to page</span>
-              <div className="page-nav-jump-row">
+              <form
+                className="page-nav-jump-row"
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  handleJump();
+                }}
+              >
                 <input
+                  ref={jumpInputRef}
+                  autoFocus
                   type="number"
+                  inputMode="numeric"
+                  enterKeyHint="go"
                   min={1}
                   max={604}
                   value={jumpInput}
                   onChange={(e) => setJumpInput(e.target.value)}
                   onKeyDown={(e) => {
-                    if (e.key === "Enter") handleJump();
+                    if (e.key === "Escape") {
+                      setPopoverOpen(false);
+                      pageBtnRef.current?.focus();
+                    }
                   }}
+                  onFocus={(e) => e.currentTarget.select()}
                   placeholder="1–604"
                 />
-                <button type="button" className="btn-ghost" onClick={handleJump}>
+                <button type="submit" className="btn-ghost">
                   Go
                 </button>
-              </div>
+              </form>
             </div>
             <div className="page-nav-surah-list">
               {surahIndex.map((s) => (
@@ -158,6 +189,10 @@ export function App() {
   const { state, dispatch } = useJudging();
   const [view, setView] = useState<"judge" | "records">("judge");
   const [setupOpen, setSetupOpen] = useState(false);
+  const [pageZoom, setPageZoom] = useState(() => {
+    const saved = Number(localStorage.getItem(LS_PAGE_ZOOM_KEY));
+    return Number.isFinite(saved) && saved >= 70 && saved <= 100 ? saved : 100;
+  });
   const [page, setPage] = useState(() => {
     const saved = localStorage.getItem(LS_PAGE_KEY);
     if (saved) {
@@ -188,12 +223,21 @@ export function App() {
         onToggleView={() => setView((v) => (v === "judge" ? "records" : "judge"))}
         onOpenSetup={() => setSetupOpen(true)}
         onChangeReciter={() => dispatch({ type: "FINISH_SESSION" })}
+        pageZoom={pageZoom}
+        onPageZoomPreview={setPageZoom}
+        onPageZoomCommit={(zoom) => {
+          setPageZoom(zoom);
+          localStorage.setItem(LS_PAGE_ZOOM_KEY, String(zoom));
+        }}
       />
       {view === "judge" ? (
         <main className="workspace" key="judge">
           <div className="stage">
             <HintBanner />
-            <div className="mushaf-shell">
+            <div
+              className="mushaf-shell"
+              style={{ "--page-zoom": pageZoom / 100 } as CSSProperties}
+            >
               <PageNav page={page} onChange={handlePageChange} />
               <Mushaf page={page} onPageChange={handlePageChange} />
             </div>

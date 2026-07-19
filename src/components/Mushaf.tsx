@@ -87,22 +87,9 @@ function surahsForPage(page: number) {
 }
 
 function SurahBand({ nameAr, line }: { nameAr: string; line: number }) {
-  const motif = (
-    <svg viewBox="0 0 26 26" fill="none" stroke="currentColor" strokeWidth="1.2">
-      <circle cx="13" cy="13" r="8" />
-      <circle cx="13" cy="13" r="3.2" />
-      <path d="M13 1.5v5M13 19.5v5M1.5 13h5M19.5 13h5" strokeWidth="1" />
-    </svg>
-  );
   return (
     <div className="surah-band" style={{ gridRow: line }}>
-      <span className="surah-band-motif left" aria-hidden="true">
-        {motif}
-      </span>
       <span className="surah-band-title">سُورَةُ {nameAr}</span>
-      <span className="surah-band-motif right" aria-hidden="true">
-        {motif}
-      </span>
     </div>
   );
 }
@@ -177,6 +164,10 @@ export function Mushaf({ page: currentPage, onPageChange }: MushafProps) {
   /* --- keyboard navigation --- */
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
+      const target = e.target as HTMLElement | null;
+      if (target?.closest("input, textarea, select, [contenteditable='true']")) {
+        return;
+      }
       if (e.key === "ArrowLeft") {
         e.preventDefault();
         onPageChange(Math.min(604, currentPage + 1));
