@@ -82,10 +82,6 @@ export function MistakeLog() {
                 >
                   <span className="log-dot" aria-hidden="true" />
                   <span className="log-glyph">{m.glyph}</span>
-                  <span className="log-summary">
-                    <span className="log-cause">{cat.label}</span>
-                    <span className="log-place">{m.label}</span>
-                  </span>
                   <span className="log-amt t-num">−{m.amount}</span>
                 </button>
                 <div className="log-expand">

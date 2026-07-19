@@ -325,6 +325,13 @@ export function Header({
                   <button type="button" className="btn-ghost" onClick={revertZoom}>
                     Revert
                   </button>
+                  <button
+                    type="button"
+                    className="btn-ghost"
+                    onClick={() => setMenuMode("zoom")}
+                  >
+                    Adjust
+                  </button>
                   <button type="button" className="btn-primary" onClick={keepZoom}>
                     Keep size
                   </button>

@@ -206,15 +206,6 @@ export function Mushaf({
     if (fittedLayoutRef.current === layoutKey) return false;
     fittedLayoutRef.current = layoutKey;
 
-    // Special pages: all lines centered, skip auto-fit
-    if (pageData.special) {
-      const all = new Set<number>();
-      pageData.lines.forEach((l) => all.add(l.n));
-      const changed =
-        centered.size !== all.size || [...all].some((n) => !centered.has(n));
-      if (changed) setCentered(all);
-      return changed;
-    }
     const lineEls = root.querySelectorAll<HTMLElement>("[data-mline]");
     if (!lineEls.length) return false;
 
@@ -247,7 +238,7 @@ export function Mushaf({
       });
     });
 
-    const minFont = pageLayout === "split" ? 11 : 17;
+    const minFont = 6;
     const maxFont = pageLayout === "split" ? 30 : 40;
     const ideal =
       widestRatio > 0
@@ -260,9 +251,11 @@ export function Mushaf({
         : fontPx;
     const scale = ideal / Math.max(fontPx, 1);
     const maxGap = MAX_GAP_EM * ideal;
-    const centerNext = new Set<number>();
+    const centerNext = new Set<number>(
+      pageData.special ? pageData.lines.map((line) => line.n) : [],
+    );
     for (const metric of metrics) {
-      if (metric.words > 1) {
+      if (!pageData.special && metric.words > 1) {
         const projectedWordsWidth = metric.naturalWordsWidth * scale;
         const gapNeeded =
           (metric.lineWidth - projectedWordsWidth) / (metric.words - 1);
@@ -485,17 +478,54 @@ export function Mushaf({
 
   const onPointerDown = (e: React.PointerEvent) => {
     if (startRef.current) return;
-    const target = (e.target as HTMLElement).closest<HTMLElement>("[data-tid]");
-    if (!target) {
+    const root = pageRef.current;
+    if (!root) return;
+    const rootRect = root.getBoundingClientRect();
+    const pointX = e.clientX - rootRect.left;
+    const pointY = e.clientY - rootRect.top;
+    const generous = boxes.filter(
+      (candidate) =>
+        pointX >= candidate.hx &&
+        pointX <= candidate.hx + candidate.hw &&
+        pointY >= candidate.hy &&
+        pointY <= candidate.hy + candidate.hh,
+    );
+    const exact = generous.filter(
+      (candidate) =>
+        pointX >= candidate.x &&
+        pointX <= candidate.x + candidate.w &&
+        pointY >= candidate.y &&
+        pointY <= candidate.y + candidate.h,
+    );
+    const candidates = exact.length ? exact : generous;
+    const box = candidates.reduce<Hitbox | null>((closest, candidate) => {
+      const score =
+        ((pointX - (candidate.x + candidate.w / 2)) /
+          Math.max(candidate.w, 4)) **
+          2 +
+        ((pointY - (candidate.y + candidate.h / 2)) /
+          Math.max(candidate.h, 4)) **
+          2;
+      if (!closest) return candidate;
+      const closestScore =
+        ((pointX - (closest.x + closest.w / 2)) / Math.max(closest.w, 4)) **
+          2 +
+        ((pointY - (closest.y + closest.h / 2)) / Math.max(closest.h, 4)) **
+          2;
+      return score < closestScore ? candidate : closest;
+    }, null);
+    if (!box) {
       if (pinned) closeAll();
       return;
     }
     // A press that starts on a letter owns the pointer on every input type.
     // Blank page areas still keep the page's normal vertical touch scrolling.
     e.preventDefault();
-    const tid = target.dataset.tid!;
-    const box = boxes.find((b) => b.tid === tid);
-    if (!box) return;
+    const tid = box.tid;
+    const target = root.querySelector<HTMLElement>(
+      `.hit[data-tid="${CSS.escape(tid)}"]`,
+    );
+    if (!target) return;
     const rect = target.getBoundingClientRect();
     try {
       (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
