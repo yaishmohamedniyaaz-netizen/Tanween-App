@@ -11,8 +11,11 @@ interface Props {
   onOpenSetup: () => void;
   onChangeReciter: () => void;
   pageZoom: number;
+  pageLayout: "full" | "split";
   onPageZoomPreview: (zoom: number) => void;
+  onPageLayoutPreview: (layout: "full" | "split") => void;
   onPageZoomCommit: (zoom: number) => void;
+  onPageLayoutCommit: (layout: "full" | "split") => void;
 }
 
 export function Header({
@@ -21,8 +24,11 @@ export function Header({
   onOpenSetup,
   onChangeReciter,
   pageZoom,
+  pageLayout,
   onPageZoomPreview,
+  onPageLayoutPreview,
   onPageZoomCommit,
+  onPageLayoutCommit,
 }: Props) {
   const { state } = useJudging();
   const sw = useOfflineStatus();
@@ -32,13 +38,16 @@ export function Header({
   );
   const [zoomDraft, setZoomDraft] = useState(pageZoom);
   const [zoomOriginal, setZoomOriginal] = useState(pageZoom);
+  const [layoutDraft, setLayoutDraft] = useState(pageLayout);
+  const [layoutOriginal, setLayoutOriginal] = useState(pageLayout);
   const menuRef = useRef<HTMLDivElement>(null);
-  const zoomChanged = zoomDraft !== zoomOriginal;
+  const settingsChanged =
+    zoomDraft !== zoomOriginal || layoutDraft !== layoutOriginal;
 
   useEffect(() => {
     if (!menuOpen) return;
     const requestClose = () => {
-      if (menuMode === "zoom" && zoomChanged) {
+      if (menuMode === "zoom" && settingsChanged) {
         setMenuMode("confirm");
         return;
       }
@@ -58,11 +67,13 @@ export function Header({
       window.removeEventListener("pointerdown", onDown);
       window.removeEventListener("keydown", onKey);
     };
-  }, [menuOpen, menuMode, zoomChanged]);
+  }, [menuOpen, menuMode, settingsChanged]);
 
   const openZoom = () => {
     setZoomOriginal(pageZoom);
     setZoomDraft(pageZoom);
+    setLayoutOriginal(pageLayout);
+    setLayoutDraft(pageLayout);
     setMenuMode("zoom");
   };
 
@@ -72,18 +83,22 @@ export function Header({
   };
 
   const leaveZoom = () => {
-    setMenuMode(zoomChanged ? "confirm" : "main");
+    setMenuMode(settingsChanged ? "confirm" : "main");
   };
 
   const keepZoom = () => {
     onPageZoomCommit(zoomDraft);
+    onPageLayoutCommit(layoutDraft);
     setZoomOriginal(zoomDraft);
+    setLayoutOriginal(layoutDraft);
     setMenuMode("main");
   };
 
   const revertZoom = () => {
     onPageZoomPreview(zoomOriginal);
+    onPageLayoutPreview(layoutOriginal);
     setZoomDraft(zoomOriginal);
+    setLayoutDraft(layoutOriginal);
     setMenuMode("main");
   };
 
@@ -179,8 +194,10 @@ export function Header({
                   onClick={openZoom}
                 >
                   <Icon name="settings" size={16} />
-                  <span className="overflow-item-label">Page zoom</span>
-                  <span className="overflow-item-value">{pageZoom}%</span>
+                  <span className="overflow-item-label">Page view</span>
+                  <span className="overflow-item-value">
+                    {pageZoom}% · {pageLayout === "split" ? "Split" : "Full"}
+                  </span>
                 </button>
                 <button
                   type="button"
@@ -229,7 +246,7 @@ export function Header({
                 </button>
               </>
             ) : menuMode === "zoom" ? (
-              <div className="overflow-zoom" role="group" aria-label="Page zoom">
+              <div className="overflow-zoom" role="group" aria-label="Page view">
                 <div className="overflow-zoom-head">
                   <button
                     type="button"
@@ -239,14 +256,38 @@ export function Header({
                   >
                     <Icon name="back" size={15} />
                   </button>
-                  <span>Page zoom</span>
+                  <span>Page view</span>
                   <strong>{zoomDraft}%</strong>
                 </div>
-                <p>Changes preview live on the Mushaf page.</p>
+                <p>Layout and size preview live on the Mushaf page.</p>
+                <span className="zoom-section-label">Layout</span>
+                <div className="layout-presets">
+                  <button
+                    type="button"
+                    className={layoutDraft === "full" ? "is-active" : ""}
+                    onClick={() => {
+                      setLayoutDraft("full");
+                      onPageLayoutPreview("full");
+                    }}
+                  >
+                    Full page
+                  </button>
+                  <button
+                    type="button"
+                    className={layoutDraft === "split" ? "is-active" : ""}
+                    onClick={() => {
+                      setLayoutDraft("split");
+                      onPageLayoutPreview("split");
+                    }}
+                  >
+                    Split halves
+                  </button>
+                </div>
+                <span className="zoom-section-label">Size</span>
                 <input
                   className="zoom-range"
                   type="range"
-                  min={70}
+                  min={45}
                   max={100}
                   step={5}
                   value={zoomDraft}
@@ -254,13 +295,13 @@ export function Header({
                   onChange={(e) => previewZoom(Number(e.target.value))}
                 />
                 <div className="zoom-scale" aria-hidden="true">
-                  <span>70%</span>
+                  <span>45%</span>
                   <span>100%</span>
                 </div>
                 <div className="zoom-presets">
                   {[
-                    [75, "Compact"],
-                    [90, "Comfortable"],
+                    [50, "Overview"],
+                    [75, "Comfortable"],
                     [100, "Fit"],
                   ].map(([value, label]) => (
                     <button
@@ -276,8 +317,10 @@ export function Header({
               </div>
             ) : (
               <div className="overflow-confirm" role="alert">
-                <strong>Keep this page size?</strong>
-                <p>The Mushaf is currently previewing {zoomDraft}%.</p>
+                <strong>Keep this page view?</strong>
+                <p>
+                  The Mushaf is previewing {zoomDraft}% in {layoutDraft} view.
+                </p>
                 <div className="overflow-confirm-actions">
                   <button type="button" className="btn-ghost" onClick={revertZoom}>
                     Revert

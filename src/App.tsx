@@ -20,6 +20,7 @@ import surahIndex from "./data/surah-index.json";
 
 const LS_PAGE_KEY = "tahqeeq:lastPage";
 const LS_PAGE_ZOOM_KEY = "tahqeeq:pageZoom";
+const LS_PAGE_LAYOUT_KEY = "tahqeeq:pageLayout";
 
 function PageNav({
   page,
@@ -191,8 +192,11 @@ export function App() {
   const [setupOpen, setSetupOpen] = useState(false);
   const [pageZoom, setPageZoom] = useState(() => {
     const saved = Number(localStorage.getItem(LS_PAGE_ZOOM_KEY));
-    return Number.isFinite(saved) && saved >= 70 && saved <= 100 ? saved : 100;
+    return Number.isFinite(saved) && saved >= 45 && saved <= 100 ? saved : 100;
   });
+  const [pageLayout, setPageLayout] = useState<"full" | "split">(() =>
+    localStorage.getItem(LS_PAGE_LAYOUT_KEY) === "split" ? "split" : "full",
+  );
   const [page, setPage] = useState(() => {
     const saved = localStorage.getItem(LS_PAGE_KEY);
     if (saved) {
@@ -224,10 +228,16 @@ export function App() {
         onOpenSetup={() => setSetupOpen(true)}
         onChangeReciter={() => dispatch({ type: "FINISH_SESSION" })}
         pageZoom={pageZoom}
+        pageLayout={pageLayout}
         onPageZoomPreview={setPageZoom}
+        onPageLayoutPreview={setPageLayout}
         onPageZoomCommit={(zoom) => {
           setPageZoom(zoom);
           localStorage.setItem(LS_PAGE_ZOOM_KEY, String(zoom));
+        }}
+        onPageLayoutCommit={(layout) => {
+          setPageLayout(layout);
+          localStorage.setItem(LS_PAGE_LAYOUT_KEY, layout);
         }}
       />
       {view === "judge" ? (
@@ -239,7 +249,11 @@ export function App() {
               style={{ "--page-zoom": pageZoom / 100 } as CSSProperties}
             >
               <PageNav page={page} onChange={handlePageChange} />
-              <Mushaf page={page} onPageChange={handlePageChange} />
+              <Mushaf
+                page={page}
+                pageLayout={pageLayout}
+                onPageChange={handlePageChange}
+              />
             </div>
           </div>
           <aside className="sidebar">

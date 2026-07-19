@@ -417,6 +417,20 @@ textarea:focus-visible {
   width: 100%;
   accent-color: var(--ink);
 }
+.zoom-section-label {
+  display: block;
+  margin: 10px 0 5px;
+  color: var(--ink-3);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.layout-presets {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 5px;
+}
 .zoom-scale {
   display: flex;
   justify-content: space-between;
@@ -441,6 +455,16 @@ textarea:focus-visible {
   color: var(--ink-2);
   font-size: 10.5px;
 }
+.layout-presets button {
+  height: 32px;
+  border: 1px solid var(--line-2);
+  border-radius: var(--r-sm);
+  background: transparent;
+  color: var(--ink-2);
+  font-size: 11px;
+}
+.layout-presets button:hover,
+.layout-presets button.is-active,
 .zoom-presets button:hover,
 .zoom-presets button.is-active {
   border-color: var(--ink-3);
@@ -485,9 +509,19 @@ textarea:focus-visible {
 .sidebar {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 10px;
   position: sticky;
   top: 84px;
+  height: calc(100vh - 108px);
+  max-height: 760px;
+  min-height: 0;
+  overflow: hidden;
+}
+.sidebar .panel {
+  padding: 12px;
+}
+.sidebar .panel-head {
+  margin-bottom: 8px;
 }
 
 /* ---- Mushaf page (paper on a desk) ---- */
@@ -507,8 +541,7 @@ textarea:focus-visible {
   background: var(--page-paper);
   border: 1px solid var(--line);
   border-radius: var(--r-lg);
-  padding: clamp(24px, 4vw, 42px) clamp(18px, 6.5vw, 58px)
-    clamp(16px, 2.5vw, 28px);
+  padding: 5.5% 7.6% 3.7%;
   box-shadow: var(--shadow-rest);
   user-select: none;
   -webkit-user-select: none;
@@ -519,6 +552,33 @@ textarea:focus-visible {
 }
 .page-special {
   max-width: calc(760px * var(--page-zoom, 1));
+}
+.page.page-split {
+  max-width: calc(1100px * var(--page-zoom, 1));
+  aspect-ratio: 1.18;
+  padding: 3.3% 4% 2.2%;
+}
+.page-split .mushaf-lines {
+  position: relative;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: repeat(8, minmax(0, 1fr));
+  column-gap: clamp(26px, 5vw, 56px);
+  padding-block: 4% 1%;
+}
+.page-split .mushaf-lines::after {
+  content: "";
+  position: absolute;
+  top: 3%;
+  bottom: 1%;
+  left: 50%;
+  width: 1px;
+  background: var(--line);
+}
+.page-special.page-split .m-line {
+  font-size: clamp(11px, 1.6vw, 20px) !important;
+}
+.page-special.page-split .m-line-basmala {
+  font-size: clamp(12px, 1.5vw, 18px) !important;
 }
 .page-special .m-line {
   font-size: clamp(18px, 3.2vw, 34px) !important;
@@ -594,15 +654,16 @@ textarea:focus-visible {
   pointer-events: none;
 }
 .ayah-num {
-  display: inline-grid;
-  place-items: center;
-  width: 1.68em;
-  height: 1.68em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.25em;
+  height: 1.25em;
   box-sizing: border-box;
-  border: 1px solid currentColor;
-  border-radius: 50%;
+  border: 0;
+  border-radius: 0;
   color: color-mix(in srgb, var(--mushaf-ink) 72%, var(--page-paper));
-  font-size: 0.68em;
+  font-size: 0.82em;
   line-height: 1;
   pointer-events: none;
 }
@@ -1036,29 +1097,30 @@ textarea:focus-visible {
 .sc-row {
   display: flex;
   align-items: baseline;
-  gap: 10px;
-  padding: 10px 0;
+  gap: 7px;
+  padding: 6px 0;
   border-bottom: 1px solid var(--line);
 }
 .sc-dot {
-  width: 8px;
-  height: 8px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
   background: var(--c);
   flex: 0 0 auto;
   align-self: center;
 }
 .sc-name {
-  flex: 1;
-  font-size: 14px;
+  flex: 0 1 auto;
+  font-size: 13px;
 }
 .sc-count {
-  font-size: 12px;
+  font-size: 11px;
   color: var(--ink-3);
   font-variant-numeric: tabular-nums;
 }
 .sc-score {
-  font-size: 15px;
+  margin-left: 2px;
+  font-size: 14px;
   font-weight: 500;
   font-variant-numeric: tabular-nums;
 }
@@ -1074,7 +1136,7 @@ textarea:focus-visible {
   display: flex;
   align-items: baseline;
   gap: 10px;
-  padding-top: 12px;
+  padding-top: 8px;
 }
 .sc-total-label {
   flex: 1;
@@ -1083,7 +1145,7 @@ textarea:focus-visible {
   color: var(--ink-2);
 }
 .sc-total-num {
-  font-size: 34px;
+  font-size: 28px;
   font-weight: 500;
   letter-spacing: -0.02em;
   line-height: 1;
@@ -1102,7 +1164,52 @@ textarea:focus-visible {
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 4px;
+}
+.mistake-panel {
+  min-height: 0;
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.mistake-panel .log {
+  min-height: 0;
+  overflow-y: auto;
+}
+.mistake-panel-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 68;
+  border: 0;
+  background: color-mix(in srgb, var(--bg) 58%, transparent);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+.mistake-panel.is-expanded {
+  position: fixed;
+  inset: 76px 24px 24px;
+  z-index: 69;
+  width: min(680px, calc(100vw - 48px));
+  max-height: none;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-float);
+}
+.mistake-panel.is-expanded .log {
+  min-height: 0;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+.log-view-all {
+  border: 0;
+  background: transparent;
+  color: var(--ink-3);
+  font-size: 11px;
+}
+.log-view-all:hover {
+  color: var(--ink);
 }
 .log-row-wrap {
   border: 1px solid var(--line);
@@ -1114,10 +1221,10 @@ textarea:focus-visible {
 .log-row {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 7px;
   width: 100%;
-  height: 44px;
-  padding: 0 12px;
+  min-height: 38px;
+  padding: 4px 9px;
   border: none;
   background: transparent;
   text-align: left;
@@ -1127,21 +1234,48 @@ textarea:focus-visible {
   background: var(--bg);
 }
 .log-dot {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
   background: var(--c);
   flex: 0 0 auto;
 }
 .log-glyph {
   font-family: var(--quran);
-  font-size: 23px;
+  width: 24px;
+  font-size: 21px;
   line-height: 1;
-  flex: 1;
+  flex: 0 0 24px;
   color: var(--ink);
 }
+.log-summary {
+  min-width: 0;
+  flex: 0 1 155px;
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+  overflow: hidden;
+}
+.mistake-panel.is-expanded .log-summary {
+  flex-basis: 360px;
+}
+.log-cause {
+  flex: 0 0 auto;
+  color: var(--ink);
+  font-size: 11.5px;
+  font-weight: 500;
+}
+.log-place {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--ink-3);
+  font-size: 10.5px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 .log-amt {
-  font-size: 13px;
+  min-width: 28px;
+  font-size: 12px;
   font-weight: 500;
   color: var(--ink-2);
   font-variant-numeric: tabular-nums;
@@ -1160,12 +1294,12 @@ textarea:focus-visible {
 .log-detail {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 4px 12px 10px;
+  gap: 6px;
+  padding: 3px 9px 8px;
 }
 .log-loc {
   flex: 1;
-  font-size: 12px;
+  font-size: 10.5px;
   color: var(--ink-3);
 }
 .step-btn {
@@ -1221,13 +1355,13 @@ textarea:focus-visible {
 /* Notes */
 .notes {
   width: 100%;
-  resize: vertical;
-  min-height: 88px;
+  resize: none;
+  min-height: 64px;
   border: 1px solid var(--line-2);
   border-radius: var(--r-sm);
-  padding: 10px 12px;
-  font-size: 13.5px;
-  line-height: 1.6;
+  padding: 8px 10px;
+  font-size: 12.5px;
+  line-height: 1.45;
   background: transparent;
   transition: border-color var(--t-fast) var(--ease-out);
 }
@@ -1240,6 +1374,8 @@ textarea:focus-visible {
   width: 100%;
   height: 44px;
   font-size: 14px;
+  flex: 0 0 44px;
+  margin-top: auto;
 }
 
 /* ---- Dialogs ---- */
@@ -1926,6 +2062,10 @@ textarea:focus-visible {
   }
   .sidebar {
     position: static;
+    height: auto;
+    max-height: none;
+    min-height: 0;
+    overflow: visible;
   }
   .records-grid {
     grid-template-columns: 1fr;
@@ -1976,12 +2116,13 @@ textarea:focus-visible {
   }
   .page {
     border-radius: var(--r-md);
-    padding: 32px 16px 16px;
-  }
-  .page-special {
-    max-width: 100%;
+    padding: 8.8% 4.4% 4.4%;
   }
   .page-nav {
     margin-bottom: 12px;
+  }
+  .mistake-panel.is-expanded {
+    inset: 64px 12px 12px;
+    width: calc(100vw - 24px);
   }
 }

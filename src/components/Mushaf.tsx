@@ -86,9 +86,15 @@ function surahsForPage(page: number) {
   return active ? [active] : [];
 }
 
-function SurahBand({ nameAr, line }: { nameAr: string; line: number }) {
+function SurahBand({
+  nameAr,
+  style,
+}: {
+  nameAr: string;
+  style: CSSProperties;
+}) {
   return (
-    <div className="surah-band" style={{ gridRow: line }}>
+    <div className="surah-band" style={style}>
       <span className="surah-band-title">سُورَةُ {nameAr}</span>
     </div>
   );
@@ -96,10 +102,15 @@ function SurahBand({ nameAr, line }: { nameAr: string; line: number }) {
 
 interface MushafProps {
   page: number;
+  pageLayout: "full" | "split";
   onPageChange: (page: number) => void;
 }
 
-export function Mushaf({ page: currentPage, onPageChange }: MushafProps) {
+export function Mushaf({
+  page: currentPage,
+  pageLayout,
+  onPageChange,
+}: MushafProps) {
   const { state, dispatch } = useJudging();
   const [pageData, setPageData] = useState<MushafPage | null>(null);
   const pageRef = useRef<HTMLDivElement>(null);
@@ -188,7 +199,7 @@ export function Mushaf({ page: currentPage, onPageChange }: MushafProps) {
   const fitLines = useCallback((): boolean => {
     const root = pageRef.current;
     if (!root || !pageData) return false;
-    const layoutKey = `${pageData.page}:${Math.round(root.clientWidth)}`;
+    const layoutKey = `${pageData.page}:${pageLayout}:${Math.round(root.clientWidth)}`;
     if (fittedLayoutRef.current === layoutKey) return false;
     fittedLayoutRef.current = layoutKey;
 
@@ -233,10 +244,15 @@ export function Mushaf({ page: currentPage, onPageChange }: MushafProps) {
       });
     });
 
+    const minFont = pageLayout === "split" ? 11 : 17;
+    const maxFont = pageLayout === "split" ? 30 : 40;
     const ideal =
       widestRatio > 0
         ? Math.round(
-            Math.min(40, Math.max(17, (fontPx * 0.985) / widestRatio)) * 4,
+            Math.min(
+              maxFont,
+              Math.max(minFont, (fontPx * 0.985) / widestRatio),
+            ) * 4,
           ) / 4
         : fontPx;
     const scale = ideal / Math.max(fontPx, 1);
@@ -258,7 +274,7 @@ export function Mushaf({ page: currentPage, onPageChange }: MushafProps) {
     if (fontChanged) setFontPx(ideal);
     if (centeredChanged) setCentered(centerNext);
     return fontChanged || centeredChanged;
-  }, [centered, fontPx, pageData]);
+  }, [centered, fontPx, pageData, pageLayout]);
 
   /* --- hitboxes: tight ink rect + generous invisible target --- */
   const measure = useCallback(() => {
@@ -347,7 +363,7 @@ export function Mushaf({ page: currentPage, onPageChange }: MushafProps) {
       cancelAnimationFrame(frame);
       if (timer) window.clearTimeout(timer);
     };
-  }, [centered, fontPx, layoutEpoch, measure, pageData?.page]);
+  }, [centered, fontPx, layoutEpoch, measure, pageData?.page, pageLayout]);
 
   useEffect(() => {
     let cancelled = false;
@@ -584,11 +600,18 @@ export function Mushaf({ page: currentPage, onPageChange }: MushafProps) {
 
   const pageSurahs = surahsForPage(pageData.page);
   const visibleBoxes = boxesPage === pageData.page ? boxes : [];
+  const lineStyle = (line: number): CSSProperties =>
+    pageLayout === "split"
+      ? {
+          gridRow: ((line - 1) % 8) + 1,
+          gridColumn: line <= 8 ? 2 : 1,
+        }
+      : { gridRow: line };
 
   return (
     <div className="mushaf-scroll">
       <div
-        className={`page ${pageData.special ? "page-special" : ""}`}
+        className={`page ${pageData.special ? "page-special" : ""} ${pageLayout === "split" ? "page-split" : ""}`}
         ref={pageRef}
         data-page={pageData.page}
         onPointerDown={onPointerDown}
@@ -609,14 +632,20 @@ export function Mushaf({ page: currentPage, onPageChange }: MushafProps) {
         <div className="mushaf-lines">
         {pageData.lines.map((line) => {
           if (line.type === "surah-header") {
-            return <SurahBand key={line.n} nameAr={line.nameAr} line={line.n} />;
+            return (
+              <SurahBand
+                key={line.n}
+                nameAr={line.nameAr}
+                style={lineStyle(line.n)}
+              />
+            );
           }
           if (line.type === "basmala") {
             return (
               <div
                 key={line.n}
                 className="m-line m-line-basmala"
-                style={{ gridRow: line.n, fontSize: fontPx * 0.78 }}
+                style={{ ...lineStyle(line.n), fontSize: fontPx * 0.78 }}
               >
                 {line.words.map(renderWord)}
               </div>
@@ -628,7 +657,7 @@ export function Mushaf({ page: currentPage, onPageChange }: MushafProps) {
               key={line.n}
               data-mline={line.n}
               className={`m-line ${center ? "m-line-center" : "m-line-ayah"}`}
-              style={{ gridRow: line.n, fontSize: fontPx }}
+              style={{ ...lineStyle(line.n), fontSize: fontPx }}
             >
               {line.words.map(renderWord)}
             </div>
