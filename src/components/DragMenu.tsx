@@ -34,7 +34,7 @@ export function DragMenu({
   const menuRef = useRef<HTMLDivElement>(null);
   const viewportWidth = document.documentElement.clientWidth;
   const viewportHeight = document.documentElement.clientHeight;
-  const menuWidth = Math.min(188, viewportWidth - 24);
+  const menuWidth = Math.min(160, viewportWidth - 24);
   const halfMenu = menuWidth / 2;
   const anchorCenter = anchor.left + anchor.width / 2;
   const cx = Math.round(

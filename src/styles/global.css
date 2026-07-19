@@ -532,7 +532,7 @@ textarea:focus-visible {
 .page {
   position: relative;
   display: grid;
-  grid-template-rows: auto minmax(0, 1fr) auto;
+  grid-template-rows: auto minmax(0, 1fr);
   box-sizing: border-box;
   width: 100%;
   max-width: calc(760px * var(--page-zoom, 1));
@@ -541,7 +541,7 @@ textarea:focus-visible {
   background: var(--page-paper);
   border: 1px solid var(--line);
   border-radius: var(--r-lg);
-  padding: 5.5% 7.6% 3.7%;
+  padding: 3.6% 7.6% 2.2%;
   box-shadow: var(--shadow-rest);
   user-select: none;
   -webkit-user-select: none;
@@ -556,7 +556,7 @@ textarea:focus-visible {
 .page.page-split {
   max-width: calc(1100px * var(--page-zoom, 1));
   aspect-ratio: 1.18;
-  padding: 3.3% 4% 2.2%;
+  padding: 2.6% 4% 1.6%;
 }
 .page-split .mushaf-lines {
   position: relative;
@@ -587,22 +587,24 @@ textarea:focus-visible {
   font-size: clamp(20px, 2.2vw, 26px) !important;
 }
 .page-marginalia {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 16px;
-  min-height: 24px;
+  position: relative;
+  z-index: 12;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: 8px;
+  min-height: 28px;
   color: var(--ink-2);
   font-size: clamp(10px, 1.5vw, 14px);
 }
 .page-juz {
-  max-width: calc(50% - 58px);
+  width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 .page-surahs {
-  max-width: calc(50% - 58px);
+  width: 100%;
   overflow: hidden;
   font-family: var(--quran);
   font-size: 1.15em;
@@ -610,12 +612,13 @@ textarea:focus-visible {
   text-align: right;
   text-overflow: ellipsis;
   white-space: nowrap;
+  justify-self: end;
 }
 .mushaf-lines {
   display: grid;
   grid-template-rows: repeat(15, minmax(0, 1fr));
   min-height: 0;
-  padding-block: 7% 2%;
+  padding-block: 4.5% 0.8%;
 }
 .m-line {
   direction: rtl;
@@ -703,14 +706,6 @@ textarea:focus-visible {
   line-height: 1;
   padding: 0 18px;
 }
-.page-number {
-  margin-top: 0;
-  text-align: center;
-  font-size: 13px;
-  color: var(--ink-3);
-  font-variant-numeric: tabular-nums;
-}
-
 /* Juz label at top of page */
 .juz-label {
   display: none;
@@ -737,11 +732,8 @@ textarea:focus-visible {
   position: relative;
 }
 .page-nav {
-  position: absolute;
-  top: clamp(24px, 3.5vw, 32px);
-  left: 50%;
+  position: relative;
   z-index: 12;
-  transform: translateX(-50%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -803,6 +795,8 @@ textarea:focus-visible {
   display: flex;
   flex-direction: column;
   animation: dialog-in var(--t-fast) var(--ease-out);
+  user-select: auto;
+  -webkit-user-select: auto;
 }
 .page-nav-popover-head {
   padding: 12px 12px 8px;
@@ -903,30 +897,31 @@ textarea:focus-visible {
   height: var(--ink-height);
   border-radius: 3px;
   pointer-events: none;
-  transition: background-color var(--t-fast) var(--ease-out),
-    box-shadow var(--t-fast) var(--ease-out);
-  mix-blend-mode: multiply;
+  background: transparent;
+  transition: box-shadow var(--t-fast) var(--ease-out);
 }
 .hit:hover::before {
-  background: rgba(85, 102, 230, 0.12);
+  box-shadow: 0 1px 0 rgba(85, 102, 230, 0.55);
 }
 .hit.armed::before {
-  background: rgba(85, 102, 230, 0.18);
+  box-shadow: 0 2px 0 rgba(85, 102, 230, 0.75);
 }
 .hit.armed.cat-jali::before,
 .hit.armed.cat-khafi::before,
 .hit.armed.cat-fasaha::before {
-  background: var(--c-tint);
-  box-shadow: inset 0 -2px 0 var(--c);
-}
-[data-theme="dark"] .hit::before {
-  mix-blend-mode: screen;
+  background: transparent;
+  box-shadow: 0 2px 0 var(--c);
 }
 [data-theme="dark"] .hit:hover::before {
-  background: rgba(120, 135, 255, 0.2);
+  box-shadow: 0 1px 0 rgba(150, 160, 255, 0.75);
 }
 [data-theme="dark"] .hit.armed::before {
-  background: rgba(120, 135, 255, 0.28);
+  box-shadow: 0 2px 0 rgba(150, 160, 255, 0.9);
+}
+[data-theme="dark"] .hit.armed.cat-jali::before,
+[data-theme="dark"] .hit.armed.cat-khafi::before,
+[data-theme="dark"] .hit.armed.cat-fasaha::before {
+  box-shadow: 0 2px 0 var(--c);
 }
 .glyph-ink {
   position: absolute;
@@ -939,10 +934,20 @@ textarea:focus-visible {
   mix-blend-mode: screen;
 }
 .glyph-ink.armed {
-  background: rgba(85, 102, 230, 0.16) !important;
+  background: transparent !important;
+  box-shadow: 0 2px 0 rgba(85, 102, 230, 0.75);
 }
 [data-theme="dark"] .glyph-ink.armed {
-  background: rgba(120, 135, 255, 0.26) !important;
+  background: transparent !important;
+  box-shadow: 0 2px 0 rgba(150, 160, 255, 0.9);
+}
+.glyph-ink.armed.cat-jali,
+.glyph-ink.armed.cat-khafi,
+.glyph-ink.armed.cat-fasaha,
+[data-theme="dark"] .glyph-ink.armed.cat-jali,
+[data-theme="dark"] .glyph-ink.armed.cat-khafi,
+[data-theme="dark"] .glyph-ink.armed.cat-fasaha {
+  box-shadow: 0 2px 0 var(--c);
 }
 .glyph-ink.marked {
   background: var(--c-wash);
@@ -991,19 +996,19 @@ textarea:focus-visible {
   transform: translateX(-50%);
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  width: min(188px, calc(100vw - 24px));
+  gap: 3px;
+  width: min(160px, calc(100vw - 24px));
 }
 .pill {
   display: flex;
   align-items: center;
-  gap: 7px;
+  gap: 6px;
   width: 100%;
   text-align: left;
   background: var(--surface);
   border: 1px solid var(--line);
   border-radius: 10px;
-  padding: 7px 10px;
+  padding: 6px 9px;
   box-shadow: var(--shadow-float);
   color: var(--ink);
   animation: pill-in var(--t-base) var(--ease-out) both;
@@ -1022,19 +1027,21 @@ textarea:focus-visible {
 .pill-text {
   display: flex;
   flex-direction: column;
-  flex: 1;
+  flex: 0 1 auto;
   min-width: 0;
 }
 .pill-main {
-  font-size: 12.5px;
+  font-size: 12.25px;
   font-weight: 500;
   line-height: 1.25;
+  white-space: nowrap;
 }
 .pill-hint {
   font-size: 11.5px;
   color: var(--ink-3);
 }
 .pill-amt {
+  margin-left: 1px;
   font-size: 11.5px;
   font-weight: 500;
   color: var(--ink-2);
@@ -2116,10 +2123,7 @@ textarea:focus-visible {
   }
   .page {
     border-radius: var(--r-md);
-    padding: 8.8% 4.4% 4.4%;
-  }
-  .page-nav {
-    margin-bottom: 12px;
+    padding: 5% 4.4% 2.5%;
   }
   .mistake-panel.is-expanded {
     inset: 64px 12px 12px;

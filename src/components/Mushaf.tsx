@@ -1,6 +1,7 @@
 import {
   Fragment,
   type CSSProperties,
+  type ReactNode,
   useCallback,
   useEffect,
   useLayoutEffect,
@@ -104,12 +105,14 @@ interface MushafProps {
   page: number;
   pageLayout: "full" | "split";
   onPageChange: (page: number) => void;
+  headerControls: ReactNode;
 }
 
 export function Mushaf({
   page: currentPage,
   pageLayout,
   onPageChange,
+  headerControls,
 }: MushafProps) {
   const { state, dispatch } = useJudging();
   const [pageData, setPageData] = useState<MushafPage | null>(null);
@@ -622,6 +625,7 @@ export function Mushaf({
       >
         <div className="page-marginalia">
           <span className="page-juz">Juz&apos; {juzByPage[pageData.page]}</span>
+          {headerControls}
           <span className="page-surahs" dir="rtl">
             {pageSurahs.map((surah) => surah.nameAr).join(" - ")}
           </span>
@@ -665,8 +669,6 @@ export function Mushaf({
         })}
         </div>
 
-        <div className="page-number">{pageData.page}</div>
-
         <div className="hit-layer">
           {visibleBoxes.map((b) => {
             const ms = byTid.get(b.tid);
@@ -674,7 +676,9 @@ export function Mushaf({
             const inkCls = [
               "glyph-ink",
               dom ? `marked cat-${dom}` : "",
-              active?.tid === b.tid ? "armed" : "",
+              active?.tid === b.tid
+                ? `armed ${hovered ? `cat-${hovered}` : ""}`
+                : "",
               flashTid === b.tid ? `flash ${dom ? "" : "cat-fasaha"}` : "",
             ]
               .filter(Boolean)

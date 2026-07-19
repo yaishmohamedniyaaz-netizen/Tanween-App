@@ -248,11 +248,13 @@ export function App() {
               className="mushaf-shell"
               style={{ "--page-zoom": pageZoom / 100 } as CSSProperties}
             >
-              <PageNav page={page} onChange={handlePageChange} />
               <Mushaf
                 page={page}
                 pageLayout={pageLayout}
                 onPageChange={handlePageChange}
+                headerControls={
+                  <PageNav page={page} onChange={handlePageChange} />
+                }
               />
             </div>
           </div>
