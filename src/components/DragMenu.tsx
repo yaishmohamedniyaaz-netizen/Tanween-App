@@ -32,9 +32,19 @@ export function DragMenu({
   onClose,
 }: Props) {
   const menuRef = useRef<HTMLDivElement>(null);
-  const openUp = anchor.top > window.innerHeight * 0.58;
-  const cx = Math.round(anchor.left + anchor.width / 2);
-  const gap = 14;
+  const viewportWidth = document.documentElement.clientWidth;
+  const viewportHeight = document.documentElement.clientHeight;
+  const menuWidth = Math.min(188, viewportWidth - 24);
+  const halfMenu = menuWidth / 2;
+  const anchorCenter = anchor.left + anchor.width / 2;
+  const cx = Math.round(
+    Math.min(
+      viewportWidth - 12 - halfMenu,
+      Math.max(12 + halfMenu, anchorCenter),
+    ),
+  );
+  const openUp = anchor.top > viewportHeight * 0.58;
+  const gap = 9;
 
   // When the menu is pinned (tap path), move focus into it for keyboard users.
   useEffect(() => {
@@ -57,7 +67,7 @@ export function DragMenu({
   };
 
   const posStyle: CSSProperties = openUp
-    ? { left: cx, bottom: Math.round(window.innerHeight - anchor.top + gap) }
+    ? { left: cx, bottom: Math.round(viewportHeight - anchor.top + gap) }
     : { left: cx, top: Math.round(anchor.bottom + gap) };
 
   const items = openUp ? [...CATEGORIES].reverse() : CATEGORIES;

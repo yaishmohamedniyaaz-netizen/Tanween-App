@@ -193,8 +193,10 @@ export function App() {
         <main className="workspace" key="judge">
           <div className="stage">
             <HintBanner />
-            <PageNav page={page} onChange={handlePageChange} />
-            <Mushaf page={page} onPageChange={handlePageChange} />
+            <div className="mushaf-shell">
+              <PageNav page={page} onChange={handlePageChange} />
+              <Mushaf page={page} onPageChange={handlePageChange} />
+            </div>
           </div>
           <aside className="sidebar">
             <ScorePanel />

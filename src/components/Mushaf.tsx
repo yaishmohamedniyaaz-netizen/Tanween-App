@@ -1,5 +1,6 @@
 import {
   Fragment,
+  type CSSProperties,
   useCallback,
   useEffect,
   useLayoutEffect,
@@ -658,15 +659,24 @@ export function Mushaf({ page: currentPage, onPageChange }: MushafProps) {
             ]
               .filter(Boolean)
               .join(" ");
-            const showInk = Boolean(
-              dom || active?.tid === b.tid || flashTid === b.tid,
-            );
+            const showInk = Boolean(dom || flashTid === b.tid);
             return (
               <Fragment key={b.tid}>
                 <div
                   data-tid={b.tid}
-                  className="hit"
-                  style={{ left: b.hx, top: b.hy, width: b.hw, height: b.hh }}
+                  className={`hit ${active?.tid === b.tid ? `armed ${hovered ? `cat-${hovered}` : ""}` : ""}`}
+                  style={
+                    {
+                      left: b.hx,
+                      top: b.hy,
+                      width: b.hw,
+                      height: b.hh,
+                      "--ink-left": `${b.x - b.hx}px`,
+                      "--ink-top": `${b.y - b.hy}px`,
+                      "--ink-width": `${b.w}px`,
+                      "--ink-height": `${b.h}px`,
+                    } as CSSProperties
+                  }
                   role="button"
                   tabIndex={-1}
                   aria-label={
