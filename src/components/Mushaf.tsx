@@ -13,6 +13,10 @@ import { flushSync } from "react-dom";
 import { loadPage, preloadPage, locationLabel, tokenId } from "../lib/page";
 import type { PageWord, MushafPage } from "../lib/page";
 import { graphemesOf } from "../lib/tokenize";
+import {
+  buildClusterGeometry,
+  type ClusterMeasurement,
+} from "../lib/clusterGeometry";
 import { uid } from "../lib/id";
 import { useJudging } from "../state/store";
 import type { CategoryId, Mistake, TokenRole } from "../types";
@@ -47,7 +51,6 @@ interface ActiveDrag {
 }
 
 const SEVERITY: Record<CategoryId, number> = { jali: 3, khafi: 2, fasaha: 1 };
-const HIT_MIN_W = 20;
 const HIT_PAD_Y = 5;
 const MOVE_THRESHOLD = 6;
 const BASE_FONT = 30;
@@ -272,7 +275,7 @@ export function Mushaf({
     return fontChanged || centeredChanged;
   }, [centered, fontPx, pageData, pageLayout]);
 
-  /* --- hitboxes: tight ink rect + generous invisible target --- */
+  /* --- hitboxes: contextual, disjoint ownership + clipped ink rect --- */
   const measure = useCallback(() => {
     const root = pageRef.current;
     if (!root) return;
@@ -293,7 +296,17 @@ export function Mushaf({
       const ayahAttr = wEl.dataset.ayah;
       const ayah = ayahAttr === "b" ? null : Number(ayahAttr);
       const graphemes = graphemesOf(text, role);
-      graphemes.forEach((g, gi) => {
+      if (!graphemes.length) return;
+
+      const wordRange = document.createRange();
+      wordRange.setStart(node, 0);
+      wordRange.setEnd(node, text.length);
+      const wordRect = wordRange.getBoundingClientRect();
+      if (!wordRect.width || !wordRect.height) return;
+
+      const rtl = getComputedStyle(wEl).direction !== "ltr";
+      const measurements: ClusterMeasurement[] = [];
+      graphemes.forEach((g) => {
         const range = document.createRange();
         range.setStart(node, g.start);
         range.setEnd(node, g.end);
@@ -311,16 +324,42 @@ export function Mushaf({
           b = Math.max(b, rc.bottom);
         }
         if (l === Infinity) return;
-        const x = l - rootRect.left;
-        const y = t - rootRect.top;
-        const w = r - l;
-        const h = b - t;
-        let hx = x;
-        let hw = w;
-        if (hw < HIT_MIN_W) {
-          hx -= (HIT_MIN_W - hw) / 2;
-          hw = HIT_MIN_W;
-        }
+
+        // Measuring the shaped prefix keeps joining and ligatures intact. Its
+        // inline edge is the browser's contextual caret after this grapheme.
+        const prefix = document.createRange();
+        prefix.setStart(node, 0);
+        prefix.setEnd(node, g.end);
+        const prefixRect = prefix.getBoundingClientRect();
+        measurements.push({
+          rawLeft: l,
+          rawTop: t,
+          rawRight: r,
+          rawBottom: b,
+          boundaryAfter: prefixRect.width
+            ? rtl
+              ? prefixRect.left
+              : prefixRect.right
+            : null,
+        });
+      });
+
+      if (measurements.length !== graphemes.length) return;
+      const geometry = buildClusterGeometry(
+        measurements,
+        wordRect.left,
+        wordRect.right,
+        rtl,
+      );
+      graphemes.forEach((g, gi) => {
+        const measured = geometry[gi];
+        if (!measured) return;
+        const x = measured.inkLeft - rootRect.left;
+        const y = measured.inkTop - rootRect.top;
+        const width = measured.inkRight - measured.inkLeft;
+        const height = measured.inkBottom - measured.inkTop;
+        const hx = measured.hitLeft - rootRect.left;
+        const hw = measured.hitRight - measured.hitLeft;
         next.push({
           tid: tokenId(wid, gi),
           wid,
@@ -331,12 +370,12 @@ export function Mushaf({
           ayah,
           x,
           y,
-          w,
-          h,
+          w: width,
+          h: height,
           hx,
           hy: y - HIT_PAD_Y,
           hw,
-          hh: h + HIT_PAD_Y * 2,
+          hh: height + HIT_PAD_Y * 2,
         });
       });
     });
@@ -483,34 +522,28 @@ export function Mushaf({
     const rootRect = root.getBoundingClientRect();
     const pointX = e.clientX - rootRect.left;
     const pointY = e.clientY - rootRect.top;
-    const generous = boxes.filter(
+    const candidates = boxes.filter(
       (candidate) =>
         pointX >= candidate.hx &&
         pointX <= candidate.hx + candidate.hw &&
         pointY >= candidate.hy &&
         pointY <= candidate.hy + candidate.hh,
     );
-    const exact = generous.filter(
-      (candidate) =>
-        pointX >= candidate.x &&
-        pointX <= candidate.x + candidate.w &&
-        pointY >= candidate.y &&
-        pointY <= candidate.y + candidate.h,
-    );
-    const candidates = exact.length ? exact : generous;
     const box = candidates.reduce<Hitbox | null>((closest, candidate) => {
       const score =
-        ((pointX - (candidate.x + candidate.w / 2)) /
-          Math.max(candidate.w, 4)) **
+        ((pointX - (candidate.hx + candidate.hw / 2)) /
+          Math.max(candidate.hw, 4)) **
           2 +
-        ((pointY - (candidate.y + candidate.h / 2)) /
-          Math.max(candidate.h, 4)) **
+        ((pointY - (candidate.hy + candidate.hh / 2)) /
+          Math.max(candidate.hh, 4)) **
           2;
       if (!closest) return candidate;
       const closestScore =
-        ((pointX - (closest.x + closest.w / 2)) / Math.max(closest.w, 4)) **
+        ((pointX - (closest.hx + closest.hw / 2)) /
+          Math.max(closest.hw, 4)) **
           2 +
-        ((pointY - (closest.y + closest.h / 2)) / Math.max(closest.h, 4)) **
+        ((pointY - (closest.hy + closest.hh / 2)) /
+          Math.max(closest.hh, 4)) **
           2;
       return score < closestScore ? candidate : closest;
     }, null);
