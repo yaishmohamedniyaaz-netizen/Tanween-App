@@ -57,6 +57,7 @@ export function buildClusterGeometry(
   wordLeft: number,
   wordRight: number,
   rtl = true,
+  forceFallback = false,
 ): ClusterGeometry[] {
   if (!measurements.length || wordRight <= wordLeft) return [];
 
@@ -69,13 +70,15 @@ export function buildClusterGeometry(
   boundaries[boundaries.length - 1] = end;
 
   const direction = rtl ? -1 : 1;
-  const contextualBoundariesAreUsable = boundaries.every(
-    (boundary, index) =>
-      Number.isFinite(boundary) &&
-      (index === 0 ||
-        direction * (boundary! - boundaries[index - 1]!) >=
-          MIN_USABLE_CLUSTER_WIDTH),
-  );
+  const contextualBoundariesAreUsable =
+    !forceFallback &&
+    boundaries.every(
+      (boundary, index) =>
+        Number.isFinite(boundary) &&
+        (index === 0 ||
+          direction * (boundary! - boundaries[index - 1]!) >=
+            MIN_USABLE_CLUSTER_WIDTH),
+    );
   const resolved = contextualBoundariesAreUsable
     ? (boundaries as number[])
     : fallbackBoundaries(measurements, wordLeft, wordRight, rtl);

@@ -79,3 +79,23 @@ test("supports left-to-right words without reversing ownership", () => {
     ],
   );
 });
+
+test("can force measured ligatures into distinct semantic regions", () => {
+  const geometry = buildClusterGeometry(
+    [
+      measurement(30, 40, 34),
+      measurement(10, 36, 12),
+      measurement(0, 14, 0),
+    ],
+    0,
+    40,
+    true,
+    true,
+  );
+
+  assert.equal(geometry.length, 3);
+  assert.equal(geometry[0].hitRight, 40);
+  assert.equal(geometry.at(-1).hitLeft, 0);
+  assert.equal(geometry[0].hitLeft, geometry[1].hitRight);
+  assert.equal(geometry[1].hitLeft, geometry[2].hitRight);
+});

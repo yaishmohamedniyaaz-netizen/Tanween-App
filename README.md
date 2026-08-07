@@ -25,26 +25,27 @@ npm run dev          # start the dev server at http://localhost:5173
 The page is **rendered text in the KFGQPC Uthmanic Hafs v18 font**, not an image of a
 printed page. This was the central design choice:
 
-- The font + its matching Unicode text (`thetruetruth/quran-data-kfgqpc`, Hafs v18) gives
-  **letter-level and mark-level press targets for free and deterministically** — no AI
-  tokens, no manual hitboxing. Each letter's box is measured at runtime with the browser's
-  own text metrics (`Range.getClientRects()` over grapheme clusters from
-  `Intl.Segmenter`). See `src/components/Mushaf.tsx`.
+- The font + its matching Unicode text (`thetruetruth/quran-data-kfgqpc`, Hafs v18) keeps
+  the authentic connected script. Selection is driven by semantic **judging units**, not
+  raw Unicode graphemes: special hamza encodings, small vowel letters, combining marks,
+  ligatures, and the Allah form are normalized in `src/lib/judgingUnits.ts` before their
+  contextual ranges are measured in `src/components/Mushaf.tsx`.
 - An image of the printed page would instead need fragile, inconsistent computer-vision or
   by-hand hitboxing per page — exactly the cost the vision wanted to avoid.
 - Trade-off: rendered text is not pixel-identical to one specific printed Madani page. For
   the prototype that is irrelevant; it still renders in the authentic mushaf font. Exact
   full-page fidelity (QPC v1/v2 page-glyph fonts, word-level) is a later layer.
 
-The hitboxes are a transparent overlay (`.hit-layer`) above the shaped text, so Arabic
-cursive joining stays perfect while every glyph is independently pressable.
+The hitboxes are a transparent overlay (`.hit-layer`) above the shaped text. Each point
+within a word belongs to one non-overlapping judging unit. Old grapheme-based saved marks
+remain addressable through legacy aliases.
 
 ## The gesture
 
-Press (or tap) a letter → a pill menu drops down with the categories → drag onto one and
-release to commit (or, after a tap, the menu pins so you can click). The menu is rendered
-synchronously on press (`flushSync`) so fast drags work; hover is detected with
-`elementFromPoint`. Escape cancels.
+Press (or tap) a letter → a magnified word selector confirms the exact judging unit → drag
+onto a category and release to commit. A tap pins the selector so the unit and category can
+be chosen independently. The menu is rendered synchronously on press (`flushSync`) so fast
+touch drags work; hover is detected with `elementFromPoint`. Escape cancels.
 
 ## Scoring
 
@@ -66,7 +67,7 @@ persists to `localStorage`; "Print" produces a clean result sheet; "New reciter"
 public/fonts/hafs.18.woff2     KFGQPC Uthmanic Hafs v18 (see licensing)
 scripts/build-data.mjs         extracts surahs 112–114 + Basmala -> src/data/surahs.json
 src/data/surahs.json           generated text data
-src/lib/                       page model, grapheme tokenizer, scoring, ids
+src/lib/                       page model, judging-unit tokenizer, scoring, ids
 src/state/store.tsx            reducer + context + persistence
 src/components/                Mushaf, DragMenu, ScorePanel, MistakeLog, NotesBox, Header, ResultSheet
 src/styles/global.css          design system

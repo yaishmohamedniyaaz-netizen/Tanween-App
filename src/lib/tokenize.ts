@@ -26,9 +26,9 @@ const segmenter =
     : null;
 
 /**
- * Split a word into grapheme clusters (each = one pressable letter unit).
- * Uses Intl.Segmenter so combining harakāt/sukūn/madd stay attached to their
- * base letter, which is exactly the prototype's press granularity.
+ * Split a word into Unicode grapheme clusters. This is the low-level boundary
+ * layer used by the semantic judging-unit tokenizer and by legacy mark IDs;
+ * graphemes are not assumed to equal selectable recitation letters.
  */
 export function graphemesOf(word: string, wordRole: TokenRole): Grapheme[] {
   const out: Grapheme[] = [];

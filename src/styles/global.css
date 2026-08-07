@@ -995,13 +995,74 @@ textarea:focus-visible {
   display: flex;
   flex-direction: column;
   gap: 3px;
-  width: min(160px, calc(100vw - 24px));
+  width: min(304px, calc(100vw - 24px));
+}
+.unit-picker {
+  width: 100%;
+  padding: 7px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+  box-shadow: var(--shadow-float);
+  animation: pill-in var(--t-base) var(--ease-out) both;
+}
+.unit-picker-word {
+  overflow: hidden;
+  padding: 1px 8px 5px;
+  color: var(--ink);
+  font-family: var(--quran);
+  font-size: 28px;
+  line-height: 1.15;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.unit-picker-row {
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--bg);
+  scrollbar-width: none;
+}
+.unit-picker-row::-webkit-scrollbar {
+  display: none;
+}
+.unit-choice {
+  flex: 1 1 32px;
+  min-width: 26px;
+  min-height: 38px;
+  padding: 3px 4px 1px;
+  border: 0;
+  border-inline-start: 1px solid var(--line);
+  border-radius: 0;
+  background: transparent;
+  color: var(--ink);
+  font-family: var(--quran);
+  font-size: 24px;
+  line-height: 1;
+  transition: background-color var(--t-fast) var(--ease-out),
+    box-shadow var(--t-fast) var(--ease-out);
+}
+.unit-choice:last-child {
+  border-inline-start: 0;
+}
+.unit-choice:hover,
+.unit-choice:focus-visible,
+.unit-choice.selected {
+  z-index: 1;
+  background: color-mix(in srgb, #5566e6 12%, var(--surface));
+  box-shadow: inset 0 -2px #5566e6;
 }
 .pill {
   display: flex;
   align-items: center;
   gap: 6px;
-  width: 100%;
+  width: 160px;
+  align-self: center;
   text-align: left;
   background: var(--surface);
   border: 1px solid var(--line);

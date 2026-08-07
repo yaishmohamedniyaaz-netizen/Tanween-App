@@ -76,7 +76,7 @@ export function buildMushafPage(): MushafPage {
   return castPage(staticPage604);
 }
 
-/** Stable id for a single grapheme within a word. */
+/** Legacy stable id for a grapheme within a word. */
 export function tokenId(wid: string, graphemeIndex: number): string {
   return `${wid}#${graphemeIndex}`;
 }
@@ -85,8 +85,8 @@ export function tokenId(wid: string, graphemeIndex: number): string {
 export function locationLabel(
   surah: number,
   ayah: number | null,
-  graphemeIndex: number,
+  unitIndex: number,
 ): string {
   const where = ayah === null ? "Basmala" : `${surah}:${ayah}`;
-  return `${where} · letter ${graphemeIndex + 1}`;
+  return `${where} · letter ${unitIndex + 1}`;
 }

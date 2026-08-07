@@ -12,7 +12,7 @@ import {
 import { flushSync } from "react-dom";
 import { loadPage, preloadPage, locationLabel, tokenId } from "../lib/page";
 import type { PageWord, MushafPage } from "../lib/page";
-import { graphemesOf } from "../lib/tokenize";
+import { judgingUnitId, judgingUnitsOf } from "../lib/judgingUnits";
 import {
   buildClusterGeometry,
   type ClusterMeasurement,
@@ -26,9 +26,11 @@ import surahIndex from "../data/surah-index.json";
 
 interface Hitbox {
   tid: string;
+  legacyTids: string[];
   wid: string;
-  gi: number;
+  unitIndex: number;
   glyph: string;
+  wordText: string;
   role: TokenRole;
   surah: number;
   ayah: number | null;
@@ -295,8 +297,8 @@ export function Mushaf({
       const surah = Number(wEl.dataset.surah);
       const ayahAttr = wEl.dataset.ayah;
       const ayah = ayahAttr === "b" ? null : Number(ayahAttr);
-      const graphemes = graphemesOf(text, role);
-      if (!graphemes.length) return;
+      const units = judgingUnitsOf(text, role);
+      if (!units.length) return;
 
       const wordRange = document.createRange();
       wordRange.setStart(node, 0);
@@ -306,10 +308,10 @@ export function Mushaf({
 
       const rtl = getComputedStyle(wEl).direction !== "ltr";
       const measurements: ClusterMeasurement[] = [];
-      graphemes.forEach((g) => {
+      units.forEach((unit) => {
         const range = document.createRange();
-        range.setStart(node, g.start);
-        range.setEnd(node, g.end);
+        range.setStart(node, unit.start);
+        range.setEnd(node, unit.end);
         const rects = range.getClientRects();
         if (!rects.length) return;
         let l = Infinity,
@@ -326,10 +328,10 @@ export function Mushaf({
         if (l === Infinity) return;
 
         // Measuring the shaped prefix keeps joining and ligatures intact. Its
-        // inline edge is the browser's contextual caret after this grapheme.
+        // inline edge is the browser's contextual caret after this unit.
         const prefix = document.createRange();
         prefix.setStart(node, 0);
-        prefix.setEnd(node, g.end);
+        prefix.setEnd(node, unit.end);
         const prefixRect = prefix.getBoundingClientRect();
         measurements.push({
           rawLeft: l,
@@ -344,15 +346,16 @@ export function Mushaf({
         });
       });
 
-      if (measurements.length !== graphemes.length) return;
+      if (measurements.length !== units.length) return;
       const geometry = buildClusterGeometry(
         measurements,
         wordRect.left,
         wordRect.right,
         rtl,
+        units.some((unit) => unit.kind === "allah-lam"),
       );
-      graphemes.forEach((g, gi) => {
-        const measured = geometry[gi];
+      units.forEach((unit, unitIndex) => {
+        const measured = geometry[unitIndex];
         if (!measured) return;
         const x = measured.inkLeft - rootRect.left;
         const y = measured.inkTop - rootRect.top;
@@ -361,11 +364,15 @@ export function Mushaf({
         const hx = measured.hitLeft - rootRect.left;
         const hw = measured.hitRight - measured.hitLeft;
         next.push({
-          tid: tokenId(wid, gi),
+          tid: judgingUnitId(wid, unitIndex),
+          legacyTids: unit.legacyGraphemeIndices.map((index) =>
+            tokenId(wid, index),
+          ),
           wid,
-          gi,
-          glyph: g.glyph,
-          role: g.role,
+          unitIndex,
+          glyph: unit.glyph,
+          wordText: text,
+          role,
           surah,
           ayah,
           x,
@@ -439,14 +446,18 @@ export function Mushaf({
   /* --- handle pending flash after page load --- */
   useEffect(() => {
     if (!pendingFlashTid || !boxes.length) return;
-    const box = boxes.find((b) => b.tid === pendingFlashTid);
+    const box = boxes.find(
+      (candidate) =>
+        candidate.tid === pendingFlashTid ||
+        candidate.legacyTids.includes(pendingFlashTid),
+    );
     if (!box) return;
     const el = pageRef.current?.querySelector<HTMLElement>(
-      `[data-tid="${CSS.escape(pendingFlashTid)}"]`,
+      `[data-tid="${CSS.escape(box.tid)}"]`,
     );
     el?.scrollIntoView({ behavior: "smooth", block: "center" });
     setFlashTid(null);
-    requestAnimationFrame(() => setFlashTid(pendingFlashTid));
+    requestAnimationFrame(() => setFlashTid(box.tid));
     setPendingFlashTid(null);
   }, [pendingFlashTid, boxes]);
 
@@ -461,16 +472,22 @@ export function Mushaf({
         onPageChange(targetPage);
         return;
       }
+      const box = boxes.find(
+        (candidate) =>
+          candidate.tid === detail.tid ||
+          candidate.legacyTids.includes(detail.tid),
+      );
+      if (!box) return;
       const el = pageRef.current?.querySelector<HTMLElement>(
-        `[data-tid="${CSS.escape(detail.tid)}"]`,
+        `[data-tid="${CSS.escape(box.tid)}"]`,
       );
       el?.scrollIntoView({ behavior: "smooth", block: "center" });
       setFlashTid(null);
-      requestAnimationFrame(() => setFlashTid(detail.tid));
+      requestAnimationFrame(() => setFlashTid(box.tid));
     };
     window.addEventListener(JUMP_EVENT, onJump);
     return () => window.removeEventListener(JUMP_EVENT, onJump);
-  }, [currentPage, onPageChange]);
+  }, [boxes, currentPage, onPageChange]);
 
   useEffect(() => {
     if (!flashTid) return;
@@ -505,7 +522,7 @@ export function Mushaf({
         ayah: m.ayah,
         page: currentPage,
         glyph: m.glyph,
-        label: locationLabel(m.surah, m.ayah, m.gi),
+        label: locationLabel(m.surah, m.ayah, m.unitIndex),
         category,
         amount: state.config[category].step,
         ts: Date.now(),
@@ -601,6 +618,21 @@ export function Mushaf({
       if (Math.hypot(dx, dy) > MOVE_THRESHOLD) s.moved = true;
     }
     const el = document.elementFromPoint(e.clientX, e.clientY);
+    const unitTarget = el?.closest<HTMLElement>("[data-unit-tid]");
+    const nextUnitTid = unitTarget?.dataset.unitTid;
+    if (nextUnitTid && nextUnitTid !== active.tid) {
+      const nextBox = boxes.find(
+        (candidate) =>
+          candidate.tid === nextUnitTid && candidate.wid === active.meta.wid,
+      );
+      if (nextBox) {
+        setActive((current) =>
+          current
+            ? { ...current, tid: nextBox.tid, meta: nextBox }
+            : current,
+        );
+      }
+    }
     const pill = el?.closest<HTMLElement>("[data-pill]");
     setHovered(pill ? (pill.dataset.pill as CategoryId) : null);
   };
@@ -666,6 +698,21 @@ export function Mushaf({
 
   const pageSurahs = surahsForPage(pageData.page);
   const visibleBoxes = boxesPage === pageData.page ? boxes : [];
+  const activeWordBoxes = active
+    ? visibleBoxes.filter((box) => box.wid === active.meta.wid)
+    : [];
+  const mistakesForBox = (box: Hitbox): Mistake[] => {
+    const seen = new Set<string>();
+    const matches: Mistake[] = [];
+    for (const id of [box.tid, ...box.legacyTids]) {
+      for (const mistake of byTid.get(id) ?? []) {
+        if (seen.has(mistake.id)) continue;
+        seen.add(mistake.id);
+        matches.push(mistake);
+      }
+    }
+    return matches;
+  };
   const lineStyle = (line: number): CSSProperties =>
     pageLayout === "split"
       ? {
@@ -734,7 +781,7 @@ export function Mushaf({
 
         <div className="hit-layer">
           {visibleBoxes.map((b) => {
-            const ms = byTid.get(b.tid);
+            const ms = mistakesForBox(b);
             const dom = ms && ms.length ? dominant(ms) : null;
             const inkCls = [
               "glyph-ink",
@@ -792,12 +839,28 @@ export function Mushaf({
         <DragMenu
           anchor={active.anchor}
           glyph={active.meta.glyph}
+          word={active.meta.wordText}
+          units={activeWordBoxes.map((box) => ({
+            tid: box.tid,
+            glyph: box.glyph,
+            selected: box.tid === active.tid,
+          }))}
           hovered={hovered}
           pinned={pinned}
           config={state.config}
           onPick={(id) => {
             commit(id);
             closeAll();
+          }}
+          onUnitPick={(tid) => {
+            const box = boxes.find(
+              (candidate) =>
+                candidate.tid === tid && candidate.wid === active.meta.wid,
+            );
+            if (!box) return;
+            setActive((current) =>
+              current ? { ...current, tid: box.tid, meta: box } : current,
+            );
           }}
           onClose={closeAll}
         />

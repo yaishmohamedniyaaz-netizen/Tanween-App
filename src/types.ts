@@ -16,14 +16,14 @@ export type ScoreConfig = Record<CategoryId, CategoryConfig>;
 
 export type TokenRole = "letter" | "ayah-end" | "ornament";
 
-/** One pinpointed deduction tied to an exact glyph on the page. */
+/** One pinpointed deduction tied to an exact semantic judging unit. */
 export interface Mistake {
   id: string;
-  tid: string; // token id (stable address of the glyph)
+  tid: string; // stable judging-unit id; legacy grapheme ids remain readable
   surah: number;
   ayah: number | null; // null === basmala line
   page?: number; // page number for cross-page navigation
-  glyph: string; // the letter/mark text
+  glyph: string; // the selected letter unit and its attached marks
   label: string; // human location, e.g. "112:1 · letter 3"
   category: CategoryId;
   amount: number; // marks deducted (defaults to category.step, adjustable)
