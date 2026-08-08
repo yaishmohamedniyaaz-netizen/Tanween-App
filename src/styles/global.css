@@ -37,6 +37,10 @@
 
   --shadow-rest: 0 1px 2px rgba(26, 26, 28, 0.05);
   --shadow-float: 0 12px 32px rgba(26, 26, 28, 0.14), 0 2px 8px rgba(26, 26, 28, 0.08);
+  --selector-filter: drop-shadow(0 12px 24px rgba(26, 26, 28, 0.14))
+    drop-shadow(0 2px 4px rgba(26, 26, 28, 0.08));
+  --selection-fill: rgba(26, 26, 28, 0.055);
+  --selection-ring: rgba(26, 26, 28, 0.42);
 
   --ui: "InterVar", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --quran: "HafsUthmanic", serif;
@@ -56,6 +60,10 @@
   --gold: #c9a052;
   --shadow-rest: 0 1px 2px rgba(0, 0, 0, 0.4);
   --shadow-float: 0 16px 40px rgba(0, 0, 0, 0.5), 0 3px 10px rgba(0, 0, 0, 0.35);
+  --selector-filter: drop-shadow(0 16px 28px rgba(0, 0, 0, 0.46))
+    drop-shadow(0 3px 5px rgba(0, 0, 0, 0.3));
+  --selection-fill: rgba(255, 255, 255, 0.075);
+  --selection-ring: rgba(255, 255, 255, 0.5);
 }
 
 /* Category colors — the only saturation in the app */
@@ -994,51 +1002,99 @@ textarea:focus-visible {
   transform: translateX(-50%);
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  align-items: center;
+  gap: 6px;
   width: min(304px, calc(100vw - 24px));
+  filter: var(--selector-filter);
 }
 .unit-picker {
-  width: 100%;
-  padding: 7px;
-  overflow: hidden;
-  border: 1px solid var(--line);
-  border-radius: 12px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: var(--picker-width, 100%);
+  overflow: visible;
+  animation: selector-in var(--t-fast) var(--ease-out) both;
+}
+.unit-picker::after {
+  content: "";
+  position: absolute;
+  left: var(--anchor-x, 50%);
+  z-index: 0;
+  width: 10px;
+  height: 10px;
   background: var(--surface);
-  box-shadow: var(--shadow-float);
-  animation: pill-in var(--t-base) var(--ease-out) both;
+  pointer-events: none;
+}
+.drag-menu.up .unit-picker::after {
+  bottom: -5px;
+  border-right: 1px solid var(--line-2);
+  border-bottom: 1px solid var(--line-2);
+  transform: translateX(-50%) rotate(45deg);
+}
+.drag-menu.down .unit-picker::after {
+  top: -5px;
+  border-top: 1px solid var(--line-2);
+  border-left: 1px solid var(--line-2);
+  transform: translateX(-50%) rotate(45deg);
 }
 .unit-picker-word {
+  position: relative;
+  z-index: 2;
+  width: fit-content;
+  min-width: min(104px, calc(100% - 24px));
+  max-width: calc(100% - 24px);
   overflow: hidden;
-  padding: 1px 8px 5px;
+  margin-bottom: -1px;
+  padding: 3px 14px 5px;
+  border: 1px solid var(--line-2);
+  border-bottom: 0;
+  border-radius: 14px 14px 4px 4px;
+  background: var(--surface);
   color: var(--ink);
   font-family: var(--quran);
-  font-size: 28px;
+  font-size: 27px;
   line-height: 1.15;
   text-align: center;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+.drag-menu.down .unit-picker-word {
+  order: 2;
+  margin-top: -1px;
+  margin-bottom: 0;
+  border-top: 0;
+  border-bottom: 1px solid var(--line-2);
+  border-radius: 4px 4px 14px 14px;
+}
 .unit-picker-row {
+  position: relative;
+  z-index: 1;
   display: flex;
   width: 100%;
   min-width: 0;
+  gap: 2px;
   overflow-x: auto;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: var(--bg);
+  padding: 3px;
+  border: 1px solid var(--line-2);
+  border-radius: 12px;
+  background: var(--surface);
   scrollbar-width: none;
+}
+.drag-menu.down .unit-picker-row {
+  order: 1;
 }
 .unit-picker-row::-webkit-scrollbar {
   display: none;
 }
 .unit-choice {
-  flex: 1 1 32px;
-  min-width: 26px;
-  min-height: 38px;
-  padding: 3px 4px 1px;
+  position: relative;
+  flex: 1 1 44px;
+  min-width: 35px;
+  min-height: 44px;
+  padding: 4px 5px 2px;
   border: 0;
-  border-inline-start: 1px solid var(--line);
-  border-radius: 0;
+  border-radius: 8px;
   background: transparent;
   color: var(--ink);
   font-family: var(--quran);
@@ -1047,33 +1103,52 @@ textarea:focus-visible {
   transition: background-color var(--t-fast) var(--ease-out),
     box-shadow var(--t-fast) var(--ease-out);
 }
-.unit-choice:last-child {
-  border-inline-start: 0;
+.unit-choice:hover:not(.selected) {
+  background: var(--selection-fill);
 }
-.unit-choice:hover,
-.unit-choice:focus-visible,
 .unit-choice.selected {
   z-index: 1;
-  background: color-mix(in srgb, #5566e6 12%, var(--surface));
-  box-shadow: inset 0 -2px #5566e6;
+  background: var(--selection-fill);
+  box-shadow: inset 0 0 0 1.5px var(--selection-ring);
+}
+.unit-picker[class*="cat-"] .unit-choice.selected {
+  background: color-mix(in srgb, var(--c) 11%, var(--surface));
+  box-shadow: inset 0 0 0 1.5px var(--c);
+}
+.unit-choice:focus-visible {
+  z-index: 2;
+  outline: 2px solid var(--ink-2);
+  outline-offset: 1px;
+}
+.category-stack {
+  display: flex;
+  flex-direction: column;
+  width: var(--category-width, 164px);
+  overflow: hidden;
+  border: 1px solid var(--line-2);
+  border-radius: 12px;
+  background: var(--surface);
+  animation: selector-in var(--t-fast) var(--ease-out) both;
 }
 .pill {
   display: flex;
   align-items: center;
   gap: 6px;
-  width: 160px;
-  align-self: center;
+  width: 100%;
+  min-height: 40px;
+  flex: 0 0 auto;
   text-align: left;
   background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  padding: 6px 9px;
-  box-shadow: var(--shadow-float);
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  border-radius: 0;
+  padding: 7px 10px;
   color: var(--ink);
-  animation: pill-in var(--t-base) var(--ease-out) both;
-  transition: transform var(--t-fast) var(--ease-out),
-    background-color var(--t-fast) var(--ease-out),
-    border-color var(--t-fast) var(--ease-out);
+  transition: background-color var(--t-fast) var(--ease-out),
+    box-shadow var(--t-fast) var(--ease-out), color var(--t-fast) var(--ease-out);
+}
+.pill:last-child {
+  border-bottom: 0;
 }
 .pill::before {
   content: "";
@@ -1100,7 +1175,7 @@ textarea:focus-visible {
   color: var(--ink-3);
 }
 .pill-amt {
-  margin-left: 1px;
+  margin-left: auto;
   font-size: 11.5px;
   font-weight: 500;
   color: var(--ink-2);
@@ -1108,9 +1183,14 @@ textarea:focus-visible {
 }
 .pill.active,
 .pill:focus-visible {
-  transform: scale(1.04);
-  border-color: var(--c);
   background: var(--c-tint);
+  box-shadow: inset 0 0 0 1px var(--c);
+}
+.pill:focus-visible {
+  position: relative;
+  z-index: 1;
+  outline: 2px solid var(--c);
+  outline-offset: -2px;
 }
 .pill.active .pill-main,
 .pill.active .pill-amt {

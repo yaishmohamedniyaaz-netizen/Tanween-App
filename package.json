@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build && node scripts/prepare-sites.mjs",
-    "test": "node --test --experimental-strip-types scripts/cluster-geometry.test.mjs scripts/selection-units.test.mjs",
+    "test": "node --test --experimental-strip-types scripts/cluster-geometry.test.mjs scripts/selection-units.test.mjs scripts/selector-layout.test.mjs",
     "preview": "vite preview",
     "data": "node scripts/build-data.mjs"
   },

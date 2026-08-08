@@ -1,6 +1,10 @@
 import { createPortal } from "react-dom";
 import { useEffect, useRef, type CSSProperties, type KeyboardEvent } from "react";
 import { CATEGORIES } from "../config";
+import {
+  getSelectorPlacement,
+  getSelectorWidths,
+} from "../lib/selectorLayout";
 import type { CategoryId, ScoreConfig } from "../types";
 
 export interface MenuAnchor {
@@ -25,6 +29,12 @@ interface Props {
   onClose: () => void;
 }
 
+type SelectorStyle = CSSProperties & {
+  "--picker-width": string;
+  "--category-width": string;
+  "--anchor-x": string;
+};
+
 export function DragMenu({
   anchor,
   glyph,
@@ -40,14 +50,16 @@ export function DragMenu({
   const menuRef = useRef<HTMLDivElement>(null);
   const viewportWidth = document.documentElement.clientWidth;
   const viewportHeight = document.documentElement.clientHeight;
-  const menuWidth = Math.min(304, viewportWidth - 24);
-  const halfMenu = menuWidth / 2;
+  const { pickerWidth, categoryWidth, menuWidth } = getSelectorWidths(
+    units.length,
+    viewportWidth,
+  );
   const anchorCenter = anchor.left + anchor.width / 2;
-  const cx = Math.round(
-    Math.min(
-      viewportWidth - 12 - halfMenu,
-      Math.max(12 + halfMenu, anchorCenter),
-    ),
+  const { centerX, pointerX } = getSelectorPlacement(
+    anchorCenter,
+    viewportWidth,
+    menuWidth,
+    pickerWidth,
   );
   const openUp = anchor.top > viewportHeight * 0.58;
   const gap = 9;
@@ -61,6 +73,11 @@ export function DragMenu({
   }, [pinned]);
 
   const onKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === "Escape") {
+      e.preventDefault();
+      onClose();
+      return;
+    }
     const vertical = e.key === "ArrowDown" || e.key === "ArrowUp";
     const horizontal = e.key === "ArrowLeft" || e.key === "ArrowRight";
     if (!vertical && !horizontal) return;
@@ -76,14 +93,26 @@ export function DragMenu({
     btns[(idx + dir + btns.length) % btns.length].focus();
   };
 
-  const posStyle: CSSProperties = openUp
-    ? { left: cx, bottom: Math.round(viewportHeight - anchor.top + gap) }
-    : { left: cx, top: Math.round(anchor.bottom + gap) };
+  const posStyle: SelectorStyle = {
+    ...(openUp
+      ? { bottom: Math.round(viewportHeight - anchor.top + gap) }
+      : { top: Math.round(anchor.bottom + gap) }),
+    left: centerX,
+    width: menuWidth,
+    "--picker-width": `${pickerWidth}px`,
+    "--category-width": `${categoryWidth}px`,
+    "--anchor-x": `${pointerX}px`,
+  };
 
   const items = openUp ? [...CATEGORIES].reverse() : CATEGORIES;
   const unitPicker = (
-    <div className="unit-picker" dir="rtl">
-      <div className="unit-picker-word" aria-hidden="true">{word}</div>
+    <div
+      className={`unit-picker ${hovered ? `cat-${hovered}` : ""}`}
+      dir="rtl"
+    >
+      <div className="unit-picker-word" aria-hidden="true">
+        {word}
+      </div>
       <div
         className="unit-picker-row"
         role="group"
@@ -107,22 +136,31 @@ export function DragMenu({
       </div>
     </div>
   );
-  const categoryButtons = items.map((c, i) => (
-    <button
-      key={c.id}
-      type="button"
-      data-pill={c.id}
-      className={`pill cat-${c.id} ${hovered === c.id ? "active" : ""}`}
-      style={{ animationDelay: `${i * 40}ms` }}
-      onClick={() => onPick(c.id)}
-      tabIndex={pinned ? 0 : -1}
+  const categoryStack = (
+    <div
+      className="category-stack"
+      role="menu"
+      aria-label="Choose mistake type"
+      aria-orientation="vertical"
     >
-      <span className="pill-text">
-        <span className="pill-main">{c.label}</span>
-      </span>
-      <span className="pill-amt">−{config[c.id].step}</span>
-    </button>
-  ));
+      {items.map((c) => (
+        <button
+          key={c.id}
+          type="button"
+          role="menuitem"
+          data-pill={c.id}
+          className={`pill cat-${c.id} ${hovered === c.id ? "active" : ""}`}
+          onClick={() => onPick(c.id)}
+          tabIndex={pinned ? 0 : -1}
+        >
+          <span className="pill-text">
+            <span className="pill-main">{c.label}</span>
+          </span>
+          <span className="pill-amt">−{config[c.id].step}</span>
+        </button>
+      ))}
+    </div>
+  );
 
   return createPortal(
     <>
@@ -139,12 +177,13 @@ export function DragMenu({
         ref={menuRef}
         className={`drag-menu ${openUp ? "up" : "down"} ${pinned ? "pinned" : ""}`}
         style={posStyle}
-        role="menu"
+        role="dialog"
+        aria-modal={pinned || undefined}
         aria-label={`Mark a mistake on ${glyph}`}
         onKeyDown={onKeyDown}
       >
-        {openUp ? categoryButtons : unitPicker}
-        {openUp ? unitPicker : categoryButtons}
+        {openUp ? categoryStack : unitPicker}
+        {openUp ? unitPicker : categoryStack}
       </div>
     </>,
     document.body,
