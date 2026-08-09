@@ -2,9 +2,9 @@ import { useState } from "react";
 import { useJudging } from "../state/store";
 import { Icon } from "./Icon";
 
-const KEY = "tahqeeq.hintSeen";
+const KEY = "tahqeeq.hintSeen.connectedRail.v1";
 
-/** A subtle, dismissible coach tip for the press-hold-drag-release gesture.
+/** A subtle, dismissible coach tip for the connected letter-to-category path.
  *  Shows only on a clean slate (no marks yet) until dismissed once. */
 export function HintBanner() {
   const { state } = useJudging();
@@ -24,8 +24,8 @@ export function HintBanner() {
         <Icon name="pointer" size={16} />
       </span>
       <span className="hint-banner-copy">
-        <strong>Press and hold</strong> a letter, drag onto a category, and release
-        to mark a mistake — or tap a letter to open the menu.
+        <strong>Hold a letter</strong>, confirm it in the rail, then slide through
+        Jali, Khafi, or Fasaha and release — or tap each step.
       </span>
       <button
         type="button"

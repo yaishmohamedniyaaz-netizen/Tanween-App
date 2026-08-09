@@ -30,7 +30,6 @@ interface Hitbox {
   wid: string;
   unitIndex: number;
   glyph: string;
-  wordText: string;
   role: TokenRole;
   surah: number;
   ayah: number | null;
@@ -371,7 +370,6 @@ export function Mushaf({
           wid,
           unitIndex,
           glyph: unit.glyph,
-          wordText: text,
           role,
           surah,
           ayah,
@@ -839,7 +837,6 @@ export function Mushaf({
         <DragMenu
           anchor={active.anchor}
           glyph={active.meta.glyph}
-          word={active.meta.wordText}
           units={activeWordBoxes.map((box) => ({
             tid: box.tid,
             glyph: box.glyph,

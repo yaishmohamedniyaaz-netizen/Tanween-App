@@ -19,7 +19,6 @@ export interface MenuAnchor {
 interface Props {
   anchor: MenuAnchor;
   glyph: string;
-  word: string;
   units: Array<{ tid: string; glyph: string; selected: boolean }>;
   hovered: CategoryId | null;
   pinned: boolean;
@@ -38,7 +37,6 @@ type SelectorStyle = CSSProperties & {
 export function DragMenu({
   anchor,
   glyph,
-  word,
   units,
   hovered,
   pinned,
@@ -78,19 +76,55 @@ export function DragMenu({
       onClose();
       return;
     }
-    const vertical = e.key === "ArrowDown" || e.key === "ArrowUp";
-    const horizontal = e.key === "ArrowLeft" || e.key === "ArrowRight";
-    if (!vertical && !horizontal) return;
-    e.preventDefault();
-    const btns = Array.from(
-      menuRef.current?.querySelectorAll<HTMLButtonElement>(
-        horizontal ? "[data-unit-tid]" : "[data-pill]",
-      ) ?? [],
+    const unitButtons = Array.from(
+      menuRef.current?.querySelectorAll<HTMLButtonElement>("[data-unit-tid]") ?? [],
     );
-    if (!btns.length) return;
-    const idx = btns.findIndex((b) => b === document.activeElement);
-    const dir = e.key === "ArrowDown" || e.key === "ArrowRight" ? 1 : -1;
-    btns[(idx + dir + btns.length) % btns.length].focus();
+    const categoryButtons = Array.from(
+      menuRef.current?.querySelectorAll<HTMLButtonElement>("[data-pill]") ?? [],
+    );
+    const activeElement = document.activeElement;
+    const unitIndex = unitButtons.findIndex((button) => button === activeElement);
+    const categoryIndex = categoryButtons.findIndex(
+      (button) => button === activeElement,
+    );
+
+    if (
+      unitIndex >= 0 &&
+      (e.key === "ArrowLeft" || e.key === "ArrowRight")
+    ) {
+      e.preventDefault();
+      // The rail is RTL: ArrowLeft advances visually left, ArrowRight moves right.
+      const direction = e.key === "ArrowLeft" ? 1 : -1;
+      unitButtons[
+        (unitIndex + direction + unitButtons.length) % unitButtons.length
+      ].focus();
+      return;
+    }
+
+    const outwardKey = openUp ? "ArrowUp" : "ArrowDown";
+    const inwardKey = openUp ? "ArrowDown" : "ArrowUp";
+    if (e.key !== outwardKey && e.key !== inwardKey) return;
+
+    if (unitIndex >= 0 && e.key === outwardKey) {
+      e.preventDefault();
+      categoryButtons[0]?.focus();
+      return;
+    }
+
+    if (categoryIndex < 0) return;
+    e.preventDefault();
+    if (e.key === outwardKey) {
+      categoryButtons[Math.min(categoryIndex + 1, categoryButtons.length - 1)]
+        ?.focus();
+      return;
+    }
+    if (categoryIndex > 0) {
+      categoryButtons[categoryIndex - 1]?.focus();
+      return;
+    }
+    (menuRef.current?.querySelector<HTMLButtonElement>(
+      "[data-unit-tid][aria-pressed='true']",
+    ) ?? unitButtons[0])?.focus();
   };
 
   const posStyle: SelectorStyle = {
@@ -104,15 +138,11 @@ export function DragMenu({
     "--anchor-x": `${pointerX}px`,
   };
 
-  const items = openUp ? [...CATEGORIES].reverse() : CATEGORIES;
   const unitPicker = (
     <div
       className={`unit-picker ${hovered ? `cat-${hovered}` : ""}`}
       dir="rtl"
     >
-      <div className="unit-picker-word" aria-hidden="true">
-        {word}
-      </div>
       <div
         className="unit-picker-row"
         role="group"
@@ -143,13 +173,16 @@ export function DragMenu({
       aria-label="Choose mistake type"
       aria-orientation="vertical"
     >
-      {items.map((c) => (
+      {CATEGORIES.map((c, index) => (
         <button
           key={c.id}
           type="button"
           role="menuitem"
           data-pill={c.id}
+          data-path-index={index}
           className={`pill cat-${c.id} ${hovered === c.id ? "active" : ""}`}
+          aria-posinset={index + 1}
+          aria-setsize={CATEGORIES.length}
           onClick={() => onPick(c.id)}
           tabIndex={pinned ? 0 : -1}
         >
@@ -179,11 +212,13 @@ export function DragMenu({
         style={posStyle}
         role="dialog"
         aria-modal={pinned || undefined}
-        aria-label={`Mark a mistake on ${glyph}`}
+        aria-label={`Choose exact letter and mistake type for ${glyph}`}
         onKeyDown={onKeyDown}
       >
-        {openUp ? categoryStack : unitPicker}
-        {openUp ? unitPicker : categoryStack}
+        <div className="selector-runway">
+          {unitPicker}
+          {categoryStack}
+        </div>
       </div>
     </>,
     document.body,
