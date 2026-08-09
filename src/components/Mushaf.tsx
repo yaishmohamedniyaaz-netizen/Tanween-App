@@ -386,6 +386,9 @@ export function Mushaf({
 
   const onPointerDown = (event: React.PointerEvent) => {
     if (startRef.current) return;
+    // Navigation lives inside the page frame. Its pointer events must never
+    // fall through to a kalimah underneath the popover.
+    if ((event.target as HTMLElement).closest(".page-marginalia")) return;
     const root = pageRef.current;
     if (!root) return;
     const rootRect = root.getBoundingClientRect();

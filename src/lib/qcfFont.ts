@@ -21,7 +21,6 @@ export function loadQcfPageFont(page: number): Promise<string> {
     if (typeof document === "undefined" || !("fonts" in document)) {
       return family;
     }
-    if (document.fonts.check(`30px "${family}"`)) return family;
 
     const face = new FontFace(
       family,

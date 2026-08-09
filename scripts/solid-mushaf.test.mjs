@@ -7,6 +7,10 @@ const mushafSource = fs.readFileSync(
   new URL("../src/components/Mushaf.tsx", import.meta.url),
   "utf8",
 );
+const qcfFontSource = fs.readFileSync(
+  new URL("../src/lib/qcfFont.ts", import.meta.url),
+  "utf8",
+);
 
 test("the source Mushaf selects one whole kalimah before exact rail choice", () => {
   assert.match(mushafSource, /interface WordHitbox/);
@@ -14,6 +18,14 @@ test("the source Mushaf selects one whole kalimah before exact rail choice", () 
   assert.match(mushafSource, /semanticText/);
   assert.doesNotMatch(mushafSource, /buildClusterGeometry/);
   assert.doesNotMatch(mushafSource, /document\.createRange/);
+  assert.match(mushafSource, /closest\("\.page-marginalia"\)/);
+});
+
+test("QCF page fonts are loaded before a page is declared ready", () => {
+  assert.match(qcfFontSource, /new FontFace/);
+  assert.match(qcfFontSource, /await face\.load\(\)/);
+  assert.match(qcfFontSource, /document\.fonts\.add/);
+  assert.doesNotMatch(qcfFontSource, /document\.fonts\.check/);
 });
 
 test("all 604 pages use fixed KFGQPC V2 glyph and QUL line metadata", () => {
