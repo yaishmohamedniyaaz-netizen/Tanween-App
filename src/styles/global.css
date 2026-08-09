@@ -541,15 +541,19 @@ textarea:focus-visible {
   position: relative;
   display: grid;
   grid-template-rows: auto minmax(0, 1fr);
+  container-type: inline-size;
   box-sizing: border-box;
   width: 100%;
-  max-width: calc(760px * var(--page-zoom, 1));
-  aspect-ratio: 0.58;
+  max-width: min(
+    calc(760px * var(--page-zoom, 1)),
+    calc((100dvh - 156px) * 0.68)
+  );
+  aspect-ratio: 0.68;
   margin-inline: auto;
   background: var(--page-paper);
   border: 1px solid var(--line);
   border-radius: var(--r-lg);
-  padding: 3.6% 7.6% 1.2%;
+  padding: 2.2% 7.6% 1.2%;
   box-shadow: var(--shadow-rest);
   user-select: none;
   -webkit-user-select: none;
@@ -558,10 +562,16 @@ textarea:focus-visible {
   touch-action: pan-y pinch-zoom;
 }
 .page-special {
-  max-width: calc(760px * var(--page-zoom, 1));
+  max-width: min(
+    calc(760px * var(--page-zoom, 1)),
+    calc((100dvh - 156px) * 0.68)
+  );
 }
 .page.page-split {
-  max-width: calc(1100px * var(--page-zoom, 1));
+  max-width: min(
+    calc(1100px * var(--page-zoom, 1)),
+    calc((100dvh - 156px) * 1.24)
+  );
   aspect-ratio: 1.24;
   padding: 2.6% 4% 0.9%;
 }
@@ -613,14 +623,18 @@ textarea:focus-visible {
   display: grid;
   grid-template-rows: repeat(15, minmax(0, 1fr));
   min-height: 0;
-  padding-block: 4.2% 0;
+  padding-block: 2% 0;
+}
+.page-short-layout:not(.page-split) .mushaf-lines {
+  grid-template-rows: repeat(8, calc(100% / 15));
+  align-content: center;
 }
 .m-line {
   direction: rtl;
   align-self: center;
   min-width: 0;
-  font-family: var(--quran);
-  font-size: clamp(21px, 2.5vw, 31px);
+  font-size: 4.86cqi;
+  font-weight: 400;
   line-height: 1;
   color: var(--mushaf-ink);
   white-space: nowrap;
@@ -634,7 +648,7 @@ textarea:focus-visible {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.42em;
+  gap: 0;
 }
 .m-line-basmala {
   display: flex;
@@ -642,26 +656,24 @@ textarea:focus-visible {
   align-self: center;
   justify-content: center;
   gap: 0.4em;
-  font-size: clamp(17px, 2vw, 24px);
+  font-family: var(--quran);
+  font-size: 3.9cqi;
   color: color-mix(in srgb, var(--mushaf-ink) 82%, var(--page-paper));
 }
 .m-word {
   position: relative;
+  display: inline-block;
+  line-height: 1;
 }
 .m-ornament {
   pointer-events: none;
 }
 .ayah-num {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 1.25em;
-  height: 1.25em;
-  box-sizing: border-box;
-  border: 0;
-  border-radius: 0;
-  color: color-mix(in srgb, var(--mushaf-ink) 72%, var(--page-paper));
-  font-size: 0.82em;
+  display: inline-block;
+  width: auto;
+  height: auto;
+  color: inherit;
+  font-size: 1em;
   line-height: 1;
   pointer-events: none;
 }
@@ -673,8 +685,8 @@ textarea:focus-visible {
   align-items: center;
   justify-content: center;
   align-self: center;
-  height: 78%;
-  min-height: 32px;
+  height: 72%;
+  min-height: 0;
   margin: 0;
   color: var(--mushaf-ink);
 }
@@ -697,9 +709,16 @@ textarea:focus-visible {
 .surah-band-title {
   position: relative;
   font-family: var(--quran);
-  font-size: clamp(15px, 2.8vw, 24px);
+  font-size: 3.9cqi;
   line-height: 1;
   padding: 0 18px;
+}
+.page-split .m-line {
+  font-size: 2.36cqi;
+}
+.page-split .m-line-basmala,
+.page-split .surah-band-title {
+  font-size: 1.9cqi;
 }
 /* Juz label at top of page */
 .juz-label {
@@ -890,7 +909,7 @@ textarea:focus-visible {
   top: var(--ink-top);
   width: var(--ink-width);
   height: var(--ink-height);
-  border-radius: 1px;
+  border-radius: 3px;
   pointer-events: none;
   background: transparent;
   mix-blend-mode: multiply;
@@ -931,7 +950,7 @@ textarea:focus-visible {
 .glyph-ink {
   position: absolute;
   pointer-events: none;
-  border-radius: 1px;
+  border-radius: 3px;
   transition: background-color var(--t-fast) var(--ease-out);
   mix-blend-mode: multiply;
 }

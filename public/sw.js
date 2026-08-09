@@ -6,10 +6,16 @@
  * JavaScript (no TypeScript annotations; browsers parse it directly).
  */
 
-const CACHE_VERSION = 3;
+const CACHE_VERSION = 4;
 const STATIC_CACHE = "tahqeeq-static-v" + CACHE_VERSION;
 
-const FONT_URLS = ["/fonts/hafs.18.woff2", "/fonts/InterVariable.woff2"];
+const QCF_DEFAULT_FONT =
+  "https://static.qurancdn.com/fonts/quran/hafs/v2/woff2/p604.woff2";
+const FONT_URLS = [
+  "/fonts/hafs.18.woff2",
+  "/fonts/InterVariable.woff2",
+  QCF_DEFAULT_FONT,
+];
 
 const PRECACHE_URLS = FONT_URLS.concat(["/pages/p604.json"]);
 
@@ -56,7 +62,17 @@ self.addEventListener("fetch", (event) => {
   const request = event.request;
   const url = new URL(request.url);
 
-  if (request.method !== "GET" || url.origin !== self.location.origin) return;
+  if (request.method !== "GET") return;
+
+  const isQcfFont =
+    url.origin === "https://static.qurancdn.com" &&
+    url.pathname.startsWith("/fonts/quran/hafs/v2/woff2/");
+  if (isQcfFont) {
+    event.respondWith(cacheFirst(request));
+    return;
+  }
+
+  if (url.origin !== self.location.origin) return;
 
   // Fonts & page JSONs → cache-first (immutable content)
   if (url.pathname.startsWith("/fonts/") || url.pathname.startsWith("/pages/")) {

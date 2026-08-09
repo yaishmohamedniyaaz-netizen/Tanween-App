@@ -4,20 +4,34 @@ import { isNonRecitationWord } from "./tokenize";
 
 export interface PageWord {
   wid: string; // stable word address: "<surah>.<ayah|b>.<index>"
-  text: string;
+  text: string; // semantic QPC Hafs text used by the connected letter rail
+  glyph?: string; // page-specific KFGQPC V2 glyph used on the Mushaf
   surah: number;
   ayah: number | null; // null === basmala
   role: TokenRole;
 }
 
 export type PageLine =
-  | { n: number; type: "surah-header"; surah: number; nameAr: string }
-  | { n: number; type: "basmala"; surah: number; words: PageWord[] }
-  | { n: number; type: "ayah"; words: PageWord[] };
+  | {
+      n: number;
+      type: "surah-header";
+      centered: true;
+      surah: number;
+      nameAr: string;
+    }
+  | {
+      n: number;
+      type: "basmala";
+      centered: true;
+      surah: number;
+      words: PageWord[];
+    }
+  | { n: number; type: "ayah"; centered: boolean; words: PageWord[] };
 
 export interface MushafPage {
   page: number;
-  special?: boolean;
+  font: "qcf-v2";
+  layout?: string;
   lines: PageLine[];
 }
 
@@ -26,12 +40,14 @@ const pageCache = new Map<number, MushafPage>();
 function castPage(data: any): MushafPage {
   return {
     page: data.page,
-    special: data.special,
+    font: "qcf-v2",
+    layout: data.layout,
     lines: data.lines.map((l: any) => {
       if (l.type === "surah-header") {
         return {
           n: l.n,
           type: "surah-header",
+          centered: true,
           surah: l.surah as number,
           nameAr: (l as { nameAr?: string }).nameAr ?? "",
         };
@@ -39,6 +55,7 @@ function castPage(data: any): MushafPage {
       const words = (l.words ?? []).map((w: any) => ({
         wid: w.wid,
         text: w.text,
+        glyph: w.glyph,
         surah: w.surah,
         ayah: w.ayah ?? null,
         role:
@@ -47,8 +64,19 @@ function castPage(data: any): MushafPage {
             : (w.role as TokenRole),
       }));
       return l.type === "basmala"
-        ? { n: l.n, type: "basmala", surah: l.surah as number, words }
-        : { n: l.n, type: "ayah", words };
+        ? {
+            n: l.n,
+            type: "basmala",
+            centered: true,
+            surah: l.surah as number,
+            words,
+          }
+        : {
+            n: l.n,
+            type: "ayah",
+            centered: Boolean(l.centered),
+            words,
+          };
     }),
   };
 }

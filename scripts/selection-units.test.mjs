@@ -85,5 +85,7 @@ test("all 604 pages produce complete, ordered and legacy-compatible units", () =
   }
   assert.ok(auditedWords > 77_000);
   assert.ok(mergedAllahForms > 2_600);
-  assert.equal(encodedHamzas, 491);
+  // Exact baseline for the complete QPC Hafs semantic text paired with the
+  // KFGQPC V2 1421H page layout.
+  assert.equal(encodedHamzas, 495);
 });

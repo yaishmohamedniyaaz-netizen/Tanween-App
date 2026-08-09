@@ -62,7 +62,7 @@ export function MistakeLog() {
       </div>
 
       {ordered.length === 0 ? (
-        <p className="empty">Press and hold a letter on the page to mark one.</p>
+        <p className="empty">Press and hold a word, then choose its exact letter.</p>
       ) : (
         <ul className="log">
           {visible.map((m) => {

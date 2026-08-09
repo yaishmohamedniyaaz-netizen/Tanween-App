@@ -1,91 +1,77 @@
 # Tahqeeq
 
-A web app for judging Quran recitation competitions — built around **pinpointing**: the
-judge marks the exact letter (or mark) on a real-looking mushaf page, with gradual
-per-category deductions, producing a transparent, reviewable record instead of a number
-that lives only in the judge's head.
-
-This repo is the **first prototype**: single judge, desktop + mouse, three short surahs
-(Al-Ikhlāṣ, Al-Falaq, An-Nās) on a mushaf page, every letter pressable, the
-press-hold-drag-release gesture, the three scoring categories, live scores, a mistake log,
-and a notes box. It records what the judge calls — it does not detect correctness itself.
+Tahqeeq is a web app for judging Quran recitation competitions. A judge marks an
+exact letter within a kalimah, assigns a mistake category, and gets a transparent,
+reviewable score and mistake log.
 
 ## Run it
 
 ```bash
-npm install          # install deps
-npm run data         # (re)generate src/data/surahs.json from the Hafs v18 source
-npm run dev          # start the dev server at http://localhost:5173
+npm install
+npm run data
+npm run dev
 ```
 
-`npm run build` produces a production bundle in `dist/`.
+`npm run build` creates the production bundle in `dist/`.
 
-## How the mushaf + hitboxes work (the key decision)
+## Mushaf rendering
 
-The page is **rendered text in the KFGQPC Uthmanic Hafs v18 font**, not an image of a
-printed page. This was the central design choice:
+The reader uses the complete 604-page KFGQPC V2 1421H Mushaf layout. Each page is
+rendered with its matching QCF V2 page font and Quran.com/Quran Foundation word
+glyphs. The page geometry is fixed: changing the viewer zoom scales the composed
+page instead of reflowing its ayah lines.
 
-- The font + its matching Unicode text (`thetruetruth/quran-data-kfgqpc`, Hafs v18) keeps
-  the authentic connected script. Selection is driven by semantic **judging units**, not
-  raw Unicode graphemes: special hamza encodings, small vowel letters, combining marks,
-  ligatures, and the Allah form are normalized in `src/lib/judgingUnits.ts` before their
-  contextual ranges are measured in `src/components/Mushaf.tsx`.
-- An image of the printed page would instead need fragile, inconsistent computer-vision or
-  by-hand hitboxing per page — exactly the cost the vision wanted to avoid.
-- Trade-off: rendered text is not pixel-identical to one specific printed Madani page. For
-  the prototype that is irrelevant; it still renders in the authentic mushaf font. Exact
-  full-page fidelity (QPC v1/v2 page-glyph fonts, word-level) is a later layer.
+The generated files in `public/pages/` contain two complementary representations:
 
-The hitboxes are a transparent overlay (`.hit-layer`) above the shaped text. Each point
-within a word belongs to one non-overlapping judging unit. Old grapheme-based saved marks
-remain addressable through legacy aliases.
+- the page-specific QCF glyph, used for the faithful connected-script rendering;
+- the semantic Uthmani word text, used to build stable judging units and labels.
 
-## The gesture
+Surah headings, basmalahs, centered short-surah lines, ayah-marker glyphs, and line
+numbers come from the QUL KFGQPC V2 Mushaf layout rather than being inferred from
+browser wrapping.
 
-Press (or tap) a letter → a magnified word selector confirms the exact judging unit → drag
-onto a category and release to commit. A tap pins the selector so the unit and category can
-be chosen independently. The menu is rendered synchronously on press (`flushSync`) so fast
-touch drags work; hover is detected with `elementFromPoint`. Escape cancels.
+## Kalimah and letter selection
+
+The source page has one hit target per visible kalimah. Holding or tapping a word
+selects the whole source word and opens the connected letter rail. The judge then
+chooses the exact letter or mark in that rail before committing Laḥn Jalī, Laḥn
+Khafī, or Faṣāḥa.
+
+This separation is intentional: the authoritative page glyph remains visually
+solid and cannot be broken apart by browser text measurement, while the semantic
+rail can still isolate Allah forms, hamzah combinations, small letters, and other
+judging units reliably. Stable word IDs preserve existing saved marks.
+
+## Data generation
+
+`scripts/build-data.mjs` rebuilds all 604 page files from Quran Foundation's QDC
+page-word data and the corresponding QUL layout metadata. Matching QCF page fonts
+are loaded on demand and adjacent page data/fonts are prefetched.
 
 ## Scoring
 
-Three categories, each with a starting allocation and a per-mark deduction step,
-**adjustable per competition** (the "Marks" button in the score panel):
-
-| Category    | Default start | Default step |
-| ----------- | ------------- | ------------ |
-| Laḥn Jalī   | 30            | 2            |
-| Laḥn Khafī  | 20            | 1            |
-| Faṣāḥa      | 10            | 0.5          |
-
-Each pinpoint deducts the step; deductions are adjustable per entry in the log. State
-persists to `localStorage`; "Print" produces a clean result sheet; "New reciter" clears.
+The three mistake categories have configurable allocations and deduction steps.
+Each committed pinpoint is recorded in the mistake log, can be adjusted or undone,
+and persists locally. Printing produces a result sheet; starting a new reciter
+clears the active record.
 
 ## Project structure
 
+```text
+public/pages/                 generated 604-page Mushaf dataset
+scripts/build-data.mjs        authoritative page-data generator
+scripts/solid-mushaf.test.mjs full-dataset and architecture audit
+src/components/Mushaf.tsx     fixed page renderer and word interaction
+src/components/DragMenu.tsx   connected exact-letter rail and category gesture
+src/lib/judgingUnits.ts       semantic letter/mark isolation
+src/lib/qcfFont.ts            page-specific QCF font loader and preloader
+src/state/store.tsx           scoring and persistence
+src/styles/global.css         responsive reader and judging UI
 ```
-public/fonts/hafs.18.woff2     KFGQPC Uthmanic Hafs v18 (see licensing)
-scripts/build-data.mjs         extracts surahs 112–114 + Basmala -> src/data/surahs.json
-src/data/surahs.json           generated text data
-src/lib/                       page model, judging-unit tokenizer, scoring, ids
-src/state/store.tsx            reducer + context + persistence
-src/components/                Mushaf, DragMenu, ScorePanel, MistakeLog, NotesBox, Header, ResultSheet
-src/styles/global.css          design system
-```
 
-## Scope
+## Licensing
 
-**Done (prototype):** single judge; desktop/mouse; 3 surahs; letter + mark hitboxes;
-press-hold-drag-release; categories; live scores + configurable increments; mistake log
-with adjust/undo; notes; print result sheet; per-reciter reset; persistence.
-
-**Later:** statistics/accountability across islands & classes; multiple judges; Jali/Khafi
-guidance layer; deeper mistake-type capture; AI-ordered mistake menu; full mushaf coverage;
-tablet & pen.
-
-## Licensing note
-
-The mushaf font and text are from the King Fahd Glorious Qur'an Printing Complex (KFGQPC),
-distributed via `thetruetruth/quran-data-kfgqpc` / the Quranic Universal Library (QUL). Any
-distribution of this app must comply with KFGQPC and QUL terms for those assets. App code
-in this repo is separate.
+The Mushaf layout, Quran text, and page-specific glyph fonts originate from the
+King Fahd Glorious Qur'an Printing Complex resources exposed through QUL and Quran
+Foundation services. Distribution must comply with the applicable KFGQPC, QUL, and
+Quran Foundation terms. The application code is separate.

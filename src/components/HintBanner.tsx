@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useJudging } from "../state/store";
 import { Icon } from "./Icon";
 
-const KEY = "tahqeeq.hintSeen.connectedRail.v1";
+const KEY = "tahqeeq.hintSeen.connectedRail.v2";
 
 /** A subtle, dismissible coach tip for the connected letter-to-category path.
  *  Shows only on a clean slate (no marks yet) until dismissed once. */
@@ -24,8 +24,9 @@ export function HintBanner() {
         <Icon name="pointer" size={16} />
       </span>
       <span className="hint-banner-copy">
-        <strong>Hold a letter</strong>, confirm it in the rail, then slide through
-        Jali, Khafi, or Fasaha and release — or tap each step.
+        <strong>Hold a word</strong>, choose the exact letter in the connected
+        rail, then slide through Jali, Khafi, or Fasaha and release — or tap
+        each step.
       </span>
       <button
         type="button"
