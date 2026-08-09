@@ -35,12 +35,40 @@ export interface MushafPage {
   lines: PageLine[];
 }
 
+/** Version boundary for page JSON and its service-worker cache entries. */
+export const MUSHAF_DATA_VERSION = "v1-1405-r1";
+export const MUSHAF_LAYOUT = "KFGQPC V1 1405H";
+
 const pageCache = new Map<number, MushafPage>();
 
-function castPage(data: any): MushafPage {
+export function pageAssetUrl(page: number): string {
+  return `/pages/p${page}.json?v=${MUSHAF_DATA_VERSION}`;
+}
+
+function assertPageContract(data: any, expectedPage?: number): void {
+  if (!data || typeof data !== "object") {
+    throw new Error("Mushaf page response is not an object");
+  }
+  if (expectedPage !== undefined && data.page !== expectedPage) {
+    throw new Error(
+      `Mushaf page response mismatch: expected ${expectedPage}, received ${data.page}`,
+    );
+  }
+  if (data.font !== "qcf-v1" || data.layout !== MUSHAF_LAYOUT) {
+    throw new Error(
+      `Unsupported Mushaf page contract: ${String(data.font)} / ${String(data.layout)}`,
+    );
+  }
+  if (!Array.isArray(data.lines) || data.lines.length === 0) {
+    throw new Error("Mushaf page has no layout lines");
+  }
+}
+
+function castPage(data: any, expectedPage?: number): MushafPage {
+  assertPageContract(data, expectedPage);
   return {
     page: data.page,
-    font: "qcf-v1",
+    font: data.font,
     layout: data.layout,
     lines: data.lines.map((l: any) => {
       if (l.type === "surah-header") {
@@ -87,10 +115,10 @@ pageCache.set(604, castPage(staticPage604));
 
 export async function loadPage(page: number): Promise<MushafPage> {
   if (pageCache.has(page)) return pageCache.get(page)!;
-  const res = await fetch(`/pages/p${page}.json`);
+  const res = await fetch(pageAssetUrl(page));
   if (!res.ok) throw new Error(`Failed to load page ${page}: ${res.status}`);
   const raw = await res.json();
-  const parsed = castPage(raw);
+  const parsed = castPage(raw, page);
   pageCache.set(page, parsed);
   return parsed;
 }

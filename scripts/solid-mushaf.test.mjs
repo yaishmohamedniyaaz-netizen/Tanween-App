@@ -11,6 +11,18 @@ const qcfFontSource = fs.readFileSync(
   new URL("../src/lib/qcfFont.ts", import.meta.url),
   "utf8",
 );
+const pageSource = fs.readFileSync(
+  new URL("../src/lib/page.ts", import.meta.url),
+  "utf8",
+);
+const serviceWorkerSource = fs.readFileSync(
+  new URL("../public/sw.js", import.meta.url),
+  "utf8",
+);
+const mushafStyleSource = fs.readFileSync(
+  new URL("../src/styles/global.css", import.meta.url),
+  "utf8",
+);
 
 test("the source Mushaf selects one whole kalimah before exact rail choice", () => {
   assert.match(mushafSource, /interface WordHitbox/);
@@ -19,6 +31,8 @@ test("the source Mushaf selects one whole kalimah before exact rail choice", () 
   assert.doesNotMatch(mushafSource, /buildClusterGeometry/);
   assert.doesNotMatch(mushafSource, /document\.createRange/);
   assert.match(mushafSource, /closest\("\.page-marginalia"\)/);
+  assert.match(mushafSource, /page-opening-layout/);
+  assert.match(mushafStyleSource, /\.page-opening-layout:not\(\.page-split\)/);
 });
 
 test("QCF page fonts are loaded before a page is declared ready", () => {
@@ -26,6 +40,24 @@ test("QCF page fonts are loaded before a page is declared ready", () => {
   assert.match(qcfFontSource, /await face\.load\(\)/);
   assert.match(qcfFontSource, /document\.fonts\.add/);
   assert.doesNotMatch(qcfFontSource, /document\.fonts\.check/);
+  assert.match(qcfFontSource, /QCF_FONT_VERSION = "3\.1"/);
+  assert.match(qcfFontSource, /p\$\{page\}\.woff2\?v=\$\{QCF_FONT_VERSION\}/);
+});
+
+test("V1 page data cannot collide with legacy cached V2 assets", () => {
+  assert.match(pageSource, /MUSHAF_DATA_VERSION = "v1-1405-r1"/);
+  assert.match(pageSource, /pageAssetUrl\(page\)/);
+  assert.match(pageSource, /fetch\(pageAssetUrl\(page\)\)/);
+  assert.match(pageSource, /data\.font !== "qcf-v1"/);
+  assert.match(pageSource, /data\.layout !== MUSHAF_LAYOUT/);
+
+  assert.match(serviceWorkerSource, /CACHE_VERSION = "v1-1405-r1"/);
+  assert.match(serviceWorkerSource, /pages\/p604\.json\?v=v1-1405-r1/);
+  assert.match(
+    serviceWorkerSource,
+    /static-cdn\.tarteel\.ai.*v1-optimized\/woff2/s,
+  );
+  assert.doesNotMatch(serviceWorkerSource, /static\.qurancdn\.com/);
 });
 
 test("all 604 pages use fixed KFGQPC V1 1405H glyph and QUL line metadata", () => {

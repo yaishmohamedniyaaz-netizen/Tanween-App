@@ -631,6 +631,10 @@ textarea:focus-visible {
   grid-template-rows: repeat(8, calc(100% / 15));
   align-content: center;
 }
+.page-opening-layout:not(.page-split) .mushaf-lines {
+  grid-template-rows: repeat(8, minmax(0, 1fr));
+  align-content: stretch;
+}
 .m-line {
   direction: rtl;
   align-self: center;

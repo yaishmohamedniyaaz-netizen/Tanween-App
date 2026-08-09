@@ -1,5 +1,6 @@
 const QCF_FONT_BASE =
   "https://static-cdn.tarteel.ai/qul/fonts/quran_fonts/v1-optimized/woff2";
+const QCF_FONT_VERSION = "3.1";
 
 const fontPromises = new Map<number, Promise<string>>();
 
@@ -8,7 +9,7 @@ export function qcfFontFamily(page: number): string {
 }
 
 export function qcfFontUrl(page: number): string {
-  return `${QCF_FONT_BASE}/p${page}.woff2`;
+  return `${QCF_FONT_BASE}/p${page}.woff2?v=${QCF_FONT_VERSION}`;
 }
 
 /** Load one immutable KFGQPC V1 (1405H) page font and return its CSS family. */

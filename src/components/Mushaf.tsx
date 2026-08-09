@@ -592,7 +592,7 @@ export function Mushaf({
   return (
     <div className="mushaf-scroll">
       <div
-        className={`page page-solid-mushaf ${pageData.lines.length < 15 ? "page-short-layout" : ""} ${pageLayout === "split" ? "page-split" : ""}`}
+        className={`page page-solid-mushaf ${pageData.page <= 2 ? "page-opening-layout" : pageData.lines.length < 15 ? "page-short-layout" : ""} ${pageLayout === "split" ? "page-split" : ""}`}
         ref={pageRef}
         data-page={pageData.page}
         data-font-ready={qcfReady ? "true" : "false"}

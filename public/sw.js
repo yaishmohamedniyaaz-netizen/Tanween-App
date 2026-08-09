@@ -6,18 +6,18 @@
  * JavaScript (no TypeScript annotations; browsers parse it directly).
  */
 
-const CACHE_VERSION = 4;
-const STATIC_CACHE = "tahqeeq-static-v" + CACHE_VERSION;
+const CACHE_VERSION = "v1-1405-r1";
+const STATIC_CACHE = "tahqeeq-static-" + CACHE_VERSION;
 
 const QCF_DEFAULT_FONT =
-  "https://static.qurancdn.com/fonts/quran/hafs/v2/woff2/p604.woff2";
+  "https://static-cdn.tarteel.ai/qul/fonts/quran_fonts/v1-optimized/woff2/p604.woff2?v=3.1";
 const FONT_URLS = [
   "/fonts/hafs.18.woff2",
   "/fonts/InterVariable.woff2",
   QCF_DEFAULT_FONT,
 ];
 
-const PRECACHE_URLS = FONT_URLS.concat(["/pages/p604.json"]);
+const PRECACHE_URLS = FONT_URLS.concat(["/pages/p604.json?v=v1-1405-r1"]);
 
 // Install: precache everything; individual failures are logged, not fatal.
 self.addEventListener("install", (event) => {
@@ -65,8 +65,8 @@ self.addEventListener("fetch", (event) => {
   if (request.method !== "GET") return;
 
   const isQcfFont =
-    url.origin === "https://static.qurancdn.com" &&
-    url.pathname.startsWith("/fonts/quran/hafs/v2/woff2/");
+    url.origin === "https://static-cdn.tarteel.ai" &&
+    url.pathname.startsWith("/qul/fonts/quran_fonts/v1-optimized/woff2/");
   if (isQcfFont) {
     event.respondWith(cacheFirst(request));
     return;
