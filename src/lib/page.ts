@@ -5,7 +5,7 @@ import { isNonRecitationWord } from "./tokenize";
 export interface PageWord {
   wid: string; // stable word address: "<surah>.<ayah|b>.<index>"
   text: string; // semantic QPC Hafs text used by the connected letter rail
-  glyph?: string; // page-specific KFGQPC V2 glyph used on the Mushaf
+  glyph?: string; // page-specific KFGQPC V1 glyph used on the Mushaf
   surah: number;
   ayah: number | null; // null === basmala
   role: TokenRole;
@@ -30,7 +30,7 @@ export type PageLine =
 
 export interface MushafPage {
   page: number;
-  font: "qcf-v2";
+  font: "qcf-v1";
   layout?: string;
   lines: PageLine[];
 }
@@ -40,7 +40,7 @@ const pageCache = new Map<number, MushafPage>();
 function castPage(data: any): MushafPage {
   return {
     page: data.page,
-    font: "qcf-v2",
+    font: "qcf-v1",
     layout: data.layout,
     lines: data.lines.map((l: any) => {
       if (l.type === "surah-header") {

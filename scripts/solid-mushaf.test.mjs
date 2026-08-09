@@ -28,7 +28,7 @@ test("QCF page fonts are loaded before a page is declared ready", () => {
   assert.doesNotMatch(qcfFontSource, /document\.fonts\.check/);
 });
 
-test("all 604 pages use fixed KFGQPC V2 glyph and QUL line metadata", () => {
+test("all 604 pages use fixed KFGQPC V1 1405H glyph and QUL line metadata", () => {
   const pageFiles = fs
     .readdirSync("public/pages")
     .filter((name) => /^p\d+\.json$/.test(name));
@@ -42,8 +42,8 @@ test("all 604 pages use fixed KFGQPC V2 glyph and QUL line metadata", () => {
     const page = JSON.parse(
       fs.readFileSync(path.join("public/pages", pageFile), "utf8"),
     );
-    assert.equal(page.font, "qcf-v2", pageFile);
-    assert.equal(page.layout, "KFGQPC V2 1421H", pageFile);
+    assert.equal(page.font, "qcf-v1", pageFile);
+    assert.equal(page.layout, "KFGQPC V1 1405H", pageFile);
     assert.ok(page.lines.length > 0 && page.lines.length <= 15, pageFile);
     assert.equal(
       new Set(page.lines.map((line) => line.n)).size,
@@ -76,7 +76,7 @@ test("all 604 pages use fixed KFGQPC V2 glyph and QUL line metadata", () => {
 
   assert.ok(semanticWords > 77_000);
   assert.ok(glyphWords > 77_000);
-  assert.equal(centeredLines, 30);
+  assert.equal(centeredLines, 20);
   assert.equal(ornaments, 208);
 });
 
@@ -93,7 +93,7 @@ test("opening and closing Mushaf pages preserve their authoritative structures",
   assert.deepEqual(page604.lines.map((line) => line.n), [
     1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
   ]);
-  assert.equal(page604.lines.find((line) => line.n === 4).centered, true);
   assert.equal(page604.lines.find((line) => line.n === 9).centered, true);
+  assert.equal(page604.lines.find((line) => line.n === 14).centered, true);
   assert.equal(page604.lines.find((line) => line.n === 15).centered, true);
 });

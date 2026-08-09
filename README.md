@@ -16,9 +16,9 @@ npm run dev
 
 ## Mushaf rendering
 
-The reader uses the complete 604-page KFGQPC V2 1421H Mushaf layout. Each page is
-rendered with its matching QCF V2 page font and Quran.com/Quran Foundation word
-glyphs. The page geometry is fixed: changing the viewer zoom scales the composed
+The reader uses the complete 604-page KFGQPC V1 1405H Madani Mushaf layout. Each
+page is rendered with its matching QPC V1 page font and the exact QUL V1 glyph
+stream. The page geometry is fixed: changing the viewer zoom scales the composed
 page instead of reflowing its ayah lines.
 
 The generated files in `public/pages/` contain two complementary representations:
@@ -27,7 +27,7 @@ The generated files in `public/pages/` contain two complementary representations
 - the semantic Uthmani word text, used to build stable judging units and labels.
 
 Surah headings, basmalahs, centered short-surah lines, ayah-marker glyphs, and line
-numbers come from the QUL KFGQPC V2 Mushaf layout rather than being inferred from
+numbers come from the QUL KFGQPC V1 Mushaf layout rather than being inferred from
 browser wrapping.
 
 ## Kalimah and letter selection
@@ -44,9 +44,11 @@ judging units reliably. Stable word IDs preserve existing saved marks.
 
 ## Data generation
 
-`scripts/build-data.mjs` rebuilds all 604 page files from Quran Foundation's QDC
-page-word data and the corresponding QUL layout metadata. Matching QCF page fonts
-are loaded on demand and adjacent page data/fonts are prefetched.
+`scripts/build-data.mjs` rebuilds all 604 page files from Quran Foundation's
+semantic word data and the paired QUL V1 layout and word-glyph resources. The
+generator aligns the actual V1 glyph stream rather than inheriting V2 page or line
+boundaries. Matching QPC V1 page fonts are loaded on demand and adjacent page
+data/fonts are prefetched.
 
 ## Scoring
 

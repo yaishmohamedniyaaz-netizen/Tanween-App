@@ -1,17 +1,17 @@
 const QCF_FONT_BASE =
-  "https://static.qurancdn.com/fonts/quran/hafs/v2/woff2";
+  "https://static-cdn.tarteel.ai/qul/fonts/quran_fonts/v1-optimized/woff2";
 
 const fontPromises = new Map<number, Promise<string>>();
 
 export function qcfFontFamily(page: number): string {
-  return `TahqeeqQCFV2Page${page}`;
+  return `TahqeeqQCFV1Page${page}`;
 }
 
 export function qcfFontUrl(page: number): string {
   return `${QCF_FONT_BASE}/p${page}.woff2`;
 }
 
-/** Load one immutable KFGQPC V2 page font and return its CSS family name. */
+/** Load one immutable KFGQPC V1 (1405H) page font and return its CSS family. */
 export function loadQcfPageFont(page: number): Promise<string> {
   const cached = fontPromises.get(page);
   if (cached) return cached;
