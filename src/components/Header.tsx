@@ -4,6 +4,10 @@ import { downloadRecordsCSV, downloadSessionJSON } from "../lib/exportSession";
 import { useOfflineStatus } from "../hooks/useOfflineStatus";
 import { Icon } from "./Icon";
 import { ThemeToggle } from "./ThemeToggle";
+import {
+  downloadStateBackup,
+  readStateBackupFile,
+} from "../lib/resultPackages";
 
 interface Props {
   view: "judge" | "records";
@@ -34,7 +38,7 @@ export function Header({
   onPageLayoutCommit,
   onJudgeRailSideChange,
 }: Props) {
-  const { state } = useJudging();
+  const { state, dispatch } = useJudging();
   const sw = useOfflineStatus();
   const [menuOpen, setMenuOpen] = useState(false);
   const [menuMode, setMenuMode] = useState<
@@ -45,6 +49,7 @@ export function Header({
   const [layoutDraft, setLayoutDraft] = useState(pageLayout);
   const [layoutOriginal, setLayoutOriginal] = useState(pageLayout);
   const menuRef = useRef<HTMLDivElement>(null);
+  const restoreRef = useRef<HTMLInputElement>(null);
   const settingsChanged =
     zoomDraft !== zoomOriginal || layoutDraft !== layoutOriginal;
 
@@ -260,6 +265,57 @@ export function Header({
                 >
                   <Icon name="download" size={16} />
                   Export records (CSV)
+                </button>
+                <div className="overflow-sep" />
+                <button
+                  type="button"
+                  className="overflow-item"
+                  onClick={() => {
+                    setMenuOpen(false);
+                    downloadStateBackup(state);
+                  }}
+                >
+                  <Icon name="download" size={16} />
+                  Download full backup
+                </button>
+                <input
+                  ref={restoreRef}
+                  type="file"
+                  accept=".json,application/json"
+                  hidden
+                  onChange={async (event) => {
+                    const file = event.target.files?.[0];
+                    event.target.value = "";
+                    if (!file || state.sessionActive) return;
+                    try {
+                      const restored = await readStateBackupFile(file);
+                      if (
+                        window.confirm(
+                          "Replace the current local data with this backup? A fresh backup of the current data will download first.",
+                        )
+                      ) {
+                        downloadStateBackup(state);
+                        dispatch({ type: "LOAD", state: restored });
+                        setMenuOpen(false);
+                      }
+                    } catch (error) {
+                      window.alert(
+                        error instanceof Error
+                          ? error.message
+                          : "Could not restore that backup.",
+                      );
+                    }
+                  }}
+                />
+                <button
+                  type="button"
+                  className="overflow-item"
+                  disabled={state.sessionActive}
+                  title={state.sessionActive ? "Finish the active reciter before restoring" : undefined}
+                  onClick={() => restoreRef.current?.click()}
+                >
+                  <Icon name="settings" size={16} />
+                  Restore full backup
                 </button>
               </>
             ) : menuMode === "zoom" ? (

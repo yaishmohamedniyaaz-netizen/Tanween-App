@@ -30,11 +30,19 @@ import {
 import { uid } from "../lib/id";
 import { loadPage } from "../lib/page";
 import {
+  EMPTY_PARTICIPANT,
+  normalizeParticipant,
+  normalizeRosterEntry,
+} from "../lib/participants";
+import { EMPTY_COMPETITION, normalizeCompetition } from "../lib/competition";
+import {
   buildTargetMigrationPatches,
   type TargetMigrationPatches,
 } from "./migrateTargets";
 import type {
   CategoryId,
+  CompetitionConfig,
+  FinalizedResult,
   JudgeAssignmentSnapshot,
   JudgePanelConfig,
   JudgingEvent,
@@ -45,10 +53,9 @@ import type {
   SavedSession,
 } from "../types";
 
-const EMPTY_PARTICIPANT: Participant = { name: "", number: "", group: "" };
-
 const initialState: JudgingState = {
-  participant: EMPTY_PARTICIPANT,
+  competition: { ...EMPTY_COMPETITION },
+  participant: { ...EMPTY_PARTICIPANT },
   sessionActive: false,
   activeSessionId: null,
   activeStartedAt: null,
@@ -62,6 +69,7 @@ const initialState: JudgingState = {
   notes: "",
   history: [],
   roster: [],
+  finalizedResults: [],
 };
 
 /** Non-destructive checkpoint of the last pre-target-V2 browser state. */
@@ -76,6 +84,10 @@ export const PRE_LEDGER_BACKUP_KEY =
 export const PRE_JUDGE_ASSIGNMENTS_BACKUP_KEY =
   "tahqeeq.session.v1.backup.pre-judge-assignments-v1";
 
+/** Untouched state before participant schema and finalized results were added. */
+export const PRE_COMPETITION_RESULTS_BACKUP_KEY =
+  "tahqeeq.session.v1.backup.pre-competition-results-v1";
+
 type Action =
   | { type: "ADD_MISTAKE"; mistake: Mistake }
   | { type: "REMOVE_MISTAKE"; id: string }
@@ -85,12 +97,15 @@ type Action =
   | { type: "SET_CONFIG"; category: CategoryId; start?: number; step?: number }
   | { type: "SET_PANEL"; panel: JudgePanelConfig; deviceJudgeId: string }
   | { type: "SET_DEVICE_JUDGE"; judgeSeatId: string }
+  | { type: "SET_COMPETITION"; competition: CompetitionConfig }
   | { type: "SET_NOTES"; notes: string }
   | { type: "SET_PARTICIPANT"; patch: Partial<Participant> }
   | { type: "CLEAR_MARKS" }
   | { type: "DELETE_SESSION"; id: string }
   | { type: "CLEAR_HISTORY" }
   | { type: "LOAD_ROSTER"; entries: RosterEntry[] }
+  | { type: "IMPORT_SESSION"; session: SavedSession }
+  | { type: "UPSERT_FINAL_RESULT"; result: FinalizedResult }
   | { type: "CLEAR_ROSTER" }
   | { type: "START_RECITER"; participant: Participant }
   | { type: "FINISH_SESSION" }
@@ -113,6 +128,7 @@ function eventsWithAssignment(
     if (event.type === "session_started") {
       return {
         ...event,
+        participant: normalizeParticipant(event.participant),
         assignment: event.assignment
           ? normalizeAssignment(event.assignment, assignment.config)
           : assignment,
@@ -261,12 +277,18 @@ function reducer(state: JudgingState, action: Action): JudgingState {
         return state;
       }
       return { ...state, deviceJudgeId: action.judgeSeatId };
+    case "SET_COMPETITION":
+      if (state.sessionActive) return state;
+      return { ...state, competition: normalizeCompetition(action.competition) };
     case "SET_NOTES":
       return { ...state, notes: action.notes };
     case "SET_PARTICIPANT":
       return {
         ...state,
-        participant: { ...state.participant, ...action.patch },
+        participant: normalizeParticipant({
+          ...state.participant,
+          ...action.patch,
+        }),
       };
     case "CLEAR_MARKS": {
       const events = [...state.events];
@@ -289,7 +311,44 @@ function reducer(state: JudgingState, action: Action): JudgingState {
     case "CLEAR_HISTORY":
       return { ...state, history: [] };
     case "LOAD_ROSTER":
-      return { ...state, roster: action.entries };
+      return {
+        ...state,
+        roster: action.entries.map((entry) => normalizeRosterEntry(entry)),
+      };
+    case "IMPORT_SESSION": {
+      if (state.sessionActive) return state;
+      const incoming = normalizeSavedSession(action.session);
+      const existing = state.history.find((session) => session.id === incoming.id);
+      if (!existing) {
+        return { ...state, history: [incoming, ...state.history] };
+      }
+      if (JSON.stringify(existing) === JSON.stringify(incoming)) return state;
+      const conflictCopy: SavedSession = {
+        ...incoming,
+        id: `${incoming.id}:import:${uid("r")}`,
+        sourceSessionId: incoming.sourceSessionId ?? incoming.id,
+        importedAt: Date.now(),
+        conflictsWith: existing.id,
+      };
+      return { ...state, history: [conflictCopy, ...state.history] };
+    }
+    case "UPSERT_FINAL_RESULT":
+      return {
+        ...state,
+        finalizedResults: [
+          action.result,
+          ...state.finalizedResults.map((result) =>
+            result.id === action.result.id && !result.supersededAt
+              ? {
+                  ...result,
+                  id: `${result.id}:revision:${result.revision}`,
+                  supersededAt: action.result.finalizedAt,
+                  supersededByRevision: action.result.revision,
+                }
+              : result,
+          ),
+        ],
+      };
     case "CLEAR_ROSTER":
       return { ...state, roster: [] };
     case "START_RECITER": {
@@ -299,18 +358,19 @@ function reducer(state: JudgingState, action: Action): JudgingState {
         state.config,
       );
       if (!assignment) return state;
+      const participant = normalizeParticipant(action.participant);
       const sessionId = uid("s");
       const startedAt = Date.now();
       const events = seedLedgerEvents({
         sessionId,
-        participant: action.participant,
+        participant,
         startedAt,
         mistakes: [],
         assignment,
       });
       return {
         ...state,
-        participant: action.participant,
+        participant,
         sessionActive: true,
         activeSessionId: sessionId,
         activeStartedAt: startedAt,
@@ -363,12 +423,13 @@ function reducer(state: JudgingState, action: Action): JudgingState {
         ],
         roster: state.roster.map((entry) =>
           !entry.judged &&
-          entry.name === participant.name &&
-          entry.number === participant.number
+          (entry.id === participant.id ||
+            (entry.name === participant.name &&
+              entry.number === participant.number))
             ? { ...entry, judged: true }
             : entry,
         ),
-        participant: EMPTY_PARTICIPANT,
+        participant: { ...EMPTY_PARTICIPANT },
         sessionActive: false,
         activeSessionId: null,
         activeStartedAt: null,
@@ -447,7 +508,8 @@ function reducer(state: JudgingState, action: Action): JudgingState {
   }
 }
 
-function normalizeSavedSession(session: SavedSession): SavedSession {
+export function normalizeSavedSession(session: SavedSession): SavedSession {
+  const participant = normalizeParticipant(session.participant);
   const eventAssignment = session.events?.find(
     (event) => event.type === "session_started" && event.assignment,
   );
@@ -463,7 +525,7 @@ function normalizeSavedSession(session: SavedSession): SavedSession {
     ? session.events
     : seedLedgerEvents({
         sessionId: session.id,
-        participant: session.participant,
+        participant,
         startedAt,
         mistakes: session.mistakes,
         assignment,
@@ -502,6 +564,7 @@ function normalizeSavedSession(session: SavedSession): SavedSession {
   }
   return {
     ...session,
+    participant,
     startedAt,
     revision: session.revision ?? 1,
     ledgerVersion: LEDGER_VERSION,
@@ -528,10 +591,7 @@ export function normalizeLedgerState(
     ? parsed.deviceJudgeId!
     : panel.seats[0]?.id ?? "judge-1";
 
-  const participant = {
-    ...EMPTY_PARTICIPANT,
-    ...(parsed.participant ?? {}),
-  };
+  const participant = normalizeParticipant(parsed.participant);
   const legacyMistakes = parsed.mistakes ?? [];
   const sessionActive =
     parsed.sessionActive ??
@@ -578,6 +638,7 @@ export function normalizeLedgerState(
   return {
     ...initialState,
     ...parsed,
+    competition: normalizeCompetition(parsed.competition),
     participant,
     sessionActive,
     activeSessionId: sessionId,
@@ -590,7 +651,11 @@ export function normalizeLedgerState(
     deviceJudgeId: preferredJudge,
     mistakes: projectMistakes(events),
     history: (parsed.history ?? []).map(normalizeSavedSession),
-    roster: parsed.roster ?? [],
+    roster: (parsed.roster ?? []).map((entry) => normalizeRosterEntry(entry)),
+    finalizedResults: (parsed.finalizedResults ?? []).map((result) => ({
+      ...result,
+      participant: normalizeParticipant(result.participant),
+    })),
   };
 }
 
@@ -603,6 +668,7 @@ function loadInitial(): JudgingState {
       PRE_TARGET_V2_BACKUP_KEY,
       PRE_LEDGER_BACKUP_KEY,
       PRE_JUDGE_ASSIGNMENTS_BACKUP_KEY,
+      PRE_COMPETITION_RESULTS_BACKUP_KEY,
     ]) {
       if (!localStorage.getItem(key)) {
         try {

@@ -165,10 +165,11 @@ test("participant selection exposes the full judging-panel editor", () => {
   assert.match(appSource, /<div hidden=\{setupOpen\}>/);
 });
 
-test("scores and records identify their judge-section scope", () => {
-  assert.match(scoreSource, />Your section</);
+test("scores stay scoped without the unwanted live wording", () => {
+  assert.match(scoreSource, />Score</);
+  assert.doesNotMatch(scoreSource, /Your section/);
   assert.match(scoreSource, /categories\.includes\(category\.id\)/);
-  assert.match(recordsSource, /Average section score/);
+  assert.match(recordsSource, /Average score/);
   assert.match(recordsSource, /Judge-section result/);
   assert.match(recordsSource, /assignmentLabel/);
 });

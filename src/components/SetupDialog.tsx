@@ -6,7 +6,11 @@ import {
   judgeSeatFor,
   validateJudgePanel,
 } from "../lib/judgeAssignments";
-import { parseRosterFile } from "../lib/roster";
+import {
+  downloadParticipantTemplate,
+  parseRosterFile,
+  type RosterImportPreview,
+} from "../lib/roster";
 import { useJudging } from "../state/store";
 import type {
   CategoryId,
@@ -15,6 +19,7 @@ import type {
   ScoreConfig,
 } from "../types";
 import { Icon } from "./Icon";
+import { competitionIdFor } from "../lib/competition";
 
 const PRESETS: Array<{
   id: JudgePanelPreset;
@@ -54,6 +59,10 @@ export function SetupDialog({ onClose }: { onClose: () => void }) {
   const fileRef = useRef<HTMLInputElement>(null);
   const [error, setError] = useState<string | null>(null);
   const [loaded, setLoaded] = useState<number | null>(null);
+  const [rosterPreview, setRosterPreview] = useState<RosterImportPreview | null>(null);
+  const [templateBusy, setTemplateBusy] = useState(false);
+  const [competitionName, setCompetitionName] = useState(state.competition.name);
+  const [competitionEdition, setCompetitionEdition] = useState(state.competition.edition);
   const [panel, setPanel] = useState(() => clonePanel(state.panel));
   const [scoreConfig, setScoreConfig] = useState<ScoreConfig>(() => ({
     jali: { ...state.config.jali },
@@ -171,6 +180,15 @@ export function SetupDialog({ onClose }: { onClose: () => void }) {
         });
       });
       dispatch({ type: "SET_PANEL", panel, deviceJudgeId });
+      dispatch({
+        type: "SET_COMPETITION",
+        competition: {
+          version: 1,
+          id: competitionIdFor(competitionName, competitionEdition),
+          name: competitionName.trim(),
+          edition: competitionEdition.trim(),
+        },
+      });
     }
     onClose();
   };
@@ -178,12 +196,31 @@ export function SetupDialog({ onClose }: { onClose: () => void }) {
   const onFile = async (file: File | undefined) => {
     if (!file) return;
     setError(null);
+    setLoaded(null);
     try {
-      const entries = await parseRosterFile(file);
-      dispatch({ type: "LOAD_ROSTER", entries });
-      setLoaded(entries.length);
+      setRosterPreview(await parseRosterFile(file));
     } catch (caught) {
       setError(caught instanceof Error ? caught.message : "Could not read that file.");
+    }
+  };
+
+  const useRosterPreview = () => {
+    if (!rosterPreview?.entries.length) return;
+    dispatch({ type: "LOAD_ROSTER", entries: rosterPreview.entries });
+    setLoaded(rosterPreview.entries.length);
+    setRosterPreview(null);
+  };
+
+  const onDownloadTemplate = async () => {
+    if (templateBusy) return;
+    setTemplateBusy(true);
+    setError(null);
+    try {
+      await downloadParticipantTemplate();
+    } catch {
+      setError("Could not create the participant template.");
+    } finally {
+      setTemplateBusy(false);
     }
   };
 
@@ -212,6 +249,37 @@ export function SetupDialog({ onClose }: { onClose: () => void }) {
             <span className="setup-lock">Locked during this reciter</span>
           )}
         </div>
+
+        <section className="setup-section" aria-labelledby="competition-identity-title">
+          <div className="setup-section-head">
+            <div>
+              <span className="t-label" id="competition-identity-title">Competition</span>
+              <p>The same name and edition identify matching result files.</p>
+            </div>
+          </div>
+          <div className="competition-identity-fields">
+            <label>
+              <span>Name</span>
+              <input
+                type="text"
+                value={competitionName}
+                disabled={state.sessionActive}
+                placeholder="Competition name"
+                onChange={(event) => setCompetitionName(event.target.value)}
+              />
+            </label>
+            <label>
+              <span>Edition</span>
+              <input
+                type="text"
+                value={competitionEdition}
+                disabled={state.sessionActive}
+                placeholder="For example, 2026"
+                onChange={(event) => setCompetitionEdition(event.target.value)}
+              />
+            </label>
+          </div>
+        </section>
 
         <section className="setup-section" aria-labelledby="panel-setup-title">
           <div className="setup-section-head">
@@ -409,13 +477,30 @@ export function SetupDialog({ onClose }: { onClose: () => void }) {
         </section>
 
         <section className="setup-section setup-participants" aria-labelledby="participants-setup-title">
-          <span className="t-label" id="participants-setup-title">Participants</span>
+          <div className="setup-participants-head">
+            <div>
+              <span className="t-label" id="participants-setup-title">Participants</span>
+              <p>Use the Tahqeeq columns so category and Muqarrar stay reliable.</p>
+            </div>
+            <button
+              type="button"
+              className="btn-ghost participant-template-btn"
+              disabled={templateBusy}
+              onClick={onDownloadTemplate}
+            >
+              <Icon name="download" size={15} />
+              {templateBusy ? "Preparing…" : "Download template (.xlsx)"}
+            </button>
+          </div>
           <input
             ref={fileRef}
             type="file"
             accept=".xlsx,.xls,.csv"
             hidden
-            onChange={(event) => onFile(event.target.files?.[0])}
+            onChange={(event) => {
+              void onFile(event.target.files?.[0]);
+              event.currentTarget.value = "";
+            }}
           />
           <div
             className="file-drop"
@@ -434,8 +519,55 @@ export function SetupDialog({ onClose }: { onClose: () => void }) {
             <Icon name="upload" size={16} />{" "}
             {state.roster.length
               ? `${state.roster.length} participants loaded — replace list`
-              : "Upload .xlsx or .csv — Name, plus optional Number, Island or Class"}
+              : "Upload .xlsx or .csv — participant number, name, age group, category and Muqarrar"}
           </div>
+          {rosterPreview && (
+            <div className="roster-import-preview" role="status">
+              <div className="roster-import-summary">
+                <span>
+                  <strong>{rosterPreview.entries.length}</strong> ready
+                </span>
+                <span>
+                  <strong>{rosterPreview.issues.filter((issue) => issue.level === "error").length}</strong> rejected
+                </span>
+                <span>
+                  <strong>{rosterPreview.issues.filter((issue) => issue.level === "warning").length}</strong> warnings
+                </span>
+              </div>
+              {rosterPreview.filename && (
+                <p className="roster-import-file">{rosterPreview.filename}</p>
+              )}
+              {rosterPreview.issues.length > 0 && (
+                <ul className="roster-import-issues">
+                  {rosterPreview.issues.slice(0, 5).map((issue, index) => (
+                    <li className={`is-${issue.level}`} key={`${issue.row}-${index}`}>
+                      Row {issue.row}: {issue.message}
+                    </li>
+                  ))}
+                  {rosterPreview.issues.length > 5 && (
+                    <li>And {rosterPreview.issues.length - 5} more issues.</li>
+                  )}
+                </ul>
+              )}
+              <div className="roster-import-actions">
+                <button
+                  type="button"
+                  className="btn-ghost"
+                  onClick={() => setRosterPreview(null)}
+                >
+                  Cancel
+                </button>
+                <button
+                  type="button"
+                  className="btn-primary"
+                  disabled={!rosterPreview.entries.length}
+                  onClick={useRosterPreview}
+                >
+                  {state.roster.length ? "Replace participant list" : "Use participant list"}
+                </button>
+              </div>
+            </div>
+          )}
           {loaded !== null && <p className="setup-note">Loaded {loaded} participant{loaded === 1 ? "" : "s"}.</p>}
           {error && <p className="setup-warn">{error}</p>}
           {state.roster.length > 0 && (

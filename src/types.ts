@@ -1,4 +1,6 @@
 export type CategoryId = "jali" | "khafi" | "fasaha";
+export type ParticipantCategory = "" | "baliagen" | "nubalaa";
+export type MuqarrarSide = "" | "feshey-kolhu" | "nimey-kolhu";
 
 export interface CategoryDef {
   id: CategoryId;
@@ -132,17 +134,52 @@ export type JudgingEvent =
     };
 
 export interface Participant {
+  /** Stable local identity. Visible participant number remains separate. */
+  id: string;
   name: string;
   number: string;
-  group: string; // atoll / island / class — for the later stats layer
+  ageGroup: string;
+  category: ParticipantCategory;
+  muqarrar: MuqarrarSide;
+  phone: string;
+  institution: string;
 }
 
 /** One roster entry from an uploaded participant sheet. */
-export interface RosterEntry {
-  name: string;
-  number: string;
-  group: string;
+export interface RosterEntry extends Participant {
   judged: boolean;
+}
+
+export interface CompetitionConfig {
+  version: 1;
+  id: string;
+  name: string;
+  edition: string;
+}
+
+export interface FinalizedCategoryScore {
+  category: CategoryId;
+  score: number;
+  max: number;
+  sessionId: string;
+  sessionRevision: number;
+  judgeSeatId: string;
+  judgeName: string;
+}
+
+export interface FinalizedResult {
+  id: string;
+  participant: Participant;
+  revision: number;
+  finalizedAt: number;
+  revisionReason?: string;
+  byCategory: Record<CategoryId, FinalizedCategoryScore>;
+  total: number;
+  totalMax: number;
+  manifest: string;
+  /** Earlier revisions remain in the audit record but never enter rankings. */
+  supersededAt?: number;
+  supersededByRevision?: number;
 }
 
 /** A finished session, snapshotted into the local records/accountability layer. */
@@ -163,9 +200,13 @@ export interface SavedSession {
   notes: string;
   mistakes: Mistake[];
   events?: JudgingEvent[];
+  importedAt?: number;
+  sourceSessionId?: string;
+  conflictsWith?: string;
 }
 
 export interface JudgingState {
+  competition: CompetitionConfig;
   participant: Participant;
   /** false until a reciter has been chosen via the start dialog */
   sessionActive: boolean;
@@ -182,4 +223,5 @@ export interface JudgingState {
   notes: string; // free notes: Fasaha / voice & melody
   history: SavedSession[];
   roster: RosterEntry[];
+  finalizedResults: FinalizedResult[];
 }

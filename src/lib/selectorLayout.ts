@@ -1,6 +1,7 @@
 export const SELECTOR_MAX_WIDTH = 360;
 export const SELECTOR_CATEGORY_WIDTH = 164;
 export const SELECTOR_PICKER_MIN_WIDTH = 104;
+export const SELECTOR_SINGLE_PICKER_WIDTH = 52;
 export const SELECTOR_UNIT_WIDTH = 44;
 export const SELECTOR_UNIT_GAP = 2;
 export const SELECTOR_PICKER_PADDING = 8;
@@ -44,12 +45,14 @@ export function getSelectorWidths(
     0,
     Math.min(SELECTOR_MAX_WIDTH, viewportWidth - SELECTOR_VIEWPORT_GUTTER),
   );
-  const desiredPickerWidth = Math.max(
-    SELECTOR_PICKER_MIN_WIDTH,
-    safeUnitCount * SELECTOR_UNIT_WIDTH +
-      Math.max(0, safeUnitCount - 1) * SELECTOR_UNIT_GAP +
-      SELECTOR_PICKER_PADDING,
-  );
+  const desiredPickerWidth = safeUnitCount === 1
+    ? SELECTOR_SINGLE_PICKER_WIDTH
+    : Math.max(
+        SELECTOR_PICKER_MIN_WIDTH,
+        safeUnitCount * SELECTOR_UNIT_WIDTH +
+          Math.max(0, safeUnitCount - 1) * SELECTOR_UNIT_GAP +
+          SELECTOR_PICKER_PADDING,
+      );
   const pickerWidth = Math.min(availableWidth, desiredPickerWidth);
   const categoryWidth = Math.min(availableWidth, SELECTOR_CATEGORY_WIDTH);
 

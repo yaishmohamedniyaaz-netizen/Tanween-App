@@ -213,7 +213,7 @@ export function DragMenu({
       dir="rtl"
     >
       <div
-        className="unit-picker-row"
+        className={`unit-picker-row ${units.length === 1 ? "single-unit" : ""}`}
         role="radiogroup"
         aria-label="Choose exact letter"
       >
@@ -247,14 +247,19 @@ export function DragMenu({
       aria-label="Choose mistake type"
       aria-orientation="vertical"
     >
-      {categoryDefs.map((c, index) => (
+      {categoryDefs.map((c, index) => {
+        const edgeClasses = [
+          index === 0 ? "pill-inner" : "",
+          index === categoryDefs.length - 1 ? "pill-outer" : "",
+        ].filter(Boolean).join(" ");
+        return (
         <button
           key={c.id}
           type="button"
           role="menuitem"
           data-pill={c.id}
           data-path-index={index}
-          className={`pill cat-${c.id} ${fixedCategory ? "pill-fixed" : ""} ${hovered === c.id ? "active" : ""}`}
+          className={`pill cat-${c.id} ${edgeClasses} ${fixedCategory ? "pill-fixed" : ""} ${hovered === c.id ? "active" : ""}`}
           disabled={!targetSelected}
           aria-disabled={!targetSelected}
           aria-posinset={index + 1}
@@ -270,7 +275,8 @@ export function DragMenu({
           </span>
           <span className="pill-amt">−{config[c.id].step}</span>
         </button>
-      ))}
+        );
+      })}
     </div>
   );
 

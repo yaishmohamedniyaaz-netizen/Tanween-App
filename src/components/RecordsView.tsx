@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { CATEGORIES, CATEGORY_BY_ID } from "../config";
 import { computeRecords } from "../lib/stats";
 import { downloadRecordsCSV } from "../lib/exportSession";
@@ -8,14 +8,26 @@ import { JudgingHistory } from "./JudgingHistory";
 import { ReopenSessionDialog } from "./ReopenSessionDialog";
 import type { SavedSession } from "../types";
 import { assignmentLabel, judgeDisplayName } from "../lib/judgeAssignments";
+import { participantCategoryLabel } from "../lib/participants";
+import type { ParticipantCategory } from "../types";
+import {
+  downloadJudgeResultPackage,
+  readJudgeResultFile,
+  type JudgeResultPackage,
+} from "../lib/resultPackages";
+import { FinalResultsPanel } from "./FinalResultsPanel";
 
 export function RecordsView({ onResumeSession }: { onResumeSession: () => void }) {
   const { state, dispatch } = useJudging();
-  const [group, setGroup] = useState<string>("");
+  const [ageGroup, setAgeGroup] = useState<string>("");
+  const [participantCategory, setParticipantCategory] = useState<ParticipantCategory>("");
   const [judgeSeat, setJudgeSeat] = useState<string>("");
   const [section, setSection] = useState<string>("");
   const [expanded, setExpanded] = useState<string | null>(null);
   const [reopenSession, setReopenSession] = useState<SavedSession | null>(null);
+  const [importPreview, setImportPreview] = useState<JudgeResultPackage | null>(null);
+  const [importError, setImportError] = useState("");
+  const importRef = useRef<HTMLInputElement>(null);
   const scopedHistory = useMemo(
     () => state.history.filter((session) => {
       const assignment = session.assignment;
@@ -25,9 +37,15 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
     }),
     [state.history, judgeSeat, section],
   );
+  const categoryHistory = useMemo(
+    () => participantCategory
+      ? scopedHistory.filter((session) => session.participant.category === participantCategory)
+      : scopedHistory,
+    [scopedHistory, participantCategory],
+  );
   const stats = useMemo(
-    () => computeRecords(scopedHistory, group || null),
-    [scopedHistory, group],
+    () => computeRecords(categoryHistory, ageGroup || null),
+    [categoryHistory, ageGroup],
   );
   const judgeOptions = useMemo(() => {
     const values = new Map<string, string>();
@@ -55,26 +73,59 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
   );
   const maxLocCount = Math.max(1, ...stats.topLocations.map((l) => l.count));
 
+  const readImport = async (file: File | undefined) => {
+    if (!file) return;
+    setImportError("");
+    setImportPreview(null);
+    try {
+      if (state.sessionActive) {
+        throw new Error("Finish the active reciter before importing a judge result.");
+      }
+      if (!state.competition.name || !state.competition.edition) {
+        throw new Error("Set the competition name and edition before importing results.");
+      }
+      const payload = await readJudgeResultFile(file);
+      if (payload.competition.id !== state.competition.id) {
+        throw new Error("That result belongs to a different competition or edition.");
+      }
+      if (!state.roster.length) {
+        throw new Error("Upload this competition's participant list before importing judge results.");
+      }
+      if (!state.roster.some((entry) => entry.id === payload.session.participant.id)) {
+        throw new Error("That participant is not in this competition's participant list.");
+      }
+      const incomingAssignment = payload.session.assignment;
+      if (!incomingAssignment) {
+        throw new Error("That judge result does not include a judge assignment.");
+      }
+      const expectedSeat = state.panel.seats.find(
+        (seat) => seat.id === incomingAssignment.judgeSeatId,
+      );
+      if (
+        !expectedSeat ||
+        [...expectedSeat.categories].sort().join("|") !==
+          [...incomingAssignment.categories].sort().join("|")
+      ) {
+        throw new Error("That judge result does not match this competition's panel assignments.");
+      }
+      if (JSON.stringify(payload.session.config) !== JSON.stringify(state.config)) {
+        throw new Error("That judge result uses different scoring rules.");
+      }
+      setImportPreview(payload);
+    } catch (error) {
+      setImportError(error instanceof Error ? error.message : "Could not read that result file.");
+    } finally {
+      if (importRef.current) importRef.current.value = "";
+    }
+  };
+
   useEffect(() => {
-    if (group && !stats.groups.includes(group)) setGroup("");
-  }, [group, stats.groups]);
+    if (ageGroup && !stats.ageGroups.includes(ageGroup)) setAgeGroup("");
+  }, [ageGroup, stats.ageGroups]);
 
-  if (state.history.length === 0) {
-    return (
-      <div className="records">
-        <div className="panel">
-          <p className="empty">
-            No saved sessions yet. Judge a reciter, then use <b>New reciter</b> —
-            each completed session is saved here so repeated mistakes across
-            islands and classes become visible.
-          </p>
-        </div>
-      </div>
-    );
-  }
-
-  const sessions = scopedHistory.filter(
-    (s) => !group || (s.participant.group?.trim() || "") === group,
+  const sessions = categoryHistory.filter(
+    (session) =>
+      !ageGroup || (session.participant.ageGroup?.trim() || "") === ageGroup,
   );
 
   return (
@@ -86,7 +137,7 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
             <span className="metric-num">{stats.sessions}</span>
           </div>
           <div className="metric">
-            <span className="metric-label">Average section score</span>
+            <span className="metric-label">Average score</span>
             <span className="metric-num">{stats.avgPercent}%</span>
           </div>
           <div className="metric">
@@ -110,12 +161,25 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
             </select>
           </label>
           <label className="records-filter">
-            <span>Island / class</span>
-            <select value={group} onChange={(e) => setGroup(e.target.value)}>
+            <span>Age group</span>
+            <select value={ageGroup} onChange={(e) => setAgeGroup(e.target.value)}>
               <option value="">All</option>
-              {stats.groups.map((g) => (
-                <option key={g} value={g}>{g}</option>
+              {stats.ageGroups.map((group) => (
+                <option key={group} value={group}>{group}</option>
               ))}
+            </select>
+          </label>
+          <label className="records-filter">
+            <span>Participant category</span>
+            <select
+              value={participantCategory}
+              onChange={(event) =>
+                setParticipantCategory(event.target.value as ParticipantCategory)
+              }
+            >
+              <option value="">All</option>
+              <option value="baliagen">Baliagen</option>
+              <option value="nubalaa">Nubalaa</option>
             </select>
           </label>
         </div>
@@ -205,6 +269,23 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
             <span className="panel-count">{sessions.length}</span>
           </h2>
           <div className="panel-actions">
+            <input
+              ref={importRef}
+              type="file"
+              accept=".json,application/json"
+              hidden
+              onChange={(event) => readImport(event.target.files?.[0])}
+            />
+            <button
+              type="button"
+              className="btn-ghost"
+              disabled={state.sessionActive}
+              onClick={() => importRef.current?.click()}
+              title="Import a result exported by another judge"
+            >
+              <Icon name="download" size={15} />
+              Import judge result
+            </button>
             <button
               type="button"
               className="btn-ghost"
@@ -216,6 +297,32 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
             </button>
           </div>
         </div>
+        {importError && <p className="import-error">{importError}</p>}
+        {importPreview && (
+          <div className="result-import-preview" role="status">
+            <span>
+              <strong>{importPreview.session.participant.name}</strong>
+              <small>
+                {importPreview.session.participant.number} · {importPreview.session.assignment
+                  ? assignmentLabel(importPreview.session.assignment.categories)
+                  : "Judge section"}
+              </small>
+            </span>
+            <button type="button" className="btn-ghost" onClick={() => setImportPreview(null)}>
+              Cancel
+            </button>
+            <button
+              type="button"
+              className="btn-primary"
+              onClick={() => {
+                dispatch({ type: "IMPORT_SESSION", session: importPreview.session });
+                setImportPreview(null);
+              }}
+            >
+              Add to records
+            </button>
+          </div>
+        )}
         {sessions.length === 0 ? (
           <p className="empty">No judge-section results match these filters.</p>
         ) : <ul className="session-list">
@@ -245,7 +352,9 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
                       {s.participant.name || "Unnamed reciter"}
                     </span>
                     <span className="session-meta">
-                      {s.participant.group || "—"} ·{" "}
+                      {[s.participant.ageGroup, participantCategoryLabel(s.participant.category), s.participant.institution]
+                        .filter(Boolean)
+                        .join(" · ")} ·{" "}
                       {new Date(s.savedAt).toLocaleDateString()} ·{" "}
                       {s.mistakes.length} mistakes ·{" "}
                       {s.assignment ? judgeDisplayName(s.assignment) : "Judge 1"}
@@ -288,6 +397,19 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
                       <button
                         type="button"
                         className="btn-ghost"
+                        disabled={!state.competition.name || !state.competition.edition}
+                        title={
+                          state.competition.name && state.competition.edition
+                            ? "Export this judge-owned result for consolidation"
+                            : "Set the competition name and edition before exporting"
+                        }
+                        onClick={() => downloadJudgeResultPackage(s, state.competition)}
+                      >
+                        Export judge result
+                      </button>
+                      <button
+                        type="button"
+                        className="btn-ghost"
                         disabled={state.sessionActive}
                         title={
                           state.sessionActive
@@ -307,6 +429,7 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
           })}
         </ul>}
       </section>
+      <FinalResultsPanel />
       {reopenSession && (
         <ReopenSessionDialog
           session={reopenSession}

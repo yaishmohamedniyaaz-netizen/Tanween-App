@@ -42,7 +42,7 @@ export function ScorePanel() {
   return (
     <section className="panel scorecard" aria-label="Score">
       <div className="sc-total">
-        <span className="sc-total-label">Your section</span>
+        <span className="sc-total-label">Score</span>
         <span className="sc-total-value" aria-live="polite" aria-atomic="true">
           <span className="sc-total-num t-num">{total}</span>
           <span className="sc-total-of t-num"> / {totalMax}</span>

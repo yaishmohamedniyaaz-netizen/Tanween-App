@@ -17,10 +17,9 @@ letters inside that word. A narrow colour box placed over an estimated fraction
 of the word would sometimes point at the wrong connected letter and would look
 more certain than it really is.
 
-Changing the judge or assigned criteria during an active recitation is also
-feasible, but it must be a separate data-safety checkpoint. Earlier deductions
-must keep their original judge and assignment; a change can only apply from the
-recorded handoff onward.
+Judge and criteria assignments remain frozen while a recitation is active.
+The panel may be changed before the next participant starts. The earlier
+active-assignment-change proposal has been removed from the product roadmap.
 
 ## 1. Confirmed visual causes
 
@@ -113,40 +112,12 @@ semantic map, not the number of CSS boxes.
 This gives a judge an unambiguous letter decision without manufacturing an
 unreliable location inside a single printed glyph.
 
-## 4. Active-recitation assignment changes
+## 4. Assignment boundary
 
-The current app freezes `activeAssignment` when the reciter starts and rejects
-panel, judge, and scoring configuration changes until the session finishes.
-That protects old deductions, but it makes a legitimate judge handoff
-impossible.
-
-The safe behaviour is:
-
-### Before the first mistake
-
-- Allow the full judge assignment setup to be corrected.
-- Keep the scoring amounts frozen to the values with which the reciter started.
-- Record that the assignment was corrected, even though no deduction existed.
-
-### After at least one mistake
-
-- The button says **Change from now**.
-- Close any open word/letter tray before the change.
-- Show a direct confirmation: “Earlier marks remain with Judge 1. New marks
-  will be recorded for Judge 2.”
-- Save an `assignment_changed` event containing the old assignment, the new
-  assignment, time, event order, and an optional short reason.
-- Give every later mistake the new assignment-version ID.
-- Never relabel, recalculate, or move an earlier mistake.
-- Keep deduction amounts fixed for the attempt. Changing the size of a Jali,
-  Khafi, or Fasaha deduction during recitation remains prohibited.
-- If the new panel leaves a criterion uncovered or assigns it twice, do not
-  activate it.
-
-At finish, the attempt must present each assignment segment separately. This
-is why the handoff belongs beside Results Safety's shared attempt and
-judge-section work. Merely enabling the existing disabled button would produce
-one saved section with mixed ownership and is not acceptable.
+The app freezes `activeAssignment`, judge identity, assigned criteria, starting
+marks, and deduction values when the participant starts. Setup changes are
+rejected until the session finishes. This keeps one saved judge section under
+one clear owner and scoring snapshot.
 
 ## 5. Recommended checkpoint order
 
@@ -168,21 +139,6 @@ one saved section with mixed ownership and is not acceptable.
 
 This checkpoint is small enough for one careful implementation turn.
 
-### Assignment checkpoint A1 — data-safe handoff
-
-1. Add versioned assignment segments and `assignment_changed` events.
-2. Stamp every mistake with its assignment-version ID.
-3. Permit correction before the first mistake and “from now” handoff after it.
-4. Show current judge/criteria plus a compact previous-handoff indication in
-   the judge-only panel.
-5. Group the finished attempt into separate judge sections without mixing
-   owners.
-6. Test no-mark correction, handoff after marks, undo/restore across a handoff,
-   reopen, invalid panel coverage, refresh recovery, and finalization.
-
-This should be planned together with Results Safety 3A/3B rather than hidden in
-the tray polish commit.
-
 ## 6. Effort and rough token ranges
 
 These are order-of-magnitude agent-work ranges, not API billing quotes or a
@@ -192,7 +148,6 @@ guarantee. Tool output, browser QA, and unexpected regressions can move them.
 |---|---:|---|
 | One-target tray + correct rounded active/focus rings | 8k–18k | One turn |
 | Stronger exact rail feedback and history reopen behaviour | 10k–25k | Can join T1 if the existing reopen seam is clean |
-| Safe active-assignment handoff and assignment segments | 35k–80k | Separate substantial turn/checkpoint |
 | Character-overlay prototype for on-page letter colour | 60k–150k | Prototype only; cannot pass reliability gate |
 | Corpus-wide QPC per-target masks | 300k–800k+ plus qualified human review | Multi-stage research/data project, not a normal feature turn |
 
@@ -218,16 +173,6 @@ T1 is complete only when:
 - the QPC glyph, font, line layout, target compiler, mistake meaning, and saved
   history have no unintended change.
 
-A1 is complete only when:
-
-- a judge can change responsibility during a recitation;
-- the interface says exactly when the change takes effect;
-- old marks retain their original owner and rule snapshot;
-- new marks use the new assignment version;
-- invalid or overlapping coverage is blocked;
-- refresh, reopen, undo, and finalization preserve the handoff history;
-- no combined score silently mixes separate judge sections.
-
 ## 8. Confidence
 
 | Finding or decision | Confidence |
@@ -237,5 +182,4 @@ A1 is complete only when:
 | T1 is safely deliverable in one careful implementation turn | 94% |
 | Exact target identity is reliable in the connected rail/history | 94% |
 | Exact target pixels inside the current QPC word can be inferred reliably without new reviewed data | 10% |
-| Assignment changes are safe only when they are versioned and apply forward | 97% |
-
+| Freezing the active assignment is the clearest reliable current boundary | 98% |

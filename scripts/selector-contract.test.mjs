@@ -77,6 +77,15 @@ test("touch targets cannot flex-shrink below 44px", () => {
   assert.match(selectorStyles, /\.pill\s*\{[^}]*min-height:\s*44px;/s);
 });
 
+test("one target is centered and category rings inherit their exposed corners", () => {
+  assert.match(dragMenuSource, /units\.length === 1 \? "single-unit"/);
+  assert.match(selectorStyles, /\.unit-picker-row\.single-unit\s*\{[^}]*justify-content:\s*center;/s);
+  assert.match(dragMenuSource, /pill-inner/);
+  assert.match(dragMenuSource, /pill-outer/);
+  assert.match(selectorStyles, /\.pill\.active::after/);
+  assert.match(selectorStyles, /border-radius:\s*inherit/);
+});
+
 test("tray keyboard input is isolated from page navigation", () => {
   assert.match(mushafSource, /event\.defaultPrevented \|\| active/);
   assert.match(dragMenuSource, /e\.stopPropagation\(\)/);

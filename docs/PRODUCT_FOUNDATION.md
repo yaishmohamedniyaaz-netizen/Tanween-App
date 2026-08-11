@@ -878,12 +878,11 @@ separate external tracks with unbounded calendar time.
 | 1. Recitation targets v2 | implemented; expert review remains | Generated corpus-wide target map, clean rail labels, saved-ID migration, reviewer fixtures | All 604-page invariants pass; expert approves rule set |
 | 2. Reliable judging ledger | implemented | Versioned rules, append-only events/corrections, session finalization, structured optional details, local recovery | Audit reconstruction and recovery checks pass |
 | 2.5 Judge assignment mode | implemented | Friendly panel templates, current-device judge choice, assigned-only tray and score panel, frozen assignment in results | Every assignment combination is enforced; no section is presented as a combined score |
-| 2.6 Judge workflow polish | next checkpoint | One-target tray geometry, complete rounded selection rings, and removal of the visible “Your section” phrase | Tray interaction passes at real sizes without changing the Mushaf or saved meaning |
-| 3A. Competition structure | planned | Divisions/tracks, one competition pack, stable participant and attempt identities, participant template and validated import preview | Every judge device reads the same people, roles, and rules |
-| 3A.5 Active assignment handoff | planned | Forward-only assignment versions during an active recitation | Earlier marks retain ownership and later marks use the recorded new assignment |
-| 3B. Judge-section collection | planned | Offline-friendly result packages, duplicate and mismatch detection | Wrong, missing, or duplicate sections cannot silently enter a final result |
-| 3C. Result finalization | planned | Evidence-recalculated combined result, revisions, verification report | Every final score reconstructs from selected judge histories |
-| 3D. Placements and XLSX | planned | Explicit ties, division/track rankings, value-only verified workbook | Golden edge cases and spreadsheet re-import checks pass |
+| 2.6 Judge workflow polish | implemented | One-target tray geometry, complete rounded selection rings, and removal of the visible “Your section” phrase | Tray interaction passes without changing the Mushaf or saved meaning |
+| 3A. Competition structure | implemented | Competition identity, exact seven-field participant template, stable participant identities, and validated import preview | Template and representative rows pass workbook round-trip tests |
+| 3B. Judge-section collection | implemented | Offline-friendly result packages, competition mismatch checks, duplicate and conflict preservation | Wrong, missing, or duplicate sections cannot silently enter a final result |
+| 3C. Result finalization | implemented | Evidence-recalculated combined result, source selection, revisions, verification manifest | Every final score reconstructs from selected judge histories |
+| 3D. Placements and XLSX | implemented; rehearsal remains | Tied Age Group + Category rankings and value-only verified workbook | Golden edge cases and spreadsheet re-import checks pass |
 | 3.7 Exact mistake details | optional before questions; reviewer-gated | Optional reviewed descriptions beneath Jali, Khafi, and Fasaha | Qualified reviewer approves the supported taxonomy and fixtures |
 | 4. Question bank v1 | 4–8 coding weeks | Canonical passage model, manual builder, frozen tile sets, small reviewed starter pool | Every question has provenance and approval |
 | 5. Audio evidence | 2–4 coding weeks | Consent-aware recording, near-word bookmarks, replay/nudge review | Mobile/desktop recording recovery and deletion tests pass |
@@ -1033,9 +1032,9 @@ Its researched boundary is recorded in
   the authentic whole-word QPC V1 page glyph;
 - do not add approximate letter-sized paint over the printed word.
 
-Changing judge responsibility after marks already exist is not a cosmetic
-unlock. It requires forward-only, versioned assignment handoffs and belongs
-with the shared-attempt and judge-section foundations in Results Safety 3A/3B.
+Judge responsibility is deliberately frozen for an active reciter. The panel
+can be changed before the next participant begins; mixed-responsibility active
+sessions are outside the current product and roadmap.
 
 The Results Safety initiative is divided into four independently reviewable
 checkpoints:

@@ -32,7 +32,7 @@ export function FinishDialog({
           </span>
           <span>
             <strong>{total}</strong>
-            <small>Your section out of {totalMax}</small>
+            <small>Out of {totalMax}</small>
           </span>
         </div>
         {assignment && (

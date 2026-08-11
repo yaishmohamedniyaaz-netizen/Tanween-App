@@ -6,8 +6,9 @@ Product boundary: judging and competition administration only
 Expanded execution order: [`PRE_QUESTION_BANK_RELEASE_PLAN.md`](./PRE_QUESTION_BANK_RELEASE_PLAN.md)
 
 The full plan adds the immediate tray/wording checkpoint, participant workbook,
-safe active-recitation assignment handoffs, and a final hardening checkpoint
-around the Results Safety stages below.
+safe collection of frozen judge sections, and a final hardening checkpoint
+around the Results Safety stages below. Active assignments remain frozen until
+the reciter finishes; the removed handoff phase is not part of this roadmap.
 
 ## The next problem to solve
 
@@ -29,15 +30,17 @@ Treat Results Safety as one initiative with four publishable checkpoints.
 The organizer creates one competition setup containing:
 
 - competition name and edition;
-- divisions such as age groups;
-- tracks such as Hifz or reciting while looking;
-- the participant roster and each participant's division and track;
+- age groups, such as Under 14 and Under 16;
+- participant categories: Baliagen for Tarteel/reading and Nubalaa for
+  memorisation;
+- the participant roster with Participant Number, Name, Age Group, Category,
+  Muqarrar side, Phone Number, and Institution;
 - judge assignments;
 - marks and deduction rules;
 - the sections required for a result to be complete.
 
 This setup becomes a reusable **competition pack**. Every judging device must
-use the same pack so participant numbers, divisions, judge seats, and scoring
+use the same pack so participant numbers, age groups, categories, judge seats, and scoring
 rules cannot drift apart.
 
 Exit gate: two devices opened from the same pack identify the same participant,
@@ -107,11 +110,11 @@ order.
 
 The results screen and spreadsheet show:
 
-- first, second, and third place for each division and track;
+- first, second, and third place for each Age Group + Category ranking group;
 - every participant's section scores and final total;
-- ties, disqualifications, incomplete results, and manual decisions separately;
-- division totals and the optional overall winner only when the competition's
-  rules define one;
+- ties and incomplete results separately;
+- no overall winner unless a future competition rule explicitly defines how
+  unlike groups can be compared;
 - a verification sheet listing the rules, result count, warnings, and a check
   total.
 
@@ -145,17 +148,15 @@ Those features can build on finalized competition and attempt identities later.
 
 ## Decisions the full plan must make
 
-1. Which division and track fields are completely custom, and which common
-   templates are offered.
-2. What uniquely identifies a competition edition, participant, and attempt.
-3. How the organizer distributes the competition pack to judge devices.
-4. How a judge-section result is selected when two revisions or duplicates
-   exist.
-5. Which tie rules are supported in the first release.
-6. Whether an overall winner is optional or prohibited unless a rule explicitly
-   defines how different tracks are compared.
-7. What the verification sheet must contain before an export is considered
-   official.
+1. How the organizer distributes a complete competition pack to judge devices.
+2. Whether a future release needs attempt IDs beyond the stable participant and
+   judge-session IDs now in use.
+3. Which additional tie rules, if any, should be supported after the safe
+   default that equal percentages remain tied.
+4. Whether an overall winner remains prohibited or receives an explicit
+   competition-defined comparison rule.
+5. Which identity/signature system would be required before an export can be
+   called externally verifiable rather than locally checked.
 
 The full plan should settle these decisions before implementation begins. It
 should also include the exact administrator screens, recovery paths, old-data

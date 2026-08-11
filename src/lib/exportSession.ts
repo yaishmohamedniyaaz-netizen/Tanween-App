@@ -2,6 +2,7 @@ import { CATEGORY_BY_ID } from "../config";
 import type { JudgingState, SavedSession } from "../types";
 import { computeScores } from "./scoring";
 import { assignmentLabel, judgeDisplayName } from "./judgeAssignments";
+import { muqarrarLabel, participantCategoryLabel } from "./participants";
 
 function downloadBlob(content: string, type: string, filename: string) {
   const blob = new Blob([content], { type });
@@ -16,7 +17,8 @@ function downloadBlob(content: string, type: string, filename: string) {
 }
 
 function csvCell(v: string | number): string {
-  const s = String(v ?? "");
+  let s = String(v ?? "");
+  if (typeof v === "string" && /^[=+\-@\t\r]/.test(s)) s = `'${s}`;
   return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
 }
 
@@ -89,9 +91,14 @@ export function downloadSessionJSON(state: JudgingState) {
  *  mistakes get a single row), for analysis in a spreadsheet. */
 export function downloadRecordsCSV(history: SavedSession[]) {
   const headers = [
-    "reciter",
-    "number",
-    "island_class",
+    "participant_id",
+    "participant_number",
+    "participant_name",
+    "age_group",
+    "participant_category",
+    "muqarrar",
+    "phone_number",
+    "institution",
     "date",
     "judge_seat",
     "judge_name",
@@ -109,9 +116,14 @@ export function downloadRecordsCSV(history: SavedSession[]) {
   const rows = [headers.join(",")];
   for (const s of history) {
     const base = [
-      s.participant.name,
+      s.participant.id,
       s.participant.number,
-      s.participant.group,
+      s.participant.name,
+      s.participant.ageGroup,
+      participantCategoryLabel(s.participant.category),
+      muqarrarLabel(s.participant.muqarrar),
+      s.participant.phone,
+      s.participant.institution,
       new Date(s.savedAt).toISOString().slice(0, 10),
       s.assignment?.judgeSeatId ?? "judge-1",
       s.assignment ? judgeDisplayName(s.assignment) : "Judge 1",

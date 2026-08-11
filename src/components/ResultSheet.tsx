@@ -5,6 +5,7 @@ import surahData from "../data/surahs.json";
 import { useJudging } from "../state/store";
 import type { Mistake } from "../types";
 import { assignmentLabel, judgeDisplayName } from "../lib/judgeAssignments";
+import { muqarrarLabel, participantCategoryLabel } from "../lib/participants";
 
 /** Print-only summary — the transparent record of a reciter's session.
  *  Marks are grouped under the āyah they fall on, with the āyah text for context
@@ -67,8 +68,16 @@ export function ResultSheet() {
             <td>{p.name || "—"}</td>
             <th>No.</th>
             <td>{p.number || "—"}</td>
-            <th>Island / class</th>
-            <td>{p.group || "—"}</td>
+            <th>Age group</th>
+            <td>{p.ageGroup || "—"}</td>
+          </tr>
+          <tr>
+            <th>Category</th>
+            <td>{participantCategoryLabel(p.category)}</td>
+            <th>Muqarrar</th>
+            <td>{muqarrarLabel(p.muqarrar)}</td>
+            <th>Institution</th>
+            <td>{p.institution || "—"}</td>
           </tr>
           {assignment && (
             <tr>

@@ -16,6 +16,19 @@ test("short words keep a compact picker without squeezing categories", () => {
   });
 });
 
+test("one target gets one centered compact surface", () => {
+  assert.deepEqual(getSelectorWidths(1, 390), {
+    availableWidth: 360,
+    pickerWidth: 52,
+    categoryWidth: 164,
+    menuWidth: 164,
+  });
+  assert.deepEqual(getSelectorPlacement(195, 390, 164, 52), {
+    centerX: 195,
+    pointerX: 26,
+  });
+});
+
 test("every typical unit keeps its full 44px target", () => {
   assert.equal(getSelectorWidths(4, 390).pickerWidth, 190);
   assert.equal(getSelectorWidths(5, 390).pickerWidth, 236);
@@ -41,8 +54,8 @@ test("every selector surface stays inside a narrow viewport", () => {
 });
 
 test("invalid unit counts degrade to one compact unit", () => {
-  assert.equal(getSelectorWidths(0, 390).pickerWidth, 104);
-  assert.equal(getSelectorWidths(Number.NaN, 390).pickerWidth, 104);
+  assert.equal(getSelectorWidths(0, 390).pickerWidth, 52);
+  assert.equal(getSelectorWidths(Number.NaN, 390).pickerWidth, 52);
 });
 
 test("a centered callout points directly back to its source", () => {

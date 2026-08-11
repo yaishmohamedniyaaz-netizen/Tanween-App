@@ -14,7 +14,7 @@ export interface RecordsStats {
     count: number;
     topCategory: CategoryId;
   }[];
-  groups: string[];
+  ageGroups: string[];
 }
 
 const round1 = (n: number) => Math.round(n * 10) / 10;
@@ -24,16 +24,18 @@ const CATS: CategoryId[] = ["jali", "khafi", "fasaha"];
  *  which mistakes repeat, across which islands/classes. */
 export function computeRecords(
   history: SavedSession[],
-  groupFilter: string | null,
+  ageGroupFilter: string | null,
 ): RecordsStats {
-  const groups = Array.from(
+  const ageGroups = Array.from(
     new Set(
-      history.map((s) => s.participant.group?.trim()).filter(Boolean) as string[],
+      history.map((s) => s.participant.ageGroup?.trim()).filter(Boolean) as string[],
     ),
   ).sort();
 
-  const filtered = groupFilter
-    ? history.filter((s) => (s.participant.group?.trim() || "") === groupFilter)
+  const filtered = ageGroupFilter
+    ? history.filter(
+        (s) => (s.participant.ageGroup?.trim() || "") === ageGroupFilter,
+      )
     : history;
 
   const byCategory = Object.fromEntries(
@@ -94,6 +96,6 @@ export function computeRecords(
     byCategory,
     topLetters,
     topLocations,
-    groups,
+    ageGroups,
   };
 }
