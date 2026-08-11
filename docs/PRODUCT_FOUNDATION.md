@@ -1019,6 +1019,20 @@ rule used as Tahqeeq's Hafs/QPC V1 interface policy.
 Judge Assignment Mode is implemented. The next full implementation plan should
 be derived from [`RESULTS_SAFETY_PREPLAN.md`](./RESULTS_SAFETY_PREPLAN.md).
 
+Before that larger phase, one bounded letter-tray polish checkpoint may ship.
+Its researched boundary is recorded in
+[`LETTER_TRAY_POLISH_AND_EXACT_HIGHLIGHT_RESEARCH.md`](./LETTER_TRAY_POLISH_AND_EXACT_HIGHLIGHT_RESEARCH.md):
+
+- make a one-target rail a genuinely small centered surface;
+- make active and focus rings follow every exposed rounded corner;
+- keep exact target identity in the connected rail and history while preserving
+  the authentic whole-word QPC V1 page glyph;
+- do not add approximate letter-sized paint over the printed word.
+
+Changing judge responsibility after marks already exist is not a cosmetic
+unlock. It requires forward-only, versioned assignment handoffs and belongs
+with the shared-attempt and judge-section foundations in Results Safety 3A/3B.
+
 The Results Safety initiative is divided into four independently reviewable
 checkpoints:
 
