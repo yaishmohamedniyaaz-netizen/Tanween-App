@@ -13,8 +13,13 @@ import { flushSync } from "react-dom";
 import { juzByPage, sajdahVerses } from "../data/marginalia";
 import surahIndex from "../data/surah-index.json";
 import { uid } from "../lib/id";
-import { judgingUnitId, judgingUnitsOf } from "../lib/judgingUnits";
-import { loadPage, locationLabel, preloadPage, tokenId } from "../lib/page";
+import {
+  judgingTargetsOf,
+  TARGET_RULE_VERSION,
+  TARGET_SCHEMA_VERSION,
+  TARGET_SOURCE_VERSION,
+} from "../lib/judgingUnits";
+import { loadPage, locationLabel, preloadPage } from "../lib/page";
 import type { MushafPage, PageWord } from "../lib/page";
 import {
   loadQcfPageFont,
@@ -29,7 +34,10 @@ interface UnitTarget {
   tid: string;
   legacyTids: string[];
   unitIndex: number;
-  glyph: string;
+  start: number;
+  end: number;
+  primaryGlyph: string;
+  fullGlyph: string;
 }
 
 interface WordHitbox {
@@ -52,7 +60,8 @@ interface WordHitbox {
 }
 
 interface ActiveDrag {
-  tid: string;
+  /** No target is implied by opening the tray. */
+  tid: string | null;
   anchor: MenuAnchor;
   meta: WordHitbox;
 }
@@ -191,8 +200,13 @@ export function Mushaf({
 
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
+      if (event.defaultPrevented || active) return;
       const target = event.target as HTMLElement | null;
-      if (target?.closest("input, textarea, select, [contenteditable='true']")) {
+      if (
+        target?.closest(
+          "input, textarea, select, button, [role='button'], [role='dialog'], [contenteditable='true']",
+        )
+      ) {
         return;
       }
       if (event.key === "ArrowLeft") {
@@ -205,7 +219,7 @@ export function Mushaf({
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [currentPage, onPageChange]);
+  }, [active, currentPage, onPageChange]);
 
   // QCF source words are single calligraphic glyphs. Measure one rectangle for
   // the whole kalimah; semantic letter units live only in the connected rail.
@@ -223,7 +237,7 @@ export function Mushaf({
       const wid = wordElement.dataset.wid;
       if (!wid || !semanticText) return;
       const role = (wordElement.dataset.role as TokenRole) ?? "letter";
-      const units = judgingUnitsOf(semanticText, role);
+      const units = judgingTargetsOf(semanticText, role, wid);
       if (!units.length) return;
 
       const rect = wordElement.getBoundingClientRect();
@@ -241,12 +255,13 @@ export function Mushaf({
         surah,
         ayah,
         units: units.map((unit, unitIndex) => ({
-          tid: judgingUnitId(wid, unitIndex),
-          legacyTids: unit.legacyGraphemeIndices.map((index) =>
-            tokenId(wid, index),
-          ),
+          tid: unit.tid,
+          legacyTids: unit.aliases,
           unitIndex,
-          glyph: unit.glyph,
+          start: unit.start,
+          end: unit.end,
+          primaryGlyph: unit.primaryGlyph,
+          fullGlyph: unit.fullGlyph,
         })),
         x,
         y,
@@ -347,29 +362,43 @@ export function Mushaf({
     setPinned(false);
   }, []);
 
+  // A tray never survives navigation or a structural page-layout change.
+  useEffect(() => closeAll(), [closeAll, currentPage, pageLayout]);
+
   useEffect(() => {
     if (!active) return;
     const onKey = (event: KeyboardEvent) => {
-      if (event.key === "Escape") closeAll();
+      if (!event.defaultPrevented && event.key === "Escape") closeAll();
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [active, closeAll]);
 
-  const activeUnit = active?.meta.units.find((unit) => unit.tid === active.tid);
+  const activeUnit = active?.tid
+    ? active.meta.units.find((unit) => unit.tid === active.tid)
+    : null;
 
   const commit = useCallback(
     (category: CategoryId) => {
       if (!active || !pageData) return;
+      if (!active.tid) return;
       const unit = active.meta.units.find((candidate) => candidate.tid === active.tid);
       if (!unit) return;
       const mistake: Mistake = {
         id: uid(),
         tid: unit.tid,
+        targetVersion: TARGET_SCHEMA_VERSION,
+        sourceVersion: TARGET_SOURCE_VERSION,
+        ruleVersion: TARGET_RULE_VERSION,
+        wordId: active.meta.wid,
+        sourceStart: unit.start,
+        sourceEnd: unit.end,
+        primaryGlyph: unit.primaryGlyph,
+        fullGlyph: unit.fullGlyph,
         surah: active.meta.surah,
         ayah: active.meta.ayah,
         page: pageData.page,
-        glyph: unit.glyph,
+        glyph: unit.fullGlyph,
         label: locationLabel(
           active.meta.surah,
           active.meta.ayah,
@@ -424,8 +453,7 @@ export function Mushaf({
       if (pinned) closeAll();
       return;
     }
-    const firstUnit = box.units[0];
-    if (!firstUnit) return;
+    if (!box.units.length) return;
 
     event.preventDefault();
     const target = root.querySelector<HTMLElement>(
@@ -449,7 +477,7 @@ export function Mushaf({
       setHovered(null);
       setPinned(false);
       setActive({
-        tid: firstUnit.tid,
+        tid: null,
         meta: box,
         anchor: {
           left: rect.left,
@@ -484,7 +512,11 @@ export function Mushaf({
       setActive((current) => (current ? { ...current, tid: nextTid } : current));
     }
     const pill = element?.closest<HTMLElement>("[data-pill]");
-    setHovered(pill ? (pill.dataset.pill as CategoryId) : null);
+    setHovered(
+      pill && (nextTid || active.tid)
+        ? (pill.dataset.pill as CategoryId)
+        : null,
+    );
   };
 
   const onPointerUp = (event: React.PointerEvent) => {
@@ -497,13 +529,51 @@ export function Mushaf({
     }
     const start = startRef.current;
     startRef.current = null;
-    if (hovered) {
+    if (hovered && active.tid) {
       commit(hovered);
       closeAll();
     } else if (start && !start.moved && Date.now() - start.t < 500) {
       setPinned(true);
     } else {
       closeAll();
+    }
+  };
+
+  const openPinnedForBox = (
+    event: React.KeyboardEvent<HTMLElement>,
+    box: WordHitbox,
+  ) => {
+    if (event.key !== "Enter" && event.key !== " ") return;
+    event.preventDefault();
+    event.stopPropagation();
+    const rect = event.currentTarget.getBoundingClientRect();
+    setHovered(null);
+    setPinned(true);
+    setActive({
+      tid: null,
+      meta: box,
+      anchor: {
+        left: rect.left,
+        top: rect.top,
+        right: rect.right,
+        bottom: rect.bottom,
+        width: rect.width,
+        height: rect.height,
+      },
+    });
+  };
+
+  const closeTray = () => {
+    const returnFocusWid = pinned ? active?.meta.wid : null;
+    closeAll();
+    if (returnFocusWid) {
+      window.setTimeout(() => {
+        pageRef.current
+          ?.querySelector<HTMLElement>(
+            `[data-word-hit="${CSS.escape(returnFocusWid)}"]`,
+          )
+          ?.focus({ preventScroll: true });
+      }, 0);
     }
   };
 
@@ -686,7 +756,8 @@ export function Mushaf({
                     } as CSSProperties
                   }
                   role="button"
-                  tabIndex={-1}
+                  tabIndex={0}
+                  onKeyDown={(event) => openPinnedForBox(event, box)}
                   aria-label={
                     mistakes.length
                       ? `${box.semanticText}, ${mistakes.length} mark(s)`
@@ -714,27 +785,29 @@ export function Mushaf({
         </div>
       </div>
 
-      {active && activeUnit && (
+      {active && (
         <DragMenu
           anchor={active.anchor}
           glyph={active.meta.semanticText}
           units={active.meta.units.map((unit) => ({
             tid: unit.tid,
-            glyph: unit.glyph,
+            primaryGlyph: unit.primaryGlyph,
+            fullGlyph: unit.fullGlyph,
             selected: unit.tid === active.tid,
           }))}
+          targetSelected={Boolean(activeUnit)}
           hovered={hovered}
           pinned={pinned}
           config={state.config}
           onPick={(category) => {
             commit(category);
-            closeAll();
+            closeTray();
           }}
           onUnitPick={(tid) => {
             if (!active.meta.units.some((unit) => unit.tid === tid)) return;
             setActive((current) => (current ? { ...current, tid } : current));
           }}
-          onClose={closeAll}
+          onClose={closeTray}
         />
       )}
     </div>

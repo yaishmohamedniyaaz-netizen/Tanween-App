@@ -131,7 +131,7 @@ New IDs should derive from the locked word identity and the target's source
 anchor, not its array position. A suitable shape is:
 
 ```text
-{wordId}@r{sourceStart}:{kind}
+{wordId}@r{sourceStart}
 ```
 
 The exact string can change during implementation, but it must satisfy:
@@ -139,6 +139,8 @@ The exact string can change during implementation, but it must satisfy:
 - deterministic output from identical source/rule versions;
 - uniqueness inside a word;
 - stability when a later target elsewhere in the word is merged;
+- stability when a reviewed target classification changes while its source
+  locus stays the same;
 - explicit aliases for every V1 `wordId@uN` absorbed by the target;
 - no silent auto-resolution when one old target would split ambiguously.
 
@@ -535,4 +537,3 @@ The largest engineering risks are saved-ID migration, long-word edge scrolling,
 and mobile browser pointer cancellation. The largest authority risk is treating
 a useful UI grouping as if it were automatically a complete Hafs ruling. The
 plan contains separate gates for both.
-

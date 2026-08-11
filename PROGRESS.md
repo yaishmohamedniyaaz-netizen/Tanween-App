@@ -22,17 +22,32 @@ The current future-work source of truth is
 [`docs/PRODUCT_FOUNDATION.md`](docs/PRODUCT_FOUNDATION.md). Older sections below
 remain as implementation history and may describe superseded prototypes.
 
-## Next update plan — LETTER TRAY V2 (2026-08-11)
+## Letter Tray V2 — IMPLEMENTED & VERIFIED (2026-08-11)
 
 - Implementation plan: [`docs/LETTER_TRAY_V2_PLAN.md`](docs/LETTER_TRAY_V2_PLAN.md).
-- Scope is one bounded release: V2 recitation targets, stable IDs and saved-data
-  migration, clean primary rail glyphs, explicit target-before-category flow,
-  44px no-shrink controls, long-word behavior, pointer/tap/keyboard reliability,
-  and full-corpus plus browser validation.
-- Live inspection also found a keyboard regression: ArrowLeft/ArrowRight inside
-  the tray changes the Mushaf page and leaves a stale tray open. This is a
-  release-blocking V2 test case.
-- Planning pass only. No runtime or deployment changes were made.
+- Added source-anchored V2 target IDs plus aliases for every absorbed V1
+  ordinal/grapheme ID. Existing browser state is preserved and receives a
+  one-time pre-V2 backup; historic glyph snapshots are not rewritten.
+- The rail now renders only clean `primaryGlyph` ink while preserving the exact
+  source `fullGlyph`, offsets, carrier role, marks/features, rule ID, and review
+  status in evidence metadata.
+- Implemented named judge-interface policies for madd/silent-plural alif hosts,
+  hamza carriers, and standard/prefixed/madd-entry Allah lam loci. These policies
+  remain explicitly marked for qualified Hafs/1405H review rather than being
+  presented as self-authorizing religious rulings.
+- A word opens with no implied letter. Jali/Khafi/Fasaha stay disabled until an
+  explicit target is chosen. Target and category controls are 44px minimum,
+  long words use a non-shrinking horizontal rail, and the whole source kalimah
+  remains the visible page highlight.
+- Fixed stale navigation/focus behavior: tray keys cannot change the Mushaf
+  page, page/layout changes close the tray, pinned dialogs trap focus, and close
+  returns keyboard focus to the invoking word.
+- Verification: 41/41 automated tests, a full 604-page source/alias audit,
+  production build, desktop browser QA, 390x844 mobile QA, long-word overflow,
+  page-601 `وَتَوَاصَوۡاْ`, page-604 `ٱلنَّفَّٰثَٰتِ`, Allah grouping,
+  and a real mobile hold-drag-release commit. Browser console: zero warnings or
+  errors. This update has not been published yet.
+- Rollback checkpoint: `checkpoint/pre-letter-tray-v2-implementation-20260811`.
 
 This file is the **source of truth for resuming work**. If a session/usage limit cuts us
 off, the next session reads this file and continues from "Next up". Keep it updated as

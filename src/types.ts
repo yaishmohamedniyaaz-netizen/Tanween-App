@@ -20,10 +20,22 @@ export type TokenRole = "letter" | "ayah-end" | "ornament";
 export interface Mistake {
   id: string;
   tid: string; // stable judging-unit id; legacy grapheme ids remain readable
+  /** Target schema used when this evidence item was created. */
+  targetVersion?: 2;
+  sourceVersion?: string;
+  ruleVersion?: string;
+  wordId?: string;
+  sourceStart?: number;
+  sourceEnd?: number;
+  primaryGlyph?: string;
+  fullGlyph?: string;
+  /** Retained when a legacy id is later resolved to a V2 target. */
+  originalTid?: string;
+  migrationStatus?: "exact" | "auto-merged" | "unresolved";
   surah: number;
   ayah: number | null; // null === basmala line
   page?: number; // page number for cross-page navigation
-  glyph: string; // the selected letter unit and its attached marks
+  glyph: string; // immutable historical display snapshot
   label: string; // human location, e.g. "112:1 · letter 3"
   category: CategoryId;
   amount: number; // marks deducted (defaults to category.step, adjustable)

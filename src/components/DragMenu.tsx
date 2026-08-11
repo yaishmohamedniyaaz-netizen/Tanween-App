@@ -1,8 +1,15 @@
 import { createPortal } from "react-dom";
-import { useEffect, useRef, type CSSProperties, type KeyboardEvent } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  type CSSProperties,
+  type KeyboardEvent,
+} from "react";
 import { CATEGORIES } from "../config";
 import {
   getSelectorPlacement,
+  getSelectorVerticalPlacement,
   getSelectorWidths,
 } from "../lib/selectorLayout";
 import type { CategoryId, ScoreConfig } from "../types";
@@ -19,7 +26,13 @@ export interface MenuAnchor {
 interface Props {
   anchor: MenuAnchor;
   glyph: string;
-  units: Array<{ tid: string; glyph: string; selected: boolean }>;
+  units: Array<{
+    tid: string;
+    primaryGlyph: string;
+    fullGlyph: string;
+    selected: boolean;
+  }>;
+  targetSelected: boolean;
   hovered: CategoryId | null;
   pinned: boolean;
   config: ScoreConfig;
@@ -38,6 +51,7 @@ export function DragMenu({
   anchor,
   glyph,
   units,
+  targetSelected,
   hovered,
   pinned,
   config,
@@ -46,8 +60,14 @@ export function DragMenu({
   onClose,
 }: Props) {
   const menuRef = useRef<HTMLDivElement>(null);
-  const viewportWidth = document.documentElement.clientWidth;
-  const viewportHeight = document.documentElement.clientHeight;
+  const [, setViewportEpoch] = useState(0);
+  const visualViewport = window.visualViewport;
+  const viewportWidth =
+    visualViewport?.width ?? document.documentElement.clientWidth;
+  const viewportHeight =
+    visualViewport?.height ?? document.documentElement.clientHeight;
+  const viewportLeft = 0;
+  const viewportTop = 0;
   const { pickerWidth, categoryWidth, menuWidth } = getSelectorWidths(
     units.length,
     viewportWidth,
@@ -58,21 +78,40 @@ export function DragMenu({
     viewportWidth,
     menuWidth,
     pickerWidth,
+    viewportLeft,
   );
-  const openUp = anchor.top > viewportHeight * 0.58;
-  const gap = 9;
+  const { openUp, top } = getSelectorVerticalPlacement(
+    anchor.top,
+    anchor.bottom,
+    viewportHeight,
+    undefined,
+    viewportTop,
+  );
+
+  useEffect(() => {
+    const updateViewport = () => setViewportEpoch((value) => value + 1);
+    window.addEventListener("resize", updateViewport);
+    visualViewport?.addEventListener("resize", updateViewport);
+    visualViewport?.addEventListener("scroll", updateViewport);
+    return () => {
+      window.removeEventListener("resize", updateViewport);
+      visualViewport?.removeEventListener("resize", updateViewport);
+      visualViewport?.removeEventListener("scroll", updateViewport);
+    };
+  }, [visualViewport]);
 
   // When the menu is pinned (tap path), move focus into it for keyboard users.
   useEffect(() => {
     if (!pinned) return;
     menuRef.current
-      ?.querySelector<HTMLButtonElement>("[data-unit-tid][aria-pressed='true']")
+      ?.querySelector<HTMLButtonElement>("[data-unit-tid]")
       ?.focus();
   }, [pinned]);
 
   const onKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
     if (e.key === "Escape") {
       e.preventDefault();
+      e.stopPropagation();
       onClose();
       return;
     }
@@ -80,24 +119,48 @@ export function DragMenu({
       menuRef.current?.querySelectorAll<HTMLButtonElement>("[data-unit-tid]") ?? [],
     );
     const categoryButtons = Array.from(
-      menuRef.current?.querySelectorAll<HTMLButtonElement>("[data-pill]") ?? [],
+      menuRef.current?.querySelectorAll<HTMLButtonElement>(
+        "[data-pill]:not(:disabled)",
+      ) ?? [],
     );
+    const focusableButtons = [...unitButtons, ...categoryButtons];
     const activeElement = document.activeElement;
     const unitIndex = unitButtons.findIndex((button) => button === activeElement);
     const categoryIndex = categoryButtons.findIndex(
       (button) => button === activeElement,
     );
 
+    if (pinned && e.key === "Tab" && focusableButtons.length) {
+      const focusIndex = focusableButtons.findIndex(
+        (button) => button === activeElement,
+      );
+      if (e.shiftKey && focusIndex <= 0) {
+        e.preventDefault();
+        e.stopPropagation();
+        focusableButtons[focusableButtons.length - 1]?.focus();
+      } else if (!e.shiftKey && focusIndex === focusableButtons.length - 1) {
+        e.preventDefault();
+        e.stopPropagation();
+        focusableButtons[0]?.focus();
+      }
+      return;
+    }
+
     if (
       unitIndex >= 0 &&
       (e.key === "ArrowLeft" || e.key === "ArrowRight")
     ) {
       e.preventDefault();
+      e.stopPropagation();
       // The rail is RTL: ArrowLeft advances visually left, ArrowRight moves right.
       const direction = e.key === "ArrowLeft" ? 1 : -1;
-      unitButtons[
+      const nextButton = unitButtons[
         (unitIndex + direction + unitButtons.length) % unitButtons.length
-      ].focus();
+      ];
+      nextButton.focus();
+      nextButton.scrollIntoView({ block: "nearest", inline: "nearest" });
+      const nextTid = nextButton.dataset.unitTid;
+      if (nextTid) onUnitPick(nextTid);
       return;
     }
 
@@ -107,12 +170,14 @@ export function DragMenu({
 
     if (unitIndex >= 0 && e.key === outwardKey) {
       e.preventDefault();
+      e.stopPropagation();
       categoryButtons[0]?.focus();
       return;
     }
 
     if (categoryIndex < 0) return;
     e.preventDefault();
+    e.stopPropagation();
     if (e.key === outwardKey) {
       categoryButtons[Math.min(categoryIndex + 1, categoryButtons.length - 1)]
         ?.focus();
@@ -123,14 +188,12 @@ export function DragMenu({
       return;
     }
     (menuRef.current?.querySelector<HTMLButtonElement>(
-      "[data-unit-tid][aria-pressed='true']",
+      "[data-unit-tid][aria-checked='true']",
     ) ?? unitButtons[0])?.focus();
   };
 
   const posStyle: SelectorStyle = {
-    ...(openUp
-      ? { bottom: Math.round(viewportHeight - anchor.top + gap) }
-      : { top: Math.round(anchor.bottom + gap) }),
+    top,
     left: centerX,
     width: menuWidth,
     "--picker-width": `${pickerWidth}px`,
@@ -145,22 +208,27 @@ export function DragMenu({
     >
       <div
         className="unit-picker-row"
-        role="group"
+        role="radiogroup"
         aria-label="Choose exact letter"
       >
-        {units.map((unit) => (
+        {units.map((unit, index) => (
           <button
             key={unit.tid}
             type="button"
+            role="radio"
             data-unit-tid={unit.tid}
             className={`unit-choice ${unit.selected ? "selected" : ""}`}
-            aria-label={`Choose ${unit.glyph}`}
-            aria-pressed={unit.selected}
-            tabIndex={pinned ? 0 : -1}
+            aria-label={`Letter ${index + 1} of ${units.length}: ${unit.primaryGlyph}. Exact source ${unit.fullGlyph}`}
+            aria-checked={unit.selected}
+            tabIndex={
+              pinned && (unit.selected || (!targetSelected && index === 0))
+                ? 0
+                : -1
+            }
             onPointerEnter={() => onUnitPick(unit.tid)}
             onClick={() => onUnitPick(unit.tid)}
           >
-            {unit.glyph}
+            <span aria-hidden="true">{unit.primaryGlyph}</span>
           </button>
         ))}
       </div>
@@ -181,6 +249,8 @@ export function DragMenu({
           data-pill={c.id}
           data-path-index={index}
           className={`pill cat-${c.id} ${hovered === c.id ? "active" : ""}`}
+          disabled={!targetSelected}
+          aria-disabled={!targetSelected}
           aria-posinset={index + 1}
           aria-setsize={CATEGORIES.length}
           onClick={() => onPick(c.id)}

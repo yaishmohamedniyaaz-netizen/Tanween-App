@@ -4,11 +4,17 @@ import {
   useEffect,
   useMemo,
   useReducer,
+  useRef,
   type ReactNode,
 } from "react";
 import { DEFAULT_CONFIG, STORAGE_KEY, TOTAL_MARKS } from "../config";
 import { computeScores } from "../lib/scoring";
 import { uid } from "../lib/id";
+import { loadPage } from "../lib/page";
+import {
+  buildTargetMigrationPatches,
+  type TargetMigrationPatches,
+} from "./migrateTargets";
 import type {
   CategoryId,
   JudgingState,
@@ -28,6 +34,10 @@ const initialState: JudgingState = {
   roster: [],
 };
 
+/** Non-destructive checkpoint of the last pre-target-V2 browser state. */
+export const PRE_TARGET_V2_BACKUP_KEY =
+  "tahqeeq.session.v1.backup.pre-target-v2";
+
 type Action =
   | { type: "ADD_MISTAKE"; mistake: Mistake }
   | { type: "REMOVE_MISTAKE"; id: string }
@@ -45,6 +55,7 @@ type Action =
   | { type: "CLEAR_ROSTER" }
   | { type: "START_RECITER"; participant: Participant }
   | { type: "FINISH_SESSION" }
+  | { type: "APPLY_TARGET_MIGRATION"; patches: TargetMigrationPatches }
   | { type: "LOAD"; state: JudgingState };
 
 const round2 = (n: number) => Math.round(n * 100) / 100;
@@ -166,6 +177,21 @@ function reducer(state: JudgingState, action: Action): JudgingState {
         notes: "",
       };
     }
+    case "APPLY_TARGET_MIGRATION":
+      return {
+        ...state,
+        mistakes: state.mistakes.map((mistake) => ({
+          ...mistake,
+          ...(action.patches[mistake.id] ?? {}),
+        })),
+        history: state.history.map((session) => ({
+          ...session,
+          mistakes: session.mistakes.map((mistake) => ({
+            ...mistake,
+            ...(action.patches[mistake.id] ?? {}),
+          })),
+        })),
+      };
     case "LOAD":
       return action.state;
     default:
@@ -178,6 +204,13 @@ function loadInitial(): JudgingState {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return initialState;
+    if (!localStorage.getItem(PRE_TARGET_V2_BACKUP_KEY)) {
+      try {
+        localStorage.setItem(PRE_TARGET_V2_BACKUP_KEY, raw);
+      } catch {
+        // A backup quota failure must never prevent the live session loading.
+      }
+    }
     const parsed = JSON.parse(raw) as Partial<JudgingState>;
     // migrate configs saved before the total-must-be-100 rule
     let config = { ...DEFAULT_CONFIG, ...(parsed.config ?? {}) };
@@ -207,6 +240,28 @@ const JudgingContext = createContext<Ctx | null>(null);
 
 export function JudgingProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(reducer, undefined, loadInitial);
+  const targetMigrationStarted = useRef(false);
+
+  useEffect(() => {
+    if (targetMigrationStarted.current) return;
+    targetMigrationStarted.current = true;
+    let cancelled = false;
+    buildTargetMigrationPatches(state, loadPage)
+      .then((patches) => {
+        if (!cancelled && Object.keys(patches).length) {
+          dispatch({ type: "APPLY_TARGET_MIGRATION", patches });
+        }
+      })
+      .catch(() => {
+        // Keep the untouched, backed-up V1 state and retry on a later load.
+      });
+    return () => {
+      cancelled = true;
+    };
+    // Initial-state migration only; the reducer applies patches to current
+    // state so any marks/notes added while pages load cannot be overwritten.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     try {

@@ -1025,7 +1025,7 @@ textarea:focus-visible {
   position: fixed;
   z-index: 60;
   transform: translateX(-50%);
-  width: min(304px, calc(100vw - 24px));
+  width: min(360px, calc(100vw - 24px));
 }
 .selector-runway {
   display: flex;
@@ -1076,6 +1076,9 @@ textarea:focus-visible {
   min-width: 0;
   gap: 2px;
   overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x proximity;
+  touch-action: pan-x;
   padding: 3px;
   border: 1px solid var(--line-2);
   background: var(--surface);
@@ -1092,9 +1095,13 @@ textarea:focus-visible {
 }
 .unit-choice {
   position: relative;
-  flex: 1 1 44px;
-  min-width: 35px;
+  flex: 0 0 44px;
+  width: 44px;
+  min-width: 44px;
+  height: 44px;
   min-height: 44px;
+  box-sizing: border-box;
+  scroll-snap-align: center;
   padding: 4px 5px 2px;
   border: 0;
   border-radius: 8px;
@@ -1112,11 +1119,11 @@ textarea:focus-visible {
 .unit-choice.selected {
   z-index: 1;
   background: var(--selection-fill);
-  box-shadow: inset 0 0 0 1.5px var(--selection-ring);
+  box-shadow: inset 0 0 0 2px var(--selection-ring);
 }
 .unit-picker[class*="cat-"] .unit-choice.selected {
   background: color-mix(in srgb, var(--c) 11%, var(--surface));
-  box-shadow: inset 0 0 0 1.5px var(--c);
+  box-shadow: inset 0 0 0 2px var(--c);
 }
 .unit-choice:focus-visible {
   z-index: 2;
@@ -1145,7 +1152,7 @@ textarea:focus-visible {
   align-items: center;
   gap: 6px;
   width: 100%;
-  min-height: 40px;
+  min-height: 44px;
   flex: 0 0 auto;
   text-align: left;
   background: var(--surface);
@@ -1156,6 +1163,19 @@ textarea:focus-visible {
   color: var(--ink);
   transition: background-color var(--t-fast) var(--ease-out),
     box-shadow var(--t-fast) var(--ease-out), color var(--t-fast) var(--ease-out);
+}
+.pill:disabled {
+  cursor: not-allowed;
+  opacity: 1;
+  color: var(--ink-3);
+  -webkit-text-fill-color: var(--ink-3);
+  background: color-mix(in srgb, var(--surface) 92%, var(--line));
+}
+.pill:disabled::before {
+  opacity: 0.38;
+}
+.pill:disabled .pill-amt {
+  opacity: 0.58;
 }
 .drag-menu.down .pill:last-child,
 .drag-menu.up .pill:first-child {
