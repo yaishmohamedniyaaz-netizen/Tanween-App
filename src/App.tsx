@@ -290,8 +290,10 @@ export function App() {
         </main>
       )}
 
-      {needsStart && !setupOpen && (
-        <StartDialog onOpenSetup={() => setSetupOpen(true)} />
+      {needsStart && (
+        <div hidden={setupOpen}>
+          <StartDialog onOpenSetup={() => setSetupOpen(true)} />
+        </div>
       )}
       {setupOpen && <SetupDialog onClose={() => setSetupOpen(false)} />}
       {finishOpen && state.sessionActive && (

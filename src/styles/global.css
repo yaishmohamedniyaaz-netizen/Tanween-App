@@ -2056,27 +2056,53 @@ textarea:focus-visible {
   border-top: 1px solid var(--line);
   background: var(--surface);
 }
-.start-role {
+.start-judge-panel {
   display: grid;
-  grid-template-columns: auto auto minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
-  gap: 7px;
+  gap: 8px 12px;
   margin: -4px 0 14px;
-  padding: 8px 10px;
+  padding: 10px 11px;
   border: 1px solid var(--line);
   border-radius: var(--r-sm);
   background: var(--bg);
   color: var(--ink-2);
   font-size: 11px;
-  text-align: left;
 }
-.start-role strong {
+.start-judge-panel-copy {
+  display: grid;
+  grid-template-columns: auto auto minmax(0, 1fr);
+  align-items: baseline;
+  gap: 7px;
+  min-width: 0;
+}
+.start-judge-panel-copy strong {
   color: var(--ink);
   font-weight: 550;
+  white-space: nowrap;
 }
-.start-role.is-missing {
-  display: block;
-  width: 100%;
+.start-judge-panel-copy > span:last-child {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.start-judge-change {
+  min-height: 30px;
+  padding: 4px 8px;
+  background: var(--surface);
+  font-size: 10.5px;
+}
+.start-judge-panel > p {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: var(--ink-3);
+  font-size: 10.5px;
+  line-height: 1.4;
+}
+.start-judge-panel.is-missing {
+  border-color: color-mix(in srgb, #d8453d 45%, var(--line));
+}
+.start-judge-panel.is-missing .start-judge-panel-copy strong {
   color: #9e2820;
 }
 .finish-role {
@@ -2993,5 +3019,11 @@ textarea:focus-visible {
   .session-assignment small {
     width: 100%;
     margin-left: 0;
+  }
+  .start-judge-panel {
+    grid-template-columns: 1fr;
+  }
+  .start-judge-change {
+    width: 100%;
   }
 }

@@ -27,6 +27,14 @@ const recordsSource = readFileSync(
   new URL("../src/components/RecordsView.tsx", import.meta.url),
   "utf8",
 );
+const startSource = readFileSync(
+  new URL("../src/components/StartDialog.tsx", import.meta.url),
+  "utf8",
+);
+const appSource = readFileSync(
+  new URL("../src/App.tsx", import.meta.url),
+  "utf8",
+);
 
 test("the two common panel presets cover every category exactly once", () => {
   for (const preset of ["all", "one-each"]) {
@@ -145,6 +153,16 @@ test("setup derives judge count, requires a device role, and freezes active sett
   assert.match(setupSource, /deviceJudgeValid/);
   assert.match(setupSource, /disabled=\{state\.sessionActive\}/);
   assert.doesNotMatch(setupSource, /judgeCount/);
+});
+
+test("participant selection exposes the full judging-panel editor", () => {
+  assert.match(startSource, /Judging panel/);
+  assert.match(startSource, /Change assignments/);
+  assert.match(startSource, /Add judges or assign/);
+  assert.match(startSource, /onClick=\{onOpenSetup\}/);
+  assert.match(startSource, /One judge covering all three is the default/);
+  assert.match(startSource, /closest\("button, select, textarea"\)/);
+  assert.match(appSource, /<div hidden=\{setupOpen\}>/);
 });
 
 test("scores and records identify their judge-section scope", () => {

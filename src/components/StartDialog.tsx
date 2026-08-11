@@ -47,6 +47,7 @@ export function StartDialog({ onOpenSetup }: { onOpenSetup: () => void }) {
 
   const onKeyDown = (e: React.KeyboardEvent) => {
     if (e.key !== "Enter") return;
+    if ((e.target as HTMLElement).closest("button, select, textarea")) return;
     if (roster.length > 0 && nextIdx >= 0 && !name.trim()) {
       startEntry(roster[nextIdx]);
     } else {
@@ -71,17 +72,30 @@ export function StartDialog({ onOpenSetup }: { onOpenSetup: () => void }) {
             : "Type the reciter's name to begin judging."}
         </p>
 
-        {assignment ? (
-          <div className="start-role">
-            <span className="t-label">This device</span>
-            <strong>{judgeDisplayName(assignment)}</strong>
-            <span>{assignmentLabel(assignment.categories)}</span>
+        <div className={`start-judge-panel ${assignment ? "" : "is-missing"}`}>
+          <div className="start-judge-panel-copy">
+            <span className="t-label">Judging panel</span>
+            {assignment ? (
+              <>
+                <strong>{judgeDisplayName(assignment)}</strong>
+                <span>{assignmentLabel(assignment.categories)}</span>
+              </>
+            ) : (
+              <strong>Choose this device's judge</strong>
+            )}
           </div>
-        ) : (
-          <button type="button" className="start-role is-missing" onClick={onOpenSetup}>
-            Choose which judge is using this device
+          <button
+            type="button"
+            className="btn-ghost start-judge-change"
+            onClick={onOpenSetup}
+          >
+            Change assignments
           </button>
-        )}
+          <p>
+            One judge covering all three is the default. Add judges or assign
+            Jali, Khafi and Fasaha before starting.
+          </p>
+        </div>
 
         {roster.length === 0 ? (
           <>
@@ -125,7 +139,7 @@ export function StartDialog({ onOpenSetup }: { onOpenSetup: () => void }) {
                 className="btn-ghost"
                 onClick={onOpenSetup}
               >
-                Upload list
+                Participant list
               </button>
               <button
                 type="button"
@@ -165,7 +179,7 @@ export function StartDialog({ onOpenSetup }: { onOpenSetup: () => void }) {
             </ul>
             <div className="dialog-actions">
               <button type="button" className="btn-ghost" onClick={onOpenSetup}>
-                Setup
+                Edit setup
               </button>
               {nextIdx >= 0 && (
                 <button
