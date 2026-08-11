@@ -14,6 +14,33 @@ export interface CategoryConfig {
 
 export type ScoreConfig = Record<CategoryId, CategoryConfig>;
 
+export type JudgePanelPreset = "all" | "one-each" | "custom";
+
+export interface JudgeSeat {
+  id: string;
+  label: string;
+  /** Optional human name; the stable seat label remains the fallback. */
+  name: string;
+  categories: CategoryId[];
+}
+
+export interface JudgePanelConfig {
+  version: 1;
+  preset: JudgePanelPreset;
+  seats: JudgeSeat[];
+}
+
+/** Immutable ownership and scoring rules captured when a reciter begins. */
+export interface JudgeAssignmentSnapshot {
+  version: 1;
+  panel: JudgePanelConfig;
+  judgeSeatId: string;
+  judgeLabel: string;
+  judgeName: string;
+  categories: CategoryId[];
+  config: ScoreConfig;
+}
+
 export type TokenRole = "letter" | "ayah-end" | "ornament";
 
 /** One pinpointed deduction tied to an exact semantic judging unit. */
@@ -38,6 +65,8 @@ export interface Mistake {
   glyph: string; // immutable historical display snapshot
   label: string; // human location, e.g. "112:1 · letter 3"
   category: CategoryId;
+  /** The judge seat responsible when this evidence was recorded. */
+  judgeSeatId?: string;
   amount: number; // marks deducted (defaults to category.step, adjustable)
   note?: string;
   ts: number;
@@ -51,6 +80,7 @@ export type JudgingEvent =
       type: "session_started";
       sessionId: string;
       participant: Participant;
+      assignment?: JudgeAssignmentSnapshot;
     }
   | {
       id: string;
@@ -98,6 +128,7 @@ export type JudgingEvent =
       sessionId: string;
       total: number;
       totalMax: number;
+      scoreKind?: "judge-section";
     };
 
 export interface Participant {
@@ -125,6 +156,10 @@ export interface SavedSession {
   config: ScoreConfig;
   total: number;
   totalMax: number;
+  scoreKind?: "judge-section";
+  sectionTotal?: number;
+  sectionMax?: number;
+  assignment?: JudgeAssignmentSnapshot;
   notes: string;
   mistakes: Mistake[];
   events?: JudgingEvent[];
@@ -137,8 +172,12 @@ export interface JudgingState {
   activeSessionId: string | null;
   activeStartedAt: number | null;
   activeRevision: number;
+  /** Frozen for the active reciter; live setup changes cannot rewrite it. */
+  activeAssignment: JudgeAssignmentSnapshot | null;
   events: JudgingEvent[];
   config: ScoreConfig;
+  panel: JudgePanelConfig;
+  deviceJudgeId: string | null;
   mistakes: Mistake[];
   notes: string; // free notes: Fasaha / voice & melody
   history: SavedSession[];

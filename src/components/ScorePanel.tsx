@@ -1,6 +1,7 @@
 import { CATEGORIES } from "../config";
 import { computeScores } from "../lib/scoring";
 import { useJudging } from "../state/store";
+import { judgeSeatFor } from "../lib/judgeAssignments";
 import type { CategoryId } from "../types";
 
 function CategoryRow({
@@ -34,18 +35,21 @@ function CategoryRow({
 export function ScorePanel() {
   const { state } = useJudging();
   const { byCategory, total, totalMax } = computeScores(state);
+  const categories = state.activeAssignment?.categories ??
+    judgeSeatFor(state.panel, state.deviceJudgeId)?.categories ??
+    CATEGORIES.map((category) => category.id);
 
   return (
     <section className="panel scorecard" aria-label="Score">
       <div className="sc-total">
-        <span className="sc-total-label">Current score</span>
+        <span className="sc-total-label">Your section</span>
         <span className="sc-total-value" aria-live="polite" aria-atomic="true">
           <span className="sc-total-num t-num">{total}</span>
           <span className="sc-total-of t-num"> / {totalMax}</span>
         </span>
       </div>
       <div className="sc-rows">
-        {CATEGORIES.map((c) => (
+        {CATEGORIES.filter((category) => categories.includes(category.id)).map((c) => (
           <CategoryRow
             key={c.id}
             id={c.id}

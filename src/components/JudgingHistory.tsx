@@ -1,6 +1,7 @@
 import { CATEGORY_BY_ID } from "../config";
 import { latestMistakeEventIds } from "../lib/judgingLedger";
 import type { CategoryId, JudgingEvent, Mistake } from "../types";
+import { assignmentLabel, judgeDisplayName } from "../lib/judgeAssignments";
 
 function eventMistake(event: JudgingEvent): Mistake | null {
   if (
@@ -18,7 +19,9 @@ function historyCopy(event: JudgingEvent) {
     case "session_started":
       return {
         title: "Judging started",
-        detail: event.participant.name || "Unnamed reciter",
+        detail: event.assignment
+          ? `${judgeDisplayName(event.assignment)} · ${assignmentLabel(event.assignment.categories)}`
+          : event.participant.name || "Unnamed reciter",
       };
     case "mistake_added":
       return {
@@ -43,7 +46,7 @@ function historyCopy(event: JudgingEvent) {
       return { title: "Result reopened", detail: event.reason };
     case "session_finalized":
       return {
-        title: "Result finished",
+        title: event.scoreKind === "judge-section" ? "Section finished" : "Result finished",
         detail: `${event.total} / ${event.totalMax}`,
       };
   }

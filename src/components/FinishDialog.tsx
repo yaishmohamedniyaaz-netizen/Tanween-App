@@ -1,5 +1,6 @@
 import { computeScores } from "../lib/scoring";
 import { useJudging } from "../state/store";
+import { assignmentLabel, judgeDisplayName } from "../lib/judgeAssignments";
 
 export function FinishDialog({
   onCancel,
@@ -10,6 +11,7 @@ export function FinishDialog({
 }) {
   const { state } = useJudging();
   const { total, totalMax } = computeScores(state);
+  const assignment = state.activeAssignment;
 
   return (
     <div className="dialog-backdrop">
@@ -30,9 +32,14 @@ export function FinishDialog({
           </span>
           <span>
             <strong>{total}</strong>
-            <small>Score out of {totalMax}</small>
+            <small>Your section out of {totalMax}</small>
           </span>
         </div>
+        {assignment && (
+          <p className="finish-role">
+            {judgeDisplayName(assignment)} · {assignmentLabel(assignment.categories)}
+          </p>
+        )}
         <p className="dialog-sub">
           This saves the result and opens the next reciter. It can still be
           reopened later, but the judge must give a reason.

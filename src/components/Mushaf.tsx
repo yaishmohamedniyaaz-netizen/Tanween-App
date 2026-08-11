@@ -377,12 +377,16 @@ export function Mushaf({
   const activeUnit = active?.tid
     ? active.meta.units.find((unit) => unit.tid === active.tid)
     : null;
+  const allowedCategories =
+    state.activeAssignment?.categories ?? (["jali", "khafi", "fasaha"] as CategoryId[]);
 
   const commit = useCallback(
-    (category: CategoryId) => {
+    (category: CategoryId, tidOverride?: string | null) => {
       if (!active || !pageData) return;
-      if (!active.tid) return;
-      const unit = active.meta.units.find((candidate) => candidate.tid === active.tid);
+      if (!allowedCategories.includes(category)) return;
+      const selectedTid = tidOverride ?? active.tid;
+      if (!selectedTid) return;
+      const unit = active.meta.units.find((candidate) => candidate.tid === selectedTid);
       if (!unit) return;
       const mistake: Mistake = {
         id: uid(),
@@ -405,12 +409,13 @@ export function Mushaf({
           unit.unitIndex,
         ),
         category,
-        amount: state.config[category].step,
+        judgeSeatId: state.activeAssignment?.judgeSeatId,
+        amount: (state.activeAssignment?.config ?? state.config)[category].step,
         ts: Date.now(),
       };
       dispatch({ type: "ADD_MISTAKE", mistake });
     },
-    [active, dispatch, pageData, state.config],
+    [active, allowedCategories, dispatch, pageData, state.activeAssignment, state.config],
   );
 
   const onPointerDown = (event: React.PointerEvent) => {
@@ -529,7 +534,16 @@ export function Mushaf({
     }
     const start = startRef.current;
     startRef.current = null;
-    if (hovered && active.tid) {
+    const element = document.elementFromPoint(event.clientX, event.clientY);
+    const finalUnit = element?.closest<HTMLElement>("[data-unit-tid]");
+    const finalTid = finalUnit?.dataset.unitTid;
+    const validFinalTid = finalTid && active.meta.units.some((unit) => unit.tid === finalTid)
+      ? finalTid
+      : null;
+    if (allowedCategories.length === 1 && start?.moved && validFinalTid) {
+      commit(allowedCategories[0], validFinalTid);
+      closeAll();
+    } else if (hovered && active.tid && allowedCategories.includes(hovered)) {
       commit(hovered);
       closeAll();
     } else if (start && !start.moved && Date.now() - start.t < 500) {
@@ -798,7 +812,8 @@ export function Mushaf({
           targetSelected={Boolean(activeUnit)}
           hovered={hovered}
           pinned={pinned}
-          config={state.config}
+          config={state.activeAssignment?.config ?? state.config}
+          allowedCategories={allowedCategories}
           onPick={(category) => {
             commit(category);
             closeTray();

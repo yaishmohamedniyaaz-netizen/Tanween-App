@@ -42,6 +42,36 @@ export function computeMistakeScores(
   return { byCategory, total, totalMax };
 }
 
+export function computeAssignedMistakeScores(
+  config: ScoreConfig,
+  mistakes: Mistake[],
+  categories: CategoryId[],
+) {
+  const full = computeMistakeScores(config, mistakes);
+  const allowed = new Set(categories);
+  const ids: CategoryId[] = ["jali", "khafi", "fasaha"];
+  const total = round2(
+    ids.reduce(
+      (sum, category) =>
+        allowed.has(category) ? sum + full.byCategory[category].score : sum,
+      0,
+    ),
+  );
+  const totalMax = round2(
+    ids.reduce(
+      (sum, category) =>
+        allowed.has(category) ? sum + full.byCategory[category].start : sum,
+      0,
+    ),
+  );
+  return { ...full, total, totalMax };
+}
+
 export function computeScores(state: JudgingState) {
-  return computeMistakeScores(state.config, state.mistakes);
+  const categories =
+    state.activeAssignment?.categories ??
+    state.panel.seats.find((seat) => seat.id === state.deviceJudgeId)?.categories ??
+    ["jali", "khafi", "fasaha"];
+  const config = state.activeAssignment?.config ?? state.config;
+  return computeAssignedMistakeScores(config, state.mistakes, categories);
 }

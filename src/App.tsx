@@ -16,6 +16,7 @@ import { RecordsView } from "./components/RecordsView";
 import { StartDialog } from "./components/StartDialog";
 import { SetupDialog } from "./components/SetupDialog";
 import { FinishDialog } from "./components/FinishDialog";
+import { JudgeRoleStrip } from "./components/JudgeRoleStrip";
 import { useJudging } from "./state/store";
 import surahIndex from "./data/surah-index.json";
 
@@ -270,6 +271,7 @@ export function App() {
             </div>
           </div>
           <aside className="sidebar">
+            <JudgeRoleStrip onChange={() => setSetupOpen(true)} />
             <ScorePanel />
             <MistakeLog />
             <NotesBox />

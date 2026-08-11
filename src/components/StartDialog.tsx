@@ -2,6 +2,11 @@ import { useEffect, useRef, useState } from "react";
 import { useJudging } from "../state/store";
 import type { RosterEntry } from "../types";
 import { Icon } from "./Icon";
+import {
+  assignmentLabel,
+  judgeDisplayName,
+  makeAssignmentSnapshot,
+} from "../lib/judgeAssignments";
 
 /** Shown whenever no reciter session is active. Two routes:
  *  type a name, or pick from the uploaded roster (next-up preselected). */
@@ -15,6 +20,11 @@ export function StartDialog({ onOpenSetup }: { onOpenSetup: () => void }) {
 
   const roster = state.roster;
   const nextIdx = roster.findIndex((r) => !r.judged);
+  const assignment = makeAssignmentSnapshot(
+    state.panel,
+    state.deviceJudgeId,
+    state.config,
+  );
 
   useEffect(() => {
     if (roster.length === 0) inputRef.current?.focus();
@@ -60,6 +70,18 @@ export function StartDialog({ onOpenSetup }: { onOpenSetup: () => void }) {
             ? "Next up is preselected — press Enter to start."
             : "Type the reciter's name to begin judging."}
         </p>
+
+        {assignment ? (
+          <div className="start-role">
+            <span className="t-label">This device</span>
+            <strong>{judgeDisplayName(assignment)}</strong>
+            <span>{assignmentLabel(assignment.categories)}</span>
+          </div>
+        ) : (
+          <button type="button" className="start-role is-missing" onClick={onOpenSetup}>
+            Choose which judge is using this device
+          </button>
+        )}
 
         {roster.length === 0 ? (
           <>
@@ -108,8 +130,8 @@ export function StartDialog({ onOpenSetup }: { onOpenSetup: () => void }) {
               <button
                 type="button"
                 className="btn-primary"
-                disabled={!name.trim()}
-                style={!name.trim() ? { opacity: 0.4, cursor: "default" } : undefined}
+                disabled={!name.trim() || !assignment}
+                style={!name.trim() || !assignment ? { opacity: 0.4, cursor: "default" } : undefined}
                 onClick={() => start({ name, number, group })}
               >
                 Start
@@ -126,6 +148,7 @@ export function StartDialog({ onOpenSetup }: { onOpenSetup: () => void }) {
                     className={`roster-row ${i === nextIdx ? "is-next" : ""} ${
                       r.judged ? "is-done" : ""
                     }`}
+                    disabled={!assignment}
                     onClick={() => startEntry(r)}
                   >
                     <span className="roster-num t-num">{r.number || i + 1}</span>
@@ -148,6 +171,7 @@ export function StartDialog({ onOpenSetup }: { onOpenSetup: () => void }) {
                 <button
                   type="button"
                   className="btn-primary"
+                  disabled={!assignment}
                   onClick={() => startEntry(roster[nextIdx])}
                 >
                   Start {roster[nextIdx].name.split(" ")[0]}

@@ -4,6 +4,7 @@ import { computeScores } from "../lib/scoring";
 import surahData from "../data/surahs.json";
 import { useJudging } from "../state/store";
 import type { Mistake } from "../types";
+import { assignmentLabel, judgeDisplayName } from "../lib/judgeAssignments";
 
 /** Print-only summary — the transparent record of a reciter's session.
  *  Marks are grouped under the āyah they fall on, with the āyah text for context
@@ -12,6 +13,8 @@ export function ResultSheet() {
   const { state } = useJudging();
   const { byCategory, total, totalMax } = computeScores(state);
   const p = state.participant;
+  const assignment = state.activeAssignment;
+  const visibleCategories = assignment?.categories ?? CATEGORIES.map((category) => category.id);
 
   const ayahText = useMemo(() => {
     const map = new Map<string, string>();
@@ -48,7 +51,7 @@ export function ResultSheet() {
     <div className="result-sheet" aria-hidden="true">
       <div className="rs-head">
         <div>
-          <div className="rs-title">Tahqeeq — recitation result</div>
+          <div className="rs-title">Tahqeeq — judge section result</div>
           <div className="rs-sub">{date}</div>
         </div>
         <div className="rs-total">
@@ -67,6 +70,14 @@ export function ResultSheet() {
             <th>Island / class</th>
             <td>{p.group || "—"}</td>
           </tr>
+          {assignment && (
+            <tr>
+              <th>Judge</th>
+              <td>{judgeDisplayName(assignment)}</td>
+              <th>Assigned</th>
+              <td colSpan={3}>{assignmentLabel(assignment.categories)}</td>
+            </tr>
+          )}
         </tbody>
       </table>
 
@@ -81,7 +92,7 @@ export function ResultSheet() {
           </tr>
         </thead>
         <tbody>
-          {CATEGORIES.map((c) => {
+          {CATEGORIES.filter((category) => visibleCategories.includes(category.id)).map((c) => {
             const s = byCategory[c.id];
             return (
               <tr key={c.id}>

@@ -59,6 +59,18 @@ the score is rebuilt from that history after a reload. Finishing a reciter saves
 protected result; reopening it for correction requires a recorded reason. Printing
 produces a result sheet, and the next reciter starts with a clean active record.
 
+## Judge assignments
+
+Competition setup can assign Jali, Khafi, and Fasaha to one, two, or three
+judges and select which judge is using the current device. The score panel and
+letter tray show only that judge's categories. A one-category judge can release
+directly on the exact letter during the hold gesture, while the tap path keeps a
+visible confirmation.
+
+Every reciter freezes the judge seat, assigned categories, and score rules in
+the saved result. These are judge-section results; this version deliberately
+does not combine separate devices into an official competition total.
+
 ## Project structure
 
 ```text

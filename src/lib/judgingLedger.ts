@@ -1,4 +1,9 @@
-import type { JudgingEvent, Mistake, Participant } from "../types";
+import type {
+  JudgeAssignmentSnapshot,
+  JudgingEvent,
+  Mistake,
+  Participant,
+} from "../types";
 
 export const LEDGER_VERSION = 1 as const;
 
@@ -39,11 +44,13 @@ export function seedLedgerEvents({
   participant,
   startedAt,
   mistakes,
+  assignment,
 }: {
   sessionId: string;
   participant: Participant;
   startedAt: number;
   mistakes: Mistake[];
+  assignment?: JudgeAssignmentSnapshot;
 }): JudgingEvent[] {
   return [
     {
@@ -52,13 +59,19 @@ export function seedLedgerEvents({
       type: "session_started",
       sessionId,
       participant,
+      assignment,
     },
     ...mistakes.map(
       (mistake): JudgingEvent => ({
         id: `ledger:${mistake.id}:added`,
         at: mistake.ts,
         type: "mistake_added",
-        mistake: { ...mistake },
+        mistake: {
+          ...mistake,
+          ...(mistake.judgeSeatId || assignment?.judgeSeatId
+            ? { judgeSeatId: mistake.judgeSeatId ?? assignment?.judgeSeatId }
+            : {}),
+        },
       }),
     ),
   ];

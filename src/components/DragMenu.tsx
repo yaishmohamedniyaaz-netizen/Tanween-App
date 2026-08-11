@@ -36,6 +36,7 @@ interface Props {
   hovered: CategoryId | null;
   pinned: boolean;
   config: ScoreConfig;
+  allowedCategories: CategoryId[];
   onPick: (id: CategoryId) => void;
   onUnitPick: (tid: string) => void;
   onClose: () => void;
@@ -55,6 +56,7 @@ export function DragMenu({
   hovered,
   pinned,
   config,
+  allowedCategories,
   onPick,
   onUnitPick,
   onClose,
@@ -87,6 +89,10 @@ export function DragMenu({
     undefined,
     viewportTop,
   );
+  const categoryDefs = CATEGORIES.filter((category) =>
+    allowedCategories.includes(category.id),
+  );
+  const fixedCategory = categoryDefs.length === 1 ? categoryDefs[0] : null;
 
   useEffect(() => {
     const updateViewport = () => setViewportEpoch((value) => value + 1);
@@ -203,7 +209,7 @@ export function DragMenu({
 
   const unitPicker = (
     <div
-      className={`unit-picker ${hovered ? `cat-${hovered}` : ""}`}
+      className={`unit-picker ${hovered ? `cat-${hovered}` : fixedCategory ? `cat-${fixedCategory.id}` : ""}`}
       dir="rtl"
     >
       <div
@@ -241,23 +247,26 @@ export function DragMenu({
       aria-label="Choose mistake type"
       aria-orientation="vertical"
     >
-      {CATEGORIES.map((c, index) => (
+      {categoryDefs.map((c, index) => (
         <button
           key={c.id}
           type="button"
           role="menuitem"
           data-pill={c.id}
           data-path-index={index}
-          className={`pill cat-${c.id} ${hovered === c.id ? "active" : ""}`}
+          className={`pill cat-${c.id} ${fixedCategory ? "pill-fixed" : ""} ${hovered === c.id ? "active" : ""}`}
           disabled={!targetSelected}
           aria-disabled={!targetSelected}
           aria-posinset={index + 1}
-          aria-setsize={CATEGORIES.length}
+          aria-setsize={categoryDefs.length}
           onClick={() => onPick(c.id)}
           tabIndex={pinned ? 0 : -1}
         >
           <span className="pill-text">
-            <span className="pill-main">{c.label}</span>
+            <span className="pill-main">
+              {fixedCategory && pinned ? "Mark " : ""}
+              {c.label.replace(/^Laḥn\s/i, "")}
+            </span>
           </span>
           <span className="pill-amt">−{config[c.id].step}</span>
         </button>

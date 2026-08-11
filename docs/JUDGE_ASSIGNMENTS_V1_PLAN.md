@@ -1,6 +1,6 @@
 # Judge Assignment Mode v1 — implementation plan
 
-Status: ready for implementation after approval  
+Status: implemented; final validation and publication tracked with the release
 Product boundary: judge-facing app only; the participant sees only the Mushaf  
 Release shape: one complete update, built in four separately testable passes
 

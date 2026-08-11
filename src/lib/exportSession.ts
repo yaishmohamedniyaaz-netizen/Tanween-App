@@ -1,6 +1,7 @@
 import { CATEGORY_BY_ID } from "../config";
 import type { JudgingState, SavedSession } from "../types";
 import { computeScores } from "./scoring";
+import { assignmentLabel, judgeDisplayName } from "./judgeAssignments";
 
 function downloadBlob(content: string, type: string, filename: string) {
   const blob = new Blob([content], { type });
@@ -23,13 +24,33 @@ function csvCell(v: string | number): string {
  *  the future cross-island/class statistics layer. */
 export function buildSessionPayload(state: JudgingState) {
   const { byCategory, total, totalMax } = computeScores(state);
+  const assignment = state.activeAssignment;
+  const assignedCategories = assignment?.categories ?? ["jali", "khafi", "fasaha"];
+  const assignedScores = Object.fromEntries(
+    Object.entries(byCategory).filter(([category]) =>
+      assignedCategories.includes(category as "jali" | "khafi" | "fasaha"),
+    ),
+  );
   return {
     app: "tahqeeq",
-    schema: 2,
+    schema: 3,
     exportedAt: new Date().toISOString(),
     participant: state.participant,
     config: state.config,
-    score: { total, max: totalMax, byCategory },
+    judgeAssignment: assignment
+      ? {
+          seatId: assignment.judgeSeatId,
+          judge: judgeDisplayName(assignment),
+          categories: assignment.categories,
+          label: assignmentLabel(assignment.categories),
+        }
+      : null,
+    score: {
+      kind: "judge-section",
+      total,
+      max: totalMax,
+      byCategory: assignedScores,
+    },
     notes: state.notes,
     judgingHistory: state.events.map((event) => ({
       ...event,
@@ -41,6 +62,7 @@ export function buildSessionPayload(state: JudgingState) {
       glyph: m.glyph,
       location: m.label,
       category: m.category,
+      judgeSeatId: m.judgeSeatId,
       deduction: m.amount,
       at: new Date(m.ts).toISOString(),
     })),
@@ -71,6 +93,10 @@ export function downloadRecordsCSV(history: SavedSession[]) {
     "number",
     "island_class",
     "date",
+    "judge_seat",
+    "judge_name",
+    "assigned_section",
+    "score_kind",
     "total",
     "max",
     "surah",
@@ -87,6 +113,10 @@ export function downloadRecordsCSV(history: SavedSession[]) {
       s.participant.number,
       s.participant.group,
       new Date(s.savedAt).toISOString().slice(0, 10),
+      s.assignment?.judgeSeatId ?? "judge-1",
+      s.assignment ? judgeDisplayName(s.assignment) : "Judge 1",
+      s.assignment ? assignmentLabel(s.assignment.categories) : "Jali + Khafi + Fasaha",
+      s.scoreKind ?? "judge-section",
       s.total,
       s.totalMax,
     ];

@@ -29,9 +29,18 @@ test("the semantic category path is Jali, then Khafi, then Fasaha", () => {
 
 test("the selector is one connected, letter-only runway", () => {
   assert.match(dragMenuSource, /className="selector-runway"/);
-  assert.match(dragMenuSource, /CATEGORIES\.map\(\(c, index\)/);
+  assert.match(dragMenuSource, /CATEGORIES\.filter/);
+  assert.match(dragMenuSource, /categoryDefs\.map\(\(c, index\)/);
   assert.doesNotMatch(dragMenuSource, /unit-picker-word/);
   assert.doesNotMatch(dragMenuSource, /word:\s*string/);
+});
+
+test("assigned categories filter the tray and one category gets a fixed action", () => {
+  assert.match(dragMenuSource, /allowedCategories\.includes\(category\.id\)/);
+  assert.match(dragMenuSource, /categoryDefs\.length === 1/);
+  assert.match(dragMenuSource, /fixedCategory && pinned \? "Mark " : ""/);
+  assert.match(mushafSource, /allowedCategories\.length === 1 && start\?\.moved && validFinalTid/);
+  assert.match(mushafSource, /allowedCategories\.includes\(category\)/);
 });
 
 test("an upward runway keeps Jali physically nearest to the source", () => {

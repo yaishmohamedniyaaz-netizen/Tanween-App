@@ -14,7 +14,19 @@ import {
   projectMistakes,
   seedLedgerEvents,
 } from "../lib/judgingLedger";
-import { computeMistakeScores, computeScores } from "../lib/scoring";
+import {
+  computeAssignedMistakeScores,
+  computeScores,
+} from "../lib/scoring";
+import {
+  createPanelPreset,
+  judgeSeatFor,
+  legacyAssignment,
+  makeAssignmentSnapshot,
+  normalizeAssignment,
+  normalizeJudgePanel,
+  validateJudgePanel,
+} from "../lib/judgeAssignments";
 import { uid } from "../lib/id";
 import { loadPage } from "../lib/page";
 import {
@@ -23,6 +35,8 @@ import {
 } from "./migrateTargets";
 import type {
   CategoryId,
+  JudgeAssignmentSnapshot,
+  JudgePanelConfig,
   JudgingEvent,
   JudgingState,
   Mistake,
@@ -39,8 +53,11 @@ const initialState: JudgingState = {
   activeSessionId: null,
   activeStartedAt: null,
   activeRevision: 1,
+  activeAssignment: null,
   events: [],
   config: DEFAULT_CONFIG,
+  panel: createPanelPreset("all"),
+  deviceJudgeId: "judge-1",
   mistakes: [],
   notes: "",
   history: [],
@@ -55,6 +72,10 @@ export const PRE_TARGET_V2_BACKUP_KEY =
 export const PRE_LEDGER_BACKUP_KEY =
   "tahqeeq.session.v1.backup.pre-ledger-v1";
 
+/** Untouched browser state from immediately before judge ownership was added. */
+export const PRE_JUDGE_ASSIGNMENTS_BACKUP_KEY =
+  "tahqeeq.session.v1.backup.pre-judge-assignments-v1";
+
 type Action =
   | { type: "ADD_MISTAKE"; mistake: Mistake }
   | { type: "REMOVE_MISTAKE"; id: string }
@@ -62,6 +83,8 @@ type Action =
   | { type: "SET_MISTAKE_AMOUNT"; id: string; amount: number }
   | { type: "SET_MISTAKE_NOTE"; id: string; note: string }
   | { type: "SET_CONFIG"; category: CategoryId; start?: number; step?: number }
+  | { type: "SET_PANEL"; panel: JudgePanelConfig; deviceJudgeId: string }
+  | { type: "SET_DEVICE_JUDGE"; judgeSeatId: string }
   | { type: "SET_NOTES"; notes: string }
   | { type: "SET_PARTICIPANT"; patch: Partial<Participant> }
   | { type: "CLEAR_MARKS" }
@@ -80,6 +103,36 @@ const round2 = (n: number) => Math.round(n * 100) / 100;
 function withEvent(state: JudgingState, event: JudgingEvent): JudgingState {
   const events = [...state.events, event];
   return { ...state, events, mistakes: projectMistakes(events) };
+}
+
+function eventsWithAssignment(
+  events: JudgingEvent[],
+  assignment: JudgeAssignmentSnapshot,
+): JudgingEvent[] {
+  return events.map((event) => {
+    if (event.type === "session_started") {
+      return {
+        ...event,
+        assignment: event.assignment
+          ? normalizeAssignment(event.assignment, assignment.config)
+          : assignment,
+      };
+    }
+    if (
+      event.type === "mistake_added" ||
+      event.type === "mistake_undone" ||
+      event.type === "mistake_restored"
+    ) {
+      return {
+        ...event,
+        mistake: {
+          ...event.mistake,
+          judgeSeatId: event.mistake.judgeSeatId ?? assignment.judgeSeatId,
+        },
+      };
+    }
+    return event;
+  });
 }
 
 function patchEvent(
@@ -105,11 +158,21 @@ function patchEvent(
 function reducer(state: JudgingState, action: Action): JudgingState {
   switch (action.type) {
     case "ADD_MISTAKE":
+      if (
+        !state.sessionActive ||
+        !state.activeAssignment ||
+        !state.activeAssignment.categories.includes(action.mistake.category)
+      ) {
+        return state;
+      }
       return withEvent(state, {
         id: uid("e"),
         at: Date.now(),
         type: "mistake_added",
-        mistake: { ...action.mistake },
+        mistake: {
+          ...action.mistake,
+          judgeSeatId: state.activeAssignment.judgeSeatId,
+        },
       });
     case "REMOVE_MISTAKE": {
       const mistake = state.mistakes.find((item) => item.id === action.id);
@@ -127,6 +190,12 @@ function reducer(state: JudgingState, action: Action): JudgingState {
           event.id === action.eventId && event.type === "mistake_undone",
       );
       if (!source || source.type !== "mistake_undone") return state;
+      if (
+        !state.sessionActive ||
+        !state.activeAssignment?.categories.includes(source.mistake.category)
+      ) {
+        return state;
+      }
       if (state.mistakes.some((item) => item.id === source.mistake.id)) return state;
       const latest = latestMistakeEventIds(state.events).get(source.mistake.id);
       if (latest !== source.id) return state;
@@ -168,6 +237,7 @@ function reducer(state: JudgingState, action: Action): JudgingState {
       });
     }
     case "SET_CONFIG":
+      if (state.sessionActive) return state;
       return {
         ...state,
         config: {
@@ -178,6 +248,19 @@ function reducer(state: JudgingState, action: Action): JudgingState {
           },
         },
       };
+    case "SET_PANEL": {
+      if (state.sessionActive || !validateJudgePanel(action.panel).valid) {
+        return state;
+      }
+      const panel = normalizeJudgePanel(action.panel);
+      if (!judgeSeatFor(panel, action.deviceJudgeId)) return state;
+      return { ...state, panel, deviceJudgeId: action.deviceJudgeId };
+    }
+    case "SET_DEVICE_JUDGE":
+      if (state.sessionActive || !judgeSeatFor(state.panel, action.judgeSeatId)) {
+        return state;
+      }
+      return { ...state, deviceJudgeId: action.judgeSeatId };
     case "SET_NOTES":
       return { ...state, notes: action.notes };
     case "SET_PARTICIPANT":
@@ -210,6 +293,12 @@ function reducer(state: JudgingState, action: Action): JudgingState {
     case "CLEAR_ROSTER":
       return { ...state, roster: [] };
     case "START_RECITER": {
+      const assignment = makeAssignmentSnapshot(
+        state.panel,
+        state.deviceJudgeId,
+        state.config,
+      );
+      if (!assignment) return state;
       const sessionId = uid("s");
       const startedAt = Date.now();
       const events = seedLedgerEvents({
@@ -217,6 +306,7 @@ function reducer(state: JudgingState, action: Action): JudgingState {
         participant: action.participant,
         startedAt,
         mistakes: [],
+        assignment,
       });
       return {
         ...state,
@@ -225,6 +315,7 @@ function reducer(state: JudgingState, action: Action): JudgingState {
         activeSessionId: sessionId,
         activeStartedAt: startedAt,
         activeRevision: 1,
+        activeAssignment: assignment,
         events,
         mistakes: [],
         notes: "",
@@ -241,6 +332,7 @@ function reducer(state: JudgingState, action: Action): JudgingState {
         sessionId: state.activeSessionId,
         total,
         totalMax,
+        scoreKind: "judge-section",
       };
       const events = [...state.events, finalized];
       const mistakes = projectMistakes(events);
@@ -251,9 +343,13 @@ function reducer(state: JudgingState, action: Action): JudgingState {
         revision: state.activeRevision,
         ledgerVersion: LEDGER_VERSION,
         participant: state.participant,
-        config: state.config,
+        config: state.activeAssignment?.config ?? state.config,
         total,
         totalMax,
+        scoreKind: "judge-section",
+        sectionTotal: total,
+        sectionMax: totalMax,
+        assignment: state.activeAssignment ?? undefined,
         notes: state.notes,
         mistakes,
         events,
@@ -277,6 +373,7 @@ function reducer(state: JudgingState, action: Action): JudgingState {
         activeSessionId: null,
         activeStartedAt: null,
         activeRevision: 1,
+        activeAssignment: null,
         events: [],
         mistakes: [],
         notes: "",
@@ -294,6 +391,7 @@ function reducer(state: JudgingState, action: Action): JudgingState {
             participant: saved.participant,
             startedAt: saved.startedAt ?? saved.savedAt,
             mistakes: saved.mistakes,
+            assignment: saved.assignment,
           });
       const events: JudgingEvent[] = [
         ...baseEvents,
@@ -312,7 +410,7 @@ function reducer(state: JudgingState, action: Action): JudgingState {
         activeSessionId: saved.id,
         activeStartedAt: saved.startedAt ?? saved.savedAt,
         activeRevision: (saved.revision ?? 1) + 1,
-        config: saved.config,
+        activeAssignment: normalizeAssignment(saved.assignment, saved.config),
         events,
         mistakes: projectMistakes(events),
         notes: saved.notes,
@@ -350,6 +448,14 @@ function reducer(state: JudgingState, action: Action): JudgingState {
 }
 
 function normalizeSavedSession(session: SavedSession): SavedSession {
+  const eventAssignment = session.events?.find(
+    (event) => event.type === "session_started" && event.assignment,
+  );
+  const assignment = normalizeAssignment(
+    session.assignment ??
+      (eventAssignment?.type === "session_started" ? eventAssignment.assignment : undefined),
+    session.config,
+  );
   const startedAt =
     session.startedAt ??
     Math.min(session.savedAt, ...session.mistakes.map((mistake) => mistake.ts));
@@ -360,9 +466,15 @@ function normalizeSavedSession(session: SavedSession): SavedSession {
         participant: session.participant,
         startedAt,
         mistakes: session.mistakes,
+        assignment,
       });
+  events = eventsWithAssignment(events, assignment);
   const mistakes = projectMistakes(events);
-  const score = computeMistakeScores(session.config, mistakes);
+  const score = computeAssignedMistakeScores(
+    assignment.config,
+    mistakes,
+    assignment.categories,
+  );
   if (!events.some((event) => event.type === "session_finalized")) {
     events = [
       ...events,
@@ -373,8 +485,20 @@ function normalizeSavedSession(session: SavedSession): SavedSession {
         sessionId: session.id,
         total: score.total,
         totalMax: score.totalMax,
+        scoreKind: "judge-section",
       },
     ];
+  } else {
+    events = events.map((event) =>
+      event.type === "session_finalized"
+        ? {
+            ...event,
+            total: score.total,
+            totalMax: score.totalMax,
+            scoreKind: "judge-section" as const,
+          }
+        : event,
+    );
   }
   return {
     ...session,
@@ -383,6 +507,10 @@ function normalizeSavedSession(session: SavedSession): SavedSession {
     ledgerVersion: LEDGER_VERSION,
     total: score.total,
     totalMax: score.totalMax,
+    scoreKind: "judge-section",
+    sectionTotal: score.total,
+    sectionMax: score.totalMax,
+    assignment,
     mistakes,
     events,
   };
@@ -395,6 +523,10 @@ export function normalizeLedgerState(
   const allocation =
     config.jali.start + config.khafi.start + config.fasaha.start;
   if (allocation !== TOTAL_MARKS) config = DEFAULT_CONFIG;
+  const panel = normalizeJudgePanel(parsed.panel);
+  const preferredJudge = judgeSeatFor(panel, parsed.deviceJudgeId)
+    ? parsed.deviceJudgeId!
+    : panel.seats[0]?.id ?? "judge-1";
 
   const participant = {
     ...EMPTY_PARTICIPANT,
@@ -413,15 +545,34 @@ export function normalizeLedgerState(
   const sessionId = sessionActive
     ? (parsed.activeSessionId ?? `legacy-active-${startedAt}`)
     : null;
+  const activeEventAssignment = parsed.events?.find(
+    (event) => event.type === "session_started" && event.assignment,
+  );
+  const activeAssignment = sessionActive
+    ? parsed.activeAssignment || activeEventAssignment
+      ? normalizeAssignment(
+          parsed.activeAssignment ??
+            (activeEventAssignment?.type === "session_started"
+              ? activeEventAssignment.assignment
+              : undefined),
+          config,
+        )
+      : makeAssignmentSnapshot(panel, preferredJudge, config) ??
+        legacyAssignment(config)
+    : null;
   const events = sessionActive
-    ? (parsed.events?.length
-      ? parsed.events
-      : seedLedgerEvents({
-          sessionId: sessionId!,
-          participant,
-          startedAt: startedAt!,
-          mistakes: legacyMistakes,
-        }))
+    ? eventsWithAssignment(
+        parsed.events?.length
+          ? parsed.events
+          : seedLedgerEvents({
+              sessionId: sessionId!,
+              participant,
+              startedAt: startedAt!,
+              mistakes: legacyMistakes,
+              assignment: activeAssignment!,
+            }),
+        activeAssignment!,
+      )
     : [];
 
   return {
@@ -432,8 +583,11 @@ export function normalizeLedgerState(
     activeSessionId: sessionId,
     activeStartedAt: startedAt,
     activeRevision: parsed.activeRevision ?? 1,
+    activeAssignment,
     events,
     config,
+    panel,
+    deviceJudgeId: preferredJudge,
     mistakes: projectMistakes(events),
     history: (parsed.history ?? []).map(normalizeSavedSession),
     roster: parsed.roster ?? [],
@@ -445,7 +599,11 @@ function loadInitial(): JudgingState {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return initialState;
-    for (const key of [PRE_TARGET_V2_BACKUP_KEY, PRE_LEDGER_BACKUP_KEY]) {
+    for (const key of [
+      PRE_TARGET_V2_BACKUP_KEY,
+      PRE_LEDGER_BACKUP_KEY,
+      PRE_JUDGE_ASSIGNMENTS_BACKUP_KEY,
+    ]) {
       if (!localStorage.getItem(key)) {
         try {
           localStorage.setItem(key, raw);

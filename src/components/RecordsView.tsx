@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { CATEGORIES, CATEGORY_BY_ID } from "../config";
 import { computeRecords } from "../lib/stats";
 import { downloadRecordsCSV } from "../lib/exportSession";
@@ -7,22 +7,57 @@ import { Icon } from "./Icon";
 import { JudgingHistory } from "./JudgingHistory";
 import { ReopenSessionDialog } from "./ReopenSessionDialog";
 import type { SavedSession } from "../types";
+import { assignmentLabel, judgeDisplayName } from "../lib/judgeAssignments";
 
 export function RecordsView({ onResumeSession }: { onResumeSession: () => void }) {
   const { state, dispatch } = useJudging();
   const [group, setGroup] = useState<string>("");
+  const [judgeSeat, setJudgeSeat] = useState<string>("");
+  const [section, setSection] = useState<string>("");
   const [expanded, setExpanded] = useState<string | null>(null);
   const [reopenSession, setReopenSession] = useState<SavedSession | null>(null);
-  const stats = useMemo(
-    () => computeRecords(state.history, group || null),
-    [state.history, group],
+  const scopedHistory = useMemo(
+    () => state.history.filter((session) => {
+      const assignment = session.assignment;
+      const seatMatches = !judgeSeat || (assignment?.judgeSeatId ?? "judge-1") === judgeSeat;
+      const sectionKey = assignment?.categories.join("+") ?? "jali+khafi+fasaha";
+      return seatMatches && (!section || sectionKey === section);
+    }),
+    [state.history, judgeSeat, section],
   );
+  const stats = useMemo(
+    () => computeRecords(scopedHistory, group || null),
+    [scopedHistory, group],
+  );
+  const judgeOptions = useMemo(() => {
+    const values = new Map<string, string>();
+    state.history.forEach((session) => {
+      const assignment = session.assignment;
+      values.set(
+        assignment?.judgeSeatId ?? "judge-1",
+        assignment ? judgeDisplayName(assignment) : "Judge 1",
+      );
+    });
+    return [...values.entries()];
+  }, [state.history]);
+  const sectionOptions = useMemo(() => {
+    const values = new Map<string, string>();
+    state.history.forEach((session) => {
+      const categories = session.assignment?.categories ?? ["jali", "khafi", "fasaha"];
+      values.set(categories.join("+"), assignmentLabel(categories));
+    });
+    return [...values.entries()];
+  }, [state.history]);
 
   const maxCatCount = Math.max(
     1,
     ...CATEGORIES.map((c) => stats.byCategory[c.id].count),
   );
   const maxLocCount = Math.max(1, ...stats.topLocations.map((l) => l.count));
+
+  useEffect(() => {
+    if (group && !stats.groups.includes(group)) setGroup("");
+  }, [group, stats.groups]);
 
   if (state.history.length === 0) {
     return (
@@ -38,7 +73,7 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
     );
   }
 
-  const sessions = state.history.filter(
+  const sessions = scopedHistory.filter(
     (s) => !group || (s.participant.group?.trim() || "") === group,
   );
 
@@ -51,7 +86,7 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
             <span className="metric-num">{stats.sessions}</span>
           </div>
           <div className="metric">
-            <span className="metric-label">Average score</span>
+            <span className="metric-label">Average section score</span>
             <span className="metric-num">{stats.avgPercent}%</span>
           </div>
           <div className="metric">
@@ -59,17 +94,31 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
             <span className="metric-num">{stats.totalMistakes}</span>
           </div>
         </div>
-        <label className="records-filter">
-          <span>Island / class</span>
-          <select value={group} onChange={(e) => setGroup(e.target.value)}>
-            <option value="">All</option>
-            {stats.groups.map((g) => (
-              <option key={g} value={g}>
-                {g}
-              </option>
-            ))}
-          </select>
-        </label>
+        <div className="records-filters">
+          <label className="records-filter">
+            <span>Judge</span>
+            <select value={judgeSeat} onChange={(e) => setJudgeSeat(e.target.value)}>
+              <option value="">All judges</option>
+              {judgeOptions.map(([id, label]) => <option key={id} value={id}>{label}</option>)}
+            </select>
+          </label>
+          <label className="records-filter">
+            <span>Section</span>
+            <select value={section} onChange={(e) => setSection(e.target.value)}>
+              <option value="">All sections</option>
+              {sectionOptions.map(([id, label]) => <option key={id} value={id}>{label}</option>)}
+            </select>
+          </label>
+          <label className="records-filter">
+            <span>Island / class</span>
+            <select value={group} onChange={(e) => setGroup(e.target.value)}>
+              <option value="">All</option>
+              {stats.groups.map((g) => (
+                <option key={g} value={g}>{g}</option>
+              ))}
+            </select>
+          </label>
+        </div>
       </div>
 
       <div className="records-grid">
@@ -167,7 +216,9 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
             </button>
           </div>
         </div>
-        <ul className="session-list">
+        {sessions.length === 0 ? (
+          <p className="empty">No judge-section results match these filters.</p>
+        ) : <ul className="session-list">
           {sessions.map((s) => {
             const isOpen = expanded === s.id;
             return (
@@ -196,17 +247,23 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
                     <span className="session-meta">
                       {s.participant.group || "—"} ·{" "}
                       {new Date(s.savedAt).toLocaleDateString()} ·{" "}
-                      {s.mistakes.length} mistakes
+                      {s.mistakes.length} mistakes ·{" "}
+                      {s.assignment ? judgeDisplayName(s.assignment) : "Judge 1"}
                     </span>
                   </span>
                   <span className="session-score">
                     {s.total}
                     <span className="session-max">/{s.totalMax}</span>
                   </span>
-                  <span className="session-status">Finished</span>
+                  <span className="session-status">Section</span>
                 </div>
                 {isOpen && (
                   <div className="session-drill">
+                    <div className="session-assignment">
+                      <strong>{s.assignment ? judgeDisplayName(s.assignment) : "Judge 1"}</strong>
+                      <span>{s.assignment ? assignmentLabel(s.assignment.categories) : "Jali + Khafi + Fasaha"}</span>
+                      <small>Judge-section result · {s.total}/{s.totalMax}</small>
+                    </div>
                     {s.mistakes.length === 0 ? (
                       <p className="empty">No mistakes in this session.</p>
                     ) : (
@@ -248,7 +305,7 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
               </li>
             );
           })}
-        </ul>
+        </ul>}
       </section>
       {reopenSession && (
         <ReopenSessionDialog
