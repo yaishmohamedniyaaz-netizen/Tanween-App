@@ -35,6 +35,28 @@ test("the source Mushaf selects one whole kalimah before exact rail choice", () 
   assert.match(mushafStyleSource, /\.page-opening-layout:not\(\.page-split\)/);
 });
 
+test("shared Mushaf geometry protects Arabic ink and cartouche titles", () => {
+  assert.match(mushafStyleSource, /--mark-underline-gap:/);
+  assert.match(mushafStyleSource, /--mark-wash-pad-bottom:/);
+  assert.match(
+    mushafStyleSource,
+    /\.glyph-ink\.marked::after[\s\S]*top: calc\(100% \+ var\(--mark-underline-gap\)\)/,
+  );
+  assert.match(mushafStyleSource, /--surah-band-title-size:/);
+  assert.match(
+    mushafStyleSource,
+    /\.surah-band-title[\s\S]*font-size: var\(--surah-band-title-size\)/,
+  );
+  assert.match(
+    mushafStyleSource,
+    /\.page-opening-layout:not\(\.page-split\)[\s\S]*repeat\(8, calc\(100% \/ 15\)\)/,
+  );
+  assert.match(
+    mushafStyleSource,
+    /\.page-surahs[\s\S]*line-height: 1\.35/,
+  );
+});
+
 test("QCF page fonts are loaded before a page is declared ready", () => {
   assert.match(qcfFontSource, /new FontFace/);
   assert.match(qcfFontSource, /await face\.load\(\)/);
