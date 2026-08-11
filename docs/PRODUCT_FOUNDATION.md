@@ -874,21 +874,25 @@ separate external tracks with unbounded calendar time.
 | Phase | Estimated development | Deliverable | Exit gate |
 |---|---:|---|---|
 | 0. Research foundation | complete | This decision record, source map, current gap analysis | Product boundary agreed |
-| 1. Recitation targets v2 | 2–4 coding weeks | Generated corpus-wide target map, clean rail labels, saved-ID migration, reviewer fixtures | All 604-page invariants pass; expert approves rule set |
-| 2. Reliable judging ledger | 3–5 coding weeks | Versioned rules, append-only events/corrections, session finalization, structured optional details, IndexedDB | Crash/offline recovery and audit reconstruction pass |
-| 2.5 Judge assignment mode | 2–4 coding weeks | Friendly panel templates, current-device judge choice, assigned-only tray and score panel, frozen assignment in results | Every assignment combination is enforced in the UI and saved record; no result is presented as a combined score |
-| 3. Results safety | 3–5 coding weeks | Divisions/tracks, multi-component score engine, ties, validation report, value-only XLSX | Golden edge cases and re-import verification pass |
+| 1. Recitation targets v2 | implemented; expert review remains | Generated corpus-wide target map, clean rail labels, saved-ID migration, reviewer fixtures | All 604-page invariants pass; expert approves rule set |
+| 2. Reliable judging ledger | implemented | Versioned rules, append-only events/corrections, session finalization, structured optional details, local recovery | Audit reconstruction and recovery checks pass |
+| 2.5 Judge assignment mode | implemented | Friendly panel templates, current-device judge choice, assigned-only tray and score panel, frozen assignment in results | Every assignment combination is enforced; no section is presented as a combined score |
+| 3A. Competition structure | next checkpoint | Divisions/tracks, one competition pack, stable participant and attempt identities | Every judge device reads the same people, roles, and rules |
+| 3B. Judge-section collection | planned | Offline-friendly result packages, duplicate and mismatch detection | Wrong, missing, or duplicate sections cannot silently enter a final result |
+| 3C. Result finalization | planned | Evidence-recalculated combined result, revisions, verification report | Every final score reconstructs from selected judge histories |
+| 3D. Placements and XLSX | planned | Explicit ties, division/track rankings, value-only verified workbook | Golden edge cases and spreadsheet re-import checks pass |
 | 4. Question bank v1 | 4–8 coding weeks | Canonical passage model, manual builder, frozen tile sets, small reviewed starter pool | Every question has provenance and approval |
+| 4.5 Exact mistake details | review-led; development range later | Optional reviewed descriptions beneath Jali, Khafi, and Fasaha | Qualified reviewer approves the supported taxonomy and fixtures |
 | 5. Audio evidence | 2–4 coding weeks | Consent-aware recording, near-word bookmarks, replay/nudge review | Mobile/desktop recording recovery and deletion tests pass |
-| 6. Official pilot foundation | 6–10 coding weeks | Identities/roles, local-first sync, multi-judge aggregation, central finalization | Simulated network loss and complete pilot rehearsal pass |
+| 6. Official pilot foundation | 6–10 coding weeks | Identities/roles, local-first sync, trusted timestamps, central finalization | Simulated network loss and complete pilot rehearsal pass |
 | R. AI pilot | open-ended research | Known-passage word alignment and ranked suggestions | Independent expert evaluation; no automatic marks |
 
 ### 11.1 The shortest credible shipping path
 
-If time is tight, ship phases 1–3, including 2.5, first. That creates the core product promised
-to competitions: accurate pinpointing, transparent correction history, and
-verified winners. The question bank and recording are valuable additions but
-must not delay fixing the semantic target and official-result foundations.
+If time is tight, finish checkpoints 3A–3D before expanding the judging surface.
+That creates the core product promised to competitions: accurate pinpointing,
+transparent correction history, and verified winners. The question bank and
+recording are valuable additions but must not delay official-result safety.
 
 ### 11.2 What does not require a rewrite
 
@@ -1012,21 +1016,17 @@ rule used as Tahqeeq's Hafs/QPC V1 interface policy.
 
 ## 14. Immediate next implementation brief
 
-The next implementation should follow
-[`JUDGE_ASSIGNMENTS_V1_PLAN.md`](./JUDGE_ASSIGNMENTS_V1_PLAN.md).
+Judge Assignment Mode is implemented. The next full implementation plan should
+be derived from [`RESULTS_SAFETY_PREPLAN.md`](./RESULTS_SAFETY_PREPLAN.md).
 
-Its boundary is deliberately narrow even though the release can be substantial:
+The Results Safety initiative is divided into four independently reviewable
+checkpoints:
 
-1. configure a friendly panel using all-three, one-per-category, or custom;
-2. derive judge count from the panel rows;
-3. select which judge/seat is using the current device;
-4. keep that assignment visible in the judge panel;
-5. show and accept only assigned categories in the tray and score panel;
-6. freeze the assignment inside every active and finished judging record;
-7. migrate existing competitions to one judge covering all three, preserving
-   today's behavior;
-8. do not combine separate devices or introduce exact mistake types yet.
+1. one shared competition structure and stable participant/attempt identities;
+2. safe collection of separate judge-section results;
+3. evidence-recalculated review and finalization;
+4. explicit ties, placements, and verified spreadsheet export.
 
-The full plan must specify the screen flow, one-category hold/tap behavior,
-stored-data migration, reopening behavior, failure messages, rollback point,
-and tests for every nonempty category combination before implementation starts.
+The full plan must settle competition identity, result transfer, duplicate and
+revision handling, supported tie rules, finalization authority, recovery paths,
+rollback points, and golden competition examples before implementation begins.
