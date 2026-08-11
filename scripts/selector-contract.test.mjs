@@ -76,6 +76,7 @@ test("tray keyboard input is isolated from page navigation", () => {
 
 test("legacy browser state receives a non-destructive one-time backup", () => {
   assert.match(storeSource, /tahqeeq\.session\.v1\.backup\.pre-target-v2/);
-  assert.match(storeSource, /localStorage\.setItem\(PRE_TARGET_V2_BACKUP_KEY, raw\)/);
+  assert.match(storeSource, /tahqeeq\.session\.v1\.backup\.pre-ledger-v1/);
+  assert.match(storeSource, /localStorage\.setItem\(key, raw\)/);
   assert.match(storeSource, /backup quota failure must never prevent/i);
 });

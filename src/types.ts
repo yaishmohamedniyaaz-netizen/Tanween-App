@@ -43,6 +43,63 @@ export interface Mistake {
   ts: number;
 }
 
+/** A readable, append-only record of what the judge did during one reciter. */
+export type JudgingEvent =
+  | {
+      id: string;
+      at: number;
+      type: "session_started";
+      sessionId: string;
+      participant: Participant;
+    }
+  | {
+      id: string;
+      at: number;
+      type: "mistake_added";
+      mistake: Mistake;
+    }
+  | {
+      id: string;
+      at: number;
+      type: "mistake_amount_changed";
+      mistakeId: string;
+      glyph: string;
+      label: string;
+      from: number;
+      to: number;
+    }
+  | {
+      id: string;
+      at: number;
+      type: "mistake_note_changed";
+      mistakeId: string;
+      glyph: string;
+      label: string;
+      from: string;
+      to: string;
+    }
+  | {
+      id: string;
+      at: number;
+      type: "mistake_undone" | "mistake_restored";
+      mistake: Mistake;
+    }
+  | {
+      id: string;
+      at: number;
+      type: "session_reopened";
+      sessionId: string;
+      reason: string;
+    }
+  | {
+      id: string;
+      at: number;
+      type: "session_finalized";
+      sessionId: string;
+      total: number;
+      totalMax: number;
+    };
+
 export interface Participant {
   name: string;
   number: string;
@@ -61,18 +118,26 @@ export interface RosterEntry {
 export interface SavedSession {
   id: string;
   savedAt: number;
+  startedAt?: number;
+  revision?: number;
+  ledgerVersion?: 1;
   participant: Participant;
   config: ScoreConfig;
   total: number;
   totalMax: number;
   notes: string;
   mistakes: Mistake[];
+  events?: JudgingEvent[];
 }
 
 export interface JudgingState {
   participant: Participant;
   /** false until a reciter has been chosen via the start dialog */
   sessionActive: boolean;
+  activeSessionId: string | null;
+  activeStartedAt: number | null;
+  activeRevision: number;
+  events: JudgingEvent[];
   config: ScoreConfig;
   mistakes: Mistake[];
   notes: string; // free notes: Fasaha / voice & melody

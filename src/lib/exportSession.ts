@@ -25,12 +25,16 @@ export function buildSessionPayload(state: JudgingState) {
   const { byCategory, total, totalMax } = computeScores(state);
   return {
     app: "tahqeeq",
-    schema: 1,
+    schema: 2,
     exportedAt: new Date().toISOString(),
     participant: state.participant,
     config: state.config,
     score: { total, max: totalMax, byCategory },
     notes: state.notes,
+    judgingHistory: state.events.map((event) => ({
+      ...event,
+      at: new Date(event.at).toISOString(),
+    })),
     mistakes: state.mistakes.map((m) => ({
       surah: m.surah,
       ayah: m.ayah,

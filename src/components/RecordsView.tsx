@@ -4,12 +4,15 @@ import { computeRecords } from "../lib/stats";
 import { downloadRecordsCSV } from "../lib/exportSession";
 import { useJudging } from "../state/store";
 import { Icon } from "./Icon";
+import { JudgingHistory } from "./JudgingHistory";
+import { ReopenSessionDialog } from "./ReopenSessionDialog";
+import type { SavedSession } from "../types";
 
-export function RecordsView() {
+export function RecordsView({ onResumeSession }: { onResumeSession: () => void }) {
   const { state, dispatch } = useJudging();
   const [group, setGroup] = useState<string>("");
   const [expanded, setExpanded] = useState<string | null>(null);
-  const [confirmClear, setConfirmClear] = useState(false);
+  const [reopenSession, setReopenSession] = useState<SavedSession | null>(null);
   const stats = useMemo(
     () => computeRecords(state.history, group || null),
     [state.history, group],
@@ -162,23 +165,6 @@ export function RecordsView() {
               <Icon name="download" size={15} />
               CSV
             </button>
-            <button
-              type="button"
-              className="btn-ghost"
-              style={confirmClear ? { color: "#9e2820", borderColor: "#d8453d" } : undefined}
-              onClick={() => {
-                if (confirmClear) {
-                  dispatch({ type: "CLEAR_HISTORY" });
-                  setConfirmClear(false);
-                } else {
-                  setConfirmClear(true);
-                  setTimeout(() => setConfirmClear(false), 3000);
-                }
-              }}
-            >
-              <Icon name="trash" size={15} />
-              {confirmClear ? "Really delete all?" : "Clear all"}
-            </button>
           </div>
         </div>
         <ul className="session-list">
@@ -217,17 +203,7 @@ export function RecordsView() {
                     {s.total}
                     <span className="session-max">/{s.totalMax}</span>
                   </span>
-                  <button
-                    type="button"
-                    className="icon-btn"
-                    aria-label="delete session"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      dispatch({ type: "DELETE_SESSION", id: s.id });
-                    }}
-                  >
-                    <Icon name="trash" size={16} />
-                  </button>
+                  <span className="session-status">Finished</span>
                 </div>
                 {isOpen && (
                   <div className="session-drill">
@@ -250,6 +226,23 @@ export function RecordsView() {
                     {s.notes?.trim() && (
                       <p className="drill-notes">{s.notes}</p>
                     )}
+                    <div className="session-history-head">
+                      <span className="t-label">Judging history</span>
+                      <button
+                        type="button"
+                        className="btn-ghost"
+                        disabled={state.sessionActive}
+                        title={
+                          state.sessionActive
+                            ? "Finish the current reciter before reopening another result"
+                            : "Reopen this result to make a recorded correction"
+                        }
+                        onClick={() => setReopenSession(s)}
+                      >
+                        Reopen to correct
+                      </button>
+                    </div>
+                    <JudgingHistory events={s.events ?? []} />
                   </div>
                 )}
               </li>
@@ -257,6 +250,21 @@ export function RecordsView() {
           })}
         </ul>
       </section>
+      {reopenSession && (
+        <ReopenSessionDialog
+          session={reopenSession}
+          onCancel={() => setReopenSession(null)}
+          onConfirm={(reason) => {
+            dispatch({
+              type: "REOPEN_SESSION",
+              id: reopenSession.id,
+              reason,
+            });
+            setReopenSession(null);
+            onResumeSession();
+          }}
+        />
+      )}
     </div>
   );
 }

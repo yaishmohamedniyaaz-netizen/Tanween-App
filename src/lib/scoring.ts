@@ -1,4 +1,9 @@
-import type { CategoryId, JudgingState } from "../types";
+import type {
+  CategoryId,
+  JudgingState,
+  Mistake,
+  ScoreConfig,
+} from "../types";
 
 export interface CategoryScore {
   start: number;
@@ -11,7 +16,10 @@ export type Scores = Record<CategoryId, CategoryScore>;
 
 const round2 = (n: number) => Math.round(n * 100) / 100;
 
-export function computeScores(state: JudgingState): {
+export function computeMistakeScores(
+  config: ScoreConfig,
+  mistakes: Mistake[],
+): {
   byCategory: Scores;
   total: number;
   totalMax: number;
@@ -19,8 +27,8 @@ export function computeScores(state: JudgingState): {
   const ids: CategoryId[] = ["jali", "khafi", "fasaha"];
   const byCategory = {} as Scores;
   for (const id of ids) {
-    const { start } = state.config[id];
-    const related = state.mistakes.filter((m) => m.category === id);
+    const { start } = config[id];
+    const related = mistakes.filter((m) => m.category === id);
     const deducted = round2(related.reduce((sum, m) => sum + m.amount, 0));
     byCategory[id] = {
       start,
@@ -32,4 +40,8 @@ export function computeScores(state: JudgingState): {
   const total = round2(ids.reduce((s, id) => s + byCategory[id].score, 0));
   const totalMax = round2(ids.reduce((s, id) => s + byCategory[id].start, 0));
   return { byCategory, total, totalMax };
+}
+
+export function computeScores(state: JudgingState) {
+  return computeMistakeScores(state.config, state.mistakes);
 }

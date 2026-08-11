@@ -54,8 +54,10 @@ data/fonts are prefetched.
 
 The three mistake categories have configurable allocations and deduction steps.
 Each committed pinpoint is recorded in the mistake log, can be adjusted or undone,
-and persists locally. Printing produces a result sheet; starting a new reciter
-clears the active record.
+and persists locally. Undoing a mark keeps it in the judge-readable history, and
+the score is rebuilt from that history after a reload. Finishing a reciter saves a
+protected result; reopening it for correction requires a recorded reason. Printing
+produces a result sheet, and the next reciter starts with a clean active record.
 
 ## Project structure
 

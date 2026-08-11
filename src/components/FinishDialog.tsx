@@ -1,0 +1,51 @@
+import { computeScores } from "../lib/scoring";
+import { useJudging } from "../state/store";
+
+export function FinishDialog({
+  onCancel,
+  onConfirm,
+}: {
+  onCancel: () => void;
+  onConfirm: () => void;
+}) {
+  const { state } = useJudging();
+  const { total, totalMax } = computeScores(state);
+
+  return (
+    <div className="dialog-backdrop">
+      <div
+        className="dialog finish-dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="finish-title"
+      >
+        <span className="dialog-kicker">Check before finishing</span>
+        <h2 className="dialog-title" id="finish-title">
+          Finish {state.participant.name || "this reciter"}?
+        </h2>
+        <div className="finish-summary">
+          <span>
+            <strong>{state.mistakes.length}</strong>
+            <small>Mistakes</small>
+          </span>
+          <span>
+            <strong>{total}</strong>
+            <small>Score out of {totalMax}</small>
+          </span>
+        </div>
+        <p className="dialog-sub">
+          This saves the result and opens the next reciter. It can still be
+          reopened later, but the judge must give a reason.
+        </p>
+        <div className="dialog-actions">
+          <button type="button" className="btn-ghost" onClick={onCancel}>
+            Keep judging
+          </button>
+          <button type="button" className="btn-primary" onClick={onConfirm}>
+            Finish reciter
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}

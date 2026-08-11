@@ -15,6 +15,7 @@ import { HintBanner } from "./components/HintBanner";
 import { RecordsView } from "./components/RecordsView";
 import { StartDialog } from "./components/StartDialog";
 import { SetupDialog } from "./components/SetupDialog";
+import { FinishDialog } from "./components/FinishDialog";
 import { useJudging } from "./state/store";
 import surahIndex from "./data/surah-index.json";
 
@@ -191,6 +192,7 @@ export function App() {
   const { state, dispatch } = useJudging();
   const [view, setView] = useState<"judge" | "records">("judge");
   const [setupOpen, setSetupOpen] = useState(false);
+  const [finishOpen, setFinishOpen] = useState(false);
   const [pageZoom, setPageZoom] = useState(() => {
     const saved = Number(localStorage.getItem(LS_PAGE_ZOOM_KEY));
     return Number.isFinite(saved) && saved >= 45 && saved <= 100 ? saved : 100;
@@ -230,7 +232,7 @@ export function App() {
         view={view}
         onToggleView={() => setView((v) => (v === "judge" ? "records" : "judge"))}
         onOpenSetup={() => setSetupOpen(true)}
-        onChangeReciter={() => dispatch({ type: "FINISH_SESSION" })}
+        onChangeReciter={() => setFinishOpen(true)}
         pageZoom={pageZoom}
         pageLayout={pageLayout}
         judgeRailSide={judgeRailSide}
@@ -274,7 +276,7 @@ export function App() {
             <button
               type="button"
               className="btn-primary next-btn"
-              onClick={() => dispatch({ type: "FINISH_SESSION" })}
+              onClick={() => setFinishOpen(true)}
             >
               Done — next reciter
             </button>
@@ -282,7 +284,7 @@ export function App() {
         </main>
       ) : (
         <main className="records-main" key="records">
-          <RecordsView />
+          <RecordsView onResumeSession={() => setView("judge")} />
         </main>
       )}
 
@@ -290,6 +292,15 @@ export function App() {
         <StartDialog onOpenSetup={() => setSetupOpen(true)} />
       )}
       {setupOpen && <SetupDialog onClose={() => setSetupOpen(false)} />}
+      {finishOpen && state.sessionActive && (
+        <FinishDialog
+          onCancel={() => setFinishOpen(false)}
+          onConfirm={() => {
+            dispatch({ type: "FINISH_SESSION" });
+            setFinishOpen(false);
+          }}
+        />
+      )}
 
       <ResultSheet />
     </div>
