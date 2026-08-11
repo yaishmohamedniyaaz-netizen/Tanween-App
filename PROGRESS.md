@@ -22,6 +22,18 @@ The current future-work source of truth is
 [`docs/PRODUCT_FOUNDATION.md`](docs/PRODUCT_FOUNDATION.md). Older sections below
 remain as implementation history and may describe superseded prototypes.
 
+## Next update plan — LETTER TRAY V2 (2026-08-11)
+
+- Implementation plan: [`docs/LETTER_TRAY_V2_PLAN.md`](docs/LETTER_TRAY_V2_PLAN.md).
+- Scope is one bounded release: V2 recitation targets, stable IDs and saved-data
+  migration, clean primary rail glyphs, explicit target-before-category flow,
+  44px no-shrink controls, long-word behavior, pointer/tap/keyboard reliability,
+  and full-corpus plus browser validation.
+- Live inspection also found a keyboard regression: ArrowLeft/ArrowRight inside
+  the tray changes the Mushaf page and leaves a stale tray open. This is a
+  release-blocking V2 test case.
+- Planning pass only. No runtime or deployment changes were made.
+
 This file is the **source of truth for resuming work**. If a session/usage limit cuts us
 off, the next session reads this file and continues from "Next up". Keep it updated as
 work proceeds.

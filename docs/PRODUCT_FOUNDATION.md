@@ -981,6 +981,9 @@ rule used as Tahqeeq's Hafs/QPC V1 interface policy.
 
 ## 14. Immediate next implementation brief
 
+The detailed, tested plan for this change set is
+[`LETTER_TRAY_V2_PLAN.md`](./LETTER_TRAY_V2_PLAN.md).
+
 When implementation is approved, phase 1 should be one isolated change set:
 
 1. select a reuse-cleared semantic source, freeze its hash/token coordinates,
