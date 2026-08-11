@@ -1,5 +1,9 @@
 # Recitation Judging Tool — Raw Vision and Notes
 
+> Historical note: this is the original raw vision, not the current product
+> contract. The research-backed decisions, current architecture gaps, and phased
+> delivery plan are in [`PRODUCT_FOUNDATION.md`](./PRODUCT_FOUNDATION.md).
+
 ## The basic idea
 A web app for judging Quran recitation competitions. Web, not local. Today the process is
 analog: judges tally marks by hand. E.g. Lahn Jali might be 30 marks, and the judge

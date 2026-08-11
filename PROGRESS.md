@@ -1,5 +1,27 @@
 # Tahqeeq — build progress log
 
+## Product foundation research — COMPLETE (2026-08-11)
+
+- Added `docs/PRODUCT_FOUNDATION.md` as the current research decision record and
+  solo-developer roadmap.
+- Diagnosed the selector as two distinct issues: crowded full-mark rendering in
+  `ٱلنَّفَّٰثَٰتِ`, and independent madd/silent-alif targets that do not fit the
+  proposed judge-interface policy for `وَتَوَاصَوۡاْ`.
+- Decision: keep the QPC V1 1405H page intact; replace Unicode-base heuristics
+  with a versioned corpus-wide recitation-target map; use clean primary rail
+  glyphs while retaining full tashkeel/features in details and audit records.
+- Defined the reliable product boundary: human judging and append-only audit
+  history first; verified rankings and value-only Excel export; reviewed
+  question bank; audio bookmarks before advisory AI; no automatic official AI
+  scoring. Server-authenticated finalization is required before claiming an
+  official record is tamper-evident.
+- No runtime code or deployed assets changed in this research pass. Rollback
+  checkpoint: `checkpoint/pre-product-foundation-research-20260811`.
+
+The current future-work source of truth is
+[`docs/PRODUCT_FOUNDATION.md`](docs/PRODUCT_FOUNDATION.md). Older sections below
+remain as implementation history and may describe superseded prototypes.
+
 This file is the **source of truth for resuming work**. If a session/usage limit cuts us
 off, the next session reads this file and continues from "Next up". Keep it updated as
 work proceeds.
