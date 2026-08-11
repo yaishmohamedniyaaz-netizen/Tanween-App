@@ -742,7 +742,36 @@ Competition
 The UI can offer Hifz and Tartil toggles/templates. The database must not assume
 they have the same fields, maximum marks, deductions, prompt rules, or ties.
 
-### 10.1 Versioned rule set
+### 10.1 Judge assignments and the current device
+
+The next judge-facing layer is category ownership, not multi-device score
+aggregation. Competition setup should offer three plain starting templates:
+
+- one judge covers Jali, Khafi, and Fasaha;
+- one judge per category;
+- a custom panel where each judge receives any nonempty combination.
+
+The panel rows determine the judge count. The device then selects which judge
+or seat is using it, keeps that assignment visible throughout judging, and
+allows mistakes only in that judge's assigned categories.
+
+When exactly one category is assigned, the connected tray should not ask the
+judge to choose that category repeatedly. When two are assigned, show only
+those two. A scoped total must say `Your section`, not imply that it is the
+competition's combined score.
+
+For the first assignment release, one category has one responsible judge.
+Several judges independently scoring the same category requires an explicit
+combining rule and remains part of the official multi-judge phase. Finished
+sessions freeze the panel, current judge, category assignment, and marks rules
+used at the time.
+
+The accepted direction is summarized in
+[`JUDGE_ASSIGNMENTS_PREPLAN.md`](./JUDGE_ASSIGNMENTS_PREPLAN.md), and the
+release-ready implementation plan is
+[`JUDGE_ASSIGNMENTS_V1_PLAN.md`](./JUDGE_ASSIGNMENTS_V1_PLAN.md).
+
+### 10.2 Versioned rule set
 
 A rule set must define:
 
@@ -759,7 +788,7 @@ A rule set must define:
 Freeze the version when a session begins. Never silently edit a live event's
 rules.
 
-### 10.2 Deterministic calculation
+### 10.3 Deterministic calculation
 
 - Store marks as integer minor units (for example, hundredths of a mark), not
   floating-point values that are repeatedly rounded.
@@ -770,7 +799,7 @@ rules.
 - Do not invent a tie-breaker. If the rule set does not resolve a tie, show
   “committee decision required” and keep the winners list provisional.
 
-### 10.3 Runtime verification before results can be final
+### 10.4 Runtime verification before results can be final
 
 Block final publication when any required check fails:
 
@@ -799,7 +828,7 @@ after provisional ranking, deduction cap, fractional rounding, withdrawal,
 disqualification, two age groups, Hifz and Tartil in one event, and an explicit
 overall-winner rule.
 
-### 10.4 Safe Excel output
+### 10.5 Safe Excel output
 
 Tahqeeq—not Excel—is authoritative. Microsoft's documentation confirms that
 [SpreadsheetML stores formulas and cached values separately](https://learn.microsoft.com/en-us/office/open-xml/spreadsheet/working-with-formulas)
@@ -847,6 +876,7 @@ separate external tracks with unbounded calendar time.
 | 0. Research foundation | complete | This decision record, source map, current gap analysis | Product boundary agreed |
 | 1. Recitation targets v2 | 2–4 coding weeks | Generated corpus-wide target map, clean rail labels, saved-ID migration, reviewer fixtures | All 604-page invariants pass; expert approves rule set |
 | 2. Reliable judging ledger | 3–5 coding weeks | Versioned rules, append-only events/corrections, session finalization, structured optional details, IndexedDB | Crash/offline recovery and audit reconstruction pass |
+| 2.5 Judge assignment mode | 2–4 coding weeks | Friendly panel templates, current-device judge choice, assigned-only tray and score panel, frozen assignment in results | Every assignment combination is enforced in the UI and saved record; no result is presented as a combined score |
 | 3. Results safety | 3–5 coding weeks | Divisions/tracks, multi-component score engine, ties, validation report, value-only XLSX | Golden edge cases and re-import verification pass |
 | 4. Question bank v1 | 4–8 coding weeks | Canonical passage model, manual builder, frozen tile sets, small reviewed starter pool | Every question has provenance and approval |
 | 5. Audio evidence | 2–4 coding weeks | Consent-aware recording, near-word bookmarks, replay/nudge review | Mobile/desktop recording recovery and deletion tests pass |
@@ -855,7 +885,7 @@ separate external tracks with unbounded calendar time.
 
 ### 11.1 The shortest credible shipping path
 
-If time is tight, ship phases 1–3 first. That creates the core product promised
+If time is tight, ship phases 1–3, including 2.5, first. That creates the core product promised
 to competitions: accurate pinpointing, transparent correction history, and
 verified winners. The question bank and recording are valuable additions but
 must not delay fixing the semantic target and official-result foundations.
@@ -864,7 +894,8 @@ must not delay fixing the semantic target and official-result foundations.
 
 - The QPC V1 page rendering can stay.
 - Word-level click/hold and the connected rail can stay.
-- The three broad category gesture can stay as a default rules template.
+- The three broad category gesture can stay for judges assigned all three and
+  can be reduced to the categories assigned to the current judge.
 - Page navigation, zoom, layout, and offline page caching can stay.
 
 The major changes are a generated semantic data layer and a trustworthy state/
@@ -981,24 +1012,21 @@ rule used as Tahqeeq's Hafs/QPC V1 interface policy.
 
 ## 14. Immediate next implementation brief
 
-The detailed, tested plan for this change set is
-[`LETTER_TRAY_V2_PLAN.md`](./LETTER_TRAY_V2_PLAN.md).
+The next implementation should follow
+[`JUDGE_ASSIGNMENTS_V1_PLAN.md`](./JUDGE_ASSIGNMENTS_V1_PLAN.md).
 
-When implementation is approved, phase 1 should be one isolated change set:
+Its boundary is deliberately narrow even though the release can be substantial:
 
-1. select a reuse-cleared semantic source, freeze its hash/token coordinates,
-   and prove its alignment to the QPC V1 page/word assets with a mismatch report;
-2. define `RecitationTarget` v2 and persistent-ID migration;
-3. implement provisional source-specific rules for the two reported words and
-   the complete special-feature fixture set, with a blocked/whole-word fallback
-   for every unknown or unreviewed class;
-4. generate and audit the map over all 604 pages;
-5. make the connected rail show `primaryGlyph` while details/logs retain the
-   full form and features;
-6. do not touch the QPC page glyph renderer;
-7. publish only after automated corpus checks, visual mobile/desktop checks,
-   stored reviewer approval of every rule/override fixture, and regression
-   review of every target changed from the prior release.
+1. configure a friendly panel using all-three, one-per-category, or custom;
+2. derive judge count from the panel rows;
+3. select which judge/seat is using the current device;
+4. keep that assignment visible in the judge panel;
+5. show and accept only assigned categories in the tray and score panel;
+6. freeze the assignment inside every active and finished judging record;
+7. migrate existing competitions to one judge covering all three, preserving
+   today's behavior;
+8. do not combine separate devices or introduce exact mistake types yet.
 
-That is the smallest change that fixes the root problem and leaves a clean path
-to mistake details, audio evidence, questions, and later AI.
+The full plan must specify the screen flow, one-category hold/tap behavior,
+stored-data migration, reopening behavior, failure messages, rollback point,
+and tests for every nonempty category combination before implementation starts.
