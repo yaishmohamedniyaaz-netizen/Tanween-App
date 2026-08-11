@@ -42,20 +42,6 @@
   }
 }
 
-@keyframes log-in {
-  from {
-    opacity: 0;
-    transform: translateY(-8px);
-  }
-  60% {
-    transform: translateY(1px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
 @keyframes flash-pulse {
   0%,
   100% {
@@ -107,25 +93,6 @@
   }
 }
 
-@keyframes underline-draw {
-  from {
-    transform: scaleX(0);
-  }
-  to {
-    transform: scaleX(1);
-  }
-}
-
-@keyframes score-pulse {
-  0%,
-  100% {
-    color: inherit;
-  }
-  30% {
-    color: var(--c);
-  }
-}
-
 @keyframes spin {
   from {
     transform: rotate(0deg);
@@ -163,14 +130,6 @@
       opacity: 1;
     }
   }
-  @keyframes log-in {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
   @keyframes dialog-in {
     from {
       opacity: 0;
@@ -180,14 +139,6 @@
     }
   }
   @keyframes view-in {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-  @keyframes underline-draw {
     from {
       opacity: 0;
     }

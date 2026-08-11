@@ -21,6 +21,7 @@ import surahIndex from "./data/surah-index.json";
 const LS_PAGE_KEY = "tahqeeq:lastPage";
 const LS_PAGE_ZOOM_KEY = "tahqeeq:pageZoom";
 const LS_PAGE_LAYOUT_KEY = "tahqeeq:pageLayout";
+const LS_JUDGE_RAIL_SIDE_KEY = "tahqeeq:judgeRailSide";
 
 function PageNav({
   page,
@@ -197,6 +198,9 @@ export function App() {
   const [pageLayout, setPageLayout] = useState<"full" | "split">(() =>
     localStorage.getItem(LS_PAGE_LAYOUT_KEY) === "split" ? "split" : "full",
   );
+  const [judgeRailSide, setJudgeRailSide] = useState<"left" | "right">(() =>
+    localStorage.getItem(LS_JUDGE_RAIL_SIDE_KEY) === "left" ? "left" : "right",
+  );
   const [page, setPage] = useState(() => {
     const saved = localStorage.getItem(LS_PAGE_KEY);
     if (saved) {
@@ -229,6 +233,7 @@ export function App() {
         onChangeReciter={() => dispatch({ type: "FINISH_SESSION" })}
         pageZoom={pageZoom}
         pageLayout={pageLayout}
+        judgeRailSide={judgeRailSide}
         onPageZoomPreview={setPageZoom}
         onPageLayoutPreview={setPageLayout}
         onPageZoomCommit={(zoom) => {
@@ -239,9 +244,13 @@ export function App() {
           setPageLayout(layout);
           localStorage.setItem(LS_PAGE_LAYOUT_KEY, layout);
         }}
+        onJudgeRailSideChange={(side) => {
+          setJudgeRailSide(side);
+          localStorage.setItem(LS_JUDGE_RAIL_SIDE_KEY, side);
+        }}
       />
       {view === "judge" ? (
-        <main className="workspace" key="judge">
+        <main className={`workspace rail-${judgeRailSide}`} key="judge">
           <div className="stage">
             <HintBanner />
             <div

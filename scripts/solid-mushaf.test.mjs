@@ -36,11 +36,12 @@ test("the source Mushaf selects one whole kalimah before exact rail choice", () 
 });
 
 test("shared Mushaf geometry protects Arabic ink and cartouche titles", () => {
-  assert.match(mushafStyleSource, /--mark-underline-gap:/);
   assert.match(mushafStyleSource, /--mark-wash-pad-bottom:/);
+  assert.doesNotMatch(mushafStyleSource, /--mark-underline-gap:/);
+  assert.doesNotMatch(mushafStyleSource, /\.glyph-ink\.marked::after/);
   assert.match(
     mushafStyleSource,
-    /\.glyph-ink\.marked::after[\s\S]*top: calc\(100% \+ var\(--mark-underline-gap\)\)/,
+    /\.glyph-ink\.marked[\s\S]*background: transparent/,
   );
   assert.match(mushafStyleSource, /--surah-band-title-size:/);
   assert.match(

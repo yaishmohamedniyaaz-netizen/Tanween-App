@@ -12,10 +12,12 @@ interface Props {
   onChangeReciter: () => void;
   pageZoom: number;
   pageLayout: "full" | "split";
+  judgeRailSide: "left" | "right";
   onPageZoomPreview: (zoom: number) => void;
   onPageLayoutPreview: (layout: "full" | "split") => void;
   onPageZoomCommit: (zoom: number) => void;
   onPageLayoutCommit: (layout: "full" | "split") => void;
+  onJudgeRailSideChange: (side: "left" | "right") => void;
 }
 
 export function Header({
@@ -25,17 +27,19 @@ export function Header({
   onChangeReciter,
   pageZoom,
   pageLayout,
+  judgeRailSide,
   onPageZoomPreview,
   onPageLayoutPreview,
   onPageZoomCommit,
   onPageLayoutCommit,
+  onJudgeRailSideChange,
 }: Props) {
   const { state } = useJudging();
   const sw = useOfflineStatus();
   const [menuOpen, setMenuOpen] = useState(false);
-  const [menuMode, setMenuMode] = useState<"main" | "zoom" | "confirm">(
-    "main",
-  );
+  const [menuMode, setMenuMode] = useState<
+    "main" | "zoom" | "panel" | "confirm"
+  >("main");
   const [zoomDraft, setZoomDraft] = useState(pageZoom);
   const [zoomOriginal, setZoomOriginal] = useState(pageZoom);
   const [layoutDraft, setLayoutDraft] = useState(pageLayout);
@@ -176,6 +180,8 @@ export function Header({
               setMenuOpen(false);
             } else if (menuMode === "zoom") {
               leaveZoom();
+            } else if (menuMode === "panel") {
+              setMenuMode("main");
             }
           }}
         >
@@ -197,6 +203,17 @@ export function Header({
                   <span className="overflow-item-label">Page view</span>
                   <span className="overflow-item-value">
                     {pageZoom}% · {pageLayout === "split" ? "Split" : "Full"}
+                  </span>
+                </button>
+                <button
+                  type="button"
+                  className="overflow-item"
+                  onClick={() => setMenuMode("panel")}
+                >
+                  <Icon name="settings" size={16} />
+                  <span className="overflow-item-label">Judge panel</span>
+                  <span className="overflow-item-value">
+                    {judgeRailSide === "left" ? "Left" : "Right"}
                   </span>
                 </button>
                 <button
@@ -313,6 +330,45 @@ export function Header({
                       {label}
                     </button>
                   ))}
+                </div>
+              </div>
+            ) : menuMode === "panel" ? (
+              <div
+                className="overflow-panel-position"
+                role="group"
+                aria-label="Judge panel position"
+              >
+                <div className="overflow-zoom-head">
+                  <button
+                    type="button"
+                    className="overflow-back"
+                    aria-label="Back"
+                    onClick={() => setMenuMode("main")}
+                  >
+                    <Icon name="back" size={15} />
+                  </button>
+                  <span>Judge panel</span>
+                  <strong>{judgeRailSide === "left" ? "Left" : "Right"}</strong>
+                </div>
+                <p>Choose which side holds the score, mistakes, notes and finish action.</p>
+                <span className="zoom-section-label">Position</span>
+                <div className="panel-side-presets">
+                  <button
+                    type="button"
+                    className={judgeRailSide === "left" ? "is-active" : ""}
+                    aria-pressed={judgeRailSide === "left"}
+                    onClick={() => onJudgeRailSideChange("left")}
+                  >
+                    Left
+                  </button>
+                  <button
+                    type="button"
+                    className={judgeRailSide === "right" ? "is-active" : ""}
+                    aria-pressed={judgeRailSide === "right"}
+                    onClick={() => onJudgeRailSideChange("right")}
+                  >
+                    Right
+                  </button>
                 </div>
               </div>
             ) : (

@@ -12,7 +12,7 @@ export function NotesBox() {
         value={state.notes}
         placeholder="Notes for improvement"
         onChange={(e) => dispatch({ type: "SET_NOTES", notes: e.target.value })}
-        rows={4}
+        rows={2}
       />
     </section>
   );

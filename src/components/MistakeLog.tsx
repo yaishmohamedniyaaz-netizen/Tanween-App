@@ -9,7 +9,7 @@ export function MistakeLog() {
   const [openId, setOpenId] = useState<string | null>(null);
   const [expanded, setExpanded] = useState(false);
   const ordered = [...state.mistakes].sort((a, b) => b.ts - a.ts);
-  const visible = expanded ? ordered : ordered.slice(0, 3);
+  const visible = expanded ? ordered : ordered.slice(0, 5);
 
   useEffect(() => {
     if (!expanded) return;
@@ -21,7 +21,7 @@ export function MistakeLog() {
   }, [expanded]);
 
   useEffect(() => {
-    if (ordered.length <= 3) setExpanded(false);
+    if (ordered.length <= 5) setExpanded(false);
   }, [ordered.length]);
 
   const toggle = (id: string, tid: string, page?: number) => {
@@ -50,7 +50,7 @@ export function MistakeLog() {
         <span className="t-label">
           Mistakes{ordered.length > 0 ? ` · ${ordered.length}` : ""}
         </span>
-        {ordered.length > 3 && (
+        {ordered.length > 5 && (
           <button
             type="button"
             className="log-view-all"
@@ -83,6 +83,10 @@ export function MistakeLog() {
                   <span className="log-dot" aria-hidden="true" />
                   <span className="log-glyph">{m.glyph}</span>
                   <span className="log-amt t-num">−{m.amount}</span>
+                  <span className="log-row-spacer" aria-hidden="true" />
+                  <span className="log-chevron" aria-hidden="true">
+                    <Icon name="chevron" size={13} />
+                  </span>
                 </button>
                 <div className="log-expand">
                   <div className="log-expand-inner">
