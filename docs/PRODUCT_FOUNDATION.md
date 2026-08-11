@@ -757,8 +757,9 @@ allows mistakes only in that judge's assigned categories.
 
 When exactly one category is assigned, the connected tray should not ask the
 judge to choose that category repeatedly. When two are assigned, show only
-those two. A scoped total must say `Your section`, not imply that it is the
-competition's combined score.
+those two. The live score card should show its number without the phrase
+`Your section`; the saved record still remains explicitly typed as a judge-owned
+result so it cannot be mistaken for the competition's combined score.
 
 For the first assignment release, one category has one responsible judge.
 Several judges independently scoring the same category requires an explicit
@@ -877,12 +878,14 @@ separate external tracks with unbounded calendar time.
 | 1. Recitation targets v2 | implemented; expert review remains | Generated corpus-wide target map, clean rail labels, saved-ID migration, reviewer fixtures | All 604-page invariants pass; expert approves rule set |
 | 2. Reliable judging ledger | implemented | Versioned rules, append-only events/corrections, session finalization, structured optional details, local recovery | Audit reconstruction and recovery checks pass |
 | 2.5 Judge assignment mode | implemented | Friendly panel templates, current-device judge choice, assigned-only tray and score panel, frozen assignment in results | Every assignment combination is enforced; no section is presented as a combined score |
-| 3A. Competition structure | next checkpoint | Divisions/tracks, one competition pack, stable participant and attempt identities | Every judge device reads the same people, roles, and rules |
+| 2.6 Judge workflow polish | next checkpoint | One-target tray geometry, complete rounded selection rings, and removal of the visible “Your section” phrase | Tray interaction passes at real sizes without changing the Mushaf or saved meaning |
+| 3A. Competition structure | planned | Divisions/tracks, one competition pack, stable participant and attempt identities, participant template and validated import preview | Every judge device reads the same people, roles, and rules |
+| 3A.5 Active assignment handoff | planned | Forward-only assignment versions during an active recitation | Earlier marks retain ownership and later marks use the recorded new assignment |
 | 3B. Judge-section collection | planned | Offline-friendly result packages, duplicate and mismatch detection | Wrong, missing, or duplicate sections cannot silently enter a final result |
 | 3C. Result finalization | planned | Evidence-recalculated combined result, revisions, verification report | Every final score reconstructs from selected judge histories |
 | 3D. Placements and XLSX | planned | Explicit ties, division/track rankings, value-only verified workbook | Golden edge cases and spreadsheet re-import checks pass |
+| 3.7 Exact mistake details | optional before questions; reviewer-gated | Optional reviewed descriptions beneath Jali, Khafi, and Fasaha | Qualified reviewer approves the supported taxonomy and fixtures |
 | 4. Question bank v1 | 4–8 coding weeks | Canonical passage model, manual builder, frozen tile sets, small reviewed starter pool | Every question has provenance and approval |
-| 4.5 Exact mistake details | review-led; development range later | Optional reviewed descriptions beneath Jali, Khafi, and Fasaha | Qualified reviewer approves the supported taxonomy and fixtures |
 | 5. Audio evidence | 2–4 coding weeks | Consent-aware recording, near-word bookmarks, replay/nudge review | Mobile/desktop recording recovery and deletion tests pass |
 | 6. Official pilot foundation | 6–10 coding weeks | Identities/roles, local-first sync, trusted timestamps, central finalization | Simulated network loss and complete pilot rehearsal pass |
 | R. AI pilot | open-ended research | Known-passage word alignment and ranked suggestions | Independent expert evaluation; no automatic marks |
@@ -1016,8 +1019,9 @@ rule used as Tahqeeq's Hafs/QPC V1 interface policy.
 
 ## 14. Immediate next implementation brief
 
-Judge Assignment Mode is implemented. The next full implementation plan should
-be derived from [`RESULTS_SAFETY_PREPLAN.md`](./RESULTS_SAFETY_PREPLAN.md).
+Judge Assignment Mode is implemented. The complete release order before the
+question bank is now defined in
+[`PRE_QUESTION_BANK_RELEASE_PLAN.md`](./PRE_QUESTION_BANK_RELEASE_PLAN.md).
 
 Before that larger phase, one bounded letter-tray polish checkpoint may ship.
 Its researched boundary is recorded in

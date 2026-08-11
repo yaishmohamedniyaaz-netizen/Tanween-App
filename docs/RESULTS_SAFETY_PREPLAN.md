@@ -3,6 +3,12 @@
 Status: quick direction before the full implementation plan  
 Product boundary: judging and competition administration only
 
+Expanded execution order: [`PRE_QUESTION_BANK_RELEASE_PLAN.md`](./PRE_QUESTION_BANK_RELEASE_PLAN.md)
+
+The full plan adds the immediate tray/wording checkpoint, participant workbook,
+safe active-recitation assignment handoffs, and a final hardening checkpoint
+around the Results Safety stages below.
+
 ## The next problem to solve
 
 Tahqeeq can now preserve an exact mistake, the responsible judge, that judge's

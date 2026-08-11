@@ -3,6 +3,10 @@
 Status: accepted direction; expanded into the full implementation plan  
 Scope: judging interface only; no participant screen and no multi-device score combining
 
+Later wording decision: keep the judge-owned result boundary, but remove the
+visible phrase `Your section` as specified in
+[`PRE_QUESTION_BANK_RELEASE_PLAN.md`](./PRE_QUESTION_BANK_RELEASE_PLAN.md).
+
 ## The idea in plain language
 
 Competition organizers should be able to say which judge is responsible for

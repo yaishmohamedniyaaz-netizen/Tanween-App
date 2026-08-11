@@ -2,6 +2,12 @@
 
 Status: implemented; final validation and publication tracked with the release
 Product boundary: judge-facing app only; the participant sees only the Mushaf  
+
+Later wording decision: the assignment and judge-owned result model in this
+document remains valid, but the visible phrase `Your section` is removed by P0
+of [`PRE_QUESTION_BANK_RELEASE_PLAN.md`](./PRE_QUESTION_BANK_RELEASE_PLAN.md).
+The live score shows its number directly; internal records remain explicitly
+judge-owned until verified combination.
 Release shape: one complete update, built in four separately testable passes
 
 ## 1. What this update achieves
