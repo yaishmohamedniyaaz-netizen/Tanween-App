@@ -3,6 +3,8 @@ import { readFileSync } from "node:fs";
 import test from "node:test";
 import {
   CATEGORY_ORDER,
+  assignmentLabel,
+  categoryListLabel,
   createPanelPreset,
   makeAssignmentSnapshot,
   normalizeJudgePanel,
@@ -175,4 +177,39 @@ test("scores stay scoped without the unwanted live wording", () => {
   assert.match(recordsSource, /Average score/);
   assert.match(recordsSource, /Judge-section result/);
   assert.match(recordsSource, /assignmentLabel/);
+});
+
+test("interface labels never print a raw storage id", () => {
+  const label = categoryListLabel(["fasaha", "jali", "khafi"]);
+  assert.equal(label, "Laḥn Jalī + Laḥn Khafī + Faṣāḥa");
+  for (const id of CATEGORY_ORDER) {
+    assert.doesNotMatch(label, new RegExp(`\\b${id}\\b`));
+  }
+});
+
+test("interface labels follow the canonical category order", () => {
+  assert.equal(
+    categoryListLabel(["khafi", "jali"]),
+    categoryListLabel(["jali", "khafi"]),
+  );
+});
+
+test("an empty selection produces an empty label the caller can replace", () => {
+  assert.equal(categoryListLabel([]), "");
+});
+
+test("export labels stay plain ASCII so saved records remain comparable", () => {
+  assert.equal(assignmentLabel(CATEGORY_ORDER), "Jali + Khafi + Fasaha");
+});
+
+test("the setup summary uses the interface labels, not raw ids", () => {
+  const setupSource = readFileSync(
+    new URL("../src/components/CompetitionSetup.tsx", import.meta.url),
+    "utf8",
+  );
+  assert.match(setupSource, /categoryListLabel\(seat\.categories\)/);
+  assert.doesNotMatch(
+    setupSource,
+    /categoriesInOrder\(seat\.categories\)\.join\(" \+ "\)/,
+  );
 });

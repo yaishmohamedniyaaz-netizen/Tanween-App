@@ -6,6 +6,7 @@ import type {
   JudgeSeat,
   ScoreConfig,
 } from "../types";
+import { CATEGORY_BY_ID } from "../config.ts";
 
 export const CATEGORY_ORDER: CategoryId[] = ["jali", "khafi", "fasaha"];
 
@@ -189,6 +190,13 @@ export function judgeDisplayName(
   return assignment.judgeName.trim() || assignment.judgeLabel;
 }
 
+/**
+ * Plain-ASCII criterion names for exports and saved records.
+ *
+ * Deliberately separate from the interface names below: spreadsheets and
+ * archived result files already carry these spellings, and rewriting them
+ * would make historical exports incomparable with new ones.
+ */
 export function assignmentLabel(categories: CategoryId[]): string {
   const labels: Record<CategoryId, string> = {
     jali: "Jali",
@@ -196,4 +204,15 @@ export function assignmentLabel(categories: CategoryId[]): string {
     fasaha: "Fasaha",
   };
   return categoriesInOrder(categories).map((category) => labels[category]).join(" + ");
+}
+
+/**
+ * Criterion names for the interface, taken from the single definition in
+ * `CATEGORY_BY_ID` so every screen reads the same. Nothing on screen should
+ * ever print a raw storage id such as `jali`.
+ */
+export function categoryListLabel(categories: CategoryId[]): string {
+  return categoriesInOrder(categories)
+    .map((category) => CATEGORY_BY_ID[category].label)
+    .join(" + ");
 }

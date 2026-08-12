@@ -24,7 +24,10 @@
   --page-paper: #fbfaf7;
   --ink: #1a1a1c;
   --ink-2: #62626a;
-  --ink-3: #9b9ba3;
+  /* 5.35:1 on --surface and 4.74:1 on --bg. The previous #9b9ba3 measured
+     2.76:1 and 2.44:1, roughly half the contrast WCAG AA asks of body text,
+     and it carries most of the secondary text in the app. */
+  --ink-3: #6a6a73;
   --line: rgba(26, 26, 28, 0.08);
   --line-2: rgba(26, 26, 28, 0.16);
   --ring: rgba(85, 102, 230, 0.35);
@@ -34,6 +37,29 @@
   --r-sm: 8px;
   --r-md: 12px;
   --r-lg: 20px;
+
+  /* Type scale. Whole pixels only — the half-pixel sizes this replaces came
+     from nudging individual screens until they looked right, which is why no
+     two of them agree. --t-micro is the smallest size permitted anywhere;
+     anything a judge reads mid-recitation starts at --t-small. */
+  --t-micro: 12px;
+  --t-small: 14px;
+  --t-body: 15px;
+  --t-lead: 17px;
+  --t-title: 21px;
+  --t-display: 27px;
+
+  /* Space, on the 4px grid this file already declares. */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 24px;
+  --sp-6: 32px;
+  --sp-7: 48px;
+
+  /* Minimum hit area for a control pressed during a live recitation. */
+  --tap: 44px;
 
   --shadow-rest: 0 1px 2px rgba(26, 26, 28, 0.05);
   --shadow-float: 0 12px 32px rgba(26, 26, 28, 0.14), 0 2px 8px rgba(26, 26, 28, 0.08);
@@ -52,7 +78,8 @@
   --page-paper: #211f1c;
   --ink: #ebebed;
   --ink-2: #a4a4ac;
-  --ink-3: #6f6f77;
+  /* 5.03:1 on --surface, 5.50:1 on --bg; the previous #6f6f77 sat at 3.41:1. */
+  --ink-3: #8b8b95;
   --line: rgba(255, 255, 255, 0.08);
   --line-2: rgba(255, 255, 255, 0.16);
   --ring: rgba(120, 135, 255, 0.45);
