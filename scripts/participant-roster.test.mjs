@@ -10,6 +10,7 @@ import {
 } from "../src/lib/roster.ts";
 import {
   normalizeParticipant,
+  normalizeParticipantCategory,
   participantCategoryLabel,
   muqarrarLabel,
 } from "../src/lib/participants.ts";
@@ -34,7 +35,7 @@ test("the requested participant columns parse into stable typed entries", () => 
       "Participant Number": "016",
       Name: "Mariyam",
       "Age Group": "Under 16",
-      Category: "Nubalaa",
+      Category: "Hifz",
       "Muqarrar (Hathim Side)": "Nimey kolhu",
       "Phone Number": "+9607770001",
       Institution: "Amilla faraathun",
@@ -47,6 +48,8 @@ test("the requested participant columns parse into stable typed entries", () => 
   assert.equal(preview.entries[0].category, "baliagen");
   assert.equal(preview.entries[0].muqarrar, "feshey-kolhu");
   assert.equal(preview.entries[1].category, "nubalaa");
+  assert.equal(participantCategoryLabel(preview.entries[1].category), "Hifz · Memorisation");
+  assert.equal(normalizeParticipantCategory("Nubalaa"), "nubalaa");
   assert.match(preview.entries[0].id, /^participant-/);
   assert.equal(participantCategoryLabel(preview.entries[0].category), "Baliagen · Tarteel / reading");
   assert.equal(muqarrarLabel(preview.entries[1].muqarrar), "Nimey kolhu · Ending side");
@@ -74,7 +77,7 @@ test("duplicates and unknown competition values cannot silently enter the roster
   assert.equal(preview.issues.filter((issue) => issue.level === "error").length, 1);
   const rejected = preview.issues.find((issue) => issue.level === "error");
   assert.ok(rejected);
-  assert.match(rejected.message, /Baliagen or Nubalaa/);
+  assert.match(rejected.message, /Baliagen or Hifz/);
   assert.match(rejected.message, /Feshey kolhu or Nimey kolhu/);
   assert.match(rejected.message, /duplicated/);
 });
@@ -108,7 +111,7 @@ test("the downloadable workbook round-trips with the exact seven headers", async
     raw: false,
   });
   const readMeCells = readMe.flat().map(String);
-  assert.ok(readMeCells.some((value) => value.includes("Baliagen (Tarteel / reading) or Nubalaa (memorisation).")));
+  assert.ok(readMeCells.some((value) => value.includes("Baliagen (Tarteel / reading) or Hifz (memorisation).")));
   assert.ok(readMeCells.some((value) => value.includes("Feshey kolhu (starting side) or Nimey kolhu (ending side).")));
 });
 

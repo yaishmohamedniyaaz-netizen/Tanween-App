@@ -52,7 +52,7 @@ has exactly these seven columns, in this order:
 | Participant Number | required and unique | number used by judges and organizers |
 | Name | required | participant name |
 | Age Group | required | for example, Under 14 or Under 16 |
-| Category | required | `Baliagen` for Tarteel/reading or `Nubalaa` for memorisation |
+| Category | required | `Baliagen` for Tarteel/reading or `Hifz` for memorisation |
 | Muqarrar (Hathim Side) | required | `Feshey kolhu` for starting side or `Nimey kolhu` for ending side |
 | Phone Number | optional | organizer contact number |
 | Institution | optional | class, school, or `Amilla faraathun` for own/personal participation |

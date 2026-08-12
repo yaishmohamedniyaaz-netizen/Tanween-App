@@ -10,7 +10,9 @@ export const PARTICIPANT_CATEGORY_LABELS: Record<
   string
 > = {
   baliagen: "Baliagen · Tarteel / reading",
-  nubalaa: "Nubalaa · Memorisation",
+  // Keep the stable `nubalaa` storage key so existing rosters and sessions
+  // continue to load, while presenting the approved competition label.
+  nubalaa: "Hifz · Memorisation",
 };
 
 export const MUQARRAR_LABELS: Record<Exclude<MuqarrarSide, "">, string> = {

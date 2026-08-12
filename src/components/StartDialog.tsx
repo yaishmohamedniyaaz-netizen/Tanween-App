@@ -136,7 +136,7 @@ export function StartDialog({ onOpenSetup }: { onOpenSetup: () => void }) {
                 >
                   <option value="">Category</option>
                   <option value="baliagen">Baliagen · Tarteel / reading</option>
-                  <option value="nubalaa">Nubalaa · Memorisation</option>
+                  <option value="nubalaa">Hifz · Memorisation</option>
                 </select>
                 <select
                   value={draft.muqarrar}

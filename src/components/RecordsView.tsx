@@ -179,7 +179,7 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
             >
               <option value="">All</option>
               <option value="baliagen">Baliagen</option>
-              <option value="nubalaa">Nubalaa</option>
+              <option value="nubalaa">Hifz</option>
             </select>
           </label>
         </div>

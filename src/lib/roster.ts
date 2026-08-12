@@ -108,7 +108,7 @@ export function parseRosterRows(rows: Row[]): RosterImportPreview {
     if (!categoryRaw) {
       rowErrors.push("Category is required");
     } else if (!category) {
-      rowErrors.push("Category must be Baliagen or Nubalaa");
+      rowErrors.push("Category must be Baliagen or Hifz");
     }
 
     const muqarrar = normalizeMuqarrarSide(muqarrarRaw);
@@ -202,7 +202,7 @@ export async function buildParticipantTemplate(): Promise<ArrayBuffer> {
     ["1", "Enter one participant per row in the Participants sheet."],
     ["2", "Keep Participant Number unique within this competition."],
     ["3", "Required: Participant Number, Name, Age Group, Category and Muqarrar."],
-    ["4", "Category: Baliagen (Tarteel / reading) or Nubalaa (memorisation)."],
+    ["4", "Category: Baliagen (Tarteel / reading) or Hifz (memorisation)."],
     ["5", "Muqarrar: Feshey kolhu (starting side) or Nimey kolhu (ending side)."],
     ["6", "Phone Number and Institution are optional but recommended."],
     ["7", "Institution may be a class, school, or Amilla faraathun (own participation)."],

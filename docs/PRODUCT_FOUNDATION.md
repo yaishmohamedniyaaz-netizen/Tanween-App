@@ -495,6 +495,14 @@ temporary network loss does not stop judging. Suggested roles are organizer,
 judge, chief judge/reviewer, results officer, and auditor. A static bundle must
 not contain secret competition question sets.
 
+Keep one product codebase and one Quran/layout contract, but expose separate
+secured surfaces for judges and for any participant/display screen. They may be
+hosted in one deployment initially. Authorization must be enforced by the
+server, not by merely hiding judge controls. A storage interface must keep the
+current browser pilot replaceable with cloud persistence without rewriting the
+Mushaf, question builder, or judging UI. Do not create two independent Mushaf
+implementations that can drift apart.
+
 ## 8. Audio evidence and AI
 
 ### 8.1 What a solo build can reliably ship
@@ -602,7 +610,15 @@ that the deployed model or a competition-safe evaluation is available.
 
 ### 9.1 Canonical passage plus printed delivery
 
-A question needs both identities:
+A question is **ayah-first**. Every official question starts at the beginning
+of an ayah and never midway through one. The organizer selects Quran references;
+the app derives exact word IDs internally so the question remains unambiguous
+and compatible with the 1405H printed layout. Image search and OCR are not part
+of this path because the current corpus already contains surah, ayah, word,
+page, and printed-line data.
+
+A question therefore needs both a human Quran identity and a resolved technical
+identity:
 
 ```ts
 type Question = {
@@ -610,8 +626,19 @@ type Question = {
   riwayah: "hafs";
   sourceVersion: string;
   canonicalTextHash: string;
-  start: { tokenId: string; surah: number; ayah: number; word: number };
-  end:   { tokenId: string; surah: number; ayah: number; word: number };
+  startAyah: { surah: number; ayah: number };
+  endAyah:   { surah: number; ayah: number };
+  resolved: {
+    startTokenId: string;
+    endTokenId: string;
+    startWord: number;
+    endWord: number;
+  };
+  lengthPolicy: {
+    targetRecitationLines: number;
+    endRule: "first-ayah-end-at-or-after-target" | "exact-end-ayah";
+    finalPrintedLineScoring: "include" | "exclude";
+  };
   prompt: {
     cueMode: string;
     startInstruction: string;
@@ -640,15 +667,24 @@ type Question = {
 };
 ```
 
-This prevents zoom or a future Mushaf edition from changing the meaning of
-“seven lines.” It also lets the app darken everything outside the exact
-question while retaining an edition-independent Quran reference.
+For the common seven-line policy, the resolver starts at the chosen ayah and
+continues to the first complete ayah ending on or after the seventh printed
+recitation line. If the first available ayah ending is on line eight, the
+question ends there. The complete ending ayah remains visible. Whether its
+final printed line is included in scoring is a competition setting; this is
+local rules data and does not require an external API call.
 
-For a page with surah headers or basmala, the line count must explicitly mean
-recitation lines, not decorative layout rows. Every rule set must decide how
-basmala, surah starts, first/last partial lines, cross-page boundaries, and
-waqf/ibtida instructions count. Cross-page questions are first-class rather
-than forced into one page.
+This prevents zoom or a future Mushaf edition from changing the meaning of
+“seven lines.” Passage dimming or hiding is technically possible from the
+resolved anchors, but its participant behavior remains deliberately undecided
+and is not part of the first question-bank display.
+
+For a page with surah headers or basmala, the line count explicitly means
+printed recitation lines, not decorative layout rows. The question always
+starts at an ayah boundary, so there is no partial first-word policy. Every rule
+set must still decide how basmala, surah starts, the final printed line,
+cross-page boundaries, and waqf/ibtida instructions count. Cross-page questions
+are first-class rather than forced into one page.
 
 ### 9.2 What belongs in the bank
 
@@ -695,7 +731,8 @@ Ship in this order:
 
 1. a small, named, reviewed “Tahqeeq starter bank” with no claim that it is the
    universal best bank;
-2. a manual passage selector on the 1405H Mushaf;
+2. an ayah-first manual passage selector on the 1405H Mushaf, with exact word
+   anchors resolved invisibly;
 3. a constrained set builder: track/range, count, line length, difficulty mix,
    mutashabihat quota, and no-repeat window;
 4. a review/approval queue;
@@ -703,7 +740,7 @@ Ship in this order:
 
 “A trained organizer can prepare a compliant custom set in under an hour” is a
 usability-test target, not a shipping promise. Test it with real organizers as
-they select passage start/end directly, preview the resulting lines, choose
+they select start/end ayahs, preview the resulting lines, choose
 tags, and submit for review; do not claim it until the measured workflow passes.
 
 ### 9.5 Fair tile selection
@@ -718,7 +755,9 @@ new arbitrary question after a participant taps.
 - randomize tile positions without changing their contents;
 - record reveal time, participant, tile, and question ID;
 - require an authorized reopen/replacement event if a question is invalid;
-- prevent repeats according to the competition's rule.
+- prevent repeats according to the competition's rule. The current provisional
+  rule is no repeats within one participant's questions; wider round/venue
+  rules remain undecided.
 
 This makes the draw fast, fair, and reconstructable.
 
@@ -884,7 +923,9 @@ separate external tracks with unbounded calendar time.
 | 3C. Result finalization | implemented | Evidence-recalculated combined result, source selection, revisions, verification manifest | Every final score reconstructs from selected judge histories |
 | 3D. Placements and XLSX | implemented; rehearsal remains | Tied Age Group + Category rankings and value-only verified workbook | Golden edge cases and spreadsheet re-import checks pass |
 | 3.7 Exact mistake details | optional before questions; reviewer-gated | Optional reviewed descriptions beneath Jali, Khafi, and Fasaha | Qualified reviewer approves the supported taxonomy and fixtures |
-| 4. Question bank v1 | 4–8 coding weeks | Canonical passage model, manual builder, frozen tile sets, small reviewed starter pool | Every question has provenance and approval |
+| 4A. Question preparation foundation | 1–2 coding weeks | Competition task workspace, explicit official start, generated ayah index, deterministic printed-line resolver | App launch creates no official session; all 6,236 ayah boundaries pass |
+| 4B. Manual question bank | 2–4 coding weeks | Ayah-first builder, preview, versioned review and approval | Every usable question has exact anchors, provenance and approval |
+| 4C. Frozen question sets | 1–2 coding weeks | Eligibility checks, repetition policy, frozen sets and tile draw | A revealed tile always reconstructs from the frozen set |
 | 5. Audio evidence | 2–4 coding weeks | Consent-aware recording, near-word bookmarks, replay/nudge review | Mobile/desktop recording recovery and deletion tests pass |
 | 6. Official pilot foundation | 6–10 coding weeks | Identities/roles, local-first sync, trusted timestamps, central finalization | Simulated network loss and complete pilot rehearsal pass |
 | R. AI pilot | open-ended research | Known-passage word alignment and ranked suggestions | Independent expert evaluation; no automatic marks |
@@ -907,6 +948,9 @@ recording are valuable additions but must not delay official-result safety.
 The major changes are a generated semantic data layer and a trustworthy state/
 calculation model. They are substantial, but they do not require replacing the
 entire Mushaf implementation.
+
+The implementation-ready breakdown for phase 4 is in
+[`QUESTION_BANK_PREPARATION_PLAN.md`](./QUESTION_BANK_PREPARATION_PLAN.md).
 
 ## 12. Confidence and decisions that require human authority
 
@@ -1018,32 +1062,22 @@ rule used as Tahqeeq's Hafs/QPC V1 interface policy.
 
 ## 14. Immediate next implementation brief
 
-Judge Assignment Mode is implemented. The complete release order before the
-question bank is now defined in
-[`PRE_QUESTION_BANK_RELEASE_PLAN.md`](./PRE_QUESTION_BANK_RELEASE_PLAN.md).
+Judge assignment, the reliable tray, participant import, judge-result
+collection, finalization, placements, and verified spreadsheet output are
+implemented foundations. The immediate next release is phase 4A, detailed in
+[`QUESTION_BANK_PREPARATION_PLAN.md`](./QUESTION_BANK_PREPARATION_PLAN.md).
 
-Before that larger phase, one bounded letter-tray polish checkpoint may ship.
-Its researched boundary is recorded in
-[`LETTER_TRAY_POLISH_AND_EXACT_HIGHLIGHT_RESEARCH.md`](./LETTER_TRAY_POLISH_AND_EXACT_HIGHLIGHT_RESEARCH.md):
+Implement it in this order:
 
-- make a one-target rail a genuinely small centered surface;
-- make active and focus rings follow every exposed rounded corner;
-- keep exact target identity in the connected rail and history while preserving
-  the authentic whole-word QPC V1 page glyph;
-- do not add approximate letter-sized paint over the printed word.
+1. repair and prove every ayah boundary, then generate the compact question
+   index and deterministic printed-line resolver;
+2. separate draft, live, and closed competition state with a frozen official
+   start;
+3. replace the long setup modal with a resumable preparation task workspace;
+4. stop ordinary app launch from automatically opening Start reciter;
+5. retain manual/off-app questions as a valid mode until the reviewed Tahqeeq
+   question bank is ready.
 
-Judge responsibility is deliberately frozen for an active reciter. The panel
-can be changed before the next participant begins; mixed-responsibility active
-sessions are outside the current product and roadmap.
-
-The Results Safety initiative is divided into four independently reviewable
-checkpoints:
-
-1. one shared competition structure and stable participant/attempt identities;
-2. safe collection of separate judge-section results;
-3. evidence-recalculated review and finalization;
-4. explicit ties, placements, and verified spreadsheet export.
-
-The full plan must settle competition identity, result transfer, duplicate and
-revision handling, supported tie rules, finalization authority, recovery paths,
-rollback points, and golden competition examples before implementation begins.
+Do not combine phase 4A with participant display effects, automatic question
+generation, tile drawing, AI, cloud synchronization, or the final immersive
+visual treatment. Those have separate validation boundaries.

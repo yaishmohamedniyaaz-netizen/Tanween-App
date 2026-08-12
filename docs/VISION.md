@@ -95,3 +95,34 @@ mushaf coverage; tablet and pen.
 - Image of the real Tarteel mushaf page vs rendered KFGQPC text that looks like the mushaf.
   (Resolved in build: rendered font — see PROGRESS.md.)
 - The full interface, to design and brainstorm further.
+
+## Current clarified direction - 12 August 2026
+
+This section is newer than the raw notes above. The detailed contract remains
+in [`PRODUCT_FOUNDATION.md`](./PRODUCT_FOUNDATION.md), and unresolved choices
+are kept in [`UNDECIDED_DECISIONS.md`](./UNDECIDED_DECISIONS.md).
+
+- The product remains a judging and competition-administration system.
+- Participant categories are shown as **Baliagen** for reading/Tarteel and
+  **Hifz** for memorization. The older public label "Nubalaa" is retired;
+  the existing storage key and legacy spreadsheet spelling remain readable so
+  saved competitions are not broken by the label change.
+- Every official question starts at the beginning of an ayah. The organizer
+  works with surah/ayah references; exact word IDs are internal safeguards.
+- A target such as seven lines continues to the first complete ayah ending on
+  or after the target printed recitation line. The scoring treatment of the
+  final printed line is configurable and still needs exact wording.
+- Do not use image search or OCR to locate questions. The 1405H corpus already
+  provides structured Quran, page, line, and word references.
+- Official questions are manually reviewed. AI may later suggest candidates,
+  themes, mutashabihat, or difficulty, but it does not approve questions.
+- Use one codebase and backend with isolated judge and participant/display
+  surfaces. Do not create two independent Mushaf implementations.
+- Ship cloud-first as a web application. A native mobile app is not required
+  for the first production release; offline duration and recovery behavior are
+  still undecided.
+- Competition structure must use reusable templates rather than hard-coded age
+  groups, Quran portions, judge counts, or Maldivian rules.
+- Normal Maldivian use may involve one to six judges, but the data model must
+  not impose that as a maximum. Future rehearsals should be able to target
+  approximately twenty simultaneous judge devices.

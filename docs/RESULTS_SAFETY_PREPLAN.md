@@ -31,7 +31,7 @@ The organizer creates one competition setup containing:
 
 - competition name and edition;
 - age groups, such as Under 14 and Under 16;
-- participant categories: Baliagen for Tarteel/reading and Nubalaa for
+- participant categories: Baliagen for Tarteel/reading and Hifz for
   memorisation;
 - the participant roster with Participant Number, Name, Age Group, Category,
   Muqarrar side, Phone Number, and Institution;
@@ -177,10 +177,12 @@ handling, rollback checkpoint, and a golden set of competition examples.
 
 ### 4. Question bank
 
-1. Create source-anchored passages with exact start and stop points.
-2. Build a fast organizer tool for selecting roughly seven Mushaf lines.
-3. Add question tiles, frozen draws, and a participant Mushaf that only exposes
-   the selected passage.
+1. Create ayah-first passages. Every official question starts at an ayah; exact
+   word IDs are resolved internally and never require image search.
+2. Build a fast organizer tool that starts from a chosen ayah and ends at the
+   first complete ayah ending on or after the configured printed-line target.
+3. Add question tiles and frozen draws. Participant-display behavior remains
+   undecided; do not assume that only the selected passage is exposed.
 4. Add a small reviewed default bank covering normal, easy, and mutashabihat
    questions; every item keeps its source and approval status.
 
