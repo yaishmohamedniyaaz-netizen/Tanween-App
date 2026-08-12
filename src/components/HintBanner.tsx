@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useJudging } from "../state/store";
 import { Icon } from "./Icon";
 import {
-  assignmentLabel,
+  categoryListLabel,
   makeAssignmentSnapshot,
 } from "../lib/judgeAssignments";
 
@@ -35,12 +35,12 @@ export function HintBanner() {
         {categories.length === 1 ? (
           <>
             <strong>Hold a word</strong>, slide to the exact letter and release
-            to mark {assignmentLabel(categories)} — or tap the letter and confirm.
+            to mark {categoryListLabel(categories)} — or tap the letter and confirm.
           </>
         ) : (
           <>
             <strong>Hold a word</strong>, choose the exact letter, then slide to
-            {categories.length ? ` ${assignmentLabel(categories)}` : " the mistake type"}
+            {categories.length ? ` ${categoryListLabel(categories)}` : " the mistake type"}
             {" "}and release — or tap each step.
           </>
         )}

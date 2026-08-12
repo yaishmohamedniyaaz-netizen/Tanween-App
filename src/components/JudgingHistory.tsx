@@ -1,7 +1,7 @@
 import { CATEGORY_BY_ID } from "../config";
 import { latestMistakeEventIds } from "../lib/judgingLedger";
 import type { CategoryId, JudgingEvent, Mistake } from "../types";
-import { assignmentLabel, judgeDisplayName } from "../lib/judgeAssignments";
+import { categoryListLabel, judgeDisplayName } from "../lib/judgeAssignments";
 
 function eventMistake(event: JudgingEvent): Mistake | null {
   if (
@@ -20,7 +20,7 @@ function historyCopy(event: JudgingEvent) {
       return {
         title: "Judging started",
         detail: event.assignment
-          ? `${judgeDisplayName(event.assignment)} · ${assignmentLabel(event.assignment.categories)}`
+          ? `${judgeDisplayName(event.assignment)} · ${categoryListLabel(event.assignment.categories)}`
           : event.participant.name || "Unnamed reciter",
       };
     case "mistake_added":
@@ -63,6 +63,9 @@ function categoryForEvent(
 ): CategoryId | null {
   const mistake = eventMistake(event);
   if (mistake) return mistake.category;
+  // A correction is shown in the criterion it was moved to, so the stripe
+  // matches what the letter now counts against.
+  if (event.type === "mistake_recategorized") return event.to;
   if (
     event.type === "mistake_amount_changed" ||
     event.type === "mistake_note_changed"

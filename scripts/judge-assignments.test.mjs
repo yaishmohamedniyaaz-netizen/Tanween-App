@@ -176,7 +176,7 @@ test("scores stay scoped without the unwanted live wording", () => {
   assert.match(scoreSource, /categories\.includes\(category\.id\)/);
   assert.match(recordsSource, /Average score/);
   assert.match(recordsSource, /Judge-section result/);
-  assert.match(recordsSource, /assignmentLabel/);
+  assert.match(recordsSource, /categoryListLabel/);
 });
 
 test("interface labels never print a raw storage id", () => {
@@ -211,5 +211,38 @@ test("the setup summary uses the interface labels, not raw ids", () => {
   assert.doesNotMatch(
     setupSource,
     /categoriesInOrder\(seat\.categories\)\.join\(" \+ "\)/,
+  );
+});
+
+test("only exports keep the plain ASCII criterion spellings", () => {
+  const uiFiles = [
+    "CompetitionIdlePanel",
+    "FinishDialog",
+    "HintBanner",
+    "JudgeRoleStrip",
+    "JudgingHistory",
+    "RecordsView",
+    "ResultSheet",
+    "StartDialog",
+  ];
+  for (const name of uiFiles) {
+    const source = readFileSync(
+      new URL(`../src/components/${name}.tsx`, import.meta.url),
+      "utf8",
+    );
+    assert.doesNotMatch(
+      source,
+      /assignmentLabel/,
+      `${name} should show interface labels, not export spellings`,
+    );
+  }
+  const exportSource = readFileSync(
+    new URL("../src/lib/exportSession.ts", import.meta.url),
+    "utf8",
+  );
+  assert.match(
+    exportSource,
+    /assignmentLabel/,
+    "exports must keep the ASCII spellings so saved records stay comparable",
   );
 });

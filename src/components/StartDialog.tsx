@@ -13,7 +13,7 @@ import {
   questionRangeLabel,
 } from "../lib/reciterQuestions.ts";
 import {
-  assignmentLabel,
+  categoryListLabel,
   judgeDisplayName,
   makeAssignmentSnapshot,
 } from "../lib/judgeAssignments";
@@ -167,7 +167,7 @@ export function StartDialog({
         <div className={`reciter-start-judge ${assignment ? "" : "is-missing"}`}>
           <span>Judging on this device</span>
           <strong>{assignment ? judgeDisplayName(assignment) : "No judge assigned"}</strong>
-          <small>{assignment ? assignmentLabel(assignment.categories) : "Choose the judge and criteria before starting."}</small>
+          <small>{assignment ? categoryListLabel(assignment.categories) : "Choose the judge and criteria before starting."}</small>
           <button type="button" className="btn-ghost" onClick={onOpenSetup}>Change</button>
         </div>
 

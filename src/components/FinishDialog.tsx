@@ -1,6 +1,6 @@
 import { computeScores } from "../lib/scoring";
 import { useJudging } from "../state/store";
-import { assignmentLabel, judgeDisplayName } from "../lib/judgeAssignments";
+import { categoryListLabel, judgeDisplayName } from "../lib/judgeAssignments";
 
 export function FinishDialog({
   onCancel,
@@ -37,7 +37,7 @@ export function FinishDialog({
         </div>
         {assignment && (
           <p className="finish-role">
-            {judgeDisplayName(assignment)} · {assignmentLabel(assignment.categories)}
+            {judgeDisplayName(assignment)} · {categoryListLabel(assignment.categories)}
           </p>
         )}
         <p className="dialog-sub">
