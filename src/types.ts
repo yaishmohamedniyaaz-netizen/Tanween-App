@@ -251,6 +251,42 @@ export interface ReciterQuestionAssignment {
   layoutHash?: string;
 }
 
+/** One position on a frozen draw board. */
+export interface QuestionDeckTile {
+  /** What the reciter points at. Stable for the life of the deck. */
+  position: number;
+  /** Resolved only when the organiser presses the position. */
+  questionId: string;
+}
+
+/**
+ * A frozen draw board for one division and muqarrar side. The questions are
+ * fixed when the deck is cut; only their positions are shuffled. Seed and
+ * fingerprint together let a disputed draw be reconstructed exactly.
+ */
+export interface QuestionDeck {
+  version: 1;
+  generatorVersion: number;
+  competitionId: string;
+  divisionId: string;
+  muqarrar: Exclude<MuqarrarSide, "">;
+  seed: string;
+  candidateFingerprint: string;
+  frozenAt: number;
+  tiles: QuestionDeckTile[];
+}
+
+/** A number, once pressed. Spends that position for the rest of the session. */
+export interface QuestionDrawRecord {
+  version: 1;
+  scopeKey: string;
+  seed: string;
+  position: number;
+  questionId: string;
+  participantId: string;
+  revealedAt: number;
+}
+
 export interface LiveCompetitionSnapshot {
   version: 1;
   /** Test competitions are permanently identifiable in every frozen record. */
