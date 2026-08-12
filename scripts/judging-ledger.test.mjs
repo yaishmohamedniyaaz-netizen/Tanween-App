@@ -112,3 +112,102 @@ test("the app backs up old data and requires a reason to reopen", () => {
   assert.doesNotMatch(recordsSource, /type: "DELETE_SESSION"/);
   assert.doesNotMatch(recordsSource, /type: "CLEAR_HISTORY"/);
 });
+
+test("marking a letter again under another criterion corrects it in place", () => {
+  const events = [
+    { id: "e1", at: 1, type: "mistake_added", mistake: { ...mistake, category: "jali", amount: 2 } },
+    {
+      id: "e2",
+      at: 2,
+      type: "mistake_recategorized",
+      mistakeId: mistake.id,
+      glyph: mistake.glyph,
+      label: mistake.label,
+      from: "jali",
+      to: "khafi",
+      fromAmount: 2,
+      toAmount: 1,
+    },
+  ];
+  const projected = projectMistakes(events);
+  assert.equal(projected.length, 1, "one letter must hold one finding");
+  assert.equal(projected[0].id, mistake.id, "the entry keeps its identity");
+  assert.equal(projected[0].category, "khafi");
+  assert.equal(projected[0].amount, 1);
+  assert.equal(projected[0].tid, mistake.tid);
+});
+
+test("a correction deducts once, not twice", () => {
+  const corrected = projectMistakes([
+    { id: "e1", at: 1, type: "mistake_added", mistake: { ...mistake, category: "jali", amount: 2 } },
+    {
+      id: "e2", at: 2, type: "mistake_recategorized", mistakeId: mistake.id,
+      glyph: mistake.glyph, label: mistake.label,
+      from: "jali", to: "khafi", fromAmount: 2, toAmount: 1,
+    },
+  ]);
+  const scores = computeMistakeScores(config, corrected);
+  assert.equal(scores.byCategory.jali.score, 50, "the abandoned criterion is made whole again");
+  assert.equal(scores.byCategory.jali.count, 0);
+  assert.equal(scores.byCategory.khafi.score, 29, "only the corrected criterion is deducted");
+  assert.equal(scores.byCategory.khafi.count, 1);
+});
+
+test("correcting a letter that is no longer marked changes nothing", () => {
+  const projected = projectMistakes([
+    { id: "e1", at: 1, type: "mistake_added", mistake },
+    { id: "e2", at: 2, type: "mistake_undone", mistake },
+    {
+      id: "e3", at: 3, type: "mistake_recategorized", mistakeId: mistake.id,
+      glyph: mistake.glyph, label: mistake.label,
+      from: "jali", to: "khafi", fromAmount: 2, toAmount: 1,
+    },
+  ]);
+  assert.equal(projected.length, 0);
+});
+
+test("a correction can be undone like any other mistake", () => {
+  const projected = projectMistakes([
+    { id: "e1", at: 1, type: "mistake_added", mistake },
+    {
+      id: "e2", at: 2, type: "mistake_recategorized", mistakeId: mistake.id,
+      glyph: mistake.glyph, label: mistake.label,
+      from: "jali", to: "khafi", fromAmount: 2, toAmount: 1,
+    },
+    { id: "e3", at: 3, type: "mistake_undone", mistake },
+  ]);
+  assert.equal(projected.length, 0);
+});
+
+test("version 1 ledgers replay unchanged", () => {
+  const projected = projectMistakes([
+    { id: "e1", at: 1, type: "mistake_added", mistake },
+    {
+      id: "e2", at: 2, type: "mistake_amount_changed", mistakeId: mistake.id,
+      glyph: mistake.glyph, label: mistake.label, from: 2, to: 4,
+    },
+  ]);
+  assert.equal(projected.length, 1);
+  assert.equal(projected[0].category, "jali");
+  assert.equal(projected[0].amount, 4);
+});
+
+test("a correction is the letter's latest event, so it can be undone from the log", () => {
+  const latest = latestMistakeEventIds([
+    { id: "e1", at: 1, type: "mistake_added", mistake },
+    {
+      id: "e2", at: 2, type: "mistake_recategorized", mistakeId: mistake.id,
+      glyph: mistake.glyph, label: mistake.label,
+      from: "jali", to: "khafi", fromAmount: 2, toAmount: 1,
+    },
+  ]);
+  assert.equal(latest.get(mistake.id), "e2");
+});
+
+test("two judges marking the same letter stay two separate findings", () => {
+  const projected = projectMistakes([
+    { id: "e1", at: 1, type: "mistake_added", mistake: { ...mistake, id: "m-jali", category: "jali", judgeSeatId: "seat-1" } },
+    { id: "e2", at: 2, type: "mistake_added", mistake: { ...mistake, id: "m-khafi", category: "khafi", judgeSeatId: "seat-2" } },
+  ]);
+  assert.equal(projected.length, 2, "one judge's finding must not overwrite another's");
+});

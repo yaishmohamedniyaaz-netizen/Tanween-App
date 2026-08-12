@@ -219,7 +219,7 @@ function patchEvent(
 
 function reducer(state: JudgingState, action: Action): JudgingState {
   switch (action.type) {
-    case "ADD_MISTAKE":
+    case "ADD_MISTAKE": {
       if (
         !state.sessionActive ||
         !state.activeAssignment ||
@@ -227,15 +227,44 @@ function reducer(state: JudgingState, action: Action): JudgingState {
       ) {
         return state;
       }
+      const judgeSeatId = state.activeAssignment.judgeSeatId;
+      // A letter carries one finding per judge. Marking an already-marked
+      // letter corrects it instead of stacking a second deduction, because
+      // picking the wrong criterion is an ordinary slip mid-recitation.
+      // Scoped to the seat: with one judge per criterion, two judges marking
+      // the same letter are two findings, not a correction.
+      const existing = state.mistakes.find(
+        (item) =>
+          item.tid === action.mistake.tid &&
+          (item.judgeSeatId ?? judgeSeatId) === judgeSeatId,
+      );
+      if (existing) {
+        // Re-marking under the same criterion changes nothing, so a double
+        // press cannot deduct twice. Any amount the judge set by hand stands.
+        if (existing.category === action.mistake.category) return state;
+        return withEvent(state, {
+          id: uid("e"),
+          at: Date.now(),
+          type: "mistake_recategorized",
+          mistakeId: existing.id,
+          glyph: existing.glyph,
+          label: existing.label,
+          from: existing.category,
+          to: action.mistake.category,
+          fromAmount: existing.amount,
+          toAmount: action.mistake.amount,
+        });
+      }
       return withEvent(state, {
         id: uid("e"),
         at: Date.now(),
         type: "mistake_added",
         mistake: {
           ...action.mistake,
-          judgeSeatId: state.activeAssignment.judgeSeatId,
+          judgeSeatId,
         },
       });
+    }
     case "REMOVE_MISTAKE": {
       const mistake = state.mistakes.find((item) => item.id === action.id);
       if (!mistake) return state;

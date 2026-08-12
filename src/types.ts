@@ -106,6 +106,24 @@ export type JudgingEvent =
   | {
       id: string;
       at: number;
+      /**
+       * The judge marked an already-marked letter under a different criterion.
+       * A letter carries one finding per judge, so this corrects the existing
+       * entry in place rather than adding a second deduction — and is recorded
+       * as the correction it is, not as a delete followed by an add.
+       */
+      type: "mistake_recategorized";
+      mistakeId: string;
+      glyph: string;
+      label: string;
+      from: CategoryId;
+      to: CategoryId;
+      fromAmount: number;
+      toAmount: number;
+    }
+  | {
+      id: string;
+      at: number;
       type: "mistake_note_changed";
       mistakeId: string;
       glyph: string;
@@ -305,7 +323,8 @@ export interface SavedSession {
   savedAt: number;
   startedAt?: number;
   revision?: number;
-  ledgerVersion?: 1;
+  /** 1 = original event set; 2 adds `mistake_recategorized`. */
+  ledgerVersion?: 1 | 2;
   participant: Participant;
   config: ScoreConfig;
   total: number;

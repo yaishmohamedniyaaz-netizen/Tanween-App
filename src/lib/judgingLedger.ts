@@ -6,7 +6,11 @@ import type {
   ReciterQuestionAssignment,
 } from "../types";
 
-export const LEDGER_VERSION = 1 as const;
+/**
+ * 2 adds `mistake_recategorized`. Version 1 ledgers replay unchanged — the new
+ * case only ever applies to events written after this version.
+ */
+export const LEDGER_VERSION = 2 as const;
 
 /** Rebuild the current mistake list from the recorded judge actions. */
 export function projectMistakes(events: JudgingEvent[]): Mistake[] {
@@ -26,6 +30,17 @@ export function projectMistakes(events: JudgingEvent[]): Mistake[] {
       case "mistake_note_changed": {
         const mistake = active.get(event.mistakeId);
         if (mistake) active.set(event.mistakeId, { ...mistake, note: event.to });
+        break;
+      }
+      case "mistake_recategorized": {
+        const mistake = active.get(event.mistakeId);
+        if (mistake) {
+          active.set(event.mistakeId, {
+            ...mistake,
+            category: event.to,
+            amount: event.toAmount,
+          });
+        }
         break;
       }
       case "mistake_undone":
@@ -92,7 +107,8 @@ export function latestMistakeEventIds(events: JudgingEvent[]): Map<string, strin
       latest.set(event.mistake.id, event.id);
     } else if (
       event.type === "mistake_amount_changed" ||
-      event.type === "mistake_note_changed"
+      event.type === "mistake_note_changed" ||
+      event.type === "mistake_recategorized"
     ) {
       latest.set(event.mistakeId, event.id);
     }

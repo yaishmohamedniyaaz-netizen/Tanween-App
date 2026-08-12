@@ -33,6 +33,11 @@ function historyCopy(event: JudgingEvent) {
         title: "Deduction adjusted",
         detail: `${event.label} · −${event.from} → −${event.to}`,
       };
+    case "mistake_recategorized":
+      return {
+        title: "Mistake corrected",
+        detail: `${event.label} · ${CATEGORY_BY_ID[event.from].label} → ${CATEGORY_BY_ID[event.to].label} · −${event.fromAmount} → −${event.toAmount}`,
+      };
     case "mistake_note_changed":
       return {
         title: "Mistake note changed",

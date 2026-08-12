@@ -144,7 +144,7 @@ test("the saved-state reducer independently rejects unassigned categories", () =
     "utf8",
   );
   assert.match(source, /!state\.activeAssignment\.categories\.includes\(action\.mistake\.category\)/);
-  assert.match(source, /judgeSeatId: state\.activeAssignment\.judgeSeatId/);
+  assert.match(source, /const judgeSeatId = state\.activeAssignment\.judgeSeatId/);
   assert.match(source, /backup\.pre-judge-assignments-v1/);
   assert.match(source, /if \(state\.sessionActive\) return state/);
 });
