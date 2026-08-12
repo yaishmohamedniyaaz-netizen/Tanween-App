@@ -1,6 +1,7 @@
 export type CategoryId = "jali" | "khafi" | "fasaha";
 export type ParticipantCategory = "" | "baliagen" | "nubalaa";
 export type MuqarrarSide = "" | "feshey-kolhu" | "nimey-kolhu";
+export type QuestionMuqarrar = Exclude<MuqarrarSide, ""> | "both";
 export type CompetitionStatus = "draft" | "live" | "closed";
 
 export interface CategoryDef {
@@ -84,6 +85,7 @@ export type JudgingEvent =
       sessionId: string;
       participant: Participant;
       assignment?: JudgeAssignmentSnapshot;
+      question?: ReciterQuestionAssignment;
     }
   | {
       id: string;
@@ -186,6 +188,8 @@ export interface CompetitionQuestionDraft {
   competitionId: string;
   isSample: boolean;
   divisionId: string;
+  /** Organizer-confirmed side of the muqarrar this question may be used for. */
+  muqarrar: QuestionMuqarrar;
   createdAt: number;
   updatedAt: number;
   note: string;
@@ -205,6 +209,28 @@ export interface CompetitionQuestionDraft {
   sourceVersion: string;
   questionIndexVersion: string;
   layoutHash: string;
+}
+
+/** The exact question choice frozen when one reciter's judging begins. */
+export interface ReciterQuestionAssignment {
+  version: 1;
+  id: string;
+  kind: "prepared-draft" | "manual";
+  participantId: string;
+  divisionId: string;
+  muqarrar: Exclude<MuqarrarSide, "">;
+  selectedAt: number;
+  label: string;
+  sourceQuestionId?: string;
+  startAyah?: { surah: number; ayah: number };
+  endAyah?: { surah: number; ayah: number };
+  requestedLines?: number;
+  resolvedLines?: number;
+  startPage?: number;
+  endPage?: number;
+  sourceVersion?: string;
+  questionIndexVersion?: string;
+  layoutHash?: string;
 }
 
 export interface LiveCompetitionSnapshot {
@@ -288,6 +314,7 @@ export interface SavedSession {
   sectionTotal?: number;
   sectionMax?: number;
   assignment?: JudgeAssignmentSnapshot;
+  question?: ReciterQuestionAssignment;
   notes: string;
   mistakes: Mistake[];
   events?: JudgingEvent[];
@@ -309,6 +336,8 @@ export interface JudgingState {
   activeRevision: number;
   /** Frozen for the active reciter; live setup changes cannot rewrite it. */
   activeAssignment: JudgeAssignmentSnapshot | null;
+  /** Frozen question evidence for the active reciter. */
+  activeQuestion: ReciterQuestionAssignment | null;
   events: JudgingEvent[];
   config: ScoreConfig;
   panel: JudgePanelConfig;

@@ -139,7 +139,9 @@ test("the built-in sample is complete, clearly marked, and ready to test", () =>
   assert.equal(competition.isSample, true);
   assert.equal(competition.divisions.length, 4);
   assert.equal(roster.length, 8);
-  assert.ok(roster.every((entry) => entry.name.startsWith("Sample Participant")));
+  assert.equal(new Set(roster.map((entry) => entry.name)).size, roster.length);
+  assert.ok(roster.every((entry) => !entry.name.startsWith("Sample Participant")));
+  assert.equal(roster[0].name, "Ahmed Rasheed");
   const input = {
     competition,
     panel: createPanelPreset("all"),
@@ -165,6 +167,8 @@ test("the reducer gates official judging behind a live frozen competition", () =
   assert.match(source, /state\.competition\.status !== "live"/);
   assert.match(source, /liveSnapshot\.roster\.some/);
   assert.match(source, /currentRosterEntry\.judged/);
+  assert.match(source, /questionAssignmentIsValid/);
+  assert.match(source, /question: ReciterQuestionAssignment/);
   assert.match(source, /backup\.pre-question-bank-v1/);
   assert.match(source, /case "CLOSE_COMPETITION"/);
   assert.match(source, /case "LOAD_SAMPLE_COMPETITION"/);

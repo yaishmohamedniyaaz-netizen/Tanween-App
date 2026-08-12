@@ -156,12 +156,13 @@ test("setup derives judge count, requires a device role, and freezes active sett
 });
 
 test("participant selection shows the frozen device assignment and links to setup", () => {
-  assert.match(startSource, /Judging panel/);
-  assert.match(startSource, /Change assignments/);
-  assert.match(startSource, /Add judges or assign/);
+  assert.match(startSource, /Judging on this device/);
+  assert.match(startSource, /Prepare the next reciter/);
+  assert.match(startSource, /Choose a question to unlock judging/);
+  assert.match(startSource, /questionId/);
+  assert.match(startSource, /Begin judging/);
   assert.match(startSource, /onClick=\{onOpenSetup\}/);
-  assert.match(startSource, /One judge covering all three is the default/);
-  assert.match(startSource, /closest\("button, select, textarea"\)/);
+  assert.match(startSource, /eligibleQuestionDrafts/);
   assert.match(appSource, /startOpen &&/);
   assert.match(appSource, /state\.competition\.status === "live"/);
   assert.match(appSource, /<CompetitionSetup/);

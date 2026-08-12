@@ -15,6 +15,12 @@ import {
   rangeIsWithinPortion,
 } from "../src/lib/questionDrafts.ts";
 import { createSampleCompetition } from "../src/lib/sampleCompetition.ts";
+import { createSampleRoster } from "../src/lib/sampleCompetition.ts";
+import {
+  assignmentFromDraft,
+  eligibleQuestionDrafts,
+  questionAssignmentIsValid,
+} from "../src/lib/reciterQuestions.ts";
 
 const asset = JSON.parse(fs.readFileSync("public/question-index.json", "utf8"));
 const lookup = createQuestionIndexLookup(asset);
@@ -150,9 +156,49 @@ test("drafts retain exact provenance and become stale instead of silently changi
 test("the sample competition includes normal, cross-page, and extended draft fixtures", () => {
   const competition = createSampleCompetition();
   const drafts = buildSampleQuestionDrafts(lookup, competition);
-  assert.equal(drafts.length, 3);
+  assert.equal(drafts.length, 24);
   assert.ok(drafts.some((draft) => draft.resolvedLines === 7));
   assert.ok(drafts.some((draft) => draft.endPage > draft.startPage));
   assert.ok(drafts.some((draft) => draft.extensionLines > 0));
   assert.ok(drafts.every((draft) => draft.isSample && draft.competitionId === competition.id));
+  for (const division of competition.divisions) {
+    const divisionDrafts = drafts.filter((draft) => draft.divisionId === division.id);
+    assert.equal(divisionDrafts.length, 6);
+    assert.equal(divisionDrafts.filter((draft) => draft.muqarrar === "feshey-kolhu").length, 3);
+    assert.equal(divisionDrafts.filter((draft) => draft.muqarrar === "nimey-kolhu").length, 3);
+  }
+});
+
+test("question tiles are filtered by division and muqarrar before a session can start", () => {
+  const competition = createSampleCompetition();
+  const participant = createSampleRoster()[0];
+  const drafts = buildSampleQuestionDrafts(lookup, competition);
+  const eligible = eligibleQuestionDrafts({
+    participant,
+    divisions: competition.divisions,
+    drafts,
+    competitionId: competition.id,
+  });
+  assert.equal(eligible.length, 3);
+  assert.ok(eligible.every((draft) => draft.muqarrar === participant.muqarrar));
+
+  const question = assignmentFromDraft({ draft: eligible[0], participant, selectedAt: 1000 });
+  assert.ok(question);
+  assert.equal(question.label, `${eligible[0].startAyah.surah}:${eligible[0].startAyah.ayah}–${eligible[0].endAyah.surah}:${eligible[0].endAyah.ayah}`);
+  assert.equal(questionAssignmentIsValid({
+    question,
+    participant,
+    divisions: competition.divisions,
+    drafts,
+    competitionId: competition.id,
+    allowManual: true,
+  }), true);
+  assert.equal(questionAssignmentIsValid({
+    question: { ...question, muqarrar: "nimey-kolhu" },
+    participant,
+    divisions: competition.divisions,
+    drafts,
+    competitionId: competition.id,
+    allowManual: true,
+  }), false);
 });

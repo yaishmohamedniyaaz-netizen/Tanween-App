@@ -620,7 +620,7 @@ export function CompetitionSetup({ onBack }: { onBack: () => void }) {
             </button>
             <button type="button" disabled title="Available after the reviewed question builder is implemented">
               <span className="question-mode-check" aria-hidden="true" />
-              <span><strong>Tahqeeq question set</strong><small>Draft building is available next. Official use still requires review, freezing and tiles.</small></span>
+              <span><strong>Tahqeeq question set</strong><small>Prepared tiles can be selected manually. Automatic draw and an approved frozen bank come later.</small></span>
             </button>
           </div>
           <div className="question-rule-grid">

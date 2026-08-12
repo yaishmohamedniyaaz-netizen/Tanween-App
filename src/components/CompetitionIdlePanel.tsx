@@ -1,7 +1,6 @@
 import { assignmentLabel, judgeDisplayName, makeAssignmentSnapshot } from "../lib/judgeAssignments";
 import { useJudging } from "../state/store";
 import { Icon } from "./Icon";
-import { SampleBadge } from "./SampleBadge";
 
 export function CompetitionIdlePanel({
   onPrepare,
@@ -28,7 +27,7 @@ export function CompetitionIdlePanel({
     return (
       <section className="competition-idle-panel is-live" aria-label="Competition ready">
         <span className="competition-state-label">
-          <i aria-hidden="true" /> Competition live {competition.isSample && <SampleBadge compact />}
+          <i aria-hidden="true" /> {competition.isSample ? "Test competition ready" : "Competition live"}
         </span>
         <h2>{competition.name || "Live competition"}</h2>
         {competition.edition && (
@@ -53,7 +52,7 @@ export function CompetitionIdlePanel({
         </div>
         {next ? (
           <button type="button" className="btn-primary competition-start-reciter" onClick={onStartReciter}>
-            Start reciter
+            Prepare next reciter
             <span>{next.number ? `${next.number} · ` : ""}{next.name}</span>
           </button>
         ) : state.roster.length ? (

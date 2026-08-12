@@ -48,6 +48,10 @@ import {
 } from "../lib/sampleCompetition";
 import { normalizeQuestionDrafts } from "../lib/questionDrafts";
 import {
+  normalizeQuestionAssignment,
+  questionAssignmentIsValid,
+} from "../lib/reciterQuestions";
+import {
   buildTargetMigrationPatches,
   type TargetMigrationPatches,
 } from "./migrateTargets";
@@ -64,6 +68,7 @@ import type {
   JudgingState,
   Mistake,
   Participant,
+  ReciterQuestionAssignment,
   RosterEntry,
   SavedSession,
 } from "../types";
@@ -78,6 +83,7 @@ const initialState: JudgingState = {
   activeStartedAt: null,
   activeRevision: 1,
   activeAssignment: null,
+  activeQuestion: null,
   events: [],
   config: DEFAULT_CONFIG,
   panel: createPanelPreset("all"),
@@ -142,7 +148,11 @@ type Action =
   | { type: "IMPORT_SESSION"; session: SavedSession }
   | { type: "UPSERT_FINAL_RESULT"; result: FinalizedResult }
   | { type: "CLEAR_ROSTER" }
-  | { type: "START_RECITER"; participant: Participant }
+  | {
+      type: "START_RECITER";
+      participant: Participant;
+      question: ReciterQuestionAssignment;
+    }
   | { type: "FINISH_SESSION" }
   | { type: "REOPEN_SESSION"; id: string; reason: string }
   | { type: "APPLY_TARGET_MIGRATION"; patches: TargetMigrationPatches }
@@ -167,6 +177,7 @@ function eventsWithAssignment(
         assignment: event.assignment
           ? normalizeAssignment(event.assignment, assignment.config)
           : assignment,
+        question: normalizeQuestionAssignment(event.question) ?? undefined,
       };
     }
     if (
@@ -377,8 +388,8 @@ function reducer(state: JudgingState, action: Action): JudgingState {
     case "INITIALIZE_SAMPLE_QUESTIONS":
       if (
         !state.competition.isSample ||
-        state.sampleQuestionsInitialized ||
-        state.competition.status !== "draft"
+        state.sessionActive ||
+        state.competition.status === "closed"
       ) {
         return state;
       }
@@ -590,7 +601,21 @@ function reducer(state: JudgingState, action: Action): JudgingState {
         state.deviceJudgeId,
         liveSnapshot.scoreConfig,
       );
-      if (!assignment) return state;
+      const question = normalizeQuestionAssignment(action.question);
+      if (
+        !assignment ||
+        !question ||
+        !questionAssignmentIsValid({
+          question,
+          participant,
+          divisions: liveSnapshot.divisions,
+          drafts: state.questionDrafts,
+          competitionId: liveSnapshot.competitionId,
+          allowManual: liveSnapshot.questionPolicy.mode === "manual",
+        })
+      ) {
+        return state;
+      }
       const sessionId = uid("s");
       const startedAt = Date.now();
       const events = seedLedgerEvents({
@@ -599,6 +624,7 @@ function reducer(state: JudgingState, action: Action): JudgingState {
         startedAt,
         mistakes: [],
         assignment,
+        question,
       });
       return {
         ...state,
@@ -608,6 +634,7 @@ function reducer(state: JudgingState, action: Action): JudgingState {
         activeStartedAt: startedAt,
         activeRevision: 1,
         activeAssignment: assignment,
+        activeQuestion: question,
         events,
         mistakes: [],
         notes: "",
@@ -645,6 +672,7 @@ function reducer(state: JudgingState, action: Action): JudgingState {
         sectionTotal: total,
         sectionMax: totalMax,
         assignment: state.activeAssignment ?? undefined,
+        question: state.activeQuestion ?? undefined,
         notes: state.notes,
         mistakes,
         events,
@@ -670,6 +698,7 @@ function reducer(state: JudgingState, action: Action): JudgingState {
         activeStartedAt: null,
         activeRevision: 1,
         activeAssignment: null,
+        activeQuestion: null,
         events: [],
         mistakes: [],
         notes: "",
@@ -692,6 +721,7 @@ function reducer(state: JudgingState, action: Action): JudgingState {
             startedAt: saved.startedAt ?? saved.savedAt,
             mistakes: saved.mistakes,
             assignment: saved.assignment,
+            question: saved.question,
           });
       const events: JudgingEvent[] = [
         ...baseEvents,
@@ -711,6 +741,7 @@ function reducer(state: JudgingState, action: Action): JudgingState {
         activeStartedAt: saved.startedAt ?? saved.savedAt,
         activeRevision: (saved.revision ?? 1) + 1,
         activeAssignment: normalizeAssignment(saved.assignment, saved.config),
+        activeQuestion: normalizeQuestionAssignment(saved.question),
         events,
         mistakes: projectMistakes(events),
         notes: saved.notes,
@@ -757,6 +788,13 @@ export function normalizeSavedSession(session: SavedSession): SavedSession {
       (eventAssignment?.type === "session_started" ? eventAssignment.assignment : undefined),
     session.config,
   );
+  const eventQuestion = session.events?.find(
+    (event) => event.type === "session_started" && event.question,
+  );
+  const question = normalizeQuestionAssignment(
+    session.question ??
+      (eventQuestion?.type === "session_started" ? eventQuestion.question : undefined),
+  );
   const startedAt =
     session.startedAt ??
     Math.min(session.savedAt, ...session.mistakes.map((mistake) => mistake.ts));
@@ -768,6 +806,7 @@ export function normalizeSavedSession(session: SavedSession): SavedSession {
         startedAt,
         mistakes: session.mistakes,
         assignment,
+        question: question ?? undefined,
       });
   events = eventsWithAssignment(events, assignment);
   const mistakes = projectMistakes(events);
@@ -814,6 +853,7 @@ export function normalizeSavedSession(session: SavedSession): SavedSession {
     sectionTotal: score.total,
     sectionMax: score.totalMax,
     assignment,
+    question: question ?? undefined,
     mistakes,
     events,
   };
@@ -828,7 +868,7 @@ export function normalizeLedgerState(
   if (allocation !== TOTAL_MARKS) config = DEFAULT_CONFIG;
   let panel = normalizeJudgePanel(parsed.panel);
 
-  const participant = normalizeParticipant(parsed.participant);
+  let participant = normalizeParticipant(parsed.participant);
   const legacyMistakes = parsed.mistakes ?? [];
   const sessionActive =
     parsed.sessionActive ??
@@ -837,6 +877,26 @@ export function normalizeLedgerState(
       (parsed.notes ?? "").trim() !== "");
   let roster = (parsed.roster ?? []).map((entry) => normalizeRosterEntry(entry));
   let competition = normalizeCompetition(parsed.competition);
+  if (competition.isSample) {
+    const sampleById = new Map(
+      createSampleRoster().map((entry) => [entry.id, entry]),
+    );
+    const updateSampleIdentity = <T extends Participant>(entry: T): T => {
+      const sample = sampleById.get(entry.id);
+      return sample ? { ...entry, ...sample, ...("judged" in entry ? { judged: entry.judged } : {}) } : entry;
+    };
+    roster = roster.map(updateSampleIdentity);
+    participant = updateSampleIdentity(participant);
+    if (competition.liveSnapshot) {
+      competition = {
+        ...competition,
+        liveSnapshot: {
+          ...competition.liveSnapshot,
+          roster: competition.liveSnapshot.roster.map(updateSampleIdentity),
+        },
+      };
+    }
+  }
   if ((sessionActive || competition.status === "live") && !competition.liveSnapshot) {
     const liveSnapshot = createLiveCompetitionSnapshot({
       competition,
@@ -887,6 +947,17 @@ export function normalizeLedgerState(
       : makeAssignmentSnapshot(panel, preferredJudge, config) ??
         legacyAssignment(config)
     : null;
+  const activeEventQuestion = parsed.events?.find(
+    (event) => event.type === "session_started" && event.question,
+  );
+  const activeQuestion = sessionActive
+    ? normalizeQuestionAssignment(
+        parsed.activeQuestion ??
+          (activeEventQuestion?.type === "session_started"
+            ? activeEventQuestion.question
+            : undefined),
+      )
+    : null;
   const events = sessionActive
     ? eventsWithAssignment(
         parsed.events?.length
@@ -897,6 +968,7 @@ export function normalizeLedgerState(
               startedAt: startedAt!,
               mistakes: legacyMistakes,
               assignment: activeAssignment!,
+              question: activeQuestion ?? undefined,
             }),
         activeAssignment!,
       )
@@ -917,6 +989,7 @@ export function normalizeLedgerState(
     activeStartedAt: startedAt,
     activeRevision: parsed.activeRevision ?? 1,
     activeAssignment,
+    activeQuestion,
     events,
     config,
     panel,

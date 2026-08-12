@@ -1,25 +1,30 @@
-import { useEffect, useRef, useState } from "react";
-import { useJudging } from "../state/store";
-import type {
-  MuqarrarSide,
-  Participant,
-  ParticipantCategory,
-  RosterEntry,
-} from "../types";
-import { Icon } from "./Icon";
+import { useEffect, useMemo, useState } from "react";
+import {
+  buildSampleQuestionDrafts,
+  questionDraftIssues,
+  sampleQuestionCoverageComplete,
+} from "../lib/questionDrafts.ts";
+import { loadQuestionIndex, type QuestionIndexLookup } from "../lib/questionBank.ts";
+import {
+  assignmentFromDraft,
+  eligibleQuestionDrafts,
+  manualQuestionAssignment,
+  participantDivision,
+  questionRangeLabel,
+} from "../lib/reciterQuestions.ts";
 import {
   assignmentLabel,
   judgeDisplayName,
   makeAssignmentSnapshot,
 } from "../lib/judgeAssignments";
 import {
-  EMPTY_PARTICIPANT,
   muqarrarLabel,
-  normalizeParticipant,
   participantCategoryLabel,
 } from "../lib/participants";
+import { useJudging } from "../state/store";
+import type { RosterEntry } from "../types";
+import { Icon } from "./Icon";
 
-/** Pick the next uploaded participant or enter one manually. */
 export function StartDialog({
   onOpenSetup,
   onClose,
@@ -28,233 +33,276 @@ export function StartDialog({
   onClose: () => void;
 }) {
   const { state, dispatch } = useJudging();
-  const [draft, setDraft] = useState<Participant>({ ...EMPTY_PARTICIPANT });
-  const [showDetails, setShowDetails] = useState(false);
-  const inputRef = useRef<HTMLInputElement>(null);
-
   const roster = state.roster;
-  const nextIdx = roster.findIndex((entry) => !entry.judged);
-  const assignment = makeAssignmentSnapshot(
-    state.panel,
-    state.deviceJudgeId,
-    state.config,
-  );
+  const next = roster.find((entry) => !entry.judged);
+  const [participantId, setParticipantId] = useState(next?.id ?? "");
+  const [questionId, setQuestionId] = useState("");
+  const [showRoster, setShowRoster] = useState(false);
+  const [lookup, setLookup] = useState<QuestionIndexLookup | null>(null);
+  const [questionLoadError, setQuestionLoadError] = useState(false);
+
+  const liveSnapshot = state.competition.liveSnapshot;
+  const participant = roster.find((entry) => entry.id === participantId && !entry.judged) ?? next;
+  const divisions = liveSnapshot?.divisions ?? state.competition.divisions;
+  const division = participant ? participantDivision(participant, divisions) : undefined;
+  const assignment = liveSnapshot
+    ? makeAssignmentSnapshot(
+        liveSnapshot.panel,
+        state.deviceJudgeId,
+        liveSnapshot.scoreConfig,
+      )
+    : null;
 
   useEffect(() => {
-    if (roster.length === 0) inputRef.current?.focus();
-  }, [roster.length]);
+    let cancelled = false;
+    loadQuestionIndex()
+      .then((value) => {
+        if (!cancelled) setLookup(value);
+      })
+      .catch(() => {
+        if (!cancelled) setQuestionLoadError(true);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
-  const patchDraft = (patch: Partial<Participant>) =>
-    setDraft((current) => ({ ...current, ...patch }));
-
-  const start = (participant: Participant) => {
-    const normalized = normalizeParticipant(participant);
-    if (!normalized.name) return;
-    dispatch({ type: "START_RECITER", participant: normalized });
-  };
-
-  const startEntry = (entry: RosterEntry) => start(entry);
-
-  const onKeyDown = (event: React.KeyboardEvent) => {
-    if (event.key !== "Enter") return;
-    if ((event.target as HTMLElement).closest("button, select, textarea")) return;
-    if (roster.length > 0 && nextIdx >= 0 && !draft.name.trim()) {
-      startEntry(roster[nextIdx]);
-    } else {
-      start(draft);
+  useEffect(() => {
+    if (
+      !lookup ||
+      !state.competition.isSample ||
+      sampleQuestionCoverageComplete(state.questionDrafts, state.competition) ||
+      state.competition.status === "closed"
+    ) {
+      return;
     }
+    dispatch({
+      type: "INITIALIZE_SAMPLE_QUESTIONS",
+      drafts: buildSampleQuestionDrafts(lookup, state.competition),
+    });
+  }, [dispatch, lookup, state.competition, state.questionDrafts]);
+
+  useEffect(() => {
+    if (participantId && roster.some((entry) => entry.id === participantId && !entry.judged)) {
+      return;
+    }
+    setParticipantId(next?.id ?? "");
+    setQuestionId("");
+  }, [next?.id, participantId, roster]);
+
+  const eligibleDrafts = useMemo(() => {
+    if (!participant || !liveSnapshot) return [];
+    return eligibleQuestionDrafts({
+      participant,
+      divisions: liveSnapshot.divisions,
+      drafts: state.questionDrafts,
+      competitionId: liveSnapshot.competitionId,
+    }).filter((draft) =>
+      lookup
+        ? questionDraftIssues({
+            draft,
+            competition: state.competition,
+            policy: liveSnapshot.questionPolicy,
+            lookup,
+          }).length === 0
+        : false,
+    );
+  }, [liveSnapshot, lookup, participant, state.competition, state.questionDrafts]);
+
+  useEffect(() => {
+    setQuestionId("");
+  }, [participant?.id]);
+
+  const chooseParticipant = (entry: RosterEntry) => {
+    if (entry.judged) return;
+    setParticipantId(entry.id);
+    setQuestionId("");
+    setShowRoster(false);
   };
+
+  const beginJudging = () => {
+    if (!participant || !division || !assignment || !liveSnapshot || !questionId) return;
+    const selectedDraft = eligibleDrafts.find((draft) => draft.id === questionId);
+    const question = questionId === "manual"
+      ? manualQuestionAssignment({ participant, division })
+      : selectedDraft
+        ? assignmentFromDraft({ participant, draft: selectedDraft })
+        : null;
+    if (!question) return;
+    dispatch({ type: "START_RECITER", participant, question });
+    onClose();
+  };
+
+  const allowManual = liveSnapshot?.questionPolicy.mode === "manual";
+  const ready = Boolean(participant && division && assignment && questionId);
+  const waitingCount = roster.filter((entry) => !entry.judged).length;
 
   return (
     <div
       className="dialog-backdrop"
       onKeyDown={(event) => {
-        if (event.key === "Escape") {
-          onClose();
-          return;
-        }
-        onKeyDown(event);
+        if (event.key === "Escape") onClose();
       }}
       onPointerDown={(event) => {
         if (event.target === event.currentTarget) onClose();
       }}
     >
       <div
-        className="dialog"
+        className="dialog reciter-start-dialog"
         role="dialog"
         aria-modal="true"
-        aria-label="Start a reciter"
+        aria-labelledby="reciter-start-title"
       >
-        <h2 className="dialog-title">
-          {roster.length ? "Who is reciting?" : "New reciter"}
-        </h2>
-        <button type="button" className="dialog-close" aria-label="Close" onClick={onClose}>×</button>
-        <p className="dialog-sub">
-          {roster.length
-            ? "Next up is preselected — press Enter to start."
-            : "Type the reciter's name to begin judging."}
-        </p>
-
-        <div className={`start-judge-panel ${assignment ? "" : "is-missing"}`}>
-          <div className="start-judge-panel-copy">
-            <span className="t-label">Judging panel</span>
-            {assignment ? (
-              <>
-                <strong>{judgeDisplayName(assignment)}</strong>
-                <span>{assignmentLabel(assignment.categories)}</span>
-              </>
-            ) : (
-              <strong>Choose this device's judge</strong>
-            )}
+        <header className="reciter-start-head">
+          <div>
+            <span className="dialog-kicker">
+              {state.competition.isSample ? "Test competition" : "Competition live"}
+            </span>
+            <h2 id="reciter-start-title">Prepare the next reciter</h2>
+            <p>Select the participant and their question before judging begins.</p>
           </div>
-          <button
-            type="button"
-            className="btn-ghost start-judge-change"
-            onClick={onOpenSetup}
-          >
-            Change assignments
-          </button>
-          <p>
-            One judge covering all three is the default. Add judges or assign
-            Jali, Khafi and Fasaha before starting.
-          </p>
+          <button type="button" className="dialog-close" aria-label="Close" onClick={onClose}>×</button>
+        </header>
+
+        <div className={`reciter-start-judge ${assignment ? "" : "is-missing"}`}>
+          <span>Judging on this device</span>
+          <strong>{assignment ? judgeDisplayName(assignment) : "No judge assigned"}</strong>
+          <small>{assignment ? assignmentLabel(assignment.categories) : "Choose the judge and criteria before starting."}</small>
+          <button type="button" className="btn-ghost" onClick={onOpenSetup}>Change</button>
         </div>
 
-        {roster.length === 0 ? (
-          <>
-            <div className="dialog-field">
-              <input
-                ref={inputRef}
-                type="text"
-                value={draft.name}
-                placeholder="Reciter's name"
-                onChange={(event) => patchDraft({ name: event.target.value })}
-              />
-            </div>
-            {showDetails ? (
-              <div className="dialog-details participant-details">
-                <input
-                  type="text"
-                  inputMode="numeric"
-                  value={draft.number}
-                  placeholder="Participant number"
-                  onChange={(event) => patchDraft({ number: event.target.value })}
-                />
-                <input
-                  type="text"
-                  value={draft.ageGroup}
-                  placeholder="Age group, e.g. Under 14"
-                  onChange={(event) => patchDraft({ ageGroup: event.target.value })}
-                />
-                <select
-                  value={draft.category}
-                  aria-label="Participant category"
-                  onChange={(event) =>
-                    patchDraft({ category: event.target.value as ParticipantCategory })
-                  }
-                >
-                  <option value="">Category</option>
-                  <option value="baliagen">Baliagen · Tarteel / reading</option>
-                  <option value="nubalaa">Hifz · Memorisation</option>
-                </select>
-                <select
-                  value={draft.muqarrar}
-                  aria-label="Muqarrar Hathim side"
-                  onChange={(event) =>
-                    patchDraft({ muqarrar: event.target.value as MuqarrarSide })
-                  }
-                >
-                  <option value="">Muqarrar</option>
-                  <option value="feshey-kolhu">Feshey kolhu · Starting side</option>
-                  <option value="nimey-kolhu">Nimey kolhu · Ending side</option>
-                </select>
-                <input
-                  type="tel"
-                  value={draft.phone}
-                  placeholder="Phone number"
-                  onChange={(event) => patchDraft({ phone: event.target.value })}
-                />
-                <input
-                  type="text"
-                  value={draft.institution}
-                  placeholder="Institution / school / own participation"
-                  onChange={(event) => patchDraft({ institution: event.target.value })}
-                />
+        <div className="reciter-start-grid">
+          <section className="reciter-start-step" aria-labelledby="reciter-step-participant">
+            <div className="reciter-step-head">
+              <span>1</span>
+              <div>
+                <h3 id="reciter-step-participant">Reciter</h3>
+                <p>The next waiting participant is selected automatically.</p>
               </div>
+            </div>
+
+            {participant ? (
+              <article className="selected-reciter-card">
+                <div className="selected-reciter-number">{participant.number || "—"}</div>
+                <div className="selected-reciter-main">
+                  <strong>{participant.name}</strong>
+                  <span>{participant.institution || "Institution not listed"}</span>
+                </div>
+                <dl>
+                  <div><dt>Division</dt><dd>{division?.name ?? "Not matched"}</dd></div>
+                  <div><dt>Muqarrar</dt><dd>{muqarrarLabel(participant.muqarrar)}</dd></div>
+                  <div><dt>Category</dt><dd>{participantCategoryLabel(participant.category)}</dd></div>
+                </dl>
+              </article>
             ) : (
+              <div className="reciter-start-empty">Every participant in this roster is finished.</div>
+            )}
+
+            {waitingCount > 1 && (
               <button
                 type="button"
-                className="dialog-link"
-                onClick={() => setShowDetails(true)}
+                className="reciter-roster-toggle"
+                aria-expanded={showRoster}
+                onClick={() => setShowRoster((current) => !current)}
               >
-                Add participant details
+                <Icon name="newUser" size={15} />
+                Choose another participant
+                <span>{waitingCount} waiting</span>
               </button>
             )}
-            <div className="dialog-actions">
-              <button type="button" className="btn-ghost" onClick={onOpenSetup}>
-                Participant list
-              </button>
-              <button
-                type="button"
-                className="btn-primary"
-                disabled={!draft.name.trim() || !assignment}
-                style={
-                  !draft.name.trim() || !assignment
-                    ? { opacity: 0.4, cursor: "default" }
-                    : undefined
-                }
-                onClick={() => start(draft)}
-              >
-                Start
-              </button>
+
+            {showRoster && (
+              <ul className="reciter-roster-list">
+                {roster.map((entry) => (
+                  <li key={entry.id}>
+                    <button
+                      type="button"
+                      disabled={entry.judged}
+                      className={entry.id === participant?.id ? "is-selected" : ""}
+                      onClick={() => chooseParticipant(entry)}
+                    >
+                      <span>{entry.number}</span>
+                      <strong>{entry.name}</strong>
+                      <small>{entry.judged ? "Finished" : entry.ageGroup}</small>
+                      {entry.id === participant?.id && <Icon name="check" size={14} />}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </section>
+
+          <section className="reciter-start-step question-choice-step" aria-labelledby="reciter-step-question">
+            <div className="reciter-step-head">
+              <span>2</span>
+              <div>
+                <h3 id="reciter-step-question">Question</h3>
+                <p>{participant?.muqarrar ? `${muqarrarLabel(participant.muqarrar)} questions only.` : "Select a participant first."}</p>
+              </div>
             </div>
-          </>
-        ) : (
-          <>
-            <ul className="roster-list">
-              {roster.map((entry, index) => (
-                <li key={entry.id}>
+
+            {!participant || !division ? (
+              <div className="question-choice-state">Select a participant with a matched division.</div>
+            ) : !lookup && !questionLoadError ? (
+              <div className="question-choice-state"><span className="loading-spinner" /> Checking prepared questions…</div>
+            ) : (
+              <div className="question-tile-grid" role="radiogroup" aria-label="Questions for this reciter">
+                {eligibleDrafts.map((draft, index) => (
+                  <button
+                    key={draft.id}
+                    type="button"
+                    role="radio"
+                    aria-checked={questionId === draft.id}
+                    className={`reciter-question-tile ${questionId === draft.id ? "is-selected" : ""}`}
+                    onClick={() => setQuestionId(draft.id)}
+                  >
+                    <span className="question-tile-number">{String(index + 1).padStart(2, "0")}</span>
+                    <span className="question-tile-copy">
+                      <strong>{questionRangeLabel(draft)}</strong>
+                      <small>Pages {draft.startPage}{draft.endPage !== draft.startPage ? `–${draft.endPage}` : ""} · {draft.resolvedLines} lines</small>
+                      {draft.note && <em>{draft.note}</em>}
+                    </span>
+                    <span className="question-tile-check"><Icon name="check" size={13} /></span>
+                  </button>
+                ))}
+
+                {allowManual && (
                   <button
                     type="button"
-                    className={`roster-row ${index === nextIdx ? "is-next" : ""} ${
-                      entry.judged ? "is-done" : ""
-                    }`}
-                    disabled={!assignment || entry.judged}
-                    onClick={() => startEntry(entry)}
+                    role="radio"
+                    aria-checked={questionId === "manual"}
+                    className={`reciter-question-tile is-manual ${questionId === "manual" ? "is-selected" : ""}`}
+                    onClick={() => setQuestionId("manual")}
                   >
-                    <span className="roster-num t-num">{entry.number || index + 1}</span>
-                    <span className="roster-name">{entry.name}</span>
-                    <span className="roster-meta">
-                      {[entry.ageGroup, entry.category ? participantCategoryLabel(entry.category) : "", entry.muqarrar ? muqarrarLabel(entry.muqarrar) : ""]
-                        .filter(Boolean)
-                        .join(" · ")}
+                    <span className="question-tile-number">M</span>
+                    <span className="question-tile-copy">
+                      <strong>External question</strong>
+                      <small>Confirm the printed question matches this division and muqarrar.</small>
                     </span>
-                    {entry.judged && (
-                      <span className="roster-check" aria-label="judged">
-                        <Icon name="check" size={15} />
-                      </span>
-                    )}
+                    <span className="question-tile-check"><Icon name="check" size={13} /></span>
                   </button>
-                </li>
-              ))}
-            </ul>
-            <div className="dialog-actions">
-              <button type="button" className="btn-ghost" onClick={onOpenSetup}>
-                Edit setup
-              </button>
-              {nextIdx >= 0 && (
-                <button
-                  type="button"
-                  className="btn-primary"
-                  disabled={!assignment}
-                  onClick={() => startEntry(roster[nextIdx])}
-                >
-                  Start {roster[nextIdx].name.split(" ")[0]}
-                </button>
-              )}
-            </div>
-          </>
-        )}
+                )}
+              </div>
+            )}
+
+            {lookup && eligibleDrafts.length === 0 && !allowManual && (
+              <div className="question-choice-warning">No checked question is available for this participant. Return to setup.</div>
+            )}
+            {state.competition.isSample && (
+              <p className="reciter-test-note">This is rehearsal data. The selected question is recorded, but it is not an approved official question set.</p>
+            )}
+          </section>
+        </div>
+
+        <footer className="reciter-start-actions">
+          <button type="button" className="btn-ghost" onClick={onOpenSetup}>View competition setup</button>
+          <div>
+            <span>{!participant ? "Choose a reciter" : !questionId ? "Choose a question to unlock judging" : `Ready · ${participant.name}`}</span>
+            <button type="button" className="btn-primary" disabled={!ready} onClick={beginJudging}>
+              Begin judging
+            </button>
+          </div>
+        </footer>
       </div>
     </div>
   );

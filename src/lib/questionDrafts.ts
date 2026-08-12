@@ -3,6 +3,7 @@ import type {
   CompetitionDivision,
   CompetitionQuestionDraft,
   CompetitionQuestionPolicy,
+  QuestionMuqarrar,
   QuranPortion,
 } from "../types.ts";
 import {
@@ -108,6 +109,7 @@ export function createQuestionDraft(input: {
   id: string;
   competition: CompetitionConfig;
   divisionId: string;
+  muqarrar?: QuestionMuqarrar;
   range: QuestionRange;
   note?: string;
   now?: number;
@@ -120,6 +122,7 @@ export function createQuestionDraft(input: {
     competitionId: input.competition.id,
     isSample: input.competition.isSample,
     divisionId: input.divisionId,
+    muqarrar: input.muqarrar ?? input.previous?.muqarrar ?? "both",
     createdAt: input.previous?.createdAt ?? now,
     updatedAt: now,
     note: input.note?.trim() ?? "",
@@ -186,6 +189,10 @@ export function normalizeQuestionDraft(
     competitionId: String(value.competitionId),
     isSample: Boolean(value.isSample),
     divisionId: String(value.divisionId),
+    muqarrar:
+      value.muqarrar === "feshey-kolhu" || value.muqarrar === "nimey-kolhu"
+        ? value.muqarrar
+        : "both",
     createdAt: Number.isFinite(value.createdAt) ? Number(value.createdAt) : Date.now(),
     updatedAt: Number.isFinite(value.updatedAt) ? Number(value.updatedAt) : Date.now(),
     note: String(value.note ?? ""),
@@ -249,35 +256,97 @@ export function buildSampleQuestionDrafts(
   lookup: QuestionIndexLookup,
   competition: CompetitionConfig,
 ): CompetitionQuestionDraft[] {
-  const division =
-    competition.divisions.find((item) => item.quranPortion.kind === "full-quran") ??
-    competition.divisions[0];
-  if (!division) return [];
-  const examples: Array<{ id: string; start: AyahRef; note: string }> = [
-    { id: "sample-question-normal", start: { surah: 1, ayah: 1 }, note: "Normal seven-line sample" },
-    { id: "sample-question-cross-page", start: { surah: 2, ayah: 179 }, note: "Cross-page sample" },
-    { id: "sample-question-extension", start: { surah: 2, ayah: 180 }, note: "Eight-line extension sample" },
-  ];
+  const candidatesFor = (division: CompetitionDivision): Record<
+    Exclude<QuestionMuqarrar, "both">,
+    Array<{ start: AyahRef; note: string }>
+  > => {
+    if (division.quranPortion.kind === "juz-range" && division.quranPortion.startJuz === 30) {
+      return {
+        "feshey-kolhu": [
+          { start: { surah: 78, ayah: 1 }, note: "Opening passage" },
+          { start: { surah: 79, ayah: 1 }, note: "Early Juz 30 passage" },
+          { start: { surah: 80, ayah: 1 }, note: "Early Juz 30 passage" },
+        ],
+        "nimey-kolhu": [
+          { start: { surah: 107, ayah: 1 }, note: "Closing-side passage" },
+          { start: { surah: 109, ayah: 1 }, note: "Closing-side passage" },
+          { start: { surah: 112, ayah: 1 }, note: "Closing passage" },
+        ],
+      };
+    }
+    if (division.quranPortion.kind === "juz-range") {
+      return {
+        "feshey-kolhu": [
+          { start: { surah: 67, ayah: 1 }, note: "Opening passage" },
+          { start: { surah: 68, ayah: 1 }, note: "Early passage" },
+          { start: { surah: 69, ayah: 1 }, note: "Early passage" },
+        ],
+        "nimey-kolhu": [
+          { start: { surah: 75, ayah: 1 }, note: "Closing-side passage" },
+          { start: { surah: 76, ayah: 1 }, note: "Closing-side passage" },
+          { start: { surah: 77, ayah: 1 }, note: "Closing passage" },
+        ],
+      };
+    }
+    return {
+      "feshey-kolhu": [
+        { start: { surah: 1, ayah: 1 }, note: "Opening passage" },
+        { start: { surah: 2, ayah: 179 }, note: "Cross-page passage" },
+        { start: { surah: 2, ayah: 180 }, note: "Extended passage" },
+      ],
+      "nimey-kolhu": [
+        { start: { surah: 107, ayah: 1 }, note: "Closing-side passage" },
+        { start: { surah: 109, ayah: 1 }, note: "Closing-side passage" },
+        { start: { surah: 112, ayah: 1 }, note: "Closing passage" },
+      ],
+    };
+  };
   const now = 1_786_489_200_000;
-  return examples.flatMap((example, index) => {
-    const resolution = resolveQuestionRange(
-      lookup,
-      example.start,
-      competition.questionPolicy.targetRecitationLines,
-      competition.questionPolicy.finalPrintedLineScoring,
-    );
-    if (!resolution.ok || !rangeIsWithinPortion(resolution.range, division.quranPortion)) return [];
-    return [
-      createQuestionDraft({
-        id: example.id,
-        competition,
-        divisionId: division.id,
-        range: resolution.range,
-        note: example.note,
-        now: now + index,
+  let ordinal = 0;
+  return competition.divisions.flatMap((division) =>
+    Object.entries(candidatesFor(division)).flatMap(([muqarrar, examples]) =>
+      examples.flatMap((example) => {
+        ordinal += 1;
+        const resolution = resolveQuestionRange(
+          lookup,
+          example.start,
+          competition.questionPolicy.targetRecitationLines,
+          competition.questionPolicy.finalPrintedLineScoring,
+        );
+        if (!resolution.ok || !rangeIsWithinPortion(resolution.range, division.quranPortion)) return [];
+        return [
+          createQuestionDraft({
+            id: `sample-question-${division.id}-${muqarrar}-${ordinal}`,
+            competition,
+            divisionId: division.id,
+            muqarrar: muqarrar as Exclude<QuestionMuqarrar, "both">,
+            range: resolution.range,
+            note: example.note,
+            now: now + ordinal,
+          }),
+        ];
       }),
-    ];
-  });
+    ),
+  );
+}
+
+export function sampleQuestionCoverageComplete(
+  drafts: CompetitionQuestionDraft[],
+  competition: CompetitionConfig,
+): boolean {
+  if (!competition.isSample || !competition.divisions.length) return false;
+  return competition.divisions.every((division) =>
+    (["feshey-kolhu", "nimey-kolhu"] as const).every(
+      (muqarrar) =>
+        drafts.filter(
+          (draft) =>
+            draft.isSample &&
+            draft.competitionId === competition.id &&
+            draft.divisionId === division.id &&
+            draft.muqarrar === muqarrar,
+        ).length >= 3,
+    ),
+  );
 }
 
 export function divisionForDraft(

@@ -3,6 +3,7 @@ import type {
   JudgingEvent,
   Mistake,
   Participant,
+  ReciterQuestionAssignment,
 } from "../types";
 
 export const LEDGER_VERSION = 1 as const;
@@ -45,12 +46,14 @@ export function seedLedgerEvents({
   startedAt,
   mistakes,
   assignment,
+  question,
 }: {
   sessionId: string;
   participant: Participant;
   startedAt: number;
   mistakes: Mistake[];
   assignment?: JudgeAssignmentSnapshot;
+  question?: ReciterQuestionAssignment;
 }): JudgingEvent[] {
   return [
     {
@@ -60,6 +63,7 @@ export function seedLedgerEvents({
       sessionId,
       participant,
       assignment,
+      question,
     },
     ...mistakes.map(
       (mistake): JudgingEvent => ({

@@ -124,7 +124,8 @@ test("the separate sample workbook contains fictional, importable participants",
     raw: false,
   });
   assert.equal(rows.length, 8);
-  assert.ok(rows.every((row) => String(row.Name).startsWith("Sample Participant")));
+  assert.ok(rows.every((row) => !String(row.Name).startsWith("Sample Participant")));
+  assert.equal(rows[0].Name, "Ahmed Rasheed");
   const preview = parseRosterRows(rows);
   assert.equal(preview.entries.length, 8);
   assert.equal(preview.issues.filter((issue) => issue.level === "error").length, 0);

@@ -4,7 +4,6 @@ import { downloadRecordsCSV, downloadSessionJSON } from "../lib/exportSession";
 import { useOfflineStatus } from "../hooks/useOfflineStatus";
 import { Icon } from "./Icon";
 import { ThemeToggle } from "./ThemeToggle";
-import { SampleBadge } from "./SampleBadge";
 import {
   downloadStateBackup,
   readStateBackupFile,
@@ -142,7 +141,9 @@ export function Header({
           <span>
             <strong>
               {state.competition.status === "live"
-                ? "Competition live"
+                ? state.competition.isSample
+                  ? "Test competition live"
+                  : "Competition live"
                 : state.competition.status === "closed"
                   ? "Competition closed"
                   : state.competition.name
@@ -151,7 +152,6 @@ export function Header({
             </strong>
             {state.competition.name && <small>{state.competition.name}</small>}
           </span>
-          {state.competition.isSample && <SampleBadge compact />}
         </button>
       )}
 
@@ -164,7 +164,9 @@ export function Header({
         >
           <span className="chip-dot" aria-hidden="true" />
           {p.name || "Unnamed"}
-          {state.competition.isSample && <SampleBadge compact />}
+          {state.activeQuestion && (
+            <span className="reciter-question-ref">Q · {state.activeQuestion.label}</span>
+          )}
           {rosterTotal > 0 && (
             <span className="chip-idx t-num">
               {rosterDone + 1}/{rosterTotal}

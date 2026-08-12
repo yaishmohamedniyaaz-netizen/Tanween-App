@@ -7,6 +7,7 @@ import {
   firstAyahForPortion,
   questionDraftIssues,
   rangeIsWithinPortion,
+  sampleQuestionCoverageComplete,
 } from "../lib/questionDrafts.ts";
 import {
   loadQuestionIndex,
@@ -15,7 +16,7 @@ import {
   type QuestionIndexLookup,
 } from "../lib/questionBank.ts";
 import { useJudging } from "../state/store.tsx";
-import type { CompetitionQuestionDraft } from "../types.ts";
+import type { CompetitionQuestionDraft, QuestionMuqarrar } from "../types.ts";
 import { Icon } from "./Icon.tsx";
 import { QuestionMushafPreview } from "./QuestionMushafPreview.tsx";
 import { SampleBadge } from "./SampleBadge.tsx";
@@ -47,6 +48,7 @@ export function QuestionBuilder({ editable }: { editable: boolean }) {
   const [startAyah, setStartAyah] = useState<AyahRef>(initialStart);
   const [previewPage, setPreviewPage] = useState(firstDivision ? SURAHS[initialStart.surah - 1]?.firstPage ?? 1 : 1);
   const [note, setNote] = useState("");
+  const [muqarrar, setMuqarrar] = useState<QuestionMuqarrar>("both");
   const [editingId, setEditingId] = useState<string | null>(null);
   const [message, setMessage] = useState("");
 
@@ -68,7 +70,7 @@ export function QuestionBuilder({ editable }: { editable: boolean }) {
     if (
       !lookup ||
       !state.competition.isSample ||
-      state.sampleQuestionsInitialized ||
+      sampleQuestionCoverageComplete(state.questionDrafts, state.competition) ||
       state.competition.status !== "draft"
     ) {
       return;
@@ -77,7 +79,7 @@ export function QuestionBuilder({ editable }: { editable: boolean }) {
       type: "INITIALIZE_SAMPLE_QUESTIONS",
       drafts: buildSampleQuestionDrafts(lookup, state.competition),
     });
-  }, [dispatch, lookup, state.competition, state.sampleQuestionsInitialized]);
+  }, [dispatch, lookup, state.competition, state.questionDrafts]);
 
   const competitionDrafts = useMemo(
     () => state.questionDrafts.filter((draft) => draft.competitionId === state.competition.id),
@@ -133,6 +135,7 @@ export function QuestionBuilder({ editable }: { editable: boolean }) {
     setDivisionId(nextDivisionId);
     setEditingId(null);
     setNote("");
+    setMuqarrar("both");
     setMessage("");
     if (division) setStartAyah(firstAyahForPortion(division.quranPortion));
   };
@@ -151,6 +154,7 @@ export function QuestionBuilder({ editable }: { editable: boolean }) {
     setStartAyah({ ...draft.startAyah });
     setPreviewPage(draft.startPage);
     setNote(draft.note);
+    setMuqarrar(draft.muqarrar);
     setMessage("");
   };
 
@@ -159,6 +163,7 @@ export function QuestionBuilder({ editable }: { editable: boolean }) {
     const next = division ? firstAyahForPortion(division.quranPortion) : { surah: 1, ayah: 1 };
     setEditingId(null);
     setNote("");
+    setMuqarrar("both");
     setMessage("");
     if (division) setDivisionId(division.id);
     setStartAyah(next);
@@ -173,6 +178,7 @@ export function QuestionBuilder({ editable }: { editable: boolean }) {
       id: previous?.id ?? `question-${uid()}`,
       competition: state.competition,
       divisionId: selectedDivision.id,
+      muqarrar,
       range: resolution.range,
       note,
       previous,
@@ -243,6 +249,14 @@ export function QuestionBuilder({ editable }: { editable: boolean }) {
             {Array.from({ length: ayahCount }, (_, index) => index + 1).map((ayah) => <option key={ayah} value={ayah}>{ayah}</option>)}
           </select>
         </label>
+        <label>
+          <span>Muqarrar side</span>
+          <select value={muqarrar} disabled={!editable} onChange={(event) => setMuqarrar(event.target.value as QuestionMuqarrar)}>
+            <option value="both">Either side</option>
+            <option value="feshey-kolhu">Feshey kolhu · Starting side</option>
+            <option value="nimey-kolhu">Nimey kolhu · Ending side</option>
+          </select>
+        </label>
         <label className="question-note-field">
           <span>Organizer note <em>Optional</em></span>
           <input value={note} disabled={!editable} maxLength={180} placeholder="For example: mutashabihat check" onChange={(event) => setNote(event.target.value)} />
@@ -252,7 +266,7 @@ export function QuestionBuilder({ editable }: { editable: boolean }) {
       {state.competition.isSample && (
         <div className="question-sample-tests">
           <SampleBadge compact />
-          <span>Three valid examples are loaded below.</span>
+          <span>Test questions are loaded for every division and muqarrar side.</span>
           <button type="button" onClick={useUnavailableSample}>Try Quran-end shortfall</button>
         </div>
       )}
@@ -274,13 +288,13 @@ export function QuestionBuilder({ editable }: { editable: boolean }) {
       <QuestionMushafPreview page={previewPage} range={previewRange} onPageChange={setPreviewPage} onAyahPick={chooseStart} />
 
       <div className="question-builder-actions">
-        <span>{message || "Drafts remain preparation-only until review and approval are built."}</span>
+        <span>{message || "Drafts can be assigned manually; they are not an approved frozen question bank."}</span>
         <button type="button" className="btn-primary" disabled={!editable || !resolution?.ok || !eligible || Boolean(duplicate)} onClick={saveDraft}>{editingId ? "Update draft" : "Save draft"}</button>
       </div>
 
       <section className="question-draft-list" aria-labelledby="question-drafts-title">
         <div className="question-draft-list-head">
-          <div><h3 id="question-drafts-title">Saved drafts</h3><p>These cannot be drawn or used as an official Tahqeeq set yet.</p></div>
+          <div><h3 id="question-drafts-title">Saved drafts</h3><p>Use them as checked manual prompts; automatic draw and approval come later.</p></div>
           <strong>{competitionDrafts.length}</strong>
         </div>
         {!competitionDrafts.length ? (
@@ -293,7 +307,7 @@ export function QuestionBuilder({ editable }: { editable: boolean }) {
               <button type="button" className="question-draft-open" onClick={() => openDraft(draft)}>
                 <span className="question-draft-state">{issues.length ? "Needs checking" : "Ready draft"}</span>
                 <strong>{draftRangeLabel(draft)}</strong>
-                <span>{division?.name ?? "Division removed"} · {draft.resolvedLines} lines · pages {draft.startPage}{draft.endPage !== draft.startPage ? `–${draft.endPage}` : ""}</span>
+                <span>{division?.name ?? "Division removed"} · {draft.muqarrar === "both" ? "Either side" : draft.muqarrar === "feshey-kolhu" ? "Feshey kolhu" : "Nimey kolhu"} · {draft.resolvedLines} lines · pages {draft.startPage}{draft.endPage !== draft.startPage ? `–${draft.endPage}` : ""}</span>
                 {draft.note && <small>{draft.note}</small>}
                 {issues.length > 0 && <small>{issues[0]}</small>}
               </button>
