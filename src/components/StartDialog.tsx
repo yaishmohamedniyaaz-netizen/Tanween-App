@@ -139,21 +139,25 @@ export function StartDialog({
     setStage("draw");
   };
 
-  const beginJudging = () => {
-    if (!participant || !division || !assignment || !liveSnapshot || !questionId) return;
-    const selectedDraft = eligibleDrafts.find((draft) => draft.id === questionId);
-    const question = questionId === "manual"
-      ? manualQuestionAssignment({ participant, division })
-      : selectedDraft
-        ? assignmentFromDraft({ participant, draft: selectedDraft })
-        : null;
+  // Pressing a number is beginning. The drawn id is passed in rather than read
+  // back from state, which has not settled yet in the same tick.
+  const startWithQuestion = (selectedQuestionId: string) => {
+    if (!participant || !division || !assignment || !liveSnapshot) return;
+    const selectedDraft = eligibleDrafts.find(
+      (draft) => draft.id === selectedQuestionId,
+    );
+    const question =
+      selectedQuestionId === "manual"
+        ? manualQuestionAssignment({ participant, division })
+        : selectedDraft
+          ? assignmentFromDraft({ participant, draft: selectedDraft })
+          : null;
     if (!question) return;
     dispatch({ type: "START_RECITER", participant, question });
     onClose();
   };
 
   const allowManual = liveSnapshot?.questionPolicy.mode === "manual";
-  const ready = Boolean(participant && division && assignment && questionId);
   const waitingCount = roster.filter((entry) => !entry.judged).length;
 
   // The draw board for this reciter's division and muqarrar side. Cut once,
@@ -237,6 +241,7 @@ export function StartDialog({
     });
     setDrawnPosition(position);
     setQuestionId(drawnId);
+    startWithQuestion(drawnId);
   };
 
   const rosterGroups = useMemo(
@@ -474,6 +479,7 @@ export function StartDialog({
                     onClick={() => {
                       setQuestionId("manual");
                       setDrawnPosition(null);
+                      startWithQuestion("manual");
                     }}
                   >
                     <strong>External question</strong>
@@ -514,12 +520,9 @@ export function StartDialog({
               <button type="button" className="btn-ghost" onClick={() => setStage("participant")}>
                 Back to reciter
               </button>
-              <div>
-                <span>{!questionId ? "Press the number the reciter picks" : `Ready · ${participant?.name ?? ""}`}</span>
-                <button type="button" className="btn-primary" disabled={!ready} onClick={beginJudging}>
-                  Begin judging
-                </button>
-              </div>
+              <span className="reciter-start-cue">
+                Press the number the reciter picks — judging starts straight away
+              </span>
             </>
           )}
         </footer>

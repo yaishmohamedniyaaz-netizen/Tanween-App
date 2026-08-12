@@ -160,11 +160,11 @@ test("setup derives judge count, requires a device role, and freezes active sett
 test("participant selection shows the frozen device assignment and links to setup", () => {
   assert.match(startSource, /Judging on this device/);
   assert.match(startSource, /Prepare the next reciter/);
-  // The board step gates judging until a number is pressed.
+  // Pressing a number is what starts judging — there is no separate confirm.
   assert.match(startSource, /Press the number the reciter picks/);
-  assert.match(startSource, /disabled=\{!ready\}/);
+  assert.match(startSource, /startWithQuestion\(drawnId\)/);
+  assert.doesNotMatch(startSource, /Begin judging/);
   assert.match(startSource, /questionId/);
-  assert.match(startSource, /Begin judging/);
   assert.match(startSource, /onClick=\{onOpenSetup\}/);
   assert.match(startSource, /eligibleQuestionDrafts/);
   assert.match(appSource, /startOpen &&/);

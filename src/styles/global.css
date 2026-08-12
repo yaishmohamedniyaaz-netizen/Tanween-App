@@ -3834,6 +3834,12 @@ textarea:focus-visible {
 
 /* Draw board — the screen gets turned round to the reciter, so numbers are
    sized to be read across a table rather than at arm's length. */
+.reciter-start-cue {
+  color: var(--ink-2);
+  font-size: var(--t-micro);
+  text-align: right;
+}
+
 .draw-board {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
