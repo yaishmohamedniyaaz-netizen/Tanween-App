@@ -16,6 +16,7 @@ import {
   type JudgeResultPackage,
 } from "../lib/resultPackages";
 import { FinalResultsPanel } from "./FinalResultsPanel";
+import { SampleBadge } from "./SampleBadge";
 
 export function RecordsView({ onResumeSession }: { onResumeSession: () => void }) {
   const { state, dispatch } = useJudging();
@@ -88,6 +89,9 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
       if (payload.competition.id !== state.competition.id) {
         throw new Error("That result belongs to a different competition or edition.");
       }
+      if (Boolean(payload.competition.isSample) !== state.competition.isSample) {
+        throw new Error("Sample and official judge results cannot be mixed.");
+      }
       if (!state.roster.length) {
         throw new Error("Upload this competition's participant list before importing judge results.");
       }
@@ -130,6 +134,12 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
 
   return (
     <div className="records">
+      {state.history.some((session) => session.isSample) && (
+        <div className="sample-records-notice">
+          <SampleBadge />
+          <span><strong>Sample results are clearly isolated.</strong><small>They appear here for testing, but the official CSV export leaves them out.</small></span>
+        </div>
+      )}
       <div className="records-bar">
         <div className="metric-cards">
           <div className="metric">
@@ -289,12 +299,18 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
             <button
               type="button"
               className="btn-ghost"
+              disabled={!state.history.some((session) => !session.isSample)}
               onClick={() => downloadRecordsCSV(state.history)}
-              title="Export all records as CSV"
+              title="Export official records as CSV"
             >
               <Icon name="download" size={15} />
               CSV
             </button>
+            {state.history.some((session) => session.isSample) && (
+              <button type="button" className="btn-ghost" onClick={() => downloadRecordsCSV(state.history, "sample")} title="Export sample records separately">
+                <Icon name="download" size={15} /> Sample CSV
+              </button>
+            )}
           </div>
         </div>
         {importError && <p className="import-error">{importError}</p>}
@@ -349,7 +365,7 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
                   <span className="session-no">{s.participant.number || "—"}</span>
                   <span className="session-main">
                     <span className="session-name">
-                      {s.participant.name || "Unnamed reciter"}
+                      {s.participant.name || "Unnamed reciter"} {s.isSample && <SampleBadge compact />}
                     </span>
                     <span className="session-meta">
                       {[s.participant.ageGroup, participantCategoryLabel(s.participant.category), s.participant.institution]

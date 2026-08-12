@@ -1,5 +1,5 @@
 import { Fragment, useMemo, useRef, useState } from "react";
-import { CATEGORIES, START_OPTIONS, STEP_OPTIONS, TOTAL_MARKS } from "../config";
+import { CATEGORIES, DEFAULT_CONFIG, START_OPTIONS, STEP_OPTIONS, TOTAL_MARKS } from "../config";
 import {
   competitionIdFor,
   competitionReadiness,
@@ -12,9 +12,11 @@ import {
 } from "../lib/judgeAssignments";
 import {
   downloadParticipantTemplate,
+  downloadSampleParticipantWorkbook,
   parseRosterFile,
   type RosterImportPreview,
 } from "../lib/roster";
+import { createSampleRoster } from "../lib/sampleCompetition";
 import { useJudging } from "../state/store";
 import type {
   CategoryId,
@@ -25,6 +27,7 @@ import type {
   ScoreConfig,
 } from "../types";
 import { Icon } from "./Icon";
+import { SampleBadge } from "./SampleBadge";
 
 type SetupTask =
   | "details"
@@ -100,7 +103,9 @@ function statusText(
 export function CompetitionSetup({ onBack }: { onBack: () => void }) {
   const { state, dispatch } = useJudging();
   const [activeTask, setActiveTask] = useState<SetupTask>(
-    state.competition.status === "draft" ? "details" : "review",
+    state.competition.isSample || state.competition.status !== "draft"
+      ? "review"
+      : "details",
   );
   const [identity, setIdentity] = useState({
     name: state.competition.name,
@@ -115,6 +120,7 @@ export function CompetitionSetup({ onBack }: { onBack: () => void }) {
   const [rosterMessage, setRosterMessage] = useState("");
   const [rosterError, setRosterError] = useState("");
   const [templateBusy, setTemplateBusy] = useState(false);
+  const [sampleWorkbookBusy, setSampleWorkbookBusy] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
 
   const editable = state.competition.status === "draft" && !state.sessionActive;
@@ -277,6 +283,60 @@ export function CompetitionSetup({ onBack }: { onBack: () => void }) {
     }
   };
 
+  const downloadSampleWorkbook = async () => {
+    if (sampleWorkbookBusy) return;
+    setSampleWorkbookBusy(true);
+    setRosterError("");
+    try {
+      await downloadSampleParticipantWorkbook();
+    } catch {
+      setRosterError("The sample participant workbook could not be prepared.");
+    } finally {
+      setSampleWorkbookBusy(false);
+    }
+  };
+
+  const resetLocalDrafts = (sample: boolean) => {
+    const panel = createPanelPreset("all");
+    setIdentity(sample
+      ? { name: "Tahqeeq Test Competition", edition: "Sample 2026" }
+      : { name: "", edition: "" });
+    setPanelDraft(panel);
+    setDeviceJudgeId(panel.seats[0]?.id ?? "judge-1");
+    setScoreDraft(cloneConfig(DEFAULT_CONFIG));
+    setRosterPreview(null);
+  };
+
+  const loadSampleCompetition = () => {
+    const hasDraftData = Boolean(
+      state.competition.name ||
+      state.competition.divisions.length ||
+      state.roster.length,
+    );
+    if (
+      hasDraftData &&
+      !window.confirm(
+        "Replace the current draft with the Tahqeeq sample competition? Official records already saved in Records will remain unchanged.",
+      )
+    ) return;
+    dispatch({ type: "LOAD_SAMPLE_COMPETITION" });
+    resetLocalDrafts(true);
+    setRosterMessage("Sample competition and fictional participant list loaded.");
+    setActiveTask("review");
+  };
+
+  const removeSampleData = () => {
+    if (
+      !window.confirm(
+        "Remove the sample competition, its fictional participants, and any sample results from this device? Official records will not be changed.",
+      )
+    ) return;
+    dispatch({ type: "REMOVE_SAMPLE_DATA" });
+    resetLocalDrafts(false);
+    setRosterMessage("");
+    setActiveTask("details");
+  };
+
   const renderTask = () => {
     if (activeTask === "details") {
       return (
@@ -411,9 +471,14 @@ export function CompetitionSetup({ onBack }: { onBack: () => void }) {
               <h2 id="setup-participants-title">Participants</h2>
               <p>Import the checked roster before the competition starts.</p>
             </div>
-            <button type="button" className="btn-ghost" disabled={templateBusy} onClick={() => void downloadTemplate()}>
-              <Icon name="download" size={15} /> {templateBusy ? "Preparing…" : "Download template"}
-            </button>
+            <div className="setup-download-actions">
+              <button type="button" className="btn-ghost" disabled={templateBusy} onClick={() => void downloadTemplate()}>
+                <Icon name="download" size={15} /> {templateBusy ? "Preparing…" : "Blank template"}
+              </button>
+              <button type="button" className="btn-ghost" disabled={sampleWorkbookBusy} onClick={() => void downloadSampleWorkbook()}>
+                <Icon name="download" size={15} /> {sampleWorkbookBusy ? "Preparing…" : "Sample roster"}
+              </button>
+            </div>
           </div>
           <input ref={fileRef} type="file" accept=".xlsx,.xls,.csv" hidden onChange={(event) => { void onRosterFile(event.target.files?.[0]); event.currentTarget.value = ""; }} />
           {editable && (
@@ -452,6 +517,11 @@ export function CompetitionSetup({ onBack }: { onBack: () => void }) {
           {rosterMessage && <p className="setup-note">{rosterMessage}</p>}
           {rosterError && <p className="setup-warn">{rosterError}</p>}
           {editable && state.roster.length > 0 && <button type="button" className="dialog-link" onClick={() => dispatch({ type: "CLEAR_ROSTER" })}>Remove participant list</button>}
+          {editable && !state.roster.length && state.competition.isSample && (
+            <button type="button" className="dialog-link" onClick={() => { dispatch({ type: "LOAD_ROSTER", entries: createSampleRoster() }); setRosterMessage("Sample participant list restored."); }}>
+              Restore sample participant list
+            </button>
+          )}
         </section>
       );
     }
@@ -559,7 +629,7 @@ export function CompetitionSetup({ onBack }: { onBack: () => void }) {
 
     return (
       <section className="setup-work-card setup-review-card" aria-labelledby="setup-review-title">
-        <div className="setup-work-head"><span className="setup-step">Launch</span><h2 id="setup-review-title">Review and start</h2><p>The competition is not official until this screen is confirmed.</p></div>
+        <div className="setup-work-head"><span className="setup-step">Launch</span><h2 id="setup-review-title">Review and start {state.competition.isSample && <SampleBadge compact />}</h2><p>{state.competition.isSample ? "This is fictional test data. It stays separate from official exports." : "The competition is not official until this screen is confirmed."}</p></div>
         <div className="review-summary-list">
           <button type="button" onClick={() => setActiveTask("details")}><span>Competition</span><strong>{state.competition.name || "Not set"}</strong><small>{state.competition.edition || "Edition missing"}</small><em>Change</em></button>
           <button type="button" onClick={() => setActiveTask("divisions")}><span>Divisions</span><strong>{state.competition.divisions.length || "None"}</strong><small>{state.competition.divisions.map((division) => `${division.name || "Unnamed"} · ${portionLabel(division.quranPortion)}`).join("; ") || "Add a division"}</small><em>Change</em></button>
@@ -576,8 +646,8 @@ export function CompetitionSetup({ onBack }: { onBack: () => void }) {
         )}
         {state.competition.status === "draft" && (
           <div className="official-start-block">
-            <div><strong>Start officially</strong><span>This freezes the roster, divisions, panel, marks, question rules and Mushaf data version.</span></div>
-            <button type="button" className="btn-primary" disabled={!readiness.ready} onClick={() => { dispatch({ type: "START_COMPETITION" }); onBack(); }}>Start competition</button>
+            <div><strong>{state.competition.isSample ? "Start test session" : "Start officially"}</strong><span>This freezes the roster, divisions, panel, marks, question rules and Mushaf data version.</span></div>
+            <button type="button" className="btn-primary" disabled={!readiness.ready} onClick={() => { dispatch({ type: "START_COMPETITION" }); onBack(); }}>{state.competition.isSample ? "Start sample" : "Start competition"}</button>
           </div>
         )}
         {state.competition.status === "live" && (
@@ -599,9 +669,23 @@ export function CompetitionSetup({ onBack }: { onBack: () => void }) {
   let lastGroup = "";
   return (
     <main className="competition-setup-page">
+      <section className={`sample-control-bar ${state.competition.isSample ? "is-active" : ""}`} aria-label="Sample competition controls">
+        <div>
+          {state.competition.isSample && <SampleBadge />}
+          <span>
+            <strong>{state.competition.isSample ? "Safe test competition loaded" : "Need test data?"}</strong>
+            <small>{state.competition.isSample ? "All names and phone numbers are fictional. Sample records stay out of official CSV exports." : "Load a ready-to-run competition with four divisions and eight fictional participants."}</small>
+          </span>
+        </div>
+        {state.competition.isSample ? (
+          <button type="button" className="btn-ghost" disabled={state.competition.status === "live" || state.sessionActive} onClick={removeSampleData} title={state.competition.status === "live" ? "Close the sample competition before removing it" : undefined}>Remove sample data</button>
+        ) : (
+          <button type="button" className="btn-ghost" disabled={state.competition.status === "live" || state.sessionActive} onClick={loadSampleCompetition}>Load sample competition</button>
+        )}
+      </section>
       <div className="competition-setup-layout">
         <aside className="setup-task-list" aria-label="Competition setup tasks">
-          <div className="setup-task-intro"><span>Competition setup</span><h1>Prepare competition</h1><p>Complete each required task, then review and start officially.</p></div>
+          <div className="setup-task-intro"><span>Competition setup</span><h1>Prepare competition {state.competition.isSample && <SampleBadge compact />}</h1><p>Complete each required task, then review and start {state.competition.isSample ? "the test session" : "officially"}.</p></div>
           <nav>
             {TASKS.map((task) => {
               const showGroup = task.group !== lastGroup;

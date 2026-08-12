@@ -78,8 +78,9 @@ test("V1 page data cannot collide with legacy cached V2 assets", () => {
   assert.match(pageSource, /data\.font !== "qcf-v1"/);
   assert.match(pageSource, /data\.layout !== MUSHAF_LAYOUT/);
 
-  assert.match(serviceWorkerSource, /CACHE_VERSION = "v1-1405-r2"/);
-  assert.match(serviceWorkerSource, /pages\/p604\.json\?v=v1-1405-r2/);
+  assert.match(serviceWorkerSource, /MUSHAF_DATA_VERSION = "v1-1405-r2"/);
+  assert.match(serviceWorkerSource, /STATIC_CACHE = "tahqeeq-static-" \+ APP_CACHE_VERSION/);
+  assert.match(serviceWorkerSource, /pages\/p604\.json\?v=" \+ MUSHAF_DATA_VERSION/);
   assert.match(
     serviceWorkerSource,
     /static-cdn\.tarteel\.ai.*v1-optimized\/woff2/s,

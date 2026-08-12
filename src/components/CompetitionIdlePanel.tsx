@@ -1,6 +1,7 @@
 import { assignmentLabel, judgeDisplayName, makeAssignmentSnapshot } from "../lib/judgeAssignments";
 import { useJudging } from "../state/store";
 import { Icon } from "./Icon";
+import { SampleBadge } from "./SampleBadge";
 
 export function CompetitionIdlePanel({
   onPrepare,
@@ -27,7 +28,7 @@ export function CompetitionIdlePanel({
     return (
       <section className="competition-idle-panel is-live" aria-label="Competition ready">
         <span className="competition-state-label">
-          <i aria-hidden="true" /> Competition live
+          <i aria-hidden="true" /> Competition live {competition.isSample && <SampleBadge compact />}
         </span>
         <h2>{competition.name || "Live competition"}</h2>
         {competition.edition && (
@@ -86,7 +87,9 @@ export function CompetitionIdlePanel({
         {competition.status === "closed"
           ? "Results remain available. Start a new draft when the next competition is ready."
           : draft
-            ? "Continue preparation, review every rule, then start it officially."
+            ? competition.isSample
+              ? "Use the fictional roster to test judging. Sample results stay separate from official exports."
+              : "Continue preparation, review every rule, then start it officially."
             : "Browse any page freely. Official marks stay disabled until a competition is prepared and started."}
       </p>
       <button type="button" className="btn-primary" onClick={onPrepare}>

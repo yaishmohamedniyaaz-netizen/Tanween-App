@@ -181,6 +181,8 @@ export interface CompetitionQuestionPolicy {
 
 export interface LiveCompetitionSnapshot {
   version: 1;
+  /** Test competitions are permanently identifiable in every frozen record. */
+  isSample: boolean;
   versionId: string;
   competitionId: string;
   name: string;
@@ -199,6 +201,8 @@ export interface LiveCompetitionSnapshot {
 
 export interface CompetitionConfig {
   version: 2;
+  /** Sample data is never treated as an official competition export. */
+  isSample: boolean;
   id: string;
   name: string;
   edition: string;
@@ -224,6 +228,7 @@ export interface FinalizedResult {
   id: string;
   competitionId?: string;
   competitionVersionId?: string;
+  isSample?: boolean;
   participant: Participant;
   revision: number;
   finalizedAt: number;
@@ -242,6 +247,7 @@ export interface SavedSession {
   id: string;
   competitionId?: string;
   competitionVersionId?: string;
+  isSample?: boolean;
   savedAt: number;
   startedAt?: number;
   revision?: number;

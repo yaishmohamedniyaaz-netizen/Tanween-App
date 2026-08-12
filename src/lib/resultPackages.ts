@@ -14,6 +14,7 @@ export interface JudgeResultPackage {
     name: string;
     edition: string;
     versionId: string | null;
+    isSample: boolean;
   };
   session: SavedSession;
 }
@@ -60,6 +61,7 @@ export function buildJudgeResultPackage(
       name: competition.name,
       edition: competition.edition,
       versionId: competition.liveSnapshot?.versionId ?? null,
+      isSample: competition.isSample,
     },
     session,
   };

@@ -6,6 +6,7 @@ import {
   normalizeParticipantCategory,
   normalizeRosterEntry,
 } from "./participants.ts";
+import { createSampleRoster } from "./sampleCompetition.ts";
 
 export const PARTICIPANT_TEMPLATE_VERSION = 1;
 export const PARTICIPANT_TEMPLATE_HEADERS = [
@@ -172,10 +173,28 @@ export async function parseRosterFile(file: File): Promise<RosterImportPreview> 
   return { ...parseRosterRows(rows), filename: file.name };
 }
 
-/** Build the exact blank workbook offered in Competition setup. */
-export async function buildParticipantTemplate(): Promise<ArrayBuffer> {
+function workbookRows(entries: RosterEntry[]): string[][] {
+  return entries.map((entry) => [
+    entry.number,
+    entry.name,
+    entry.ageGroup,
+    entry.category === "nubalaa" ? "Hifz" : "Baliagen",
+    entry.muqarrar === "nimey-kolhu" ? "Nimey kolhu" : "Feshey kolhu",
+    entry.phone,
+    entry.institution,
+  ]);
+}
+
+async function buildParticipantWorkbook(
+  entries: RosterEntry[],
+  title: string,
+  sample: boolean,
+): Promise<ArrayBuffer> {
   const { utils, write } = await import("xlsx");
-  const participants = utils.aoa_to_sheet([[...PARTICIPANT_TEMPLATE_HEADERS]]);
+  const participants = utils.aoa_to_sheet([
+    [...PARTICIPANT_TEMPLATE_HEADERS],
+    ...workbookRows(entries),
+  ]);
   participants["!cols"] = [
     { wch: 20 },
     { wch: 28 },
@@ -195,7 +214,7 @@ export async function buildParticipantTemplate(): Promise<ArrayBuffer> {
   };
 
   const readMe = utils.aoa_to_sheet([
-    ["Tahqeeq participant template"],
+    [title],
     ["Template version", PARTICIPANT_TEMPLATE_VERSION],
     [],
     ["How to use"],
@@ -207,6 +226,12 @@ export async function buildParticipantTemplate(): Promise<ArrayBuffer> {
     ["6", "Phone Number and Institution are optional but recommended."],
     ["7", "Institution may be a class, school, or Amilla faraathun (own participation)."],
     ["8", "For a number beginning with zero, enter a leading apostrophe, for example '014."],
+    ...(sample
+      ? [
+          [],
+          ["Sample file", "Every participant in this workbook is fictional test data. Replace or remove it before an official competition."],
+        ]
+      : []),
     [],
     ["Example only — do not copy this row into the participant list unless it is real"],
     [
@@ -233,8 +258,10 @@ export async function buildParticipantTemplate(): Promise<ArrayBuffer> {
   utils.book_append_sheet(workbook, participants, "Participants");
   utils.book_append_sheet(workbook, readMe, "Read me");
   workbook.Props = {
-    Title: "Tahqeeq Participant Template",
-    Subject: "Competition participant import template",
+    Title: title,
+    Subject: sample
+      ? "Fictional participant data for testing Tahqeeq"
+      : "Competition participant import template",
     Author: "Tahqeeq",
     Comments: `Template version ${PARTICIPANT_TEMPLATE_VERSION}`,
   };
@@ -243,6 +270,20 @@ export async function buildParticipantTemplate(): Promise<ArrayBuffer> {
     type: "array",
     compression: true,
   }) as ArrayBuffer;
+}
+
+/** Build the exact blank workbook offered in Competition setup. */
+export async function buildParticipantTemplate(): Promise<ArrayBuffer> {
+  return buildParticipantWorkbook([], "Tahqeeq Participant Template", false);
+}
+
+/** Build a separate, unmistakably fictional roster for trying the workflow. */
+export async function buildSampleParticipantWorkbook(): Promise<ArrayBuffer> {
+  return buildParticipantWorkbook(
+    createSampleRoster(),
+    "Tahqeeq Sample Participant Roster",
+    true,
+  );
 }
 
 export async function verifyParticipantTemplate(buffer: ArrayBuffer): Promise<void> {
@@ -282,6 +323,29 @@ export async function downloadParticipantTemplate(): Promise<void> {
   const anchor = document.createElement("a");
   anchor.href = url;
   anchor.download = "Tahqeeq-participant-template.xlsx";
+  document.body.appendChild(anchor);
+  anchor.click();
+  anchor.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 0);
+}
+
+export async function downloadSampleParticipantWorkbook(): Promise<void> {
+  const buffer = await buildSampleParticipantWorkbook();
+  const preview = await parseRosterFile(
+    new File([buffer], "Tahqeeq-sample-participants.xlsx", {
+      type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    }),
+  );
+  if (preview.entries.length !== createSampleRoster().length) {
+    throw new Error("The sample participant workbook did not verify.");
+  }
+  const blob = new Blob([buffer], {
+    type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+  });
+  const url = URL.createObjectURL(blob);
+  const anchor = document.createElement("a");
+  anchor.href = url;
+  anchor.download = "Tahqeeq-sample-participants.xlsx";
   document.body.appendChild(anchor);
   anchor.click();
   anchor.remove();

@@ -52,7 +52,11 @@ export function ResultSheet() {
     <div className="result-sheet" aria-hidden="true">
       <div className="rs-head">
         <div>
-          <div className="rs-title">Tahqeeq — judge section result</div>
+          <div className="rs-title">
+            {state.competition.isSample
+              ? "Tahqeeq — SAMPLE TEST RESULT — NOT OFFICIAL"
+              : "Tahqeeq — judge section result"}
+          </div>
           <div className="rs-sub">{date}</div>
         </div>
         <div className="rs-total">

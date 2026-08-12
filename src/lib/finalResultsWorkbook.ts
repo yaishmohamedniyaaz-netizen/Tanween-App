@@ -79,6 +79,7 @@ export async function buildFinalResultsWorkbook(
     ["Competition", competition.name || "Not set"],
     ["Edition", competition.edition || "Not set"],
     ["Competition ID", competition.id],
+    ["Record type", competition.isSample ? "SAMPLE TEST DATA — NOT OFFICIAL" : "Official competition data"],
     ["Exported at", new Date().toISOString()],
     ["Finalized result count", results.length],
     ["Ranking groups", new Set(placed.map((result) => result.rankGroup)).size],
@@ -93,7 +94,9 @@ export async function buildFinalResultsWorkbook(
   utils.book_append_sheet(workbook, verificationSheet, "Verification");
   workbook.Props = {
     Title: `${competition.name || "Tahqeeq"} Results`,
-    Subject: "Verified competition results",
+    Subject: competition.isSample
+      ? "Sample test results — not official"
+      : "Verified competition results",
     Author: "Tahqeeq",
   };
   return write(workbook, {
@@ -146,7 +149,9 @@ export async function downloadFinalResultsWorkbook(
   const url = URL.createObjectURL(blob);
   const anchor = document.createElement("a");
   anchor.href = url;
-  anchor.download = "Tahqeeq-final-results.xlsx";
+  anchor.download = competition.isSample
+    ? "Tahqeeq-sample-results-NOT-OFFICIAL.xlsx"
+    : "Tahqeeq-final-results.xlsx";
   document.body.appendChild(anchor);
   anchor.click();
   anchor.remove();

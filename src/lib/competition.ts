@@ -27,6 +27,7 @@ export const DEFAULT_QUESTION_POLICY: CompetitionQuestionPolicy = {
 
 export const EMPTY_COMPETITION: CompetitionConfig = {
   version: 2,
+  isSample: false,
   id: "competition-local",
   name: "",
   edition: "",
@@ -62,6 +63,7 @@ export function normalizeCompetition(
       : "draft";
   return {
     version: 2,
+    isSample: Boolean(value?.isSample),
     id: String(value?.id ?? "").trim() || competitionIdFor(name, edition),
     name,
     edition,
@@ -297,6 +299,7 @@ export function createLiveCompetitionSnapshot(input: {
   const startedAt = input.startedAt ?? Date.now();
   return {
     version: 1,
+    isSample: input.competition.isSample,
     versionId: `${input.competition.id}:setup-${input.competition.setupRevision}`,
     competitionId: input.competition.id,
     name: input.competition.name,

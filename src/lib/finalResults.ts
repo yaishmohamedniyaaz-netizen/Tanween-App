@@ -120,6 +120,7 @@ export function finalizeParticipantResult(
 
   return {
     id: previous?.id ?? `final-${candidate.participant.id}`,
+    isSample: candidate.sessions.every((session) => Boolean(session.isSample)),
     participant: { ...candidate.participant },
     revision,
     finalizedAt: Date.now(),

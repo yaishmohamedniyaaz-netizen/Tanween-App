@@ -4,6 +4,7 @@ import test from "node:test";
 import { read, utils } from "xlsx";
 import {
   buildParticipantTemplate,
+  buildSampleParticipantWorkbook,
   parseRosterRows,
   PARTICIPANT_TEMPLATE_HEADERS,
   verifyParticipantTemplate,
@@ -115,8 +116,23 @@ test("the downloadable workbook round-trips with the exact seven headers", async
   assert.ok(readMeCells.some((value) => value.includes("Feshey kolhu (starting side) or Nimey kolhu (ending side).")));
 });
 
+test("the separate sample workbook contains fictional, importable participants", async () => {
+  const buffer = await buildSampleParticipantWorkbook();
+  const workbook = read(buffer, { type: "array" });
+  const rows = utils.sheet_to_json(workbook.Sheets.Participants, {
+    defval: "",
+    raw: false,
+  });
+  assert.equal(rows.length, 8);
+  assert.ok(rows.every((row) => String(row.Name).startsWith("Sample Participant")));
+  const preview = parseRosterRows(rows);
+  assert.equal(preview.entries.length, 8);
+  assert.equal(preview.issues.filter((issue) => issue.level === "error").length, 0);
+});
+
 test("settings offers download and replace-preview instead of immediate overwrite", () => {
-  assert.match(setupSource, /Download template/);
+  assert.match(setupSource, /Blank template/);
+  assert.match(setupSource, /Sample roster/);
   assert.match(setupSource, /rosterPreview/);
   assert.match(setupSource, /Replace participant list/);
   assert.match(setupSource, /downloadParticipantTemplate/);

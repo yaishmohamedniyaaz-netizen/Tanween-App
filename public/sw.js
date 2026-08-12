@@ -6,8 +6,11 @@
  * JavaScript (no TypeScript annotations; browsers parse it directly).
  */
 
-const CACHE_VERSION = "v1-1405-r2";
-const STATIC_CACHE = "tahqeeq-static-" + CACHE_VERSION;
+// App-shell releases and Mushaf source data have separate version contracts.
+// Updating the interface must never relabel or invalidate the 1405H page data.
+const APP_CACHE_VERSION = "app-v26";
+const MUSHAF_DATA_VERSION = "v1-1405-r2";
+const STATIC_CACHE = "tahqeeq-static-" + APP_CACHE_VERSION;
 
 const QCF_DEFAULT_FONT =
   "https://static-cdn.tarteel.ai/qul/fonts/quran_fonts/v1-optimized/woff2/p604.woff2?v=3.1";
@@ -18,7 +21,7 @@ const FONT_URLS = [
 ];
 
 const PRECACHE_URLS = FONT_URLS.concat([
-  "/pages/p604.json?v=v1-1405-r2",
+  "/pages/p604.json?v=" + MUSHAF_DATA_VERSION,
   "/question-index.json?v=qpc-v1-1405h-question-index-v1",
 ]);
 

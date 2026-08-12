@@ -4,6 +4,7 @@ import { downloadRecordsCSV, downloadSessionJSON } from "../lib/exportSession";
 import { useOfflineStatus } from "../hooks/useOfflineStatus";
 import { Icon } from "./Icon";
 import { ThemeToggle } from "./ThemeToggle";
+import { SampleBadge } from "./SampleBadge";
 import {
   downloadStateBackup,
   readStateBackupFile,
@@ -150,6 +151,7 @@ export function Header({
             </strong>
             {state.competition.name && <small>{state.competition.name}</small>}
           </span>
+          {state.competition.isSample && <SampleBadge compact />}
         </button>
       )}
 
@@ -162,6 +164,7 @@ export function Header({
         >
           <span className="chip-dot" aria-hidden="true" />
           {p.name || "Unnamed"}
+          {state.competition.isSample && <SampleBadge compact />}
           {rosterTotal > 0 && (
             <span className="chip-idx t-num">
               {rosterDone + 1}/{rosterTotal}
@@ -288,7 +291,7 @@ export function Header({
                   }}
                 >
                   <Icon name="download" size={16} />
-                  Export records (CSV)
+                  Export official records (CSV)
                 </button>
                 <div className="overflow-sep" />
                 <button
@@ -417,6 +420,18 @@ export function Header({
                     </button>
                   ))}
                 </div>
+                <button
+                  type="button"
+                  className="zoom-reset"
+                  disabled={zoomDraft === 100 && layoutDraft === "full"}
+                  onClick={() => {
+                    setLayoutDraft("full");
+                    onPageLayoutPreview("full");
+                    previewZoom(100);
+                  }}
+                >
+                  Reset to standard page
+                </button>
               </div>
             ) : menuMode === "panel" ? (
               <div

@@ -7,6 +7,10 @@ import {
   normalizeCompetition,
 } from "../src/lib/competition.ts";
 import { createPanelPreset } from "../src/lib/judgeAssignments.ts";
+import {
+  createSampleCompetition,
+  createSampleRoster,
+} from "../src/lib/sampleCompetition.ts";
 
 const config = {
   jali: { start: 50, step: 2 },
@@ -129,6 +133,28 @@ test("the live competition snapshot is detached and versioned", () => {
   assert.equal(snapshot.divisions[0].name, "Under 14 Hifz");
 });
 
+test("the built-in sample is complete, clearly marked, and ready to test", () => {
+  const competition = createSampleCompetition();
+  const roster = createSampleRoster();
+  assert.equal(competition.isSample, true);
+  assert.equal(competition.divisions.length, 4);
+  assert.equal(roster.length, 8);
+  assert.ok(roster.every((entry) => entry.name.startsWith("Sample Participant")));
+  const input = {
+    competition,
+    panel: createPanelPreset("all"),
+    deviceJudgeId: "judge-1",
+    config: {
+      jali: { start: 50, step: 2 },
+      khafi: { start: 30, step: 1 },
+      fasaha: { start: 20, step: 1 },
+    },
+    roster,
+  };
+  assert.deepEqual(competitionReadiness(input), { ready: true, issues: [] });
+  assert.equal(createLiveCompetitionSnapshot(input).isSample, true);
+});
+
 test("the reducer gates official judging behind a live frozen competition", () => {
   const source = fs.readFileSync(
     new URL("../src/state/store.tsx", import.meta.url),
@@ -141,4 +167,6 @@ test("the reducer gates official judging behind a live frozen competition", () =
   assert.match(source, /currentRosterEntry\.judged/);
   assert.match(source, /backup\.pre-question-bank-v1/);
   assert.match(source, /case "CLOSE_COMPETITION"/);
+  assert.match(source, /case "LOAD_SAMPLE_COMPETITION"/);
+  assert.match(source, /case "REMOVE_SAMPLE_DATA"/);
 });

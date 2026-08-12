@@ -22,7 +22,10 @@ import { useJudging } from "./state/store";
 import surahIndex from "./data/surah-index.json";
 
 const LS_PAGE_KEY = "tahqeeq:lastPage";
-const LS_PAGE_ZOOM_KEY = "tahqeeq:pageZoom";
+// Version this preference when the product's standard page scale changes. A
+// fresh key intentionally restores 100% once without touching any competition
+// or judging data saved in the main state store.
+const LS_PAGE_ZOOM_KEY = "tahqeeq:pageZoom.v2";
 const LS_PAGE_LAYOUT_KEY = "tahqeeq:pageLayout";
 const LS_JUDGE_RAIL_SIDE_KEY = "tahqeeq:judgeRailSide";
 

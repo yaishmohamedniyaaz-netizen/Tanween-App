@@ -43,6 +43,7 @@ export function buildSessionPayload(state: JudgingState) {
       edition: state.competition.edition,
       status: state.competition.status,
       versionId: state.competition.liveSnapshot?.versionId ?? null,
+      isSample: state.competition.isSample,
     },
     participant: state.participant,
     config: state.config,
@@ -96,8 +97,12 @@ export function downloadSessionJSON(state: JudgingState) {
 
 /** Export the whole records history as one CSV row per mistake (sessions with no
  *  mistakes get a single row), for analysis in a spreadsheet. */
-export function downloadRecordsCSV(history: SavedSession[]) {
+export function downloadRecordsCSV(
+  history: SavedSession[],
+  scope: "official" | "sample" | "all" = "official",
+) {
   const headers = [
+    "record_type",
     "competition_id",
     "competition_version_id",
     "participant_id",
@@ -123,8 +128,16 @@ export function downloadRecordsCSV(history: SavedSession[]) {
     "deduction",
   ];
   const rows = [headers.join(",")];
-  for (const s of history) {
+  const selected = history.filter((session) =>
+    scope === "all"
+      ? true
+      : scope === "sample"
+        ? Boolean(session.isSample)
+        : !session.isSample,
+  );
+  for (const s of selected) {
     const base = [
+      s.isSample ? "sample" : "official",
       s.competitionId ?? "legacy",
       s.competitionVersionId ?? "legacy",
       s.participant.id,
@@ -167,6 +180,6 @@ export function downloadRecordsCSV(history: SavedSession[]) {
   downloadBlob(
     "﻿" + rows.join("\r\n"),
     "text/csv;charset=utf-8",
-    `tahqeeq-records-${new Date().toISOString().slice(0, 10)}.csv`,
+    `tahqeeq-${scope}-records-${new Date().toISOString().slice(0, 10)}.csv`,
   );
 }

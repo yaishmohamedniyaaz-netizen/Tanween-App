@@ -485,6 +485,26 @@ textarea:focus-visible {
   background: var(--bg);
   color: var(--ink);
 }
+.zoom-reset {
+  width: 100%;
+  min-height: 34px;
+  margin-top: 10px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  background: transparent;
+  color: var(--ink-2);
+  font-size: 11px;
+  font-weight: 540;
+}
+.zoom-reset:hover:not(:disabled) {
+  border-color: var(--line-2);
+  background: var(--bg);
+  color: var(--ink);
+}
+.zoom-reset:disabled {
+  cursor: default;
+  opacity: 0.45;
+}
 .overflow-confirm {
   padding: 12px;
 }
@@ -705,6 +725,34 @@ textarea:focus-visible {
 .competition-setup-link {
   margin-top: 8px;
 }
+.sample-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 22px;
+  padding: 3px 8px;
+  border: 1px solid rgba(151, 103, 34, 0.35);
+  border-radius: 6px;
+  background: rgba(196, 145, 66, 0.1);
+  color: #8b5c18;
+  font-family: var(--ui);
+  font-size: 9px;
+  font-weight: 680;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  text-transform: uppercase;
+  vertical-align: middle;
+}
+.sample-badge.is-compact {
+  min-height: 18px;
+  padding: 2px 6px;
+  font-size: 8px;
+}
+[data-theme="dark"] .sample-badge {
+  border-color: rgba(225, 178, 104, 0.36);
+  background: rgba(213, 157, 72, 0.12);
+  color: #e0b16a;
+}
 .competition-idle-complete {
   margin: 0 0 8px !important;
   padding: 12px;
@@ -718,6 +766,50 @@ textarea:focus-visible {
   min-height: calc(100vh - 59px);
   padding: 20px 24px 40px;
   animation: view-in var(--t-base) var(--ease-out);
+}
+.sample-control-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  max-width: 1180px;
+  margin: 0 auto 14px;
+  padding: 11px 13px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  background: var(--surface);
+  box-shadow: var(--shadow-rest);
+}
+.sample-control-bar.is-active {
+  border-color: rgba(151, 103, 34, 0.28);
+  background: linear-gradient(90deg, rgba(196, 145, 66, 0.08), var(--surface) 42%);
+}
+.sample-control-bar > div,
+.sample-records-notice {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+.sample-control-bar > div > span:last-child,
+.sample-records-notice > span:last-child {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+.sample-control-bar strong,
+.sample-records-notice strong {
+  font-size: 11.5px;
+  font-weight: 590;
+}
+.sample-control-bar small,
+.sample-records-notice small {
+  color: var(--ink-3);
+  font-size: 10px;
+  line-height: 1.4;
+}
+.sample-control-bar .btn-ghost {
+  flex: 0 0 auto;
 }
 .competition-setup-topbar {
   display: flex;
@@ -866,6 +958,13 @@ textarea:focus-visible {
   align-items: flex-start;
   justify-content: space-between;
   gap: 16px;
+}
+.setup-download-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 7px;
+  flex-wrap: wrap;
 }
 .setup-work-head h2 {
   margin: 5px 0 5px;
@@ -3352,6 +3451,19 @@ textarea:focus-visible {
   font-size: 12px;
   color: var(--ink-3);
 }
+.sample-records-notice {
+  padding: 10px 12px;
+  border: 1px solid rgba(151, 103, 34, 0.25);
+  border-radius: var(--r-sm);
+  background: rgba(196, 145, 66, 0.06);
+}
+.session-name .sample-badge,
+.panel-title .sample-badge,
+.setup-task-intro h1 .sample-badge,
+.setup-work-head h2 .sample-badge {
+  margin-left: 5px;
+  transform: translateY(-1px);
+}
 .records-filters {
   display: flex;
   align-items: flex-end;
@@ -3957,6 +4069,17 @@ textarea:focus-visible {
   .competition-setup-page {
     padding: 12px 10px 28px;
   }
+  .sample-control-bar {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .sample-control-bar .btn-ghost {
+    width: 100%;
+  }
+  .sample-records-notice {
+    align-items: flex-start;
+  }
   .competition-setup-topbar {
     margin-bottom: 10px;
   }
@@ -3990,6 +4113,12 @@ textarea:focus-visible {
   .setup-work-head-row {
     align-items: stretch;
     flex-direction: column;
+  }
+  .setup-download-actions {
+    justify-content: stretch;
+  }
+  .setup-download-actions .btn-ghost {
+    flex: 1 1 140px;
   }
   .setup-work-head h2 {
     font-size: 20px;

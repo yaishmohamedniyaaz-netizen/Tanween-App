@@ -43,6 +43,10 @@ import {
   normalizeQuestionPolicy,
 } from "../lib/competition";
 import {
+  createSampleCompetition,
+  createSampleRoster,
+} from "../lib/sampleCompetition";
+import {
   buildTargetMigrationPatches,
   type TargetMigrationPatches,
 } from "./migrateTargets";
@@ -63,7 +67,7 @@ import type {
 } from "../types";
 
 const initialState: JudgingState = {
-  competition: { ...EMPTY_COMPETITION },
+  competition: createSampleCompetition(),
   participant: { ...EMPTY_PARTICIPANT },
   sessionActive: false,
   activeSessionId: null,
@@ -77,7 +81,7 @@ const initialState: JudgingState = {
   mistakes: [],
   notes: "",
   history: [],
-  roster: [],
+  roster: createSampleRoster(),
   finalizedResults: [],
 };
 
@@ -116,6 +120,8 @@ type Action =
   | { type: "START_COMPETITION" }
   | { type: "CLOSE_COMPETITION" }
   | { type: "NEW_COMPETITION" }
+  | { type: "LOAD_SAMPLE_COMPETITION" }
+  | { type: "REMOVE_SAMPLE_DATA" }
   | { type: "SET_NOTES"; notes: string }
   | { type: "SET_PARTICIPANT"; patch: Partial<Participant> }
   | { type: "CLEAR_MARKS" }
@@ -372,6 +378,45 @@ function reducer(state: JudgingState, action: Action): JudgingState {
         notes: "",
         events: [],
       };
+    case "LOAD_SAMPLE_COMPETITION":
+      if (state.sessionActive || state.competition.status === "live") return state;
+      return {
+        ...state,
+        competition: createSampleCompetition(),
+        participant: { ...EMPTY_PARTICIPANT },
+        config: DEFAULT_CONFIG,
+        panel: createPanelPreset("all"),
+        deviceJudgeId: "judge-1",
+        roster: createSampleRoster(),
+        mistakes: [],
+        notes: "",
+        events: [],
+        history: state.history.filter((session) => !session.isSample),
+        finalizedResults: state.finalizedResults.filter((result) => !result.isSample),
+      };
+    case "REMOVE_SAMPLE_DATA":
+      if (state.sessionActive || state.competition.status === "live") return state;
+      return {
+        ...state,
+        ...(state.competition.isSample
+          ? {
+              competition: {
+                ...EMPTY_COMPETITION,
+                questionPolicy: { ...EMPTY_COMPETITION.questionPolicy },
+              },
+              participant: { ...EMPTY_PARTICIPANT },
+              config: DEFAULT_CONFIG,
+              panel: createPanelPreset("all"),
+              deviceJudgeId: "judge-1",
+              roster: [],
+              mistakes: [],
+              notes: "",
+              events: [],
+            }
+          : {}),
+        history: state.history.filter((session) => !session.isSample),
+        finalizedResults: state.finalizedResults.filter((result) => !result.isSample),
+      };
     case "SET_NOTES":
       return { ...state, notes: action.notes };
     case "SET_PARTICIPANT":
@@ -438,6 +483,7 @@ function reducer(state: JudgingState, action: Action): JudgingState {
         finalizedResults: [
           {
             ...action.result,
+            isSample: action.result.isSample ?? state.competition.isSample,
             competitionId:
               action.result.competitionId ?? state.competition.id,
             competitionVersionId:
@@ -530,6 +576,7 @@ function reducer(state: JudgingState, action: Action): JudgingState {
         id: state.activeSessionId,
         competitionId: state.competition.id,
         competitionVersionId: state.competition.liveSnapshot?.versionId,
+        isSample: state.competition.isSample,
         savedAt,
         startedAt: state.activeStartedAt ?? savedAt,
         revision: state.activeRevision,
@@ -700,6 +747,7 @@ export function normalizeSavedSession(session: SavedSession): SavedSession {
   }
   return {
     ...session,
+    isSample: Boolean(session.isSample),
     participant,
     startedAt,
     revision: session.revision ?? 1,
@@ -824,6 +872,7 @@ export function normalizeLedgerState(
     roster,
     finalizedResults: (parsed.finalizedResults ?? []).map((result) => ({
       ...result,
+      isSample: Boolean(result.isSample),
       competitionId: result.competitionId ?? competition.id,
       competitionVersionId:
         result.competitionVersionId ?? competition.liveSnapshot?.versionId,

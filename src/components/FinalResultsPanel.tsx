@@ -14,6 +14,7 @@ import {
 import { useJudging } from "../state/store";
 import type { CategoryId, FinalizedResult } from "../types";
 import { Icon } from "./Icon";
+import { SampleBadge } from "./SampleBadge";
 
 type CandidateSelections = Record<
   string,
@@ -169,6 +170,7 @@ export function FinalResultsPanel() {
           <h2 className="panel-title">
             Final results
             <span className="panel-count">{currentResults.length}</span>
+            {state.competition.isSample && <SampleBadge compact />}
           </h2>
           <p className="panel-sub">
             Combine the three judge sections, then export checked fixed totals.
@@ -181,7 +183,7 @@ export function FinalResultsPanel() {
           onClick={exportWorkbook}
         >
           <Icon name="download" size={15} />
-          {exporting ? "Checking…" : "Final results (.xlsx)"}
+          {exporting ? "Checking…" : state.competition.isSample ? "Sample results (.xlsx)" : "Final results (.xlsx)"}
         </button>
       </div>
       {exportError && <p className="import-error">{exportError}</p>}
