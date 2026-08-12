@@ -16,7 +16,7 @@ const config = {
   fasaha: { start: 20, step: 1 },
 };
 const setupSource = readFileSync(
-  new URL("../src/components/SetupDialog.tsx", import.meta.url),
+  new URL("../src/components/CompetitionSetup.tsx", import.meta.url),
   "utf8",
 );
 const scoreSource = readFileSync(
@@ -148,21 +148,23 @@ test("the saved-state reducer independently rejects unassigned categories", () =
 });
 
 test("setup derives judge count, requires a device role, and freezes active settings", () => {
-  assert.match(setupSource, /panel\.seats\.length < 3/);
+  assert.match(setupSource, /panelDraft\.seats\.length < 3/);
   assert.match(setupSource, /This device is for/);
-  assert.match(setupSource, /deviceJudgeValid/);
-  assert.match(setupSource, /disabled=\{state\.sessionActive\}/);
+  assert.match(setupSource, /panelDeviceValid/);
+  assert.match(setupSource, /const editable = state\.competition\.status === "draft"/);
   assert.doesNotMatch(setupSource, /judgeCount/);
 });
 
-test("participant selection exposes the full judging-panel editor", () => {
+test("participant selection shows the frozen device assignment and links to setup", () => {
   assert.match(startSource, /Judging panel/);
   assert.match(startSource, /Change assignments/);
   assert.match(startSource, /Add judges or assign/);
   assert.match(startSource, /onClick=\{onOpenSetup\}/);
   assert.match(startSource, /One judge covering all three is the default/);
   assert.match(startSource, /closest\("button, select, textarea"\)/);
-  assert.match(appSource, /<div hidden=\{setupOpen\}>/);
+  assert.match(appSource, /startOpen &&/);
+  assert.match(appSource, /state\.competition\.status === "live"/);
+  assert.match(appSource, /<CompetitionSetup/);
 });
 
 test("scores stay scoped without the unwanted live wording", () => {

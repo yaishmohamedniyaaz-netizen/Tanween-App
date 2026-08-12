@@ -14,7 +14,8 @@ import { ResultSheet } from "./components/ResultSheet";
 import { HintBanner } from "./components/HintBanner";
 import { RecordsView } from "./components/RecordsView";
 import { StartDialog } from "./components/StartDialog";
-import { SetupDialog } from "./components/SetupDialog";
+import { CompetitionSetup } from "./components/CompetitionSetup";
+import { CompetitionIdlePanel } from "./components/CompetitionIdlePanel";
 import { FinishDialog } from "./components/FinishDialog";
 import { JudgeRoleStrip } from "./components/JudgeRoleStrip";
 import { useJudging } from "./state/store";
@@ -191,8 +192,8 @@ function PageNav({
 
 export function App() {
   const { state, dispatch } = useJudging();
-  const [view, setView] = useState<"judge" | "records">("judge");
-  const [setupOpen, setSetupOpen] = useState(false);
+  const [view, setView] = useState<"judge" | "records" | "setup">("judge");
+  const [startOpen, setStartOpen] = useState(false);
   const [finishOpen, setFinishOpen] = useState(false);
   const [pageZoom, setPageZoom] = useState(() => {
     const saved = Number(localStorage.getItem(LS_PAGE_ZOOM_KEY));
@@ -225,14 +226,15 @@ export function App() {
     [page],
   );
 
-  const needsStart = view === "judge" && !state.sessionActive;
-
   return (
     <div className="app">
       <Header
         view={view}
-        onToggleView={() => setView((v) => (v === "judge" ? "records" : "judge"))}
-        onOpenSetup={() => setSetupOpen(true)}
+        onToggleView={() => setView((current) => (current === "judge" ? "records" : "judge"))}
+        onOpenSetup={() => {
+          setStartOpen(false);
+          setView("setup");
+        }}
         onChangeReciter={() => setFinishOpen(true)}
         pageZoom={pageZoom}
         pageLayout={pageLayout}
@@ -271,37 +273,55 @@ export function App() {
             </div>
           </div>
           <aside className="sidebar">
-            <JudgeRoleStrip onChange={() => setSetupOpen(true)} />
-            <ScorePanel />
-            <MistakeLog />
-            <NotesBox />
-            <button
-              type="button"
-              className="btn-primary next-btn"
-              onClick={() => setFinishOpen(true)}
-            >
-              Done — next reciter
-            </button>
+            {state.sessionActive ? (
+              <>
+                <JudgeRoleStrip onChange={() => setView("setup")} />
+                <ScorePanel />
+                <MistakeLog />
+                <NotesBox />
+                <button
+                  type="button"
+                  className="btn-primary next-btn"
+                  onClick={() => setFinishOpen(true)}
+                >
+                  Done — next reciter
+                </button>
+              </>
+            ) : (
+              <CompetitionIdlePanel
+                onPrepare={() => setView("setup")}
+                onStartReciter={() => setStartOpen(true)}
+              />
+            )}
           </aside>
         </main>
-      ) : (
+      ) : view === "records" ? (
         <main className="records-main" key="records">
           <RecordsView onResumeSession={() => setView("judge")} />
         </main>
+      ) : (
+        <CompetitionSetup onBack={() => setView("judge")} />
       )}
 
-      {needsStart && (
-        <div hidden={setupOpen}>
-          <StartDialog onOpenSetup={() => setSetupOpen(true)} />
-        </div>
+      {startOpen &&
+        view === "judge" &&
+        state.competition.status === "live" &&
+        !state.sessionActive && (
+        <StartDialog
+          onOpenSetup={() => {
+            setStartOpen(false);
+            setView("setup");
+          }}
+          onClose={() => setStartOpen(false)}
+        />
       )}
-      {setupOpen && <SetupDialog onClose={() => setSetupOpen(false)} />}
       {finishOpen && state.sessionActive && (
         <FinishDialog
           onCancel={() => setFinishOpen(false)}
           onConfirm={() => {
             dispatch({ type: "FINISH_SESSION" });
             setFinishOpen(false);
+            setStartOpen(false);
           }}
         />
       )}

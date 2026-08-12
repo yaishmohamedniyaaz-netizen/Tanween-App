@@ -67,26 +67,35 @@ export function FinalResultsPanel() {
   const [exportError, setExportError] = useState("");
   const [exporting, setExporting] = useState(false);
   const candidates = useMemo(
-    () => buildResultCandidates(state.history),
-    [state.history],
+    () => buildResultCandidates(
+      state.history.filter(
+        (session) => session.competitionId === state.competition.id,
+      ),
+    ),
+    [state.competition.id, state.history],
   );
   const previousByParticipant = useMemo(
     () => new Map(
       state.finalizedResults
-        .filter((result) => !result.supersededAt)
+        .filter(
+          (result) =>
+            !result.supersededAt &&
+            result.competitionId === state.competition.id,
+        )
         .map((result) => [result.participant.id, result]),
     ),
-    [state.finalizedResults],
+    [state.competition.id, state.finalizedResults],
   );
   const currentResults = useMemo(
     () => state.finalizedResults.filter((result) => {
       if (result.supersededAt) return false;
+      if (result.competitionId !== state.competition.id) return false;
       const candidate = candidates.find(
         (item) => item.participant.id === result.participant.id,
       );
       return candidate ? isCurrentFinal(candidate, result) : false;
     }),
-    [candidates, state.finalizedResults],
+    [candidates, state.competition.id, state.finalizedResults],
   );
   const placedByParticipant = useMemo(
     () => new Map(

@@ -133,6 +133,7 @@ export function Mushaf({
   headerControls,
 }: MushafProps) {
   const { state, dispatch } = useJudging();
+  const judgingEnabled = state.sessionActive;
   const [pageData, setPageData] = useState<MushafPage | null>(null);
   const [fontReadyPage, setFontReadyPage] = useState<number | null>(null);
   const pageRef = useRef<HTMLDivElement>(null);
@@ -419,6 +420,7 @@ export function Mushaf({
   );
 
   const onPointerDown = (event: React.PointerEvent) => {
+    if (!judgingEnabled) return;
     if (startRef.current) return;
     // Navigation lives inside the page frame. Its pointer events must never
     // fall through to a kalimah underneath the popover.
@@ -557,6 +559,7 @@ export function Mushaf({
     event: React.KeyboardEvent<HTMLElement>,
     box: WordHitbox,
   ) => {
+    if (!judgingEnabled) return;
     if (event.key !== "Enter" && event.key !== " ") return;
     event.preventDefault();
     event.stopPropagation();
@@ -680,11 +683,12 @@ export function Mushaf({
         ref={pageRef}
         data-page={pageData.page}
         data-font-ready={qcfReady ? "true" : "false"}
-        onPointerDown={onPointerDown}
-        onPointerMove={onPointerMove}
-        onPointerUp={onPointerUp}
-        onPointerCancel={closeAll}
-        onContextMenu={(event) => event.preventDefault()}
+        data-judging-enabled={judgingEnabled ? "true" : "false"}
+        onPointerDown={judgingEnabled ? onPointerDown : undefined}
+        onPointerMove={judgingEnabled ? onPointerMove : undefined}
+        onPointerUp={judgingEnabled ? onPointerUp : undefined}
+        onPointerCancel={judgingEnabled ? closeAll : undefined}
+        onContextMenu={judgingEnabled ? (event) => event.preventDefault() : undefined}
       >
         <div className="page-marginalia">
           <span className="page-juz">Juz&apos; {juzByPage[pageData.page]}</span>
@@ -733,7 +737,7 @@ export function Mushaf({
           })}
         </div>
 
-        <div className="hit-layer">
+        {judgingEnabled && <div className="hit-layer">
           {visibleBoxes.map((box) => {
             const mistakes = mistakesForWord(box);
             const category = mistakes.length ? dominant(mistakes) : null;
@@ -796,10 +800,10 @@ export function Mushaf({
               </Fragment>
             );
           })}
-        </div>
+        </div>}
       </div>
 
-      {active && (
+      {judgingEnabled && active && (
         <DragMenu
           anchor={active.anchor}
           glyph={active.meta.semanticText}

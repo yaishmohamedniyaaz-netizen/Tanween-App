@@ -24,7 +24,7 @@ export function HintBanner() {
     makeAssignmentSnapshot(state.panel, state.deviceJudgeId, state.config);
   const categories = assignment?.categories ?? [];
 
-  if (dismissed || state.mistakes.length > 0) return null;
+  if (!state.sessionActive || dismissed || state.mistakes.length > 0) return null;
 
   return (
     <div className="hint-banner" role="note">

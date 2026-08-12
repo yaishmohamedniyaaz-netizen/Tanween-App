@@ -8,7 +8,13 @@ export interface JudgeResultPackage {
   app: "tahqeeq";
   schema: "judge-result-v1";
   exportedAt: string;
-  competition: CompetitionConfig;
+  competition: {
+    version: 2;
+    id: string;
+    name: string;
+    edition: string;
+    versionId: string | null;
+  };
   session: SavedSession;
 }
 
@@ -48,7 +54,13 @@ export function buildJudgeResultPackage(
     app: "tahqeeq",
     schema: "judge-result-v1",
     exportedAt: new Date().toISOString(),
-    competition,
+    competition: {
+      version: 2,
+      id: competition.id,
+      name: competition.name,
+      edition: competition.edition,
+      versionId: competition.liveSnapshot?.versionId ?? null,
+    },
     session,
   };
 }

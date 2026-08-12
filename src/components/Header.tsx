@@ -10,7 +10,7 @@ import {
 } from "../lib/resultPackages";
 
 interface Props {
-  view: "judge" | "records";
+  view: "judge" | "records" | "setup";
   onToggleView: () => void;
   onOpenSetup: () => void;
   onChangeReciter: () => void;
@@ -131,6 +131,28 @@ export function Header({
         )}
       </div>
 
+      {!state.sessionActive && view !== "records" && (
+        <button
+          type="button"
+          className={`competition-header-state is-${state.competition.status}`}
+          onClick={onOpenSetup}
+        >
+          <span aria-hidden="true" />
+          <span>
+            <strong>
+              {state.competition.status === "live"
+                ? "Competition live"
+                : state.competition.status === "closed"
+                  ? "Competition closed"
+                  : state.competition.name
+                    ? "Draft competition"
+                    : "No competition running"}
+            </strong>
+            {state.competition.name && <small>{state.competition.name}</small>}
+          </span>
+        </button>
+      )}
+
       {view === "judge" && state.sessionActive && (
         <button
           type="button"
@@ -164,7 +186,7 @@ export function Header({
         ) : (
           <>
             <Icon name="back" size={15} />
-            Judging
+            {view === "setup" ? "Back to Mushaf" : "Judging"}
           </>
         )}
       </button>
@@ -236,6 +258,7 @@ export function Header({
                 <button
                   type="button"
                   className="overflow-item"
+                  disabled={!state.sessionActive}
                   onClick={() => {
                     setMenuOpen(false);
                     window.print();
@@ -247,6 +270,7 @@ export function Header({
                 <button
                   type="button"
                   className="overflow-item"
+                  disabled={!state.sessionActive}
                   onClick={() => {
                     setMenuOpen(false);
                     downloadSessionJSON(state);
@@ -310,8 +334,14 @@ export function Header({
                 <button
                   type="button"
                   className="overflow-item"
-                  disabled={state.sessionActive}
-                  title={state.sessionActive ? "Finish the active reciter before restoring" : undefined}
+                  disabled={
+                    state.sessionActive || state.competition.status === "live"
+                  }
+                  title={
+                    state.sessionActive || state.competition.status === "live"
+                      ? "Close the active competition before restoring"
+                      : undefined
+                  }
                   onClick={() => restoreRef.current?.click()}
                 >
                   <Icon name="settings" size={16} />

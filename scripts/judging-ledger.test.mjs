@@ -106,7 +106,8 @@ test("the app backs up old data and requires a reason to reopen", () => {
   assert.match(storeSource, /tahqeeq\.session\.v1\.backup\.pre-ledger-v1/);
   assert.match(storeSource, /type: "session_finalized"/);
   assert.match(storeSource, /case "REOPEN_SESSION"/);
-  assert.match(storeSource, /if \(!saved \|\| !reason\) return state/);
+  assert.match(storeSource, /!saved \|\|\s*!reason \|\|/);
+  assert.match(storeSource, /saved\.competitionId !== state\.competition\.id/);
   assert.match(recordsSource, /Reopen to correct/);
   assert.doesNotMatch(recordsSource, /type: "DELETE_SESSION"/);
   assert.doesNotMatch(recordsSource, /type: "CLEAR_HISTORY"/);

@@ -20,7 +20,13 @@ import {
 } from "../lib/participants";
 
 /** Pick the next uploaded participant or enter one manually. */
-export function StartDialog({ onOpenSetup }: { onOpenSetup: () => void }) {
+export function StartDialog({
+  onOpenSetup,
+  onClose,
+}: {
+  onOpenSetup: () => void;
+  onClose: () => void;
+}) {
   const { state, dispatch } = useJudging();
   const [draft, setDraft] = useState<Participant>({ ...EMPTY_PARTICIPANT });
   const [showDetails, setShowDetails] = useState(false);
@@ -60,7 +66,19 @@ export function StartDialog({ onOpenSetup }: { onOpenSetup: () => void }) {
   };
 
   return (
-    <div className="dialog-backdrop" onKeyDown={onKeyDown}>
+    <div
+      className="dialog-backdrop"
+      onKeyDown={(event) => {
+        if (event.key === "Escape") {
+          onClose();
+          return;
+        }
+        onKeyDown(event);
+      }}
+      onPointerDown={(event) => {
+        if (event.target === event.currentTarget) onClose();
+      }}
+    >
       <div
         className="dialog"
         role="dialog"
@@ -70,6 +88,7 @@ export function StartDialog({ onOpenSetup }: { onOpenSetup: () => void }) {
         <h2 className="dialog-title">
           {roster.length ? "Who is reciting?" : "New reciter"}
         </h2>
+        <button type="button" className="dialog-close" aria-label="Close" onClick={onClose}>×</button>
         <p className="dialog-sub">
           {roster.length
             ? "Next up is preselected — press Enter to start."
@@ -200,7 +219,7 @@ export function StartDialog({ onOpenSetup }: { onOpenSetup: () => void }) {
                     className={`roster-row ${index === nextIdx ? "is-next" : ""} ${
                       entry.judged ? "is-done" : ""
                     }`}
-                    disabled={!assignment}
+                    disabled={!assignment || entry.judged}
                     onClick={() => startEntry(entry)}
                   >
                     <span className="roster-num t-num">{entry.number || index + 1}</span>

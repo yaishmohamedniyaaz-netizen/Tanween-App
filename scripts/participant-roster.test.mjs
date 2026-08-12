@@ -16,7 +16,7 @@ import {
 } from "../src/lib/participants.ts";
 
 const setupSource = readFileSync(
-  new URL("../src/components/SetupDialog.tsx", import.meta.url),
+  new URL("../src/components/CompetitionSetup.tsx", import.meta.url),
   "utf8",
 );
 
@@ -116,7 +116,7 @@ test("the downloadable workbook round-trips with the exact seven headers", async
 });
 
 test("settings offers download and replace-preview instead of immediate overwrite", () => {
-  assert.match(setupSource, /Download template \(\.xlsx\)/);
+  assert.match(setupSource, /Download template/);
   assert.match(setupSource, /rosterPreview/);
   assert.match(setupSource, /Replace participant list/);
   assert.match(setupSource, /downloadParticipantTemplate/);

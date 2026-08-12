@@ -1,6 +1,7 @@
 export type CategoryId = "jali" | "khafi" | "fasaha";
 export type ParticipantCategory = "" | "baliagen" | "nubalaa";
 export type MuqarrarSide = "" | "feshey-kolhu" | "nimey-kolhu";
+export type CompetitionStatus = "draft" | "live" | "closed";
 
 export interface CategoryDef {
   id: CategoryId;
@@ -150,11 +151,63 @@ export interface RosterEntry extends Participant {
   judged: boolean;
 }
 
-export interface CompetitionConfig {
+export type QuranPortion =
+  | { kind: "full-quran" }
+  | { kind: "juz-range"; startJuz: number; endJuz: number }
+  | { kind: "surah-range"; startSurah: number; endSurah: number };
+
+export interface CompetitionDivision {
+  id: string;
+  name: string;
+  ageGroup: string;
+  category: Exclude<ParticipantCategory, "">;
+  quranPortion: QuranPortion;
+}
+
+export interface CompetitionQuestionPolicy {
   version: 1;
+  mode: "manual" | "tahqeeq";
+  targetRecitationLines: number;
+  endRule: "first-ayah-end-at-or-after-target";
+  firstPrintedLinePolicy: "containing-start-ayah";
+  finalPrintedLineScoring: "include" | "exclude";
+  sourceVersion: string;
+  questionIndexVersion: string;
+  questionSetId?: string;
+  questionSetVersion?: number;
+  approvedQuestionCount?: number;
+  frozenQuestionSet?: boolean;
+}
+
+export interface LiveCompetitionSnapshot {
+  version: 1;
+  versionId: string;
+  competitionId: string;
+  name: string;
+  edition: string;
+  setupRevision: number;
+  startedAt: number;
+  divisions: CompetitionDivision[];
+  questionPolicy: CompetitionQuestionPolicy;
+  panel: JudgePanelConfig;
+  scoreConfig: ScoreConfig;
+  roster: Participant[];
+  mushafLayout: string;
+  mushafSourceVersion: string;
+  questionIndexVersion: string;
+}
+
+export interface CompetitionConfig {
+  version: 2;
   id: string;
   name: string;
   edition: string;
+  status: CompetitionStatus;
+  setupRevision: number;
+  divisions: CompetitionDivision[];
+  questionPolicy: CompetitionQuestionPolicy;
+  liveSnapshot: LiveCompetitionSnapshot | null;
+  closedAt?: number;
 }
 
 export interface FinalizedCategoryScore {
@@ -169,6 +222,8 @@ export interface FinalizedCategoryScore {
 
 export interface FinalizedResult {
   id: string;
+  competitionId?: string;
+  competitionVersionId?: string;
   participant: Participant;
   revision: number;
   finalizedAt: number;
@@ -185,6 +240,8 @@ export interface FinalizedResult {
 /** A finished session, snapshotted into the local records/accountability layer. */
 export interface SavedSession {
   id: string;
+  competitionId?: string;
+  competitionVersionId?: string;
   savedAt: number;
   startedAt?: number;
   revision?: number;

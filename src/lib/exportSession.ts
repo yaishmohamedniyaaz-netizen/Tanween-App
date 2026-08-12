@@ -37,6 +37,13 @@ export function buildSessionPayload(state: JudgingState) {
     app: "tahqeeq",
     schema: 3,
     exportedAt: new Date().toISOString(),
+    competition: {
+      id: state.competition.id,
+      name: state.competition.name,
+      edition: state.competition.edition,
+      status: state.competition.status,
+      versionId: state.competition.liveSnapshot?.versionId ?? null,
+    },
     participant: state.participant,
     config: state.config,
     judgeAssignment: assignment
@@ -91,6 +98,8 @@ export function downloadSessionJSON(state: JudgingState) {
  *  mistakes get a single row), for analysis in a spreadsheet. */
 export function downloadRecordsCSV(history: SavedSession[]) {
   const headers = [
+    "competition_id",
+    "competition_version_id",
     "participant_id",
     "participant_number",
     "participant_name",
@@ -116,6 +125,8 @@ export function downloadRecordsCSV(history: SavedSession[]) {
   const rows = [headers.join(",")];
   for (const s of history) {
     const base = [
+      s.competitionId ?? "legacy",
+      s.competitionVersionId ?? "legacy",
       s.participant.id,
       s.participant.number,
       s.participant.name,

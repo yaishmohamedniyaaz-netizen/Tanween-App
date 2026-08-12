@@ -34,7 +34,14 @@ import {
   normalizeParticipant,
   normalizeRosterEntry,
 } from "../lib/participants";
-import { EMPTY_COMPETITION, normalizeCompetition } from "../lib/competition";
+import {
+  bumpDraftCompetition,
+  competitionReadiness,
+  createLiveCompetitionSnapshot,
+  EMPTY_COMPETITION,
+  normalizeCompetition,
+  normalizeQuestionPolicy,
+} from "../lib/competition";
 import {
   buildTargetMigrationPatches,
   type TargetMigrationPatches,
@@ -42,6 +49,8 @@ import {
 import type {
   CategoryId,
   CompetitionConfig,
+  CompetitionDivision,
+  CompetitionQuestionPolicy,
   FinalizedResult,
   JudgeAssignmentSnapshot,
   JudgePanelConfig,
@@ -88,6 +97,10 @@ export const PRE_JUDGE_ASSIGNMENTS_BACKUP_KEY =
 export const PRE_COMPETITION_RESULTS_BACKUP_KEY =
   "tahqeeq.session.v1.backup.pre-competition-results-v1";
 
+/** Untouched browser state before official competition lifecycle was added. */
+export const PRE_QUESTION_BANK_BACKUP_KEY =
+  "tahqeeq.session.v1.backup.pre-question-bank-v1";
+
 type Action =
   | { type: "ADD_MISTAKE"; mistake: Mistake }
   | { type: "REMOVE_MISTAKE"; id: string }
@@ -98,6 +111,11 @@ type Action =
   | { type: "SET_PANEL"; panel: JudgePanelConfig; deviceJudgeId: string }
   | { type: "SET_DEVICE_JUDGE"; judgeSeatId: string }
   | { type: "SET_COMPETITION"; competition: CompetitionConfig }
+  | { type: "SET_DIVISIONS"; divisions: CompetitionDivision[] }
+  | { type: "SET_QUESTION_POLICY"; policy: CompetitionQuestionPolicy }
+  | { type: "START_COMPETITION" }
+  | { type: "CLOSE_COMPETITION" }
+  | { type: "NEW_COMPETITION" }
   | { type: "SET_NOTES"; notes: string }
   | { type: "SET_PARTICIPANT"; patch: Partial<Participant> }
   | { type: "CLEAR_MARKS" }
@@ -253,9 +271,10 @@ function reducer(state: JudgingState, action: Action): JudgingState {
       });
     }
     case "SET_CONFIG":
-      if (state.sessionActive) return state;
+      if (state.sessionActive || state.competition.status !== "draft") return state;
       return {
         ...state,
+        competition: bumpDraftCompetition(state.competition),
         config: {
           ...state.config,
           [action.category]: {
@@ -265,12 +284,21 @@ function reducer(state: JudgingState, action: Action): JudgingState {
         },
       };
     case "SET_PANEL": {
-      if (state.sessionActive || !validateJudgePanel(action.panel).valid) {
+      if (
+        state.sessionActive ||
+        state.competition.status !== "draft" ||
+        !validateJudgePanel(action.panel).valid
+      ) {
         return state;
       }
       const panel = normalizeJudgePanel(action.panel);
       if (!judgeSeatFor(panel, action.deviceJudgeId)) return state;
-      return { ...state, panel, deviceJudgeId: action.deviceJudgeId };
+      return {
+        ...state,
+        competition: bumpDraftCompetition(state.competition),
+        panel,
+        deviceJudgeId: action.deviceJudgeId,
+      };
     }
     case "SET_DEVICE_JUDGE":
       if (state.sessionActive || !judgeSeatFor(state.panel, action.judgeSeatId)) {
@@ -278,8 +306,72 @@ function reducer(state: JudgingState, action: Action): JudgingState {
       }
       return { ...state, deviceJudgeId: action.judgeSeatId };
     case "SET_COMPETITION":
-      if (state.sessionActive) return state;
-      return { ...state, competition: normalizeCompetition(action.competition) };
+      if (state.sessionActive || state.competition.status !== "draft") return state;
+      return {
+        ...state,
+        competition: bumpDraftCompetition(state.competition, {
+          id: action.competition.id,
+          name: action.competition.name,
+          edition: action.competition.edition,
+          divisions: action.competition.divisions,
+          questionPolicy: action.competition.questionPolicy,
+        }),
+      };
+    case "SET_DIVISIONS":
+      if (state.sessionActive || state.competition.status !== "draft") return state;
+      return {
+        ...state,
+        competition: bumpDraftCompetition(state.competition, {
+          divisions: action.divisions,
+        }),
+      };
+    case "SET_QUESTION_POLICY":
+      if (state.sessionActive || state.competition.status !== "draft") return state;
+      return {
+        ...state,
+        competition: bumpDraftCompetition(state.competition, {
+          questionPolicy: normalizeQuestionPolicy(action.policy),
+        }),
+      };
+    case "START_COMPETITION": {
+      if (state.sessionActive || state.competition.status !== "draft") return state;
+      const readiness = competitionReadiness(state);
+      if (!readiness.ready) return state;
+      const liveSnapshot = createLiveCompetitionSnapshot(state);
+      return {
+        ...state,
+        competition: {
+          ...state.competition,
+          status: "live",
+          liveSnapshot,
+          closedAt: undefined,
+        },
+      };
+    }
+    case "CLOSE_COMPETITION":
+      if (state.sessionActive || state.competition.status !== "live") return state;
+      return {
+        ...state,
+        competition: {
+          ...state.competition,
+          status: "closed",
+          closedAt: Date.now(),
+        },
+      };
+    case "NEW_COMPETITION":
+      if (state.sessionActive || state.competition.status === "live") return state;
+      return {
+        ...state,
+        competition: { ...EMPTY_COMPETITION, questionPolicy: { ...EMPTY_COMPETITION.questionPolicy } },
+        participant: { ...EMPTY_PARTICIPANT },
+        config: DEFAULT_CONFIG,
+        panel: createPanelPreset("all"),
+        deviceJudgeId: "judge-1",
+        roster: [],
+        mistakes: [],
+        notes: "",
+        events: [],
+      };
     case "SET_NOTES":
       return { ...state, notes: action.notes };
     case "SET_PARTICIPANT":
@@ -311,13 +403,21 @@ function reducer(state: JudgingState, action: Action): JudgingState {
     case "CLEAR_HISTORY":
       return { ...state, history: [] };
     case "LOAD_ROSTER":
+      if (state.sessionActive || state.competition.status !== "draft") return state;
       return {
         ...state,
+        competition: bumpDraftCompetition(state.competition),
         roster: action.entries.map((entry) => normalizeRosterEntry(entry)),
       };
     case "IMPORT_SESSION": {
       if (state.sessionActive) return state;
-      const incoming = normalizeSavedSession(action.session);
+      const incoming = normalizeSavedSession({
+        ...action.session,
+        competitionId: action.session.competitionId ?? state.competition.id,
+        competitionVersionId:
+          action.session.competitionVersionId ??
+          state.competition.liveSnapshot?.versionId,
+      });
       const existing = state.history.find((session) => session.id === incoming.id);
       if (!existing) {
         return { ...state, history: [incoming, ...state.history] };
@@ -336,7 +436,14 @@ function reducer(state: JudgingState, action: Action): JudgingState {
       return {
         ...state,
         finalizedResults: [
-          action.result,
+          {
+            ...action.result,
+            competitionId:
+              action.result.competitionId ?? state.competition.id,
+            competitionVersionId:
+              action.result.competitionVersionId ??
+              state.competition.liveSnapshot?.versionId,
+          },
           ...state.finalizedResults.map((result) =>
             result.id === action.result.id && !result.supersededAt
               ? {
@@ -350,15 +457,38 @@ function reducer(state: JudgingState, action: Action): JudgingState {
         ],
       };
     case "CLEAR_ROSTER":
-      return { ...state, roster: [] };
+      if (state.sessionActive || state.competition.status !== "draft") return state;
+      return {
+        ...state,
+        competition: bumpDraftCompetition(state.competition),
+        roster: [],
+      };
     case "START_RECITER": {
+      const liveSnapshot = state.competition.liveSnapshot;
+      if (state.competition.status !== "live" || !liveSnapshot) return state;
+      const participant = normalizeParticipant(action.participant);
+      const currentRosterEntry = state.roster.find(
+        (entry) =>
+          entry.id === participant.id ||
+          (entry.number === participant.number && entry.name === participant.name),
+      );
+      if (
+        !currentRosterEntry ||
+        currentRosterEntry.judged ||
+        !liveSnapshot.roster.some(
+          (entry) =>
+            entry.id === participant.id ||
+            (entry.number === participant.number && entry.name === participant.name),
+        )
+      ) {
+        return state;
+      }
       const assignment = makeAssignmentSnapshot(
-        state.panel,
+        liveSnapshot.panel,
         state.deviceJudgeId,
-        state.config,
+        liveSnapshot.scoreConfig,
       );
       if (!assignment) return state;
-      const participant = normalizeParticipant(action.participant);
       const sessionId = uid("s");
       const startedAt = Date.now();
       const events = seedLedgerEvents({
@@ -398,6 +528,8 @@ function reducer(state: JudgingState, action: Action): JudgingState {
       const mistakes = projectMistakes(events);
       const saved: SavedSession = {
         id: state.activeSessionId,
+        competitionId: state.competition.id,
+        competitionVersionId: state.competition.liveSnapshot?.versionId,
         savedAt,
         startedAt: state.activeStartedAt ?? savedAt,
         revision: state.activeRevision,
@@ -444,7 +576,11 @@ function reducer(state: JudgingState, action: Action): JudgingState {
       if (state.sessionActive) return state;
       const saved = state.history.find((session) => session.id === action.id);
       const reason = action.reason.trim();
-      if (!saved || !reason) return state;
+      if (
+        !saved ||
+        !reason ||
+        (saved.competitionId && saved.competitionId !== state.competition.id)
+      ) return state;
       const baseEvents = saved.events?.length
         ? saved.events
         : seedLedgerEvents({
@@ -586,10 +722,7 @@ export function normalizeLedgerState(
   const allocation =
     config.jali.start + config.khafi.start + config.fasaha.start;
   if (allocation !== TOTAL_MARKS) config = DEFAULT_CONFIG;
-  const panel = normalizeJudgePanel(parsed.panel);
-  const preferredJudge = judgeSeatFor(panel, parsed.deviceJudgeId)
-    ? parsed.deviceJudgeId!
-    : panel.seats[0]?.id ?? "judge-1";
+  let panel = normalizeJudgePanel(parsed.panel);
 
   const participant = normalizeParticipant(parsed.participant);
   const legacyMistakes = parsed.mistakes ?? [];
@@ -598,6 +731,36 @@ export function normalizeLedgerState(
     (legacyMistakes.length > 0 ||
       participant.name.trim() !== "" ||
       (parsed.notes ?? "").trim() !== "");
+  let roster = (parsed.roster ?? []).map((entry) => normalizeRosterEntry(entry));
+  let competition = normalizeCompetition(parsed.competition);
+  if ((sessionActive || competition.status === "live") && !competition.liveSnapshot) {
+    const liveSnapshot = createLiveCompetitionSnapshot({
+      competition,
+      panel,
+      config,
+      roster,
+    });
+    competition = {
+      ...competition,
+      status: "live",
+      liveSnapshot,
+      closedAt: undefined,
+    };
+  } else if (sessionActive && competition.status !== "live") {
+    competition = { ...competition, status: "live", closedAt: undefined };
+  }
+  if (competition.status === "live" && competition.liveSnapshot) {
+    panel = normalizeJudgePanel(competition.liveSnapshot.panel);
+    config = competition.liveSnapshot.scoreConfig;
+    if (!roster.length) {
+      roster = competition.liveSnapshot.roster.map((entry) =>
+        normalizeRosterEntry({ ...entry, judged: false }),
+      );
+    }
+  }
+  const preferredJudge = judgeSeatFor(panel, parsed.deviceJudgeId)
+    ? parsed.deviceJudgeId!
+    : panel.seats[0]?.id ?? "judge-1";
   const startedAt = sessionActive
     ? (parsed.activeStartedAt ??
       Math.min(Date.now(), ...legacyMistakes.map((mistake) => mistake.ts)))
@@ -638,7 +801,7 @@ export function normalizeLedgerState(
   return {
     ...initialState,
     ...parsed,
-    competition: normalizeCompetition(parsed.competition),
+    competition,
     participant,
     sessionActive,
     activeSessionId: sessionId,
@@ -650,10 +813,20 @@ export function normalizeLedgerState(
     panel,
     deviceJudgeId: preferredJudge,
     mistakes: projectMistakes(events),
-    history: (parsed.history ?? []).map(normalizeSavedSession),
-    roster: (parsed.roster ?? []).map((entry) => normalizeRosterEntry(entry)),
+    history: (parsed.history ?? []).map((session) =>
+      normalizeSavedSession({
+        ...session,
+        competitionId: session.competitionId ?? competition.id,
+        competitionVersionId:
+          session.competitionVersionId ?? competition.liveSnapshot?.versionId,
+      }),
+    ),
+    roster,
     finalizedResults: (parsed.finalizedResults ?? []).map((result) => ({
       ...result,
+      competitionId: result.competitionId ?? competition.id,
+      competitionVersionId:
+        result.competitionVersionId ?? competition.liveSnapshot?.versionId,
       participant: normalizeParticipant(result.participant),
     })),
   };
@@ -669,6 +842,7 @@ function loadInitial(): JudgingState {
       PRE_LEDGER_BACKUP_KEY,
       PRE_JUDGE_ASSIGNMENTS_BACKUP_KEY,
       PRE_COMPETITION_RESULTS_BACKUP_KEY,
+      PRE_QUESTION_BANK_BACKUP_KEY,
     ]) {
       if (!localStorage.getItem(key)) {
         try {
