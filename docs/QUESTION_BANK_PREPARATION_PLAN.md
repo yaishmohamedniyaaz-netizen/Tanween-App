@@ -1,6 +1,6 @@
 # Question bank preparation plan
 
-Status: implementation-ready plan; no question-bank runtime work implemented
+Status: Q0 foundation and Q1 manual draft builder implemented; Q2 is next
 Updated: 12 August 2026
 
 ## 1. What the next release is for
@@ -327,7 +327,7 @@ its own review after the flow has been exercised with real organizers.
 
 ## 10. Following releases
 
-1. **Q1 — Manual question builder**
+1. **Q1 — Manual question builder — implemented 12 August 2026**
    - choose a start ayah;
    - preview the computed ending ayah and real Mushaf pages;
    - save a draft with warnings and provenance.

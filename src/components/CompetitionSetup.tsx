@@ -27,6 +27,7 @@ import type {
   ScoreConfig,
 } from "../types";
 import { Icon } from "./Icon";
+import { QuestionBuilder } from "./QuestionBuilder";
 import { SampleBadge } from "./SampleBadge";
 
 type SetupTask =
@@ -36,6 +37,7 @@ type SetupTask =
   | "panel"
   | "marks"
   | "questions"
+  | "question-bank"
   | "review";
 
 const TASKS: Array<{
@@ -50,6 +52,7 @@ const TASKS: Array<{
   { id: "panel", group: "Judging", label: "Judging panel", hint: "Assign Jali, Khafi and Fasaha" },
   { id: "marks", group: "Judging", label: "Marks and deductions", hint: "Starting marks and steps" },
   { id: "questions", group: "Questions", label: "Question rules", hint: "Ayah and printed-line policy" },
+  { id: "question-bank", group: "Questions", label: "Draft questions", hint: "Build and preview passages" },
   { id: "review", group: "Launch", label: "Review and start", hint: "Check the official setup" },
 ];
 
@@ -93,8 +96,10 @@ function statusText(
   locked: boolean,
   task: SetupTask,
   competitionStatus: "draft" | "live" | "closed",
+  draftCount = 0,
 ): string {
   if (locked) return "Locked";
+  if (task === "question-bank") return draftCount ? `${draftCount} draft${draftCount === 1 ? "" : "s"}` : "Optional";
   if (competitionStatus === "live" && task === "review") return "Live";
   if (competitionStatus === "closed" && task === "review") return "Closed";
   return complete ? "Complete" : "Needs attention";
@@ -131,9 +136,13 @@ export function CompetitionSetup({ onBack }: { onBack: () => void }) {
     (sum, category) => sum + scoreDraft[category.id].start,
     0,
   );
+  const competitionDraftCount = state.questionDrafts.filter(
+    (draft) => draft.competitionId === state.competition.id,
+  ).length;
 
   const sectionComplete = (task: SetupTask): boolean => {
     if (task === "review") return readiness.ready;
+    if (task === "question-bank") return true;
     const section = task === "details" ? "competition" : task;
     return !readiness.issues.some((issue) => issue.section === section);
   };
@@ -611,7 +620,7 @@ export function CompetitionSetup({ onBack }: { onBack: () => void }) {
             </button>
             <button type="button" disabled title="Available after the reviewed question builder is implemented">
               <span className="question-mode-check" aria-hidden="true" />
-              <span><strong>Tahqeeq question set</strong><small>Coming next: reviewed questions, frozen sets and tiles.</small></span>
+              <span><strong>Tahqeeq question set</strong><small>Draft building is available next. Official use still requires review, freezing and tiles.</small></span>
             </button>
           </div>
           <div className="question-rule-grid">
@@ -622,7 +631,20 @@ export function CompetitionSetup({ onBack }: { onBack: () => void }) {
             <Icon name="check" size={16} />
             <span><strong>Fixed ending rule</strong> Start at the chosen ayah. Continue to the first complete ayah ending on or after line {policy.targetRecitationLines}.</span>
           </div>
-          <p className="question-foundation-note">No AI, OCR or paid API is used. The resolver is generated from all 604 local QPC V1 pages.</p>
+          <p className="question-foundation-note">No AI, OCR or paid API is used. Continue to Draft questions to prepare and preview passages from all 604 local QPC V1 pages.</p>
+        </section>
+      );
+    }
+
+    if (activeTask === "question-bank") {
+      return (
+        <section className="setup-work-card question-builder-work-card" aria-labelledby="setup-question-builder-title">
+          <div className="setup-work-head">
+            <span className="setup-step">Questions</span>
+            <h2 id="setup-question-builder-title">Draft questions</h2>
+            <p>Prepare exact ayah-first passages on the real Mushaf. Drafts stay separate from official competition delivery.</p>
+          </div>
+          <QuestionBuilder editable={editable} />
         </section>
       );
     }
@@ -637,6 +659,7 @@ export function CompetitionSetup({ onBack }: { onBack: () => void }) {
           <button type="button" onClick={() => setActiveTask("panel")}><span>Judging panel</span><strong>{state.panel.seats.length} judge{state.panel.seats.length === 1 ? "" : "s"}</strong><small>{state.panel.seats.map((seat) => `${seat.name || seat.label}: ${categoriesInOrder(seat.categories).join(" + ")}`).join("; ")}</small><em>Change</em></button>
           <button type="button" onClick={() => setActiveTask("marks")}><span>Marks</span><strong>{Object.values(state.config).reduce((sum, category) => sum + category.start, 0)} / {TOTAL_MARKS}</strong><small>Jali, Khafi and Fasaha rules</small><em>Change</em></button>
           <button type="button" onClick={() => setActiveTask("questions")}><span>Questions</span><strong>{state.competition.questionPolicy.mode === "manual" ? "Manual questions" : "Tahqeeq set"}</strong><small>{state.competition.questionPolicy.targetRecitationLines} lines · final line {state.competition.questionPolicy.finalPrintedLineScoring === "exclude" ? "not marked" : "marked"}</small><em>Change</em></button>
+          <button type="button" onClick={() => setActiveTask("question-bank")}><span>Draft questions</span><strong>{competitionDraftCount}</strong><small>{competitionDraftCount ? "Prepared locally for later review" : "Optional during manual-question competitions"}</small><em>Open</em></button>
         </div>
         {state.competition.status === "draft" && !readiness.ready && (
           <div className="readiness-issues" role="alert">
@@ -700,7 +723,7 @@ export function CompetitionSetup({ onBack }: { onBack: () => void }) {
                   {showGroup && <span className="setup-task-group">{task.group}</span>}
                   <button type="button" className={`${activeTask === task.id ? "is-active" : ""} ${complete ? "is-complete" : "has-attention"} ${locked ? "is-locked" : ""}`} aria-current={activeTask === task.id ? "step" : undefined} onClick={() => setActiveTask(task.id)}>
                     <span className="setup-task-copy"><strong>{task.label}</strong><small>{task.hint}</small></span>
-                    <span className="setup-task-status">{statusText(complete, locked, task.id, state.competition.status)}</span>
+                    <span className="setup-task-status">{statusText(complete, locked, task.id, state.competition.status, competitionDraftCount)}</span>
                   </button>
                 </Fragment>
               );

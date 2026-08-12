@@ -179,6 +179,34 @@ export interface CompetitionQuestionPolicy {
   frozenQuestionSet?: boolean;
 }
 
+/** A manually prepared, non-official question candidate. */
+export interface CompetitionQuestionDraft {
+  version: 1;
+  id: string;
+  competitionId: string;
+  isSample: boolean;
+  divisionId: string;
+  createdAt: number;
+  updatedAt: number;
+  note: string;
+  startAyah: { surah: number; ayah: number };
+  endAyah: { surah: number; ayah: number };
+  requestedLines: number;
+  resolvedLines: number;
+  extensionLines: number;
+  startPage: number;
+  startLine: number;
+  endPage: number;
+  endLine: number;
+  startWordId: string;
+  endWordId: string;
+  endMarkerId: string;
+  finalPrintedLineScoring: "include" | "exclude";
+  sourceVersion: string;
+  questionIndexVersion: string;
+  layoutHash: string;
+}
+
 export interface LiveCompetitionSnapshot {
   version: 1;
   /** Test competitions are permanently identifiable in every frozen record. */
@@ -270,6 +298,9 @@ export interface SavedSession {
 
 export interface JudgingState {
   competition: CompetitionConfig;
+  /** Device-local preparation drafts; never part of an official live snapshot. */
+  questionDrafts: CompetitionQuestionDraft[];
+  sampleQuestionsInitialized: boolean;
   participant: Participant;
   /** false until a reciter has been chosen via the start dialog */
   sessionActive: boolean;

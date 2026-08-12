@@ -1,5 +1,27 @@
 # Tahqeeq — build progress log
 
+## Manual Question Builder V1 — IMPLEMENTED & VERIFIED (2026-08-12)
+
+- Added a dedicated **Draft questions** task inside Competition setup.
+- Organizers can choose a division and complete starting ayah, then preview the
+  deterministic ending on the real KFGQPC V1 1405H Mushaf.
+- The preview supports all 604 pages, direct page navigation, and choosing a
+  starting ayah from its marker in question-building mode.
+- Drafts retain exact page, line, word, marker, source-version, index-version,
+  and layout-hash evidence. Rule or source changes show **Needs checking**
+  instead of silently rewriting a saved draft.
+- Exact ayah-level juz and surah eligibility blocks passages outside a
+  division's configured Quran portion.
+- The sample competition loads normal, cross-page, and extended examples plus
+  a Quran-end shortfall test.
+- Drafts remain device-local preparation data. Tahqeeq question-set mode,
+  approval, frozen sets, and randomized tiles remain disabled until Q2/Q3.
+- Full tests: all 6,236 ayah starts resolve deterministically or return an
+  explicit Quran-end reason; the existing judging and Mushaf suite stays green.
+
+Next question-bank checkpoint: **Q2 — review, approval, retirement, and version
+history for prepared questions.**
+
 ## Product foundation research — COMPLETE (2026-08-11)
 
 - Added `docs/PRODUCT_FOUNDATION.md` as the current research decision record and

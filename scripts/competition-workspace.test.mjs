@@ -10,6 +10,8 @@ const headerSource = read("../src/components/Header.tsx");
 const idleSource = read("../src/components/CompetitionIdlePanel.tsx");
 const setupSource = read("../src/components/CompetitionSetup.tsx");
 const mushafSource = read("../src/components/Mushaf.tsx");
+const builderSource = read("../src/components/QuestionBuilder.tsx");
+const previewSource = read("../src/components/QuestionMushafPreview.tsx");
 
 test("opening Tahqeeq remains a free Mushaf instead of auto-starting a session", () => {
   assert.match(appSource, /const \[startOpen, setStartOpen\] = useState\(false\)/);
@@ -27,6 +29,7 @@ test("competition preparation is a dedicated task workspace", () => {
     "Judging panel",
     "Marks and deductions",
     "Question rules",
+    "Draft questions",
     "Review and start",
   ]) {
     assert.match(setupSource, new RegExp(label));
@@ -36,11 +39,16 @@ test("competition preparation is a dedicated task workspace", () => {
   assert.match(headerSource, /Competition setup/);
 });
 
-test("the foundation exposes the agreed ayah rule without pretending the bank exists", () => {
+test("question preparation exposes the ayah rule without pretending drafts are official", () => {
   assert.match(setupSource, /Every official question starts at an ayah/);
   assert.match(setupSource, /first complete ayah ending on or after line/);
   assert.match(setupSource, /No AI, OCR or paid API is used/);
-  assert.match(setupSource, /Coming next: reviewed questions, frozen sets and tiles/);
+  assert.match(setupSource, /Official use still requires review, freezing and tiles/);
+  assert.match(setupSource, /<QuestionBuilder editable=\{editable\}/);
+  assert.match(builderSource, /Drafts remain preparation-only/);
+  assert.match(builderSource, /Tahqeeq will not silently shorten this question/);
+  assert.match(previewSource, /Tap an ayah marker/);
+  assert.match(previewSource, /loadQcfPageFont/);
 });
 
 test("judging hit targets remain disabled outside an active reciter session", () => {

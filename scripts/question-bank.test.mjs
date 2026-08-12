@@ -5,6 +5,16 @@ import {
   createQuestionIndexLookup,
   resolveQuestionRange,
 } from "../src/lib/questionBank.ts";
+import {
+  buildSampleQuestionDrafts,
+  createQuestionDraft,
+  firstAyahForPortion,
+  juzForAyah,
+  normalizeQuestionDraft,
+  questionDraftIssues,
+  rangeIsWithinPortion,
+} from "../src/lib/questionDrafts.ts";
+import { createSampleCompetition } from "../src/lib/sampleCompetition.ts";
 
 const asset = JSON.parse(fs.readFileSync("public/question-index.json", "utf8"));
 const lookup = createQuestionIndexLookup(asset);
@@ -70,3 +80,79 @@ test("invalid and Quran-end starts fail explicitly", () => {
   assert.equal(!finalAyah.ok && finalAyah.availableLines, 1);
 });
 
+test("every possible seven-line start resolves deterministically or reports the Quran end", () => {
+  for (const start of lookup.ayahs) {
+    const result = resolveQuestionRange(lookup, start, 7);
+    const availableLines = asset.recitationLineCount - start.startGlobalLine;
+    if (availableLines < 7) {
+      assert.equal(result.ok, false, `${start.surah}:${start.ayah}`);
+      assert.equal(!result.ok && result.reason, "insufficient-lines");
+      continue;
+    }
+    assert.equal(result.ok, true, `${start.surah}:${start.ayah}`);
+    assert.ok(result.ok && result.range.resolvedLines >= 7);
+    assert.equal(result.ok && result.range.startWordId, start.firstWordId);
+    assert.match(result.ok ? result.range.layoutHash : "", /^sha256:/);
+  }
+});
+
+test("division limits use exact ayah-level juz and surah boundaries", () => {
+  assert.equal(juzForAyah({ surah: 2, ayah: 141 }), 1);
+  assert.equal(juzForAyah({ surah: 2, ayah: 142 }), 2);
+  assert.equal(juzForAyah({ surah: 78, ayah: 1 }), 30);
+  assert.deepEqual(firstAyahForPortion({ kind: "juz-range", startJuz: 30, endJuz: 30 }), { surah: 78, ayah: 1 });
+  assert.equal(rangeIsWithinPortion(
+    { startAyah: { surah: 78, ayah: 1 }, endAyah: { surah: 114, ayah: 6 } },
+    { kind: "juz-range", startJuz: 30, endJuz: 30 },
+  ), true);
+  assert.equal(rangeIsWithinPortion(
+    { startAyah: { surah: 77, ayah: 50 }, endAyah: { surah: 78, ayah: 2 } },
+    { kind: "juz-range", startJuz: 30, endJuz: 30 },
+  ), false);
+  assert.equal(rangeIsWithinPortion(
+    { startAyah: { surah: 2, ayah: 1 }, endAyah: { surah: 3, ayah: 1 } },
+    { kind: "surah-range", startSurah: 2, endSurah: 2 },
+  ), false);
+});
+
+test("drafts retain exact provenance and become stale instead of silently changing", () => {
+  const competition = createSampleCompetition();
+  const division = competition.divisions.find((item) => item.quranPortion.kind === "full-quran");
+  assert.ok(division);
+  const resolution = resolveQuestionRange(lookup, { surah: 1, ayah: 1 }, 7);
+  assert.equal(resolution.ok, true);
+  const draft = createQuestionDraft({
+    id: "draft-1",
+    competition,
+    divisionId: division.id,
+    range: resolution.range,
+    note: "Reviewer note",
+    now: 1000,
+  });
+  assert.equal(draft.layoutHash, asset.layoutHash);
+  assert.equal(draft.questionIndexVersion, asset.version);
+  assert.equal(draft.createdAt, 1000);
+  assert.deepEqual(questionDraftIssues({
+    draft,
+    competition,
+    policy: competition.questionPolicy,
+    lookup,
+  }), []);
+  assert.match(questionDraftIssues({
+    draft,
+    competition,
+    policy: { ...competition.questionPolicy, targetRecitationLines: 8 },
+    lookup,
+  })[0], /target line rule changed/);
+  assert.equal(normalizeQuestionDraft({ ...draft, layoutHash: "unversioned" }), null);
+});
+
+test("the sample competition includes normal, cross-page, and extended draft fixtures", () => {
+  const competition = createSampleCompetition();
+  const drafts = buildSampleQuestionDrafts(lookup, competition);
+  assert.equal(drafts.length, 3);
+  assert.ok(drafts.some((draft) => draft.resolvedLines === 7));
+  assert.ok(drafts.some((draft) => draft.endPage > draft.startPage));
+  assert.ok(drafts.some((draft) => draft.extensionLines > 0));
+  assert.ok(drafts.every((draft) => draft.isSample && draft.competitionId === competition.id));
+});

@@ -46,6 +46,7 @@ import {
   createSampleCompetition,
   createSampleRoster,
 } from "../lib/sampleCompetition";
+import { normalizeQuestionDrafts } from "../lib/questionDrafts";
 import {
   buildTargetMigrationPatches,
   type TargetMigrationPatches,
@@ -54,6 +55,7 @@ import type {
   CategoryId,
   CompetitionConfig,
   CompetitionDivision,
+  CompetitionQuestionDraft,
   CompetitionQuestionPolicy,
   FinalizedResult,
   JudgeAssignmentSnapshot,
@@ -68,6 +70,8 @@ import type {
 
 const initialState: JudgingState = {
   competition: createSampleCompetition(),
+  questionDrafts: [],
+  sampleQuestionsInitialized: false,
   participant: { ...EMPTY_PARTICIPANT },
   sessionActive: false,
   activeSessionId: null,
@@ -105,6 +109,10 @@ export const PRE_COMPETITION_RESULTS_BACKUP_KEY =
 export const PRE_QUESTION_BANK_BACKUP_KEY =
   "tahqeeq.session.v1.backup.pre-question-bank-v1";
 
+/** Untouched browser state from immediately before draft question authoring. */
+export const PRE_QUESTION_BUILDER_BACKUP_KEY =
+  "tahqeeq.session.v1.backup.pre-question-builder-v1";
+
 type Action =
   | { type: "ADD_MISTAKE"; mistake: Mistake }
   | { type: "REMOVE_MISTAKE"; id: string }
@@ -117,6 +125,9 @@ type Action =
   | { type: "SET_COMPETITION"; competition: CompetitionConfig }
   | { type: "SET_DIVISIONS"; divisions: CompetitionDivision[] }
   | { type: "SET_QUESTION_POLICY"; policy: CompetitionQuestionPolicy }
+  | { type: "UPSERT_QUESTION_DRAFT"; draft: CompetitionQuestionDraft }
+  | { type: "REMOVE_QUESTION_DRAFT"; id: string }
+  | { type: "INITIALIZE_SAMPLE_QUESTIONS"; drafts: CompetitionQuestionDraft[] }
   | { type: "START_COMPETITION" }
   | { type: "CLOSE_COMPETITION" }
   | { type: "NEW_COMPETITION" }
@@ -339,6 +350,46 @@ function reducer(state: JudgingState, action: Action): JudgingState {
           questionPolicy: normalizeQuestionPolicy(action.policy),
         }),
       };
+    case "UPSERT_QUESTION_DRAFT": {
+      if (
+        state.sessionActive ||
+        state.competition.status !== "draft" ||
+        action.draft.competitionId !== state.competition.id ||
+        action.draft.isSample !== state.competition.isSample ||
+        !state.competition.divisions.some((division) => division.id === action.draft.divisionId)
+      ) {
+        return state;
+      }
+      const drafts = normalizeQuestionDrafts([
+        action.draft,
+        ...state.questionDrafts.filter((draft) => draft.id !== action.draft.id),
+      ]);
+      return { ...state, questionDrafts: drafts };
+    }
+    case "REMOVE_QUESTION_DRAFT":
+      if (state.sessionActive || state.competition.status !== "draft") return state;
+      return {
+        ...state,
+        questionDrafts: state.questionDrafts.filter(
+          (draft) => draft.id !== action.id || draft.competitionId !== state.competition.id,
+        ),
+      };
+    case "INITIALIZE_SAMPLE_QUESTIONS":
+      if (
+        !state.competition.isSample ||
+        state.sampleQuestionsInitialized ||
+        state.competition.status !== "draft"
+      ) {
+        return state;
+      }
+      return {
+        ...state,
+        sampleQuestionsInitialized: true,
+        questionDrafts: normalizeQuestionDrafts([
+          ...action.drafts,
+          ...state.questionDrafts.filter((draft) => !draft.isSample),
+        ]),
+      };
     case "START_COMPETITION": {
       if (state.sessionActive || state.competition.status !== "draft") return state;
       const readiness = competitionReadiness(state);
@@ -369,6 +420,7 @@ function reducer(state: JudgingState, action: Action): JudgingState {
       return {
         ...state,
         competition: { ...EMPTY_COMPETITION, questionPolicy: { ...EMPTY_COMPETITION.questionPolicy } },
+        sampleQuestionsInitialized: true,
         participant: { ...EMPTY_PARTICIPANT },
         config: DEFAULT_CONFIG,
         panel: createPanelPreset("all"),
@@ -383,6 +435,8 @@ function reducer(state: JudgingState, action: Action): JudgingState {
       return {
         ...state,
         competition: createSampleCompetition(),
+        questionDrafts: state.questionDrafts.filter((draft) => !draft.isSample),
+        sampleQuestionsInitialized: false,
         participant: { ...EMPTY_PARTICIPANT },
         config: DEFAULT_CONFIG,
         panel: createPanelPreset("all"),
@@ -414,6 +468,8 @@ function reducer(state: JudgingState, action: Action): JudgingState {
               events: [],
             }
           : {}),
+        questionDrafts: state.questionDrafts.filter((draft) => !draft.isSample),
+        sampleQuestionsInitialized: true,
         history: state.history.filter((session) => !session.isSample),
         finalizedResults: state.finalizedResults.filter((result) => !result.isSample),
       };
@@ -850,6 +906,11 @@ export function normalizeLedgerState(
     ...initialState,
     ...parsed,
     competition,
+    questionDrafts: normalizeQuestionDrafts(parsed.questionDrafts),
+    sampleQuestionsInitialized:
+      typeof parsed.sampleQuestionsInitialized === "boolean"
+        ? parsed.sampleQuestionsInitialized
+        : !competition.isSample,
     participant,
     sessionActive,
     activeSessionId: sessionId,
@@ -892,6 +953,7 @@ function loadInitial(): JudgingState {
       PRE_JUDGE_ASSIGNMENTS_BACKUP_KEY,
       PRE_COMPETITION_RESULTS_BACKUP_KEY,
       PRE_QUESTION_BANK_BACKUP_KEY,
+      PRE_QUESTION_BUILDER_BACKUP_KEY,
     ]) {
       if (!localStorage.getItem(key)) {
         try {
