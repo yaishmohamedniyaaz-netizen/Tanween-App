@@ -21,6 +21,12 @@ import {
   muqarrarLabel,
   participantCategoryLabel,
 } from "../lib/participants";
+import {
+  activeGroupFor,
+  groupRosterByDivision,
+  matchesParticipantSearch,
+  shouldOfferSearch,
+} from "../lib/rosterQueue.ts";
 import { useJudging } from "../state/store";
 import type { RosterEntry } from "../types";
 import { Icon } from "./Icon";
@@ -37,7 +43,7 @@ export function StartDialog({
   const next = roster.find((entry) => !entry.judged);
   const [participantId, setParticipantId] = useState(next?.id ?? "");
   const [questionId, setQuestionId] = useState("");
-  const [showRoster, setShowRoster] = useState(false);
+  const [search, setSearch] = useState("");
   const [lookup, setLookup] = useState<QuestionIndexLookup | null>(null);
   const [questionLoadError, setQuestionLoadError] = useState(false);
 
@@ -117,7 +123,7 @@ export function StartDialog({
     if (entry.judged) return;
     setParticipantId(entry.id);
     setQuestionId("");
-    setShowRoster(false);
+    setSearch("");
   };
 
   const beginJudging = () => {
@@ -136,6 +142,39 @@ export function StartDialog({
   const allowManual = liveSnapshot?.questionPolicy.mode === "manual";
   const ready = Boolean(participant && division && assignment && questionId);
   const waitingCount = roster.filter((entry) => !entry.judged).length;
+
+  const rosterGroups = useMemo(
+    () => groupRosterByDivision(roster, divisions),
+    [roster, divisions],
+  );
+  const activeGroup = activeGroupFor(rosterGroups, participant?.id);
+  const offerSearch = shouldOfferSearch(roster);
+
+  // The queue lists everyone except whoever is already up — the card above
+  // covers them, and repeating the row was the clearest duplication on this
+  // screen. Groups that empty out under a search are dropped rather than left
+  // as bare headings.
+  const queueGroups = useMemo(
+    () =>
+      rosterGroups
+        .map((group) => {
+          const entries = group.entries.filter(
+            (entry) =>
+              entry.id !== participant?.id &&
+              matchesParticipantSearch(entry, search),
+          );
+          // Counts describe the rows under the heading, so whoever is already
+          // up is not also reported as waiting.
+          return {
+            ...group,
+            entries,
+            judged: entries.filter((entry) => entry.judged).length,
+            waiting: entries.filter((entry) => !entry.judged).length,
+          };
+        })
+        .filter((group) => group.entries.length > 0),
+    [rosterGroups, participant?.id, search],
+  );
 
   return (
     <div
@@ -177,9 +216,24 @@ export function StartDialog({
               <span>1</span>
               <div>
                 <h3 id="reciter-step-participant">Reciter</h3>
-                <p>The next waiting participant is selected automatically.</p>
+                <p>
+                  {waitingCount > 0
+                    ? `${waitingCount} still to judge · the next one is selected automatically`
+                    : "Every participant in this roster has been judged."}
+                </p>
               </div>
             </div>
+
+            {activeGroup && (
+              <p className="queue-block">
+                <span className="queue-block-name">
+                  {activeGroup.division?.name ?? "No matching division"}
+                </span>
+                <span className="queue-block-progress">
+                  {activeGroup.judged} of {activeGroup.entries.length} judged
+                </span>
+              </p>
+            )}
 
             {participant ? (
               <article className="selected-reciter-card">
@@ -198,38 +252,57 @@ export function StartDialog({
               <div className="reciter-start-empty">Every participant in this roster is finished.</div>
             )}
 
-            {waitingCount > 1 && (
-              <button
-                type="button"
-                className="reciter-roster-toggle"
-                aria-expanded={showRoster}
-                onClick={() => setShowRoster((current) => !current)}
-              >
+            {offerSearch && (
+              <label className="queue-search">
                 <Icon name="newUser" size={15} />
-                Choose another participant
-                <span>{waitingCount} waiting</span>
-              </button>
+                <input
+                  type="search"
+                  value={search}
+                  placeholder="Find by number, name or school"
+                  aria-label="Find a participant"
+                  onChange={(event) => setSearch(event.target.value)}
+                />
+              </label>
             )}
 
-            {showRoster && (
-              <ul className="reciter-roster-list">
-                {roster.map((entry) => (
-                  <li key={entry.id}>
-                    <button
-                      type="button"
-                      disabled={entry.judged}
-                      className={entry.id === participant?.id ? "is-selected" : ""}
-                      onClick={() => chooseParticipant(entry)}
-                    >
-                      <span>{entry.number}</span>
-                      <strong>{entry.name}</strong>
-                      <small>{entry.judged ? "Finished" : entry.ageGroup}</small>
-                      {entry.id === participant?.id && <Icon name="check" size={14} />}
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            )}
+            <div className="queue-scroll">
+              {queueGroups.length === 0 ? (
+                <p className="queue-empty">
+                  {search.trim()
+                    ? `Nobody matches “${search.trim()}”.`
+                    : "Nobody else is waiting."}
+                </p>
+              ) : (
+                queueGroups.map((group) => (
+                  <section className="queue-group" key={group.id}>
+                    <h4>
+                      <span>{group.division?.name ?? "No matching division"}</span>
+                      <small>
+                        {group.waiting > 0 ? `${group.waiting} waiting` : "All judged"}
+                        {group.judged > 0 && group.waiting > 0 ? ` · ${group.judged} judged` : ""}
+                      </small>
+                    </h4>
+                    <ul>
+                      {group.entries.map((entry) => (
+                        <li key={entry.id}>
+                          <button
+                            type="button"
+                            disabled={entry.judged}
+                            onClick={() => chooseParticipant(entry)}
+                          >
+                            <span className="queue-number">{entry.number || "—"}</span>
+                            <strong>{entry.name || "Unnamed"}</strong>
+                            <small className={entry.judged ? "is-judged" : "is-waiting"}>
+                              {entry.judged ? "Judged" : "Waiting"}
+                            </small>
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                  </section>
+                ))
+              )}
+            </div>
           </section>
 
           <section className="reciter-start-step question-choice-step" aria-labelledby="reciter-step-question">
