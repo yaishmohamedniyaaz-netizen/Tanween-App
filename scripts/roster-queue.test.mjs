@@ -4,7 +4,9 @@ import {
   SEARCH_THRESHOLD,
   activeGroupFor,
   groupRosterByDivision,
+  isWaiting,
   matchesParticipantSearch,
+  queueOrder,
   shouldOfferSearch,
 } from "../src/lib/rosterQueue.ts";
 
@@ -125,4 +127,69 @@ test("search appears only once the queue outgrows the screen", () => {
   const small = Array.from({ length: SEARCH_THRESHOLD }, (_, i) => entry(`s${i}`));
   assert.equal(shouldOfferSearch(small), false);
   assert.equal(shouldOfferSearch([...small, entry("extra")]), true);
+});
+
+test("somebody marked away is no longer waiting", () => {
+  assert.equal(isWaiting(entry("a")), true);
+  assert.equal(isWaiting(entry("a", { absent: true })), false);
+  assert.equal(isWaiting(entry("a", { judged: true })), false);
+});
+
+test("a block counts waiting, away and judged separately", () => {
+  const [group] = groupRosterByDivision(
+    [
+      entry("a", { judged: true }),
+      entry("b", { absent: true }),
+      entry("c"),
+      entry("d"),
+    ],
+    divisions,
+  );
+  assert.equal(group.judged, 1);
+  assert.equal(group.absent, 1);
+  assert.equal(group.waiting, 2);
+  assert.equal(group.entries.length, 4, "nobody is dropped from the block");
+});
+
+test("a block with only absent people left is no longer waiting on anyone", () => {
+  const [group] = groupRosterByDivision(
+    [entry("a", { judged: true }), entry("b", { absent: true })],
+    divisions,
+  );
+  assert.equal(group.waiting, 0, "an absent reciter must not block the round");
+});
+
+test("the queue puts waiting first, then away, then judged", () => {
+  const ordered = queueOrder([
+    entry("judged", { judged: true }),
+    entry("away", { absent: true }),
+    entry("waiting"),
+  ]);
+  assert.deepEqual(ordered.map((e) => e.id), ["waiting", "away", "judged"]);
+});
+
+test("ordering is stable inside each state", () => {
+  const ordered = queueOrder([entry("a"), entry("b"), entry("c")]);
+  assert.deepEqual(ordered.map((e) => e.id), ["a", "b", "c"]);
+});
+
+test("marking somebody away never removes them from their block", () => {
+  const roster = [entry("a", { absent: true }), entry("b")];
+  const [group] = groupRosterByDivision(roster, divisions);
+  assert.ok(
+    group.entries.some((e) => e.id === "a"),
+    "a latecomer has to still be reachable",
+  );
+});
+
+test("the next block becomes active once everyone here is judged or away", () => {
+  const groups = groupRosterByDivision(
+    [
+      entry("a", { judged: true }),
+      entry("b", { absent: true }),
+      entry("c", { ageGroup: "Under 14", category: "nubalaa" }),
+    ],
+    divisions,
+  );
+  assert.equal(activeGroupFor(groups, undefined).division.id, "d-hifz");
 });

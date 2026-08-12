@@ -169,6 +169,11 @@ export interface Participant {
 /** One roster entry from an uploaded participant sheet. */
 export interface RosterEntry extends Participant {
   judged: boolean;
+  /**
+   * Marked not present when their turn came. Reversible: pressing their name
+   * puts them back up, which is how a latecomer is handled.
+   */
+  absent?: boolean;
 }
 
 export type QuranPortion =

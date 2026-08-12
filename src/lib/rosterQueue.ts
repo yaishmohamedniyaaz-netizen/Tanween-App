@@ -12,6 +12,7 @@ export interface RosterGroup {
   entries: RosterEntry[];
   judged: number;
   waiting: number;
+  absent: number;
 }
 
 const UNGROUPED = "no-division";
@@ -36,15 +37,36 @@ export function groupRosterByDivision(
     const id = division?.id ?? UNGROUPED;
     let group = groups.get(id);
     if (!group) {
-      group = { id, division, entries: [], judged: 0, waiting: 0 };
+      group = { id, division, entries: [], judged: 0, waiting: 0, absent: 0 };
       groups.set(id, group);
     }
     group.entries.push(entry);
     if (entry.judged) group.judged += 1;
+    else if (entry.absent) group.absent += 1;
     else group.waiting += 1;
   }
 
   return [...groups.values()];
+}
+
+/**
+ * Still to recite: not judged, and not marked away. Absent participants are
+ * held aside so a block can read as finished instead of waiting forever on
+ * somebody who never came.
+ */
+export function isWaiting(entry: RosterEntry): boolean {
+  return !entry.judged && !entry.absent;
+}
+
+/**
+ * Waiting first, then absent, then judged. Whoever is still to recite stays
+ * at the top where the organiser is looking, and the list only re-sorts as
+ * the visible result of something they pressed.
+ */
+export function queueOrder(entries: RosterEntry[]): RosterEntry[] {
+  const rank = (entry: RosterEntry) =>
+    entry.judged ? 2 : entry.absent ? 1 : 0;
+  return [...entries].sort((a, b) => rank(a) - rank(b));
 }
 
 /** The group a participant belongs to, or the first group still waiting. */

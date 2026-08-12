@@ -24,7 +24,9 @@ import {
 import {
   activeGroupFor,
   groupRosterByDivision,
+  isWaiting,
   matchesParticipantSearch,
+  queueOrder,
   shouldOfferSearch,
 } from "../lib/rosterQueue.ts";
 import {
@@ -49,7 +51,7 @@ export function StartDialog({
 }) {
   const { state, dispatch } = useJudging();
   const roster = state.roster;
-  const next = roster.find((entry) => !entry.judged);
+  const next = roster.find(isWaiting);
   const [participantId, setParticipantId] = useState(next?.id ?? "");
   const [questionId, setQuestionId] = useState("");
   const [search, setSearch] = useState("");
@@ -58,7 +60,8 @@ export function StartDialog({
   const [questionLoadError, setQuestionLoadError] = useState(false);
 
   const liveSnapshot = state.competition.liveSnapshot;
-  const participant = roster.find((entry) => entry.id === participantId && !entry.judged) ?? next;
+  const participant =
+    roster.find((entry) => entry.id === participantId && !entry.judged) ?? next;
   const divisions = liveSnapshot?.divisions ?? state.competition.divisions;
   const division = participant ? participantDivision(participant, divisions) : undefined;
   const assignment = liveSnapshot
@@ -99,7 +102,7 @@ export function StartDialog({
   }, [dispatch, lookup, state.competition, state.questionDrafts]);
 
   useEffect(() => {
-    if (participantId && roster.some((entry) => entry.id === participantId && !entry.judged)) {
+    if (participantId && roster.some((entry) => entry.id === participantId && isWaiting(entry))) {
       return;
     }
     setParticipantId(next?.id ?? "");
@@ -133,6 +136,9 @@ export function StartDialog({
   // rather than making the organiser confirm a choice they just made.
   const chooseParticipant = (entry: RosterEntry) => {
     if (entry.judged) return;
+    if (entry.absent) {
+      dispatch({ type: "SET_PARTICIPANT_ABSENT", id: entry.id, absent: false });
+    }
     setParticipantId(entry.id);
     setQuestionId("");
     setSearch("");
@@ -158,7 +164,7 @@ export function StartDialog({
   };
 
   const allowManual = liveSnapshot?.questionPolicy.mode === "manual";
-  const waitingCount = roster.filter((entry) => !entry.judged).length;
+  const waitingCount = roster.filter(isWaiting).length;
 
   // The draw board for this reciter's division and muqarrar side. Cut once,
   // then reused for everyone in that block until the numbers run out.
@@ -259,10 +265,12 @@ export function StartDialog({
     () =>
       rosterGroups
         .map((group) => {
-          const entries = group.entries.filter(
-            (entry) =>
-              entry.id !== participant?.id &&
-              matchesParticipantSearch(entry, search),
+          const entries = queueOrder(
+            group.entries.filter(
+              (entry) =>
+                entry.id !== participant?.id &&
+                matchesParticipantSearch(entry, search),
+            ),
           );
           // Counts describe the rows under the heading, so whoever is already
           // up is not also reported as waiting.
@@ -270,7 +278,8 @@ export function StartDialog({
             ...group,
             entries,
             judged: entries.filter((entry) => entry.judged).length,
-            waiting: entries.filter((entry) => !entry.judged).length,
+            waiting: entries.filter(isWaiting).length,
+            absent: entries.filter((entry) => !entry.judged && entry.absent).length,
           };
         })
         .filter((group) => group.entries.length > 0),
@@ -349,6 +358,20 @@ export function StartDialog({
                   <div><dt>Muqarrar</dt><dd>{muqarrarLabel(participant.muqarrar)}</dd></div>
                   <div><dt>Category</dt><dd>{participantCategoryLabel(participant.category)}</dd></div>
                 </dl>
+                <button
+                  type="button"
+                  className="reciter-absent"
+                  onClick={() => {
+                    dispatch({
+                      type: "SET_PARTICIPANT_ABSENT",
+                      id: participant.id,
+                      absent: true,
+                    });
+                    setQuestionId("");
+                  }}
+                >
+                  Not here
+                </button>
               </article>
             ) : (
               <div className="reciter-start-empty">Every participant in this roster is finished.</div>
@@ -380,8 +403,9 @@ export function StartDialog({
                     <h4>
                       <span>{group.division?.name ?? "No matching division"}</span>
                       <small>
-                        {group.waiting > 0 ? `${group.waiting} waiting` : "All judged"}
-                        {group.judged > 0 && group.waiting > 0 ? ` · ${group.judged} judged` : ""}
+                        {group.waiting > 0 ? `${group.waiting} waiting` : "None waiting"}
+                        {group.absent > 0 ? ` · ${group.absent} not here` : ""}
+                        {group.judged > 0 ? ` · ${group.judged} judged` : ""}
                       </small>
                     </h4>
                     <ul>
@@ -394,8 +418,20 @@ export function StartDialog({
                           >
                             <span className="queue-number">{entry.number || "—"}</span>
                             <strong>{entry.name || "Unnamed"}</strong>
-                            <small className={entry.judged ? "is-judged" : "is-waiting"}>
-                              {entry.judged ? "Judged" : "Waiting"}
+                            <small
+                              className={
+                                entry.judged
+                                  ? "is-judged"
+                                  : entry.absent
+                                    ? "is-absent"
+                                    : "is-waiting"
+                              }
+                            >
+                              {entry.judged
+                                ? "Judged"
+                                : entry.absent
+                                  ? "Not here"
+                                  : "Waiting"}
                             </small>
                           </button>
                         </li>

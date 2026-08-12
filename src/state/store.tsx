@@ -152,6 +152,7 @@ type Action =
   | { type: "LOAD_ROSTER"; entries: RosterEntry[] }
   | { type: "IMPORT_SESSION"; session: SavedSession }
   | { type: "UPSERT_FINAL_RESULT"; result: FinalizedResult }
+  | { type: "SET_PARTICIPANT_ABSENT"; id: string; absent: boolean }
   | { type: "CLEAR_ROSTER" }
   | {
       type: "START_RECITER";
@@ -550,6 +551,13 @@ function reducer(state: JudgingState, action: Action): JudgingState {
       if (already) return state;
       return { ...state, draws: [...state.draws, action.draw] };
     }
+    case "SET_PARTICIPANT_ABSENT":
+      return {
+        ...state,
+        roster: state.roster.map((entry) =>
+          entry.id === action.id ? { ...entry, absent: action.absent } : entry,
+        ),
+      };
     case "SET_NOTES":
       return { ...state, notes: action.notes };
     case "SET_PARTICIPANT":

@@ -3690,6 +3690,35 @@ textarea:focus-visible {
 /* Participant queue — a running order, not a flat list. Sizes come from the
    type scale; rows meet the 44px target because they are pressed between
    reciters with a hall waiting. */
+/* The one control for somebody who did not come. It lives on the card
+   because that is where the organiser is already looking when they find out —
+   not on every row, which would be a hundred buttons nobody reads. */
+.reciter-absent {
+  justify-self: start;
+  min-height: var(--tap);
+  margin-top: var(--sp-3);
+  padding: 0 var(--sp-4);
+  border: 1px solid var(--line-2);
+  border-radius: var(--r-sm);
+  background: transparent;
+  color: var(--ink-2);
+  font-family: var(--ui);
+  font-size: var(--t-small);
+  cursor: pointer;
+}
+.reciter-absent:hover {
+  border-color: var(--ink-3);
+  color: var(--ink);
+}
+.reciter-absent:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--ring);
+}
+.queue-group button small.is-absent {
+  color: var(--ink-2);
+  font-style: italic;
+}
+
 .queue-block {
   display: flex;
   align-items: baseline;

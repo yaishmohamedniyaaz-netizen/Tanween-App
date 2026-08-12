@@ -141,6 +141,7 @@ export function normalizeRosterEntry(
   return {
     ...normalizeParticipant(value),
     judged: Boolean(value.judged),
+    absent: Boolean(value.absent),
   };
 }
 
