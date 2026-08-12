@@ -53,6 +53,7 @@ export function StartDialog({
   const [participantId, setParticipantId] = useState(next?.id ?? "");
   const [questionId, setQuestionId] = useState("");
   const [search, setSearch] = useState("");
+  const [stage, setStage] = useState<"participant" | "draw">("participant");
   const [lookup, setLookup] = useState<QuestionIndexLookup | null>(null);
   const [questionLoadError, setQuestionLoadError] = useState(false);
 
@@ -128,11 +129,14 @@ export function StartDialog({
     setQuestionId("");
   }, [participant?.id]);
 
+  // Pressing a name is the whole decision: the board comes up straight away
+  // rather than making the organiser confirm a choice they just made.
   const chooseParticipant = (entry: RosterEntry) => {
     if (entry.judged) return;
     setParticipantId(entry.id);
     setQuestionId("");
     setSearch("");
+    setStage("draw");
   };
 
   const beginJudging = () => {
@@ -302,7 +306,8 @@ export function StartDialog({
           <button type="button" className="btn-ghost" onClick={onOpenSetup}>Change</button>
         </div>
 
-        <div className="reciter-start-grid">
+        <div className="reciter-start-body">
+          {stage === "participant" ? (
           <section className="reciter-start-step" aria-labelledby="reciter-step-participant">
             <div className="reciter-step-head">
               <span>1</span>
@@ -396,13 +401,17 @@ export function StartDialog({
               )}
             </div>
           </section>
-
+          ) : (
           <section className="reciter-start-step question-choice-step" aria-labelledby="reciter-step-question">
             <div className="reciter-step-head">
               <span>2</span>
               <div>
                 <h3 id="reciter-step-question">Question</h3>
-                <p>{participant?.muqarrar ? `${muqarrarLabel(participant.muqarrar)} questions only.` : "Select a participant first."}</p>
+                <p>
+                  {participant
+                    ? `${participant.number ? `${participant.number} · ` : ""}${participant.name}${participant.muqarrar ? ` · ${muqarrarLabel(participant.muqarrar)}` : ""}`
+                    : "Select a participant first."}
+                </p>
               </div>
             </div>
 
@@ -481,16 +490,38 @@ export function StartDialog({
               <p className="reciter-test-note">This is rehearsal data. The selected question is recorded, but it is not an approved official question set.</p>
             )}
           </section>
+          )}
         </div>
 
         <footer className="reciter-start-actions">
-          <button type="button" className="btn-ghost" onClick={onOpenSetup}>View competition setup</button>
-          <div>
-            <span>{!participant ? "Choose a reciter" : !questionId ? "Choose a question to unlock judging" : `Ready · ${participant.name}`}</span>
-            <button type="button" className="btn-primary" disabled={!ready} onClick={beginJudging}>
-              Begin judging
-            </button>
-          </div>
+          {stage === "participant" ? (
+            <>
+              <button type="button" className="btn-ghost" onClick={onOpenSetup}>View competition setup</button>
+              <div>
+                <span>{participant ? participant.name : "Nobody left to judge"}</span>
+                <button
+                  type="button"
+                  className="btn-primary"
+                  disabled={!participant || !division}
+                  onClick={() => setStage("draw")}
+                >
+                  Draw question
+                </button>
+              </div>
+            </>
+          ) : (
+            <>
+              <button type="button" className="btn-ghost" onClick={() => setStage("participant")}>
+                Back to reciter
+              </button>
+              <div>
+                <span>{!questionId ? "Press the number the reciter picks" : `Ready · ${participant?.name ?? ""}`}</span>
+                <button type="button" className="btn-primary" disabled={!ready} onClick={beginJudging}>
+                  Begin judging
+                </button>
+              </div>
+            </>
+          )}
         </footer>
       </div>
     </div>

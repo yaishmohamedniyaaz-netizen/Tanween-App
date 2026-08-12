@@ -3592,12 +3592,9 @@ textarea:focus-visible {
 .reciter-start-judge.is-missing {
   background: color-mix(in srgb, #d8453d 5%, var(--bg));
 }
-.reciter-start-grid {
-  display: grid;
-  grid-template-columns: minmax(280px, 0.85fr) minmax(420px, 1.35fr);
+.reciter-start-body {
+  display: block;
   min-height: 420px;
-  max-height: min(636px, calc(100vh - 256px));
-  overflow-y: auto;
 }
 .reciter-start-step {
   min-width: 0;
@@ -3840,7 +3837,9 @@ textarea:focus-visible {
 .draw-board {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: var(--sp-2);
+  gap: var(--sp-3);
+  max-width: 640px;
+  margin: 0 auto;
 }
 .draw-tile {
   display: grid;
@@ -3852,7 +3851,7 @@ textarea:focus-visible {
   background: var(--surface);
   color: var(--ink);
   font-family: var(--ui);
-  font-size: var(--t-title);
+  font-size: clamp(22px, 3.4vw, 34px);
   font-weight: 600;
   font-variant-numeric: tabular-nums;
   cursor: pointer;
@@ -3884,7 +3883,8 @@ textarea:focus-visible {
 .draw-revealed {
   display: grid;
   gap: 2px;
-  margin: var(--sp-4) 0 0;
+  max-width: 640px;
+  margin: var(--sp-5) auto 0;
   padding: var(--sp-3) var(--sp-4);
   border: 1px solid var(--line);
   border-radius: var(--r-md);
@@ -3908,7 +3908,8 @@ textarea:focus-visible {
   display: grid;
   gap: 2px;
   width: 100%;
-  margin-top: var(--sp-3);
+  max-width: 640px;
+  margin: var(--sp-3) auto 0;
   padding: var(--sp-3) var(--sp-4);
   border: 1px dashed var(--line-2);
   border-radius: var(--r-md);
@@ -4103,8 +4104,7 @@ textarea:focus-visible {
     grid-column: 2;
     grid-row: 1 / 3;
   }
-  .reciter-start-grid {
-    display: block;
+  .reciter-start-body {
     max-height: none;
     overflow: visible;
   }
