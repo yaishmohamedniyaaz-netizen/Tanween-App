@@ -8,6 +8,12 @@ import type { MuqarrarSide, QuestionDeck, QuestionDrawRecord } from "../types";
 export const DECK_GENERATOR_VERSION = 1;
 
 /**
+ * Positions on a board. Twenty is the figure in the product foundation; a
+ * division with fewer checked questions simply gets a shorter board.
+ */
+export const DRAW_BOARD_SIZE = 20;
+
+/**
  * A deck belongs to one division *and* one muqarrar side. Questions are
  * approved for a side, so a single board per division could hand a reciter a
  * number they are not eligible for — which would be visible to the hall as a

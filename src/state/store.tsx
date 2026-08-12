@@ -47,6 +47,7 @@ import {
   createSampleRoster,
 } from "../lib/sampleCompetition";
 import { normalizeQuestionDrafts } from "../lib/questionDrafts";
+import { deckScopeKey } from "../lib/questionDeck";
 import {
   normalizeQuestionAssignment,
   questionAssignmentIsValid,
@@ -68,6 +69,8 @@ import type {
   JudgingState,
   Mistake,
   Participant,
+  QuestionDeck,
+  QuestionDrawRecord,
   ReciterQuestionAssignment,
   RosterEntry,
   SavedSession,
@@ -76,6 +79,8 @@ import type {
 const initialState: JudgingState = {
   competition: createSampleCompetition(),
   questionDrafts: [],
+  decks: [],
+  draws: [],
   sampleQuestionsInitialized: false,
   participant: { ...EMPTY_PARTICIPANT },
   sessionActive: false,
@@ -155,6 +160,8 @@ type Action =
     }
   | { type: "FINISH_SESSION" }
   | { type: "REOPEN_SESSION"; id: string; reason: string }
+  | { type: "FREEZE_DECK"; deck: QuestionDeck }
+  | { type: "RECORD_DRAW"; draw: QuestionDrawRecord }
   | { type: "APPLY_TARGET_MIGRATION"; patches: TargetMigrationPatches }
   | { type: "LOAD"; state: JudgingState };
 
@@ -476,6 +483,8 @@ function reducer(state: JudgingState, action: Action): JudgingState {
         ...state,
         competition: createSampleCompetition(),
         questionDrafts: state.questionDrafts.filter((draft) => !draft.isSample),
+        decks: [],
+        draws: [],
         sampleQuestionsInitialized: false,
         participant: { ...EMPTY_PARTICIPANT },
         config: DEFAULT_CONFIG,
@@ -509,10 +518,38 @@ function reducer(state: JudgingState, action: Action): JudgingState {
             }
           : {}),
         questionDrafts: state.questionDrafts.filter((draft) => !draft.isSample),
+        decks: state.decks.filter((deck) => deck.competitionId !== state.competition.id),
+        draws: state.draws.filter((draw) => draw.competitionId !== state.competition.id),
         sampleQuestionsInitialized: true,
         history: state.history.filter((session) => !session.isSample),
         finalizedResults: state.finalizedResults.filter((result) => !result.isSample),
       };
+    case "FREEZE_DECK": {
+      // Cutting a board is once per scope. A second freeze for the same
+      // division and side would change what an unrevealed number means, so an
+      // existing deck always wins.
+      const key = deckScopeKey(
+        action.deck.competitionId,
+        action.deck.divisionId,
+        action.deck.muqarrar,
+      );
+      const exists = state.decks.some(
+        (deck) =>
+          deckScopeKey(deck.competitionId, deck.divisionId, deck.muqarrar) === key,
+      );
+      if (exists) return state;
+      return { ...state, decks: [...state.decks, action.deck] };
+    }
+    case "RECORD_DRAW": {
+      const already = state.draws.some(
+        (draw) =>
+          draw.scopeKey === action.draw.scopeKey &&
+          draw.seed === action.draw.seed &&
+          draw.position === action.draw.position,
+      );
+      if (already) return state;
+      return { ...state, draws: [...state.draws, action.draw] };
+    }
     case "SET_NOTES":
       return { ...state, notes: action.notes };
     case "SET_PARTICIPANT":
@@ -1008,6 +1045,8 @@ export function normalizeLedgerState(
     ...parsed,
     competition,
     questionDrafts: normalizeQuestionDrafts(parsed.questionDrafts),
+    decks: Array.isArray(parsed.decks) ? parsed.decks : [],
+    draws: Array.isArray(parsed.draws) ? parsed.draws : [],
     sampleQuestionsInitialized:
       typeof parsed.sampleQuestionsInitialized === "boolean"
         ? parsed.sampleQuestionsInitialized

@@ -3835,6 +3835,101 @@ textarea:focus-visible {
   font-size: var(--t-small);
 }
 
+/* Draw board — the screen gets turned round to the reciter, so numbers are
+   sized to be read across a table rather than at arm's length. */
+.draw-board {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: var(--sp-2);
+}
+.draw-tile {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+  min-height: var(--tap);
+  border: 1px solid var(--line-2);
+  border-radius: var(--r-md);
+  background: var(--surface);
+  color: var(--ink);
+  font-family: var(--ui);
+  font-size: var(--t-title);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+  transition: border-color 120ms ease, transform 120ms ease;
+}
+.draw-tile:hover:not(:disabled) {
+  border-color: var(--ink-3);
+}
+.draw-tile:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--ring);
+}
+.draw-tile:active:not(:disabled) {
+  transform: scale(0.97);
+}
+/* A spent number stays in place rather than vanishing: the board must not
+   reflow between reciters, and the hall should see what has gone. */
+.draw-tile.is-spent {
+  border-style: dashed;
+  background: transparent;
+  color: var(--ink-3);
+  cursor: default;
+}
+.draw-tile.is-drawn {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: var(--surface);
+}
+.draw-revealed {
+  display: grid;
+  gap: 2px;
+  margin: var(--sp-4) 0 0;
+  padding: var(--sp-3) var(--sp-4);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--surface);
+}
+.draw-revealed > span {
+  color: var(--ink-3);
+  font-size: var(--t-micro);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.draw-revealed > strong {
+  font-size: var(--t-body);
+  font-variant-numeric: tabular-nums;
+}
+.draw-revealed > small {
+  color: var(--ink-2);
+  font-size: var(--t-micro);
+}
+.draw-external {
+  display: grid;
+  gap: 2px;
+  width: 100%;
+  margin-top: var(--sp-3);
+  padding: var(--sp-3) var(--sp-4);
+  border: 1px dashed var(--line-2);
+  border-radius: var(--r-md);
+  background: transparent;
+  color: var(--ink);
+  text-align: left;
+  cursor: pointer;
+}
+.draw-external:hover { border-color: var(--ink-3); }
+.draw-external.is-selected {
+  border-style: solid;
+  border-color: var(--ink);
+  background: var(--bg);
+}
+.draw-external strong { font-size: var(--t-small); }
+.draw-external small { color: var(--ink-2); font-size: var(--t-micro); }
+
+@media (max-width: 720px) {
+  .draw-board { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
 .question-choice-step {
   background: color-mix(in srgb, var(--bg) 44%, var(--surface));
 }

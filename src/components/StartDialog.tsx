@@ -27,6 +27,15 @@ import {
   matchesParticipantSearch,
   shouldOfferSearch,
 } from "../lib/rosterQueue.ts";
+import {
+  DRAW_BOARD_SIZE,
+  buildDeck,
+  deckExhausted,
+  deckScopeKey,
+  questionAtPosition,
+  spentPositions,
+} from "../lib/questionDeck.ts";
+import { uid } from "../lib/id";
 import { useJudging } from "../state/store";
 import type { RosterEntry } from "../types";
 import { Icon } from "./Icon";
@@ -142,6 +151,89 @@ export function StartDialog({
   const allowManual = liveSnapshot?.questionPolicy.mode === "manual";
   const ready = Boolean(participant && division && assignment && questionId);
   const waitingCount = roster.filter((entry) => !entry.judged).length;
+
+  // The draw board for this reciter's division and muqarrar side. Cut once,
+  // then reused for everyone in that block until the numbers run out.
+  const deckScope =
+    division && participant?.muqarrar
+      ? deckScopeKey(state.competition.id, division.id, participant.muqarrar)
+      : null;
+  const deck =
+    state.decks.find(
+      (item) =>
+        deckScopeKey(item.competitionId, item.divisionId, item.muqarrar) ===
+        deckScope,
+    ) ?? null;
+
+  const candidateIds = useMemo(
+    () => eligibleDrafts.map((draft) => draft.id),
+    [eligibleDrafts],
+  );
+
+  useEffect(() => {
+    if (!deckScope || deck || !division || !participant?.muqarrar) return;
+    if (candidateIds.length === 0) return;
+    dispatch({
+      type: "FREEZE_DECK",
+      deck: buildDeck({
+        competitionId: state.competition.id,
+        divisionId: division.id,
+        muqarrar: participant.muqarrar,
+        questionIds: candidateIds,
+        seed: uid("deck"),
+        size: DRAW_BOARD_SIZE,
+        frozenAt: Date.now(),
+      }),
+    });
+  }, [
+    candidateIds,
+    deck,
+    deckScope,
+    division,
+    dispatch,
+    participant?.muqarrar,
+    state.competition.id,
+  ]);
+
+  const spentHere = deck ? spentPositions(state.draws, deck) : new Set<number>();
+  const boardExhausted = deck ? deckExhausted(deck, state.draws) : false;
+
+  // A reciter keeps the number they drew, so reopening this dialog shows the
+  // same reveal rather than offering them a second pick.
+  const myDraw = state.draws.find(
+    (draw) =>
+      draw.scopeKey === deckScope &&
+      draw.seed === deck?.seed &&
+      draw.participantId === participant?.id,
+  );
+  const [drawnPosition, setDrawnPosition] = useState<number | null>(null);
+  useEffect(() => {
+    setDrawnPosition(myDraw?.position ?? null);
+    if (myDraw) setQuestionId(myDraw.questionId);
+  }, [myDraw?.position, myDraw?.questionId, participant?.id]);
+
+  const drawnQuestion = eligibleDrafts.find((draft) => draft.id === questionId);
+
+  const drawPosition = (position: number) => {
+    if (!deck || !participant) return;
+    const drawnId = questionAtPosition(deck, position);
+    if (!drawnId) return;
+    dispatch({
+      type: "RECORD_DRAW",
+      draw: {
+        version: 1,
+        competitionId: deck.competitionId,
+        scopeKey: deckScopeKey(deck.competitionId, deck.divisionId, deck.muqarrar),
+        seed: deck.seed,
+        position,
+        questionId: drawnId,
+        participantId: participant.id,
+        revealedAt: Date.now(),
+      },
+    });
+    setDrawnPosition(position);
+    setQuestionId(drawnId);
+  };
 
   const rosterGroups = useMemo(
     () => groupRosterByDivision(roster, divisions),
@@ -319,43 +411,67 @@ export function StartDialog({
             ) : !lookup && !questionLoadError ? (
               <div className="question-choice-state"><span className="loading-spinner" /> Checking prepared questions…</div>
             ) : (
-              <div className="question-tile-grid" role="radiogroup" aria-label="Questions for this reciter">
-                {eligibleDrafts.map((draft, index) => (
-                  <button
-                    key={draft.id}
-                    type="button"
-                    role="radio"
-                    aria-checked={questionId === draft.id}
-                    className={`reciter-question-tile ${questionId === draft.id ? "is-selected" : ""}`}
-                    onClick={() => setQuestionId(draft.id)}
-                  >
-                    <span className="question-tile-number">{String(index + 1).padStart(2, "0")}</span>
-                    <span className="question-tile-copy">
-                      <strong>{questionRangeLabel(draft)}</strong>
-                      <small>Pages {draft.startPage}{draft.endPage !== draft.startPage ? `–${draft.endPage}` : ""} · {draft.resolvedLines} lines</small>
-                      {draft.note && <em>{draft.note}</em>}
-                    </span>
-                    <span className="question-tile-check"><Icon name="check" size={13} /></span>
-                  </button>
-                ))}
+              <>
+                <div className="draw-board" role="group" aria-label="Question numbers">
+                  {deck?.tiles.map((tile) => {
+                    const spent = spentHere.has(tile.position);
+                    const mine = drawnPosition === tile.position;
+                    return (
+                      <button
+                        key={tile.position}
+                        type="button"
+                        // Nothing here names the passage. The board carries
+                        // positions only until the organiser presses one.
+                        className={`draw-tile ${mine ? "is-drawn" : ""} ${spent && !mine ? "is-spent" : ""}`}
+                        disabled={spent && !mine}
+                        aria-label={
+                          spent && !mine
+                            ? `Number ${tile.position}, already taken`
+                            : `Number ${tile.position}`
+                        }
+                        onClick={() => drawPosition(tile.position)}
+                      >
+                        {tile.position}
+                      </button>
+                    );
+                  })}
+                </div>
+
+                {drawnQuestion && (
+                  <p className="draw-revealed">
+                    <span>Number {drawnPosition}</span>
+                    <strong>{questionRangeLabel(drawnQuestion)}</strong>
+                    <small>
+                      Pages {drawnQuestion.startPage}
+                      {drawnQuestion.endPage !== drawnQuestion.startPage
+                        ? `–${drawnQuestion.endPage}`
+                        : ""}{" "}
+                      · {drawnQuestion.resolvedLines} lines
+                    </small>
+                  </p>
+                )}
+
+                {deck && boardExhausted && (
+                  <p className="question-choice-warning">
+                    Every number in this division has been drawn. Add more
+                    checked questions in setup before the next reciter.
+                  </p>
+                )}
 
                 {allowManual && (
                   <button
                     type="button"
-                    role="radio"
-                    aria-checked={questionId === "manual"}
-                    className={`reciter-question-tile is-manual ${questionId === "manual" ? "is-selected" : ""}`}
-                    onClick={() => setQuestionId("manual")}
+                    className={`draw-external ${questionId === "manual" ? "is-selected" : ""}`}
+                    onClick={() => {
+                      setQuestionId("manual");
+                      setDrawnPosition(null);
+                    }}
                   >
-                    <span className="question-tile-number">M</span>
-                    <span className="question-tile-copy">
-                      <strong>External question</strong>
-                      <small>Confirm the printed question matches this division and muqarrar.</small>
-                    </span>
-                    <span className="question-tile-check"><Icon name="check" size={13} /></span>
+                    <strong>External question</strong>
+                    <small>Confirm the printed question matches this division and muqarrar.</small>
                   </button>
                 )}
-              </div>
+              </>
             )}
 
             {lookup && eligibleDrafts.length === 0 && !allowManual && (

@@ -279,6 +279,7 @@ export interface QuestionDeck {
 /** A number, once pressed. Spends that position for the rest of the session. */
 export interface QuestionDrawRecord {
   version: 1;
+  competitionId: string;
   scopeKey: string;
   seed: string;
   position: number;
@@ -382,6 +383,10 @@ export interface JudgingState {
   competition: CompetitionConfig;
   /** Device-local preparation drafts; never part of an official live snapshot. */
   questionDrafts: CompetitionQuestionDraft[];
+  /** Frozen draw boards, one per division and muqarrar side. */
+  decks: QuestionDeck[];
+  /** Every number pressed, in order. Spends a position for the session. */
+  draws: QuestionDrawRecord[];
   sampleQuestionsInitialized: boolean;
   participant: Participant;
   /** false until a reciter has been chosen via the start dialog */

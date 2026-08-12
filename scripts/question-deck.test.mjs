@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import test from "node:test";
 import {
   DECK_GENERATOR_VERSION,
@@ -28,6 +29,7 @@ const cut = (over = {}) =>
 
 const drawOf = (deck, position, participantId = "p-1") => ({
   version: 1,
+  competitionId: deck.competitionId,
   scopeKey: deckScopeKey(deck.competitionId, deck.divisionId, deck.muqarrar),
   seed: deck.seed,
   position,
@@ -153,4 +155,35 @@ test("an empty pool produces an empty, immediately exhausted board", () => {
   const deck = cut({ questionIds: [] });
   assert.deepEqual(deck.tiles, []);
   assert.equal(deckExhausted(deck, []), true);
+});
+
+test("the board renders positions and nothing that names a passage", () => {
+  const source = readFileSync(
+    new URL("../src/components/StartDialog.tsx", import.meta.url),
+    "utf8",
+  );
+  const board = source.slice(
+    source.indexOf('<div className="draw-board"'),
+    source.indexOf("</div>", source.indexOf('<div className="draw-board"')),
+  );
+  assert.ok(board.length > 0, "the draw board should exist");
+  for (const leak of ["questionRangeLabel", "startPage", "endPage", "resolvedLines", "draft.note"]) {
+    assert.doesNotMatch(
+      board,
+      new RegExp(leak),
+      `the board must not render ${leak} — an unpressed number gives nothing away`,
+    );
+  }
+  assert.match(board, /tile\.position/, "the board renders positions");
+});
+
+test("a position is only resolved to a question when one is pressed", () => {
+  const source = readFileSync(
+    new URL("../src/components/StartDialog.tsx", import.meta.url),
+    "utf8",
+  );
+  const calls = source.match(/questionAtPosition\(/g) ?? [];
+  assert.equal(calls.length, 1, "exactly one call site, inside the press handler");
+  const handler = source.slice(source.indexOf("const drawPosition ="));
+  assert.match(handler.slice(0, 400), /questionAtPosition\(deck, position\)/);
 });
