@@ -6,7 +6,7 @@
  * JavaScript (no TypeScript annotations; browsers parse it directly).
  */
 
-const CACHE_VERSION = "v1-1405-r1";
+const CACHE_VERSION = "v1-1405-r2";
 const STATIC_CACHE = "tahqeeq-static-" + CACHE_VERSION;
 
 const QCF_DEFAULT_FONT =
@@ -17,7 +17,10 @@ const FONT_URLS = [
   QCF_DEFAULT_FONT,
 ];
 
-const PRECACHE_URLS = FONT_URLS.concat(["/pages/p604.json?v=v1-1405-r1"]);
+const PRECACHE_URLS = FONT_URLS.concat([
+  "/pages/p604.json?v=v1-1405-r2",
+  "/question-index.json?v=qpc-v1-1405h-question-index-v1",
+]);
 
 // Install: precache everything; individual failures are logged, not fatal.
 self.addEventListener("install", (event) => {
@@ -74,8 +77,13 @@ self.addEventListener("fetch", (event) => {
 
   if (url.origin !== self.location.origin) return;
 
-  // Fonts & page JSONs → cache-first (immutable content)
-  if (url.pathname.startsWith("/fonts/") || url.pathname.startsWith("/pages/")) {
+  // Fonts, page JSONs and the generated question index are immutable per
+  // version and can safely use cache-first delivery.
+  if (
+    url.pathname.startsWith("/fonts/") ||
+    url.pathname.startsWith("/pages/") ||
+    url.pathname === "/question-index.json"
+  ) {
     event.respondWith(cacheFirst(request));
     return;
   }

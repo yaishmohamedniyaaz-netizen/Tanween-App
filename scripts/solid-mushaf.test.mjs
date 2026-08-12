@@ -15,6 +15,10 @@ const pageSource = fs.readFileSync(
   new URL("../src/lib/page.ts", import.meta.url),
   "utf8",
 );
+const mushafContractSource = fs.readFileSync(
+  new URL("../src/lib/mushafContract.ts", import.meta.url),
+  "utf8",
+);
 const serviceWorkerSource = fs.readFileSync(
   new URL("../public/sw.js", import.meta.url),
   "utf8",
@@ -68,14 +72,14 @@ test("QCF page fonts are loaded before a page is declared ready", () => {
 });
 
 test("V1 page data cannot collide with legacy cached V2 assets", () => {
-  assert.match(pageSource, /MUSHAF_DATA_VERSION = "v1-1405-r1"/);
+  assert.match(mushafContractSource, /MUSHAF_DATA_VERSION = "v1-1405-r2"/);
   assert.match(pageSource, /pageAssetUrl\(page\)/);
   assert.match(pageSource, /fetch\(pageAssetUrl\(page\)\)/);
   assert.match(pageSource, /data\.font !== "qcf-v1"/);
   assert.match(pageSource, /data\.layout !== MUSHAF_LAYOUT/);
 
-  assert.match(serviceWorkerSource, /CACHE_VERSION = "v1-1405-r1"/);
-  assert.match(serviceWorkerSource, /pages\/p604\.json\?v=v1-1405-r1/);
+  assert.match(serviceWorkerSource, /CACHE_VERSION = "v1-1405-r2"/);
+  assert.match(serviceWorkerSource, /pages\/p604\.json\?v=v1-1405-r2/);
   assert.match(
     serviceWorkerSource,
     /static-cdn\.tarteel\.ai.*v1-optimized\/woff2/s,

@@ -1,6 +1,9 @@
 import type { TokenRole } from "../types";
 import staticPage604 from "../data/page604.json";
 import { isNonRecitationWord } from "./tokenize";
+import { MUSHAF_DATA_VERSION, MUSHAF_LAYOUT } from "./mushafContract";
+
+export { MUSHAF_DATA_VERSION, MUSHAF_LAYOUT } from "./mushafContract";
 
 export interface PageWord {
   wid: string; // stable word address: "<surah>.<ayah|b>.<index>"
@@ -34,10 +37,6 @@ export interface MushafPage {
   layout?: string;
   lines: PageLine[];
 }
-
-/** Version boundary for page JSON and its service-worker cache entries. */
-export const MUSHAF_DATA_VERSION = "v1-1405-r1";
-export const MUSHAF_LAYOUT = "KFGQPC V1 1405H";
 
 const pageCache = new Map<number, MushafPage>();
 

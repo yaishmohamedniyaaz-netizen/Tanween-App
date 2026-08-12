@@ -25,6 +25,14 @@ const PAGE_END = Math.min(PAGE_COUNT, Number(process.env.PAGE_END ?? PAGE_COUNT)
 const PAGE_LIST = process.env.PAGE_LIST
   ? [...new Set(process.env.PAGE_LIST.split(",").map(Number))]
   : null;
+const AYAH_MARKER_TEXT = /^[\u0660-\u0669\u06F0-\u06F9]+$/u;
+
+function isAyahEndWord(word) {
+  return (
+    word.char_type_name === "end" ||
+    AYAH_MARKER_TEXT.test(String(word.text_qpc_hafs ?? "").trim())
+  );
+}
 
 if (
   !Number.isInteger(PAGE_START) ||
@@ -259,7 +267,11 @@ function buildSemanticGroups(verses, page) {
     let semanticPosition = 0;
     let ornamentPosition = 0;
     for (const word of verse.words ?? []) {
-      const isEnd = word.char_type_name === "end";
+      // The semantic Arabic number is a second, source-independent guard.
+      // Quran.com currently reports the 2:181 marker as an ordinary word even
+      // though it is the printed ayah ending. Requiring every numeric marker to
+      // be an ayah end keeps generated question boundaries complete.
+      const isEnd = isAyahEndWord(word);
       const sourceGlyph = word.code_v1.replace(/\s+/gu, "");
       const parts = expandWordGlyphs(word, sourceGlyph).map((part) => {
         const ornament = !isEnd && isOrnament(part.text);
