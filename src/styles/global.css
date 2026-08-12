@@ -19,9 +19,9 @@
 
 /* ---- Tokens ---- */
 :root {
-  --bg: #f2f1ee;
+  --bg: #f5eddc;
   --surface: #ffffff;
-  --page-paper: #fbfaf7;
+  --page-paper: #fdfaf1;
   --ink: #1a1a1c;
   --ink-2: #62626a;
   /* 5.35:1 on --surface and 4.74:1 on --bg. The previous #9b9ba3 measured
@@ -73,9 +73,9 @@
 }
 
 [data-theme="dark"] {
-  --bg: #131316;
-  --surface: #1c1c20;
-  --page-paper: #211f1c;
+  --bg: #17140f;
+  --surface: #221e18;
+  --page-paper: #241f18;
   --ink: #ebebed;
   --ink-2: #a4a4ac;
   /* 5.03:1 on --surface, 5.50:1 on --bg; the previous #6f6f77 sat at 3.41:1. */
