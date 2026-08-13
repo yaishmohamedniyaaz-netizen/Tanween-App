@@ -1,6 +1,6 @@
 name = "tahqeeq"
-type = "service"
 main = "dist/server/index.js"
+compatibility_date = "2026-08-13"
 
 [assets]
 directory = "dist/client"
@@ -8,6 +8,3 @@ binding = "ASSETS"
 
 [build]
 command = "npm run build"
-
-[[triggers.crons]]
-cron = "0 0 * * *"
