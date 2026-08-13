@@ -1,0 +1,13 @@
+name = "tahqeeq"
+type = "service"
+main = "dist/server/index.js"
+
+[assets]
+directory = "dist/client"
+binding = "ASSETS"
+
+[build]
+command = "npm run build"
+
+[[triggers.crons]]
+cron = "0 0 * * *"
