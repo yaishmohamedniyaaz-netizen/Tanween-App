@@ -1,0 +1,15 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "tahqeeq-app",
+  "main": "dist/server/index.js",
+  "compatibility_date": "2026-08-13",
+  "observability": { "enabled": true },
+  "assets": {
+    // prepare-sites.mjs moves the Vite client build here and copies the
+    // worker entry to dist/server, so point Wrangler at that layout instead
+    // of letting it auto-detect a plain Vite project.
+    "directory": "dist/client",
+    "binding": "ASSETS",
+    "not_found_handling": "single-page-application"
+  }
+}
