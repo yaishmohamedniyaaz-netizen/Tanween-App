@@ -71,6 +71,17 @@ const mushafSource = readFileSync(
   new URL("../src/components/Mushaf.tsx", import.meta.url),
   "utf8",
 );
+const cssSource = readFileSync(
+  new URL("../src/styles/global.css", import.meta.url),
+  "utf8",
+);
+
+/** The declarations a rule sets, given its exact selector text. */
+const ruleBody = (selector) => {
+  const at = cssSource.indexOf(`\n${selector} {`);
+  assert.notEqual(at, -1, `expected a rule for ${selector}`);
+  return cssSource.slice(at, cssSource.indexOf("}", at));
+};
 
 /** A pre-Adu & Raagu competition exactly as older browsers stored it. */
 const legacyStoredConfig = {
@@ -461,6 +472,50 @@ test("mistake details name the kalimah and where it sits", () => {
   // The letter ordinal stays in the stored evidence, not in the judge's view.
   assert.doesNotMatch(mistakeLogSource, /mistake\.label/);
   assert.match(mushafSource, /wordText: active\.meta\.semanticText/);
+});
+
+test("the opened mark reads as two rows, and never spells out its category", () => {
+  // The dot on the row already carries the category; the name is not repeated.
+  assert.doesNotMatch(mistakeLogSource, /className="log-loc"/);
+  assert.doesNotMatch(cssSource, /\.log-loc\s*\{/);
+  assert.match(mistakeLogSource, /category\.label\} · \$\{reference\}/, "kept for the row title");
+
+  // Word then reference, read as one phrase — not flung to opposite edges.
+  assert.doesNotMatch(ruleBody(".log-kalimah"), /space-between/);
+  // The tray hangs off the glyph column, so the kalimah sits under its letter.
+  assert.match(ruleBody(".log-expand-inner"), /padding-left: 25px/);
+  assert.match(ruleBody(".log-undo"), /margin-left: auto/);
+});
+
+test("holding a word is neutral; only a criterion colours the page", () => {
+  // The old wash was rgb(85,102,230) — Fasaha's own colour — so a held word
+  // read as already marked. Neutral now, in both themes.
+  for (const selector of [".hit:hover::before", ".hit.armed::before"]) {
+    assert.match(ruleBody(selector), /var\(--hold-wash/);
+  }
+  assert.match(ruleBody(".glyph-ink.armed"), /var\(--hold-wash-strong\)/);
+  // No rule that paints a word or its letter may carry a raw hue again.
+  for (const [selector, body] of cssSource.matchAll(
+    /\n([^\n{}]*\.(?:hit|glyph-ink)[^\n{}]*)\{([^}]*)\}/g,
+  )) {
+    if (/cat-/.test(selector)) continue; // a chosen criterion, which must colour
+    assert.doesNotMatch(body, /rgba\(\s*(?:85, 102, 230|120, 135, 255)/, selector.trim());
+  }
+
+  const holdWashes = cssSource.match(/--hold-wash(?:-strong)?: rgba\([^)]+\)/g) ?? [];
+  assert.equal(holdWashes.length, 4, "a light and a dark pair");
+  for (const wash of holdWashes) {
+    const [r, g, b] = wash.match(/[\d.]+/g).map(Number);
+    // The washes are the app's own ink, which leans two points cool by design.
+    // Anything wider than that is a hue, and a hue here would read as a verdict.
+    assert.ok(
+      Math.max(r, g, b) - Math.min(r, g, b) <= 4,
+      `${wash} must carry no visible hue`,
+    );
+  }
+
+  // Dragging onto a pill still paints the criterion's own colour.
+  assert.match(cssSource, /\.hit\.armed\.cat-jali::before,/);
 });
 
 test("the mark bar opens on a press and commits when the press ends", () => {

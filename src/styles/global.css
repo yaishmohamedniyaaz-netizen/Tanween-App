@@ -30,6 +30,10 @@
   --ring: rgba(85, 102, 230, 0.35);
   --mushaf-ink: #1c1b16;
   --gold: #b3892f;
+  /* Holding a word is not yet a verdict, so it stays neutral. Colour on the
+     page belongs to the criteria alone. */
+  --hold-wash: rgba(26, 26, 28, 0.06);
+  --hold-wash-strong: rgba(26, 26, 28, 0.11);
 
   --r-sm: 8px;
   --r-md: 12px;
@@ -58,6 +62,8 @@
   --ring: rgba(120, 135, 255, 0.45);
   --mushaf-ink: #eae7de;
   --gold: #c9a052;
+  --hold-wash: rgba(255, 255, 255, 0.07);
+  --hold-wash-strong: rgba(255, 255, 255, 0.13);
   --shadow-rest: 0 1px 2px rgba(0, 0, 0, 0.4);
   --shadow-float: 0 16px 40px rgba(0, 0, 0, 0.5), 0 3px 10px rgba(0, 0, 0, 0.35);
   --selector-filter: drop-shadow(0 16px 28px rgba(0, 0, 0, 0.46))
@@ -2132,10 +2138,10 @@ textarea:focus-visible {
   transition: background-color var(--t-fast) var(--ease-out);
 }
 .hit:hover::before {
-  background: rgba(85, 102, 230, 0.07);
+  background: var(--hold-wash);
 }
 .hit.armed::before {
-  background: rgba(85, 102, 230, 0.1);
+  background: var(--hold-wash-strong);
 }
 .hit.armed.cat-jali::before,
 .hit.armed.cat-khafi::before,
@@ -2146,10 +2152,10 @@ textarea:focus-visible {
   mix-blend-mode: screen;
 }
 [data-theme="dark"] .hit:hover::before {
-  background: rgba(120, 135, 255, 0.09);
+  background: var(--hold-wash);
 }
 [data-theme="dark"] .hit.armed::before {
-  background: rgba(120, 135, 255, 0.13);
+  background: var(--hold-wash-strong);
 }
 [data-theme="dark"] .hit.armed.cat-jali::before,
 [data-theme="dark"] .hit.armed.cat-khafi::before,
@@ -2167,10 +2173,10 @@ textarea:focus-visible {
   mix-blend-mode: screen;
 }
 .glyph-ink.armed {
-  background: rgba(85, 102, 230, 0.1) !important;
+  background: var(--hold-wash-strong) !important;
 }
 [data-theme="dark"] .glyph-ink.armed {
-  background: rgba(120, 135, 255, 0.13) !important;
+  background: var(--hold-wash-strong) !important;
 }
 .glyph-ink.armed.cat-jali,
 .glyph-ink.armed.cat-khafi,
@@ -2821,19 +2827,17 @@ textarea:focus-visible {
 .log-row-wrap.open .log-expand {
   grid-template-rows: 1fr;
 }
+/* The tray hangs off the glyph column of the row above (9px padding + 8px dot
+   + 8px gap), so the kalimah sits directly under the letter it came from. */
 .log-expand-inner {
   overflow: hidden;
+  padding-left: 25px;
 }
 .log-detail {
   display: flex;
   align-items: center;
   gap: 6px;
-  padding: 3px 9px 8px;
-}
-.log-loc {
-  flex: 1;
-  font-size: 10.5px;
-  color: var(--ink-3);
+  padding: 0 9px 8px 0;
 }
 .step-btn {
   width: 24px;
@@ -2879,6 +2883,7 @@ textarea:focus-visible {
   background: rgba(216, 69, 61, 0.1);
 }
 .log-undo {
+  margin-left: auto;
   min-height: 26px;
   padding: 0 7px;
   border: 0;
@@ -5315,12 +5320,14 @@ textarea:focus-visible {
 }
 
 /* Mistake details: the kalimah it belongs to, and where it sits. */
+/* Word then reference, read as one phrase. The category is already told by the
+   dot on the row above, so it is not spelled out again here. */
 .log-kalimah {
   display: flex;
   align-items: baseline;
-  justify-content: space-between;
-  gap: 10px;
-  padding: 2px 0 7px;
+  flex-wrap: wrap;
+  gap: 2px 8px;
+  padding: 0 9px 5px 0;
 }
 .log-kalimah-word {
   font-family: var(--quran);

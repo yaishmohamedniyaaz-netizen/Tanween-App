@@ -155,7 +155,6 @@ export function MistakeLog() {
                         <span className="log-kalimah-ref t-num">{reference}</span>
                       </div>
                       <div className="log-detail">
-                        <span className="log-loc">{category.label}</span>
                         <button
                           type="button"
                           className="step-btn"
