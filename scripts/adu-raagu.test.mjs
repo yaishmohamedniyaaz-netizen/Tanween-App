@@ -525,6 +525,54 @@ test("the mark bar opens on a press and commits when the press ends", () => {
   assert.match(pickerSource, /if \(drag\?\.moved && preview !== null\)/);
   // A press that does not move leaves the bar open to pick from.
   assert.match(pickerSource, /setPinned\(true\);/);
-  assert.match(pickerSource, /mark-tick/);
-  assert.match(pickerSource, /labelEvery/);
+  assert.match(pickerSource, /className="chip-strip"/);
+  assert.doesNotMatch(pickerSource, /mark-tick|labelEvery|markAt/);
+});
+
+test("the mark bar offers one whole-number chip per mark", () => {
+  assert.match(
+    pickerSource,
+    /Array\.from\(\{ length: wholeMarks \+ 1 \}, \(_, mark\) => mark\)/,
+  );
+  assert.match(pickerSource, /role="radiogroup"/);
+  assert.match(pickerSource, /role="radio"/);
+  assert.match(pickerSource, /data-mark=\{mark\}/);
+  assert.match(ruleBody(".chip-strip"), /flex-wrap: wrap/);
+  assert.match(ruleBody(".chip-strip button"), /min-width: 30px/);
+});
+
+test("a chip previews halves and commits only when the pointer is released", () => {
+  assert.match(
+    pickerSource,
+    /clientX - rect\.left < rect\.width \/ 2 \? Math\.max\(0, mark - 0\.5\) : mark/,
+  );
+
+  const moveHandler = pickerSource.slice(
+    pickerSource.indexOf("onPointerMove={(event) =>"),
+    pickerSource.indexOf("onPointerUp={() =>"),
+  );
+  assert.match(moveHandler, /previewChipAt\(event\.clientX, event\.clientY\)/);
+  assert.doesNotMatch(moveHandler, /commit\(/);
+
+  const upHandler = pickerSource.slice(
+    pickerSource.indexOf("onPointerUp={() =>"),
+    pickerSource.indexOf("onPointerCancel={() =>"),
+  );
+  assert.match(upHandler, /commit\(preview \?\? value\)/);
+});
+
+test("chip fill, half-fill, and checked state all follow the shown value", () => {
+  assert.match(pickerSource, /const exact = Math\.abs\(mark - shown\) < 0\.001/);
+  assert.match(pickerSource, /const half = Math\.abs\(mark - 0\.5 - shown\) < 0\.001/);
+  assert.match(pickerSource, /const filled = !exact && !half && mark < shown/);
+  assert.match(pickerSource, /aria-checked=\{exact \|\| half\}/);
+  assert.match(pickerSource, /half \? "is-half"/);
+  assert.match(pickerSource, /filled \? "is-filled"/);
+
+  assert.match(
+    ruleBody('.chip-strip button[aria-checked="true"]'),
+    /background: var\(--c, var\(--ink\)\)/,
+  );
+  assert.match(ruleBody(".chip-strip button.is-half"), /linear-gradient\(/);
+  assert.match(ruleBody(".chip-strip button.is-half"), /var\(--surface\) 50%/);
 });

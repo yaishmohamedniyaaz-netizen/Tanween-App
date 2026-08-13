@@ -8,15 +8,11 @@ import {
 } from "react";
 import { createPortal } from "react-dom";
 
-import { awardableMarks } from "../lib/scoring";
-
 const round2 = (value: number) => Math.round(value * 100) / 100;
 
 const BAR_MAX_WIDTH = 520;
 const BAR_MIN_WIDTH = 260;
 const BAR_MARGIN = 16;
-/** Whole marks stop carrying their own label past this many. */
-const DENSE_MARK_COUNT = 12;
 
 interface Props {
   value: number;
@@ -37,7 +33,7 @@ interface Props {
 export function MarkPicker({ value, max, step, marked, label, onChange }: Props) {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const barRef = useRef<HTMLDivElement>(null);
-  const trackRef = useRef<HTMLDivElement>(null);
+  const chipStripRef = useRef<HTMLDivElement>(null);
   const dragRef = useRef<{ moved: boolean; pointerId: number } | null>(null);
   const typedRef = useRef({ text: "", at: 0 });
   const [preview, setPreview] = useState<number | null>(null);
@@ -45,12 +41,12 @@ export function MarkPicker({ value, max, step, marked, label, onChange }: Props)
   const [pinned, setPinned] = useState(false);
   const [anchor, setAnchor] = useState({ top: 0, left: 0, width: BAR_MIN_WIDTH });
 
-  const marks = useMemo(() => awardableMarks(max, step), [max, step]);
-  // awardableMarks counts down from full marks; the bar reads low to high.
-  const ascending = useMemo(() => [...marks].reverse(), [marks]);
   const shown = preview ?? value;
   const wholeMarks = Math.round(max);
-  const labelEvery = wholeMarks > DENSE_MARK_COUNT ? 5 : 1;
+  const wholeChips = useMemo(
+    () => Array.from({ length: wholeMarks + 1 }, (_, mark) => mark),
+    [wholeMarks],
+  );
 
   const clamp = useCallback(
     (next: number) => round2(Math.min(max, Math.max(0, Math.round(next / step) * step))),
@@ -132,15 +128,19 @@ export function MarkPicker({ value, max, step, marked, label, onChange }: Props)
     return () => button.removeEventListener("wheel", onWheel);
   }, [commit, open, step, value]);
 
-  /** The mark under a pointer position on the bar. */
-  const markAt = useCallback(
-    (clientX: number) => {
-      const rect = trackRef.current?.getBoundingClientRect();
-      if (!rect || rect.width === 0) return value;
-      const ratio = (clientX - rect.left) / rect.width;
-      return clamp(Math.min(1, Math.max(0, ratio)) * max);
+  /** The chip value at a pointer position. Its left half is the half mark below it. */
+  const previewChipAt = useCallback(
+    (clientX: number, clientY: number) => {
+      const element = document.elementFromPoint(clientX, clientY);
+      const button = element?.closest<HTMLButtonElement>("[data-mark]");
+      if (!button || !chipStripRef.current?.contains(button)) return false;
+      const mark = Number(button.dataset.mark);
+      const rect = button.getBoundingClientRect();
+      const next = clientX - rect.left < rect.width / 2 ? Math.max(0, mark - 0.5) : mark;
+      setPreview(clamp(next));
+      return true;
     },
-    [clamp, max, value],
+    [clamp],
   );
 
   const onPointerDown = (event: React.PointerEvent<HTMLButtonElement>) => {
@@ -162,17 +162,8 @@ export function MarkPicker({ value, max, step, marked, label, onChange }: Props)
     const onMove = (event: PointerEvent) => {
       const drag = dragRef.current;
       if (!drag) return;
-      const bar = barRef.current;
-      if (!bar) return;
-      const rect = bar.getBoundingClientRect();
-      const inside =
-        event.clientX >= rect.left &&
-        event.clientX <= rect.right &&
-        event.clientY >= rect.top - 24 &&
-        event.clientY <= rect.bottom + 24;
-      if (!inside) return;
+      if (!previewChipAt(event.clientX, event.clientY)) return;
       drag.moved = true;
-      setPreview(markAt(event.clientX));
     };
     const onUp = () => {
       const drag = dragRef.current;
@@ -193,7 +184,7 @@ export function MarkPicker({ value, max, step, marked, label, onChange }: Props)
       window.removeEventListener("pointerup", onUp);
       window.removeEventListener("pointercancel", onUp);
     };
-  }, [commit, markAt, open, pinned, preview]);
+  }, [commit, open, pinned, preview, previewChipAt]);
 
   const onKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>) => {
     const jump = event.shiftKey ? step * 5 : step;
@@ -214,8 +205,6 @@ export function MarkPicker({ value, max, step, marked, label, onChange }: Props)
   };
 
   const display = Number.isInteger(shown) ? String(shown) : shown.toFixed(1);
-  const percent = max > 0 ? (shown / max) * 100 : 0;
-
   return (
     <>
       <button
@@ -228,7 +217,6 @@ export function MarkPicker({ value, max, step, marked, label, onChange }: Props)
         aria-valuemax={max}
         aria-valuenow={shown}
         aria-valuetext={`${display} of ${max} marks${marked ? "" : ", not marked yet"}`}
-        aria-haspopup="listbox"
         aria-expanded={open}
         title="Press for the mark bar, or drag along it"
         onPointerDown={onPointerDown}
@@ -243,58 +231,61 @@ export function MarkPicker({ value, max, step, marked, label, onChange }: Props)
             ref={barRef}
             className={`mark-bar ${pinned ? "is-pinned" : ""}`}
             style={{ top: anchor.top, left: anchor.left, width: anchor.width }}
-            role="listbox"
-            aria-label={`${label} marks`}
-            aria-activedescendant={`mark-option-${String(shown).replace(".", "-")}`}
           >
             <div className="mark-bar-head">
               <span className="mark-bar-value t-num">{display}</span>
               <span className="mark-bar-of t-num">/ {max}</span>
               <span className="mark-bar-hint">
-                {pinned ? "Choose a mark" : "Drag, then let go"}
+                {pinned ? "Click a mark · drag across for the halves between" : "Drag, then let go"}
               </span>
             </div>
             <div
-              ref={trackRef}
-              className="mark-bar-track"
+              ref={chipStripRef}
+              className="chip-strip"
+              role="radiogroup"
+              aria-label={`${label} marks`}
               onPointerDown={(event) => {
-                if (!pinned) return;
+                if (!pinned || event.button !== 0) return;
                 event.preventDefault();
-                setPreview(markAt(event.clientX));
+                if (!previewChipAt(event.clientX, event.clientY)) return;
                 dragRef.current = { moved: true, pointerId: event.pointerId };
                 (event.currentTarget as HTMLElement).setPointerCapture(event.pointerId);
               }}
               onPointerMove={(event) => {
                 if (!pinned || !dragRef.current) return;
-                setPreview(markAt(event.clientX));
+                previewChipAt(event.clientX, event.clientY);
               }}
-              onPointerUp={(event) => {
+              onPointerUp={() => {
                 if (!pinned) return;
                 dragRef.current = null;
-                commit(markAt(event.clientX));
+                commit(preview ?? value);
+                close();
+              }}
+              onPointerCancel={() => {
+                if (!pinned || !dragRef.current) return;
+                dragRef.current = null;
+                commit(preview ?? value);
                 close();
               }}
             >
-              <span className="mark-bar-fill" style={{ width: `${percent}%` }} />
-              {ascending.map((mark) => {
-                const whole = Number.isInteger(mark);
-                const labelled = whole && Math.round(mark) % labelEvery === 0;
-                const current = Math.abs(mark - shown) < 0.001;
+              {wholeChips.map((mark) => {
+                const exact = Math.abs(mark - shown) < 0.001;
+                const half = Math.abs(mark - 0.5 - shown) < 0.001;
+                const filled = !exact && !half && mark < shown;
                 return (
-                  <span
+                  <button
                     key={mark}
-                    id={`mark-option-${String(mark).replace(".", "-")}`}
-                    role="option"
-                    aria-selected={current}
+                    type="button"
+                    role="radio"
+                    aria-checked={exact || half}
                     aria-label={`${mark} marks`}
-                    className={`mark-tick ${whole ? "is-whole" : ""} ${labelled ? "is-labelled" : ""} ${current ? "is-current" : ""}`}
-                    style={{ left: `${(mark / max) * 100}%` }}
+                    data-mark={mark}
+                    className={`${half ? "is-half" : ""} ${filled ? "is-filled" : ""}`}
                   >
-                    {labelled && <i className="mark-tick-label t-num">{mark}</i>}
-                  </span>
+                    <span className="t-num">{mark}</span>
+                  </button>
                 );
               })}
-              <span className="mark-bar-thumb" style={{ left: `${percent}%` }} />
             </div>
           </div>,
           document.body,
