@@ -109,6 +109,34 @@ because the drag gesture covers them.
 
 ---
 
+---
+
+## One open violation, recorded so it is not re-derived
+
+Rule 7 has a sibling the app does not yet keep: **a screen should fit the
+window it is given.** The shell never quite does.
+
+Measured at 1400×900 on the landing view:
+
+| | px |
+| --- | --- |
+| Sticky header | 63 |
+| Workspace padding (24 top + 24 bottom) | 48 |
+| Stage content | 804 |
+| **Total** | **915** against a 900 viewport |
+
+So the overflow is 15px at 1400×900, 37px at 1280×800 and 69px at 1024×768.
+The page *can* be scrolled — this is not unreachable content, and an early
+sweep that called it unreachable was wrong — but a settings screen that a
+judge must scroll to see whole is the complaint that started this work.
+
+The cause is structural, not cosmetic: `.app` is `min-height: 100vh` with a
+sticky header above an intrinsically-sized stage, so the stage never learns
+that it has only 789px to live in. Fixing it means deciding who owns the
+viewport height — the shell or the Mushaf's own `.mushaf-scroll` — which is a
+design decision, not a patch. It belongs to the setup-flow work, where the
+target is: **the whole setup flow fits 1024×768 with no page scroll.**
+
 ## How to use this
 
 When proposing a screen, state which rules it keeps and which it bends, and
