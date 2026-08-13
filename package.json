@@ -10,6 +10,7 @@
     "test": "node scripts/build-question-index.mjs --check && node --test --experimental-strip-types scripts/cluster-geometry.test.mjs scripts/selection-units.test.mjs scripts/selector-layout.test.mjs scripts/selector-contract.test.mjs scripts/target-migration.test.mjs scripts/judging-ledger.test.mjs scripts/judge-assignments.test.mjs scripts/participant-roster.test.mjs scripts/final-results.test.mjs scripts/question-bank.test.mjs scripts/competition-lifecycle.test.mjs scripts/competition-workspace.test.mjs scripts/solid-mushaf.test.mjs",
     "preview": "vite preview",
     "deploy": "npm run build && wrangler deploy",
+    "versions:upload": "npm run build && wrangler versions upload",
     "data": "node scripts/build-data.mjs",
     "question-index": "node scripts/build-question-index.mjs --write"
   },
