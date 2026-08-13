@@ -2,8 +2,8 @@ import { Fragment, useMemo, useRef, useState } from "react";
 import {
   CATEGORIES,
   DEFAULT_CONFIG,
-  START_OPTIONS,
   STEP_OPTIONS,
+  startOptionsFor,
   TOTAL_MARKS,
   cloneScoreConfig,
   enabledCategories,
@@ -651,7 +651,7 @@ export function CompetitionSetup({ onBack }: { onBack: () => void }) {
                   )}
                   <select value={scoreDraft[category.id].start} disabled={!editable || !inUse} aria-label={`${category.label} marks`} onChange={(event) => setScoreDraft((current) => ({ ...current, [category.id]: { ...current[category.id], start: Number(event.target.value) } }))}>
                     {!inUse && <option value={0}>—</option>}
-                    {START_OPTIONS.map((value) => <option key={value} value={value}>{value}</option>)}
+                    {startOptionsFor(category.id).map((value) => <option key={value} value={value}>{value}</option>)}
                   </select>
                   <select value={scoreDraft[category.id].step} disabled={!editable || !inUse} aria-label={`${category.label} deduction step`} onChange={(event) => setScoreDraft((current) => ({ ...current, [category.id]: { ...current[category.id], step: Number(event.target.value) } }))}>{STEP_OPTIONS.map((value) => <option key={value} value={value}>{value}</option>)}</select>
                 </Fragment>

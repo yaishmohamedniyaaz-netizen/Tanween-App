@@ -10,7 +10,6 @@ import { Mushaf } from "./components/Mushaf";
 import { ScorePanel } from "./components/ScorePanel";
 import { MistakeLog } from "./components/MistakeLog";
 import { NotesBox } from "./components/NotesBox";
-import { ImpressionPanel } from "./components/ImpressionPanel";
 import { ResultSheet } from "./components/ResultSheet";
 import { HintBanner } from "./components/HintBanner";
 import { RecordsView } from "./components/RecordsView";
@@ -206,8 +205,10 @@ export function App() {
   const [pageLayout, setPageLayout] = useState<"full" | "split">(() =>
     localStorage.getItem(LS_PAGE_LAYOUT_KEY) === "split" ? "split" : "full",
   );
+  // The Mushaf is read right to left, so the page keeps its starting edge and
+  // the rail sits on the left unless this judge chose otherwise.
   const [judgeRailSide, setJudgeRailSide] = useState<"left" | "right">(() =>
-    localStorage.getItem(LS_JUDGE_RAIL_SIDE_KEY) === "left" ? "left" : "right",
+    localStorage.getItem(LS_JUDGE_RAIL_SIDE_KEY) === "right" ? "right" : "left",
   );
   const [page, setPage] = useState(() => {
     const saved = localStorage.getItem(LS_PAGE_KEY);
@@ -282,7 +283,6 @@ export function App() {
                 <JudgeRoleStrip onChange={() => setView("setup")} />
                 <ScorePanel />
                 <MistakeLog />
-                <ImpressionPanel />
                 <NotesBox />
                 <button
                   type="button"

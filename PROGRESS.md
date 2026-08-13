@@ -1,5 +1,29 @@
 # Tahqeeq — build progress log
 
+## Adu & Raagu marking control and left rail — IMPLEMENTED & VERIFIED (2026-08-13)
+
+- Research and the rejected candidates:
+  [`docs/ADU_RAAGU_INPUT_AND_LAYOUT_PLAN.md`](docs/ADU_RAAGU_INPUT_AND_LAYOUT_PLAN.md)
+  and the interactive study beside it.
+- Adu & Raagu now has **one place in the judging rail**: its own score row. The
+  separate marking panel is retired, so the criterion is no longer both reported
+  and controlled in two places.
+- The mark is a **vertical scrub**: press and drag up or down, 14px per step and
+  34px while Shift is held. A press without a drag opens the **full list of
+  awardable marks**, full marks first, so any mark costs one press and one click.
+- A drag previews locally and writes **one ledger event when the judge lets go**,
+  keeping the readable history readable.
+- Keyboard: arrows by one step, Shift-arrow by five, `Home` full marks, `End`
+  zero, digits to type a mark, `Enter` or `Space` for the list. The wheel adjusts
+  only while the control is focused, never on hover.
+- A whole-recitation criterion is **capped at 20 marks** in the control and in
+  setup; stored allocations above the cap are trimmed on load.
+- The **judging rail now defaults to the left**, since the Mushaf is read from
+  the right edge. Judges who already chose a side keep it.
+- Verification: 114 automated tests (6 new), production build, and browser QA of
+  the drag, the list, keyboard, focused-only wheel, the 20-mark cap and the saved
+  ledger. Browser console: no application errors.
+
 ## Adu & Raagu, and optional criteria — IMPLEMENTED & VERIFIED (2026-08-13)
 
 - Added **Adu & Raagu** (voice and melody) as a fourth scoring criterion. It is a

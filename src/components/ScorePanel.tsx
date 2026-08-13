@@ -1,8 +1,9 @@
 import { CATEGORIES, enabledCategories, isImpressionCategory } from "../config";
-import { computeScores } from "../lib/scoring";
+import { computeScores, impressionScore } from "../lib/scoring";
 import { useJudging } from "../state/store";
 import { judgeSeatFor } from "../lib/judgeAssignments";
 import type { CategoryId } from "../types";
+import { MarkPicker } from "./MarkPicker";
 
 function CategoryRow({
   id,
@@ -10,22 +11,17 @@ function CategoryRow({
   score,
   start,
   deducted,
-  pending,
 }: {
   id: CategoryId;
   label: string;
   score: number;
   start: number;
   deducted: number;
-  pending: boolean;
 }) {
   return (
-    <div className={`sc-row cat-${id} ${pending ? "is-pending" : ""}`}>
+    <div className={`sc-row cat-${id}`}>
       <span className="sc-dot" aria-hidden="true" />
-      <span className="sc-name">
-        {label}
-        {pending && <small className="sc-pending">Not marked yet</small>}
-      </span>
+      <span className="sc-name">{label}</span>
       <span className={`sc-deducted t-num ${deducted === 0 ? "is-zero" : ""}`}>
         {deducted === 0 ? "—" : `−${deducted}`}
       </span>
@@ -33,6 +29,55 @@ function CategoryRow({
         {score}
         <span className="sc-of"> / {start}</span>
       </span>
+    </div>
+  );
+}
+
+/** A criterion judged over the whole recitation is marked here, in its own score
+ *  row — the row is the control, so the criterion has one place in the rail. */
+function ImpressionRow({ category }: { category: CategoryId }) {
+  const { state, dispatch } = useJudging();
+  const config = state.activeAssignment?.config ?? state.config;
+  const { start, step } = config[category];
+  const { awarded, marked, note } = impressionScore(
+    config,
+    state.impressions,
+    category,
+  );
+  const label = CATEGORIES.find((item) => item.id === category)?.label ?? category;
+  const deducted = Math.round((start - awarded) * 100) / 100;
+
+  return (
+    <div className={`sc-row sc-row-impression cat-${category} ${marked ? "" : "is-pending"}`}>
+      <span className="sc-dot" aria-hidden="true" />
+      <span className="sc-name">
+        {label}
+        {!marked && <small className="sc-pending">Not marked yet</small>}
+      </span>
+      <span className={`sc-deducted t-num ${deducted === 0 ? "is-zero" : ""}`}>
+        {deducted === 0 ? "—" : `−${deducted}`}
+      </span>
+      <MarkPicker
+        value={awarded}
+        max={start}
+        step={step}
+        marked={marked}
+        label={label}
+        onChange={(value) => dispatch({ type: "SET_IMPRESSION", category, awarded: value })}
+      />
+      <input
+        className="sc-reason"
+        value={note}
+        placeholder={`Why these ${label} marks? (optional)`}
+        aria-label={`${label} reason`}
+        onChange={(event) =>
+          dispatch({
+            type: "SET_IMPRESSION_NOTE",
+            category,
+            note: event.target.value,
+          })
+        }
+      />
     </div>
   );
 }
@@ -56,17 +101,20 @@ export function ScorePanel() {
         </span>
       </div>
       <div className="sc-rows">
-        {CATEGORIES.filter((category) => categories.includes(category.id)).map((c) => (
-          <CategoryRow
-            key={c.id}
-            id={c.id}
-            label={c.label}
-            score={byCategory[c.id].score}
-            start={byCategory[c.id].start}
-            deducted={byCategory[c.id].deducted}
-            pending={isImpressionCategory(c.id) && !byCategory[c.id].marked}
-          />
-        ))}
+        {CATEGORIES.filter((category) => categories.includes(category.id)).map((c) =>
+          isImpressionCategory(c.id) ? (
+            <ImpressionRow key={c.id} category={c.id} />
+          ) : (
+            <CategoryRow
+              key={c.id}
+              id={c.id}
+              label={c.label}
+              score={byCategory[c.id].score}
+              start={byCategory[c.id].start}
+              deducted={byCategory[c.id].deducted}
+            />
+          ),
+        )}
       </div>
     </section>
   );

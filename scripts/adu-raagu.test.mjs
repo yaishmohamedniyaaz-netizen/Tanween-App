@@ -6,14 +6,17 @@ import {
   CATEGORY_BY_ID,
   DEFAULT_CONFIG,
   IMPRESSION_CATEGORIES,
+  MAX_IMPRESSION_MARKS,
   OPTIONAL_CATEGORIES,
   PINPOINT_CATEGORIES,
   TOTAL_MARKS,
   enabledCategories,
   enabledMarksTotal,
   normalizeScoreConfig,
+  startOptionsFor,
 } from "../src/config.ts";
 import {
+  awardableMarks,
   computeAssignedScores,
   computeCategoryScores,
   impressionScore,
@@ -39,6 +42,18 @@ const storeSource = readFileSync(
 );
 const setupSource = readFileSync(
   new URL("../src/components/CompetitionSetup.tsx", import.meta.url),
+  "utf8",
+);
+const pickerSource = readFileSync(
+  new URL("../src/components/MarkPicker.tsx", import.meta.url),
+  "utf8",
+);
+const scorePanelSource = readFileSync(
+  new URL("../src/components/ScorePanel.tsx", import.meta.url),
+  "utf8",
+);
+const appSource = readFileSync(
+  new URL("../src/App.tsx", import.meta.url),
   "utf8",
 );
 
@@ -355,4 +370,56 @@ test("setup can switch an optional criterion off and warns about the panel", () 
   assert.match(setupSource, /category\.optional \?/);
   assert.match(setupSource, /Always judged/);
   assert.match(setupSource, /rebuilds the judging panel/);
+});
+
+test("a whole-recitation criterion stops at 20 marks", () => {
+  assert.equal(MAX_IMPRESSION_MARKS, 20);
+  assert.deepEqual(startOptionsFor("adu-raagu"), [5, 10, 15, 20]);
+  assert.ok(startOptionsFor("jali").includes(50), "pinpoint criteria keep the full range");
+
+  const config = normalizeScoreConfig({
+    jali: { enabled: true, start: 50, step: 2 },
+    khafi: { enabled: true, start: 30, step: 1 },
+    fasaha: { enabled: false, start: 0, step: 1 },
+    "adu-raagu": { enabled: true, start: 40, step: 1 },
+  });
+  assert.equal(config["adu-raagu"].start, 20, "a stored allocation above the cap is trimmed");
+});
+
+test("the mark list runs from full marks down to zero", () => {
+  assert.deepEqual(awardableMarks(10, 1), [10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]);
+  assert.deepEqual(awardableMarks(2, 0.5), [2, 1.5, 1, 0.5, 0]);
+  assert.equal(awardableMarks(20, 0.5).length, 41);
+  assert.equal(awardableMarks(20, 0.5)[0], 20);
+  assert.equal(awardableMarks(20, 0.5).at(-1), 0);
+});
+
+test("the mark picker drags vertically and opens the list on a plain press", () => {
+  // Up is more marks: the reading is the distance from the press, not to it.
+  assert.match(pickerSource, /const distance = drag\.y - event\.clientY/);
+  assert.match(pickerSource, /if \(drag\.moved\) \{\s*commit\(preview \?\? value\);/);
+  assert.match(pickerSource, /setPreview\(null\);\s*setOpen\(true\);/);
+  // A drag previews locally and writes one ledger event when the judge lets go.
+  assert.match(pickerSource, /setPreview\(clamp\(drag\.from/);
+  assert.match(pickerSource, /role="listbox"/);
+  assert.match(pickerSource, /aria-haspopup="listbox"/);
+});
+
+test("the wheel never changes a mark on hover alone", () => {
+  assert.match(pickerSource, /document\.activeElement !== button \|\| open/);
+  assert.match(pickerSource, /Acting on hover alone is how people change official numbers/);
+});
+
+test("Adu and Raagu has one home in the rail, inside its score row", () => {
+  assert.match(scorePanelSource, /sc-row-impression/);
+  assert.match(scorePanelSource, /<MarkPicker/);
+  assert.match(scorePanelSource, /SET_IMPRESSION_NOTE/);
+  assert.doesNotMatch(appSource, /ImpressionPanel/);
+});
+
+test("the judging rail sits on the left unless the judge chose otherwise", () => {
+  assert.match(
+    appSource,
+    /localStorage\.getItem\(LS_JUDGE_RAIL_SIDE_KEY\) === "right" \? "right" : "left"/,
+  );
 });

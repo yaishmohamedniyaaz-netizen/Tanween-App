@@ -86,6 +86,16 @@ const DISABLED_CATEGORY: CategoryConfig = { enabled: false, start: 0, step: 1 };
 /** Allocation options — increments of 5. */
 export const START_OPTIONS = Array.from({ length: 18 }, (_, i) => (i + 1) * 5);
 
+/** A whole-recitation criterion is a minor share of the total in practice, and
+ *  its picker lists every mark, so its allocation stops at 20. */
+export const MAX_IMPRESSION_MARKS = 20;
+
+export function startOptionsFor(category: CategoryId): number[] {
+  return isImpressionCategory(category)
+    ? START_OPTIONS.filter((value) => value <= MAX_IMPRESSION_MARKS)
+    : START_OPTIONS;
+}
+
 /** Deduction step options. */
 export const STEP_OPTIONS = [0.5, 1, 2, 3, 5];
 
@@ -124,16 +134,24 @@ function normalizeCategoryConfig(
   return { enabled, start: enabled ? start : 0, step };
 }
 
+function capStart(category: CategoryId, config: CategoryConfig): CategoryConfig {
+  const cap = isImpressionCategory(category) ? MAX_IMPRESSION_MARKS : Infinity;
+  return config.start > cap ? { ...config, start: cap } : config;
+}
+
 /** Read any stored score configuration, including pre-Adu & Raagu records. */
 export function normalizeScoreConfig(value: unknown): ScoreConfig {
   const source = (value ?? {}) as Partial<Record<CategoryId, unknown>>;
   return Object.fromEntries(
     CATEGORIES.map((category) => [
       category.id,
-      normalizeCategoryConfig(
-        source[category.id],
-        DEFAULT_CONFIG[category.id],
-        category.optional,
+      capStart(
+        category.id,
+        normalizeCategoryConfig(
+          source[category.id],
+          DEFAULT_CONFIG[category.id],
+          category.optional,
+        ),
       ),
     ]),
   ) as ScoreConfig;

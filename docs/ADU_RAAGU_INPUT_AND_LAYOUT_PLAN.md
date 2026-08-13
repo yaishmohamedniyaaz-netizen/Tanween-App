@@ -1,6 +1,8 @@
 # Adu & Raagu input and judging-rail layout — research and plan
 
-Status: **proposed, awaiting decisions.** Nothing in this document is implemented yet.
+Status: **decided and implemented (2026-08-13).** The chosen control is the
+vertical scrub with a click-to-open mark list, described under "Decision" below.
+The research and the rejected candidates are kept as the record of why.
 Interactive version with live prototypes of every candidate control:
 [`adu-raagu-input-study.html`](./adu-raagu-input-study.html).
 
@@ -31,29 +33,35 @@ second action to refine it, and nothing is ever set by accident.
 
 Sources are listed in the interactive study.
 
-## Recommendation
+## Decision — vertical scrub, click for the list
 
-**The score row is the control.** Adu & Raagu keeps exactly one home in the
-rail — its row in the scorecard, beside Jalī, Khafī and Faṣāḥa. The row shows
-the mark; clicking it opens a mark scale in place; picking a number collapses it
-back. The separate impression panel is retired.
+Chosen after trying the prototypes: **candidate C, turned vertical, with the
+full mark list on a plain press.**
 
-Four ways in, all writing the same two ledger events already implemented:
+- **Press and drag up or down** on the mark to change it — up is more marks.
+  Vertical reads as "raise and lower a score" in a way horizontal does not, and
+  it reuses the press-drag-release gesture the letter tray already teaches.
+  14px of travel per step, 34px while Shift is held for fine control.
+- **Press without dragging** opens the full list of awardable marks, full marks
+  first. Picking 7 out of 20 costs one press and one click rather than 26 steps.
+- Nothing is committed until the judge lets go: a whole drag writes exactly one
+  ledger event, so the audit history stays readable.
+- **Keyboard**: arrows by one step, Shift-arrow by five, `Home` for full marks,
+  `End` for zero, digits to type a mark, `Enter` or `Space` for the list.
+- **Wheel** adjusts only when the control is already focused, never on hover.
+- **A whole-recitation criterion is capped at 20 marks**, in the judging control
+  and in setup, because that is the most this criterion is given in practice.
+  Stored allocations above the cap are trimmed on load.
 
-- **Click a mark** on the scale — the ordinary path, one action.
-- **Shift-click** for the half mark below, or **drag across** the scale and
-  release on the value, reusing the press-drag-release gesture of the letter tray.
-- **Keyboard**: arrows by one step, Shift-arrow by a whole mark, `Home` / `End`
-  for 0 and full marks, digits to type a mark. This is the ARIA slider contract,
-  so it is also the accessible path.
-- **Wheel**, only after the control is focused by click or tab — never on hover.
+**One home either way.** Adu & Raagu keeps exactly one place in the rail — its
+row in the scorecard, beside Jalī, Khafī and Faṣāḥa, with the reason note under
+it. The separate impression panel is retired. The unmarked state is unchanged: a
+row reading "Not marked yet", resolving to full marks on save, still warned about
+in the finish dialog.
 
-The unmarked state is unchanged: a dashed row reading "Not marked", resolving to
-full marks on save, still warned about in the finish dialog.
-
-When an allocation has more than 12 whole marks, the scale shows every second
-whole mark as a target and fills the gaps with Shift-click and arrows, so the row
-never becomes 41 tiny buttons.
+The rejected candidates — stepper, a row of mark buttons, a snapping track, and
+named deductions — are in the interactive study with the reasoning and the click
+costs. Named deductions remain a possible second mode; see "Still open".
 
 ## Judging rail to the left by default
 
@@ -71,18 +79,16 @@ default only, and existing choices are untouched.
 
 | Pass | Work | Touches |
 | --- | --- | --- |
-| 1 | Rail left by default. Re-check split layout, tray placement near both edges, printed sheet. | `App.tsx`, `global.css` |
-| 2 | One home, one control: retire `ImpressionPanel`, grow the scorecard row into the mark scale with click, Shift-click, drag-sweep, full keyboard and focused-only wheel; the note moves into the row. | `ScorePanel`, new `MarkScale`, `App.tsx` |
+| 1 | **Done.** Rail left by default, existing per-device choices untouched. | `App.tsx` |
+| 2 | **Done.** `ImpressionPanel` retired; the scorecard row carries the mark picker and the reason. | `ScorePanel`, `MarkPicker` |
 | 3 | Optional named-deduction mode per competition, reusing the mistake-log rendering so reasons reach the result sheet and statistics. | setup, scoring, result sheet |
 
 Pass 2 changes no stored data: `impression_changed` and
 `impression_note_changed` already carry everything, so saved records stay
 readable and no migration is needed.
 
-## Decisions needed
+## Still open
 
-1. Primary control: mark scale with scrub layered on, or another candidate after
-   trying the prototypes?
-2. Named deductions: a second mode worth building, or is picking the mark enough?
-3. Is 0.5 the real step Maldivian judges use for voice and melody, or whole marks?
-4. Wheel: enable after focus, or leave it out?
+1. Named deductions: a second mode worth building, or is picking the mark enough?
+2. Is 0.5 the real step Maldivian judges use for voice and melody, or whole marks?
+   The step is per-competition either way, so this only sets the default.

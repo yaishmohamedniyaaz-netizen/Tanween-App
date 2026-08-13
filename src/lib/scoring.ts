@@ -44,6 +44,16 @@ export function impressionScore(
   };
 }
 
+/** Every mark a judge may award for a criterion, from full marks down to zero. */
+export function awardableMarks(max: number, step: number): number[] {
+  const safeStep = step > 0 ? step : 1;
+  const marks: number[] = [];
+  for (let value = max; value > -0.0001; value -= safeStep) {
+    marks.push(round2(Math.max(0, value)));
+  }
+  return marks;
+}
+
 export function computeCategoryScores(
   config: ScoreConfig,
   mistakes: Mistake[],
