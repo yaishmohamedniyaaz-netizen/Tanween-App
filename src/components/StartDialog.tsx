@@ -13,7 +13,7 @@ import {
   questionRangeLabel,
 } from "../lib/reciterQuestions.ts";
 import {
-  assignmentLabel,
+  categoryListLabel,
   judgeDisplayName,
   makeAssignmentSnapshot,
 } from "../lib/judgeAssignments";
@@ -21,6 +21,23 @@ import {
   muqarrarLabel,
   participantCategoryLabel,
 } from "../lib/participants";
+import {
+  activeGroupFor,
+  groupRosterByDivision,
+  isWaiting,
+  matchesParticipantSearch,
+  queueOrder,
+  shouldOfferSearch,
+} from "../lib/rosterQueue.ts";
+import {
+  DRAW_BOARD_SIZE,
+  buildDeck,
+  deckExhausted,
+  deckScopeKey,
+  questionAtPosition,
+  spentPositions,
+} from "../lib/questionDeck.ts";
+import { uid } from "../lib/id";
 import { useJudging } from "../state/store";
 import type { RosterEntry } from "../types";
 import { Icon } from "./Icon";
@@ -34,15 +51,17 @@ export function StartDialog({
 }) {
   const { state, dispatch } = useJudging();
   const roster = state.roster;
-  const next = roster.find((entry) => !entry.judged);
+  const next = roster.find(isWaiting);
   const [participantId, setParticipantId] = useState(next?.id ?? "");
   const [questionId, setQuestionId] = useState("");
-  const [showRoster, setShowRoster] = useState(false);
+  const [search, setSearch] = useState("");
+  const [stage, setStage] = useState<"participant" | "draw">("participant");
   const [lookup, setLookup] = useState<QuestionIndexLookup | null>(null);
   const [questionLoadError, setQuestionLoadError] = useState(false);
 
   const liveSnapshot = state.competition.liveSnapshot;
-  const participant = roster.find((entry) => entry.id === participantId && !entry.judged) ?? next;
+  const participant =
+    roster.find((entry) => entry.id === participantId && !entry.judged) ?? next;
   const divisions = liveSnapshot?.divisions ?? state.competition.divisions;
   const division = participant ? participantDivision(participant, divisions) : undefined;
   const assignment = liveSnapshot
@@ -83,7 +102,7 @@ export function StartDialog({
   }, [dispatch, lookup, state.competition, state.questionDrafts]);
 
   useEffect(() => {
-    if (participantId && roster.some((entry) => entry.id === participantId && !entry.judged)) {
+    if (participantId && roster.some((entry) => entry.id === participantId && isWaiting(entry))) {
       return;
     }
     setParticipantId(next?.id ?? "");
@@ -113,29 +132,159 @@ export function StartDialog({
     setQuestionId("");
   }, [participant?.id]);
 
+  // Pressing a name is the whole decision: the board comes up straight away
+  // rather than making the organiser confirm a choice they just made.
   const chooseParticipant = (entry: RosterEntry) => {
     if (entry.judged) return;
+    if (entry.absent) {
+      dispatch({ type: "SET_PARTICIPANT_ABSENT", id: entry.id, absent: false });
+    }
     setParticipantId(entry.id);
     setQuestionId("");
-    setShowRoster(false);
+    setSearch("");
+    setStage("draw");
   };
 
-  const beginJudging = () => {
-    if (!participant || !division || !assignment || !liveSnapshot || !questionId) return;
-    const selectedDraft = eligibleDrafts.find((draft) => draft.id === questionId);
-    const question = questionId === "manual"
-      ? manualQuestionAssignment({ participant, division })
-      : selectedDraft
-        ? assignmentFromDraft({ participant, draft: selectedDraft })
-        : null;
+  // Pressing a number is beginning. The drawn id is passed in rather than read
+  // back from state, which has not settled yet in the same tick.
+  const startWithQuestion = (selectedQuestionId: string) => {
+    if (!participant || !division || !assignment || !liveSnapshot) return;
+    const selectedDraft = eligibleDrafts.find(
+      (draft) => draft.id === selectedQuestionId,
+    );
+    const question =
+      selectedQuestionId === "manual"
+        ? manualQuestionAssignment({ participant, division })
+        : selectedDraft
+          ? assignmentFromDraft({ participant, draft: selectedDraft })
+          : null;
     if (!question) return;
     dispatch({ type: "START_RECITER", participant, question });
     onClose();
   };
 
   const allowManual = liveSnapshot?.questionPolicy.mode === "manual";
-  const ready = Boolean(participant && division && assignment && questionId);
-  const waitingCount = roster.filter((entry) => !entry.judged).length;
+  const waitingCount = roster.filter(isWaiting).length;
+
+  // The draw board for this reciter's division and muqarrar side. Cut once,
+  // then reused for everyone in that block until the numbers run out.
+  const deckScope =
+    division && participant?.muqarrar
+      ? deckScopeKey(state.competition.id, division.id, participant.muqarrar)
+      : null;
+  const deck =
+    state.decks.find(
+      (item) =>
+        deckScopeKey(item.competitionId, item.divisionId, item.muqarrar) ===
+        deckScope,
+    ) ?? null;
+
+  const candidateIds = useMemo(
+    () => eligibleDrafts.map((draft) => draft.id),
+    [eligibleDrafts],
+  );
+
+  useEffect(() => {
+    if (!deckScope || deck || !division || !participant?.muqarrar) return;
+    if (candidateIds.length === 0) return;
+    dispatch({
+      type: "FREEZE_DECK",
+      deck: buildDeck({
+        competitionId: state.competition.id,
+        divisionId: division.id,
+        muqarrar: participant.muqarrar,
+        questionIds: candidateIds,
+        seed: uid("deck"),
+        size: DRAW_BOARD_SIZE,
+        frozenAt: Date.now(),
+      }),
+    });
+  }, [
+    candidateIds,
+    deck,
+    deckScope,
+    division,
+    dispatch,
+    participant?.muqarrar,
+    state.competition.id,
+  ]);
+
+  const spentHere = deck ? spentPositions(state.draws, deck) : new Set<number>();
+  const boardExhausted = deck ? deckExhausted(deck, state.draws) : false;
+
+  // A reciter keeps the number they drew, so reopening this dialog shows the
+  // same reveal rather than offering them a second pick.
+  const myDraw = state.draws.find(
+    (draw) =>
+      draw.scopeKey === deckScope &&
+      draw.seed === deck?.seed &&
+      draw.participantId === participant?.id,
+  );
+  const [drawnPosition, setDrawnPosition] = useState<number | null>(null);
+  useEffect(() => {
+    setDrawnPosition(myDraw?.position ?? null);
+    if (myDraw) setQuestionId(myDraw.questionId);
+  }, [myDraw?.position, myDraw?.questionId, participant?.id]);
+
+  const drawnQuestion = eligibleDrafts.find((draft) => draft.id === questionId);
+
+  const drawPosition = (position: number) => {
+    if (!deck || !participant) return;
+    const drawnId = questionAtPosition(deck, position);
+    if (!drawnId) return;
+    dispatch({
+      type: "RECORD_DRAW",
+      draw: {
+        version: 1,
+        competitionId: deck.competitionId,
+        scopeKey: deckScopeKey(deck.competitionId, deck.divisionId, deck.muqarrar),
+        seed: deck.seed,
+        position,
+        questionId: drawnId,
+        participantId: participant.id,
+        revealedAt: Date.now(),
+      },
+    });
+    setDrawnPosition(position);
+    setQuestionId(drawnId);
+    startWithQuestion(drawnId);
+  };
+
+  const rosterGroups = useMemo(
+    () => groupRosterByDivision(roster, divisions),
+    [roster, divisions],
+  );
+  const activeGroup = activeGroupFor(rosterGroups, participant?.id);
+  const offerSearch = shouldOfferSearch(roster);
+
+  // The queue lists everyone except whoever is already up — the card above
+  // covers them, and repeating the row was the clearest duplication on this
+  // screen. Groups that empty out under a search are dropped rather than left
+  // as bare headings.
+  const queueGroups = useMemo(
+    () =>
+      rosterGroups
+        .map((group) => {
+          const entries = queueOrder(
+            group.entries.filter(
+              (entry) =>
+                entry.id !== participant?.id &&
+                matchesParticipantSearch(entry, search),
+            ),
+          );
+          // Counts describe the rows under the heading, so whoever is already
+          // up is not also reported as waiting.
+          return {
+            ...group,
+            entries,
+            judged: entries.filter((entry) => entry.judged).length,
+            waiting: entries.filter(isWaiting).length,
+            absent: entries.filter((entry) => !entry.judged && entry.absent).length,
+          };
+        })
+        .filter((group) => group.entries.length > 0),
+    [rosterGroups, participant?.id, search],
+  );
 
   return (
     <div
@@ -167,19 +316,35 @@ export function StartDialog({
         <div className={`reciter-start-judge ${assignment ? "" : "is-missing"}`}>
           <span>Judging on this device</span>
           <strong>{assignment ? judgeDisplayName(assignment) : "No judge assigned"}</strong>
-          <small>{assignment ? assignmentLabel(assignment.categories) : "Choose the judge and criteria before starting."}</small>
+          <small>{assignment ? categoryListLabel(assignment.categories) : "Choose the judge and criteria before starting."}</small>
           <button type="button" className="btn-ghost" onClick={onOpenSetup}>Change</button>
         </div>
 
-        <div className="reciter-start-grid">
+        <div className="reciter-start-body">
+          {stage === "participant" ? (
           <section className="reciter-start-step" aria-labelledby="reciter-step-participant">
             <div className="reciter-step-head">
               <span>1</span>
               <div>
                 <h3 id="reciter-step-participant">Reciter</h3>
-                <p>The next waiting participant is selected automatically.</p>
+                <p>
+                  {waitingCount > 0
+                    ? `${waitingCount} still to judge · the next one is selected automatically`
+                    : "Every participant in this roster has been judged."}
+                </p>
               </div>
             </div>
+
+            {activeGroup && (
+              <p className="queue-block">
+                <span className="queue-block-name">
+                  {activeGroup.division?.name ?? "No matching division"}
+                </span>
+                <span className="queue-block-progress">
+                  {activeGroup.judged} of {activeGroup.entries.length} judged
+                </span>
+              </p>
+            )}
 
             {participant ? (
               <article className="selected-reciter-card">
@@ -193,51 +358,101 @@ export function StartDialog({
                   <div><dt>Muqarrar</dt><dd>{muqarrarLabel(participant.muqarrar)}</dd></div>
                   <div><dt>Category</dt><dd>{participantCategoryLabel(participant.category)}</dd></div>
                 </dl>
+                <button
+                  type="button"
+                  className="reciter-absent"
+                  onClick={() => {
+                    dispatch({
+                      type: "SET_PARTICIPANT_ABSENT",
+                      id: participant.id,
+                      absent: true,
+                    });
+                    setQuestionId("");
+                  }}
+                >
+                  Not here
+                </button>
               </article>
             ) : (
               <div className="reciter-start-empty">Every participant in this roster is finished.</div>
             )}
 
-            {waitingCount > 1 && (
-              <button
-                type="button"
-                className="reciter-roster-toggle"
-                aria-expanded={showRoster}
-                onClick={() => setShowRoster((current) => !current)}
-              >
+            {offerSearch && (
+              <label className="queue-search">
                 <Icon name="newUser" size={15} />
-                Choose another participant
-                <span>{waitingCount} waiting</span>
-              </button>
+                <input
+                  type="search"
+                  value={search}
+                  placeholder="Find by number, name or school"
+                  aria-label="Find a participant"
+                  onChange={(event) => setSearch(event.target.value)}
+                />
+              </label>
             )}
 
-            {showRoster && (
-              <ul className="reciter-roster-list">
-                {roster.map((entry) => (
-                  <li key={entry.id}>
-                    <button
-                      type="button"
-                      disabled={entry.judged}
-                      className={entry.id === participant?.id ? "is-selected" : ""}
-                      onClick={() => chooseParticipant(entry)}
-                    >
-                      <span>{entry.number}</span>
-                      <strong>{entry.name}</strong>
-                      <small>{entry.judged ? "Finished" : entry.ageGroup}</small>
-                      {entry.id === participant?.id && <Icon name="check" size={14} />}
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            )}
+            <div className="queue-scroll">
+              {queueGroups.length === 0 ? (
+                <p className="queue-empty">
+                  {search.trim()
+                    ? `Nobody matches “${search.trim()}”.`
+                    : "Nobody else is waiting."}
+                </p>
+              ) : (
+                queueGroups.map((group) => (
+                  <section className="queue-group" key={group.id}>
+                    <h4>
+                      <span>{group.division?.name ?? "No matching division"}</span>
+                      <small>
+                        {group.waiting > 0 ? `${group.waiting} waiting` : "None waiting"}
+                        {group.absent > 0 ? ` · ${group.absent} not here` : ""}
+                        {group.judged > 0 ? ` · ${group.judged} judged` : ""}
+                      </small>
+                    </h4>
+                    <ul>
+                      {group.entries.map((entry) => (
+                        <li key={entry.id}>
+                          <button
+                            type="button"
+                            disabled={entry.judged}
+                            onClick={() => chooseParticipant(entry)}
+                          >
+                            <span className="queue-number">{entry.number || "—"}</span>
+                            <strong>{entry.name || "Unnamed"}</strong>
+                            <small
+                              className={
+                                entry.judged
+                                  ? "is-judged"
+                                  : entry.absent
+                                    ? "is-absent"
+                                    : "is-waiting"
+                              }
+                            >
+                              {entry.judged
+                                ? "Judged"
+                                : entry.absent
+                                  ? "Not here"
+                                  : "Waiting"}
+                            </small>
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                  </section>
+                ))
+              )}
+            </div>
           </section>
-
+          ) : (
           <section className="reciter-start-step question-choice-step" aria-labelledby="reciter-step-question">
             <div className="reciter-step-head">
               <span>2</span>
               <div>
                 <h3 id="reciter-step-question">Question</h3>
-                <p>{participant?.muqarrar ? `${muqarrarLabel(participant.muqarrar)} questions only.` : "Select a participant first."}</p>
+                <p>
+                  {participant
+                    ? `${participant.number ? `${participant.number} · ` : ""}${participant.name}${participant.muqarrar ? ` · ${muqarrarLabel(participant.muqarrar)}` : ""}`
+                    : "Select a participant first."}
+                </p>
               </div>
             </div>
 
@@ -246,43 +461,68 @@ export function StartDialog({
             ) : !lookup && !questionLoadError ? (
               <div className="question-choice-state"><span className="loading-spinner" /> Checking prepared questions…</div>
             ) : (
-              <div className="question-tile-grid" role="radiogroup" aria-label="Questions for this reciter">
-                {eligibleDrafts.map((draft, index) => (
-                  <button
-                    key={draft.id}
-                    type="button"
-                    role="radio"
-                    aria-checked={questionId === draft.id}
-                    className={`reciter-question-tile ${questionId === draft.id ? "is-selected" : ""}`}
-                    onClick={() => setQuestionId(draft.id)}
-                  >
-                    <span className="question-tile-number">{String(index + 1).padStart(2, "0")}</span>
-                    <span className="question-tile-copy">
-                      <strong>{questionRangeLabel(draft)}</strong>
-                      <small>Pages {draft.startPage}{draft.endPage !== draft.startPage ? `–${draft.endPage}` : ""} · {draft.resolvedLines} lines</small>
-                      {draft.note && <em>{draft.note}</em>}
-                    </span>
-                    <span className="question-tile-check"><Icon name="check" size={13} /></span>
-                  </button>
-                ))}
+              <>
+                <div className="draw-board" role="group" aria-label="Question numbers">
+                  {deck?.tiles.map((tile) => {
+                    const spent = spentHere.has(tile.position);
+                    const mine = drawnPosition === tile.position;
+                    return (
+                      <button
+                        key={tile.position}
+                        type="button"
+                        // Nothing here names the passage. The board carries
+                        // positions only until the organiser presses one.
+                        className={`draw-tile ${mine ? "is-drawn" : ""} ${spent && !mine ? "is-spent" : ""}`}
+                        disabled={spent && !mine}
+                        aria-label={
+                          spent && !mine
+                            ? `Number ${tile.position}, already taken`
+                            : `Number ${tile.position}`
+                        }
+                        onClick={() => drawPosition(tile.position)}
+                      >
+                        {tile.position}
+                      </button>
+                    );
+                  })}
+                </div>
+
+                {drawnQuestion && (
+                  <p className="draw-revealed">
+                    <span>Number {drawnPosition}</span>
+                    <strong>{questionRangeLabel(drawnQuestion)}</strong>
+                    <small>
+                      Pages {drawnQuestion.startPage}
+                      {drawnQuestion.endPage !== drawnQuestion.startPage
+                        ? `–${drawnQuestion.endPage}`
+                        : ""}{" "}
+                      · {drawnQuestion.resolvedLines} lines
+                    </small>
+                  </p>
+                )}
+
+                {deck && boardExhausted && (
+                  <p className="question-choice-warning">
+                    Every number in this division has been drawn. Add more
+                    checked questions in setup before the next reciter.
+                  </p>
+                )}
 
                 {allowManual && (
                   <button
                     type="button"
-                    role="radio"
-                    aria-checked={questionId === "manual"}
-                    className={`reciter-question-tile is-manual ${questionId === "manual" ? "is-selected" : ""}`}
-                    onClick={() => setQuestionId("manual")}
+                    className={`draw-external ${questionId === "manual" ? "is-selected" : ""}`}
+                    onClick={() => {
+                      setQuestionId("manual");
+                      setDrawnPosition(null);
+                      startWithQuestion("manual");
+                    }}
                   >
-                    <span className="question-tile-number">M</span>
-                    <span className="question-tile-copy">
-                      <strong>External question</strong>
-                      <small>Confirm the printed question matches this division and muqarrar.</small>
-                    </span>
-                    <span className="question-tile-check"><Icon name="check" size={13} /></span>
+                    <strong>External question</strong>
+                    <small>Confirm the printed question matches this division and muqarrar.</small>
                   </button>
                 )}
-              </div>
+              </>
             )}
 
             {lookup && eligibleDrafts.length === 0 && !allowManual && (
@@ -292,16 +532,35 @@ export function StartDialog({
               <p className="reciter-test-note">This is rehearsal data. The selected question is recorded, but it is not an approved official question set.</p>
             )}
           </section>
+          )}
         </div>
 
         <footer className="reciter-start-actions">
-          <button type="button" className="btn-ghost" onClick={onOpenSetup}>View competition setup</button>
-          <div>
-            <span>{!participant ? "Choose a reciter" : !questionId ? "Choose a question to unlock judging" : `Ready · ${participant.name}`}</span>
-            <button type="button" className="btn-primary" disabled={!ready} onClick={beginJudging}>
-              Begin judging
-            </button>
-          </div>
+          {stage === "participant" ? (
+            <>
+              <button type="button" className="btn-ghost" onClick={onOpenSetup}>View competition setup</button>
+              <div>
+                <span>{participant ? participant.name : "Nobody left to judge"}</span>
+                <button
+                  type="button"
+                  className="btn-primary"
+                  disabled={!participant || !division}
+                  onClick={() => setStage("draw")}
+                >
+                  Draw question
+                </button>
+              </div>
+            </>
+          ) : (
+            <>
+              <button type="button" className="btn-ghost" onClick={() => setStage("participant")}>
+                Back to reciter
+              </button>
+              <span className="reciter-start-cue">
+                Press the number the reciter picks — judging starts straight away
+              </span>
+            </>
+          )}
         </footer>
       </div>
     </div>

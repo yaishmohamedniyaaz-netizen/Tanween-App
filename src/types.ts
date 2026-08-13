@@ -130,6 +130,24 @@ export type JudgingEvent =
   | {
       id: string;
       at: number;
+      /**
+       * The judge marked an already-marked letter under a different criterion.
+       * A letter carries one finding per judge, so this corrects the existing
+       * entry in place rather than adding a second deduction — and is recorded
+       * as the correction it is, not as a delete followed by an add.
+       */
+      type: "mistake_recategorized";
+      mistakeId: string;
+      glyph: string;
+      label: string;
+      from: CategoryId;
+      to: CategoryId;
+      fromAmount: number;
+      toAmount: number;
+    }
+  | {
+      id: string;
+      at: number;
       type: "mistake_note_changed";
       mistakeId: string;
       glyph: string;
@@ -192,6 +210,11 @@ export interface Participant {
 /** One roster entry from an uploaded participant sheet. */
 export interface RosterEntry extends Participant {
   judged: boolean;
+  /**
+   * Marked not present when their turn came. Reversible: pressing their name
+   * puts them back up, which is how a latecomer is handled.
+   */
+  absent?: boolean;
 }
 
 export type QuranPortion =
@@ -274,6 +297,43 @@ export interface ReciterQuestionAssignment {
   layoutHash?: string;
 }
 
+/** One position on a frozen draw board. */
+export interface QuestionDeckTile {
+  /** What the reciter points at. Stable for the life of the deck. */
+  position: number;
+  /** Resolved only when the organiser presses the position. */
+  questionId: string;
+}
+
+/**
+ * A frozen draw board for one division and muqarrar side. The questions are
+ * fixed when the deck is cut; only their positions are shuffled. Seed and
+ * fingerprint together let a disputed draw be reconstructed exactly.
+ */
+export interface QuestionDeck {
+  version: 1;
+  generatorVersion: number;
+  competitionId: string;
+  divisionId: string;
+  muqarrar: Exclude<MuqarrarSide, "">;
+  seed: string;
+  candidateFingerprint: string;
+  frozenAt: number;
+  tiles: QuestionDeckTile[];
+}
+
+/** A number, once pressed. Spends that position for the rest of the session. */
+export interface QuestionDrawRecord {
+  version: 1;
+  competitionId: string;
+  scopeKey: string;
+  seed: string;
+  position: number;
+  questionId: string;
+  participantId: string;
+  revealedAt: number;
+}
+
 export interface LiveCompetitionSnapshot {
   version: 1;
   /** Test competitions are permanently identifiable in every frozen record. */
@@ -347,7 +407,8 @@ export interface SavedSession {
   savedAt: number;
   startedAt?: number;
   revision?: number;
-  ledgerVersion?: 1;
+  /** 1 = original event set; 2 adds `mistake_recategorized`. */
+  ledgerVersion?: 1 | 2;
   participant: Participant;
   config: ScoreConfig;
   total: number;
@@ -371,6 +432,10 @@ export interface JudgingState {
   competition: CompetitionConfig;
   /** Device-local preparation drafts; never part of an official live snapshot. */
   questionDrafts: CompetitionQuestionDraft[];
+  /** Frozen draw boards, one per division and muqarrar side. */
+  decks: QuestionDeck[];
+  /** Every number pressed, in order. Spends a position for the session. */
+  draws: QuestionDrawRecord[];
   sampleQuestionsInitialized: boolean;
   participant: Participant;
   /** false until a reciter has been chosen via the start dialog */

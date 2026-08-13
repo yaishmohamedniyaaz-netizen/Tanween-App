@@ -16,6 +16,7 @@ import {
 import {
   MAX_JUDGE_SEATS,
   categoriesInOrder,
+  categoryListLabel,
   createPanelPreset,
   judgeSeatFor,
   shortCategoryLabel,
@@ -612,7 +613,7 @@ export function CompetitionSetup({ onBack }: { onBack: () => void }) {
               {panelForDevice.seats.map((seat) => (
                 <button key={seat.id} type="button" role="radio" disabled={state.sessionActive} aria-checked={(editable ? deviceJudgeId : state.deviceJudgeId) === seat.id} className={(editable ? deviceJudgeId : state.deviceJudgeId) === seat.id ? "is-active" : ""} onClick={() => { if (editable) setDeviceJudgeId(seat.id); else dispatch({ type: "SET_DEVICE_JUDGE", judgeSeatId: seat.id }); }}>
                   <span className="device-radio" aria-hidden="true" />
-                  <span><strong>{seat.name.trim() || seat.label}</strong><small>{categoriesInOrder(seat.categories).map(shortCategoryLabel).join(" + ") || "No category"}</small></span>
+                  <span><strong>{seat.name.trim() || seat.label}</strong><small>{categoryListLabel(seat.categories) || "No category"}</small></span>
                 </button>
               ))}
             </div>
@@ -715,8 +716,8 @@ export function CompetitionSetup({ onBack }: { onBack: () => void }) {
           <button type="button" onClick={() => setActiveTask("details")}><span>Competition</span><strong>{state.competition.name || "Not set"}</strong><small>{state.competition.edition || "Edition missing"}</small><em>Change</em></button>
           <button type="button" onClick={() => setActiveTask("divisions")}><span>Divisions</span><strong>{state.competition.divisions.length || "None"}</strong><small>{state.competition.divisions.map((division) => `${division.name || "Unnamed"} · ${portionLabel(division.quranPortion)}`).join("; ") || "Add a division"}</small><em>Change</em></button>
           <button type="button" onClick={() => setActiveTask("participants")}><span>Participants</span><strong>{state.roster.length || "None"}</strong><small>{state.roster.length ? "Validated roster loaded" : "Upload the participant roster"}</small><em>Change</em></button>
-          <button type="button" onClick={() => setActiveTask("panel")}><span>Judging panel</span><strong>{state.panel.seats.length} judge{state.panel.seats.length === 1 ? "" : "s"}</strong><small>{state.panel.seats.map((seat) => `${seat.name || seat.label}: ${categoriesInOrder(seat.categories).join(" + ")}`).join("; ")}</small><em>Change</em></button>
-          <button type="button" onClick={() => setActiveTask("marks")}><span>Marks</span><strong>{enabledMarksTotal(state.config)} / {TOTAL_MARKS}</strong><small>{judgedCategories.map(shortCategoryLabel).join(", ")}</small><em>Change</em></button>
+          <button type="button" onClick={() => setActiveTask("panel")}><span>Judging panel</span><strong>{state.panel.seats.length} judge{state.panel.seats.length === 1 ? "" : "s"}</strong><small>{state.panel.seats.map((seat) => `${seat.name || seat.label}: ${categoryListLabel(seat.categories)}`).join("; ")}</small><em>Change</em></button>
+          <button type="button" onClick={() => setActiveTask("marks")}><span>Marks</span><strong>{enabledMarksTotal(state.config)} / {TOTAL_MARKS}</strong><small>{categoryListLabel(judgedCategories)}</small><em>Change</em></button>
           <button type="button" onClick={() => setActiveTask("questions")}><span>Questions</span><strong>{state.competition.questionPolicy.mode === "manual" ? "Manual questions" : "Tahqeeq set"}</strong><small>{state.competition.questionPolicy.targetRecitationLines} lines · final line {state.competition.questionPolicy.finalPrintedLineScoring === "exclude" ? "not marked" : "marked"}</small><em>Change</em></button>
           <button type="button" onClick={() => setActiveTask("question-bank")}><span>Draft questions</span><strong>{competitionDraftCount}</strong><small>{competitionDraftCount ? "Prepared locally for later review" : "Optional during manual-question competitions"}</small><em>Open</em></button>
         </div>

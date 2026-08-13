@@ -3,6 +3,8 @@ import { readFileSync } from "node:fs";
 import test from "node:test";
 import {
   CATEGORY_ORDER,
+  assignmentLabel,
+  categoryListLabel,
   createPanelPreset,
   makeAssignmentSnapshot,
   normalizeJudgePanel,
@@ -144,7 +146,7 @@ test("the saved-state reducer independently rejects unassigned categories", () =
     "utf8",
   );
   assert.match(source, /!state\.activeAssignment\.categories\.includes\(action\.mistake\.category\)/);
-  assert.match(source, /judgeSeatId: state\.activeAssignment\.judgeSeatId/);
+  assert.match(source, /const judgeSeatId = state\.activeAssignment\.judgeSeatId/);
   assert.match(source, /backup\.pre-judge-assignments-v1/);
   assert.match(source, /if \(state\.sessionActive\) return state/);
 });
@@ -160,9 +162,11 @@ test("setup derives judge count, requires a device role, and freezes active sett
 test("participant selection shows the frozen device assignment and links to setup", () => {
   assert.match(startSource, /Judging on this device/);
   assert.match(startSource, /Prepare the next reciter/);
-  assert.match(startSource, /Choose a question to unlock judging/);
+  // Pressing a number is what starts judging — there is no separate confirm.
+  assert.match(startSource, /Press the number the reciter picks/);
+  assert.match(startSource, /startWithQuestion\(drawnId\)/);
+  assert.doesNotMatch(startSource, /Begin judging/);
   assert.match(startSource, /questionId/);
-  assert.match(startSource, /Begin judging/);
   assert.match(startSource, /onClick=\{onOpenSetup\}/);
   assert.match(startSource, /eligibleQuestionDrafts/);
   assert.match(appSource, /startOpen &&/);
@@ -176,5 +180,76 @@ test("scores stay scoped without the unwanted live wording", () => {
   assert.match(scoreSource, /categories\.includes\(category\.id\)/);
   assert.match(recordsSource, /Average score/);
   assert.match(recordsSource, /Judge-section result/);
-  assert.match(recordsSource, /assignmentLabel/);
+  assert.match(recordsSource, /categoryListLabel/);
+});
+
+test("interface labels never print a raw storage id", () => {
+  const label = categoryListLabel(["fasaha", "jali", "khafi"]);
+  assert.equal(label, "Laḥn Jalī + Laḥn Khafī + Faṣāḥa");
+  for (const id of CATEGORY_ORDER) {
+    assert.doesNotMatch(label, new RegExp(`\\b${id}\\b`));
+  }
+});
+
+test("interface labels follow the canonical category order", () => {
+  assert.equal(
+    categoryListLabel(["khafi", "jali"]),
+    categoryListLabel(["jali", "khafi"]),
+  );
+});
+
+test("an empty selection produces an empty label the caller can replace", () => {
+  assert.equal(categoryListLabel([]), "");
+});
+
+test("export labels stay plain ASCII so saved records remain comparable", () => {
+  assert.equal(
+    assignmentLabel(CATEGORY_ORDER),
+    "Jali + Khafi + Fasaha + Adu / Raagu",
+  );
+});
+
+test("the setup summary uses the interface labels, not raw ids", () => {
+  const setupSource = readFileSync(
+    new URL("../src/components/CompetitionSetup.tsx", import.meta.url),
+    "utf8",
+  );
+  assert.match(setupSource, /categoryListLabel\(seat\.categories\)/);
+  assert.doesNotMatch(
+    setupSource,
+    /categoriesInOrder\(seat\.categories\)\.join\(" \+ "\)/,
+  );
+});
+
+test("only exports keep the plain ASCII criterion spellings", () => {
+  const uiFiles = [
+    "CompetitionIdlePanel",
+    "FinishDialog",
+    "HintBanner",
+    "JudgeRoleStrip",
+    "JudgingHistory",
+    "RecordsView",
+    "ResultSheet",
+    "StartDialog",
+  ];
+  for (const name of uiFiles) {
+    const source = readFileSync(
+      new URL(`../src/components/${name}.tsx`, import.meta.url),
+      "utf8",
+    );
+    assert.doesNotMatch(
+      source,
+      /assignmentLabel/,
+      `${name} should show interface labels, not export spellings`,
+    );
+  }
+  const exportSource = readFileSync(
+    new URL("../src/lib/exportSession.ts", import.meta.url),
+    "utf8",
+  );
+  assert.match(
+    exportSource,
+    /assignmentLabel/,
+    "exports must keep the ASCII spellings so saved records stay comparable",
+  );
 });

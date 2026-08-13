@@ -1,5 +1,5 @@
 import {
-  assignmentLabel,
+  categoryListLabel,
   judgeDisplayName,
   makeAssignmentSnapshot,
 } from "../lib/judgeAssignments";
@@ -17,7 +17,7 @@ export function JudgeRoleStrip({ onChange }: { onChange: () => void }) {
       <span className="judge-role-main">
         <strong>{judgeDisplayName(assignment)}</strong>
         <span aria-hidden="true">·</span>
-        <span>{assignmentLabel(assignment.categories)}</span>
+        <span>{categoryListLabel(assignment.categories)}</span>
       </span>
       <span className="judge-role-colors" aria-hidden="true">
         {assignment.categories.map((category) => (

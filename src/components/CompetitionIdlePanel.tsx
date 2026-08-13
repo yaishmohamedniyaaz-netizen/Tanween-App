@@ -1,4 +1,4 @@
-import { assignmentLabel, judgeDisplayName, makeAssignmentSnapshot } from "../lib/judgeAssignments";
+import { categoryListLabel, judgeDisplayName, makeAssignmentSnapshot } from "../lib/judgeAssignments";
 import { useJudging } from "../state/store";
 import { Icon } from "./Icon";
 
@@ -37,7 +37,7 @@ export function CompetitionIdlePanel({
           <div className="competition-idle-role">
             <span>This device</span>
             <strong>{judgeDisplayName(assignment)}</strong>
-            <small>{assignmentLabel(assignment.categories)}</small>
+            <small>{categoryListLabel(assignment.categories)}</small>
           </div>
         )}
         <div className="competition-idle-progress">

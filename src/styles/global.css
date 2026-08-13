@@ -19,12 +19,15 @@
 
 /* ---- Tokens ---- */
 :root {
-  --bg: #f2f1ee;
+  --bg: #f5eddc;
   --surface: #ffffff;
-  --page-paper: #fbfaf7;
+  --page-paper: #fdfaf1;
   --ink: #1a1a1c;
   --ink-2: #62626a;
-  --ink-3: #9b9ba3;
+  /* 5.35:1 on --surface and 4.74:1 on --bg. The previous #9b9ba3 measured
+     2.76:1 and 2.44:1, roughly half the contrast WCAG AA asks of body text,
+     and it carries most of the secondary text in the app. */
+  --ink-3: #6a6a73;
   --line: rgba(26, 26, 28, 0.08);
   --line-2: rgba(26, 26, 28, 0.16);
   --ring: rgba(85, 102, 230, 0.35);
@@ -39,6 +42,29 @@
   --r-md: 12px;
   --r-lg: 20px;
 
+  /* Type scale. Whole pixels only — the half-pixel sizes this replaces came
+     from nudging individual screens until they looked right, which is why no
+     two of them agree. --t-micro is the smallest size permitted anywhere;
+     anything a judge reads mid-recitation starts at --t-small. */
+  --t-micro: 12px;
+  --t-small: 14px;
+  --t-body: 15px;
+  --t-lead: 17px;
+  --t-title: 21px;
+  --t-display: 27px;
+
+  /* Space, on the 4px grid this file already declares. */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 24px;
+  --sp-6: 32px;
+  --sp-7: 48px;
+
+  /* Minimum hit area for a control pressed during a live recitation. */
+  --tap: 44px;
+
   --shadow-rest: 0 1px 2px rgba(26, 26, 28, 0.05);
   --shadow-float: 0 12px 32px rgba(26, 26, 28, 0.14), 0 2px 8px rgba(26, 26, 28, 0.08);
   --selector-filter: drop-shadow(0 12px 24px rgba(26, 26, 28, 0.14))
@@ -51,12 +77,13 @@
 }
 
 [data-theme="dark"] {
-  --bg: #131316;
-  --surface: #1c1c20;
-  --page-paper: #211f1c;
+  --bg: #17140f;
+  --surface: #221e18;
+  --page-paper: #241f18;
   --ink: #ebebed;
   --ink-2: #a4a4ac;
-  --ink-3: #6f6f77;
+  /* 5.03:1 on --surface, 5.50:1 on --bg; the previous #6f6f77 sat at 3.41:1. */
+  --ink-3: #8b8b95;
   --line: rgba(255, 255, 255, 0.08);
   --line-2: rgba(255, 255, 255, 0.16);
   --ring: rgba(120, 135, 255, 0.45);
@@ -3581,12 +3608,9 @@ textarea:focus-visible {
 .reciter-start-judge.is-missing {
   background: color-mix(in srgb, #d8453d 5%, var(--bg));
 }
-.reciter-start-grid {
-  display: grid;
-  grid-template-columns: minmax(280px, 0.85fr) minmax(420px, 1.35fr);
+.reciter-start-body {
+  display: block;
   min-height: 420px;
-  max-height: min(636px, calc(100vh - 256px));
-  overflow-y: auto;
 }
 .reciter-start-step {
   min-width: 0;
@@ -3611,18 +3635,18 @@ textarea:focus-visible {
   border: 1px solid var(--line-2);
   border-radius: 7px;
   color: var(--ink-2);
-  font-size: 10px;
+  font-size: var(--t-micro);
   font-weight: 650;
 }
 .reciter-step-head h3 {
   margin: 0;
-  font-size: 14px;
+  font-size: var(--t-small);
   font-weight: 620;
 }
 .reciter-step-head p {
   margin: 3px 0 0;
-  color: var(--ink-3);
-  font-size: 10.5px;
+  color: var(--ink-2);
+  font-size: var(--t-micro);
   line-height: 1.4;
 }
 .selected-reciter-card {
@@ -3638,9 +3662,11 @@ textarea:focus-visible {
   padding: 4px 7px;
   border-radius: 6px;
   background: var(--bg);
-  color: var(--ink-3);
-  font-size: 10px;
+  color: var(--ink-2);
+  font-size: var(--t-micro);
+  font-weight: 600;
   font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
 }
 .selected-reciter-main {
   display: grid;
@@ -3648,13 +3674,13 @@ textarea:focus-visible {
   margin: 14px 0 17px;
 }
 .selected-reciter-main strong {
-  font-size: 19px;
+  font-size: var(--t-title);
   font-weight: 570;
   letter-spacing: -0.025em;
 }
 .selected-reciter-main span {
-  color: var(--ink-3);
-  font-size: 11px;
+  color: var(--ink-2);
+  font-size: var(--t-micro);
 }
 .selected-reciter-card dl {
   display: grid;
@@ -3665,84 +3691,297 @@ textarea:focus-visible {
 }
 .selected-reciter-card dl > div {
   display: grid;
-  grid-template-columns: 64px minmax(0, 1fr);
-  gap: 8px;
-  font-size: 10.5px;
+  grid-template-columns: 72px minmax(0, 1fr);
+  gap: var(--sp-2);
+  font-size: var(--t-micro);
 }
 .selected-reciter-card dt {
-  color: var(--ink-3);
+  color: var(--ink-2);
 }
 .selected-reciter-card dd {
   margin: 0;
   color: var(--ink-2);
   text-align: right;
 }
-.reciter-roster-toggle {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto;
-  align-items: center;
-  gap: 8px;
-  width: 100%;
-  min-height: 40px;
-  margin-top: 10px;
-  padding: 0 11px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
+/* Participant queue — a running order, not a flat list. Sizes come from the
+   type scale; rows meet the 44px target because they are pressed between
+   reciters with a hall waiting. */
+/* The one control for somebody who did not come. It lives on the card
+   because that is where the organiser is already looking when they find out —
+   not on every row, which would be a hundred buttons nobody reads. */
+.reciter-absent {
+  justify-self: start;
+  min-height: var(--tap);
+  margin-top: var(--sp-3);
+  padding: 0 var(--sp-4);
+  border: 1px solid var(--line-2);
+  border-radius: var(--r-sm);
   background: transparent;
   color: var(--ink-2);
-  text-align: left;
-  font-size: 11px;
+  font-family: var(--ui);
+  font-size: var(--t-small);
+  cursor: pointer;
 }
-.reciter-roster-toggle:hover {
-  border-color: var(--line-2);
-  background: var(--bg);
+.reciter-absent:hover {
+  border-color: var(--ink-3);
+  color: var(--ink);
 }
-.reciter-roster-toggle > span {
+.reciter-absent:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--ring);
+}
+.queue-group button small.is-absent {
+  color: var(--ink-2);
+  font-style: italic;
+}
+
+.queue-block {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  margin: 0 0 var(--sp-3);
+  padding-bottom: var(--sp-2);
+  border-bottom: 1px solid var(--line);
+}
+.queue-block-name {
+  color: var(--ink);
+  font-size: var(--t-small);
+  font-weight: 600;
+}
+.queue-block-progress {
   color: var(--ink-3);
-  font-size: 9.5px;
+  font-size: var(--t-micro);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }
-.reciter-roster-list {
+.queue-search {
   display: grid;
-  gap: 4px;
-  max-height: 190px;
-  margin: 9px 0 0;
-  padding: 0;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: var(--sp-2);
+  min-height: var(--tap);
+  margin-top: var(--sp-3);
+  padding: 0 var(--sp-3);
+  border: 1px solid var(--line-2);
+  border-radius: var(--r-sm);
+  background: var(--surface);
+  color: var(--ink-3);
+}
+.queue-search:focus-within {
+  border-color: var(--line-2);
+  box-shadow: 0 0 0 3px var(--ring);
+}
+.queue-search input {
+  min-width: 0;
+  border: 0;
+  background: none;
+  color: var(--ink);
+  font-family: var(--ui);
+  font-size: var(--t-small);
+}
+.queue-search input:focus {
+  outline: none;
+}
+.queue-scroll {
+  max-height: 274px;
+  margin-top: var(--sp-3);
   overflow-y: auto;
+  /* Fades the cut edge so a queue that continues past the fold says so. */
+  mask-image: linear-gradient(to bottom, #000 calc(100% - 20px), transparent);
+}
+.queue-group + .queue-group {
+  margin-top: var(--sp-4);
+}
+.queue-group h4 {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  margin: 0 0 var(--sp-2);
+  padding: 0 var(--sp-2);
+  color: var(--ink-2);
+  font-size: var(--t-micro);
+  font-weight: 600;
+}
+.queue-group h4 small {
+  color: var(--ink-3);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.queue-group ul {
+  display: grid;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
   list-style: none;
 }
-.reciter-roster-list button {
+.queue-group button {
   display: grid;
-  grid-template-columns: 38px minmax(0, 1fr) auto 16px;
+  grid-template-columns: 46px minmax(0, 1fr) auto;
   align-items: center;
-  gap: 8px;
+  gap: var(--sp-3);
   width: 100%;
-  min-height: 40px;
-  padding: 6px 9px;
+  min-height: var(--tap);
+  padding: 0 var(--sp-2);
   border: 1px solid transparent;
-  border-radius: 7px;
+  border-radius: var(--r-sm);
   background: transparent;
+  color: var(--ink);
   text-align: left;
+  cursor: pointer;
 }
-.reciter-roster-list button:hover:not(:disabled),
-.reciter-roster-list button.is-selected {
+.queue-group button:hover:not(:disabled) {
   border-color: var(--line);
   background: var(--bg);
 }
-.reciter-roster-list button:disabled {
-  opacity: 0.45;
+.queue-group button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--ring);
 }
-.reciter-roster-list span,
-.reciter-roster-list small {
-  color: var(--ink-3);
-  font-size: 9.5px;
+.queue-group button:disabled {
+  cursor: default;
 }
-.reciter-roster-list strong {
+.queue-number {
+  color: var(--ink-2);
+  font-size: var(--t-micro);
+  font-variant-numeric: tabular-nums;
+}
+.queue-group button strong {
   overflow: hidden;
-  font-size: 11px;
+  font-size: var(--t-small);
   font-weight: 550;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+.queue-group button small {
+  font-size: var(--t-micro);
+  white-space: nowrap;
+}
+/* State is carried by the word as well as the colour, so it survives a
+   colour-blind reader and a washed-out projector alike. */
+.queue-group button small.is-waiting {
+  color: var(--ink-2);
+}
+.queue-group button small.is-judged {
+  color: var(--ink-3);
+}
+.queue-group button:disabled strong,
+.queue-group button:disabled .queue-number {
+  color: var(--ink-3);
+}
+.queue-empty {
+  margin: var(--sp-4) 0 0;
+  color: var(--ink-2);
+  font-size: var(--t-small);
+}
+
+/* Draw board — the screen gets turned round to the reciter, so numbers are
+   sized to be read across a table rather than at arm's length. */
+.reciter-start-cue {
+  color: var(--ink-2);
+  font-size: var(--t-micro);
+  text-align: right;
+}
+
+.draw-board {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: var(--sp-3);
+  max-width: 640px;
+  margin: 0 auto;
+}
+.draw-tile {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+  min-height: var(--tap);
+  border: 1px solid var(--line-2);
+  border-radius: var(--r-md);
+  background: var(--surface);
+  color: var(--ink);
+  font-family: var(--ui);
+  font-size: clamp(22px, 3.4vw, 34px);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+  transition: border-color 120ms ease, transform 120ms ease;
+}
+.draw-tile:hover:not(:disabled) {
+  border-color: var(--ink-3);
+}
+.draw-tile:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--ring);
+}
+.draw-tile:active:not(:disabled) {
+  transform: scale(0.97);
+}
+/* A spent number stays in place rather than vanishing: the board must not
+   reflow between reciters, and the hall should see what has gone. */
+.draw-tile.is-spent {
+  border-style: dashed;
+  background: transparent;
+  color: var(--ink-3);
+  cursor: default;
+}
+.draw-tile.is-drawn {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: var(--surface);
+}
+.draw-revealed {
+  display: grid;
+  gap: 2px;
+  max-width: 640px;
+  margin: var(--sp-5) auto 0;
+  padding: var(--sp-3) var(--sp-4);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--surface);
+}
+.draw-revealed > span {
+  color: var(--ink-3);
+  font-size: var(--t-micro);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.draw-revealed > strong {
+  font-size: var(--t-body);
+  font-variant-numeric: tabular-nums;
+}
+.draw-revealed > small {
+  color: var(--ink-2);
+  font-size: var(--t-micro);
+}
+.draw-external {
+  display: grid;
+  gap: 2px;
+  width: 100%;
+  max-width: 640px;
+  margin: var(--sp-3) auto 0;
+  padding: var(--sp-3) var(--sp-4);
+  border: 1px dashed var(--line-2);
+  border-radius: var(--r-md);
+  background: transparent;
+  color: var(--ink);
+  text-align: left;
+  cursor: pointer;
+}
+.draw-external:hover { border-color: var(--ink-3); }
+.draw-external.is-selected {
+  border-style: solid;
+  border-color: var(--ink);
+  background: var(--bg);
+}
+.draw-external strong { font-size: var(--t-small); }
+.draw-external small { color: var(--ink-2); font-size: var(--t-micro); }
+
+@media (max-width: 720px) {
+  .draw-board { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
 .question-choice-step {
   background: color-mix(in srgb, var(--bg) 44%, var(--surface));
 }
@@ -3916,8 +4155,7 @@ textarea:focus-visible {
     grid-column: 2;
     grid-row: 1 / 3;
   }
-  .reciter-start-grid {
-    display: block;
+  .reciter-start-body {
     max-height: none;
     overflow: visible;
   }

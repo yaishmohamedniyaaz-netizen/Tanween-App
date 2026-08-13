@@ -8,7 +8,7 @@ import { computeScores } from "../lib/scoring";
 import surahData from "../data/surahs.json";
 import { useJudging } from "../state/store";
 import type { Mistake } from "../types";
-import { assignmentLabel, judgeDisplayName } from "../lib/judgeAssignments";
+import { categoryListLabel, judgeDisplayName } from "../lib/judgeAssignments";
 import { muqarrarLabel, participantCategoryLabel } from "../lib/participants";
 
 /** Print-only summary — the transparent record of a reciter's session.
@@ -98,7 +98,7 @@ export function ResultSheet() {
               <th>Judge</th>
               <td>{judgeDisplayName(assignment)}</td>
               <th>Assigned</th>
-              <td colSpan={3}>{assignmentLabel(assignment.categories)}</td>
+              <td colSpan={3}>{categoryListLabel(assignment.categories)}</td>
             </tr>
           )}
         </tbody>

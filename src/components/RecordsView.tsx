@@ -7,7 +7,11 @@ import { Icon } from "./Icon";
 import { JudgingHistory } from "./JudgingHistory";
 import { ReopenSessionDialog } from "./ReopenSessionDialog";
 import type { SavedSession } from "../types";
-import { assignmentLabel, judgeDisplayName } from "../lib/judgeAssignments";
+import {
+  CATEGORY_ORDER,
+  categoryListLabel,
+  judgeDisplayName,
+} from "../lib/judgeAssignments";
 import { participantCategoryLabel } from "../lib/participants";
 import type { ParticipantCategory } from "../types";
 import {
@@ -63,7 +67,7 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
     const values = new Map<string, string>();
     state.history.forEach((session) => {
       const categories = session.assignment?.categories ?? [];
-      if (categories.length) values.set(categories.join("+"), assignmentLabel(categories));
+      if (categories.length) values.set(categories.join("+"), categoryListLabel(categories));
     });
     return [...values.entries()];
   }, [state.history]);
@@ -320,7 +324,7 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
               <strong>{importPreview.session.participant.name}</strong>
               <small>
                 {importPreview.session.participant.number} · {importPreview.session.assignment
-                  ? assignmentLabel(importPreview.session.assignment.categories)
+                  ? categoryListLabel(importPreview.session.assignment.categories)
                   : "Judge section"}
               </small>
             </span>
@@ -386,7 +390,7 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
                   <div className="session-drill">
                     <div className="session-assignment">
                       <strong>{s.assignment ? judgeDisplayName(s.assignment) : "Judge 1"}</strong>
-                      <span>{s.assignment ? assignmentLabel(s.assignment.categories) : "Jali + Khafi + Fasaha"}</span>
+                      <span>{categoryListLabel(s.assignment?.categories ?? CATEGORY_ORDER)}</span>
                       <small>Judge-section result · {s.total}/{s.totalMax}</small>
                     </div>
                     {s.mistakes.length === 0 ? (

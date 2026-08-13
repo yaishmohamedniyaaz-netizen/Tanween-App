@@ -230,3 +230,14 @@ export function shortCategoryLabel(category: CategoryId): string {
 export function assignmentLabel(categories: CategoryId[]): string {
   return categoriesInOrder(categories).map(shortCategoryLabel).join(" + ");
 }
+
+/**
+ * Criterion names for the interface, taken from the single definition in
+ * `CATEGORY_BY_ID` so every screen reads the same. Nothing on screen should
+ * ever print a raw storage id such as `jali`.
+ */
+export function categoryListLabel(categories: CategoryId[]): string {
+  return categoriesInOrder(categories)
+    .map((category) => CATEGORY_BY_ID[category]?.label ?? shortCategoryLabel(category))
+    .join(" + ");
+}

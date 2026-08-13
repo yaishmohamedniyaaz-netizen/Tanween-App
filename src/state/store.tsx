@@ -57,6 +57,7 @@ import {
   createSampleRoster,
 } from "../lib/sampleCompetition";
 import { normalizeQuestionDrafts } from "../lib/questionDrafts";
+import { deckScopeKey } from "../lib/questionDeck";
 import {
   normalizeQuestionAssignment,
   questionAssignmentIsValid,
@@ -78,6 +79,8 @@ import type {
   JudgingState,
   Mistake,
   Participant,
+  QuestionDeck,
+  QuestionDrawRecord,
   ReciterQuestionAssignment,
   RosterEntry,
   SavedSession,
@@ -86,6 +89,8 @@ import type {
 const initialState: JudgingState = {
   competition: createSampleCompetition(),
   questionDrafts: [],
+  decks: [],
+  draws: [],
   sampleQuestionsInitialized: false,
   participant: { ...EMPTY_PARTICIPANT },
   sessionActive: false,
@@ -170,6 +175,7 @@ type Action =
   | { type: "LOAD_ROSTER"; entries: RosterEntry[] }
   | { type: "IMPORT_SESSION"; session: SavedSession }
   | { type: "UPSERT_FINAL_RESULT"; result: FinalizedResult }
+  | { type: "SET_PARTICIPANT_ABSENT"; id: string; absent: boolean }
   | { type: "CLEAR_ROSTER" }
   | {
       type: "START_RECITER";
@@ -178,6 +184,8 @@ type Action =
     }
   | { type: "FINISH_SESSION" }
   | { type: "REOPEN_SESSION"; id: string; reason: string }
+  | { type: "FREEZE_DECK"; deck: QuestionDeck }
+  | { type: "RECORD_DRAW"; draw: QuestionDrawRecord }
   | { type: "APPLY_TARGET_MIGRATION"; patches: TargetMigrationPatches }
   | { type: "LOAD"; state: JudgingState };
 
@@ -255,34 +263,43 @@ function reducer(state: JudgingState, action: Action): JudgingState {
       ) {
         return state;
       }
-      const mistake: Mistake = {
-        ...action.mistake,
-        judgeSeatId: state.activeAssignment.judgeSeatId,
-      };
-      // One letter carries one mark. Marking a letter that already has one
-      // replaces it: the earlier mark is undone, so it leaves the score but
-      // stays in the history where it can still be restored.
-      const previous = state.mistakes.find((item) => item.tid === mistake.tid);
-      if (previous && previous.category === mistake.category) return state;
-      const at = Date.now();
-      const events: JudgingEvent[] = previous
-        ? [
-            {
-              id: uid("e"),
-              at,
-              type: "mistake_undone",
-              mistake: { ...previous },
-            },
-            { id: uid("e"), at: at + 1, type: "mistake_added", mistake },
-          ]
-        : [{ id: uid("e"), at, type: "mistake_added", mistake }];
-      const allEvents = [...state.events, ...events];
-      return {
-        ...state,
-        events: allEvents,
-        mistakes: projectMistakes(allEvents),
-        impressions: projectImpressions(allEvents),
-      };
+      const judgeSeatId = state.activeAssignment.judgeSeatId;
+      // A letter carries one finding per judge. Marking an already-marked
+      // letter corrects it instead of stacking a second deduction, because
+      // picking the wrong criterion is an ordinary slip mid-recitation.
+      // Scoped to the seat: with one judge per criterion, two judges marking
+      // the same letter are two findings, not a correction.
+      const existing = state.mistakes.find(
+        (item) =>
+          item.tid === action.mistake.tid &&
+          (item.judgeSeatId ?? judgeSeatId) === judgeSeatId,
+      );
+      if (existing) {
+        // Re-marking under the same criterion changes nothing, so a double
+        // press cannot deduct twice. Any amount the judge set by hand stands.
+        if (existing.category === action.mistake.category) return state;
+        return withEvent(state, {
+          id: uid("e"),
+          at: Date.now(),
+          type: "mistake_recategorized",
+          mistakeId: existing.id,
+          glyph: existing.glyph,
+          label: existing.label,
+          from: existing.category,
+          to: action.mistake.category,
+          fromAmount: existing.amount,
+          toAmount: action.mistake.amount,
+        });
+      }
+      return withEvent(state, {
+        id: uid("e"),
+        at: Date.now(),
+        type: "mistake_added",
+        mistake: {
+          ...action.mistake,
+          judgeSeatId,
+        },
+      });
     }
     case "REMOVE_MISTAKE": {
       const mistake = state.mistakes.find((item) => item.id === action.id);
@@ -570,6 +587,8 @@ function reducer(state: JudgingState, action: Action): JudgingState {
         ...state,
         competition: createSampleCompetition(),
         questionDrafts: state.questionDrafts.filter((draft) => !draft.isSample),
+        decks: [],
+        draws: [],
         sampleQuestionsInitialized: false,
         participant: { ...EMPTY_PARTICIPANT },
         config: cloneScoreConfig(DEFAULT_CONFIG),
@@ -605,9 +624,44 @@ function reducer(state: JudgingState, action: Action): JudgingState {
             }
           : {}),
         questionDrafts: state.questionDrafts.filter((draft) => !draft.isSample),
+        decks: state.decks.filter((deck) => deck.competitionId !== state.competition.id),
+        draws: state.draws.filter((draw) => draw.competitionId !== state.competition.id),
         sampleQuestionsInitialized: true,
         history: state.history.filter((session) => !session.isSample),
         finalizedResults: state.finalizedResults.filter((result) => !result.isSample),
+      };
+    case "FREEZE_DECK": {
+      // Cutting a board is once per scope. A second freeze for the same
+      // division and side would change what an unrevealed number means, so an
+      // existing deck always wins.
+      const key = deckScopeKey(
+        action.deck.competitionId,
+        action.deck.divisionId,
+        action.deck.muqarrar,
+      );
+      const exists = state.decks.some(
+        (deck) =>
+          deckScopeKey(deck.competitionId, deck.divisionId, deck.muqarrar) === key,
+      );
+      if (exists) return state;
+      return { ...state, decks: [...state.decks, action.deck] };
+    }
+    case "RECORD_DRAW": {
+      const already = state.draws.some(
+        (draw) =>
+          draw.scopeKey === action.draw.scopeKey &&
+          draw.seed === action.draw.seed &&
+          draw.position === action.draw.position,
+      );
+      if (already) return state;
+      return { ...state, draws: [...state.draws, action.draw] };
+    }
+    case "SET_PARTICIPANT_ABSENT":
+      return {
+        ...state,
+        roster: state.roster.map((entry) =>
+          entry.id === action.id ? { ...entry, absent: action.absent } : entry,
+        ),
       };
     case "SET_NOTES":
       return { ...state, notes: action.notes };
@@ -1133,6 +1187,8 @@ export function normalizeLedgerState(
     ...parsed,
     competition,
     questionDrafts: normalizeQuestionDrafts(parsed.questionDrafts),
+    decks: Array.isArray(parsed.decks) ? parsed.decks : [],
+    draws: Array.isArray(parsed.draws) ? parsed.draws : [],
     sampleQuestionsInitialized:
       typeof parsed.sampleQuestionsInitialized === "boolean"
         ? parsed.sampleQuestionsInitialized

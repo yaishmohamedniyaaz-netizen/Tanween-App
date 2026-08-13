@@ -459,9 +459,9 @@ test("marking a letter twice replaces the mark instead of stacking one", () => {
   // The replaced mark stays in the history and can be restored from it.
   assert.equal(latestMistakeEventIds(events).get(jali.id), "e2");
 
-  assert.match(storeSource, /One letter carries one mark/);
-  assert.match(storeSource, /state\.mistakes\.find\(\(item\) => item\.tid === mistake\.tid\)/);
-  assert.match(storeSource, /if \(previous && previous\.category === mistake\.category\) return state;/);
+  assert.match(storeSource, /A letter carries one finding per judge/);
+  assert.match(storeSource, /item\.tid === action\.mistake\.tid/);
+  assert.match(storeSource, /existing\.category === action\.mistake\.category/);
 });
 
 test("mistake details name the kalimah and where it sits", () => {

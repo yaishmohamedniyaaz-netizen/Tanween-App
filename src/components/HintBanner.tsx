@@ -1,39 +1,51 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { isPinpointCategory } from "../config";
+import { categoryListLabel, makeAssignmentSnapshot } from "../lib/judgeAssignments";
 import { useJudging } from "../state/store";
 import { Icon } from "./Icon";
-import {
-  assignmentLabel,
-  makeAssignmentSnapshot,
-} from "../lib/judgeAssignments";
 
 const KEY = "tahqeeq.hintSeen.assignedRail.v1";
 
-/** A subtle, dismissible coach tip for the connected letter-to-category path.
- *  Shows only on a clean slate (no marks yet) until dismissed once. */
+function hintRetired(): boolean {
+  try {
+    return localStorage.getItem(KEY) === "1";
+  } catch {
+    return false;
+  }
+}
+
+function retireHint(): void {
+  try {
+    localStorage.setItem(KEY, "1");
+  } catch {
+    /* Storage may be unavailable in a private or restricted browser context. */
+  }
+}
+
+/** A subtle, dismissible coach tip for the connected letter-to-category path. */
 export function HintBanner() {
   const { state } = useJudging();
-  const [dismissed, setDismissed] = useState(() => {
-    try {
-      return localStorage.getItem(KEY) === "1";
-    } catch {
-      return false;
-    }
-  });
+  const [hidden, setHidden] = useState(hintRetired);
+  const hasMarks = state.mistakes.length > 0;
+  const sessionId = state.activeSessionId;
+
+  // Retire the tip after the first successful mark, but keep its current
+  // space until the reciter changes. Removing it mid-gesture would pull the
+  // Mushaf upward and move the remaining letters beneath the judge's hand.
+  useEffect(() => {
+    if (hasMarks) retireHint();
+  }, [hasMarks]);
+
+  useEffect(() => {
+    setHidden(hintRetired());
+  }, [sessionId]);
+
   const assignment =
     state.activeAssignment ??
     makeAssignmentSnapshot(state.panel, state.deviceJudgeId, state.config);
-  // The tray only ever offers pinpoint criteria.
   const categories = (assignment?.categories ?? []).filter(isPinpointCategory);
 
-  if (
-    !state.sessionActive ||
-    dismissed ||
-    categories.length === 0 ||
-    state.mistakes.length > 0
-  ) {
-    return null;
-  }
+  if (!state.sessionActive || hidden || categories.length === 0) return null;
 
   return (
     <div className="hint-banner" role="note">
@@ -44,13 +56,12 @@ export function HintBanner() {
         {categories.length === 1 ? (
           <>
             <strong>Hold a word</strong>, slide to the exact letter and release
-            to mark {assignmentLabel(categories)} — or tap the letter and confirm.
+            to mark {categoryListLabel(categories)} — or tap the letter and confirm.
           </>
         ) : (
           <>
             <strong>Hold a word</strong>, choose the exact letter, then slide to
-            {categories.length ? ` ${assignmentLabel(categories)}` : " the mistake type"}
-            {" "}and release — or tap each step.
+            {` ${categoryListLabel(categories)}`} and release — or tap each step.
           </>
         )}
       </span>
@@ -58,12 +69,8 @@ export function HintBanner() {
         type="button"
         className="btn-ghost hint-banner-dismiss"
         onClick={() => {
-          setDismissed(true);
-          try {
-            localStorage.setItem(KEY, "1");
-          } catch {
-            /* ignore */
-          }
+          setHidden(true);
+          retireHint();
         }}
       >
         Got it

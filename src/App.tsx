@@ -19,6 +19,7 @@ import { CompetitionIdlePanel } from "./components/CompetitionIdlePanel";
 import { FinishDialog } from "./components/FinishDialog";
 import { JudgeRoleStrip } from "./components/JudgeRoleStrip";
 import { useJudging } from "./state/store";
+import { questionOpeningKey, questionOpeningPage } from "./lib/questionPage";
 import surahIndex from "./data/surah-index.json";
 
 const LS_PAGE_KEY = "tahqeeq:lastPage";
@@ -28,6 +29,9 @@ const LS_PAGE_KEY = "tahqeeq:lastPage";
 const LS_PAGE_ZOOM_KEY = "tahqeeq:pageZoom.v2";
 const LS_PAGE_LAYOUT_KEY = "tahqeeq:pageLayout";
 const LS_JUDGE_RAIL_SIDE_KEY = "tahqeeq:judgeRailSide";
+// Records the session and question the Mushaf was last opened for, so the
+// opening page is restored once per reciter rather than on every render.
+const LS_QUESTION_PAGE_KEY = "tahqeeq:questionOpenedFor";
 
 function PageNav({
   page,
@@ -222,6 +226,25 @@ export function App() {
   useEffect(() => {
     localStorage.setItem(LS_PAGE_KEY, String(page));
   }, [page]);
+
+  // Open the Mushaf on the page the reciter's question actually starts on.
+  // This runs once per session and question: the judge navigates freely
+  // afterwards, and a refresh mid-recitation must not drag the page back to
+  // the opening one. Manual questions carry no page and only mark the pairing
+  // as handled.
+  const openedForKey = questionOpeningKey(
+    state.activeSessionId,
+    state.activeQuestion,
+  );
+  const openingPage = questionOpeningPage(state.activeQuestion);
+
+  useEffect(() => {
+    if (!openedForKey) return;
+    if (localStorage.getItem(LS_QUESTION_PAGE_KEY) === openedForKey) return;
+    localStorage.setItem(LS_QUESTION_PAGE_KEY, openedForKey);
+    if (openingPage === null) return;
+    setPage(openingPage);
+  }, [openedForKey, openingPage]);
 
   const handlePageChange = useCallback(
     (p: number) => {

@@ -1,7 +1,7 @@
 import { CATEGORY_BY_ID } from "../config";
 import { latestMistakeEventIds } from "../lib/judgingLedger";
 import type { CategoryId, JudgingEvent, Mistake } from "../types";
-import { assignmentLabel, judgeDisplayName } from "../lib/judgeAssignments";
+import { categoryListLabel, judgeDisplayName } from "../lib/judgeAssignments";
 
 function eventMistake(event: JudgingEvent): Mistake | null {
   if (
@@ -20,7 +20,7 @@ function historyCopy(event: JudgingEvent) {
       return {
         title: "Judging started",
         detail: event.assignment
-          ? `${judgeDisplayName(event.assignment)} · ${assignmentLabel(event.assignment.categories)}`
+          ? `${judgeDisplayName(event.assignment)} · ${categoryListLabel(event.assignment.categories)}`
           : event.participant.name || "Unnamed reciter",
       };
     case "mistake_added":
@@ -32,6 +32,11 @@ function historyCopy(event: JudgingEvent) {
       return {
         title: "Deduction adjusted",
         detail: `${event.label} · −${event.from} → −${event.to}`,
+      };
+    case "mistake_recategorized":
+      return {
+        title: "Mistake corrected",
+        detail: `${event.label} · ${CATEGORY_BY_ID[event.from].label} → ${CATEGORY_BY_ID[event.to].label} · −${event.fromAmount} → −${event.toAmount}`,
       };
     case "mistake_note_changed":
       return {
@@ -68,6 +73,9 @@ function categoryForEvent(
 ): CategoryId | null {
   const mistake = eventMistake(event);
   if (mistake) return mistake.category;
+  // A correction is shown in the criterion it was moved to, so the stripe
+  // matches what the letter now counts against.
+  if (event.type === "mistake_recategorized") return event.to;
   if (
     event.type === "impression_changed" ||
     event.type === "impression_note_changed"
