@@ -1,0 +1,1535 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Setup Flow Study</title>
+<style>
+  /* ---- Tokens, copied from src/styles/global.css (lines 1-80) ---- */
+  :root {
+    --bg: #f2f1ee;
+    --surface: #ffffff;
+    --ink: #1a1a1c;
+    --ink-2: #62626a;
+    --ink-3: #6a6a73;
+    --line: rgba(26, 26, 28, 0.08);
+    --line-2: rgba(26, 26, 28, 0.16);
+
+    --r-sm: 8px;
+    --r-md: 12px;
+    --r-lg: 20px;
+
+    --t-micro: 12px;
+    --t-small: 14px;
+    --t-body: 15px;
+    --t-lead: 17px;
+    --t-title: 21px;
+    --t-display: 27px;
+
+    --sp-1: 4px;
+    --sp-2: 8px;
+    --sp-3: 12px;
+    --sp-4: 16px;
+    --sp-5: 24px;
+    --sp-6: 32px;
+    --sp-7: 48px;
+
+    --tap: 44px;
+
+    --shadow-rest: 0 1px 2px rgba(26, 26, 28, 0.05);
+    --shadow-float: 0 12px 32px rgba(26, 26, 28, 0.14), 0 2px 8px rgba(26, 26, 28, 0.08);
+
+    --ui: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --serif: ui-serif, Georgia, "Times New Roman", serif;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #131316;
+      --surface: #1c1c20;
+      --ink: #ebebed;
+      --ink-2: #a4a4ac;
+      --ink-3: #8b8b95;
+      --line: rgba(255, 255, 255, 0.08);
+      --line-2: rgba(255, 255, 255, 0.16);
+      --shadow-rest: 0 1px 2px rgba(0, 0, 0, 0.4);
+      --shadow-float: 0 16px 40px rgba(0, 0, 0, 0.5), 0 3px 10px rgba(0, 0, 0, 0.35);
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --bg: #131316;
+    --surface: #1c1c20;
+    --ink: #ebebed;
+    --ink-2: #a4a4ac;
+    --ink-3: #8b8b95;
+    --line: rgba(255, 255, 255, 0.08);
+    --line-2: rgba(255, 255, 255, 0.16);
+    --shadow-rest: 0 1px 2px rgba(0, 0, 0, 0.4);
+    --shadow-float: 0 16px 40px rgba(0, 0, 0, 0.5), 0 3px 10px rgba(0, 0, 0, 0.35);
+  }
+
+  * { box-sizing: border-box; }
+  html, body { max-width: 100%; overflow-x: hidden; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--ui);
+    font-size: var(--t-body);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: var(--sp-7) var(--sp-5) 96px;
+  }
+
+  @media (min-width: 1040px) {
+    .page {
+      grid-template-columns: 200px minmax(0, 1fr);
+      gap: var(--sp-6);
+      padding-top: 64px;
+    }
+  }
+
+  .rail { display: none; }
+  @media (min-width: 1040px) {
+    .rail {
+      display: block;
+      position: sticky;
+      top: 40px;
+      align-self: start;
+      font-size: var(--t-small);
+    }
+    .rail-title {
+      font-size: 10.5px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      margin-bottom: var(--sp-3);
+    }
+    .rail a {
+      display: block;
+      padding: 5px 0 5px var(--sp-3);
+      border-left: 2px solid var(--line);
+      color: var(--ink-2);
+      text-decoration: none;
+    }
+    .rail a:hover { color: var(--ink); border-left-color: var(--ink-3); }
+  }
+
+  main { min-width: 0; }
+
+  .topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--sp-3);
+    margin-bottom: var(--sp-3);
+  }
+
+  .eyebrow {
+    font-size: var(--t-micro);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .theme-toggle {
+    font: inherit;
+    font-size: var(--t-micro);
+    background: var(--surface);
+    border: 1px solid var(--line-2);
+    color: var(--ink-2);
+    border-radius: var(--r-sm);
+    padding: var(--sp-1) var(--sp-3);
+    min-height: 32px;
+    cursor: pointer;
+  }
+  .theme-toggle:hover { color: var(--ink); border-color: var(--ink-3); }
+
+  h1 {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: clamp(30px, 4.4vw, var(--t-display));
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    margin: 0 0 var(--sp-3);
+  }
+
+  h2 {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: clamp(var(--t-title), 2.6vw, 27px);
+    line-height: 1.18;
+    margin: 0 0 6px;
+  }
+
+  h3 {
+    font-size: var(--t-lead);
+    font-weight: 600;
+    letter-spacing: -0.005em;
+    margin: var(--sp-5) 0 6px;
+  }
+  h3:first-child { margin-top: 0; }
+
+  h4 {
+    font-size: var(--t-micro);
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin: 0 0 var(--sp-2);
+  }
+
+  p, li { color: var(--ink-2); }
+  p { margin: 0 0 var(--sp-4); max-width: 68ch; }
+  .lede { font-size: var(--t-lead); color: var(--ink); max-width: 62ch; }
+
+  section { margin-top: var(--sp-7); }
+  section > p:last-child { margin-bottom: 0; }
+
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    gap: var(--sp-3);
+    border-top: 1px solid var(--line);
+    padding-top: var(--sp-4);
+    margin-bottom: var(--sp-5);
+  }
+  .section-head .num {
+    font-size: var(--t-micro);
+    font-variant-numeric: tabular-nums;
+    color: var(--ink-3);
+    font-weight: 600;
+    padding-top: 6px;
+  }
+
+  strong { color: var(--ink); font-weight: 600; }
+
+  code {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 0.86em;
+    background: var(--bg);
+    padding: 1px 5px;
+    border-radius: 4px;
+    color: var(--ink);
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r-md);
+    padding: var(--sp-5);
+    box-shadow: var(--shadow-rest);
+  }
+
+  .factstrip {
+    display: grid;
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: var(--r-md);
+    overflow: hidden;
+    margin: var(--sp-5) 0 0;
+  }
+  @media (min-width: 700px) { .factstrip { grid-template-columns: repeat(4, 1fr); } }
+  .factstrip > div { background: var(--surface); padding: var(--sp-3) var(--sp-4); }
+  .factstrip dt {
+    font-size: 10.5px;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin-bottom: 4px;
+  }
+  .factstrip dd { margin: 0; font-size: var(--t-small); color: var(--ink); font-weight: 500; }
+
+  .callout {
+    border-left: 2px solid var(--line-2);
+    padding: 2px 0 2px var(--sp-4);
+    margin: 0 0 var(--sp-4);
+  }
+  .callout p:last-child { margin-bottom: 0; }
+
+  /* ---- Candidate cards ---- */
+  .cand-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--sp-4);
+  }
+  /* One candidate per row. Each of these is a whole screen, not a control, and
+     a screen judged at half width tells you nothing about the screen. 880px is
+     close to the content column the real setup page gets on a laptop. */
+  .lab-card {
+    max-width: 880px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r-md);
+    box-shadow: var(--shadow-rest);
+    display: flex;
+    flex-direction: column;
+  }
+  .lab-head { padding: var(--sp-4) var(--sp-4) var(--sp-3); border-bottom: 1px solid var(--line); }
+  .lab-head h3 { margin: 0 0 4px; font-size: var(--t-lead); }
+  .lab-head .tag {
+    font-size: 10.5px;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    font-weight: 600;
+  }
+  .lab-head p { font-size: var(--t-small); margin: var(--sp-1) 0 0; max-width: none; }
+
+  .lab-stage {
+    padding: var(--sp-4);
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-3);
+    flex: 1;
+    min-width: 0;
+  }
+
+  .lab-meta {
+    font-size: var(--t-micro);
+    color: var(--ink-3);
+    margin: 0;
+  }
+  .lab-meta b { color: var(--ink-2); font-weight: 600; font-variant-numeric: tabular-nums; }
+  .lab-meta b.is-bad { color: var(--ink); text-decoration: underline; text-decoration-color: var(--line-2); }
+
+  .lab-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--sp-3);
+    padding: var(--sp-3) var(--sp-4);
+    border-top: 1px solid var(--line);
+    background: var(--bg);
+    font-size: var(--t-small);
+    color: var(--ink-2);
+    border-radius: 0 0 var(--r-md) var(--r-md);
+    flex-wrap: wrap;
+  }
+  .counter { font-variant-numeric: tabular-nums; }
+  .counter b { color: var(--ink); font-weight: 600; }
+  .reset {
+    font: inherit;
+    font-size: var(--t-micro);
+    background: none;
+    border: 1px solid var(--line-2);
+    color: var(--ink-2);
+    border-radius: var(--r-sm);
+    padding: var(--sp-1) var(--sp-3);
+    min-height: 32px;
+    cursor: pointer;
+  }
+  .reset:hover { color: var(--ink); border-color: var(--ink-3); }
+
+  button { font-family: inherit; }
+  :focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; border-radius: 4px; }
+
+  /* ---- The prototypes ---- */
+  .proto {
+    background: var(--bg);
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-sm);
+    padding: var(--sp-3);
+    min-width: 0;
+  }
+  .panel {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r-sm);
+    padding: var(--sp-3);
+    min-width: 0;
+  }
+
+  .grp {
+    display: block;
+    font-size: 10.5px;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    font-weight: 600;
+    padding: var(--sp-2) var(--sp-2) var(--sp-1);
+  }
+
+  .mark { flex: none; width: 16px; text-align: center; color: var(--ink-3); font-size: var(--t-small); }
+  .mark.is-done { color: var(--ink); }
+
+  .task-row {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-2);
+    width: 100%;
+    min-height: 36px;
+    background: none;
+    border: 0;
+    border-radius: 6px;
+    color: var(--ink);
+    font: inherit;
+    font-size: var(--t-small);
+    text-align: left;
+    padding: var(--sp-1) var(--sp-2);
+    cursor: pointer;
+  }
+  .task-row span { min-width: 0; overflow-wrap: anywhere; }
+  .task-row:hover { background: var(--bg); }
+  .task-row[aria-current="step"] { background: var(--bg); font-weight: 600; box-shadow: inset 2px 0 0 var(--ink); }
+
+  .pane-title {
+    font-size: var(--t-body);
+    font-weight: 600;
+    letter-spacing: 0;
+    text-transform: none;
+    margin: 0 0 var(--sp-2);
+    color: var(--ink);
+  }
+
+  .rrow {
+    display: grid;
+    grid-template-columns: 116px minmax(0, 1fr) auto;
+    gap: var(--sp-3);
+    align-items: baseline;
+    padding: var(--sp-2) 0;
+    border-top: 1px solid var(--line);
+  }
+  .rrow:first-of-type { border-top: 0; }
+  .rlabel { font-size: var(--t-micro); color: var(--ink-3); }
+  .rval { font-size: var(--t-small); color: var(--ink); min-width: 0; overflow-wrap: anywhere; }
+  .rdetail { display: block; font-size: var(--t-micro); color: var(--ink-3); }
+  .change {
+    font: inherit;
+    font-size: var(--t-micro);
+    background: none;
+    border: 0;
+    color: var(--ink-2);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    cursor: pointer;
+    min-height: 32px;
+    padding: 0 var(--sp-1);
+  }
+  .change:hover { color: var(--ink); }
+
+  .start {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--sp-3);
+    flex-wrap: wrap;
+    margin-top: var(--sp-3);
+    padding-top: var(--sp-3);
+    border-top: 1px solid var(--line);
+  }
+  .start p { font-size: var(--t-micro); color: var(--ink-3); margin: 0; max-width: 46ch; min-width: 0; }
+  .start-done { color: var(--ink); }
+  .btn-primary {
+    font: inherit;
+    font-size: var(--t-small);
+    font-weight: 600;
+    min-height: var(--tap);
+    padding: 0 var(--sp-4);
+    border-radius: var(--r-sm);
+    border: 1px solid var(--ink);
+    background: var(--ink);
+    color: var(--surface);
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
+  .ed { display: flex; flex-direction: column; gap: var(--sp-3); }
+  .field { display: flex; flex-direction: column; gap: var(--sp-1); min-width: 0; }
+  .field-label { font-size: var(--t-micro); color: var(--ink-3); }
+  .chips { display: flex; flex-wrap: wrap; gap: var(--sp-2); min-width: 0; }
+  .chip {
+    font: inherit;
+    font-size: var(--t-small);
+    min-height: 32px;
+    max-width: 100%;
+    padding: 5px var(--sp-3);
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-sm);
+    background: var(--surface);
+    color: var(--ink-2);
+    cursor: pointer;
+    text-align: left;
+    overflow-wrap: anywhere;
+  }
+  .chip:hover { border-color: var(--ink-3); color: var(--ink); }
+  .chip[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--surface); font-weight: 600; }
+  .text-in {
+    font: inherit;
+    font-size: var(--t-small);
+    height: 36px;
+    width: 100%;
+    max-width: 320px;
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-sm);
+    background: var(--surface);
+    color: var(--ink);
+    padding: 0 var(--sp-2);
+  }
+
+  /* A: two panes */
+  .a-proto { display: grid; grid-template-columns: 208px minmax(0, 1fr); gap: var(--sp-3); }
+  @media (max-width: 620px) { .a-proto { grid-template-columns: minmax(0, 1fr); } }
+
+  /* B: one centred column */
+  .b-col { max-width: 560px; margin: 0 auto; }
+  .b-line {
+    display: grid;
+    grid-template-columns: 16px minmax(0, 1fr) minmax(0, auto);
+    gap: var(--sp-2);
+    align-items: center;
+    width: 100%;
+    min-height: 40px;
+    background: none;
+    border: 0;
+    border-top: 1px solid var(--line);
+    color: var(--ink);
+    font: inherit;
+    font-size: var(--t-small);
+    text-align: left;
+    padding: var(--sp-2) var(--sp-1);
+    cursor: pointer;
+  }
+  .b-line:first-of-type { border-top: 0; }
+  .b-line:hover { background: var(--bg); }
+  .b-line .b-name { min-width: 0; overflow-wrap: anywhere; }
+  .b-line .b-val { color: var(--ink-3); text-align: right; min-width: 0; overflow-wrap: anywhere; }
+  .b-line[aria-expanded="true"] { font-weight: 600; }
+  .b-line[aria-expanded="true"] .b-val { color: var(--ink-2); }
+  .b-open { padding: var(--sp-1) var(--sp-1) var(--sp-3) 24px; }
+
+  /* C: stepper */
+  .c-strip { display: flex; gap: 4px; margin-bottom: var(--sp-3); }
+  .c-seg { height: 4px; flex: 1; border-radius: 2px; background: var(--line-2); }
+  .c-seg.is-done { background: var(--ink-3); }
+  .c-seg.is-now { background: var(--ink); }
+  .c-step { font-size: var(--t-micro); color: var(--ink-3); margin: 0 0 var(--sp-1); }
+  .c-nav { display: flex; justify-content: space-between; gap: var(--sp-3); margin-top: var(--sp-4); }
+  .btn-ghost {
+    font: inherit;
+    font-size: var(--t-small);
+    min-height: 36px;
+    padding: 0 var(--sp-4);
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-sm);
+    background: var(--surface);
+    color: var(--ink-2);
+    cursor: pointer;
+  }
+  .btn-ghost:hover:not(:disabled) { color: var(--ink); border-color: var(--ink-3); }
+  .btn-ghost:disabled { opacity: 0.45; cursor: not-allowed; }
+
+  /* D: dense summary, edited where it is read */
+  .d-row {
+    display: grid;
+    grid-template-columns: 16px 116px minmax(0, 1fr);
+    gap: var(--sp-2) var(--sp-3);
+    align-items: baseline;
+    padding: 5px 0;
+    border-top: 1px solid var(--line);
+  }
+  .d-row:first-of-type { border-top: 0; }
+  .d-val {
+    font: inherit;
+    font-size: var(--t-small);
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: 1px dashed var(--line-2);
+    border-radius: 6px;
+    color: var(--ink);
+    padding: 4px var(--sp-2);
+    min-height: 32px;
+    cursor: pointer;
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+  .d-val:hover { border-style: solid; border-color: var(--ink-3); background: var(--surface); }
+  .d-edit { grid-column: 3; background: var(--bg); border: 1px solid var(--line-2); border-radius: var(--r-sm); padding: var(--sp-3); }
+
+  /* ---- Comparison table ---- */
+  .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--r-md); background: var(--surface); }
+  table { width: 100%; border-collapse: collapse; font-size: var(--t-small); min-width: 780px; }
+  th, td { text-align: left; padding: var(--sp-3) var(--sp-4); border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); font-weight: 600; }
+  tr:last-child td { border-bottom: 0; }
+  td.num, th.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+  /* ---- Against the grammar ---- */
+  .grammar-cand { margin-top: var(--sp-6); }
+  .grammar-cand:first-child { margin-top: 0; }
+  .grammar-row { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--sp-2); }
+  @media (min-width: 700px) { .grammar-row { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--sp-4); } }
+  .grammar-row .card { padding: var(--sp-4); box-shadow: none; }
+  .grammar-row h4 { margin-bottom: var(--sp-2); }
+  .grammar-row ul { margin: 0; padding-left: 18px; }
+  .grammar-row li { font-size: var(--t-small); margin-bottom: 6px; }
+  .grammar-row li:last-child { margin-bottom: 0; }
+
+  .foot {
+    margin-top: 72px;
+    padding-top: var(--sp-4);
+    border-top: 1px solid var(--line);
+    font-size: var(--t-micro);
+    color: var(--ink-3);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; animation: none !important; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <nav class="rail" aria-label="Contents">
+    <div class="rail-title">Contents</div>
+    <a href="#problem">The problem</a>
+    <a href="#candidates">Four candidates</a>
+    <a href="#compare">How they compare</a>
+    <a href="#grammar">Against the grammar</a>
+  </nav>
+
+  <main>
+    <div class="topbar">
+      <p class="eyebrow">Tahqeeq &#183; interface study &#183; 13 August 2026</p>
+      <button type="button" class="theme-toggle" id="theme-toggle" aria-live="polite">Dark</button>
+    </div>
+
+    <h1>The setup screen</h1>
+    <p class="lede">
+      Before a single reciter is heard, someone has to prepare eight tasks and press Start.
+      Today that is a two-pane screen carrying 248 words, and it does not fit a laptop.
+      Four ways of laying it out follow, each built as a working prototype of the whole screen
+      rather than a picture of one. No candidate is picked here.
+    </p>
+
+    <dl class="factstrip">
+      <div><dt>Words today</dt><dd>248</dd></div>
+      <div><dt>Facts conveyed</dt><dd>9</dd></div>
+      <div><dt>Overflow at 1024&#215;768</dt><dd>69px</dd></div>
+      <div><dt>Overflow at 1400&#215;900</dt><dd>15px</dd></div>
+    </dl>
+
+    <section id="problem">
+      <div class="section-head"><span class="num">01</span><h2>The problem</h2></div>
+      <p>
+        The owner's words for this screen are &#8220;overwhelming, text heavy and clunky compared
+        to the Mushaf view&#8221;. The Mushaf view is the one place in the app where the evidence
+        gets the room and the chrome gets out of the way. The setup screen is the opposite: two
+        panes, both of them talking.
+      </p>
+      <p>
+        <strong>248 words on one screen to convey nine facts.</strong> The nine are the
+        competition name, its edition, the division count, the participant count, the panel size,
+        which criteria that panel covers, the marks total, the question rules, and the draft
+        count. Nine facts, 248 words &#8212; roughly 27 words per fact, on a screen whose entire
+        job is to let someone check nine things and press a button. Rule 1 fails here in its own
+        words: the explanation is larger than the thing being explained.
+      </p>
+      <p>
+        <strong>The screen never quite fits.</strong> It overflows the viewport by 69px at
+        1024&#215;768, by 37px at 1280&#215;800, and by 15px even at 1400&#215;900. The cause is
+        structural rather than incidental: the shell is <code>min-height: 100vh</code> and the
+        header above it is sticky, so the content is handed a full viewport of height inside a
+        viewport that has already spent some. A judge scrolls a settings screen that should fit.
+      </p>
+      <p>
+        <strong>Every task states itself twice.</strong> The left rail gives each task a title and
+        then a subtitle that restates the title: &#8220;Competition details / Name and edition&#8221;,
+        &#8220;Participants / Import and verify the roster&#8221;, &#8220;Draft questions / Build and
+        preview passages&#8221;. Eight titles, eight subtitles, eight status words. Rule 6 says to
+        delete every sentence that repeats what the controls already show; the rail is sixteen
+        lines of the same eight facts.
+      </p>
+      <p>
+        The right pane repeats the trick at a larger scale. Every review row carries a label, a
+        value, a long explanatory sentence and a Change link &#8212; and two of those sentences are
+        the same criterion list printed twice, once under Judging panel and once under Marks. The
+        app writes that criterion as <strong>Adu / Raagu</strong>, with the slash, and it appears
+        on this screen four times.
+      </p>
+      <div class="callout">
+        <p>
+          Every candidate below renders the same competition: four divisions, eight participants,
+          one judge, 100 marks, manual questions at seven lines, no drafts. Seven tasks are
+          complete; Draft questions is optional and sits at 0. Each reaches the same
+          &#8220;Start sample&#8221; button and carries the same freeze note, which is fifteen of
+          every candidate's measured words.
+        </p>
+      </div>
+    </section>
+
+    <section id="candidates">
+      <div class="section-head"><span class="num">02</span><h2>Four candidates</h2></div>
+      <p>
+        Each card is a live prototype of the whole screen, not a fragment. Press things: A selects
+        a task in its rail, B expands a line in place, C steps forward and back, D edits a value
+        where it is read. Reset restores the card. The caption under each prototype is measured at
+        run time with <code>getBoundingClientRect()</code> and by reading the rendered text.
+      </p>
+      <p>
+        <strong>How the words are counted.</strong> The count is taken from the prototype's
+        rendered text only &#8212; the card's caption, its measurement line and its action counter
+        are outside the measured region. Text that is collapsed, on another step, or otherwise not
+        rendered does not count, because a judge cannot read it. The value shown in a text field is
+        counted, since it is on screen. A token counts as a word if it contains a letter or a digit,
+        so &#8220;Adu / Raagu&#8221; counts as two and the separators count as none.
+      </p>
+
+      <div class="cand-grid">
+
+        <!-- A -->
+        <div class="lab-card" data-card="a">
+          <div class="lab-head">
+            <h3>A <span class="tag">Two panes, stripped</span></h3>
+            <p>Today's shape with every redundant sentence removed: no subtitles, no explanations that repeat a value, and status shown as a mark rather than the word &#8220;Complete&#8221;. The control group.</p>
+          </div>
+          <div class="lab-stage">
+            <div class="proto a-proto" data-proto="a" aria-label="Candidate A, setup screen"></div>
+            <p class="lab-meta">
+              Height: <b data-h="a">&#8212;</b>px &#183;
+              Words on screen: <b data-w="a">&#8212;</b> &#183;
+              Fits 1024&#215;768: <b data-fit="a">&#8212;</b>
+            </p>
+          </div>
+          <div class="lab-foot">
+            <span class="counter">Actions: <b data-c-actions="a">0</b> &#183; Marks: <b data-c-state="a">&#8212;</b></span>
+            <button type="button" class="reset" data-reset="a">Reset</button>
+          </div>
+        </div>
+
+        <!-- B -->
+        <div class="lab-card" data-card="b">
+          <div class="lab-head">
+            <h3>B <span class="tag">Checklist</span></h3>
+            <p>One centred column, one line per task. A finished line collapses to a mark and its value; opening a line reveals that task's controls in place. There is no second pane.</p>
+          </div>
+          <div class="lab-stage">
+            <div class="proto" data-proto="b" aria-label="Candidate B, setup screen"></div>
+            <p class="lab-meta">
+              Height: <b data-h="b">&#8212;</b>px &#183;
+              Words on screen: <b data-w="b">&#8212;</b> &#183;
+              Fits 1024&#215;768: <b data-fit="b">&#8212;</b>
+            </p>
+          </div>
+          <div class="lab-foot">
+            <span class="counter">Actions: <b data-c-actions="b">0</b> &#183; Marks: <b data-c-state="b">&#8212;</b></span>
+            <button type="button" class="reset" data-reset="b">Reset</button>
+          </div>
+        </div>
+
+        <!-- C -->
+        <div class="lab-card" data-card="c">
+          <div class="lab-head">
+            <h3>C <span class="tag">Progressive stepper</span></h3>
+            <p>One task at a time at full width, under a slim progress strip; Back and Next move between them and the review is the final step. It opens where a stepper opens, at the first step.</p>
+          </div>
+          <div class="lab-stage">
+            <div class="proto" data-proto="c" aria-label="Candidate C, setup screen"></div>
+            <p class="lab-meta">
+              Height: <b data-h="c">&#8212;</b>px &#183;
+              Words on screen: <b data-w="c">&#8212;</b> &#183;
+              Fits 1024&#215;768: <b data-fit="c">&#8212;</b>
+            </p>
+          </div>
+          <div class="lab-foot">
+            <span class="counter">Actions: <b data-c-actions="c">0</b> &#183; Marks: <b data-c-state="c">&#8212;</b></span>
+            <button type="button" class="reset" data-reset="c">Reset</button>
+          </div>
+        </div>
+
+        <!-- D -->
+        <div class="lab-card" data-card="d">
+          <div class="lab-head">
+            <h3>D <span class="tag">Dense summary</span></h3>
+            <p>The review is the screen. Nine rows, one per fact, each editable where it is read; the dashed rule around a value is the affordance, so no row needs a Change link. There is no task list at all.</p>
+          </div>
+          <div class="lab-stage">
+            <div class="proto" data-proto="d" aria-label="Candidate D, setup screen"></div>
+            <p class="lab-meta">
+              Height: <b data-h="d">&#8212;</b>px &#183;
+              Words on screen: <b data-w="d">&#8212;</b> &#183;
+              Fits 1024&#215;768: <b data-fit="d">&#8212;</b>
+            </p>
+          </div>
+          <div class="lab-foot">
+            <span class="counter">Actions: <b data-c-actions="d">0</b> &#183; Marks: <b data-c-state="d">&#8212;</b></span>
+            <button type="button" class="reset" data-reset="d">Reset</button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="compare">
+      <div class="section-head"><span class="num">03</span><h2>How they compare</h2></div>
+      <p>
+        Every number below is produced by the same code that runs the prototypes above, so this
+        table cannot say something the prototypes do not. The two action counts are measured by
+        driving each prototype through the real event pipeline once at load and reading its own
+        counter, then resetting it. &#8220;Fits 1024&#215;768&#8221; compares the measured height
+        against 711px: a 768px viewport less the 57px header the setup screen sits under.
+      </p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Candidate</th>
+              <th class="num">Height</th>
+              <th class="num">Words on screen</th>
+              <th class="num">Actions to change the marks</th>
+              <th class="num">Actions to reach Start</th>
+              <th>Fits 1024&#215;768 without page scroll</th>
+              <th>Weakness</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>A</strong> Two panes, stripped</td>
+              <td class="num" data-tbl-h="a">&#8212;</td>
+              <td class="num" data-tbl-w="a">&#8212;</td>
+              <td class="num" data-tbl-marks="a">&#8212;</td>
+              <td class="num" data-tbl-start="a">&#8212;</td>
+              <td data-tbl-fit="a">&#8212;</td>
+              <td>Still two panes competing for the same screen, and still the wordiest of the four. The criterion list is printed twice, under Judging panel and again under Marks, so a judge has two places to point at one decision.</td>
+            </tr>
+            <tr>
+              <td><strong>B</strong> Checklist</td>
+              <td class="num" data-tbl-h="b">&#8212;</td>
+              <td class="num" data-tbl-w="b">&#8212;</td>
+              <td class="num" data-tbl-marks="b">&#8212;</td>
+              <td class="num" data-tbl-start="b">&#8212;</td>
+              <td data-tbl-fit="b">&#8212;</td>
+              <td>A collapsed line shows a value, not the fact behind it: the division list and the panel's coverage are both a click away, so only seven of the nine facts are readable at rest.</td>
+            </tr>
+            <tr>
+              <td><strong>C</strong> Progressive stepper</td>
+              <td class="num" data-tbl-h="c">&#8212;</td>
+              <td class="num" data-tbl-w="c">&#8212;</td>
+              <td class="num" data-tbl-marks="c">&#8212;</td>
+              <td class="num" data-tbl-start="c">&#8212;</td>
+              <td data-tbl-fit="c">&#8212;</td>
+              <td>The fewest words of the four, but only because eight screens are hidden behind this one. Its own review step measures <span data-c-review>&#8212;</span> words, and nothing can be checked against anything else without walking the strip.</td>
+            </tr>
+            <tr>
+              <td><strong>D</strong> Dense summary</td>
+              <td class="num" data-tbl-h="d">&#8212;</td>
+              <td class="num" data-tbl-w="d">&#8212;</td>
+              <td class="num" data-tbl-marks="d">&#8212;</td>
+              <td class="num" data-tbl-start="d">&#8212;</td>
+              <td data-tbl-fit="d">&#8212;</td>
+              <td>Nothing separates reading from editing, so the screen a judge checks before starting is the screen on which a value can be changed by one stray press. There is also no place left for a task to explain itself when it needs to.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="grammar">
+      <div class="section-head"><span class="num">04</span><h2>Against the grammar</h2></div>
+      <p>
+        Every rule is one the app already keeps somewhere; the question is which ones each
+        candidate bends, and why. A bend needs a reason in one sentence. The numbers quoted are the
+        ones measured on this page.
+      </p>
+
+      <div class="grammar-cand">
+        <h3>A &#8212; Two panes, stripped</h3>
+        <div class="grammar-row">
+          <div class="card">
+            <h4>Keeps</h4>
+            <ul>
+              <li><strong>Rule 6</strong> &#8212; the eight subtitles and the status words are gone; a tick is its own instruction.</li>
+              <li><strong>Rule 3</strong> &#8212; the tick is ink, not green. Nothing on this screen is a verdict about a recitation, so nothing on it is coloured.</li>
+              <li><strong>Rule 8</strong> &#8212; type and spacing come straight off the scale; nothing was nudged to make the two panes agree.</li>
+              <li><strong>Rule 9</strong> &#8212; every secondary line is <code>--ink-3</code>, which is the measured 5.35:1, not the old 2.76:1 grey.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h4>Bends</h4>
+            <ul>
+              <li><strong>Rule 1</strong> &#8212; the rail is still a full pane of chrome beside the pane that holds the actual facts, and this is still the wordiest candidate.</li>
+              <li><strong>Rule 2</strong> &#8212; the criterion list lives under Judging panel and under Marks, and each has a Change link; two places look responsible for one decision.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="grammar-cand">
+        <h3>B &#8212; Checklist</h3>
+        <div class="grammar-row">
+          <div class="card">
+            <h4>Keeps</h4>
+            <ul>
+              <li><strong>Rule 1</strong> &#8212; one column, no second pane; the facts get the room and there is no rail arguing with them.</li>
+              <li><strong>Rule 2</strong> &#8212; a task's controls open inside the line that names it, so there is exactly one place to point for each decision.</li>
+              <li><strong>Rule 6</strong> &#8212; a finished line is a mark and a value; it explains nothing, because there is nothing left to explain.</li>
+              <li><strong>Rule 7</strong> &#8212; the shortest of the three screens that show everything, so it is the least likely to push Start out of reach.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h4>Bends</h4>
+            <ul>
+              <li><strong>Rule 1</strong> &#8212; two of the nine facts, the division list and the panel's coverage, are not on screen at rest; the collapse that buys the room also hides evidence.</li>
+              <li><strong>Rule 10</strong> &#8212; a collapsed line is 40px tall, under the 44px floor. Nothing here is pressed during a live recitation, which is the only reason that stands.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="grammar-cand">
+        <h3>C &#8212; Progressive stepper</h3>
+        <div class="grammar-row">
+          <div class="card">
+            <h4>Keeps</h4>
+            <ul>
+              <li><strong>Rule 1</strong> &#8212; the fewest words of the four by a wide margin, and the task on screen owns the whole width.</li>
+              <li><strong>Rule 7</strong> &#8212; the shortest screen measured here; no step comes close to the 711px budget.</li>
+              <li><strong>Rule 5</strong> &#8212; Start exists only on the last step, so no press early in the walk can begin a competition by accident.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h4>Bends</h4>
+            <ul>
+              <li><strong>Rule 4</strong> &#8212; reaching Start costs eight presses rather than one deliberate gesture, and changing the marks costs four. This is the stepper the mark bar retired, wearing a different hat.</li>
+              <li><strong>Rule 2</strong> &#8212; a fact and the thing that changes it are never on screen together; checking the panel against the marks means walking between two steps and remembering.</li>
+              <li><strong>Rule 6</strong> &#8212; the strip has to be told what it is (&#8220;Step 1 of 8&#8221;), because eight small bars cannot say it themselves.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="grammar-cand">
+        <h3>D &#8212; Dense summary</h3>
+        <div class="grammar-row">
+          <div class="card">
+            <h4>Keeps</h4>
+            <ul>
+              <li><strong>Rule 2</strong> &#8212; the row is the readout and the row is the control, exactly as the pinpointed criteria work on the Mushaf page.</li>
+              <li><strong>Rule 6</strong> &#8212; no Change links and no task list; the dashed rule around a value says what a sentence would have said.</li>
+              <li><strong>Rule 1</strong> &#8212; nine facts, nine rows, nothing between them and the reader.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h4>Bends</h4>
+            <ul>
+              <li><strong>Rule 5</strong> &#8212; every value on the confirmation screen is one press from being edited, on the one screen whose job is to be checked rather than changed.</li>
+              <li><strong>Rule 6</strong> &#8212; the dashed rule is quieter than a word, but it is also less certain; a judge who has never seen it has to try one to learn it.</li>
+              <li><strong>Rule 10</strong> &#8212; the value controls are 32px tall, under the 44px floor, and the density that makes the screen fit is what keeps them there.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <p class="foot">
+      Design study, not a decision. Built as one self-contained file against the tokens in
+      <code>src/styles/global.css</code> and the rules in <code>DESIGN_GRAMMAR.md</code>.
+      No app source was changed to produce it.
+    </p>
+  </main>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  var KEYS = ["a", "b", "c", "d"];
+  var FIT_BUDGET = 768 - 57;
+
+  var CRITERIA = ["Lahn Jali", "Lahn Khafi", "Fasaha", "Adu / Raagu"];
+  var DIVISIONS = [
+    "Under 14 \u00b7 Hifz \u00b7 Juz 30",
+    "Under 14 \u00b7 Baliagen \u00b7 Full Quran",
+    "Under 16 \u00b7 Hifz \u00b7 Juz 29-30",
+    "Under 16 \u00b7 Baliagen \u00b7 Full Quran"
+  ];
+  var FREEZE = "This freezes the roster, divisions, panel, marks, question rules and Mushaf data version.";
+
+  var TASKS = [
+    { id: "details", group: "Competition", label: "Competition details", done: true },
+    { id: "divisions", group: "Competition", label: "Divisions and portions", done: true },
+    { id: "participants", group: "Competition", label: "Participants", done: true },
+    { id: "marks", group: "Judging", label: "Marks and criteria", done: true },
+    { id: "panel", group: "Judging", label: "Judging panel", done: true },
+    { id: "questions", group: "Questions", label: "Question rules", done: true },
+    { id: "bank", group: "Questions", label: "Draft questions", done: false },
+    { id: "review", group: "Launch", label: "Review and start", done: true }
+  ];
+
+  function fresh() {
+    return {
+      name: "Tahqeeq Test Competition",
+      edition: "Sample 2026",
+      divisions: [1, 1, 1, 1],
+      participants: 8,
+      marks: 100,
+      judges: 1,
+      coverage: [1, 1, 1, 1],
+      qmode: "Manual questions",
+      qlines: 7,
+      drafts: 0,
+      started: false
+    };
+  }
+
+  function divCount(m) {
+    var n = 0;
+    for (var i = 0; i < m.divisions.length; i++) if (m.divisions[i]) n += 1;
+    return n;
+  }
+  function divList(m) {
+    var out = [];
+    for (var i = 0; i < DIVISIONS.length; i++) if (m.divisions[i]) out.push(DIVISIONS[i]);
+    return out.join("; ");
+  }
+  function coverLabel(m) {
+    var out = [];
+    for (var i = 0; i < CRITERIA.length; i++) if (m.coverage[i]) out.push(CRITERIA[i]);
+    return out.length ? out.join(" + ") : "No criterion owned";
+  }
+  function judgeLabel(m) { return m.judges + (m.judges === 1 ? " judge" : " judges"); }
+  function marksLabel(m) { return m.marks + " / 100"; }
+  function qDetail(m) { return m.qlines + " lines, final line not marked"; }
+
+  /* The seven review rows the app renders today, carrying nine facts between
+     them: Competition holds a name and an edition, Judging panel holds a size
+     and a coverage list. */
+  function reviewRows(m) {
+    return [
+      { task: "details", label: "Competition", value: m.name, detail: m.edition },
+      { task: "divisions", label: "Divisions", value: String(divCount(m)), detail: divList(m) },
+      { task: "participants", label: "Participants", value: String(m.participants), detail: "" },
+      { task: "panel", label: "Judging panel", value: judgeLabel(m), detail: "Judge 1: " + coverLabel(m) },
+      { task: "marks", label: "Marks", value: marksLabel(m), detail: coverLabel(m) },
+      { task: "questions", label: "Questions", value: m.qmode, detail: qDetail(m) },
+      { task: "bank", label: "Draft questions", value: String(m.drafts), detail: "Optional" }
+    ];
+  }
+
+  /* The nine facts, one row each, for candidate D. */
+  function denseRows(m) {
+    return [
+      { edit: "name", label: "Name", value: m.name, done: true },
+      { edit: "edition", label: "Edition", value: m.edition, done: true },
+      { edit: "divisions", label: "Divisions", value: String(divCount(m)), detail: divList(m), done: divCount(m) > 0 },
+      { edit: "participants", label: "Participants", value: String(m.participants), done: m.participants > 0 },
+      { edit: "marks", label: "Marks", value: marksLabel(m), done: true },
+      { edit: "judges", label: "Judging panel", value: judgeLabel(m), done: true },
+      { edit: "coverage", label: "Panel coverage", value: "Judge 1: " + coverLabel(m), done: true },
+      { edit: "questions", label: "Question rules", value: m.qmode, detail: qDetail(m), done: true },
+      { edit: "bank", label: "Draft questions", value: String(m.drafts), detail: "Optional", done: m.drafts > 0 }
+    ];
+  }
+
+  function taskValue(m, id) {
+    if (id === "details") return m.name + " \u00b7 " + m.edition;
+    if (id === "divisions") return String(divCount(m));
+    if (id === "participants") return String(m.participants);
+    if (id === "marks") return marksLabel(m);
+    if (id === "panel") return judgeLabel(m);
+    if (id === "questions") return m.qmode;
+    if (id === "bank") return String(m.drafts);
+    return "";
+  }
+
+  function taskDone(m, id) {
+    if (id === "bank") return m.drafts > 0;
+    if (id === "divisions") return divCount(m) > 0;
+    return true;
+  }
+
+  /* ---- tiny DOM helpers ---- */
+  function el(tag, cls, text) {
+    var n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (text !== undefined && text !== null) n.textContent = text;
+    return n;
+  }
+  function mark(done) {
+    var s = el("span", "mark " + (done ? "is-done" : ""), done ? "\u2713" : "\u25cb");
+    s.setAttribute("aria-hidden", "true");
+    return s;
+  }
+  function markLabel(done) { return done ? "complete" : "not started"; }
+
+  /* ---- shared editors, so the action counts mean the same thing everywhere ---- */
+  function chipBtn(card, key, label, pressed, onPick) {
+    var b = el("button", "chip", label);
+    b.type = "button";
+    b.dataset.chip = key;
+    b.setAttribute("aria-pressed", pressed ? "true" : "false");
+    b.addEventListener("click", function () { onPick(); card.commit(); });
+    return b;
+  }
+  function field(labelText, control) {
+    var f = el("div", "field");
+    f.appendChild(el("span", "field-label", labelText));
+    f.appendChild(control);
+    return f;
+  }
+  function chipRow() { return el("div", "chips"); }
+
+  function textField(card, labelText, value, apply) {
+    var input = el("input", "text-in");
+    input.type = "text";
+    input.value = value;
+    input.setAttribute("aria-label", labelText);
+    input.addEventListener("change", function () { apply(input.value); card.commit(); });
+    return field(labelText, input);
+  }
+
+  function editorFor(card, id) {
+    var m = card.model;
+    var wrap = el("div", "ed");
+    var row, i;
+
+    if (id === "details" || id === "name") {
+      wrap.appendChild(textField(card, "Name", m.name, function (v) { m.name = v; }));
+    }
+    if (id === "details" || id === "edition") {
+      wrap.appendChild(textField(card, "Edition", m.edition, function (v) { m.edition = v; }));
+    }
+    if (id === "divisions") {
+      row = chipRow();
+      DIVISIONS.forEach(function (d, idx) {
+        row.appendChild(chipBtn(card, "divisions:" + idx, d, !!m.divisions[idx], function () {
+          m.divisions[idx] = m.divisions[idx] ? 0 : 1;
+        }));
+      });
+      wrap.appendChild(field("Divisions in this competition", row));
+    }
+    if (id === "participants") {
+      row = chipRow();
+      [8, 16, 24].forEach(function (v) {
+        row.appendChild(chipBtn(card, "participants:" + v, String(v), m.participants === v, function () {
+          m.participants = v;
+        }));
+      });
+      wrap.appendChild(field("Roster size", row));
+    }
+    if (id === "marks") {
+      row = chipRow();
+      [100, 90, 80].forEach(function (v) {
+        row.appendChild(chipBtn(card, "marks:" + v, String(v), m.marks === v, function () { m.marks = v; }));
+      });
+      wrap.appendChild(field("Total marks", row));
+    }
+    if (id === "panel" || id === "judges") {
+      row = chipRow();
+      [1, 2, 4].forEach(function (v) {
+        row.appendChild(chipBtn(card, "judges:" + v, v === 1 ? "1 judge" : v + " judges", m.judges === v, function () {
+          m.judges = v;
+        }));
+      });
+      wrap.appendChild(field("Seats on the panel", row));
+    }
+    if (id === "panel" || id === "coverage") {
+      row = chipRow();
+      CRITERIA.forEach(function (c, idx) {
+        row.appendChild(chipBtn(card, "coverage:" + idx, c, !!m.coverage[idx], function () {
+          m.coverage[idx] = m.coverage[idx] ? 0 : 1;
+        }));
+      });
+      wrap.appendChild(field("Judge 1 owns", row));
+    }
+    if (id === "questions") {
+      row = chipRow();
+      ["Manual questions", "Tahqeeq set"].forEach(function (v) {
+        row.appendChild(chipBtn(card, "qmode:" + v, v, m.qmode === v, function () { m.qmode = v; }));
+      });
+      wrap.appendChild(field("Question source", row));
+      row = chipRow();
+      [5, 7, 9].forEach(function (v) {
+        row.appendChild(chipBtn(card, "qlines:" + v, v + " lines", m.qlines === v, function () { m.qlines = v; }));
+      });
+      wrap.appendChild(field("Printed lines", row));
+    }
+    if (id === "bank") {
+      row = chipRow();
+      [0, 1, 2].forEach(function (v) {
+        row.appendChild(chipBtn(card, "drafts:" + v, String(v), m.drafts === v, function () { m.drafts = v; }));
+      });
+      wrap.appendChild(field("Drafts prepared", row));
+    }
+    return wrap;
+  }
+
+  function startBlock(card) {
+    var m = card.model;
+    var box = el("div", "start");
+    var note = el("p", null, FREEZE);
+    box.appendChild(note);
+    var btn = el("button", "btn-primary", "Start sample");
+    btn.type = "button";
+    btn.dataset.act = "start";
+    btn.addEventListener("click", function () { m.started = true; card.act(); });
+    box.appendChild(btn);
+    if (m.started) {
+      var done = el("p", "start-done", "Sample started.");
+      box.appendChild(done);
+    }
+    return box;
+  }
+
+  function reviewList(card, withChange) {
+    var frag = document.createDocumentFragment();
+    reviewRows(card.model).forEach(function (r) {
+      var row = el("div", "rrow");
+      row.appendChild(el("span", "rlabel", r.label));
+      var val = el("span", "rval", r.value);
+      if (r.detail) val.appendChild(el("small", "rdetail", r.detail));
+      row.appendChild(val);
+      if (withChange) {
+        var b = el("button", "change", "Change");
+        b.type = "button";
+        b.dataset.act = "change:" + r.task;
+        b.setAttribute("aria-label", "Change " + r.label);
+        b.addEventListener("click", function () { card.ui.active = r.task; card.act(); });
+        row.appendChild(b);
+      } else {
+        row.appendChild(el("span"));
+      }
+      frag.appendChild(row);
+    });
+    return frag;
+  }
+
+  /* ---- A: two panes, stripped ---- */
+  function renderA(card, root) {
+    var m = card.model;
+    var rail = el("div", "panel");
+    var lastGroup = "";
+    TASKS.forEach(function (t) {
+      if (t.group !== lastGroup) {
+        lastGroup = t.group;
+        rail.appendChild(el("span", "grp", t.group));
+      }
+      var b = el("button", "task-row");
+      b.type = "button";
+      b.dataset.task = t.id;
+      var done = t.id === "review" ? true : taskDone(m, t.id);
+      b.appendChild(mark(done));
+      b.appendChild(el("span", null, t.label));
+      b.setAttribute("aria-label", t.label + ", " + markLabel(done));
+      if (card.ui.active === t.id) b.setAttribute("aria-current", "step");
+      b.addEventListener("click", function () { card.ui.active = t.id; card.act(); });
+      rail.appendChild(b);
+    });
+    root.appendChild(rail);
+
+    var pane = el("div", "panel");
+    var active = card.ui.active;
+    var task = null;
+    for (var i = 0; i < TASKS.length; i++) if (TASKS[i].id === active) task = TASKS[i];
+    pane.appendChild(el("h4", "pane-title", task ? task.label : "Review and start"));
+    if (active === "review") {
+      pane.appendChild(reviewList(card, true));
+      pane.appendChild(startBlock(card));
+    } else {
+      pane.appendChild(editorFor(card, active));
+    }
+    root.appendChild(pane);
+  }
+
+  /* ---- B: checklist ---- */
+  function renderB(card, root) {
+    var m = card.model;
+    var col = el("div", "b-col");
+    var panel = el("div", "panel");
+
+    TASKS.forEach(function (t) {
+      if (t.id === "review") return;
+      var open = card.ui.open === t.id;
+      var done = taskDone(m, t.id);
+      var line = el("button", "b-line");
+      line.type = "button";
+      line.dataset.line = t.id;
+      line.setAttribute("aria-expanded", open ? "true" : "false");
+      line.appendChild(mark(done));
+      line.appendChild(el("span", "b-name", t.label));
+      line.appendChild(el("span", "b-val", taskValue(m, t.id)));
+      line.setAttribute("aria-label", t.label + ", " + markLabel(done));
+      line.addEventListener("click", function () {
+        card.ui.open = open ? null : t.id;
+        card.act();
+      });
+      panel.appendChild(line);
+      if (open) {
+        var box = el("div", "b-open");
+        box.appendChild(editorFor(card, t.id));
+        panel.appendChild(box);
+      }
+    });
+
+    panel.appendChild(startBlock(card));
+    col.appendChild(panel);
+    root.appendChild(col);
+  }
+
+  /* ---- C: progressive stepper ---- */
+  function renderC(card, root) {
+    var m = card.model;
+    var step = card.ui.step;
+    var doneCount = 0;
+    TASKS.forEach(function (t) { if (t.id !== "review" && taskDone(m, t.id)) doneCount += 1; });
+    doneCount += 1; /* the review step is ready */
+
+    var strip = el("div", "c-strip");
+    strip.setAttribute("role", "img");
+    strip.setAttribute("aria-label", "Step " + (step + 1) + " of " + TASKS.length);
+    TASKS.forEach(function (t, i) {
+      var seg = el("div", "c-seg");
+      if (i === step) seg.className += " is-now";
+      else if (t.id === "review" || taskDone(m, t.id)) seg.className += " is-done";
+      strip.appendChild(seg);
+    });
+
+    var panel = el("div", "panel");
+    panel.appendChild(strip);
+    panel.appendChild(el("p", "c-step", "Step " + (step + 1) + " of " + TASKS.length + " \u00b7 " + doneCount + " done"));
+    panel.appendChild(el("h4", "pane-title", TASKS[step].label));
+
+    if (TASKS[step].id === "review") {
+      panel.appendChild(reviewList(card, false));
+      panel.appendChild(startBlock(card));
+    } else {
+      panel.appendChild(editorFor(card, TASKS[step].id));
+    }
+
+    var nav = el("div", "c-nav");
+    var back = el("button", "btn-ghost", "Back");
+    back.type = "button";
+    back.dataset.act = "back";
+    back.disabled = step === 0;
+    back.addEventListener("click", function () {
+      if (card.ui.step > 0) card.ui.step -= 1;
+      card.act();
+    });
+    var next = el("button", "btn-ghost", "Next");
+    next.type = "button";
+    next.dataset.act = "next";
+    next.disabled = step === TASKS.length - 1;
+    next.addEventListener("click", function () {
+      if (card.ui.step < TASKS.length - 1) card.ui.step += 1;
+      card.act();
+    });
+    nav.appendChild(back);
+    nav.appendChild(next);
+    panel.appendChild(nav);
+    root.appendChild(panel);
+  }
+
+  /* ---- D: dense summary, edited in place ---- */
+  function renderD(card, root) {
+    var panel = el("div", "panel");
+    denseRows(card.model).forEach(function (r) {
+      var row = el("div", "d-row");
+      row.appendChild(mark(r.done));
+      row.appendChild(el("span", "rlabel", r.label));
+      if (card.ui.editing === r.edit) {
+        var box = el("div", "d-edit");
+        box.appendChild(editorFor(card, r.edit));
+        row.appendChild(box);
+      } else {
+        var b = el("button", "d-val");
+        b.type = "button";
+        b.dataset.row = r.edit;
+        b.setAttribute("aria-label", "Edit " + r.label + ", " + markLabel(r.done));
+        b.appendChild(document.createTextNode(r.value));
+        if (r.detail) b.appendChild(el("small", "rdetail", r.detail));
+        b.addEventListener("click", function () { card.ui.editing = r.edit; card.act(); });
+        row.appendChild(b);
+      }
+      panel.appendChild(row);
+    });
+    panel.appendChild(startBlock(card));
+    root.appendChild(panel);
+  }
+
+  /* ---- card wiring ---- */
+  var RENDER = { a: renderA, b: renderB, c: renderC, d: renderD };
+  var MULTI = ["divisions", "coverage"];
+  function freshUi(key) {
+    if (key === "a") return { active: "review" };
+    if (key === "b") return { open: null };
+    if (key === "c") return { step: 0 };
+    return { editing: null };
+  }
+
+  var cards = {};
+  KEYS.forEach(function (key) {
+    var root = document.querySelector('[data-proto="' + key + '"]');
+    var card = { key: key, root: root, model: fresh(), ui: freshUi(key), actions: 0 };
+    card.render = function () {
+      root.innerHTML = "";
+      RENDER[key](card, root);
+      var a = document.querySelector('[data-c-actions="' + key + '"]');
+      var s = document.querySelector('[data-c-state="' + key + '"]');
+      if (a) a.textContent = String(card.actions);
+      if (s) s.textContent = marksLabel(card.model);
+    };
+    card.act = function () { card.actions += 1; card.render(); };
+    /* Committing a single-valued edit in D closes the row again, so the screen
+       a judge reads is the screen they left. A multi-toggle stays open. */
+    card.commit = function () {
+      if (key === "d" && card.ui.editing && MULTI.indexOf(card.ui.editing) === -1) {
+        card.ui.editing = null;
+      }
+      card.act();
+    };
+    card.reset = function () {
+      card.model = fresh();
+      card.ui = freshUi(key);
+      card.actions = 0;
+      card.render();
+    };
+    card.render();
+    var resetBtn = document.querySelector('[data-reset="' + key + '"]');
+    if (resetBtn) resetBtn.addEventListener("click", card.reset);
+    cards[key] = card;
+  });
+
+  /* ---- measurement ---- */
+  function countWords(root) {
+    var text = root.innerText || root.textContent || "";
+    var inputs = root.querySelectorAll("input[type=text]");
+    for (var i = 0; i < inputs.length; i++) {
+      if (inputs[i].offsetParent !== null) text += " " + inputs[i].value;
+    }
+    var parts = text.split(/\s+/);
+    var n = 0;
+    for (var j = 0; j < parts.length; j++) {
+      if (/[A-Za-z0-9]/.test(parts[j])) n += 1;
+    }
+    return n;
+  }
+
+  function setText(selector, text, isBad) {
+    var nodes = document.querySelectorAll(selector);
+    for (var i = 0; i < nodes.length; i++) {
+      nodes[i].textContent = text;
+      if (isBad !== undefined) nodes[i].classList.toggle("is-bad", !!isBad);
+    }
+  }
+
+  function measure() {
+    KEYS.forEach(function (key) {
+      var root = cards[key].root;
+      var h = Math.round(root.getBoundingClientRect().height);
+      var w = countWords(root);
+      var fits = h <= FIT_BUDGET;
+      setText('[data-h="' + key + '"]', String(h));
+      setText('[data-w="' + key + '"]', String(w));
+      setText('[data-fit="' + key + '"]', fits ? "Yes" : "No", !fits);
+      setText('[data-tbl-h="' + key + '"]', h + "px");
+      setText('[data-tbl-w="' + key + '"]', String(w));
+      setText('[data-tbl-fit="' + key + '"]', fits ? "Yes" : "No");
+    });
+  }
+
+  /* ---- self-tests: drive the real prototypes, read their own counters ---- */
+  function press(card, selector) {
+    var node = card.root.querySelector(selector);
+    if (!node) throw new Error("missing control " + selector + " in card " + card.key);
+    node.click();
+  }
+
+  function actionsToChangeMarks(key) {
+    var card = cards[key];
+    card.reset();
+    if (key === "a") {
+      press(card, '[data-act="change:marks"]');
+      press(card, '[data-chip="marks:90"]');
+    } else if (key === "b") {
+      press(card, '[data-line="marks"]');
+      press(card, '[data-chip="marks:90"]');
+    } else if (key === "c") {
+      press(card, '[data-act="next"]');
+      press(card, '[data-act="next"]');
+      press(card, '[data-act="next"]');
+      press(card, '[data-chip="marks:90"]');
+    } else {
+      press(card, '[data-row="marks"]');
+      press(card, '[data-chip="marks:90"]');
+    }
+    if (card.model.marks !== 90) throw new Error("marks did not change in card " + key);
+    var n = card.actions;
+    card.reset();
+    return n;
+  }
+
+  function actionsToReachStart(key) {
+    var card = cards[key];
+    card.reset();
+    if (key === "c") {
+      for (var i = 0; i < TASKS.length - 1; i++) press(card, '[data-act="next"]');
+    }
+    press(card, '[data-act="start"]');
+    if (!card.model.started) throw new Error("start did not fire in card " + key);
+    var n = card.actions;
+    card.reset();
+    return n;
+  }
+
+  function cReviewWords() {
+    var card = cards.c;
+    card.reset();
+    card.ui.step = TASKS.length - 1;
+    card.render();
+    var n = countWords(card.root);
+    card.reset();
+    return n;
+  }
+
+  function runSelfTests() {
+    KEYS.forEach(function (key) {
+      setText('[data-tbl-marks="' + key + '"]', String(actionsToChangeMarks(key)));
+      setText('[data-tbl-start="' + key + '"]', String(actionsToReachStart(key)));
+    });
+    setText("[data-c-review]", String(cReviewWords()));
+  }
+
+  runSelfTests();
+
+  function settle() {
+    requestAnimationFrame(function () {
+      requestAnimationFrame(measure);
+    });
+  }
+  if (document.readyState === "complete") settle();
+  else window.addEventListener("load", settle);
+  window.addEventListener("resize", measure);
+
+  /* ---- theme toggle ---- */
+  var toggle = document.getElementById("theme-toggle");
+  function currentIsDark() {
+    var attr = document.documentElement.getAttribute("data-theme");
+    if (attr === "dark") return true;
+    if (attr === "light") return false;
+    return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+  }
+  function syncToggleLabel() {
+    toggle.textContent = currentIsDark() ? "Light" : "Dark";
+  }
+  toggle.addEventListener("click", function () {
+    document.documentElement.setAttribute("data-theme", currentIsDark() ? "light" : "dark");
+    syncToggleLabel();
+  });
+  syncToggleLabel();
+})();
+</script>
+</body>
+</html>
