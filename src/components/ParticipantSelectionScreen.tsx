@@ -21,10 +21,13 @@ function participantMeta(
   entry: RosterEntry,
   division?: CompetitionDivision,
 ): string {
+  const category = categoryLabel(entry);
+  // A division is usually named for its category already ("Under 14 · Hifz"),
+  // and saying it twice is how the row came to read "Hifz · Hifz".
   return [
     entry.institution || "Institution not listed",
     division?.name,
-    categoryLabel(entry),
+    division?.name?.includes(category) ? null : category,
     sideLabel(entry),
   ]
     .filter(Boolean)

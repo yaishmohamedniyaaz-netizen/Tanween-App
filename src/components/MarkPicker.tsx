@@ -24,6 +24,11 @@ interface Props {
   step: number;
   marked: boolean;
   label: string;
+  /** The criterion this mark belongs to, so the bar can carry its colour.
+   *  The bar is portalled to the body and so sits outside the score row;
+   *  custom properties inherit down the DOM, not the React tree, and without
+   *  this the bar would fall back to ink while its row reads as the criterion. */
+  category: string;
   onChange: (value: number) => void;
 }
 
@@ -34,7 +39,15 @@ interface Props {
  *  along it and release on the one you want, or let go without moving and pick
  *  from the bar that stays open. Nothing is written until the press ends, so a
  *  whole gesture leaves one entry in the history. */
-export function MarkPicker({ value, max, step, marked, label, onChange }: Props) {
+export function MarkPicker({
+  value,
+  max,
+  step,
+  marked,
+  label,
+  category,
+  onChange,
+}: Props) {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const barRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
@@ -241,7 +254,7 @@ export function MarkPicker({ value, max, step, marked, label, onChange }: Props)
         createPortal(
           <div
             ref={barRef}
-            className={`mark-bar ${pinned ? "is-pinned" : ""}`}
+            className={`mark-bar cat-${category} ${pinned ? "is-pinned" : ""}`}
             style={{ top: anchor.top, left: anchor.left, width: anchor.width }}
             role="listbox"
             aria-label={`${label} marks`}

@@ -75,8 +75,11 @@ test("the live handoff uses quiet status text and two focused screens", () => {
   assert.match(headerSource, /Test mode · Live/);
   assert.match(participantScreenSource, /Participant running order/);
   assert.match(participantScreenSource, /entry\.institution/);
-  assert.match(questionScreenSource, /Choose a number/);
-  assert.match(questionScreenSource, /Ask the reciter to choose one available number/);
+  assert.match(questionScreenSource, /aria-label="Question numbers"/);
+  // The dialog head already says what this screen is. The board must not say
+  // it again: a grid of numbers is its own instruction.
+  assert.doesNotMatch(questionScreenSource, /Choose a number/);
+  assert.doesNotMatch(questionScreenSource, /Ask the reciter to choose/);
 });
 
 test("a draw opens a locked, recoverable Prepared Mushaf before judging", () => {

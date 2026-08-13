@@ -14,7 +14,10 @@ function reciterContext(
     participant.muqarrar === "feshey-kolhu"
       ? "Starting side"
       : "Ending side";
-  return [participant.institution, division.name, category, side]
+  // A division is usually named for its category already ("Under 14 · Hifz"),
+  // and saying it twice is how the row came to read "Hifz · Hifz".
+  const named = division.name?.includes(category) ? null : category;
+  return [participant.institution, division.name, named, side]
     .filter(Boolean)
     .join(" · ");
 }
@@ -73,13 +76,11 @@ export function QuestionNumberScreen({
         </div>
       ) : participant && division ? (
         <>
-          <div className="question-board-heading">
-            <div>
-              <h3>Choose a number</h3>
-              {cycle > 1 && <span>Cycle {cycle}</span>}
+          {cycle > 1 && (
+            <div className="question-board-heading">
+              <span>Cycle {cycle}</span>
             </div>
-            <p>Ask the reciter to choose one available number.</p>
-          </div>
+          )}
 
           <div className="draw-board" role="group" aria-label="Question numbers">
             {deck?.tiles.map((tile) => {

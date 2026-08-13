@@ -519,6 +519,17 @@ test("holding a word is neutral; only a criterion colours the page", () => {
   assert.match(cssSource, /\.hit\.armed\.cat-jali::before,/);
 });
 
+test("the mark bar carries its criterion's colour across the portal", () => {
+  // The bar is portalled to the body, so it leaves the score row's subtree.
+  // Custom properties inherit down the DOM, not the React tree: without the
+  // category travelling with it, --c is unset on the bar and the control
+  // falls back to ink while its own row reads as the criterion.
+  assert.match(pickerSource, /createPortal/);
+  assert.match(pickerSource, /className={`mark-bar cat-\$\{category\}/);
+  assert.match(pickerSource, /category: string;/);
+  assert.match(scorePanelSource, /category=\{category\}/);
+});
+
 test("the mark bar opens on a press and commits when the press ends", () => {
   assert.match(pickerSource, /className={`mark-bar/);
   assert.match(pickerSource, /setOpen\(true\);\s*setPinned\(false\);/);

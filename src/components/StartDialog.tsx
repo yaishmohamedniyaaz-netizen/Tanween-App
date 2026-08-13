@@ -363,11 +363,8 @@ export function StartDialog({
             <h2 id="reciter-start-title">
               {stage === "participant" ? "Select reciter" : "Choose a question"}
             </h2>
-            <p>
-              {stage === "participant"
-                ? "Select the next person in the running order."
-                : "The reciter chooses an available number."}
-            </p>
+            {/* The number board says what it is by being a board of numbers. */}
+            {stage === "participant" && <p>Select the next person in the running order.</p>}
           </div>
           <button
             type="button"
