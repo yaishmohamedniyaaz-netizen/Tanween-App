@@ -65,6 +65,8 @@ export interface Mistake {
   sourceVersion?: string;
   ruleVersion?: string;
   wordId?: string;
+  /** The whole kalimah the marked letter belongs to. */
+  wordText?: string;
   sourceStart?: number;
   sourceEnd?: number;
   primaryGlyph?: string;

@@ -1,5 +1,26 @@
 # Tahqeeq — build progress log
 
+## Mark bar, one mark per letter, kalimah details — IMPLEMENTED & VERIFIED (2026-08-13)
+
+- The Adu / Raagu mark now sits in a **box** in its score row, centred and in the
+  same column as every other criterion, because a full border is what signals a
+  value can be changed while plain text signals it cannot.
+- Pressing it drops a **horizontal mark bar** with every awardable mark: drag and
+  release to commit, or press without moving and the bar stays open to pick from.
+  Half marks are ticks, whole marks are taller, every fifth is labelled once an
+  allocation passes twelve. One gesture still writes one ledger event.
+- Four bar formats were compared at the hard case, 20 marks in half steps, and
+  are live in the interactive study: ruler strip, whole-mark chips, coarse-then-
+  fine, and the dropdown list this replaces.
+- **One letter carries one mark.** Marking a letter that already carries one
+  replaces it — the earlier mark is undone, leaves the score, and remains in the
+  history to be restored. Re-marking with the same criterion changes nothing.
+- **Mistake details name the kalimah** and its surah:ayah reference. The letter
+  ordinal remains in the stored evidence and the printed sheet.
+- The criterion is written **Adu / Raagu**, including in the results workbook.
+- Verification: 117 automated tests, production build, and browser QA of the bar
+  drag, the pinned bar, the replace rule and the details view. No console errors.
+
 ## Adu & Raagu marking control and left rail — IMPLEMENTED & VERIFIED (2026-08-13)
 
 - Research and the rejected candidates:

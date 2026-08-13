@@ -222,7 +222,7 @@ export function shortCategoryLabel(category: CategoryId): string {
     jali: "Jali",
     khafi: "Khafi",
     fasaha: "Fasaha",
-    "adu-raagu": "Adu & Raagu",
+    "adu-raagu": "Adu / Raagu",
   };
   return labels[category] ?? CATEGORY_BY_ID[category]?.label ?? category;
 }

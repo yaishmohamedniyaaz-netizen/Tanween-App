@@ -34,7 +34,7 @@ export const CATEGORIES: CategoryDef[] = [
     id: "adu-raagu",
     kind: "impression",
     optional: true,
-    label: "Adu & Raagu",
+    label: "Adu / Raagu",
     labelAr: "الصوت واللحن",
     hint: "Voice and melody — marked for the whole recitation",
   },

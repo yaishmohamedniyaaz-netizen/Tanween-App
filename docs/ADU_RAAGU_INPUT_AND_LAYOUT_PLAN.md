@@ -33,21 +33,28 @@ second action to refine it, and nothing is ever set by accident.
 
 Sources are listed in the interactive study.
 
-## Decision — vertical scrub, click for the list
+## Decision — a boxed mark, and a bar on the press
 
-Chosen after trying the prototypes: **candidate C, turned vertical, with the
-full mark list on a plain press.**
+The mark sits in the score row inside a **box**, centred, in the same column as
+every other criterion's score. Research on input affordances is unambiguous: a
+full border is what tells someone a value can be changed, and plain text is what
+tells them it cannot. The other rows stay plain, so the one editable number in
+the rail identifies itself without a label.
 
-- **Press and drag up or down** on the mark to change it — up is more marks.
-  Vertical reads as "raise and lower a score" in a way horizontal does not, and
-  it reuses the press-drag-release gesture the letter tray already teaches.
-  14px of travel per step, 34px while Shift is held for fine control.
-- **Press without dragging** opens the full list of awardable marks, full marks
-  first. Picking 7 out of 20 costs one press and one click rather than 26 steps.
-- Nothing is committed until the judge lets go: a whole drag writes exactly one
+Pressing it drops a **horizontal mark bar** carrying every awardable mark:
+
+- **Press and drag along the bar**, release on the mark you want. The reading
+  follows the pointer while the press is held, so a mark that lands wrong is
+  corrected without lifting — the same press-drag-release gesture the letter
+  tray teaches.
+- **Press without dragging** and the bar stays open to pick from.
+- Every half mark is a tick, whole marks are taller, and every fifth is
+  labelled once an allocation passes twelve marks, so 20 marks reads as a ruler
+  rather than 41 crowded buttons.
+- Nothing is committed until the press ends: a whole gesture writes exactly one
   ledger event, so the audit history stays readable.
 - **Keyboard**: arrows by one step, Shift-arrow by five, `Home` for full marks,
-  `End` for zero, digits to type a mark, `Enter` or `Space` for the list.
+  `End` for zero, digits to type a mark, `Enter` or `Space` for the bar.
 - **Wheel** adjusts only when the control is already focused, never on hover.
 - **A whole-recitation criterion is capped at 20 marks**, in the judging control
   and in setup, because that is the most this criterion is given in practice.
@@ -86,6 +93,21 @@ default only, and existing choices are untouched.
 Pass 2 changes no stored data: `impression_changed` and
 `impression_note_changed` already carry everything, so saved records stay
 readable and no migration is needed.
+
+## Also decided in this pass
+
+- **One letter carries one mark.** Marking a letter that already has a mark
+  replaces it: the earlier mark is undone, leaves the score, and stays in the
+  history where it can still be restored. Re-marking with the same criterion
+  changes nothing rather than stacking a duplicate.
+- **Mistake details name the kalimah**, with its surah and ayah beside it. The
+  letter ordinal stays in the stored evidence and the printed sheet; it is no
+  longer in the judge's reading view.
+- The criterion is written **Adu / Raagu** everywhere, including exports.
+
+The four bar formats compared at 20 marks — ruler, whole-mark chips, coarse then
+fine, and the dropdown list it replaced — are live in the interactive study with
+their widths, per-step distances and weaknesses.
 
 ## Still open
 

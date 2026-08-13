@@ -29,7 +29,7 @@ const COLUMN_HEADINGS: Record<CategoryId, string> = {
   jali: "Jali",
   khafi: "Khafi",
   fasaha: "Fasaha",
-  "adu-raagu": "Adu and Raagu",
+  "adu-raagu": "Adu / Raagu",
 };
 
 /** Only the criteria a competition actually judged become score columns. */

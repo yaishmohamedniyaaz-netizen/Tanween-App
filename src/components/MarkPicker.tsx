@@ -12,10 +12,11 @@ import { awardableMarks } from "../lib/scoring";
 
 const round2 = (value: number) => Math.round(value * 100) / 100;
 
-/** Vertical travel for one step. Holding Shift stretches it for fine control. */
-const PIXELS_PER_STEP = 14;
-const FINE_PIXELS_PER_STEP = 34;
-const DRAG_THRESHOLD = 4;
+const BAR_MAX_WIDTH = 520;
+const BAR_MIN_WIDTH = 260;
+const BAR_MARGIN = 16;
+/** Whole marks stop carrying their own label past this many. */
+const DENSE_MARK_COUNT = 12;
 
 interface Props {
   value: number;
@@ -28,21 +29,28 @@ interface Props {
 
 /** The awarded marks for a whole-recitation criterion.
  *
- *  Press and drag up or down to change the mark — the same press-drag-release
- *  gesture as marking a letter, so the value follows the hand. A press without
- *  a drag opens the full list of marks, because picking 7 out of 20 should not
- *  cost thirteen presses. Nothing is committed until the judge lets go. */
+ *  The row shows the mark in a box, because a box is what tells a judge a value
+ *  can be changed. Pressing it drops a bar carrying every awardable mark: drag
+ *  along it and release on the one you want, or let go without moving and pick
+ *  from the bar that stays open. Nothing is written until the press ends, so a
+ *  whole gesture leaves one entry in the history. */
 export function MarkPicker({ value, max, step, marked, label, onChange }: Props) {
   const buttonRef = useRef<HTMLButtonElement>(null);
-  const listRef = useRef<HTMLDivElement>(null);
-  const dragRef = useRef<{ y: number; from: number; moved: boolean } | null>(null);
+  const barRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const dragRef = useRef<{ moved: boolean; pointerId: number } | null>(null);
   const typedRef = useRef({ text: "", at: 0 });
   const [preview, setPreview] = useState<number | null>(null);
   const [open, setOpen] = useState(false);
-  const [anchor, setAnchor] = useState({ top: 0, left: 0, width: 0 });
+  const [pinned, setPinned] = useState(false);
+  const [anchor, setAnchor] = useState({ top: 0, left: 0, width: BAR_MIN_WIDTH });
 
-  const options = useMemo(() => awardableMarks(max, step), [max, step]);
+  const marks = useMemo(() => awardableMarks(max, step), [max, step]);
+  // awardableMarks counts down from full marks; the bar reads low to high.
+  const ascending = useMemo(() => [...marks].reverse(), [marks]);
   const shown = preview ?? value;
+  const wholeMarks = Math.round(max);
+  const labelEvery = wholeMarks > DENSE_MARK_COUNT ? 5 : 1;
 
   const clamp = useCallback(
     (next: number) => round2(Math.min(max, Math.max(0, Math.round(next / step) * step))),
@@ -51,53 +59,64 @@ export function MarkPicker({ value, max, step, marked, label, onChange }: Props)
 
   const commit = useCallback(
     (next: number) => {
-      const clamped = clamp(next);
       setPreview(null);
-      onChange(clamped);
+      onChange(clamp(next));
     },
     [clamp, onChange],
   );
+
+  const close = useCallback(() => {
+    setOpen(false);
+    setPinned(false);
+    setPreview(null);
+  }, []);
 
   useLayoutEffect(() => {
     if (!open) return;
     const rect = buttonRef.current?.getBoundingClientRect();
     if (!rect) return;
-    // A long list near the foot of the rail opens upward instead of off-screen.
-    const listHeight = listRef.current?.offsetHeight ?? 0;
-    const below = window.innerHeight - rect.bottom - 12;
-    const top =
-      listHeight > below && rect.top > below
-        ? Math.max(8, rect.top - 6 - listHeight)
-        : rect.bottom + 6;
-    setAnchor({ top, left: rect.right, width: rect.width });
+    const width = Math.max(
+      BAR_MIN_WIDTH,
+      Math.min(BAR_MAX_WIDTH, window.innerWidth - BAR_MARGIN * 2),
+    );
+    const left = Math.min(
+      Math.max(BAR_MARGIN, rect.left + rect.width / 2 - width / 2),
+      window.innerWidth - width - BAR_MARGIN,
+    );
+    const barHeight = barRef.current?.offsetHeight ?? 92;
+    const below = window.innerHeight - rect.bottom - 10;
+    const top = below < barHeight ? Math.max(8, rect.top - 10 - barHeight) : rect.bottom + 10;
+    setAnchor({ top, left, width });
   }, [open]);
 
   useEffect(() => {
     if (!open) return;
-    const selected = listRef.current?.querySelector<HTMLElement>('[aria-selected="true"]');
-    (selected ?? listRef.current?.firstElementChild as HTMLElement | null)?.focus();
-  }, [open]);
-
-  useEffect(() => {
-    if (!open) return;
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key !== "Escape") return;
+      event.preventDefault();
+      close();
+      buttonRef.current?.focus();
+    };
     const onDown = (event: PointerEvent) => {
       if (
-        !listRef.current?.contains(event.target as Node) &&
+        !barRef.current?.contains(event.target as Node) &&
         !buttonRef.current?.contains(event.target as Node)
       ) {
-        setOpen(false);
+        close();
       }
     };
-    const onScroll = () => setOpen(false);
+    const onScroll = () => close();
+    window.addEventListener("keydown", onKey);
     document.addEventListener("pointerdown", onDown);
     window.addEventListener("resize", onScroll);
     window.addEventListener("scroll", onScroll, true);
     return () => {
+      window.removeEventListener("keydown", onKey);
       document.removeEventListener("pointerdown", onDown);
       window.removeEventListener("resize", onScroll);
       window.removeEventListener("scroll", onScroll, true);
     };
-  }, [open]);
+  }, [close, open]);
 
   // The wheel adjusts marks only once this control has been focused on purpose.
   // Acting on hover alone is how people change official numbers by accident.
@@ -113,38 +132,68 @@ export function MarkPicker({ value, max, step, marked, label, onChange }: Props)
     return () => button.removeEventListener("wheel", onWheel);
   }, [commit, open, step, value]);
 
+  /** The mark under a pointer position on the bar. */
+  const markAt = useCallback(
+    (clientX: number) => {
+      const rect = trackRef.current?.getBoundingClientRect();
+      if (!rect || rect.width === 0) return value;
+      const ratio = (clientX - rect.left) / rect.width;
+      return clamp(Math.min(1, Math.max(0, ratio)) * max);
+    },
+    [clamp, max, value],
+  );
+
   const onPointerDown = (event: React.PointerEvent<HTMLButtonElement>) => {
-    if (event.button !== 0 || open) return;
-    dragRef.current = { y: event.clientY, from: value, moved: false };
-    buttonRef.current?.setPointerCapture(event.pointerId);
-  };
-
-  const onPointerMove = (event: React.PointerEvent<HTMLButtonElement>) => {
-    const drag = dragRef.current;
-    if (!drag) return;
-    const distance = drag.y - event.clientY;
-    if (!drag.moved && Math.abs(distance) < DRAG_THRESHOLD) return;
-    drag.moved = true;
-    const perStep = event.shiftKey ? FINE_PIXELS_PER_STEP : PIXELS_PER_STEP;
-    setPreview(clamp(drag.from + (distance / perStep) * step));
-  };
-
-  const endDrag = (event: React.PointerEvent<HTMLButtonElement>) => {
-    const drag = dragRef.current;
-    dragRef.current = null;
-    if (!drag) return;
-    try {
-      buttonRef.current?.releasePointerCapture(event.pointerId);
-    } catch {
-      // Pointer capture is optional on older mobile browsers.
-    }
-    if (drag.moved) {
-      commit(preview ?? value);
+    if (event.button !== 0) return;
+    if (open) {
+      close();
       return;
     }
-    setPreview(null);
+    event.preventDefault();
+    buttonRef.current?.focus();
+    dragRef.current = { moved: false, pointerId: event.pointerId };
     setOpen(true);
+    setPinned(false);
   };
+
+  // The press continues over the bar, so tracking lives on the window.
+  useEffect(() => {
+    if (!open || pinned) return;
+    const onMove = (event: PointerEvent) => {
+      const drag = dragRef.current;
+      if (!drag) return;
+      const bar = barRef.current;
+      if (!bar) return;
+      const rect = bar.getBoundingClientRect();
+      const inside =
+        event.clientX >= rect.left &&
+        event.clientX <= rect.right &&
+        event.clientY >= rect.top - 24 &&
+        event.clientY <= rect.bottom + 24;
+      if (!inside) return;
+      drag.moved = true;
+      setPreview(markAt(event.clientX));
+    };
+    const onUp = () => {
+      const drag = dragRef.current;
+      dragRef.current = null;
+      if (drag?.moved && preview !== null) {
+        commit(preview);
+        setOpen(false);
+        return;
+      }
+      // A press with no drag leaves the bar open to pick from.
+      setPinned(true);
+    };
+    window.addEventListener("pointermove", onMove);
+    window.addEventListener("pointerup", onUp);
+    window.addEventListener("pointercancel", onUp);
+    return () => {
+      window.removeEventListener("pointermove", onMove);
+      window.removeEventListener("pointerup", onUp);
+      window.removeEventListener("pointercancel", onUp);
+    };
+  }, [commit, markAt, open, pinned, preview]);
 
   const onKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>) => {
     const jump = event.shiftKey ? step * 5 : step;
@@ -152,8 +201,10 @@ export function MarkPicker({ value, max, step, marked, label, onChange }: Props)
     else if (event.key === "ArrowDown" || event.key === "ArrowLeft") commit(value - jump);
     else if (event.key === "Home") commit(max);
     else if (event.key === "End") commit(0);
-    else if (event.key === "Enter" || event.key === " ") setOpen(true);
-    else if (/^[0-9]$/.test(event.key)) {
+    else if (event.key === "Enter" || event.key === " ") {
+      setOpen(true);
+      setPinned(true);
+    } else if (/^[0-9]$/.test(event.key)) {
       const now = Date.now();
       const text = now - typedRef.current.at < 900 ? typedRef.current.text + event.key : event.key;
       typedRef.current = { text, at: now };
@@ -162,37 +213,15 @@ export function MarkPicker({ value, max, step, marked, label, onChange }: Props)
     event.preventDefault();
   };
 
-  const onListKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
-    const items = Array.from(
-      listRef.current?.querySelectorAll<HTMLElement>("[data-mark-option]") ?? [],
-    );
-    const index = items.findIndex((item) => item === document.activeElement);
-    if (event.key === "Escape") {
-      setOpen(false);
-      buttonRef.current?.focus();
-    } else if (event.key === "ArrowDown") {
-      items[Math.min(index + 1, items.length - 1)]?.focus();
-    } else if (event.key === "ArrowUp") {
-      items[Math.max(index - 1, 0)]?.focus();
-    } else if (event.key === "Home") {
-      items[0]?.focus();
-    } else if (event.key === "End") {
-      items[items.length - 1]?.focus();
-    } else if (event.key === "Tab") {
-      setOpen(false);
-      return;
-    } else return;
-    event.preventDefault();
-  };
-
   const display = Number.isInteger(shown) ? String(shown) : shown.toFixed(1);
+  const percent = max > 0 ? (shown / max) * 100 : 0;
 
   return (
     <>
       <button
         ref={buttonRef}
         type="button"
-        className={`mark-picker ${marked ? "is-marked" : ""} ${preview !== null ? "is-dragging" : ""}`}
+        className={`mark-picker ${marked ? "is-marked" : ""} ${open ? "is-open" : ""}`}
         role="spinbutton"
         aria-label={`${label} marks`}
         aria-valuemin={0}
@@ -201,11 +230,8 @@ export function MarkPicker({ value, max, step, marked, label, onChange }: Props)
         aria-valuetext={`${display} of ${max} marks${marked ? "" : ", not marked yet"}`}
         aria-haspopup="listbox"
         aria-expanded={open}
-        title="Drag up or down to change · click for the full list"
+        title="Press for the mark bar, or drag along it"
         onPointerDown={onPointerDown}
-        onPointerMove={onPointerMove}
-        onPointerUp={endDrag}
-        onPointerCancel={endDrag}
         onKeyDown={onKeyDown}
       >
         <span className="mark-picker-value t-num">{display}</span>
@@ -214,37 +240,62 @@ export function MarkPicker({ value, max, step, marked, label, onChange }: Props)
       {open &&
         createPortal(
           <div
-            ref={listRef}
-            className="mark-menu"
+            ref={barRef}
+            className={`mark-bar ${pinned ? "is-pinned" : ""}`}
+            style={{ top: anchor.top, left: anchor.left, width: anchor.width }}
             role="listbox"
             aria-label={`${label} marks`}
-            style={{ top: anchor.top, left: anchor.left }}
-            onKeyDown={onListKeyDown}
+            aria-activedescendant={`mark-option-${String(shown).replace(".", "-")}`}
           >
-            {options.map((option) => {
-              const selected = marked && Math.abs(option - value) < 0.001;
-              return (
-                <button
-                  key={option}
-                  type="button"
-                  data-mark-option={option}
-                  role="option"
-                  aria-selected={selected}
-                  className={selected ? "is-selected" : ""}
-                  tabIndex={-1}
-                  onClick={() => {
-                    commit(option);
-                    setOpen(false);
-                    buttonRef.current?.focus();
-                  }}
-                >
-                  <span className="t-num">
-                    {Number.isInteger(option) ? option : option.toFixed(1)}
+            <div className="mark-bar-head">
+              <span className="mark-bar-value t-num">{display}</span>
+              <span className="mark-bar-of t-num">/ {max}</span>
+              <span className="mark-bar-hint">
+                {pinned ? "Choose a mark" : "Drag, then let go"}
+              </span>
+            </div>
+            <div
+              ref={trackRef}
+              className="mark-bar-track"
+              onPointerDown={(event) => {
+                if (!pinned) return;
+                event.preventDefault();
+                setPreview(markAt(event.clientX));
+                dragRef.current = { moved: true, pointerId: event.pointerId };
+                (event.currentTarget as HTMLElement).setPointerCapture(event.pointerId);
+              }}
+              onPointerMove={(event) => {
+                if (!pinned || !dragRef.current) return;
+                setPreview(markAt(event.clientX));
+              }}
+              onPointerUp={(event) => {
+                if (!pinned) return;
+                dragRef.current = null;
+                commit(markAt(event.clientX));
+                close();
+              }}
+            >
+              <span className="mark-bar-fill" style={{ width: `${percent}%` }} />
+              {ascending.map((mark) => {
+                const whole = Number.isInteger(mark);
+                const labelled = whole && Math.round(mark) % labelEvery === 0;
+                const current = Math.abs(mark - shown) < 0.001;
+                return (
+                  <span
+                    key={mark}
+                    id={`mark-option-${String(mark).replace(".", "-")}`}
+                    role="option"
+                    aria-selected={current}
+                    aria-label={`${mark} marks`}
+                    className={`mark-tick ${whole ? "is-whole" : ""} ${labelled ? "is-labelled" : ""} ${current ? "is-current" : ""}`}
+                    style={{ left: `${(mark / max) * 100}%` }}
+                  >
+                    {labelled && <i className="mark-tick-label t-num">{mark}</i>}
                   </span>
-                  {option === max && <small>full</small>}
-                </button>
-              );
-            })}
+                );
+              })}
+              <span className="mark-bar-thumb" style={{ left: `${percent}%` }} />
+            </div>
           </div>,
           document.body,
         )}

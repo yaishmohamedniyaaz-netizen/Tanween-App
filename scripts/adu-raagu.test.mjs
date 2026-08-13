@@ -21,12 +21,19 @@ import {
   computeCategoryScores,
   impressionScore,
 } from "../src/lib/scoring.ts";
-import { projectImpressions, seedLedgerEvents } from "../src/lib/judgingLedger.ts";
 import {
+  latestMistakeEventIds,
+  projectImpressions,
+  projectMistakes,
+  seedLedgerEvents,
+} from "../src/lib/judgingLedger.ts";
+import {
+  assignmentLabel,
   createPanelPreset,
   legacyAssignment,
   makeAssignmentSnapshot,
   normalizeAssignment,
+  shortCategoryLabel,
   validateJudgePanel,
 } from "../src/lib/judgeAssignments.ts";
 import { competitionReadiness, normalizeCompetition } from "../src/lib/competition.ts";
@@ -54,6 +61,14 @@ const scorePanelSource = readFileSync(
 );
 const appSource = readFileSync(
   new URL("../src/App.tsx", import.meta.url),
+  "utf8",
+);
+const mistakeLogSource = readFileSync(
+  new URL("../src/components/MistakeLog.tsx", import.meta.url),
+  "utf8",
+);
+const mushafSource = readFileSync(
+  new URL("../src/components/Mushaf.tsx", import.meta.url),
   "utf8",
 );
 
@@ -361,7 +376,7 @@ test("final results and the workbook only carry the criteria judged", () => {
   assert.deepEqual(finalResultsHeaders([result]).slice(8, 11), [
     "Jali",
     "Khafi",
-    "Adu and Raagu",
+    "Adu / Raagu",
   ]);
 });
 
@@ -394,17 +409,6 @@ test("the mark list runs from full marks down to zero", () => {
   assert.equal(awardableMarks(20, 0.5).at(-1), 0);
 });
 
-test("the mark picker drags vertically and opens the list on a plain press", () => {
-  // Up is more marks: the reading is the distance from the press, not to it.
-  assert.match(pickerSource, /const distance = drag\.y - event\.clientY/);
-  assert.match(pickerSource, /if \(drag\.moved\) \{\s*commit\(preview \?\? value\);/);
-  assert.match(pickerSource, /setPreview\(null\);\s*setOpen\(true\);/);
-  // A drag previews locally and writes one ledger event when the judge lets go.
-  assert.match(pickerSource, /setPreview\(clamp\(drag\.from/);
-  assert.match(pickerSource, /role="listbox"/);
-  assert.match(pickerSource, /aria-haspopup="listbox"/);
-});
-
 test("the wheel never changes a mark on hover alone", () => {
   assert.match(pickerSource, /document\.activeElement !== button \|\| open/);
   assert.match(pickerSource, /Acting on hover alone is how people change official numbers/);
@@ -422,4 +426,49 @@ test("the judging rail sits on the left unless the judge chose otherwise", () =>
     appSource,
     /localStorage\.getItem\(LS_JUDGE_RAIL_SIDE_KEY\) === "right" \? "right" : "left"/,
   );
+});
+
+test("the criterion is written Adu / Raagu", () => {
+  assert.equal(CATEGORY_BY_ID["adu-raagu"].label, "Adu / Raagu");
+  assert.equal(shortCategoryLabel("adu-raagu"), "Adu / Raagu");
+  assert.match(assignmentLabel(["jali", "adu-raagu"]), /Jali \+ Adu \/ Raagu/);
+});
+
+test("marking a letter twice replaces the mark instead of stacking one", () => {
+  const jali = { ...mistake("jali", 2), id: "m-1", tid: "112:1:2:u3" };
+  const khafi = { ...mistake("khafi", 1), id: "m-2", tid: "112:1:2:u3" };
+  const events = [
+    { id: "e1", at: 10, type: "mistake_added", mistake: jali },
+    { id: "e2", at: 20, type: "mistake_undone", mistake: jali },
+    { id: "e3", at: 21, type: "mistake_added", mistake: khafi },
+  ];
+  const projected = projectMistakes(events);
+  assert.equal(projected.length, 1, "one letter carries one mark");
+  assert.equal(projected[0].category, "khafi");
+  // The replaced mark stays in the history and can be restored from it.
+  assert.equal(latestMistakeEventIds(events).get(jali.id), "e2");
+
+  assert.match(storeSource, /One letter carries one mark/);
+  assert.match(storeSource, /state\.mistakes\.find\(\(item\) => item\.tid === mistake\.tid\)/);
+  assert.match(storeSource, /if \(previous && previous\.category === mistake\.category\) return state;/);
+});
+
+test("mistake details name the kalimah and where it sits", () => {
+  assert.match(mistakeLogSource, /log-kalimah-word/);
+  assert.match(mistakeLogSource, /mistake\.wordText \|\| mistake\.glyph/);
+  assert.match(mistakeLogSource, /\$\{mistake\.surah\}:\$\{mistake\.ayah\}/);
+  assert.match(mistakeLogSource, /log-kalimah-ref/);
+  // The letter ordinal stays in the stored evidence, not in the judge's view.
+  assert.doesNotMatch(mistakeLogSource, /mistake\.label/);
+  assert.match(mushafSource, /wordText: active\.meta\.semanticText/);
+});
+
+test("the mark bar opens on a press and commits when the press ends", () => {
+  assert.match(pickerSource, /className={`mark-bar/);
+  assert.match(pickerSource, /setOpen\(true\);\s*setPinned\(false\);/);
+  assert.match(pickerSource, /if \(drag\?\.moved && preview !== null\)/);
+  // A press that does not move leaves the bar open to pick from.
+  assert.match(pickerSource, /setPinned\(true\);/);
+  assert.match(pickerSource, /mark-tick/);
+  assert.match(pickerSource, /labelEvery/);
 });

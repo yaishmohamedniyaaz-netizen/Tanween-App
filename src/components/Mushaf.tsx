@@ -405,6 +405,7 @@ export function Mushaf({
         sourceVersion: TARGET_SOURCE_VERSION,
         ruleVersion: TARGET_RULE_VERSION,
         wordId: active.meta.wid,
+        wordText: active.meta.semanticText,
         sourceStart: unit.start,
         sourceEnd: unit.end,
         primaryGlyph: unit.primaryGlyph,

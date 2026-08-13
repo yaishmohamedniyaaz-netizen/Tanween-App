@@ -120,6 +120,10 @@ export function MistakeLog() {
             {visible.map((mistake) => {
               const category = CATEGORY_BY_ID[mistake.category];
               const open = openId === mistake.id;
+              const reference =
+                mistake.ayah === null
+                  ? `${mistake.surah}:Basmala`
+                  : `${mistake.surah}:${mistake.ayah}`;
               return (
                 <li
                   className={`log-row-wrap cat-${mistake.category} ${open ? "open" : ""}`}
@@ -129,7 +133,7 @@ export function MistakeLog() {
                     type="button"
                     className="log-row"
                     aria-expanded={open}
-                    title={`${category.label} — ${mistake.label}`}
+                    title={`${category.label} · ${reference}`}
                     onClick={() =>
                       toggle(mistake.id, mistake.tid, mistake.page)
                     }
@@ -144,10 +148,14 @@ export function MistakeLog() {
                   </button>
                   <div className="log-expand">
                     <div className="log-expand-inner">
-                      <div className="log-detail">
-                        <span className="log-loc">
-                          {category.label} · {mistake.label}
+                      <div className="log-kalimah">
+                        <span className="log-kalimah-word" dir="rtl" lang="ar">
+                          {mistake.wordText || mistake.glyph}
                         </span>
+                        <span className="log-kalimah-ref t-num">{reference}</span>
+                      </div>
+                      <div className="log-detail">
+                        <span className="log-loc">{category.label}</span>
                         <button
                           type="button"
                           className="step-btn"

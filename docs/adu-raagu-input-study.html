@@ -583,6 +583,139 @@
     color: var(--ink-3);
   }
 
+
+  /* ---- Bar formats at 20 marks ---- */
+  .bar-track {
+    position: relative;
+    height: 40px;
+    border-radius: 8px;
+    background: var(--surface-2);
+    border: 1px solid var(--line);
+    cursor: ew-resize;
+    touch-action: none;
+    user-select: none;
+    margin-bottom: 18px;
+  }
+  .bar-fill {
+    position: absolute;
+    inset: 0 auto 0 0;
+    border-radius: 8px 0 0 8px;
+    background: var(--accent-soft);
+    pointer-events: none;
+  }
+  .bar-tick {
+    position: absolute;
+    top: 50%;
+    width: 1px;
+    height: 10px;
+    margin-top: -5px;
+    background: var(--line-2);
+    pointer-events: none;
+  }
+  .bar-tick.is-whole { height: 17px; margin-top: -8px; background: var(--ink-3); }
+  .bar-tick.is-labelled { height: 22px; margin-top: -11px; }
+  .bar-tick i {
+    position: absolute;
+    top: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 10.5px;
+    font-style: normal;
+    color: var(--ink-3);
+    font-variant-numeric: tabular-nums;
+  }
+  .bar-thumb {
+    position: absolute;
+    top: -4px;
+    bottom: -4px;
+    width: 3px;
+    margin-left: -1.5px;
+    border-radius: 2px;
+    background: var(--accent);
+    pointer-events: none;
+  }
+  .chip-strip {
+    display: flex;
+    gap: 2px;
+    touch-action: none;
+    user-select: none;
+  }
+  .chip-strip button {
+    flex: 1 1 0;
+    min-width: 0;
+    height: 40px;
+    padding: 0 1px;
+    border: 1px solid var(--line);
+    border-radius: 5px;
+    background: var(--surface);
+    color: var(--ink-2);
+    font-size: 11.5px;
+    font-variant-numeric: tabular-nums;
+    cursor: pointer;
+  }
+  .chip-strip button.is-filled { background: var(--accent-soft); border-color: var(--accent-line); }
+  .chip-strip button[aria-checked="true"] {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+    font-weight: 600;
+  }
+  /* A half mark reads as the boundary between two chips, not as a new number. */
+  .chip-strip button.is-half {
+    background: linear-gradient(to right, var(--accent) 50%, var(--surface) 50%);
+    border-color: var(--accent);
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .tier-rows { display: flex; flex-direction: column; gap: 8px; }
+  .tier-row { display: flex; gap: 5px; flex-wrap: wrap; }
+  .tier-row button {
+    flex: 1 1 0;
+    min-width: 44px;
+    height: 44px;
+    border: 1px solid var(--line-2);
+    border-radius: 7px;
+    background: var(--surface);
+    color: var(--ink-2);
+    font-size: 12.5px;
+    font-variant-numeric: tabular-nums;
+    cursor: pointer;
+  }
+  .tier-row.is-fine button { height: 38px; font-size: 12px; }
+  .tier-row button.is-active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+    font-weight: 600;
+  }
+  .list-scroll {
+    max-height: 168px;
+    overflow-y: auto;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 4px;
+    display: flex;
+    flex-direction: column;
+  }
+  .list-scroll button {
+    min-height: 32px;
+    border: 0;
+    border-radius: 5px;
+    background: none;
+    color: var(--ink);
+    font-size: 13px;
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+    padding: 0 10px;
+    cursor: pointer;
+  }
+  .list-scroll button:hover { background: var(--surface-2); }
+  .list-scroll button[aria-selected="true"] {
+    background: var(--accent);
+    color: #fff;
+    font-weight: 600;
+  }
+
   @media (prefers-reduced-motion: reduce) {
     * { transition: none !important; animation: none !important; }
   }
@@ -594,6 +727,7 @@
     <a href="#problem">The two problems</a>
     <a href="#evidence">What the evidence says</a>
     <a href="#lab">Try the five candidates</a>
+    <a href="#bar">The bar at 20 marks</a>
     <a href="#recommend">The recommendation</a>
     <a href="#rail-move">Moving the rail left</a>
     <a href="#plan">Build plan</a>
@@ -905,8 +1039,153 @@
       </p>
     </section>
 
+
+    <section id="bar">
+      <div class="section-head"><span class="num">04</span><h2>The bar at 20 marks</h2></div>
+      <p>
+        Twenty marks with a half-mark step is 41 values &#8212; the hardest case this criterion has,
+        and the one worth designing against. Four ways to put all 41 on one horizontal bar, each live
+        below. The task each time: land on <strong>13.5</strong>, the sort of value that is easy to
+        miss by one step.
+      </p>
+      <p>
+        The rule that makes any of them safe is the same: <strong>the reading follows your pointer
+        while you hold, and only commits when you let go</strong>. A press that lands wrong is
+        corrected without lifting, so a 12px step is not a 12px risk.
+      </p>
+
+      <div class="grid-2" style="margin-top:22px">
+
+        <div class="lab-card">
+          <div class="lab-head">
+            <h3>A &#183; Ruler strip <span class="pill good">built</span></h3>
+            <p>Every half mark is a tick, whole marks are taller, every fifth is labelled.</p>
+          </div>
+          <div class="lab-stage">
+            <div class="readout">
+              <span class="val" data-out="ruler">20</span><span class="of">/ 20</span>
+              <span class="tag" data-tag="ruler">Not marked</span>
+            </div>
+            <div class="bar-track" data-bar="ruler" tabindex="0" role="slider"
+                 aria-valuemin="0" aria-valuemax="20" aria-valuenow="20" aria-label="Marks"></div>
+            <p class="scale-hint">Press anywhere and drag &#183; release to commit</p>
+          </div>
+          <div class="lab-foot">
+            <span class="counter" data-count="ruler">Actions: <b>0</b></span>
+            <button type="button" class="reset" data-reset="ruler">Reset</button>
+          </div>
+        </div>
+
+        <div class="lab-card">
+          <div class="lab-head">
+            <h3>B &#183; Whole-mark chips</h3>
+            <p>21 real targets. Halves come from dragging between two chips.</p>
+          </div>
+          <div class="lab-stage">
+            <div class="readout">
+              <span class="val" data-out="chips">20</span><span class="of">/ 20</span>
+              <span class="tag" data-tag="chips">Not marked</span>
+            </div>
+            <div class="chip-strip" data-bar="chips" role="radiogroup" aria-label="Marks"></div>
+            <p class="scale-hint">Click a mark &#183; drag across for the halves between</p>
+          </div>
+          <div class="lab-foot">
+            <span class="counter" data-count="chips">Actions: <b>0</b></span>
+            <button type="button" class="reset" data-reset="chips">Reset</button>
+          </div>
+        </div>
+
+        <div class="lab-card">
+          <div class="lab-head">
+            <h3>C &#183; Coarse then fine</h3>
+            <p>Pick the five-mark block, then the exact mark inside it. Always big targets.</p>
+          </div>
+          <div class="lab-stage">
+            <div class="readout">
+              <span class="val" data-out="tier">20</span><span class="of">/ 20</span>
+              <span class="tag" data-tag="tier">Not marked</span>
+            </div>
+            <div class="tier-rows" data-bar="tier"></div>
+            <p class="scale-hint">Two taps for any value, never smaller than 44px</p>
+          </div>
+          <div class="lab-foot">
+            <span class="counter" data-count="tier">Actions: <b>0</b></span>
+            <button type="button" class="reset" data-reset="tier">Reset</button>
+          </div>
+        </div>
+
+        <div class="lab-card">
+          <div class="lab-head">
+            <h3>D &#183; Dropdown list <span class="pill warn">previous</span></h3>
+            <p>The vertical list this replaced. All 41 values, one per row.</p>
+          </div>
+          <div class="lab-stage">
+            <div class="readout">
+              <span class="val" data-out="list">20</span><span class="of">/ 20</span>
+              <span class="tag" data-tag="list">Not marked</span>
+            </div>
+            <div class="list-scroll" data-bar="list" role="listbox" aria-label="Marks"></div>
+            <p class="scale-hint">Scroll to the value, then click it</p>
+          </div>
+          <div class="lab-foot">
+            <span class="counter" data-count="list">Actions: <b>0</b></span>
+            <button type="button" class="reset" data-reset="list">Reset</button>
+          </div>
+        </div>
+      </div>
+
+      <h3 style="margin-top:30px">What each one costs at 41 values</h3>
+      <div class="table-wrap" style="margin-bottom:8px">
+        <table>
+          <thead>
+            <tr>
+              <th>Format</th>
+              <th class="num">Width needed</th>
+              <th class="num">Per step</th>
+              <th>Weakness</th>
+              <th>Verdict</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>A</strong> Ruler strip</td>
+              <td class="num">490px</td>
+              <td class="num">12px</td>
+              <td>Small targets for a cold tap</td>
+              <td><span class="pill good">Built</span> &#8212; the hold-and-adjust gesture covers it</td>
+            </tr>
+            <tr>
+              <td><strong>B</strong> Whole-mark chips</td>
+              <td class="num">570px</td>
+              <td class="num">27px whole, drag for halves</td>
+              <td>Halves are invisible until you drag</td>
+              <td>Good to 12 marks, awkward past that</td>
+            </tr>
+            <tr>
+              <td><strong>C</strong> Coarse then fine</td>
+              <td class="num">300px</td>
+              <td class="num">44px</td>
+              <td>Always two taps, even for 10</td>
+              <td>The touch answer &#8212; keep for tablets</td>
+            </tr>
+            <tr>
+              <td><strong>D</strong> Dropdown list</td>
+              <td class="num">92px</td>
+              <td class="num">34px tall</td>
+              <td>41 rows means scrolling to reach 0</td>
+              <td>Rejected: the range stops being visible</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size:13px;color:var(--ink-3)">
+        Widths assume a 20-mark allocation with a 0.5 step. Below 12 whole marks every format fits
+        comfortably; the choice only matters at the top of the range.
+      </p>
+    </section>
+
     <section id="recommend">
-      <div class="section-head"><span class="num">04</span><h2>The recommendation</h2></div>
+      <div class="section-head"><span class="num">05</span><h2>The recommendation</h2></div>
       <p>
         <strong>Fold the control into the score row.</strong> Adu &amp; Raagu keeps exactly one home in
         the rail &#8212; its row in the scorecard, beside Jal&#299;, Khaf&#299; and Fa&#7779;&#257;&#7717;a. The row shows the mark. Click
@@ -987,7 +1266,7 @@
     </section>
 
     <section id="rail-move">
-      <div class="section-head"><span class="num">05</span><h2>Moving the rail left</h2></div>
+      <div class="section-head"><span class="num">06</span><h2>Moving the rail left</h2></div>
       <p>
         You already have the switch &#8212; <code>judgeRailSide</code>, with a preference stored per device.
         This is a change of default, not of capability, and it is worth doing before the control work
@@ -1019,7 +1298,7 @@
     </section>
 
     <section id="plan">
-      <div class="section-head"><span class="num">06</span><h2>Build plan</h2></div>
+      <div class="section-head"><span class="num">07</span><h2>Build plan</h2></div>
       <p>Three passes, each shippable on its own and each verifiable in the browser.</p>
       <div class="table-wrap">
         <table>
@@ -1065,7 +1344,7 @@
     </section>
 
     <section id="decide">
-      <div class="section-head"><span class="num">07</span><h2>What I need from you</h2></div>
+      <div class="section-head"><span class="num">08</span><h2>What I need from you</h2></div>
       <ul>
         <li><strong>Primary control:</strong> mark scale with scrub layered on (B + C), or something else after you have tried them?</li>
         <li><strong>Named deductions:</strong> worth building as a second mode, or is picking the mark enough for real competitions?</li>
@@ -1078,7 +1357,7 @@
     </section>
 
     <section id="sources">
-      <div class="section-head"><span class="num">08</span><h2>Sources to look at</h2></div>
+      <div class="section-head"><span class="num">09</span><h2>Sources to look at</h2></div>
       <p>Worth opening the first four yourself &#8212; they are the ones that decided the recommendation.</p>
       <div class="refs">
         <div class="ref">
@@ -1472,5 +1751,243 @@
       mockTotal.innerHTML = fmt(100 - deducted) + "<small> / 100</small>";
     });
     buildScale(document.querySelector('[data-lab="mock"]'), mockModel, {});
+  })();
+</script>
+
+<script>
+  /* The bar formats, at the hard case: 0 to 20 in half marks. */
+  (function () {
+    "use strict";
+
+    var MAX = 20;
+    var STEP = 0.5;
+    var TARGET = 13.5;
+
+    function fmt(v) { return Number.isInteger(v) ? String(v) : v.toFixed(1); }
+    function clamp(v) { return Math.min(MAX, Math.max(0, Math.round(v / STEP) * STEP)); }
+
+    function model(key, paint) {
+      var state = { value: MAX, set: false, actions: 0 };
+      var out = document.querySelector('[data-out="' + key + '"]');
+      var tag = document.querySelector('[data-tag="' + key + '"]');
+      var count = document.querySelector('[data-count="' + key + '"]');
+      var reset = document.querySelector('[data-reset="' + key + '"]');
+
+      function render() {
+        out.textContent = fmt(state.value);
+        tag.textContent = state.set ? "Marked" : "Not marked";
+        tag.classList.toggle("is-set", state.set);
+        count.innerHTML = "Actions: <b>" + state.actions + "</b>" +
+          (state.set && state.value === TARGET ? " &#8212; on 13.5" : "");
+        count.classList.toggle("is-good", state.set && state.value === TARGET);
+        if (paint) paint(state);
+      }
+      state.preview = function (value) { state.value = clamp(value); state.set = true; render(); };
+      state.commit = function (value, cost) {
+        state.value = clamp(value);
+        state.set = true;
+        state.actions += cost === undefined ? 1 : cost;
+        render();
+      };
+      state.reset = function () { state.value = MAX; state.set = false; state.actions = 0; render(); };
+      reset.addEventListener("click", state.reset);
+      render();
+      return state;
+    }
+
+    /* A - ruler strip */
+    var rulerRoot = document.querySelector('[data-bar="ruler"]');
+    var rulerFill = document.createElement("span");
+    rulerFill.className = "bar-fill";
+    rulerRoot.appendChild(rulerFill);
+    var rulerThumb = document.createElement("span");
+    rulerThumb.className = "bar-thumb";
+    for (var mark = 0; mark <= MAX; mark += STEP) {
+      var tick = document.createElement("span");
+      var whole = Number.isInteger(mark);
+      tick.className = "bar-tick" + (whole ? " is-whole" : "") + (whole && mark % 5 === 0 ? " is-labelled" : "");
+      tick.style.left = (mark / MAX) * 100 + "%";
+      if (whole && mark % 5 === 0) {
+        var label = document.createElement("i");
+        label.textContent = String(mark);
+        tick.appendChild(label);
+      }
+      rulerRoot.appendChild(tick);
+    }
+    rulerRoot.appendChild(rulerThumb);
+
+    var ruler = model("ruler", function (state) {
+      var percent = (state.value / MAX) * 100;
+      rulerFill.style.width = percent + "%";
+      rulerThumb.style.left = percent + "%";
+      rulerRoot.setAttribute("aria-valuenow", String(state.value));
+    });
+
+    var rulerDrag = false;
+    function rulerValue(clientX) {
+      var rect = rulerRoot.getBoundingClientRect();
+      return ((clientX - rect.left) / rect.width) * MAX;
+    }
+    rulerRoot.addEventListener("pointerdown", function (event) {
+      event.preventDefault();
+      rulerDrag = true;
+      rulerRoot.setPointerCapture(event.pointerId);
+      ruler.preview(rulerValue(event.clientX));
+    });
+    rulerRoot.addEventListener("pointermove", function (event) {
+      if (!rulerDrag) return;
+      ruler.preview(rulerValue(event.clientX));
+    });
+    ["pointerup", "pointercancel"].forEach(function (type) {
+      rulerRoot.addEventListener(type, function (event) {
+        if (!rulerDrag) return;
+        rulerDrag = false;
+        ruler.commit(rulerValue(event.clientX), 1);
+      });
+    });
+    rulerRoot.addEventListener("keydown", function (event) {
+      var jump = event.shiftKey ? STEP * 10 : STEP;
+      if (event.key === "ArrowRight" || event.key === "ArrowUp") ruler.commit(ruler.value + jump);
+      else if (event.key === "ArrowLeft" || event.key === "ArrowDown") ruler.commit(ruler.value - jump);
+      else if (event.key === "Home") ruler.commit(0);
+      else if (event.key === "End") ruler.commit(MAX);
+      else return;
+      event.preventDefault();
+    });
+
+    /* B - whole-mark chips */
+    var chipRoot = document.querySelector('[data-bar="chips"]');
+    for (var whole = 0; whole <= MAX; whole += 1) {
+      var chip = document.createElement("button");
+      chip.type = "button";
+      chip.setAttribute("role", "radio");
+      chip.setAttribute("aria-checked", "false");
+      chip.dataset.mark = String(whole);
+      chip.textContent = String(whole);
+      chipRoot.appendChild(chip);
+    }
+    var chips = model("chips", function (state) {
+      chipRoot.querySelectorAll("[data-mark]").forEach(function (button) {
+        var mark = Number(button.dataset.mark);
+        var exact = state.set && Math.abs(mark - state.value) < 0.001;
+        var half = state.set && Math.abs(mark - 0.5 - state.value) < 0.001;
+        button.setAttribute("aria-checked", exact || half ? "true" : "false");
+        button.classList.toggle("is-half", half);
+        button.classList.toggle("is-filled", state.set && !exact && !half && mark < state.value);
+      });
+    });
+    var chipDrag = false;
+    function chipValue(event, element) {
+      var mark = Number(element.dataset.mark);
+      var rect = element.getBoundingClientRect();
+      // The left half of a chip reads as the half mark below it.
+      return event.clientX - rect.left < rect.width / 2 ? Math.max(0, mark - 0.5) : mark;
+    }
+    chipRoot.addEventListener("pointerdown", function (event) {
+      var button = event.target.closest("[data-mark]");
+      if (!button) return;
+      event.preventDefault();
+      chipDrag = true;
+      chipRoot.setPointerCapture(event.pointerId);
+      chips.preview(chipValue(event, button));
+    });
+    chipRoot.addEventListener("pointermove", function (event) {
+      if (!chipDrag) return;
+      var element = document.elementFromPoint(event.clientX, event.clientY);
+      var button = element && element.closest("[data-mark]");
+      if (button && chipRoot.contains(button)) chips.preview(chipValue(event, button));
+    });
+    ["pointerup", "pointercancel"].forEach(function (type) {
+      chipRoot.addEventListener(type, function () {
+        if (!chipDrag) return;
+        chipDrag = false;
+        chips.commit(chips.value, 1);
+      });
+    });
+
+    /* C - coarse then fine */
+    var tierRoot = document.querySelector('[data-bar="tier"]');
+    var coarseRow = document.createElement("div");
+    coarseRow.className = "tier-row";
+    var fineRow = document.createElement("div");
+    fineRow.className = "tier-row is-fine";
+    tierRoot.appendChild(coarseRow);
+    tierRoot.appendChild(fineRow);
+    var block = MAX;
+
+    function drawFine() {
+      fineRow.innerHTML = "";
+      for (var offset = 0; offset < 5; offset += STEP) {
+        var mark = block + offset;
+        if (mark > MAX) break;
+        var button = document.createElement("button");
+        button.type = "button";
+        button.textContent = fmt(mark);
+        button.dataset.fine = String(mark);
+        fineRow.appendChild(button);
+      }
+      fineRow.querySelectorAll("[data-fine]").forEach(function (button) {
+        button.classList.toggle(
+          "is-active",
+          tier.set && Math.abs(Number(button.dataset.fine) - tier.value) < 0.001,
+        );
+      });
+    }
+
+    var tier = model("tier", function (state) {
+      coarseRow.querySelectorAll("[data-block]").forEach(function (button) {
+        button.classList.toggle("is-active", Number(button.dataset.block) === block);
+      });
+      fineRow.querySelectorAll("[data-fine]").forEach(function (button) {
+        button.classList.toggle(
+          "is-active",
+          state.set && Math.abs(Number(button.dataset.fine) - state.value) < 0.001,
+        );
+      });
+    });
+
+    [0, 5, 10, 15, 20].forEach(function (start) {
+      var button = document.createElement("button");
+      button.type = "button";
+      button.dataset.block = String(start);
+      button.textContent = start === MAX ? String(MAX) : start + "&#8211;" + (start + 4.5);
+      button.innerHTML = start === MAX ? String(MAX) : start + "&#8211;" + (start + 4.5);
+      button.addEventListener("click", function () {
+        block = start;
+        drawFine();
+        tier.commit(tier.value, 1);
+      });
+      coarseRow.appendChild(button);
+    });
+    fineRow.addEventListener("click", function (event) {
+      var button = event.target.closest("[data-fine]");
+      if (!button) return;
+      tier.commit(Number(button.dataset.fine), 1);
+    });
+    drawFine();
+
+    /* D - dropdown list */
+    var listRoot = document.querySelector('[data-bar="list"]');
+    for (var value = MAX; value >= 0; value -= STEP) {
+      var option = document.createElement("button");
+      option.type = "button";
+      option.setAttribute("role", "option");
+      option.dataset.option = String(value);
+      option.textContent = fmt(value);
+      listRoot.appendChild(option);
+    }
+    var list = model("list", function (state) {
+      listRoot.querySelectorAll("[data-option]").forEach(function (button) {
+        button.setAttribute(
+          "aria-selected",
+          state.set && Math.abs(Number(button.dataset.option) - state.value) < 0.001 ? "true" : "false",
+        );
+      });
+    });
+    listRoot.addEventListener("click", function (event) {
+      var button = event.target.closest("[data-option]");
+      if (!button) return;
+      list.commit(Number(button.dataset.option), 1);
+    });
   })();
 </script>

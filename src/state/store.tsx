@@ -247,7 +247,7 @@ function patchEvent(
 
 function reducer(state: JudgingState, action: Action): JudgingState {
   switch (action.type) {
-    case "ADD_MISTAKE":
+    case "ADD_MISTAKE": {
       if (
         !state.sessionActive ||
         !state.activeAssignment ||
@@ -255,15 +255,35 @@ function reducer(state: JudgingState, action: Action): JudgingState {
       ) {
         return state;
       }
-      return withEvent(state, {
-        id: uid("e"),
-        at: Date.now(),
-        type: "mistake_added",
-        mistake: {
-          ...action.mistake,
-          judgeSeatId: state.activeAssignment.judgeSeatId,
-        },
-      });
+      const mistake: Mistake = {
+        ...action.mistake,
+        judgeSeatId: state.activeAssignment.judgeSeatId,
+      };
+      // One letter carries one mark. Marking a letter that already has one
+      // replaces it: the earlier mark is undone, so it leaves the score but
+      // stays in the history where it can still be restored.
+      const previous = state.mistakes.find((item) => item.tid === mistake.tid);
+      if (previous && previous.category === mistake.category) return state;
+      const at = Date.now();
+      const events: JudgingEvent[] = previous
+        ? [
+            {
+              id: uid("e"),
+              at,
+              type: "mistake_undone",
+              mistake: { ...previous },
+            },
+            { id: uid("e"), at: at + 1, type: "mistake_added", mistake },
+          ]
+        : [{ id: uid("e"), at, type: "mistake_added", mistake }];
+      const allEvents = [...state.events, ...events];
+      return {
+        ...state,
+        events: allEvents,
+        mistakes: projectMistakes(allEvents),
+        impressions: projectImpressions(allEvents),
+      };
+    }
     case "REMOVE_MISTAKE": {
       const mistake = state.mistakes.find((item) => item.id === action.id);
       if (!mistake) return state;
