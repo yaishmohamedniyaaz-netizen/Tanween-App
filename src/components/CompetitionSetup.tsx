@@ -150,7 +150,10 @@ export function CompetitionSetup({ onBack }: { onBack: () => void }) {
   const [sampleWorkbookBusy, setSampleWorkbookBusy] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
 
-  const editable = state.competition.status === "draft" && !state.sessionActive;
+  const recitationInProgress =
+    state.sessionActive || Boolean(state.preparedRecitation);
+  const editable =
+    state.competition.status === "draft" && !recitationInProgress;
   const readiness = useMemo(() => competitionReadiness(state), [state]);
   const judgedCategories = useMemo(() => enabledCategories(state.config), [state.config]);
   const draftCategories = useMemo(() => enabledCategories(scoreDraft), [scoreDraft]);
@@ -680,7 +683,7 @@ export function CompetitionSetup({ onBack }: { onBack: () => void }) {
             </button>
             <button type="button" disabled title="Available after the reviewed question builder is implemented">
               <span className="question-mode-check" aria-hidden="true" />
-              <span><strong>Tahqeeq question set</strong><small>Prepared tiles can be selected manually. Automatic draw and an approved frozen bank come later.</small></span>
+              <span><strong>Tahqeeq question set</strong><small>The 20-number draw is ready. Official use requires a separately reviewed and frozen set of at least 20 questions.</small></span>
             </button>
           </div>
           <div className="question-rule-grid">
@@ -735,8 +738,8 @@ export function CompetitionSetup({ onBack }: { onBack: () => void }) {
         )}
         {state.competition.status === "live" && (
           <div className="official-start-block is-live">
-            <div><strong>Competition live</strong><span>Structural rules are locked. Finish any active reciter before closing.</span></div>
-            <button type="button" className="btn-ghost" disabled={state.sessionActive} onClick={() => { if (window.confirm("Close this competition? Results remain available, but no new reciter can start.")) dispatch({ type: "CLOSE_COMPETITION" }); }}>Close competition</button>
+            <div><strong>Competition live</strong><span>Structural rules are locked. Finish or replace any prepared reciter before closing.</span></div>
+            <button type="button" className="btn-ghost" disabled={recitationInProgress} onClick={() => { if (window.confirm("Close this competition? Results remain available, but no new reciter can start.")) dispatch({ type: "CLOSE_COMPETITION" }); }}>Close competition</button>
           </div>
         )}
         {state.competition.status === "closed" && (

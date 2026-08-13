@@ -152,24 +152,26 @@ test("the saved-state reducer independently rejects unassigned categories", () =
   assert.match(source, /!state\.activeAssignment\.categories\.includes\(action\.mistake\.category\)/);
   assert.match(source, /const judgeSeatId = state\.activeAssignment\.judgeSeatId/);
   assert.match(source, /backup\.pre-judge-assignments-v1/);
-  assert.match(source, /if \(state\.sessionActive\) return state/);
+  assert.match(source, /state\.sessionActive \|\| state\.preparedRecitation/);
+  assert.match(source, /backup\.pre-prepared-recitation-v1/);
 });
 
 test("setup derives judge count, requires a device role, and freezes active settings", () => {
   assert.match(setupSource, /panelDraft\.seats\.length < MAX_JUDGE_SEATS/);
   assert.match(setupSource, /This device is for/);
   assert.match(setupSource, /panelDeviceValid/);
-  assert.match(setupSource, /const editable = state\.competition\.status === "draft"/);
+  assert.match(setupSource, /const recitationInProgress/);
+  assert.match(setupSource, /Boolean\(state\.preparedRecitation\)/);
   assert.doesNotMatch(setupSource, /judgeCount/);
 });
 
-test("the reciter handoff keeps the frozen device assignment and direct draw", () => {
+test("the reciter handoff freezes the device assignment before Ready", () => {
   assert.match(startSource, /This device/);
   assert.match(startSource, /Select reciter/);
   assert.match(questionNumberSource, /Choose a number/);
-  // Pressing a number is what starts judging — there is no separate confirm.
-  assert.match(startSource, /startWithQuestion\(drawnId\)/);
-  assert.doesNotMatch(startSource, /Begin judging/);
+  assert.match(startSource, /prepareWithQuestion\(drawnId/);
+  assert.match(startSource, /type: "PREPARE_RECITER"/);
+  assert.doesNotMatch(startSource, /type: "BEGIN_RECITER"/);
   assert.match(startSource, /questionId/);
   assert.match(startSource, /onClick=\{onOpenSetup\}/);
   assert.match(startSource, /eligibleQuestionDrafts/);

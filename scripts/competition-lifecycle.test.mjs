@@ -6,11 +6,15 @@ import {
   createLiveCompetitionSnapshot,
   normalizeCompetition,
 } from "../src/lib/competition.ts";
-import { createPanelPreset } from "../src/lib/judgeAssignments.ts";
+import {
+  createPanelPreset,
+  makeAssignmentSnapshot,
+} from "../src/lib/judgeAssignments.ts";
 import {
   createSampleCompetition,
   createSampleRoster,
 } from "../src/lib/sampleCompetition.ts";
+import { normalizePreparedRecitation } from "../src/lib/preparedRecitation.ts";
 
 const JUDGED = ["jali", "khafi", "fasaha"];
 const baseConfig = {
@@ -94,6 +98,16 @@ test("a Tahqeeq question set must be checked and frozen before start", () => {
   const readiness = competitionReadiness(input);
   assert.equal(readiness.ready, false);
   assert.equal(readiness.issues[0].section, "questions");
+
+  input.competition.questionPolicy = {
+    ...input.competition.questionPolicy,
+    questionSetId: "reviewed-set",
+    frozenQuestionSet: true,
+    approvedQuestionCount: 19,
+  };
+  assert.equal(competitionReadiness(input).ready, false);
+  input.competition.questionPolicy.approvedQuestionCount = 20;
+  assert.equal(competitionReadiness(input).ready, true);
 });
 
 test("every participant must map to exactly one active division", () => {
@@ -166,9 +180,55 @@ test("the reducer gates official judging behind a live frozen competition", () =
   assert.match(source, /liveSnapshot\.roster\.some/);
   assert.match(source, /currentRosterEntry\.judged/);
   assert.match(source, /questionAssignmentIsValid/);
+  assert.match(source, /case "PREPARE_RECITER"/);
+  assert.match(source, /case "BEGIN_RECITER"/);
   assert.match(source, /question: ReciterQuestionAssignment/);
   assert.match(source, /backup\.pre-question-bank-v1/);
   assert.match(source, /case "CLOSE_COMPETITION"/);
   assert.match(source, /case "LOAD_SAMPLE_COMPETITION"/);
   assert.match(source, /case "REMOVE_SAMPLE_DATA"/);
+});
+
+test("Prepared survives normalization without creating a judging event", () => {
+  const competition = createSampleCompetition();
+  const roster = createSampleRoster();
+  const panel = createPanelPreset("all", JUDGED);
+  const assignment = makeAssignmentSnapshot(panel, "judge-1", baseConfig);
+  assert.ok(assignment);
+  const question = {
+    version: 1,
+    id: `question-assignment:${roster[0].id}:manual`,
+    kind: "manual",
+    participantId: roster[0].id,
+    divisionId: competition.divisions[0].id,
+    muqarrar: roster[0].muqarrar,
+    selectedAt: 1500,
+    label: "External question",
+    replacements: [{
+      version: 1,
+      id: "replacement-1",
+      replacedAt: 1400,
+      reason: "question-changed",
+      fromParticipantId: roster[0].id,
+      fromQuestionId: "question-before",
+      fromDrawId: "draw-before",
+      toParticipantId: roster[0].id,
+      toQuestionId: `question-assignment:${roster[0].id}:manual`,
+    }],
+  };
+  const restored = normalizePreparedRecitation(
+    {
+      version: 1,
+      id: "prepared-1",
+      participant: roster[0],
+      assignment,
+      question,
+      preparedAt: 2000,
+    },
+    baseConfig,
+  );
+  assert.equal(restored?.id, "prepared-1");
+  assert.equal(restored?.question.label, "External question");
+  assert.equal(restored?.question.replacements?.[0].fromDrawId, "draw-before");
+  assert.equal(normalizePreparedRecitation({ ...restored, question: undefined }, baseConfig), null);
 });

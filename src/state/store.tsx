@@ -57,11 +57,18 @@ import {
   createSampleRoster,
 } from "../lib/sampleCompetition";
 import { normalizeQuestionDrafts } from "../lib/questionDrafts";
-import { deckScopeKey } from "../lib/questionDeck";
+import {
+  deckCycle,
+  deckScopeKey,
+  normalizeQuestionDeck,
+  normalizeQuestionDrawRecord,
+  questionAtPosition,
+} from "../lib/questionDeck";
 import {
   normalizeQuestionAssignment,
   questionAssignmentIsValid,
 } from "../lib/reciterQuestions";
+import { normalizePreparedRecitation } from "../lib/preparedRecitation";
 import {
   buildTargetMigrationPatches,
   type TargetMigrationPatches,
@@ -79,6 +86,7 @@ import type {
   JudgingState,
   Mistake,
   Participant,
+  PreparedRecitation,
   QuestionDeck,
   QuestionDrawRecord,
   ReciterQuestionAssignment,
@@ -94,6 +102,7 @@ const initialState: JudgingState = {
   sampleQuestionsInitialized: false,
   participant: { ...EMPTY_PARTICIPANT },
   sessionActive: false,
+  preparedRecitation: null,
   activeSessionId: null,
   activeStartedAt: null,
   activeRevision: 1,
@@ -139,6 +148,10 @@ export const PRE_ADU_RAAGU_BACKUP_KEY =
 export const PRE_QUESTION_BUILDER_BACKUP_KEY =
   "tahqeeq.session.v1.backup.pre-question-builder-v1";
 
+/** Untouched state before a revealed draw became a recoverable Prepared step. */
+export const PRE_PREPARED_RECITATION_BACKUP_KEY =
+  "tahqeeq.session.v1.backup.pre-prepared-recitation-v1";
+
 type Action =
   | { type: "ADD_MISTAKE"; mistake: Mistake }
   | { type: "REMOVE_MISTAKE"; id: string }
@@ -178,10 +191,15 @@ type Action =
   | { type: "SET_PARTICIPANT_ABSENT"; id: string; absent: boolean }
   | { type: "CLEAR_ROSTER" }
   | {
-      type: "START_RECITER";
+      type: "PREPARE_RECITER";
       participant: Participant;
       question: ReciterQuestionAssignment;
+      drawId?: string;
+      drawPosition?: number;
+      drawCycle?: number;
+      replacementReason?: "question-changed" | "reciter-changed";
     }
+  | { type: "BEGIN_RECITER" }
   | { type: "FINISH_SESSION" }
   | { type: "REOPEN_SESSION"; id: string; reason: string }
   | { type: "FREEZE_DECK"; deck: QuestionDeck }
@@ -364,7 +382,7 @@ function reducer(state: JudgingState, action: Action): JudgingState {
       });
     }
     case "SET_CONFIG": {
-      if (state.sessionActive || state.competition.status !== "draft") return state;
+      if (state.sessionActive || state.preparedRecitation || state.competition.status !== "draft") return state;
       const current = state.config[action.category];
       const enabled = action.enabled ?? current.enabled;
       const config = normalizeScoreConfig({
@@ -450,6 +468,7 @@ function reducer(state: JudgingState, action: Action): JudgingState {
     case "SET_PANEL": {
       if (
         state.sessionActive ||
+        state.preparedRecitation ||
         state.competition.status !== "draft" ||
         !validateJudgePanel(action.panel, enabledCategories(state.config)).valid
       ) {
@@ -468,12 +487,16 @@ function reducer(state: JudgingState, action: Action): JudgingState {
       };
     }
     case "SET_DEVICE_JUDGE":
-      if (state.sessionActive || !judgeSeatFor(state.panel, action.judgeSeatId)) {
+      if (
+        state.sessionActive ||
+        state.preparedRecitation ||
+        !judgeSeatFor(state.panel, action.judgeSeatId)
+      ) {
         return state;
       }
       return { ...state, deviceJudgeId: action.judgeSeatId };
     case "SET_COMPETITION":
-      if (state.sessionActive || state.competition.status !== "draft") return state;
+      if (state.sessionActive || state.preparedRecitation || state.competition.status !== "draft") return state;
       return {
         ...state,
         competition: bumpDraftCompetition(state.competition, {
@@ -485,7 +508,7 @@ function reducer(state: JudgingState, action: Action): JudgingState {
         }),
       };
     case "SET_DIVISIONS":
-      if (state.sessionActive || state.competition.status !== "draft") return state;
+      if (state.sessionActive || state.preparedRecitation || state.competition.status !== "draft") return state;
       return {
         ...state,
         competition: bumpDraftCompetition(state.competition, {
@@ -493,7 +516,7 @@ function reducer(state: JudgingState, action: Action): JudgingState {
         }),
       };
     case "SET_QUESTION_POLICY":
-      if (state.sessionActive || state.competition.status !== "draft") return state;
+      if (state.sessionActive || state.preparedRecitation || state.competition.status !== "draft") return state;
       return {
         ...state,
         competition: bumpDraftCompetition(state.competition, {
@@ -503,6 +526,7 @@ function reducer(state: JudgingState, action: Action): JudgingState {
     case "UPSERT_QUESTION_DRAFT": {
       if (
         state.sessionActive ||
+        state.preparedRecitation ||
         state.competition.status !== "draft" ||
         action.draft.competitionId !== state.competition.id ||
         action.draft.isSample !== state.competition.isSample ||
@@ -517,7 +541,7 @@ function reducer(state: JudgingState, action: Action): JudgingState {
       return { ...state, questionDrafts: drafts };
     }
     case "REMOVE_QUESTION_DRAFT":
-      if (state.sessionActive || state.competition.status !== "draft") return state;
+      if (state.sessionActive || state.preparedRecitation || state.competition.status !== "draft") return state;
       return {
         ...state,
         questionDrafts: state.questionDrafts.filter(
@@ -528,6 +552,7 @@ function reducer(state: JudgingState, action: Action): JudgingState {
       if (
         !state.competition.isSample ||
         state.sessionActive ||
+        state.preparedRecitation ||
         state.competition.status === "closed"
       ) {
         return state;
@@ -541,7 +566,7 @@ function reducer(state: JudgingState, action: Action): JudgingState {
         ]),
       };
     case "START_COMPETITION": {
-      if (state.sessionActive || state.competition.status !== "draft") return state;
+      if (state.sessionActive || state.preparedRecitation || state.competition.status !== "draft") return state;
       const readiness = competitionReadiness(state);
       if (!readiness.ready) return state;
       const liveSnapshot = createLiveCompetitionSnapshot(state);
@@ -556,7 +581,7 @@ function reducer(state: JudgingState, action: Action): JudgingState {
       };
     }
     case "CLOSE_COMPETITION":
-      if (state.sessionActive || state.competition.status !== "live") return state;
+      if (state.sessionActive || state.preparedRecitation || state.competition.status !== "live") return state;
       return {
         ...state,
         competition: {
@@ -566,12 +591,13 @@ function reducer(state: JudgingState, action: Action): JudgingState {
         },
       };
     case "NEW_COMPETITION":
-      if (state.sessionActive || state.competition.status === "live") return state;
+      if (state.sessionActive || state.preparedRecitation || state.competition.status === "live") return state;
       return {
         ...state,
         competition: { ...EMPTY_COMPETITION, questionPolicy: { ...EMPTY_COMPETITION.questionPolicy } },
         sampleQuestionsInitialized: true,
         participant: { ...EMPTY_PARTICIPANT },
+        preparedRecitation: null,
         config: cloneScoreConfig(DEFAULT_CONFIG),
         panel: createPanelPreset("all", enabledCategories(DEFAULT_CONFIG)),
         deviceJudgeId: "judge-1",
@@ -582,7 +608,7 @@ function reducer(state: JudgingState, action: Action): JudgingState {
         events: [],
       };
     case "LOAD_SAMPLE_COMPETITION":
-      if (state.sessionActive || state.competition.status === "live") return state;
+      if (state.sessionActive || state.preparedRecitation || state.competition.status === "live") return state;
       return {
         ...state,
         competition: createSampleCompetition(),
@@ -591,6 +617,7 @@ function reducer(state: JudgingState, action: Action): JudgingState {
         draws: [],
         sampleQuestionsInitialized: false,
         participant: { ...EMPTY_PARTICIPANT },
+        preparedRecitation: null,
         config: cloneScoreConfig(DEFAULT_CONFIG),
         panel: createPanelPreset("all", enabledCategories(DEFAULT_CONFIG)),
         deviceJudgeId: "judge-1",
@@ -603,7 +630,7 @@ function reducer(state: JudgingState, action: Action): JudgingState {
         finalizedResults: state.finalizedResults.filter((result) => !result.isSample),
       };
     case "REMOVE_SAMPLE_DATA":
-      if (state.sessionActive || state.competition.status === "live") return state;
+      if (state.sessionActive || state.preparedRecitation || state.competition.status === "live") return state;
       return {
         ...state,
         ...(state.competition.isSample
@@ -613,6 +640,7 @@ function reducer(state: JudgingState, action: Action): JudgingState {
                 questionPolicy: { ...EMPTY_COMPETITION.questionPolicy },
               },
               participant: { ...EMPTY_PARTICIPANT },
+              preparedRecitation: null,
               config: cloneScoreConfig(DEFAULT_CONFIG),
               panel: createPanelPreset("all", enabledCategories(DEFAULT_CONFIG)),
               deviceJudgeId: "judge-1",
@@ -631,9 +659,9 @@ function reducer(state: JudgingState, action: Action): JudgingState {
         finalizedResults: state.finalizedResults.filter((result) => !result.isSample),
       };
     case "FREEZE_DECK": {
-      // Cutting a board is once per scope. A second freeze for the same
-      // division and side would change what an unrevealed number means, so an
-      // existing deck always wins.
+      // One immutable board is allowed per recorded cycle. A new board can be
+      // cut only as the next cycle after the previous twenty positions are
+      // exhausted; a duplicate cycle would change unrevealed meanings.
       const key = deckScopeKey(
         action.deck.competitionId,
         action.deck.divisionId,
@@ -641,12 +669,28 @@ function reducer(state: JudgingState, action: Action): JudgingState {
       );
       const exists = state.decks.some(
         (deck) =>
-          deckScopeKey(deck.competitionId, deck.divisionId, deck.muqarrar) === key,
+          deckScopeKey(deck.competitionId, deck.divisionId, deck.muqarrar) === key &&
+          deckCycle(deck) === deckCycle(action.deck),
       );
       if (exists) return state;
       return { ...state, decks: [...state.decks, action.deck] };
     }
     case "RECORD_DRAW": {
+      const deck = state.decks.find(
+        (candidate) =>
+          candidate.seed === action.draw.seed &&
+          deckScopeKey(
+            candidate.competitionId,
+            candidate.divisionId,
+            candidate.muqarrar,
+          ) === action.draw.scopeKey,
+      );
+      if (
+        !deck ||
+        questionAtPosition(deck, action.draw.position) !== action.draw.questionId
+      ) {
+        return state;
+      }
       const already = state.draws.some(
         (draw) =>
           draw.scopeKey === action.draw.scopeKey &&
@@ -654,7 +698,19 @@ function reducer(state: JudgingState, action: Action): JudgingState {
           draw.position === action.draw.position,
       );
       if (already) return state;
-      return { ...state, draws: [...state.draws, action.draw] };
+      const draw = normalizeQuestionDrawRecord({
+        ...action.draw,
+        version: 2,
+        cycle: deckCycle(deck),
+      });
+      if (!draw) return state;
+      if (
+        draw.replacesDrawId &&
+        !state.draws.some((candidate) => candidate.id === draw.replacesDrawId)
+      ) {
+        return state;
+      }
+      return { ...state, draws: [...state.draws, draw] };
     }
     case "SET_PARTICIPANT_ABSENT":
       return {
@@ -700,14 +756,14 @@ function reducer(state: JudgingState, action: Action): JudgingState {
     case "CLEAR_HISTORY":
       return { ...state, history: [] };
     case "LOAD_ROSTER":
-      if (state.sessionActive || state.competition.status !== "draft") return state;
+      if (state.sessionActive || state.preparedRecitation || state.competition.status !== "draft") return state;
       return {
         ...state,
         competition: bumpDraftCompetition(state.competition),
         roster: action.entries.map((entry) => normalizeRosterEntry(entry)),
       };
     case "IMPORT_SESSION": {
-      if (state.sessionActive) return state;
+      if (state.sessionActive || state.preparedRecitation) return state;
       const incoming = normalizeSavedSession({
         ...action.session,
         competitionId: action.session.competitionId ?? state.competition.id,
@@ -755,15 +811,19 @@ function reducer(state: JudgingState, action: Action): JudgingState {
         ],
       };
     case "CLEAR_ROSTER":
-      if (state.sessionActive || state.competition.status !== "draft") return state;
+      if (state.sessionActive || state.preparedRecitation || state.competition.status !== "draft") return state;
       return {
         ...state,
         competition: bumpDraftCompetition(state.competition),
         roster: [],
       };
-    case "START_RECITER": {
+    case "PREPARE_RECITER": {
       const liveSnapshot = state.competition.liveSnapshot;
-      if (state.competition.status !== "live" || !liveSnapshot) return state;
+      if (
+        state.sessionActive ||
+        state.competition.status !== "live" ||
+        !liveSnapshot
+      ) return state;
       const participant = normalizeParticipant(action.participant);
       const currentRosterEntry = state.roster.find(
         (entry) =>
@@ -786,7 +846,16 @@ function reducer(state: JudgingState, action: Action): JudgingState {
         state.deviceJudgeId,
         liveSnapshot.scoreConfig,
       );
-      const question = normalizeQuestionAssignment(action.question);
+      const question = normalizeQuestionAssignment({
+        ...action.question,
+        ...(action.drawId ? { drawId: action.drawId } : {}),
+        ...(Number.isInteger(action.drawPosition)
+          ? { drawPosition: action.drawPosition }
+          : {}),
+        ...(Number.isInteger(action.drawCycle)
+          ? { drawCycle: action.drawCycle }
+          : {}),
+      });
       if (
         !assignment ||
         !question ||
@@ -801,25 +870,108 @@ function reducer(state: JudgingState, action: Action): JudgingState {
       ) {
         return state;
       }
+      if (question.kind === "prepared-draft") {
+        const draw = state.draws.find((candidate) => candidate.id === question.drawId);
+        if (
+          !draw ||
+          draw.participantId !== participant.id ||
+          draw.questionId !== question.sourceQuestionId ||
+          draw.position !== question.drawPosition ||
+          Math.max(1, Number(draw.cycle) || 1) !== question.drawCycle
+        ) {
+          return state;
+        }
+      }
+      const preparedAt = Date.now();
+      const replacements = state.preparedRecitation
+        ? [
+            ...(state.preparedRecitation.question.replacements ?? []),
+            {
+              version: 1 as const,
+              id: uid("question-replacement"),
+              replacedAt: preparedAt,
+              reason: action.replacementReason ?? "question-changed",
+              fromParticipantId: state.preparedRecitation.participant.id,
+              fromQuestionId: state.preparedRecitation.question.id,
+              ...(state.preparedRecitation.question.drawId
+                ? { fromDrawId: state.preparedRecitation.question.drawId }
+                : {}),
+              toParticipantId: participant.id,
+              toQuestionId: question.id,
+              ...(question.drawId ? { toDrawId: question.drawId } : {}),
+            },
+          ]
+        : (question.replacements ?? []);
+      const preparedQuestion = {
+        ...question,
+        ...(replacements.length ? { replacements } : {}),
+      };
+      const preparedRecitation: PreparedRecitation = {
+        version: 1,
+        id: `prepared:${participant.id}:${preparedQuestion.id}:${preparedQuestion.drawId ?? preparedAt}`,
+        participant,
+        assignment,
+        question: preparedQuestion,
+        preparedAt,
+      };
+      return {
+        ...state,
+        preparedRecitation,
+        participant: { ...EMPTY_PARTICIPANT },
+        activeSessionId: null,
+        activeStartedAt: null,
+        activeRevision: 1,
+        activeAssignment: null,
+        activeQuestion: null,
+        events: [],
+        mistakes: [],
+        impressions: [],
+        notes: "",
+      };
+    }
+    case "BEGIN_RECITER": {
+      const prepared = state.preparedRecitation;
+      const liveSnapshot = state.competition.liveSnapshot;
+      if (
+        state.sessionActive ||
+        !prepared ||
+        state.competition.status !== "live" ||
+        !liveSnapshot
+      ) return state;
+      const currentRosterEntry = state.roster.find(
+        (entry) => entry.id === prepared.participant.id,
+      );
+      if (!currentRosterEntry || currentRosterEntry.judged) return state;
+      if (
+        !questionAssignmentIsValid({
+          question: prepared.question,
+          participant: prepared.participant,
+          divisions: liveSnapshot.divisions,
+          drafts: state.questionDrafts,
+          competitionId: liveSnapshot.competitionId,
+          allowManual: liveSnapshot.questionPolicy.mode === "manual",
+        })
+      ) return state;
       const sessionId = uid("s");
       const startedAt = Date.now();
       const events = seedLedgerEvents({
         sessionId,
-        participant,
+        participant: prepared.participant,
         startedAt,
         mistakes: [],
-        assignment,
-        question,
+        assignment: prepared.assignment,
+        question: prepared.question,
       });
       return {
         ...state,
-        participant,
+        participant: prepared.participant,
         sessionActive: true,
+        preparedRecitation: null,
         activeSessionId: sessionId,
         activeStartedAt: startedAt,
         activeRevision: 1,
-        activeAssignment: assignment,
-        activeQuestion: question,
+        activeAssignment: prepared.assignment,
+        activeQuestion: prepared.question,
         events,
         mistakes: [],
         impressions: [],
@@ -882,6 +1034,7 @@ function reducer(state: JudgingState, action: Action): JudgingState {
         ),
         participant: { ...EMPTY_PARTICIPANT },
         sessionActive: false,
+        preparedRecitation: null,
         activeSessionId: null,
         activeStartedAt: null,
         activeRevision: 1,
@@ -894,7 +1047,7 @@ function reducer(state: JudgingState, action: Action): JudgingState {
       };
     }
     case "REOPEN_SESSION": {
-      if (state.sessionActive) return state;
+      if (state.sessionActive || state.preparedRecitation) return state;
       const saved = state.history.find((session) => session.id === action.id);
       const reason = action.reason.trim();
       if (
@@ -927,6 +1080,7 @@ function reducer(state: JudgingState, action: Action): JudgingState {
         ...state,
         participant: saved.participant,
         sessionActive: true,
+        preparedRecitation: null,
         activeSessionId: saved.id,
         activeStartedAt: saved.startedAt ?? saved.savedAt,
         activeRevision: (saved.revision ?? 1) + 1,
@@ -1165,6 +1319,24 @@ export function normalizeLedgerState(
             : undefined),
       )
     : null;
+  let preparedRecitation =
+    !sessionActive && competition.status === "live"
+      ? normalizePreparedRecitation(
+          parsed.preparedRecitation,
+          competition.liveSnapshot?.scoreConfig ?? config,
+        )
+      : null;
+  if (competition.isSample && preparedRecitation) {
+    const currentSample = createSampleRoster().find(
+      (entry) => entry.id === preparedRecitation?.participant.id,
+    );
+    if (currentSample) {
+      preparedRecitation = {
+        ...preparedRecitation,
+        participant: normalizeParticipant(currentSample),
+      };
+    }
+  }
   const events = sessionActive
     ? eventsWithAssignment(
         parsed.events?.length
@@ -1187,14 +1359,19 @@ export function normalizeLedgerState(
     ...parsed,
     competition,
     questionDrafts: normalizeQuestionDrafts(parsed.questionDrafts),
-    decks: Array.isArray(parsed.decks) ? parsed.decks : [],
-    draws: Array.isArray(parsed.draws) ? parsed.draws : [],
+    decks: (Array.isArray(parsed.decks) ? parsed.decks : [])
+      .map((deck) => normalizeQuestionDeck(deck))
+      .filter((deck): deck is QuestionDeck => Boolean(deck)),
+    draws: (Array.isArray(parsed.draws) ? parsed.draws : [])
+      .map((draw) => normalizeQuestionDrawRecord(draw))
+      .filter((draw): draw is QuestionDrawRecord => Boolean(draw)),
     sampleQuestionsInitialized:
       typeof parsed.sampleQuestionsInitialized === "boolean"
         ? parsed.sampleQuestionsInitialized
         : !competition.isSample,
     participant,
     sessionActive,
+    preparedRecitation,
     activeSessionId: sessionId,
     activeStartedAt: startedAt,
     activeRevision: parsed.activeRevision ?? 1,
@@ -1239,6 +1416,7 @@ function loadInitial(): JudgingState {
       PRE_QUESTION_BANK_BACKUP_KEY,
       PRE_QUESTION_BUILDER_BACKUP_KEY,
       PRE_ADU_RAAGU_BACKUP_KEY,
+      PRE_PREPARED_RECITATION_BACKUP_KEY,
     ]) {
       if (!localStorage.getItem(key)) {
         try {

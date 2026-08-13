@@ -282,9 +282,16 @@ export function competitionReadiness(input: {
   }
   if (
     policy.mode === "tahqeeq" &&
-    (!policy.questionSetId || !policy.frozenQuestionSet || !policy.approvedQuestionCount)
+    (
+      !policy.questionSetId ||
+      !policy.frozenQuestionSet ||
+      (policy.approvedQuestionCount ?? 0) < 20
+    )
   ) {
-    issues.push({ section: "questions", message: "Choose a checked and frozen Tahqeeq question set." });
+    issues.push({
+      section: "questions",
+      message: "Choose a frozen Tahqeeq set with at least 20 reviewed questions.",
+    });
   }
   return { ready: issues.length === 0, issues };
 }

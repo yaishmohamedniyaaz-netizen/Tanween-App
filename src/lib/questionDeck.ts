@@ -77,6 +77,7 @@ export function buildDeck(input: {
   seed: string;
   size: number;
   frozenAt: number;
+  cycle?: number;
 }): QuestionDeck {
   const pool = [...input.questionIds];
   const random = mulberry32(seedNumber(input.seed));
@@ -90,12 +91,13 @@ export function buildDeck(input: {
   const taken = pool.slice(0, Math.max(0, Math.min(input.size, pool.length)));
 
   return {
-    version: 1,
+    version: 2,
     generatorVersion: DECK_GENERATOR_VERSION,
     competitionId: input.competitionId,
     divisionId: input.divisionId,
     muqarrar: input.muqarrar,
     seed: input.seed,
+    cycle: Math.max(1, Math.floor(input.cycle ?? 1)),
     candidateFingerprint: candidateFingerprint(input.questionIds),
     frozenAt: input.frozenAt,
     tiles: taken.map((questionId, index) => ({
@@ -103,6 +105,116 @@ export function buildDeck(input: {
       questionId,
     })),
   };
+}
+
+export function deckCycle(deck: Pick<QuestionDeck, "cycle">): number {
+  return Math.max(1, Math.floor(Number(deck.cycle) || 1));
+}
+
+/** Makes persisted V1 boards explicit without ever re-cutting their tiles. */
+export function normalizeQuestionDeck(
+  value: Partial<QuestionDeck>,
+): QuestionDeck | null {
+  if (
+    (value.version !== 1 && value.version !== 2) ||
+    !Number.isInteger(value.generatorVersion) ||
+    !value.competitionId ||
+    !value.divisionId ||
+    (value.muqarrar !== "feshey-kolhu" && value.muqarrar !== "nimey-kolhu") ||
+    !value.seed ||
+    !value.candidateFingerprint ||
+    !Number.isFinite(value.frozenAt) ||
+    !Array.isArray(value.tiles)
+  ) {
+    return null;
+  }
+  const tiles = value.tiles
+    .filter(
+      (tile) =>
+        Number.isInteger(tile?.position) &&
+        Number(tile.position) > 0 &&
+        Boolean(tile?.questionId),
+    )
+    .map((tile) => ({
+      position: Number(tile.position),
+      questionId: String(tile.questionId),
+    }));
+  if (
+    new Set(tiles.map((tile) => tile.position)).size !== tiles.length ||
+    new Set(tiles.map((tile) => tile.questionId)).size !== tiles.length
+  ) {
+    return null;
+  }
+  return {
+    version: 2,
+    generatorVersion: Number(value.generatorVersion),
+    competitionId: String(value.competitionId),
+    divisionId: String(value.divisionId),
+    muqarrar: value.muqarrar,
+    seed: String(value.seed),
+    cycle: deckCycle(value),
+    candidateFingerprint: String(value.candidateFingerprint),
+    frozenAt: Number(value.frozenAt),
+    tiles,
+  };
+}
+
+/** Preserves legacy draw evidence while adding stable replacement links. */
+export function normalizeQuestionDrawRecord(
+  value: Partial<QuestionDrawRecord>,
+): QuestionDrawRecord | null {
+  if (
+    (value.version !== 1 && value.version !== 2) ||
+    !value.competitionId ||
+    !value.scopeKey ||
+    !value.seed ||
+    !Number.isInteger(value.position) ||
+    Number(value.position) < 1 ||
+    !value.questionId ||
+    !value.participantId ||
+    !Number.isFinite(value.revealedAt)
+  ) {
+    return null;
+  }
+  const cycle = Math.max(1, Math.floor(Number(value.cycle) || 1));
+  const id =
+    String(value.id ?? "").trim() ||
+    `draw:${value.seed}:${value.position}:${value.participantId}:${value.revealedAt}`;
+  return {
+    version: 2,
+    id,
+    competitionId: String(value.competitionId),
+    scopeKey: String(value.scopeKey),
+    seed: String(value.seed),
+    cycle,
+    position: Number(value.position),
+    questionId: String(value.questionId),
+    participantId: String(value.participantId),
+    revealedAt: Number(value.revealedAt),
+    ...(value.replacesDrawId
+      ? { replacesDrawId: String(value.replacesDrawId) }
+      : {}),
+  };
+}
+
+export function latestDeckForScope(
+  decks: QuestionDeck[],
+  competitionId: string,
+  divisionId: string,
+  muqarrar: Exclude<MuqarrarSide, "">,
+): QuestionDeck | null {
+  const key = deckScopeKey(competitionId, divisionId, muqarrar);
+  return (
+    decks
+      .filter(
+        (deck) =>
+          deckScopeKey(deck.competitionId, deck.divisionId, deck.muqarrar) === key,
+      )
+      .sort((left, right) => {
+        const cycleDifference = deckCycle(right) - deckCycle(left);
+        return cycleDifference || right.frozenAt - left.frozenAt;
+      })[0] ?? null
+  );
 }
 
 /**

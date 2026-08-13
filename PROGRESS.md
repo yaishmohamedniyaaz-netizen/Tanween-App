@@ -1,5 +1,27 @@
 # Tahqeeq — build progress log
 
+## Twenty-question draw and Prepared mode — IMPLEMENTED & VERIFIED (2026-08-13)
+
+- Choosing a number now records the reveal and opens the exact starting Mushaf
+  page in a persistent **Prepared** state. Judging time, letter selection,
+  deductions, notes, and Finish remain locked until this device presses Ready.
+- The Mushaf shows one narrow participant/question strip with reversible
+  **Change reciter** and **Change question** actions. Every replacement stays
+  linked to the final question record; revealed tiles are never silently put
+  back into the board.
+- The sample competition now has 20 technically valid ayah-first questions for
+  every division and both muqarrar sides (160 total). They are deterministic
+  test fixtures, not a claim of scholarly approval or question quality.
+- Frozen boards now carry a recorded cycle number. After all 20 positions are
+  spent, a new seeded cycle is added without rewriting any earlier board or
+  draw. V1 boards and draws restore as cycle 1 without changing their evidence.
+- Prepared state survives refresh and has its own one-time rollback backup.
+  Official Tahqeeq-set mode requires at least 20 reviewed, frozen questions.
+- Ready is deliberately single-device. Tahqeeq does not display invented
+  multi-judge readiness; shared readiness remains a later cloud-sync release.
+- Verification: 196 automated tests, complete 604-page/6,236-ayah corpus checks,
+  TypeScript compilation, and the production Sites build.
+
 ## Mark bar, one mark per letter, kalimah details — IMPLEMENTED & VERIFIED (2026-08-13)
 
 - The Adu / Raagu mark now sits in a **box** in its score row, centred and in the

@@ -256,75 +256,61 @@ export function buildSampleQuestionDrafts(
   lookup: QuestionIndexLookup,
   competition: CompetitionConfig,
 ): CompetitionQuestionDraft[] {
+  const resolvedByPortion = new Map<string, QuestionRange[]>();
+  const rangesFor = (division: CompetitionDivision): QuestionRange[] => {
+    const key = JSON.stringify(division.quranPortion);
+    const cached = resolvedByPortion.get(key);
+    if (cached) return cached;
+    const ranges = lookup.ayahs.flatMap((start) => {
+      const resolution = resolveQuestionRange(
+        lookup,
+        { surah: start.surah, ayah: start.ayah },
+        competition.questionPolicy.targetRecitationLines,
+        competition.questionPolicy.finalPrintedLineScoring,
+      );
+      if (
+        !resolution.ok ||
+        !rangeIsWithinPortion(resolution.range, division.quranPortion)
+      ) {
+        return [];
+      }
+      return [resolution.range];
+    });
+    resolvedByPortion.set(key, ranges);
+    return ranges;
+  };
+  const pickEvenly = (ranges: QuestionRange[], count: number): QuestionRange[] => {
+    if (ranges.length <= count) return [...ranges];
+    return Array.from({ length: count }, (_, index) =>
+      ranges[Math.round((index * (ranges.length - 1)) / (count - 1))],
+    );
+  };
   const candidatesFor = (division: CompetitionDivision): Record<
     Exclude<QuestionMuqarrar, "both">,
-    Array<{ start: AyahRef; note: string }>
+    QuestionRange[]
   > => {
-    if (division.quranPortion.kind === "juz-range" && division.quranPortion.startJuz === 30) {
-      return {
-        "feshey-kolhu": [
-          { start: { surah: 78, ayah: 1 }, note: "Opening passage" },
-          { start: { surah: 79, ayah: 1 }, note: "Early Juz 30 passage" },
-          { start: { surah: 80, ayah: 1 }, note: "Early Juz 30 passage" },
-        ],
-        "nimey-kolhu": [
-          { start: { surah: 107, ayah: 1 }, note: "Closing-side passage" },
-          { start: { surah: 109, ayah: 1 }, note: "Closing-side passage" },
-          { start: { surah: 112, ayah: 1 }, note: "Closing passage" },
-        ],
-      };
-    }
-    if (division.quranPortion.kind === "juz-range") {
-      return {
-        "feshey-kolhu": [
-          { start: { surah: 67, ayah: 1 }, note: "Opening passage" },
-          { start: { surah: 68, ayah: 1 }, note: "Early passage" },
-          { start: { surah: 69, ayah: 1 }, note: "Early passage" },
-        ],
-        "nimey-kolhu": [
-          { start: { surah: 75, ayah: 1 }, note: "Closing-side passage" },
-          { start: { surah: 76, ayah: 1 }, note: "Closing-side passage" },
-          { start: { surah: 77, ayah: 1 }, note: "Closing passage" },
-        ],
-      };
-    }
+    const ranges = rangesFor(division);
+    const midpoint = Math.ceil(ranges.length / 2);
     return {
-      "feshey-kolhu": [
-        { start: { surah: 1, ayah: 1 }, note: "Opening passage" },
-        { start: { surah: 2, ayah: 179 }, note: "Cross-page passage" },
-        { start: { surah: 2, ayah: 180 }, note: "Extended passage" },
-      ],
-      "nimey-kolhu": [
-        { start: { surah: 107, ayah: 1 }, note: "Closing-side passage" },
-        { start: { surah: 109, ayah: 1 }, note: "Closing-side passage" },
-        { start: { surah: 112, ayah: 1 }, note: "Closing passage" },
-      ],
+      "feshey-kolhu": pickEvenly(ranges.slice(0, midpoint), 20),
+      "nimey-kolhu": pickEvenly(ranges.slice(midpoint), 20),
     };
   };
   const now = 1_786_489_200_000;
   let ordinal = 0;
   return competition.divisions.flatMap((division) =>
-    Object.entries(candidatesFor(division)).flatMap(([muqarrar, examples]) =>
-      examples.flatMap((example) => {
+    Object.entries(candidatesFor(division)).flatMap(([muqarrar, ranges]) =>
+      ranges.map((range, index) => {
         ordinal += 1;
-        const resolution = resolveQuestionRange(
-          lookup,
-          example.start,
-          competition.questionPolicy.targetRecitationLines,
-          competition.questionPolicy.finalPrintedLineScoring,
-        );
-        if (!resolution.ok || !rangeIsWithinPortion(resolution.range, division.quranPortion)) return [];
-        return [
-          createQuestionDraft({
-            id: `sample-question-${division.id}-${muqarrar}-${ordinal}`,
-            competition,
-            divisionId: division.id,
-            muqarrar: muqarrar as Exclude<QuestionMuqarrar, "both">,
-            range: resolution.range,
-            note: example.note,
-            now: now + ordinal,
-          }),
-        ];
+        return createQuestionDraft({
+          id: `sample-question-${division.id}-${muqarrar}-${index + 1}`,
+          competition,
+          divisionId: division.id,
+          muqarrar: muqarrar as Exclude<QuestionMuqarrar, "both">,
+          range,
+          note: `Technical sample ${String(index + 1).padStart(2, "0")}`,
+          now: now + ordinal,
+        });
       }),
     ),
   );
@@ -344,7 +330,7 @@ export function sampleQuestionCoverageComplete(
             draft.competitionId === competition.id &&
             draft.divisionId === division.id &&
             draft.muqarrar === muqarrar,
-        ).length >= 3,
+        ).length >= 20,
     ),
   );
 }

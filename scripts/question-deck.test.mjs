@@ -6,9 +6,13 @@ import {
   availablePositions,
   buildDeck,
   candidateFingerprint,
+  deckCycle,
   deckExhausted,
   deckIsStale,
   deckScopeKey,
+  latestDeckForScope,
+  normalizeQuestionDeck,
+  normalizeQuestionDrawRecord,
   questionAtPosition,
   spentPositions,
 } from "../src/lib/questionDeck.ts";
@@ -67,6 +71,57 @@ test("a deck records what it needs to be reconstructed", () => {
   assert.equal(deck.generatorVersion, DECK_GENERATOR_VERSION);
   assert.equal(deck.candidateFingerprint, candidateFingerprint(ids(20)));
   assert.equal(deck.frozenAt, 1000);
+  assert.equal(deck.version, 2);
+  assert.equal(deckCycle(deck), 1);
+});
+
+test("a completed board advances to a separately recorded cycle", () => {
+  const first = cut({ seed: "cycle-1", cycle: 1 });
+  const second = cut({ seed: "cycle-2", cycle: 2, frozenAt: 2000 });
+  assert.equal(
+    latestDeckForScope(
+      [first, second],
+      first.competitionId,
+      first.divisionId,
+      first.muqarrar,
+    )?.seed,
+    "cycle-2",
+  );
+  assert.equal(deckCycle(second), 2);
+  assert.notDeepEqual(first.tiles, second.tiles);
+});
+
+test("legacy boards and draws gain cycle-one identity without changing evidence", () => {
+  const deck = cut();
+  const normalizedDeck = normalizeQuestionDeck({ ...deck, version: 1, cycle: undefined });
+  assert.equal(normalizedDeck?.cycle, 1);
+  assert.deepEqual(normalizedDeck?.tiles, deck.tiles);
+
+  const legacy = drawOf(deck, 4);
+  const normalizedDraw = normalizeQuestionDrawRecord(legacy);
+  assert.equal(normalizedDraw?.version, 2);
+  assert.equal(normalizedDraw?.cycle, 1);
+  assert.match(normalizedDraw?.id ?? "", /^draw:/);
+  assert.equal(normalizedDraw?.questionId, legacy.questionId);
+});
+
+test("a replacement draw links to the revealed draw instead of overwriting it", () => {
+  const deck = cut();
+  const first = normalizeQuestionDrawRecord({
+    ...drawOf(deck, 4),
+    version: 2,
+    id: "draw-first",
+  });
+  const replacement = normalizeQuestionDrawRecord({
+    ...drawOf(deck, 9),
+    version: 2,
+    id: "draw-replacement",
+    revealedAt: 3000,
+    replacesDrawId: "draw-first",
+  });
+  assert.equal(first?.position, 4);
+  assert.equal(replacement?.position, 9);
+  assert.equal(replacement?.replacesDrawId, "draw-first");
 });
 
 test("a smaller pool gives a shorter board, never padded blanks", () => {

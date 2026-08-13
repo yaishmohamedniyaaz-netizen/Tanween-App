@@ -156,16 +156,23 @@ test("drafts retain exact provenance and become stale instead of silently changi
 test("the sample competition includes normal, cross-page, and extended draft fixtures", () => {
   const competition = createSampleCompetition();
   const drafts = buildSampleQuestionDrafts(lookup, competition);
-  assert.equal(drafts.length, 24);
+  assert.equal(drafts.length, 160);
   assert.ok(drafts.some((draft) => draft.resolvedLines === 7));
   assert.ok(drafts.some((draft) => draft.endPage > draft.startPage));
   assert.ok(drafts.some((draft) => draft.extensionLines > 0));
   assert.ok(drafts.every((draft) => draft.isSample && draft.competitionId === competition.id));
   for (const division of competition.divisions) {
     const divisionDrafts = drafts.filter((draft) => draft.divisionId === division.id);
-    assert.equal(divisionDrafts.length, 6);
-    assert.equal(divisionDrafts.filter((draft) => draft.muqarrar === "feshey-kolhu").length, 3);
-    assert.equal(divisionDrafts.filter((draft) => draft.muqarrar === "nimey-kolhu").length, 3);
+    assert.equal(divisionDrafts.length, 40);
+    for (const side of ["feshey-kolhu", "nimey-kolhu"]) {
+      const sideDrafts = divisionDrafts.filter((draft) => draft.muqarrar === side);
+      assert.equal(sideDrafts.length, 20);
+      assert.equal(
+        new Set(sideDrafts.map((draft) => `${draft.startAyah.surah}:${draft.startAyah.ayah}`)).size,
+        20,
+      );
+      assert.ok(sideDrafts.every((draft) => rangeIsWithinPortion(draft, division.quranPortion)));
+    }
   }
 });
 
@@ -179,7 +186,7 @@ test("question tiles are filtered by division and muqarrar before a session can 
     drafts,
     competitionId: competition.id,
   });
-  assert.equal(eligible.length, 3);
+  assert.equal(eligible.length, 20);
   assert.ok(eligible.every((draft) => draft.muqarrar === participant.muqarrar));
 
   const question = assignmentFromDraft({ draft: eligible[0], participant, selectedAt: 1000 });

@@ -30,8 +30,11 @@ import {
 import {
   DRAW_BOARD_SIZE,
   buildDeck,
+  deckCycle,
   deckExhausted,
+  deckIsStale,
   deckScopeKey,
+  latestDeckForScope,
   questionAtPosition,
   spentPositions,
 } from "../lib/questionDeck.ts";
@@ -44,16 +47,28 @@ import { QuestionNumberScreen } from "./QuestionNumberScreen";
 export function StartDialog({
   onOpenSetup,
   onClose,
+  mode = "start",
 }: {
   onOpenSetup: () => void;
   onClose: () => void;
+  mode?: "start" | "change-reciter" | "change-question";
 }) {
   const { state, dispatch } = useJudging();
   const roster = state.roster;
-  const next = roster.find(isWaiting);
-  const [participantId, setParticipantId] = useState(next?.id ?? "");
+  const prepared = state.preparedRecitation;
+  const next =
+    roster.find(
+      (entry) =>
+        isWaiting(entry) &&
+        (mode !== "change-reciter" || entry.id !== prepared?.participant.id),
+    ) ?? roster.find(isWaiting);
+  const initialParticipant =
+    mode === "change-question" ? prepared?.participant : next;
+  const [participantId, setParticipantId] = useState(initialParticipant?.id ?? "");
   const [search, setSearch] = useState("");
-  const [stage, setStage] = useState<"participant" | "draw">("participant");
+  const [stage, setStage] = useState<"participant" | "draw">(
+    mode === "change-question" ? "draw" : "participant",
+  );
   const [lookup, setLookup] = useState<QuestionIndexLookup | null>(null);
   const [questionLoadError, setQuestionLoadError] = useState(false);
 
@@ -155,7 +170,10 @@ export function StartDialog({
     setParticipantId(following?.id ?? "");
   };
 
-  const startWithQuestion = (selectedQuestionId: string) => {
+  const prepareWithQuestion = (
+    selectedQuestionId: string,
+    draw?: { id: string; position: number; cycle: number },
+  ) => {
     if (!participant || !division || !assignment || !liveSnapshot) return;
     const selectedDraft = eligibleDrafts.find(
       (draft) => draft.id === selectedQuestionId,
@@ -167,7 +185,26 @@ export function StartDialog({
           ? assignmentFromDraft({ participant, draft: selectedDraft })
           : null;
     if (!question) return;
-    dispatch({ type: "START_RECITER", participant, question });
+    dispatch({
+      type: "PREPARE_RECITER",
+      participant,
+      question,
+      ...(draw
+        ? {
+            drawId: draw.id,
+            drawPosition: draw.position,
+            drawCycle: draw.cycle,
+          }
+        : {}),
+      ...(prepared
+        ? {
+            replacementReason:
+              mode === "change-reciter"
+                ? ("reciter-changed" as const)
+                : ("question-changed" as const),
+          }
+        : {}),
+    });
     onClose();
   };
 
@@ -183,24 +220,33 @@ export function StartDialog({
           participant.muqarrar,
         )
       : null;
-  const deck =
-    state.decks.find(
-      (item) =>
-        deckScopeKey(
-          item.competitionId,
-          item.divisionId,
-          item.muqarrar,
-        ) === deckScope,
-    ) ?? null;
-
   const candidateIds = useMemo(
     () => eligibleDrafts.map((draft) => draft.id),
     [eligibleDrafts],
   );
 
+  const latestDeck =
+    division && participant?.muqarrar
+      ? latestDeckForScope(
+          state.decks,
+          state.competition.id,
+          division.id,
+          participant.muqarrar,
+        )
+      : null;
+  const latestExhausted = latestDeck
+    ? deckExhausted(latestDeck, state.draws)
+    : false;
+  const latestStale = latestDeck
+    ? deckIsStale(latestDeck, candidateIds)
+    : false;
+  const deck =
+    latestDeck && !latestExhausted && !latestStale ? latestDeck : null;
+
   useEffect(() => {
     if (!deckScope || deck || !division || !participant?.muqarrar) return;
     if (candidateIds.length === 0) return;
+    const cycle = latestDeck ? deckCycle(latestDeck) + 1 : 1;
     dispatch({
       type: "FREEZE_DECK",
       deck: buildDeck({
@@ -208,9 +254,10 @@ export function StartDialog({
         divisionId: division.id,
         muqarrar: participant.muqarrar,
         questionIds: candidateIds,
-        seed: uid("deck"),
+        seed: uid(`deck-cycle-${cycle}`),
         size: DRAW_BOARD_SIZE,
         frozenAt: Date.now(),
+        cycle,
       }),
     });
   }, [
@@ -219,32 +266,23 @@ export function StartDialog({
     deckScope,
     division,
     dispatch,
+    latestDeck,
     participant?.muqarrar,
     state.competition.id,
   ]);
 
   const spentHere = deck ? spentPositions(state.draws, deck) : new Set<number>();
-  const boardExhausted = deck ? deckExhausted(deck, state.draws) : false;
-  const myDraw = state.draws.find(
-    (draw) =>
-      draw.scopeKey === deckScope &&
-      draw.seed === deck?.seed &&
-      draw.participantId === participant?.id,
-  );
-  const [drawnPosition, setDrawnPosition] = useState<number | null>(null);
-
-  useEffect(() => {
-    setDrawnPosition(myDraw?.position ?? null);
-  }, [myDraw?.position, myDraw?.questionId, participant?.id]);
 
   const drawPosition = (position: number) => {
     if (!deck || !participant) return;
     const drawnId = questionAtPosition(deck, position);
     if (!drawnId) return;
+    const drawId = uid("draw");
     dispatch({
       type: "RECORD_DRAW",
       draw: {
-        version: 1,
+        version: 2,
+        id: drawId,
         competitionId: deck.competitionId,
         scopeKey: deckScopeKey(
           deck.competitionId,
@@ -252,14 +290,21 @@ export function StartDialog({
           deck.muqarrar,
         ),
         seed: deck.seed,
+        cycle: deckCycle(deck),
         position,
         questionId: drawnId,
         participantId: participant.id,
         revealedAt: Date.now(),
+        ...(prepared?.question.drawId
+          ? { replacesDrawId: prepared.question.drawId }
+          : {}),
       },
     });
-    setDrawnPosition(position);
-    startWithQuestion(drawnId);
+    prepareWithQuestion(drawnId, {
+      id: drawId,
+      position,
+      cycle: deckCycle(deck),
+    });
   };
 
   const rosterGroups = useMemo(
@@ -372,18 +417,22 @@ export function StartDialog({
               division={division}
               deck={deck}
               spentPositions={spentHere}
-              drawnPosition={drawnPosition}
-              loading={!lookup && !questionLoadError}
+              drawnPosition={null}
+              cycle={deck ? deckCycle(deck) : latestDeck ? deckCycle(latestDeck) + 1 : 1}
+              loading={
+                (!lookup && !questionLoadError) ||
+                (candidateIds.length > 0 && !deck)
+              }
               loadFailed={questionLoadError}
-              boardExhausted={boardExhausted}
               allowManual={Boolean(allowManual)}
               hasEligibleQuestions={eligibleDrafts.length > 0}
               onDraw={drawPosition}
               onUseManual={() => {
-                setDrawnPosition(null);
-                startWithQuestion("manual");
+                prepareWithQuestion("manual");
               }}
-              onBack={() => setStage("participant")}
+              onBack={() =>
+                mode === "change-question" ? onClose() : setStage("participant")
+              }
             />
           )}
         </div>

@@ -116,6 +116,33 @@ export function normalizeQuestionAssignment(
     return null;
   }
   if (value.kind === "prepared-draft" && !value.sourceQuestionId) return null;
+  const replacements = Array.isArray(value.replacements)
+    ? value.replacements.flatMap((record) => {
+        if (
+          record?.version !== 1 ||
+          !record.id ||
+          !Number.isFinite(record.replacedAt) ||
+          (record.reason !== "question-changed" &&
+            record.reason !== "reciter-changed") ||
+          !record.fromParticipantId ||
+          !record.fromQuestionId ||
+          !record.toParticipantId ||
+          !record.toQuestionId
+        ) return [];
+        return [{
+          version: 1 as const,
+          id: String(record.id),
+          replacedAt: Number(record.replacedAt),
+          reason: record.reason,
+          fromParticipantId: String(record.fromParticipantId),
+          fromQuestionId: String(record.fromQuestionId),
+          ...(record.fromDrawId ? { fromDrawId: String(record.fromDrawId) } : {}),
+          toParticipantId: String(record.toParticipantId),
+          toQuestionId: String(record.toQuestionId),
+          ...(record.toDrawId ? { toDrawId: String(record.toDrawId) } : {}),
+        }];
+      })
+    : [];
   return {
     ...value,
     version: 1,
@@ -126,6 +153,14 @@ export function normalizeQuestionAssignment(
     muqarrar: value.muqarrar,
     selectedAt: Number(value.selectedAt),
     label: String(value.label),
+    ...(value.drawId ? { drawId: String(value.drawId) } : {}),
+    ...(Number.isInteger(value.drawPosition) && Number(value.drawPosition) > 0
+      ? { drawPosition: Number(value.drawPosition) }
+      : {}),
+    ...(Number.isInteger(value.drawCycle) && Number(value.drawCycle) > 0
+      ? { drawCycle: Number(value.drawCycle) }
+      : {}),
+    ...(replacements.length ? { replacements } : {}),
   } as ReciterQuestionAssignment;
 }
 

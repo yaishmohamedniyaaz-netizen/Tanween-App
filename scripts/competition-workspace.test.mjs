@@ -19,11 +19,14 @@ const questionScreenSource = read(
   "../src/components/QuestionNumberScreen.tsx",
 );
 const finishSource = read("../src/components/FinishDialog.tsx");
+const preparedStripSource = read("../src/components/PreparedRecitationStrip.tsx");
+const preparedSidebarSource = read("../src/components/PreparedSidebar.tsx");
 
 test("opening Tahqeeq remains a free Mushaf instead of auto-starting a session", () => {
   assert.match(appSource, /const \[startOpen, setStartOpen\] = useState\(false\)/);
   assert.match(appSource, /<CompetitionIdlePanel/);
-  assert.match(appSource, /onStartReciter=\{\(\) => setStartOpen\(true\)\}/);
+  assert.match(appSource, /setStartMode\("start"\)/);
+  assert.match(appSource, /setStartOpen\(true\)/);
   assert.match(appSource, /state\.competition\.status === "live"/);
   assert.doesNotMatch(appSource, /!state\.sessionActive && <StartDialog/);
 });
@@ -50,7 +53,8 @@ test("question preparation exposes the ayah rule without pretending drafts are o
   assert.match(setupSource, /Every official question starts at an ayah/);
   assert.match(setupSource, /first complete ayah ending on or after line/);
   assert.match(setupSource, /No AI, OCR or paid API is used/);
-  assert.match(setupSource, /Prepared tiles can be selected manually/);
+  assert.match(setupSource, /The 20-number draw is ready/);
+  assert.match(setupSource, /reviewed and frozen set of at least 20 questions/);
   assert.match(setupSource, /<QuestionBuilder editable=\{editable\}/);
   assert.match(builderSource, /not an approved frozen question bank/);
   assert.match(builderSource, /Tahqeeq will not silently shorten this question/);
@@ -73,6 +77,17 @@ test("the live handoff uses quiet status text and two focused screens", () => {
   assert.match(participantScreenSource, /entry\.institution/);
   assert.match(questionScreenSource, /Choose a number/);
   assert.match(questionScreenSource, /Ask the reciter to choose one available number/);
+});
+
+test("a draw opens a locked, recoverable Prepared Mushaf before judging", () => {
+  assert.match(appSource, /state\.preparedRecitation/);
+  assert.match(appSource, /type: "BEGIN_RECITER"/);
+  assert.match(appSource, /state\.activeSessionId \?\? state\.preparedRecitation\?\.id/);
+  assert.match(preparedStripSource, /Change reciter/);
+  assert.match(preparedStripSource, /Change question/);
+  assert.match(preparedSidebarSource, /Prepared on this device/);
+  assert.match(preparedSidebarSource, /Ready · begin judging/);
+  assert.match(preparedSidebarSource, /This confirms only this judge device/);
 });
 
 test("finishing a reciter moves directly to the next running-order choice", () => {

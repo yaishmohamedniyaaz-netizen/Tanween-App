@@ -18,6 +18,8 @@ import { CompetitionSetup } from "./components/CompetitionSetup";
 import { CompetitionIdlePanel } from "./components/CompetitionIdlePanel";
 import { FinishDialog } from "./components/FinishDialog";
 import { JudgeRoleStrip } from "./components/JudgeRoleStrip";
+import { PreparedRecitationStrip } from "./components/PreparedRecitationStrip";
+import { PreparedSidebar } from "./components/PreparedSidebar";
 import { useJudging } from "./state/store";
 import { questionOpeningKey, questionOpeningPage } from "./lib/questionPage";
 import { isWaiting } from "./lib/rosterQueue";
@@ -202,6 +204,9 @@ export function App() {
   const { state, dispatch } = useJudging();
   const [view, setView] = useState<"judge" | "records" | "setup">("judge");
   const [startOpen, setStartOpen] = useState(false);
+  const [startMode, setStartMode] = useState<
+    "start" | "change-reciter" | "change-question"
+  >("start");
   const [finishOpen, setFinishOpen] = useState(false);
   const [pageZoom, setPageZoom] = useState(() => {
     const saved = Number(localStorage.getItem(LS_PAGE_ZOOM_KEY));
@@ -234,10 +239,12 @@ export function App() {
   // the opening one. Manual questions carry no page and only mark the pairing
   // as handled.
   const openedForKey = questionOpeningKey(
-    state.activeSessionId,
-    state.activeQuestion,
+    state.activeSessionId ?? state.preparedRecitation?.id,
+    state.activeQuestion ?? state.preparedRecitation?.question,
   );
-  const openingPage = questionOpeningPage(state.activeQuestion);
+  const openingPage = questionOpeningPage(
+    state.activeQuestion ?? state.preparedRecitation?.question,
+  );
 
   useEffect(() => {
     if (!openedForKey) return;
@@ -264,7 +271,14 @@ export function App() {
           setStartOpen(false);
           setView("setup");
         }}
-        onChangeReciter={() => setFinishOpen(true)}
+        onChangeReciter={() => {
+          if (state.preparedRecitation) {
+            setStartMode("change-reciter");
+            setStartOpen(true);
+          } else {
+            setFinishOpen(true);
+          }
+        }}
         pageZoom={pageZoom}
         pageLayout={pageLayout}
         judgeRailSide={judgeRailSide}
@@ -287,6 +301,19 @@ export function App() {
         <main className={`workspace rail-${judgeRailSide}`} key="judge">
           <div className="stage">
             <HintBanner />
+            {state.preparedRecitation && (
+              <PreparedRecitationStrip
+                prepared={state.preparedRecitation}
+                onChangeReciter={() => {
+                  setStartMode("change-reciter");
+                  setStartOpen(true);
+                }}
+                onChangeQuestion={() => {
+                  setStartMode("change-question");
+                  setStartOpen(true);
+                }}
+              />
+            )}
             <div
               className="mushaf-shell"
               style={{ "--page-zoom": pageZoom / 100 } as CSSProperties}
@@ -302,7 +329,12 @@ export function App() {
             </div>
           </div>
           <aside className="sidebar">
-            {state.sessionActive ? (
+            {state.preparedRecitation ? (
+              <PreparedSidebar
+                prepared={state.preparedRecitation}
+                onReady={() => dispatch({ type: "BEGIN_RECITER" })}
+              />
+            ) : state.sessionActive ? (
               <>
                 <JudgeRoleStrip onChange={() => setView("setup")} />
                 <ScorePanel />
@@ -319,7 +351,10 @@ export function App() {
             ) : (
               <CompetitionIdlePanel
                 onPrepare={() => setView("setup")}
-                onStartReciter={() => setStartOpen(true)}
+                onStartReciter={() => {
+                  setStartMode("start");
+                  setStartOpen(true);
+                }}
               />
             )}
           </aside>
@@ -337,6 +372,8 @@ export function App() {
         state.competition.status === "live" &&
         !state.sessionActive && (
         <StartDialog
+          key={startMode}
+          mode={startMode}
           onOpenSetup={() => {
             setStartOpen(false);
             setView("setup");
@@ -354,6 +391,7 @@ export function App() {
             );
             dispatch({ type: "FINISH_SESSION" });
             setFinishOpen(false);
+            setStartMode("start");
             setStartOpen(hasNextReciter);
           }}
         />

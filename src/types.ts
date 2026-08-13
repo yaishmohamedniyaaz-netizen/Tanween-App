@@ -295,6 +295,39 @@ export interface ReciterQuestionAssignment {
   sourceVersion?: string;
   questionIndexVersion?: string;
   layoutHash?: string;
+  /** Immutable link back to the revealed number when Tahqeeq supplied it. */
+  drawId?: string;
+  drawPosition?: number;
+  drawCycle?: number;
+  /** Every pre-Ready replacement remains attached to the final session record. */
+  replacements?: QuestionReplacementRecord[];
+}
+
+export interface QuestionReplacementRecord {
+  version: 1;
+  id: string;
+  replacedAt: number;
+  reason: "question-changed" | "reciter-changed";
+  fromParticipantId: string;
+  fromQuestionId: string;
+  fromDrawId?: string;
+  toParticipantId: string;
+  toQuestionId: string;
+  toDrawId?: string;
+}
+
+/**
+ * A reciter and question that have been revealed but have not begun judging.
+ * This is persisted so a refresh cannot lose the public draw or accidentally
+ * turn preparation time into judging time.
+ */
+export interface PreparedRecitation {
+  version: 1;
+  id: string;
+  participant: Participant;
+  assignment: JudgeAssignmentSnapshot;
+  question: ReciterQuestionAssignment;
+  preparedAt: number;
 }
 
 /** One position on a frozen draw board. */
@@ -311,12 +344,14 @@ export interface QuestionDeckTile {
  * fingerprint together let a disputed draw be reconstructed exactly.
  */
 export interface QuestionDeck {
-  version: 1;
+  version: 1 | 2;
   generatorVersion: number;
   competitionId: string;
   divisionId: string;
   muqarrar: Exclude<MuqarrarSide, "">;
   seed: string;
+  /** Increments only after every position in the previous board was spent. */
+  cycle?: number;
   candidateFingerprint: string;
   frozenAt: number;
   tiles: QuestionDeckTile[];
@@ -324,14 +359,19 @@ export interface QuestionDeck {
 
 /** A number, once pressed. Spends that position for the rest of the session. */
 export interface QuestionDrawRecord {
-  version: 1;
+  version: 1 | 2;
+  /** Stable evidence id used to link an explicit replacement draw. */
+  id?: string;
   competitionId: string;
   scopeKey: string;
   seed: string;
+  cycle?: number;
   position: number;
   questionId: string;
   participantId: string;
   revealedAt: number;
+  /** Present when this draw intentionally replaces an earlier reveal. */
+  replacesDrawId?: string;
 }
 
 export interface LiveCompetitionSnapshot {
@@ -438,8 +478,10 @@ export interface JudgingState {
   draws: QuestionDrawRecord[];
   sampleQuestionsInitialized: boolean;
   participant: Participant;
-  /** false until a reciter has been chosen via the start dialog */
+  /** True only after the prepared recitation has explicitly begun judging. */
   sessionActive: boolean;
+  /** Revealed participant/question, held safely until this device presses Ready. */
+  preparedRecitation: PreparedRecitation | null;
   activeSessionId: string | null;
   activeStartedAt: number | null;
   activeRevision: number;

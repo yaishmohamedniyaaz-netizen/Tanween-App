@@ -109,7 +109,9 @@ export function Header({
     setMenuMode("main");
   };
 
-  const p = state.participant;
+  const prepared = state.preparedRecitation;
+  const p = prepared?.participant ?? state.participant;
+  const visibleQuestion = prepared?.question ?? state.activeQuestion;
   const rosterTotal = state.roster.length;
   const rosterDone = state.roster.filter((r) => r.judged).length;
 
@@ -122,7 +124,7 @@ export function Header({
         <span className="brand-name">Tahqeeq</span>
       </div>
 
-      {!state.sessionActive && view !== "records" && (
+      {!state.sessionActive && !prepared && view !== "records" && (
         <button
           type="button"
           className={`competition-header-state is-${state.competition.status}`}
@@ -154,16 +156,17 @@ export function Header({
         </button>
       )}
 
-      {view === "judge" && state.sessionActive && (
+      {view === "judge" && (state.sessionActive || prepared) && (
         <button
           type="button"
-          className="reciter-chip"
+          className={`reciter-chip ${prepared ? "is-prepared" : ""}`}
           onClick={onChangeReciter}
-          title="Change reciter"
+          title={prepared ? "Change prepared reciter" : "Finish or change reciter"}
         >
           {p.name || "Unnamed"}
-          {state.activeQuestion && (
-            <span className="reciter-question-ref">Q · {state.activeQuestion.label}</span>
+          {prepared && <span className="reciter-prepared-state">Prepared</span>}
+          {visibleQuestion && (
+            <span className="reciter-question-ref">Q · {visibleQuestion.label}</span>
           )}
           {rosterTotal > 0 && (
             <span className="chip-idx t-num">
@@ -313,7 +316,7 @@ export function Header({
                   onChange={async (event) => {
                     const file = event.target.files?.[0];
                     event.target.value = "";
-                    if (!file || state.sessionActive) return;
+                    if (!file || state.sessionActive || prepared) return;
                     try {
                       const restored = await readStateBackupFile(file);
                       if (
@@ -338,10 +341,10 @@ export function Header({
                   type="button"
                   className="overflow-item"
                   disabled={
-                    state.sessionActive || state.competition.status === "live"
+                    state.sessionActive || Boolean(prepared) || state.competition.status === "live"
                   }
                   title={
-                    state.sessionActive || state.competition.status === "live"
+                    state.sessionActive || prepared || state.competition.status === "live"
                       ? "Close the active competition before restoring"
                       : undefined
                   }

@@ -25,9 +25,9 @@ export function QuestionNumberScreen({
   deck,
   spentPositions,
   drawnPosition,
+  cycle,
   loading,
   loadFailed,
-  boardExhausted,
   allowManual,
   hasEligibleQuestions,
   onDraw,
@@ -39,9 +39,9 @@ export function QuestionNumberScreen({
   deck: QuestionDeck | null;
   spentPositions: Set<number>;
   drawnPosition: number | null;
+  cycle: number;
   loading: boolean;
   loadFailed: boolean;
-  boardExhausted: boolean;
   allowManual: boolean;
   hasEligibleQuestions: boolean;
   onDraw: (position: number) => void;
@@ -74,7 +74,10 @@ export function QuestionNumberScreen({
       ) : participant && division ? (
         <>
           <div className="question-board-heading">
-            <h3>Choose a number</h3>
+            <div>
+              <h3>Choose a number</h3>
+              {cycle > 1 && <span>Cycle {cycle}</span>}
+            </div>
             <p>Ask the reciter to choose one available number.</p>
           </div>
 
@@ -101,17 +104,18 @@ export function QuestionNumberScreen({
             })}
           </div>
 
-          {deck && boardExhausted && (
-            <p className="question-choice-warning">
-              Every available number in this division has been drawn. Add more
-              checked questions in competition setup before continuing.
-            </p>
-          )}
-
           {!hasEligibleQuestions && !allowManual && !loading && (
             <div className="question-choice-warning">
               No checked question is available for this participant. Return to
               competition setup.
+            </div>
+          )}
+
+          {deck && deck.tiles.length < 20 && !allowManual && (
+            <div className="question-choice-warning">
+              This set contains only {deck.tiles.length} checked question
+              {deck.tiles.length === 1 ? "" : "s"}. A final Tahqeeq set needs
+              all 20 before official use.
             </div>
           )}
 
