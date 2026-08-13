@@ -273,7 +273,7 @@ export function DragMenu({
           <span className="pill-text">
             <span className="pill-main">
               {fixedCategory && pinned ? "Mark " : ""}
-              {c.label.replace(/^Laḥn\s/i, "")}
+              {c.label.replace("Laḥn ", "")}
             </span>
           </span>
           <span className="pill-amt">−{config[c.id].step}</span>

@@ -11,3 +11,6 @@ npm-debug.log*
 !.env.example
 tmp-*
 *.tsbuildinfo
+
+# Generated single-file preview (npm run preview:artifact)
+docs/tahqeeq-preview.html
