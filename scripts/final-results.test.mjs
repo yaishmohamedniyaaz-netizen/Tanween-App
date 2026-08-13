@@ -8,7 +8,7 @@ import {
 } from "../src/lib/finalResults.ts";
 import {
   buildFinalResultsWorkbook,
-  FINAL_RESULTS_HEADERS,
+  finalResultsHeaders,
   verifyFinalResultsWorkbook,
 } from "../src/lib/finalResultsWorkbook.ts";
 import {
@@ -19,10 +19,12 @@ import {
 } from "../src/lib/resultPackages.ts";
 
 const config = {
-  jali: { start: 50, step: 2 },
-  khafi: { start: 30, step: 1 },
-  fasaha: { start: 20, step: 1 },
+  jali: { enabled: true, start: 50, step: 2 },
+  khafi: { enabled: true, start: 30, step: 1 },
+  fasaha: { enabled: true, start: 20, step: 1 },
+  "adu-raagu": { enabled: false, start: 0, step: 1 },
 };
+const JUDGED = ["jali", "khafi", "fasaha"];
 const participant = {
   id: "participant-1",
   number: "014",
@@ -89,7 +91,7 @@ test("three judge-owned sections combine only when every category is present", (
     session("khafi", ["khafi"], [mistake("khafi", 1)]),
     session("fasaha", ["fasaha"], [mistake("fasaha", 1)]),
   ];
-  const candidate = buildResultCandidates(history)[0];
+  const candidate = buildResultCandidates(history, JUDGED)[0];
   assert.deepEqual(candidate.missing, []);
   assert.deepEqual(candidate.conflicts, []);
   const result = finalizeParticipantResult(candidate, {});
@@ -102,7 +104,7 @@ test("three judge-owned sections combine only when every category is present", (
 });
 
 test("missing and competing judge sections never resolve silently", () => {
-  const incomplete = buildResultCandidates([session("jali", ["jali"])])[0];
+  const incomplete = buildResultCandidates([session("jali", ["jali"])], JUDGED)[0];
   assert.deepEqual(incomplete.missing, ["khafi", "fasaha"]);
   assert.equal(finalizeParticipantResult(incomplete, {}), null);
 
@@ -111,7 +113,7 @@ test("missing and competing judge sections never resolve silently", () => {
     session("jali-b", ["jali"], [], 1100),
     session("khafi", ["khafi"]),
     session("fasaha", ["fasaha"]),
-  ])[0];
+  ], JUDGED)[0];
   assert.deepEqual(conflict.conflicts, ["jali"]);
   assert.equal(finalizeParticipantResult(conflict, {}), null);
   assert.ok(finalizeParticipantResult(conflict, { jali: "jali-b" }));
@@ -129,14 +131,14 @@ test("finalization rejects participants without ranking identity fields", () => 
     ...session("all-incomplete", ["jali", "khafi", "fasaha"]),
     participant: incompleteParticipant,
   };
-  const candidate = buildResultCandidates([source])[0];
+  const candidate = buildResultCandidates([source], JUDGED)[0];
   assert.equal(finalizeParticipantResult(candidate, {}), null);
 });
 
 test("equal percentages retain equal places inside the same age and category", () => {
   const firstCandidate = buildResultCandidates([
     session("all-a", ["jali", "khafi", "fasaha"]),
-  ])[0];
+  ], JUDGED)[0];
   const first = finalizeParticipantResult(firstCandidate, {});
   assert.ok(first);
   const second = {
@@ -158,7 +160,7 @@ test("equal percentages retain equal places inside the same age and category", (
 test("a corrected final records a new revision reason and manifest", () => {
   const candidate = buildResultCandidates([
     session("all-revision", ["jali", "khafi", "fasaha"]),
-  ])[0];
+  ], JUDGED)[0];
   const first = finalizeParticipantResult(candidate, {});
   assert.ok(first);
   const second = finalizeParticipantResult(candidate, {}, first, "Chief judge correction");
@@ -171,7 +173,7 @@ test("a corrected final records a new revision reason and manifest", () => {
 test("final workbook preserves requested participant fields and verified fixed totals", async () => {
   const candidate = buildResultCandidates([
     session("all", ["jali", "khafi", "fasaha"], [mistake("jali", 2)]),
-  ])[0];
+  ], JUDGED)[0];
   const result = finalizeParticipantResult(candidate, {});
   assert.ok(result);
   const buffer = await buildFinalResultsWorkbook([result], competition);
@@ -180,7 +182,7 @@ test("final workbook preserves requested participant fields and verified fixed t
   const workbook = read(buffer, { type: "array" });
   assert.deepEqual(workbook.SheetNames, ["Results", "Verification"]);
   const rows = utils.sheet_to_json(workbook.Sheets.Results, { header: 1, defval: "" });
-  assert.deepEqual(rows[0], [...FINAL_RESULTS_HEADERS]);
+  assert.deepEqual(rows[0], finalResultsHeaders([result]));
   assert.deepEqual(rows[1].slice(1, 8), [
     "014",
     "Aishath Latheefa",

@@ -42,6 +42,16 @@ function historyCopy(event: JudgingEvent) {
       return { title: "Mistake undone", detail: event.mistake.label };
     case "mistake_restored":
       return { title: "Mistake restored", detail: event.mistake.label };
+    case "impression_changed":
+      return {
+        title: `${CATEGORY_BY_ID[event.category].label} marked`,
+        detail: `${event.from} → ${event.to}`,
+      };
+    case "impression_note_changed":
+      return {
+        title: `${CATEGORY_BY_ID[event.category].label} note changed`,
+        detail: event.to || "Note cleared",
+      };
     case "session_reopened":
       return { title: "Result reopened", detail: event.reason };
     case "session_finalized":
@@ -58,6 +68,12 @@ function categoryForEvent(
 ): CategoryId | null {
   const mistake = eventMistake(event);
   if (mistake) return mistake.category;
+  if (
+    event.type === "impression_changed" ||
+    event.type === "impression_note_changed"
+  ) {
+    return event.category;
+  }
   if (
     event.type === "mistake_amount_changed" ||
     event.type === "mistake_note_changed"

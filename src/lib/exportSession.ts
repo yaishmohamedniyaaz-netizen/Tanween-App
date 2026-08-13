@@ -1,5 +1,5 @@
-import { CATEGORY_BY_ID } from "../config";
-import type { JudgingState, SavedSession } from "../types";
+import { CATEGORY_BY_ID, enabledCategories } from "../config.ts";
+import type { CategoryId, JudgingState, SavedSession } from "../types";
 import { computeScores } from "./scoring";
 import { assignmentLabel, judgeDisplayName } from "./judgeAssignments";
 import { muqarrarLabel, participantCategoryLabel } from "./participants";
@@ -16,6 +16,8 @@ function downloadBlob(content: string, type: string, filename: string) {
   setTimeout(() => URL.revokeObjectURL(url), 0);
 }
 
+const round2 = (value: number) => Math.round(value * 100) / 100;
+
 function csvCell(v: string | number): string {
   let s = String(v ?? "");
   if (typeof v === "string" && /^[=+\-@\t\r]/.test(s)) s = `'${s}`;
@@ -27,10 +29,11 @@ function csvCell(v: string | number): string {
 export function buildSessionPayload(state: JudgingState) {
   const { byCategory, total, totalMax } = computeScores(state);
   const assignment = state.activeAssignment;
-  const assignedCategories = assignment?.categories ?? ["jali", "khafi", "fasaha"];
+  const assignedCategories =
+    assignment?.categories ?? enabledCategories(state.config);
   const assignedScores = Object.fromEntries(
     Object.entries(byCategory).filter(([category]) =>
-      assignedCategories.includes(category as "jali" | "khafi" | "fasaha"),
+      assignedCategories.includes(category as CategoryId),
     ),
   );
   return {
@@ -62,6 +65,14 @@ export function buildSessionPayload(state: JudgingState) {
       byCategory: assignedScores,
     },
     notes: state.notes,
+    impressions: state.impressions.map((impression) => ({
+      category: impression.category,
+      awarded: impression.awarded,
+      marked: impression.set,
+      note: impression.note,
+      judgeSeatId: impression.judgeSeatId,
+      at: new Date(impression.ts).toISOString(),
+    })),
     judgingHistory: state.events.map((event) => ({
       ...event,
       at: new Date(event.at).toISOString(),
@@ -156,6 +167,24 @@ export function downloadRecordsCSV(
       s.total,
       s.totalMax,
     ];
+    for (const impression of s.impressions ?? []) {
+      if (!impression.set) continue;
+      rows.push(
+        [
+          ...base,
+          "",
+          "",
+          "",
+          "whole recitation",
+          CATEGORY_BY_ID[impression.category].label,
+          round2(
+            (s.config[impression.category]?.start ?? 0) - impression.awarded,
+          ),
+        ]
+          .map(csvCell)
+          .join(","),
+      );
+    }
     if (s.mistakes.length === 0) {
       rows.push([...base, "", "", "", "", "", ""].map(csvCell).join(","));
     } else {

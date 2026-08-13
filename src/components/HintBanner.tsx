@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { isPinpointCategory } from "../config";
 import { useJudging } from "../state/store";
 import { Icon } from "./Icon";
 import {
@@ -22,9 +23,17 @@ export function HintBanner() {
   const assignment =
     state.activeAssignment ??
     makeAssignmentSnapshot(state.panel, state.deviceJudgeId, state.config);
-  const categories = assignment?.categories ?? [];
+  // The tray only ever offers pinpoint criteria.
+  const categories = (assignment?.categories ?? []).filter(isPinpointCategory);
 
-  if (!state.sessionActive || dismissed || state.mistakes.length > 0) return null;
+  if (
+    !state.sessionActive ||
+    dismissed ||
+    categories.length === 0 ||
+    state.mistakes.length > 0
+  ) {
+    return null;
+  }
 
   return (
     <div className="hint-banner" role="note">

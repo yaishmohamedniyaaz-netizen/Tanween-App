@@ -1,11 +1,12 @@
-import type { CompetitionConfig, FinalizedResult } from "../types";
+import { CATEGORY_BY_ID } from "../config.ts";
+import type { CategoryId, CompetitionConfig, FinalizedResult } from "../types";
 import {
   muqarrarLabel,
   participantCategoryLabel,
 } from "./participants.ts";
 import { placeFinalizedResults } from "./finalResults.ts";
 
-export const FINAL_RESULTS_HEADERS = [
+const LEADING_HEADERS = [
   "Place",
   "Participant Number",
   "Name",
@@ -14,9 +15,9 @@ export const FINAL_RESULTS_HEADERS = [
   "Muqarrar",
   "Phone Number",
   "Institution",
-  "Jali",
-  "Khafi",
-  "Fasaha",
+] as const;
+
+const TRAILING_HEADERS = [
   "Total",
   "Maximum",
   "Result Revision",
@@ -24,12 +25,42 @@ export const FINAL_RESULTS_HEADERS = [
   "Verification Manifest",
 ] as const;
 
+const COLUMN_HEADINGS: Record<CategoryId, string> = {
+  jali: "Jali",
+  khafi: "Khafi",
+  fasaha: "Fasaha",
+  "adu-raagu": "Adu / Raagu",
+};
+
+/** Only the criteria a competition actually judged become score columns. */
+export function finalResultsCategories(results: FinalizedResult[]): CategoryId[] {
+  const used = new Set<CategoryId>();
+  for (const result of results) {
+    for (const category of Object.keys(result.byCategory) as CategoryId[]) {
+      if (result.byCategory[category]) used.add(category);
+    }
+  }
+  return (Object.keys(CATEGORY_BY_ID) as CategoryId[]).filter((category) =>
+    used.has(category),
+  );
+}
+
+export function finalResultsHeaders(results: FinalizedResult[]): string[] {
+  return [
+    ...LEADING_HEADERS,
+    ...finalResultsCategories(results).map((category) => COLUMN_HEADINGS[category]),
+    ...TRAILING_HEADERS,
+  ];
+}
+
 export async function buildFinalResultsWorkbook(
   results: FinalizedResult[],
   competition: CompetitionConfig,
 ): Promise<ArrayBuffer> {
   const { utils, write } = await import("xlsx");
   const placed = placeFinalizedResults(results);
+  const categories = finalResultsCategories(results);
+  const headers = finalResultsHeaders(results);
   const rows = placed.map((result) => [
     result.place,
     result.participant.number,
@@ -39,19 +70,14 @@ export async function buildFinalResultsWorkbook(
     muqarrarLabel(result.participant.muqarrar),
     result.participant.phone,
     result.participant.institution,
-    result.byCategory.jali.score,
-    result.byCategory.khafi.score,
-    result.byCategory.fasaha.score,
+    ...categories.map((category) => result.byCategory[category]?.score ?? ""),
     result.total,
     result.totalMax,
     result.revision,
     result.revisionReason ?? "",
     result.manifest,
   ]);
-  const resultSheet = utils.aoa_to_sheet([
-    [...FINAL_RESULTS_HEADERS],
-    ...rows,
-  ]);
+  const resultSheet = utils.aoa_to_sheet([headers, ...rows]);
   resultSheet["!cols"] = [
     { wch: 8 },
     { wch: 20 },
@@ -61,9 +87,7 @@ export async function buildFinalResultsWorkbook(
     { wch: 28 },
     { wch: 18 },
     { wch: 28 },
-    { wch: 10 },
-    { wch: 10 },
-    { wch: 10 },
+    ...categories.map(() => ({ wch: 14 })),
     { wch: 10 },
     { wch: 10 },
     { wch: 15 },
@@ -71,7 +95,7 @@ export async function buildFinalResultsWorkbook(
     { wch: 24 },
   ];
   resultSheet["!autofilter"] = {
-    ref: `A1:P${Math.max(1, rows.length + 1)}`,
+    ref: `A1:${utils.encode_col(headers.length - 1)}${Math.max(1, rows.length + 1)}`,
   };
 
   const verificationRows = [
@@ -84,6 +108,7 @@ export async function buildFinalResultsWorkbook(
     ["Finalized result count", results.length],
     ["Ranking groups", new Set(placed.map((result) => result.rankGroup)).size],
     ["Tie rule", "Equal percentages remain tied"],
+    ["Criteria judged", categories.map((category) => COLUMN_HEADINGS[category]).join(", ") || "None"],
     ["Calculation", "Tahqeeq fixed values; spreadsheet formulas are not the source of truth"],
   ];
   const verificationSheet = utils.aoa_to_sheet(verificationRows);

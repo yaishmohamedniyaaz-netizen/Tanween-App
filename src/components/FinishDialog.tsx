@@ -1,3 +1,4 @@
+import { CATEGORY_BY_ID, isImpressionCategory } from "../config";
 import { computeScores } from "../lib/scoring";
 import { useJudging } from "../state/store";
 import { assignmentLabel, judgeDisplayName } from "../lib/judgeAssignments";
@@ -10,8 +11,15 @@ export function FinishDialog({
   onConfirm: () => void;
 }) {
   const { state } = useJudging();
-  const { total, totalMax } = computeScores(state);
+  const { byCategory, total, totalMax } = computeScores(state);
   const assignment = state.activeAssignment;
+  const config = assignment?.config ?? state.config;
+  const unmarked = (assignment?.categories ?? []).filter(
+    (category) =>
+      isImpressionCategory(category) &&
+      config[category].enabled &&
+      !byCategory[category].marked,
+  );
 
   return (
     <div className="dialog-backdrop">
@@ -38,6 +46,13 @@ export function FinishDialog({
         {assignment && (
           <p className="finish-role">
             {judgeDisplayName(assignment)} · {assignmentLabel(assignment.categories)}
+          </p>
+        )}
+        {unmarked.length > 0 && (
+          <p className="finish-warn" role="status">
+            {unmarked.map((category) => CATEGORY_BY_ID[category].label).join(" and ")}{" "}
+            {unmarked.length === 1 ? "has" : "have"} not been marked. Full marks
+            will be recorded.
           </p>
         )}
         <p className="dialog-sub">

@@ -8,12 +8,14 @@ import {
   normalizeJudgePanel,
   validateJudgePanel,
 } from "../src/lib/judgeAssignments.ts";
-import { computeAssignedMistakeScores } from "../src/lib/scoring.ts";
+import { computeAssignedScores } from "../src/lib/scoring.ts";
 
+const JUDGED = ["jali", "khafi", "fasaha"];
 const config = {
-  jali: { start: 50, step: 2 },
-  khafi: { start: 30, step: 1 },
-  fasaha: { start: 20, step: 1 },
+  jali: { enabled: true, start: 50, step: 2 },
+  khafi: { enabled: true, start: 30, step: 1 },
+  fasaha: { enabled: true, start: 20, step: 1 },
+  "adu-raagu": { enabled: false, start: 0, step: 1 },
 };
 const setupSource = readFileSync(
   new URL("../src/components/CompetitionSetup.tsx", import.meta.url),
@@ -38,11 +40,11 @@ const appSource = readFileSync(
 
 test("the two common panel presets cover every category exactly once", () => {
   for (const preset of ["all", "one-each"]) {
-    const panel = createPanelPreset(preset);
-    assert.equal(validateJudgePanel(panel).valid, true);
+    const panel = createPanelPreset(preset, JUDGED);
+    assert.equal(validateJudgePanel(panel, JUDGED).valid, true);
     assert.deepEqual(
       panel.seats.flatMap((seat) => seat.categories).sort(),
-      [...CATEGORY_ORDER].sort(),
+      [...JUDGED].sort(),
     );
   }
 });
@@ -53,7 +55,7 @@ test("custom panels reject missing, duplicated, and empty assignments", () => {
     preset: "custom",
     seats: [{ id: "judge-1", label: "Judge 1", name: "", categories: ["jali"] }],
   };
-  assert.deepEqual(validateJudgePanel(missing).missing, ["khafi", "fasaha"]);
+  assert.deepEqual(validateJudgePanel(missing, JUDGED).missing, ["khafi", "fasaha"]);
 
   const duplicate = {
     version: 1,
@@ -63,27 +65,27 @@ test("custom panels reject missing, duplicated, and empty assignments", () => {
       { id: "judge-2", label: "Judge 2", name: "", categories: ["jali", "fasaha"] },
     ],
   };
-  assert.deepEqual(validateJudgePanel(duplicate).duplicates, ["jali"]);
+  assert.deepEqual(validateJudgePanel(duplicate, JUDGED).duplicates, ["jali"]);
 
   const empty = {
     version: 1,
     preset: "custom",
     seats: [
-      { id: "judge-1", label: "Judge 1", name: "", categories: CATEGORY_ORDER },
+      { id: "judge-1", label: "Judge 1", name: "", categories: JUDGED },
       { id: "judge-2", label: "Judge 2", name: "", categories: [] },
     ],
   };
-  assert.deepEqual(validateJudgePanel(empty).emptySeatIds, ["judge-2"]);
+  assert.deepEqual(validateJudgePanel(empty, JUDGED).emptySeatIds, ["judge-2"]);
 });
 
 test("invalid stored panels fall back to the legacy one-judge meaning", () => {
-  const normalized = normalizeJudgePanel({ version: 1, preset: "custom", seats: [] });
+  const normalized = normalizeJudgePanel({ version: 1, preset: "custom", seats: [] }, JUDGED);
   assert.equal(normalized.preset, "all");
-  assert.deepEqual(normalized.seats[0].categories, CATEGORY_ORDER);
+  assert.deepEqual(normalized.seats[0].categories, JUDGED);
 });
 
 test("a session assignment is a detached immutable snapshot", () => {
-  const panel = createPanelPreset("one-each");
+  const panel = createPanelPreset("one-each", JUDGED);
   const assignment = makeAssignmentSnapshot(panel, "judge-2", config);
   assert.ok(assignment);
   panel.seats[1].name = "Changed later";
@@ -100,10 +102,10 @@ test("section scoring includes only assigned categories", () => {
     { id: "2", tid: "b", category: "khafi", amount: 1, ts: 2 },
     { id: "3", tid: "c", category: "fasaha", amount: 1, ts: 3 },
   ];
-  const one = computeAssignedMistakeScores(config, mistakes, ["khafi"]);
+  const one = computeAssignedScores(config, mistakes, [], ["khafi"]);
   assert.equal(one.total, 29);
   assert.equal(one.totalMax, 30);
-  const two = computeAssignedMistakeScores(config, mistakes, ["jali", "fasaha"]);
+  const two = computeAssignedScores(config, mistakes, [], ["jali", "fasaha"]);
   assert.equal(two.total, 67);
   assert.equal(two.totalMax, 70);
 });
@@ -119,7 +121,7 @@ test("all seven possible device assignments retain the standard order", () => {
     ["jali", "khafi", "fasaha"],
   ];
   for (const categories of subsets) {
-    const remainder = CATEGORY_ORDER.filter((category) => !categories.includes(category));
+    const remainder = JUDGED.filter((category) => !categories.includes(category));
     const panel = {
       version: 1,
       preset: "custom",
@@ -130,7 +132,7 @@ test("all seven possible device assignments retain the standard order", () => {
           : []),
       ],
     };
-    assert.equal(validateJudgePanel(panel).valid, true);
+    assert.equal(validateJudgePanel(panel, JUDGED).valid, true);
     const assignment = makeAssignmentSnapshot(panel, "judge-1", config);
     assert.deepEqual(assignment.categories, categories);
   }
@@ -148,7 +150,7 @@ test("the saved-state reducer independently rejects unassigned categories", () =
 });
 
 test("setup derives judge count, requires a device role, and freezes active settings", () => {
-  assert.match(setupSource, /panelDraft\.seats\.length < 3/);
+  assert.match(setupSource, /panelDraft\.seats\.length < MAX_JUDGE_SEATS/);
   assert.match(setupSource, /This device is for/);
   assert.match(setupSource, /panelDeviceValid/);
   assert.match(setupSource, /const editable = state\.competition\.status === "draft"/);

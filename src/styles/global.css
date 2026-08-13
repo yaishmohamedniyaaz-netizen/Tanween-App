@@ -88,6 +88,13 @@
   --c-wash: rgba(85, 102, 230, 0.13);
   --c-wash-strong: rgba(85, 102, 230, 0.28);
 }
+.cat-adu-raagu {
+  --c: #2e9e83;
+  --c-strong: #17614f;
+  --c-tint: #e6f4f0;
+  --c-wash: rgba(46, 158, 131, 0.14);
+  --c-wash-strong: rgba(46, 158, 131, 0.3);
+}
 [data-theme="dark"] .cat-jali {
   --c-tint: rgba(216, 69, 61, 0.18);
   --c-strong: #f0a8a2;
@@ -99,6 +106,10 @@
 [data-theme="dark"] .cat-fasaha {
   --c-tint: rgba(110, 124, 240, 0.2);
   --c-strong: #aeb8f6;
+}
+[data-theme="dark"] .cat-adu-raagu {
+  --c-tint: rgba(46, 158, 131, 0.2);
+  --c-strong: #7fd3bd;
 }
 
 /* ---- Base ---- */
@@ -5103,4 +5114,225 @@ textarea:focus-visible {
   .start-judge-change {
     width: 100%;
   }
+}
+
+/* ---- Whole-recitation criteria (Adu / Raagu) ----
+   The score row is the control: no second panel, no duplicated label. */
+.sc-row-impression {
+  grid-template-columns: 9px minmax(0, 1fr) 42px 66px;
+  row-gap: 7px;
+  padding-bottom: 9px;
+}
+.sc-row-impression .sc-reason {
+  grid-column: 2 / -1;
+  width: 100%;
+  font: inherit;
+  font-size: 12px;
+  color: var(--ink);
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  padding: 6px 8px;
+  min-height: 30px;
+}
+.sc-row-impression .sc-reason::placeholder { color: var(--ink-3); }
+.sc-row-impression .sc-reason:hover { border-color: var(--line-2); }
+.sc-pending {
+  display: block;
+  font-size: 11px;
+  color: var(--ink-3);
+}
+
+/* A full border is the signifier that this number can be changed; the other
+   score rows stay plain text because they cannot. */
+.mark-picker {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 4px;
+  width: 66px;
+  min-height: 30px;
+  padding: 2px 4px;
+  border: 1px solid var(--line-2);
+  border-radius: var(--r-sm);
+  background: var(--surface);
+  color: var(--ink);
+  cursor: pointer;
+  touch-action: none;
+  user-select: none;
+  transition: border-color var(--t-fast) var(--ease-out),
+    background var(--t-fast) var(--ease-out);
+}
+.mark-picker:hover,
+.mark-picker.is-open {
+  border-color: var(--c, var(--ink-3));
+  background: var(--c-wash, transparent);
+}
+.mark-picker-value {
+  font-size: 14px;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+.mark-picker-of {
+  font-size: 11px;
+  color: var(--ink-3);
+  font-variant-numeric: tabular-nums;
+}
+
+/* The mark bar: every awardable mark on one strip. */
+.mark-bar {
+  position: fixed;
+  z-index: 60;
+  padding: 12px 16px 26px;
+  border: 1px solid var(--line-2);
+  border-radius: var(--r-md);
+  background: var(--surface);
+  box-shadow: var(--shadow-float);
+  touch-action: none;
+  user-select: none;
+}
+.mark-bar-head {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+  margin-bottom: 14px;
+}
+.mark-bar-value {
+  font-size: 24px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  font-variant-numeric: tabular-nums;
+  color: var(--c-strong, var(--ink));
+}
+.mark-bar-of {
+  font-size: 13px;
+  color: var(--ink-3);
+  font-variant-numeric: tabular-nums;
+}
+.mark-bar-hint {
+  margin-left: auto;
+  font-size: 10.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.mark-bar-track {
+  position: relative;
+  height: 34px;
+  border-radius: var(--r-sm);
+  background: var(--bg);
+  border: 1px solid var(--line);
+  cursor: ew-resize;
+}
+.mark-bar-fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  border-radius: var(--r-sm) 0 0 var(--r-sm);
+  background: var(--c-wash, rgba(0, 0, 0, 0.05));
+  pointer-events: none;
+}
+.mark-tick {
+  position: absolute;
+  top: 50%;
+  width: 1px;
+  height: 9px;
+  margin-top: -4px;
+  background: var(--line-2);
+  pointer-events: none;
+}
+.mark-tick.is-whole {
+  height: 15px;
+  margin-top: -7px;
+  background: var(--ink-3);
+}
+.mark-tick.is-labelled { height: 19px; margin-top: -9px; }
+.mark-tick-label {
+  position: absolute;
+  top: 21px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10.5px;
+  font-style: normal;
+  color: var(--ink-3);
+  font-variant-numeric: tabular-nums;
+}
+.mark-bar-thumb {
+  position: absolute;
+  top: -3px;
+  bottom: -3px;
+  width: 3px;
+  margin-left: -1.5px;
+  border-radius: 2px;
+  background: var(--c, var(--ink));
+  pointer-events: none;
+  box-shadow: 0 0 0 3px var(--c-wash, transparent);
+}
+
+.finish-warn {
+  margin: 0 0 10px;
+  padding: 8px 10px;
+  border-radius: var(--r-sm);
+  font-size: 12.5px;
+  color: var(--ink);
+  background: var(--c-wash, rgba(201, 160, 82, 0.16));
+  border: 1px solid var(--line);
+}
+
+/* Criteria table in setup — an optional criterion can be switched off */
+.setup-grid-criteria {
+  grid-template-columns: 1fr auto 76px 76px;
+}
+.setup-grid-criteria .setup-cat {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.setup-grid-criteria .setup-cat small {
+  display: block;
+  font-size: 11px;
+  color: var(--ink-3);
+}
+.setup-grid-criteria .setup-cat.is-off {
+  opacity: 0.55;
+}
+.criterion-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12.5px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.criterion-toggle input {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--c, var(--ink));
+}
+.criterion-required {
+  font-size: 12px;
+  color: var(--ink-3);
+  white-space: nowrap;
+}
+
+/* Mistake details: the kalimah it belongs to, and where it sits. */
+.log-kalimah {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 2px 0 7px;
+}
+.log-kalimah-word {
+  font-family: var(--quran);
+  font-size: 21px;
+  line-height: 1.6;
+  color: var(--ink);
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.log-kalimah-ref {
+  font-size: 12px;
+  color: var(--ink-3);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }

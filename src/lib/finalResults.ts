@@ -1,4 +1,4 @@
-import { CATEGORIES } from "../config.ts";
+import { DEFAULT_CONFIG, enabledCategories } from "../config.ts";
 import type {
   CategoryId,
   FinalizedCategoryScore,
@@ -7,17 +7,18 @@ import type {
   SavedSession,
 } from "../types";
 import { judgeDisplayName } from "./judgeAssignments.ts";
-import { computeMistakeScores } from "./scoring.ts";
+import { computeCategoryScores } from "./scoring.ts";
 
 export interface ParticipantResultCandidate {
   participant: Participant;
   sessions: SavedSession[];
   byCategory: Record<CategoryId, SavedSession[]>;
+  /** The criteria this competition judges, in reading order. */
+  categories: CategoryId[];
   missing: CategoryId[];
   conflicts: CategoryId[];
 }
 
-const categoryIds = CATEGORIES.map((category) => category.id);
 const round2 = (value: number) => Math.round(value * 100) / 100;
 
 function stableHash(value: string): string {
@@ -31,7 +32,9 @@ function stableHash(value: string): string {
 
 export function buildResultCandidates(
   history: SavedSession[],
+  categories: CategoryId[] = enabledCategories(DEFAULT_CONFIG),
 ): ParticipantResultCandidate[] {
+  const categoryIds = categories;
   const groups = new Map<string, SavedSession[]>();
   for (const session of history) {
     const participantId = session.participant.id;
@@ -56,6 +59,7 @@ export function buildResultCandidates(
         participant: sessions[0].participant,
         sessions,
         byCategory,
+        categories: categoryIds,
         missing: categoryIds.filter((category) => byCategory[category].length === 0),
         conflicts: categoryIds.filter((category) => byCategory[category].length > 1),
       };
@@ -73,6 +77,7 @@ export function finalizeParticipantResult(
   previous?: FinalizedResult,
   revisionReason?: string,
 ): FinalizedResult | null {
+  const categoryIds = candidate.categories;
   if (
     !candidate.participant.number.trim() ||
     !candidate.participant.name.trim() ||
@@ -82,16 +87,18 @@ export function finalizeParticipantResult(
   ) {
     return null;
   }
-  const byCategory = {} as Record<CategoryId, FinalizedCategoryScore>;
+  const byCategory: Partial<Record<CategoryId, FinalizedCategoryScore>> = {};
   for (const category of categoryIds) {
     const options = candidate.byCategory[category];
     const selectedId = selectedSessionIds[category] ??
       (options.length === 1 ? options[0].id : "");
     const session = options.find((option) => option.id === selectedId);
     if (!session) return null;
-    const score = computeMistakeScores(session.config, session.mistakes).byCategory[
-      category
-    ];
+    const score = computeCategoryScores(
+      session.config,
+      session.mistakes,
+      session.impressions ?? [],
+    ).byCategory[category];
     byCategory[category] = {
       category,
       score: score.score,
@@ -105,8 +112,12 @@ export function finalizeParticipantResult(
     };
   }
 
-  const total = round2(categoryIds.reduce((sum, category) => sum + byCategory[category].score, 0));
-  const totalMax = round2(categoryIds.reduce((sum, category) => sum + byCategory[category].max, 0));
+  const total = round2(
+    categoryIds.reduce((sum, category) => sum + (byCategory[category]?.score ?? 0), 0),
+  );
+  const totalMax = round2(
+    categoryIds.reduce((sum, category) => sum + (byCategory[category]?.max ?? 0), 0),
+  );
   const revision = (previous?.revision ?? 0) + 1;
   const normalizedReason = revisionReason?.trim() || undefined;
   const manifestSource = JSON.stringify({

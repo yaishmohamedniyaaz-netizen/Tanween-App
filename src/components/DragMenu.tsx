@@ -89,8 +89,11 @@ export function DragMenu({
     undefined,
     viewportTop,
   );
-  const categoryDefs = CATEGORIES.filter((category) =>
-    allowedCategories.includes(category.id),
+  // Only pinpoint criteria can be tied to a letter; Adu & Raagu is marked once
+  // for the whole recitation in its own panel.
+  const categoryDefs = CATEGORIES.filter(
+    (category) =>
+      category.kind === "pinpoint" && allowedCategories.includes(category.id),
   );
   const fixedCategory = categoryDefs.length === 1 ? categoryDefs[0] : null;
 
@@ -270,7 +273,7 @@ export function DragMenu({
           <span className="pill-text">
             <span className="pill-main">
               {fixedCategory && pinned ? "Mark " : ""}
-              {c.label.replace(/^Laḥn\s/i, "")}
+              {c.label.replace("Laḥn ", "")}
             </span>
           </span>
           <span className="pill-amt">−{config[c.id].step}</span>

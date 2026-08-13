@@ -7,15 +7,25 @@ import {
   useRef,
   type ReactNode,
 } from "react";
-import { DEFAULT_CONFIG, STORAGE_KEY, TOTAL_MARKS } from "../config";
+import {
+  DEFAULT_CONFIG,
+  STORAGE_KEY,
+  TOTAL_MARKS,
+  cloneScoreConfig,
+  enabledCategories,
+  enabledMarksTotal,
+  isImpressionCategory,
+  normalizeScoreConfig,
+} from "../config";
 import {
   LEDGER_VERSION,
   latestMistakeEventIds,
+  projectImpressions,
   projectMistakes,
   seedLedgerEvents,
 } from "../lib/judgingLedger";
 import {
-  computeAssignedMistakeScores,
+  computeAssignedScores,
   computeScores,
 } from "../lib/scoring";
 import {
@@ -85,10 +95,11 @@ const initialState: JudgingState = {
   activeAssignment: null,
   activeQuestion: null,
   events: [],
-  config: DEFAULT_CONFIG,
-  panel: createPanelPreset("all"),
+  config: cloneScoreConfig(DEFAULT_CONFIG),
+  panel: createPanelPreset("all", enabledCategories(DEFAULT_CONFIG)),
   deviceJudgeId: "judge-1",
   mistakes: [],
+  impressions: [],
   notes: "",
   history: [],
   roster: createSampleRoster(),
@@ -115,6 +126,10 @@ export const PRE_COMPETITION_RESULTS_BACKUP_KEY =
 export const PRE_QUESTION_BANK_BACKUP_KEY =
   "tahqeeq.session.v1.backup.pre-question-bank-v1";
 
+/** Untouched browser state from immediately before optional criteria existed. */
+export const PRE_ADU_RAAGU_BACKUP_KEY =
+  "tahqeeq.session.v1.backup.pre-adu-raagu-v1";
+
 /** Untouched browser state from immediately before draft question authoring. */
 export const PRE_QUESTION_BUILDER_BACKUP_KEY =
   "tahqeeq.session.v1.backup.pre-question-builder-v1";
@@ -125,7 +140,15 @@ type Action =
   | { type: "RESTORE_MISTAKE"; eventId: string }
   | { type: "SET_MISTAKE_AMOUNT"; id: string; amount: number }
   | { type: "SET_MISTAKE_NOTE"; id: string; note: string }
-  | { type: "SET_CONFIG"; category: CategoryId; start?: number; step?: number }
+  | {
+      type: "SET_CONFIG";
+      category: CategoryId;
+      start?: number;
+      step?: number;
+      enabled?: boolean;
+    }
+  | { type: "SET_IMPRESSION"; category: CategoryId; awarded: number }
+  | { type: "SET_IMPRESSION_NOTE"; category: CategoryId; note: string }
   | { type: "SET_PANEL"; panel: JudgePanelConfig; deviceJudgeId: string }
   | { type: "SET_DEVICE_JUDGE"; judgeSeatId: string }
   | { type: "SET_COMPETITION"; competition: CompetitionConfig }
@@ -162,7 +185,12 @@ const round2 = (n: number) => Math.round(n * 100) / 100;
 
 function withEvent(state: JudgingState, event: JudgingEvent): JudgingState {
   const events = [...state.events, event];
-  return { ...state, events, mistakes: projectMistakes(events) };
+  return {
+    ...state,
+    events,
+    mistakes: projectMistakes(events),
+    impressions: projectImpressions(events),
+  };
 }
 
 function eventsWithAssignment(
@@ -219,7 +247,7 @@ function patchEvent(
 
 function reducer(state: JudgingState, action: Action): JudgingState {
   switch (action.type) {
-    case "ADD_MISTAKE":
+    case "ADD_MISTAKE": {
       if (
         !state.sessionActive ||
         !state.activeAssignment ||
@@ -227,15 +255,35 @@ function reducer(state: JudgingState, action: Action): JudgingState {
       ) {
         return state;
       }
-      return withEvent(state, {
-        id: uid("e"),
-        at: Date.now(),
-        type: "mistake_added",
-        mistake: {
-          ...action.mistake,
-          judgeSeatId: state.activeAssignment.judgeSeatId,
-        },
-      });
+      const mistake: Mistake = {
+        ...action.mistake,
+        judgeSeatId: state.activeAssignment.judgeSeatId,
+      };
+      // One letter carries one mark. Marking a letter that already has one
+      // replaces it: the earlier mark is undone, so it leaves the score but
+      // stays in the history where it can still be restored.
+      const previous = state.mistakes.find((item) => item.tid === mistake.tid);
+      if (previous && previous.category === mistake.category) return state;
+      const at = Date.now();
+      const events: JudgingEvent[] = previous
+        ? [
+            {
+              id: uid("e"),
+              at,
+              type: "mistake_undone",
+              mistake: { ...previous },
+            },
+            { id: uid("e"), at: at + 1, type: "mistake_added", mistake },
+          ]
+        : [{ id: uid("e"), at, type: "mistake_added", mistake }];
+      const allEvents = [...state.events, ...events];
+      return {
+        ...state,
+        events: allEvents,
+        mistakes: projectMistakes(allEvents),
+        impressions: projectImpressions(allEvents),
+      };
+    }
     case "REMOVE_MISTAKE": {
       const mistake = state.mistakes.find((item) => item.id === action.id);
       if (!mistake) return state;
@@ -298,28 +346,102 @@ function reducer(state: JudgingState, action: Action): JudgingState {
         to: action.note,
       });
     }
-    case "SET_CONFIG":
+    case "SET_CONFIG": {
       if (state.sessionActive || state.competition.status !== "draft") return state;
+      const current = state.config[action.category];
+      const enabled = action.enabled ?? current.enabled;
+      const config = normalizeScoreConfig({
+        ...state.config,
+        [action.category]: {
+          enabled,
+          start: enabled ? (action.start ?? current.start) : 0,
+          step: action.step ?? current.step,
+        },
+      });
+      // A criterion that is no longer judged cannot keep its scoring seat.
+      const judged = enabledCategories(config);
+      const panel = normalizeJudgePanel(
+        {
+          ...state.panel,
+          seats: state.panel.seats.map((seat) => ({
+            ...seat,
+            categories: seat.categories.filter((item) => judged.includes(item)),
+          })),
+        },
+        judged,
+      );
       return {
         ...state,
         competition: bumpDraftCompetition(state.competition),
-        config: {
-          ...state.config,
-          [action.category]: {
-            start: action.start ?? state.config[action.category].start,
-            step: action.step ?? state.config[action.category].step,
-          },
-        },
+        config,
+        panel,
+        deviceJudgeId: judgeSeatFor(panel, state.deviceJudgeId)
+          ? state.deviceJudgeId
+          : (panel.seats[0]?.id ?? null),
       };
+    }
+    case "SET_IMPRESSION": {
+      const assignment = state.activeAssignment;
+      if (
+        !state.sessionActive ||
+        !assignment ||
+        !isImpressionCategory(action.category) ||
+        !assignment.categories.includes(action.category) ||
+        !assignment.config[action.category].enabled
+      ) {
+        return state;
+      }
+      const start = assignment.config[action.category].start;
+      const awarded = round2(Math.min(start, Math.max(0, action.awarded)));
+      const previous = state.impressions.find(
+        (item) => item.category === action.category,
+      );
+      if (previous?.set && previous.awarded === awarded) return state;
+      return withEvent(state, {
+        id: uid("e"),
+        at: Date.now(),
+        type: "impression_changed",
+        category: action.category,
+        from: previous?.set ? previous.awarded : start,
+        to: awarded,
+        judgeSeatId: assignment.judgeSeatId,
+      });
+    }
+    case "SET_IMPRESSION_NOTE": {
+      const assignment = state.activeAssignment;
+      if (
+        !state.sessionActive ||
+        !assignment ||
+        !isImpressionCategory(action.category) ||
+        !assignment.categories.includes(action.category)
+      ) {
+        return state;
+      }
+      const previous = state.impressions.find(
+        (item) => item.category === action.category,
+      );
+      if ((previous?.note ?? "") === action.note) return state;
+      return withEvent(state, {
+        id: uid("e"),
+        at: Date.now(),
+        type: "impression_note_changed",
+        category: action.category,
+        from: previous?.note ?? "",
+        to: action.note,
+      });
+    }
     case "SET_PANEL": {
       if (
         state.sessionActive ||
         state.competition.status !== "draft" ||
-        !validateJudgePanel(action.panel).valid
+        !validateJudgePanel(action.panel, enabledCategories(state.config)).valid
       ) {
         return state;
       }
-      const panel = normalizeJudgePanel(action.panel);
+      const panel = normalizeJudgePanel(
+        action.panel,
+        enabledCategories(state.config),
+      );
       if (!judgeSeatFor(panel, action.deviceJudgeId)) return state;
       return {
         ...state,
@@ -433,11 +555,12 @@ function reducer(state: JudgingState, action: Action): JudgingState {
         competition: { ...EMPTY_COMPETITION, questionPolicy: { ...EMPTY_COMPETITION.questionPolicy } },
         sampleQuestionsInitialized: true,
         participant: { ...EMPTY_PARTICIPANT },
-        config: DEFAULT_CONFIG,
-        panel: createPanelPreset("all"),
+        config: cloneScoreConfig(DEFAULT_CONFIG),
+        panel: createPanelPreset("all", enabledCategories(DEFAULT_CONFIG)),
         deviceJudgeId: "judge-1",
         roster: [],
         mistakes: [],
+        impressions: [],
         notes: "",
         events: [],
       };
@@ -449,11 +572,12 @@ function reducer(state: JudgingState, action: Action): JudgingState {
         questionDrafts: state.questionDrafts.filter((draft) => !draft.isSample),
         sampleQuestionsInitialized: false,
         participant: { ...EMPTY_PARTICIPANT },
-        config: DEFAULT_CONFIG,
-        panel: createPanelPreset("all"),
+        config: cloneScoreConfig(DEFAULT_CONFIG),
+        panel: createPanelPreset("all", enabledCategories(DEFAULT_CONFIG)),
         deviceJudgeId: "judge-1",
         roster: createSampleRoster(),
         mistakes: [],
+        impressions: [],
         notes: "",
         events: [],
         history: state.history.filter((session) => !session.isSample),
@@ -470,11 +594,12 @@ function reducer(state: JudgingState, action: Action): JudgingState {
                 questionPolicy: { ...EMPTY_COMPETITION.questionPolicy },
               },
               participant: { ...EMPTY_PARTICIPANT },
-              config: DEFAULT_CONFIG,
-              panel: createPanelPreset("all"),
+              config: cloneScoreConfig(DEFAULT_CONFIG),
+              panel: createPanelPreset("all", enabledCategories(DEFAULT_CONFIG)),
               deviceJudgeId: "judge-1",
               roster: [],
               mistakes: [],
+              impressions: [],
               notes: "",
               events: [],
             }
@@ -505,7 +630,13 @@ function reducer(state: JudgingState, action: Action): JudgingState {
           mistake: { ...mistake },
         });
       });
-      return { ...state, events, mistakes: projectMistakes(events), notes: "" };
+      return {
+        ...state,
+        events,
+        mistakes: projectMistakes(events),
+        impressions: projectImpressions(events),
+        notes: "",
+      };
     }
     case "DELETE_SESSION":
       return {
@@ -637,6 +768,7 @@ function reducer(state: JudgingState, action: Action): JudgingState {
         activeQuestion: question,
         events,
         mistakes: [],
+        impressions: [],
         notes: "",
       };
     }
@@ -655,6 +787,7 @@ function reducer(state: JudgingState, action: Action): JudgingState {
       };
       const events = [...state.events, finalized];
       const mistakes = projectMistakes(events);
+      const impressions = projectImpressions(events);
       const saved: SavedSession = {
         id: state.activeSessionId,
         competitionId: state.competition.id,
@@ -675,6 +808,7 @@ function reducer(state: JudgingState, action: Action): JudgingState {
         question: state.activeQuestion ?? undefined,
         notes: state.notes,
         mistakes,
+        impressions,
         events,
       };
       const participant = state.participant;
@@ -701,6 +835,7 @@ function reducer(state: JudgingState, action: Action): JudgingState {
         activeQuestion: null,
         events: [],
         mistakes: [],
+        impressions: [],
         notes: "",
       };
     }
@@ -720,6 +855,7 @@ function reducer(state: JudgingState, action: Action): JudgingState {
             participant: saved.participant,
             startedAt: saved.startedAt ?? saved.savedAt,
             mistakes: saved.mistakes,
+            impressions: saved.impressions,
             assignment: saved.assignment,
             question: saved.question,
           });
@@ -744,6 +880,7 @@ function reducer(state: JudgingState, action: Action): JudgingState {
         activeQuestion: normalizeQuestionAssignment(saved.question),
         events,
         mistakes: projectMistakes(events),
+        impressions: projectImpressions(events),
         notes: saved.notes,
         history: state.history.filter((session) => session.id !== saved.id),
       };
@@ -754,6 +891,7 @@ function reducer(state: JudgingState, action: Action): JudgingState {
         ...state,
         events,
         mistakes: projectMistakes(events),
+        impressions: projectImpressions(events),
         history: state.history.map((session) => {
           const sessionEvents = (session.events ?? []).map((event) =>
             patchEvent(event, action.patches),
@@ -767,6 +905,9 @@ function reducer(state: JudgingState, action: Action): JudgingState {
                   ...mistake,
                   ...(action.patches[mistake.id] ?? {}),
                 })),
+            impressions: sessionEvents.length
+              ? projectImpressions(sessionEvents)
+              : session.impressions,
           };
         }),
       };
@@ -805,14 +946,17 @@ export function normalizeSavedSession(session: SavedSession): SavedSession {
         participant,
         startedAt,
         mistakes: session.mistakes,
+        impressions: session.impressions,
         assignment,
         question: question ?? undefined,
       });
   events = eventsWithAssignment(events, assignment);
   const mistakes = projectMistakes(events);
-  const score = computeAssignedMistakeScores(
+  const impressions = projectImpressions(events);
+  const score = computeAssignedScores(
     assignment.config,
     mistakes,
+    impressions,
     assignment.categories,
   );
   if (!events.some((event) => event.type === "session_finalized")) {
@@ -843,6 +987,9 @@ export function normalizeSavedSession(session: SavedSession): SavedSession {
   return {
     ...session,
     isSample: Boolean(session.isSample),
+    // Records saved before optional criteria keep exactly the criteria they
+    // were judged with, so their totals never move.
+    config: normalizeScoreConfig(session.config),
     participant,
     startedAt,
     revision: session.revision ?? 1,
@@ -855,6 +1002,7 @@ export function normalizeSavedSession(session: SavedSession): SavedSession {
     assignment,
     question: question ?? undefined,
     mistakes,
+    impressions,
     events,
   };
 }
@@ -862,11 +1010,13 @@ export function normalizeSavedSession(session: SavedSession): SavedSession {
 export function normalizeLedgerState(
   parsed: Partial<JudgingState>,
 ): JudgingState {
-  let config = { ...DEFAULT_CONFIG, ...(parsed.config ?? {}) };
-  const allocation =
-    config.jali.start + config.khafi.start + config.fasaha.start;
-  if (allocation !== TOTAL_MARKS) config = DEFAULT_CONFIG;
-  let panel = normalizeJudgePanel(parsed.panel);
+  // Records saved before optional criteria existed keep exactly the criteria
+  // they were judged with; Adu & Raagu stays off until an organizer enables it.
+  let config = normalizeScoreConfig(parsed.config);
+  if (enabledMarksTotal(config) !== TOTAL_MARKS) {
+    config = cloneScoreConfig(DEFAULT_CONFIG);
+  }
+  let panel = normalizeJudgePanel(parsed.panel, enabledCategories(config));
 
   let participant = normalizeParticipant(parsed.participant);
   const legacyMistakes = parsed.mistakes ?? [];
@@ -914,8 +1064,11 @@ export function normalizeLedgerState(
     competition = { ...competition, status: "live", closedAt: undefined };
   }
   if (competition.status === "live" && competition.liveSnapshot) {
-    panel = normalizeJudgePanel(competition.liveSnapshot.panel);
-    config = competition.liveSnapshot.scoreConfig;
+    config = normalizeScoreConfig(competition.liveSnapshot.scoreConfig);
+    panel = normalizeJudgePanel(
+      competition.liveSnapshot.panel,
+      enabledCategories(config),
+    );
     if (!roster.length) {
       roster = competition.liveSnapshot.roster.map((entry) =>
         normalizeRosterEntry({ ...entry, judged: false }),
@@ -967,6 +1120,7 @@ export function normalizeLedgerState(
               participant,
               startedAt: startedAt!,
               mistakes: legacyMistakes,
+              impressions: parsed.impressions,
               assignment: activeAssignment!,
               question: activeQuestion ?? undefined,
             }),
@@ -995,6 +1149,7 @@ export function normalizeLedgerState(
     panel,
     deviceJudgeId: preferredJudge,
     mistakes: projectMistakes(events),
+    impressions: projectImpressions(events),
     history: (parsed.history ?? []).map((session) =>
       normalizeSavedSession({
         ...session,
@@ -1027,6 +1182,7 @@ function loadInitial(): JudgingState {
       PRE_COMPETITION_RESULTS_BACKUP_KEY,
       PRE_QUESTION_BANK_BACKUP_KEY,
       PRE_QUESTION_BUILDER_BACKUP_KEY,
+      PRE_ADU_RAAGU_BACKUP_KEY,
     ]) {
       if (!localStorage.getItem(key)) {
         try {

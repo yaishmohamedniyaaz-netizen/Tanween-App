@@ -1,3 +1,4 @@
+import { PINPOINT_CATEGORIES } from "../config.ts";
 import type { CategoryId, SavedSession } from "../types";
 
 export interface RecordsStats {
@@ -18,7 +19,9 @@ export interface RecordsStats {
 }
 
 const round1 = (n: number) => Math.round(n * 10) / 10;
-const CATS: CategoryId[] = ["jali", "khafi", "fasaha"];
+/** The accountability view counts pinpointed mistakes; whole-recitation
+ *  criteria such as Adu & Raagu have no letter-level evidence to aggregate. */
+const CATS: CategoryId[] = PINPOINT_CATEGORIES;
 
 /** Aggregate the local session history — the accountability layer's core view:
  *  which mistakes repeat, across which islands/classes. */

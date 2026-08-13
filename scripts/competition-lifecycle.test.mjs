@@ -12,10 +12,12 @@ import {
   createSampleRoster,
 } from "../src/lib/sampleCompetition.ts";
 
-const config = {
-  jali: { start: 50, step: 2 },
-  khafi: { start: 30, step: 1 },
-  fasaha: { start: 20, step: 1 },
+const JUDGED = ["jali", "khafi", "fasaha"];
+const baseConfig = {
+  jali: { enabled: true, start: 50, step: 2 },
+  khafi: { enabled: true, start: 30, step: 1 },
+  fasaha: { enabled: true, start: 20, step: 1 },
+  "adu-raagu": { enabled: false, start: 0, step: 1 },
 };
 const participant = {
   id: "participant-14",
@@ -44,9 +46,9 @@ function readyInput() {
       edition: "2026",
       divisions: [division],
     }),
-    panel: createPanelPreset("all"),
+    panel: createPanelPreset("all", JUDGED),
     deviceJudgeId: "judge-1",
-    config,
+    config: structuredClone(baseConfig),
     roster: [participant],
   };
 }
@@ -68,9 +70,9 @@ test("legacy competition identity becomes a non-live draft", () => {
 test("official start readiness names every incomplete section", () => {
   const empty = competitionReadiness({
     competition: normalizeCompetition(),
-    panel: createPanelPreset("all"),
+    panel: createPanelPreset("all", JUDGED),
     deviceJudgeId: "judge-1",
-    config,
+    config: structuredClone(baseConfig),
     roster: [],
   });
   assert.equal(empty.ready, false);
@@ -144,13 +146,9 @@ test("the built-in sample is complete, clearly marked, and ready to test", () =>
   assert.equal(roster[0].name, "Ahmed Rasheed");
   const input = {
     competition,
-    panel: createPanelPreset("all"),
+    panel: createPanelPreset("all", JUDGED),
     deviceJudgeId: "judge-1",
-    config: {
-      jali: { start: 50, step: 2 },
-      khafi: { start: 30, step: 1 },
-      fasaha: { start: 20, step: 1 },
-    },
+    config: structuredClone(baseConfig),
     roster,
   };
   assert.deepEqual(competitionReadiness(input), { ready: true, issues: [] });

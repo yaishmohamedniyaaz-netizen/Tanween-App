@@ -1,4 +1,10 @@
-import { TOTAL_MARKS } from "../config.ts";
+import {
+  TOTAL_MARKS,
+  cloneScoreConfig,
+  enabledCategories,
+  enabledMarksTotal,
+  normalizeScoreConfig,
+} from "../config.ts";
 import type {
   CompetitionConfig,
   CompetitionDivision,
@@ -149,14 +155,6 @@ function clonePanel(panel: JudgePanelConfig): JudgePanelConfig {
   };
 }
 
-function cloneScoreConfig(config: ScoreConfig): ScoreConfig {
-  return {
-    jali: { ...config.jali },
-    khafi: { ...config.khafi },
-    fasaha: { ...config.fasaha },
-  };
-}
-
 function participantForSnapshot(participant: Participant): Participant {
   return {
     id: participant.id,
@@ -181,7 +179,7 @@ function cloneLiveSnapshot(
     })),
     questionPolicy: { ...snapshot.questionPolicy },
     panel: clonePanel(snapshot.panel),
-    scoreConfig: cloneScoreConfig(snapshot.scoreConfig),
+    scoreConfig: normalizeScoreConfig(snapshot.scoreConfig),
     roster: snapshot.roster.map(participantForSnapshot),
   };
 }
@@ -229,19 +227,21 @@ export function competitionReadiness(input: {
     }
     divisionKeys.add(key);
   });
-  const panelValidation = validateJudgePanel(input.panel);
+  const panelValidation = validateJudgePanel(
+    input.panel,
+    enabledCategories(input.config),
+  );
   panelValidation.errors.forEach((message) =>
     issues.push({ section: "panel", message }),
   );
   if (!judgeSeatFor(input.panel, input.deviceJudgeId)) {
     issues.push({ section: "panel", message: "Choose the judge using this device." });
   }
-  const marksTotal = Object.values(input.config).reduce(
-    (sum, category) => sum + category.start,
-    0,
-  );
-  if (marksTotal !== TOTAL_MARKS) {
-    issues.push({ section: "marks", message: `Starting marks must total ${TOTAL_MARKS}.` });
+  if (enabledMarksTotal(input.config) !== TOTAL_MARKS) {
+    issues.push({
+      section: "marks",
+      message: `Starting marks must total ${TOTAL_MARKS} across the criteria in use.`,
+    });
   }
   if (!input.roster.length) {
     issues.push({ section: "participants", message: "Add at least one participant." });
@@ -312,7 +312,7 @@ export function createLiveCompetitionSnapshot(input: {
     })),
     questionPolicy: { ...input.competition.questionPolicy },
     panel: clonePanel(input.panel),
-    scoreConfig: cloneScoreConfig(input.config),
+    scoreConfig: cloneScoreConfig(normalizeScoreConfig(input.config)),
     roster: input.roster.map(participantForSnapshot),
     mushafLayout: MUSHAF_LAYOUT,
     mushafSourceVersion: MUSHAF_DATA_VERSION,

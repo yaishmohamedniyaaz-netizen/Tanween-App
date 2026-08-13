@@ -1,19 +1,28 @@
-export type CategoryId = "jali" | "khafi" | "fasaha";
+export type CategoryId = "jali" | "khafi" | "fasaha" | "adu-raagu";
 export type ParticipantCategory = "" | "baliagen" | "nubalaa";
 export type MuqarrarSide = "" | "feshey-kolhu" | "nimey-kolhu";
 export type QuestionMuqarrar = Exclude<MuqarrarSide, ""> | "both";
 export type CompetitionStatus = "draft" | "live" | "closed";
 
+/** How a criterion is marked. Pinpoint criteria are tied to an exact letter on
+ *  the page; impression criteria are judged over the whole recitation. */
+export type CategoryKind = "pinpoint" | "impression";
+
 export interface CategoryDef {
   id: CategoryId;
+  kind: CategoryKind;
+  /** Optional criteria can be switched off for a competition. */
+  optional: boolean;
   label: string; // transliteration
   labelAr: string; // arabic
   hint: string; // short description for the menu / tooltip
 }
 
 export interface CategoryConfig {
+  /** Optional criteria that a competition does not use are disabled with 0 marks. */
+  enabled: boolean;
   start: number; // starting marks for this category
-  step: number; // default deduction per pinpoint
+  step: number; // default deduction per pinpoint or impression step
 }
 
 export type ScoreConfig = Record<CategoryId, CategoryConfig>;
@@ -56,6 +65,8 @@ export interface Mistake {
   sourceVersion?: string;
   ruleVersion?: string;
   wordId?: string;
+  /** The whole kalimah the marked letter belongs to. */
+  wordText?: string;
   sourceStart?: number;
   sourceEnd?: number;
   primaryGlyph?: string;
@@ -73,6 +84,19 @@ export interface Mistake {
   judgeSeatId?: string;
   amount: number; // marks deducted (defaults to category.step, adjustable)
   note?: string;
+  ts: number;
+}
+
+/** One whole-recitation mark for a criterion that cannot be pinpointed on a
+ *  letter, such as Adu & Raagu (voice and melody). */
+export interface ImpressionMark {
+  category: CategoryId;
+  /** Marks awarded out of the category allocation. */
+  awarded: number;
+  note: string;
+  /** false until the judge has explicitly marked this criterion. */
+  set: boolean;
+  judgeSeatId?: string;
   ts: number;
 }
 
@@ -118,6 +142,23 @@ export type JudgingEvent =
       at: number;
       type: "mistake_undone" | "mistake_restored";
       mistake: Mistake;
+    }
+  | {
+      id: string;
+      at: number;
+      type: "impression_changed";
+      category: CategoryId;
+      from: number;
+      to: number;
+      judgeSeatId?: string;
+    }
+  | {
+      id: string;
+      at: number;
+      type: "impression_note_changed";
+      category: CategoryId;
+      from: string;
+      to: string;
     }
   | {
       id: string;
@@ -287,7 +328,8 @@ export interface FinalizedResult {
   revision: number;
   finalizedAt: number;
   revisionReason?: string;
-  byCategory: Record<CategoryId, FinalizedCategoryScore>;
+  /** Only the criteria this competition uses are present. */
+  byCategory: Partial<Record<CategoryId, FinalizedCategoryScore>>;
   total: number;
   totalMax: number;
   manifest: string;
@@ -317,6 +359,8 @@ export interface SavedSession {
   question?: ReciterQuestionAssignment;
   notes: string;
   mistakes: Mistake[];
+  /** Whole-recitation marks, such as Adu & Raagu. Absent in pre-impression records. */
+  impressions?: ImpressionMark[];
   events?: JudgingEvent[];
   importedAt?: number;
   sourceSessionId?: string;
@@ -343,7 +387,8 @@ export interface JudgingState {
   panel: JudgePanelConfig;
   deviceJudgeId: string | null;
   mistakes: Mistake[];
-  notes: string; // free notes: Fasaha / voice & melody
+  impressions: ImpressionMark[];
+  notes: string; // free notes for the whole recitation
   history: SavedSession[];
   roster: RosterEntry[];
   finalizedResults: FinalizedResult[];

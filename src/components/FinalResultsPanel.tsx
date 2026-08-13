@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { CATEGORIES } from "../config";
+import { CATEGORY_BY_ID, enabledCategories } from "../config";
 import {
   buildResultCandidates,
   finalizeParticipantResult,
@@ -29,7 +29,7 @@ function selectedSessionId(
 ): string {
   const manual = selections[candidate.participant.id]?.[category];
   if (manual) return manual;
-  const previousId = previous?.byCategory[category].sessionId;
+  const previousId = previous?.byCategory[category]?.sessionId;
   if (
     previousId &&
     candidate.byCategory[category].some((session) => session.id === previousId)
@@ -45,18 +45,20 @@ function isCurrentFinal(
   candidate: ParticipantResultCandidate,
   result: FinalizedResult,
 ): boolean {
-  return CATEGORIES.every(({ id }) => {
+  return candidate.categories.every((id) => {
+    const finalized = result.byCategory[id];
+    if (!finalized) return false;
     const source = candidate.byCategory[id].find(
-      (session) => session.id === result.byCategory[id].sessionId,
+      (session) => session.id === finalized.sessionId,
     );
     const hasNewAlternative = candidate.byCategory[id].some(
       (session) =>
-        session.id !== result.byCategory[id].sessionId &&
+        session.id !== finalized.sessionId &&
         (session.importedAt ?? session.savedAt) > result.finalizedAt,
     );
     return Boolean(
       source &&
-      (source.revision ?? 1) === result.byCategory[id].sessionRevision &&
+      (source.revision ?? 1) === finalized.sessionRevision &&
       !hasNewAlternative,
     );
   });
@@ -67,13 +69,20 @@ export function FinalResultsPanel() {
   const [selections, setSelections] = useState<CandidateSelections>({});
   const [exportError, setExportError] = useState("");
   const [exporting, setExporting] = useState(false);
+  const judgedCategories = useMemo(
+    () => enabledCategories(
+      state.competition.liveSnapshot?.scoreConfig ?? state.config,
+    ),
+    [state.competition.liveSnapshot, state.config],
+  );
   const candidates = useMemo(
     () => buildResultCandidates(
       state.history.filter(
         (session) => session.competitionId === state.competition.id,
       ),
+      judgedCategories,
     ),
-    [state.competition.id, state.history],
+    [judgedCategories, state.competition.id, state.history],
   );
   const previousByParticipant = useMemo(
     () => new Map(
@@ -132,7 +141,7 @@ export function FinalResultsPanel() {
       : undefined;
     if (previous && !revisionReason?.trim()) return;
     const selected = Object.fromEntries(
-      CATEGORIES.map(({ id }) => [
+      candidate.categories.map((id) => [
         id,
         selectedSessionId(candidate, id, selections, previous),
       ]),
@@ -173,7 +182,7 @@ export function FinalResultsPanel() {
             {state.competition.isSample && <SampleBadge compact />}
           </h2>
           <p className="panel-sub">
-            Combine the three judge sections, then export checked fixed totals.
+            Combine every judge section, then export checked fixed totals.
           </p>
         </div>
         <button
@@ -198,8 +207,8 @@ export function FinalResultsPanel() {
             candidate.participant.category &&
             candidate.participant.muqarrar,
           );
-          const unresolved = CATEGORIES.some(
-            ({ id }) => !selectedSessionId(candidate, id, selections, previous),
+          const unresolved = candidate.categories.some(
+            (id) => !selectedSessionId(candidate, id, selections, previous),
           );
           const stale = Boolean(previous && !isCurrentFinal(candidate, previous));
           return (
@@ -220,16 +229,17 @@ export function FinalResultsPanel() {
                 </span>
               </div>
               <div className="final-category-sources">
-                {CATEGORIES.map((category) => {
-                  const options = candidate.byCategory[category.id];
+                {candidate.categories.map((categoryId) => {
+                  const category = CATEGORY_BY_ID[categoryId];
+                  const options = candidate.byCategory[categoryId];
                   const value = selectedSessionId(
                     candidate,
-                    category.id,
+                    categoryId,
                     selections,
                     previous,
                   );
                   return (
-                    <label key={category.id}>
+                    <label key={categoryId}>
                       <span>{category.label}</span>
                       {options.length <= 1 ? (
                         <strong className={options.length ? "is-ready" : "is-missing"}>
@@ -246,7 +256,7 @@ export function FinalResultsPanel() {
                           onChange={(event) =>
                             setSelection(
                               candidate.participant.id,
-                              category.id,
+                              categoryId,
                               event.target.value,
                             )
                           }

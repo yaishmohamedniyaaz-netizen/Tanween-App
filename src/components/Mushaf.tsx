@@ -27,6 +27,7 @@ import {
   qcfFontFamily,
 } from "../lib/qcfFont";
 import { useJudging } from "../state/store";
+import { enabledCategories, isPinpointCategory } from "../config";
 import type { CategoryId, Mistake, TokenRole } from "../types";
 import { DragMenu, type MenuAnchor } from "./DragMenu";
 
@@ -66,7 +67,12 @@ interface ActiveDrag {
   meta: WordHitbox;
 }
 
-const SEVERITY: Record<CategoryId, number> = { jali: 3, khafi: 2, fasaha: 1 };
+const SEVERITY: Record<CategoryId, number> = {
+  jali: 3,
+  khafi: 2,
+  fasaha: 1,
+  "adu-raagu": 0,
+};
 const HIT_PAD_X = 3;
 const HIT_PAD_Y = 5;
 const MOVE_THRESHOLD = 6;
@@ -133,7 +139,13 @@ export function Mushaf({
   headerControls,
 }: MushafProps) {
   const { state, dispatch } = useJudging();
-  const judgingEnabled = state.sessionActive;
+  const assignedConfig = state.activeAssignment?.config ?? state.config;
+  // Only pinpoint criteria are marked on the page. A judge who owns just a
+  // whole-recitation criterion has nothing to press here.
+  const allowedCategories = (
+    state.activeAssignment?.categories ?? enabledCategories(assignedConfig)
+  ).filter(isPinpointCategory);
+  const judgingEnabled = state.sessionActive && allowedCategories.length > 0;
   const [pageData, setPageData] = useState<MushafPage | null>(null);
   const [fontReadyPage, setFontReadyPage] = useState<number | null>(null);
   const pageRef = useRef<HTMLDivElement>(null);
@@ -378,9 +390,6 @@ export function Mushaf({
   const activeUnit = active?.tid
     ? active.meta.units.find((unit) => unit.tid === active.tid)
     : null;
-  const allowedCategories =
-    state.activeAssignment?.categories ?? (["jali", "khafi", "fasaha"] as CategoryId[]);
-
   const commit = useCallback(
     (category: CategoryId, tidOverride?: string | null) => {
       if (!active || !pageData) return;
@@ -396,6 +405,7 @@ export function Mushaf({
         sourceVersion: TARGET_SOURCE_VERSION,
         ruleVersion: TARGET_RULE_VERSION,
         wordId: active.meta.wid,
+        wordText: active.meta.semanticText,
         sourceStart: unit.start,
         sourceEnd: unit.end,
         primaryGlyph: unit.primaryGlyph,

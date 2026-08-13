@@ -1,6 +1,6 @@
 # Undecided decisions
 
-Last reviewed: 12 August 2026
+Last reviewed: 13 August 2026
 
 This file contains only decisions that still need a human answer. Confirmed
 product rules belong in `PRODUCT_FOUNDATION.md`, not here.
@@ -81,9 +81,10 @@ product rules belong in `PRODUCT_FOUNDATION.md`, not here.
      Options range from a short retry queue to several hours of full offline
      work.
 
-13. **More than three scoring judges**
-    - Current implementation allows one owner for each of Jali, Khafi, and
-      Fasaha, so it has at most three scoring seats.
+13. **More than one judge per criterion**
+    - Current implementation allows one owner for each criterion in use — Jali,
+      Khafi, and the optional Fasaha and Adu & Raagu — so it has at most four
+      scoring seats.
     - This must not be confused with a global limit on users or judge devices.
     - Decision needed: if two judges score the same criterion, are their marks
       averaged, combined, compared by a chief judge, or resolved another way?
@@ -113,3 +114,11 @@ product rules belong in `PRODUCT_FOUNDATION.md`, not here.
 17. **Audio and automatic recitation following**
     - Still a later research track. It is not required for the question bank or
       the first scalable judging release.
+
+18. **Adu & Raagu defaults and shape**
+    - Implemented as one criterion covering voice and melody, optional per
+      competition, defaulting to Jali 50, Khafi 30, Fasaha 10, Adu & Raagu 10.
+    - Decision needed: is Adu & Raagu judged as one criterion, or as separate
+      voice and melody criteria, in the competitions this must serve?
+    - Decision needed: which allocation should the first reviewed Maldivian
+      preset use?
