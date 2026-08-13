@@ -35,6 +35,10 @@ const startSource = readFileSync(
   new URL("../src/components/StartDialog.tsx", import.meta.url),
   "utf8",
 );
+const questionNumberSource = readFileSync(
+  new URL("../src/components/QuestionNumberScreen.tsx", import.meta.url),
+  "utf8",
+);
 const appSource = readFileSync(
   new URL("../src/App.tsx", import.meta.url),
   "utf8",
@@ -159,11 +163,11 @@ test("setup derives judge count, requires a device role, and freezes active sett
   assert.doesNotMatch(setupSource, /judgeCount/);
 });
 
-test("participant selection shows the frozen device assignment and links to setup", () => {
-  assert.match(startSource, /Judging on this device/);
-  assert.match(startSource, /Prepare the next reciter/);
+test("the reciter handoff keeps the frozen device assignment and direct draw", () => {
+  assert.match(startSource, /This device/);
+  assert.match(startSource, /Select reciter/);
+  assert.match(questionNumberSource, /Choose a number/);
   // Pressing a number is what starts judging — there is no separate confirm.
-  assert.match(startSource, /Press the number the reciter picks/);
   assert.match(startSource, /startWithQuestion\(drawnId\)/);
   assert.doesNotMatch(startSource, /Begin judging/);
   assert.match(startSource, /questionId/);

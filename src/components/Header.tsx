@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useJudging } from "../state/store";
 import { downloadRecordsCSV, downloadSessionJSON } from "../lib/exportSession";
-import { useOfflineStatus } from "../hooks/useOfflineStatus";
 import { Icon } from "./Icon";
 import { ThemeToggle } from "./ThemeToggle";
 import {
@@ -39,7 +38,6 @@ export function Header({
   onJudgeRailSideChange,
 }: Props) {
   const { state, dispatch } = useJudging();
-  const sw = useOfflineStatus();
   const [menuOpen, setMenuOpen] = useState(false);
   const [menuMode, setMenuMode] = useState<
     "main" | "zoom" | "panel" | "confirm"
@@ -122,13 +120,6 @@ export function Header({
           تَحْقِيق
         </span>
         <span className="brand-name">Tahqeeq</span>
-        {sw.precached && (
-          <span
-            className="offline-dot"
-            title={`Offline ready · ${sw.precacheCount} assets cached`}
-            aria-label="Offline ready"
-          />
-        )}
       </div>
 
       {!state.sessionActive && view !== "records" && (
@@ -137,20 +128,28 @@ export function Header({
           className={`competition-header-state is-${state.competition.status}`}
           onClick={onOpenSetup}
         >
-          <span aria-hidden="true" />
           <span>
             <strong>
+              {state.competition.name ||
+                (state.competition.status === "closed"
+                  ? "Closed competition"
+                  : "No competition running")}
+            </strong>
+            <small>
               {state.competition.status === "live"
                 ? state.competition.isSample
-                  ? "Test competition live"
-                  : "Competition live"
+                  ? "Test mode · Live"
+                  : "Live"
                 : state.competition.status === "closed"
-                  ? "Competition closed"
+                  ? state.competition.isSample
+                    ? "Test mode · Closed"
+                    : "Closed"
                   : state.competition.name
-                    ? "Draft competition"
-                    : "No competition running"}
-            </strong>
-            {state.competition.name && <small>{state.competition.name}</small>}
+                    ? state.competition.isSample
+                      ? "Test mode · Draft"
+                      : "Draft"
+                    : "Browse the Mushaf"}
+            </small>
           </span>
         </button>
       )}
@@ -162,7 +161,6 @@ export function Header({
           onClick={onChangeReciter}
           title="Change reciter"
         >
-          <span className="chip-dot" aria-hidden="true" />
           {p.name || "Unnamed"}
           {state.activeQuestion && (
             <span className="reciter-question-ref">Q · {state.activeQuestion.label}</span>

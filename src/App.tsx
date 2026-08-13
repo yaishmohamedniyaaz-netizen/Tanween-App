@@ -20,6 +20,7 @@ import { FinishDialog } from "./components/FinishDialog";
 import { JudgeRoleStrip } from "./components/JudgeRoleStrip";
 import { useJudging } from "./state/store";
 import { questionOpeningKey, questionOpeningPage } from "./lib/questionPage";
+import { isWaiting } from "./lib/rosterQueue";
 import surahIndex from "./data/surah-index.json";
 
 const LS_PAGE_KEY = "tahqeeq:lastPage";
@@ -312,7 +313,7 @@ export function App() {
                   className="btn-primary next-btn"
                   onClick={() => setFinishOpen(true)}
                 >
-                  Done — next reciter
+                  Finish recitation
                 </button>
               </>
             ) : (
@@ -347,9 +348,13 @@ export function App() {
         <FinishDialog
           onCancel={() => setFinishOpen(false)}
           onConfirm={() => {
+            const hasNextReciter = state.roster.some(
+              (entry) =>
+                entry.id !== state.participant.id && isWaiting(entry),
+            );
             dispatch({ type: "FINISH_SESSION" });
             setFinishOpen(false);
-            setStartOpen(false);
+            setStartOpen(hasNextReciter);
           }}
         />
       )}

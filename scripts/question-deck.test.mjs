@@ -159,7 +159,7 @@ test("an empty pool produces an empty, immediately exhausted board", () => {
 
 test("the board renders positions and nothing that names a passage", () => {
   const source = readFileSync(
-    new URL("../src/components/StartDialog.tsx", import.meta.url),
+    new URL("../src/components/QuestionNumberScreen.tsx", import.meta.url),
     "utf8",
   );
   const board = source.slice(

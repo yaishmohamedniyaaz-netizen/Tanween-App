@@ -27,7 +27,7 @@ export function CompetitionIdlePanel({
     return (
       <section className="competition-idle-panel is-live" aria-label="Competition ready">
         <span className="competition-state-label">
-          <i aria-hidden="true" /> {competition.isSample ? "Test competition ready" : "Competition live"}
+          {competition.isSample ? "Test mode" : "Live"}
         </span>
         <h2>{competition.name || "Live competition"}</h2>
         {competition.edition && (
@@ -74,11 +74,10 @@ export function CompetitionIdlePanel({
   return (
     <section className={`competition-idle-panel ${competition.status === "closed" ? "is-closed" : ""}`} aria-label="Competition status">
       <span className="competition-state-label">
-        <i aria-hidden="true" />
         {competition.status === "closed"
-          ? "Competition closed"
+          ? competition.isSample ? "Test mode · Closed" : "Closed"
           : draft
-            ? "Draft competition"
+            ? competition.isSample ? "Test mode · Draft" : "Draft"
             : "No competition running"}
       </span>
       <h2>{competition.name || "The Mushaf is ready"}</h2>

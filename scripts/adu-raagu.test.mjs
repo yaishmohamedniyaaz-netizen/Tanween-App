@@ -474,17 +474,18 @@ test("mistake details name the kalimah and where it sits", () => {
   assert.match(mushafSource, /wordText: active\.meta\.semanticText/);
 });
 
-test("the opened mark reads as two rows, and never spells out its category", () => {
+test("the opened mark fits one evidence line and never spells out its category", () => {
   // The dot on the row already carries the category; the name is not repeated.
   assert.doesNotMatch(mistakeLogSource, /className="log-loc"/);
   assert.doesNotMatch(cssSource, /\.log-loc\s*\{/);
   assert.match(mistakeLogSource, /category\.label\} · \$\{reference\}/, "kept for the row title");
 
   // Word then reference, read as one phrase — not flung to opposite edges.
-  assert.doesNotMatch(ruleBody(".log-kalimah"), /space-between/);
+  assert.match(mistakeLogSource, /className="log-detail-line"/);
+  assert.match(cssSource, /\.log-detail-line\s*\{[^}]*display: grid/s);
   // The tray hangs off the glyph column, so the kalimah sits under its letter.
   assert.match(ruleBody(".log-expand-inner"), /padding-left: 25px/);
-  assert.match(ruleBody(".log-undo"), /margin-left: auto/);
+  assert.match(mistakeLogSource, />\s*Undo\s*</);
 });
 
 test("holding a word is neutral; only a criterion colours the page", () => {

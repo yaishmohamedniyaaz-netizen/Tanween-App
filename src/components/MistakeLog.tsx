@@ -148,13 +148,11 @@ export function MistakeLog() {
                   </button>
                   <div className="log-expand">
                     <div className="log-expand-inner">
-                      <div className="log-kalimah">
+                      <div className="log-detail-line">
                         <span className="log-kalimah-word" dir="rtl" lang="ar">
                           {mistake.wordText || mistake.glyph}
                         </span>
                         <span className="log-kalimah-ref t-num">{reference}</span>
-                      </div>
-                      <div className="log-detail">
                         <button
                           type="button"
                           className="step-btn"
@@ -192,7 +190,7 @@ export function MistakeLog() {
                             dispatch({ type: "REMOVE_MISTAKE", id: mistake.id });
                           }}
                         >
-                          Undo mark
+                          Undo
                         </button>
                       </div>
                     </div>

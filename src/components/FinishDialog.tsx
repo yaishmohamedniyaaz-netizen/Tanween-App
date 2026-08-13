@@ -64,7 +64,7 @@ export function FinishDialog({
             Keep judging
           </button>
           <button type="button" className="btn-primary" onClick={onConfirm}>
-            Finish reciter
+            Save and select next reciter
           </button>
         </div>
       </div>

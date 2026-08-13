@@ -12,6 +12,13 @@ const setupSource = read("../src/components/CompetitionSetup.tsx");
 const mushafSource = read("../src/components/Mushaf.tsx");
 const builderSource = read("../src/components/QuestionBuilder.tsx");
 const previewSource = read("../src/components/QuestionMushafPreview.tsx");
+const participantScreenSource = read(
+  "../src/components/ParticipantSelectionScreen.tsx",
+);
+const questionScreenSource = read(
+  "../src/components/QuestionNumberScreen.tsx",
+);
+const finishSource = read("../src/components/FinishDialog.tsx");
 
 test("opening Tahqeeq remains a free Mushaf instead of auto-starting a session", () => {
   assert.match(appSource, /const \[startOpen, setStartOpen\] = useState\(false\)/);
@@ -56,4 +63,21 @@ test("judging hit targets remain disabled outside an active reciter session", ()
   assert.match(mushafSource, /\{judgingEnabled && <div className="hit-layer">/);
   assert.match(mushafSource, /onPointerDown=\{judgingEnabled \? onPointerDown : undefined\}/);
   assert.match(idleSource, /Official marks stay disabled/);
+});
+
+test("the live handoff uses quiet status text and two focused screens", () => {
+  assert.doesNotMatch(headerSource, /offline-dot|chip-dot/);
+  assert.doesNotMatch(idleSource, /<i aria-hidden/);
+  assert.match(headerSource, /Test mode · Live/);
+  assert.match(participantScreenSource, /Participant running order/);
+  assert.match(participantScreenSource, /entry\.institution/);
+  assert.match(questionScreenSource, /Choose a number/);
+  assert.match(questionScreenSource, /Ask the reciter to choose one available number/);
+});
+
+test("finishing a reciter moves directly to the next running-order choice", () => {
+  assert.match(appSource, /const hasNextReciter = state\.roster\.some/);
+  assert.match(appSource, /setStartOpen\(hasNextReciter\)/);
+  assert.match(appSource, /Finish recitation/);
+  assert.match(finishSource, /Save and select next reciter/);
 });
