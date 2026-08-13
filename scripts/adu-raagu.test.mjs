@@ -1,0 +1,358 @@
+import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
+import test from "node:test";
+import {
+  ALL_CATEGORIES,
+  CATEGORY_BY_ID,
+  DEFAULT_CONFIG,
+  IMPRESSION_CATEGORIES,
+  OPTIONAL_CATEGORIES,
+  PINPOINT_CATEGORIES,
+  TOTAL_MARKS,
+  enabledCategories,
+  enabledMarksTotal,
+  normalizeScoreConfig,
+} from "../src/config.ts";
+import {
+  computeAssignedScores,
+  computeCategoryScores,
+  impressionScore,
+} from "../src/lib/scoring.ts";
+import { projectImpressions, seedLedgerEvents } from "../src/lib/judgingLedger.ts";
+import {
+  createPanelPreset,
+  legacyAssignment,
+  makeAssignmentSnapshot,
+  normalizeAssignment,
+  validateJudgePanel,
+} from "../src/lib/judgeAssignments.ts";
+import { competitionReadiness, normalizeCompetition } from "../src/lib/competition.ts";
+import {
+  buildResultCandidates,
+  finalizeParticipantResult,
+} from "../src/lib/finalResults.ts";
+import { finalResultsHeaders } from "../src/lib/finalResultsWorkbook.ts";
+
+const storeSource = readFileSync(
+  new URL("../src/state/store.tsx", import.meta.url),
+  "utf8",
+);
+const setupSource = readFileSync(
+  new URL("../src/components/CompetitionSetup.tsx", import.meta.url),
+  "utf8",
+);
+
+/** A pre-Adu & Raagu competition exactly as older browsers stored it. */
+const legacyStoredConfig = {
+  jali: { start: 50, step: 2 },
+  khafi: { start: 30, step: 1 },
+  fasaha: { start: 20, step: 1 },
+};
+
+const mistake = (category, amount) => ({
+  id: `m-${category}`,
+  tid: `t-${category}`,
+  surah: 1,
+  ayah: 1,
+  glyph: "ب",
+  label: "1:1 · letter 1",
+  category,
+  amount,
+  ts: 900,
+});
+
+test("Adu and Raagu is a whole-recitation criterion, never a page target", () => {
+  assert.deepEqual(IMPRESSION_CATEGORIES, ["adu-raagu"]);
+  assert.deepEqual(PINPOINT_CATEGORIES, ["jali", "khafi", "fasaha"]);
+  assert.equal(CATEGORY_BY_ID["adu-raagu"].kind, "impression");
+  assert.deepEqual(ALL_CATEGORIES, ["jali", "khafi", "fasaha", "adu-raagu"]);
+});
+
+test("Fasaha and Adu and Raagu are optional; Jali and Khafi are not", () => {
+  assert.deepEqual(OPTIONAL_CATEGORIES, ["fasaha", "adu-raagu"]);
+  assert.equal(CATEGORY_BY_ID.jali.optional, false);
+  assert.equal(CATEGORY_BY_ID.khafi.optional, false);
+  assert.equal(enabledMarksTotal(DEFAULT_CONFIG), TOTAL_MARKS);
+  assert.deepEqual(enabledCategories(DEFAULT_CONFIG), ALL_CATEGORIES);
+});
+
+test("a competition that judges neither optional criterion still totals 100", () => {
+  const config = normalizeScoreConfig({
+    jali: { enabled: true, start: 60, step: 2 },
+    khafi: { enabled: true, start: 40, step: 1 },
+    fasaha: { enabled: false, start: 20, step: 1 },
+    "adu-raagu": { enabled: false, start: 10, step: 1 },
+  });
+  assert.deepEqual(enabledCategories(config), ["jali", "khafi"]);
+  assert.equal(config.fasaha.start, 0, "a criterion out of use carries no marks");
+  assert.equal(enabledMarksTotal(config), TOTAL_MARKS);
+  const { total, totalMax } = computeCategoryScores(config, [mistake("jali", 2)]);
+  assert.equal(total, 98);
+  assert.equal(totalMax, 100);
+});
+
+test("records saved before Adu and Raagu keep their exact criteria and totals", () => {
+  const config = normalizeScoreConfig(legacyStoredConfig);
+  assert.equal(config["adu-raagu"].enabled, false);
+  assert.equal(config["adu-raagu"].start, 0);
+  assert.equal(config.fasaha.enabled, true);
+  assert.equal(config.fasaha.start, 20);
+  assert.deepEqual(enabledCategories(config), ["jali", "khafi", "fasaha"]);
+  assert.equal(computeCategoryScores(config, []).totalMax, 100);
+  assert.match(storeSource, /config: normalizeScoreConfig\(session\.config\)/);
+  assert.match(storeSource, /backup\.pre-adu-raagu-v1/);
+});
+
+test("a raw pre-Adu and Raagu config still yields a usable assignment", () => {
+  const assignment = legacyAssignment(legacyStoredConfig);
+  assert.ok(assignment, "legacy browser state must never fail to load");
+  assert.deepEqual(assignment.categories, ["jali", "khafi", "fasaha"]);
+  assert.equal(assignment.config["adu-raagu"].enabled, false);
+  const restored = normalizeAssignment(undefined, legacyStoredConfig);
+  assert.deepEqual(restored.categories, ["jali", "khafi", "fasaha"]);
+});
+
+test("an unmarked impression rests on full marks and records once marked", () => {
+  const config = normalizeScoreConfig(DEFAULT_CONFIG);
+  const unmarked = computeCategoryScores(config, []);
+  assert.equal(unmarked.byCategory["adu-raagu"].score, 10);
+  assert.equal(unmarked.byCategory["adu-raagu"].marked, false);
+  assert.equal(unmarked.total, 100);
+
+  const events = [
+    {
+      id: "e1",
+      at: 10,
+      type: "impression_changed",
+      category: "adu-raagu",
+      from: 10,
+      to: 10,
+    },
+    {
+      id: "e2",
+      at: 20,
+      type: "impression_note_changed",
+      category: "adu-raagu",
+      from: "",
+      to: "Strong voice, unsteady maqam",
+    },
+    {
+      id: "e3",
+      at: 30,
+      type: "impression_changed",
+      category: "adu-raagu",
+      from: 10,
+      to: 7.5,
+    },
+  ];
+  const impressions = projectImpressions(events);
+  assert.equal(impressions.length, 1);
+  assert.equal(impressions[0].awarded, 7.5);
+  assert.equal(impressions[0].note, "Strong voice, unsteady maqam");
+  assert.equal(impressions[0].set, true);
+
+  const marked = computeCategoryScores(config, [], impressions);
+  assert.equal(marked.byCategory["adu-raagu"].score, 7.5);
+  assert.equal(marked.byCategory["adu-raagu"].deducted, 2.5);
+  assert.equal(marked.byCategory["adu-raagu"].marked, true);
+  assert.equal(marked.total, 97.5);
+});
+
+test("impression marks are clamped to the criterion allocation", () => {
+  const config = normalizeScoreConfig(DEFAULT_CONFIG);
+  const over = impressionScore(config, [
+    { category: "adu-raagu", awarded: 40, note: "", set: true, ts: 1 },
+  ], "adu-raagu");
+  assert.equal(over.awarded, 10);
+  const under = impressionScore(config, [
+    { category: "adu-raagu", awarded: -5, note: "", set: true, ts: 1 },
+  ], "adu-raagu");
+  assert.equal(under.awarded, 0);
+  assert.match(storeSource, /Math\.min\(start, Math\.max\(0, action\.awarded\)\)/);
+});
+
+test("a saved impression survives a reopened session unchanged", () => {
+  const events = seedLedgerEvents({
+    sessionId: "s-1",
+    participant: { name: "Reciter", number: "1" },
+    startedAt: 100,
+    mistakes: [],
+    impressions: [
+      { category: "adu-raagu", awarded: 6, note: "Melody drifted", set: true, ts: 150 },
+    ],
+  });
+  const restored = projectImpressions(events);
+  assert.equal(restored.length, 1);
+  assert.equal(restored[0].awarded, 6);
+  assert.equal(restored[0].note, "Melody drifted");
+  assert.equal(restored[0].set, true);
+});
+
+test("section scoring keeps an Adu and Raagu judge to their own criterion", () => {
+  const config = normalizeScoreConfig(DEFAULT_CONFIG);
+  const impressions = [
+    { category: "adu-raagu", awarded: 8, note: "", set: true, ts: 1 },
+  ];
+  const section = computeAssignedScores(
+    config,
+    [mistake("jali", 2)],
+    impressions,
+    ["adu-raagu"],
+  );
+  assert.equal(section.total, 8);
+  assert.equal(section.totalMax, 10);
+});
+
+test("the panel covers exactly the criteria in use and allows four seats", () => {
+  const judged = enabledCategories(DEFAULT_CONFIG);
+  const panel = createPanelPreset("one-each", judged);
+  assert.equal(panel.seats.length, 4);
+  assert.equal(validateJudgePanel(panel, judged).valid, true);
+
+  const twoCriteria = ["jali", "khafi"];
+  assert.equal(validateJudgePanel(panel, twoCriteria).valid, false);
+  assert.deepEqual(
+    validateJudgePanel(
+      createPanelPreset("all", twoCriteria),
+      twoCriteria,
+    ).errors,
+    [],
+  );
+});
+
+test("an assignment cannot own a criterion the competition switched off", () => {
+  const config = normalizeScoreConfig({
+    jali: { enabled: true, start: 60, step: 2 },
+    khafi: { enabled: true, start: 40, step: 1 },
+    fasaha: { enabled: false, start: 0, step: 1 },
+    "adu-raagu": { enabled: false, start: 0, step: 1 },
+  });
+  const fullPanel = createPanelPreset("one-each", ALL_CATEGORIES);
+  assert.equal(makeAssignmentSnapshot(fullPanel, "judge-1", config), null);
+
+  const assignment = normalizeAssignment({ panel: fullPanel, judgeSeatId: "judge-1" }, config);
+  assert.deepEqual(assignment.categories, ["jali", "khafi"]);
+  assert.match(storeSource, /A criterion that is no longer judged cannot keep its scoring seat/);
+});
+
+test("readiness checks the marks of the criteria actually in use", () => {
+  const input = {
+    competition: normalizeCompetition({
+      id: "competition-adu",
+      name: "Adu Test",
+      edition: "2026",
+      divisions: [
+        {
+          id: "d1",
+          name: "Under 14 Hifz",
+          ageGroup: "Under 14",
+          category: "nubalaa",
+          quranPortion: { kind: "full-quran" },
+        },
+      ],
+    }),
+    panel: createPanelPreset("all", ["jali", "khafi"]),
+    deviceJudgeId: "judge-1",
+    config: normalizeScoreConfig({
+      jali: { enabled: true, start: 60, step: 2 },
+      khafi: { enabled: true, start: 40, step: 1 },
+      fasaha: { enabled: false, start: 0, step: 1 },
+      "adu-raagu": { enabled: false, start: 0, step: 1 },
+    }),
+    roster: [
+      {
+        id: "p1",
+        number: "001",
+        name: "Reciter",
+        ageGroup: "Under 14",
+        category: "nubalaa",
+        muqarrar: "feshey-kolhu",
+        phone: "",
+        institution: "",
+        judged: false,
+      },
+    ],
+  };
+  assert.deepEqual(competitionReadiness(input), { ready: true, issues: [] });
+
+  const short = {
+    ...input,
+    config: normalizeScoreConfig({
+      ...input.config,
+      "adu-raagu": { enabled: true, start: 10, step: 1 },
+    }),
+  };
+  assert.equal(competitionReadiness(short).ready, false);
+});
+
+test("final results and the workbook only carry the criteria judged", () => {
+  const config = normalizeScoreConfig({
+    jali: { enabled: true, start: 60, step: 2 },
+    khafi: { enabled: true, start: 30, step: 1 },
+    fasaha: { enabled: false, start: 0, step: 1 },
+    "adu-raagu": { enabled: true, start: 10, step: 1 },
+  });
+  const participant = {
+    id: "participant-1",
+    number: "001",
+    name: "Reciter",
+    ageGroup: "Under 14",
+    category: "nubalaa",
+    muqarrar: "feshey-kolhu",
+    phone: "",
+    institution: "",
+  };
+  const judged = enabledCategories(config);
+  const session = (id, categories, mistakes, impressions = []) => ({
+    id,
+    savedAt: 1000,
+    revision: 1,
+    participant,
+    config,
+    total: 0,
+    totalMax: 0,
+    assignment: {
+      version: 1,
+      panel: { version: 1, preset: "custom", seats: [{ id, label: id, name: "", categories }] },
+      judgeSeatId: id,
+      judgeLabel: id,
+      judgeName: "",
+      categories,
+      config,
+    },
+    notes: "",
+    mistakes,
+    impressions,
+  });
+
+  const candidate = buildResultCandidates(
+    [
+      session("pinpoint", ["jali", "khafi"], [mistake("jali", 2)]),
+      session("voice", ["adu-raagu"], [], [
+        { category: "adu-raagu", awarded: 7, note: "Flat ending", set: true, ts: 1 },
+      ]),
+    ],
+    judged,
+  )[0];
+  assert.deepEqual(candidate.categories, ["jali", "khafi", "adu-raagu"]);
+  assert.deepEqual(candidate.missing, []);
+
+  const result = finalizeParticipantResult(candidate, {});
+  assert.ok(result);
+  assert.equal(result.byCategory.fasaha, undefined);
+  assert.equal(result.byCategory["adu-raagu"].score, 7);
+  assert.equal(result.total, 95);
+  assert.equal(result.totalMax, 100);
+  assert.deepEqual(finalResultsHeaders([result]).slice(8, 11), [
+    "Jali",
+    "Khafi",
+    "Adu and Raagu",
+  ]);
+});
+
+test("setup can switch an optional criterion off and warns about the panel", () => {
+  assert.match(setupSource, /toggleCategory/);
+  assert.match(setupSource, /category\.optional \?/);
+  assert.match(setupSource, /Always judged/);
+  assert.match(setupSource, /rebuilds the judging panel/);
+});

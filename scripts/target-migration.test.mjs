@@ -4,9 +4,10 @@ import { judgingTargetsOf } from "../src/lib/judgingUnits.ts";
 import { buildTargetMigrationPatches } from "../src/state/migrateTargets.ts";
 
 const config = {
-  jali: { start: 50, step: 2 },
-  khafi: { start: 30, step: 1 },
-  fasaha: { start: 20, step: 1 },
+  jali: { enabled: true, start: 50, step: 2 },
+  khafi: { enabled: true, start: 30, step: 1 },
+  fasaha: { enabled: true, start: 20, step: 1 },
+  "adu-raagu": { enabled: false, start: 0, step: 1 },
 };
 
 function mistake(overrides = {}) {

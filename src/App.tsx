@@ -10,6 +10,7 @@ import { Mushaf } from "./components/Mushaf";
 import { ScorePanel } from "./components/ScorePanel";
 import { MistakeLog } from "./components/MistakeLog";
 import { NotesBox } from "./components/NotesBox";
+import { ImpressionPanel } from "./components/ImpressionPanel";
 import { ResultSheet } from "./components/ResultSheet";
 import { HintBanner } from "./components/HintBanner";
 import { RecordsView } from "./components/RecordsView";
@@ -281,6 +282,7 @@ export function App() {
                 <JudgeRoleStrip onChange={() => setView("setup")} />
                 <ScorePanel />
                 <MistakeLog />
+                <ImpressionPanel />
                 <NotesBox />
                 <button
                   type="button"

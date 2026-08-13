@@ -20,10 +20,21 @@ const storeSource = readFileSync(
   "utf8",
 );
 
-test("the semantic category path is Jali, then Khafi, then Fasaha", () => {
+test("the pinpoint path is Jali, then Khafi, then Fasaha", () => {
   assert.deepEqual(
-    CATEGORIES.map((category) => category.id),
+    CATEGORIES.filter((category) => category.kind === "pinpoint").map(
+      (category) => category.id,
+    ),
     ["jali", "khafi", "fasaha"],
+  );
+});
+
+test("whole-recitation criteria never enter the letter tray", () => {
+  assert.match(dragMenuSource, /category\.kind === "pinpoint"/);
+  assert.match(mushafSource, /\.filter\(isPinpointCategory\)/);
+  assert.match(
+    mushafSource,
+    /judgingEnabled = state\.sessionActive && allowedCategories\.length > 0/,
   );
 });
 

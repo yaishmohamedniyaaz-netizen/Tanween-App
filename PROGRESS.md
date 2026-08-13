@@ -1,5 +1,36 @@
 # Tahqeeq — build progress log
 
+## Adu & Raagu, and optional criteria — IMPLEMENTED & VERIFIED (2026-08-13)
+
+- Added **Adu & Raagu** (voice and melody) as a fourth scoring criterion. It is a
+  *whole-recitation* criterion: it is never pinpointed on a letter, so it never
+  appears in the letter tray. The judge marks it once per reciter in its own
+  sidebar panel — start at the full allocation, step down by the configured
+  step, with a reason note.
+- Every change is an append-only ledger event (`impression_changed`,
+  `impression_note_changed`), so the mark, its history, and its note survive
+  finishing, reopening, export, and the printed result sheet.
+- **Faṣāḥa and Adu & Raagu are now optional per competition.** Laḥn Jalī and
+  Laḥn Khafī are always judged. Setup's "Marks and criteria" task switches a
+  criterion on or off; the 100-mark total is checked across the criteria in use
+  only, and a criterion out of use carries 0 marks.
+- Switching a criterion off removes it from the judging panel, the letter tray,
+  the score panel, the result sheet, final results, and the results workbook,
+  which now writes one score column per criterion actually judged.
+- The panel now supports up to four seats (one per criterion) and validates
+  against the criteria in use: every one assigned exactly once, and none that
+  the competition does not judge.
+- A judge who owns only Adu & Raagu cannot open the letter tray at all.
+- An unmarked Adu & Raagu rests on full marks; the score panel and the finish
+  dialog both say so before the result is saved.
+- Migration: records saved before this change keep exactly the criteria they
+  were judged with — Adu & Raagu stays off with 0 marks, so old totals never
+  move. A one-time `pre-adu-raagu-v1` browser backup is written on first load.
+- Verification: 108 automated tests (13 new in `scripts/adu-raagu.test.mjs`),
+  production build, and browser QA of three competition shapes — all four
+  criteria, Jalī + Khafī only, and a restored pre-Adu & Raagu browser state.
+  Browser console: no application errors.
+
 ## Manual Question Builder V1 — IMPLEMENTED & VERIFIED (2026-08-12)
 
 - Added a dedicated **Draft questions** task inside Competition setup.

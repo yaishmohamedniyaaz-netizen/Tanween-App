@@ -1,4 +1,4 @@
-import { CATEGORIES } from "../config";
+import { CATEGORIES, enabledCategories, isImpressionCategory } from "../config";
 import { computeScores } from "../lib/scoring";
 import { useJudging } from "../state/store";
 import { judgeSeatFor } from "../lib/judgeAssignments";
@@ -10,17 +10,22 @@ function CategoryRow({
   score,
   start,
   deducted,
+  pending,
 }: {
   id: CategoryId;
   label: string;
   score: number;
   start: number;
   deducted: number;
+  pending: boolean;
 }) {
   return (
-    <div className={`sc-row cat-${id}`}>
+    <div className={`sc-row cat-${id} ${pending ? "is-pending" : ""}`}>
       <span className="sc-dot" aria-hidden="true" />
-      <span className="sc-name">{label}</span>
+      <span className="sc-name">
+        {label}
+        {pending && <small className="sc-pending">Not marked yet</small>}
+      </span>
       <span className={`sc-deducted t-num ${deducted === 0 ? "is-zero" : ""}`}>
         {deducted === 0 ? "—" : `−${deducted}`}
       </span>
@@ -35,9 +40,11 @@ function CategoryRow({
 export function ScorePanel() {
   const { state } = useJudging();
   const { byCategory, total, totalMax } = computeScores(state);
-  const categories = state.activeAssignment?.categories ??
+  const config = state.activeAssignment?.config ?? state.config;
+  const categories =
+    state.activeAssignment?.categories ??
     judgeSeatFor(state.panel, state.deviceJudgeId)?.categories ??
-    CATEGORIES.map((category) => category.id);
+    enabledCategories(config);
 
   return (
     <section className="panel scorecard" aria-label="Score">
@@ -57,6 +64,7 @@ export function ScorePanel() {
             score={byCategory[c.id].score}
             start={byCategory[c.id].start}
             deducted={byCategory[c.id].deducted}
+            pending={isImpressionCategory(c.id) && !byCategory[c.id].marked}
           />
         ))}
       </div>

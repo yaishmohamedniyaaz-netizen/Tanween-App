@@ -6,7 +6,7 @@ import {
   projectMistakes,
   seedLedgerEvents,
 } from "../src/lib/judgingLedger.ts";
-import { computeMistakeScores } from "../src/lib/scoring.ts";
+import { computeCategoryScores } from "../src/lib/scoring.ts";
 
 const mistake = {
   id: "m-1",
@@ -23,9 +23,10 @@ const mistake = {
 
 const participant = { name: "Reciter", number: "7", group: "A" };
 const config = {
-  jali: { start: 50, step: 2 },
-  khafi: { start: 30, step: 1 },
-  fasaha: { start: 20, step: 1 },
+  jali: { enabled: true, start: 50, step: 2 },
+  khafi: { enabled: true, start: 30, step: 1 },
+  fasaha: { enabled: true, start: 20, step: 1 },
+  "adu-raagu": { enabled: false, start: 0, step: 1 },
 };
 
 test("the current score is reconstructed from the action history", () => {
@@ -45,7 +46,7 @@ test("the current score is reconstructed from the action history", () => {
   const projected = projectMistakes(events);
   assert.equal(projected.length, 1);
   assert.equal(projected[0].amount, 3.5);
-  assert.equal(computeMistakeScores(config, projected).total, 96.5);
+  assert.equal(computeCategoryScores(config, projected).total, 96.5);
   assert.deepEqual(projectMistakes(events), projected);
 });
 

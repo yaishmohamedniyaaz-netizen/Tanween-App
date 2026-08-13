@@ -1,4 +1,6 @@
 import type {
+  CategoryId,
+  ImpressionMark,
   JudgeAssignmentSnapshot,
   JudgingEvent,
   Mistake,
@@ -39,12 +41,44 @@ export function projectMistakes(events: JudgingEvent[]): Mistake[] {
   return [...active.values()].sort((a, b) => a.ts - b.ts);
 }
 
+/** Rebuild the whole-recitation marks from the recorded judge actions. */
+export function projectImpressions(events: JudgingEvent[]): ImpressionMark[] {
+  const active = new Map<CategoryId, ImpressionMark>();
+
+  for (const event of events) {
+    if (event.type === "impression_changed") {
+      const current = active.get(event.category);
+      active.set(event.category, {
+        category: event.category,
+        awarded: event.to,
+        note: current?.note ?? "",
+        set: true,
+        judgeSeatId: event.judgeSeatId ?? current?.judgeSeatId,
+        ts: event.at,
+      });
+    } else if (event.type === "impression_note_changed") {
+      const current = active.get(event.category);
+      active.set(event.category, {
+        category: event.category,
+        awarded: current?.awarded ?? 0,
+        note: event.to,
+        set: current?.set ?? false,
+        judgeSeatId: current?.judgeSeatId,
+        ts: event.at,
+      });
+    }
+  }
+
+  return [...active.values()].sort((a, b) => a.ts - b.ts);
+}
+
 /** Make old saved mistakes readable by the new history without changing them. */
 export function seedLedgerEvents({
   sessionId,
   participant,
   startedAt,
   mistakes,
+  impressions = [],
   assignment,
   question,
 }: {
@@ -52,6 +86,7 @@ export function seedLedgerEvents({
   participant: Participant;
   startedAt: number;
   mistakes: Mistake[];
+  impressions?: ImpressionMark[];
   assignment?: JudgeAssignmentSnapshot;
   question?: ReciterQuestionAssignment;
 }): JudgingEvent[] {
@@ -78,6 +113,35 @@ export function seedLedgerEvents({
         },
       }),
     ),
+    ...impressions.flatMap((impression): JudgingEvent[] => [
+      ...(impression.set
+        ? [
+            {
+              id: `ledger:${sessionId}:${impression.category}:marked`,
+              at: impression.ts,
+              type: "impression_changed" as const,
+              category: impression.category,
+              from: impression.awarded,
+              to: impression.awarded,
+              ...(impression.judgeSeatId || assignment?.judgeSeatId
+                ? { judgeSeatId: impression.judgeSeatId ?? assignment?.judgeSeatId }
+                : {}),
+            },
+          ]
+        : []),
+      ...(impression.note
+        ? [
+            {
+              id: `ledger:${sessionId}:${impression.category}:noted`,
+              at: impression.ts,
+              type: "impression_note_changed" as const,
+              category: impression.category,
+              from: impression.note,
+              to: impression.note,
+            },
+          ]
+        : []),
+    ]),
   ];
 }
 

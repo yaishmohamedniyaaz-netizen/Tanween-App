@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { CATEGORIES, CATEGORY_BY_ID } from "../config";
+import { CATEGORIES, CATEGORY_BY_ID, PINPOINT_CATEGORIES } from "../config";
 import { computeRecords } from "../lib/stats";
 import { downloadRecordsCSV } from "../lib/exportSession";
 import { useJudging } from "../state/store";
@@ -33,7 +33,7 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
     () => state.history.filter((session) => {
       const assignment = session.assignment;
       const seatMatches = !judgeSeat || (assignment?.judgeSeatId ?? "judge-1") === judgeSeat;
-      const sectionKey = assignment?.categories.join("+") ?? "jali+khafi+fasaha";
+      const sectionKey = assignment?.categories.join("+") ?? "";
       return seatMatches && (!section || sectionKey === section);
     }),
     [state.history, judgeSeat, section],
@@ -62,15 +62,15 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
   const sectionOptions = useMemo(() => {
     const values = new Map<string, string>();
     state.history.forEach((session) => {
-      const categories = session.assignment?.categories ?? ["jali", "khafi", "fasaha"];
-      values.set(categories.join("+"), assignmentLabel(categories));
+      const categories = session.assignment?.categories ?? [];
+      if (categories.length) values.set(categories.join("+"), assignmentLabel(categories));
     });
     return [...values.entries()];
   }, [state.history]);
 
   const maxCatCount = Math.max(
     1,
-    ...CATEGORIES.map((c) => stats.byCategory[c.id].count),
+    ...PINPOINT_CATEGORIES.map((id) => stats.byCategory[id].count),
   );
   const maxLocCount = Math.max(1, ...stats.topLocations.map((l) => l.count));
 
@@ -201,7 +201,7 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
             <h2 className="panel-title">Mistakes by category</h2>
           </div>
           <div className="cat-list">
-            {CATEGORIES.map((c) => {
+            {CATEGORIES.filter((c) => c.kind === "pinpoint").map((c) => {
               const s = stats.byCategory[c.id];
               return (
                 <div className={`cat-row cat-${c.id}`} key={c.id}>

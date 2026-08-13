@@ -1,13 +1,24 @@
 import { Fragment, useMemo, useRef, useState } from "react";
-import { CATEGORIES, DEFAULT_CONFIG, START_OPTIONS, STEP_OPTIONS, TOTAL_MARKS } from "../config";
+import {
+  CATEGORIES,
+  DEFAULT_CONFIG,
+  START_OPTIONS,
+  STEP_OPTIONS,
+  TOTAL_MARKS,
+  cloneScoreConfig,
+  enabledCategories,
+  enabledMarksTotal,
+} from "../config";
 import {
   competitionIdFor,
   competitionReadiness,
 } from "../lib/competition";
 import {
+  MAX_JUDGE_SEATS,
   categoriesInOrder,
   createPanelPreset,
   judgeSeatFor,
+  shortCategoryLabel,
   validateJudgePanel,
 } from "../lib/judgeAssignments";
 import {
@@ -49,18 +60,32 @@ const TASKS: Array<{
   { id: "details", group: "Competition", label: "Competition details", hint: "Name and edition" },
   { id: "divisions", group: "Competition", label: "Divisions and portions", hint: "Age groups and Quran ranges" },
   { id: "participants", group: "Competition", label: "Participants", hint: "Import and verify the roster" },
-  { id: "panel", group: "Judging", label: "Judging panel", hint: "Assign Jali, Khafi and Fasaha" },
-  { id: "marks", group: "Judging", label: "Marks and deductions", hint: "Starting marks and steps" },
+  { id: "marks", group: "Judging", label: "Marks and criteria", hint: "Criteria in use, marks and steps" },
+  { id: "panel", group: "Judging", label: "Judging panel", hint: "Give every criterion an owner" },
   { id: "questions", group: "Questions", label: "Question rules", hint: "Ayah and printed-line policy" },
   { id: "question-bank", group: "Questions", label: "Draft questions", hint: "Build and preview passages" },
   { id: "review", group: "Launch", label: "Review and start", hint: "Check the official setup" },
 ];
 
-const PRESETS: Array<{ id: JudgePanelPreset; title: string; detail: string }> = [
-  { id: "all", title: "One judge covers all", detail: "Jali, Khafi and Fasaha on this device" },
-  { id: "one-each", title: "One judge per category", detail: "Three judges with one responsibility each" },
-  { id: "custom", title: "Custom panel", detail: "Divide the three criteria across the panel" },
-];
+function presets(judged: CategoryId[]): Array<{ id: JudgePanelPreset; title: string; detail: string }> {
+  return [
+    {
+      id: "all",
+      title: "One judge covers all",
+      detail: `${judged.map(shortCategoryLabel).join(", ")} on this device`,
+    },
+    {
+      id: "one-each",
+      title: "One judge per criterion",
+      detail: `${judged.length} judges with one responsibility each`,
+    },
+    {
+      id: "custom",
+      title: "Custom panel",
+      detail: "Divide the criteria across the panel",
+    },
+  ];
+}
 
 function clonePanel(panel: JudgePanelConfig): JudgePanelConfig {
   return {
@@ -70,11 +95,7 @@ function clonePanel(panel: JudgePanelConfig): JudgePanelConfig {
 }
 
 function cloneConfig(config: ScoreConfig): ScoreConfig {
-  return {
-    jali: { ...config.jali },
-    khafi: { ...config.khafi },
-    fasaha: { ...config.fasaha },
-  };
+  return cloneScoreConfig(config);
 }
 
 function portionLabel(portion: QuranPortion): string {
@@ -130,12 +151,14 @@ export function CompetitionSetup({ onBack }: { onBack: () => void }) {
 
   const editable = state.competition.status === "draft" && !state.sessionActive;
   const readiness = useMemo(() => competitionReadiness(state), [state]);
-  const panelValidation = useMemo(() => validateJudgePanel(panelDraft), [panelDraft]);
-  const panelDeviceValid = Boolean(judgeSeatFor(panelDraft, deviceJudgeId));
-  const marksTotal = CATEGORIES.reduce(
-    (sum, category) => sum + scoreDraft[category.id].start,
-    0,
+  const judgedCategories = useMemo(() => enabledCategories(state.config), [state.config]);
+  const draftCategories = useMemo(() => enabledCategories(scoreDraft), [scoreDraft]);
+  const panelValidation = useMemo(
+    () => validateJudgePanel(panelDraft, judgedCategories),
+    [panelDraft, judgedCategories],
   );
+  const panelDeviceValid = Boolean(judgeSeatFor(panelDraft, deviceJudgeId));
+  const marksTotal = enabledMarksTotal(scoreDraft);
   const competitionDraftCount = state.questionDrafts.filter(
     (draft) => draft.competitionId === state.competition.id,
   ).length;
@@ -171,10 +194,24 @@ export function CompetitionSetup({ onBack }: { onBack: () => void }) {
       dispatch({
         type: "SET_CONFIG",
         category: category.id,
+        enabled: scoreDraft[category.id].enabled,
         start: scoreDraft[category.id].start,
         step: scoreDraft[category.id].step,
       });
     });
+  };
+
+  // Switching a criterion off must never leave its marks in the total.
+  const toggleCategory = (category: CategoryId, enabled: boolean) => {
+    if (!editable) return;
+    setScoreDraft((current) => ({
+      ...current,
+      [category]: {
+        ...current[category],
+        enabled,
+        start: enabled ? (current[category].start || 10) : 0,
+      },
+    }));
   };
 
   const updateDivisions = (divisions: CompetitionDivision[]) => {
@@ -210,7 +247,7 @@ export function CompetitionSetup({ onBack }: { onBack: () => void }) {
       setPanelDraft((current) => ({ ...clonePanel(current), preset: "custom" }));
       return;
     }
-    const next = createPanelPreset(preset);
+    const next = createPanelPreset(preset, judgedCategories);
     setPanelDraft(next);
     setDeviceJudgeId(next.seats[0]?.id ?? "");
   };
@@ -232,7 +269,7 @@ export function CompetitionSetup({ onBack }: { onBack: () => void }) {
   };
 
   const addJudge = () => {
-    if (!editable || panelDraft.seats.length >= 3) return;
+    if (!editable || panelDraft.seats.length >= MAX_JUDGE_SEATS) return;
     setPanelDraft((current) => ({
       ...current,
       preset: "custom",
@@ -306,7 +343,7 @@ export function CompetitionSetup({ onBack }: { onBack: () => void }) {
   };
 
   const resetLocalDrafts = (sample: boolean) => {
-    const panel = createPanelPreset("all");
+    const panel = createPanelPreset("all", enabledCategories(DEFAULT_CONFIG));
     setIdentity(sample
       ? { name: "Tahqeeq Test Competition", edition: "Sample 2026" }
       : { name: "", edition: "" });
@@ -544,11 +581,11 @@ export function CompetitionSetup({ onBack }: { onBack: () => void }) {
           <div className="setup-work-head">
             <span className="setup-step">Judging</span>
             <h2 id="setup-panel-title">Judging panel</h2>
-            <p>Each criterion has one scoring owner. Multiple owners for the same criterion remain undecided.</p>
+            <p>Each criterion in use has one scoring owner. Multiple owners for the same criterion remain undecided.</p>
           </div>
           {editable && (
             <div className="panel-presets">
-              {PRESETS.map((preset) => <button key={preset.id} type="button" className={panelDraft.preset === preset.id ? "is-active" : ""} aria-pressed={panelDraft.preset === preset.id} onClick={() => choosePreset(preset.id)}><strong>{preset.title}</strong><span>{preset.detail}</span></button>)}
+              {presets(judgedCategories).map((preset) => <button key={preset.id} type="button" className={panelDraft.preset === preset.id ? "is-active" : ""} aria-pressed={panelDraft.preset === preset.id} onClick={() => choosePreset(preset.id)}><strong>{preset.title}</strong><span>{preset.detail}</span></button>)}
             </div>
           )}
           <div className="judge-rows">
@@ -559,7 +596,7 @@ export function CompetitionSetup({ onBack }: { onBack: () => void }) {
                   <input value={seat.name} disabled={!editable} placeholder="Name (optional)" onChange={(event) => setPanelDraft((current) => ({ ...current, seats: current.seats.map((item) => item.id === seat.id ? { ...item, name: event.target.value.slice(0, 80) } : item) }))} />
                 </div>
                 <div className="judge-category-set" role="group" aria-label={`${seat.label} categories`}>
-                  {CATEGORIES.map((category) => {
+                  {CATEGORIES.filter((category) => judgedCategories.includes(category.id)).map((category) => {
                     const selected = seat.categories.includes(category.id);
                     return <button key={category.id} type="button" disabled={!editable} className={`judge-category cat-${category.id} ${selected ? "is-active" : ""}`} aria-pressed={selected} onClick={() => assignCategory(seat.id, category.id)}><span aria-hidden="true" />{category.label.replace(/^Laḥn\s/i, "")}</button>;
                   })}
@@ -568,14 +605,14 @@ export function CompetitionSetup({ onBack }: { onBack: () => void }) {
               </div>
             ))}
           </div>
-          {editable && panelDraft.seats.length < 3 && <button type="button" className="add-judge" onClick={addJudge}><Icon name="plus" size={13} /> Add judge</button>}
+          {editable && panelDraft.seats.length < MAX_JUDGE_SEATS && <button type="button" className="add-judge" onClick={addJudge}><Icon name="plus" size={13} /> Add judge</button>}
           <div className="device-judge-block">
             <div><strong>This device is for</strong><span>The selected judge's tray and score are shown.</span></div>
             <div className="device-judge-options" role="radiogroup" aria-label="Judge using this device">
               {panelForDevice.seats.map((seat) => (
                 <button key={seat.id} type="button" role="radio" disabled={state.sessionActive} aria-checked={(editable ? deviceJudgeId : state.deviceJudgeId) === seat.id} className={(editable ? deviceJudgeId : state.deviceJudgeId) === seat.id ? "is-active" : ""} onClick={() => { if (editable) setDeviceJudgeId(seat.id); else dispatch({ type: "SET_DEVICE_JUDGE", judgeSeatId: seat.id }); }}>
                   <span className="device-radio" aria-hidden="true" />
-                  <span><strong>{seat.name.trim() || seat.label}</strong><small>{categoriesInOrder(seat.categories).map((id) => id === "jali" ? "Jali" : id === "khafi" ? "Khafi" : "Fasaha").join(" + ") || "No category"}</small></span>
+                  <span><strong>{seat.name.trim() || seat.label}</strong><small>{categoriesInOrder(seat.categories).map(shortCategoryLabel).join(" + ") || "No category"}</small></span>
                 </button>
               ))}
             </div>
@@ -590,19 +627,41 @@ export function CompetitionSetup({ onBack }: { onBack: () => void }) {
     if (activeTask === "marks") {
       return (
         <section className="setup-work-card" aria-labelledby="setup-marks-title">
-          <div className="setup-work-head"><span className="setup-step">Judging</span><h2 id="setup-marks-title">Marks and deductions</h2><p>These values become immutable when the competition starts.</p></div>
-          <div className="setup-grid">
-            <span className="t-label">Category</span><span className="t-label">Marks</span><span className="t-label">Step</span>
-            {CATEGORIES.map((category) => (
-              <Fragment key={category.id}>
-                <span className={`setup-cat cat-${category.id}`}><span className="sc-dot" aria-hidden="true" />{category.label}</span>
-                <select value={scoreDraft[category.id].start} disabled={!editable} aria-label={`${category.label} marks`} onChange={(event) => setScoreDraft((current) => ({ ...current, [category.id]: { ...current[category.id], start: Number(event.target.value) } }))}>{START_OPTIONS.map((value) => <option key={value} value={value}>{value}</option>)}</select>
-                <select value={scoreDraft[category.id].step} disabled={!editable} aria-label={`${category.label} deduction step`} onChange={(event) => setScoreDraft((current) => ({ ...current, [category.id]: { ...current[category.id], step: Number(event.target.value) } }))}>{STEP_OPTIONS.map((value) => <option key={value} value={value}>{value}</option>)}</select>
-              </Fragment>
-            ))}
-            <span className="setup-total-label">Total</span><span className={`setup-total t-num ${marksTotal !== TOTAL_MARKS ? "is-off" : ""}`}>{marksTotal} / {TOTAL_MARKS}</span><span />
+          <div className="setup-work-head"><span className="setup-step">Judging</span><h2 id="setup-marks-title">Marks and criteria</h2><p>Choose the criteria this competition judges, then divide {TOTAL_MARKS} marks between them. These values become immutable when the competition starts.</p></div>
+          <div className="setup-grid setup-grid-criteria">
+            <span className="t-label">Criterion</span><span className="t-label">In use</span><span className="t-label">Marks</span><span className="t-label">Step</span>
+            {CATEGORIES.map((category) => {
+              const inUse = scoreDraft[category.id].enabled;
+              return (
+                <Fragment key={category.id}>
+                  <span className={`setup-cat cat-${category.id} ${inUse ? "" : "is-off"}`}>
+                    <span className="sc-dot" aria-hidden="true" />
+                    <span>
+                      {category.label}
+                      <small>{category.kind === "impression" ? "Marked once for the whole recitation" : "Pinpointed on the page"}</small>
+                    </span>
+                  </span>
+                  {category.optional ? (
+                    <label className="criterion-toggle">
+                      <input type="checkbox" checked={inUse} disabled={!editable} onChange={(event) => toggleCategory(category.id, event.target.checked)} />
+                      <span>{inUse ? "Judged" : "Not judged"}</span>
+                    </label>
+                  ) : (
+                    <span className="criterion-required">Always judged</span>
+                  )}
+                  <select value={scoreDraft[category.id].start} disabled={!editable || !inUse} aria-label={`${category.label} marks`} onChange={(event) => setScoreDraft((current) => ({ ...current, [category.id]: { ...current[category.id], start: Number(event.target.value) } }))}>
+                    {!inUse && <option value={0}>—</option>}
+                    {START_OPTIONS.map((value) => <option key={value} value={value}>{value}</option>)}
+                  </select>
+                  <select value={scoreDraft[category.id].step} disabled={!editable || !inUse} aria-label={`${category.label} deduction step`} onChange={(event) => setScoreDraft((current) => ({ ...current, [category.id]: { ...current[category.id], step: Number(event.target.value) } }))}>{STEP_OPTIONS.map((value) => <option key={value} value={value}>{value}</option>)}</select>
+                </Fragment>
+              );
+            })}
+            <span className="setup-total-label">Total</span><span />
+            <span className={`setup-total t-num ${marksTotal !== TOTAL_MARKS ? "is-off" : ""}`}>{marksTotal} / {TOTAL_MARKS}</span><span />
           </div>
-          {marksTotal !== TOTAL_MARKS && <p className="setup-warn">Allocations must total {TOTAL_MARKS}.</p>}
+          {marksTotal !== TOTAL_MARKS && <p className="setup-warn">Allocations must total {TOTAL_MARKS} across the criteria in use.</p>}
+          <p className="setup-note">Judged criteria: {draftCategories.map(shortCategoryLabel).join(", ")}. Changing them rebuilds the judging panel, so check the panel afterwards.</p>
           {editable && <div className="setup-work-actions"><button type="button" className="btn-primary" disabled={marksTotal !== TOTAL_MARKS} onClick={saveMarks}>Save mark rules</button></div>}
         </section>
       );
@@ -657,7 +716,7 @@ export function CompetitionSetup({ onBack }: { onBack: () => void }) {
           <button type="button" onClick={() => setActiveTask("divisions")}><span>Divisions</span><strong>{state.competition.divisions.length || "None"}</strong><small>{state.competition.divisions.map((division) => `${division.name || "Unnamed"} · ${portionLabel(division.quranPortion)}`).join("; ") || "Add a division"}</small><em>Change</em></button>
           <button type="button" onClick={() => setActiveTask("participants")}><span>Participants</span><strong>{state.roster.length || "None"}</strong><small>{state.roster.length ? "Validated roster loaded" : "Upload the participant roster"}</small><em>Change</em></button>
           <button type="button" onClick={() => setActiveTask("panel")}><span>Judging panel</span><strong>{state.panel.seats.length} judge{state.panel.seats.length === 1 ? "" : "s"}</strong><small>{state.panel.seats.map((seat) => `${seat.name || seat.label}: ${categoriesInOrder(seat.categories).join(" + ")}`).join("; ")}</small><em>Change</em></button>
-          <button type="button" onClick={() => setActiveTask("marks")}><span>Marks</span><strong>{Object.values(state.config).reduce((sum, category) => sum + category.start, 0)} / {TOTAL_MARKS}</strong><small>Jali, Khafi and Fasaha rules</small><em>Change</em></button>
+          <button type="button" onClick={() => setActiveTask("marks")}><span>Marks</span><strong>{enabledMarksTotal(state.config)} / {TOTAL_MARKS}</strong><small>{judgedCategories.map(shortCategoryLabel).join(", ")}</small><em>Change</em></button>
           <button type="button" onClick={() => setActiveTask("questions")}><span>Questions</span><strong>{state.competition.questionPolicy.mode === "manual" ? "Manual questions" : "Tahqeeq set"}</strong><small>{state.competition.questionPolicy.targetRecitationLines} lines · final line {state.competition.questionPolicy.finalPrintedLineScoring === "exclude" ? "not marked" : "marked"}</small><em>Change</em></button>
           <button type="button" onClick={() => setActiveTask("question-bank")}><span>Draft questions</span><strong>{competitionDraftCount}</strong><small>{competitionDraftCount ? "Prepared locally for later review" : "Optional during manual-question competitions"}</small><em>Open</em></button>
         </div>
@@ -682,7 +741,7 @@ export function CompetitionSetup({ onBack }: { onBack: () => void }) {
         {state.competition.status === "closed" && (
           <div className="official-start-block is-closed">
             <div><strong>Competition closed</strong><span>Its records remain available and unchanged.</span></div>
-            <button type="button" className="btn-primary" onClick={() => { if (window.confirm("Create a new draft? Existing records will remain in Records.")) { dispatch({ type: "NEW_COMPETITION" }); setIdentity({ name: "", edition: "" }); setPanelDraft(createPanelPreset("all")); setScoreDraft(cloneConfig(state.config)); setActiveTask("details"); } }}>New competition</button>
+            <button type="button" className="btn-primary" onClick={() => { if (window.confirm("Create a new draft? Existing records will remain in Records.")) { dispatch({ type: "NEW_COMPETITION" }); setIdentity({ name: "", edition: "" }); setPanelDraft(createPanelPreset("all", enabledCategories(DEFAULT_CONFIG))); setScoreDraft(cloneConfig(state.config)); setActiveTask("details"); } }}>New competition</button>
           </div>
         )}
       </section>

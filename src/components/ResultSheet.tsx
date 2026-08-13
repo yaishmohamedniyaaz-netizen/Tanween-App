@@ -1,5 +1,9 @@
 import { useMemo } from "react";
-import { CATEGORIES } from "../config";
+import {
+  CATEGORIES,
+  enabledCategories,
+  isImpressionCategory,
+} from "../config";
 import { computeScores } from "../lib/scoring";
 import surahData from "../data/surahs.json";
 import { useJudging } from "../state/store";
@@ -15,7 +19,13 @@ export function ResultSheet() {
   const { byCategory, total, totalMax } = computeScores(state);
   const p = state.participant;
   const assignment = state.activeAssignment;
-  const visibleCategories = assignment?.categories ?? CATEGORIES.map((category) => category.id);
+  const config = assignment?.config ?? state.config;
+  const visibleCategories = assignment?.categories ?? enabledCategories(config);
+  const impressions = state.impressions.filter(
+    (impression) =>
+      visibleCategories.includes(impression.category) &&
+      (impression.set || impression.note.trim()),
+  );
 
   const ayahText = useMemo(() => {
     const map = new Map<string, string>();
@@ -113,7 +123,7 @@ export function ResultSheet() {
                 <td>{s.start}</td>
                 <td>−{s.deducted}</td>
                 <td>{s.score}</td>
-                <td>{s.count}</td>
+                <td>{isImpressionCategory(c.id) ? (s.marked ? "Marked" : "Not marked") : s.count}</td>
               </tr>
             );
           })}
@@ -158,9 +168,32 @@ export function ResultSheet() {
         </div>
       )}
 
+      {impressions.length > 0 && (
+        <>
+          <div className="rs-section-title">Whole-recitation marks</div>
+          <table className="rs-mistakes">
+            <tbody>
+              {impressions.map((impression) => (
+                <tr key={impression.category}>
+                  <td>
+                    {CATEGORIES.find((c) => c.id === impression.category)?.label}
+                  </td>
+                  <td>
+                    {impression.set
+                      ? `${impression.awarded} / ${config[impression.category].start}`
+                      : "Not marked"}
+                  </td>
+                  <td>{impression.note || "—"}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </>
+      )}
+
       {state.notes.trim() && (
         <>
-          <div className="rs-section-title">Notes — faṣāḥa · voice &amp; melody</div>
+          <div className="rs-section-title">Notes</div>
           <p className="rs-notes">{state.notes}</p>
         </>
       )}

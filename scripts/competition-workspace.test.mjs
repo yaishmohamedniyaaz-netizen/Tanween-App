@@ -27,7 +27,7 @@ test("competition preparation is a dedicated task workspace", () => {
     "Divisions and portions",
     "Participants",
     "Judging panel",
-    "Marks and deductions",
+    "Marks and criteria",
     "Question rules",
     "Draft questions",
     "Review and start",
