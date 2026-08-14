@@ -41,6 +41,7 @@ export const EMPTY_COMPETITION: CompetitionConfig = {
   status: "draft",
   setupRevision: 1,
   participantNumbering: "automatic",
+  participantEntrySettings: { institutions: [], defaultMuqarrar: "", defaultInstitution: "" },
   divisions: [],
   questionPolicy: { ...DEFAULT_QUESTION_POLICY },
   liveSnapshot: null,
@@ -69,6 +70,27 @@ export function normalizeCompetition(
     value?.status === "live" || value?.status === "closed"
       ? value.status
       : "draft";
+  const rawInstitutions = Array.isArray(value?.participantEntrySettings?.institutions)
+    ? value.participantEntrySettings.institutions
+    : [];
+  const seenInstitutions = new Set<string>();
+  const institutions = rawInstitutions
+    .map((institution) => String(institution).trim().slice(0, 120))
+    .filter((institution) => {
+      const key = institution.toLocaleLowerCase();
+      if (!institution || seenInstitutions.has(key)) return false;
+      seenInstitutions.add(key);
+      return true;
+    })
+    .slice(0, 200);
+  const defaultMuqarrar =
+    value?.participantEntrySettings?.defaultMuqarrar === "feshey-kolhu" ||
+    value?.participantEntrySettings?.defaultMuqarrar === "nimey-kolhu"
+      ? value.participantEntrySettings.defaultMuqarrar
+      : "";
+  const defaultInstitution = String(
+    value?.participantEntrySettings?.defaultInstitution ?? "",
+  ).trim().slice(0, 120);
   return {
     version: 2,
     isSample: Boolean(value?.isSample),
@@ -79,6 +101,7 @@ export function normalizeCompetition(
     setupRevision: Math.max(1, Math.floor(Number(value?.setupRevision) || 1)),
     participantNumbering:
       value?.participantNumbering === "automatic" ? "automatic" : "supplied",
+    participantEntrySettings: { institutions, defaultMuqarrar, defaultInstitution },
     divisions: Array.isArray(value?.divisions)
       ? value.divisions.map(normalizeDivision).filter(Boolean) as CompetitionDivision[]
       : [],

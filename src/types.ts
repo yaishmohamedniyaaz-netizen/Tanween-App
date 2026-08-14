@@ -230,6 +230,8 @@ export interface RosterDraftRow {
   number: string;
   name: string;
   divisionId: string;
+  /** Exact imported Category text retained until an organizer maps it. */
+  importedCategory?: string;
   legacyAgeGroup?: string;
   legacyCategory?: string;
   muqarrar: string;
@@ -252,6 +254,12 @@ export type QuranPortion =
   | { kind: "full-quran" }
   | { kind: "juz-range"; startJuz: number; endJuz: number }
   | { kind: "surah-range"; startSurah: number; endSurah: number };
+
+export interface ParticipantEntrySettings {
+  institutions: string[];
+  defaultMuqarrar: MuqarrarSide;
+  defaultInstitution: string;
+}
 
 export interface CompetitionDivision {
   id: string;
@@ -435,6 +443,7 @@ export interface CompetitionConfig {
   status: CompetitionStatus;
   setupRevision: number;
   participantNumbering: ParticipantNumberingMode;
+  participantEntrySettings: ParticipantEntrySettings;
   divisions: CompetitionDivision[];
   questionPolicy: CompetitionQuestionPolicy;
   liveSnapshot: LiveCompetitionSnapshot | null;

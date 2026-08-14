@@ -139,6 +139,7 @@ export function CompetitionSetup({ onBack }: { onBack: () => void }) {
   const [scoreDraft, setScoreDraft] = useState(() => cloneConfig(state.config));
   const [rosterMessage, setRosterMessage] = useState("");
   const [rosterEditorOpen, setRosterEditorOpen] = useState(false);
+  const [institutionDraft, setInstitutionDraft] = useState("");
 
   const recitationInProgress =
     state.sessionActive || Boolean(state.preparedRecitation);
@@ -235,6 +236,39 @@ export function CompetitionSetup({ onBack }: { onBack: () => void }) {
     );
   };
 
+  const updateParticipantEntrySettings = (
+    patch: Partial<typeof state.competition.participantEntrySettings>,
+  ) => {
+    if (!editable) return;
+    dispatch({
+      type: "SET_COMPETITION",
+      competition: {
+        ...state.competition,
+        participantEntrySettings: {
+          ...state.competition.participantEntrySettings,
+          ...patch,
+        },
+      },
+    });
+  };
+
+  const addInstitutionChoice = () => {
+    const institution = institutionDraft.trim();
+    if (!institution) return;
+    const exists = state.competition.participantEntrySettings.institutions.some(
+      (choice) => choice.toLocaleLowerCase() === institution.toLocaleLowerCase(),
+    );
+    if (!exists) {
+      updateParticipantEntrySettings({
+        institutions: [
+          ...state.competition.participantEntrySettings.institutions,
+          institution,
+        ],
+      });
+    }
+    setInstitutionDraft("");
+  };
+
   const choosePreset = (preset: JudgePanelPreset) => {
     if (!editable) return;
     if (preset === "custom") {
@@ -308,6 +342,7 @@ export function CompetitionSetup({ onBack }: { onBack: () => void }) {
     setDeviceJudgeId(panel.seats[0]?.id ?? "judge-1");
     setScoreDraft(cloneConfig(DEFAULT_CONFIG));
     setRosterEditorOpen(false);
+    setInstitutionDraft("");
   };
 
   const loadSampleCompetition = () => {
@@ -487,6 +522,92 @@ export function CompetitionSetup({ onBack }: { onBack: () => void }) {
               <small>{state.competition.participantNumbering === "automatic" ? "Clean numbers follow the final row order" : "Competition numbers are preserved"}</small>
             </div>
           </div>
+          {editable && (
+            <section className="participant-entry-settings" aria-labelledby="participant-entry-settings-title">
+              <div className="participant-entry-settings-head">
+                <div>
+                  <span>Entry helper</span>
+                  <strong id="participant-entry-settings-title">Participant defaults</strong>
+                  <small>New rows can inherit a starting side and institution while keeping every field editable.</small>
+                </div>
+                <div className="participant-default-side">
+                  <span>Default Muqarrar start</span>
+                  <div role="radiogroup" aria-label="Default Muqarrar start">
+                    {([
+                      ["", "No default"],
+                      ["feshey-kolhu", "Feshey kolhu"],
+                      ["nimey-kolhu", "Nimey kolhu"],
+                    ] as const).map(([value, label]) => (
+                      <button
+                        type="button"
+                        role="radio"
+                        aria-checked={state.competition.participantEntrySettings.defaultMuqarrar === value}
+                        className={state.competition.participantEntrySettings.defaultMuqarrar === value ? "is-active" : ""}
+                        onClick={() => updateParticipantEntrySettings({ defaultMuqarrar: value })}
+                        key={value || "none"}
+                      >
+                        {label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+              <div className="participant-institution-settings">
+                <div className="participant-institution-controls">
+                  <label>
+                    <span>Institution choices</span>
+                    <span className="participant-institution-add">
+                      <input
+                        value={institutionDraft}
+                        placeholder="School, class or independent entry"
+                        onChange={(event) => setInstitutionDraft(event.target.value)}
+                        onKeyDown={(event) => {
+                          if (event.key === "Enter") {
+                            event.preventDefault();
+                            addInstitutionChoice();
+                          }
+                        }}
+                      />
+                      <button type="button" className="btn-ghost" disabled={!institutionDraft.trim()} onClick={addInstitutionChoice}>Add</button>
+                    </span>
+                  </label>
+                  <label>
+                    <span>Default institution</span>
+                    <select
+                      value={state.competition.participantEntrySettings.defaultInstitution}
+                      onChange={(event) => updateParticipantEntrySettings({ defaultInstitution: event.target.value })}
+                    >
+                      <option value="">No default</option>
+                      {state.competition.participantEntrySettings.institutions.map((institution) => (
+                        <option value={institution} key={institution}>{institution}</option>
+                      ))}
+                    </select>
+                  </label>
+                </div>
+                {state.competition.participantEntrySettings.institutions.length > 0 ? (
+                  <div className="participant-institution-chips" aria-label="Saved institution choices">
+                    {state.competition.participantEntrySettings.institutions.map((institution) => (
+                      <span key={institution}>
+                        {institution}
+                        <button
+                          type="button"
+                          aria-label={`Remove ${institution}`}
+                          onClick={() => updateParticipantEntrySettings({
+                            institutions: state.competition.participantEntrySettings.institutions.filter((choice) => choice !== institution),
+                            defaultInstitution: state.competition.participantEntrySettings.defaultInstitution === institution
+                              ? ""
+                              : state.competition.participantEntrySettings.defaultInstitution,
+                          })}
+                        >&times;</button>
+                      </span>
+                    ))}
+                  </div>
+                ) : (
+                  <small className="participant-institution-empty">Optional. Free-text institutions remain allowed in the participant list.</small>
+                )}
+              </div>
+            </section>
+          )}
           {state.rosterDraft && (
             <div className="roster-draft-resume" role="status">
               <span><i aria-hidden="true" /><strong>Participant draft saved</strong><small>{state.rosterDraft.rows.length} row{state.rosterDraft.rows.length === 1 ? "" : "s"} waiting for review on this device.</small></span>

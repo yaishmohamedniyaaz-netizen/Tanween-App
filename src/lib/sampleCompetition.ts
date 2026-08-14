@@ -59,6 +59,11 @@ export function createSampleCompetition(): CompetitionConfig {
     status: "draft",
     setupRevision: 1,
     participantNumbering: "supplied",
+    participantEntrySettings: {
+      institutions: ["Hiriya School", "Amilla faraathun", "Noor Quran Class", "Aminiya School", "Majeediyya School"],
+      defaultMuqarrar: "",
+      defaultInstitution: "",
+    },
     divisions: SAMPLE_DIVISIONS.map((division) => ({
       ...division,
       quranPortion: { ...division.quranPortion },

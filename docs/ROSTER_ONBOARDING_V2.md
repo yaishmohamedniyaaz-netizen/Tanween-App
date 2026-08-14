@@ -1,10 +1,12 @@
-# Roster Onboarding V2 with V3 category language
+# Roster Onboarding V2 with V4 fast entry
 
 Status: implemented in the August 2026 participant-onboarding release
 Scope: draft competition participant preparation only
 
-The V3 follow-up changes participant-facing language from Division to Category
-and from Muqarrar to Muqarrar start. Internal `divisionId` and `muqarrar`
+The V3 follow-up changed participant-facing language from Division to Category
+and from Muqarrar to Muqarrar start. V4 adds competition presets, faster
+category-level entry, grouped import resolution, and a visually structured
+Excel template with native dropdowns. Internal `divisionId` and `muqarrar`
 properties remain stable so saved competitions, questions, and results do not
 need a destructive migration.
 
@@ -79,18 +81,26 @@ blocked while an unapplied draft remains.
 
 A one-time `pre-roster-draft-v1` browser-state checkpoint is created before the
 new state is normalized. The Git rollback baseline is
-`checkpoint/pre-roster-onboarding-v2`.
+`checkpoint/pre-roster-onboarding-v2`. The V4 presentation and intake pass can
+also return to `checkpoint/pre-participant-intake-v4`.
 
 ## Entry workflows
 
 ### Enter in Tahqeeq
 
-The organizer adds, duplicates, deletes, and moves rows. Move controls are
-explicit rather than drag-only so automatic numbering works with keyboard and
-touch input. Deleted rows offer Undo.
+The organizer adds, duplicates, deletes, and moves rows. Every Category header
+has its own Add participant action. Add participant like creates a blank-name
+row that retains the current Category, Muqarrar start, and institution rather
+than copying another person's identity fields. Move controls are explicit
+rather than drag-only so automatic numbering works with keyboard and touch
+input. Deleted rows offer Undo.
 
-Fill empty cells can apply a default Category, Muqarrar start, or institution. It
-never overwrites an existing value.
+Competition setup stores a small, competition-specific institution choice list
+and optional default Muqarrar start and institution values. These values are
+suggestions, not locked fields; free-text institutions remain accepted. New
+rows inherit only explicit defaults. Fill empty cells can apply a default
+Category, Muqarrar start, or institution to all rows or one Category. It never
+overwrites an existing value.
 
 ### Paste from Excel or Google Sheets
 
@@ -112,19 +122,36 @@ If workbook metadata reports an older category fingerprint, Tahqeeq keeps the
 rows but warns the organizer to check the mapping. Missing and ambiguous
 categories block Apply instead of silently selecting a replacement.
 
-## Competition Template V3
+Repeated unmatched Category text is grouped in Resolve categories once. The
+organizer explicitly maps one raw label to a current Category and confirms the
+change; every row with the same normalized raw value updates together. There is
+no fuzzy auto-merge, so a plausible-looking label cannot silently move several
+participants into the wrong Category.
+
+## Competition Template V4
 
 The template is generated from the active competition and numbering mode.
 
-- Participants: the clean entry surface;
-- Choices: exact Category and Muqarrar start values;
+- Participants: 100 prepared, striped entry rows with a frozen heading row,
+  filtering, practical widths, text-safe number and phone columns, and concise
+  Required/Optional notes;
+- Choices: exact Category and Muqarrar start values plus competition-specific
+  institution suggestions;
 - Instructions: competition identity, version, numbering rules, and the
   import/review sequence.
 
 Automatic mode omits Participant Number. Supplied mode includes it first.
-Workbook custom properties record the competition ID, template version,
-numbering mode, and category fingerprint. The legacy division-fingerprint
-property is also emitted for older Tahqeeq builds.
+Excel data validation supplies dropdowns for Category and Muqarrar start.
+Institution also has a dropdown, but its validation remains non-blocking so a
+new school, class, or independent entry can still be typed. Spreadsheet
+validation helps entry but Tahqeeq's review remains authoritative because
+pasted cells and third-party spreadsheet tools can bypass it.
+
+Workbook custom properties and the very-hidden `_Tahqeeq` sheet record the
+competition ID, template version, numbering mode, and category fingerprint.
+The legacy division-fingerprint value is also emitted for older Tahqeeq builds.
+V3, V2, and V1 files remain importable, and the 99 unused styled rows do not
+become empty participants when a completed V4 file is uploaded.
 
 Feshey kolhu and Nimey kolhu remain explicit enum values, not Boolean
 `true`/`false`. The participant editor presents them as a two-option radio
@@ -144,11 +171,6 @@ closes categories with nobody waiting, and temporarily opens matching groups
 while searching. Search totals describe the complete category even though the
 recommended participant is presented separately above the list.
 
-The current lazy SheetJS writer does not emit Excel data-validation rules. The
-Choices sheet and Tahqeeq's own validator are therefore authoritative; the
-release does not pretend spreadsheet dropdowns can guarantee correct imports.
-This also protects against pasted or filled Excel cells bypassing validation.
-
 ## Apply and identity safety
 
 The final dialog shows current and new counts plus added, edited, and removed
@@ -167,11 +189,14 @@ closed competition states.
 
 - automatic numbering at 1, 8, 99, and 100 participants;
 - case-insensitive duplicate supplied numbers;
-- V1 age/category mapping plus V2 Division and V3 Category mapping;
+- V1 age/category mapping plus V2 Division and V3/V4 Category mapping;
 - invalid imported rows retained with field issues;
 - quoted/multiline spreadsheet paste;
 - existing participant ID preservation;
-- Template V3 sheet/header/choice/metadata read-back;
+- Template V4 sheet/header/style/dropdown/choice/metadata read-back;
+- completed V4 prepared-row import with blank prepared rows ignored;
+- stored entry preset normalization and scoped fill-without-overwrite;
+- grouped identical imported-Category resolution;
 - refresh recovery, discard, apply comparison, and official-start blocking;
 - desktop 1366×768 and 1024×768 layout;
 - mobile 390×844 row cards and dialogs;

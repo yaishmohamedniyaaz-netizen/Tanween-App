@@ -4,6 +4,9 @@ import {
   createRosterDraftFromRoster,
   createRosterDraftFromRows,
   downloadParticipantTemplate,
+  fillEmptyRosterFields,
+  importedCategoryGroups,
+  mapImportedCategory,
   parseDelimitedRosterText,
   parseRosterFileToDraft,
   recordsFromRosterGrid,
@@ -104,8 +107,14 @@ export function ParticipantRosterEditor({
   const [error, setError] = useState("");
   const [deleted, setDeleted] = useState<{ row: RosterDraftRow; index: number } | null>(null);
   const [bulkDivision, setBulkDivision] = useState("");
-  const [bulkMuqarrar, setBulkMuqarrar] = useState("");
-  const [bulkInstitution, setBulkInstitution] = useState("");
+  const [bulkMuqarrar, setBulkMuqarrar] = useState<string>(
+    state.competition.participantEntrySettings.defaultMuqarrar,
+  );
+  const [bulkInstitution, setBulkInstitution] = useState(
+    state.competition.participantEntrySettings.defaultInstitution,
+  );
+  const [bulkScope, setBulkScope] = useState("all");
+  const [importMappings, setImportMappings] = useState<Record<string, string>>({});
   const [expandedCategoryIds, setExpandedCategoryIds] = useState<Set<string>>(
     () => new Set(),
   );
@@ -139,9 +148,16 @@ export function ParticipantRosterEditor({
     });
   };
 
-  const addRow = () => {
-    const next = createBlankRosterDraftRow(draft.rows.length);
+  const addRow = (divisionId = "") => {
+    const next = createBlankRosterDraftRow(draft.rows.length, {
+      divisionId: divisionId || bulkDivision,
+      muqarrar: bulkMuqarrar || state.competition.participantEntrySettings.defaultMuqarrar,
+      institution: bulkInstitution || state.competition.participantEntrySettings.defaultInstitution,
+    });
     save({ ...draft, source: draft.rows.length ? draft.source : "manual", rows: [...draft.rows, next] });
+    if (next.divisionId) {
+      setExpandedCategoryIds((current) => new Set([...current, next.divisionId]));
+    }
     setMessage("Participant row added.");
     requestAnimationFrame(() => {
       document.querySelector<HTMLInputElement>(`[data-roster-row="${next.id}"] input[name="name"]`)?.focus();
@@ -151,15 +167,18 @@ export function ParticipantRosterEditor({
   const duplicateRow = (index: number) => {
     const source = draft.rows[index];
     const copy = {
-      ...source,
-      ...createBlankRosterDraftRow(draft.rows.length),
-      name: `${source.name.trim()} copy`.trim(),
-      number: "",
-      participantId: undefined,
+      ...createBlankRosterDraftRow(draft.rows.length, {
+        divisionId: source.divisionId,
+        muqarrar: source.muqarrar,
+        institution: source.institution,
+      }),
     };
     const rows = [...draft.rows];
     rows.splice(index + 1, 0, copy);
     save({ ...draft, rows });
+    requestAnimationFrame(() => {
+      document.querySelector<HTMLInputElement>(`[data-roster-row="${copy.id}"] input[name="name"]`)?.focus();
+    });
   };
 
   const moveRowWithinCategory = (
@@ -247,15 +266,15 @@ export function ParticipantRosterEditor({
 
   const fillEmpty = () => {
     if (!bulkDivision && !bulkMuqarrar && !bulkInstitution.trim()) return;
-    save({
-      ...draft,
-      rows: draft.rows.map((row) => ({
-        ...row,
-        divisionId: row.divisionId || bulkDivision,
-        muqarrar: row.muqarrar || bulkMuqarrar,
-        institution: row.institution || bulkInstitution.trim(),
-      })),
-    });
+    save(fillEmptyRosterFields(
+      draft,
+      {
+        divisionId: bulkDivision,
+        muqarrar: bulkMuqarrar,
+        institution: bulkInstitution,
+      },
+      bulkScope === "all" ? undefined : bulkScope,
+    ));
     setMessage("Empty cells filled. Existing values were not changed.");
   };
 
@@ -298,9 +317,16 @@ export function ParticipantRosterEditor({
     onBack();
   };
 
-  const institutionOptions = Array.from(
-    new Set(draft.rows.map((row) => row.institution.trim()).filter(Boolean)),
-  ).sort();
+  const institutionOptions = Array.from(new Map(
+    [
+      ...state.competition.participantEntrySettings.institutions,
+      ...draft.rows.map((row) => row.institution),
+    ]
+      .map((institution) => institution.trim())
+      .filter(Boolean)
+      .map((institution) => [institution.toLocaleLowerCase(), institution]),
+  ).values()).sort((a, b) => a.localeCompare(b));
+  const unresolvedCategories = useMemo(() => importedCategoryGroups(draft), [draft]);
 
   return (
     <main className="roster-editor-page">
@@ -357,7 +383,7 @@ export function ParticipantRosterEditor({
           <small>{draft.numberingMode === "automatic" ? "Assigned from final row order: 01–99, then 001–999." : "Keep the numbers supplied by the competition."}</small>
         </div>
         <div className="roster-source-actions">
-          <button type="button" className="btn-ghost" onClick={addRow}><Icon name="plus" size={14} /> Add participant</button>
+          <button type="button" className="btn-ghost" onClick={() => addRow()}><Icon name="plus" size={14} /> Add participant</button>
           <button type="button" className="btn-ghost" onClick={openPaste}>Paste table</button>
           <button type="button" className="btn-ghost" disabled={busy} onClick={() => fileRef.current?.click()}><Icon name="upload" size={14} /> Upload</button>
           <button type="button" className="btn-ghost" disabled={busy || !state.competition.divisions.length} onClick={() => void downloadTemplate()}><Icon name="download" size={14} /> Competition template</button>
@@ -376,19 +402,69 @@ export function ParticipantRosterEditor({
             <p>Enter a few names here, paste a table, or open the checked spreadsheet. Every row stays editable before it becomes official.</p>
           </div>
           <div className="roster-onboarding-options">
-            <button type="button" onClick={addRow}><span className="roster-option-icon"><Icon name="newUser" size={20} /></span><strong>Add in Tahqeeq</strong><small>Best for a short list or last-minute entry.</small></button>
+            <button type="button" onClick={() => addRow()}><span className="roster-option-icon"><Icon name="newUser" size={20} /></span><strong>Add in Tahqeeq</strong><small>Best for a short list or last-minute entry.</small></button>
             <button type="button" onClick={openPaste}><span className="roster-option-icon">⌘</span><strong>Paste a table</strong><small>Copy rows from Excel or Google Sheets.</small></button>
             <button type="button" onClick={() => fileRef.current?.click()}><span className="roster-option-icon"><Icon name="upload" size={20} /></span><strong>Upload spreadsheet</strong><small>Open an .xlsx, .xls or .csv file.</small></button>
           </div>
         </section>
       ) : (
         <>
-          <section className="roster-bulk-bar" aria-label="Fill empty participant fields">
-            <div><strong>Fill empty cells</strong><span>Applies defaults without replacing anything already entered.</span></div>
+          {unresolvedCategories.length > 0 && (
+            <section className="roster-import-resolver" aria-labelledby="roster-import-resolver-title">
+              <div className="roster-import-resolver-head">
+                <div>
+                  <span>Imported values</span>
+                  <strong id="roster-import-resolver-title">Resolve categories once</strong>
+                  <small>Map each imported label once and every matching row will update together.</small>
+                </div>
+                <b>{unresolvedCategories.reduce((count, group) => count + group.rowIds.length, 0)} rows</b>
+              </div>
+              <div className="roster-import-resolution-list">
+                {unresolvedCategories.map((group) => (
+                  <div key={group.key}>
+                    <span><strong>{group.label}</strong><small>{group.rowIds.length} matching row{group.rowIds.length === 1 ? "" : "s"}</small></span>
+                    <select
+                      aria-label={`Map ${group.label} to category`}
+                      value={importMappings[group.key] ?? ""}
+                      onChange={(event) => setImportMappings((current) => ({ ...current, [group.key]: event.target.value }))}
+                    >
+                      <option value="">Choose category</option>
+                      {state.competition.divisions.map((division) => <option value={division.id} key={division.id}>{divisionLabel(division)}</option>)}
+                    </select>
+                    <button
+                      type="button"
+                      className="btn-ghost"
+                      disabled={!importMappings[group.key]}
+                      onClick={() => {
+                        const divisionId = importMappings[group.key];
+                        if (!divisionId) return;
+                        save(mapImportedCategory(draft, group.label, divisionId));
+                        setExpandedCategoryIds((current) => new Set([...current, divisionId]));
+                        setImportMappings((current) => {
+                          const next = { ...current };
+                          delete next[group.key];
+                          return next;
+                        });
+                      }}
+                    >
+                      Map rows
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          <section className="roster-bulk-bar" aria-label="Participant entry defaults">
+            <div><strong>Entry defaults</strong><span>New rows inherit these. Applying them only fills empty cells.</span></div>
             <select aria-label="Default category" value={bulkDivision} onChange={(event) => setBulkDivision(event.target.value)}><option value="">Category</option>{state.competition.divisions.map((division) => <option value={division.id} key={division.id}>{divisionLabel(division)}</option>)}</select>
             <select aria-label="Default Muqarrar start" value={bulkMuqarrar} onChange={(event) => setBulkMuqarrar(event.target.value)}><option value="">Muqarrar start</option><option value="feshey-kolhu">Feshey kolhu</option><option value="nimey-kolhu">Nimey kolhu</option></select>
-            <input aria-label="Default institution" value={bulkInstitution} placeholder="Institution" onChange={(event) => setBulkInstitution(event.target.value)} />
-            <button type="button" className="btn-ghost" onClick={fillEmpty}>Fill empty</button>
+            <input aria-label="Default institution" list="roster-institutions" value={bulkInstitution} placeholder="Institution" onChange={(event) => setBulkInstitution(event.target.value)} />
+            <select aria-label="Apply defaults to" value={bulkScope} onChange={(event) => setBulkScope(event.target.value)}>
+              <option value="all">All categories</option>
+              {state.competition.divisions.map((division) => <option value={division.id} key={division.id}>Only {divisionLabel(division)}</option>)}
+            </select>
+            <button type="button" className="btn-ghost" disabled={!bulkDivision && !bulkMuqarrar && !bulkInstitution.trim()} onClick={fillEmpty}>Apply to empty fields</button>
           </section>
 
           <div className="roster-category-list-head">
@@ -410,12 +486,19 @@ export function ParticipantRosterEditor({
                 const panelId = `roster-category-${group.id.replace(/[^a-zA-Z0-9_-]/g, "-")}`;
                 return (
                   <section className={`roster-category-group ${expanded ? "is-expanded" : ""} ${errorCount ? "has-errors" : ""}`} key={group.id}>
-                    <h2>
-                      <button type="button" className="roster-category-toggle" aria-expanded={expanded} aria-controls={panelId} onClick={() => toggleCategory(group.id)}>
-                        <span className="roster-category-title"><Icon name="chevron" size={14} /><strong>{group.label}</strong></span>
-                        <span className="roster-category-meta"><b>{group.rows.length}</b> participant{group.rows.length === 1 ? "" : "s"}{errorCount > 0 && <em>{errorCount} error{errorCount === 1 ? "" : "s"}</em>}{warningCount > 0 && <i>{warningCount} warning{warningCount === 1 ? "" : "s"}</i>}</span>
-                      </button>
-                    </h2>
+                    <div className="roster-category-header">
+                      <h2>
+                        <button type="button" className="roster-category-toggle" aria-expanded={expanded} aria-controls={panelId} onClick={() => toggleCategory(group.id)}>
+                          <span className="roster-category-title"><Icon name="chevron" size={14} /><strong>{group.label}</strong></span>
+                          <span className="roster-category-meta"><b>{group.rows.length}</b> participant{group.rows.length === 1 ? "" : "s"}{errorCount > 0 && <em>{errorCount} error{errorCount === 1 ? "" : "s"}</em>}{warningCount > 0 && <i>{warningCount} warning{warningCount === 1 ? "" : "s"}</i>}</span>
+                        </button>
+                      </h2>
+                      {group.id !== CATEGORY_REQUIRED_ID && (
+                        <button type="button" className="roster-category-add" onClick={() => addRow(group.id)}>
+                          <Icon name="plus" size={13} /> Add participant
+                        </button>
+                      )}
+                    </div>
                     {expanded && <div id={panelId} className="roster-category-rows">
               {group.rows.map(({ row, number }, categoryPosition) => {
                 const index = draft.rows.findIndex((candidate) => candidate.id === row.id);
@@ -431,7 +514,7 @@ export function ParticipantRosterEditor({
                       {firstIssueFor(row.id, "name") && <small>{firstIssueFor(row.id, "name")?.message}</small>}
                     </div>
                     <div className="roster-edit-cell" data-label="Category">
-                      <select aria-label={`Participant ${index + 1} category`} aria-invalid={Boolean(firstIssueFor(row.id, "divisionId"))} data-roster-field-error={firstIssueFor(row.id, "divisionId")?.level === "error" || undefined} value={row.divisionId} onChange={(event) => patchRow(row.id, { divisionId: event.target.value, legacyAgeGroup: undefined, legacyCategory: undefined })}>
+                      <select aria-label={`Participant ${index + 1} category`} aria-invalid={Boolean(firstIssueFor(row.id, "divisionId"))} data-roster-field-error={firstIssueFor(row.id, "divisionId")?.level === "error" || undefined} value={row.divisionId} onChange={(event) => patchRow(row.id, { divisionId: event.target.value, importedCategory: undefined, legacyAgeGroup: undefined, legacyCategory: undefined })}>
                         <option value="">Choose category</option>
                         {state.competition.divisions.map((division) => <option value={division.id} key={division.id}>{divisionLabel(division)}</option>)}
                       </select>
@@ -454,7 +537,7 @@ export function ParticipantRosterEditor({
                     <div className="roster-row-actions" data-label="Row actions">
                       <button type="button" disabled={categoryPosition === 0} onClick={() => moveRowWithinCategory(group.rows, categoryPosition, -1)} aria-label={`Move ${row.name || `participant ${index + 1}`} up in category`}>↑</button>
                       <button type="button" disabled={categoryPosition === group.rows.length - 1} onClick={() => moveRowWithinCategory(group.rows, categoryPosition, 1)} aria-label={`Move ${row.name || `participant ${index + 1}`} down in category`}>↓</button>
-                      <button type="button" onClick={() => duplicateRow(index)} aria-label={`Duplicate ${row.name || `participant ${index + 1}`}`}><Icon name="plus" size={14} /></button>
+                      <button type="button" onClick={() => duplicateRow(index)} aria-label={`Add participant like ${row.name || `participant ${index + 1}`}`}><Icon name="plus" size={14} /></button>
                       <button type="button" className="is-danger" onClick={() => removeRow(index)} aria-label={`Delete ${row.name || `participant ${index + 1}`}`}><Icon name="trash" size={14} /></button>
                     </div>
                   </article>
@@ -466,7 +549,7 @@ export function ParticipantRosterEditor({
               })}
             </div>
           </section>
-          <button type="button" className="roster-add-row" onClick={addRow}><Icon name="plus" size={14} /> Add another participant</button>
+          <button type="button" className="roster-add-row" onClick={() => addRow()}><Icon name="plus" size={14} /> Add another participant</button>
         </>
       )}
 

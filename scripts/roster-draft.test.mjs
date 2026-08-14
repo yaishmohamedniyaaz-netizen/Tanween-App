@@ -2,8 +2,12 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import {
   automaticParticipantNumber,
+  createBlankRosterDraftRow,
   createRosterDraftFromRoster,
   createRosterDraftFromRows,
+  fillEmptyRosterFields,
+  importedCategoryGroups,
+  mapImportedCategory,
   parseDelimitedRosterText,
   recordsFromRosterGrid,
   rosterDraftComparison,
@@ -115,4 +119,64 @@ test("supplied numbers reject case-insensitive duplicates", () => {
   });
   const result = validateRosterDraft(draft, divisions);
   assert.ok(result.issues.some((issue) => /duplicated/.test(issue.message)));
+});
+
+test("new rows inherit only explicit entry defaults", () => {
+  const row = createBlankRosterDraftRow(0, {
+    divisionId: "u14-hifz",
+    muqarrar: "feshey-kolhu",
+    institution: "  School A  ",
+  });
+  assert.equal(row.divisionId, "u14-hifz");
+  assert.equal(row.muqarrar, "feshey-kolhu");
+  assert.equal(row.institution, "School A");
+  assert.equal(row.name, "");
+  assert.equal(row.phone, "");
+});
+
+test("entry defaults fill blanks in one category without overwriting values", () => {
+  const draft = createRosterDraftFromRows({
+    rows: [
+      { Name: "One", Category: "Under 14 — Hifz", "Muqarrar start": "", Institution: "" },
+      { Name: "Two", Category: "Under 14 — Hifz", "Muqarrar start": "Nimey kolhu", Institution: "School B" },
+      { Name: "Three", Category: "Under 16 — Baliagen", "Muqarrar start": "", Institution: "" },
+    ],
+    competitionId: "competition-test",
+    divisions,
+    numberingMode: "automatic",
+    source: "paste",
+  });
+  const filled = fillEmptyRosterFields(
+    draft,
+    { muqarrar: "feshey-kolhu", institution: "School A" },
+    "u14-hifz",
+  );
+  assert.equal(filled.rows[0].muqarrar, "feshey-kolhu");
+  assert.equal(filled.rows[0].institution, "School A");
+  assert.equal(filled.rows[1].muqarrar, "nimey-kolhu");
+  assert.equal(filled.rows[1].institution, "School B");
+  assert.equal(filled.rows[2].muqarrar, "");
+  assert.equal(filled.rows[2].institution, "");
+});
+
+test("one imported category mapping repairs every identical raw value", () => {
+  const draft = createRosterDraftFromRows({
+    rows: [
+      { Name: "One", Category: "Junior Hifz", "Muqarrar start": "Feshey kolhu" },
+      { Name: "Two", Category: " junior hifz ", "Muqarrar start": "Nimey kolhu" },
+      { Name: "Three", Category: "Another label", "Muqarrar start": "Feshey kolhu" },
+    ],
+    competitionId: "competition-test",
+    divisions,
+    numberingMode: "automatic",
+    source: "file",
+  });
+  const groups = importedCategoryGroups(draft);
+  assert.equal(groups.length, 2);
+  assert.equal(groups[0].rowIds.length, 2);
+  const mapped = mapImportedCategory(draft, groups[0].label, "u14-hifz");
+  assert.equal(mapped.rows[0].divisionId, "u14-hifz");
+  assert.equal(mapped.rows[1].divisionId, "u14-hifz");
+  assert.equal(mapped.rows[2].divisionId, "");
+  assert.equal(importedCategoryGroups(mapped).length, 1);
 });

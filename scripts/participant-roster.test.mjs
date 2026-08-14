@@ -2,9 +2,11 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import test from "node:test";
 import { read, utils } from "xlsx";
+import ExcelJS from "exceljs";
 import {
   buildParticipantTemplate,
   buildSampleParticipantWorkbook,
+  parseRosterFileToDraft,
   parseRosterRows,
   PARTICIPANT_TEMPLATE_HEADERS,
   verifyParticipantTemplate,
@@ -98,7 +100,7 @@ test("legacy island or class data migrates into Institution", () => {
   assert.match(participant.id, /^participant-/);
 });
 
-test("the competition workbook round-trips with V3 category choices and supplied numbering", async () => {
+test("the competition workbook round-trips with V4 dropdowns, choices and supplied numbering", async () => {
   const competition = {
     version: 2,
     isSample: false,
@@ -108,6 +110,11 @@ test("the competition workbook round-trips with V3 category choices and supplied
     status: "draft",
     setupRevision: 1,
     participantNumbering: "supplied",
+    participantEntrySettings: {
+      institutions: ["School A", "Quran Class"],
+      defaultMuqarrar: "",
+      defaultInstitution: "School A",
+    },
     divisions: [{ id: "u14-hifz", name: "Under 14", ageGroup: "Under 14", category: "nubalaa", quranPortion: { kind: "full-quran" } }],
     questionPolicy: {},
     liveSnapshot: null,
@@ -115,16 +122,19 @@ test("the competition workbook round-trips with V3 category choices and supplied
   const buffer = await buildParticipantTemplate(competition);
   await verifyParticipantTemplate(buffer, competition);
   const workbook = read(buffer, { type: "array" });
-  assert.deepEqual(workbook.SheetNames, ["Participants", "Choices", "Instructions"]);
-  assert.equal(workbook.Custprops.TahqeeqTemplateVersion, 3);
-  assert.equal(workbook.Custprops.TahqeeqCompetitionId, "competition-test");
-  assert.equal(workbook.Custprops.TahqeeqNumberingMode, "supplied");
-  assert.ok(String(workbook.Custprops.TahqeeqCategoryFingerprint).length > 0);
-  assert.ok(String(workbook.Custprops.TahqeeqDivisionFingerprint).length > 0);
+  assert.deepEqual(workbook.SheetNames, ["Participants", "Choices", "Instructions", "_Tahqeeq"]);
+  const metadataRows = utils.sheet_to_json(workbook.Sheets._Tahqeeq, { defval: "", raw: false });
+  const metadata = Object.fromEntries(metadataRows.map((row) => [row.Key, row.Value]));
+  assert.equal(Number(metadata.TahqeeqTemplateVersion), 4);
+  assert.equal(metadata.TahqeeqCompetitionId, "competition-test");
+  assert.equal(metadata.TahqeeqNumberingMode, "supplied");
+  assert.ok(String(metadata.TahqeeqCategoryFingerprint).length > 0);
+  assert.ok(String(metadata.TahqeeqDivisionFingerprint).length > 0);
   const rows = utils.sheet_to_json(workbook.Sheets.Participants, {
     header: 1,
     defval: "",
     raw: false,
+    blankrows: false,
   });
   assert.deepEqual(rows[0], ["Participant Number", "Name", "Category", "Muqarrar start", "Institution", "Phone Number"]);
   assert.equal(rows.length, 1);
@@ -133,8 +143,20 @@ test("the competition workbook round-trips with V3 category choices and supplied
     defval: "",
     raw: false,
   });
-  assert.deepEqual(choices[0], ["Category", "Muqarrar start"]);
+  assert.deepEqual(choices[0], ["Category", "Muqarrar start", "Institution"]);
   assert.equal(choices[1][0], "Under 14 — Hifz");
+  assert.equal(choices[1][2], "School A");
+  const styled = new ExcelJS.Workbook();
+  await styled.xlsx.load(Buffer.from(buffer));
+  const participantSheet = styled.getWorksheet("Participants");
+  assert.ok(participantSheet);
+  assert.equal(participantSheet.rowCount, 101);
+  assert.equal(participantSheet.getCell("C2").dataValidation.type, "list");
+  assert.equal(participantSheet.getCell("D2").dataValidation.type, "list");
+  assert.equal(participantSheet.getCell("E2").dataValidation.type, "list");
+  assert.equal(participantSheet.getCell("A2").numFmt, "@");
+  assert.equal(participantSheet.getCell("F2").numFmt, "@");
+  assert.equal(styled.getWorksheet("_Tahqeeq").state, "veryHidden");
   const readMe = utils.sheet_to_json(workbook.Sheets.Instructions, {
     header: 1,
     defval: "",
@@ -143,6 +165,49 @@ test("the competition workbook round-trips with V3 category choices and supplied
   const readMeCells = readMe.flat().map(String);
   assert.ok(readMeCells.some((value) => value.includes("Supplied in this sheet")));
   assert.ok(readMeCells.some((value) => value.includes("review before applying")));
+});
+
+test("a completed V4 prepared row imports without the remaining blank rows", async () => {
+  const competition = {
+    version: 2,
+    isSample: false,
+    id: "competition-v4-import",
+    name: "V4 Import Competition",
+    edition: "2026",
+    status: "draft",
+    setupRevision: 1,
+    participantNumbering: "supplied",
+    participantEntrySettings: {
+      institutions: ["School A"],
+      defaultMuqarrar: "feshey-kolhu",
+      defaultInstitution: "School A",
+    },
+    divisions: [{ id: "u14-hifz", name: "Under 14", ageGroup: "Under 14", category: "nubalaa", quranPortion: { kind: "full-quran" } }],
+    questionPolicy: {},
+    liveSnapshot: null,
+  };
+  const workbook = new ExcelJS.Workbook();
+  await workbook.xlsx.load(Buffer.from(await buildParticipantTemplate(competition)));
+  const participants = workbook.getWorksheet("Participants");
+  participants.getCell("A2").value = "007";
+  participants.getCell("B2").value = "Aishath Ali";
+  participants.getCell("C2").value = "Under 14 — Hifz";
+  participants.getCell("D2").value = "Feshey kolhu";
+  participants.getCell("E2").value = "School A";
+  participants.getCell("F2").value = "0777000";
+  const completed = await workbook.xlsx.writeBuffer();
+  const file = new File([completed], "participants-v4.xlsx", {
+    type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+  });
+  const draft = await parseRosterFileToDraft(file, competition);
+
+  assert.equal(draft.rows.length, 1);
+  assert.equal(draft.numberingMode, "supplied");
+  assert.equal(draft.rows[0].number, "007");
+  assert.equal(draft.rows[0].divisionId, "u14-hifz");
+  assert.equal(draft.rows[0].muqarrar, "feshey-kolhu");
+  assert.equal(draft.rows[0].institution, "School A");
+  assert.equal(draft.rows[0].phone, "0777000");
 });
 
 test("automatic numbering templates omit the participant-number column", async () => {
@@ -155,6 +220,11 @@ test("automatic numbering templates omit the participant-number column", async (
     status: "draft",
     setupRevision: 1,
     participantNumbering: "automatic",
+    participantEntrySettings: {
+      institutions: [],
+      defaultMuqarrar: "feshey-kolhu",
+      defaultInstitution: "",
+    },
     divisions: [{ id: "open", name: "Open", ageGroup: "Open", category: "nubalaa", quranPortion: { kind: "full-quran" } }],
     questionPolicy: {},
     liveSnapshot: null,
@@ -167,7 +237,9 @@ test("automatic numbering templates omit the participant-number column", async (
   });
 
   assert.deepEqual(rows[0], ["Name", "Category", "Muqarrar start", "Institution", "Phone Number"]);
-  assert.equal(workbook.Custprops.TahqeeqNumberingMode, "automatic");
+  const metadataRows = utils.sheet_to_json(workbook.Sheets._Tahqeeq, { defval: "", raw: false });
+  const metadata = Object.fromEntries(metadataRows.map((row) => [row.Key, row.Value]));
+  assert.equal(metadata.TahqeeqNumberingMode, "automatic");
 });
 
 test("the separate sample workbook contains fictional, importable participants", async () => {
@@ -195,6 +267,9 @@ test("settings opens one recoverable editor instead of applying imports immediat
   assert.match(rosterEditorSource, /Competition template/);
   assert.match(rosterEditorSource, /Review and apply/);
   assert.match(rosterEditorSource, /Participants by category/);
+  assert.match(setupSource, /Participant defaults/);
+  assert.match(rosterEditorSource, /Resolve categories once/);
+  assert.match(rosterEditorSource, /Add participant like/);
   assert.match(rosterEditorSource, /role="radiogroup"/);
   assert.doesNotMatch(rosterEditorSource, />Division</);
   assert.match(rosterEditorSource, /APPLY_ROSTER_DRAFT/);

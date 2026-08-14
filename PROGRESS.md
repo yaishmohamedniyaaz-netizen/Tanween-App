@@ -1,5 +1,29 @@
 # Tahqeeq — build progress log
 
+## Participant Intake V4 — IMPLEMENTED (2026-08-14)
+
+- Competition setup now saves optional default Muqarrar start and institution
+  values plus a competition-specific institution choice list. New rows inherit
+  only explicit defaults; free-text institutions remain allowed.
+- The participant workspace adds in-place Category entry, safe Add participant
+  like behavior, and Category-scoped fill-empty actions that never overwrite
+  existing values.
+- Repeated unmatched imported Category labels are grouped for one explicit
+  organizer mapping. Tahqeeq applies that confirmed mapping to identical raw
+  labels without fuzzy guessing.
+- Competition Template V4 provides 100 clean entry rows, frozen headings,
+  filters, native Excel dropdowns, text-safe number and phone columns,
+  competition institution suggestions, and a very-hidden metadata sheet.
+  V1, V2, and V3 files remain importable.
+- OCR/photo extraction remains deferred; verified spreadsheet entry is the
+  deliberate intake path for this release.
+- Rollback checkpoint: `checkpoint/pre-participant-intake-v4`.
+- Verification: 220 automated tests pass, the production build succeeds, and
+  Template V4 passes ExcelJS and SheetJS read-back. A Microsoft Excel render
+  inspection informed the final header-width adjustment. The 1280px
+  participant workspace has no horizontal grid overflow or fresh
+  browser-console errors.
+
 ## Category language and roster accordions — IMPLEMENTED (2026-08-14)
 
 - Participant-facing Division language is now Category across competition

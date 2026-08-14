@@ -1047,6 +1047,128 @@ textarea:focus-visible {
   font-size: 10.5px;
   line-height: 1.4;
 }
+.participant-entry-settings {
+  display: grid;
+  gap: 14px;
+  margin-top: 10px;
+  padding: 15px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  background: color-mix(in srgb, var(--surface) 76%, var(--bg));
+}
+.participant-entry-settings-head {
+  display: grid;
+  grid-template-columns: minmax(220px, 1fr) minmax(360px, auto);
+  align-items: end;
+  gap: 18px;
+}
+.participant-entry-settings-head > div:first-child,
+.participant-default-side,
+.participant-institution-settings label {
+  display: grid;
+  gap: 4px;
+}
+.participant-entry-settings-head > div:first-child > span,
+.participant-default-side > span,
+.participant-institution-settings label > span:first-child {
+  color: var(--ink-3);
+  font-size: 9px;
+  font-weight: 650;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.participant-entry-settings-head strong {
+  font-size: 13px;
+  font-weight: 610;
+}
+.participant-entry-settings-head small,
+.participant-institution-empty {
+  color: var(--ink-3);
+  font-size: 10px;
+  line-height: 1.45;
+}
+.participant-default-side > div {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  padding: 3px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: var(--bg);
+}
+.participant-default-side button {
+  min-height: 34px;
+  padding: 0 10px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--ink-3);
+  font-size: 10px;
+  white-space: nowrap;
+}
+.participant-default-side button.is-active {
+  background: var(--surface);
+  color: var(--ink);
+  box-shadow: var(--shadow-rest);
+}
+.participant-institution-settings {
+  display: grid;
+  gap: 9px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+}
+.participant-institution-controls {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(210px, 0.45fr);
+  align-items: end;
+  gap: 10px;
+}
+.participant-institution-controls select {
+  min-height: 40px;
+}
+.participant-institution-add {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 7px;
+}
+.participant-institution-add input {
+  min-height: 40px;
+  padding: 0 10px;
+}
+.participant-institution-add .btn-ghost {
+  min-height: 40px;
+}
+.participant-institution-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.participant-institution-chips > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 30px;
+  padding: 3px 4px 3px 9px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--ink-2);
+  font-size: 10px;
+}
+.participant-institution-chips button {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink-3);
+  font-size: 15px;
+}
+.participant-institution-chips button:hover {
+  background: var(--bg);
+  color: var(--ink);
+}
 .roster-draft-resume {
   display: flex;
   align-items: center;
@@ -1143,6 +1265,7 @@ textarea:focus-visible {
 .roster-editor-summary,
 .roster-editor-toolbar,
 .roster-bulk-bar,
+.roster-import-resolver,
 .roster-grid-wrap,
 .roster-add-row,
 .roster-inline-message,
@@ -1458,7 +1581,7 @@ textarea:focus-visible {
 }
 .roster-bulk-bar {
   display: grid;
-  grid-template-columns: minmax(180px, 1fr) minmax(150px, 220px) minmax(140px, 190px) minmax(150px, 220px) auto;
+  grid-template-columns: minmax(180px, 1fr) minmax(140px, 190px) minmax(140px, 180px) minmax(145px, 200px) minmax(150px, 210px) auto;
   gap: 8px;
   align-items: center;
   margin-top: 12px;
@@ -1466,6 +1589,77 @@ textarea:focus-visible {
   border: 1px solid var(--line);
   border-radius: var(--r-sm);
   background: color-mix(in srgb, var(--surface) 70%, var(--bg));
+}
+.roster-import-resolver {
+  margin-top: 12px;
+  padding: 13px;
+  border: 1px solid rgba(192, 137, 42, 0.3);
+  border-radius: var(--r-sm);
+  background: rgba(192, 137, 42, 0.06);
+}
+.roster-import-resolver-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.roster-import-resolver-head > div {
+  display: grid;
+  gap: 2px;
+}
+.roster-import-resolver-head span {
+  color: #805a16;
+  font-size: 9px;
+  font-weight: 650;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.roster-import-resolver-head strong {
+  font-size: 12px;
+  font-weight: 620;
+}
+.roster-import-resolver-head small,
+.roster-import-resolution-list small {
+  color: var(--ink-3);
+  font-size: 9.5px;
+}
+.roster-import-resolver-head > b {
+  padding: 5px 8px;
+  border-radius: 999px;
+  background: rgba(192, 137, 42, 0.12);
+  color: #805a16;
+  font-size: 9.5px;
+  font-weight: 650;
+  white-space: nowrap;
+}
+.roster-import-resolution-list {
+  display: grid;
+  gap: 7px;
+  margin-top: 11px;
+}
+.roster-import-resolution-list > div {
+  display: grid;
+  grid-template-columns: minmax(180px, 1fr) minmax(220px, 320px) auto;
+  align-items: center;
+  gap: 8px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(192, 137, 42, 0.18);
+}
+.roster-import-resolution-list > div > span {
+  display: grid;
+  min-width: 0;
+  gap: 2px;
+}
+.roster-import-resolution-list strong {
+  overflow: hidden;
+  font-size: 10.5px;
+  font-weight: 590;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.roster-import-resolution-list select,
+.roster-import-resolution-list .btn-ghost {
+  min-height: 38px;
 }
 .roster-bulk-bar > div {
   display: grid;
@@ -1537,7 +1731,7 @@ textarea:focus-visible {
   color: var(--ink);
 }
 .roster-category-group {
-  min-width: 1220px;
+  min-width: 960px;
   border-bottom: 1px solid var(--line);
 }
 .roster-category-group:last-child {
@@ -1545,6 +1739,14 @@ textarea:focus-visible {
 }
 .roster-category-group h2 {
   margin: 0;
+}
+.roster-category-header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  background: color-mix(in srgb, var(--surface) 72%, var(--bg));
+}
+.roster-category-group.is-expanded .roster-category-header {
+  border-bottom: 1px solid var(--line);
 }
 .roster-category-toggle {
   display: flex;
@@ -1555,16 +1757,33 @@ textarea:focus-visible {
   min-height: 48px;
   padding: 8px 14px;
   border: 0;
-  border-bottom: 1px solid transparent;
-  background: color-mix(in srgb, var(--surface) 72%, var(--bg));
+  border-bottom: 0;
+  background: transparent;
   color: var(--ink);
   text-align: left;
 }
-.roster-category-group.is-expanded .roster-category-toggle {
-  border-bottom-color: var(--line);
-}
 .roster-category-toggle:hover {
   background: var(--bg);
+}
+.roster-category-add {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-width: 124px;
+  min-height: 38px;
+  margin: 5px 7px 5px 0;
+  padding: 0 10px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: var(--surface);
+  color: var(--ink-2);
+  font-size: 9.5px;
+  font-weight: 590;
+}
+.roster-category-add:hover {
+  border-color: var(--line-2);
+  color: var(--ink);
 }
 .roster-category-toggle:focus-visible {
   position: relative;
@@ -1669,8 +1888,8 @@ textarea:focus-visible {
 .roster-grid-head,
 .roster-edit-row {
   display: grid;
-  grid-template-columns: 92px minmax(190px, 1.3fr) minmax(190px, 1.05fr) minmax(150px, 0.82fr) minmax(160px, 1fr) minmax(132px, 0.78fr) 188px;
-  min-width: 1220px;
+  grid-template-columns: 72px minmax(160px, 1.3fr) minmax(155px, 1.05fr) minmax(140px, 0.82fr) minmax(135px, 1fr) minmax(110px, 0.78fr) 188px;
+  min-width: 960px;
 }
 .roster-grid-head {
   position: sticky;
@@ -7243,14 +7462,29 @@ html:has(.dialog-backdrop) {
     justify-content: flex-start;
   }
   .roster-bulk-bar {
-    grid-template-columns: repeat(3, minmax(0, 1fr)) auto;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
   .roster-bulk-bar > div {
     grid-column: 1 / -1;
   }
+  .roster-bulk-bar > button {
+    grid-column: 3;
+  }
 }
 
 @media (max-width: 780px) {
+  .participant-entry-settings-head {
+    grid-template-columns: 1fr;
+    align-items: stretch;
+  }
+  .participant-institution-controls {
+    grid-template-columns: 1fr;
+  }
+  .participant-default-side button,
+  .participant-institution-add input,
+  .participant-institution-add .btn-ghost {
+    min-height: 44px;
+  }
   .roster-editor-page {
     height: calc(100vh - 59px);
     min-height: 0;
@@ -7363,6 +7597,17 @@ html:has(.dialog-backdrop) {
   .roster-bulk-bar .btn-ghost {
     min-height: 44px;
   }
+  .roster-import-resolver-head {
+    align-items: flex-start;
+  }
+  .roster-import-resolution-list > div {
+    grid-template-columns: 1fr;
+  }
+  .roster-import-resolution-list select,
+  .roster-import-resolution-list .btn-ghost {
+    width: 100%;
+    min-height: 44px;
+  }
   .roster-grid-wrap {
     overflow: visible;
     border: 0;
@@ -7388,6 +7633,11 @@ html:has(.dialog-backdrop) {
   .roster-category-toggle {
     min-height: 54px;
     padding: 8px 11px;
+  }
+  .roster-category-add {
+    min-width: 112px;
+    min-height: 44px;
+    margin-block: 5px;
   }
   .roster-category-title strong {
     font-size: 11px;
@@ -7549,6 +7799,26 @@ html:has(.dialog-backdrop) {
   }
   .roster-bulk-bar {
     grid-template-columns: 1fr;
+  }
+  .roster-bulk-bar > button {
+    grid-column: 1;
+  }
+  .participant-entry-settings {
+    padding: 12px;
+  }
+  .participant-default-side > div,
+  .participant-institution-add {
+    grid-template-columns: 1fr;
+  }
+  .participant-institution-chips > span {
+    max-width: 100%;
+  }
+  .roster-category-header {
+    grid-template-columns: 1fr;
+  }
+  .roster-category-add {
+    width: calc(100% - 20px);
+    margin: 0 10px 10px;
   }
   .roster-category-list-head {
     align-items: stretch;

@@ -520,6 +520,7 @@ function reducer(state: JudgingState, action: Action): JudgingState {
           name: action.competition.name,
           edition: action.competition.edition,
           participantNumbering: action.competition.participantNumbering,
+          participantEntrySettings: action.competition.participantEntrySettings,
           divisions: action.competition.divisions,
           questionPolicy: action.competition.questionPolicy,
         }),

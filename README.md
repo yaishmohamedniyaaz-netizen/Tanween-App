@@ -85,11 +85,18 @@ rows into accessible collapsible Category sections and uses a labelled Feshey
 kolhu / Nimey kolhu control for Muqarrar start. These remain enum values rather
 than ambiguous spreadsheet or storage Booleans.
 
+Competition setup can save institution choices plus optional default
+Muqarrar start and institution values. New or category-level participant rows
+inherit those explicit defaults. The editor can fill only empty fields within
+one Category, add another participant in-place, and resolve one repeated
+unmatched imported Category for every affected row without fuzzy guessing.
+
 New competitions can assign participant numbers automatically from final row
 order (`01–99`, then `001–999`) or preserve supplied competition numbers. The
-competition-specific Template V3 includes Participants, Choices, and
-Instructions sheets with Category and Muqarrar start headings. Template V2
-Division/Muqarrar and older seven-column templates remain importable. OCR and
+competition-specific Template V4 provides 100 styled entry rows, native Excel
+dropdowns for Category, Muqarrar start, and institution suggestions, and a
+hidden compatibility-safe metadata sheet. Template V3, Template V2
+Division/Muqarrar, and older seven-column templates remain importable. OCR and
 photo extraction are intentionally outside this release.
 
 See [`docs/ROSTER_ONBOARDING_V2.md`](docs/ROSTER_ONBOARDING_V2.md) for the UI,
@@ -105,7 +112,7 @@ src/components/Mushaf.tsx     fixed page renderer and word interaction
 src/components/DragMenu.tsx   connected exact-letter rail and category gesture
 src/components/ParticipantRosterEditor.tsx recoverable roster preparation UI
 src/lib/judgingUnits.ts       semantic letter/mark isolation
-src/lib/roster.ts             draft validation, paste/import, Template V3
+src/lib/roster.ts             draft validation, paste/import, Template V4
 src/lib/qcfFont.ts            page-specific QCF font loader and preloader
 src/state/store.tsx           scoring and persistence
 src/styles/global.css         responsive reader and judging UI
