@@ -304,6 +304,7 @@ export function App() {
             {state.preparedRecitation && (
               <PreparedRecitationStrip
                 prepared={state.preparedRecitation}
+                participantCount={state.roster.length}
                 onChangeReciter={() => {
                   setStartMode("change-reciter");
                   setStartOpen(true);

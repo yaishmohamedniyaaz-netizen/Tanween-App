@@ -1,5 +1,21 @@
 # Tahqeeq — build progress log
 
+## Participant queue clarity — IMPLEMENTED & VERIFIED (2026-08-14)
+
+- Participant cards now lead with the reciter's name and keep the competition
+  number as a small aligned badge. Ordinary numeric values display as `01–99`
+  or `001–999` to match roster size; stored alphanumeric numbers remain exact.
+- Division blocks are accessible collapsible groups. The active block opens
+  automatically, search opens every matching block without changing its real
+  waiting/absent/finished totals, and unmatched participants remain visible.
+- Participant context is shared across selection, question handoff, and
+  Prepared mode, so institution, division/category, and side no longer repeat.
+  The fictional sample roster now uses numeric `01–08` labels.
+- The participant dialog keeps the page behind it fixed and gives scrolling to
+  the queue only. Desktop and 390px browser checks confirmed aligned badges,
+  visible group counts, group expansion, and no application console errors.
+- Verification: 204 automated tests and the production Sites build.
+
 ## Twenty-question draw and Prepared mode — IMPLEMENTED & VERIFIED (2026-08-13)
 
 - Choosing a number now records the reveal and opens the exact starting Mushaf

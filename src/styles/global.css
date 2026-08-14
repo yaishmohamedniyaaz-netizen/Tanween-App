@@ -3688,7 +3688,7 @@ textarea:focus-visible {
   outline: none;
   box-shadow: 0 0 0 3px var(--ring);
 }
-.queue-group button small.is-absent {
+.queue-participant-button small.is-absent {
   color: var(--ink-2);
   font-style: italic;
 }
@@ -3775,9 +3775,9 @@ textarea:focus-visible {
   padding: 0;
   list-style: none;
 }
-.queue-group button {
+.queue-participant-button {
   display: grid;
-  grid-template-columns: 46px minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, 1fr) auto auto;
   align-items: center;
   gap: var(--sp-3);
   width: 100%;
@@ -3790,43 +3790,55 @@ textarea:focus-visible {
   text-align: left;
   cursor: pointer;
 }
-.queue-group button:hover:not(:disabled) {
+.queue-participant-button:hover:not(:disabled) {
   border-color: var(--line);
   background: var(--bg);
 }
-.queue-group button:focus-visible {
+.queue-participant-button:focus-visible {
   outline: none;
   box-shadow: 0 0 0 3px var(--ring);
 }
-.queue-group button:disabled {
+.queue-participant-button:disabled {
   cursor: default;
 }
-.queue-number {
+.participant-number-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 30px;
+  min-height: 26px;
+  padding: 3px 7px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--bg);
   color: var(--ink-2);
-  font-size: var(--t-micro);
+  font-size: 11px;
+  font-weight: 620;
   font-variant-numeric: tabular-nums;
+  line-height: 1;
+  white-space: nowrap;
 }
-.queue-group button strong {
+.queue-participant-button strong {
   overflow: hidden;
   font-size: var(--t-small);
   font-weight: 550;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.queue-group button small {
+.queue-participant-button small {
   font-size: var(--t-micro);
   white-space: nowrap;
 }
 /* State is carried by the word as well as the colour, so it survives a
    colour-blind reader and a washed-out projector alike. */
-.queue-group button small.is-waiting {
+.queue-participant-button small.is-waiting {
   color: var(--ink-2);
 }
-.queue-group button small.is-judged {
+.queue-participant-button small.is-judged {
   color: var(--ink-3);
 }
-.queue-group button:disabled strong,
-.queue-group button:disabled .queue-number {
+.queue-participant-button:disabled strong,
+.queue-participant-button:disabled .participant-number-badge {
   color: var(--ink-3);
 }
 .queue-empty {
@@ -4155,6 +4167,14 @@ textarea:focus-visible {
   width: min(920px, calc(100vw - 40px));
   max-height: min(820px, calc(100vh - 32px));
 }
+.reciter-start-dialog.stage-participant {
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr);
+  overflow: hidden;
+}
+html:has(.dialog-backdrop) {
+  overflow: hidden;
+}
 .reciter-start-dialog.stage-draw {
   width: min(900px, calc(100vw - 40px));
   display: grid;
@@ -4182,6 +4202,9 @@ textarea:focus-visible {
 .reciter-start-body {
   min-height: 0;
 }
+.reciter-start-dialog.stage-participant .reciter-start-body {
+  overflow: hidden;
+}
 .reciter-start-dialog.stage-draw .reciter-start-body {
   min-height: 0;
   overflow-y: auto;
@@ -4191,6 +4214,13 @@ textarea:focus-visible {
 .reciter-selection-screen,
 .question-number-screen {
   padding: 20px 24px 24px;
+}
+.reciter-selection-screen {
+  display: grid;
+  grid-template-rows: auto auto auto minmax(0, 1fr);
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
 }
 .reciter-queue-summary {
   display: flex;
@@ -4226,7 +4256,7 @@ textarea:focus-visible {
 }
 .next-reciter-main {
   display: grid;
-  grid-template-columns: 56px minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, 1fr) auto auto;
   align-items: center;
   gap: 14px;
   min-width: 0;
@@ -4246,12 +4276,6 @@ textarea:focus-visible {
   z-index: 1;
   outline: none;
   box-shadow: inset 0 0 0 3px var(--ring);
-}
-.reciter-row-number {
-  color: var(--ink-2);
-  font-size: 13px;
-  font-weight: 620;
-  font-variant-numeric: tabular-nums;
 }
 .reciter-row-copy {
   display: grid;
@@ -4297,30 +4321,66 @@ textarea:focus-visible {
   margin-top: 12px;
 }
 .reciter-selection-screen .queue-scroll {
-  max-height: 310px;
+  min-height: 0;
+  max-height: none;
   margin-top: 14px;
   padding-bottom: 12px;
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
 }
 .queue-group h3 {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
+  margin: 0;
+}
+.queue-group-toggle {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
   gap: 12px;
-  margin: 0 0 5px;
-  padding: 0 8px;
+  width: 100%;
+  min-height: 44px;
+  padding: 7px 9px;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  background: transparent;
   color: var(--ink-2);
+  text-align: left;
+}
+.queue-group-toggle:hover {
+  border-color: var(--line);
+  background: var(--bg);
+}
+.queue-group-toggle:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--ring);
+}
+.queue-group-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-width: 0;
+  overflow: hidden;
   font-size: 11px;
   font-weight: 610;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
-.queue-group h3 small {
+.queue-group-title svg {
+  flex: 0 0 auto;
+  transform: rotate(0deg);
+  transition: transform 140ms ease;
+}
+.queue-group.is-expanded .queue-group-title svg {
+  transform: rotate(90deg);
+}
+.queue-group-toggle small {
   color: var(--ink-3);
   font-size: 10px;
   font-weight: 500;
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
-.reciter-selection-screen .queue-group button {
-  grid-template-columns: 48px minmax(0, 1fr) auto;
+.reciter-selection-screen .queue-participant-button {
+  grid-template-columns: minmax(0, 1fr) auto auto;
   min-height: 56px;
   padding: 6px 10px;
 }
@@ -4351,7 +4411,7 @@ textarea:focus-visible {
 }
 .draw-reciter-strip {
   display: grid;
-  grid-template-columns: 48px minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, 1fr) auto auto;
   align-items: center;
   gap: 10px;
   min-height: 48px;
@@ -4491,7 +4551,7 @@ textarea:focus-visible {
     gap: 12px;
   }
   .next-reciter-main {
-    grid-template-columns: 46px minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1fr) auto;
     gap: 9px;
     padding: 9px 11px;
   }
@@ -4501,12 +4561,12 @@ textarea:focus-visible {
   .next-reciter-absent {
     min-width: 70px;
   }
-  .reciter-selection-screen .queue-group button {
-    grid-template-columns: 42px minmax(0, 1fr) auto;
+  .reciter-selection-screen .queue-participant-button {
+    grid-template-columns: minmax(0, 1fr) auto auto;
     gap: 8px;
   }
   .draw-reciter-strip {
-    grid-template-columns: 40px minmax(0, 1fr) auto;
+    grid-template-columns: minmax(0, 1fr) auto auto;
     gap: 7px;
     padding-left: 9px;
   }
@@ -4524,9 +4584,11 @@ textarea:focus-visible {
 }
 
 @media (max-width: 480px) {
-  .reciter-queue-division,
-  .queue-group h3 small {
+  .reciter-queue-division {
     display: none;
+  }
+  .queue-group-toggle small {
+    font-size: 9px;
   }
   .next-reciter-row {
     grid-template-columns: minmax(0, 1fr) 64px;
@@ -4536,7 +4598,7 @@ textarea:focus-visible {
     font-size: 9.5px;
   }
   .draw-reciter-strip {
-    grid-template-columns: 36px minmax(0, 1fr) auto;
+    grid-template-columns: minmax(0, 1fr) auto auto;
     gap: 6px;
   }
   .draw-reciter-strip .btn-ghost {

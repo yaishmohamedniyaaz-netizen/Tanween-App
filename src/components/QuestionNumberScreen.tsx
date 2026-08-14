@@ -3,38 +3,15 @@ import type {
   QuestionDeck,
   RosterEntry,
 } from "../types";
+import {
+  participantContextLabel,
+  participantNumberLabel,
+} from "../lib/participantPresentation.ts";
 import { Icon } from "./Icon";
-
-function reciterContext(
-  participant: RosterEntry,
-  division: CompetitionDivision,
-): string {
-  const category = participant.category === "nubalaa" ? "Hifz" : "Baliagen";
-  const side =
-    participant.muqarrar === "feshey-kolhu"
-      ? "Starting side"
-      : "Ending side";
-  const divisionIncludesCategory = division.name
-    .toLocaleLowerCase()
-    .includes(category.toLocaleLowerCase());
-  return [
-    participant.institution,
-    division.name,
-    divisionIncludesCategory ? null : category,
-    side,
-  ]
-    .filter((value): value is string => Boolean(value))
-    .filter(
-      (value, index, values) =>
-        values.findIndex(
-          (candidate) => candidate.trim().toLowerCase() === value.trim().toLowerCase(),
-        ) === index,
-    )
-    .join(" · ");
-}
 
 export function QuestionNumberScreen({
   participant,
+  participantCount,
   division,
   deck,
   spentPositions,
@@ -48,6 +25,7 @@ export function QuestionNumberScreen({
   onBack,
 }: {
   participant?: RosterEntry;
+  participantCount: number;
   division?: CompetitionDivision;
   deck: QuestionDeck | null;
   spentPositions: Set<number>;
@@ -64,10 +42,12 @@ export function QuestionNumberScreen({
     <section className="question-number-screen" aria-label="Choose a question">
       {participant && division ? (
         <div className="draw-reciter-strip">
-          <span className="reciter-row-number">{participant.number || "—"}</span>
           <span className="reciter-row-copy">
             <strong>{participant.name || "Unnamed"}</strong>
-            <small>{reciterContext(participant, division)}</small>
+            <small>{participantContextLabel(participant, division)}</small>
+          </span>
+          <span className="participant-number-badge">
+            {participantNumberLabel(participant.number, participantCount)}
           </span>
           <button type="button" className="btn-ghost" onClick={onBack}>
             Change reciter

@@ -15,6 +15,9 @@ const previewSource = read("../src/components/QuestionMushafPreview.tsx");
 const participantScreenSource = read(
   "../src/components/ParticipantSelectionScreen.tsx",
 );
+const participantPresentationSource = read(
+  "../src/lib/participantPresentation.ts",
+);
 const questionScreenSource = read(
   "../src/components/QuestionNumberScreen.tsx",
 );
@@ -74,7 +77,9 @@ test("the live handoff uses quiet status text and two focused screens", () => {
   assert.doesNotMatch(idleSource, /<i aria-hidden/);
   assert.match(headerSource, /Test mode · Live/);
   assert.match(participantScreenSource, /Participant running order/);
-  assert.match(participantScreenSource, /entry\.institution/);
+  assert.match(participantScreenSource, /participantContextLabel/);
+  assert.match(participantPresentationSource, /participant\.institution/);
+  assert.match(participantScreenSource, /aria-expanded/);
   assert.match(questionScreenSource, /aria-label="Question numbers"/);
   assert.doesNotMatch(questionScreenSource, /Choose a number/);
   assert.doesNotMatch(questionScreenSource, /Ask the reciter to choose one available number/);
