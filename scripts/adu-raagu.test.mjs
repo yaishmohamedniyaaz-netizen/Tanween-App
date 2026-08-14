@@ -482,7 +482,11 @@ test("the opened mark fits one evidence line and never spells out its category",
 
   // Word then reference, read as one phrase — not flung to opposite edges.
   assert.match(mistakeLogSource, /className="log-detail-line"/);
+  assert.match(mistakeLogSource, /className="log-kalimah"/);
+  assert.match(mistakeLogSource, /className="log-adjust"/);
   assert.match(cssSource, /\.log-detail-line\s*\{[^}]*display: grid/s);
+  assert.match(ruleBody(".log-detail-line .log-kalimah"), /background: var\(--c-tint\)/);
+  assert.match(ruleBody(".log-detail-line .log-adjust"), /height: 24px/);
   // The tray hangs off the glyph column, so the kalimah sits under its letter.
   assert.match(ruleBody(".log-expand-inner"), /padding-left: 25px/);
   assert.match(mistakeLogSource, />\s*Undo\s*</);
@@ -522,7 +526,7 @@ test("holding a word is neutral; only a criterion colours the page", () => {
 test("the mark bar opens on a press and commits when the press ends", () => {
   assert.match(pickerSource, /className={`mark-bar/);
   assert.match(pickerSource, /setOpen\(true\);\s*setPinned\(false\);/);
-  assert.match(pickerSource, /if \(drag\?\.moved && preview !== null\)/);
+  assert.match(pickerSource, /if \(drag\?\.moved && previewRef\.current !== null\)/);
   // A press that does not move leaves the bar open to pick from.
   assert.match(pickerSource, /setPinned\(true\);/);
   assert.match(pickerSource, /className="chip-strip"/);
@@ -538,7 +542,9 @@ test("the mark bar offers one whole-number chip per mark", () => {
   assert.match(pickerSource, /role="radio"/);
   assert.match(pickerSource, /data-mark=\{mark\}/);
   assert.match(ruleBody(".chip-strip"), /flex-wrap: wrap/);
-  assert.match(ruleBody(".chip-strip button"), /min-width: 30px/);
+  assert.match(ruleBody(".chip-strip"), /justify-content: center/);
+  assert.match(ruleBody(".chip-strip button"), /flex: 0 0 38px/);
+  assert.doesNotMatch(pickerSource, /mark-bar-head|mark-bar-hint/);
 });
 
 test("a chip previews halves and commits only when the pointer is released", () => {
@@ -558,16 +564,15 @@ test("a chip previews halves and commits only when the pointer is released", () 
     pickerSource.indexOf("onPointerUp={() =>"),
     pickerSource.indexOf("onPointerCancel={() =>"),
   );
-  assert.match(upHandler, /commit\(preview \?\? value\)/);
+  assert.match(upHandler, /commit\(previewRef\.current \?\? value\)/);
 });
 
-test("chip fill, half-fill, and checked state all follow the shown value", () => {
+test("the quiet chip state shows only the chosen whole or half mark", () => {
   assert.match(pickerSource, /const exact = Math\.abs\(mark - shown\) < 0\.001/);
   assert.match(pickerSource, /const half = Math\.abs\(mark - 0\.5 - shown\) < 0\.001/);
-  assert.match(pickerSource, /const filled = !exact && !half && mark < shown/);
   assert.match(pickerSource, /aria-checked=\{exact \|\| half\}/);
   assert.match(pickerSource, /half \? "is-half"/);
-  assert.match(pickerSource, /filled \? "is-filled"/);
+  assert.doesNotMatch(pickerSource, /is-filled/);
 
   assert.match(
     ruleBody('.chip-strip button[aria-checked="true"]'),
@@ -575,4 +580,8 @@ test("chip fill, half-fill, and checked state all follow the shown value", () =>
   );
   assert.match(ruleBody(".chip-strip button.is-half"), /linear-gradient\(/);
   assert.match(ruleBody(".chip-strip button.is-half"), /var\(--surface\) 50%/);
+});
+
+test("Adu and Raagu defaults to half-mark increments", () => {
+  assert.equal(DEFAULT_CONFIG["adu-raagu"].step, 0.5);
 });

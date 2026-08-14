@@ -168,7 +168,8 @@ test("setup derives judge count, requires a device role, and freezes active sett
 test("the reciter handoff freezes the device assignment before Ready", () => {
   assert.match(startSource, /This device/);
   assert.match(startSource, /Select reciter/);
-  assert.match(questionNumberSource, /Choose a number/);
+  assert.match(questionNumberSource, /aria-label="Question numbers"/);
+  assert.doesNotMatch(questionNumberSource, /Choose a number/);
   assert.match(startSource, /prepareWithQuestion\(drawnId/);
   assert.match(startSource, /type: "PREPARE_RECITER"/);
   assert.doesNotMatch(startSource, /type: "BEGIN_RECITER"/);

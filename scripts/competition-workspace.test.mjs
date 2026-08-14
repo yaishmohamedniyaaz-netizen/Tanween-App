@@ -75,8 +75,9 @@ test("the live handoff uses quiet status text and two focused screens", () => {
   assert.match(headerSource, /Test mode · Live/);
   assert.match(participantScreenSource, /Participant running order/);
   assert.match(participantScreenSource, /entry\.institution/);
-  assert.match(questionScreenSource, /Choose a number/);
-  assert.match(questionScreenSource, /Ask the reciter to choose one available number/);
+  assert.match(questionScreenSource, /aria-label="Question numbers"/);
+  assert.doesNotMatch(questionScreenSource, /Choose a number/);
+  assert.doesNotMatch(questionScreenSource, /Ask the reciter to choose one available number/);
 });
 
 test("a draw opens a locked, recoverable Prepared Mushaf before judging", () => {
@@ -85,6 +86,7 @@ test("a draw opens a locked, recoverable Prepared Mushaf before judging", () => 
   assert.match(appSource, /state\.activeSessionId \?\? state\.preparedRecitation\?\.id/);
   assert.match(preparedStripSource, /Change reciter/);
   assert.match(preparedStripSource, /Change question/);
+  assert.doesNotMatch(preparedStripSource, /drawCycle|cycle/);
   assert.match(preparedSidebarSource, /Prepared on this device/);
   assert.match(preparedSidebarSource, /Ready · begin judging/);
   assert.match(preparedSidebarSource, /This confirms only this judge device/);

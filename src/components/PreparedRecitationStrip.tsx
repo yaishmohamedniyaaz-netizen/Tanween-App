@@ -3,9 +3,7 @@ import type { PreparedRecitation } from "../types";
 function questionChoice(value: PreparedRecitation): string {
   const question = value.question;
   if (question.kind === "manual") return "External question";
-  const number = question.drawPosition ? `Number ${question.drawPosition}` : "Question";
-  const cycle = (question.drawCycle ?? 1) > 1 ? ` · cycle ${question.drawCycle}` : "";
-  return `${number}${cycle}`;
+  return question.drawPosition ? `Number ${question.drawPosition}` : "Question";
 }
 
 export function PreparedRecitationStrip({

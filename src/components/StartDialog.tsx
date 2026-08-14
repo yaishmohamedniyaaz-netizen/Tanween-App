@@ -363,11 +363,9 @@ export function StartDialog({
             <h2 id="reciter-start-title">
               {stage === "participant" ? "Select reciter" : "Choose a question"}
             </h2>
-            <p>
-              {stage === "participant"
-                ? "Select the next person in the running order."
-                : "The reciter chooses an available number."}
-            </p>
+            {stage === "participant" && (
+              <p>Select the next person in the running order.</p>
+            )}
           </div>
           <button
             type="button"
@@ -418,7 +416,6 @@ export function StartDialog({
               deck={deck}
               spentPositions={spentHere}
               drawnPosition={null}
-              cycle={deck ? deckCycle(deck) : latestDeck ? deckCycle(latestDeck) + 1 : 1}
               loading={
                 (!lookup && !questionLoadError) ||
                 (candidateIds.length > 0 && !deck)

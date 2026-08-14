@@ -13,6 +13,11 @@ const round2 = (value: number) => Math.round(value * 100) / 100;
 const BAR_MAX_WIDTH = 520;
 const BAR_MIN_WIDTH = 260;
 const BAR_MARGIN = 16;
+const CHIP_SIZE = 38;
+const CHIP_GAP = 6;
+const CHIP_COLUMNS = 11;
+const BAR_PADDING_X = 12;
+const BAR_BORDER = 1;
 
 interface Props {
   value: number;
@@ -35,6 +40,7 @@ export function MarkPicker({ value, max, step, marked, label, onChange }: Props)
   const barRef = useRef<HTMLDivElement>(null);
   const chipStripRef = useRef<HTMLDivElement>(null);
   const dragRef = useRef<{ moved: boolean; pointerId: number } | null>(null);
+  const previewRef = useRef<number | null>(null);
   const typedRef = useRef({ text: "", at: 0 });
   const [preview, setPreview] = useState<number | null>(null);
   const [open, setOpen] = useState(false);
@@ -47,6 +53,19 @@ export function MarkPicker({ value, max, step, marked, label, onChange }: Props)
     () => Array.from({ length: wholeMarks + 1 }, (_, mark) => mark),
     [wholeMarks],
   );
+  const preferredWidth = useMemo(() => {
+    const columns = Math.min(CHIP_COLUMNS, wholeChips.length);
+    return Math.min(
+      BAR_MAX_WIDTH,
+      Math.max(
+        BAR_MIN_WIDTH,
+        columns * CHIP_SIZE +
+          Math.max(0, columns - 1) * CHIP_GAP +
+          BAR_PADDING_X * 2 +
+          BAR_BORDER * 2,
+      ),
+    );
+  }, [wholeChips.length]);
 
   const clamp = useCallback(
     (next: number) => round2(Math.min(max, Math.max(0, Math.round(next / step) * step))),
@@ -55,6 +74,7 @@ export function MarkPicker({ value, max, step, marked, label, onChange }: Props)
 
   const commit = useCallback(
     (next: number) => {
+      previewRef.current = null;
       setPreview(null);
       onChange(clamp(next));
     },
@@ -64,6 +84,7 @@ export function MarkPicker({ value, max, step, marked, label, onChange }: Props)
   const close = useCallback(() => {
     setOpen(false);
     setPinned(false);
+    previewRef.current = null;
     setPreview(null);
   }, []);
 
@@ -73,7 +94,7 @@ export function MarkPicker({ value, max, step, marked, label, onChange }: Props)
     if (!rect) return;
     const width = Math.max(
       BAR_MIN_WIDTH,
-      Math.min(BAR_MAX_WIDTH, window.innerWidth - BAR_MARGIN * 2),
+      Math.min(preferredWidth, window.innerWidth - BAR_MARGIN * 2),
     );
     const left = Math.min(
       Math.max(BAR_MARGIN, rect.left + rect.width / 2 - width / 2),
@@ -83,7 +104,7 @@ export function MarkPicker({ value, max, step, marked, label, onChange }: Props)
     const below = window.innerHeight - rect.bottom - 10;
     const top = below < barHeight ? Math.max(8, rect.top - 10 - barHeight) : rect.bottom + 10;
     setAnchor({ top, left, width });
-  }, [open]);
+  }, [open, preferredWidth]);
 
   useEffect(() => {
     if (!open) return;
@@ -137,7 +158,9 @@ export function MarkPicker({ value, max, step, marked, label, onChange }: Props)
       const mark = Number(button.dataset.mark);
       const rect = button.getBoundingClientRect();
       const next = clientX - rect.left < rect.width / 2 ? Math.max(0, mark - 0.5) : mark;
-      setPreview(clamp(next));
+      const clamped = clamp(next);
+      previewRef.current = clamped;
+      setPreview(clamped);
       return true;
     },
     [clamp],
@@ -168,8 +191,8 @@ export function MarkPicker({ value, max, step, marked, label, onChange }: Props)
     const onUp = () => {
       const drag = dragRef.current;
       dragRef.current = null;
-      if (drag?.moved && preview !== null) {
-        commit(preview);
+      if (drag?.moved && previewRef.current !== null) {
+        commit(previewRef.current);
         setOpen(false);
         return;
       }
@@ -184,7 +207,7 @@ export function MarkPicker({ value, max, step, marked, label, onChange }: Props)
       window.removeEventListener("pointerup", onUp);
       window.removeEventListener("pointercancel", onUp);
     };
-  }, [commit, open, pinned, preview, previewChipAt]);
+  }, [commit, open, pinned, previewChipAt]);
 
   const onKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>) => {
     const jump = event.shiftKey ? step * 5 : step;
@@ -218,7 +241,7 @@ export function MarkPicker({ value, max, step, marked, label, onChange }: Props)
         aria-valuenow={shown}
         aria-valuetext={`${display} of ${max} marks${marked ? "" : ", not marked yet"}`}
         aria-expanded={open}
-        title="Press for the mark bar, or drag along it"
+        title={`Set ${label} marks`}
         onPointerDown={onPointerDown}
         onKeyDown={onKeyDown}
       >
@@ -232,13 +255,6 @@ export function MarkPicker({ value, max, step, marked, label, onChange }: Props)
             className={`mark-bar ${pinned ? "is-pinned" : ""}`}
             style={{ top: anchor.top, left: anchor.left, width: anchor.width }}
           >
-            <div className="mark-bar-head">
-              <span className="mark-bar-value t-num">{display}</span>
-              <span className="mark-bar-of t-num">/ {max}</span>
-              <span className="mark-bar-hint">
-                {pinned ? "Click a mark · drag across for the halves between" : "Drag, then let go"}
-              </span>
-            </div>
             <div
               ref={chipStripRef}
               className="chip-strip"
@@ -258,29 +274,28 @@ export function MarkPicker({ value, max, step, marked, label, onChange }: Props)
               onPointerUp={() => {
                 if (!pinned) return;
                 dragRef.current = null;
-                commit(preview ?? value);
+                commit(previewRef.current ?? value);
                 close();
               }}
               onPointerCancel={() => {
                 if (!pinned || !dragRef.current) return;
                 dragRef.current = null;
-                commit(preview ?? value);
+                commit(previewRef.current ?? value);
                 close();
               }}
             >
               {wholeChips.map((mark) => {
                 const exact = Math.abs(mark - shown) < 0.001;
                 const half = Math.abs(mark - 0.5 - shown) < 0.001;
-                const filled = !exact && !half && mark < shown;
                 return (
                   <button
                     key={mark}
                     type="button"
                     role="radio"
                     aria-checked={exact || half}
-                    aria-label={`${mark} marks`}
+                    aria-label={`${half ? mark - 0.5 : mark} marks`}
                     data-mark={mark}
-                    className={`${half ? "is-half" : ""} ${filled ? "is-filled" : ""}`}
+                    className={half ? "is-half" : ""}
                   >
                     <span className="t-num">{mark}</span>
                   </button>

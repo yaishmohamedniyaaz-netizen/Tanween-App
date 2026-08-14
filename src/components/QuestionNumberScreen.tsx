@@ -14,8 +14,22 @@ function reciterContext(
     participant.muqarrar === "feshey-kolhu"
       ? "Starting side"
       : "Ending side";
-  return [participant.institution, division.name, category, side]
-    .filter(Boolean)
+  const divisionIncludesCategory = division.name
+    .toLocaleLowerCase()
+    .includes(category.toLocaleLowerCase());
+  return [
+    participant.institution,
+    division.name,
+    divisionIncludesCategory ? null : category,
+    side,
+  ]
+    .filter((value): value is string => Boolean(value))
+    .filter(
+      (value, index, values) =>
+        values.findIndex(
+          (candidate) => candidate.trim().toLowerCase() === value.trim().toLowerCase(),
+        ) === index,
+    )
     .join(" · ");
 }
 
@@ -25,7 +39,6 @@ export function QuestionNumberScreen({
   deck,
   spentPositions,
   drawnPosition,
-  cycle,
   loading,
   loadFailed,
   allowManual,
@@ -39,7 +52,6 @@ export function QuestionNumberScreen({
   deck: QuestionDeck | null;
   spentPositions: Set<number>;
   drawnPosition: number | null;
-  cycle: number;
   loading: boolean;
   loadFailed: boolean;
   allowManual: boolean;
@@ -73,14 +85,6 @@ export function QuestionNumberScreen({
         </div>
       ) : participant && division ? (
         <>
-          <div className="question-board-heading">
-            <div>
-              <h3>Choose a number</h3>
-              {cycle > 1 && <span>Cycle {cycle}</span>}
-            </div>
-            <p>Ask the reciter to choose one available number.</p>
-          </div>
-
           <div className="draw-board" role="group" aria-label="Question numbers">
             {deck?.tiles.map((tile) => {
               const spent = spentPositions.has(tile.position);
@@ -126,10 +130,6 @@ export function QuestionNumberScreen({
               onClick={onUseManual}
             >
               <strong>Use an external question</strong>
-              <small>
-                Confirm that the printed question matches this division and
-                muqarrar.
-              </small>
               <Icon name="chevron" size={14} />
             </button>
           )}

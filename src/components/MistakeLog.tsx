@@ -149,39 +149,47 @@ export function MistakeLog() {
                   <div className="log-expand">
                     <div className="log-expand-inner">
                       <div className="log-detail-line">
-                        <span className="log-kalimah-word" dir="rtl" lang="ar">
-                          {mistake.wordText || mistake.glyph}
+                        <span className="log-kalimah">
+                          <span className="log-kalimah-word" dir="rtl" lang="ar">
+                            {mistake.wordText || mistake.glyph}
+                          </span>
+                          <span className="log-kalimah-ref t-num">{reference}</span>
                         </span>
-                        <span className="log-kalimah-ref t-num">{reference}</span>
-                        <button
-                          type="button"
-                          className="step-btn"
-                          aria-label="decrease deduction"
-                          onClick={() =>
-                            dispatch({
-                              type: "SET_MISTAKE_AMOUNT",
-                              id: mistake.id,
-                              amount: mistake.amount - 0.5,
-                            })
-                          }
+                        <span
+                          className="log-adjust"
+                          role="group"
+                          aria-label="Deduction amount"
                         >
-                          <Icon name="minus" size={12} />
-                        </button>
-                        <span className="step-val t-num">−{mistake.amount}</span>
-                        <button
-                          type="button"
-                          className="step-btn"
-                          aria-label="increase deduction"
-                          onClick={() =>
-                            dispatch({
-                              type: "SET_MISTAKE_AMOUNT",
-                              id: mistake.id,
-                              amount: mistake.amount + 0.5,
-                            })
-                          }
-                        >
-                          <Icon name="plus" size={12} />
-                        </button>
+                          <button
+                            type="button"
+                            className="step-btn"
+                            aria-label="decrease deduction"
+                            onClick={() =>
+                              dispatch({
+                                type: "SET_MISTAKE_AMOUNT",
+                                id: mistake.id,
+                                amount: mistake.amount - 0.5,
+                              })
+                            }
+                          >
+                            <Icon name="minus" size={10} />
+                          </button>
+                          <span className="step-val t-num">−{mistake.amount}</span>
+                          <button
+                            type="button"
+                            className="step-btn"
+                            aria-label="increase deduction"
+                            onClick={() =>
+                              dispatch({
+                                type: "SET_MISTAKE_AMOUNT",
+                                id: mistake.id,
+                                amount: mistake.amount + 0.5,
+                              })
+                            }
+                          >
+                            <Icon name="plus" size={10} />
+                          </button>
+                        </span>
                         <button
                           type="button"
                           className="log-undo"

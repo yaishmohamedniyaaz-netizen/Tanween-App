@@ -50,10 +50,7 @@ function ImpressionRow({ category }: { category: CategoryId }) {
   return (
     <div className={`sc-row sc-row-impression cat-${category} ${marked ? "" : "is-pending"}`}>
       <span className="sc-dot" aria-hidden="true" />
-      <span className="sc-name">
-        {label}
-        {!marked && <small className="sc-pending">Not marked yet</small>}
-      </span>
+      <span className="sc-name">{label}</span>
       <span className={`sc-deducted t-num ${deducted === 0 ? "is-zero" : ""}`}>
         {deducted === 0 ? "—" : `−${deducted}`}
       </span>
@@ -68,7 +65,7 @@ function ImpressionRow({ category }: { category: CategoryId }) {
       <input
         className="sc-reason"
         value={note}
-        placeholder={`Why these ${label} marks? (optional)`}
+        placeholder="Reason (optional)"
         aria-label={`${label} reason`}
         onChange={(event) =>
           dispatch({
