@@ -121,7 +121,7 @@ export function downloadRecordsCSV(
     "participant_name",
     "age_group",
     "participant_category",
-    "muqarrar",
+    "muqarrar_start",
     "phone_number",
     "institution",
     "date",

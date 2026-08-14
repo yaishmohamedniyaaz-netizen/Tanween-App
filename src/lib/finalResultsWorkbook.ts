@@ -12,7 +12,7 @@ const LEADING_HEADERS = [
   "Name",
   "Age Group",
   "Category",
-  "Muqarrar",
+  "Muqarrar start",
   "Phone Number",
   "Institution",
 ] as const;

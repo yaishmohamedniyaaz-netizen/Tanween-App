@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   createBlankRosterDraftRow,
   createRosterDraftFromRoster,
@@ -13,7 +13,7 @@ import {
   type RosterDraftField,
 } from "../lib/roster";
 import { divisionLabel } from "../lib/participantPresentation";
-import { MUQARRAR_LABELS, normalizeMuqarrarSide } from "../lib/participants";
+import { normalizeMuqarrarSide } from "../lib/participants";
 import { useJudging } from "../state/store";
 import type { RosterDraft, RosterDraftRow } from "../types";
 import { Icon } from "./Icon";
@@ -22,10 +22,10 @@ const COLUMN_OPTIONS: Array<{ value: RosterColumnKey; label: string }> = [
   { value: "ignore", label: "Ignore column" },
   { value: "number", label: "Participant number" },
   { value: "name", label: "Name" },
-  { value: "division", label: "Division" },
+  { value: "division", label: "Category" },
   { value: "ageGroup", label: "Age group (older template)" },
-  { value: "category", label: "Category (older template)" },
-  { value: "muqarrar", label: "Muqarrar" },
+  { value: "category", label: "Recitation type (older template)" },
+  { value: "muqarrar", label: "Muqarrar start" },
   { value: "institution", label: "Institution" },
   { value: "phone", label: "Phone number" },
 ];
@@ -33,6 +33,8 @@ const COLUMN_OPTIONS: Array<{ value: RosterColumnKey; label: string }> = [
 function draftWithUpdate(draft: RosterDraft, patch: Partial<RosterDraft>): RosterDraft {
   return { ...draft, ...patch, updatedAt: Date.now() };
 }
+
+const CATEGORY_REQUIRED_ID = "category-required";
 
 export function ParticipantRosterEditor({
   onBack,
@@ -63,6 +65,34 @@ export function ParticipantRosterEditor({
     () => rosterDraftComparison(state.roster, validation.entries),
     [state.roster, validation.entries],
   );
+  const categoryGroups = useMemo(() => {
+    const groups = new Map<string, {
+      id: string;
+      label: string;
+      rows: typeof validation.rows;
+    }>();
+    for (const validatedRow of validation.rows) {
+      const division = state.competition.divisions.find(
+        (candidate) => candidate.id === validatedRow.row.divisionId,
+      );
+      const id = division?.id ?? CATEGORY_REQUIRED_ID;
+      let group = groups.get(id);
+      if (!group) {
+        group = {
+          id,
+          label: division ? divisionLabel(division) : "Category required",
+          rows: [],
+        };
+        groups.set(id, group);
+      }
+      group.rows.push(validatedRow);
+    }
+    const ordered = [...groups.values()];
+    const required = ordered.find((group) => group.id === CATEGORY_REQUIRED_ID);
+    return required
+      ? [required, ...ordered.filter((group) => group.id !== CATEGORY_REQUIRED_ID)]
+      : ordered;
+  }, [state.competition.divisions, validation.rows]);
   const fileRef = useRef<HTMLInputElement>(null);
   const [pasteOpen, setPasteOpen] = useState(false);
   const [pasteText, setPasteText] = useState("");
@@ -76,6 +106,27 @@ export function ParticipantRosterEditor({
   const [bulkDivision, setBulkDivision] = useState("");
   const [bulkMuqarrar, setBulkMuqarrar] = useState("");
   const [bulkInstitution, setBulkInstitution] = useState("");
+  const [expandedCategoryIds, setExpandedCategoryIds] = useState<Set<string>>(
+    () => new Set(),
+  );
+
+  useEffect(() => {
+    setExpandedCategoryIds((current) => {
+      const next = new Set(current);
+      for (const group of categoryGroups) {
+        if (
+          group.id === CATEGORY_REQUIRED_ID ||
+          group.rows.some(({ issues }) => issues.some((issue) => issue.level === "error"))
+        ) {
+          next.add(group.id);
+        }
+      }
+      if (!next.size && categoryGroups[0]) next.add(categoryGroups[0].id);
+      const unchanged =
+        next.size === current.size && [...next].every((id) => current.has(id));
+      return unchanged ? current : next;
+    });
+  }, [categoryGroups]);
 
   const save = (next: RosterDraft) => {
     dispatch({ type: "SET_ROSTER_DRAFT", draft: draftWithUpdate(next, {}) });
@@ -111,12 +162,31 @@ export function ParticipantRosterEditor({
     save({ ...draft, rows });
   };
 
-  const moveRow = (index: number, offset: -1 | 1) => {
-    const target = index + offset;
-    if (target < 0 || target >= draft.rows.length) return;
+  const moveRowWithinCategory = (
+    categoryRows: typeof validation.rows,
+    position: number,
+    offset: -1 | 1,
+  ) => {
+    const targetPosition = position + offset;
+    if (targetPosition < 0 || targetPosition >= categoryRows.length) return;
+    const index = draft.rows.findIndex((row) => row.id === categoryRows[position].row.id);
+    const target = draft.rows.findIndex(
+      (row) => row.id === categoryRows[targetPosition].row.id,
+    );
+    if (index < 0 || target < 0) return;
     const rows = [...draft.rows];
     [rows[index], rows[target]] = [rows[target], rows[index]];
     save({ ...draft, rows });
+  };
+
+  const toggleCategory = (id: string) => {
+    if (id === CATEGORY_REQUIRED_ID) return;
+    setExpandedCategoryIds((current) => {
+      const next = new Set(current);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
   };
 
   const removeRow = (index: number) => {
@@ -315,18 +385,40 @@ export function ParticipantRosterEditor({
         <>
           <section className="roster-bulk-bar" aria-label="Fill empty participant fields">
             <div><strong>Fill empty cells</strong><span>Applies defaults without replacing anything already entered.</span></div>
-            <select aria-label="Default division" value={bulkDivision} onChange={(event) => setBulkDivision(event.target.value)}><option value="">Division</option>{state.competition.divisions.map((division) => <option value={division.id} key={division.id}>{divisionLabel(division)}</option>)}</select>
-            <select aria-label="Default Muqarrar" value={bulkMuqarrar} onChange={(event) => setBulkMuqarrar(event.target.value)}><option value="">Muqarrar</option><option value="feshey-kolhu">Feshey kolhu</option><option value="nimey-kolhu">Nimey kolhu</option></select>
+            <select aria-label="Default category" value={bulkDivision} onChange={(event) => setBulkDivision(event.target.value)}><option value="">Category</option>{state.competition.divisions.map((division) => <option value={division.id} key={division.id}>{divisionLabel(division)}</option>)}</select>
+            <select aria-label="Default Muqarrar start" value={bulkMuqarrar} onChange={(event) => setBulkMuqarrar(event.target.value)}><option value="">Muqarrar start</option><option value="feshey-kolhu">Feshey kolhu</option><option value="nimey-kolhu">Nimey kolhu</option></select>
             <input aria-label="Default institution" value={bulkInstitution} placeholder="Institution" onChange={(event) => setBulkInstitution(event.target.value)} />
             <button type="button" className="btn-ghost" onClick={fillEmpty}>Fill empty</button>
           </section>
 
-          <section className={`roster-grid-wrap ${draft.numberingMode === "automatic" ? "is-automatic" : ""}`} aria-label="Editable participant list">
+          <div className="roster-category-list-head">
+            <div><strong>Categories</strong><span>Keep only the sections you need open.</span></div>
+            <div>
+              <button type="button" onClick={() => setExpandedCategoryIds(new Set(categoryGroups.map((group) => group.id)))}>Expand all</button>
+              <button type="button" onClick={() => setExpandedCategoryIds(new Set(categoryGroups.filter((group) => group.id === CATEGORY_REQUIRED_ID).map((group) => group.id)))}>Collapse all</button>
+            </div>
+          </div>
+          <section className={`roster-grid-wrap ${draft.numberingMode === "automatic" ? "is-automatic" : ""}`} aria-label="Participants by category">
             <div className="roster-grid-head" role="row">
-              <span>{draft.numberingMode === "automatic" ? "No." : "Number"}</span><span>Name</span><span>Division</span><span>Muqarrar</span><span>Institution</span><span>Phone</span><span>Row</span>
+              <span>{draft.numberingMode === "automatic" ? "No." : "Number"}</span><span>Name</span><span>Category</span><span>Muqarrar start</span><span>Institution</span><span>Phone</span><span>Row</span>
             </div>
             <div className="roster-grid-body" role="rowgroup">
-              {validation.rows.map(({ row, number }, index) => {
+              {categoryGroups.map((group) => {
+                const errorCount = group.rows.reduce((count, { issues }) => count + issues.filter((issue) => issue.level === "error").length, 0);
+                const warningCount = group.rows.reduce((count, { issues }) => count + issues.filter((issue) => issue.level === "warning").length, 0);
+                const expanded = group.id === CATEGORY_REQUIRED_ID || expandedCategoryIds.has(group.id);
+                const panelId = `roster-category-${group.id.replace(/[^a-zA-Z0-9_-]/g, "-")}`;
+                return (
+                  <section className={`roster-category-group ${expanded ? "is-expanded" : ""} ${errorCount ? "has-errors" : ""}`} key={group.id}>
+                    <h2>
+                      <button type="button" className="roster-category-toggle" aria-expanded={expanded} aria-controls={panelId} onClick={() => toggleCategory(group.id)}>
+                        <span className="roster-category-title"><Icon name="chevron" size={14} /><strong>{group.label}</strong></span>
+                        <span className="roster-category-meta"><b>{group.rows.length}</b> participant{group.rows.length === 1 ? "" : "s"}{errorCount > 0 && <em>{errorCount} error{errorCount === 1 ? "" : "s"}</em>}{warningCount > 0 && <i>{warningCount} warning{warningCount === 1 ? "" : "s"}</i>}</span>
+                      </button>
+                    </h2>
+                    {expanded && <div id={panelId} className="roster-category-rows">
+              {group.rows.map(({ row, number }, categoryPosition) => {
+                const index = draft.rows.findIndex((candidate) => candidate.id === row.id);
                 const invalidMuqarrar = row.muqarrar && !normalizeMuqarrarSide(row.muqarrar);
                 return (
                   <article className="roster-edit-row" role="row" data-roster-row={row.id} key={row.id}>
@@ -338,19 +430,19 @@ export function ParticipantRosterEditor({
                       <input name="name" aria-label={`Participant ${index + 1} name`} aria-invalid={Boolean(firstIssueFor(row.id, "name"))} data-roster-field-error={firstIssueFor(row.id, "name")?.level === "error" || undefined} value={row.name} placeholder="Participant name" onChange={(event) => patchRow(row.id, { name: event.target.value })} />
                       {firstIssueFor(row.id, "name") && <small>{firstIssueFor(row.id, "name")?.message}</small>}
                     </div>
-                    <div className="roster-edit-cell" data-label="Division">
-                      <select aria-label={`Participant ${index + 1} division`} aria-invalid={Boolean(firstIssueFor(row.id, "divisionId"))} data-roster-field-error={firstIssueFor(row.id, "divisionId")?.level === "error" || undefined} value={row.divisionId} onChange={(event) => patchRow(row.id, { divisionId: event.target.value, legacyAgeGroup: undefined, legacyCategory: undefined })}>
-                        <option value="">Choose division</option>
+                    <div className="roster-edit-cell" data-label="Category">
+                      <select aria-label={`Participant ${index + 1} category`} aria-invalid={Boolean(firstIssueFor(row.id, "divisionId"))} data-roster-field-error={firstIssueFor(row.id, "divisionId")?.level === "error" || undefined} value={row.divisionId} onChange={(event) => patchRow(row.id, { divisionId: event.target.value, legacyAgeGroup: undefined, legacyCategory: undefined })}>
+                        <option value="">Choose category</option>
                         {state.competition.divisions.map((division) => <option value={division.id} key={division.id}>{divisionLabel(division)}</option>)}
                       </select>
                       {firstIssueFor(row.id, "divisionId") && <small>{firstIssueFor(row.id, "divisionId")?.message}</small>}
                     </div>
-                    <div className="roster-edit-cell" data-label="Muqarrar">
-                      <select aria-label={`Participant ${index + 1} Muqarrar`} aria-invalid={Boolean(firstIssueFor(row.id, "muqarrar"))} data-roster-field-error={firstIssueFor(row.id, "muqarrar")?.level === "error" || undefined} value={row.muqarrar} onChange={(event) => patchRow(row.id, { muqarrar: event.target.value })}>
-                        <option value="">Choose side</option>
-                        {invalidMuqarrar && <option value={row.muqarrar}>{row.muqarrar} · check</option>}
-                        {Object.entries(MUQARRAR_LABELS).map(([value, label]) => <option value={value} key={value}>{label.replace(" · Starting side", "").replace(" · Ending side", "")}</option>)}
-                      </select>
+                    <div className="roster-edit-cell" data-label="Muqarrar start">
+                      <div className="roster-side-choice" role="radiogroup" aria-label={`Participant ${index + 1} Muqarrar start`} aria-invalid={Boolean(firstIssueFor(row.id, "muqarrar"))}>
+                        <button type="button" role="radio" aria-checked={row.muqarrar === "feshey-kolhu"} className={row.muqarrar === "feshey-kolhu" ? "is-active" : ""} data-roster-field-error={firstIssueFor(row.id, "muqarrar")?.level === "error" || undefined} onClick={() => patchRow(row.id, { muqarrar: "feshey-kolhu" })}>Feshey kolhu</button>
+                        <button type="button" role="radio" aria-checked={row.muqarrar === "nimey-kolhu"} className={row.muqarrar === "nimey-kolhu" ? "is-active" : ""} onClick={() => patchRow(row.id, { muqarrar: "nimey-kolhu" })}>Nimey kolhu</button>
+                      </div>
+                      {invalidMuqarrar && <small>Imported value: {row.muqarrar}</small>}
                       {firstIssueFor(row.id, "muqarrar") && <small>{firstIssueFor(row.id, "muqarrar")?.message}</small>}
                     </div>
                     <div className="roster-edit-cell" data-label="Institution">
@@ -360,12 +452,16 @@ export function ParticipantRosterEditor({
                       <input aria-label={`Participant ${index + 1} phone`} inputMode="tel" value={row.phone} placeholder="Optional" onChange={(event) => patchRow(row.id, { phone: event.target.value })} />
                     </div>
                     <div className="roster-row-actions" data-label="Row actions">
-                      <button type="button" disabled={index === 0} onClick={() => moveRow(index, -1)} aria-label={`Move ${row.name || `participant ${index + 1}`} up`}>↑</button>
-                      <button type="button" disabled={index === draft.rows.length - 1} onClick={() => moveRow(index, 1)} aria-label={`Move ${row.name || `participant ${index + 1}`} down`}>↓</button>
+                      <button type="button" disabled={categoryPosition === 0} onClick={() => moveRowWithinCategory(group.rows, categoryPosition, -1)} aria-label={`Move ${row.name || `participant ${index + 1}`} up in category`}>↑</button>
+                      <button type="button" disabled={categoryPosition === group.rows.length - 1} onClick={() => moveRowWithinCategory(group.rows, categoryPosition, 1)} aria-label={`Move ${row.name || `participant ${index + 1}`} down in category`}>↓</button>
                       <button type="button" onClick={() => duplicateRow(index)} aria-label={`Duplicate ${row.name || `participant ${index + 1}`}`}><Icon name="plus" size={14} /></button>
                       <button type="button" className="is-danger" onClick={() => removeRow(index)} aria-label={`Delete ${row.name || `participant ${index + 1}`}`}><Icon name="trash" size={14} /></button>
                     </div>
                   </article>
+                );
+              })}
+                    </div>}
+                  </section>
                 );
               })}
             </div>
@@ -387,7 +483,7 @@ export function ParticipantRosterEditor({
         <div className="dialog-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) setPasteOpen(false); }}>
           <section className="roster-dialog roster-paste-dialog" role="dialog" aria-modal="true" aria-labelledby="roster-paste-title">
             <div className="roster-dialog-head"><div><span>Spreadsheet shortcut</span><h2 id="roster-paste-title">Paste participant rows</h2><p>Copy cells from Excel or Google Sheets, then paste them below.</p></div><button type="button" onClick={() => setPasteOpen(false)} aria-label="Close">×</button></div>
-            <textarea autoFocus value={pasteText} placeholder={'Name\tDivision\tMuqarrar\tInstitution\tPhone Number'} onPaste={(event) => { if (!event.currentTarget.value) setFirstRowIsHeader(true); }} onChange={(event) => { setPasteText(event.target.value); setPasteMapping([]); }} />
+            <textarea autoFocus value={pasteText} placeholder={'Name\tCategory\tMuqarrar start\tInstitution\tPhone Number'} onPaste={(event) => { if (!event.currentTarget.value) setFirstRowIsHeader(true); }} onChange={(event) => { setPasteText(event.target.value); setPasteMapping([]); }} />
             {parsedPaste.grid.length > 0 && (
               <div className="roster-paste-mapping">
                 <div><strong>Match columns</strong><label><input type="checkbox" checked={firstRowIsHeader} onChange={(event) => setFirstRowIsHeader(event.target.checked)} /> First row contains headings</label></div>

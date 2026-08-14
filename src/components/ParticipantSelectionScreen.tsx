@@ -48,13 +48,22 @@ export function ParticipantSelectionScreen({
   useEffect(() => {
     const groupId = activeGroup?.id;
     if (!groupId) return;
-    setExpandedGroupIds((current) => {
-      if (current.has(groupId)) return current;
-      const next = new Set(current);
-      next.add(groupId);
-      return next;
-    });
+    setExpandedGroupIds(new Set([groupId]));
   }, [activeGroup?.id]);
+
+  useEffect(() => {
+    setExpandedGroupIds((current) => {
+      const next = new Set(
+        [...current].filter((id) => {
+          const group = groups.find((candidate) => candidate.id === id);
+          return group && (group.waiting > 0 || id === activeGroup?.id);
+        }),
+      );
+      return next.size === current.size && [...next].every((id) => current.has(id))
+        ? current
+        : next;
+    });
+  }, [activeGroup?.id, groups]);
 
   const toggleGroup = (groupId: string) => {
     setExpandedGroupIds((current) => {
@@ -81,7 +90,7 @@ export function ParticipantSelectionScreen({
           <span className="reciter-queue-division">
             {activeGroup.division
               ? divisionLabel(activeGroup.division)
-              : "No matching division"}
+              : "Category required"}
           </span>
         )}
       </div>
@@ -158,13 +167,15 @@ export function ParticipantSelectionScreen({
                     className="queue-group-toggle"
                     aria-expanded={expanded}
                     aria-controls={panelId}
+                    aria-disabled={searching || undefined}
+                    disabled={searching}
                     onClick={() => toggleGroup(group.id)}
                   >
                     <span className="queue-group-title">
                       <Icon name="chevron" size={13} />
                       {group.division
                         ? divisionLabel(group.division)
-                        : "No matching division"}
+                        : "Category required"}
                     </span>
                     <small>
                       {searching && group.matchCount !== undefined

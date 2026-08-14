@@ -53,7 +53,7 @@ const TASKS: Array<{
   hint: string;
 }> = [
   { id: "details", group: "Competition", label: "Competition details", hint: "Name and edition" },
-  { id: "divisions", group: "Competition", label: "Divisions and portions", hint: "Age groups and Quran ranges" },
+  { id: "divisions", group: "Competition", label: "Categories and portions", hint: "Age groups, recitation types and Quran ranges" },
   { id: "participants", group: "Competition", label: "Participants", hint: "Import and verify the roster" },
   { id: "marks", group: "Judging", label: "Marks and criteria", hint: "Criteria in use, marks and steps" },
   { id: "panel", group: "Judging", label: "Judging panel", hint: "Give every criterion an owner" },
@@ -219,7 +219,7 @@ export function CompetitionSetup({ onBack }: { onBack: () => void }) {
       ...state.competition.divisions,
       {
         id,
-        name: `Division ${state.competition.divisions.length + 1}`,
+        name: `Category ${state.competition.divisions.length + 1}`,
         ageGroup: "",
         category: "nubalaa",
         quranPortion: { kind: "full-quran" },
@@ -387,14 +387,14 @@ export function CompetitionSetup({ onBack }: { onBack: () => void }) {
         <section className="setup-work-card" aria-labelledby="setup-divisions-title">
           <div className="setup-work-head">
             <span className="setup-step">Competition</span>
-            <h2 id="setup-divisions-title">Divisions and Quran portions</h2>
-            <p>Each division combines an age group, recitation category and eligible Quran range.</p>
+            <h2 id="setup-divisions-title">Categories and Quran portions</h2>
+            <p>Each participant category combines an age group, recitation type and eligible Quran range.</p>
           </div>
           <div className="division-list">
             {state.competition.divisions.map((division, index) => (
               <article className="division-card" key={division.id}>
                 <div className="division-card-head">
-                  <strong>Division {index + 1}</strong>
+                  <strong>Category {index + 1}</strong>
                   {editable && (
                     <button type="button" className="btn-ghost" onClick={() => updateDivisions(state.competition.divisions.filter((item) => item.id !== division.id))}>
                       Remove
@@ -403,7 +403,7 @@ export function CompetitionSetup({ onBack }: { onBack: () => void }) {
                 </div>
                 <div className="division-fields">
                   <label>
-                    <span>Division name</span>
+                    <span>Category name</span>
                     <input value={division.name} disabled={!editable} onChange={(event) => patchDivision(division.id, { name: event.target.value })} />
                   </label>
                   <label>
@@ -411,7 +411,7 @@ export function CompetitionSetup({ onBack }: { onBack: () => void }) {
                     <input value={division.ageGroup} disabled={!editable} placeholder="For example, Under 14" onChange={(event) => patchDivision(division.id, { ageGroup: event.target.value })} />
                   </label>
                   <label>
-                    <span>Category</span>
+                    <span>Recitation type</span>
                     <select value={division.category} disabled={!editable} onChange={(event) => patchDivision(division.id, { category: event.target.value as "baliagen" | "nubalaa" })}>
                       <option value="nubalaa">Hifz</option>
                       <option value="baliagen">Baliagen · Tarteel / reading</option>
@@ -457,10 +457,10 @@ export function CompetitionSetup({ onBack }: { onBack: () => void }) {
           </div>
           {editable && (
             <button type="button" className="add-judge" onClick={addDivision}>
-              <Icon name="plus" size={13} /> Add division
+              <Icon name="plus" size={13} /> Add category
             </button>
           )}
-          {!state.competition.divisions.length && <p className="setup-empty-note">Add the first division to continue.</p>}
+          {!state.competition.divisions.length && <p className="setup-empty-note">Add the first category to continue.</p>}
         </section>
       );
     }
@@ -663,7 +663,7 @@ export function CompetitionSetup({ onBack }: { onBack: () => void }) {
         <div className="setup-work-head"><span className="setup-step">Launch</span><h2 id="setup-review-title">Review and start {state.competition.isSample && <SampleBadge compact />}</h2><p>{state.competition.isSample ? "This is fictional test data. It stays separate from official exports." : "The competition is not official until this screen is confirmed."}</p></div>
         <div className="review-summary-list">
           <button type="button" onClick={() => setActiveTask("details")}><span>Competition</span><strong>{state.competition.name || "Not set"}</strong><small>{state.competition.edition || "Edition missing"}</small><em>Change</em></button>
-          <button type="button" onClick={() => setActiveTask("divisions")}><span>Divisions</span><strong>{state.competition.divisions.length || "None"}</strong><small>{state.competition.divisions.map((division) => `${division.name || "Unnamed"} · ${portionLabel(division.quranPortion)}`).join("; ") || "Add a division"}</small><em>Change</em></button>
+          <button type="button" onClick={() => setActiveTask("divisions")}><span>Categories</span><strong>{state.competition.divisions.length || "None"}</strong><small>{state.competition.divisions.map((division) => `${division.name || "Unnamed"} · ${portionLabel(division.quranPortion)}`).join("; ") || "Add a category"}</small><em>Change</em></button>
           <button type="button" onClick={() => setActiveTask("participants")}><span>Participants</span><strong>{state.roster.length || "None"}</strong><small>{state.roster.length ? "Validated roster loaded" : "Upload the participant roster"}</small><em>Change</em></button>
           <button type="button" onClick={() => setActiveTask("panel")}><span>Judging panel</span><strong>{state.panel.seats.length} judge{state.panel.seats.length === 1 ? "" : "s"}</strong><small>{state.panel.seats.map((seat) => `${seat.name || seat.label}: ${categoryListLabel(seat.categories)}`).join("; ")}</small><em>Change</em></button>
           <button type="button" onClick={() => setActiveTask("marks")}><span>Marks</span><strong>{enabledMarksTotal(state.config)} / {TOTAL_MARKS}</strong><small>{categoryListLabel(judgedCategories)}</small><em>Change</em></button>
@@ -678,7 +678,7 @@ export function CompetitionSetup({ onBack }: { onBack: () => void }) {
         )}
         {state.competition.status === "draft" && (
           <div className="official-start-block">
-            <div><strong>{state.competition.isSample ? "Start test session" : "Start officially"}</strong><span>This freezes the roster, divisions, panel, marks, question rules and Mushaf data version.</span></div>
+            <div><strong>{state.competition.isSample ? "Start test session" : "Start officially"}</strong><span>This freezes the roster, categories, panel, marks, question rules and Mushaf data version.</span></div>
             <button type="button" className="btn-primary" disabled={!readiness.ready} onClick={() => { dispatch({ type: "START_COMPETITION" }); onBack(); }}>{state.competition.isSample ? "Start sample" : "Start competition"}</button>
           </div>
         )}
@@ -718,7 +718,7 @@ export function CompetitionSetup({ onBack }: { onBack: () => void }) {
           {state.competition.isSample && <SampleBadge />}
           <span>
             <strong>{state.competition.isSample ? "Safe test competition loaded" : "Need test data?"}</strong>
-            <small>{state.competition.isSample ? "All names and phone numbers are fictional. Sample records stay out of official CSV exports." : "Load a ready-to-run competition with four divisions and eight fictional participants."}</small>
+            <small>{state.competition.isSample ? "All names and phone numbers are fictional. Sample records stay out of official CSV exports." : "Load a ready-to-run competition with four categories and eight fictional participants."}</small>
           </span>
         </div>
         {state.competition.isSample ? (

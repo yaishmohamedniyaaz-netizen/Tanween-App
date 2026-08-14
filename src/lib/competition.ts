@@ -214,11 +214,11 @@ export function competitionReadiness(input: {
     issues.push({ section: "competition", message: "Add the competition name and edition." });
   }
   if (!input.competition.divisions.length) {
-    issues.push({ section: "divisions", message: "Add at least one competition division." });
+    issues.push({ section: "divisions", message: "Add at least one participant category." });
   }
   input.competition.divisions.forEach((division) => {
     if (!division.name || !division.ageGroup) {
-      issues.push({ section: "divisions", message: "Every division needs a name and age group." });
+      issues.push({ section: "divisions", message: "Every category needs a name and age group." });
     }
   });
   const divisionKeys = new Set<string>();
@@ -227,7 +227,7 @@ export function competitionReadiness(input: {
     if (divisionKeys.has(key)) {
       issues.push({
         section: "divisions",
-        message: `Only one ${division.ageGroup} ${division.category === "nubalaa" ? "Hifz" : "Baliagen"} division can be active.`,
+        message: `Only one ${division.ageGroup} ${division.category === "nubalaa" ? "Hifz" : "Baliagen"} category can be active.`,
       });
     }
     divisionKeys.add(key);
@@ -276,7 +276,7 @@ export function competitionReadiness(input: {
     ) {
       issues.push({
         section: "participants",
-        message: `${participant.name || `Participant ${participant.number}`} does not match an active age-group and category division.`,
+        message: `${participant.name || `Participant ${participant.number}`} does not match an active participant category.`,
       });
     }
     if (participant.number && rosterNumbers.has(participant.number)) {

@@ -1498,6 +1498,174 @@ textarea:focus-visible {
   background: var(--surface);
   box-shadow: var(--shadow-rest);
 }
+.roster-category-list-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 16px;
+  padding-inline: 2px;
+}
+.roster-category-list-head > div:first-child {
+  display: grid;
+  gap: 2px;
+}
+.roster-category-list-head strong {
+  font-size: 11px;
+  font-weight: 620;
+}
+.roster-category-list-head span {
+  color: var(--ink-3);
+  font-size: 9.5px;
+}
+.roster-category-list-head > div:last-child {
+  display: flex;
+  gap: 5px;
+}
+.roster-category-list-head button {
+  min-height: 32px;
+  padding-inline: 10px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: transparent;
+  color: var(--ink-2);
+  font-size: 9.5px;
+}
+.roster-category-list-head button:hover {
+  border-color: var(--line-2);
+  background: var(--surface);
+  color: var(--ink);
+}
+.roster-category-group {
+  min-width: 1220px;
+  border-bottom: 1px solid var(--line);
+}
+.roster-category-group:last-child {
+  border-bottom: 0;
+}
+.roster-category-group h2 {
+  margin: 0;
+}
+.roster-category-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+  min-height: 48px;
+  padding: 8px 14px;
+  border: 0;
+  border-bottom: 1px solid transparent;
+  background: color-mix(in srgb, var(--surface) 72%, var(--bg));
+  color: var(--ink);
+  text-align: left;
+}
+.roster-category-group.is-expanded .roster-category-toggle {
+  border-bottom-color: var(--line);
+}
+.roster-category-toggle:hover {
+  background: var(--bg);
+}
+.roster-category-toggle:focus-visible {
+  position: relative;
+  z-index: 1;
+  outline: none;
+  box-shadow: inset 0 0 0 3px var(--ring);
+}
+.roster-category-title,
+.roster-category-meta {
+  display: inline-flex;
+  align-items: center;
+  min-width: 0;
+}
+.roster-category-title {
+  gap: 8px;
+}
+.roster-category-title svg {
+  flex: 0 0 auto;
+  color: var(--ink-3);
+  transform: rotate(0deg);
+  transition: transform 140ms ease;
+}
+.roster-category-group.is-expanded .roster-category-title svg {
+  transform: rotate(90deg);
+}
+.roster-category-title strong {
+  overflow: hidden;
+  font-size: 11.5px;
+  font-weight: 620;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.roster-category-meta {
+  gap: 7px;
+  color: var(--ink-3);
+  font-size: 9.5px;
+  font-style: normal;
+  white-space: nowrap;
+}
+.roster-category-meta b {
+  color: var(--ink-2);
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+}
+.roster-category-meta em,
+.roster-category-meta i {
+  padding: 3px 6px;
+  border-radius: 999px;
+  font-size: 9px;
+  font-style: normal;
+  font-weight: 600;
+}
+.roster-category-meta em {
+  background: rgba(165, 52, 45, 0.09);
+  color: #9e2820;
+}
+.roster-category-meta i {
+  background: rgba(173, 120, 25, 0.1);
+  color: #7a520c;
+}
+[data-theme="dark"] .roster-category-meta em,
+[data-theme="dark"] .roster-category-meta i {
+  color: var(--ink-2);
+}
+.roster-side-choice {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  height: 42px;
+  overflow: hidden;
+  border: 1px solid var(--line-2);
+  border-radius: 7px;
+  background: var(--bg);
+}
+.roster-side-choice[aria-invalid="true"] {
+  border-color: rgba(165, 52, 45, 0.55);
+}
+.roster-side-choice button {
+  min-width: 0;
+  padding: 0 5px;
+  border: 0;
+  border-right: 1px solid var(--line);
+  background: transparent;
+  color: var(--ink-3);
+  font-size: 9.5px;
+  font-weight: 560;
+  white-space: nowrap;
+}
+.roster-side-choice button:last-child {
+  border-right: 0;
+}
+.roster-side-choice button.is-active {
+  background: var(--surface);
+  color: var(--ink);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ink) 14%, transparent);
+}
+.roster-side-choice button:focus-visible {
+  position: relative;
+  z-index: 1;
+  outline: none;
+  box-shadow: inset 0 0 0 3px var(--ring);
+}
 .roster-grid-head,
 .roster-edit-row {
   display: grid;
@@ -5235,6 +5403,13 @@ html:has(.dialog-backdrop) {
   border-color: var(--line);
   background: var(--bg);
 }
+.queue-group-toggle:disabled {
+  cursor: default;
+}
+.queue-group-toggle:disabled:hover {
+  border-color: transparent;
+  background: transparent;
+}
 .queue-group-toggle:focus-visible {
   outline: none;
   box-shadow: 0 0 0 3px var(--ring);
@@ -5475,6 +5650,9 @@ html:has(.dialog-backdrop) {
   }
   .queue-group-toggle small {
     font-size: 9px;
+    line-height: 1.35;
+    text-align: right;
+    white-space: normal;
   }
   .next-reciter-row {
     grid-template-columns: minmax(0, 1fr) 64px;
@@ -7191,6 +7369,42 @@ html:has(.dialog-backdrop) {
     background: transparent;
     box-shadow: none;
   }
+  .roster-category-list-head {
+    align-items: flex-end;
+    margin-top: 14px;
+  }
+  .roster-category-list-head span {
+    max-width: 240px;
+  }
+  .roster-category-group {
+    min-width: 0;
+    margin-bottom: 9px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: var(--r-md);
+    background: var(--surface);
+    box-shadow: var(--shadow-rest);
+  }
+  .roster-category-toggle {
+    min-height: 54px;
+    padding: 8px 11px;
+  }
+  .roster-category-title strong {
+    font-size: 11px;
+  }
+  .roster-category-meta {
+    gap: 4px;
+    font-size: 9px;
+  }
+  .roster-category-meta i {
+    display: none;
+  }
+  .roster-category-rows {
+    display: grid;
+    gap: 9px;
+    padding: 9px;
+    background: var(--bg);
+  }
   .roster-grid-head {
     display: none;
   }
@@ -7232,6 +7446,12 @@ html:has(.dialog-backdrop) {
   .roster-edit-cell select {
     height: 44px;
     font-size: 12px;
+  }
+  .roster-side-choice {
+    height: 44px;
+  }
+  .roster-side-choice button {
+    font-size: 11px;
   }
   .roster-number-cell {
     justify-items: start;
@@ -7329,6 +7549,26 @@ html:has(.dialog-backdrop) {
   }
   .roster-bulk-bar {
     grid-template-columns: 1fr;
+  }
+  .roster-category-list-head {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .roster-category-list-head > div:last-child {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .roster-category-list-head button {
+    min-height: 40px;
+  }
+  .roster-category-toggle {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .roster-category-meta {
+    padding-left: 22px;
   }
   .roster-edit-row {
     grid-template-columns: 72px minmax(0, 1fr);

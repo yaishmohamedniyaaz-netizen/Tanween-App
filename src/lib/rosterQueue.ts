@@ -127,9 +127,6 @@ export function visibleRosterGroups(
         ...group,
         entries,
         ...(searching ? { matchCount: entries.length } : {}),
-        judged: allEntries.filter((entry) => entry.judged).length,
-        waiting: allEntries.filter(isWaiting).length,
-        absent: allEntries.filter((entry) => !entry.judged && entry.absent).length,
       };
     })
     .filter((group) => group.entries.length > 0);

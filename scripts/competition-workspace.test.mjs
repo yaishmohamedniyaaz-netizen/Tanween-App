@@ -37,7 +37,7 @@ test("opening Tahqeeq remains a free Mushaf instead of auto-starting a session",
 test("competition preparation is a dedicated task workspace", () => {
   for (const label of [
     "Competition details",
-    "Divisions and portions",
+    "Categories and portions",
     "Participants",
     "Judging panel",
     "Marks and criteria",

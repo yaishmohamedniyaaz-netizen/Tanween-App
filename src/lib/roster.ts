@@ -16,7 +16,7 @@ import {
 } from "./participants.ts";
 import { createSampleRoster } from "./sampleCompetition.ts";
 
-export const PARTICIPANT_TEMPLATE_VERSION = 2;
+export const PARTICIPANT_TEMPLATE_VERSION = 3;
 export const LEGACY_PARTICIPANT_TEMPLATE_HEADERS = [
   "Participant Number",
   "Name",
@@ -28,6 +28,15 @@ export const LEGACY_PARTICIPANT_TEMPLATE_HEADERS = [
 ] as const;
 /** Retained for V1 integrations and tests. */
 export const PARTICIPANT_TEMPLATE_HEADERS = LEGACY_PARTICIPANT_TEMPLATE_HEADERS;
+const SAMPLE_PARTICIPANT_TEMPLATE_HEADERS = [
+  "Participant Number",
+  "Name",
+  "Age Group",
+  "Category",
+  "Muqarrar start",
+  "Phone Number",
+  "Institution",
+] as const;
 export const ROSTER_DRAFT_VERSION = 1;
 
 type Row = Record<string, unknown>;
@@ -106,10 +115,10 @@ const norm = (value: string) =>
 const HEADER_ALIASES: Record<Exclude<RosterColumnKey, "ignore">, string[]> = {
   number: ["participantnumber", "number", "participantno", "no", "num", "id", "#"],
   name: ["name", "reciter", "participant", "fullname"],
-  division: ["division", "competitiondivision"],
+  division: ["division", "competitiondivision", "participantcategory"],
   ageGroup: ["agegroup", "agecategory", "age"],
-  category: ["category", "track"],
-  muqarrar: ["muqarrarhathimside", "muqarrar", "hathimside", "startside", "side"],
+  category: ["category", "track", "recitationtype"],
+  muqarrar: ["muqarrarstart", "muqarrarhathimside", "muqarrar", "hathimside", "startside", "side"],
   phone: ["phonenumber", "phone", "mobile", "mobilenumber", "contact", "contactnumber"],
   institution: ["institution", "organisation", "organization", "school", "class", "from"],
 };
@@ -184,9 +193,11 @@ function draftRowFromRecord(
 ): RosterDraftRow {
   const number = pickColumn(row, "number");
   const name = pickColumn(row, "name");
-  const divisionValue = pickColumn(row, "division");
   const ageGroup = pickColumn(row, "ageGroup");
-  const category = pickColumn(row, "category");
+  const genericCategory = pick(row, ["category"]);
+  const explicitCategory = pickColumn(row, "division");
+  const divisionValue = explicitCategory || (!ageGroup ? genericCategory : "");
+  const category = pick(row, ["track", "recitationtype"]) || (ageGroup ? genericCategory : "");
   const muqarrarRaw = pickColumn(row, "muqarrar");
   const muqarrar = normalizeMuqarrarSide(muqarrarRaw);
   return {
@@ -354,12 +365,12 @@ export function validateRosterDraft(
       add(
         "divisionId",
         "error",
-        legacy ? `Choose a division. Imported value: ${legacy}.` : "Division is required.",
+        legacy ? `Choose a category. Imported value: ${legacy}.` : "Category is required.",
       );
     }
     const muqarrar = normalizeMuqarrarSide(row.muqarrar);
-    if (!row.muqarrar.trim()) add("muqarrar", "error", "Muqarrar is required.");
-    else if (!muqarrar) add("muqarrar", "error", "Choose a valid Muqarrar side.");
+    if (!row.muqarrar.trim()) add("muqarrar", "error", "Muqarrar start is required.");
+    else if (!muqarrar) add("muqarrar", "error", "Choose a valid Muqarrar start.");
     if (!row.phone.trim()) add("phone", "warning", "Phone number is empty.");
     if (!row.institution.trim()) add("institution", "warning", "Institution is empty.");
 
@@ -432,8 +443,8 @@ export function parseRosterRows(rows: Row[]): RosterImportPreview {
     if (!categoryRaw) rowErrors.push("Category is required");
     else if (!category) rowErrors.push("Category must be Baliagen or Hifz");
     const muqarrar = normalizeMuqarrarSide(muqarrarRaw);
-    if (!muqarrarRaw) rowErrors.push("Muqarrar is required");
-    else if (!muqarrar) rowErrors.push("Muqarrar must be Feshey kolhu or Nimey kolhu");
+    if (!muqarrarRaw) rowErrors.push("Muqarrar start is required");
+    else if (!muqarrar) rowErrors.push("Muqarrar start must be Feshey kolhu or Nimey kolhu");
     const numberKey = number.toLocaleLowerCase();
     if (number && seenNumbers.has(numberKey)) rowErrors.push(`Participant Number ${number} is duplicated`);
     if (rowErrors.length) {
@@ -487,6 +498,12 @@ export function parseDelimitedRosterText(text: string): ParsedRosterGrid {
   if (row.some((value) => value.trim())) grid.push(row);
   const headers = grid[0] ?? [];
   const suggestedMapping = headers.map(columnForHeader);
+  const hasAgeGroup = suggestedMapping.includes("ageGroup");
+  headers.forEach((header, index) => {
+    if (norm(header) === "category") {
+      suggestedMapping[index] = hasAgeGroup ? "category" : "division";
+    }
+  });
   const recognized = suggestedMapping.filter((column) => column !== "ignore");
   return {
     grid,
@@ -542,9 +559,11 @@ export async function parseRosterFileToDraft(
   const rows = utils.sheet_to_json<Row>(sheet, { defval: "", raw: false, blankrows: false });
   const metadata = metadataForWorkbook(workbook);
   const sourceWarnings: string[] = [];
-  const fingerprint = String(metadata.TahqeeqDivisionFingerprint ?? "");
+  const fingerprint = String(
+    metadata.TahqeeqCategoryFingerprint ?? metadata.TahqeeqDivisionFingerprint ?? "",
+  );
   if (fingerprint && fingerprint !== rosterTemplateFingerprint(competition.divisions)) {
-    sourceWarnings.push("This file was created for an older division setup. Check every mapped division before applying it.");
+    sourceWarnings.push("This file was created for an older category setup. Check every mapped category before applying it.");
   }
   const metadataMode = metadata.TahqeeqNumberingMode;
   const numberingMode: ParticipantNumberingMode =
@@ -578,8 +597,8 @@ function templateHeaders(mode: ParticipantNumberingMode): string[] {
   return [
     ...(mode === "supplied" ? ["Participant Number"] : []),
     "Name",
-    "Division",
-    "Muqarrar",
+    "Category",
+    "Muqarrar start",
     "Institution",
     "Phone Number",
   ];
@@ -612,7 +631,7 @@ async function buildParticipantWorkbook(
   sample: boolean,
 ): Promise<ArrayBuffer> {
   const { utils, write } = await import("xlsx");
-  const headers = sample ? [...LEGACY_PARTICIPANT_TEMPLATE_HEADERS] : templateHeaders(context.numberingMode);
+  const headers = sample ? [...SAMPLE_PARTICIPANT_TEMPLATE_HEADERS] : templateHeaders(context.numberingMode);
   const body = sample
     ? entries.map((entry) => [
         entry.number,
@@ -626,7 +645,7 @@ async function buildParticipantWorkbook(
     : [];
   const participants = utils.aoa_to_sheet([headers, ...body]);
   participants["!cols"] = headers.map((header) => ({
-    wch: header === "Name" || header === "Institution" ? 28 : header === "Division" ? 30 : 20,
+    wch: header === "Name" || header === "Institution" ? 28 : header === "Category" ? 30 : 20,
   }));
   participants["!autofilter"] = { ref: `A1:${utils.encode_col(headers.length - 1)}1` };
   (participants as typeof participants & { "!freeze"?: unknown })["!freeze"] = {
@@ -638,7 +657,7 @@ async function buildParticipantWorkbook(
   };
 
   const choices = utils.aoa_to_sheet([
-    ["Division", "Muqarrar"],
+    ["Category", "Muqarrar start"],
     ...Array.from({ length: Math.max(context.divisions.length, 2) }, (_, index) => [
       context.divisions[index] ? divisionLabel(context.divisions[index]) : "",
       ["Feshey kolhu", "Nimey kolhu"][index] ?? "",
@@ -655,9 +674,9 @@ async function buildParticipantWorkbook(
     [],
     ["How to use"],
     ["1", "Enter one participant per row in Participants."],
-    ["2", "Use the exact Division and Muqarrar values listed in Choices."],
+    ["2", "Use the exact Category and Muqarrar start values listed in Choices."],
     ["3", context.numberingMode === "automatic" ? "Tahqeeq assigns clean numbers from the final row order." : "Participant Number is required and must be unique."],
-    ["4", "Name, Division and Muqarrar are required. Institution and Phone Number are recommended."],
+    ["4", "Name, Category and Muqarrar start are required. Institution and Phone Number are recommended."],
     ["5", "Import the completed file, fix highlighted rows in Tahqeeq, then review before applying."],
     ["6", "Keep phone numbers and supplied participant numbers as text when they begin with zero."],
     ...(sample ? [[], ["Sample file", "Every participant is fictional test data."]] : []),
@@ -677,6 +696,7 @@ async function buildParticipantWorkbook(
   workbook.Custprops = {
     TahqeeqTemplateVersion: PARTICIPANT_TEMPLATE_VERSION,
     TahqeeqCompetitionId: context.competitionId,
+    TahqeeqCategoryFingerprint: rosterTemplateFingerprint(context.divisions),
     TahqeeqDivisionFingerprint: rosterTemplateFingerprint(context.divisions),
     TahqeeqNumberingMode: context.numberingMode,
   };

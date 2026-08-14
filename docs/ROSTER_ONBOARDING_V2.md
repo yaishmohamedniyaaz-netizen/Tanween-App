@@ -1,7 +1,12 @@
-# Roster Onboarding V2
+# Roster Onboarding V2 with V3 category language
 
 Status: implemented in the August 2026 participant-onboarding release
 Scope: draft competition participant preparation only
+
+The V3 follow-up changes participant-facing language from Division to Category
+and from Muqarrar to Muqarrar start. Internal `divisionId` and `muqarrar`
+properties remain stable so saved competitions, questions, and results do not
+need a destructive migration.
 
 ## Product outcome
 
@@ -25,7 +30,8 @@ inside the narrow Competition setup card.
    counts. Errors are visible without dominating clean rows.
 3. Numbering and source actions share one toolbar. Automatic/Supplied is a
    two-state control rather than a settings form.
-4. Desktop uses an aligned semantic grid. The participant name receives the
+4. Desktop uses an aligned semantic grid grouped into collapsible Category
+   sections. The participant name receives the
    most space; the generated number remains compact and centred.
 5. At narrow widths, each row becomes a labelled card. Controls remain at
    least 44px high and the action order stays Move up, Move down, Duplicate,
@@ -63,7 +69,8 @@ Every draft row stores:
 - a draft-only row ID;
 - an existing participant ID when editing an applied roster;
 - its source row when known;
-- participant number, name, division ID, Muqarrar, phone, and institution;
+- participant number, name, internal category reference, Muqarrar start, phone,
+  and institution;
 - legacy age-group/category text when an older import cannot be mapped.
 
 Issues are derived by the pure validator rather than saved. Back keeps the
@@ -82,7 +89,7 @@ The organizer adds, duplicates, deletes, and moves rows. Move controls are
 explicit rather than drag-only so automatic numbering works with keyboard and
 touch input. Deleted rows offer Undo.
 
-Fill empty cells can apply a default division, Muqarrar, or institution. It
+Fill empty cells can apply a default Category, Muqarrar start, or institution. It
 never overwrites an existing value.
 
 ### Paste from Excel or Google Sheets
@@ -97,25 +104,45 @@ multiline cells. Fully blank rows are ignored.
 ### Upload Excel or CSV
 
 The Participants sheet is preferred; otherwise the first sheet is used.
-Template V2 uses Division directly. Template V1 remains importable through its
-Age Group and Category columns.
+Template V3 uses Category and Muqarrar start directly. Template V2 Division and
+Muqarrar headers remain importable. Template V1 also remains importable through
+its Age Group and Category columns.
 
-If workbook metadata reports an older division fingerprint, Tahqeeq keeps the
+If workbook metadata reports an older category fingerprint, Tahqeeq keeps the
 rows but warns the organizer to check the mapping. Missing and ambiguous
-divisions block Apply instead of silently selecting a replacement.
+categories block Apply instead of silently selecting a replacement.
 
-## Competition Template V2
+## Competition Template V3
 
 The template is generated from the active competition and numbering mode.
 
 - Participants: the clean entry surface;
-- Choices: exact Division and Muqarrar values;
+- Choices: exact Category and Muqarrar start values;
 - Instructions: competition identity, version, numbering rules, and the
   import/review sequence.
 
 Automatic mode omits Participant Number. Supplied mode includes it first.
 Workbook custom properties record the competition ID, template version,
-numbering mode, and division fingerprint.
+numbering mode, and category fingerprint. The legacy division-fingerprint
+property is also emitted for older Tahqeeq builds.
+
+Feshey kolhu and Nimey kolhu remain explicit enum values, not Boolean
+`true`/`false`. The participant editor presents them as a two-option radio
+control. A blank value must remain distinguishable for validation, and question
+preparation also has an Either start state.
+
+## Category accordions
+
+The roster editor groups rows by their mapped participant Category. The first
+category and every category containing a blocking issue opens automatically.
+Category required stays open until its rows are fixed. Organizers can expand or
+collapse all valid sections, and row movement stays scoped to the current
+category so the visible action never moves an unseen participant.
+
+The competition-day participant selector opens only the active category,
+closes categories with nobody waiting, and temporarily opens matching groups
+while searching. Search totals describe the complete category even though the
+recommended participant is presented separately above the list.
 
 The current lazy SheetJS writer does not emit Excel data-validation rules. The
 Choices sheet and Tahqeeq's own validator are therefore authoritative; the
@@ -140,11 +167,11 @@ closed competition states.
 
 - automatic numbering at 1, 8, 99, and 100 participants;
 - case-insensitive duplicate supplied numbers;
-- V1 age/category mapping and V2 division mapping;
+- V1 age/category mapping plus V2 Division and V3 Category mapping;
 - invalid imported rows retained with field issues;
 - quoted/multiline spreadsheet paste;
 - existing participant ID preservation;
-- Template V2 sheet/header/choice/metadata read-back;
+- Template V3 sheet/header/choice/metadata read-back;
 - refresh recovery, discard, apply comparison, and official-start blocking;
 - desktop 1366×768 and 1024×768 layout;
 - mobile 390×844 row cards and dialogs;
@@ -156,5 +183,4 @@ closed competition states.
 - photo/OCR roster extraction;
 - fuzzy institution merging;
 - shareable registration forms and backend intake;
-- live competition roster changes;
-- the larger Competition setup accordion redesign.
+- live competition roster changes.

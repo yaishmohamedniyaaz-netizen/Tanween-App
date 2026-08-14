@@ -88,7 +88,7 @@ export function ResultSheet() {
           <tr>
             <th>Category</th>
             <td>{participantCategoryLabel(p.category)}</td>
-            <th>Muqarrar</th>
+            <th>Muqarrar start</th>
             <td>{muqarrarLabel(p.muqarrar)}</td>
             <th>Institution</th>
             <td>{p.institution || "—"}</td>

@@ -1,5 +1,31 @@
 # Tahqeeq — build progress log
 
+## Category language and roster accordions — IMPLEMENTED (2026-08-14)
+
+- Participant-facing Division language is now Category across competition
+  setup, question preparation, roster editing, readiness messages, and the
+  competition-day selector. The stored `divisionId` contract remains unchanged
+  so saved competitions and question evidence do not require migration.
+- Participant-facing Muqarrar labels are now Muqarrar start. Feshey kolhu and
+  Nimey kolhu remain explicit enum values and appear as a compact two-option
+  radio control, not ambiguous Boolean true/false values.
+- Competition Template V3 uses Category and Muqarrar start in Participants,
+  Choices, and Instructions. V2 Division/Muqarrar and V1 Age Group/Category
+  sheets still import through contextual header mapping.
+- The roster editor groups participants into collapsible Category sections.
+  Categories with errors and Category required open automatically; valid
+  sections support Expand all and Collapse all; row movement stays inside its
+  visible category.
+- The competition-day selector now opens only the active category, collapses
+  categories with nobody waiting, disables misleading toggles while search is
+  forcing matches open, and keeps full category status totals.
+- Rollback checkpoint: `checkpoint/pre-category-language-v3`.
+- Verification: 215 automated tests pass, the production build succeeds, and
+  the participant workspace passed responsive browser checks at 1366 x 768
+  and 390 x 844. The phone layout stayed within the viewport with no
+  horizontal overflow; category collapse/expand and both Muqarrar start radio
+  choices were exercised in the rendered app.
+
 ## Roster Onboarding V2 — IMPLEMENTED (2026-08-14)
 
 - Participants now open in a dedicated full-width workspace rather than a

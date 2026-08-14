@@ -55,7 +55,7 @@ export function QuestionNumberScreen({
         </div>
       ) : (
         <div className="question-choice-state">
-          Select a participant with a matched division.
+          Select a participant with a matched category.
         </div>
       )}
 

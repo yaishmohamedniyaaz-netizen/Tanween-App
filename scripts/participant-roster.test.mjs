@@ -98,7 +98,7 @@ test("legacy island or class data migrates into Institution", () => {
   assert.match(participant.id, /^participant-/);
 });
 
-test("the competition workbook round-trips with V2 choices and supplied numbering", async () => {
+test("the competition workbook round-trips with V3 category choices and supplied numbering", async () => {
   const competition = {
     version: 2,
     isSample: false,
@@ -116,22 +116,24 @@ test("the competition workbook round-trips with V2 choices and supplied numberin
   await verifyParticipantTemplate(buffer, competition);
   const workbook = read(buffer, { type: "array" });
   assert.deepEqual(workbook.SheetNames, ["Participants", "Choices", "Instructions"]);
-  assert.equal(workbook.Custprops.TahqeeqTemplateVersion, 2);
+  assert.equal(workbook.Custprops.TahqeeqTemplateVersion, 3);
   assert.equal(workbook.Custprops.TahqeeqCompetitionId, "competition-test");
   assert.equal(workbook.Custprops.TahqeeqNumberingMode, "supplied");
+  assert.ok(String(workbook.Custprops.TahqeeqCategoryFingerprint).length > 0);
   assert.ok(String(workbook.Custprops.TahqeeqDivisionFingerprint).length > 0);
   const rows = utils.sheet_to_json(workbook.Sheets.Participants, {
     header: 1,
     defval: "",
     raw: false,
   });
-  assert.deepEqual(rows[0], ["Participant Number", "Name", "Division", "Muqarrar", "Institution", "Phone Number"]);
+  assert.deepEqual(rows[0], ["Participant Number", "Name", "Category", "Muqarrar start", "Institution", "Phone Number"]);
   assert.equal(rows.length, 1);
   const choices = utils.sheet_to_json(workbook.Sheets.Choices, {
     header: 1,
     defval: "",
     raw: false,
   });
+  assert.deepEqual(choices[0], ["Category", "Muqarrar start"]);
   assert.equal(choices[1][0], "Under 14 — Hifz");
   const readMe = utils.sheet_to_json(workbook.Sheets.Instructions, {
     header: 1,
@@ -164,7 +166,7 @@ test("automatic numbering templates omit the participant-number column", async (
     raw: false,
   });
 
-  assert.deepEqual(rows[0], ["Name", "Division", "Muqarrar", "Institution", "Phone Number"]);
+  assert.deepEqual(rows[0], ["Name", "Category", "Muqarrar start", "Institution", "Phone Number"]);
   assert.equal(workbook.Custprops.TahqeeqNumberingMode, "automatic");
 });
 
@@ -178,6 +180,7 @@ test("the separate sample workbook contains fictional, importable participants",
   assert.equal(rows.length, 8);
   assert.ok(rows.every((row) => !String(row.Name).startsWith("Sample Participant")));
   assert.equal(rows[0].Name, "Ahmed Rasheed");
+  assert.ok(Object.hasOwn(rows[0], "Muqarrar start"));
   const preview = parseRosterRows(rows);
   assert.equal(preview.entries.length, 8);
   assert.equal(preview.issues.filter((issue) => issue.level === "error").length, 0);
@@ -191,5 +194,8 @@ test("settings opens one recoverable editor instead of applying imports immediat
   assert.match(rosterEditorSource, /Paste table/);
   assert.match(rosterEditorSource, /Competition template/);
   assert.match(rosterEditorSource, /Review and apply/);
+  assert.match(rosterEditorSource, /Participants by category/);
+  assert.match(rosterEditorSource, /role="radiogroup"/);
+  assert.doesNotMatch(rosterEditorSource, />Division</);
   assert.match(rosterEditorSource, /APPLY_ROSTER_DRAFT/);
 });

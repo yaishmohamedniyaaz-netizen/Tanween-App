@@ -133,7 +133,7 @@ test("every participant must map to exactly one active division", () => {
   assert.equal(competitionReadiness(unmatched).ready, false);
   assert.match(
     competitionReadiness(unmatched).issues[0].message,
-    /does not match an active age-group and category division/,
+    /does not match an active participant category/,
   );
 
   const duplicated = readyInput();

@@ -79,10 +79,17 @@ become one device-local, recoverable draft. Invalid rows stay visible with
 field-level guidance and the applied roster changes only after a final
 comparison.
 
+Participant-facing groups are called Categories throughout setup, question
+preparation, roster editing, and competition-day selection. The editor groups
+rows into accessible collapsible Category sections and uses a labelled Feshey
+kolhu / Nimey kolhu control for Muqarrar start. These remain enum values rather
+than ambiguous spreadsheet or storage Booleans.
+
 New competitions can assign participant numbers automatically from final row
 order (`01–99`, then `001–999`) or preserve supplied competition numbers. The
-competition-specific Template V2 includes Participants, Choices, and
-Instructions sheets and keeps older seven-column templates importable. OCR and
+competition-specific Template V3 includes Participants, Choices, and
+Instructions sheets with Category and Muqarrar start headings. Template V2
+Division/Muqarrar and older seven-column templates remain importable. OCR and
 photo extraction are intentionally outside this release.
 
 See [`docs/ROSTER_ONBOARDING_V2.md`](docs/ROSTER_ONBOARDING_V2.md) for the UI,
@@ -98,7 +105,7 @@ src/components/Mushaf.tsx     fixed page renderer and word interaction
 src/components/DragMenu.tsx   connected exact-letter rail and category gesture
 src/components/ParticipantRosterEditor.tsx recoverable roster preparation UI
 src/lib/judgingUnits.ts       semantic letter/mark isolation
-src/lib/roster.ts             draft validation, paste/import, Template V2
+src/lib/roster.ts             draft validation, paste/import, Template V3
 src/lib/qcfFont.ts            page-specific QCF font loader and preloader
 src/state/store.tsx           scoring and persistence
 src/styles/global.css         responsive reader and judging UI

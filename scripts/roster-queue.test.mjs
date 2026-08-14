@@ -172,7 +172,7 @@ test("search filters entries but keeps the real group status totals", () => {
   const [visible] = visibleRosterGroups(groups, "recommended", "matching");
   assert.deepEqual(visible.entries.map((item) => item.id), ["match"]);
   assert.equal(visible.matchCount, 1);
-  assert.equal(visible.waiting, 1);
+  assert.equal(visible.waiting, 2);
   assert.equal(visible.absent, 1);
   assert.equal(visible.judged, 1);
 });

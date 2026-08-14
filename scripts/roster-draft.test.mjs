@@ -57,13 +57,32 @@ test("V1 age group and category rows map to current division ids", () => {
   assert.equal(result.entries[0].category, "baliagen");
 });
 
-test("spreadsheet paste recognizes headers and quoted multiline cells", () => {
-  const parsed = parseDelimitedRosterText('Name\tDivision\tMuqarrar\tInstitution\n"Aisha\nAhmed"\tUnder 14 — Hifz\tFeshey kolhu\tSchool A');
+test("V3 Category and Muqarrar start headers map without changing internal ids", () => {
+  const draft = createRosterDraftFromRows({
+    rows: [{ Name: "Aishath", Category: "Under 14 — Hifz", "Muqarrar start": "Feshey kolhu" }],
+    competitionId: "competition-test",
+    divisions,
+    numberingMode: "automatic",
+    source: "file",
+  });
+  const result = validateRosterDraft(draft, divisions);
+  assert.equal(draft.rows[0].divisionId, "u14-hifz");
+  assert.equal(draft.rows[0].muqarrar, "feshey-kolhu");
+  assert.equal(result.errorCount, 0);
+});
+
+test("spreadsheet paste recognizes V3 headers and quoted multiline cells", () => {
+  const parsed = parseDelimitedRosterText('Name\tCategory\tMuqarrar start\tInstitution\n"Aisha\nAhmed"\tUnder 14 — Hifz\tFeshey kolhu\tSchool A');
   assert.equal(parsed.hasRecognizedHeader, true);
   const records = recordsFromRosterGrid(parsed);
   assert.equal(records.length, 1);
   assert.equal(records[0].name, "Aisha\nAhmed");
   assert.equal(records[0].division, "Under 14 — Hifz");
+});
+
+test("legacy Age Group plus Category paste still treats Category as recitation type", () => {
+  const parsed = parseDelimitedRosterText("Name\tAge Group\tCategory\tMuqarrar\nAishath\tUnder 16\tBaliagen\tNimey kolhu");
+  assert.deepEqual(parsed.suggestedMapping, ["name", "ageGroup", "category", "muqarrar"]);
 });
 
 test("a headerless paste can be mapped without losing its first participant", () => {
