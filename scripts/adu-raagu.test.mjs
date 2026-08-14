@@ -433,10 +433,9 @@ test("Adu and Raagu has one home in the rail, inside its score row", () => {
 });
 
 test("the judging rail sits on the left unless the judge chose otherwise", () => {
-  assert.match(
-    appSource,
-    /localStorage\.getItem\(LS_JUDGE_RAIL_SIDE_KEY\) === "right" \? "right" : "left"/,
-  );
+  assert.match(appSource, /rail-\$\{preferences\.judgeRailSide\}/);
+  assert.match(appSource, /readDevicePreferences\(\)/);
+  assert.match(appSource, /writeDevicePreferences\(preferences\)/);
 });
 
 test("the criterion is written Adu / Raagu", () => {

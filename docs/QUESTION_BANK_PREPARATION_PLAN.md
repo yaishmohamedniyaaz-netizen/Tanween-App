@@ -1,7 +1,13 @@
 # Question bank preparation plan
 
 Status: Q0 foundation and Q1 manual draft builder implemented; Q2 is next
-Updated: 12 August 2026
+Updated: 15 August 2026
+
+Implementation note: Competition preparation now uses a one-open completion
+checklist, while the Q1 draft builder opens in its own full-width Question
+workspace. This keeps the checklist scannable and preserves the real Mushaf
+width needed to inspect ayah-first ranges. Settings remains a separate
+device-preference workspace; no OCR or AI question selection was added.
 
 ## 1. What the next release is for
 

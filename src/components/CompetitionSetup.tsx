@@ -33,10 +33,9 @@ import type {
 } from "../types";
 import { Icon } from "./Icon";
 import { ParticipantRosterEditor } from "./ParticipantRosterEditor";
-import { QuestionBuilder } from "./QuestionBuilder";
 import { SampleBadge } from "./SampleBadge";
 
-type SetupTask =
+export type SetupTask =
   | "details"
   | "divisions"
   | "participants"
@@ -121,9 +120,55 @@ function statusText(
   return complete ? "Complete" : "Needs attention";
 }
 
-export function CompetitionSetup({ onBack }: { onBack: () => void }) {
+function cloneDivisions(divisions: CompetitionDivision[]): CompetitionDivision[] {
+  return divisions.map((division) => ({
+    ...division,
+    quranPortion: { ...division.quranPortion },
+  }));
+}
+
+function generatedCategoryName(division: Pick<CompetitionDivision, "ageGroup" | "category">): string {
+  const age = division.ageGroup.trim();
+  const recitation = division.category === "nubalaa" ? "Hifz" : "Baliagen";
+  return age ? `${age} · ${recitation}` : recitation;
+}
+
+function categoryErrors(divisions: CompetitionDivision[]): Record<string, string[]> {
+  const errors: Record<string, string[]> = {};
+  const names = new Map<string, string>();
+  const combinations = new Map<string, string>();
+  divisions.forEach((division) => {
+    const next: string[] = [];
+    const age = division.ageGroup.trim();
+    const name = division.name.trim();
+    if (!age) next.push("Add an age group.");
+    if (!name) next.push("Add a Category name.");
+    if (division.quranPortion.kind === "juz-range" && (division.quranPortion.startJuz < 1 || division.quranPortion.endJuz > 30 || division.quranPortion.startJuz > division.quranPortion.endJuz)) next.push("Use a valid Juz range from 1 to 30.");
+    if (division.quranPortion.kind === "surah-range" && (division.quranPortion.startSurah < 1 || division.quranPortion.endSurah > 114 || division.quranPortion.startSurah > division.quranPortion.endSurah)) next.push("Use a valid Surah range from 1 to 114.");
+    const nameKey = name.toLocaleLowerCase();
+    if (nameKey) {
+      if (names.has(nameKey)) next.push("Category names must be unique.");
+      else names.set(nameKey, division.id);
+    }
+    const combinationKey = `${age.toLocaleLowerCase()}::${division.category}`;
+    if (age) {
+      if (combinations.has(combinationKey)) next.push("This age group and recitation type already has a Category.");
+      else combinations.set(combinationKey, division.id);
+    }
+    if (next.length) errors[division.id] = next;
+  });
+  return errors;
+}
+
+export function CompetitionSetup({
+  onBack,
+  onOpenQuestionWorkspace,
+}: {
+  onBack: () => void;
+  onOpenQuestionWorkspace: () => void;
+}) {
   const { state, dispatch } = useJudging();
-  const [activeTask, setActiveTask] = useState<SetupTask>(
+  const [activeTask, setActiveTask] = useState<SetupTask | null>(
     state.competition.isSample || state.competition.status !== "draft"
       ? "review"
       : "details",
@@ -137,6 +182,13 @@ export function CompetitionSetup({ onBack }: { onBack: () => void }) {
     state.deviceJudgeId ?? state.panel.seats[0]?.id ?? "",
   );
   const [scoreDraft, setScoreDraft] = useState(() => cloneConfig(state.config));
+  const [divisionDrafts, setDivisionDrafts] = useState(() => cloneDivisions(state.competition.divisions));
+  const [editingDivisionId, setEditingDivisionId] = useState<string | null>(null);
+  const [participantSettingsDraft, setParticipantSettingsDraft] = useState(() => ({
+    ...state.competition.participantEntrySettings,
+    institutions: [...state.competition.participantEntrySettings.institutions],
+  }));
+  const [questionPolicyDraft, setQuestionPolicyDraft] = useState(() => ({ ...state.competition.questionPolicy }));
   const [rosterMessage, setRosterMessage] = useState("");
   const [rosterEditorOpen, setRosterEditorOpen] = useState(false);
   const [institutionDraft, setInstitutionDraft] = useState("");
@@ -157,6 +209,8 @@ export function CompetitionSetup({ onBack }: { onBack: () => void }) {
   const competitionDraftCount = state.questionDrafts.filter(
     (draft) => draft.competitionId === state.competition.id,
   ).length;
+  const divisionValidation = useMemo(() => categoryErrors(divisionDrafts), [divisionDrafts]);
+  const divisionsValid = divisionDrafts.length > 0 && Object.keys(divisionValidation).length === 0;
 
   const sectionComplete = (task: SetupTask): boolean => {
     if (task === "review") return readiness.ready;
@@ -176,24 +230,19 @@ export function CompetitionSetup({ onBack }: { onBack: () => void }) {
         edition: identity.edition.trim(),
       },
     });
+    setActiveTask(null);
   };
 
   const savePanel = () => {
     if (!editable || !panelValidation.valid || !panelDeviceValid) return;
     dispatch({ type: "SET_PANEL", panel: panelDraft, deviceJudgeId });
+    setActiveTask(null);
   };
 
   const saveMarks = () => {
     if (!editable || marksTotal !== TOTAL_MARKS) return;
-    CATEGORIES.forEach((category) => {
-      dispatch({
-        type: "SET_CONFIG",
-        category: category.id,
-        enabled: scoreDraft[category.id].enabled,
-        start: scoreDraft[category.id].start,
-        step: scoreDraft[category.id].step,
-      });
-    });
+    dispatch({ type: "SET_SCORE_CONFIG", config: scoreDraft });
+    setActiveTask(null);
   };
 
   // Switching a criterion off must never leave its marks in the total.
@@ -209,64 +258,78 @@ export function CompetitionSetup({ onBack }: { onBack: () => void }) {
     }));
   };
 
-  const updateDivisions = (divisions: CompetitionDivision[]) => {
-    if (!editable) return;
-    dispatch({ type: "SET_DIVISIONS", divisions });
-  };
-
   const addDivision = () => {
     const id = `division-${Date.now().toString(36)}`;
-    updateDivisions([
-      ...state.competition.divisions,
-      {
-        id,
-        name: `Category ${state.competition.divisions.length + 1}`,
-        ageGroup: "",
-        category: "nubalaa",
-        quranPortion: { kind: "full-quran" },
-      },
-    ]);
+    setDivisionDrafts((current) => [...current, {
+      id,
+      name: "Hifz",
+      ageGroup: "",
+      category: "nubalaa",
+      quranPortion: { kind: "full-quran" },
+    }]);
+    setEditingDivisionId(id);
   };
 
   const patchDivision = (id: string, patch: Partial<CompetitionDivision>) => {
-    updateDivisions(
-      state.competition.divisions.map((division) =>
-        division.id === id ? { ...division, ...patch } : division,
-      ),
-    );
+    setDivisionDrafts((current) => current.map((division) => {
+      if (division.id !== id) return division;
+      const updated = { ...division, ...patch };
+      const previousGenerated = generatedCategoryName(division);
+      if ((patch.ageGroup !== undefined || patch.category !== undefined) && (!division.name.trim() || division.name === previousGenerated)) updated.name = generatedCategoryName(updated);
+      return updated;
+    }));
+  };
+
+  const saveDivisions = () => {
+    if (!editable || !divisionsValid) return;
+    dispatch({ type: "SET_DIVISIONS", divisions: cloneDivisions(divisionDrafts) });
+    setEditingDivisionId(null);
+    setActiveTask(null);
   };
 
   const updateParticipantEntrySettings = (
     patch: Partial<typeof state.competition.participantEntrySettings>,
   ) => {
     if (!editable) return;
-    dispatch({
-      type: "SET_COMPETITION",
-      competition: {
-        ...state.competition,
-        participantEntrySettings: {
-          ...state.competition.participantEntrySettings,
-          ...patch,
-        },
-      },
-    });
+    setParticipantSettingsDraft((current) => ({ ...current, ...patch }));
   };
 
   const addInstitutionChoice = () => {
     const institution = institutionDraft.trim();
     if (!institution) return;
-    const exists = state.competition.participantEntrySettings.institutions.some(
+    const exists = participantSettingsDraft.institutions.some(
       (choice) => choice.toLocaleLowerCase() === institution.toLocaleLowerCase(),
     );
     if (!exists) {
       updateParticipantEntrySettings({
         institutions: [
-          ...state.competition.participantEntrySettings.institutions,
+          ...participantSettingsDraft.institutions,
           institution,
         ],
       });
     }
     setInstitutionDraft("");
+  };
+
+  const saveParticipantSettings = () => {
+    if (!editable) return;
+    dispatch({
+      type: "SET_COMPETITION",
+      competition: {
+        ...state.competition,
+        participantEntrySettings: {
+          ...participantSettingsDraft,
+          institutions: [...participantSettingsDraft.institutions],
+        },
+      },
+    });
+    setActiveTask(null);
+  };
+
+  const saveQuestionPolicy = () => {
+    if (!editable) return;
+    dispatch({ type: "SET_QUESTION_POLICY", policy: questionPolicyDraft });
+    setActiveTask(null);
   };
 
   const choosePreset = (preset: JudgePanelPreset) => {
@@ -333,6 +396,64 @@ export function CompetitionSetup({ onBack }: { onBack: () => void }) {
     });
   };
 
+  const resetTaskDraft = (task: SetupTask | null) => {
+    if (task === "details") setIdentity({ name: state.competition.name, edition: state.competition.edition });
+    if (task === "divisions") {
+      setDivisionDrafts(cloneDivisions(state.competition.divisions));
+      setEditingDivisionId(null);
+    }
+    if (task === "participants") {
+      setParticipantSettingsDraft({
+        ...state.competition.participantEntrySettings,
+        institutions: [...state.competition.participantEntrySettings.institutions],
+      });
+      setInstitutionDraft("");
+    }
+    if (task === "marks") setScoreDraft(cloneConfig(state.config));
+    if (task === "panel") {
+      setPanelDraft(clonePanel(state.panel));
+      setDeviceJudgeId(state.deviceJudgeId ?? state.panel.seats[0]?.id ?? "");
+    }
+    if (task === "questions") setQuestionPolicyDraft({ ...state.competition.questionPolicy });
+  };
+
+  const taskDirty = (task: SetupTask | null): boolean => {
+    if (!task || !editable) return false;
+    if (task === "details") return identity.name !== state.competition.name || identity.edition !== state.competition.edition;
+    if (task === "divisions") return JSON.stringify(divisionDrafts) !== JSON.stringify(state.competition.divisions);
+    if (task === "participants") return JSON.stringify(participantSettingsDraft) !== JSON.stringify(state.competition.participantEntrySettings);
+    if (task === "marks") return JSON.stringify(scoreDraft) !== JSON.stringify(state.config);
+    if (task === "panel") return JSON.stringify(panelDraft) !== JSON.stringify(state.panel) || deviceJudgeId !== (state.deviceJudgeId ?? "");
+    if (task === "questions") return JSON.stringify(questionPolicyDraft) !== JSON.stringify(state.competition.questionPolicy);
+    return false;
+  };
+
+  const requestTask = (next: SetupTask) => {
+    if (activeTask === next) {
+      if (taskDirty(activeTask) && !window.confirm("Discard the unsaved changes in this setup task?")) return;
+      resetTaskDraft(activeTask);
+      setActiveTask(null);
+      return;
+    }
+    if (taskDirty(activeTask) && !window.confirm("Discard the unsaved changes in the open setup task?")) return;
+    resetTaskDraft(activeTask);
+    resetTaskDraft(next);
+    setActiveTask(next);
+  };
+
+  const taskSummary = (task: SetupTask): string => {
+    if (task === "details") return state.competition.name ? `${state.competition.name}${state.competition.edition ? ` · ${state.competition.edition}` : ""}` : "Name and edition";
+    if (task === "divisions") return state.competition.divisions.length ? `${state.competition.divisions.length} ${state.competition.divisions.length === 1 ? "Category" : "Categories"}` : "No Categories";
+    if (task === "participants") return state.roster.length ? `${state.roster.length} participants` : state.rosterDraft ? `${state.rosterDraft.rows.length} row draft` : "No participants";
+    if (task === "marks") return `${enabledMarksTotal(state.config)} / ${TOTAL_MARKS}`;
+    if (task === "panel") return `${state.panel.seats.length} judge${state.panel.seats.length === 1 ? "" : "s"}`;
+    if (task === "questions") return `${state.competition.questionPolicy.mode === "manual" ? "Manual" : "Tahqeeq set"} · ${state.competition.questionPolicy.targetRecitationLines} lines`;
+    if (task === "question-bank") return competitionDraftCount ? `${competitionDraftCount} draft${competitionDraftCount === 1 ? "" : "s"}` : "Optional · no drafts";
+    if (state.competition.status === "live") return "Competition live";
+    if (state.competition.status === "closed") return "Competition closed";
+    return readiness.ready ? "Ready to start" : `${readiness.issues.length} item${readiness.issues.length === 1 ? "" : "s"} need attention`;
+  };
+
   const resetLocalDrafts = (sample: boolean) => {
     const panel = createPanelPreset("all", enabledCategories(DEFAULT_CONFIG));
     setIdentity(sample
@@ -341,6 +462,9 @@ export function CompetitionSetup({ onBack }: { onBack: () => void }) {
     setPanelDraft(panel);
     setDeviceJudgeId(panel.seats[0]?.id ?? "judge-1");
     setScoreDraft(cloneConfig(DEFAULT_CONFIG));
+    setDivisionDrafts([]);
+    setEditingDivisionId(null);
+    setParticipantSettingsDraft({ institutions: [], defaultMuqarrar: "", defaultInstitution: "" });
     setRosterEditorOpen(false);
     setInstitutionDraft("");
   };
@@ -408,7 +532,8 @@ export function CompetitionSetup({ onBack }: { onBack: () => void }) {
           </div>
           {editable && (
             <div className="setup-work-actions">
-              <button type="button" className="btn-primary" disabled={!identity.name.trim() || !identity.edition.trim()} onClick={saveIdentity}>
+              <button type="button" className="btn-ghost" onClick={() => resetTaskDraft("details")}>Cancel</button>
+              <button type="button" className="btn-primary" disabled={!identity.name.trim() || !identity.edition.trim() || !taskDirty("details")} onClick={saveIdentity}>
                 Save details
               </button>
             </div>
@@ -425,25 +550,29 @@ export function CompetitionSetup({ onBack }: { onBack: () => void }) {
             <h2 id="setup-divisions-title">Categories and Quran portions</h2>
             <p>Each participant category combines an age group, recitation type and eligible Quran range.</p>
           </div>
-          <div className="division-list">
-            {state.competition.divisions.map((division, index) => (
-              <article className="division-card" key={division.id}>
+          <div className="division-list category-summary-list">
+            {divisionDrafts.map((division) => (
+              <article className={`division-card category-summary-row ${editingDivisionId === division.id ? "is-editing" : ""} ${(divisionValidation[division.id] ?? []).length ? "has-error" : ""}`} key={division.id}>
                 <div className="division-card-head">
-                  <strong>Category {index + 1}</strong>
+                  <button type="button" className="category-summary-main" aria-expanded={editingDivisionId === division.id} onClick={() => setEditingDivisionId((current) => current === division.id ? null : division.id)}>
+                    <span><strong>{division.name || generatedCategoryName(division)}</strong><small>{division.ageGroup || "Age group missing"} · {division.category === "nubalaa" ? "Hifz" : "Baliagen"} · {portionLabel(division.quranPortion)}</small></span>
+                    <span className="category-row-state">{(divisionValidation[division.id] ?? []).length ? "Needs attention" : editingDivisionId === division.id ? "Editing" : "Edit"}</span>
+                  </button>
                   {editable && (
-                    <button type="button" className="btn-ghost" onClick={() => updateDivisions(state.competition.divisions.filter((item) => item.id !== division.id))}>
-                      Remove
-                    </button>
+                    <span className="category-summary-actions">
+                      <button type="button" className="btn-ghost" onClick={() => { const id = `division-${Date.now().toString(36)}`; setDivisionDrafts((current) => [...current, { ...division, id, name: `${division.name} copy`, quranPortion: { ...division.quranPortion } }]); setEditingDivisionId(id); }}>Duplicate</button>
+                      <button type="button" className="btn-ghost" onClick={() => { const participantCount = state.roster.filter((entry) => entry.ageGroup.trim().toLocaleLowerCase() === division.ageGroup.trim().toLocaleLowerCase() && entry.category === division.category).length; if (participantCount && !window.confirm(`Remove this Category? ${participantCount} participant${participantCount === 1 ? " is" : "s are"} assigned and must be reassigned before launch.`)) return; setDivisionDrafts((current) => current.filter((item) => item.id !== division.id)); setEditingDivisionId(null); }}>Remove</button>
+                    </span>
                   )}
                 </div>
-                <div className="division-fields">
+                {editingDivisionId === division.id && <div className="division-fields category-editor-fields">
                   <label>
                     <span>Category name</span>
                     <input value={division.name} disabled={!editable} onChange={(event) => patchDivision(division.id, { name: event.target.value })} />
                   </label>
                   <label>
                     <span>Age group</span>
-                    <input value={division.ageGroup} disabled={!editable} placeholder="For example, Under 14" onChange={(event) => patchDivision(division.id, { ageGroup: event.target.value })} />
+                    <input list="competition-age-groups" value={division.ageGroup} disabled={!editable} placeholder="Select or add an age group" onChange={(event) => patchDivision(division.id, { ageGroup: event.target.value })} />
                   </label>
                   <label>
                     <span>Recitation type</span>
@@ -486,16 +615,24 @@ export function CompetitionSetup({ onBack }: { onBack: () => void }) {
                       <label><span>To Surah</span><input type="number" min={1} max={114} value={division.quranPortion.endSurah} disabled={!editable} onChange={(event) => patchDivision(division.id, { quranPortion: { kind: "surah-range", startSurah: division.quranPortion.kind === "surah-range" ? division.quranPortion.startSurah : 1, endSurah: Number(event.target.value) } })} /></label>
                     </div>
                   )}
-                </div>
+                  {(divisionValidation[division.id] ?? []).length > 0 && <div className="category-editor-errors" role="alert"><strong>Check this Category</strong><ul>{divisionValidation[division.id].map((error) => <li key={error}>{error}</li>)}</ul></div>}
+                </div>}
               </article>
             ))}
           </div>
+          <datalist id="competition-age-groups">{[...new Set(divisionDrafts.map((division) => division.ageGroup.trim()).filter(Boolean))].map((ageGroup) => <option value={ageGroup} key={ageGroup} />)}</datalist>
           {editable && (
             <button type="button" className="add-judge" onClick={addDivision}>
-              <Icon name="plus" size={13} /> Add category
+              <Icon name="plus" size={13} /> Add Category
             </button>
           )}
-          {!state.competition.divisions.length && <p className="setup-empty-note">Add the first category to continue.</p>}
+          {!divisionDrafts.length && <p className="setup-empty-note">Add the first Category to continue.</p>}
+          {editable && (
+            <div className="setup-work-actions">
+              <button type="button" className="btn-ghost" onClick={() => { setDivisionDrafts(cloneDivisions(state.competition.divisions)); setEditingDivisionId(null); }}>Cancel</button>
+              <button type="button" className="btn-primary" disabled={!divisionsValid || JSON.stringify(divisionDrafts) === JSON.stringify(state.competition.divisions)} onClick={saveDivisions}>Save Categories</button>
+            </div>
+          )}
         </section>
       );
     }
@@ -523,7 +660,8 @@ export function CompetitionSetup({ onBack }: { onBack: () => void }) {
             </div>
           </div>
           {editable && (
-            <section className="participant-entry-settings" aria-labelledby="participant-entry-settings-title">
+            <details className="participant-entry-settings participant-entry-disclosure">
+              <summary><span><strong>Entry defaults</strong><small>{participantSettingsDraft.defaultMuqarrar ? `${participantSettingsDraft.defaultMuqarrar === "feshey-kolhu" ? "Feshey kolhu" : "Nimey kolhu"}${participantSettingsDraft.defaultInstitution ? ` · ${participantSettingsDraft.defaultInstitution}` : ""}` : participantSettingsDraft.defaultInstitution || "No defaults"}</small></span><span>Optional</span></summary>
               <div className="participant-entry-settings-head">
                 <div>
                   <span>Entry helper</span>
@@ -541,8 +679,8 @@ export function CompetitionSetup({ onBack }: { onBack: () => void }) {
                       <button
                         type="button"
                         role="radio"
-                        aria-checked={state.competition.participantEntrySettings.defaultMuqarrar === value}
-                        className={state.competition.participantEntrySettings.defaultMuqarrar === value ? "is-active" : ""}
+                        aria-checked={participantSettingsDraft.defaultMuqarrar === value}
+                        className={participantSettingsDraft.defaultMuqarrar === value ? "is-active" : ""}
                         onClick={() => updateParticipantEntrySettings({ defaultMuqarrar: value })}
                         key={value || "none"}
                       >
@@ -574,29 +712,29 @@ export function CompetitionSetup({ onBack }: { onBack: () => void }) {
                   <label>
                     <span>Default institution</span>
                     <select
-                      value={state.competition.participantEntrySettings.defaultInstitution}
+                      value={participantSettingsDraft.defaultInstitution}
                       onChange={(event) => updateParticipantEntrySettings({ defaultInstitution: event.target.value })}
                     >
                       <option value="">No default</option>
-                      {state.competition.participantEntrySettings.institutions.map((institution) => (
+                      {participantSettingsDraft.institutions.map((institution) => (
                         <option value={institution} key={institution}>{institution}</option>
                       ))}
                     </select>
                   </label>
                 </div>
-                {state.competition.participantEntrySettings.institutions.length > 0 ? (
+                {participantSettingsDraft.institutions.length > 0 ? (
                   <div className="participant-institution-chips" aria-label="Saved institution choices">
-                    {state.competition.participantEntrySettings.institutions.map((institution) => (
+                    {participantSettingsDraft.institutions.map((institution) => (
                       <span key={institution}>
                         {institution}
                         <button
                           type="button"
                           aria-label={`Remove ${institution}`}
                           onClick={() => updateParticipantEntrySettings({
-                            institutions: state.competition.participantEntrySettings.institutions.filter((choice) => choice !== institution),
-                            defaultInstitution: state.competition.participantEntrySettings.defaultInstitution === institution
+                            institutions: participantSettingsDraft.institutions.filter((choice) => choice !== institution),
+                            defaultInstitution: participantSettingsDraft.defaultInstitution === institution
                               ? ""
-                              : state.competition.participantEntrySettings.defaultInstitution,
+                              : participantSettingsDraft.defaultInstitution,
                           })}
                         >&times;</button>
                       </span>
@@ -606,7 +744,8 @@ export function CompetitionSetup({ onBack }: { onBack: () => void }) {
                   <small className="participant-institution-empty">Optional. Free-text institutions remain allowed in the participant list.</small>
                 )}
               </div>
-            </section>
+              <div className="setup-work-actions"><button type="button" className="btn-ghost" onClick={() => setParticipantSettingsDraft({ ...state.competition.participantEntrySettings, institutions: [...state.competition.participantEntrySettings.institutions] })}>Cancel</button><button type="button" className="btn-primary" disabled={JSON.stringify(participantSettingsDraft) === JSON.stringify(state.competition.participantEntrySettings)} onClick={saveParticipantSettings}>Save defaults</button></div>
+            </details>
           )}
           {state.rosterDraft && (
             <div className="roster-draft-resume" role="status">
@@ -690,7 +829,7 @@ export function CompetitionSetup({ onBack }: { onBack: () => void }) {
           </div>
           {editable && !panelValidation.valid && <p className="setup-warn">{panelValidation.errors[0]}</p>}
           {editable && !panelDeviceValid && <p className="setup-warn">Choose which judge is using this device.</p>}
-          {editable && <div className="setup-work-actions"><button type="button" className="btn-primary" disabled={!panelValidation.valid || !panelDeviceValid} onClick={savePanel}>Save judging panel</button></div>}
+          {editable && <div className="setup-work-actions"><button type="button" className="btn-ghost" onClick={() => resetTaskDraft("panel")}>Cancel</button><button type="button" className="btn-primary" disabled={!panelValidation.valid || !panelDeviceValid || !taskDirty("panel")} onClick={savePanel}>Save judging panel</button></div>}
         </section>
       );
     }
@@ -733,18 +872,18 @@ export function CompetitionSetup({ onBack }: { onBack: () => void }) {
           </div>
           {marksTotal !== TOTAL_MARKS && <p className="setup-warn">Allocations must total {TOTAL_MARKS} across the criteria in use.</p>}
           <p className="setup-note">Judged criteria: {draftCategories.map(shortCategoryLabel).join(", ")}. Changing them rebuilds the judging panel, so check the panel afterwards.</p>
-          {editable && <div className="setup-work-actions"><button type="button" className="btn-primary" disabled={marksTotal !== TOTAL_MARKS} onClick={saveMarks}>Save mark rules</button></div>}
+          {editable && <div className="setup-work-actions"><button type="button" className="btn-ghost" onClick={() => resetTaskDraft("marks")}>Cancel</button><button type="button" className="btn-primary" disabled={marksTotal !== TOTAL_MARKS || !taskDirty("marks")} onClick={saveMarks}>Save mark rules</button></div>}
         </section>
       );
     }
 
     if (activeTask === "questions") {
-      const policy = state.competition.questionPolicy;
+      const policy = questionPolicyDraft;
       return (
         <section className="setup-work-card" aria-labelledby="setup-questions-title">
           <div className="setup-work-head"><span className="setup-step">Questions</span><h2 id="setup-questions-title">Question rules</h2><p>Every official question starts at an ayah and resolves against the fixed 1405H printed lines.</p></div>
           <div className="question-mode-options">
-            <button type="button" disabled={!editable} className={policy.mode === "manual" ? "is-active" : ""} onClick={() => dispatch({ type: "SET_QUESTION_POLICY", policy: { ...policy, mode: "manual" } })}>
+            <button type="button" disabled={!editable} className={policy.mode === "manual" ? "is-active" : ""} onClick={() => setQuestionPolicyDraft((current) => ({ ...current, mode: "manual" }))}>
               <span className="question-mode-check" aria-hidden="true" />
               <span><strong>Manual questions</strong><small>Judges use questions prepared outside Tahqeeq for this foundation release.</small></span>
             </button>
@@ -754,27 +893,29 @@ export function CompetitionSetup({ onBack }: { onBack: () => void }) {
             </button>
           </div>
           <div className="question-rule-grid">
-            <label><span>Target printed lines</span><select value={policy.targetRecitationLines} disabled={!editable} onChange={(event) => dispatch({ type: "SET_QUESTION_POLICY", policy: { ...policy, targetRecitationLines: Number(event.target.value) } })}>{Array.from({ length: 11 }, (_, index) => index + 5).map((value) => <option key={value} value={value}>{value} lines</option>)}</select></label>
-            <label><span>Final printed line</span><select value={policy.finalPrintedLineScoring} disabled={!editable} onChange={(event) => dispatch({ type: "SET_QUESTION_POLICY", policy: { ...policy, finalPrintedLineScoring: event.target.value as "include" | "exclude" } })}><option value="exclude">Do not deduct marks</option><option value="include">Include in marking</option></select></label>
+            <label><span>Target printed lines</span><select value={policy.targetRecitationLines} disabled={!editable} onChange={(event) => setQuestionPolicyDraft((current) => ({ ...current, targetRecitationLines: Number(event.target.value) }))}>{Array.from({ length: 11 }, (_, index) => index + 5).map((value) => <option key={value} value={value}>{value} lines</option>)}</select></label>
+            <label><span>Final printed line</span><select value={policy.finalPrintedLineScoring} disabled={!editable} onChange={(event) => setQuestionPolicyDraft((current) => ({ ...current, finalPrintedLineScoring: event.target.value as "include" | "exclude" }))}><option value="exclude">Do not deduct marks</option><option value="include">Include in marking</option></select></label>
           </div>
           <div className="ayah-rule-summary">
             <Icon name="check" size={16} />
             <span><strong>Fixed ending rule</strong> Start at the chosen ayah. Continue to the first complete ayah ending on or after line {policy.targetRecitationLines}.</span>
           </div>
           <p className="question-foundation-note">No AI, OCR or paid API is used. Continue to Draft questions to prepare and preview passages from all 604 local QPC V1 pages.</p>
+          {editable && <div className="setup-work-actions"><button type="button" className="btn-ghost" onClick={() => setQuestionPolicyDraft({ ...state.competition.questionPolicy })}>Cancel</button><button type="button" className="btn-primary" disabled={JSON.stringify(questionPolicyDraft) === JSON.stringify(state.competition.questionPolicy)} onClick={saveQuestionPolicy}>Save question rules</button></div>}
         </section>
       );
     }
 
     if (activeTask === "question-bank") {
       return (
-        <section className="setup-work-card question-builder-work-card" aria-labelledby="setup-question-builder-title">
+        <section className="setup-work-card question-builder-launch-card" aria-labelledby="setup-question-builder-title">
           <div className="setup-work-head">
             <span className="setup-step">Questions</span>
             <h2 id="setup-question-builder-title">Draft questions</h2>
             <p>Prepare exact ayah-first passages on the real Mushaf. Drafts stay separate from official competition delivery.</p>
           </div>
-          <QuestionBuilder editable={editable} />
+          <div className="question-workspace-summary"><span><strong>{competitionDraftCount}</strong><small>prepared draft{competitionDraftCount === 1 ? "" : "s"}</small></span><span><strong>{state.competition.questionPolicy.mode === "manual" ? "Optional" : "Required"}</strong><small>{state.competition.questionPolicy.mode === "manual" ? "External questions remain allowed" : "Review before official use"}</small></span></div>
+          <button type="button" className="btn-primary question-workspace-open" onClick={onOpenQuestionWorkspace}>Open question workspace <Icon name="chevron" size={15} /></button>
         </section>
       );
     }
@@ -783,18 +924,21 @@ export function CompetitionSetup({ onBack }: { onBack: () => void }) {
       <section className="setup-work-card setup-review-card" aria-labelledby="setup-review-title">
         <div className="setup-work-head"><span className="setup-step">Launch</span><h2 id="setup-review-title">Review and start {state.competition.isSample && <SampleBadge compact />}</h2><p>{state.competition.isSample ? "This is fictional test data. It stays separate from official exports." : "The competition is not official until this screen is confirmed."}</p></div>
         <div className="review-summary-list">
-          <button type="button" onClick={() => setActiveTask("details")}><span>Competition</span><strong>{state.competition.name || "Not set"}</strong><small>{state.competition.edition || "Edition missing"}</small><em>Change</em></button>
-          <button type="button" onClick={() => setActiveTask("divisions")}><span>Categories</span><strong>{state.competition.divisions.length || "None"}</strong><small>{state.competition.divisions.map((division) => `${division.name || "Unnamed"} · ${portionLabel(division.quranPortion)}`).join("; ") || "Add a category"}</small><em>Change</em></button>
-          <button type="button" onClick={() => setActiveTask("participants")}><span>Participants</span><strong>{state.roster.length || "None"}</strong><small>{state.roster.length ? "Validated roster loaded" : "Upload the participant roster"}</small><em>Change</em></button>
-          <button type="button" onClick={() => setActiveTask("panel")}><span>Judging panel</span><strong>{state.panel.seats.length} judge{state.panel.seats.length === 1 ? "" : "s"}</strong><small>{state.panel.seats.map((seat) => `${seat.name || seat.label}: ${categoryListLabel(seat.categories)}`).join("; ")}</small><em>Change</em></button>
-          <button type="button" onClick={() => setActiveTask("marks")}><span>Marks</span><strong>{enabledMarksTotal(state.config)} / {TOTAL_MARKS}</strong><small>{categoryListLabel(judgedCategories)}</small><em>Change</em></button>
-          <button type="button" onClick={() => setActiveTask("questions")}><span>Questions</span><strong>{state.competition.questionPolicy.mode === "manual" ? "Manual questions" : "Tahqeeq set"}</strong><small>{state.competition.questionPolicy.targetRecitationLines} lines · final line {state.competition.questionPolicy.finalPrintedLineScoring === "exclude" ? "not marked" : "marked"}</small><em>Change</em></button>
-          <button type="button" onClick={() => setActiveTask("question-bank")}><span>Draft questions</span><strong>{competitionDraftCount}</strong><small>{competitionDraftCount ? "Prepared locally for later review" : "Optional during manual-question competitions"}</small><em>Open</em></button>
+          <button type="button" onClick={() => requestTask("details")}><span>Competition</span><strong>{state.competition.name || "Not set"}</strong><small>{state.competition.edition || "Edition missing"}</small><em>Change</em></button>
+          <button type="button" onClick={() => requestTask("divisions")}><span>Categories</span><strong>{state.competition.divisions.length || "None"}</strong><small>{state.competition.divisions.map((division) => `${division.name || "Unnamed"} · ${portionLabel(division.quranPortion)}`).join("; ") || "Add a Category"}</small><em>Change</em></button>
+          <button type="button" onClick={() => requestTask("participants")}><span>Participants</span><strong>{state.roster.length || "None"}</strong><small>{state.roster.length ? "Validated roster loaded" : "Upload the participant roster"}</small><em>Change</em></button>
+          <button type="button" onClick={() => requestTask("panel")}><span>Judging panel</span><strong>{state.panel.seats.length} judge{state.panel.seats.length === 1 ? "" : "s"}</strong><small>{state.panel.seats.map((seat) => `${seat.name || seat.label}: ${categoryListLabel(seat.categories)}`).join("; ")}</small><em>Change</em></button>
+          <button type="button" onClick={() => requestTask("marks")}><span>Marks</span><strong>{enabledMarksTotal(state.config)} / {TOTAL_MARKS}</strong><small>{categoryListLabel(judgedCategories)}</small><em>Change</em></button>
+          <button type="button" onClick={() => requestTask("questions")}><span>Questions</span><strong>{state.competition.questionPolicy.mode === "manual" ? "Manual questions" : "Tahqeeq set"}</strong><small>{state.competition.questionPolicy.targetRecitationLines} lines · final line {state.competition.questionPolicy.finalPrintedLineScoring === "exclude" ? "not marked" : "marked"}</small><em>Change</em></button>
+          <button type="button" onClick={() => requestTask("question-bank")}><span>Draft questions</span><strong>{competitionDraftCount}</strong><small>{competitionDraftCount ? "Prepared locally for later review" : "Optional during manual-question competitions"}</small><em>Open</em></button>
         </div>
         {state.competition.status === "draft" && !readiness.ready && (
           <div className="readiness-issues" role="alert">
             <strong>{readiness.issues.length} item{readiness.issues.length === 1 ? "" : "s"} need attention</strong>
-            <ul>{readiness.issues.map((issue, index) => <li key={`${issue.section}-${index}`}>{issue.message}</li>)}</ul>
+            <ul>{readiness.issues.map((issue, index) => {
+              const task: SetupTask = issue.section === "competition" ? "details" : issue.section;
+              return <li key={`${issue.section}-${index}`}><button type="button" onClick={() => requestTask(task)}>{issue.message}<span>Open</span></button></li>;
+            })}</ul>
           </div>
         )}
         {state.competition.status === "draft" && (
@@ -848,31 +992,30 @@ export function CompetitionSetup({ onBack }: { onBack: () => void }) {
           <button type="button" className="btn-ghost" disabled={state.competition.status === "live" || state.sessionActive} onClick={loadSampleCompetition}>Load sample competition</button>
         )}
       </section>
-      <div className="competition-setup-layout">
-        <aside className="setup-task-list" aria-label="Competition setup tasks">
-          <div className="setup-task-intro"><span>Competition setup</span><h1>Prepare competition {state.competition.isSample && <SampleBadge compact />}</h1><p>Complete each required task, then review and start {state.competition.isSample ? "the test session" : "officially"}.</p></div>
-          <nav>
+      <div className="setup-checklist-shell">
+        <header className="setup-checklist-intro"><span>Competition setup</span><h1>Prepare competition {state.competition.isSample && <SampleBadge compact />}</h1><p>Open one task at a time. A check appears when its saved setup is ready.</p><div className="setup-progress" aria-label={`${TASKS.filter((task) => sectionComplete(task.id)).length} of ${TASKS.length} setup tasks complete`}><span style={{ width: `${(TASKS.filter((task) => sectionComplete(task.id)).length / TASKS.length) * 100}%` }} /><small>{TASKS.filter((task) => sectionComplete(task.id)).length} of {TASKS.length} ready</small></div></header>
+        <div className="setup-checklist" aria-label="Competition setup tasks">
             {TASKS.map((task) => {
               const showGroup = task.group !== lastGroup;
               lastGroup = task.group;
               const locked = state.competition.status !== "draft" && task.id !== "review";
-              const complete =
-                state.competition.status === "draft"
-                  ? sectionComplete(task.id)
-                  : true;
+              const complete = sectionComplete(task.id);
               return (
                 <Fragment key={task.id}>
                   {showGroup && <span className="setup-task-group">{task.group}</span>}
-                  <button type="button" className={`${activeTask === task.id ? "is-active" : ""} ${complete ? "is-complete" : "has-attention"} ${locked ? "is-locked" : ""}`} aria-current={activeTask === task.id ? "step" : undefined} onClick={() => setActiveTask(task.id)}>
-                    <span className="setup-task-copy"><strong>{task.label}</strong><small>{task.hint}</small></span>
-                    <span className="setup-task-status">{statusText(complete, locked, task.id, state.competition.status, competitionDraftCount)}</span>
-                  </button>
+                  <section className={`setup-checklist-item ${activeTask === task.id ? "is-active" : ""} ${complete ? "is-complete" : "has-attention"} ${locked ? "is-locked" : ""}`}>
+                    <button type="button" className="setup-checklist-trigger" aria-expanded={activeTask === task.id} aria-controls={`setup-task-panel-${task.id}`} onClick={() => requestTask(task.id)}>
+                      <span className="setup-checklist-mark" aria-hidden="true">{complete ? <Icon name="check" size={14} /> : <i />}</span>
+                      <span className="setup-task-copy"><strong>{task.label}</strong><small>{taskSummary(task.id)}</small></span>
+                      <span className="setup-task-status">{statusText(complete, locked, task.id, state.competition.status, competitionDraftCount)}</span>
+                      <span className="setup-checklist-chevron" aria-hidden="true"><Icon name="chevron" size={15} /></span>
+                    </button>
+                    {activeTask === task.id && <div className="setup-checklist-panel" id={`setup-task-panel-${task.id}`}>{renderTask()}</div>}
+                  </section>
                 </Fragment>
               );
             })}
-          </nav>
-        </aside>
-        <div className="setup-workspace">{renderTask()}</div>
+        </div>
       </div>
     </main>
   );

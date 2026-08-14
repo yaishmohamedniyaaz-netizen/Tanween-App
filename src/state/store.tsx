@@ -94,6 +94,7 @@ import type {
   RosterEntry,
   RosterDraft,
   SavedSession,
+  ScoreConfig,
 } from "../types";
 
 const initialState: JudgingState = {
@@ -172,6 +173,7 @@ type Action =
       step?: number;
       enabled?: boolean;
     }
+  | { type: "SET_SCORE_CONFIG"; config: ScoreConfig }
   | { type: "SET_IMPRESSION"; category: CategoryId; awarded: number }
   | { type: "SET_IMPRESSION_NOTE"; category: CategoryId; note: string }
   | { type: "SET_PANEL"; panel: JudgePanelConfig; deviceJudgeId: string }
@@ -972,6 +974,30 @@ function reducer(state: JudgingState, action: Action): JudgingState {
         mistakes: [],
         impressions: [],
         notes: "",
+      };
+    }
+    case "SET_SCORE_CONFIG": {
+      if (state.sessionActive || state.preparedRecitation || state.competition.status !== "draft") return state;
+      const config = normalizeScoreConfig(action.config);
+      const judged = enabledCategories(config);
+      const panel = normalizeJudgePanel(
+        {
+          ...state.panel,
+          seats: state.panel.seats.map((seat) => ({
+            ...seat,
+            categories: seat.categories.filter((item) => judged.includes(item)),
+          })),
+        },
+        judged,
+      );
+      return {
+        ...state,
+        competition: bumpDraftCompetition(state.competition),
+        config,
+        panel,
+        deviceJudgeId: judgeSeatFor(panel, state.deviceJudgeId)
+          ? state.deviceJudgeId
+          : (panel.seats[0]?.id ?? null),
       };
     }
     case "BEGIN_RECITER": {

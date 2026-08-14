@@ -1,5 +1,30 @@
 # Tahqeeq — build progress log
 
+## Settings and Competition Setup Overhaul V1 — IMPLEMENTED (2026-08-15)
+
+- General device settings are now a dedicated index/detail workspace for theme,
+  Mushaf page view and scale, judge-panel position, backup, reviewed restore,
+  and preference reset. Device preferences use one versioned local boundary and
+  preserve the legacy keys needed for rollback compatibility.
+- Competition setup now uses the recovered one-open completion checklist. Saved
+  summaries remain visible while compact tasks expand inline; participant entry
+  and question preparation remain dedicated workspaces instead of being forced
+  into the accordion.
+- Every editable setup task has an explicit save/cancel boundary. Switching tasks
+  protects unsaved work, marks save atomically, and Review validation links back
+  to the exact task that needs attention.
+- Categories use compact summary rows with one editor open at a time, generated
+  naming, age-group suggestions, duplicate/remove actions, Quran-portion checks,
+  and duplicate Category validation. User-facing and workbook language remains
+  **Category** and **Muqarrar start**.
+- The header menu is reduced to Settings, Competition setup, and contextual
+  current-session actions. The question builder now opens in a full-width page
+  and every workspace transition resets to the top.
+- Responsive QA covered 1280 × 720 and 390 × 844: no horizontal overflow, 58 px
+  setup rows, one expanded panel, centered tabular mark values, compact settings
+  index/detail behavior, corrected Arabic wordmark, and no new console errors.
+- Rollback checkpoint: `checkpoint/pre-settings-overhaul-v1` at `b29d567`.
+
 ## Participant Intake V4 — IMPLEMENTED (2026-08-14)
 
 - Competition setup now saves optional default Muqarrar start and institution

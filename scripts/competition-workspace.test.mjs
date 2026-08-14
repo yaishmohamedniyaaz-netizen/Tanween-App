@@ -9,6 +9,8 @@ const appSource = read("../src/App.tsx");
 const headerSource = read("../src/components/Header.tsx");
 const idleSource = read("../src/components/CompetitionIdlePanel.tsx");
 const setupSource = read("../src/components/CompetitionSetup.tsx");
+const settingsSource = read("../src/components/SettingsWorkspace.tsx");
+const questionWorkspaceSource = read("../src/components/QuestionPreparationWorkspace.tsx");
 const mushafSource = read("../src/components/Mushaf.tsx");
 const builderSource = read("../src/components/QuestionBuilder.tsx");
 const previewSource = read("../src/components/QuestionMushafPreview.tsx");
@@ -49,7 +51,25 @@ test("competition preparation is a dedicated task workspace", () => {
   }
   assert.match(setupSource, /Start competition/);
   assert.match(setupSource, /Close competition/);
+  assert.match(setupSource, /setup-checklist-trigger/);
+  assert.match(setupSource, /aria-expanded=\{activeTask === task\.id\}/);
+  assert.match(setupSource, /Discard the unsaved changes in the open setup task/);
+  assert.match(setupSource, /Save Categories/);
+  assert.match(setupSource, /SET_SCORE_CONFIG/);
   assert.match(headerSource, /Competition setup/);
+});
+
+test("general settings remain separate from competition setup", () => {
+  assert.match(headerSource, /تَحْقِيق/);
+  assert.doesNotMatch(headerSource, /Øª|Ù‚/);
+  assert.match(headerSource, /Settings/);
+  assert.match(settingsSource, /Appearance/);
+  assert.match(settingsSource, /Mushaf and judging workspace/);
+  assert.match(settingsSource, /Data and recovery/);
+  assert.match(settingsSource, /Download backup/);
+  assert.match(settingsSource, /restore-preview/);
+  assert.match(settingsSource, /Ready to review/);
+  assert.doesNotMatch(headerSource, /Restore preview|Mushaf zoom|Judge rail side/);
 });
 
 test("question preparation exposes the ayah rule without pretending drafts are official", () => {
@@ -58,7 +78,9 @@ test("question preparation exposes the ayah rule without pretending drafts are o
   assert.match(setupSource, /No AI, OCR or paid API is used/);
   assert.match(setupSource, /The 20-number draw is ready/);
   assert.match(setupSource, /reviewed and frozen set of at least 20 questions/);
-  assert.match(setupSource, /<QuestionBuilder editable=\{editable\}/);
+  assert.match(setupSource, /Open question workspace/);
+  assert.match(questionWorkspaceSource, /<QuestionBuilder editable/);
+  assert.match(questionWorkspaceSource, /Back to competition setup/);
   assert.match(builderSource, /not an approved frozen question bank/);
   assert.match(builderSource, /Tahqeeq will not silently shorten this question/);
   assert.match(previewSource, /Tap an ayah marker/);

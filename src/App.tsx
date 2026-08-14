@@ -5,7 +5,7 @@ import {
   useRef,
   useState,
 } from "react";
-import { Header } from "./components/Header";
+import { Header, type AppView } from "./components/Header";
 import { Mushaf } from "./components/Mushaf";
 import { ScorePanel } from "./components/ScorePanel";
 import { MistakeLog } from "./components/MistakeLog";
@@ -15,6 +15,8 @@ import { HintBanner } from "./components/HintBanner";
 import { RecordsView } from "./components/RecordsView";
 import { StartDialog } from "./components/StartDialog";
 import { CompetitionSetup } from "./components/CompetitionSetup";
+import { SettingsWorkspace } from "./components/SettingsWorkspace";
+import { QuestionPreparationWorkspace } from "./components/QuestionPreparationWorkspace";
 import { CompetitionIdlePanel } from "./components/CompetitionIdlePanel";
 import { FinishDialog } from "./components/FinishDialog";
 import { JudgeRoleStrip } from "./components/JudgeRoleStrip";
@@ -24,14 +26,15 @@ import { useJudging } from "./state/store";
 import { questionOpeningKey, questionOpeningPage } from "./lib/questionPage";
 import { isWaiting } from "./lib/rosterQueue";
 import surahIndex from "./data/surah-index.json";
+import {
+  applyDeviceTheme,
+  DEFAULT_DEVICE_PREFERENCES,
+  readDevicePreferences,
+  writeDevicePreferences,
+  type DevicePreferencesV1,
+} from "./lib/devicePreferences";
 
 const LS_PAGE_KEY = "tahqeeq:lastPage";
-// Version this preference when the product's standard page scale changes. A
-// fresh key intentionally restores 100% once without touching any competition
-// or judging data saved in the main state store.
-const LS_PAGE_ZOOM_KEY = "tahqeeq:pageZoom.v2";
-const LS_PAGE_LAYOUT_KEY = "tahqeeq:pageLayout";
-const LS_JUDGE_RAIL_SIDE_KEY = "tahqeeq:judgeRailSide";
 // Records the session and question the Mushaf was last opened for, so the
 // opening page is restored once per reciter rather than on every render.
 const LS_QUESTION_PAGE_KEY = "tahqeeq:questionOpenedFor";
@@ -202,23 +205,14 @@ function PageNav({
 
 export function App() {
   const { state, dispatch } = useJudging();
-  const [view, setView] = useState<"judge" | "records" | "setup">("judge");
+  const [view, setView] = useState<AppView>("judge");
   const [startOpen, setStartOpen] = useState(false);
   const [startMode, setStartMode] = useState<
     "start" | "change-reciter" | "change-question"
   >("start");
   const [finishOpen, setFinishOpen] = useState(false);
-  const [pageZoom, setPageZoom] = useState(() => {
-    const saved = Number(localStorage.getItem(LS_PAGE_ZOOM_KEY));
-    return Number.isFinite(saved) && saved >= 45 && saved <= 100 ? saved : 100;
-  });
-  const [pageLayout, setPageLayout] = useState<"full" | "split">(() =>
-    localStorage.getItem(LS_PAGE_LAYOUT_KEY) === "split" ? "split" : "full",
-  );
-  // The Mushaf is read right to left, so the page keeps its starting edge and
-  // the rail sits on the left unless this judge chose otherwise.
-  const [judgeRailSide, setJudgeRailSide] = useState<"left" | "right">(() =>
-    localStorage.getItem(LS_JUDGE_RAIL_SIDE_KEY) === "right" ? "right" : "left",
+  const [preferences, setPreferences] = useState<DevicePreferencesV1>(() =>
+    readDevicePreferences(),
   );
   const [page, setPage] = useState(() => {
     const saved = localStorage.getItem(LS_PAGE_KEY);
@@ -232,6 +226,19 @@ export function App() {
   useEffect(() => {
     localStorage.setItem(LS_PAGE_KEY, String(page));
   }, [page]);
+
+  useEffect(() => {
+    applyDeviceTheme(preferences.theme);
+    writeDevicePreferences(preferences);
+  }, [preferences]);
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  }, [view]);
+
+  const updatePreferences = (patch: Partial<DevicePreferencesV1>) => {
+    setPreferences((current) => ({ ...current, ...patch, version: 1 }));
+  };
 
   // Open the Mushaf on the page the reciter's question actually starts on.
   // This runs once per session and question: the judge navigates freely
@@ -271,6 +278,10 @@ export function App() {
           setStartOpen(false);
           setView("setup");
         }}
+        onOpenSettings={() => {
+          setStartOpen(false);
+          setView("settings");
+        }}
         onChangeReciter={() => {
           if (state.preparedRecitation) {
             setStartMode("change-reciter");
@@ -279,26 +290,11 @@ export function App() {
             setFinishOpen(true);
           }
         }}
-        pageZoom={pageZoom}
-        pageLayout={pageLayout}
-        judgeRailSide={judgeRailSide}
-        onPageZoomPreview={setPageZoom}
-        onPageLayoutPreview={setPageLayout}
-        onPageZoomCommit={(zoom) => {
-          setPageZoom(zoom);
-          localStorage.setItem(LS_PAGE_ZOOM_KEY, String(zoom));
-        }}
-        onPageLayoutCommit={(layout) => {
-          setPageLayout(layout);
-          localStorage.setItem(LS_PAGE_LAYOUT_KEY, layout);
-        }}
-        onJudgeRailSideChange={(side) => {
-          setJudgeRailSide(side);
-          localStorage.setItem(LS_JUDGE_RAIL_SIDE_KEY, side);
-        }}
+        theme={preferences.theme}
+        onThemeChange={(theme) => updatePreferences({ theme })}
       />
       {view === "judge" ? (
-        <main className={`workspace rail-${judgeRailSide}`} key="judge">
+        <main className={`workspace rail-${preferences.judgeRailSide}`} key="judge">
           <div className="stage">
             <HintBanner />
             {state.preparedRecitation && (
@@ -317,11 +313,11 @@ export function App() {
             )}
             <div
               className="mushaf-shell"
-              style={{ "--page-zoom": pageZoom / 100 } as CSSProperties}
+              style={{ "--page-zoom": preferences.mushafZoom / 100 } as CSSProperties}
             >
               <Mushaf
                 page={page}
-                pageLayout={pageLayout}
+                pageLayout={preferences.mushafLayout}
                 onPageChange={handlePageChange}
                 headerControls={
                   <PageNav page={page} onChange={handlePageChange} />
@@ -364,8 +360,20 @@ export function App() {
         <main className="records-main" key="records">
           <RecordsView onResumeSession={() => setView("judge")} />
         </main>
+      ) : view === "settings" ? (
+        <SettingsWorkspace
+          preferences={preferences}
+          onChange={updatePreferences}
+          onReset={() => setPreferences({ ...DEFAULT_DEVICE_PREFERENCES })}
+          onBack={() => setView("judge")}
+        />
+      ) : view === "questions" ? (
+        <QuestionPreparationWorkspace onBack={() => setView("setup")} />
       ) : (
-        <CompetitionSetup onBack={() => setView("judge")} />
+        <CompetitionSetup
+          onBack={() => setView("judge")}
+          onOpenQuestionWorkspace={() => setView("questions")}
+        />
       )}
 
       {startOpen &&
