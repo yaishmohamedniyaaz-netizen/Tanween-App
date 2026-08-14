@@ -58,6 +58,7 @@ export function createSampleCompetition(): CompetitionConfig {
     edition: "Sample 2026",
     status: "draft",
     setupRevision: 1,
+    participantNumbering: "supplied",
     divisions: SAMPLE_DIVISIONS.map((division) => ({
       ...division,
       quranPortion: { ...division.quranPortion },

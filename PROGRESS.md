@@ -1,5 +1,35 @@
 # Tahqeeq — build progress log
 
+## Roster Onboarding V2 — IMPLEMENTED (2026-08-14)
+
+- Participants now open in a dedicated full-width workspace rather than a
+  spreadsheet preview squeezed into Competition setup. The hierarchy is a
+  sticky competition header, compact readiness summary, numbering/source
+  toolbar, aligned desktop grid, labelled mobile cards, and persistent final
+  review action.
+- Manual entry, Excel/Google Sheets paste, `.xlsx`/`.xls`/`.csv` upload, and
+  editing the current roster use one recoverable device-local draft. Invalid
+  imported rows remain visible and editable instead of being discarded.
+- New competitions default to automatic `01–99` / `001–999` numbering from the
+  final row order. Existing competitions retain supplied numbers unless the
+  organizer explicitly switches modes.
+- Paste supports recognized headings, headerless column mapping, quoted cells,
+  and multiline cells. Template V1 remains importable through age-group and
+  category mapping.
+- Competition Template V2 contains Participants, Choices, and Instructions,
+  plus competition, numbering, and division-fingerprint metadata. The app's
+  validator remains authoritative because spreadsheet-side validation can be
+  bypassed.
+- Apply shows current/new, added/edited/removed, numbering, and warnings. It
+  updates numbering and roster atomically, retains existing participant IDs,
+  and blocks official start while unapplied participant changes remain.
+- OCR/photo extraction is explicitly deferred; spreadsheets cover this release.
+- Verification: 212 automated tests, Template V1/V2 workbook read-back,
+  TypeScript and production build, plus browser checks at desktop and 390px
+  for paste, validation, refresh recovery, comparison, and apply.
+- Full rationale and acceptance contract:
+  [`docs/ROSTER_ONBOARDING_V2.md`](docs/ROSTER_ONBOARDING_V2.md).
+
 ## Participant queue clarity — IMPLEMENTED & VERIFIED (2026-08-14)
 
 - Participant cards now lead with the reciter's name and keep the competition

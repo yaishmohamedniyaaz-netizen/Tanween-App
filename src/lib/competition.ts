@@ -14,6 +14,7 @@ import type {
   Participant,
   QuranPortion,
   RosterEntry,
+  RosterDraft,
   ScoreConfig,
 } from "../types";
 import { validateJudgePanel, judgeSeatFor } from "./judgeAssignments.ts";
@@ -39,6 +40,7 @@ export const EMPTY_COMPETITION: CompetitionConfig = {
   edition: "",
   status: "draft",
   setupRevision: 1,
+  participantNumbering: "automatic",
   divisions: [],
   questionPolicy: { ...DEFAULT_QUESTION_POLICY },
   liveSnapshot: null,
@@ -75,6 +77,8 @@ export function normalizeCompetition(
     edition,
     status,
     setupRevision: Math.max(1, Math.floor(Number(value?.setupRevision) || 1)),
+    participantNumbering:
+      value?.participantNumbering === "automatic" ? "automatic" : "supplied",
     divisions: Array.isArray(value?.divisions)
       ? value.divisions.map(normalizeDivision).filter(Boolean) as CompetitionDivision[]
       : [],
@@ -203,6 +207,7 @@ export function competitionReadiness(input: {
   deviceJudgeId: string | null;
   config: ScoreConfig;
   roster: RosterEntry[];
+  rosterDraft?: RosterDraft | null;
 }): { ready: boolean; issues: ReadinessIssue[] } {
   const issues: ReadinessIssue[] = [];
   if (!input.competition.name || !input.competition.edition) {
@@ -245,6 +250,12 @@ export function competitionReadiness(input: {
   }
   if (!input.roster.length) {
     issues.push({ section: "participants", message: "Add at least one participant." });
+  }
+  if (input.rosterDraft) {
+    issues.push({
+      section: "participants",
+      message: "Review and apply or discard the saved participant-list draft.",
+    });
   }
   const rosterNumbers = new Set<string>();
   input.roster.forEach((participant) => {

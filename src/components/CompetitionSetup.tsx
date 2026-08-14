@@ -1,4 +1,4 @@
-import { Fragment, useMemo, useRef, useState } from "react";
+import { Fragment, useMemo, useState } from "react";
 import {
   CATEGORIES,
   DEFAULT_CONFIG,
@@ -22,13 +22,6 @@ import {
   shortCategoryLabel,
   validateJudgePanel,
 } from "../lib/judgeAssignments";
-import {
-  downloadParticipantTemplate,
-  downloadSampleParticipantWorkbook,
-  parseRosterFile,
-  type RosterImportPreview,
-} from "../lib/roster";
-import { createSampleRoster } from "../lib/sampleCompetition";
 import { useJudging } from "../state/store";
 import type {
   CategoryId,
@@ -39,6 +32,7 @@ import type {
   ScoreConfig,
 } from "../types";
 import { Icon } from "./Icon";
+import { ParticipantRosterEditor } from "./ParticipantRosterEditor";
 import { QuestionBuilder } from "./QuestionBuilder";
 import { SampleBadge } from "./SampleBadge";
 
@@ -143,12 +137,8 @@ export function CompetitionSetup({ onBack }: { onBack: () => void }) {
     state.deviceJudgeId ?? state.panel.seats[0]?.id ?? "",
   );
   const [scoreDraft, setScoreDraft] = useState(() => cloneConfig(state.config));
-  const [rosterPreview, setRosterPreview] = useState<RosterImportPreview | null>(null);
   const [rosterMessage, setRosterMessage] = useState("");
-  const [rosterError, setRosterError] = useState("");
-  const [templateBusy, setTemplateBusy] = useState(false);
-  const [sampleWorkbookBusy, setSampleWorkbookBusy] = useState(false);
-  const fileRef = useRef<HTMLInputElement>(null);
+  const [rosterEditorOpen, setRosterEditorOpen] = useState(false);
 
   const recitationInProgress =
     state.sessionActive || Boolean(state.preparedRecitation);
@@ -309,43 +299,6 @@ export function CompetitionSetup({ onBack }: { onBack: () => void }) {
     });
   };
 
-  const onRosterFile = async (file?: File) => {
-    if (!file || !editable) return;
-    setRosterError("");
-    setRosterMessage("");
-    try {
-      setRosterPreview(await parseRosterFile(file));
-    } catch (error) {
-      setRosterError(error instanceof Error ? error.message : "Could not read that file.");
-    }
-  };
-
-  const downloadTemplate = async () => {
-    if (templateBusy) return;
-    setTemplateBusy(true);
-    setRosterError("");
-    try {
-      await downloadParticipantTemplate();
-    } catch {
-      setRosterError("The participant template could not be prepared.");
-    } finally {
-      setTemplateBusy(false);
-    }
-  };
-
-  const downloadSampleWorkbook = async () => {
-    if (sampleWorkbookBusy) return;
-    setSampleWorkbookBusy(true);
-    setRosterError("");
-    try {
-      await downloadSampleParticipantWorkbook();
-    } catch {
-      setRosterError("The sample participant workbook could not be prepared.");
-    } finally {
-      setSampleWorkbookBusy(false);
-    }
-  };
-
   const resetLocalDrafts = (sample: boolean) => {
     const panel = createPanelPreset("all", enabledCategories(DEFAULT_CONFIG));
     setIdentity(sample
@@ -354,7 +307,7 @@ export function CompetitionSetup({ onBack }: { onBack: () => void }) {
     setPanelDraft(panel);
     setDeviceJudgeId(panel.seats[0]?.id ?? "judge-1");
     setScoreDraft(cloneConfig(DEFAULT_CONFIG));
-    setRosterPreview(null);
+    setRosterEditorOpen(false);
   };
 
   const loadSampleCompetition = () => {
@@ -515,61 +468,54 @@ export function CompetitionSetup({ onBack }: { onBack: () => void }) {
     if (activeTask === "participants") {
       return (
         <section className="setup-work-card" aria-labelledby="setup-participants-title">
-          <div className="setup-work-head setup-work-head-row">
+          <div className="setup-work-head">
             <div>
               <span className="setup-step">Competition</span>
               <h2 id="setup-participants-title">Participants</h2>
-              <p>Import the checked roster before the competition starts.</p>
-            </div>
-            <div className="setup-download-actions">
-              <button type="button" className="btn-ghost" disabled={templateBusy} onClick={() => void downloadTemplate()}>
-                <Icon name="download" size={15} /> {templateBusy ? "Preparing…" : "Blank template"}
-              </button>
-              <button type="button" className="btn-ghost" disabled={sampleWorkbookBusy} onClick={() => void downloadSampleWorkbook()}>
-                <Icon name="download" size={15} /> {sampleWorkbookBusy ? "Preparing…" : "Sample roster"}
-              </button>
+              <p>Build, paste or upload one checked list, then review every row before it becomes official.</p>
             </div>
           </div>
-          <input ref={fileRef} type="file" accept=".xlsx,.xls,.csv" hidden onChange={(event) => { void onRosterFile(event.target.files?.[0]); event.currentTarget.value = ""; }} />
-          {editable && (
-            <div className="file-drop" role="button" tabIndex={0} onClick={() => fileRef.current?.click()} onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") fileRef.current?.click(); }} onDragOver={(event) => event.preventDefault()} onDrop={(event) => { event.preventDefault(); void onRosterFile(event.dataTransfer.files?.[0]); }}>
-              <Icon name="upload" size={16} /> {state.roster.length ? `${state.roster.length} participants loaded — replace list` : "Upload the completed .xlsx or .csv roster"}
-            </div>
-          )}
-          {state.roster.length > 0 && (
-            <div className="roster-ready-summary">
+          <div className="roster-setup-overview">
+            <div className="roster-setup-count">
+              <span>Applied roster</span>
               <strong>{state.roster.length}</strong>
-              <span>participants ready</span>
-              <small>{state.roster.filter((entry) => entry.judged).length} already finished</small>
+              <small>{state.roster.length ? `${state.roster.filter((entry) => entry.judged).length} already finished` : "No participants applied yet"}</small>
+            </div>
+            <div className="roster-setup-mode">
+              <span>Numbering</span>
+              <strong>{state.competition.participantNumbering === "automatic" ? "Automatic" : "Supplied"}</strong>
+              <small>{state.competition.participantNumbering === "automatic" ? "Clean numbers follow the final row order" : "Competition numbers are preserved"}</small>
+            </div>
+          </div>
+          {state.rosterDraft && (
+            <div className="roster-draft-resume" role="status">
+              <span><i aria-hidden="true" /><strong>Participant draft saved</strong><small>{state.rosterDraft.rows.length} row{state.rosterDraft.rows.length === 1 ? "" : "s"} waiting for review on this device.</small></span>
+              <button type="button" className="btn-ghost" onClick={() => setRosterEditorOpen(true)}>Resume draft</button>
             </div>
           )}
-          {rosterPreview && (
-            <div className="roster-import-preview" role="status">
-              <div className="roster-import-summary">
-                <span><strong>{rosterPreview.entries.length}</strong> ready</span>
-                <span><strong>{rosterPreview.issues.filter((issue) => issue.level === "error").length}</strong> rejected</span>
-                <span><strong>{rosterPreview.issues.filter((issue) => issue.level === "warning").length}</strong> warnings</span>
-              </div>
-              {rosterPreview.filename && <p className="roster-import-file">{rosterPreview.filename}</p>}
-              {rosterPreview.issues.length > 0 && (
-                <ul className="roster-import-issues">
-                  {rosterPreview.issues.slice(0, 6).map((issue, index) => <li className={`is-${issue.level}`} key={`${issue.row}-${index}`}>Row {issue.row}: {issue.message}</li>)}
-                </ul>
-              )}
-              <div className="roster-import-actions">
-                <button type="button" className="btn-ghost" onClick={() => setRosterPreview(null)}>Cancel</button>
-                <button type="button" className="btn-primary" disabled={!rosterPreview.entries.length} onClick={() => { dispatch({ type: "LOAD_ROSTER", entries: rosterPreview.entries }); setRosterMessage(`${rosterPreview.entries.length} participants loaded.`); setRosterPreview(null); }}>
-                  {state.roster.length ? "Replace participant list" : "Use participant list"}
-                </button>
-              </div>
+          <div className="roster-setup-paths">
+            <div><span>1</span><strong>Bring in the list</strong><small>Add names here, paste spreadsheet cells, or upload Excel/CSV.</small></div>
+            <div><span>2</span><strong>Fix in one place</strong><small>Imported rows stay visible with exact fields highlighted.</small></div>
+            <div><span>3</span><strong>Review before apply</strong><small>See additions, edits, removals and numbering before replacement.</small></div>
+          </div>
+          {editable && (
+            <div className="roster-setup-primary">
+              <button type="button" className="btn-primary" onClick={() => setRosterEditorOpen(true)}>
+                {state.rosterDraft ? "Resume participant list" : state.roster.length ? "Open participant list" : "Create participant list"}
+                <Icon name="chevron" size={15} />
+              </button>
+              <span>Drafts save automatically on this device.</span>
             </div>
+          )}
+          {!editable && (
+            <div className="setup-note">The participant list was frozen when this competition started.</div>
           )}
           {rosterMessage && <p className="setup-note">{rosterMessage}</p>}
-          {rosterError && <p className="setup-warn">{rosterError}</p>}
-          {editable && state.roster.length > 0 && <button type="button" className="dialog-link" onClick={() => dispatch({ type: "CLEAR_ROSTER" })}>Remove participant list</button>}
-          {editable && !state.roster.length && state.competition.isSample && (
-            <button type="button" className="dialog-link" onClick={() => { dispatch({ type: "LOAD_ROSTER", entries: createSampleRoster() }); setRosterMessage("Sample participant list restored."); }}>
-              Restore sample participant list
+          {editable && state.roster.length > 0 && !state.rosterDraft && (
+            <button type="button" className="dialog-link" onClick={() => {
+              if (window.confirm("Remove the applied participant list? Competition records already saved will not change.")) dispatch({ type: "CLEAR_ROSTER" });
+            }}>
+              Remove applied participant list
             </button>
           )}
         </section>
@@ -751,6 +697,18 @@ export function CompetitionSetup({ onBack }: { onBack: () => void }) {
       </section>
     );
   };
+
+  if (rosterEditorOpen) {
+    return (
+      <ParticipantRosterEditor
+        onBack={() => setRosterEditorOpen(false)}
+        onApplied={(count) => {
+          setRosterMessage(`${count} participants applied.`);
+          setRosterEditorOpen(false);
+        }}
+      />
+    );
+  }
 
   let lastGroup = "";
   return (

@@ -20,6 +20,10 @@ const setupSource = readFileSync(
   new URL("../src/components/CompetitionSetup.tsx", import.meta.url),
   "utf8",
 );
+const rosterEditorSource = readFileSync(
+  new URL("../src/components/ParticipantRosterEditor.tsx", import.meta.url),
+  "utf8",
+);
 
 test("the requested participant columns parse into stable typed entries", () => {
   const preview = parseRosterRows([
@@ -94,26 +98,74 @@ test("legacy island or class data migrates into Institution", () => {
   assert.match(participant.id, /^participant-/);
 });
 
-test("the downloadable workbook round-trips with the exact seven headers", async () => {
-  const buffer = await buildParticipantTemplate();
-  await verifyParticipantTemplate(buffer);
+test("the competition workbook round-trips with V2 choices and supplied numbering", async () => {
+  const competition = {
+    version: 2,
+    isSample: false,
+    id: "competition-test",
+    name: "Test Competition",
+    edition: "2026",
+    status: "draft",
+    setupRevision: 1,
+    participantNumbering: "supplied",
+    divisions: [{ id: "u14-hifz", name: "Under 14", ageGroup: "Under 14", category: "nubalaa", quranPortion: { kind: "full-quran" } }],
+    questionPolicy: {},
+    liveSnapshot: null,
+  };
+  const buffer = await buildParticipantTemplate(competition);
+  await verifyParticipantTemplate(buffer, competition);
   const workbook = read(buffer, { type: "array" });
-  assert.deepEqual(workbook.SheetNames, ["Participants", "Read me"]);
+  assert.deepEqual(workbook.SheetNames, ["Participants", "Choices", "Instructions"]);
+  assert.equal(workbook.Custprops.TahqeeqTemplateVersion, 2);
+  assert.equal(workbook.Custprops.TahqeeqCompetitionId, "competition-test");
+  assert.equal(workbook.Custprops.TahqeeqNumberingMode, "supplied");
+  assert.ok(String(workbook.Custprops.TahqeeqDivisionFingerprint).length > 0);
   const rows = utils.sheet_to_json(workbook.Sheets.Participants, {
     header: 1,
     defval: "",
     raw: false,
   });
-  assert.deepEqual(rows[0], [...PARTICIPANT_TEMPLATE_HEADERS]);
+  assert.deepEqual(rows[0], ["Participant Number", "Name", "Division", "Muqarrar", "Institution", "Phone Number"]);
   assert.equal(rows.length, 1);
-  const readMe = utils.sheet_to_json(workbook.Sheets["Read me"], {
+  const choices = utils.sheet_to_json(workbook.Sheets.Choices, {
+    header: 1,
+    defval: "",
+    raw: false,
+  });
+  assert.equal(choices[1][0], "Under 14 — Hifz");
+  const readMe = utils.sheet_to_json(workbook.Sheets.Instructions, {
     header: 1,
     defval: "",
     raw: false,
   });
   const readMeCells = readMe.flat().map(String);
-  assert.ok(readMeCells.some((value) => value.includes("Baliagen (Tarteel / reading) or Hifz (memorisation).")));
-  assert.ok(readMeCells.some((value) => value.includes("Feshey kolhu (starting side) or Nimey kolhu (ending side).")));
+  assert.ok(readMeCells.some((value) => value.includes("Supplied in this sheet")));
+  assert.ok(readMeCells.some((value) => value.includes("review before applying")));
+});
+
+test("automatic numbering templates omit the participant-number column", async () => {
+  const competition = {
+    version: 2,
+    isSample: false,
+    id: "competition-automatic",
+    name: "Automatic Numbering Competition",
+    edition: "2026",
+    status: "draft",
+    setupRevision: 1,
+    participantNumbering: "automatic",
+    divisions: [{ id: "open", name: "Open", ageGroup: "Open", category: "nubalaa", quranPortion: { kind: "full-quran" } }],
+    questionPolicy: {},
+    liveSnapshot: null,
+  };
+  const workbook = read(await buildParticipantTemplate(competition), { type: "array" });
+  const rows = utils.sheet_to_json(workbook.Sheets.Participants, {
+    header: 1,
+    defval: "",
+    raw: false,
+  });
+
+  assert.deepEqual(rows[0], ["Name", "Division", "Muqarrar", "Institution", "Phone Number"]);
+  assert.equal(workbook.Custprops.TahqeeqNumberingMode, "automatic");
 });
 
 test("the separate sample workbook contains fictional, importable participants", async () => {
@@ -131,10 +183,13 @@ test("the separate sample workbook contains fictional, importable participants",
   assert.equal(preview.issues.filter((issue) => issue.level === "error").length, 0);
 });
 
-test("settings offers download and replace-preview instead of immediate overwrite", () => {
-  assert.match(setupSource, /Blank template/);
-  assert.match(setupSource, /Sample roster/);
-  assert.match(setupSource, /rosterPreview/);
-  assert.match(setupSource, /Replace participant list/);
-  assert.match(setupSource, /downloadParticipantTemplate/);
+test("settings opens one recoverable editor instead of applying imports immediately", () => {
+  assert.match(setupSource, /ParticipantRosterEditor/);
+  assert.match(setupSource, /Resume participant list/);
+  assert.match(setupSource, /review every row before it becomes official/i);
+  assert.doesNotMatch(setupSource, /rosterPreview/);
+  assert.match(rosterEditorSource, /Paste table/);
+  assert.match(rosterEditorSource, /Competition template/);
+  assert.match(rosterEditorSource, /Review and apply/);
+  assert.match(rosterEditorSource, /APPLY_ROSTER_DRAFT/);
 });

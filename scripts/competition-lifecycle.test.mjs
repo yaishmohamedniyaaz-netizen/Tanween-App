@@ -67,6 +67,7 @@ test("legacy competition identity becomes a non-live draft", () => {
   assert.equal(competition.version, 2);
   assert.equal(competition.status, "draft");
   assert.equal(competition.liveSnapshot, null);
+  assert.equal(competition.participantNumbering, "supplied");
   assert.equal(competition.questionPolicy.mode, "manual");
   assert.equal(competition.questionPolicy.targetRecitationLines, 7);
 });
@@ -108,6 +109,22 @@ test("a Tahqeeq question set must be checked and frozen before start", () => {
   assert.equal(competitionReadiness(input).ready, false);
   input.competition.questionPolicy.approvedQuestionCount = 20;
   assert.equal(competitionReadiness(input).ready, true);
+});
+
+test("an unapplied roster draft blocks official start", () => {
+  const input = readyInput();
+  input.rosterDraft = {
+    version: 1,
+    competitionId: input.competition.id,
+    source: "manual",
+    numberingMode: "automatic",
+    rows: [],
+    sourceWarnings: [],
+    updatedAt: 1,
+  };
+  const readiness = competitionReadiness(input);
+  assert.equal(readiness.ready, false);
+  assert.ok(readiness.issues.some((issue) => /apply or discard/.test(issue.message)));
 });
 
 test("every participant must map to exactly one active division", () => {
