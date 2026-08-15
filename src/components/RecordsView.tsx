@@ -1,60 +1,211 @@
-import { useEffect, useMemo, useRef, useState } from "react";
-import { CATEGORIES, CATEGORY_BY_ID, PINPOINT_CATEGORIES } from "../config";
-import { computeRecords } from "../lib/stats";
+import {
+  type KeyboardEvent as ReactKeyboardEvent,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
+import {
+  CATEGORIES,
+  CATEGORY_BY_ID,
+  PINPOINT_CATEGORIES,
+  enabledCategories,
+} from "../config";
 import { downloadRecordsCSV } from "../lib/exportSession";
-import { useJudging } from "../state/store";
-import { Icon } from "./Icon";
-import { JudgingHistory } from "./JudgingHistory";
-import { ReopenSessionDialog } from "./ReopenSessionDialog";
-import type { SavedSession } from "../types";
 import {
   CATEGORY_ORDER,
   categoryListLabel,
   judgeDisplayName,
 } from "../lib/judgeAssignments";
 import { participantCategoryLabel } from "../lib/participants";
-import type { ParticipantCategory } from "../types";
+import {
+  RESULTS_REVIEW_PAGE_SIZE,
+  buildResultsReviewItems,
+  filterResultsReviewItems,
+  paginateResultsReviewItems,
+  selectStoredResultsHistory,
+  sortResultsReviewItems,
+  summarizeResultsReview,
+  type ResultsReviewState,
+  type StoredResultsScope,
+} from "../lib/resultsReview";
 import {
   downloadJudgeResultPackage,
   readJudgeResultFile,
   type JudgeResultPackage,
 } from "../lib/resultPackages";
+import { computeRecords } from "../lib/stats";
+import { useJudging } from "../state/store";
+import type { ParticipantCategory, SavedSession } from "../types";
 import { FinalResultsPanel } from "./FinalResultsPanel";
+import { Icon } from "./Icon";
+import { JudgingHistory } from "./JudgingHistory";
+import { ReopenSessionDialog } from "./ReopenSessionDialog";
 import { SampleBadge } from "./SampleBadge";
+
+type ResultsTab = "review" | "analysis";
+
+const resultTabs: ResultsTab[] = ["review", "analysis"];
+const reviewStateOptions: Array<{
+  value: "all" | ResultsReviewState;
+  label: string;
+}> = [
+  { value: "all", label: "All" },
+  { value: "needs-review", label: "Needs review" },
+  { value: "ready", label: "Ready" },
+  { value: "finalized", label: "Finalized" },
+];
+
+function lifecycleLabel(status: "draft" | "live" | "closed") {
+  if (status === "live") return "Live";
+  if (status === "closed") return "Closed";
+  return "Draft";
+}
+
+function DataScopeControl({
+  value,
+  onChange,
+}: {
+  value: StoredResultsScope;
+  onChange: (scope: StoredResultsScope) => void;
+}) {
+  return (
+    <label className="records-filter results-scope-control">
+      <span>Data scope</span>
+      <select
+        value={value}
+        onChange={(event) => onChange(event.target.value as StoredResultsScope)}
+      >
+        <option value="current">Current competition</option>
+        <option value="all">All stored competitions</option>
+      </select>
+    </label>
+  );
+}
 
 export function RecordsView({ onResumeSession }: { onResumeSession: () => void }) {
   const { state, dispatch } = useJudging();
-  const [ageGroup, setAgeGroup] = useState<string>("");
-  const [participantCategory, setParticipantCategory] = useState<ParticipantCategory>("");
-  const [judgeSeat, setJudgeSeat] = useState<string>("");
-  const [section, setSection] = useState<string>("");
+  const [activeTab, setActiveTab] = useState<ResultsTab>("review");
+  const [historyScope, setHistoryScope] = useState<StoredResultsScope>("current");
+  const [reviewQuery, setReviewQuery] = useState("");
+  const [reviewState, setReviewState] = useState<"all" | ResultsReviewState>("all");
+  const [reviewAgeGroup, setReviewAgeGroup] = useState("");
+  const [reviewParticipantCategory, setReviewParticipantCategory] =
+    useState<ParticipantCategory>("");
+  const [reviewPage, setReviewPage] = useState(1);
+  const [analysisAgeGroup, setAnalysisAgeGroup] = useState("");
+  const [analysisParticipantCategory, setAnalysisParticipantCategory] =
+    useState<ParticipantCategory>("");
+  const [judgeSeat, setJudgeSeat] = useState("");
+  const [section, setSection] = useState("");
   const [expanded, setExpanded] = useState<string | null>(null);
   const [reopenSession, setReopenSession] = useState<SavedSession | null>(null);
   const [importPreview, setImportPreview] = useState<JudgeResultPackage | null>(null);
   const [importError, setImportError] = useState("");
   const importRef = useRef<HTMLInputElement>(null);
+  const reviewTabRef = useRef<HTMLButtonElement>(null);
+  const analysisTabRef = useRef<HTMLButtonElement>(null);
+
+  const judgedCategories = useMemo(
+    () => enabledCategories(
+      state.competition.liveSnapshot?.scoreConfig ?? state.config,
+    ),
+    [state.competition.liveSnapshot, state.config],
+  );
+  const reviewItems = useMemo(
+    () => buildResultsReviewItems(
+      state.history,
+      state.finalizedResults,
+      state.competition.id,
+      judgedCategories,
+    ),
+    [
+      judgedCategories,
+      state.competition.id,
+      state.finalizedResults,
+      state.history,
+    ],
+  );
+  const reviewSummary = useMemo(
+    () => summarizeResultsReview(reviewItems),
+    [reviewItems],
+  );
+  const filteredReviewItems = useMemo(
+    () => sortResultsReviewItems(filterResultsReviewItems(reviewItems, {
+      query: reviewQuery,
+      state: reviewState,
+      ageGroup: reviewAgeGroup,
+      participantCategory: reviewParticipantCategory,
+    })),
+    [
+      reviewAgeGroup,
+      reviewItems,
+      reviewParticipantCategory,
+      reviewQuery,
+      reviewState,
+    ],
+  );
+  const reviewPageData = useMemo(
+    () => paginateResultsReviewItems(
+      filteredReviewItems,
+      reviewPage,
+      RESULTS_REVIEW_PAGE_SIZE,
+    ),
+    [filteredReviewItems, reviewPage],
+  );
+  const reviewAgeGroups = useMemo(
+    () => [...new Set(
+      reviewItems
+        .map((item) => item.candidate.participant.ageGroup.trim())
+        .filter(Boolean),
+    )].sort((left, right) => left.localeCompare(right)),
+    [reviewItems],
+  );
+  const hasReviewFilters = Boolean(
+    reviewQuery.trim() ||
+    reviewState !== "all" ||
+    reviewAgeGroup ||
+    reviewParticipantCategory,
+  );
+
+  useEffect(() => {
+    if (reviewPage !== reviewPageData.page) setReviewPage(reviewPageData.page);
+  }, [reviewPage, reviewPageData.page]);
+
+  const historyInScope = useMemo(
+    () => selectStoredResultsHistory(
+      state.history,
+      state.competition.id,
+      historyScope,
+    ),
+    [historyScope, state.competition.id, state.history],
+  );
   const scopedHistory = useMemo(
-    () => state.history.filter((session) => {
+    () => historyInScope.filter((session) => {
       const assignment = session.assignment;
-      const seatMatches = !judgeSeat || (assignment?.judgeSeatId ?? "judge-1") === judgeSeat;
+      const seatMatches =
+        !judgeSeat || (assignment?.judgeSeatId ?? "judge-1") === judgeSeat;
       const sectionKey = assignment?.categories.join("+") ?? "";
       return seatMatches && (!section || sectionKey === section);
     }),
-    [state.history, judgeSeat, section],
+    [historyInScope, judgeSeat, section],
   );
   const categoryHistory = useMemo(
-    () => participantCategory
-      ? scopedHistory.filter((session) => session.participant.category === participantCategory)
+    () => analysisParticipantCategory
+      ? scopedHistory.filter(
+          (session) =>
+            session.participant.category === analysisParticipantCategory,
+        )
       : scopedHistory,
-    [scopedHistory, participantCategory],
+    [analysisParticipantCategory, scopedHistory],
   );
   const stats = useMemo(
-    () => computeRecords(categoryHistory, ageGroup || null),
-    [categoryHistory, ageGroup],
+    () => computeRecords(categoryHistory, analysisAgeGroup || null),
+    [analysisAgeGroup, categoryHistory],
   );
   const judgeOptions = useMemo(() => {
     const values = new Map<string, string>();
-    state.history.forEach((session) => {
+    historyInScope.forEach((session) => {
       const assignment = session.assignment;
       values.set(
         assignment?.judgeSeatId ?? "judge-1",
@@ -62,21 +213,74 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
       );
     });
     return [...values.entries()];
-  }, [state.history]);
+  }, [historyInScope]);
   const sectionOptions = useMemo(() => {
     const values = new Map<string, string>();
-    state.history.forEach((session) => {
+    historyInScope.forEach((session) => {
       const categories = session.assignment?.categories ?? [];
-      if (categories.length) values.set(categories.join("+"), categoryListLabel(categories));
+      if (categories.length) {
+        values.set(categories.join("+"), categoryListLabel(categories));
+      }
     });
     return [...values.entries()];
-  }, [state.history]);
-
+  }, [historyInScope]);
+  const sessions = categoryHistory.filter(
+    (session) =>
+      !analysisAgeGroup ||
+      (session.participant.ageGroup?.trim() || "") === analysisAgeGroup,
+  );
   const maxCatCount = Math.max(
     1,
     ...PINPOINT_CATEGORIES.map((id) => stats.byCategory[id].count),
   );
-  const maxLocCount = Math.max(1, ...stats.topLocations.map((l) => l.count));
+  const maxLocCount = Math.max(1, ...stats.topLocations.map((location) => location.count));
+
+  useEffect(() => {
+    if (analysisAgeGroup && !stats.ageGroups.includes(analysisAgeGroup)) {
+      setAnalysisAgeGroup("");
+    }
+  }, [analysisAgeGroup, stats.ageGroups]);
+
+  useEffect(() => {
+    if (judgeSeat && !judgeOptions.some(([id]) => id === judgeSeat)) {
+      setJudgeSeat("");
+    }
+    if (section && !sectionOptions.some(([id]) => id === section)) {
+      setSection("");
+    }
+  }, [judgeOptions, judgeSeat, section, sectionOptions]);
+
+  const setReviewFilter = (change: () => void) => {
+    change();
+    setReviewPage(1);
+  };
+
+  const clearReviewFilters = () => {
+    setReviewQuery("");
+    setReviewState("all");
+    setReviewAgeGroup("");
+    setReviewParticipantCategory("");
+    setReviewPage(1);
+  };
+
+  const handleTabKeyDown = (
+    event: ReactKeyboardEvent<HTMLButtonElement>,
+    current: ResultsTab,
+  ) => {
+    const currentIndex = resultTabs.indexOf(current);
+    let targetIndex: number | null = null;
+    if (event.key === "ArrowRight") targetIndex = (currentIndex + 1) % resultTabs.length;
+    if (event.key === "ArrowLeft") {
+      targetIndex = (currentIndex - 1 + resultTabs.length) % resultTabs.length;
+    }
+    if (event.key === "Home") targetIndex = 0;
+    if (event.key === "End") targetIndex = resultTabs.length - 1;
+    if (targetIndex === null) return;
+    event.preventDefault();
+    const nextTab = resultTabs[targetIndex];
+    setActiveTab(nextTab);
+    (nextTab === "review" ? reviewTabRef : analysisTabRef).current?.focus();
+  };
 
   const readImport = async (file: File | undefined) => {
     if (!file) return;
@@ -121,167 +325,80 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
       }
       setImportPreview(payload);
     } catch (error) {
-      setImportError(error instanceof Error ? error.message : "Could not read that result file.");
+      setImportError(
+        error instanceof Error ? error.message : "Could not read that result file.",
+      );
     } finally {
       if (importRef.current) importRef.current.value = "";
     }
   };
 
-  useEffect(() => {
-    if (ageGroup && !stats.ageGroups.includes(ageGroup)) setAgeGroup("");
-  }, [ageGroup, stats.ageGroups]);
-
-  const sessions = categoryHistory.filter(
-    (session) =>
-      !ageGroup || (session.participant.ageGroup?.trim() || "") === ageGroup,
+  const renderHistoryFilters = () => (
+    <div className="results-history-tools">
+      <DataScopeControl value={historyScope} onChange={setHistoryScope} />
+      <label className="records-filter">
+        <span>Judge</span>
+        <select value={judgeSeat} onChange={(event) => setJudgeSeat(event.target.value)}>
+          <option value="">All judges</option>
+          {judgeOptions.map(([id, label]) => (
+            <option key={id} value={id}>{label}</option>
+          ))}
+        </select>
+      </label>
+      <label className="records-filter">
+        <span>Section</span>
+        <select value={section} onChange={(event) => setSection(event.target.value)}>
+          <option value="">All sections</option>
+          {sectionOptions.map(([id, label]) => (
+            <option key={id} value={id}>{label}</option>
+          ))}
+        </select>
+      </label>
+      <label className="records-filter">
+        <span>Age group</span>
+        <select
+          value={analysisAgeGroup}
+          onChange={(event) => setAnalysisAgeGroup(event.target.value)}
+        >
+          <option value="">All age groups</option>
+          {stats.ageGroups.map((group) => (
+            <option key={group} value={group}>{group}</option>
+          ))}
+        </select>
+      </label>
+      <label className="records-filter">
+        <span>Participant category</span>
+        <select
+          value={analysisParticipantCategory}
+          onChange={(event) =>
+            setAnalysisParticipantCategory(
+              event.target.value as ParticipantCategory,
+            )
+          }
+        >
+          <option value="">All categories</option>
+          <option value="baliagen">Baliagen</option>
+          <option value="nubalaa">Hifz</option>
+        </select>
+      </label>
+    </div>
   );
 
-  return (
-    <div className="records">
-      {state.history.some((session) => session.isSample) && (
-        <div className="sample-records-notice">
-          <SampleBadge />
-          <span><strong>Sample results are clearly isolated.</strong><small>They appear here for testing, but the official CSV export leaves them out.</small></span>
-        </div>
-      )}
-      <div className="records-bar">
-        <div className="metric-cards">
-          <div className="metric">
-            <span className="metric-label">Sessions</span>
-            <span className="metric-num">{stats.sessions}</span>
+  const renderJudgeResults = () => {
+    const currentScopeIsSample = state.competition.isSample;
+    const storedOfficial = state.history.some((session) => !session.isSample);
+    const storedSample = state.history.some((session) => session.isSample);
+    return (
+      <section className="panel results-judge-panel">
+        <div className="panel-head results-section-head">
+          <div>
+            <h2 className="results-section-title">
+              Judge results <span className="panel-count">{sessions.length}</span>
+            </h2>
+            <p className="panel-sub">
+              Source records, corrections, and judging history used to assemble final results.
+            </p>
           </div>
-          <div className="metric">
-            <span className="metric-label">Average score</span>
-            <span className="metric-num">{stats.avgPercent}%</span>
-          </div>
-          <div className="metric">
-            <span className="metric-label">Mistakes logged</span>
-            <span className="metric-num">{stats.totalMistakes}</span>
-          </div>
-        </div>
-        <div className="records-filters">
-          <label className="records-filter">
-            <span>Judge</span>
-            <select value={judgeSeat} onChange={(e) => setJudgeSeat(e.target.value)}>
-              <option value="">All judges</option>
-              {judgeOptions.map(([id, label]) => <option key={id} value={id}>{label}</option>)}
-            </select>
-          </label>
-          <label className="records-filter">
-            <span>Section</span>
-            <select value={section} onChange={(e) => setSection(e.target.value)}>
-              <option value="">All sections</option>
-              {sectionOptions.map(([id, label]) => <option key={id} value={id}>{label}</option>)}
-            </select>
-          </label>
-          <label className="records-filter">
-            <span>Age group</span>
-            <select value={ageGroup} onChange={(e) => setAgeGroup(e.target.value)}>
-              <option value="">All</option>
-              {stats.ageGroups.map((group) => (
-                <option key={group} value={group}>{group}</option>
-              ))}
-            </select>
-          </label>
-          <label className="records-filter">
-            <span>Participant category</span>
-            <select
-              value={participantCategory}
-              onChange={(event) =>
-                setParticipantCategory(event.target.value as ParticipantCategory)
-              }
-            >
-              <option value="">All</option>
-              <option value="baliagen">Baliagen</option>
-              <option value="nubalaa">Hifz</option>
-            </select>
-          </label>
-        </div>
-      </div>
-
-      <div className="records-grid">
-        <section className="panel">
-          <div className="panel-head">
-            <h2 className="panel-title">Mistakes by category</h2>
-          </div>
-          <div className="cat-list">
-            {CATEGORIES.filter((c) => c.kind === "pinpoint").map((c) => {
-              const s = stats.byCategory[c.id];
-              return (
-                <div className={`cat-row cat-${c.id}`} key={c.id}>
-                  <div className="cat-row-top">
-                    <span className="cat-dot" aria-hidden="true" />
-                    <span className="cat-name">{c.label}</span>
-                    <span className="cat-score">{s.count}</span>
-                  </div>
-                  <div className="cat-bar">
-                    <span
-                      className="cat-bar-fill"
-                      style={{ width: `${(s.count / maxCatCount) * 100}%` }}
-                    />
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </section>
-
-        <section className="panel">
-          <div className="panel-head">
-            <h2 className="panel-title">Most marked letters</h2>
-          </div>
-          {stats.topLetters.length === 0 ? (
-            <p className="empty">No marks yet.</p>
-          ) : (
-            <div className="letter-chips">
-              {stats.topLetters.map((l) => (
-                <span className="letter-chip" key={l.glyph}>
-                  <span className="letter-chip-glyph">{l.glyph}</span>
-                  <span className="letter-chip-count">{l.count}</span>
-                </span>
-              ))}
-            </div>
-          )}
-        </section>
-      </div>
-
-      <section className="panel">
-        <div className="panel-head">
-          <h2 className="panel-title">Most repeated mistakes</h2>
-          <span className="panel-sub">same letter, across reciters</span>
-        </div>
-        {stats.topLocations.length === 0 ? (
-          <p className="empty">No marks yet.</p>
-        ) : (
-          <ul className="repeat-list">
-            {stats.topLocations.map((l) => (
-              <li className={`repeat-item cat-${l.topCategory}`} key={l.tid}>
-                <span className="repeat-glyph">{l.glyph}</span>
-                <span className="repeat-body">
-                  <span className="repeat-loc">{l.label}</span>
-                  <span className="repeat-chip">
-                    {CATEGORY_BY_ID[l.topCategory].label}
-                  </span>
-                </span>
-                <span className="repeat-bar">
-                  <span
-                    className="repeat-bar-fill"
-                    style={{ width: `${(l.count / maxLocCount) * 100}%` }}
-                  />
-                </span>
-                <span className="repeat-count">×{l.count}</span>
-              </li>
-            ))}
-          </ul>
-        )}
-      </section>
-
-      <section className="panel">
-        <div className="panel-head">
-          <h2 className="panel-title">
-            Sessions
-            <span className="panel-count">{sessions.length}</span>
-          </h2>
           <div className="panel-actions">
             <input
               ref={importRef}
@@ -295,40 +412,68 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
               className="btn-ghost"
               disabled={state.sessionActive}
               onClick={() => importRef.current?.click()}
-              title="Import a result exported by another judge"
+              title="Import a result exported by another judge into the current competition"
             >
-              <Icon name="download" size={15} />
-              Import judge result
+              <Icon name="download" size={15} /> Import judge result
             </button>
-            <button
-              type="button"
-              className="btn-ghost"
-              disabled={!state.history.some((session) => !session.isSample)}
-              onClick={() => downloadRecordsCSV(state.history)}
-              title="Export official records as CSV"
-            >
-              <Icon name="download" size={15} />
-              CSV
-            </button>
-            {state.history.some((session) => session.isSample) && (
-              <button type="button" className="btn-ghost" onClick={() => downloadRecordsCSV(state.history, "sample")} title="Export sample records separately">
-                <Icon name="download" size={15} /> Sample CSV
+            {historyScope === "current" ? (
+              <button
+                type="button"
+                className="btn-ghost"
+                disabled={!historyInScope.length}
+                onClick={() =>
+                  downloadRecordsCSV(
+                    historyInScope,
+                    currentScopeIsSample ? "sample" : "official",
+                  )
+                }
+                title="Export the current competition's judge results"
+              >
+                <Icon name="download" size={15} />
+                {currentScopeIsSample
+                  ? "Current sample results (.csv)"
+                  : "Current competition results (.csv)"}
               </button>
+            ) : (
+              <>
+                <button
+                  type="button"
+                  className="btn-ghost"
+                  disabled={!storedOfficial}
+                  onClick={() => downloadRecordsCSV(state.history, "official")}
+                >
+                  <Icon name="download" size={15} /> All stored official (.csv)
+                </button>
+                {storedSample && (
+                  <button
+                    type="button"
+                    className="btn-ghost"
+                    onClick={() => downloadRecordsCSV(state.history, "sample")}
+                  >
+                    <Icon name="download" size={15} /> All stored sample (.csv)
+                  </button>
+                )}
+              </>
             )}
           </div>
         </div>
+        {renderHistoryFilters()}
         {importError && <p className="import-error">{importError}</p>}
         {importPreview && (
           <div className="result-import-preview" role="status">
             <span>
               <strong>{importPreview.session.participant.name}</strong>
               <small>
-                {importPreview.session.participant.number} · {importPreview.session.assignment
+                <bdi>{importPreview.session.participant.number}</bdi> · {importPreview.session.assignment
                   ? categoryListLabel(importPreview.session.assignment.categories)
                   : "Judge section"}
               </small>
             </span>
-            <button type="button" className="btn-ghost" onClick={() => setImportPreview(null)}>
+            <button
+              type="button"
+              className="btn-ghost"
+              onClick={() => setImportPreview(null)}
+            >
               Cancel
             </button>
             <button
@@ -344,122 +489,438 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
           </div>
         )}
         {sessions.length === 0 ? (
-          <p className="empty">No judge-section results match these filters.</p>
-        ) : <ul className="session-list">
-          {sessions.map((s) => {
-            const isOpen = expanded === s.id;
-            return (
-              <li className="session-li" key={s.id}>
-                <div
-                  className={`session-item ${isOpen ? "is-open" : ""}`}
-                  role="button"
-                  tabIndex={0}
-                  aria-expanded={isOpen}
-                  onClick={() => setExpanded(isOpen ? null : s.id)}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter" || e.key === " ") {
-                      e.preventDefault();
-                      setExpanded(isOpen ? null : s.id);
-                    }
-                  }}
-                >
-                  <span className="session-chevron" aria-hidden="true">
-                    <Icon name="chevron" size={16} />
-                  </span>
-                  <span className="session-no">{s.participant.number || "—"}</span>
-                  <span className="session-main">
-                    <span className="session-name">
-                      {s.participant.name || "Unnamed reciter"} {s.isSample && <SampleBadge compact />}
+          <div className="results-empty">
+            <strong>No judge results in this scope</strong>
+            <span>
+              {historyScope === "current" && state.history.length
+                ? "Choose All stored competitions to inspect retained records, or finish/import a result for this competition."
+                : "Finished and imported judge sections will appear here."}
+            </span>
+          </div>
+        ) : (
+          <ul className="session-list">
+            {sessions.map((saved) => {
+              const isOpen = expanded === saved.id;
+              return (
+                <li className="session-li" key={saved.id}>
+                  <div
+                    className={`session-item ${isOpen ? "is-open" : ""}`}
+                    role="button"
+                    tabIndex={0}
+                    aria-expanded={isOpen}
+                    onClick={() => setExpanded(isOpen ? null : saved.id)}
+                    onKeyDown={(event) => {
+                      if (event.key === "Enter" || event.key === " ") {
+                        event.preventDefault();
+                        setExpanded(isOpen ? null : saved.id);
+                      }
+                    }}
+                  >
+                    <span className="session-chevron" aria-hidden="true">
+                      <Icon name="chevron" size={16} />
                     </span>
-                    <span className="session-meta">
-                      {[s.participant.ageGroup, participantCategoryLabel(s.participant.category), s.participant.institution]
-                        .filter(Boolean)
-                        .join(" · ")} ·{" "}
-                      {new Date(s.savedAt).toLocaleDateString()} ·{" "}
-                      {s.mistakes.length} mistakes ·{" "}
-                      {s.assignment ? judgeDisplayName(s.assignment) : "Judge 1"}
+                    <bdi className="session-no">{saved.participant.number || "—"}</bdi>
+                    <span className="session-main">
+                      <span className="session-name">
+                        {saved.participant.name || "Unnamed reciter"}
+                        {saved.isSample && <SampleBadge compact />}
+                      </span>
+                      <span className="session-meta">
+                        {[
+                          saved.participant.ageGroup,
+                          participantCategoryLabel(saved.participant.category),
+                          saved.participant.institution,
+                        ].filter(Boolean).join(" · ")} · {new Date(saved.savedAt).toLocaleDateString()} · {saved.mistakes.length} mistakes · {saved.assignment ? judgeDisplayName(saved.assignment) : "Judge 1"}
+                        {historyScope === "all" && (
+                          <> · <bdi>{saved.competitionId || "Legacy record"}</bdi>{saved.competitionVersionId ? <> / <bdi>{saved.competitionVersionId}</bdi></> : ""}</>
+                        )}
+                      </span>
                     </span>
-                  </span>
-                  <span className="session-score">
-                    {s.total}
-                    <span className="session-max">/{s.totalMax}</span>
-                  </span>
-                  <span className="session-status">Section</span>
-                </div>
-                {isOpen && (
-                  <div className="session-drill">
-                    <div className="session-assignment">
-                      <strong>{s.assignment ? judgeDisplayName(s.assignment) : "Judge 1"}</strong>
-                      <span>{categoryListLabel(s.assignment?.categories ?? CATEGORY_ORDER)}</span>
-                      <small>Judge-section result · {s.total}/{s.totalMax}</small>
-                    </div>
-                    {s.mistakes.length === 0 ? (
-                      <p className="empty">No mistakes in this session.</p>
-                    ) : (
-                      <ul className="drill-list">
-                        {s.mistakes.map((m) => (
-                          <li className={`drill-item cat-${m.category}`} key={m.id}>
-                            <span className="drill-glyph">{m.glyph}</span>
-                            <span className="drill-loc">{m.label}</span>
-                            <span className="drill-chip">
-                              {CATEGORY_BY_ID[m.category].label}
-                            </span>
-                            <span className="drill-amt">−{m.amount}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                    {s.notes?.trim() && (
-                      <p className="drill-notes">{s.notes}</p>
-                    )}
-                    <div className="session-history-head">
-                      <span className="t-label">Judging history</span>
-                      <button
-                        type="button"
-                        className="btn-ghost"
-                        disabled={!state.competition.name || !state.competition.edition}
-                        title={
-                          state.competition.name && state.competition.edition
-                            ? "Export this judge-owned result for consolidation"
-                            : "Set the competition name and edition before exporting"
-                        }
-                        onClick={() => downloadJudgeResultPackage(s, state.competition)}
-                      >
-                        Export judge result
-                      </button>
-                      <button
-                        type="button"
-                        className="btn-ghost"
-                        disabled={state.sessionActive}
-                        title={
-                          state.sessionActive
-                            ? "Finish the current reciter before reopening another result"
-                            : "Reopen this result to make a recorded correction"
-                        }
-                        onClick={() => setReopenSession(s)}
-                      >
-                        Reopen to correct
-                      </button>
-                    </div>
-                    <JudgingHistory events={s.events ?? []} />
+                    <bdi className="session-score">
+                      {saved.total}<span className="session-max">/{saved.totalMax}</span>
+                    </bdi>
+                    <span className="session-status">Section</span>
                   </div>
-                )}
-              </li>
-            );
-          })}
-        </ul>}
+                  {isOpen && (
+                    <div className="session-drill">
+                      <div className="session-assignment">
+                        <strong>{saved.assignment ? judgeDisplayName(saved.assignment) : "Judge 1"}</strong>
+                        <span>{categoryListLabel(saved.assignment?.categories ?? CATEGORY_ORDER)}</span>
+                        <small>Judge-section result · <bdi>{saved.total}/{saved.totalMax}</bdi></small>
+                      </div>
+                      {saved.mistakes.length === 0 ? (
+                        <p className="empty">No mistakes in this session.</p>
+                      ) : (
+                        <ul className="drill-list">
+                          {saved.mistakes.map((mistake) => (
+                            <li className={`drill-item cat-${mistake.category}`} key={mistake.id}>
+                              <span className="drill-glyph">{mistake.glyph}</span>
+                              <span className="drill-loc">{mistake.label}</span>
+                              <span className="drill-chip">
+                                {CATEGORY_BY_ID[mistake.category].label}
+                              </span>
+                              <bdi className="drill-amt">−{mistake.amount}</bdi>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                      {saved.notes?.trim() && (
+                        <p className="drill-notes">{saved.notes}</p>
+                      )}
+                      <div className="session-history-head">
+                        <span className="t-label">Judging history</span>
+                        <button
+                          type="button"
+                          className="btn-ghost"
+                          disabled={!state.competition.name || !state.competition.edition}
+                          title={
+                            state.competition.name && state.competition.edition
+                              ? "Export this judge-owned result for consolidation"
+                              : "Set the competition name and edition before exporting"
+                          }
+                          onClick={() => downloadJudgeResultPackage(saved, state.competition)}
+                        >
+                          Export judge result
+                        </button>
+                        <button
+                          type="button"
+                          className="btn-ghost"
+                          disabled={state.sessionActive}
+                          title={
+                            state.sessionActive
+                              ? "Finish the current reciter before reopening another result"
+                              : "Reopen this result to make a recorded correction"
+                          }
+                          onClick={() => setReopenSession(saved)}
+                        >
+                          Reopen to correct
+                        </button>
+                      </div>
+                      <JudgingHistory events={saved.events ?? []} />
+                    </div>
+                  )}
+                </li>
+              );
+            })}
+          </ul>
+        )}
       </section>
-      <FinalResultsPanel />
+    );
+  };
+
+  const competitionName = state.competition.name.trim() || "No competition configured";
+  const competitionEdition = state.competition.edition.trim();
+
+  return (
+    <div className="records results-workspace">
+      <header className="results-page-head">
+        <div className="results-page-heading">
+          <span className="results-eyebrow">Results</span>
+          <h1>Results &amp; review</h1>
+          <p>
+            Review judge results, resolve source changes, and finalize participant totals.
+          </p>
+        </div>
+        <div className="results-competition-context" aria-label="Competition context">
+          <strong>{competitionName}</strong>
+          <span>
+            {competitionEdition && <><bdi>{competitionEdition}</bdi> · </>}
+            {lifecycleLabel(state.competition.status)}
+            {state.competition.isSample && " · Test mode"}
+          </span>
+        </div>
+      </header>
+
+      {state.competition.isSample && (
+        <div className="sample-records-notice">
+          <SampleBadge />
+          <span>
+            <strong>Sample results are isolated.</strong>
+            <small>Use them to test review and export without presenting them as official results.</small>
+          </span>
+        </div>
+      )}
+
+      <div className="results-tabs" role="tablist" aria-label="Results sections">
+        <button
+          ref={reviewTabRef}
+          id="results-tab-review"
+          type="button"
+          role="tab"
+          aria-selected={activeTab === "review"}
+          aria-controls="results-panel-review"
+          tabIndex={activeTab === "review" ? 0 : -1}
+          onClick={() => setActiveTab("review")}
+          onKeyDown={(event) => handleTabKeyDown(event, "review")}
+        >
+          Review
+          {reviewSummary.unresolved > 0 && (
+            <span className="results-tab-count">{reviewSummary.unresolved}</span>
+          )}
+        </button>
+        <button
+          ref={analysisTabRef}
+          id="results-tab-analysis"
+          type="button"
+          role="tab"
+          aria-selected={activeTab === "analysis"}
+          aria-controls="results-panel-analysis"
+          tabIndex={activeTab === "analysis" ? 0 : -1}
+          onClick={() => setActiveTab("analysis")}
+          onKeyDown={(event) => handleTabKeyDown(event, "analysis")}
+        >
+          Analysis
+        </button>
+      </div>
+
+      <section
+        id="results-panel-review"
+        role="tabpanel"
+        aria-labelledby="results-tab-review"
+        hidden={activeTab !== "review"}
+        className="results-tab-panel"
+      >
+        <div className="results-status-strip" role="list" aria-label="Result candidate status">
+          <div className="is-needs-review" role="listitem">
+            <span>Needs review</span>
+            <strong>{reviewSummary.needsReview}</strong>
+          </div>
+          <div className="is-ready" role="listitem">
+            <span>Ready</span>
+            <strong>{reviewSummary.ready}</strong>
+          </div>
+          <div className="is-finalized" role="listitem">
+            <span>Finalized</span>
+            <strong>{reviewSummary.finalized}</strong>
+          </div>
+          <div className="is-total" role="listitem">
+            <span>Result candidates</span>
+            <strong>{reviewSummary.total}</strong>
+          </div>
+        </div>
+
+        <section className="results-review-section" aria-labelledby="results-review-heading">
+          <div className="results-review-head">
+            <div>
+              <h2 id="results-review-heading" className="results-section-title">
+                Participant review
+              </h2>
+              <p className="panel-sub">Unresolved participants appear first.</p>
+            </div>
+            <p className="results-visible-count" role="status" aria-live="polite">
+              {filteredReviewItems.length} of {reviewItems.length} result candidates
+              {reviewPageData.pageCount > 1 && ` · Page ${reviewPageData.page} of ${reviewPageData.pageCount}`}
+            </p>
+          </div>
+          <div className="results-review-filters">
+            <div className="results-status-filters" aria-label="Filter by result status">
+              {reviewStateOptions.map((option) => (
+                <button
+                  type="button"
+                  key={option.value}
+                  aria-pressed={reviewState === option.value}
+                  onClick={() => setReviewFilter(() => setReviewState(option.value))}
+                >
+                  {option.label}
+                </button>
+              ))}
+            </div>
+            <label className="results-search-filter">
+              <span>Find participant</span>
+              <input
+                type="search"
+                value={reviewQuery}
+                placeholder="Name or number"
+                onChange={(event) =>
+                  setReviewFilter(() => setReviewQuery(event.target.value))
+                }
+              />
+            </label>
+            <label className="records-filter">
+              <span>Age group</span>
+              <select
+                value={reviewAgeGroup}
+                onChange={(event) =>
+                  setReviewFilter(() => setReviewAgeGroup(event.target.value))
+                }
+              >
+                <option value="">All age groups</option>
+                {reviewAgeGroups.map((group) => (
+                  <option key={group} value={group}>{group}</option>
+                ))}
+              </select>
+            </label>
+            <label className="records-filter">
+              <span>Participant category</span>
+              <select
+                value={reviewParticipantCategory}
+                onChange={(event) =>
+                  setReviewFilter(() => setReviewParticipantCategory(
+                    event.target.value as ParticipantCategory,
+                  ))
+                }
+              >
+                <option value="">All categories</option>
+                <option value="baliagen">Baliagen</option>
+                <option value="nubalaa">Hifz</option>
+              </select>
+            </label>
+            {hasReviewFilters && (
+              <button type="button" className="btn-ghost results-clear-filters" onClick={clearReviewFilters}>
+                Clear filters
+              </button>
+            )}
+          </div>
+
+          <FinalResultsPanel
+            allItems={reviewItems}
+            visibleItems={reviewPageData.items}
+            filteredEmpty={reviewItems.length > 0 && filteredReviewItems.length === 0}
+            onClearFilters={clearReviewFilters}
+          />
+
+          {reviewPageData.pageCount > 1 && (
+            <nav className="results-pagination" aria-label="Participant review pages">
+              <button
+                type="button"
+                className="btn-ghost"
+                disabled={reviewPageData.page === 1}
+                aria-label="Previous participant review page"
+                onClick={() => setReviewPage((page) => Math.max(1, page - 1))}
+              >
+                Previous
+              </button>
+              <span>Page <bdi>{reviewPageData.page}</bdi> of <bdi>{reviewPageData.pageCount}</bdi></span>
+              <button
+                type="button"
+                className="btn-ghost"
+                disabled={reviewPageData.page === reviewPageData.pageCount}
+                aria-label="Next participant review page"
+                onClick={() => setReviewPage((page) => Math.min(reviewPageData.pageCount, page + 1))}
+              >
+                Next
+              </button>
+            </nav>
+          )}
+        </section>
+
+        {renderJudgeResults()}
+      </section>
+
+      <section
+        id="results-panel-analysis"
+        role="tabpanel"
+        aria-labelledby="results-tab-analysis"
+        hidden={activeTab !== "analysis"}
+        className="results-tab-panel"
+      >
+        <div className="results-analysis-intro">
+          <div>
+            <h2 className="results-section-title">Analysis</h2>
+            <p>Raw counts and score summaries for the selected stored judge results.</p>
+          </div>
+          {renderHistoryFilters()}
+        </div>
+
+        <div className="metric-cards results-metrics">
+          <div className="metric">
+            <span className="metric-label">Judge results</span>
+            <span className="metric-num">{stats.sessions}</span>
+          </div>
+          <div className="metric">
+            <span className="metric-label">Average score</span>
+            <span className="metric-num">{stats.avgPercent}%</span>
+          </div>
+          <div className="metric">
+            <span className="metric-label">Mistakes logged</span>
+            <span className="metric-num">{stats.totalMistakes}</span>
+          </div>
+        </div>
+
+        <div className="records-grid">
+          <section className="panel">
+            <div className="panel-head">
+              <h3 className="results-panel-title">Mistakes by category</h3>
+            </div>
+            <div className="cat-list">
+              {CATEGORIES.filter((category) => category.kind === "pinpoint").map((category) => {
+                const value = stats.byCategory[category.id];
+                return (
+                  <div className={`cat-row cat-${category.id}`} key={category.id}>
+                    <div className="cat-row-top">
+                      <span className="cat-dot" aria-hidden="true" />
+                      <span className="cat-name">{category.label}</span>
+                      <span className="cat-score">{value.count}</span>
+                    </div>
+                    <div className="cat-bar">
+                      <span
+                        className="cat-bar-fill"
+                        style={{ width: `${(value.count / maxCatCount) * 100}%` }}
+                      />
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </section>
+
+          <section className="panel">
+            <div className="panel-head">
+              <h3 className="results-panel-title">Most marked letters</h3>
+            </div>
+            {stats.topLetters.length === 0 ? (
+              <p className="empty">No marks yet.</p>
+            ) : (
+              <div className="letter-chips">
+                {stats.topLetters.map((letter) => (
+                  <span className="letter-chip" key={letter.glyph}>
+                    <span className="letter-chip-glyph">{letter.glyph}</span>
+                    <span className="letter-chip-count">{letter.count}</span>
+                  </span>
+                ))}
+              </div>
+            )}
+          </section>
+        </div>
+
+        <section className="panel">
+          <div className="panel-head">
+            <h3 className="results-panel-title">Most repeated mistakes</h3>
+            <span className="panel-sub">same letter, across reciters</span>
+          </div>
+          {stats.topLocations.length === 0 ? (
+            <p className="empty">No marks yet.</p>
+          ) : (
+            <ul className="repeat-list">
+              {stats.topLocations.map((location) => (
+                <li className={`repeat-item cat-${location.topCategory}`} key={location.tid}>
+                  <span className="repeat-glyph">{location.glyph}</span>
+                  <span className="repeat-body">
+                    <span className="repeat-loc">{location.label}</span>
+                    <span className="repeat-chip">
+                      {CATEGORY_BY_ID[location.topCategory].label}
+                    </span>
+                  </span>
+                  <span className="repeat-bar">
+                    <span
+                      className="repeat-bar-fill"
+                      style={{ width: `${(location.count / maxLocCount) * 100}%` }}
+                    />
+                  </span>
+                  <span className="repeat-count">×{location.count}</span>
+                </li>
+              ))}
+            </ul>
+          )}
+        </section>
+      </section>
+
       {reopenSession && (
         <ReopenSessionDialog
           session={reopenSession}
           onCancel={() => setReopenSession(null)}
           onConfirm={(reason) => {
-            dispatch({
-              type: "REOPEN_SESSION",
-              id: reopenSession.id,
-              reason,
-            });
+            dispatch({ type: "REOPEN_SESSION", id: reopenSession.id, reason });
             setReopenSession(null);
             onResumeSession();
           }}

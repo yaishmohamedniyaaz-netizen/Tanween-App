@@ -79,7 +79,7 @@ seven headers, and prove representative rows survive unchanged.
 Implemented as offline-friendly judge-result files:
 
 - a completed judge section can be exported as JSON;
-- another device previews it before adding it to Records;
+- another device previews it before adding it to Results -> Judge results;
 - the competition name and edition must be set first;
 - a different competition/edition is rejected;
 - an identical result is not duplicated;
@@ -95,7 +95,7 @@ revision must never enter a final score silently.
 
 ## 5. P3 — review and finalize
 
-Implemented in **Records → Final results**:
+Implemented in **Results -> Review**:
 
 - Jali, Khafi, and Fasaha are shown separately for every participant;
 - a missing category blocks finalization;
@@ -158,7 +158,7 @@ Required before treating this build as competition-proven:
 - interrupted import and refresh rehearsal;
 - storage-full and failed-save messaging;
 - print review of final results;
-- keyboard and screen-reader pass for the new Records controls;
+- keyboard and screen-reader pass for the new Results controls;
 - offline/service-worker upgrade rehearsal on the exact published build.
 
 ## 8. Deliberately after this release

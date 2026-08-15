@@ -19,7 +19,25 @@ export interface ParticipantResultCandidate {
   conflicts: CategoryId[];
 }
 
+export interface ParticipantResultPreview {
+  byCategory: Partial<Record<CategoryId, FinalizedCategoryScore>>;
+  total: number;
+  totalMax: number;
+}
+
 const round2 = (value: number) => Math.round(value * 100) / 100;
+
+export function hasCompleteFinalizationIdentity(
+  participant: Participant,
+): boolean {
+  return Boolean(
+    participant.number.trim() &&
+    participant.name.trim() &&
+    participant.ageGroup.trim() &&
+    participant.category &&
+    participant.muqarrar,
+  );
+}
 
 function stableHash(value: string): string {
   let result = 0x811c9dc5;
@@ -77,16 +95,40 @@ export function finalizeParticipantResult(
   previous?: FinalizedResult,
   revisionReason?: string,
 ): FinalizedResult | null {
+  if (!hasCompleteFinalizationIdentity(candidate.participant)) return null;
+  const preview = buildParticipantResultPreview(candidate, selectedSessionIds);
+  if (!preview) return null;
+  const { byCategory, total, totalMax } = preview;
+  const revision = (previous?.revision ?? 0) + 1;
+  const normalizedReason = revisionReason?.trim() || undefined;
+  const manifestSource = JSON.stringify({
+    participantId: candidate.participant.id,
+    revision,
+    revisionReason: normalizedReason,
+    byCategory,
+    total,
+    totalMax,
+  });
+
+  return {
+    id: previous?.id ?? `final-${candidate.participant.id}`,
+    isSample: candidate.sessions.every((session) => Boolean(session.isSample)),
+    participant: { ...candidate.participant },
+    revision,
+    finalizedAt: Date.now(),
+    revisionReason: normalizedReason,
+    byCategory,
+    total,
+    totalMax,
+    manifest: `fnv1a-${stableHash(manifestSource)}`,
+  };
+}
+
+export function buildParticipantResultPreview(
+  candidate: ParticipantResultCandidate,
+  selectedSessionIds: Partial<Record<CategoryId, string>>,
+): ParticipantResultPreview | null {
   const categoryIds = candidate.categories;
-  if (
-    !candidate.participant.number.trim() ||
-    !candidate.participant.name.trim() ||
-    !candidate.participant.ageGroup.trim() ||
-    !candidate.participant.category ||
-    !candidate.participant.muqarrar
-  ) {
-    return null;
-  }
   const byCategory: Partial<Record<CategoryId, FinalizedCategoryScore>> = {};
   for (const category of categoryIds) {
     const options = candidate.byCategory[category];
@@ -118,29 +160,7 @@ export function finalizeParticipantResult(
   const totalMax = round2(
     categoryIds.reduce((sum, category) => sum + (byCategory[category]?.max ?? 0), 0),
   );
-  const revision = (previous?.revision ?? 0) + 1;
-  const normalizedReason = revisionReason?.trim() || undefined;
-  const manifestSource = JSON.stringify({
-    participantId: candidate.participant.id,
-    revision,
-    revisionReason: normalizedReason,
-    byCategory,
-    total,
-    totalMax,
-  });
-
-  return {
-    id: previous?.id ?? `final-${candidate.participant.id}`,
-    isSample: candidate.sessions.every((session) => Boolean(session.isSample)),
-    participant: { ...candidate.participant },
-    revision,
-    finalizedAt: Date.now(),
-    revisionReason: normalizedReason,
-    byCategory,
-    total,
-    totalMax,
-    manifest: `fnv1a-${stableHash(manifestSource)}`,
-  };
+  return { byCategory, total, totalMax };
 }
 
 export interface PlacedResult extends FinalizedResult {

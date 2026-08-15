@@ -1,6 +1,11 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { enabledCategories } from "../config";
 import type { AppTheme } from "../lib/devicePreferences";
 import { downloadSessionJSON } from "../lib/exportSession";
+import {
+  buildResultsReviewItems,
+  summarizeResultsReview,
+} from "../lib/resultsReview";
 import { useJudging } from "../state/store";
 import { Icon } from "./Icon";
 import { ThemeToggle } from "./ThemeToggle";
@@ -51,6 +56,32 @@ export function Header({
   const visibleQuestion = prepared?.question ?? state.activeQuestion;
   const rosterTotal = state.roster.length;
   const rosterDone = state.roster.filter((entry) => entry.judged).length;
+  const resultsSummary = useMemo(() => {
+    const categories = enabledCategories(
+      state.competition.liveSnapshot?.scoreConfig ?? state.config,
+    );
+    return summarizeResultsReview(
+      buildResultsReviewItems(
+        state.history,
+        state.finalizedResults,
+        state.competition.id,
+        categories,
+      ),
+    );
+  }, [
+    state.competition.id,
+    state.competition.liveSnapshot,
+    state.config,
+    state.finalizedResults,
+    state.history,
+  ]);
+  const resultsActionLabel = view === "judge"
+    ? resultsSummary.unresolved
+      ? `Results, ${resultsSummary.unresolved} unresolved participants`
+      : "Results"
+    : view === "records"
+      ? "Back to Judging"
+      : "Back to Mushaf";
   const competitionTitle = state.competition.name || (
     state.competition.status === "live"
       ? "Live competition"
@@ -105,9 +136,10 @@ export function Header({
         type="button"
         className={`view-toggle ${view === "records" ? "is-active" : ""}`}
         onClick={onToggleView}
+        aria-label={resultsActionLabel}
       >
         {view === "judge" ? (
-          <><Icon name="chart" size={15} /> Records {state.history.length > 0 && <span className="view-toggle-count">{state.history.length}</span>}</>
+          <><Icon name="fileCheck" size={15} /> Results {resultsSummary.unresolved > 0 && <span className="view-toggle-count">{resultsSummary.unresolved}</span>}</>
         ) : (
           <><Icon name="back" size={15} /> {view === "records" ? "Judging" : "Back to Mushaf"}</>
         )}
