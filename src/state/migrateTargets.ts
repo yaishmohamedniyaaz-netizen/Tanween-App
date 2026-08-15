@@ -112,6 +112,8 @@ export async function buildTargetMigrationPatches(
       mistake.sourceStart === undefined ||
       mistake.sourceEnd === undefined ||
       !mistake.wordId ||
+      !mistake.primaryGlyph?.trim() ||
+      !mistake.fullGlyph?.trim() ||
       mistake.sourceVersion !== TARGET_SOURCE_VERSION ||
       mistake.ruleVersion !== TARGET_RULE_VERSION,
   );

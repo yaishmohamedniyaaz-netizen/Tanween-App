@@ -1,5 +1,6 @@
 import { PINPOINT_CATEGORIES } from "../config.ts";
 import type { CategoryId, SavedSession } from "../types";
+import { mistakePrimaryGlyph } from "./mistakeDisplay.ts";
 
 export interface RecordsStats {
   sessions: number;
@@ -57,12 +58,13 @@ export function computeRecords(
     scoreSum += s.total;
     pctSum += s.totalMax > 0 ? (s.total / s.totalMax) * 100 : 0;
     for (const m of s.mistakes) {
+      const glyph = mistakePrimaryGlyph(m);
       totalMistakes += 1;
       byCategory[m.category].count += 1;
       byCategory[m.category].deducted += m.amount;
-      letterMap.set(m.glyph, (letterMap.get(m.glyph) || 0) + 1);
+      letterMap.set(glyph, (letterMap.get(glyph) || 0) + 1);
       const loc = locMap.get(m.tid) || {
-        glyph: m.glyph,
+        glyph,
         label: m.label,
         count: 0,
         cats: {},

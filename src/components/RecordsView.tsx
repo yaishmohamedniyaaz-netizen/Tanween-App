@@ -17,6 +17,7 @@ import {
   categoryListLabel,
   judgeDisplayName,
 } from "../lib/judgeAssignments";
+import { mistakePrimaryGlyph } from "../lib/mistakeDisplay";
 import { participantCategoryLabel } from "../lib/participants";
 import {
   RESULTS_REVIEW_PAGE_SIZE,
@@ -554,7 +555,9 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
                         <ul className="drill-list">
                           {saved.mistakes.map((mistake) => (
                             <li className={`drill-item cat-${mistake.category}`} key={mistake.id}>
-                              <span className="drill-glyph">{mistake.glyph}</span>
+                              <span className="drill-glyph">
+                                {mistakePrimaryGlyph(mistake)}
+                              </span>
                               <span className="drill-loc">{mistake.label}</span>
                               <span className="drill-chip">
                                 {CATEGORY_BY_ID[mistake.category].label}

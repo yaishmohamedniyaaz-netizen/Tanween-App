@@ -4765,8 +4765,10 @@ textarea:focus-visible {
   overflow: hidden;
 }
 .mistake-panel .log {
+  flex: 1 1 auto;
   min-height: 0;
   overflow-y: auto;
+  overscroll-behavior: contain;
 }
 .mistake-panel-backdrop {
   position: fixed;
@@ -4927,10 +4929,12 @@ textarea:focus-visible {
   color: var(--ink);
 }
 .log-row-wrap {
+  flex: 0 0 auto;
   border: 1px solid var(--line);
   border-radius: var(--r-sm);
   overflow: hidden;
   background: var(--surface);
+  scroll-margin-block: 4px;
 }
 .log-row {
   display: grid;
@@ -6670,11 +6674,11 @@ html:has(.dialog-backdrop) {
   background: var(--c-tint);
 }
 .log-detail-line .log-kalimah-word {
-  overflow: hidden;
+  overflow: visible;
   min-width: 0;
+  padding-block: 1px;
   font-size: 18px;
-  line-height: 1.2;
-  text-overflow: ellipsis;
+  line-height: 1.55;
   white-space: nowrap;
 }
 .log-detail-line .log-kalimah-ref {

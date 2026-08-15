@@ -465,7 +465,7 @@ test("marking a letter twice replaces the mark instead of stacking one", () => {
 
 test("mistake details name the kalimah and where it sits", () => {
   assert.match(mistakeLogSource, /log-kalimah-word/);
-  assert.match(mistakeLogSource, /mistake\.wordText \|\| mistake\.glyph/);
+  assert.match(mistakeLogSource, /mistake\.wordText \|\| mistakeFullGlyph\(mistake\)/);
   assert.match(mistakeLogSource, /\$\{mistake\.surah\}:\$\{mistake\.ayah\}/);
   assert.match(mistakeLogSource, /log-kalimah-ref/);
   // The letter ordinal stays in the stored evidence, not in the judge's view.
