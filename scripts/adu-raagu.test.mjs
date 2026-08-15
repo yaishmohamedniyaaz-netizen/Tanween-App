@@ -430,6 +430,11 @@ test("Adu and Raagu has one home in the rail, inside its score row", () => {
   assert.match(scorePanelSource, /<MarkPicker/);
   assert.match(scorePanelSource, /SET_IMPRESSION_NOTE/);
   assert.doesNotMatch(appSource, /ImpressionPanel/);
+  assert.match(ruleBody(".sc-score"), /text-align: center/);
+  assert.match(ruleBody(".sc-score"), /white-space: nowrap/);
+  assert.match(ruleBody(".sc-score .sc-of"), /font-size: 12px/);
+  assert.match(ruleBody(".mark-picker-of"), /font-size: 12px/);
+  assert.match(ruleBody(".mark-picker-of"), /font-weight: 400/);
 });
 
 test("the judging rail sits on the left unless the judge chose otherwise", () => {

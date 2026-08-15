@@ -1,5 +1,29 @@
 # Tahqeeq — build progress log
 
+## Mistake evidence and judging-rail correction — IMPLEMENTED (2026-08-15)
+
+- Compact mistake rows, Judging History, Results drill-down, printed result
+  sheets, and letter statistics now use the semantic primary target. Page 199
+  `لَئِنۡ` therefore shows `ء` as the judged letter while preserving full `ئِ`,
+  the carrier, exact Quran text, stable target identity, and raw exports.
+- The compact mistake list retains every current finding in newest-first order
+  and scrolls instead of slicing or flex-compressing rows. A completed
+  expansion scrolls its full evidence line into view; same-kalimah grouping
+  remains deliberately undecided.
+- Compact navigation now has one View all action. The full side sheet owns
+  Current/History navigation, modal focus containment, Escape/backdrop closing,
+  and focus return.
+- The highlighted kalimah/reference pill uses a Quran-font-safe line box, so
+  stacked tashkil is not clipped. Deduction buttons retain their 24px target
+  and align with the evidence line.
+- Ordinary score strings and the Adu & Raagu selector now share the exact center
+  of the same 66px score column, with matched value/maximum typography. Mark
+  increments, gestures, keyboard behavior, and competition rules are unchanged.
+- Verification: 241 automated tests pass and the production build succeeds.
+  Browser QA covered page 199 at 1440 × 900, 1280 × 800, 1024 × 768, and
+  390 × 844 in light/dark themes and both rail positions, with no horizontal
+  overflow or browser-console errors.
+
 ## Settings and Competition Setup Overhaul V1 — IMPLEMENTED (2026-08-15)
 
 - General device settings are now a dedicated index/detail workspace for theme,

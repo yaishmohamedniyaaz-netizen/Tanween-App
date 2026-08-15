@@ -140,7 +140,7 @@ test("exports retain immutable full-form snapshots", () => {
   assert.doesNotMatch(exportSource, /mistakePrimaryGlyph/);
 });
 
-test("CSS locks scrolling and Arabic ink", () => {
+test("CSS locks scrolling, Arabic ink, and shared score alignment", () => {
   assert.match(ruleBody(".mistake-panel .log"), /flex:\s*1 1 auto/);
   assert.match(ruleBody(".mistake-panel .log"), /overflow-y:\s*auto/);
   assert.match(ruleBody(".log-row-wrap"), /flex:\s*0 0 auto/);
@@ -150,4 +150,9 @@ test("CSS locks scrolling and Arabic ink", () => {
   assert.doesNotMatch(wordRule, /text-overflow:\s*ellipsis/);
   assert.match(wordRule, /line-height:\s*1\.55/);
 
+  assert.match(ruleBody(".sc-score"), /text-align:\s*center/);
+  assert.match(ruleBody(".sc-score"), /white-space:\s*nowrap/);
+  assert.match(ruleBody(".sc-score .sc-of"), /font-size:\s*12px/);
+  assert.match(ruleBody(".mark-picker-of"), /font-size:\s*12px/);
+  assert.match(ruleBody(".mark-picker-of"), /font-weight:\s*400/);
 });

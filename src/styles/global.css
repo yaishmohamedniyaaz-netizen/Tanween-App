@@ -4706,8 +4706,9 @@ textarea:focus-visible {
 .sc-score {
   font-size: 14px;
   font-weight: 500;
-  text-align: right;
+  text-align: center;
   font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }
 .sc-score .sc-of {
   font-size: 12px;
@@ -8192,7 +8193,8 @@ html:has(.dialog-backdrop) {
   font-variant-numeric: tabular-nums;
 }
 .mark-picker-of {
-  font-size: 11px;
+  font-size: 12px;
+  font-weight: 400;
   line-height: 1;
   color: var(--ink-3);
   font-variant-numeric: tabular-nums;
