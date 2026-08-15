@@ -7,14 +7,12 @@
 .settings-page-head {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr) auto;
-  align-items: start;
+  align-items: center;
   gap: 20px;
   max-width: 1120px;
   margin: 0 auto 20px;
 }
 
-.settings-page-head > div { min-width: 0; }
-.settings-page-head > div > span,
 .settings-section-head > span,
 .question-preparation-head > div > span {
   color: var(--ink-3);
@@ -30,6 +28,9 @@
   font-weight: 580;
   letter-spacing: -.045em;
 }
+.settings-page-head h1 {
+  margin: 0;
+}
 .settings-page-head p,
 .question-preparation-head p {
   max-width: 620px;
@@ -38,20 +39,67 @@
   font-size: 13px;
   line-height: 1.55;
 }
-.settings-save-state {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  min-height: 32px;
-  color: var(--ink-3);
-  font-size: 11px;
-  white-space: nowrap;
+.settings-page-head > .btn-ghost { min-height: 40px; }
+.settings-help { justify-self: end; }
+
+.settings-guide {
+  position: fixed;
+  inset-block: 78px auto;
+  inset-inline: auto max(24px, calc((100vw - 1120px) / 2));
+  width: min(390px, calc(100vw - 32px));
+  max-height: calc(100dvh - 104px);
+  margin: 0;
+  padding: 0;
+  overflow: auto;
+  border: 1px solid var(--line-2);
+  border-radius: var(--r-md);
+  background: var(--surface);
+  color: var(--ink);
+  box-shadow: var(--shadow-float);
 }
-.settings-save-state i {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: #2e9e83;
+.settings-guide::backdrop {
+  background: color-mix(in srgb, var(--ink) 18%, transparent);
+  backdrop-filter: blur(1.5px);
+}
+.settings-guide-progress {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 20px 13px;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink-3);
+  font-size: var(--t-micro);
+  font-weight: 600;
+}
+.settings-guide-copy {
+  min-height: 154px;
+  padding: 24px 20px 22px;
+}
+.settings-guide-copy h2 {
+  margin: 0;
+  font-size: var(--t-title);
+  font-weight: 610;
+  letter-spacing: -.035em;
+  line-height: 1.18;
+}
+.settings-guide-copy h2:focus { outline: none; }
+.settings-guide-copy p {
+  margin: 12px 0 0;
+  color: var(--ink-2);
+  font-size: var(--t-small);
+  line-height: 1.58;
+}
+.settings-guide-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 20px 18px;
+  border-top: 1px solid var(--line);
+}
+.settings-guide-actions button {
+  min-width: 88px;
+  min-height: 42px;
 }
 
 .settings-layout {
@@ -243,9 +291,23 @@
 
 @media (max-width: 779px) {
   .settings-page { padding: 16px 12px 32px; }
-  .settings-page-head { grid-template-columns: 1fr; gap: 12px; }
-  .settings-page-head > .btn-ghost { min-height: 44px; justify-self: start; }
-  .settings-save-state { display: none; }
+  .settings-page-head { grid-template-columns: auto minmax(0, 1fr) auto; gap: 8px; }
+  .settings-page-head h1 { font-size: 24px; text-align: center; }
+  .settings-page-head > .btn-ghost { min-height: 44px; padding-inline: 10px; }
+  .settings-page-head > .btn-ghost:first-child { font-size: 0; }
+  .settings-page-head > .btn-ghost:first-child svg { width: 18px; height: 18px; }
+  .settings-help { justify-self: end; }
+  .settings-guide {
+    inset: auto 0 0;
+    width: 100%;
+    max-height: min(76dvh, 560px);
+    border-width: 1px 0 0;
+    border-radius: var(--r-lg) var(--r-lg) 0 0;
+  }
+  .settings-guide-progress { padding: 18px 18px 13px; }
+  .settings-guide-copy { min-height: 166px; padding: 26px 18px 22px; }
+  .settings-guide-actions { padding: 14px 18px calc(16px + env(safe-area-inset-bottom)); }
+  .settings-guide-actions button { min-height: 44px; }
   .settings-layout { display: block; }
   .settings-layout.has-detail .settings-index { display: none; }
   .settings-index { border-radius: 10px; }

@@ -1,5 +1,11 @@
 # Results screen — Pass 1 implementation plan
 
+> Follow-on decision, 16 August 2026: retain the Pass 1 review architecture but
+> simplify the presentation further—one Results title, no standalone sample
+> warning, one connected status band, a ruled participant ledger, and less
+> state-repeating microcopy. The canonical follow-on contract is
+> [`INTERFACE_SIMPLIFICATION_AND_JUDGING_FLOW_PLAN.md`](./INTERFACE_SIMPLIFICATION_AND_JUDGING_FLOW_PLAN.md).
+
 Status: implemented and locally verified; publication is recorded in the release handoff
 Prepared: 15 August 2026
 Reviewed against current code: 15 August 2026

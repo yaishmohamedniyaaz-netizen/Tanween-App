@@ -563,6 +563,12 @@ textarea:focus-visible {
   grid-template-columns: 316px minmax(0, 1fr);
   grid-template-areas: "sidebar stage";
 }
+.workspace.is-idle {
+  grid-template-columns: minmax(0, 1fr) clamp(350px, 28vw, 370px);
+}
+.workspace.is-idle.rail-left {
+  grid-template-columns: clamp(350px, 28vw, 370px) minmax(0, 1fr);
+}
 .stage {
   grid-area: stage;
   min-width: 0;
@@ -641,79 +647,83 @@ textarea:focus-visible {
   flex-direction: column;
   align-items: stretch;
   justify-content: center;
-  min-height: 420px;
-  padding: 30px 24px;
-}
-.competition-state-label {
-  display: inline-flex;
-  align-items: center;
-  align-self: flex-start;
-  margin-bottom: 14px;
-  color: var(--ink-3);
-  font-size: 10.5px;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  min-height: 460px;
+  padding: 36px 30px;
 }
 .competition-idle-panel h2 {
   margin: 0;
-  font-size: 22px;
-  font-weight: 560;
-  letter-spacing: -0.035em;
+  font-size: var(--t-display);
+  font-weight: 590;
+  letter-spacing: -0.045em;
+  line-height: 1.08;
 }
 .competition-idle-panel > p {
-  margin: 9px 0 22px;
+  margin: 12px 0 24px;
   color: var(--ink-2);
-  font-size: 12px;
-  line-height: 1.55;
+  font-size: var(--t-small);
+  line-height: 1.5;
 }
 .competition-idle-edition {
-  margin: 4px 0 18px !important;
+  margin: 7px 0 10px !important;
   color: var(--ink-3) !important;
+  font-size: var(--t-micro) !important;
 }
 .competition-idle-role {
   display: grid;
-  gap: 2px;
-  margin-bottom: 12px;
-  padding: 11px 12px;
-  border: 1px solid var(--line);
-  border-radius: var(--r-sm);
-  background: var(--bg);
+  grid-template-columns: 68px minmax(0, 1fr);
+  align-items: start;
+  gap: 12px;
+  margin-top: 16px;
+  padding-block: 15px;
+  border-block: 1px solid var(--line);
 }
-.competition-idle-role span,
+.competition-idle-role > span,
 .competition-idle-role small {
   color: var(--ink-3);
-  font-size: 10px;
+  font-size: var(--t-micro);
 }
+.competition-idle-role > div { display: grid; gap: 4px; min-width: 0; }
 .competition-idle-role strong {
-  font-size: 12.5px;
-  font-weight: 580;
+  overflow: hidden;
+  font-size: var(--t-small);
+  font-weight: 620;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .competition-idle-progress {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 8px;
-  margin-bottom: 16px;
+  gap: 0;
+  margin: 0 0 20px;
+  padding: 0;
+  border-bottom: 1px solid var(--line);
 }
-.competition-idle-progress span {
+.competition-idle-progress div {
   display: grid;
-  gap: 2px;
-  padding: 10px 11px;
-  border: 1px solid var(--line);
-  border-radius: var(--r-sm);
-  color: var(--ink-3);
-  font-size: 10px;
+  grid-template-columns: 1fr auto;
+  align-items: baseline;
+  gap: 8px;
+  padding: 14px 0;
 }
-.competition-idle-progress strong {
+.competition-idle-progress div + div {
+  padding-inline-start: 16px;
+  border-inline-start: 1px solid var(--line);
+}
+.competition-idle-progress dt {
+  color: var(--ink-3);
+  font-size: var(--t-micro);
+}
+.competition-idle-progress dd {
+  margin: 0;
   color: var(--ink);
-  font-size: 18px;
-  font-weight: 550;
+  font-size: var(--t-title);
+  font-weight: 600;
   font-variant-numeric: tabular-nums;
 }
 .competition-start-reciter {
   display: grid;
   width: 100%;
-  min-height: 50px;
+  min-height: 54px;
 }
 .competition-start-reciter > span {
   max-width: 225px;
@@ -725,7 +735,8 @@ textarea:focus-visible {
   white-space: nowrap;
 }
 .competition-setup-link {
-  margin-top: 8px;
+  min-height: 42px;
+  margin-top: 10px;
 }
 .sample-badge {
   display: inline-flex;
@@ -756,12 +767,11 @@ textarea:focus-visible {
   color: #e0b16a;
 }
 .competition-idle-complete {
-  margin: 0 0 8px !important;
-  padding: 12px;
-  border: 1px solid var(--line);
-  border-radius: var(--r-sm);
-  background: var(--bg);
-  text-align: center;
+  margin: 0 0 12px !important;
+  padding: 13px 0;
+  border-block: 1px solid var(--line);
+  color: var(--ink-2);
+  text-align: start;
 }
 
 .competition-setup-page {
@@ -786,26 +796,22 @@ textarea:focus-visible {
   border-color: rgba(151, 103, 34, 0.28);
   background: linear-gradient(90deg, rgba(196, 145, 66, 0.08), var(--surface) 42%);
 }
-.sample-control-bar > div,
-.sample-records-notice {
+.sample-control-bar > div {
   display: flex;
   align-items: center;
   gap: 10px;
   min-width: 0;
 }
-.sample-control-bar > div > span:last-child,
-.sample-records-notice > span:last-child {
+.sample-control-bar > div > span:last-child {
   display: grid;
   gap: 2px;
   min-width: 0;
 }
-.sample-control-bar strong,
-.sample-records-notice strong {
+.sample-control-bar strong {
   font-size: 11.5px;
   font-weight: 590;
 }
-.sample-control-bar small,
-.sample-records-notice small {
+.sample-control-bar small {
   color: var(--ink-3);
   font-size: 10px;
   line-height: 1.4;
@@ -1020,35 +1026,20 @@ textarea:focus-visible {
 .results-page-head {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(220px, auto);
-  align-items: end;
+  align-items: center;
   gap: 28px;
-  padding: 5px 2px 15px;
+  padding: 6px 2px 16px;
   border-bottom: 1px solid var(--line-2);
 }
 
-.results-page-heading {
-  min-width: 0;
-}
-
-.results-eyebrow {
-  display: block;
-  margin-block-end: 5px;
-  color: var(--ink-3);
-  font-size: 12px;
-  font-weight: 650;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-
-.results-page-heading h1 {
+.results-page-head > h1 {
   margin: 0;
-  font-size: clamp(28px, 3vw, 34px);
+  font-size: clamp(28px, 3vw, 32px);
   font-weight: 590;
   letter-spacing: -0.035em;
   line-height: 1.05;
 }
 
-.results-page-heading p,
 .results-analysis-intro p {
   max-width: 650px;
   margin: 8px 0 0;
@@ -1061,10 +1052,8 @@ textarea:focus-visible {
   display: flex;
   align-items: flex-end;
   flex-direction: column;
-  gap: 5px;
+  gap: 3px;
   min-width: 210px;
-  padding-inline-start: 18px;
-  border-inline-start: 2px solid var(--ink);
   text-align: end;
 }
 
@@ -1744,7 +1733,7 @@ textarea:focus-visible {
     text-align: start;
   }
 
-  .results-page-heading h1 {
+  .results-page-head > h1 {
     font-size: 28px;
   }
 
@@ -7761,12 +7750,6 @@ html:has(.dialog-backdrop) {
   font-size: 12px;
   color: var(--ink-3);
 }
-.sample-records-notice {
-  padding: 10px 12px;
-  border: 1px solid rgba(151, 103, 34, 0.25);
-  border-radius: var(--r-sm);
-  background: rgba(196, 145, 66, 0.06);
-}
 .session-name .sample-badge,
 .panel-title .sample-badge,
 .setup-task-intro h1 .sample-badge,
@@ -8481,6 +8464,9 @@ html:has(.dialog-backdrop) {
   .competition-header-state small {
     display: none;
   }
+  .competition-header-state.is-sample small {
+    display: block;
+  }
   .reciter-chip {
     min-width: 0;
     max-width: 112px;
@@ -8558,9 +8544,6 @@ html:has(.dialog-backdrop) {
   }
   .sample-control-bar .btn-ghost {
     width: 100%;
-  }
-  .sample-records-notice {
-    align-items: flex-start;
   }
   .competition-setup-topbar {
     margin-bottom: 10px;

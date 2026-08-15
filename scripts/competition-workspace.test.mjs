@@ -91,13 +91,16 @@ test("judging hit targets remain disabled outside an active reciter session", ()
   assert.match(mushafSource, /judgingEnabled = state\.sessionActive/);
   assert.match(mushafSource, /\{judgingEnabled && <div className="hit-layer">/);
   assert.match(mushafSource, /onPointerDown=\{judgingEnabled \? onPointerDown : undefined\}/);
-  assert.match(idleSource, /Official marks stay disabled/);
+  assert.match(idleSource, /Browse freely, or prepare a competition/);
 });
 
 test("the live handoff uses quiet status text and two focused screens", () => {
   assert.doesNotMatch(headerSource, /offline-dot|chip-dot/);
   assert.doesNotMatch(idleSource, /<i aria-hidden/);
-  assert.match(headerSource, /Test mode · Live/);
+  assert.match(headerSource, /Sample · \$\{competitionLifecycle\}/);
+  assert.doesNotMatch(headerSource, /Test mode/);
+  assert.doesNotMatch(idleSource, /Test mode|competition-state-label/);
+  assert.match(appSource, /\? "is-idle" : ""/);
   assert.match(participantScreenSource, /Participant running order/);
   assert.match(participantScreenSource, /participantContextLabel/);
   assert.match(participantPresentationSource, /participant\.institution/);

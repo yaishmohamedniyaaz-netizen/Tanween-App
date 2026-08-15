@@ -609,32 +609,15 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
   return (
     <div className="records results-workspace">
       <header className="results-page-head">
-        <div className="results-page-heading">
-          <span className="results-eyebrow">Results</span>
-          <h1>Results &amp; review</h1>
-          <p>
-            Review judge results, resolve source changes, and finalize participant totals.
-          </p>
-        </div>
+        <h1>Results</h1>
         <div className="results-competition-context" aria-label="Competition context">
           <strong>{competitionName}</strong>
           <span>
             {competitionEdition && <><bdi>{competitionEdition}</bdi> · </>}
             {lifecycleLabel(state.competition.status)}
-            {state.competition.isSample && " · Test mode"}
           </span>
         </div>
       </header>
-
-      {state.competition.isSample && (
-        <div className="sample-records-notice">
-          <SampleBadge />
-          <span>
-            <strong>Sample results are isolated.</strong>
-            <small>Use them to test review and export without presenting them as official results.</small>
-          </span>
-        </div>
-      )}
 
       <div className="results-tabs" role="tablist" aria-label="Results sections">
         <button

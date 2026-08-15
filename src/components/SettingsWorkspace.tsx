@@ -7,9 +7,14 @@ import {
   downloadStateBackup,
   readStateBackupFile,
 } from "../lib/resultPackages";
+import {
+  completeSettingsGuide,
+  hasCompletedSettingsGuide,
+} from "../lib/settingsGuide";
 import { useJudging } from "../state/store";
 import type { JudgingState } from "../types";
 import { Icon } from "./Icon";
+import { SettingsGuide } from "./SettingsGuide";
 
 type SettingsSection = "appearance" | "workspace" | "data";
 
@@ -54,7 +59,11 @@ export function SettingsWorkspace({
   const [restoreError, setRestoreError] = useState("");
   const [confirmRestore, setConfirmRestore] = useState(false);
   const [confirmReset, setConfirmReset] = useState(false);
+  const [guideOpen, setGuideOpen] = useState(() => !hasCompletedSettingsGuide());
   const restoreRef = useRef<HTMLInputElement>(null);
+  const headingRef = useRef<HTMLHeadingElement>(null);
+  const helpRef = useRef<HTMLButtonElement>(null);
+  const guideReturnRef = useRef<HTMLElement | null>(null);
 
   const chooseSection = (next: SettingsSection) => {
     setSection(next);
@@ -76,19 +85,36 @@ export function SettingsWorkspace({
 
   const summary = restorePreview ? restoreSummary(restorePreview) : null;
 
+  const dismissGuide = () => {
+    completeSettingsGuide();
+    setGuideOpen(false);
+    const returnTarget = guideReturnRef.current ?? headingRef.current;
+    guideReturnRef.current = null;
+    requestAnimationFrame(() => returnTarget?.focus());
+  };
+
   return (
     <main className="settings-page">
       <header className="settings-page-head">
         <button type="button" className="btn-ghost" onClick={onBack}>
           <Icon name="back" size={15} /> Back to Mushaf
         </button>
-        <div>
-          <span>On this device</span>
-          <h1>Settings</h1>
-          <p>Personalize Tahqeeq without changing competition rules or official records.</p>
-        </div>
-        <span className="settings-save-state"><i aria-hidden="true" /> Saved automatically</span>
+        <h1 ref={headingRef} tabIndex={-1}>Settings</h1>
+        <button
+          ref={helpRef}
+          type="button"
+          className="btn-ghost settings-help"
+          aria-haspopup="dialog"
+          onClick={() => {
+            guideReturnRef.current = helpRef.current;
+            setGuideOpen(true);
+          }}
+        >
+          Help
+        </button>
       </header>
+
+      {guideOpen && <SettingsGuide onDismiss={dismissGuide} />}
 
       <div className={`settings-layout ${section ? "has-detail" : ""}`}>
         <nav className="settings-index" aria-label="Settings sections">
@@ -115,7 +141,6 @@ export function SettingsWorkspace({
             {section === "appearance" && (
               <>
                 <div className="settings-section-head">
-                  <span>Preferences</span>
                   <h2 id="settings-appearance-title">Appearance</h2>
                   <p>Choose the surface that is easiest to read in this room.</p>
                 </div>
@@ -144,9 +169,7 @@ export function SettingsWorkspace({
             {section === "workspace" && (
               <>
                 <div className="settings-section-head">
-                  <span>Preferences</span>
                   <h2 id="settings-workspace-title">Mushaf and judging workspace</h2>
-                  <p>These choices affect this judge device only.</p>
                 </div>
 
                 <fieldset className="settings-fieldset">

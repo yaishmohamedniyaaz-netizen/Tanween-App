@@ -25,31 +25,24 @@ export function CompetitionIdlePanel({
 
   if (liveSnapshot) {
     return (
-      <section className="competition-idle-panel is-live" aria-label="Competition ready">
-        <span className="competition-state-label">
-          {competition.isSample ? "Test mode" : "Live"}
-        </span>
-        <h2>{competition.name || "Live competition"}</h2>
+      <section className="competition-idle-panel is-live" aria-labelledby="competition-idle-title">
+        <h2 id="competition-idle-title">{competition.name || "Live competition"}</h2>
         {competition.edition && (
           <p className="competition-idle-edition">{competition.edition}</p>
         )}
         {assignment && (
           <div className="competition-idle-role">
-            <span>This device</span>
-            <strong>{judgeDisplayName(assignment)}</strong>
-            <small>{categoryListLabel(assignment.categories)}</small>
+            <span>Judge</span>
+            <div>
+              <strong>{judgeDisplayName(assignment)}</strong>
+              <small>{categoryListLabel(assignment.categories)}</small>
+            </div>
           </div>
         )}
-        <div className="competition-idle-progress">
-          <span>
-            <strong>{remaining.length}</strong>
-            waiting
-          </span>
-          <span>
-            <strong>{state.roster.length - remaining.length}</strong>
-            finished
-          </span>
-        </div>
+        <dl className="competition-idle-progress">
+          <div><dt>Waiting</dt><dd>{remaining.length}</dd></div>
+          <div><dt>Finished</dt><dd>{state.roster.length - remaining.length}</dd></div>
+        </dl>
         {next ? (
           <button type="button" className="btn-primary competition-start-reciter" onClick={onStartReciter}>
             Prepare next reciter
@@ -72,23 +65,14 @@ export function CompetitionIdlePanel({
 
   const draft = competition.status === "draft" && Boolean(competition.name || state.roster.length);
   return (
-    <section className={`competition-idle-panel ${competition.status === "closed" ? "is-closed" : ""}`} aria-label="Competition status">
-      <span className="competition-state-label">
-        {competition.status === "closed"
-          ? competition.isSample ? "Test mode · Closed" : "Closed"
-          : draft
-            ? competition.isSample ? "Test mode · Draft" : "Draft"
-            : "No competition running"}
-      </span>
-      <h2>{competition.name || "The Mushaf is ready"}</h2>
+    <section className={`competition-idle-panel ${competition.status === "closed" ? "is-closed" : ""}`} aria-labelledby="competition-idle-title">
+      <h2 id="competition-idle-title">{competition.name || "The Mushaf is ready"}</h2>
       <p>
         {competition.status === "closed"
-          ? "Results remain available. Start a new draft when the next competition is ready."
+          ? "Results remain available for review."
           : draft
-            ? competition.isSample
-              ? "Use the fictional roster to test judging. Sample results stay separate from official exports."
-              : "Continue preparation, review every rule, then start it officially."
-            : "Browse any page freely. Official marks stay disabled until a competition is prepared and started."}
+            ? "Continue setup when the competition is ready."
+            : "Browse freely, or prepare a competition when you are ready."}
       </p>
       <button type="button" className="btn-primary" onClick={onPrepare}>
         {competition.status === "closed"

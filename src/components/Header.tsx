@@ -89,6 +89,16 @@ export function Header({
         ? "Closed competition"
         : "No competition running"
   );
+  const competitionLifecycle = state.competition.status === "live"
+    ? "Live"
+    : state.competition.status === "closed"
+      ? "Closed"
+      : state.competition.name
+        ? "Draft"
+        : "Browse the Mushaf";
+  const competitionContext = state.competition.isSample
+    ? `Sample · ${competitionLifecycle}`
+    : competitionLifecycle;
 
   return (
     <header className="app-header">
@@ -97,23 +107,16 @@ export function Header({
         <span className="brand-name">Tahqeeq</span>
       </div>
 
-      {!state.sessionActive && !prepared && view !== "records" && (
+      {!state.sessionActive && !prepared && (
         <button
           type="button"
-          className={`competition-header-state is-${state.competition.status}`}
+          className={`competition-header-state is-${state.competition.status} ${state.competition.isSample ? "is-sample" : ""}`}
           onClick={onOpenSetup}
+          aria-label={`Open competition setup. ${competitionTitle}. ${competitionContext}.`}
         >
           <span>
             <strong>{competitionTitle}</strong>
-            <small>
-              {state.competition.status === "live"
-                ? state.competition.isSample ? "Test mode · Live" : "Live"
-                : state.competition.status === "closed"
-                  ? state.competition.isSample ? "Test mode · Closed" : "Closed"
-                  : state.competition.name
-                    ? state.competition.isSample ? "Test mode · Draft" : "Draft"
-                    : "Browse the Mushaf"}
-            </small>
+            <small>{competitionContext}</small>
           </span>
         </button>
       )}

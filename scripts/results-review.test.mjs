@@ -315,7 +315,9 @@ test("Results UI retains the reviewed navigation, tabs, audit, and export contra
   assert.match(header, /> Results /);
   assert.match(header, /Back to Judging/);
   assert.doesNotMatch(header, /name="chart"[^>]*\/> Records/);
-  assert.match(records, /<h1>Results &amp; review<\/h1>/);
+  assert.match(records, /<h1>Results<\/h1>/);
+  assert.doesNotMatch(records, /Results &amp; review|results-eyebrow|sample-records-notice|Test mode/);
+  assert.match(records, /lifecycleLabel\(state\.competition\.status\)/);
   assert.match(records, /role="tablist"/);
   assert.match(records, /role="tabpanel"/);
   assert.match(records, /Filter participant results by status/);

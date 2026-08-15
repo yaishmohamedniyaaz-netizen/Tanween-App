@@ -294,7 +294,10 @@ export function App() {
         onThemeChange={(theme) => updatePreferences({ theme })}
       />
       {view === "judge" ? (
-        <main className={`workspace rail-${preferences.judgeRailSide}`} key="judge">
+        <main
+          className={`workspace rail-${preferences.judgeRailSide} ${!state.sessionActive && !state.preparedRecitation ? "is-idle" : ""}`}
+          key="judge"
+        >
           <div className="stage">
             <HintBanner />
             {state.preparedRecitation && (

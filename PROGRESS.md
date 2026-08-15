@@ -1,5 +1,25 @@
 # Tahqeeq — build progress log
 
+## Interface easy fixes — IMPLEMENTED & BUILD VERIFIED (2026-08-16)
+
+- Settings now uses an optional, replayable two-step first-use guide instead of
+  permanent device-local and auto-save copy. Its versioned completion flag is
+  isolated from preferences, competition state, backup, and restore.
+- Results now has one title and compact competition context; repeated Test-mode
+  language and the standalone sample warning are removed. The persistent header
+  carries the single ordinary-view Sample signal.
+- The idle competition panel now has a stronger hierarchy, ruled judge/queue
+  information, concise lifecycle copy, and an explicit idle-only workspace
+  width without changing Mushaf geometry.
+- All 244 repository tests and the production Sites build pass.
+- Scoring, Results selectors/finalization, exports, competition records, Quran
+  sources, and Mushaf geometry are unchanged.
+- Canonical plan:
+  [`docs/INTERFACE_SIMPLIFICATION_AND_JUDGING_FLOW_PLAN.md`](docs/INTERFACE_SIMPLIFICATION_AND_JUDGING_FLOW_PLAN.md).
+- Implemented release contract:
+  [`docs/INTERFACE_EASY_FIXES_IMPLEMENTATION_PLAN.md`](docs/INTERFACE_EASY_FIXES_IMPLEMENTATION_PLAN.md)
+  keeps the remaining scoring-state and Mushaf-geometry work in later slices.
+
 ## Results review visual correction — IMPLEMENTED & VERIFIED (2026-08-15)
 
 - The existing Results architecture remains authoritative: the pure

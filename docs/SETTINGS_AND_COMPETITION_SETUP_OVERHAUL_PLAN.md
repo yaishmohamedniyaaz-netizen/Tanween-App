@@ -1,5 +1,12 @@
 # Settings and Competition Setup Overhaul V1
 
+> Follow-on decision, 16 August 2026: the permanent `On this device` and green
+> `Saved automatically` treatment is no longer the desired presentation. The
+> device-local and auto-save facts move into an optional first-Settings guide,
+> and the settings surfaces become flatter and quieter. The canonical follow-on
+> contract is
+> [`INTERFACE_SIMPLIFICATION_AND_JUDGING_FLOW_PLAN.md`](./INTERFACE_SIMPLIFICATION_AND_JUDGING_FLOW_PLAN.md).
+
 Status: Implemented and visually verified
 Prepared: 2026-08-14
 Implemented: 2026-08-15
