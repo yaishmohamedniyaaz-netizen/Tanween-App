@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { CATEGORY_BY_ID } from "../config";
 import {
   buildParticipantResultPreview,
@@ -114,6 +114,7 @@ export function FinalResultsPanel({
   const [selections, setSelections] = useState<CandidateSelections>({});
   const [exportError, setExportError] = useState("");
   const [exporting, setExporting] = useState(false);
+  const [expandedParticipantId, setExpandedParticipantId] = useState<string | null>(null);
   const currentResults = useMemo(
     () => allItems.flatMap((item) =>
       item.state === "finalized" && item.activeFinal ? [item.activeFinal] : [],
@@ -129,6 +130,17 @@ export function FinalResultsPanel({
     ),
     [currentResults],
   );
+
+  useEffect(() => {
+    setExpandedParticipantId((current) => {
+      if (current && visibleItems.some(
+        (item) => item.candidate.participant.id === current,
+      )) return current;
+      const priorityItem = visibleItems.find((item) => item.state === "needs-review") ??
+        visibleItems[0];
+      return priorityItem?.candidate.participant.id ?? null;
+    });
+  }, [visibleItems]);
 
   const setSelection = (
     participantId: string,
@@ -192,26 +204,6 @@ export function FinalResultsPanel({
 
   return (
     <section className="final-results-panel results-candidate-panel">
-      <div className="results-candidate-toolbar">
-        <p>
-          Finalized workbook includes all current, checked results in this competition—never the visible filter only.
-        </p>
-        <button
-          type="button"
-          className="btn-ghost"
-          disabled={!currentResults.length || exporting}
-          onClick={exportWorkbook}
-        >
-          <Icon name="download" size={15} />
-          {exporting
-            ? "Checking…"
-            : state.competition.isSample
-              ? "Sample finalized results (.xlsx)"
-              : "Finalized results (.xlsx)"}
-        </button>
-      </div>
-      {exportError && <p className="import-error">{exportError}</p>}
-
       {visibleItems.length === 0 ? (
         <div className="results-empty results-candidate-empty">
           <strong>
@@ -243,13 +235,28 @@ export function FinalResultsPanel({
               candidate.participant,
             );
             const headingId = `result-candidate-${candidate.participant.id}`;
+            const detailId = `${headingId}-detail`;
+            const isExpanded = expandedParticipantId === candidate.participant.id;
+            const displayedTotal = placed
+              ? `${placed.total}/${placed.totalMax}`
+              : preview
+                ? `${preview.total}/${preview.totalMax}`
+                : "—";
             return (
               <article
                 className={`final-result-row is-${item.state}`}
                 key={candidate.participant.id}
                 aria-labelledby={headingId}
               >
-                <div className="final-result-summary">
+                <button
+                  type="button"
+                  className="final-result-summary"
+                  aria-expanded={isExpanded}
+                  aria-controls={detailId}
+                  onClick={() => setExpandedParticipantId(
+                    isExpanded ? null : candidate.participant.id,
+                  )}
+                >
                   <div className="final-result-person">
                     <bdi className="final-result-number">
                       {candidate.participant.number || "—"}
@@ -269,7 +276,10 @@ export function FinalResultsPanel({
                   </div>
                   <div className="final-result-state">
                     <span className={`results-state-chip is-${item.state}`}>
-                      <span aria-hidden="true" /> {stateLabel(item)}
+                      <span className="results-state-icon" aria-hidden="true">
+                        {item.state === "needs-review" ? "!" : <Icon name="check" size={12} />}
+                      </span>
+                      {stateLabel(item)}
                     </span>
                     <small>
                       {item.reasons.length
@@ -279,100 +289,126 @@ export function FinalResultsPanel({
                           : "Every required judge source is present"}
                     </small>
                   </div>
-                  <div className="final-result-timing">
-                    <span>Last change</span>
-                    <bdi>{item.lastChangedAt ? new Date(item.lastChangedAt).toLocaleDateString() : "—"}</bdi>
+                  <div className="final-result-overview">
+                    <span className="final-score">
+                      <small>{placed ? "Final total" : "Proposed total"}</small>
+                      <strong><bdi>{displayedTotal}</bdi></strong>
+                      {placed && <small>Place {placed.place} · revision {placed.revision}</small>}
+                    </span>
+                    <span className="final-result-timing">
+                      <span>Last change</span>
+                      <bdi>{item.lastChangedAt ? new Date(item.lastChangedAt).toLocaleDateString() : "—"}</bdi>
+                    </span>
+                    <span className="final-result-disclosure" aria-hidden="true">
+                      <span>{isExpanded ? "Close" : "Review"}</span>
+                      <Icon name="chevron" size={16} />
+                    </span>
                   </div>
-                </div>
+                </button>
 
-                <div className="final-category-sources">
-                  {candidate.categories.map((categoryId) => {
-                    const category = CATEGORY_BY_ID[categoryId];
-                    const options = candidate.byCategory[categoryId];
-                    const value = selected[categoryId];
-                    const selectedSource = options.find((option) => option.id === value);
-                    const score = selectedSource
-                      ? sourceScore(selectedSource, categoryId)
-                      : null;
-                    return (
-                      <div className="final-source-block" key={categoryId}>
-                        <span className="final-source-label">{category.label}</span>
-                        {options.length <= 1 ? (
-                          <div className={options.length ? "final-source-value is-ready" : "final-source-value is-missing"}>
-                            <strong>
-                              {options.length ? sourceJudge(options[0]) : "Missing result"}
-                            </strong>
-                            <small>
-                              {options.length && score
-                                ? <>Revision {options[0].revision ?? 1} · <bdi>{score.score}/{score.start}</bdi></>
-                                : "Required before finalization"}
-                            </small>
-                          </div>
-                        ) : (
-                          <>
-                            <select
-                              value={value}
-                              aria-label={`${category.label} source for ${candidate.participant.name}`}
-                              onChange={(event) =>
-                                setSelection(
-                                  candidate.participant.id,
-                                  categoryId,
-                                  event.target.value,
-                                )
-                              }
-                            >
-                              <option value="">Choose result</option>
-                              {options.map((session) => {
-                                const optionScore = sourceScore(session, categoryId);
-                                return (
-                                  <option value={session.id} key={session.id}>
-                                    {sourceJudge(session)} · revision {session.revision ?? 1} · {optionScore.score}/{optionScore.start}
-                                  </option>
-                                );
-                              })}
-                            </select>
-                            <small className="final-source-selection-meta">
-                              {selectedSource && score
-                                ? <>Selected revision {selectedSource.revision ?? 1} · <bdi>{score.score}/{score.start}</bdi></>
-                                : "Compare judge, revision, and score before finalizing"}
-                            </small>
-                          </>
-                        )}
-                      </div>
-                    );
-                  })}
-                </div>
+                <div id={detailId} className="final-result-detail" hidden={!isExpanded}>
+                  <div className="final-category-sources">
+                    {candidate.categories.map((categoryId) => {
+                      const category = CATEGORY_BY_ID[categoryId];
+                      const options = candidate.byCategory[categoryId];
+                      const value = selected[categoryId];
+                      const selectedSource = options.find((option) => option.id === value);
+                      const score = selectedSource
+                        ? sourceScore(selectedSource, categoryId)
+                        : null;
+                      return (
+                        <div className={`final-source-block cat-${categoryId}`} key={categoryId}>
+                          <span className="final-source-label">{category.label}</span>
+                          {options.length <= 1 ? (
+                            <div className={options.length ? "final-source-value is-ready" : "final-source-value is-missing"}>
+                              <strong>
+                                {options.length && score
+                                  ? <bdi>{score.score}/{score.start}</bdi>
+                                  : "Missing result"}
+                              </strong>
+                              <small>
+                                {options.length
+                                  ? <>{sourceJudge(options[0])} · revision {options[0].revision ?? 1}</>
+                                  : "Required before finalization"}
+                              </small>
+                            </div>
+                          ) : (
+                            <>
+                              <select
+                                value={value}
+                                aria-label={`${category.label} source for ${candidate.participant.name}`}
+                                onChange={(event) =>
+                                  setSelection(
+                                    candidate.participant.id,
+                                    categoryId,
+                                    event.target.value,
+                                  )
+                                }
+                              >
+                                <option value="">Choose result</option>
+                                {options.map((session) => {
+                                  const optionScore = sourceScore(session, categoryId);
+                                  return (
+                                    <option value={session.id} key={session.id}>
+                                      {sourceJudge(session)} · revision {session.revision ?? 1} · {optionScore.score}/{optionScore.start}
+                                    </option>
+                                  );
+                                })}
+                              </select>
+                              <small className="final-source-selection-meta">
+                                {selectedSource && score
+                                  ? <>Selected revision {selectedSource.revision ?? 1} · <bdi>{score.score}/{score.start}</bdi></>
+                                  : "Compare judge, revision, and score before finalizing"}
+                              </small>
+                            </>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
 
-                <div className="final-result-action">
-                  <span className="final-score">
-                    <small>{placed ? "Final total" : "Proposed total"}</small>
-                    <strong>
-                      <bdi>
-                        {placed
-                          ? `${placed.total}/${placed.totalMax}`
-                          : preview
-                            ? `${preview.total}/${preview.totalMax}`
-                            : "—"}
-                      </bdi>
-                    </strong>
-                    {placed && (
-                      <small>Place {placed.place} · revision {placed.revision}</small>
-                    )}
-                  </span>
-                  <button
-                    type="button"
-                    className="btn-primary"
-                    disabled={unresolved || !participantReady}
-                    onClick={() => finalize(item)}
-                  >
-                    {previous ? "Finalize revision" : "Finalize result"}
-                  </button>
+                  <div className="final-result-action">
+                    <span className="final-result-action-note">
+                      {item.state === "needs-review"
+                        ? item.reasons.map(reasonText).join(" · ")
+                        : item.state === "finalized"
+                          ? `Current final result · revision ${item.activeFinal?.revision ?? 1}`
+                          : "All required judge sources are ready for final review."}
+                    </span>
+                    <button
+                      type="button"
+                      className="btn-primary"
+                      disabled={unresolved || !participantReady}
+                      onClick={() => finalize(item)}
+                    >
+                      {previous ? "Finalize revision" : "Finalize result"}
+                    </button>
+                  </div>
                 </div>
               </article>
             );
           })}
         </div>
       )}
+      <div className="results-candidate-toolbar">
+        <p>
+          The workbook always includes every current, checked final result in this competition—not only the visible filter.
+        </p>
+        <button
+          type="button"
+          className="btn-ghost"
+          disabled={!currentResults.length || exporting}
+          onClick={exportWorkbook}
+        >
+          <Icon name="download" size={15} />
+          {exporting
+            ? "Checking…"
+            : state.competition.isSample
+              ? "Sample finalized results (.xlsx)"
+              : "Finalized results (.xlsx)"}
+        </button>
+      </div>
+      {exportError && <p className="import-error">{exportError}</p>}
     </section>
   );
 }

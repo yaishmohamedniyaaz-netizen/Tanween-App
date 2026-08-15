@@ -47,16 +47,6 @@ import { SampleBadge } from "./SampleBadge";
 type ResultsTab = "review" | "analysis";
 
 const resultTabs: ResultsTab[] = ["review", "analysis"];
-const reviewStateOptions: Array<{
-  value: "all" | ResultsReviewState;
-  label: string;
-}> = [
-  { value: "all", label: "All" },
-  { value: "needs-review", label: "Needs review" },
-  { value: "ready", label: "Ready" },
-  { value: "finalized", label: "Finalized" },
-];
-
 function lifecycleLabel(status: "draft" | "live" | "closed") {
   if (status === "live") return "Live";
   if (status === "closed") return "Closed";
@@ -168,6 +158,8 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
     reviewAgeGroup ||
     reviewParticipantCategory,
   );
+  const reviewAdvancedFilterCount = Number(Boolean(reviewAgeGroup)) +
+    Number(Boolean(reviewParticipantCategory));
 
   useEffect(() => {
     if (reviewPage !== reviewPageData.page) setReviewPage(reviewPageData.page);
@@ -683,23 +675,55 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
         hidden={activeTab !== "review"}
         className="results-tab-panel"
       >
-        <div className="results-status-strip" role="list" aria-label="Result candidate status">
-          <div className="is-needs-review" role="listitem">
-            <span>Needs review</span>
+        <div className="results-status-strip" role="group" aria-label="Filter participant results by status">
+          <button
+            type="button"
+            className="results-status-card is-needs-review"
+            aria-pressed={reviewState === "needs-review"}
+            onClick={() => setReviewFilter(() => setReviewState("needs-review"))}
+          >
+            <span className="results-status-card-copy">
+              <span>Needs review</span>
+              <small>Resolve first</small>
+            </span>
             <strong>{reviewSummary.needsReview}</strong>
-          </div>
-          <div className="is-ready" role="listitem">
-            <span>Ready</span>
+          </button>
+          <button
+            type="button"
+            className="results-status-card is-ready"
+            aria-pressed={reviewState === "ready"}
+            onClick={() => setReviewFilter(() => setReviewState("ready"))}
+          >
+            <span className="results-status-card-copy">
+              <span>Ready</span>
+              <small>Can finalize</small>
+            </span>
             <strong>{reviewSummary.ready}</strong>
-          </div>
-          <div className="is-finalized" role="listitem">
-            <span>Finalized</span>
+          </button>
+          <button
+            type="button"
+            className="results-status-card is-finalized"
+            aria-pressed={reviewState === "finalized"}
+            onClick={() => setReviewFilter(() => setReviewState("finalized"))}
+          >
+            <span className="results-status-card-copy">
+              <span>Finalized</span>
+              <small>Current result</small>
+            </span>
             <strong>{reviewSummary.finalized}</strong>
-          </div>
-          <div className="is-total" role="listitem">
-            <span>Result candidates</span>
+          </button>
+          <button
+            type="button"
+            className="results-status-card is-total"
+            aria-pressed={reviewState === "all"}
+            onClick={() => setReviewFilter(() => setReviewState("all"))}
+          >
+            <span className="results-status-card-copy">
+              <span>All candidates</span>
+              <small>Complete queue</small>
+            </span>
             <strong>{reviewSummary.total}</strong>
-          </div>
+          </button>
         </div>
 
         <section className="results-review-section" aria-labelledby="results-review-heading">
@@ -716,18 +740,6 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
             </p>
           </div>
           <div className="results-review-filters">
-            <div className="results-status-filters" aria-label="Filter by result status">
-              {reviewStateOptions.map((option) => (
-                <button
-                  type="button"
-                  key={option.value}
-                  aria-pressed={reviewState === option.value}
-                  onClick={() => setReviewFilter(() => setReviewState(option.value))}
-                >
-                  {option.label}
-                </button>
-              ))}
-            </div>
             <label className="results-search-filter">
               <span>Find participant</span>
               <input
@@ -739,40 +751,50 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
                 }
               />
             </label>
-            <label className="records-filter">
-              <span>Age group</span>
-              <select
-                value={reviewAgeGroup}
-                onChange={(event) =>
-                  setReviewFilter(() => setReviewAgeGroup(event.target.value))
-                }
-              >
-                <option value="">All age groups</option>
-                {reviewAgeGroups.map((group) => (
-                  <option key={group} value={group}>{group}</option>
-                ))}
-              </select>
-            </label>
-            <label className="records-filter">
-              <span>Participant category</span>
-              <select
-                value={reviewParticipantCategory}
-                onChange={(event) =>
-                  setReviewFilter(() => setReviewParticipantCategory(
-                    event.target.value as ParticipantCategory,
-                  ))
-                }
-              >
-                <option value="">All categories</option>
-                <option value="baliagen">Baliagen</option>
-                <option value="nubalaa">Hifz</option>
-              </select>
-            </label>
-            {hasReviewFilters && (
-              <button type="button" className="btn-ghost results-clear-filters" onClick={clearReviewFilters}>
-                Clear filters
-              </button>
-            )}
+            <details className="results-filter-disclosure">
+              <summary>
+                <span>More filters</span>
+                {reviewAdvancedFilterCount > 0 && (
+                  <strong>{reviewAdvancedFilterCount}</strong>
+                )}
+              </summary>
+              <div className="results-advanced-filter-grid">
+                <label className="records-filter">
+                  <span>Age group</span>
+                  <select
+                    value={reviewAgeGroup}
+                    onChange={(event) =>
+                      setReviewFilter(() => setReviewAgeGroup(event.target.value))
+                    }
+                  >
+                    <option value="">All age groups</option>
+                    {reviewAgeGroups.map((group) => (
+                      <option key={group} value={group}>{group}</option>
+                    ))}
+                  </select>
+                </label>
+                <label className="records-filter">
+                  <span>Participant category</span>
+                  <select
+                    value={reviewParticipantCategory}
+                    onChange={(event) =>
+                      setReviewFilter(() => setReviewParticipantCategory(
+                        event.target.value as ParticipantCategory,
+                      ))
+                    }
+                  >
+                    <option value="">All categories</option>
+                    <option value="baliagen">Baliagen</option>
+                    <option value="nubalaa">Hifz</option>
+                  </select>
+                </label>
+                {hasReviewFilters && (
+                  <button type="button" className="btn-ghost results-clear-filters" onClick={clearReviewFilters}>
+                    Clear all filters
+                  </button>
+                )}
+              </div>
+            </details>
           </div>
 
           <FinalResultsPanel
@@ -822,7 +844,13 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
             <h2 className="results-section-title">Analysis</h2>
             <p>Raw counts and score summaries for the selected stored judge results.</p>
           </div>
-          {renderHistoryFilters()}
+          <details className="results-analysis-filter-disclosure">
+            <summary>
+              <span>Analysis filters</span>
+              <small>{historyScope === "current" ? "Current competition" : "All stored competitions"}</small>
+            </summary>
+            {renderHistoryFilters()}
+          </details>
         </div>
 
         <div className="metric-cards results-metrics">
@@ -839,6 +867,9 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
             <span className="metric-num">{stats.totalMistakes}</span>
           </div>
         </div>
+        <p className="results-analysis-scope-note">
+          Showing descriptive counts from <strong>{sessions.length}</strong> stored judge result{sessions.length === 1 ? "" : "s"}; these are not normalized participant comparisons.
+        </p>
 
         <div className="records-grid">
           <section className="panel">
@@ -889,14 +920,15 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
         <section className="panel">
           <div className="panel-head">
             <h3 className="results-panel-title">Most repeated mistakes</h3>
-            <span className="panel-sub">same letter, across reciters</span>
+            <span className="panel-sub">Same letter across reciters</span>
           </div>
           {stats.topLocations.length === 0 ? (
             <p className="empty">No marks yet.</p>
           ) : (
-            <ul className="repeat-list">
-              {stats.topLocations.map((location) => (
+            <ol className="repeat-list">
+              {stats.topLocations.map((location, index) => (
                 <li className={`repeat-item cat-${location.topCategory}`} key={location.tid}>
+                  <span className="repeat-rank" aria-hidden="true">{index + 1}</span>
                   <span className="repeat-glyph">{location.glyph}</span>
                   <span className="repeat-body">
                     <span className="repeat-loc">{location.label}</span>
@@ -910,10 +942,13 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
                       style={{ width: `${(location.count / maxLocCount) * 100}%` }}
                     />
                   </span>
-                  <span className="repeat-count">×{location.count}</span>
+                  <span className="repeat-count">
+                    <strong>{location.count}</strong>
+                    <small>{location.count === 1 ? "mark" : "marks"}</small>
+                  </span>
                 </li>
               ))}
-            </ul>
+            </ol>
           )}
         </section>
       </section>

@@ -6,6 +6,43 @@ Reviewed against current code: 15 August 2026
 Depends on: [`RESULTS_SCREEN_DESIGN_RESEARCH.md`](./RESULTS_SCREEN_DESIGN_RESEARCH.md)
 Release shape: one bounded, reversible UI/workflow pass
 
+## Visual correction outcome — 15 August 2026
+
+The first implementation preserved the correct domain architecture but did not
+carry the researched information hierarchy through consistently. A bounded
+presentation correction has now been implemented locally without changing the
+review-state selector, score calculation, finalization, placement, persistence,
+or export contracts.
+
+The corrected presentation:
+
+- turns the four status summaries into low-opacity, full-surface filters with
+  text, count, pressed state, and a non-color state cue;
+- makes participant identity and action state the scan path, with one open
+  participant disclosure instead of exposing every evidence block at once;
+- restores established criterion color to Jali, Khafi, Fasaha, and
+  Adu / Raagu evidence while leading with score and retaining judge/revision
+  provenance;
+- keeps search immediate and moves secondary participant filters into one
+  compact disclosure;
+- places the finalized workbook action after the queue and states its true,
+  filter-independent scope;
+- repairs the Analysis cascade so metrics remain a three-column grid, category
+  rows retain their labels and bars, and repeated mistakes read as a ranked
+  evidence list; and
+- labels Analysis as descriptive raw counts, not normalized participant
+  comparison.
+
+Validation after the correction: all 241 tests pass, the production build
+succeeds, and `git diff --check` is clean. Browser review covered 1440×900,
+1280×800, 1024×768, and 390×844 in light and dark themes with no horizontal
+overflow, plus status filtering, advanced-filter disclosure, and participant
+open/close behavior. The local rollback point is
+`checkpoint/pre-results-visual-correction-v2` at
+`d62c1aea1335000dc833040f322c1aa366b28ea9`. Commit and publication details are
+reported in the release handoff rather than embedded as a stale self-reference
+inside the implementation commit.
+
 ## Implementation outcome
 
 Pass 1 now follows this reviewed contract. The shared review model, proposed

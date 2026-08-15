@@ -1,5 +1,38 @@
 # Tahqeeq — build progress log
 
+## Results review visual correction — IMPLEMENTED & VERIFIED (2026-08-15)
+
+- The existing Results architecture remains authoritative: the pure
+  `resultsReview` selector still owns Needs review, Ready, Finalized, reasons,
+  ordering, filters, scope, and pagination; final-score and workbook logic are
+  unchanged.
+- The four summary surfaces are now meaningful status filters with full,
+  low-opacity amber, blue, green, and neutral states. Text, count, pressed
+  state, and shape carry the meaning alongside color.
+- Participant review is now a scan-first disclosure list. Name, context,
+  status/reason, proposed or final total, and last change form one readable
+  summary; only the active participant opens the criterion evidence and
+  finalization action.
+- Criterion evidence restores the established Jali, Khafi, Fasaha, and
+  Adu / Raagu colors, gives the score first visual priority, and keeps judge
+  and revision provenance directly below it.
+- Search stays visible while Age group and Participant category move into a
+  compact advanced-filter disclosure. The verified workbook export follows
+  the review queue and explicitly states that visible filters do not limit it.
+- Analysis keeps the existing calculations but repairs its hierarchy and
+  presentation: explicit scope, three stable metrics, criterion-colored count
+  bars, ranked repeated mistakes, and a clear warning that these are raw
+  descriptive counts rather than normalized participant comparisons.
+- Responsive checks covered 1440×900, 1280×800, 1024×768, and 390×844 in light
+  and dark themes with no horizontal overflow. Status filtering, advanced
+  filters, and participant open/close behavior were exercised. The final
+  source passed all 241 automated tests, `git diff --check`, and the production
+  build; the only build note is the existing ExcelJS chunk-size warning.
+- Rollback checkpoint: `checkpoint/pre-results-visual-correction-v2` at
+  `d62c1aea1335000dc833040f322c1aa366b28ea9`. Commit and publication details
+  belong to the release handoff so this source note does not contain a stale
+  self-reference.
+
 ## Mistake evidence and judging-rail correction — IMPLEMENTED (2026-08-15)
 
 - Compact mistake rows, Judging History, Results drill-down, printed result

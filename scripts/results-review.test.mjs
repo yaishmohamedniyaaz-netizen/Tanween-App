@@ -307,6 +307,10 @@ test("Results UI retains the reviewed navigation, tabs, audit, and export contra
     new URL("../src/components/FinalResultsPanel.tsx", import.meta.url),
     "utf8",
   );
+  const styles = readFileSync(
+    new URL("../src/styles/global.css", import.meta.url),
+    "utf8",
+  );
   assert.match(header, /name="fileCheck"/);
   assert.match(header, /> Results /);
   assert.match(header, /Back to Judging/);
@@ -314,6 +318,9 @@ test("Results UI retains the reviewed navigation, tabs, audit, and export contra
   assert.match(records, /<h1>Results &amp; review<\/h1>/);
   assert.match(records, /role="tablist"/);
   assert.match(records, /role="tabpanel"/);
+  assert.match(records, /Filter participant results by status/);
+  assert.match(records, /results-status-card is-needs-review/);
+  assert.match(records, /results-filter-disclosure/);
   assert.match(records, /ArrowLeft/);
   assert.match(records, /Current competition/);
   assert.match(records, /All stored competitions/);
@@ -324,6 +331,13 @@ test("Results UI retains the reviewed navigation, tabs, audit, and export contra
   assert.doesNotMatch(records, />Rankings<|>Exports</);
   assert.match(finalPanel, /window\.prompt/);
   assert.match(finalPanel, /UPSERT_FINAL_RESULT/);
+  assert.match(finalPanel, /aria-expanded=\{isExpanded\}/);
+  assert.match(finalPanel, /final-source-block cat-\$\{categoryId\}/);
   assert.match(finalPanel, /Finalized results \(\.xlsx\)/);
+  assert.match(styles, /\.results-workspace \.cat-row-top/);
+  assert.match(styles, /\.results-workspace \.cat-bar-fill/);
+  assert.match(styles, /\.results-status-card\[aria-pressed="true"\]/);
+  assert.match(styles, /\.results-workspace \.metric-cards\.results-metrics\s*\{[^}]*display:\s*grid[^}]*gap:\s*0/s);
+  assert.match(styles, /\.results-workspace \.final-source-value strong\s*\{[^}]*background:\s*transparent/s);
   assert.doesNotMatch(records, /dispatch\(\{ type: "(?:DELETE_SESSION|CLEAR_HISTORY)"/);
 });
