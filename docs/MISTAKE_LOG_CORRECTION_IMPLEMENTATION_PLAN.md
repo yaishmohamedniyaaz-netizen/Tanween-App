@@ -1,7 +1,6 @@
 # Mistake log correction — implementation plan
 
-**Status:** implemented and verified locally on 2026-08-15; commit and public
-deployment pending final diff approval.
+**Status:** implemented, committed, pushed, and publicly verified on 2026-08-15.
 
 **Planning base:** `e96668a` (`codex/mark-chips`). The working tree also contains unrelated user-owned files and edits; those remain outside this plan.
 
@@ -411,4 +410,8 @@ The lead approves implementation only when all are true:
 - Light/dark themes, 1440 × 900, 1280 × 800, 1024 × 768, 390 × 844, left/right
   rails, and the page-199 hamza case passed without browser-console errors.
 - `npm.cmd test` passed 241 tests, the production build succeeded, and
-  `git diff --check` is required again immediately before commit.
+  `git diff --check` passed before commit.
+- The reviewed source was pushed as two reversible commits, the Sites
+  deployment reached `succeeded`, and the public build loaded the Mushaf with
+  centered score geometry, non-shrinking mistake rows, one View all action, no
+  horizontal overflow, and no browser-console errors.

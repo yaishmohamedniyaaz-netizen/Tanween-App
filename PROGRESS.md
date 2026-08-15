@@ -23,6 +23,8 @@
   Browser QA covered page 199 at 1440 × 900, 1280 × 800, 1024 × 768, and
   390 × 844 in light/dark themes and both rail positions, with no horizontal
   overflow or browser-console errors.
+- Published and smoke-checked at
+  `https://tahqeeq-mobile.yaish.chatgpt.site`.
 
 ## Settings and Competition Setup Overhaul V1 — IMPLEMENTED (2026-08-15)
 
