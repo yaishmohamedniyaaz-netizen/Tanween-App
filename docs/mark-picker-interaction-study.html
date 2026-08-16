@@ -1,0 +1,841 @@
+<title>Tap the Whole, Drag the Half</title>
+<style>
+  :root {
+    --bg: #f2f1ee;
+    --surface: #ffffff;
+    --ink: #1a1a1c;
+    --ink-2: #62626a;
+    --ink-3: #6a6a73;
+    --line: rgba(26, 26, 28, 0.08);
+    --line-2: rgba(26, 26, 28, 0.16);
+    --line-3: rgba(26, 26, 28, 0.28);
+    --ring: rgba(85, 102, 230, 0.35);
+
+    /* The greyish, non-white cell the owner asked to keep. */
+    --cell: #e8e7e3;
+    --cell-hover: #dedcd6;
+
+    /* One ramp, hue 165. 700 is the fill: white text 5.04:1, and clears 3:1
+       against the cell in both themes. */
+    --g-200: #def0e7;
+    --g-400: #a5cfbc;
+    --g-700: #377b60;
+    --g-800: #26624b;
+    --fill: var(--g-700);
+    --fill-2: var(--g-800);
+    --fill-ink: #ffffff;
+    --g-text: var(--g-800);
+
+    --r-sm: 8px;
+    --r-md: 12px;
+    --t-micro: 12px;
+    --t-small: 14px;
+    --t-body: 15px;
+    --t-lead: 17px;
+    --t-title: 21px;
+    --sp-1: 4px;
+    --sp-2: 8px;
+    --sp-3: 12px;
+    --sp-4: 16px;
+    --sp-5: 24px;
+    --sp-6: 32px;
+    --sp-7: 48px;
+    --shadow-rest: 0 1px 2px rgba(26, 26, 28, 0.05);
+    --shadow-float: 0 12px 32px rgba(26, 26, 28, 0.14), 0 2px 8px rgba(26, 26, 28, 0.08);
+    --ui: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --serif: ui-serif, Georgia, "Times New Roman", serif;
+    --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #131316; --surface: #1c1c20;
+      --ink: #ebebed; --ink-2: #a4a4ac; --ink-3: #8b8b95;
+      --line: rgba(255,255,255,0.08); --line-2: rgba(255,255,255,0.16); --line-3: rgba(255,255,255,0.3);
+      --cell: #2a2a30; --cell-hover: #34343b;
+      --g-text: var(--g-400);
+      --shadow-rest: 0 1px 2px rgba(0,0,0,0.4);
+      --shadow-float: 0 16px 40px rgba(0,0,0,0.5), 0 3px 10px rgba(0,0,0,0.35);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #131316; --surface: #1c1c20;
+    --ink: #ebebed; --ink-2: #a4a4ac; --ink-3: #8b8b95;
+    --line: rgba(255,255,255,0.08); --line-2: rgba(255,255,255,0.16); --line-3: rgba(255,255,255,0.3);
+    --cell: #2a2a30; --cell-hover: #34343b;
+    --g-text: var(--g-400);
+    --shadow-rest: 0 1px 2px rgba(0,0,0,0.4);
+    --shadow-float: 0 16px 40px rgba(0,0,0,0.5), 0 3px 10px rgba(0,0,0,0.35);
+  }
+
+  * { box-sizing: border-box; }
+  html, body { max-width: 100%; overflow-x: hidden; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: var(--ui); font-size: var(--t-body); line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: var(--sp-7) var(--sp-5) 96px; }
+
+  .topbar { display: flex; align-items: baseline; justify-content: space-between; gap: var(--sp-4); margin-bottom: var(--sp-4); }
+  .eyebrow { font-size: var(--t-micro); letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3); font-weight: 600; margin: 0; }
+  .theme-toggle { font: inherit; font-size: var(--t-micro); background: var(--surface); border: 1px solid var(--line-2); color: var(--ink-2); border-radius: var(--r-sm); padding: var(--sp-1) var(--sp-3); min-height: 32px; cursor: pointer; }
+  .theme-toggle:hover { color: var(--ink); border-color: var(--ink-3); }
+
+  h1 { font-family: var(--serif); font-weight: 500; font-size: clamp(30px, 4.4vw, 44px); line-height: 1.08; letter-spacing: -0.015em; margin: 0 0 var(--sp-4); text-wrap: balance; }
+  .lede { font-size: var(--t-lead); color: var(--ink-2); max-width: 66ch; margin: 0 0 var(--sp-5); }
+  .lede strong { color: var(--ink); font-weight: 560; }
+
+  section { margin-top: var(--sp-7); }
+  .section-head { display: flex; align-items: baseline; gap: var(--sp-3); border-top: 1px solid var(--line-2); padding-top: var(--sp-3); margin-bottom: var(--sp-4); }
+  .section-head .num { font-family: var(--mono); font-size: var(--t-micro); color: var(--ink-3); }
+  .section-head h2 { font-family: var(--serif); font-weight: 500; font-size: var(--t-title); letter-spacing: -0.01em; margin: 0; }
+  section > p { max-width: 72ch; color: var(--ink-2); margin: 0 0 var(--sp-4); }
+  section > p strong { color: var(--ink); font-weight: 560; }
+  code { font-family: var(--mono); font-size: 0.9em; background: var(--surface); border: 1px solid var(--line); border-radius: 4px; padding: 1px 5px; color: var(--ink); }
+
+  .callout { border-left: 2px solid var(--line-3); padding: var(--sp-1) 0 var(--sp-1) var(--sp-4); margin: 0 0 var(--sp-5); }
+  .callout p { margin: 0; color: var(--ink-2); font-size: var(--t-small); max-width: 72ch; }
+  .callout p + p { margin-top: var(--sp-2); }
+  .callout b { color: var(--ink); }
+
+  /* ---------- the shared control strip ---------- */
+  .controls {
+    position: sticky; top: 0; z-index: 20;
+    display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-4);
+    padding: var(--sp-3) var(--sp-4); margin-bottom: var(--sp-5);
+    border: 1px solid var(--line-2); border-radius: var(--r-md);
+    background: color-mix(in srgb, var(--surface) 92%, transparent);
+    backdrop-filter: blur(8px);
+  }
+  .cgroup { display: flex; align-items: center; gap: var(--sp-2); }
+  .cgroup .lbl { font-size: 10.5px; letter-spacing: 0.07em; text-transform: uppercase; color: var(--ink-3); font-weight: 600; }
+  .cgroup button {
+    font: inherit; font-size: var(--t-micro); font-variant-numeric: tabular-nums;
+    background: transparent; border: 1px solid var(--line-2); color: var(--ink-2);
+    border-radius: 7px; padding: 4px 11px; min-height: 30px; cursor: pointer;
+  }
+  .cgroup button:hover { border-color: var(--ink-3); color: var(--ink); }
+  .cgroup button[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--bg); }
+  .controls .grow { flex: 1; }
+  .controls .reset { font: inherit; font-size: var(--t-micro); background: transparent; border: 1px solid var(--line-2); color: var(--ink-2); border-radius: 7px; padding: 4px 11px; min-height: 30px; cursor: pointer; }
+
+  /* ---------- variant cards ---------- */
+  .vgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(545px, 1fr)); gap: var(--sp-5); }
+  .v { border: 1px solid var(--line-2); border-radius: var(--r-md); background: var(--surface); overflow: hidden; box-shadow: var(--shadow-rest); display: flex; flex-direction: column; }
+  .v-head { padding: var(--sp-4) var(--sp-4) var(--sp-3); border-bottom: 1px solid var(--line); }
+  .v-head h3 { font-family: var(--serif); font-weight: 500; font-size: var(--t-lead); margin: 0 0 2px; letter-spacing: -0.01em; }
+  .v-head .letter { font-family: var(--mono); color: var(--ink-3); font-size: var(--t-small); margin-right: var(--sp-2); }
+  .v-head p { margin: 0; font-size: var(--t-small); color: var(--ink-2); }
+  .v-stage { padding: var(--sp-5) var(--sp-4); background: var(--bg); flex: 1; display: flex; justify-content: center; align-items: flex-start; }
+
+  /* the desktop popup the picker actually is */
+  .pop {
+    background: var(--surface); border: 1px solid var(--line-2); border-radius: 14px;
+    box-shadow: var(--shadow-float); padding: 14px 16px 16px; max-width: 100%;
+  }
+  .pop-head { display: flex; align-items: baseline; gap: 6px; margin-bottom: 12px; }
+  .pop-head .n { font-size: 26px; font-weight: 550; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; line-height: 1.1; }
+  .pop-head .n.half { color: var(--g-text); }
+  .pop-head .of { font-size: var(--t-micro); color: var(--ink-3); font-variant-numeric: tabular-nums; }
+  .pop-head .hint { margin-left: auto; font-size: 10.5px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-3); }
+  .pop-head .hint.on { color: var(--g-text); }
+
+  /* the score row above it, for context */
+  .srow { display: flex; align-items: center; gap: var(--sp-3); margin-bottom: var(--sp-3); padding: 0 2px; }
+  .srow .nm { flex: 1; font-size: var(--t-small); font-weight: 550; }
+  .srow .nm small { display: block; font-weight: 400; color: var(--ink-3); font-size: 11px; }
+  .srow .box { font-variant-numeric: tabular-nums; font-size: var(--t-small); font-weight: 600; border: 1px solid var(--line-2); border-radius: 9px; padding: 5px 10px; min-width: 66px; text-align: center; background: var(--surface); }
+  .srow .box em { font-style: normal; font-weight: 400; color: var(--ink-3); font-size: 11px; }
+
+  /* shared cell language */
+  .cells { display: flex; touch-action: none; -webkit-user-select: none; user-select: none; cursor: pointer; }
+  .cell {
+    flex: 1; min-width: 0; display: grid; place-items: center;
+    font-size: var(--t-micro); font-variant-numeric: tabular-nums;
+    background: var(--cell); color: var(--ink-2); height: 44px;
+    position: relative; transition: background 90ms linear, color 90ms linear;
+  }
+  .cell.on { background: var(--fill); color: var(--fill-ink); }
+  .cell.cur { box-shadow: inset 0 0 0 2px var(--ink); z-index: 2; }
+  .cell.cur.on { box-shadow: inset 0 0 0 2px var(--fill-ink); }
+  /* A half fills the near side of the next cell, so 7.5 reads as "past 7,
+     not yet 8" in reading order. */
+  .cell .frac { position: absolute; inset: 0 50% 0 0; background: var(--fill); }
+  .cell .lab { position: relative; z-index: 1; }
+
+  /* A: contiguous, hairline divisions */
+  .cells.contig { border-radius: 10px; overflow: hidden; border: 1px solid var(--line-2); }
+  .cells.contig .cell + .cell { box-shadow: inset 1px 0 0 rgba(255,255,255,0.35); }
+  .cells.contig .cell.cur { box-shadow: inset 0 0 0 2px var(--ink); }
+
+  /* B/C: separated boxes */
+  .cells.boxes { gap: 4px; }
+  .cells.boxes .cell { border-radius: 8px; }
+
+  /* D: two-row grid */
+  .grid2 { display: grid; grid-auto-rows: 44px; gap: 5px; touch-action: none; -webkit-user-select: none; user-select: none; cursor: pointer; }
+  .grid2 .cell { border-radius: 8px; height: 44px; }
+
+  /* E: continuous track, numerals crossing the fill */
+  .trackE { position: relative; height: 46px; border-radius: 10px; background: var(--cell); overflow: hidden; cursor: ew-resize; touch-action: none; -webkit-user-select: none; user-select: none; }
+  .trackE .fill { position: absolute; inset: 0 auto 0 0; background: var(--fill); }
+  .trackE .seam { position: absolute; top: 0; bottom: 0; width: 2px; margin-left: -1px; background: rgba(255,255,255,0.9); }
+  .scaleE { position: absolute; inset: 0; display: flex; align-items: center; pointer-events: none; font-size: 11px; font-variant-numeric: tabular-nums; }
+  .scaleE span { flex: 1; text-align: center; }
+  .scaleE.t { color: var(--ink-2); }
+  .scaleE.f { color: var(--fill-ink); }
+
+  /* F: stepper + boxes */
+  .stepper { display: flex; align-items: center; gap: var(--sp-2); margin-bottom: 10px; }
+  .stepper button {
+    font: inherit; font-size: 18px; line-height: 1; width: 40px; height: 40px;
+    background: var(--cell); border: 0; border-radius: 9px; color: var(--ink); cursor: pointer;
+  }
+  .stepper button:hover { background: var(--cell-hover); }
+  .stepper .read { flex: 1; text-align: center; font-size: 22px; font-weight: 550; font-variant-numeric: tabular-nums; }
+  .stepper .read small { font-size: var(--t-micro); color: var(--ink-3); font-weight: 400; }
+
+  .v-foot { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-3); padding: var(--sp-3) var(--sp-4); border-top: 1px solid var(--line); font-size: var(--t-micro); color: var(--ink-3); }
+  .v-foot b { color: var(--ink); font-variant-numeric: tabular-nums; }
+  .v-foot .grow { flex: 1; }
+  .v-foot .warn { color: var(--ink); }
+
+  :where(button):focus-visible, .cells:focus-visible, .grid2:focus-visible, .trackE:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+
+  /* ---------- compare ---------- */
+  .table-wrap { overflow-x: auto; border: 1px solid var(--line-2); border-radius: var(--r-md); background: var(--surface); }
+  table.cmp { width: 100%; border-collapse: collapse; font-size: var(--t-small); min-width: 720px; }
+  table.cmp th { text-align: left; font-size: 10.5px; letter-spacing: 0.07em; text-transform: uppercase; color: var(--ink-3); font-weight: 600; padding: var(--sp-3); border-bottom: 1px solid var(--line-2); vertical-align: bottom; }
+  table.cmp th.n, table.cmp td.n { text-align: right; font-variant-numeric: tabular-nums; }
+  table.cmp td { padding: var(--sp-3); border-bottom: 1px solid var(--line); color: var(--ink-2); vertical-align: top; }
+  table.cmp tbody tr:last-child td { border-bottom: 0; }
+  table.cmp td strong { color: var(--ink); font-weight: 550; }
+  table.cmp td.n { color: var(--ink); }
+  table.cmp td.n.tight { color: var(--ink); font-weight: 600; }
+
+  footer { margin-top: var(--sp-7); border-top: 1px solid var(--line-2); padding-top: var(--sp-4); color: var(--ink-3); font-size: var(--t-micro); max-width: 74ch; }
+
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>
+
+<div class="wrap">
+  <div class="topbar">
+    <p class="eyebrow">Tahqeeq &#183; control study &#183; desktop</p>
+    <button type="button" class="theme-toggle" data-theme-toggle>Dark / light</button>
+  </div>
+
+  <h1>Tap the whole, drag the half</h1>
+  <p class="lede">
+    Six ways to build the same control, all sharing one gesture:
+    <strong>press a number to award it, or hold and drag to land between two of
+    them.</strong> Whole marks are the targets; halves are what the drag is for. Three
+    are bars and three are boxes, so the question you actually asked &#8212; whole bar or
+    number boxes &#8212; can be settled by using both.
+  </p>
+
+  <div class="callout">
+    <p>
+      <b>All six are driven by one state machine.</b> Press and the whole number under the
+      pointer is taken. Keep holding past 220ms, or move more than 6px, and the control
+      switches to half resolution &#8212; the readout turns green and the hint changes.
+      Release commits. Keyboard: arrows step whole marks, shift+arrow steps halves.
+    </p>
+    <p>
+      The allocation switcher is real: <code>START_OPTIONS</code> filtered by
+      <code>MAX_IMPRESSION_MARKS</code> gives Adu &amp; Raagu exactly
+      <b>5, 10, 15 or 20</b> marks, so those are the four cases any of these has to
+      survive. Twenty is the one that breaks things.
+    </p>
+  </div>
+
+  <div class="controls">
+    <div class="cgroup">
+      <span class="lbl">Allocation</span>
+      <button type="button" data-max="5" aria-pressed="false">5</button>
+      <button type="button" data-max="10" aria-pressed="true">10</button>
+      <button type="button" data-max="15" aria-pressed="false">15</button>
+      <button type="button" data-max="20" aria-pressed="false">20</button>
+    </div>
+    <div class="cgroup">
+      <span class="lbl">Popup width</span>
+      <button type="button" data-width="440" aria-pressed="false">440</button>
+      <button type="button" data-width="520" aria-pressed="true">520</button>
+      <button type="button" data-width="640" aria-pressed="false">640</button>
+    </div>
+    <span class="grow"></span>
+    <button type="button" class="reset" data-reset-all>Reset all</button>
+  </div>
+
+  <section id="variants" style="margin-top:0">
+    <div class="vgrid" data-vgrid></div>
+  </section>
+
+  <section id="compare">
+    <div class="section-head"><span class="num">02</span><h2>How they compare</h2></div>
+    <p>
+      Filled from the live prototypes at the allocation and width currently selected, so
+      changing the switcher above changes this table. <strong>Target width</strong> is the
+      measured cell; anything under 24px is called out, because that is where a whole
+      number stops being a confident click even with a mouse.
+      <strong>Half reachable</strong> is whether a half mark can be reached at all without
+      the drag.
+    </p>
+    <div class="table-wrap">
+      <table class="cmp">
+        <thead>
+          <tr>
+            <th>Variant</th>
+            <th class="n">Targets</th>
+            <th class="n">Target width</th>
+            <th class="n">Height</th>
+            <th class="n">Press to reach 7</th>
+            <th>Half without drag</th>
+            <th>Where it gives way</th>
+          </tr>
+        </thead>
+        <tbody data-cmp></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="notes">
+    <div class="section-head"><span class="num">03</span><h2>What the switcher shows</h2></div>
+    <p>
+      Set the allocation to 20 and the popup to 440 and the difference stops being a
+      matter of taste. Twenty-one cells in one row is the case every single-row variant
+      has to answer for, and only two of the six answer it well.
+    </p>
+    <div class="callout">
+      <p>
+        <b>One thing worth deciding before implementation.</b> A contiguous bar
+        (variant A) and a continuous track (variant E) both read as
+        &#8220;you have this much of ten&#8221;, because everything below the value is
+        filled. Separated boxes with a single selection (variant C) read as
+        &#8220;you picked seven&#8221;. Those are different claims about what the control
+        means, and only one of them is true: an Adu &amp; Raagu mark is an award out of a
+        maximum, not a choice from a list. That argues for cumulative fill in whichever
+        shape wins.
+      </p>
+    </div>
+  </section>
+
+  <footer>
+    <p>
+      Prototype only. No application source was changed. Sized for the desktop popup the
+      picker actually is; the phone case is deliberately not addressed here, per the
+      owner's instruction to leave mobile until later. Cell widths, heights and press
+      counts are measured from the DOM at run time.
+      Companion: <code>docs/mark-bar-study.html</code> and
+      <code>docs/MARK_BAR_REDESIGN_PLAN.md</code>.
+    </p>
+  </footer>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  var HALF_DELAY = 220;   /* hold past this and the control goes to halves */
+  var MOVE_SLOP = 6;      /* or move this far */
+  var state = { max: 10, width: 520 };
+  var instances = [];
+
+  function el(tag, cls, txt) {
+    var n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (txt !== undefined && txt !== null) n.textContent = txt;
+    return n;
+  }
+  function fmt(v) { return Number.isInteger(v) ? String(v) : v.toFixed(1); }
+  function clampWhole(v) { return Math.min(state.max, Math.max(0, Math.round(v))); }
+  function clampHalf(v) { return Math.min(state.max, Math.max(0, Math.round(v * 2) / 2)); }
+
+  var VARIANTS = [
+    {
+      key: "A", name: "Contiguous number bar", kind: "bar",
+      blurb: "One bar, divided into a cell per whole mark by a hairline. Everything up to the value fills, so the bar still reads as an amount rather than a menu \u2014 but every number is its own press target.",
+      gives: "At twenty marks in a 440px popup the cells fall under 20px, and a hairline division is all that separates one number from the next."
+    },
+    {
+      key: "B", name: "Boxes, cumulative", kind: "boxes",
+      blurb: "The same cells, separated by a 4px gap and rounded \u2014 the shape you asked for. Still fills cumulatively, so the amount is legible, but each number now reads as its own box.",
+      gives: "Gaps cost width that the twenty case does not have; the same 440px popup gives the narrowest targets of the six."
+    },
+    {
+      key: "C", name: "Boxes, single pick", kind: "boxes-single",
+      blurb: "Identical geometry to B, but only the chosen number is filled. This is the segmented-control reading: you picked seven, rather than you have seven of ten.",
+      gives: "Loses the sense of proportion entirely. At a glance seven of ten and seven of twenty look the same."
+    },
+    {
+      key: "D", name: "Two-row grid", kind: "grid",
+      blurb: "The draw board's shape, borrowed. Eleven over ten at twenty marks, so the cells stay large no matter the allocation. Cumulative fill runs left to right, then wraps.",
+      gives: "A wrapped fill is harder to read as one quantity, and the control is twice as tall \u2014 which the popup has to find room for."
+    },
+    {
+      key: "E", name: "Continuous track", kind: "track",
+      blurb: "No cells at all. A solid fill with every whole number labelled along it, each numeral clipped in two layers so it flips from ink to white as the fill passes. The closest thing to the bar you liked.",
+      gives: "Nothing is a discrete target, so a whole number is only reliably hit by the drag settling on it \u2014 the press has no cell to land in."
+    },
+    {
+      key: "F", name: "Stepper over boxes", kind: "stepper",
+      blurb: "Boxes for the coarse jump, and a minus/plus pair that moves in halves for the fine one. The only variant where a half needs no gesture at all.",
+      gives: "Two controls doing one job, and reaching 7.5 from 0 by stepping alone is fifteen presses."
+    }
+  ];
+
+  /* ---------- one state machine, six renderers ---------- */
+  function makeControl(v) {
+    var inst = {
+      key: v.key, kind: v.kind,
+      value: 0, preview: null, fine: false, presses: 0,
+      root: null, cellsHost: null, readout: null, hint: null, boxOut: null
+    };
+
+    var holdTimer = null, downAt = null, dragging = false;
+
+    function shown() { return inst.preview === null ? inst.value : inst.preview; }
+
+    function ratioAt(clientX, node) {
+      var r = node.getBoundingClientRect();
+      if (!r.width) return 0;
+      return Math.min(1, Math.max(0, (clientX - r.left) / r.width));
+    }
+    /* There are max+1 cells, so cell i is centred at (i+0.5)/(max+1) of the
+       width. Mapping the pointer straight to ratio*max would put the centre of
+       cell 7 at 6.8, which is why a drag over 7 used to commit 7 by luck rather
+       than by aim. Every variant shares this mapping, and E's fill is drawn
+       from its inverse, so the fill edge always lands on the numeral. */
+    function valueFromRatio(r) {
+      return r * (state.max + 1) - 0.5;
+    }
+    function fillFraction(v) {
+      return (v + 0.5) / (state.max + 1);
+    }
+
+    function goFine(clientX) {
+      if (inst.fine) return;
+      inst.fine = true;
+      if (clientX !== undefined && inst.kind !== "grid") {
+        inst.preview = clampHalf(valueFromRatio(ratioAt(clientX, inst.cellsHost)));
+      }
+      render();
+    }
+
+    function onDown(event, cellValue) {
+      if (event.button !== undefined && event.button !== 0) return;
+      event.preventDefault();
+      dragging = true;
+      downAt = { x: event.clientX, y: event.clientY };
+      inst.fine = false;
+      inst.presses += 1;
+      inst.preview = cellValue !== null && cellValue !== undefined
+        ? cellValue
+        : clampWhole(valueFromRatio(ratioAt(event.clientX, inst.cellsHost)));
+      render();
+      clearTimeout(holdTimer);
+      holdTimer = setTimeout(function () { if (dragging) goFine(); }, HALF_DELAY);
+      try { inst.cellsHost.setPointerCapture(event.pointerId); } catch (e) { /* not fatal */ }
+    }
+
+    function onMove(event) {
+      if (!dragging) return;
+      if (!inst.fine && downAt &&
+          Math.hypot(event.clientX - downAt.x, event.clientY - downAt.y) > MOVE_SLOP) {
+        goFine(event.clientX);
+      }
+      if (inst.kind === "grid") {
+        /* A wrapped grid has no continuous axis to drag along, so the half comes
+           from which side of the cell the pointer is on. */
+        var cell = document.elementFromPoint(event.clientX, event.clientY);
+        var host = cell && cell.closest ? cell.closest("[data-v]") : null;
+        if (host) {
+          var base = parseFloat(host.getAttribute("data-v"));
+          if (inst.fine) {
+            var cr = host.getBoundingClientRect();
+            base += (event.clientX - cr.left) / cr.width > 0.5 ? 0.5 : 0;
+          }
+          inst.preview = clampHalf(base);
+        }
+      } else {
+        var raw = valueFromRatio(ratioAt(event.clientX, inst.cellsHost));
+        inst.preview = inst.fine ? clampHalf(raw) : clampWhole(raw);
+      }
+      render();
+    }
+
+    function onUp() {
+      if (!dragging) return;
+      dragging = false;
+      clearTimeout(holdTimer);
+      if (inst.preview !== null) inst.value = inst.preview;
+      inst.preview = null;
+      inst.fine = false;
+      render();
+    }
+
+    function onKey(event) {
+      var half = event.shiftKey;
+      var jump = half ? 0.5 : 1;
+      var next = null;
+      if (event.key === "ArrowRight" || event.key === "ArrowUp") next = inst.value + jump;
+      else if (event.key === "ArrowLeft" || event.key === "ArrowDown") next = inst.value - jump;
+      else if (event.key === "Home") next = 0;
+      else if (event.key === "End") next = state.max;
+      if (next === null) return;
+      event.preventDefault();
+      inst.presses += 1;
+      inst.value = half ? clampHalf(next) : clampWhole(next);
+      render();
+    }
+
+    /* ---- renderers ---- */
+    function buildCells(cls) {
+      var host = el("div", "cells " + cls);
+      host.tabIndex = 0;
+      host.setAttribute("role", "slider");
+      host.setAttribute("aria-label", "Adu and Raagu marks");
+      host.setAttribute("aria-valuemin", "0");
+      for (var i = 0; i <= state.max; i++) {
+        (function (i) {
+          var c = el("div", "cell");
+          c.setAttribute("data-v", String(i));
+          var lab = el("span", "lab", String(i));
+          c.appendChild(lab);
+          c.addEventListener("pointerdown", function (e) { onDown(e, i); });
+          host.appendChild(c);
+        })(i);
+      }
+      return host;
+    }
+
+    function buildGrid() {
+      var host = el("div", "grid2");
+      host.tabIndex = 0;
+      host.setAttribute("role", "slider");
+      host.setAttribute("aria-label", "Adu and Raagu marks");
+      host.setAttribute("aria-valuemin", "0");
+      var n = state.max + 1;
+      var cols = Math.ceil(n / 2);
+      host.style.gridTemplateColumns = "repeat(" + cols + ", minmax(0, 1fr))";
+      for (var i = 0; i <= state.max; i++) {
+        (function (i) {
+          var c = el("div", "cell");
+          c.setAttribute("data-v", String(i));
+          c.appendChild(el("span", "lab", String(i)));
+          c.addEventListener("pointerdown", function (e) { onDown(e, i); });
+          host.appendChild(c);
+        })(i);
+      }
+      return host;
+    }
+
+    function buildTrack() {
+      var host = el("div", "trackE");
+      host.tabIndex = 0;
+      host.setAttribute("role", "slider");
+      host.setAttribute("aria-label", "Adu and Raagu marks");
+      host.setAttribute("aria-valuemin", "0");
+      var fill = el("span", "fill");
+      var seam = el("span", "seam");
+      var st = el("span", "scaleE t");
+      var sf = el("span", "scaleE f");
+      [st, sf].forEach(function (s) {
+        s.setAttribute("aria-hidden", "true");
+        for (var i = 0; i <= state.max; i++) s.appendChild(el("span", null, String(i)));
+      });
+      host.appendChild(fill);
+      host.appendChild(st);
+      host.appendChild(sf);
+      host.appendChild(seam);
+      host.addEventListener("pointerdown", function (e) { onDown(e, null); });
+      inst._fill = fill; inst._seam = seam; inst._st = st; inst._sf = sf;
+      return host;
+    }
+
+    function buildStepper() {
+      var wrap = el("div");
+      var s = el("div", "stepper");
+      var minus = el("button", null, "\u2212");
+      minus.type = "button";
+      minus.setAttribute("aria-label", "Half a mark less");
+      var read = el("div", "read");
+      var plus = el("button", null, "+");
+      plus.type = "button";
+      plus.setAttribute("aria-label", "Half a mark more");
+      minus.addEventListener("click", function () {
+        inst.presses += 1; inst.value = clampHalf(inst.value - 0.5); render();
+      });
+      plus.addEventListener("click", function () {
+        inst.presses += 1; inst.value = clampHalf(inst.value + 0.5); render();
+      });
+      s.appendChild(minus); s.appendChild(read); s.appendChild(plus);
+      wrap.appendChild(s);
+      var cells = buildCells("boxes");
+      wrap.appendChild(cells);
+      inst._read = read;
+      inst._stepperCells = cells;
+      return wrap;
+    }
+
+    function render() {
+      var v = shown();
+      var pct = fillFraction(v) * 100;
+
+      if (inst.kind === "track") {
+        inst._fill.style.width = pct + "%";
+        inst._seam.style.left = pct + "%";
+        inst._seam.style.opacity = v === 0 ? "0" : "1";
+        inst._st.style.clipPath = "inset(0 0 0 " + pct + "%)";
+        inst._sf.style.clipPath = "inset(0 " + (100 - pct) + "% 0 0)";
+      } else {
+        var host = inst.kind === "stepper" ? inst._stepperCells : inst.cellsHost;
+        Array.prototype.forEach.call(host.querySelectorAll(".cell"), function (c) {
+          var cv = parseFloat(c.getAttribute("data-v"));
+          var on, frac = null;
+          if (inst.kind === "boxes-single") {
+            on = Math.floor(v) === cv && v === cv;
+          } else {
+            on = cv <= Math.floor(v);
+            /* A half shows as a half-filled cell, so 7.5 is visibly between 7 and 8. */
+            if (!on && cv === Math.floor(v) + 1 && v % 1 !== 0) frac = true;
+          }
+          c.classList.toggle("on", !!on);
+          c.classList.toggle("cur", cv === Math.floor(v));
+          var old = c.querySelector(".frac");
+          if (old) old.remove();
+          if (frac) c.insertBefore(el("span", "frac"), c.firstChild);
+        });
+      }
+
+      if (inst._read) {
+        inst._read.innerHTML = "";
+        inst._read.appendChild(document.createTextNode(fmt(v)));
+        inst._read.appendChild(el("small", null, " / " + state.max));
+      }
+      inst.readout.textContent = fmt(v);
+      inst.readout.classList.toggle("half", v % 1 !== 0);
+      inst.ofOut.textContent = "/ " + state.max;
+      inst.boxOut.innerHTML = fmt(inst.value) + ' <em>/ ' + state.max + '</em>';
+      inst.hint.textContent = inst.fine ? "Half marks" : "Press, or hold to halve";
+      inst.hint.classList.toggle("on", inst.fine);
+
+      var aria = inst.kind === "stepper" ? inst._stepperCells : inst.cellsHost;
+      aria.setAttribute("aria-valuemax", String(state.max));
+      aria.setAttribute("aria-valuenow", String(v));
+      aria.setAttribute("aria-valuetext", fmt(v) + " of " + state.max + " marks");
+      measure();
+    }
+
+    function measure() {
+      var host = inst.kind === "stepper" ? inst._stepperCells : inst.cellsHost;
+      var cell = host.querySelector(".cell");
+      var w = cell ? cell.getBoundingClientRect().width : 0;
+      var h = host.getBoundingClientRect().height;
+      inst.lastW = w;
+      inst.lastH = h;
+      if (inst.footW) {
+        inst.footW.textContent = w ? w.toFixed(1) : "\u2014";
+        inst.footW.parentNode.classList.toggle("warn", w > 0 && w < 24);
+      }
+      if (inst.footH) inst.footH.textContent = Math.round(h);
+      if (inst.footP) inst.footP.textContent = String(inst.presses);
+      /* The card can be narrower than the chosen popup width, and a measurement
+         taken at a width you did not pick is a measurement that lies. */
+      if (inst.footClamp && inst._pop) {
+        var actual = Math.round(inst._pop.getBoundingClientRect().width);
+        inst.footClamp.textContent = actual < state.width - 1
+          ? " \u00B7 popup clamped to " + actual + "px by this window"
+          : "";
+      }
+    }
+
+    inst.build = function (stage) {
+      stage.innerHTML = "";
+      var pop = el("div", "pop");
+      pop.style.width = state.width + "px";
+      inst._pop = pop;
+
+      var srow = el("div", "srow");
+      srow.style.width = state.width + "px";
+      srow.style.maxWidth = "100%";
+      var nm = el("span", "nm", "Adu & Raagu");
+      nm.appendChild(el("small", null, "Whole recitation"));
+      srow.appendChild(nm);
+      inst.boxOut = el("span", "box");
+      srow.appendChild(inst.boxOut);
+      stage.appendChild(srow);
+
+      var head = el("div", "pop-head");
+      inst.readout = el("span", "n", "0");
+      inst.ofOut = el("span", "of", "/ " + state.max);
+      inst.hint = el("span", "hint", "Press, or hold to halve");
+      head.appendChild(inst.readout);
+      head.appendChild(inst.ofOut);
+      head.appendChild(inst.hint);
+      pop.appendChild(head);
+
+      var body;
+      if (inst.kind === "bar") body = buildCells("contig");
+      else if (inst.kind === "boxes" || inst.kind === "boxes-single") body = buildCells("boxes");
+      else if (inst.kind === "grid") body = buildGrid();
+      else if (inst.kind === "track") body = buildTrack();
+      else body = buildStepper();
+
+      pop.appendChild(body);
+      inst.cellsHost = inst.kind === "stepper" ? inst._stepperCells : body;
+      inst.cellsHost.addEventListener("keydown", onKey);
+      inst.cellsHost.addEventListener("pointermove", onMove);
+      inst.cellsHost.addEventListener("pointerup", onUp);
+      inst.cellsHost.addEventListener("pointercancel", onUp);
+      inst.cellsHost.addEventListener("lostpointercapture", onUp);
+
+      stage.appendChild(pop);
+      /* srow lives above the popup, so re-append it in order */
+      stage.insertBefore(srow, pop);
+      render();
+    };
+
+    inst.reset = function () {
+      inst.value = 0; inst.preview = null; inst.fine = false; inst.presses = 0;
+      render();
+    };
+    inst.rerender = render;
+    return inst;
+  }
+
+  /* ---------- page assembly ---------- */
+  function build() {
+    var grid = document.querySelector("[data-vgrid]");
+    grid.innerHTML = "";
+    instances = [];
+
+    VARIANTS.forEach(function (v) {
+      var card = el("div", "v");
+      var head = el("div", "v-head");
+      var h3 = el("h3");
+      h3.appendChild(el("span", "letter", v.key));
+      h3.appendChild(document.createTextNode(v.name));
+      head.appendChild(h3);
+      head.appendChild(el("p", null, v.blurb));
+      card.appendChild(head);
+
+      var stage = el("div", "v-stage");
+      stage.style.flexDirection = "column";
+      stage.style.alignItems = "stretch";
+      card.appendChild(stage);
+
+      var foot = el("div", "v-foot");
+      var s1 = el("span");
+      s1.appendChild(document.createTextNode("Target "));
+      var bw = el("b", null, "\u2014");
+      s1.appendChild(bw);
+      s1.appendChild(document.createTextNode("px"));
+      foot.appendChild(s1);
+      var s2 = el("span");
+      s2.appendChild(document.createTextNode("\u00B7 Height "));
+      var bh = el("b", null, "\u2014");
+      s2.appendChild(bh);
+      s2.appendChild(document.createTextNode("px"));
+      foot.appendChild(s2);
+      var s3 = el("span");
+      s3.appendChild(document.createTextNode("\u00B7 Presses "));
+      var bp = el("b", null, "0");
+      s3.appendChild(bp);
+      foot.appendChild(s3);
+      var sc = el("span", "warn");
+      foot.appendChild(sc);
+      foot.appendChild(el("span", "grow"));
+      var rst = el("button", "reset", "Reset");
+      rst.type = "button";
+      foot.appendChild(rst);
+      card.appendChild(foot);
+
+      grid.appendChild(card);
+
+      var inst = makeControl(v);
+      inst.footW = bw; inst.footH = bh; inst.footP = bp; inst.footClamp = sc;
+      inst.meta = v;
+      inst.build(stage);
+      rst.addEventListener("click", inst.reset);
+      instances.push(inst);
+    });
+
+    drawCompare();
+  }
+
+  function drawCompare() {
+    var body = document.querySelector("[data-cmp]");
+    if (!body) return;
+    body.innerHTML = "";
+    instances.forEach(function (inst) {
+      var tr = el("tr");
+      var name = el("td");
+      name.appendChild(el("strong", null, inst.key + " "));
+      name.appendChild(document.createTextNode(inst.meta.name));
+      tr.appendChild(name);
+
+      tr.appendChild(el("td", "n", inst.kind === "track" ? "\u2014" : String(state.max + 1)));
+
+      var wcell = el("td", "n");
+      if (inst.kind === "track") {
+        wcell.textContent = "\u2014";
+      } else {
+        wcell.textContent = inst.lastW ? inst.lastW.toFixed(1) : "\u2014";
+        if (inst.lastW && inst.lastW < 24) wcell.className = "n tight";
+      }
+      tr.appendChild(wcell);
+
+      tr.appendChild(el("td", "n", inst.lastH ? String(Math.round(inst.lastH)) : "\u2014"));
+      tr.appendChild(el("td", "n", inst.kind === "track" ? "drag" : "1"));
+      tr.appendChild(el("td", null, inst.kind === "stepper" ? "Yes, the plus key" : "No"));
+      tr.appendChild(el("td", null, inst.meta.gives));
+      body.appendChild(tr);
+    });
+  }
+
+  function wire(attr, apply) {
+    Array.prototype.forEach.call(document.querySelectorAll("[" + attr + "]"), function (btn) {
+      btn.addEventListener("click", function () {
+        Array.prototype.forEach.call(document.querySelectorAll("[" + attr + "]"), function (b) {
+          b.setAttribute("aria-pressed", b === btn ? "true" : "false");
+        });
+        apply(btn.getAttribute(attr));
+        build();
+      });
+    });
+  }
+  wire("data-max", function (v) { state.max = parseInt(v, 10); });
+  wire("data-width", function (v) { state.width = parseInt(v, 10); });
+
+  var resetAll = document.querySelector("[data-reset-all]");
+  if (resetAll) {
+    resetAll.addEventListener("click", function () {
+      instances.forEach(function (i) { i.reset(); });
+      drawCompare();
+    });
+  }
+
+  window.addEventListener("resize", function () {
+    instances.forEach(function (i) { i.rerender(); });
+    drawCompare();
+  });
+  /* Presses and widths change as the prototypes are used, so the table follows. */
+  document.addEventListener("pointerup", function () {
+    setTimeout(drawCompare, 0);
+  });
+
+  (function () {
+    var btn = document.querySelector("[data-theme-toggle]");
+    if (!btn) return;
+    btn.addEventListener("click", function () {
+      var root = document.documentElement;
+      var now = root.getAttribute("data-theme");
+      var dark = now ? now === "dark"
+        : window.matchMedia("(prefers-color-scheme: dark)").matches;
+      root.setAttribute("data-theme", dark ? "light" : "dark");
+    });
+  })();
+
+  build();
+})();
+</script>
