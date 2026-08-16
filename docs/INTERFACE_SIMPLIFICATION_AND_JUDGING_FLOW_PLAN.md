@@ -1,6 +1,6 @@
 # Interface simplification and judging-flow plan
 
-Status: durable easy-fixes release implemented and build-verified; visual approval and later slices remain
+Status: easy fixes and Adu / Raagu required entry implemented and verified; visual approval and later slices remain
 
 Prepared: 16 August 2026
 
@@ -42,8 +42,8 @@ lifecycle rules.
 | Results domain model | `resultsReview.ts` owns state, reasons, scope, sorting, filters, and pagination | simplify framing and visual composition without changing that selector | Planned |
 | Results participant workflow | review state, source evidence, finalization, audit, and workbook boundaries exist | replace card-on-card presentation and secondary microcopy with a quieter ledger list | Planned |
 | Sample isolation | stored sample and official records/exports are separated | repeated ordinary-view disclaimers are removed; consequential sample actions and exports remain explicit | Implemented |
-| Adu / Raagu input | one whole-recitation criterion, half-step default, one event per committed gesture, and assignment scoping exist | unentered currently rests on full marks and Finish can save it implicitly | Critical planned correction |
-| Finish workflow | confirmation and next-reciter handoff exist | put the missing mark choice directly inside Finish and block completion until entered | Critical planned correction |
+| Adu / Raagu input | one whole-recitation criterion, half-step default, one event per committed gesture, and assignment scoping exist | active unentered marks now show zero/pending and require a deliberate selection; historical saved totals retain their legacy fallback | Implemented |
+| Finish workflow | confirmation and next-reciter handoff exist | the shared picker now appears inside Finish, Save remains disabled while pending, and reducer plus App guards prevent bypass | Implemented |
 | Idle judging screen | live/draft/closed states and actions are correct | copy, hierarchy, ruled data rows, and idle-only width are implemented; Mushaf stage geometry remains | In progress |
 | Mushaf source fidelity | one 1405H/QCF renderer, fixed lines, page fonts, IDs, and measured hitboxes exist | viewing frame is height-derived and does not own a stable centred viewport | Planned |
 | Mushaf zoom | `mushafZoom` is persisted and Settings already exposes 45–100% | add direct judge-screen access, a usable enlargement range, fit reset, and contained overflow policy | Planned |
@@ -390,6 +390,9 @@ Adu / Raagu state correction, Mushaf stage, or zoom work. The purpose is a
 small release with finished ownership and verification, not a cosmetic stopgap.
 
 ### Slice A — required Adu / Raagu entry
+
+Dedicated implementation contract:
+[`ADU_RAAGU_REQUIRED_ENTRY_IMPLEMENTATION_PLAN.md`](./ADU_RAAGU_REQUIRED_ENTRY_IMPLEMENTATION_PLAN.md).
 
 1. Add active-versus-legacy impression fallback context.
 2. Add the shared missing-required-impression helper.

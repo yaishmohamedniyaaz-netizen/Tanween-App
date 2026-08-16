@@ -25,6 +25,7 @@ import { PreparedSidebar } from "./components/PreparedSidebar";
 import { useJudging } from "./state/store";
 import { questionOpeningKey, questionOpeningPage } from "./lib/questionPage";
 import { isWaiting } from "./lib/rosterQueue";
+import { missingRequiredImpressionCategories } from "./lib/scoring";
 import surahIndex from "./data/surah-index.json";
 import {
   applyDeviceTheme,
@@ -397,6 +398,17 @@ export function App() {
         <FinishDialog
           onCancel={() => setFinishOpen(false)}
           onConfirm={() => {
+            const assignment = state.activeAssignment;
+            if (
+              !assignment ||
+              missingRequiredImpressionCategories(
+                assignment.config,
+                state.impressions,
+                assignment.categories,
+              ).length > 0
+            ) {
+              return;
+            }
             const hasNextReciter = state.roster.some(
               (entry) =>
                 entry.id !== state.participant.id && isWaiting(entry),

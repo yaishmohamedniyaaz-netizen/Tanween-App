@@ -1,7 +1,12 @@
 import { CATEGORY_BY_ID, isImpressionCategory } from "../config";
-import { computeScores } from "../lib/scoring";
+import {
+  computeScores,
+  impressionScore,
+  missingRequiredImpressionCategories,
+} from "../lib/scoring";
 import { useJudging } from "../state/store";
 import { categoryListLabel, judgeDisplayName } from "../lib/judgeAssignments";
+import { MarkPicker } from "./MarkPicker";
 
 export function FinishDialog({
   onCancel,
@@ -10,16 +15,20 @@ export function FinishDialog({
   onCancel: () => void;
   onConfirm: () => void;
 }) {
-  const { state } = useJudging();
-  const { byCategory, total, totalMax } = computeScores(state);
+  const { state, dispatch } = useJudging();
+  const { total, totalMax } = computeScores(state);
   const assignment = state.activeAssignment;
   const config = assignment?.config ?? state.config;
-  const unmarked = (assignment?.categories ?? []).filter(
-    (category) =>
-      isImpressionCategory(category) &&
-      config[category].enabled &&
-      !byCategory[category].marked,
+  const impressionCategories = (assignment?.categories ?? []).filter(
+    (category) => isImpressionCategory(category) && config[category].enabled,
   );
+  const missing = assignment
+    ? missingRequiredImpressionCategories(
+        assignment.config,
+        state.impressions,
+        assignment.categories,
+      )
+    : [];
 
   return (
     <div className="dialog-backdrop">
@@ -48,12 +57,50 @@ export function FinishDialog({
             {judgeDisplayName(assignment)} · {categoryListLabel(assignment.categories)}
           </p>
         )}
-        {unmarked.length > 0 && (
-          <p className="finish-warn" role="status">
-            {unmarked.map((category) => CATEGORY_BY_ID[category].label).join(" and ")}{" "}
-            {unmarked.length === 1 ? "has" : "have"} not been marked. Full marks
-            will be recorded.
-          </p>
+        {impressionCategories.length > 0 && (
+          <div className="finish-impressions" aria-label="Marks required before saving">
+            {impressionCategories.map((category) => {
+              const { awarded, marked } = impressionScore(
+                config,
+                state.impressions,
+                category,
+                "entry-zero",
+              );
+              const label = CATEGORY_BY_ID[category].label;
+              const isMissing = missing.includes(category);
+              return (
+                <div
+                  key={category}
+                  className={`finish-impression-row cat-${category} ${
+                    isMissing ? "is-pending" : ""
+                  }`}
+                >
+                  <div className="finish-impression-copy">
+                    <strong>{label}</strong>
+                    {isMissing && (
+                      <span role="status">Choose a mark to save</span>
+                    )}
+                  </div>
+                  <MarkPicker
+                    value={awarded}
+                    max={config[category].start}
+                    step={config[category].step}
+                    marked={marked}
+                    label={label}
+                    onChange={(value) =>
+                      dispatch({
+                        type: "SET_IMPRESSION",
+                        category,
+                        awarded: value,
+                      })
+                    }
+                    autoFocus={missing[0] === category}
+                    layer="dialog"
+                  />
+                </div>
+              );
+            })}
+          </div>
         )}
         <p className="dialog-sub">
           This saves the result and opens the next reciter. It can still be
@@ -63,7 +110,12 @@ export function FinishDialog({
           <button type="button" className="btn-ghost" onClick={onCancel}>
             Keep judging
           </button>
-          <button type="button" className="btn-primary" onClick={onConfirm}>
+          <button
+            type="button"
+            className="btn-primary"
+            onClick={onConfirm}
+            disabled={missing.length > 0}
+          >
             Save and select next reciter
           </button>
         </div>

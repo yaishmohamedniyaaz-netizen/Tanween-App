@@ -20,6 +20,7 @@ import {
   computeAssignedScores,
   computeCategoryScores,
   impressionScore,
+  missingRequiredImpressionCategories,
 } from "../src/lib/scoring.ts";
 import {
   latestMistakeEventIds,
@@ -57,6 +58,10 @@ const pickerSource = readFileSync(
 );
 const scorePanelSource = readFileSync(
   new URL("../src/components/ScorePanel.tsx", import.meta.url),
+  "utf8",
+);
+const finishDialogSource = readFileSync(
+  new URL("../src/components/FinishDialog.tsx", import.meta.url),
   "utf8",
 );
 const appSource = readFileSync(
@@ -153,12 +158,17 @@ test("a raw pre-Adu and Raagu config still yields a usable assignment", () => {
   assert.deepEqual(restored.categories, ["jali", "khafi", "fasaha"]);
 });
 
-test("an unmarked impression rests on full marks and records once marked", () => {
+test("live unmarked impressions start at zero while history retains full marks", () => {
   const config = normalizeScoreConfig(DEFAULT_CONFIG);
-  const unmarked = computeCategoryScores(config, []);
-  assert.equal(unmarked.byCategory["adu-raagu"].score, 10);
-  assert.equal(unmarked.byCategory["adu-raagu"].marked, false);
-  assert.equal(unmarked.total, 100);
+  const historical = computeCategoryScores(config, []);
+  assert.equal(historical.byCategory["adu-raagu"].score, 10);
+  assert.equal(historical.byCategory["adu-raagu"].marked, false);
+  assert.equal(historical.total, 100);
+
+  const active = computeCategoryScores(config, [], [], "entry-zero");
+  assert.equal(active.byCategory["adu-raagu"].score, 0);
+  assert.equal(active.byCategory["adu-raagu"].marked, false);
+  assert.equal(active.total, 90);
 
   const events = [
     {
@@ -197,6 +207,50 @@ test("an unmarked impression rests on full marks and records once marked", () =>
   assert.equal(marked.byCategory["adu-raagu"].deducted, 2.5);
   assert.equal(marked.byCategory["adu-raagu"].marked, true);
   assert.equal(marked.total, 97.5);
+});
+
+test("required impression marks distinguish notes and explicit zero", () => {
+  const config = normalizeScoreConfig(DEFAULT_CONFIG);
+  const assigned = ["jali", "adu-raagu"];
+  assert.deepEqual(
+    missingRequiredImpressionCategories(config, [], assigned),
+    ["adu-raagu"],
+  );
+  assert.deepEqual(
+    missingRequiredImpressionCategories(
+      config,
+      [{ category: "adu-raagu", awarded: 0, note: "Listen again", set: false, ts: 1 }],
+      assigned,
+    ),
+    ["adu-raagu"],
+  );
+  assert.deepEqual(
+    missingRequiredImpressionCategories(
+      config,
+      [{ category: "adu-raagu", awarded: 0, note: "", set: true, ts: 2 }],
+      assigned,
+    ),
+    [],
+  );
+});
+
+test("completion uses the same required-entry rule at every boundary", () => {
+  assert.match(
+    storeSource,
+    /case "FINISH_SESSION":[\s\S]*missingRequiredImpressionCategories\([\s\S]*return state;/,
+  );
+  assert.match(
+    appSource,
+    /onConfirm=\{\(\) => \{[\s\S]*missingRequiredImpressionCategories\([\s\S]*return;/,
+  );
+  assert.match(finishDialogSource, /disabled=\{missing\.length > 0\}/);
+  assert.match(finishDialogSource, /layer="dialog"/);
+  assert.match(finishDialogSource, /autoFocus=\{missing\[0\] === category\}/);
+  assert.match(scorePanelSource, /missingRequiredImpressionCategories\(/);
+  assert.match(
+    storeSource,
+    /from: previous\?\.set \? previous\.awarded : 0,/,
+  );
 });
 
 test("impression marks are clamped to the criterion allocation", () => {

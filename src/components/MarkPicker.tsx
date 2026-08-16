@@ -26,6 +26,8 @@ interface Props {
   marked: boolean;
   label: string;
   onChange: (value: number) => void;
+  autoFocus?: boolean;
+  layer?: "workspace" | "dialog";
 }
 
 /** The awarded marks for a whole-recitation criterion.
@@ -35,7 +37,16 @@ interface Props {
  *  along it and release on the one you want, or let go without moving and pick
  *  from the bar that stays open. Nothing is written until the press ends, so a
  *  whole gesture leaves one entry in the history. */
-export function MarkPicker({ value, max, step, marked, label, onChange }: Props) {
+export function MarkPicker({
+  value,
+  max,
+  step,
+  marked,
+  label,
+  onChange,
+  autoFocus = false,
+  layer = "workspace",
+}: Props) {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const barRef = useRef<HTMLDivElement>(null);
   const chipStripRef = useRef<HTMLDivElement>(null);
@@ -46,6 +57,10 @@ export function MarkPicker({ value, max, step, marked, label, onChange }: Props)
   const [open, setOpen] = useState(false);
   const [pinned, setPinned] = useState(false);
   const [anchor, setAnchor] = useState({ top: 0, left: 0, width: BAR_MIN_WIDTH });
+
+  useLayoutEffect(() => {
+    if (autoFocus) buttonRef.current?.focus();
+  }, [autoFocus]);
 
   const shown = preview ?? value;
   const wholeMarks = Math.round(max);
@@ -252,7 +267,9 @@ export function MarkPicker({ value, max, step, marked, label, onChange }: Props)
         createPortal(
           <div
             ref={barRef}
-            className={`mark-bar ${pinned ? "is-pinned" : ""}`}
+            className={`mark-bar ${pinned ? "is-pinned" : ""} ${
+              layer === "dialog" ? "is-dialog-layer" : ""
+            }`}
             style={{ top: anchor.top, left: anchor.left, width: anchor.width }}
           >
             <div

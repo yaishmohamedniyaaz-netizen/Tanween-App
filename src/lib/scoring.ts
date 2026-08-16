@@ -17,31 +17,54 @@ export interface CategoryScore {
   score: number;
   /** Pinpointed mistakes, or 1 once an impression criterion has been marked. */
   count: number;
-  /** false while an impression criterion is still resting on full marks. */
+  /** false until an impression criterion has been explicitly committed. */
   marked: boolean;
 }
 
 export type Scores = Record<CategoryId, CategoryScore>;
 
+export type UnmarkedImpressionMode = "legacy-full" | "entry-zero";
+
 const round2 = (n: number) => Math.round(n * 100) / 100;
 
-/** The awarded marks for one impression criterion. An unmarked criterion rests
- *  on full marks, the same way a judge starts from the full allocation. */
+/** The awarded marks for one impression criterion. Saved-session callers keep
+ *  the historical full-mark fallback; live judging opts into explicit entry. */
 export function impressionScore(
   config: ScoreConfig,
   impressions: ImpressionMark[],
   category: CategoryId,
+  unmarkedMode: UnmarkedImpressionMode = "legacy-full",
 ): { awarded: number; marked: boolean; note: string } {
   const start = config[category].start;
   const mark = impressions.find((item) => item.category === category);
   if (!mark || !mark.set) {
-    return { awarded: start, marked: false, note: mark?.note ?? "" };
+    return {
+      awarded: unmarkedMode === "entry-zero" ? 0 : start,
+      marked: false,
+      note: mark?.note ?? "",
+    };
   }
   return {
     awarded: round2(Math.min(start, Math.max(0, mark.awarded))),
     marked: true,
     note: mark.note,
   };
+}
+
+/** Required whole-recitation marks that the current judge has not committed. */
+export function missingRequiredImpressionCategories(
+  config: ScoreConfig,
+  impressions: ImpressionMark[],
+  assignedCategories: CategoryId[],
+): CategoryId[] {
+  const assigned = new Set(assignedCategories);
+  return ALL_CATEGORIES.filter(
+    (category) =>
+      isImpressionCategory(category) &&
+      assigned.has(category) &&
+      config[category].enabled &&
+      !impressions.some((mark) => mark.category === category && mark.set),
+  );
 }
 
 /** Every mark a judge may award for a criterion, from full marks down to zero. */
@@ -58,6 +81,7 @@ export function computeCategoryScores(
   config: ScoreConfig,
   mistakes: Mistake[],
   impressions: ImpressionMark[] = [],
+  unmarkedMode: UnmarkedImpressionMode = "legacy-full",
 ): {
   byCategory: Scores;
   total: number;
@@ -67,7 +91,12 @@ export function computeCategoryScores(
   for (const id of ALL_CATEGORIES) {
     const { start } = config[id];
     if (isImpressionCategory(id)) {
-      const { awarded, marked } = impressionScore(config, impressions, id);
+      const { awarded, marked } = impressionScore(
+        config,
+        impressions,
+        id,
+        unmarkedMode,
+      );
       byCategory[id] = {
         start,
         deducted: round2(start - awarded),
@@ -98,8 +127,14 @@ export function computeAssignedScores(
   mistakes: Mistake[],
   impressions: ImpressionMark[],
   categories: CategoryId[],
+  unmarkedMode: UnmarkedImpressionMode = "legacy-full",
 ) {
-  const full = computeCategoryScores(config, mistakes, impressions);
+  const full = computeCategoryScores(
+    config,
+    mistakes,
+    impressions,
+    unmarkedMode,
+  );
   const allowed = new Set(categories);
   const ids = enabledCategories(config).filter((id) => allowed.has(id));
   const total = round2(
@@ -122,5 +157,6 @@ export function computeScores(state: JudgingState) {
     state.mistakes,
     state.impressions,
     categories,
+    "entry-zero",
   );
 }

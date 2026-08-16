@@ -27,6 +27,7 @@ import {
 import {
   computeAssignedScores,
   computeScores,
+  missingRequiredImpressionCategories,
 } from "../lib/scoring";
 import {
   createPanelPreset,
@@ -453,7 +454,7 @@ function reducer(state: JudgingState, action: Action): JudgingState {
         at: Date.now(),
         type: "impression_changed",
         category: action.category,
-        from: previous?.set ? previous.awarded : start,
+        from: previous?.set ? previous.awarded : 0,
         to: awarded,
         judgeSeatId: assignment.judgeSeatId,
       });
@@ -1050,7 +1051,18 @@ function reducer(state: JudgingState, action: Action): JudgingState {
       };
     }
     case "FINISH_SESSION": {
-      if (!state.sessionActive || !state.activeSessionId) return state;
+      if (
+        !state.sessionActive ||
+        !state.activeSessionId ||
+        !state.activeAssignment ||
+        missingRequiredImpressionCategories(
+          state.activeAssignment.config,
+          state.impressions,
+          state.activeAssignment.categories,
+        ).length > 0
+      ) {
+        return state;
+      }
       const { total, totalMax } = computeScores(state);
       const savedAt = Date.now();
       const finalized: JudgingEvent = {

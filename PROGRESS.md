@@ -1,5 +1,26 @@
 # Tahqeeq — build progress log
 
+## Adu / Raagu required entry — IMPLEMENTED & VERIFIED (2026-08-16)
+
+- Active and reopened unentered Adu / Raagu now starts at zero and
+  requires an explicit judge selection before saving.
+- Finish remains available and contains the shared mark picker so the judge can
+  complete the missing input without returning to the scoring rail.
+- One pure helper governs pending UI, Save availability, App navigation, and the
+  reducer guard; explicit zero is valid and creates one event.
+- Historical saved sessions keep the legacy full fallback during reconstruction,
+  while active revisions use zero/pending. No old record is bulk-migrated.
+- The existing portalled picker receives a dialog layer instead of being copied;
+  its half-step, keyboard, drag, and one-event behavior remain protected.
+- Active scoring and historical reconstruction now use explicit modes. Existing
+  saved sessions retain their legacy totals, while all newly finished sessions
+  contain a deliberate impression event, including an explicit zero.
+- The reducer independently rejects incomplete finishes, and the App prevents
+  next-reciter navigation on the same condition.
+- Verification: all 246 repository tests and the production Sites build pass.
+- Implemented release contract:
+  [`docs/ADU_RAAGU_REQUIRED_ENTRY_IMPLEMENTATION_PLAN.md`](docs/ADU_RAAGU_REQUIRED_ENTRY_IMPLEMENTATION_PLAN.md).
+
 ## Interface easy fixes — IMPLEMENTED & BUILD VERIFIED (2026-08-16)
 
 - Settings now uses an optional, replayable two-step first-use guide instead of
