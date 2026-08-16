@@ -121,12 +121,18 @@
   --c-wash: rgba(85, 102, 230, 0.13);
   --c-wash-strong: rgba(85, 102, 230, 0.28);
 }
+/* A chosen chip is filled with --c and lettered in --surface, so --c has to
+   carry white. #2e9e83 sat at OKLCH L 63, where white measures 3.32:1 and
+   fails AA — and there is a dead band around L 56–58 where neither white nor
+   ink clears 4.5:1, so the fix is to go darker rather than to tune the hue.
+   #377b60 is L 53 on the same hue: white at 5.04:1, and it still clears the
+   3:1 a filled chip needs against both the light and the dark surface. */
 .cat-adu-raagu {
-  --c: #2e9e83;
-  --c-strong: #17614f;
-  --c-tint: #e6f4f0;
-  --c-wash: rgba(46, 158, 131, 0.14);
-  --c-wash-strong: rgba(46, 158, 131, 0.3);
+  --c: #377b60;
+  --c-strong: #26624b;
+  --c-tint: #eef8f3;
+  --c-wash: rgba(55, 123, 96, 0.14);
+  --c-wash-strong: rgba(55, 123, 96, 0.3);
 }
 [data-theme="dark"] .cat-jali {
   --c-tint: rgba(216, 69, 61, 0.18);
@@ -141,8 +147,8 @@
   --c-strong: #aeb8f6;
 }
 [data-theme="dark"] .cat-adu-raagu {
-  --c-tint: rgba(46, 158, 131, 0.2);
-  --c-strong: #7fd3bd;
+  --c-tint: rgba(55, 123, 96, 0.22);
+  --c-strong: #a5cfbc;
 }
 
 /* ---- Base ---- */
@@ -8907,10 +8913,16 @@ html:has(.dialog-backdrop) {
   transition: border-color var(--t-fast) var(--ease-out),
     background var(--t-fast) var(--ease-out);
 }
-.mark-picker:hover,
+/* Open is carried by border weight, not by a colour wash. Nothing has been
+   awarded while the picker is merely open, so the row should not yet be
+   wearing the criterion's colour — and a coloured border over a coloured fill
+   was the whole of what read as a glow. */
+.mark-picker:hover {
+  border-color: var(--ink-3);
+}
 .mark-picker.is-open {
-  border-color: var(--c, var(--ink-3));
-  background: var(--c-wash, transparent);
+  border-color: var(--ink);
+  box-shadow: inset 0 0 0 1px var(--ink);
 }
 .mark-picker-value {
   font-size: 14px;
