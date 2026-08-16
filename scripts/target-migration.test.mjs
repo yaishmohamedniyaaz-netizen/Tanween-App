@@ -147,6 +147,34 @@ test("fully migrated V2 evidence is idempotent and performs no page load", async
   assert.equal(loads, 0);
 });
 
+test("current V2 evidence missing display fields is hydrated non-destructively", async () => {
+  const target = judgingTargetsOf(tawasaw, "letter", "103.3.5")[2];
+  for (const missing of ["primaryGlyph", "fullGlyph"]) {
+    const current = mistake({
+      tid: target.tid,
+      targetVersion: 2,
+      sourceVersion: "qpc-hafs-v1-1405-r1",
+      ruleVersion: "qpc-hafs-v1-targets-2.0.0",
+      wordId: "103.3.5",
+      sourceStart: target.start,
+      sourceEnd: target.end,
+      primaryGlyph: target.primaryGlyph,
+      fullGlyph: target.fullGlyph,
+      migrationStatus: "exact",
+    });
+    delete current[missing];
+    const patches = await buildTargetMigrationPatches(
+      state([current]),
+      async () => page601,
+    );
+    assert.equal(patches.m1.primaryGlyph, target.primaryGlyph);
+    assert.equal(patches.m1.fullGlyph, target.fullGlyph);
+    for (const immutable of ["glyph", "amount", "note", "category", "ts"]) {
+      assert.ok(!(immutable in patches.m1), immutable);
+    }
+  }
+});
+
 test("pre-navigation mistakes use the bundled page 604 fallback", async () => {
   const old = mistake({ page: undefined });
   let requestedPage = 0;

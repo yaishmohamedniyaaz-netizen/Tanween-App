@@ -15,6 +15,11 @@ export interface RosterGroup {
   absent: number;
 }
 
+export interface VisibleRosterGroup extends RosterGroup {
+  /** Present only while filtering, so the header can report visible matches. */
+  matchCount?: number;
+}
+
 const UNGROUPED = "no-division";
 
 /**
@@ -97,6 +102,34 @@ export function matchesParticipantSearch(
   return [entry.number, entry.name, entry.institution].some((field) =>
     field.trim().toLocaleLowerCase().includes(needle),
   );
+}
+
+/**
+ * Filter what is visible without changing the real status totals in a group.
+ * The recommended participant is already shown above the queue, so it is
+ * excluded here before the stable waiting/away/finished ordering is applied.
+ */
+export function visibleRosterGroups(
+  groups: RosterGroup[],
+  excludedParticipantId: string | undefined,
+  query: string,
+): VisibleRosterGroup[] {
+  const searching = Boolean(query.trim());
+  return groups
+    .map((group) => {
+      const allEntries = queueOrder(
+        group.entries.filter((entry) => entry.id !== excludedParticipantId),
+      );
+      const entries = allEntries.filter((entry) =>
+        matchesParticipantSearch(entry, query),
+      );
+      return {
+        ...group,
+        entries,
+        ...(searching ? { matchCount: entries.length } : {}),
+      };
+    })
+    .filter((group) => group.entries.length > 0);
 }
 
 /**

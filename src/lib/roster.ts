@@ -1,6 +1,14 @@
 // Participant workbook parsing and template generation are loaded on demand so
-// the SheetJS bundle never slows the Mushaf or page navigation path.
-import type { RosterEntry } from "../types";
+// the SheetJS bundle never slows the Mushaf or judging path.
+import type {
+  CompetitionConfig,
+  CompetitionDivision,
+  ParticipantNumberingMode,
+  RosterDraft,
+  RosterDraftRow,
+  RosterEntry,
+} from "../types";
+import { divisionLabel } from "./participantPresentation.ts";
 import {
   normalizeMuqarrarSide,
   normalizeParticipantCategory,
@@ -8,8 +16,8 @@ import {
 } from "./participants.ts";
 import { createSampleRoster } from "./sampleCompetition.ts";
 
-export const PARTICIPANT_TEMPLATE_VERSION = 1;
-export const PARTICIPANT_TEMPLATE_HEADERS = [
+export const PARTICIPANT_TEMPLATE_VERSION = 4;
+export const LEGACY_PARTICIPANT_TEMPLATE_HEADERS = [
   "Participant Number",
   "Name",
   "Age Group",
@@ -18,8 +26,39 @@ export const PARTICIPANT_TEMPLATE_HEADERS = [
   "Phone Number",
   "Institution",
 ] as const;
+/** Retained for V1 integrations and tests. */
+export const PARTICIPANT_TEMPLATE_HEADERS = LEGACY_PARTICIPANT_TEMPLATE_HEADERS;
+const SAMPLE_PARTICIPANT_TEMPLATE_HEADERS = [
+  "Participant Number",
+  "Name",
+  "Age Group",
+  "Category",
+  "Muqarrar start",
+  "Phone Number",
+  "Institution",
+] as const;
+export const ROSTER_DRAFT_VERSION = 1;
+
+export interface RosterEntryDefaults {
+  divisionId?: string;
+  muqarrar?: string;
+  institution?: string;
+}
+
+export interface ImportedCategoryGroup {
+  key: string;
+  label: string;
+  rowIds: string[];
+}
 
 type Row = Record<string, unknown>;
+export type RosterDraftField =
+  | "number"
+  | "name"
+  | "divisionId"
+  | "muqarrar"
+  | "phone"
+  | "institution";
 
 export interface RosterImportIssue {
   row: number;
@@ -34,8 +73,76 @@ export interface RosterImportPreview {
   filename?: string;
 }
 
+export interface RosterDraftIssue {
+  rowId?: string;
+  sourceRow?: number;
+  field?: RosterDraftField;
+  level: "error" | "warning";
+  message: string;
+}
+
+export interface ValidatedRosterDraftRow {
+  row: RosterDraftRow;
+  number: string;
+  issues: RosterDraftIssue[];
+}
+
+export interface RosterDraftValidation {
+  rows: ValidatedRosterDraftRow[];
+  issues: RosterDraftIssue[];
+  errorCount: number;
+  warningCount: number;
+  entries: RosterEntry[];
+}
+
+export interface RosterTemplateContext {
+  competitionId: string;
+  competitionName: string;
+  edition: string;
+  divisions: CompetitionDivision[];
+  numberingMode: ParticipantNumberingMode;
+  institutions: string[];
+}
+
+export type RosterColumnKey =
+  | "number"
+  | "name"
+  | "division"
+  | "ageGroup"
+  | "category"
+  | "muqarrar"
+  | "phone"
+  | "institution"
+  | "ignore";
+
+export interface ParsedRosterGrid {
+  grid: string[][];
+  headers: string[];
+  suggestedMapping: RosterColumnKey[];
+  hasRecognizedHeader: boolean;
+}
+
 const norm = (value: string) =>
-  value.trim().toLowerCase().replace(/[\s_.\-()/]+/g, "");
+  value.trim().toLowerCase().replace(/[\s_.\-/()–—]+/g, "");
+
+const HEADER_ALIASES: Record<Exclude<RosterColumnKey, "ignore">, string[]> = {
+  number: ["participantnumber", "number", "participantno", "no", "num", "id", "#"],
+  name: ["name", "reciter", "participant", "fullname"],
+  division: ["division", "competitiondivision", "participantcategory"],
+  ageGroup: ["agegroup", "agecategory", "age"],
+  category: ["category", "track", "recitationtype"],
+  muqarrar: ["muqarrarstart", "muqarrarhathimside", "muqarrar", "hathimside", "startside", "side"],
+  phone: ["phonenumber", "phone", "mobile", "mobilenumber", "contact", "contactnumber"],
+  institution: ["institution", "organisation", "organization", "school", "class", "from"],
+};
+
+function columnForHeader(value: string): RosterColumnKey {
+  const normalized = norm(value);
+  for (const [column, aliases] of Object.entries(HEADER_ALIASES)) {
+    if (aliases.includes(normalized)) return column as RosterColumnKey;
+  }
+  return "ignore";
+}
 
 function pick(row: Row, aliases: string[]): string {
   for (const key of Object.keys(row)) {
@@ -48,89 +155,382 @@ function pick(row: Row, aliases: string[]): string {
   return "";
 }
 
+function pickColumn(row: Row, column: Exclude<RosterColumnKey, "ignore">): string {
+  return pick(row, HEADER_ALIASES[column]);
+}
+
 function rowHasContent(row: Row): boolean {
   return Object.values(row).some((value) => String(value ?? "").trim());
 }
 
-/** Convert workbook rows into a replace-preview. Invalid rows never enter the
- * accepted list, and visible participant numbers must be unique. */
+function rowId(index: number): string {
+  return `roster-row-${Date.now().toString(36)}-${index.toString(36)}-${Math.random().toString(36).slice(2, 7)}`;
+}
+
+export function automaticParticipantNumber(index: number, count: number): string {
+  return String(index + 1).padStart(Math.max(2, String(Math.max(1, count)).length), "0");
+}
+
+function divisionKey(ageGroup: string, category: string): string {
+  return `${norm(ageGroup)}\u241f${category}`;
+}
+
+function matchDivision(
+  divisions: CompetitionDivision[],
+  divisionValue: string,
+  ageGroup: string,
+  categoryValue: string,
+): string {
+  const requestedDivision = norm(divisionValue);
+  if (requestedDivision) {
+    const matches = divisions.filter((division) =>
+      [division.id, division.name, divisionLabel(division)].some(
+        (candidate) => norm(candidate) === requestedDivision,
+      ),
+    );
+    return matches.length === 1 ? matches[0].id : "";
+  }
+  const category = normalizeParticipantCategory(categoryValue);
+  if (!ageGroup || !category) return "";
+  const requestedKey = divisionKey(ageGroup, category);
+  const matches = divisions.filter(
+    (division) => divisionKey(division.ageGroup, division.category) === requestedKey,
+  );
+  return matches.length === 1 ? matches[0].id : "";
+}
+
+function draftRowFromRecord(
+  row: Row,
+  index: number,
+  divisions: CompetitionDivision[],
+): RosterDraftRow {
+  const number = pickColumn(row, "number");
+  const name = pickColumn(row, "name");
+  const ageGroup = pickColumn(row, "ageGroup");
+  const genericCategory = pick(row, ["category"]);
+  const explicitCategory = pickColumn(row, "division");
+  const divisionValue = explicitCategory || (!ageGroup ? genericCategory : "");
+  const category = pick(row, ["track", "recitationtype"]) || (ageGroup ? genericCategory : "");
+  const divisionId = matchDivision(divisions, divisionValue, ageGroup, category);
+  const importedCategory = divisionId
+    ? ""
+    : divisionValue || [ageGroup, category].filter(Boolean).join(" · ");
+  const muqarrarRaw = pickColumn(row, "muqarrar");
+  const muqarrar = normalizeMuqarrarSide(muqarrarRaw);
+  return {
+    id: rowId(index),
+    sourceRow: index + 2,
+    number,
+    name,
+    divisionId,
+    ...(importedCategory ? { importedCategory } : {}),
+    ...(ageGroup ? { legacyAgeGroup: ageGroup } : {}),
+    ...(category ? { legacyCategory: category } : {}),
+    muqarrar: muqarrar || muqarrarRaw,
+    phone: pickColumn(row, "phone"),
+    institution: pickColumn(row, "institution"),
+  };
+}
+
+export function createEmptyRosterDraft(
+  competitionId: string,
+  numberingMode: ParticipantNumberingMode,
+  source: RosterDraft["source"] = "manual",
+): RosterDraft {
+  return {
+    version: ROSTER_DRAFT_VERSION,
+    competitionId,
+    source,
+    numberingMode,
+    rows: [],
+    sourceWarnings: [],
+    updatedAt: Date.now(),
+  };
+}
+
+export function createBlankRosterDraftRow(
+  index = 0,
+  defaults: RosterEntryDefaults = {},
+): RosterDraftRow {
+  return {
+    id: rowId(index),
+    number: "",
+    name: "",
+    divisionId: defaults.divisionId ?? "",
+    muqarrar: defaults.muqarrar ?? "",
+    phone: "",
+    institution: defaults.institution?.trim() ?? "",
+  };
+}
+
+export function importedCategoryGroups(draft: RosterDraft): ImportedCategoryGroup[] {
+  const groups = new Map<string, ImportedCategoryGroup>();
+  for (const row of draft.rows) {
+    const label = row.importedCategory?.trim();
+    if (!label || row.divisionId) continue;
+    const key = norm(label);
+    const existing = groups.get(key);
+    if (existing) existing.rowIds.push(row.id);
+    else groups.set(key, { key, label, rowIds: [row.id] });
+  }
+  return [...groups.values()];
+}
+
+export function mapImportedCategory(
+  draft: RosterDraft,
+  importedValue: string,
+  divisionId: string,
+): RosterDraft {
+  const key = norm(importedValue);
+  return {
+    ...draft,
+    rows: draft.rows.map((row) =>
+      row.importedCategory && norm(row.importedCategory) === key
+        ? {
+            ...row,
+            divisionId,
+            importedCategory: undefined,
+            legacyAgeGroup: undefined,
+            legacyCategory: undefined,
+          }
+        : row,
+    ),
+  };
+}
+
+export function fillEmptyRosterFields(
+  draft: RosterDraft,
+  defaults: RosterEntryDefaults,
+  scopeDivisionId?: string,
+): RosterDraft {
+  return {
+    ...draft,
+    rows: draft.rows.map((row) => {
+      if (scopeDivisionId && row.divisionId !== scopeDivisionId) return row;
+      return {
+        ...row,
+        divisionId: row.divisionId || defaults.divisionId || "",
+        muqarrar: row.muqarrar || defaults.muqarrar || "",
+        institution: row.institution || defaults.institution?.trim() || "",
+      };
+    }),
+  };
+}
+
+export function createRosterDraftFromRows(args: {
+  rows: Row[];
+  competitionId: string;
+  divisions: CompetitionDivision[];
+  numberingMode: ParticipantNumberingMode;
+  source: RosterDraft["source"];
+  filename?: string;
+  sourceWarnings?: string[];
+}): RosterDraft {
+  const rows = args.rows
+    .filter(rowHasContent)
+    .map((row, index) => draftRowFromRecord(row, index, args.divisions));
+  return {
+    ...createEmptyRosterDraft(args.competitionId, args.numberingMode, args.source),
+    ...(args.filename ? { filename: args.filename } : {}),
+    rows,
+    sourceWarnings: [...(args.sourceWarnings ?? [])],
+  };
+}
+
+export function createRosterDraftFromRoster(args: {
+  roster: RosterEntry[];
+  competitionId: string;
+  divisions: CompetitionDivision[];
+  numberingMode: ParticipantNumberingMode;
+}): RosterDraft {
+  return {
+    ...createEmptyRosterDraft(args.competitionId, args.numberingMode, "existing"),
+    rows: args.roster.map((participant, index) => ({
+      id: rowId(index),
+      participantId: participant.id,
+      number: participant.number,
+      name: participant.name,
+      divisionId: matchDivision(
+        args.divisions,
+        "",
+        participant.ageGroup,
+        participant.category,
+      ),
+      legacyAgeGroup: participant.ageGroup,
+      legacyCategory: participant.category,
+      muqarrar: participant.muqarrar,
+      phone: participant.phone,
+      institution: participant.institution,
+    })),
+  };
+}
+
+export function normalizeRosterDraft(value: unknown): RosterDraft | null {
+  if (!value || typeof value !== "object") return null;
+  const draft = value as Partial<RosterDraft>;
+  if (!Array.isArray(draft.rows) || !String(draft.competitionId ?? "").trim()) return null;
+  const source: RosterDraft["source"] =
+    draft.source === "paste" || draft.source === "file" || draft.source === "existing"
+      ? draft.source
+      : "manual";
+  return {
+    version: ROSTER_DRAFT_VERSION,
+    competitionId: String(draft.competitionId),
+    source,
+    ...(String(draft.filename ?? "").trim() ? { filename: String(draft.filename) } : {}),
+    numberingMode: draft.numberingMode === "automatic" ? "automatic" : "supplied",
+    rows: draft.rows.map((raw, index) => {
+      const row = (raw ?? {}) as Partial<RosterDraftRow>;
+      const muqarrarRaw = String(row.muqarrar ?? "");
+      const muqarrar = normalizeMuqarrarSide(muqarrarRaw);
+      return {
+        id: String(row.id ?? "").trim() || rowId(index),
+        ...(String(row.participantId ?? "").trim() ? { participantId: String(row.participantId) } : {}),
+        ...(Number.isFinite(row.sourceRow) ? { sourceRow: Number(row.sourceRow) } : {}),
+        number: String(row.number ?? ""),
+        name: String(row.name ?? ""),
+        divisionId: String(row.divisionId ?? ""),
+        ...(String(row.importedCategory ?? "").trim()
+          ? { importedCategory: String(row.importedCategory) }
+          : {}),
+        ...(String(row.legacyAgeGroup ?? "").trim() ? { legacyAgeGroup: String(row.legacyAgeGroup) } : {}),
+        ...(String(row.legacyCategory ?? "").trim() ? { legacyCategory: String(row.legacyCategory) } : {}),
+        muqarrar: muqarrar || muqarrarRaw,
+        phone: String(row.phone ?? ""),
+        institution: String(row.institution ?? ""),
+      };
+    }),
+    sourceWarnings: Array.isArray(draft.sourceWarnings)
+      ? draft.sourceWarnings.map(String).filter(Boolean)
+      : [],
+    updatedAt: Number.isFinite(draft.updatedAt) ? Number(draft.updatedAt) : Date.now(),
+  };
+}
+
+export function validateRosterDraft(
+  draft: RosterDraft,
+  divisions: CompetitionDivision[],
+): RosterDraftValidation {
+  const issues: RosterDraftIssue[] = [];
+  const rows: ValidatedRosterDraftRow[] = [];
+  const entries: RosterEntry[] = [];
+  const seenNumbers = new Set<string>();
+
+  draft.sourceWarnings.forEach((message) => issues.push({ level: "warning", message }));
+  if (!draft.rows.length) {
+    issues.push({ level: "error", message: "Add at least one participant." });
+  }
+
+  draft.rows.forEach((row, index) => {
+    const rowIssues: RosterDraftIssue[] = [];
+    const add = (
+      field: RosterDraftField,
+      level: "error" | "warning",
+      message: string,
+    ) => rowIssues.push({ rowId: row.id, sourceRow: row.sourceRow, field, level, message });
+    const number = draft.numberingMode === "automatic"
+      ? automaticParticipantNumber(index, draft.rows.length)
+      : row.number.trim();
+    if (draft.numberingMode === "supplied" && !number) add("number", "error", "Participant number is required.");
+    const numberKey = number.toLocaleLowerCase();
+    if (number && seenNumbers.has(numberKey)) add("number", "error", `Participant number ${number} is duplicated.`);
+    if (number) seenNumbers.add(numberKey);
+    if (!row.name.trim()) add("name", "error", "Name is required.");
+
+    const division = divisions.find((candidate) => candidate.id === row.divisionId);
+    if (!division) {
+      const legacy = [row.legacyAgeGroup, row.legacyCategory].filter(Boolean).join(" · ");
+      add(
+        "divisionId",
+        "error",
+        legacy ? `Choose a category. Imported value: ${legacy}.` : "Category is required.",
+      );
+    }
+    const muqarrar = normalizeMuqarrarSide(row.muqarrar);
+    if (!row.muqarrar.trim()) add("muqarrar", "error", "Muqarrar start is required.");
+    else if (!muqarrar) add("muqarrar", "error", "Choose a valid Muqarrar start.");
+    if (!row.phone.trim()) add("phone", "warning", "Phone number is empty.");
+    if (!row.institution.trim()) add("institution", "warning", "Institution is empty.");
+
+    issues.push(...rowIssues);
+    rows.push({ row, number, issues: rowIssues });
+    if (!rowIssues.some((issue) => issue.level === "error") && division && muqarrar) {
+      entries.push(normalizeRosterEntry({
+        id: row.participantId,
+        number,
+        name: row.name,
+        ageGroup: division.ageGroup,
+        category: division.category,
+        muqarrar,
+        phone: row.phone,
+        institution: row.institution,
+        judged: false,
+      }));
+    }
+  });
+
+  return {
+    rows,
+    issues,
+    errorCount: issues.filter((issue) => issue.level === "error").length,
+    warningCount: issues.filter((issue) => issue.level === "warning").length,
+    entries,
+  };
+}
+
+export function rosterDraftComparison(current: RosterEntry[], next: RosterEntry[]) {
+  const currentById = new Map(current.map((entry) => [entry.id, entry]));
+  const nextIds = new Set(next.map((entry) => entry.id));
+  let added = 0;
+  let edited = 0;
+  next.forEach((entry) => {
+    const existing = currentById.get(entry.id);
+    if (!existing) added += 1;
+    else if (JSON.stringify({ ...existing, judged: false, absent: false }) !== JSON.stringify({ ...entry, judged: false, absent: false })) edited += 1;
+  });
+  return {
+    before: current.length,
+    after: next.length,
+    added,
+    edited,
+    removed: current.filter((entry) => !nextIds.has(entry.id)).length,
+  };
+}
+
+/** Legacy V1 replace-preview retained for old integrations and imports. */
 export function parseRosterRows(rows: Row[]): RosterImportPreview {
   const entries: RosterEntry[] = [];
   const issues: RosterImportIssue[] = [];
   const seenNumbers = new Set<string>();
   const contentRows = rows.filter(rowHasContent);
-
   for (const [index, row] of rows.entries()) {
     if (!rowHasContent(row)) continue;
     const rowNumber = index + 2;
-    const number = pick(row, [
-      "participantnumber",
-      "number",
-      "participantno",
-      "no",
-      "num",
-      "id",
-      "#",
-    ]);
-    const name = pick(row, ["name", "reciter", "participant", "fullname"]);
-    const ageGroup = pick(row, ["agegroup", "agecategory", "division", "age"]);
-    const categoryRaw = pick(row, ["category", "track"]);
-    const muqarrarRaw = pick(row, [
-      "muqarrarhathimside",
-      "muqarrar",
-      "hathimside",
-      "startside",
-      "side",
-    ]);
-    const phone = pick(row, [
-      "phonenumber",
-      "phone",
-      "mobile",
-      "mobilenumber",
-      "contact",
-      "contactnumber",
-    ]);
-    const institution = pick(row, [
-      "institution",
-      "organisation",
-      "organization",
-      "school",
-      "class",
-      "group",
-      "from",
-    ]);
-
+    const number = pickColumn(row, "number");
+    const name = pickColumn(row, "name");
+    const ageGroup = pickColumn(row, "ageGroup") || pickColumn(row, "division");
+    const categoryRaw = pickColumn(row, "category");
+    const muqarrarRaw = pickColumn(row, "muqarrar");
+    const phone = pickColumn(row, "phone");
+    const institution = pickColumn(row, "institution");
     const rowErrors: string[] = [];
     if (!number) rowErrors.push("Participant Number is required");
     if (!name) rowErrors.push("Name is required");
     if (!ageGroup) rowErrors.push("Age Group is required");
-
     const category = normalizeParticipantCategory(categoryRaw);
-    if (!categoryRaw) {
-      rowErrors.push("Category is required");
-    } else if (!category) {
-      rowErrors.push("Category must be Baliagen or Hifz");
-    }
-
+    if (!categoryRaw) rowErrors.push("Category is required");
+    else if (!category) rowErrors.push("Category must be Baliagen or Hifz");
     const muqarrar = normalizeMuqarrarSide(muqarrarRaw);
-    if (!muqarrarRaw) {
-      rowErrors.push("Muqarrar is required");
-    } else if (!muqarrar) {
-      rowErrors.push("Muqarrar must be Feshey kolhu or Nimey kolhu");
-    }
-
+    if (!muqarrarRaw) rowErrors.push("Muqarrar start is required");
+    else if (!muqarrar) rowErrors.push("Muqarrar start must be Feshey kolhu or Nimey kolhu");
     const numberKey = number.toLocaleLowerCase();
-    if (number && seenNumbers.has(numberKey)) {
-      rowErrors.push(`Participant Number ${number} is duplicated`);
-    }
-
+    if (number && seenNumbers.has(numberKey)) rowErrors.push(`Participant Number ${number} is duplicated`);
     if (rowErrors.length) {
       issues.push({ row: rowNumber, level: "error", message: rowErrors.join("; ") });
       continue;
     }
-
     seenNumbers.add(numberKey);
-    const entry = normalizeRosterEntry({
+    entries.push(normalizeRosterEntry({
       number,
       name,
       ageGroup,
@@ -139,215 +539,470 @@ export function parseRosterRows(rows: Row[]): RosterImportPreview {
       phone,
       institution,
       judged: false,
-    });
-    entries.push(entry);
-
-    if (!phone) {
-      issues.push({ row: rowNumber, level: "warning", message: "Phone Number is empty" });
-    }
-    if (!institution) {
-      issues.push({ row: rowNumber, level: "warning", message: "Institution is empty" });
-    }
+    }));
+    if (!phone) issues.push({ row: rowNumber, level: "warning", message: "Phone Number is empty" });
+    if (!institution) issues.push({ row: rowNumber, level: "warning", message: "Institution is empty" });
   }
-
-  if (!contentRows.length) {
-    issues.push({
-      row: 1,
-      level: "error",
-      message: "The Participants sheet has no participant rows",
-    });
-  }
-
+  if (!contentRows.length) issues.push({ row: 1, level: "error", message: "The Participants sheet has no participant rows" });
   return { entries, issues, sourceRows: contentRows.length };
 }
 
-/** Parse the first sheet of a judge-supplied `.xlsx`, `.xls`, or UTF-8 `.csv`. */
+/** Parse quoted CSV/TSV clipboard text without requesting clipboard permission. */
+export function parseDelimitedRosterText(text: string): ParsedRosterGrid {
+  const delimiter = text.includes("\t") ? "\t" : ",";
+  const grid: string[][] = [];
+  let row: string[] = [];
+  let cell = "";
+  let quoted = false;
+  for (let index = 0; index < text.length; index += 1) {
+    const character = text[index];
+    if (character === '"') {
+      if (quoted && text[index + 1] === '"') {
+        cell += '"';
+        index += 1;
+      } else quoted = !quoted;
+    } else if (character === delimiter && !quoted) {
+      row.push(cell);
+      cell = "";
+    } else if ((character === "\n" || character === "\r") && !quoted) {
+      if (character === "\r" && text[index + 1] === "\n") index += 1;
+      row.push(cell);
+      if (row.some((value) => value.trim())) grid.push(row);
+      row = [];
+      cell = "";
+    } else cell += character;
+  }
+  row.push(cell);
+  if (row.some((value) => value.trim())) grid.push(row);
+  const headers = grid[0] ?? [];
+  const suggestedMapping = headers.map(columnForHeader);
+  const hasAgeGroup = suggestedMapping.includes("ageGroup");
+  headers.forEach((header, index) => {
+    if (norm(header) === "category") {
+      suggestedMapping[index] = hasAgeGroup ? "category" : "division";
+    }
+  });
+  const recognized = suggestedMapping.filter((column) => column !== "ignore");
+  return {
+    grid,
+    headers,
+    suggestedMapping,
+    hasRecognizedHeader: recognized.includes("name") && recognized.length >= 2,
+  };
+}
+
+export function recordsFromRosterGrid(
+  parsed: ParsedRosterGrid,
+  mapping = parsed.suggestedMapping,
+  firstRowIsHeader = parsed.hasRecognizedHeader,
+): Row[] {
+  const start = firstRowIsHeader ? 1 : 0;
+  return parsed.grid.slice(start).map((values) => {
+    const record: Row = {};
+    values.forEach((value, index) => {
+      const column = mapping[index] ?? "ignore";
+      if (column !== "ignore") record[column] = value;
+    });
+    return record;
+  });
+}
+
+function metadataForWorkbook(
+  workbook: { Custprops?: object },
+  metadataRows: Row[] = [],
+) {
+  const sheetMetadata = Object.fromEntries(
+    metadataRows
+      .map((row) => [String(row.Key ?? ""), row.Value] as const)
+      .filter(([key]) => key),
+  );
+  return {
+    ...((workbook.Custprops ?? {}) as Record<string, unknown>),
+    ...sheetMetadata,
+  };
+}
+
+export function rosterTemplateFingerprint(divisions: CompetitionDivision[]): string {
+  const source = divisions
+    .map((division) => [division.id, division.name, division.ageGroup, division.category].map(norm).join("|"))
+    .sort()
+    .join("\u241e");
+  let hash = 0x811c9dc5;
+  for (let index = 0; index < source.length; index += 1) {
+    hash ^= source.charCodeAt(index);
+    hash = Math.imul(hash, 0x01000193);
+  }
+  return (hash >>> 0).toString(36);
+}
+
+export async function parseRosterFileToDraft(
+  file: File,
+  competition: CompetitionConfig,
+): Promise<RosterDraft> {
+  const { read, utils } = await import("xlsx");
+  const workbook = /\.csv$/i.test(file.name)
+    ? read(await file.text(), { type: "string" })
+    : read(await file.arrayBuffer());
+  const sheet = workbook.Sheets.Participants ?? workbook.Sheets[workbook.SheetNames[0]];
+  if (!sheet) throw new Error("The file has no participant sheet.");
+  const rows = utils.sheet_to_json<Row>(sheet, { defval: "", raw: false, blankrows: false });
+  const metadataSheet = workbook.Sheets._Tahqeeq;
+  const metadataRows = metadataSheet
+    ? utils.sheet_to_json<Row>(metadataSheet, { defval: "", raw: false, blankrows: false })
+    : [];
+  const metadata = metadataForWorkbook(workbook, metadataRows);
+  const sourceWarnings: string[] = [];
+  const fingerprint = String(
+    metadata.TahqeeqCategoryFingerprint ?? metadata.TahqeeqDivisionFingerprint ?? "",
+  );
+  if (fingerprint && fingerprint !== rosterTemplateFingerprint(competition.divisions)) {
+    sourceWarnings.push("This file was created for an older category setup. Check every mapped category before applying it.");
+  }
+  const metadataMode = metadata.TahqeeqNumberingMode;
+  const numberingMode: ParticipantNumberingMode =
+    metadataMode === "automatic" || metadataMode === "supplied"
+      ? metadataMode
+      : competition.participantNumbering;
+  return createRosterDraftFromRows({
+    rows,
+    competitionId: competition.id,
+    divisions: competition.divisions,
+    numberingMode,
+    source: "file",
+    filename: file.name,
+    sourceWarnings,
+  });
+}
+
+/** Parse the first sheet using the original V1 replace-preview contract. */
 export async function parseRosterFile(file: File): Promise<RosterImportPreview> {
   const { read, utils } = await import("xlsx");
   const workbook = /\.csv$/i.test(file.name)
     ? read(await file.text(), { type: "string" })
     : read(await file.arrayBuffer());
-  const sheet = workbook.Sheets[workbook.SheetNames[0]];
+  const sheet = workbook.Sheets.Participants ?? workbook.Sheets[workbook.SheetNames[0]];
   if (!sheet) throw new Error("The file has no sheets.");
-  const rows = utils.sheet_to_json<Row>(sheet, { defval: "", raw: false });
+  const rows = utils.sheet_to_json<Row>(sheet, { defval: "", raw: false, blankrows: false });
   return { ...parseRosterRows(rows), filename: file.name };
 }
 
-function workbookRows(entries: RosterEntry[]): string[][] {
-  return entries.map((entry) => [
-    entry.number,
-    entry.name,
-    entry.ageGroup,
-    entry.category === "nubalaa" ? "Hifz" : "Baliagen",
-    entry.muqarrar === "nimey-kolhu" ? "Nimey kolhu" : "Feshey kolhu",
-    entry.phone,
-    entry.institution,
-  ]);
+function templateHeaders(mode: ParticipantNumberingMode): string[] {
+  return [
+    ...(mode === "supplied" ? ["Participant Number"] : []),
+    "Name",
+    "Category",
+    "Muqarrar start",
+    "Institution",
+    "Phone Number",
+  ];
+}
+
+function templateContextFromCompetition(competition: CompetitionConfig): RosterTemplateContext {
+  return {
+    competitionId: competition.id,
+    competitionName: competition.name,
+    edition: competition.edition,
+    divisions: competition.divisions,
+    numberingMode: competition.participantNumbering,
+    institutions: competition.participantEntrySettings.institutions,
+  };
+}
+
+function genericTemplateContext(): RosterTemplateContext {
+  return {
+    competitionId: "competition-local",
+    competitionName: "Competition",
+    edition: "",
+    divisions: [],
+    numberingMode: "supplied",
+    institutions: [],
+  };
 }
 
 async function buildParticipantWorkbook(
+  context: RosterTemplateContext,
   entries: RosterEntry[],
   title: string,
   sample: boolean,
 ): Promise<ArrayBuffer> {
-  const { utils, write } = await import("xlsx");
-  const participants = utils.aoa_to_sheet([
-    [...PARTICIPANT_TEMPLATE_HEADERS],
-    ...workbookRows(entries),
-  ]);
-  participants["!cols"] = [
-    { wch: 20 },
-    { wch: 28 },
-    { wch: 18 },
-    { wch: 28 },
-    { wch: 31 },
-    { wch: 19 },
-    { wch: 30 },
-  ];
-  participants["!autofilter"] = { ref: "A1:G1" };
-  (participants as typeof participants & { "!freeze"?: unknown })["!freeze"] = {
-    xSplit: 0,
-    ySplit: 1,
-    topLeftCell: "A2",
-    activePane: "bottomLeft",
-    state: "frozen",
-  };
+  const ExcelJS = (await import("exceljs")).default;
+  const headers = sample ? [...SAMPLE_PARTICIPANT_TEMPLATE_HEADERS] : templateHeaders(context.numberingMode);
+  const body = sample
+    ? entries.map((entry) => [
+        entry.number,
+        entry.name,
+        entry.ageGroup,
+        entry.category === "nubalaa" ? "Hifz" : "Baliagen",
+        entry.muqarrar === "nimey-kolhu" ? "Nimey kolhu" : "Feshey kolhu",
+        entry.phone,
+        entry.institution,
+      ])
+    : [];
+  const workbook = new ExcelJS.Workbook();
+  workbook.creator = "Tahqeeq";
+  workbook.title = title;
+  workbook.subject = sample
+    ? "Fictional participant data for testing Tahqeeq"
+    : "Competition participant import template";
+  workbook.description = `Template version ${PARTICIPANT_TEMPLATE_VERSION}`;
 
-  const readMe = utils.aoa_to_sheet([
+  const participants = workbook.addWorksheet("Participants", {
+    views: [{ state: "frozen", ySplit: 1, activeCell: "A2" }],
+    properties: { defaultRowHeight: 22 },
+  });
+  participants.addRow(headers);
+  body.forEach((row) => participants.addRow(row));
+  const preparedRowCount = sample ? body.length : 100;
+  if (!sample) {
+    for (let row = 2; row <= preparedRowCount + 1; row += 1) participants.getRow(row);
+  }
+  participants.autoFilter = {
+    from: { row: 1, column: 1 },
+    to: { row: 1, column: headers.length },
+  };
+  participants.columns.forEach((column, index) => {
+    const header = headers[index];
+    column.width = header === "Participant Number"
+      ? 22
+      : header === "Name" || header === "Institution"
+      ? 28
+      : header === "Category"
+        ? 34
+        : header === "Muqarrar start"
+          ? 22
+          : 18;
+  });
+  const headerRow = participants.getRow(1);
+  headerRow.height = 28;
+  headerRow.eachCell((cell) => {
+    cell.font = { name: "Aptos", size: 11, bold: true, color: { argb: "FFFFFFFF" } };
+    cell.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FF242421" } };
+    cell.alignment = { vertical: "middle", horizontal: "left" };
+    cell.border = { bottom: { style: "thin", color: { argb: "FF11110F" } } };
+  });
+  headers.forEach((header, index) => {
+    participants.getCell(1, index + 1).note = ["Name", "Category", "Muqarrar start", "Participant Number"].includes(header)
+      ? "Required field"
+      : "Optional field";
+  });
+
+  const choices = sample ? null : workbook.addWorksheet("Choices", {
+    properties: { defaultRowHeight: 22 },
+  });
+  if (choices) {
+    choices.addRow(["Category", "Muqarrar start", "Institution"]);
+    const choiceRows = Math.max(context.divisions.length, context.institutions.length, 2);
+    for (let index = 0; index < choiceRows; index += 1) {
+      choices.addRow([
+        context.divisions[index] ? divisionLabel(context.divisions[index]) : "",
+        ["Feshey kolhu", "Nimey kolhu"][index] ?? "",
+        context.institutions[index] ?? "",
+      ]);
+    }
+    choices.columns = [{ width: 38 }, { width: 24 }, { width: 34 }];
+    const choicesHeader = choices.getRow(1);
+    choicesHeader.height = 28;
+    choicesHeader.eachCell((cell) => {
+      cell.font = { name: "Aptos", size: 11, bold: true, color: { argb: "FFFFFFFF" } };
+      cell.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FF242421" } };
+      cell.alignment = { vertical: "middle" };
+    });
+  }
+
+  const categoryColumn = headers.indexOf("Category") + 1;
+  const muqarrarColumn = headers.indexOf("Muqarrar start") + 1;
+  const institutionColumn = headers.indexOf("Institution") + 1;
+  const numberColumn = headers.indexOf("Participant Number") + 1;
+  const phoneColumn = headers.indexOf("Phone Number") + 1;
+  for (let row = 2; row <= preparedRowCount + 1; row += 1) {
+    const worksheetRow = participants.getRow(row);
+    worksheetRow.height = 24;
+    worksheetRow.eachCell({ includeEmpty: true }, (cell) => {
+      cell.font = { name: "Aptos", size: 11, color: { argb: "FF242421" } };
+      cell.alignment = { vertical: "middle" };
+      cell.fill = {
+        type: "pattern",
+        pattern: "solid",
+        fgColor: { argb: row % 2 === 0 ? "FFF7F6F2" : "FFFFFFFF" },
+      };
+      cell.border = { bottom: { style: "hair", color: { argb: "FFD8D7D1" } } };
+    });
+    if (numberColumn > 0) participants.getCell(row, numberColumn).numFmt = "@";
+    if (phoneColumn > 0) participants.getCell(row, phoneColumn).numFmt = "@";
+    if (!sample && choices) {
+      participants.getCell(row, categoryColumn).dataValidation = {
+        type: "list",
+        allowBlank: false,
+        formulae: [`'Choices'!$A$2:$A$${Math.max(2, context.divisions.length + 1)}`],
+        showInputMessage: true,
+        promptTitle: "Category",
+        prompt: "Choose one of this competition's categories.",
+        showErrorMessage: true,
+        errorStyle: "stop",
+        errorTitle: "Choose a listed category",
+        error: "Use a Category from the Choices sheet.",
+      };
+      participants.getCell(row, muqarrarColumn).dataValidation = {
+        type: "list",
+        allowBlank: false,
+        formulae: ["'Choices'!$B$2:$B$3"],
+        showInputMessage: true,
+        promptTitle: "Muqarrar start",
+        prompt: "Choose Feshey kolhu or Nimey kolhu.",
+        showErrorMessage: true,
+        errorStyle: "stop",
+        errorTitle: "Choose a valid start",
+        error: "Use Feshey kolhu or Nimey kolhu.",
+      };
+      if (institutionColumn > 0 && context.institutions.length) {
+        participants.getCell(row, institutionColumn).dataValidation = {
+          type: "list",
+          allowBlank: true,
+          formulae: [`'Choices'!$C$2:$C$${context.institutions.length + 1}`],
+          showInputMessage: true,
+          promptTitle: "Institution",
+          prompt: "Choose a saved institution or type another value.",
+          showErrorMessage: false,
+        };
+      }
+    }
+  }
+
+  const instructions = workbook.addWorksheet("Instructions", {
+    properties: { defaultRowHeight: 22 },
+  });
+  const instructionRows = [
     [title],
     ["Template version", PARTICIPANT_TEMPLATE_VERSION],
+    ["Competition", context.competitionName || "Not named"],
+    ["Edition", context.edition || "Not set"],
+    ["Numbering", context.numberingMode === "automatic" ? "Automatic in Tahqeeq" : "Supplied in this sheet"],
     [],
     ["How to use"],
-    ["1", "Enter one participant per row in the Participants sheet."],
-    ["2", "Keep Participant Number unique within this competition."],
-    ["3", "Required: Participant Number, Name, Age Group, Category and Muqarrar."],
-    ["4", "Category: Baliagen (Tarteel / reading) or Hifz (memorisation)."],
-    ["5", "Muqarrar: Feshey kolhu (starting side) or Nimey kolhu (ending side)."],
-    ["6", "Phone Number and Institution are optional but recommended."],
-    ["7", "Institution may be a class, school, or Amilla faraathun (own participation)."],
-    ["8", "For a number beginning with zero, enter a leading apostrophe, for example '014."],
-    ...(sample
-      ? [
-          [],
-          ["Sample file", "Every participant in this workbook is fictional test data. Replace or remove it before an official competition."],
-        ]
-      : []),
-    [],
-    ["Example only — do not copy this row into the participant list unless it is real"],
-    [
-      "104",
-      "Aminath Example",
-      "Under 14",
-      "Baliagen",
-      "Feshey kolhu",
-      "7770000",
-      "Example School",
-    ],
-  ]);
-  readMe["!cols"] = [
-    { wch: 18 },
-    { wch: 92 },
-    { wch: 18 },
-    { wch: 18 },
-    { wch: 20 },
-    { wch: 16 },
-    { wch: 24 },
+    ["1", "Enter one participant per prepared row in Participants."],
+    ["2", sample ? "This file contains fictional test participants." : "Use the Category and Muqarrar start dropdowns. Institution remains optional and may be typed."],
+    ["3", context.numberingMode === "automatic" ? "Tahqeeq assigns clean numbers from the final row order." : "Participant Number is required and must be unique."],
+    ["4", "Name, Category and Muqarrar start are required. Institution and Phone Number are recommended."],
+    ["5", "Import the completed file, fix highlighted rows in Tahqeeq, then review before applying."],
+    ["6", "Keep phone numbers and supplied participant numbers as text when they begin with zero."],
+    ...(sample ? [[], ["Sample file", "Every participant is fictional test data."]] : []),
   ];
+  instructionRows.forEach((row) => instructions.addRow(row));
+  instructions.columns = [{ width: 20 }, { width: 92 }];
+  instructions.getRow(1).height = 34;
+  instructions.getCell("A1").font = { name: "Aptos Display", size: 18, bold: true, color: { argb: "FF242421" } };
+  instructions.mergeCells("A1:B1");
+  instructions.getRow(7).eachCell((cell) => {
+    cell.font = { name: "Aptos", size: 11, bold: true, color: { argb: "FFFFFFFF" } };
+    cell.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FF242421" } };
+  });
+  instructions.eachRow((row, index) => {
+    if (index > 1 && index !== 7) {
+      row.eachCell((cell) => {
+        cell.font = { name: "Aptos", size: 11, color: { argb: "FF242421" } };
+        cell.alignment = { vertical: "top", wrapText: true };
+      });
+    }
+  });
 
-  const workbook = utils.book_new();
-  utils.book_append_sheet(workbook, participants, "Participants");
-  utils.book_append_sheet(workbook, readMe, "Read me");
-  workbook.Props = {
-    Title: title,
-    Subject: sample
-      ? "Fictional participant data for testing Tahqeeq"
-      : "Competition participant import template",
-    Author: "Tahqeeq",
-    Comments: `Template version ${PARTICIPANT_TEMPLATE_VERSION}`,
-  };
-  return write(workbook, {
-    bookType: "xlsx",
-    type: "array",
-    compression: true,
-  }) as ArrayBuffer;
+  const metadata = workbook.addWorksheet("_Tahqeeq", { state: "veryHidden" });
+  metadata.addRows([
+    ["Key", "Value"],
+    ["TahqeeqTemplateVersion", PARTICIPANT_TEMPLATE_VERSION],
+    ["TahqeeqCompetitionId", context.competitionId],
+    ["TahqeeqCategoryFingerprint", rosterTemplateFingerprint(context.divisions)],
+    ["TahqeeqDivisionFingerprint", rosterTemplateFingerprint(context.divisions)],
+    ["TahqeeqNumberingMode", context.numberingMode],
+  ]);
+
+  const output = await workbook.xlsx.writeBuffer();
+  return new Uint8Array(output).slice().buffer;
 }
 
-/** Build the exact blank workbook offered in Competition setup. */
-export async function buildParticipantTemplate(): Promise<ArrayBuffer> {
-  return buildParticipantWorkbook([], "Tahqeeq Participant Template", false);
+export async function buildParticipantTemplate(
+  competition?: CompetitionConfig,
+): Promise<ArrayBuffer> {
+  const context = competition ? templateContextFromCompetition(competition) : genericTemplateContext();
+  return buildParticipantWorkbook(context, [], "Tahqeeq Participant Template", false);
 }
 
-/** Build a separate, unmistakably fictional roster for trying the workflow. */
 export async function buildSampleParticipantWorkbook(): Promise<ArrayBuffer> {
   return buildParticipantWorkbook(
+    genericTemplateContext(),
     createSampleRoster(),
     "Tahqeeq Sample Participant Roster",
     true,
   );
 }
 
-export async function verifyParticipantTemplate(buffer: ArrayBuffer): Promise<void> {
+export async function verifyParticipantTemplate(
+  buffer: ArrayBuffer,
+  competition?: CompetitionConfig,
+): Promise<void> {
   const { read, utils } = await import("xlsx");
   const workbook = read(buffer, { type: "array" });
-  if (workbook.SheetNames.join("|") !== "Participants|Read me") {
+  if (workbook.SheetNames.join("|") !== "Participants|Choices|Instructions|_Tahqeeq") {
     throw new Error("The participant template is missing a required sheet.");
   }
-  const participantRows = utils.sheet_to_json<unknown[]>(
-    workbook.Sheets.Participants,
-    { header: 1, defval: "", raw: false },
-  );
-  if (
-    JSON.stringify(participantRows[0] ?? []) !==
-      JSON.stringify([...PARTICIPANT_TEMPLATE_HEADERS]) ||
-    participantRows.length !== 1
-  ) {
+  const participantRows = utils.sheet_to_json<unknown[]>(workbook.Sheets.Participants, {
+    header: 1,
+    defval: "",
+    raw: false,
+    blankrows: false,
+  });
+  const expected = templateHeaders(competition?.participantNumbering ?? "supplied");
+  if (JSON.stringify(participantRows[0] ?? []) !== JSON.stringify(expected)) {
     throw new Error("The participant template headers did not verify.");
+  }
+  const metadataRows = utils.sheet_to_json<Row>(workbook.Sheets._Tahqeeq, {
+    defval: "",
+    raw: false,
+    blankrows: false,
+  });
+  const metadata = metadataForWorkbook(workbook, metadataRows);
+  if (Number(metadata.TahqeeqTemplateVersion) !== PARTICIPANT_TEMPLATE_VERSION) {
+    throw new Error("The participant template version did not verify.");
+  }
+  const ExcelJS = (await import("exceljs")).default;
+  const styledWorkbook = new ExcelJS.Workbook();
+  await styledWorkbook.xlsx.load(buffer);
+  const styledParticipants = styledWorkbook.getWorksheet("Participants");
+  if (
+    !styledParticipants ||
+    styledParticipants.getCell(2, expected.indexOf("Category") + 1).dataValidation.type !== "list" ||
+    styledParticipants.getCell(2, expected.indexOf("Muqarrar start") + 1).dataValidation.type !== "list"
+  ) {
+    throw new Error("The participant template dropdowns did not verify.");
   }
   for (const sheetName of workbook.SheetNames) {
     const sheet = workbook.Sheets[sheetName];
     for (const [address, cell] of Object.entries(sheet)) {
-      if (!address.startsWith("!") && cell.f) {
-        throw new Error("The participant template unexpectedly contains a formula.");
-      }
+      if (!address.startsWith("!") && cell.f) throw new Error("The participant template unexpectedly contains a formula.");
     }
   }
 }
 
-export async function downloadParticipantTemplate(): Promise<void> {
-  const buffer = await buildParticipantTemplate();
-  await verifyParticipantTemplate(buffer);
-  const blob = new Blob([buffer], {
-    type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-  });
+function downloadBuffer(buffer: ArrayBuffer, filename: string) {
+  const blob = new Blob([buffer], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
   const url = URL.createObjectURL(blob);
   const anchor = document.createElement("a");
   anchor.href = url;
-  anchor.download = "Tahqeeq-participant-template.xlsx";
+  anchor.download = filename;
   document.body.appendChild(anchor);
   anchor.click();
   anchor.remove();
   setTimeout(() => URL.revokeObjectURL(url), 0);
 }
 
+export async function downloadParticipantTemplate(competition?: CompetitionConfig): Promise<void> {
+  const buffer = await buildParticipantTemplate(competition);
+  await verifyParticipantTemplate(buffer, competition);
+  downloadBuffer(buffer, "Tahqeeq-participant-template.xlsx");
+}
+
 export async function downloadSampleParticipantWorkbook(): Promise<void> {
   const buffer = await buildSampleParticipantWorkbook();
-  const preview = await parseRosterFile(
-    new File([buffer], "Tahqeeq-sample-participants.xlsx", {
-      type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-    }),
-  );
-  if (preview.entries.length !== createSampleRoster().length) {
-    throw new Error("The sample participant workbook did not verify.");
-  }
-  const blob = new Blob([buffer], {
-    type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-  });
-  const url = URL.createObjectURL(blob);
-  const anchor = document.createElement("a");
-  anchor.href = url;
-  anchor.download = "Tahqeeq-sample-participants.xlsx";
-  document.body.appendChild(anchor);
-  anchor.click();
-  anchor.remove();
-  setTimeout(() => URL.revokeObjectURL(url), 0);
+  const preview = await parseRosterFile(new File([buffer], "Tahqeeq-sample-participants.xlsx"));
+  if (preview.entries.length !== createSampleRoster().length) throw new Error("The sample participant workbook did not verify.");
+  downloadBuffer(buffer, "Tahqeeq-sample-participants.xlsx");
 }

@@ -20,6 +20,7 @@ import {
   computeAssignedScores,
   computeCategoryScores,
   impressionScore,
+  missingRequiredImpressionCategories,
 } from "../src/lib/scoring.ts";
 import {
   latestMistakeEventIds,
@@ -57,6 +58,10 @@ const pickerSource = readFileSync(
 );
 const scorePanelSource = readFileSync(
   new URL("../src/components/ScorePanel.tsx", import.meta.url),
+  "utf8",
+);
+const finishDialogSource = readFileSync(
+  new URL("../src/components/FinishDialog.tsx", import.meta.url),
   "utf8",
 );
 const appSource = readFileSync(
@@ -153,12 +158,17 @@ test("a raw pre-Adu and Raagu config still yields a usable assignment", () => {
   assert.deepEqual(restored.categories, ["jali", "khafi", "fasaha"]);
 });
 
-test("an unmarked impression rests on full marks and records once marked", () => {
+test("live unmarked impressions start at zero while history retains full marks", () => {
   const config = normalizeScoreConfig(DEFAULT_CONFIG);
-  const unmarked = computeCategoryScores(config, []);
-  assert.equal(unmarked.byCategory["adu-raagu"].score, 10);
-  assert.equal(unmarked.byCategory["adu-raagu"].marked, false);
-  assert.equal(unmarked.total, 100);
+  const historical = computeCategoryScores(config, []);
+  assert.equal(historical.byCategory["adu-raagu"].score, 10);
+  assert.equal(historical.byCategory["adu-raagu"].marked, false);
+  assert.equal(historical.total, 100);
+
+  const active = computeCategoryScores(config, [], [], "entry-zero");
+  assert.equal(active.byCategory["adu-raagu"].score, 0);
+  assert.equal(active.byCategory["adu-raagu"].marked, false);
+  assert.equal(active.total, 90);
 
   const events = [
     {
@@ -197,6 +207,50 @@ test("an unmarked impression rests on full marks and records once marked", () =>
   assert.equal(marked.byCategory["adu-raagu"].deducted, 2.5);
   assert.equal(marked.byCategory["adu-raagu"].marked, true);
   assert.equal(marked.total, 97.5);
+});
+
+test("required impression marks distinguish notes and explicit zero", () => {
+  const config = normalizeScoreConfig(DEFAULT_CONFIG);
+  const assigned = ["jali", "adu-raagu"];
+  assert.deepEqual(
+    missingRequiredImpressionCategories(config, [], assigned),
+    ["adu-raagu"],
+  );
+  assert.deepEqual(
+    missingRequiredImpressionCategories(
+      config,
+      [{ category: "adu-raagu", awarded: 0, note: "Listen again", set: false, ts: 1 }],
+      assigned,
+    ),
+    ["adu-raagu"],
+  );
+  assert.deepEqual(
+    missingRequiredImpressionCategories(
+      config,
+      [{ category: "adu-raagu", awarded: 0, note: "", set: true, ts: 2 }],
+      assigned,
+    ),
+    [],
+  );
+});
+
+test("completion uses the same required-entry rule at every boundary", () => {
+  assert.match(
+    storeSource,
+    /case "FINISH_SESSION":[\s\S]*missingRequiredImpressionCategories\([\s\S]*return state;/,
+  );
+  assert.match(
+    appSource,
+    /onConfirm=\{\(\) => \{[\s\S]*missingRequiredImpressionCategories\([\s\S]*return;/,
+  );
+  assert.match(finishDialogSource, /disabled=\{missing\.length > 0\}/);
+  assert.match(finishDialogSource, /layer="dialog"/);
+  assert.match(finishDialogSource, /autoFocus=\{missing\[0\] === category\}/);
+  assert.match(scorePanelSource, /missingRequiredImpressionCategories\(/);
+  assert.match(
+    storeSource,
+    /from: previous\?\.set \? previous\.awarded : 0,/,
+  );
 });
 
 test("impression marks are clamped to the criterion allocation", () => {
@@ -430,13 +484,17 @@ test("Adu and Raagu has one home in the rail, inside its score row", () => {
   assert.match(scorePanelSource, /<MarkPicker/);
   assert.match(scorePanelSource, /SET_IMPRESSION_NOTE/);
   assert.doesNotMatch(appSource, /ImpressionPanel/);
+  assert.match(ruleBody(".sc-score"), /text-align: center/);
+  assert.match(ruleBody(".sc-score"), /white-space: nowrap/);
+  assert.match(ruleBody(".sc-score .sc-of"), /font-size: 12px/);
+  assert.match(ruleBody(".mark-picker-of"), /font-size: 12px/);
+  assert.match(ruleBody(".mark-picker-of"), /font-weight: 400/);
 });
 
 test("the judging rail sits on the left unless the judge chose otherwise", () => {
-  assert.match(
-    appSource,
-    /localStorage\.getItem\(LS_JUDGE_RAIL_SIDE_KEY\) === "right" \? "right" : "left"/,
-  );
+  assert.match(appSource, /rail-\$\{preferences\.judgeRailSide\}/);
+  assert.match(appSource, /readDevicePreferences\(\)/);
+  assert.match(appSource, /writeDevicePreferences\(preferences\)/);
 });
 
 test("the criterion is written Adu / Raagu", () => {
@@ -466,7 +524,7 @@ test("marking a letter twice replaces the mark instead of stacking one", () => {
 
 test("mistake details name the kalimah and where it sits", () => {
   assert.match(mistakeLogSource, /log-kalimah-word/);
-  assert.match(mistakeLogSource, /mistake\.wordText \|\| mistake\.glyph/);
+  assert.match(mistakeLogSource, /mistake\.wordText \|\| mistakeFullGlyph\(mistake\)/);
   assert.match(mistakeLogSource, /\$\{mistake\.surah\}:\$\{mistake\.ayah\}/);
   assert.match(mistakeLogSource, /log-kalimah-ref/);
   // The letter ordinal stays in the stored evidence, not in the judge's view.
@@ -482,7 +540,11 @@ test("the opened mark fits one evidence line and never spells out its category",
 
   // Word then reference, read as one phrase — not flung to opposite edges.
   assert.match(mistakeLogSource, /className="log-detail-line"/);
+  assert.match(mistakeLogSource, /className="log-kalimah"/);
+  assert.match(mistakeLogSource, /className="log-adjust"/);
   assert.match(cssSource, /\.log-detail-line\s*\{[^}]*display: grid/s);
+  assert.match(ruleBody(".log-detail-line .log-kalimah"), /background: var\(--c-tint\)/);
+  assert.match(ruleBody(".log-detail-line .log-adjust"), /height: 24px/);
   // The tray hangs off the glyph column, so the kalimah sits under its letter.
   assert.match(ruleBody(".log-expand-inner"), /padding-left: 25px/);
   assert.match(mistakeLogSource, />\s*Undo\s*</);
@@ -533,31 +595,62 @@ test("the mark bar carries its criterion's colour across the portal", () => {
 test("the mark bar opens on a press and commits when the press ends", () => {
   assert.match(pickerSource, /className={`mark-bar/);
   assert.match(pickerSource, /setOpen\(true\);\s*setPinned\(false\);/);
-  assert.match(pickerSource, /if \(drag\?\.moved && preview !== null\)/);
+  assert.match(pickerSource, /if \(drag\?\.moved && previewRef\.current !== null\)/);
   // A press that does not move leaves the bar open to pick from.
   assert.match(pickerSource, /setPinned\(true\);/);
+  assert.match(pickerSource, /className="chip-strip"/);
+  assert.doesNotMatch(pickerSource, /mark-tick|labelEvery|markAt/);
 });
 
-test("every whole mark is its own cell, and the cells fill up to the award", () => {
-  // The bar used to be a track with tick marks and a label gutter beneath it,
-  // which put the numbers off the scale they labelled and gave a press nothing
-  // to land in. Each whole mark is now a cell, and the cells fill cumulatively
-  // so the bar still reads as an amount rather than as a menu.
-  assert.match(pickerSource, /mark-cell/);
+test("the mark bar offers one whole-number chip per mark", () => {
+  assert.match(
+    pickerSource,
+    /Array\.from\(\{ length: wholeMarks \+ 1 \}, \(_, mark\) => mark\)/,
+  );
+  assert.match(pickerSource, /role="radiogroup"/);
+  assert.match(pickerSource, /role="radio"/);
   assert.match(pickerSource, /data-mark=\{mark\}/);
-  assert.match(pickerSource, /is-on/);
-  assert.match(pickerSource, /const filledTo = Math\.floor\(shown\);/);
-  // Past this many marks a single row of cells is too narrow to aim at, so the
-  // cells wrap to two rows rather than getting smaller.
-  assert.match(pickerSource, /WRAP_ABOVE/);
+  assert.match(ruleBody(".chip-strip"), /flex-wrap: wrap/);
+  assert.match(ruleBody(".chip-strip"), /justify-content: center/);
+  assert.match(ruleBody(".chip-strip button"), /flex: 0 0 38px/);
+  assert.doesNotMatch(pickerSource, /mark-bar-head|mark-bar-hint/);
 });
 
-test("a drag reaches only the values the frozen rule set allows", () => {
-  // The cell says which whole mark; how far across it the pointer sits says
-  // which of that mark's sub-steps. With a half-mark step that yields 7.5, and
-  // with a whole-mark step it cannot yield anything off the grid — the awarded
-  // value always lands on a multiple of the configured step.
-  assert.match(pickerSource, /if \(step >= 1\) return clamp\(base\);/);
-  assert.match(pickerSource, /Math\.floor\(across \/ step\) \* step/);
-  assert.match(pickerSource, /Math\.round\(next \/ step\) \* step/);
+test("a chip previews halves and commits only when the pointer is released", () => {
+  assert.match(
+    pickerSource,
+    /clientX - rect\.left < rect\.width \/ 2 \? Math\.max\(0, mark - 0\.5\) : mark/,
+  );
+
+  const moveHandler = pickerSource.slice(
+    pickerSource.indexOf("onPointerMove={(event) =>"),
+    pickerSource.indexOf("onPointerUp={() =>"),
+  );
+  assert.match(moveHandler, /previewChipAt\(event\.clientX, event\.clientY\)/);
+  assert.doesNotMatch(moveHandler, /commit\(/);
+
+  const upHandler = pickerSource.slice(
+    pickerSource.indexOf("onPointerUp={() =>"),
+    pickerSource.indexOf("onPointerCancel={() =>"),
+  );
+  assert.match(upHandler, /commit\(previewRef\.current \?\? value\)/);
+});
+
+test("the quiet chip state shows only the chosen whole or half mark", () => {
+  assert.match(pickerSource, /const exact = Math\.abs\(mark - shown\) < 0\.001/);
+  assert.match(pickerSource, /const half = Math\.abs\(mark - 0\.5 - shown\) < 0\.001/);
+  assert.match(pickerSource, /aria-checked=\{exact \|\| half\}/);
+  assert.match(pickerSource, /half \? "is-half"/);
+  assert.doesNotMatch(pickerSource, /is-filled/);
+
+  assert.match(
+    ruleBody('.chip-strip button[aria-checked="true"]'),
+    /background: var\(--c, var\(--ink\)\)/,
+  );
+  assert.match(ruleBody(".chip-strip button.is-half"), /linear-gradient\(/);
+  assert.match(ruleBody(".chip-strip button.is-half"), /var\(--surface\) 50%/);
+});
+
+test("Adu and Raagu defaults to half-mark increments", () => {
+  assert.equal(DEFAULT_CONFIG["adu-raagu"].step, 0.5);
 });

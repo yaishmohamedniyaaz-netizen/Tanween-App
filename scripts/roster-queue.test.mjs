@@ -8,7 +8,12 @@ import {
   matchesParticipantSearch,
   queueOrder,
   shouldOfferSearch,
+  visibleRosterGroups,
 } from "../src/lib/rosterQueue.ts";
+import {
+  participantContextLabel,
+  participantNumberLabel,
+} from "../src/lib/participantPresentation.ts";
 
 const divisions = [
   { id: "d-young", name: "Under 8", ageGroup: "Under 8", category: "baliagen", quranPortion: {} },
@@ -121,6 +126,55 @@ test("an empty search matches everyone", () => {
 test("search ignores case and stray spacing", () => {
   const e = entry("a", { name: "Mariyam Aisha" });
   assert.ok(matchesParticipantSearch(e, "  MARIYAM "));
+});
+
+test("ordinary participant numbers use a clean roster-width label", () => {
+  assert.equal(participantNumberLabel("1", 8), "01");
+  assert.equal(participantNumberLabel("01", 8), "01");
+  assert.equal(participantNumberLabel("1", 100), "001");
+  assert.equal(participantNumberLabel("104", 8), "104");
+});
+
+test("legacy alphanumeric participant numbers are preserved as entered", () => {
+  assert.equal(participantNumberLabel("T001", 120), "T001");
+  assert.equal(participantNumberLabel("", 8), "—");
+});
+
+test("participant context does not repeat a category already in the division name", () => {
+  const hifz = entry("a", {
+    ageGroup: "Under 14",
+    category: "nubalaa",
+    institution: "Hiriya School",
+  });
+  assert.equal(
+    participantContextLabel(hifz, {
+      ...divisions[1],
+      name: "Under 14 Hifz",
+    }),
+    "Hiriya School · Under 14 Hifz · Starting side",
+  );
+  assert.equal(
+    participantContextLabel(hifz, divisions[1]),
+    "Hiriya School · Under 14 — Hifz · Starting side",
+  );
+});
+
+test("search filters entries but keeps the real group status totals", () => {
+  const groups = groupRosterByDivision(
+    [
+      entry("recommended"),
+      entry("match", { name: "Matching Reciter" }),
+      entry("away", { name: "Another Reciter", absent: true }),
+      entry("done", { name: "Finished Reciter", judged: true }),
+    ],
+    divisions,
+  );
+  const [visible] = visibleRosterGroups(groups, "recommended", "matching");
+  assert.deepEqual(visible.entries.map((item) => item.id), ["match"]);
+  assert.equal(visible.matchCount, 1);
+  assert.equal(visible.waiting, 2);
+  assert.equal(visible.absent, 1);
+  assert.equal(visible.judged, 1);
 });
 
 test("search appears only once the queue outgrows the screen", () => {

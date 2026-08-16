@@ -77,7 +77,7 @@ export const DEFAULT_CONFIG: ScoreConfig = {
   jali: { enabled: true, start: 50, step: 2 },
   khafi: { enabled: true, start: 30, step: 1 },
   fasaha: { enabled: true, start: 10, step: 1 },
-  "adu-raagu": { enabled: true, start: 10, step: 1 },
+  "adu-raagu": { enabled: true, start: 10, step: 0.5 },
 };
 
 /** Allocation for an optional criterion that a competition switched off. */

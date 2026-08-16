@@ -9,6 +9,7 @@ import surahData from "../data/surahs.json";
 import { useJudging } from "../state/store";
 import type { Mistake } from "../types";
 import { categoryListLabel, judgeDisplayName } from "../lib/judgeAssignments";
+import { mistakePrimaryGlyph } from "../lib/mistakeDisplay";
 import { muqarrarLabel, participantCategoryLabel } from "../lib/participants";
 
 /** Print-only summary — the transparent record of a reciter's session.
@@ -88,7 +89,7 @@ export function ResultSheet() {
           <tr>
             <th>Category</th>
             <td>{participantCategoryLabel(p.category)}</td>
-            <th>Muqarrar</th>
+            <th>Muqarrar start</th>
             <td>{muqarrarLabel(p.muqarrar)}</td>
             <th>Institution</th>
             <td>{p.institution || "—"}</td>
@@ -154,7 +155,7 @@ export function ResultSheet() {
                   <tbody>
                     {g.marks.map((m) => (
                       <tr key={m.id}>
-                        <td className="rs-glyph">{m.glyph}</td>
+                        <td className="rs-glyph">{mistakePrimaryGlyph(m)}</td>
                         <td>{m.label}</td>
                         <td>{CATEGORIES.find((c) => c.id === m.category)?.label}</td>
                         <td>−{m.amount}</td>

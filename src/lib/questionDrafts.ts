@@ -236,7 +236,7 @@ export function questionDraftIssues(input: {
   const issues: string[] = [];
   const division = competition.divisions.find((item) => item.id === draft.divisionId);
   if (draft.competitionId !== competition.id) issues.push("This draft belongs to another competition.");
-  if (!division) issues.push("Its division no longer exists.");
+  if (!division) issues.push("Its category no longer exists.");
   if (draft.requestedLines !== policy.targetRecitationLines) issues.push("The target line rule changed.");
   if (draft.finalPrintedLineScoring !== policy.finalPrintedLineScoring) issues.push("The final-line marking rule changed.");
   if (
@@ -247,7 +247,7 @@ export function questionDraftIssues(input: {
     issues.push("The Mushaf question source changed.");
   }
   if (division && !rangeIsWithinPortion(rangeFromDraft(draft), division.quranPortion)) {
-    issues.push("The passage is outside this division's Quran portion.");
+    issues.push("The passage is outside this category's Quran portion.");
   }
   return issues;
 }

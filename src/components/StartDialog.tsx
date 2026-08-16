@@ -23,9 +23,8 @@ import {
   activeGroupFor,
   groupRosterByDivision,
   isWaiting,
-  matchesParticipantSearch,
-  queueOrder,
   shouldOfferSearch,
+  visibleRosterGroups,
 } from "../lib/rosterQueue.ts";
 import {
   DRAW_BOARD_SIZE,
@@ -314,27 +313,7 @@ export function StartDialog({
   const activeGroup = activeGroupFor(rosterGroups, participant?.id);
   const offerSearch = shouldOfferSearch(roster);
   const queueGroups = useMemo(
-    () =>
-      rosterGroups
-        .map((group) => {
-          const entries = queueOrder(
-            group.entries.filter(
-              (entry) =>
-                entry.id !== participant?.id &&
-                matchesParticipantSearch(entry, search),
-            ),
-          );
-          return {
-            ...group,
-            entries,
-            judged: entries.filter((entry) => entry.judged).length,
-            waiting: entries.filter(isWaiting).length,
-            absent: entries.filter(
-              (entry) => !entry.judged && entry.absent,
-            ).length,
-          };
-        })
-        .filter((group) => group.entries.length > 0),
+    () => visibleRosterGroups(rosterGroups, participant?.id, search),
     [rosterGroups, participant?.id, search],
   );
 
@@ -363,8 +342,9 @@ export function StartDialog({
             <h2 id="reciter-start-title">
               {stage === "participant" ? "Select reciter" : "Choose a question"}
             </h2>
-            {/* The number board says what it is by being a board of numbers. */}
-            {stage === "participant" && <p>Select the next person in the running order.</p>}
+            {stage === "participant" && (
+              <p>Select the next person in the running order.</p>
+            )}
           </div>
           <button
             type="button"
@@ -400,6 +380,7 @@ export function StartDialog({
               recommendedDivision={division}
               activeGroup={activeGroup}
               groups={queueGroups}
+              participantCount={roster.length}
               waitingCount={waitingCount}
               finishedCount={finishedCount}
               offerSearch={offerSearch}
@@ -411,11 +392,11 @@ export function StartDialog({
           ) : (
             <QuestionNumberScreen
               participant={participant}
+              participantCount={roster.length}
               division={division}
               deck={deck}
               spentPositions={spentHere}
               drawnPosition={null}
-              cycle={deck ? deckCycle(deck) : latestDeck ? deckCycle(latestDeck) + 1 : 1}
               loading={
                 (!lookup && !questionLoadError) ||
                 (candidateIds.length > 0 && !deck)

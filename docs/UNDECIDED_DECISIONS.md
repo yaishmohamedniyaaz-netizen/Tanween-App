@@ -122,3 +122,26 @@ product rules belong in `PRODUCT_FOUNDATION.md`, not here.
       voice and melody criteria, in the competitions this must serve?
     - Decision needed: which allocation should the first reviewed Maldivian
       preset use?
+
+19. **Grouping mistakes from the same kalimah**
+    - Problem: two or more findings on different targets in one kalimah are
+      easier to review together, but a permanently grouped list can obscure
+      which finding was recorded most recently. Grouping must also not merge,
+      rewrite, or reorder the append-only judging history.
+    - Possible presentation rule: group only the current-mistake view by the
+      stable `wordId` within one recitation session. Order each group by its
+      newest finding and order findings inside it newest first. Keep category,
+      deduction, adjustment, undo, target identity, and timestamp separate for
+      every finding; keep History strictly chronological and ungrouped.
+    - Decision needed: should the compact live log group immediately, group
+      only in View all, or remain a flat newest-first list everywhere?
+    - Decision needed: when a new finding joins an older kalimah group, should
+      that whole group move to the top, briefly reveal the new finding, or leave
+      the current scroll position untouched?
+    - Decision needed: what should the collapsed group show: the whole kalimah
+      once with a finding count, every primary target glyph, total deduction,
+      or some combination? A qualified reviewer should confirm that the visual
+      grouping cannot imply one combined religious or scoring judgment.
+    - Current implementation evidence (2026-08-15): the clipping and navigation
+      correction deliberately retained a flat, newest-first current list and a
+      chronological History. No findings were grouped, merged, or reordered,

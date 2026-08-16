@@ -1,5 +1,9 @@
 import { CATEGORIES, enabledCategories, isImpressionCategory } from "../config";
-import { computeScores, impressionScore } from "../lib/scoring";
+import {
+  computeScores,
+  impressionScore,
+  missingRequiredImpressionCategories,
+} from "../lib/scoring";
 import { useJudging } from "../state/store";
 import { judgeSeatFor } from "../lib/judgeAssignments";
 import type { CategoryId } from "../types";
@@ -35,7 +39,13 @@ function CategoryRow({
 
 /** A criterion judged over the whole recitation is marked here, in its own score
  *  row — the row is the control, so the criterion has one place in the rail. */
-function ImpressionRow({ category }: { category: CategoryId }) {
+function ImpressionRow({
+  category,
+  pending,
+}: {
+  category: CategoryId;
+  pending: boolean;
+}) {
   const { state, dispatch } = useJudging();
   const config = state.activeAssignment?.config ?? state.config;
   const { start, step } = config[category];
@@ -43,19 +53,17 @@ function ImpressionRow({ category }: { category: CategoryId }) {
     config,
     state.impressions,
     category,
+    "entry-zero",
   );
   const label = CATEGORIES.find((item) => item.id === category)?.label ?? category;
   const deducted = Math.round((start - awarded) * 100) / 100;
 
   return (
-    <div className={`sc-row sc-row-impression cat-${category} ${marked ? "" : "is-pending"}`}>
+    <div className={`sc-row sc-row-impression cat-${category} ${pending ? "is-pending" : ""}`}>
       <span className="sc-dot" aria-hidden="true" />
-      <span className="sc-name">
-        {label}
-        {!marked && <small className="sc-pending">Not marked yet</small>}
-      </span>
+      <span className="sc-name">{label}</span>
       <span className={`sc-deducted t-num ${deducted === 0 ? "is-zero" : ""}`}>
-        {deducted === 0 ? "—" : `−${deducted}`}
+        {pending || deducted === 0 ? "—" : `−${deducted}`}
       </span>
       <MarkPicker
         value={awarded}
@@ -69,7 +77,7 @@ function ImpressionRow({ category }: { category: CategoryId }) {
       <input
         className="sc-reason"
         value={note}
-        placeholder={`Why these ${label} marks? (optional)`}
+        placeholder="Reason (optional)"
         aria-label={`${label} reason`}
         onChange={(event) =>
           dispatch({
@@ -91,6 +99,11 @@ export function ScorePanel() {
     state.activeAssignment?.categories ??
     judgeSeatFor(state.panel, state.deviceJudgeId)?.categories ??
     enabledCategories(config);
+  const missingImpressions = missingRequiredImpressionCategories(
+    config,
+    state.impressions,
+    categories,
+  );
 
   return (
     <section className="panel scorecard" aria-label="Score">
@@ -104,7 +117,11 @@ export function ScorePanel() {
       <div className="sc-rows">
         {CATEGORIES.filter((category) => categories.includes(category.id)).map((c) =>
           isImpressionCategory(c.id) ? (
-            <ImpressionRow key={c.id} category={c.id} />
+            <ImpressionRow
+              key={c.id}
+              category={c.id}
+              pending={missingImpressions.includes(c.id)}
+            />
           ) : (
             <CategoryRow
               key={c.id}

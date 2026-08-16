@@ -9,6 +9,7 @@ type IconName =
   | "pointer"
   | "download"
   | "chart"
+  | "fileCheck"
   | "back"
   | "chevron"
   | "sun"
@@ -59,6 +60,11 @@ const PATHS: Record<IconName, string[]> = {
   ],
   download: ["M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2", "M7 11l5 5l5 -5", "M12 4l0 12"],
   chart: ["M4 19V11", "M10 19V5", "M16 19V14", "M3 19h18"],
+  fileCheck: [
+    "M14 2H6a2 2 0 0 0 -2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2V8z",
+    "M14 2v6h6",
+    "M9 15l2 2l4 -4",
+  ],
   back: ["M5 12l14 0", "M5 12l6 6", "M5 12l6 -6"],
   chevron: ["M9 6l6 6l-6 6"],
   sun: [

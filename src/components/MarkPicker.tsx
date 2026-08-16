@@ -10,16 +10,14 @@ import { createPortal } from "react-dom";
 
 const round2 = (value: number) => Math.round(value * 100) / 100;
 
-const BAR_MAX_WIDTH = 560;
-const BAR_MIN_WIDTH = 280;
+const BAR_MAX_WIDTH = 520;
+const BAR_MIN_WIDTH = 260;
 const BAR_MARGIN = 16;
-/** Above this many marks a single row of cells stops being clickable, so the
- *  cells wrap to two rows instead of getting narrower. At twenty marks a single
- *  row gives about 23px a cell; two rows give about 40px. */
-const WRAP_ABOVE = 15;
-/** A press that lingers this long is a drag, even if the pointer never moved. */
-const HOLD_MS = 220;
-const MOVE_SLOP = 6;
+const CHIP_SIZE = 38;
+const CHIP_GAP = 6;
+const CHIP_COLUMNS = 11;
+const BAR_PADDING_X = 12;
+const BAR_BORDER = 1;
 
 interface Props {
   value: number;
@@ -33,16 +31,17 @@ interface Props {
    *  this the bar would fall back to ink while its row reads as the criterion. */
   category: string;
   onChange: (value: number) => void;
+  autoFocus?: boolean;
+  layer?: "workspace" | "dialog";
 }
 
 /** The awarded marks for a whole-recitation criterion.
  *
  *  The row shows the mark in a box, because a box is what tells a judge a value
- *  can be changed. Pressing it drops a bar of every whole mark: press one to
- *  award it, or hold and drag across them to land on the finer values the rule
- *  set allows — with a half-mark step that is 7.5, and with a whole step the
- *  drag simply runs along the whole marks. Nothing is written until the press
- *  ends, so a whole gesture leaves one entry in the history. */
+ *  can be changed. Pressing it drops a bar carrying every awardable mark: drag
+ *  along it and release on the one you want, or let go without moving and pick
+ *  from the bar that stays open. Nothing is written until the press ends, so a
+ *  whole gesture leaves one entry in the history. */
 export function MarkPicker({
   value,
   max,
@@ -51,31 +50,43 @@ export function MarkPicker({
   label,
   category,
   onChange,
+  autoFocus = false,
+  layer = "workspace",
 }: Props) {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const barRef = useRef<HTMLDivElement>(null);
-  const cellsRef = useRef<HTMLDivElement>(null);
-  const dragRef = useRef<{
-    moved: boolean;
-    fine: boolean;
-    from: { x: number; y: number };
-  } | null>(null);
-  const holdRef = useRef<number | null>(null);
+  const chipStripRef = useRef<HTMLDivElement>(null);
+  const dragRef = useRef<{ moved: boolean; pointerId: number } | null>(null);
+  const previewRef = useRef<number | null>(null);
   const typedRef = useRef({ text: "", at: 0 });
   const [preview, setPreview] = useState<number | null>(null);
-  const [fine, setFine] = useState(false);
   const [open, setOpen] = useState(false);
   const [pinned, setPinned] = useState(false);
   const [anchor, setAnchor] = useState({ top: 0, left: 0, width: BAR_MIN_WIDTH });
 
-  const wholeMarks = Math.max(0, Math.round(max));
-  const cells = useMemo(
-    () => Array.from({ length: wholeMarks + 1 }, (_, index) => index),
+  useLayoutEffect(() => {
+    if (autoFocus) buttonRef.current?.focus();
+  }, [autoFocus]);
+
+  const shown = preview ?? value;
+  const wholeMarks = Math.round(max);
+  const wholeChips = useMemo(
+    () => Array.from({ length: wholeMarks + 1 }, (_, mark) => mark),
     [wholeMarks],
   );
-  const wraps = wholeMarks > WRAP_ABOVE;
-  const columns = wraps ? Math.ceil(cells.length / 2) : cells.length;
-  const shown = preview ?? value;
+  const preferredWidth = useMemo(() => {
+    const columns = Math.min(CHIP_COLUMNS, wholeChips.length);
+    return Math.min(
+      BAR_MAX_WIDTH,
+      Math.max(
+        BAR_MIN_WIDTH,
+        columns * CHIP_SIZE +
+          Math.max(0, columns - 1) * CHIP_GAP +
+          BAR_PADDING_X * 2 +
+          BAR_BORDER * 2,
+      ),
+    );
+  }, [wholeChips.length]);
 
   const clamp = useCallback(
     (next: number) => round2(Math.min(max, Math.max(0, Math.round(next / step) * step))),
@@ -84,6 +95,7 @@ export function MarkPicker({
 
   const commit = useCallback(
     (next: number) => {
+      previewRef.current = null;
       setPreview(null);
       onChange(clamp(next));
     },
@@ -93,8 +105,8 @@ export function MarkPicker({
   const close = useCallback(() => {
     setOpen(false);
     setPinned(false);
+    previewRef.current = null;
     setPreview(null);
-    setFine(false);
   }, []);
 
   useLayoutEffect(() => {
@@ -103,17 +115,17 @@ export function MarkPicker({
     if (!rect) return;
     const width = Math.max(
       BAR_MIN_WIDTH,
-      Math.min(BAR_MAX_WIDTH, window.innerWidth - BAR_MARGIN * 2),
+      Math.min(preferredWidth, window.innerWidth - BAR_MARGIN * 2),
     );
     const left = Math.min(
       Math.max(BAR_MARGIN, rect.left + rect.width / 2 - width / 2),
       window.innerWidth - width - BAR_MARGIN,
     );
-    const barHeight = barRef.current?.offsetHeight ?? 108;
+    const barHeight = barRef.current?.offsetHeight ?? 92;
     const below = window.innerHeight - rect.bottom - 10;
     const top = below < barHeight ? Math.max(8, rect.top - 10 - barHeight) : rect.bottom + 10;
     setAnchor({ top, left, width });
-  }, [open, wraps]);
+  }, [open, preferredWidth]);
 
   useEffect(() => {
     if (!open) return;
@@ -158,30 +170,21 @@ export function MarkPicker({
     return () => button.removeEventListener("wheel", onWheel);
   }, [commit, open, step, value]);
 
-  useEffect(() => () => {
-    if (holdRef.current !== null) window.clearTimeout(holdRef.current);
-  }, []);
-
-  /** The mark under a pointer position. Cells are the unit: the cell says which
-   *  whole mark, and how far across it the pointer sits says which of that
-   *  mark's sub-steps — so a half-mark rule set gives halves and a whole-mark
-   *  one cannot give anything the rule set does not allow. */
-  const markAt = useCallback(
-    (clientX: number, clientY: number): number | null => {
-      const host = cellsRef.current;
-      if (!host) return null;
-      const target = document.elementFromPoint(clientX, clientY);
-      const cell = target instanceof Element ? target.closest("[data-mark]") : null;
-      if (!cell || !host.contains(cell)) return null;
-      const base = Number(cell.getAttribute("data-mark"));
-      if (!Number.isFinite(base)) return null;
-      if (step >= 1) return clamp(base);
-      const rect = cell.getBoundingClientRect();
-      const across = rect.width > 0 ? (clientX - rect.left) / rect.width : 0;
-      const sub = Math.min(1 - step, Math.floor(across / step) * step);
-      return clamp(base + Math.max(0, sub));
+  /** The chip value at a pointer position. Its left half is the half mark below it. */
+  const previewChipAt = useCallback(
+    (clientX: number, clientY: number) => {
+      const element = document.elementFromPoint(clientX, clientY);
+      const button = element?.closest<HTMLButtonElement>("[data-mark]");
+      if (!button || !chipStripRef.current?.contains(button)) return false;
+      const mark = Number(button.dataset.mark);
+      const rect = button.getBoundingClientRect();
+      const next = clientX - rect.left < rect.width / 2 ? Math.max(0, mark - 0.5) : mark;
+      const clamped = clamp(next);
+      previewRef.current = clamped;
+      setPreview(clamped);
+      return true;
     },
-    [clamp, step],
+    [clamp],
   );
 
   const onPointerDown = (event: React.PointerEvent<HTMLButtonElement>) => {
@@ -192,7 +195,7 @@ export function MarkPicker({
     }
     event.preventDefault();
     buttonRef.current?.focus();
-    dragRef.current = { moved: false, fine: false, from: { x: event.clientX, y: event.clientY } };
+    dragRef.current = { moved: false, pointerId: event.pointerId };
     setOpen(true);
     setPinned(false);
   };
@@ -203,21 +206,14 @@ export function MarkPicker({
     const onMove = (event: PointerEvent) => {
       const drag = dragRef.current;
       if (!drag) return;
-      const next = markAt(event.clientX, event.clientY);
-      if (next === null) return;
+      if (!previewChipAt(event.clientX, event.clientY)) return;
       drag.moved = true;
-      setPreview(next);
     };
     const onUp = () => {
       const drag = dragRef.current;
       dragRef.current = null;
-      if (holdRef.current !== null) {
-        window.clearTimeout(holdRef.current);
-        holdRef.current = null;
-      }
-      setFine(false);
-      if (drag?.moved && preview !== null) {
-        commit(preview);
+      if (drag?.moved && previewRef.current !== null) {
+        commit(previewRef.current);
         setOpen(false);
         return;
       }
@@ -232,53 +228,10 @@ export function MarkPicker({
       window.removeEventListener("pointerup", onUp);
       window.removeEventListener("pointercancel", onUp);
     };
-  }, [commit, markAt, open, pinned, preview]);
-
-  /** Pressing a cell inside a pinned bar starts its own gesture: press to take
-   *  the whole mark, hold or drag to reach the sub-steps within it. */
-  const onCellDown = (event: React.PointerEvent<HTMLDivElement>) => {
-    if (event.button !== 0) return;
-    event.preventDefault();
-    const at = markAt(event.clientX, event.clientY);
-    if (at === null) return;
-    setPreview(step >= 1 ? at : Math.floor(at));
-    dragRef.current = { moved: true, fine: false, from: { x: event.clientX, y: event.clientY } };
-    if (step < 1) {
-      holdRef.current = window.setTimeout(() => setFine(true), HOLD_MS);
-    }
-    (event.currentTarget as HTMLElement).setPointerCapture(event.pointerId);
-  };
-
-  const onCellMove = (event: React.PointerEvent<HTMLDivElement>) => {
-    const drag = dragRef.current;
-    if (!pinned || !drag) return;
-    if (
-      !drag.fine &&
-      Math.hypot(event.clientX - drag.from.x, event.clientY - drag.from.y) > MOVE_SLOP
-    ) {
-      drag.fine = true;
-      setFine(true);
-    }
-    const next = markAt(event.clientX, event.clientY);
-    if (next === null) return;
-    setPreview(drag.fine || fine ? next : Math.floor(next));
-  };
-
-  const onCellUp = (event: React.PointerEvent<HTMLDivElement>) => {
-    if (!pinned) return;
-    if (holdRef.current !== null) {
-      window.clearTimeout(holdRef.current);
-      holdRef.current = null;
-    }
-    dragRef.current = null;
-    const next = markAt(event.clientX, event.clientY);
-    setFine(false);
-    commit(next === null ? shown : next);
-    close();
-  };
+  }, [commit, open, pinned, previewChipAt]);
 
   const onKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>) => {
-    const jump = event.shiftKey ? step : Math.max(step, 1);
+    const jump = event.shiftKey ? step * 5 : step;
     if (event.key === "ArrowUp" || event.key === "ArrowRight") commit(value + jump);
     else if (event.key === "ArrowDown" || event.key === "ArrowLeft") commit(value - jump);
     else if (event.key === "Home") commit(max);
@@ -296,9 +249,6 @@ export function MarkPicker({
   };
 
   const display = Number.isInteger(shown) ? String(shown) : shown.toFixed(1);
-  const filledTo = Math.floor(shown);
-  const remainder = round2(shown - filledTo);
-
   return (
     <>
       <button
@@ -311,9 +261,8 @@ export function MarkPicker({
         aria-valuemax={max}
         aria-valuenow={shown}
         aria-valuetext={`${display} of ${max} marks${marked ? "" : ", not marked yet"}`}
-        aria-haspopup="listbox"
         aria-expanded={open}
-        title="Press for the marks, or drag across them"
+        title={`Set ${label} marks`}
         onPointerDown={onPointerDown}
         onKeyDown={onKeyDown}
       >
@@ -324,54 +273,55 @@ export function MarkPicker({
         createPortal(
           <div
             ref={barRef}
-            className={`mark-bar cat-${category} ${pinned ? "is-pinned" : ""}`}
+            className={`mark-bar cat-${category} ${
+              pinned ? "is-pinned" : ""
+            } ${layer === "dialog" ? "is-dialog-layer" : ""}`}
             style={{ top: anchor.top, left: anchor.left, width: anchor.width }}
-            role="listbox"
-            aria-label={`${label} marks`}
-            aria-activedescendant={`mark-option-${String(shown).replace(".", "-")}`}
           >
-            <div className="mark-bar-head">
-              <span className="mark-bar-value t-num">{display}</span>
-              <span className="mark-bar-of t-num">/ {max}</span>
-              <span className={`mark-bar-hint ${fine ? "is-fine" : ""}`}>
-                {fine
-                  ? `Steps of ${step}`
-                  : pinned
-                    ? "Press a mark, or drag across"
-                    : "Drag, then let go"}
-              </span>
-            </div>
             <div
-              ref={cellsRef}
-              className={`mark-cells ${wraps ? "is-wrapped" : ""} ${marked ? "" : "is-unmarked"}`}
-              style={wraps ? { gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))` } : undefined}
-              onPointerDown={pinned ? onCellDown : undefined}
-              onPointerMove={pinned ? onCellMove : undefined}
-              onPointerUp={pinned ? onCellUp : undefined}
+              ref={chipStripRef}
+              className="chip-strip"
+              role="radiogroup"
+              aria-label={`${label} marks`}
+              onPointerDown={(event) => {
+                if (!pinned || event.button !== 0) return;
+                event.preventDefault();
+                if (!previewChipAt(event.clientX, event.clientY)) return;
+                dragRef.current = { moved: true, pointerId: event.pointerId };
+                (event.currentTarget as HTMLElement).setPointerCapture(event.pointerId);
+              }}
+              onPointerMove={(event) => {
+                if (!pinned || !dragRef.current) return;
+                previewChipAt(event.clientX, event.clientY);
+              }}
+              onPointerUp={() => {
+                if (!pinned) return;
+                dragRef.current = null;
+                commit(previewRef.current ?? value);
+                close();
+              }}
+              onPointerCancel={() => {
+                if (!pinned || !dragRef.current) return;
+                dragRef.current = null;
+                commit(previewRef.current ?? value);
+                close();
+              }}
             >
-              {cells.map((mark) => {
-                const on = mark <= filledTo;
-                const part = !on && mark === filledTo + 1 && remainder > 0;
-                const current = mark === filledTo;
+              {wholeChips.map((mark) => {
+                const exact = Math.abs(mark - shown) < 0.001;
+                const half = Math.abs(mark - 0.5 - shown) < 0.001;
                 return (
-                  <div
+                  <button
                     key={mark}
-                    id={`mark-option-${mark}`}
+                    type="button"
+                    role="radio"
+                    aria-checked={exact || half}
+                    aria-label={`${half ? mark - 0.5 : mark} marks`}
                     data-mark={mark}
-                    role="option"
-                    aria-selected={current}
-                    aria-label={`${mark} marks`}
-                    className={`mark-cell ${on ? "is-on" : ""} ${current ? "is-current" : ""}`}
+                    className={half ? "is-half" : ""}
                   >
-                    {part && (
-                      <span
-                        className="mark-cell-part"
-                        style={{ width: `${(remainder / 1) * 100}%` }}
-                        aria-hidden="true"
-                      />
-                    )}
-                    <span className="mark-cell-label t-num">{mark}</span>
-                  </div>
+                    <span className="t-num">{mark}</span>
+                  </button>
                 );
               })}
             </div>

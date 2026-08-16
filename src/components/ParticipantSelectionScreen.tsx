@@ -1,44 +1,22 @@
+import { useEffect, useState } from "react";
 import type {
   CompetitionDivision,
   RosterEntry,
 } from "../types";
-import type { RosterGroup } from "../lib/rosterQueue.ts";
+import type { RosterGroup, VisibleRosterGroup } from "../lib/rosterQueue.ts";
+import {
+  divisionLabel,
+  participantContextLabel,
+  participantNumberLabel,
+} from "../lib/participantPresentation.ts";
 import { Icon } from "./Icon";
-
-function categoryLabel(entry: RosterEntry): string {
-  if (entry.category === "nubalaa") return "Hifz";
-  if (entry.category === "baliagen") return "Baliagen";
-  return "Category not set";
-}
-
-function sideLabel(entry: RosterEntry): string {
-  if (entry.muqarrar === "feshey-kolhu") return "Starting side";
-  if (entry.muqarrar === "nimey-kolhu") return "Ending side";
-  return "Muqarrar not set";
-}
-
-function participantMeta(
-  entry: RosterEntry,
-  division?: CompetitionDivision,
-): string {
-  const category = categoryLabel(entry);
-  // A division is usually named for its category already ("Under 14 · Hifz"),
-  // and saying it twice is how the row came to read "Hifz · Hifz".
-  return [
-    entry.institution || "Institution not listed",
-    division?.name,
-    division?.name?.includes(category) ? null : category,
-    sideLabel(entry),
-  ]
-    .filter(Boolean)
-    .join(" · ");
-}
 
 export function ParticipantSelectionScreen({
   recommended,
   recommendedDivision,
   activeGroup,
   groups,
+  participantCount,
   waitingCount,
   finishedCount,
   offerSearch,
@@ -50,7 +28,8 @@ export function ParticipantSelectionScreen({
   recommended?: RosterEntry;
   recommendedDivision?: CompetitionDivision;
   activeGroup?: RosterGroup;
-  groups: RosterGroup[];
+  groups: VisibleRosterGroup[];
+  participantCount: number;
   waitingCount: number;
   finishedCount: number;
   offerSearch: boolean;
@@ -59,6 +38,42 @@ export function ParticipantSelectionScreen({
   onChoose: (entry: RosterEntry) => void;
   onMarkAbsent: (entry: RosterEntry) => void;
 }) {
+  const initiallyExpandedGroupId =
+    activeGroup?.id ?? (groups.length === 1 ? groups[0]?.id : undefined);
+  const [expandedGroupIds, setExpandedGroupIds] = useState<Set<string>>(
+    () => new Set(initiallyExpandedGroupId ? [initiallyExpandedGroupId] : []),
+  );
+  const searching = Boolean(search.trim());
+
+  useEffect(() => {
+    const groupId = activeGroup?.id;
+    if (!groupId) return;
+    setExpandedGroupIds(new Set([groupId]));
+  }, [activeGroup?.id]);
+
+  useEffect(() => {
+    setExpandedGroupIds((current) => {
+      const next = new Set(
+        [...current].filter((id) => {
+          const group = groups.find((candidate) => candidate.id === id);
+          return group && (group.waiting > 0 || id === activeGroup?.id);
+        }),
+      );
+      return next.size === current.size && [...next].every((id) => current.has(id))
+        ? current
+        : next;
+    });
+  }, [activeGroup?.id, groups]);
+
+  const toggleGroup = (groupId: string) => {
+    setExpandedGroupIds((current) => {
+      const next = new Set(current);
+      if (next.has(groupId)) next.delete(groupId);
+      else next.add(groupId);
+      return next;
+    });
+  };
+
   return (
     <section
       className="reciter-selection-screen"
@@ -73,7 +88,9 @@ export function ParticipantSelectionScreen({
         </span>
         {activeGroup && (
           <span className="reciter-queue-division">
-            {activeGroup.division?.name ?? "No matching division"}
+            {activeGroup.division
+              ? divisionLabel(activeGroup.division)
+              : "Category required"}
           </span>
         )}
       </div>
@@ -85,14 +102,14 @@ export function ParticipantSelectionScreen({
             className="next-reciter-main"
             onClick={() => onChoose(recommended)}
           >
-            <span className="reciter-row-number">
-              {recommended.number || "—"}
-            </span>
             <span className="reciter-row-copy">
               <strong>{recommended.name || "Unnamed"}</strong>
               <small>
-                {participantMeta(recommended, recommendedDivision)}
+                {participantContextLabel(recommended, recommendedDivision)}
               </small>
+            </span>
+            <span className="participant-number-badge">
+              {participantNumberLabel(recommended.number, participantCount)}
             </span>
             <span className="next-reciter-cue">
               Choose question <Icon name="chevron" size={14} />
@@ -133,54 +150,85 @@ export function ParticipantSelectionScreen({
               : "Nobody else is waiting."}
           </p>
         ) : (
-          groups.map((group) => (
-            <section className="queue-group" key={group.id}>
-              <h3>
-                <span>{group.division?.name ?? "No matching division"}</span>
-                <small>
-                  {group.waiting > 0 ? `${group.waiting} waiting` : "None waiting"}
-                  {group.absent > 0 ? ` · ${group.absent} not here` : ""}
-                  {group.judged > 0 ? ` · ${group.judged} finished` : ""}
-                </small>
-              </h3>
-              <ul>
-                {group.entries.map((entry) => (
-                  <li key={entry.id}>
-                    <button
-                      type="button"
-                      disabled={entry.judged}
-                      onClick={() => onChoose(entry)}
-                    >
-                      <span className="queue-number">
-                        {entry.number || "—"}
-                      </span>
-                      <span className="queue-participant-copy">
-                        <strong>{entry.name || "Unnamed"}</strong>
-                        <small>
-                          {participantMeta(entry, group.division)}
-                        </small>
-                      </span>
-                      <small
-                        className={
-                          entry.judged
-                            ? "is-judged"
-                            : entry.absent
-                              ? "is-absent"
-                              : "is-waiting"
-                        }
-                      >
-                        {entry.judged
-                          ? "Finished"
-                          : entry.absent
-                            ? "Not here"
-                            : "Select"}
-                      </small>
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </section>
-          ))
+          groups.map((group) => {
+            const expanded = searching || expandedGroupIds.has(group.id);
+            const panelId = `queue-group-${group.id.replace(
+              /[^a-zA-Z0-9_-]/g,
+              "-",
+            )}`;
+            return (
+              <section
+                className={`queue-group ${expanded ? "is-expanded" : ""}`}
+                key={group.id}
+              >
+                <h3>
+                  <button
+                    type="button"
+                    className="queue-group-toggle"
+                    aria-expanded={expanded}
+                    aria-controls={panelId}
+                    aria-disabled={searching || undefined}
+                    disabled={searching}
+                    onClick={() => toggleGroup(group.id)}
+                  >
+                    <span className="queue-group-title">
+                      <Icon name="chevron" size={13} />
+                      {group.division
+                        ? divisionLabel(group.division)
+                        : "Category required"}
+                    </span>
+                    <small>
+                      {searching && group.matchCount !== undefined
+                        ? `${group.matchCount} ${group.matchCount === 1 ? "match" : "matches"} · `
+                        : ""}
+                      {group.waiting > 0 ? `${group.waiting} waiting` : "None waiting"}
+                      {group.absent > 0 ? ` · ${group.absent} not here` : ""}
+                      {group.judged > 0 ? ` · ${group.judged} finished` : ""}
+                    </small>
+                  </button>
+                </h3>
+                {expanded && (
+                  <ul id={panelId}>
+                    {group.entries.map((entry) => (
+                      <li key={entry.id}>
+                        <button
+                          type="button"
+                          className="queue-participant-button"
+                          disabled={entry.judged}
+                          onClick={() => onChoose(entry)}
+                        >
+                          <span className="queue-participant-copy">
+                            <strong>{entry.name || "Unnamed"}</strong>
+                            <small>
+                              {participantContextLabel(entry, group.division)}
+                            </small>
+                          </span>
+                          <span className="participant-number-badge">
+                            {participantNumberLabel(entry.number, participantCount)}
+                          </span>
+                          <small
+                            className={
+                              entry.judged
+                                ? "is-judged"
+                                : entry.absent
+                                  ? "is-absent"
+                                  : "is-waiting"
+                            }
+                          >
+                            {entry.judged
+                              ? "Finished"
+                              : entry.absent
+                                ? "Not here"
+                                : "Select"}
+                          </small>
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </section>
+            );
+          })
         )}
       </div>
     </section>

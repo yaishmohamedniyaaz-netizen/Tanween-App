@@ -67,6 +67,12 @@ test("legacy competition identity becomes a non-live draft", () => {
   assert.equal(competition.version, 2);
   assert.equal(competition.status, "draft");
   assert.equal(competition.liveSnapshot, null);
+  assert.equal(competition.participantNumbering, "supplied");
+  assert.deepEqual(competition.participantEntrySettings, {
+    institutions: [],
+    defaultMuqarrar: "",
+    defaultInstitution: "",
+  });
   assert.equal(competition.questionPolicy.mode, "manual");
   assert.equal(competition.questionPolicy.targetRecitationLines, 7);
 });
@@ -110,13 +116,44 @@ test("a Tahqeeq question set must be checked and frozen before start", () => {
   assert.equal(competitionReadiness(input).ready, true);
 });
 
+test("participant entry settings normalize duplicate institutions without inventing defaults", () => {
+  const competition = normalizeCompetition({
+    participantEntrySettings: {
+      institutions: [" School A ", "school a", "Quran Class", ""],
+      defaultMuqarrar: "feshey-kolhu",
+      defaultInstitution: " School A ",
+    },
+  });
+  assert.deepEqual(competition.participantEntrySettings, {
+    institutions: ["School A", "Quran Class"],
+    defaultMuqarrar: "feshey-kolhu",
+    defaultInstitution: "School A",
+  });
+});
+
+test("an unapplied roster draft blocks official start", () => {
+  const input = readyInput();
+  input.rosterDraft = {
+    version: 1,
+    competitionId: input.competition.id,
+    source: "manual",
+    numberingMode: "automatic",
+    rows: [],
+    sourceWarnings: [],
+    updatedAt: 1,
+  };
+  const readiness = competitionReadiness(input);
+  assert.equal(readiness.ready, false);
+  assert.ok(readiness.issues.some((issue) => /apply or discard/.test(issue.message)));
+});
+
 test("every participant must map to exactly one active division", () => {
   const unmatched = readyInput();
   unmatched.roster[0].ageGroup = "Under 16";
   assert.equal(competitionReadiness(unmatched).ready, false);
   assert.match(
     competitionReadiness(unmatched).issues[0].message,
-    /does not match an active age-group and category division/,
+    /does not match an active participant category/,
   );
 
   const duplicated = readyInput();

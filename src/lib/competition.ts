@@ -14,6 +14,7 @@ import type {
   Participant,
   QuranPortion,
   RosterEntry,
+  RosterDraft,
   ScoreConfig,
 } from "../types";
 import { validateJudgePanel, judgeSeatFor } from "./judgeAssignments.ts";
@@ -39,6 +40,8 @@ export const EMPTY_COMPETITION: CompetitionConfig = {
   edition: "",
   status: "draft",
   setupRevision: 1,
+  participantNumbering: "automatic",
+  participantEntrySettings: { institutions: [], defaultMuqarrar: "", defaultInstitution: "" },
   divisions: [],
   questionPolicy: { ...DEFAULT_QUESTION_POLICY },
   liveSnapshot: null,
@@ -67,6 +70,27 @@ export function normalizeCompetition(
     value?.status === "live" || value?.status === "closed"
       ? value.status
       : "draft";
+  const rawInstitutions = Array.isArray(value?.participantEntrySettings?.institutions)
+    ? value.participantEntrySettings.institutions
+    : [];
+  const seenInstitutions = new Set<string>();
+  const institutions = rawInstitutions
+    .map((institution) => String(institution).trim().slice(0, 120))
+    .filter((institution) => {
+      const key = institution.toLocaleLowerCase();
+      if (!institution || seenInstitutions.has(key)) return false;
+      seenInstitutions.add(key);
+      return true;
+    })
+    .slice(0, 200);
+  const defaultMuqarrar =
+    value?.participantEntrySettings?.defaultMuqarrar === "feshey-kolhu" ||
+    value?.participantEntrySettings?.defaultMuqarrar === "nimey-kolhu"
+      ? value.participantEntrySettings.defaultMuqarrar
+      : "";
+  const defaultInstitution = String(
+    value?.participantEntrySettings?.defaultInstitution ?? "",
+  ).trim().slice(0, 120);
   return {
     version: 2,
     isSample: Boolean(value?.isSample),
@@ -75,6 +99,9 @@ export function normalizeCompetition(
     edition,
     status,
     setupRevision: Math.max(1, Math.floor(Number(value?.setupRevision) || 1)),
+    participantNumbering:
+      value?.participantNumbering === "automatic" ? "automatic" : "supplied",
+    participantEntrySettings: { institutions, defaultMuqarrar, defaultInstitution },
     divisions: Array.isArray(value?.divisions)
       ? value.divisions.map(normalizeDivision).filter(Boolean) as CompetitionDivision[]
       : [],
@@ -203,17 +230,18 @@ export function competitionReadiness(input: {
   deviceJudgeId: string | null;
   config: ScoreConfig;
   roster: RosterEntry[];
+  rosterDraft?: RosterDraft | null;
 }): { ready: boolean; issues: ReadinessIssue[] } {
   const issues: ReadinessIssue[] = [];
   if (!input.competition.name || !input.competition.edition) {
     issues.push({ section: "competition", message: "Add the competition name and edition." });
   }
   if (!input.competition.divisions.length) {
-    issues.push({ section: "divisions", message: "Add at least one competition division." });
+    issues.push({ section: "divisions", message: "Add at least one participant category." });
   }
   input.competition.divisions.forEach((division) => {
     if (!division.name || !division.ageGroup) {
-      issues.push({ section: "divisions", message: "Every division needs a name and age group." });
+      issues.push({ section: "divisions", message: "Every category needs a name and age group." });
     }
   });
   const divisionKeys = new Set<string>();
@@ -222,7 +250,7 @@ export function competitionReadiness(input: {
     if (divisionKeys.has(key)) {
       issues.push({
         section: "divisions",
-        message: `Only one ${division.ageGroup} ${division.category === "nubalaa" ? "Hifz" : "Baliagen"} division can be active.`,
+        message: `Only one ${division.ageGroup} ${division.category === "nubalaa" ? "Hifz" : "Baliagen"} category can be active.`,
       });
     }
     divisionKeys.add(key);
@@ -246,6 +274,12 @@ export function competitionReadiness(input: {
   if (!input.roster.length) {
     issues.push({ section: "participants", message: "Add at least one participant." });
   }
+  if (input.rosterDraft) {
+    issues.push({
+      section: "participants",
+      message: "Review and apply or discard the saved participant-list draft.",
+    });
+  }
   const rosterNumbers = new Set<string>();
   input.roster.forEach((participant) => {
     if (
@@ -265,7 +299,7 @@ export function competitionReadiness(input: {
     ) {
       issues.push({
         section: "participants",
-        message: `${participant.name || `Participant ${participant.number}`} does not match an active age-group and category division.`,
+        message: `${participant.name || `Participant ${participant.number}`} does not match an active participant category.`,
       });
     }
     if (participant.number && rosterNumbers.has(participant.number)) {

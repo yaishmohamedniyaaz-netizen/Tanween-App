@@ -1,5 +1,226 @@
 # Tahqeeq — build progress log
 
+## Adu / Raagu required entry — IMPLEMENTED & VERIFIED (2026-08-16)
+
+- Active and reopened unentered Adu / Raagu now starts at zero and
+  requires an explicit judge selection before saving.
+- Finish remains available and contains the shared mark picker so the judge can
+  complete the missing input without returning to the scoring rail.
+- One pure helper governs pending UI, Save availability, App navigation, and the
+  reducer guard; explicit zero is valid and creates one event.
+- Historical saved sessions keep the legacy full fallback during reconstruction,
+  while active revisions use zero/pending. No old record is bulk-migrated.
+- The existing portalled picker receives a dialog layer instead of being copied;
+  its half-step, keyboard, drag, and one-event behavior remain protected.
+- Active scoring and historical reconstruction now use explicit modes. Existing
+  saved sessions retain their legacy totals, while all newly finished sessions
+  contain a deliberate impression event, including an explicit zero.
+- The reducer independently rejects incomplete finishes, and the App prevents
+  next-reciter navigation on the same condition.
+- Verification: all 246 repository tests and the production Sites build pass.
+- Implemented release contract:
+  [`docs/ADU_RAAGU_REQUIRED_ENTRY_IMPLEMENTATION_PLAN.md`](docs/ADU_RAAGU_REQUIRED_ENTRY_IMPLEMENTATION_PLAN.md).
+
+## Interface easy fixes — IMPLEMENTED & BUILD VERIFIED (2026-08-16)
+
+- Settings now uses an optional, replayable two-step first-use guide instead of
+  permanent device-local and auto-save copy. Its versioned completion flag is
+  isolated from preferences, competition state, backup, and restore.
+- Results now has one title and compact competition context; repeated Test-mode
+  language and the standalone sample warning are removed. The persistent header
+  carries the single ordinary-view Sample signal.
+- The idle competition panel now has a stronger hierarchy, ruled judge/queue
+  information, concise lifecycle copy, and an explicit idle-only workspace
+  width without changing Mushaf geometry.
+- All 244 repository tests and the production Sites build pass.
+- Scoring, Results selectors/finalization, exports, competition records, Quran
+  sources, and Mushaf geometry are unchanged.
+- Canonical plan:
+  [`docs/INTERFACE_SIMPLIFICATION_AND_JUDGING_FLOW_PLAN.md`](docs/INTERFACE_SIMPLIFICATION_AND_JUDGING_FLOW_PLAN.md).
+- Implemented release contract:
+  [`docs/INTERFACE_EASY_FIXES_IMPLEMENTATION_PLAN.md`](docs/INTERFACE_EASY_FIXES_IMPLEMENTATION_PLAN.md)
+  keeps the remaining scoring-state and Mushaf-geometry work in later slices.
+
+## Results review visual correction — IMPLEMENTED & VERIFIED (2026-08-15)
+
+- The existing Results architecture remains authoritative: the pure
+  `resultsReview` selector still owns Needs review, Ready, Finalized, reasons,
+  ordering, filters, scope, and pagination; final-score and workbook logic are
+  unchanged.
+- The four summary surfaces are now meaningful status filters with full,
+  low-opacity amber, blue, green, and neutral states. Text, count, pressed
+  state, and shape carry the meaning alongside color.
+- Participant review is now a scan-first disclosure list. Name, context,
+  status/reason, proposed or final total, and last change form one readable
+  summary; only the active participant opens the criterion evidence and
+  finalization action.
+- Criterion evidence restores the established Jali, Khafi, Fasaha, and
+  Adu / Raagu colors, gives the score first visual priority, and keeps judge
+  and revision provenance directly below it.
+- Search stays visible while Age group and Participant category move into a
+  compact advanced-filter disclosure. The verified workbook export follows
+  the review queue and explicitly states that visible filters do not limit it.
+- Analysis keeps the existing calculations but repairs its hierarchy and
+  presentation: explicit scope, three stable metrics, criterion-colored count
+  bars, ranked repeated mistakes, and a clear warning that these are raw
+  descriptive counts rather than normalized participant comparisons.
+- Responsive checks covered 1440×900, 1280×800, 1024×768, and 390×844 in light
+  and dark themes with no horizontal overflow. Status filtering, advanced
+  filters, and participant open/close behavior were exercised. The final
+  source passed all 241 automated tests, `git diff --check`, and the production
+  build; the only build note is the existing ExcelJS chunk-size warning.
+- Rollback checkpoint: `checkpoint/pre-results-visual-correction-v2` at
+  `d62c1aea1335000dc833040f322c1aa366b28ea9`. Commit and publication details
+  belong to the release handoff so this source note does not contain a stale
+  self-reference.
+
+## Mistake evidence and judging-rail correction — IMPLEMENTED (2026-08-15)
+
+- Compact mistake rows, Judging History, Results drill-down, printed result
+  sheets, and letter statistics now use the semantic primary target. Page 199
+  `لَئِنۡ` therefore shows `ء` as the judged letter while preserving full `ئِ`,
+  the carrier, exact Quran text, stable target identity, and raw exports.
+- The compact mistake list retains every current finding in newest-first order
+  and scrolls instead of slicing or flex-compressing rows. A completed
+  expansion scrolls its full evidence line into view; same-kalimah grouping
+  remains deliberately undecided.
+- Compact navigation now has one View all action. The full side sheet owns
+  Current/History navigation, modal focus containment, Escape/backdrop closing,
+  and focus return.
+- The highlighted kalimah/reference pill uses a Quran-font-safe line box, so
+  stacked tashkil is not clipped. Deduction buttons retain their 24px target
+  and align with the evidence line.
+- Ordinary score strings and the Adu & Raagu selector now share the exact center
+  of the same 66px score column, with matched value/maximum typography. Mark
+  increments, gestures, keyboard behavior, and competition rules are unchanged.
+- Verification: 241 automated tests pass and the production build succeeds.
+  Browser QA covered page 199 at 1440 × 900, 1280 × 800, 1024 × 768, and
+  390 × 844 in light/dark themes and both rail positions, with no horizontal
+  overflow or browser-console errors.
+- Published and smoke-checked at
+  `https://tahqeeq-mobile.yaish.chatgpt.site`.
+
+## Settings and Competition Setup Overhaul V1 — IMPLEMENTED (2026-08-15)
+
+- General device settings are now a dedicated index/detail workspace for theme,
+  Mushaf page view and scale, judge-panel position, backup, reviewed restore,
+  and preference reset. Device preferences use one versioned local boundary and
+  preserve the legacy keys needed for rollback compatibility.
+- Competition setup now uses the recovered one-open completion checklist. Saved
+  summaries remain visible while compact tasks expand inline; participant entry
+  and question preparation remain dedicated workspaces instead of being forced
+  into the accordion.
+- Every editable setup task has an explicit save/cancel boundary. Switching tasks
+  protects unsaved work, marks save atomically, and Review validation links back
+  to the exact task that needs attention.
+- Categories use compact summary rows with one editor open at a time, generated
+  naming, age-group suggestions, duplicate/remove actions, Quran-portion checks,
+  and duplicate Category validation. User-facing and workbook language remains
+  **Category** and **Muqarrar start**.
+- The header menu is reduced to Settings, Competition setup, and contextual
+  current-session actions. The question builder now opens in a full-width page
+  and every workspace transition resets to the top.
+- Responsive QA covered 1280 × 720 and 390 × 844: no horizontal overflow, 58 px
+  setup rows, one expanded panel, centered tabular mark values, compact settings
+  index/detail behavior, corrected Arabic wordmark, and no new console errors.
+- Rollback checkpoint: `checkpoint/pre-settings-overhaul-v1` at `b29d567`.
+
+## Participant Intake V4 — IMPLEMENTED (2026-08-14)
+
+- Competition setup now saves optional default Muqarrar start and institution
+  values plus a competition-specific institution choice list. New rows inherit
+  only explicit defaults; free-text institutions remain allowed.
+- The participant workspace adds in-place Category entry, safe Add participant
+  like behavior, and Category-scoped fill-empty actions that never overwrite
+  existing values.
+- Repeated unmatched imported Category labels are grouped for one explicit
+  organizer mapping. Tahqeeq applies that confirmed mapping to identical raw
+  labels without fuzzy guessing.
+- Competition Template V4 provides 100 clean entry rows, frozen headings,
+  filters, native Excel dropdowns, text-safe number and phone columns,
+  competition institution suggestions, and a very-hidden metadata sheet.
+  V1, V2, and V3 files remain importable.
+- OCR/photo extraction remains deferred; verified spreadsheet entry is the
+  deliberate intake path for this release.
+- Rollback checkpoint: `checkpoint/pre-participant-intake-v4`.
+- Verification: 220 automated tests pass, the production build succeeds, and
+  Template V4 passes ExcelJS and SheetJS read-back. A Microsoft Excel render
+  inspection informed the final header-width adjustment. The 1280px
+  participant workspace has no horizontal grid overflow or fresh
+  browser-console errors.
+
+## Category language and roster accordions — IMPLEMENTED (2026-08-14)
+
+- Participant-facing Division language is now Category across competition
+  setup, question preparation, roster editing, readiness messages, and the
+  competition-day selector. The stored `divisionId` contract remains unchanged
+  so saved competitions and question evidence do not require migration.
+- Participant-facing Muqarrar labels are now Muqarrar start. Feshey kolhu and
+  Nimey kolhu remain explicit enum values and appear as a compact two-option
+  radio control, not ambiguous Boolean true/false values.
+- Competition Template V3 uses Category and Muqarrar start in Participants,
+  Choices, and Instructions. V2 Division/Muqarrar and V1 Age Group/Category
+  sheets still import through contextual header mapping.
+- The roster editor groups participants into collapsible Category sections.
+  Categories with errors and Category required open automatically; valid
+  sections support Expand all and Collapse all; row movement stays inside its
+  visible category.
+- The competition-day selector now opens only the active category, collapses
+  categories with nobody waiting, disables misleading toggles while search is
+  forcing matches open, and keeps full category status totals.
+- Rollback checkpoint: `checkpoint/pre-category-language-v3`.
+- Verification: 215 automated tests pass, the production build succeeds, and
+  the participant workspace passed responsive browser checks at 1366 x 768
+  and 390 x 844. The phone layout stayed within the viewport with no
+  horizontal overflow; category collapse/expand and both Muqarrar start radio
+  choices were exercised in the rendered app.
+
+## Roster Onboarding V2 — IMPLEMENTED (2026-08-14)
+
+- Participants now open in a dedicated full-width workspace rather than a
+  spreadsheet preview squeezed into Competition setup. The hierarchy is a
+  sticky competition header, compact readiness summary, numbering/source
+  toolbar, aligned desktop grid, labelled mobile cards, and persistent final
+  review action.
+- Manual entry, Excel/Google Sheets paste, `.xlsx`/`.xls`/`.csv` upload, and
+  editing the current roster use one recoverable device-local draft. Invalid
+  imported rows remain visible and editable instead of being discarded.
+- New competitions default to automatic `01–99` / `001–999` numbering from the
+  final row order. Existing competitions retain supplied numbers unless the
+  organizer explicitly switches modes.
+- Paste supports recognized headings, headerless column mapping, quoted cells,
+  and multiline cells. Template V1 remains importable through age-group and
+  category mapping.
+- Competition Template V2 contains Participants, Choices, and Instructions,
+  plus competition, numbering, and division-fingerprint metadata. The app's
+  validator remains authoritative because spreadsheet-side validation can be
+  bypassed.
+- Apply shows current/new, added/edited/removed, numbering, and warnings. It
+  updates numbering and roster atomically, retains existing participant IDs,
+  and blocks official start while unapplied participant changes remain.
+- OCR/photo extraction is explicitly deferred; spreadsheets cover this release.
+- Verification: 212 automated tests, Template V1/V2 workbook read-back,
+  TypeScript and production build, plus browser checks at desktop and 390px
+  for paste, validation, refresh recovery, comparison, and apply.
+- Full rationale and acceptance contract:
+  [`docs/ROSTER_ONBOARDING_V2.md`](docs/ROSTER_ONBOARDING_V2.md).
+
+## Participant queue clarity — IMPLEMENTED & VERIFIED (2026-08-14)
+
+- Participant cards now lead with the reciter's name and keep the competition
+  number as a small aligned badge. Ordinary numeric values display as `01–99`
+  or `001–999` to match roster size; stored alphanumeric numbers remain exact.
+- Division blocks are accessible collapsible groups. The active block opens
+  automatically, search opens every matching block without changing its real
+  waiting/absent/finished totals, and unmatched participants remain visible.
+- Participant context is shared across selection, question handoff, and
+  Prepared mode, so institution, division/category, and side no longer repeat.
+  The fictional sample roster now uses numeric `01–08` labels.
+- The participant dialog keeps the page behind it fixed and gives scrolling to
+  the queue only. Desktop and 390px browser checks confirmed aligned badges,
+  visible group counts, group expansion, and no application console errors.
+- Verification: 204 automated tests and the production Sites build.
+
 ## Twenty-question draw and Prepared mode — IMPLEMENTED & VERIFIED (2026-08-13)
 
 - Choosing a number now records the reveal and opens the exact starting Mushaf

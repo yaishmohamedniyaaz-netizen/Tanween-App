@@ -232,7 +232,7 @@ export function QuestionBuilder({ editable }: { editable: boolean }) {
 
       <div className="question-builder-fields">
         <label>
-          <span>Division</span>
+          <span>Category</span>
           <select value={divisionId} disabled={!editable} onChange={(event) => chooseDivision(event.target.value)}>
             {state.competition.divisions.map((division) => <option key={division.id} value={division.id}>{division.name}</option>)}
           </select>
@@ -250,9 +250,9 @@ export function QuestionBuilder({ editable }: { editable: boolean }) {
           </select>
         </label>
         <label>
-          <span>Muqarrar side</span>
+          <span>Muqarrar start</span>
           <select value={muqarrar} disabled={!editable} onChange={(event) => setMuqarrar(event.target.value as QuestionMuqarrar)}>
-            <option value="both">Either side</option>
+            <option value="both">Either start</option>
             <option value="feshey-kolhu">Feshey kolhu · Starting side</option>
             <option value="nimey-kolhu">Nimey kolhu · Ending side</option>
           </select>
@@ -266,7 +266,7 @@ export function QuestionBuilder({ editable }: { editable: boolean }) {
       {state.competition.isSample && (
         <div className="question-sample-tests">
           <SampleBadge compact />
-          <span>Test questions are loaded for every division and muqarrar side.</span>
+          <span>Test questions are loaded for every category and Muqarrar start.</span>
           <button type="button" onClick={useUnavailableSample}>Try Quran-end shortfall</button>
         </div>
       )}
@@ -282,8 +282,8 @@ export function QuestionBuilder({ editable }: { editable: boolean }) {
         <div className="question-resolution-error" role="status"><strong>Cannot save this starting point</strong><span>{unavailableReason}</span></div>
       )}
 
-      {resolution?.ok && !eligible && <div className="question-resolution-error" role="status"><strong>Outside the selected division</strong><span>The complete passage must remain inside that division’s configured Quran portion.</span></div>}
-      {duplicate && <div className="question-resolution-error" role="status"><strong>Already saved</strong><span>This division already has a draft with the same starting ayah and line rule.</span></div>}
+      {resolution?.ok && !eligible && <div className="question-resolution-error" role="status"><strong>Outside the selected category</strong><span>The complete passage must remain inside that category’s configured Quran portion.</span></div>}
+      {duplicate && <div className="question-resolution-error" role="status"><strong>Already saved</strong><span>This category already has a draft with the same starting ayah and line rule.</span></div>}
 
       <QuestionMushafPreview page={previewPage} range={previewRange} onPageChange={setPreviewPage} onAyahPick={chooseStart} />
 
@@ -307,7 +307,7 @@ export function QuestionBuilder({ editable }: { editable: boolean }) {
               <button type="button" className="question-draft-open" onClick={() => openDraft(draft)}>
                 <span className="question-draft-state">{issues.length ? "Needs checking" : "Ready draft"}</span>
                 <strong>{draftRangeLabel(draft)}</strong>
-                <span>{division?.name ?? "Division removed"} · {draft.muqarrar === "both" ? "Either side" : draft.muqarrar === "feshey-kolhu" ? "Feshey kolhu" : "Nimey kolhu"} · {draft.resolvedLines} lines · pages {draft.startPage}{draft.endPage !== draft.startPage ? `–${draft.endPage}` : ""}</span>
+                <span>{division?.name ?? "Category removed"} · {draft.muqarrar === "both" ? "Either start" : draft.muqarrar === "feshey-kolhu" ? "Feshey kolhu" : "Nimey kolhu"} · {draft.resolvedLines} lines · pages {draft.startPage}{draft.endPage !== draft.startPage ? `–${draft.endPage}` : ""}</span>
                 {draft.note && <small>{draft.note}</small>}
                 {issues.length > 0 && <small>{issues[0]}</small>}
               </button>

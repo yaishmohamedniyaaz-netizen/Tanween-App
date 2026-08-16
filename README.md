@@ -68,8 +68,54 @@ directly on the exact letter during the hold gesture, while the tap path keeps a
 visible confirmation.
 
 Every reciter freezes the judge seat, assigned categories, and score rules in
-the saved result. These are judge-section results; this version deliberately
-does not combine separate devices into an official competition total.
+the saved result. Results combines the enabled judge sections only after every
+required criterion is present. Conflicting sources require an explicit choice,
+and the verified workbook contains only current finalized results.
+
+## Results and review
+
+The Results workspace opens on a review queue rather than an analytics
+dashboard. It separates participants who need review, are ready to finalize,
+or are already finalized; shows the source judge, revision, and criterion score;
+and calculates the proposed total through the same scoring path used by final
+results. The header badge counts unresolved participants in the active
+competition.
+
+Review filters and pagination are independent from the Analysis tab. Analysis
+can use either the current competition or all stored competitions without
+hiding historical judge records. Sample and official CSV exports remain
+separate, and the finalized Excel workbook remains the checked official output.
+
+## Participant roster onboarding
+
+Competition setup opens a dedicated participant-list editor for manual entry,
+Excel/Google Sheets paste, or `.xlsx`, `.xls`, and `.csv` upload. All sources
+become one device-local, recoverable draft. Invalid rows stay visible with
+field-level guidance and the applied roster changes only after a final
+comparison.
+
+Participant-facing groups are called Categories throughout setup, question
+preparation, roster editing, and competition-day selection. The editor groups
+rows into accessible collapsible Category sections and uses a labelled Feshey
+kolhu / Nimey kolhu control for Muqarrar start. These remain enum values rather
+than ambiguous spreadsheet or storage Booleans.
+
+Competition setup can save institution choices plus optional default
+Muqarrar start and institution values. New or category-level participant rows
+inherit those explicit defaults. The editor can fill only empty fields within
+one Category, add another participant in-place, and resolve one repeated
+unmatched imported Category for every affected row without fuzzy guessing.
+
+New competitions can assign participant numbers automatically from final row
+order (`01–99`, then `001–999`) or preserve supplied competition numbers. The
+competition-specific Template V4 provides 100 styled entry rows, native Excel
+dropdowns for Category, Muqarrar start, and institution suggestions, and a
+hidden compatibility-safe metadata sheet. Template V3, Template V2
+Division/Muqarrar, and older seven-column templates remain importable. OCR and
+photo extraction are intentionally outside this release.
+
+See [`docs/ROSTER_ONBOARDING_V2.md`](docs/ROSTER_ONBOARDING_V2.md) for the UI,
+data-safety, spreadsheet, and validation contracts.
 
 ## Project structure
 
@@ -79,7 +125,12 @@ scripts/build-data.mjs        authoritative page-data generator
 scripts/solid-mushaf.test.mjs full-dataset and architecture audit
 src/components/Mushaf.tsx     fixed page renderer and word interaction
 src/components/DragMenu.tsx   connected exact-letter rail and category gesture
+src/components/ParticipantRosterEditor.tsx recoverable roster preparation UI
+src/components/RecordsView.tsx Results review and analysis workspace
+src/components/FinalResultsPanel.tsx result-source review and finalization
 src/lib/judgingUnits.ts       semantic letter/mark isolation
+src/lib/roster.ts             draft validation, paste/import, Template V4
+src/lib/resultsReview.ts      result review states, filtering, and pagination
 src/lib/qcfFont.ts            page-specific QCF font loader and preloader
 src/state/store.tsx           scoring and persistence
 src/styles/global.css         responsive reader and judging UI

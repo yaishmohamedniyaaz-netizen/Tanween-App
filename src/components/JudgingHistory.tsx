@@ -1,5 +1,6 @@
 import { CATEGORY_BY_ID } from "../config";
 import { latestMistakeEventIds } from "../lib/judgingLedger";
+import { mistakePrimaryGlyph } from "../lib/mistakeDisplay";
 import type { CategoryId, JudgingEvent, Mistake } from "../types";
 import { categoryListLabel, judgeDisplayName } from "../lib/judgeAssignments";
 
@@ -129,7 +130,9 @@ export function JudgingHistory({
               <span className="history-title">{copy.title}</span>
               <span className="history-detail">{copy.detail}</span>
             </span>
-            {mistake && <span className="history-glyph">{mistake.glyph}</span>}
+            {mistake && (
+              <span className="history-glyph">{mistakePrimaryGlyph(mistake)}</span>
+            )}
             {canRestore && (
               <button
                 type="button"

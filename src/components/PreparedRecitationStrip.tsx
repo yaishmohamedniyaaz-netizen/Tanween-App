@@ -1,19 +1,20 @@
 import type { PreparedRecitation } from "../types";
+import { participantNumberLabel } from "../lib/participantPresentation.ts";
 
 function questionChoice(value: PreparedRecitation): string {
   const question = value.question;
   if (question.kind === "manual") return "External question";
-  const number = question.drawPosition ? `Number ${question.drawPosition}` : "Question";
-  const cycle = (question.drawCycle ?? 1) > 1 ? ` · cycle ${question.drawCycle}` : "";
-  return `${number}${cycle}`;
+  return question.drawPosition ? `Number ${question.drawPosition}` : "Question";
 }
 
 export function PreparedRecitationStrip({
   prepared,
+  participantCount,
   onChangeReciter,
   onChangeQuestion,
 }: {
   prepared: PreparedRecitation;
+  participantCount: number;
   onChangeReciter: () => void;
   onChangeQuestion: () => void;
 }) {
@@ -23,7 +24,7 @@ export function PreparedRecitationStrip({
       <span className="prepared-reciter">
         <strong>{prepared.participant.name || "Unnamed"}</strong>
         <small>
-          {prepared.participant.number || "No number"}
+          {participantNumberLabel(prepared.participant.number, participantCount)}
           {prepared.participant.institution
             ? ` · ${prepared.participant.institution}`
             : ""}

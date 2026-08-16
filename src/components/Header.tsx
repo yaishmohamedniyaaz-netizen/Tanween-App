@@ -1,157 +1,122 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { enabledCategories } from "../config";
+import type { AppTheme } from "../lib/devicePreferences";
+import { downloadSessionJSON } from "../lib/exportSession";
+import {
+  buildResultsReviewItems,
+  summarizeResultsReview,
+} from "../lib/resultsReview";
 import { useJudging } from "../state/store";
-import { downloadRecordsCSV, downloadSessionJSON } from "../lib/exportSession";
 import { Icon } from "./Icon";
 import { ThemeToggle } from "./ThemeToggle";
-import {
-  downloadStateBackup,
-  readStateBackupFile,
-} from "../lib/resultPackages";
+
+export type AppView = "judge" | "records" | "setup" | "settings" | "questions";
 
 interface Props {
-  view: "judge" | "records" | "setup";
+  view: AppView;
   onToggleView: () => void;
   onOpenSetup: () => void;
+  onOpenSettings: () => void;
   onChangeReciter: () => void;
-  pageZoom: number;
-  pageLayout: "full" | "split";
-  judgeRailSide: "left" | "right";
-  onPageZoomPreview: (zoom: number) => void;
-  onPageLayoutPreview: (layout: "full" | "split") => void;
-  onPageZoomCommit: (zoom: number) => void;
-  onPageLayoutCommit: (layout: "full" | "split") => void;
-  onJudgeRailSideChange: (side: "left" | "right") => void;
+  theme: AppTheme;
+  onThemeChange: (theme: AppTheme) => void;
 }
 
 export function Header({
   view,
   onToggleView,
   onOpenSetup,
+  onOpenSettings,
   onChangeReciter,
-  pageZoom,
-  pageLayout,
-  judgeRailSide,
-  onPageZoomPreview,
-  onPageLayoutPreview,
-  onPageZoomCommit,
-  onPageLayoutCommit,
-  onJudgeRailSideChange,
+  theme,
+  onThemeChange,
 }: Props) {
-  const { state, dispatch } = useJudging();
+  const { state } = useJudging();
   const [menuOpen, setMenuOpen] = useState(false);
-  const [menuMode, setMenuMode] = useState<
-    "main" | "zoom" | "panel" | "confirm"
-  >("main");
-  const [zoomDraft, setZoomDraft] = useState(pageZoom);
-  const [zoomOriginal, setZoomOriginal] = useState(pageZoom);
-  const [layoutDraft, setLayoutDraft] = useState(pageLayout);
-  const [layoutOriginal, setLayoutOriginal] = useState(pageLayout);
   const menuRef = useRef<HTMLDivElement>(null);
-  const restoreRef = useRef<HTMLInputElement>(null);
-  const settingsChanged =
-    zoomDraft !== zoomOriginal || layoutDraft !== layoutOriginal;
 
   useEffect(() => {
     if (!menuOpen) return;
-    const requestClose = () => {
-      if (menuMode === "zoom" && settingsChanged) {
-        setMenuMode("confirm");
-        return;
-      }
-      if (menuMode === "confirm") return;
-      setMenuOpen(false);
-      setMenuMode("main");
+    const close = (event: PointerEvent) => {
+      if (!menuRef.current?.contains(event.target as Node)) setMenuOpen(false);
     };
-    const onDown = (e: PointerEvent) => {
-      if (!menuRef.current?.contains(e.target as Node)) requestClose();
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setMenuOpen(false);
     };
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") requestClose();
-    };
-    window.addEventListener("pointerdown", onDown);
-    window.addEventListener("keydown", onKey);
+    window.addEventListener("pointerdown", close);
+    window.addEventListener("keydown", closeOnEscape);
     return () => {
-      window.removeEventListener("pointerdown", onDown);
-      window.removeEventListener("keydown", onKey);
+      window.removeEventListener("pointerdown", close);
+      window.removeEventListener("keydown", closeOnEscape);
     };
-  }, [menuOpen, menuMode, settingsChanged]);
-
-  const openZoom = () => {
-    setZoomOriginal(pageZoom);
-    setZoomDraft(pageZoom);
-    setLayoutOriginal(pageLayout);
-    setLayoutDraft(pageLayout);
-    setMenuMode("zoom");
-  };
-
-  const previewZoom = (zoom: number) => {
-    setZoomDraft(zoom);
-    onPageZoomPreview(zoom);
-  };
-
-  const leaveZoom = () => {
-    setMenuMode(settingsChanged ? "confirm" : "main");
-  };
-
-  const keepZoom = () => {
-    onPageZoomCommit(zoomDraft);
-    onPageLayoutCommit(layoutDraft);
-    setZoomOriginal(zoomDraft);
-    setLayoutOriginal(layoutDraft);
-    setMenuMode("main");
-  };
-
-  const revertZoom = () => {
-    onPageZoomPreview(zoomOriginal);
-    onPageLayoutPreview(layoutOriginal);
-    setZoomDraft(zoomOriginal);
-    setLayoutDraft(layoutOriginal);
-    setMenuMode("main");
-  };
+  }, [menuOpen]);
 
   const prepared = state.preparedRecitation;
-  const p = prepared?.participant ?? state.participant;
+  const participant = prepared?.participant ?? state.participant;
   const visibleQuestion = prepared?.question ?? state.activeQuestion;
   const rosterTotal = state.roster.length;
-  const rosterDone = state.roster.filter((r) => r.judged).length;
+  const rosterDone = state.roster.filter((entry) => entry.judged).length;
+  const resultsSummary = useMemo(() => {
+    const categories = enabledCategories(
+      state.competition.liveSnapshot?.scoreConfig ?? state.config,
+    );
+    return summarizeResultsReview(
+      buildResultsReviewItems(
+        state.history,
+        state.finalizedResults,
+        state.competition.id,
+        categories,
+      ),
+    );
+  }, [
+    state.competition.id,
+    state.competition.liveSnapshot,
+    state.config,
+    state.finalizedResults,
+    state.history,
+  ]);
+  const resultsActionLabel = view === "judge"
+    ? resultsSummary.unresolved
+      ? `Results, ${resultsSummary.unresolved} unresolved participants`
+      : "Results"
+    : view === "records"
+      ? "Back to Judging"
+      : "Back to Mushaf";
+  const competitionTitle = state.competition.name || (
+    state.competition.status === "live"
+      ? "Live competition"
+      : state.competition.status === "closed"
+        ? "Closed competition"
+        : "No competition running"
+  );
+  const competitionLifecycle = state.competition.status === "live"
+    ? "Live"
+    : state.competition.status === "closed"
+      ? "Closed"
+      : state.competition.name
+        ? "Draft"
+        : "Browse the Mushaf";
+  const competitionContext = state.competition.isSample
+    ? `Sample · ${competitionLifecycle}`
+    : competitionLifecycle;
 
   return (
     <header className="app-header">
       <div className="brand">
-        <span className="brand-mark" aria-hidden="true">
-          تَحْقِيق
-        </span>
+        <span className="brand-mark" aria-hidden="true">تَحْقِيق</span>
         <span className="brand-name">Tahqeeq</span>
       </div>
 
-      {!state.sessionActive && !prepared && view !== "records" && (
+      {!state.sessionActive && !prepared && (
         <button
           type="button"
-          className={`competition-header-state is-${state.competition.status}`}
+          className={`competition-header-state is-${state.competition.status} ${state.competition.isSample ? "is-sample" : ""}`}
           onClick={onOpenSetup}
+          aria-label={`Open competition setup. ${competitionTitle}. ${competitionContext}.`}
         >
           <span>
-            <strong>
-              {state.competition.name ||
-                (state.competition.status === "closed"
-                  ? "Closed competition"
-                  : "No competition running")}
-            </strong>
-            <small>
-              {state.competition.status === "live"
-                ? state.competition.isSample
-                  ? "Test mode · Live"
-                  : "Live"
-                : state.competition.status === "closed"
-                  ? state.competition.isSample
-                    ? "Test mode · Closed"
-                    : "Closed"
-                  : state.competition.name
-                    ? state.competition.isSample
-                      ? "Test mode · Draft"
-                      : "Draft"
-                    : "Browse the Mushaf"}
-            </small>
+            <strong>{competitionTitle}</strong>
+            <small>{competitionContext}</small>
           </span>
         </button>
       )}
@@ -163,16 +128,10 @@ export function Header({
           onClick={onChangeReciter}
           title={prepared ? "Change prepared reciter" : "Finish or change reciter"}
         >
-          {p.name || "Unnamed"}
+          {participant.name || "Unnamed"}
           {prepared && <span className="reciter-prepared-state">Prepared</span>}
-          {visibleQuestion && (
-            <span className="reciter-question-ref">Q · {visibleQuestion.label}</span>
-          )}
-          {rosterTotal > 0 && (
-            <span className="chip-idx t-num">
-              {rosterDone + 1}/{rosterTotal}
-            </span>
-          )}
+          {visibleQuestion && <span className="reciter-question-ref">Q · {visibleQuestion.label}</span>}
+          {rosterTotal > 0 && <span className="chip-idx t-num">{rosterDone + 1}/{rosterTotal}</span>}
         </button>
       )}
 
@@ -180,323 +139,39 @@ export function Header({
         type="button"
         className={`view-toggle ${view === "records" ? "is-active" : ""}`}
         onClick={onToggleView}
+        aria-label={resultsActionLabel}
       >
         {view === "judge" ? (
-          <>
-            <Icon name="chart" size={15} />
-            Records
-            {state.history.length > 0 && (
-              <span className="view-toggle-count">{state.history.length}</span>
-            )}
-          </>
+          <><Icon name="fileCheck" size={15} /> Results {resultsSummary.unresolved > 0 && <span className="view-toggle-count">{resultsSummary.unresolved}</span>}</>
         ) : (
-          <>
-            <Icon name="back" size={15} />
-            {view === "setup" ? "Back to Mushaf" : "Judging"}
-          </>
+          <><Icon name="back" size={15} /> {view === "records" ? "Judging" : "Back to Mushaf"}</>
         )}
       </button>
 
-      <ThemeToggle />
+      <ThemeToggle theme={theme} onChange={onThemeChange} />
 
       <div className="overflow-wrap" ref={menuRef}>
-        <button
-          type="button"
-          className="btn-icon"
-          aria-label="More actions"
-          aria-expanded={menuOpen}
-          onClick={() => {
-            if (!menuOpen) {
-              setMenuMode("main");
-              setMenuOpen(true);
-            } else if (menuMode === "main") {
-              setMenuOpen(false);
-            } else if (menuMode === "zoom") {
-              leaveZoom();
-            } else if (menuMode === "panel") {
-              setMenuMode("main");
-            }
-          }}
-        >
+        <button type="button" className="btn-icon" aria-label="More actions" aria-expanded={menuOpen} onClick={() => setMenuOpen((open) => !open)}>
           <Icon name="dots" size={17} />
         </button>
         {menuOpen && (
-          <div
-            className={`overflow-menu ${menuMode !== "main" ? "overflow-menu-settings" : ""}`}
-            role="menu"
-          >
-            {menuMode === "main" ? (
+          <div className="overflow-menu" role="menu">
+            <button type="button" className="overflow-item" onClick={() => { setMenuOpen(false); onOpenSettings(); }}>
+              <Icon name="settings" size={16} /> Settings
+            </button>
+            <button type="button" className="overflow-item" onClick={() => { setMenuOpen(false); onOpenSetup(); }}>
+              <Icon name="check" size={16} /> Competition setup
+            </button>
+            {state.sessionActive && (
               <>
-                <button
-                  type="button"
-                  className="overflow-item"
-                  onClick={openZoom}
-                >
-                  <Icon name="settings" size={16} />
-                  <span className="overflow-item-label">Page view</span>
-                  <span className="overflow-item-value">
-                    {pageZoom}% · {pageLayout === "split" ? "Split" : "Full"}
-                  </span>
-                </button>
-                <button
-                  type="button"
-                  className="overflow-item"
-                  onClick={() => setMenuMode("panel")}
-                >
-                  <Icon name="settings" size={16} />
-                  <span className="overflow-item-label">Judge panel</span>
-                  <span className="overflow-item-value">
-                    {judgeRailSide === "left" ? "Left" : "Right"}
-                  </span>
-                </button>
-                <button
-                  type="button"
-                  className="overflow-item"
-                  onClick={() => {
-                    setMenuOpen(false);
-                    onOpenSetup();
-                  }}
-                >
-                  <Icon name="settings" size={16} />
-                  Competition setup
-                </button>
                 <div className="overflow-sep" />
-                <button
-                  type="button"
-                  className="overflow-item"
-                  disabled={!state.sessionActive}
-                  onClick={() => {
-                    setMenuOpen(false);
-                    window.print();
-                  }}
-                >
-                  <Icon name="print" size={16} />
-                  Print result sheet
+                <button type="button" className="overflow-item" onClick={() => { setMenuOpen(false); window.print(); }}>
+                  <Icon name="print" size={16} /> Print current result
                 </button>
-                <button
-                  type="button"
-                  className="overflow-item"
-                  disabled={!state.sessionActive}
-                  onClick={() => {
-                    setMenuOpen(false);
-                    downloadSessionJSON(state);
-                  }}
-                >
-                  <Icon name="download" size={16} />
-                  Export session (JSON)
-                </button>
-                <button
-                  type="button"
-                  className="overflow-item"
-                  onClick={() => {
-                    setMenuOpen(false);
-                    downloadRecordsCSV(state.history);
-                  }}
-                >
-                  <Icon name="download" size={16} />
-                  Export official records (CSV)
-                </button>
-                <div className="overflow-sep" />
-                <button
-                  type="button"
-                  className="overflow-item"
-                  onClick={() => {
-                    setMenuOpen(false);
-                    downloadStateBackup(state);
-                  }}
-                >
-                  <Icon name="download" size={16} />
-                  Download full backup
-                </button>
-                <input
-                  ref={restoreRef}
-                  type="file"
-                  accept=".json,application/json"
-                  hidden
-                  onChange={async (event) => {
-                    const file = event.target.files?.[0];
-                    event.target.value = "";
-                    if (!file || state.sessionActive || prepared) return;
-                    try {
-                      const restored = await readStateBackupFile(file);
-                      if (
-                        window.confirm(
-                          "Replace the current local data with this backup? A fresh backup of the current data will download first.",
-                        )
-                      ) {
-                        downloadStateBackup(state);
-                        dispatch({ type: "LOAD", state: restored });
-                        setMenuOpen(false);
-                      }
-                    } catch (error) {
-                      window.alert(
-                        error instanceof Error
-                          ? error.message
-                          : "Could not restore that backup.",
-                      );
-                    }
-                  }}
-                />
-                <button
-                  type="button"
-                  className="overflow-item"
-                  disabled={
-                    state.sessionActive || Boolean(prepared) || state.competition.status === "live"
-                  }
-                  title={
-                    state.sessionActive || prepared || state.competition.status === "live"
-                      ? "Close the active competition before restoring"
-                      : undefined
-                  }
-                  onClick={() => restoreRef.current?.click()}
-                >
-                  <Icon name="settings" size={16} />
-                  Restore full backup
+                <button type="button" className="overflow-item" onClick={() => { setMenuOpen(false); downloadSessionJSON(state); }}>
+                  <Icon name="download" size={16} /> Export current session
                 </button>
               </>
-            ) : menuMode === "zoom" ? (
-              <div className="overflow-zoom" role="group" aria-label="Page view">
-                <div className="overflow-zoom-head">
-                  <button
-                    type="button"
-                    className="overflow-back"
-                    aria-label="Back"
-                    onClick={leaveZoom}
-                  >
-                    <Icon name="back" size={15} />
-                  </button>
-                  <span>Page view</span>
-                  <strong>{zoomDraft}%</strong>
-                </div>
-                <p>Layout and size preview live on the Mushaf page.</p>
-                <span className="zoom-section-label">Layout</span>
-                <div className="layout-presets">
-                  <button
-                    type="button"
-                    className={layoutDraft === "full" ? "is-active" : ""}
-                    onClick={() => {
-                      setLayoutDraft("full");
-                      onPageLayoutPreview("full");
-                    }}
-                  >
-                    Full page
-                  </button>
-                  <button
-                    type="button"
-                    className={layoutDraft === "split" ? "is-active" : ""}
-                    onClick={() => {
-                      setLayoutDraft("split");
-                      onPageLayoutPreview("split");
-                    }}
-                  >
-                    Split halves
-                  </button>
-                </div>
-                <span className="zoom-section-label">Size</span>
-                <input
-                  className="zoom-range"
-                  type="range"
-                  min={45}
-                  max={100}
-                  step={5}
-                  value={zoomDraft}
-                  aria-label="Mushaf page zoom"
-                  onChange={(e) => previewZoom(Number(e.target.value))}
-                />
-                <div className="zoom-scale" aria-hidden="true">
-                  <span>45%</span>
-                  <span>100%</span>
-                </div>
-                <div className="zoom-presets">
-                  {[
-                    [50, "Overview"],
-                    [75, "Comfortable"],
-                    [100, "Fit"],
-                  ].map(([value, label]) => (
-                    <button
-                      key={value}
-                      type="button"
-                      className={zoomDraft === value ? "is-active" : ""}
-                      onClick={() => previewZoom(Number(value))}
-                    >
-                      {label}
-                    </button>
-                  ))}
-                </div>
-                <button
-                  type="button"
-                  className="zoom-reset"
-                  disabled={zoomDraft === 100 && layoutDraft === "full"}
-                  onClick={() => {
-                    setLayoutDraft("full");
-                    onPageLayoutPreview("full");
-                    previewZoom(100);
-                  }}
-                >
-                  Reset to standard page
-                </button>
-              </div>
-            ) : menuMode === "panel" ? (
-              <div
-                className="overflow-panel-position"
-                role="group"
-                aria-label="Judge panel position"
-              >
-                <div className="overflow-zoom-head">
-                  <button
-                    type="button"
-                    className="overflow-back"
-                    aria-label="Back"
-                    onClick={() => setMenuMode("main")}
-                  >
-                    <Icon name="back" size={15} />
-                  </button>
-                  <span>Judge panel</span>
-                  <strong>{judgeRailSide === "left" ? "Left" : "Right"}</strong>
-                </div>
-                <p>Choose which side holds the score, mistakes, notes and finish action.</p>
-                <span className="zoom-section-label">Position</span>
-                <div className="panel-side-presets">
-                  <button
-                    type="button"
-                    className={judgeRailSide === "left" ? "is-active" : ""}
-                    aria-pressed={judgeRailSide === "left"}
-                    onClick={() => onJudgeRailSideChange("left")}
-                  >
-                    Left
-                  </button>
-                  <button
-                    type="button"
-                    className={judgeRailSide === "right" ? "is-active" : ""}
-                    aria-pressed={judgeRailSide === "right"}
-                    onClick={() => onJudgeRailSideChange("right")}
-                  >
-                    Right
-                  </button>
-                </div>
-              </div>
-            ) : (
-              <div className="overflow-confirm" role="alert">
-                <strong>Keep this page view?</strong>
-                <p>
-                  The Mushaf is previewing {zoomDraft}% in {layoutDraft} view.
-                </p>
-                <div className="overflow-confirm-actions">
-                  <button type="button" className="btn-ghost" onClick={revertZoom}>
-                    Revert
-                  </button>
-                  <button
-                    type="button"
-                    className="btn-ghost"
-                    onClick={() => setMenuMode("zoom")}
-                  >
-                    Adjust
-                  </button>
-                  <button type="button" className="btn-primary" onClick={keepZoom}>
-                    Keep size
-                  </button>
-                </div>
-              </div>
             )}
           </div>
         )}

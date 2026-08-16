@@ -217,10 +217,49 @@ export interface RosterEntry extends Participant {
   absent?: boolean;
 }
 
+export type ParticipantNumberingMode = "automatic" | "supplied";
+
+export type RosterDraftSource = "manual" | "paste" | "file" | "existing";
+
+/** Editable, device-local row. Raw strings are intentional so an invalid
+ * import can be corrected instead of disappearing from the preview. */
+export interface RosterDraftRow {
+  id: string;
+  participantId?: string;
+  sourceRow?: number;
+  number: string;
+  name: string;
+  divisionId: string;
+  /** Exact imported Category text retained until an organizer maps it. */
+  importedCategory?: string;
+  legacyAgeGroup?: string;
+  legacyCategory?: string;
+  muqarrar: string;
+  phone: string;
+  institution: string;
+}
+
+export interface RosterDraft {
+  version: 1;
+  competitionId: string;
+  source: RosterDraftSource;
+  filename?: string;
+  numberingMode: ParticipantNumberingMode;
+  rows: RosterDraftRow[];
+  sourceWarnings: string[];
+  updatedAt: number;
+}
+
 export type QuranPortion =
   | { kind: "full-quran" }
   | { kind: "juz-range"; startJuz: number; endJuz: number }
   | { kind: "surah-range"; startSurah: number; endSurah: number };
+
+export interface ParticipantEntrySettings {
+  institutions: string[];
+  defaultMuqarrar: MuqarrarSide;
+  defaultInstitution: string;
+}
 
 export interface CompetitionDivision {
   id: string;
@@ -403,6 +442,8 @@ export interface CompetitionConfig {
   edition: string;
   status: CompetitionStatus;
   setupRevision: number;
+  participantNumbering: ParticipantNumberingMode;
+  participantEntrySettings: ParticipantEntrySettings;
   divisions: CompetitionDivision[];
   questionPolicy: CompetitionQuestionPolicy;
   liveSnapshot: LiveCompetitionSnapshot | null;
@@ -470,6 +511,8 @@ export interface SavedSession {
 
 export interface JudgingState {
   competition: CompetitionConfig;
+  /** Recoverable participant preparation; never enters a live snapshot. */
+  rosterDraft: RosterDraft | null;
   /** Device-local preparation drafts; never part of an official live snapshot. */
   questionDrafts: CompetitionQuestionDraft[];
   /** Frozen draw boards, one per division and muqarrar side. */
