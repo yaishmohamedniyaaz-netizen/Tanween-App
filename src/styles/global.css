@@ -121,12 +121,21 @@
   --c-wash: rgba(85, 102, 230, 0.13);
   --c-wash-strong: rgba(85, 102, 230, 0.28);
 }
+/* Hue 165, stepped rather than picked by eye. The old #2e9e83 sat at OKLCH
+   L 63, the one lightness where neither white (3.32:1) nor ink reads cleanly
+   on it; #377b60 is L 53, carries white at 5.04:1, and clears 3:1 against both
+   the light and the dark track — so one fill serves both themes.
+   --c-fill is the solid mark fill and is only defined for criteria this picker
+   can render. A new impression criterion must declare its own pair; without one
+   the picker falls back to ink on surface, which is legible but colourless. */
 .cat-adu-raagu {
-  --c: #2e9e83;
-  --c-strong: #17614f;
-  --c-tint: #e6f4f0;
-  --c-wash: rgba(46, 158, 131, 0.14);
-  --c-wash-strong: rgba(46, 158, 131, 0.3);
+  --c: #377b60;
+  --c-strong: #26624b;
+  --c-tint: #eef8f3;
+  --c-wash: rgba(55, 123, 96, 0.14);
+  --c-wash-strong: rgba(55, 123, 96, 0.3);
+  --c-fill: #377b60;
+  --c-fill-ink: #ffffff;
 }
 [data-theme="dark"] .cat-jali {
   --c-tint: rgba(216, 69, 61, 0.18);
@@ -141,8 +150,8 @@
   --c-strong: #aeb8f6;
 }
 [data-theme="dark"] .cat-adu-raagu {
-  --c-tint: rgba(46, 158, 131, 0.2);
-  --c-strong: #7fd3bd;
+  --c-tint: rgba(55, 123, 96, 0.22);
+  --c-strong: #a5cfbc;
 }
 
 /* ---- Base ---- */
@@ -5926,10 +5935,14 @@ textarea:focus-visible {
   transition: border-color var(--t-fast) var(--ease-out),
     background var(--t-fast) var(--ease-out);
 }
-.mark-picker:hover,
+/* Open is carried by border weight, not by a colour wash: nothing has been
+   awarded yet, so nothing should be wearing the criterion's colour. */
+.mark-picker:hover {
+  border-color: var(--ink-3);
+}
 .mark-picker.is-open {
-  border-color: var(--c, var(--ink-3));
-  background: var(--c-wash, transparent);
+  border-color: var(--ink);
+  box-shadow: inset 0 0 0 1px var(--ink);
 }
 .mark-picker-value {
   font-size: 14px;
@@ -5946,7 +5959,9 @@ textarea:focus-visible {
 .mark-bar {
   position: fixed;
   z-index: 60;
-  padding: 12px 16px 26px;
+  /* The numerals used to sit in a 21px gutter under the track, which this
+     bottom padding existed to hold. They are on the cells now. */
+  padding: 12px 16px 16px;
   border: 1px solid var(--line-2);
   border-radius: var(--r-md);
   background: var(--surface);
@@ -5979,56 +5994,89 @@ textarea:focus-visible {
   text-transform: uppercase;
   color: var(--ink-3);
 }
-.mark-bar-track {
+.mark-bar-hint.is-fine {
+  color: var(--c-strong, var(--ink-2));
+}
+/* Every whole mark is a cell, and the cells fill up to the awarded value — the
+   bar reads as an amount rather than a menu, while each number stays its own
+   press target. The numerals sit on the scale, not in a gutter beneath it. */
+.mark-cells {
+  display: flex;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--line-2);
+  cursor: pointer;
+  touch-action: none;
+  user-select: none;
+}
+/* Past fifteen marks a single row gives cells too narrow to aim at, so they
+   wrap instead of shrinking: at twenty, one row is ~23px and two are ~40px. */
+.mark-cells.is-wrapped {
+  display: grid;
+  grid-auto-rows: 40px;
+  gap: 4px;
+  border: 0;
+  overflow: visible;
+}
+.mark-cell {
   position: relative;
-  height: 34px;
-  border-radius: var(--r-sm);
+  flex: 1;
+  min-width: 0;
+  height: 44px;
+  display: grid;
+  place-items: center;
   background: var(--bg);
-  border: 1px solid var(--line);
-  cursor: ew-resize;
-}
-.mark-bar-fill {
-  position: absolute;
-  inset: 0 auto 0 0;
-  border-radius: var(--r-sm) 0 0 var(--r-sm);
-  background: var(--c-wash, rgba(0, 0, 0, 0.05));
-  pointer-events: none;
-}
-.mark-tick {
-  position: absolute;
-  top: 50%;
-  width: 1px;
-  height: 9px;
-  margin-top: -4px;
-  background: var(--line-2);
-  pointer-events: none;
-}
-.mark-tick.is-whole {
-  height: 15px;
-  margin-top: -7px;
-  background: var(--ink-3);
-}
-.mark-tick.is-labelled { height: 19px; margin-top: -9px; }
-.mark-tick-label {
-  position: absolute;
-  top: 21px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 10.5px;
-  font-style: normal;
-  color: var(--ink-3);
+  color: var(--ink-2);
+  font-size: 12px;
   font-variant-numeric: tabular-nums;
 }
-.mark-bar-thumb {
+.mark-cells:not(.is-wrapped) .mark-cell + .mark-cell {
+  box-shadow: inset 1px 0 0 var(--line);
+}
+.mark-cells.is-wrapped .mark-cell {
+  height: 40px;
+  border-radius: 8px;
+}
+.mark-cell.is-on {
+  background: var(--c-fill, var(--ink));
+  color: var(--c-fill-ink, var(--surface));
+}
+.mark-cells:not(.is-wrapped) .mark-cell.is-on + .mark-cell.is-on {
+  box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.28);
+}
+/* A sub-step fills the near side of the next cell, so 7.5 reads as past seven
+   rather than nearly eight. */
+.mark-cell-part {
   position: absolute;
-  top: -3px;
-  bottom: -3px;
-  width: 3px;
-  margin-left: -1.5px;
-  border-radius: 2px;
-  background: var(--c, var(--ink));
-  pointer-events: none;
-  box-shadow: 0 0 0 3px var(--c-wash, transparent);
+  top: 0;
+  bottom: 0;
+  left: 0;
+  background: var(--c-fill, var(--ink));
+}
+.mark-cell-label {
+  position: relative;
+  z-index: 1;
+}
+/* An unmarked criterion opens at full marks, so a green bar would say "ten
+   awarded" when nothing has been awarded at all. No verdict yet, no colour:
+   the cells carry the standing value in ink until the judge commits one. */
+.mark-cells.is-unmarked .mark-cell.is-on,
+.mark-cells.is-unmarked .mark-cell-part {
+  background: var(--hold-wash-strong);
+  color: var(--ink-2);
+}
+.mark-cells.is-unmarked .mark-cell.is-on + .mark-cell.is-on {
+  box-shadow: inset 1px 0 0 var(--line);
+}
+.mark-cell.is-current {
+  box-shadow: inset 0 0 0 2px var(--ink);
+  z-index: 2;
+}
+.mark-cells.is-unmarked .mark-cell.is-current.is-on {
+  box-shadow: inset 0 0 0 2px var(--ink);
+}
+.mark-cell.is-current.is-on {
+  box-shadow: inset 0 0 0 2px var(--c-fill-ink, var(--surface));
 }
 
 .finish-warn {

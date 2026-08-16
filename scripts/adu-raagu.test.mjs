@@ -536,6 +536,28 @@ test("the mark bar opens on a press and commits when the press ends", () => {
   assert.match(pickerSource, /if \(drag\?\.moved && preview !== null\)/);
   // A press that does not move leaves the bar open to pick from.
   assert.match(pickerSource, /setPinned\(true\);/);
-  assert.match(pickerSource, /mark-tick/);
-  assert.match(pickerSource, /labelEvery/);
+});
+
+test("every whole mark is its own cell, and the cells fill up to the award", () => {
+  // The bar used to be a track with tick marks and a label gutter beneath it,
+  // which put the numbers off the scale they labelled and gave a press nothing
+  // to land in. Each whole mark is now a cell, and the cells fill cumulatively
+  // so the bar still reads as an amount rather than as a menu.
+  assert.match(pickerSource, /mark-cell/);
+  assert.match(pickerSource, /data-mark=\{mark\}/);
+  assert.match(pickerSource, /is-on/);
+  assert.match(pickerSource, /const filledTo = Math\.floor\(shown\);/);
+  // Past this many marks a single row of cells is too narrow to aim at, so the
+  // cells wrap to two rows rather than getting smaller.
+  assert.match(pickerSource, /WRAP_ABOVE/);
+});
+
+test("a drag reaches only the values the frozen rule set allows", () => {
+  // The cell says which whole mark; how far across it the pointer sits says
+  // which of that mark's sub-steps. With a half-mark step that yields 7.5, and
+  // with a whole-mark step it cannot yield anything off the grid — the awarded
+  // value always lands on a multiple of the configured step.
+  assert.match(pickerSource, /if \(step >= 1\) return clamp\(base\);/);
+  assert.match(pickerSource, /Math\.floor\(across \/ step\) \* step/);
+  assert.match(pickerSource, /Math\.round\(next \/ step\) \* step/);
 });
