@@ -1,299 +1,166 @@
 # Results and analysis: the redesign plan
 
-Two screens are in scope, and they are currently one screen:
+> **Revised 16 August 2026, against `main` at `aced7d1`.** The first version of
+> this file was written against a branch point that predated the results Pass 1.
+> Two of its four headline findings have since been fixed on main, independently
+> and in substantially the way this file proposed. They are recorded as closed in
+> §1 rather than deleted, because the fix confirms the finding.
+>
+> This file now sits alongside, not instead of, main's own results documents:
+> [`RESULTS_SCREEN_DESIGN_RESEARCH.md`](./RESULTS_SCREEN_DESIGN_RESEARCH.md),
+> [`RESULTS_PASS_1_IMPLEMENTATION_PLAN.md`](./RESULTS_PASS_1_IMPLEMENTATION_PLAN.md)
+> and its follow-on
+> [`INTERFACE_SIMPLIFICATION_AND_JUDGING_FLOW_PLAN.md`](./INTERFACE_SIMPLIFICATION_AND_JUDGING_FLOW_PLAN.md).
+> Those own the **Results** surface. What this file still owns is the
+> **Analysis** surface, which Pass 1 did not touch, plus three loose ends on
+> Results that Pass 1 left.
 
-| | Component | Job |
+Two surfaces, both inside `RecordsView.tsx` (952 lines):
+
+| | Where | Job |
 | --- | --- | --- |
-| **Results** | `FinalResultsPanel.tsx` (310 lines) | Combine each participant's judge-owned sections into one official result, then export it. |
-| **Analysis** | `RecordsView.tsx` (470 lines) | Find a past result, and see what the collected marks say. |
-
-`RecordsView.tsx:452` renders `<FinalResultsPanel />` as its last child, and
-`FinalResultsPanel` is imported nowhere else. So the act with the most
-consequence in the whole product — committing an official mark — happens at the
-bottom of a statistics page, after a scroll.
-
-This file states what is wrong in terms that can be checked, then names the four
-candidates built for each screen and the grammar rules each one bends.
+| **Results** | `FinalResultsPanel.tsx` (414 lines), rendered at `RecordsView.tsx:783` | Combine each participant's judge-owned sections into one official result, then export it. |
+| **Analysis** | `RecordsView.tsx:827` onward | See what the collected marks say. |
 
 ---
 
-## 1. What is actually wrong
+## 1. What Pass 1 closed
 
-Not taste. Each item below is a line of source or a number.
+**The total is now visible before it is committed.** `FinalResultsPanel.tsx:229`
+builds a `preview` through `buildParticipantResultPreview`, and `:240` renders it
+as `displayedTotal` under the label **Proposed total**, switching to **Final
+total** once placed (`:294`). The judge now sees the number before pressing
+Finalize. This was the single largest finding in the first version of this file,
+and it is done.
 
-### 1.1 The number is invisible until after it is committed
+**A criterion with two sources is now chosen by its mark.** `:349` renders each
+option as `Judge · revision N · 27/30`, and `:359` adds a selection line reading
+*"Selected revision 1 · 27/30"*. Picking a person rather than a number is no
+longer possible.
 
-`FinalResultsPanel.tsx:279–294`: the score renders only when `placed && !stale`
-— that is, only for a participant already finalized. Before finalizing, the same
-slot shows one of four grey words: `Ready`, `Needs judge result`,
-`Participant details missing`, `Source changed`.
+Both are worth noting for a reason beyond bookkeeping: two independent passes
+reached the same two fixes, which is the strongest evidence available that they
+were real defects rather than preferences.
 
-So the judge presses **Finalize** without having seen the total it produces.
+---
 
-The data to show it is already computed. `finalizeParticipantResult`
-(`lib/finalResults.ts:97–120`) reads `computeCategoryScores(...)` per criterion,
-holding `score`, `max`, `judgeName` and `sessionRevision` for each — then sums
-them. Every one of those numbers exists at render time and none reaches the
-screen.
+## 2. What still stands
 
-This is the whole finding. Everything else on this screen is smaller than it.
+Verified line by line against the current working tree, not inferred.
 
-### 1.2 A criterion with two sources is chosen by judge name, not by mark
+### Results — three loose ends
 
-`FinalResultsPanel.tsx:253–272`. When two judges have sessions for the same
-criterion, the cell becomes a `<select>` whose options read
-`Judge 2 · revision 1`. The two marks that differ — the only reason the choice
-exists — are not shown. The judge picks a person, not a number.
+**2.1 `window.prompt()` still collects the audit reason.**
+`FinalResultsPanel.tsx:173`. The field that makes an official revision
+accountable is still gathered through a browser dialog — unstyleable,
+unvalidatable, no character record, and blocked outright in some embedded
+contexts. It remains the only `window.prompt` in the application.
 
-### 1.3 `window.prompt()` collects the audit reason
-
-`FinalResultsPanel.tsx:137`. The reason recorded against an official revision —
-the field that makes the revision accountable — is gathered through a browser
-dialog. It is the only `window.prompt` in the application (`window.confirm`
-appears five times; `prompt` once). It cannot be styled, cannot be validated,
-shows no character count, carries none of the app's language, and is blocked
-outright in some embedded contexts.
-
-### 1.4 The standings are computed and thrown away
-
+**2.2 The standings are still computed and thrown away.**
 `lib/finalResults.ts:151` — `placeFinalizedResults()` groups by age group and
-participant category, sorts by ratio, and handles ties by not advancing the
-place number. Its entire output reaches the screen as `Place 3 · revision 1` in
-`<small>` inside a per-row score chip (`FinalResultsPanel.tsx:282`).
+participant category, sorts by ratio and handles ties. Its entire output still
+reaches the screen as `Place {n} · revision {n}` in a `<small>`
+(`FinalResultsPanel.tsx:296`). There is still no view that ranks a division,
+though winners-by-division is sheet 2 of the export
+`PRODUCT_FOUNDATION.md` §10.5 specifies.
 
-The screen is called **Final results** and cannot show a ranking. Winners by
-division is sheet 2 of the export the foundation document specifies
-(`PRODUCT_FOUNDATION.md` §10.5).
-
-### 1.5 The verification hash is never shown
-
+**2.3 The verification manifest is still invisible.**
 `lib/finalResults.ts:142` stamps every finalized result with
-`manifest: fnv1a-<hash>`. `finalResultsWorkbook.ts:78` writes it into the
-workbook and `:150` reads it back to verify a re-imported file. Grepping `src/`
-for `manifest` returns the library, the workbook, and the type — no component.
+`manifest: fnv1a-<hash>`; the workbook writes it and reads it back to verify a
+re-imported file. Grepping `src/components/` for `manifest` returns nothing. The
+app computes the evidence that a result is unaltered and never lets anyone look
+at it.
 
-The app computes the evidence that a result is unaltered and never lets anyone
-look at it.
+### Analysis — untouched by Pass 1
 
-### 1.6 The average score averages across different rubrics
+**2.4 Average score still averages across rubrics.** `lib/stats.ts:99` is
+unchanged: the mean of `total / totalMax` over every session in scope, where
+sessions are judge *sections* with different maxima and different rubrics. It is
+still rendered at `RecordsView.tsx:846` as the middle metric card, at 26px.
 
-`lib/stats.ts:58`:
+Pass 1 did add a caveat beneath the row (`:853`): *"these are not normalized
+participant comparisons."* That is an improvement and it is not sufficient — a
+sentence under a number does not undo the number, and this is the largest number
+on the screen. The fix is to remove the card or replace it with something that
+is true at a glance, not to annotate it.
 
-```js
-pctSum += s.totalMax > 0 ? (s.total / s.totalMax) * 100 : 0;
-```
+**2.5 The pinpoint data is still spent on a bar chart.** `lib/stats.ts` is
+unchanged. A `Mistake` carries `tid`, `wordText`, `surah`, `ayah`, `page`,
+`glyph`, `label` and `amount`; `computeRecords()` still reduces it to four
+category counts, a top-ten letter frequency and a top-eight location list. Page
+is discarded. Word is discarded. The three panels at `RecordsView.tsx:860`, `:886`
+and `:905` are the same three.
 
-summed over every session in scope, then divided by the count
-(`stats.ts:97`). Sessions are judge-*sections*: a Jalī-only assignment and a
-full-panel assignment have different maxima and different rubrics. The default
-filter state is `All judges` / `All sections` (`RecordsView.tsx:166,173`), so the
-default reading of **Average score** is a mean of percentages drawn from
-rubrics that were never comparable.
-
-`PRODUCT_FOUNDATION.md` §10.3 states the rule this breaks: *"Do not rank across
-categories with different rubrics unless an explicit normalized 'overall winner'
-rule exists."* The metric card does not rank, but it invites the same
-comparison, and it is the largest number on the screen at 26px
-(`global.css` `.metric-num`).
-
-### 1.7 The pinpoint data — the product's entire differentiator — is spent on a bar chart
-
-Every `Mistake` carries `tid`, `wordText`, `surah`, `ayah`, `page`, `glyph`,
-`label` and `amount` (`types.ts:60–80`). That is a letter, located on a printed
-page, with the word it belongs to.
-
-`computeRecords()` reduces all of it to: four category counts, a top-10 letter
-frequency, and a top-8 repeated-location list (`lib/stats.ts:77–92`). Page is
-discarded. Word is discarded. The result is a bar chart that any judging app
-with plus/minus buttons could draw.
-
-`VISION.md` names pinpointing as the thing that *"may multiply the value of each
-competition tenfold"*. The analysis screen is where that value is meant to be
-realised, and it is the screen that throws the pinpoints away.
-
-### 1.8 The accountability layer does not exist
-
-`VISION.md`: *"Reviewable accuracy exposes weak judges, creates accountability…
-Weak judges who pretend get phased out."*
-
-Judge appears in `RecordsView` as a filter dropdown (`:163–169`) and as a name
-in a session row. There is no view in which one judge's marking can be compared
-with another's. The promise that justifies the product is unimplemented on the
-screen that would implement it.
-
-### 1.9 Six facts in one run-on line
-
-`RecordsView.tsx:374–381` — a session's meta line joins age group, category,
-institution, date, mistake count and judge name with `·`. Nothing aligns
-between rows, so nothing can be compared down the list.
+**2.6 There is still no judge comparison anywhere.** `lib/stats.ts` contains no
+reference to judge. The accountability layer `VISION.md` leads with — the record
+that *"exposes weak judges"* — remains unimplemented on the screen that would
+implement it.
 
 ---
 
-## 2. What other people do with this problem
+## 3. The order to do it in
 
-Four worlds have solved a version of these two screens already. Links are to
-what was actually read, not to a search page.
+Scoped so each piece is separately shippable and separately revertible.
 
-### 2.1 Sport that is judged rather than measured
+**Step 1 — the audit reason (2.1).** Smallest, and the only one that is a
+correctness problem rather than a design one. Replace the prompt with a field in
+the expanded row, disable Finalize until it carries text, keep the reason on the
+result exactly as now. No new concepts. Half a day.
 
-**Figure skating's protocol sheet** is the closest living relative of the
-results screen. After every performance the ISU publishes a *judges details
-score* sheet: one row per element, its base value, the grade of execution each
-of the nine judges gave, the trimmed mean, and the element's final score — then
-the component marks, then the deductions, then the total. The arithmetic is
-printed in full so that anyone can re-add it.
-— [ISU Judging System](https://en.wikipedia.org/wiki/ISU_Judging_System) ·
-[Reading figure skating scorecards, JudgeMate](https://www.judgemate.com/en/guides/reading-figure-skating-scorecards) ·
-[Introduction to the IJS](https://www.soyouwanttowatchfs.com/guides/ijs-overview)
+**Step 2 — the manifest and the standings (2.2, 2.3).** These belong together:
+both are about making a finalized result inspectable. The manifest gets a home in
+the expanded row beside the revision; the standings get a division-grouped view.
+Candidate **C** of `final-results-study.html` (the reporting board) is the shape;
+its completeness meter is already served by main's `results-state-chip`.
 
-The transferable move: **show the addition, not the answer.** Our result is
-`Jalī + Khafī + Faṣāḥa + Adu/Raagu`, each from a named judge. That is a protocol
-row. Printing it before the commit fixes §1.1 and §1.2 at once.
+**Step 3 — the average-score card (2.4).** A deletion plus a decision about what,
+if anything, replaces it. Cheap to do, needs an owner's call on what the three
+cards should say — which is why it is not bundled with step 4.
 
-**Gymnastics goes one step further and judges the judges.** The FIG's Judge
-Evaluation Program exists to *"provide constructive feedback to judges… assign
-the best judges to the most important competitions… detect bias and outright
-cheating."* Its marking score scales each judge's mark against the estimated
-true performance as a function of the intrinsic judging-error spread for that
-apparatus, so a deviation is read relative to how noisy that apparatus is.
-— [Judging the Judges (arXiv 1807.10021)](https://arxiv.org/abs/1807.10021) ·
-[FIG General Judges' Rules, 16th cycle](https://www.gymnastics.sport/publicdir/rules/files/en_1.2%20-%20General%20Judges'%20Rules%202025-2028.pdf) ·
-[Olympics.com on the statistics](https://www.olympics.com/en/news/how-statistical-analysis-evaluates-fairness-accuracy-gymnastics)
+**Step 4 — the analysis surface (2.5).** The real work, and the reason the two
+studies exist. Requires `computeRecords` to retain `page` and `wordText` rather
+than discarding them — a contained change to `lib/stats.ts`, named here so the
+studies are not read as free. Candidates **A** and **B** of
+`records-analysis-study.html` are the two shapes worth building; A is the one
+nothing else in the world can draw.
 
-That is §1.8's missing screen, already designed by someone with more at stake.
-
-### 2.2 Examinations that already measured this exact bias
-
-Medical education calls it the **hawk–dove effect**, and has measured it for
-twenty years. In the MRCP(UK) PACES clinical examination, multi-facet Rasch
-modelling of examiner judgements attributed roughly **87% of score variance to
-candidate differences, 1% to station differences, and 12% to differences between
-examiners in leniency–stringency.**
-— [Assessment of examiner leniency and stringency, BMC Medical Education](https://bmcmededuc.biomedcentral.com/articles/10.1186/1472-6920-6-42) ·
-[European Diploma of Anaesthesiology cohort study, PMC](https://pmc.ncbi.nlm.nih.gov/articles/PMC11556864/)
-
-Two things follow, and the second is the important one:
-
-1. Judge severity is real, measurable, and worth a screen.
-2. It is only measurable **when judges are compared on common candidates.** The
-   Rasch approach works because examiners overlap. Any calibration view we build
-   must state its own sample and refuse to compare judges who never scored the
-   same reciters — otherwise the screen reports who each judge happened to be
-   given, dressed up as how strictly they mark.
-
-### 2.3 Teaching, which has recorded oral errors on a text since 1966
-
-Marie Clay's **running records** and Goodman's **miscue analysis** are the
-direct ancestors of what Tahqeeq does: a trained listener marks a reader's
-errors onto the text itself, then analyses the pattern to decide what to teach
-next. The coding is on the passage; the analysis is about the child.
-— [Running Records 101: history, scoring, coding, analysis](https://literacypages.wordpress.com/2018/08/21/running-records-101-the-history-how-to-score-code-analyze/) ·
-[Metatheoretical differences between running records and miscue analysis (NCTE)](https://publicationsncte.org/content/journals/10.58680/rte201829753) ·
-[A narrative review of the evidence for running records (2026)](https://journals.sagepub.com/doi/10.3102/00346543251348258)
-
-The transferable move: **the analysis ends in a teaching claim, not a count.**
-A row that reads *"ٱلنَّفَّٰثَٰتِ — 9 of 14 reciters, mostly Jalī"* is
-actionable. A bar labelled *"Lahn Jali — 184"* is not.
-
-### 2.4 Reconciliation, election night, and dense tables
-
-- **Transaction matching** UIs give the operator a queue that empties: a
-  suggested match, a confirm, a skip, and an audit log of every action taken.
-  The screen's success condition is reaching zero.
-  — [Transaction matching, Nominal](https://www.nominal.so/blog/transaction-matching/)
-- **Election results** solved *provisional versus final* long ago: the leader is
-  shown alongside how much is still to come, so nobody mistakes an early total
-  for a result. Flourish's survey of the idioms is a decent index.
-  — [16 ways to visualize elections data](https://flourish.studio/blog/report-on-elections-with-flourish/)
-- **Chess crosstables** put one row per player and one column per round, with
-  the diagonal blocked out — the densest legible form of "who met whom, and what
-  happened".
-  — [FIDE Grand Swiss 2025 crosstable](https://s3.chess-results.com/tnr1246285.aspx?lan=1&art=2&rd=9&turdet=YES&flag=30&SNode=S0) ·
-  [How to read a crosstable](https://chesstournamentguide.com/rules-ratings/what-is-a-crosstable-in-chess/)
-- **Tufte's sparklines** are the licence for putting the evidence *inside* the
-  row rather than in a chart panel beside it: *"small, intense, simple,
-  word-sized graphics"* that raise the data per eyespan without a second glance.
-  — [Sparkline theory and practice](https://www.edwardtufte.com/notebook/sparkline-theory-and-practice-edward-tufte/) ·
-  [Small multiples](https://www.juiceanalytics.com/writing/better-know-visualization-small-multiples)
+**Step 5 — judge calibration (2.6).** Last, because it is the only piece that
+reaches past design into statistics. Candidate **C** of the analysis study is
+deliberately mostly a refusal: with one seat per criterion, most judge pairs
+share no reciters and the honest output is *"nothing to compare"*. Anything
+stronger needs the many-facet Rasch treatment named in §2.2 of the study, and
+that is a rules decision with an owner, not a screen.
 
 ---
 
-## 3. The candidates
+## 4. Which study answers which step
 
-Both studies follow the house format: four live candidates, measured at run time
-by the same code that draws them, then failed against the grammar.
+| Step | Study | Section |
+| --- | --- | --- |
+| 1 | `final-results-study.html` | Candidate B's in-card reason field |
+| 2 | `final-results-study.html` | Candidates C and D |
+| 3 | — | Owner's decision |
+| 4 | `records-analysis-study.html` | Candidates A and B, §04 amendments 1 and 3 |
+| 5 | `records-analysis-study.html` | Candidate C, §02.2 |
 
-### 3.1 Results — `docs/final-results-study.html`
-
-| | Candidate | Borrowed from | Its bet |
-| --- | --- | --- | --- |
-| **A** | **Protocol sheet** | ISU judges details | One row per reciter, one column per criterion, the addition printed. Comparison runs down a column. |
-| **B** | **Reconciliation queue** | Transaction matching | The screen sorts itself by what blocks you and ends at zero. One reciter at a time gets the full width. |
-| **C** | **Reporting board** | Election night | Division standings with a per-row completeness meter — *3 of 4 sections in*. Provisional totals are visibly provisional. |
-| **D** | **Ledger page** | The printed record itself | Each result is a small signed document: figures in a column, a rule, a total, the judges as signatories, the manifest as a seal. |
-
-Every candidate shows the criterion marks before the commit. That is not a
-variable under test — §1.1 is a defect, and all four fix it.
-
-### 3.2 Analysis — `docs/records-analysis-study.html`
-
-| | Candidate | Borrowed from | Its bet |
-| --- | --- | --- | --- |
-| **A** | **The page as the evidence** | Statcast-style density on the field of play | The Mushaf page *is* the chart. Frequency is painted onto the words that were marked. |
-| **B** | **The teaching list** | Running records / miscue analysis | Rows are claims a teacher can act on, with the sample size on every one and a sparkline for direction. |
-| **C** | **Judge calibration** | FIG JEP, hawk–dove Rasch studies | One row per judge seat, compared only across reciters they both scored, with the overlap stated. |
-| **D** | **Ask one question** | — | No dashboard. A short list of questions in plain words; answering one takes the screen. |
+Both studies were built before Pass 1 and mock the pre-Pass-1 screen. Their
+candidates are still valid as shapes; their "today" columns are not, and should
+be read against §1 above rather than against the current app.
 
 ---
 
-## 4. Grammar amendments
+## 5. Out of scope, named so it is not read as free
 
-The owner's instruction was *law, but propose amendments*. Four, each with its
-one sentence.
-
-**Amendment 1 — rule 3, colour is a verdict.** Density is not a verdict, so a
-heat overlay painted in category colour would be a false signal. *Proposal: in
-analysis, frequency is carried in ink alpha alone; a category colour appears
-only once the view is filtered to a single criterion, at which point the colour
-is reporting a verdict that was actually given.* The rule survives intact.
-
-**Amendment 2 — rule 10, a control is at least 44px.** The rule states its own
-reason: *"a judge is listening to a person recite; they cannot also be aiming."*
-Neither review screen is ever open during a recitation. *Proposal: record the
-44px floor as a live-judging rule, and permit 32–36px rows in Records and Final
-results* — which is the difference between a protocol table showing six reciters
-and showing twelve. Anything destructive keeps 44px regardless.
-
-**Amendment 3 — rule 1, the page is the evidence.** Written as a Mushaf-screen
-rule, it reads as being about layout. *Proposal: promote it — the evidence is
-the page wherever evidence is shown, analysis included.* This is the whole
-argument for analysis candidate A, and it is the reason §1.7 is a defect rather
-than a preference.
-
-**Amendment 4 — a new rule 11.** The grammar has no rule that would have caught
-§1.1. Proposed wording, in the file's own voice:
-
-> **11. A number is visible before it is committed.**
-> The mark that goes on a reciter's record is shown, with its parts, before the
-> control that commits it can be pressed. A screen that reports a total only
-> after the act is a screen that asked for consent to a number it did not name.
-> *Fails this rule:* Final results, which shows `Ready` where the total belongs.
-
-Rule 2 needs no amendment — it needs applying. Final results is a second home
-for a distinct job and belongs in its own view, not at the foot of Records.
-
----
-
-## 5. What is deliberately not in scope
-
-- **The export workbook.** `finalResultsWorkbook.ts` writes two sheets,
-  `Results` and `Verification` (`:118–119`), against the eight the foundation
-  specifies (§10.5). Real gap, separate piece of work.
-- **The scoring engine.** No candidate changes how a mark is computed.
-- **`computeRecords` itself.** Candidates A–C of the analysis study need page
-  and word retained rather than discarded (§1.7); that is a small, contained
-  change to `lib/stats.ts` and it is named here so the studies are not read as
-  free.
-- **Multi-judge combining rules.** Still undecided
-  (`UNDECIDED_DECISIONS.md` §13). The studies show the *choice between* two
-  judges' sessions, never an average of them.
+- **The Results surface's information architecture.** Owned by
+  `INTERFACE_SIMPLIFICATION_AND_JUDGING_FLOW_PLAN.md`. Steps 1–2 above are
+  additions inside that architecture, not a redesign of it.
+- **Splitting Results and Analysis into separate views.** The first version of
+  this file argued for it on rule-2 grounds. Pass 1 has since given them separate
+  headed sections inside one view, which may be enough; deciding that is the
+  owner's call and it blocks nothing above.
+- **The export workbook.** `finalResultsWorkbook.ts` still writes two sheets
+  against the eight `PRODUCT_FOUNDATION.md` §10.5 specifies. Real gap, separate
+  work.
+- **Multi-judge combining rules.** Still undecided (`UNDECIDED_DECISIONS.md`).
+  Everything above shows a *choice between* two judges' sessions, never an
+  average of them.
