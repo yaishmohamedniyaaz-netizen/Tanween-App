@@ -1,6 +1,6 @@
 # Interface simplification and judging-flow plan
 
-Status: easy fixes and Adu / Raagu required entry implemented and verified; visual approval and later slices remain
+Status: easy fixes, Adu / Raagu required entry, and desktop Mushaf stage implemented and verified; later slices remain
 
 Prepared: 16 August 2026
 
@@ -45,7 +45,7 @@ lifecycle rules.
 | Adu / Raagu input | one whole-recitation criterion, half-step default, one event per committed gesture, and assignment scoping exist | active unentered marks now show zero/pending and require a deliberate selection; historical saved totals retain their legacy fallback | Implemented |
 | Finish workflow | confirmation and next-reciter handoff exist | the shared picker now appears inside Finish, Save remains disabled while pending, and reducer plus App guards prevent bypass | Implemented |
 | Idle judging screen | live/draft/closed states and actions are correct | copy, hierarchy, ruled data rows, and idle-only width are implemented; Mushaf stage geometry remains | In progress |
-| Mushaf source fidelity | one 1405H/QCF renderer, fixed lines, page fonts, IDs, and measured hitboxes exist | viewing frame is height-derived and does not own a stable centred viewport | Planned |
+| Mushaf source fidelity | one 1405H/QCF renderer, fixed lines, page fonts, IDs, and measured hitboxes exist | frame-owned Fit, centred remaining-height stage, print reset, and narrow fallback are verified | Implemented |
 | Mushaf zoom | `mushafZoom` is persisted and Settings already exposes 45–100% | add direct judge-screen access, a usable enlargement range, fit reset, and contained overflow policy | Planned |
 | Phone judging | complete research plan exists | remains a later, separately approved implementation after desktop geometry is stable | Deferred |
 
@@ -436,6 +436,12 @@ participant action without reading helper copy.
 The first release owns the idle state hook and panel correction. This later
 slice is therefore only the geometry-sensitive stage work:
 
+The researched implementation contract is
+[`DESKTOP_MUSHAF_STAGE_IMPLEMENTATION_PLAN.md`](./DESKTOP_MUSHAF_STAGE_IMPLEMENTATION_PLAN.md).
+It selects a remaining-height app shell, an actual measured document frame, and
+contained overflow while explicitly preserving the internal 1405H/QCF page
+composition. Zoom interaction remains Slice E.
+
 1. Give the judge view a remaining-height stage.
 2. Centre the composed page within the viewing frame.
 3. Remove unnecessary default document scrolling.
@@ -444,6 +450,12 @@ slice is therefore only the geometry-sensitive stage work:
 Gate: pages 1, 2, 199, 300, 601, 602, and 604 retain their composed geometry;
 the idle and active desktop views are centred with no accidental horizontal or
 default vertical overflow.
+
+Implementation status: verified. The frame now derives Fit from its measured
+inline and block size, the desktop document has no default overflow, and the
+short-height/narrow layouts preserve normal document flow. All 253 tests and
+the production build pass; representative full/split pages were browser-checked
+in both themes and rail positions.
 
 ### Slice E — direct zoom scrubber
 
@@ -573,7 +585,7 @@ idle screen has a clear primary action, Results reads as a professional ledger,
 and the Mushaf is centred and directly scalable without changing its printed
 geometry.
 
-As of this update, the durable easy-fixes release is implemented and
-build-verified; browser visual approval remains. Required Adu / Raagu entry,
-remaining Settings/Results composition, the stable Mushaf stage, direct zoom,
-and phone work remain separate planned slices.
+As of this update, the durable easy-fixes and required Adu / Raagu releases are
+implemented and build-verified; browser visual approval remains where noted.
+The remaining Settings/Results composition, direct zoom, and phone work remain
+separate slices. The stable desktop Mushaf stage is implemented and verified.

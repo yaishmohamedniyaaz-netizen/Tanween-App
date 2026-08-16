@@ -1,5 +1,31 @@
 # Tahqeeq — build progress log
 
+## Desktop Mushaf stage — IMPLEMENTED & VERIFIED (2026-08-16)
+
+- The two-column judge shell now owns the stable screen height, the header takes
+  its intrinsic row, and the Mushaf fits the frame's measured width and height
+  instead of another guessed viewport subtraction.
+- Full and split pages retain their exact aspect ratios, maximum sizes, QCF
+  glyphs, line composition, source IDs, and measured hitbox contract. An 8px
+  minimum clearance keeps the centred paper and focus geometry off the frame.
+- The Mushaf frame owns future overflow while the rail stretches to the same
+  workspace height. At Fit, the 1280 x 720 document and frame both measure with
+  no horizontal or vertical overflow and opposing gaps match within 1px.
+- Narrow, short-height, and print views restore normal document flow. The idle
+  workspace's stronger selector is explicitly reset below 900px so the phone
+  Mushaf column cannot collapse to zero width.
+- Browser QA covered 1440 x 900, 1280 x 720, 1024 x 768, 768 x 1024, 390 x 844,
+  the 1280 x 600 fallback, idle and active judging, the hint-reduced frame,
+  visible Finish action, word-tray open/close, full/split layouts, both themes
+  and rail sides, pages 1, 2, 199, 300, 601, 602, and 604, and page navigation
+  604 -> 603. No console errors were recorded.
+- All 253 tests pass, the production Sites build succeeds, and `git diff --check`
+  is clean. The implementation contract and acceptance evidence are recorded in
+  [`docs/DESKTOP_MUSHAF_STAGE_IMPLEMENTATION_PLAN.md`](docs/DESKTOP_MUSHAF_STAGE_IMPLEMENTATION_PLAN.md).
+- The zoom toolbar/range and dedicated phone judging layout remain separate
+  later updates.
+- Rollback checkpoint: `checkpoint/pre-desktop-mushaf-stage-20260816`.
+
 ## Adu / Raagu required entry — IMPLEMENTED & VERIFIED (2026-08-16)
 
 - Active and reopened unentered Adu / Raagu now starts at zero and

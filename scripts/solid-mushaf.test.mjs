@@ -27,6 +27,14 @@ const mushafStyleSource = fs.readFileSync(
   new URL("../src/styles/global.css", import.meta.url),
   "utf8",
 );
+const mushafViewportSource = fs.readFileSync(
+  new URL("../src/components/MushafViewport.tsx", import.meta.url),
+  "utf8",
+);
+const appSource = fs.readFileSync(
+  new URL("../src/App.tsx", import.meta.url),
+  "utf8",
+);
 
 test("the source Mushaf selects one whole kalimah before exact rail choice", () => {
   assert.match(mushafSource, /interface WordHitbox/);
@@ -60,6 +68,25 @@ test("shared Mushaf geometry protects Arabic ink and cartouche titles", () => {
     mushafStyleSource,
     /\.page-surahs[\s\S]*line-height: 1\.35/,
   );
+});
+
+test("desktop Fit is owned by a measured frame instead of another viewport guess", () => {
+  assert.match(appSource, /className=\{`app view-\$\{view\}`\}/);
+  assert.match(appSource, /<MushafViewport/);
+  assert.match(mushafViewportSource, /new ResizeObserver\(measure\)/);
+  assert.match(mushafViewportSource, /frame\.clientWidth/);
+  assert.match(mushafViewportSource, /frame\.clientHeight/);
+  assert.match(mushafStyleSource, /\.app\.view-judge[\s\S]*height: 100svh/);
+  assert.match(
+    mushafStyleSource,
+    /\.mushaf-shell\[data-stage-fit="ready"\] \.page[\s\S]*--mushaf-render-inline-size/,
+  );
+  assert.match(mushafStyleSource, /\.mushaf-shell[\s\S]*overflow: auto/);
+  assert.match(
+    mushafStyleSource,
+    /@media \(max-width: 900px\)[\s\S]*\.workspace\.is-idle[\s\S]*grid-template-columns: 1fr/,
+  );
+  assert.doesNotMatch(mushafViewportSource, /transform: scale/);
 });
 
 test("QCF page fonts are loaded before a page is declared ready", () => {

@@ -642,7 +642,7 @@ export function Mushaf({
   if (!pageData) {
     return (
       <div className="mushaf-scroll">
-        <div className="page mushaf-loading">
+        <div className={`page mushaf-loading ${pageLayout === "split" ? "page-split" : ""}`}>
           <div className="loading-spinner" />
         </div>
       </div>

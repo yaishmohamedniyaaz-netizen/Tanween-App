@@ -1,5 +1,4 @@
 import {
-  type CSSProperties,
   useCallback,
   useEffect,
   useRef,
@@ -7,6 +6,7 @@ import {
 } from "react";
 import { Header, type AppView } from "./components/Header";
 import { Mushaf } from "./components/Mushaf";
+import { MushafViewport } from "./components/MushafViewport";
 import { ScorePanel } from "./components/ScorePanel";
 import { MistakeLog } from "./components/MistakeLog";
 import { NotesBox } from "./components/NotesBox";
@@ -271,7 +271,7 @@ export function App() {
   );
 
   return (
-    <div className="app">
+    <div className={`app view-${view}`}>
       <Header
         view={view}
         onToggleView={() => setView((current) => (current === "judge" ? "records" : "judge"))}
@@ -315,9 +315,9 @@ export function App() {
                 }}
               />
             )}
-            <div
-              className="mushaf-shell"
-              style={{ "--page-zoom": preferences.mushafZoom / 100 } as CSSProperties}
+            <MushafViewport
+              layout={preferences.mushafLayout}
+              zoomPercent={preferences.mushafZoom}
             >
               <Mushaf
                 page={page}
@@ -327,7 +327,7 @@ export function App() {
                   <PageNav page={page} onChange={handlePageChange} />
                 }
               />
-            </div>
+            </MushafViewport>
           </div>
           <aside className="sidebar">
             {state.preparedRecitation ? (
