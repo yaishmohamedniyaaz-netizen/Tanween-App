@@ -139,7 +139,7 @@ export function App() {
       />
       {view === "judge" ? (
         <main
-          className={`workspace rail-${preferences.judgeRailSide} ${!state.sessionActive && !state.preparedRecitation ? "is-idle" : ""}`}
+          className={`workspace layout-${preferences.mushafLayout} rail-${preferences.judgeRailSide} ${!state.sessionActive && !state.preparedRecitation ? "is-idle" : ""}`}
           key="judge"
         >
           <div className="stage">

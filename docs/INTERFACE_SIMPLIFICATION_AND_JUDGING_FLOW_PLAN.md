@@ -1,6 +1,8 @@
 # Interface simplification and judging-flow plan
 
-Status: easy fixes, Adu / Raagu required entry, desktop Mushaf stage, and judge-workspace scale/guidance implemented and locally verified
+Status: easy fixes, Adu / Raagu required entry and alignment, desktop Mushaf
+stage, Fit-default spread geometry, and judge-workspace scale/guidance implemented
+and locally verified
 
 Prepared: 16 August 2026
 
@@ -464,9 +466,8 @@ Detailed researched contract:
 The earlier
 [`surface plan`](./JUDGE_WORKSPACE_LAYOUT_AND_GUIDANCE_SURFACE_PLAN.md) records
 the options considered. The detailed contract selects the balanced wide
-workbench, locks a 75–150% range in 5% steps with Fit at 100% and a new-user
-default of 110%, and specifies non-displacing guidance plus uniform Mushaf
-magnification.
+workbench, locks a 75–150% range in 5% steps with Fit at 100%, and specifies
+non-displacing guidance plus uniform Mushaf magnification.
 
 1. Replace the normal-flow hint with a non-displacing coach bubble.
 2. Apply the selected balanced wide workbench and confirm its two bounded visual variants.
@@ -482,6 +483,11 @@ Implementation verification: the full and split views were checked at Fit,
 110%, and 150% on the available browser surface; contained scrolling reaches
 every page edge, hit areas remain aligned after scale normalization, guidance
 produces zero workspace movement, and the 390×844 fallback remains separate.
+
+The follow-up spread refinement makes Fit the fresh-device default, places the
+selector above both real pages, and keeps the desktop rail at a stable outer
+edge. Adu / Raagu values such as `12.5 / 20` share the same 72 px score column,
+baseline, and no-wrap numeric treatment as the other criteria.
 
 Phone geometry and the phone judging dock remain separate later approvals from
 the existing mobile plan.

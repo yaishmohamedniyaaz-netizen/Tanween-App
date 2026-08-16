@@ -254,7 +254,7 @@ export function MarkPicker({
       <button
         ref={buttonRef}
         type="button"
-        className={`mark-picker ${marked ? "is-marked" : ""} ${open ? "is-open" : ""}`}
+        className={`mark-picker score-value-layout ${marked ? "is-marked" : ""} ${open ? "is-open" : ""}`}
         role="spinbutton"
         aria-label={`${label} marks`}
         aria-valuemin={0}
@@ -266,8 +266,8 @@ export function MarkPicker({
         onPointerDown={onPointerDown}
         onKeyDown={onKeyDown}
       >
-        <span className="mark-picker-value t-num">{display}</span>
-        <span className="mark-picker-of t-num">/ {max}</span>
+        <span className="mark-picker-value score-value-number t-num">{display}</span>
+        <span className="mark-picker-of sc-of t-num">/ {max}</span>
       </button>
       {open &&
         createPortal(

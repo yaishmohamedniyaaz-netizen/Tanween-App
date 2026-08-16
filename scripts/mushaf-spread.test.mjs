@@ -63,6 +63,10 @@ test("the renderer loads and swaps both page assets as one spread", () => {
   assert.match(mushafSource, /data-visible-pages=/);
   assert.match(stylesSource, /\.mushaf-spread/);
   assert.match(stylesSource, /\.mushaf-spread > \.page:first-child/);
+  assert.match(mushafSource, /mushaf-scroll.*is-spread/);
+  assert.match(stylesSource, /\.mushaf-scroll\.is-spread \.mushaf-shared-nav/);
+  assert.match(stylesSource, /position: relative/);
+  assert.match(stylesSource, /--mushaf-stage-block-size/);
   assert.doesNotMatch(stylesSource, /\.page-split/);
 });
 

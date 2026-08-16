@@ -14,6 +14,13 @@ Baseline: `b29d567` (`feat: improve participant intake workflow`)
 Rollback: `checkpoint/pre-settings-overhaul-v1`
 Implementation: Complete; commit recorded in the repository history
 
+Follow-up refinement, 16 August 2026: setup panels now use a measured 220 ms
+grid-track transition. A closing panel remains mounted until the transition
+finishes, reduced-motion users receive an immediate state change, and a temporary
+document-flow reserve prevents a lower accordion trigger from jumping when its
+content collapses. Browser verification kept the Review trigger at the same
+viewport position before and after collapse.
+
 ## 1. Executive decision
 
 The missing settings overhaul should be recovered as two deliberately separate
@@ -325,6 +332,10 @@ with the recovered Claude artifact's Candidate B pattern:
 - selecting a row expands that task's controls directly below its heading;
 - selecting another row collapses the previous task and expands the new one;
 - only one setup task is expanded at a time;
+- opening and closing animate the panel block size without transforming or
+  reorienting the page;
+- collapsing a panel preserves the trigger's viewport position even near the
+  bottom of the document;
 - completed tasks can be reopened without losing their completed state;
 - incomplete edits are protected by Save/Cancel and the dirty-navigation guard;
 - the final Review and start task is a real accordion task, not a permanently

@@ -4707,6 +4707,17 @@ textarea:focus-visible {
   z-index: 30;
   transform: translateX(-50%);
 }
+.mushaf-scroll.is-spread {
+  grid-template-rows: auto auto;
+  align-content: center;
+  row-gap: 4px;
+}
+.mushaf-scroll.is-spread .mushaf-shared-nav {
+  position: relative;
+  top: auto;
+  left: auto;
+  transform: none;
+}
 .page-nav {
   position: relative;
   z-index: 12;
@@ -5255,7 +5266,7 @@ textarea:focus-visible {
 }
 .sc-row {
   display: grid;
-  grid-template-columns: 9px minmax(0, 1fr) 42px 66px;
+  grid-template-columns: 9px minmax(0, 1fr) 42px 72px;
   align-items: center;
   gap: 8px;
   min-height: 38px;
@@ -5286,11 +5297,22 @@ textarea:focus-visible {
   color: var(--ink-3);
 }
 .sc-score {
-  font-size: 14.5px;
-  font-weight: 500;
+  width: 100%;
   text-align: center;
+  white-space: nowrap;
+}
+.score-value-layout {
+  display: inline-flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.3ch;
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
+}
+.score-value-number {
+  font-size: 14.5px;
+  font-weight: 500;
+  line-height: 1;
 }
 .sc-score .sc-of {
   font-size: 12px;
@@ -8310,6 +8332,16 @@ html:has(.dialog-backdrop) {
     align-items: stretch;
     overflow: hidden;
   }
+  .app.view-judge .workspace.layout-spread {
+    grid-template-columns: minmax(0, 1fr) clamp(304px, 22vw, 324px);
+    grid-template-areas: "stage sidebar";
+    gap: 12px;
+    padding: 8px 12px;
+  }
+  .app.view-judge .workspace.layout-spread.rail-left {
+    grid-template-columns: clamp(304px, 22vw, 324px) minmax(0, 1fr);
+    grid-template-areas: "sidebar stage";
+  }
   .app.view-judge .stage {
     display: flex;
     min-height: 0;
@@ -8335,7 +8367,7 @@ html:has(.dialog-backdrop) {
   }
   .app.view-judge .mushaf-shell[data-stage-fit="ready"] .mushaf-scroll {
     width: max(100%, calc(var(--mushaf-render-inline-size) + 16px));
-    height: max(100%, calc(var(--mushaf-render-block-size) + 16px));
+    height: max(100%, calc(var(--mushaf-stage-block-size) + 16px));
     padding: 8px;
     overflow: visible;
   }
@@ -8348,7 +8380,7 @@ html:has(.dialog-backdrop) {
     width: 100%;
     max-width: none;
   }
-  .app.view-judge .mushaf-shell[data-stage-fit="ready"] .mushaf-shared-nav {
+  .app.view-judge .mushaf-shell[data-stage-fit="ready"] .mushaf-scroll.is-single .mushaf-shared-nav {
     top: calc(50% - (var(--mushaf-render-block-size) * 0.5) + 8px);
   }
   .app.view-judge .sidebar {
@@ -8875,7 +8907,7 @@ html:has(.dialog-backdrop) {
 /* ---- Whole-recitation criteria (Adu / Raagu) ----
    The score row is the control: no second panel, no duplicated label. */
 .sc-row-impression {
-  grid-template-columns: 9px minmax(0, 1fr) 42px 66px;
+  grid-template-columns: 9px minmax(0, 1fr) 42px 72px;
   row-gap: 7px;
   padding-bottom: 9px;
 }
@@ -8896,12 +8928,7 @@ html:has(.dialog-backdrop) {
 /* A full border is the signifier that this number can be changed; the other
    score rows stay plain text because they cannot. */
 .mark-picker {
-  display: grid;
-  grid-template-columns: auto auto;
-  place-content: center;
-  align-items: center;
-  gap: 3px;
-  width: 66px;
+  width: 72px;
   min-height: 30px;
   padding: 2px 4px;
   border: 1px solid var(--line-2);
@@ -8926,9 +8953,6 @@ html:has(.dialog-backdrop) {
   box-shadow: inset 0 0 0 1px var(--ink);
 }
 .mark-picker-value {
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 1;
   font-variant-numeric: tabular-nums;
 }
 .mark-picker-of {

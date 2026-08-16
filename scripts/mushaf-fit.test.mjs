@@ -5,6 +5,7 @@ import {
   computeMushafRenderedBlockSize,
   computeMushafRenderedInlineSize,
   MUSHAF_FRAME_INSET,
+  MUSHAF_SPREAD_NAV_BLOCK_SIZE,
   STABLE_MUSHAF_STAGE_QUERY,
 } from "../src/lib/mushafFit.ts";
 
@@ -31,7 +32,8 @@ test("two-page spread Fit is width- or height-limited without changing either pa
     frameInlineSize: 1200,
     frameBlockSize: 700,
     layout: "spread",
-  }), 942);
+  }), 898);
+  assert.equal(MUSHAF_SPREAD_NAV_BLOCK_SIZE, 32);
 });
 
 test("Fit retains clearance and rejects unusable measurements", () => {

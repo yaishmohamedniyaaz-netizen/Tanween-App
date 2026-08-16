@@ -29,9 +29,9 @@ function CategoryRow({
       <span className={`sc-deducted t-num ${deducted === 0 ? "is-zero" : ""}`}>
         {deducted === 0 ? "—" : `−${deducted}`}
       </span>
-      <span className="sc-score t-num">
-        {score}
-        <span className="sc-of"> / {start}</span>
+      <span className="sc-score score-value-layout t-num">
+        <span className="score-value-number">{score}</span>
+        <span className="sc-of">/ {start}</span>
       </span>
     </div>
   );

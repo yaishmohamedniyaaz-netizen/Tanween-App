@@ -852,7 +852,7 @@ export function Mushaf({
     : requestedPages;
 
   return (
-    <div className="mushaf-scroll">
+    <div className={`mushaf-scroll ${renderedPages.length > 1 ? "is-spread" : "is-single"}`}>
       <div className="mushaf-shared-nav">
         {headerControls(renderedPageNumbers, compact)}
       </div>

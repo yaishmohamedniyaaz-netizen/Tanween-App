@@ -18,7 +18,7 @@ export const LEGACY_JUDGE_RAIL_SIDE_KEY = "tahqeeq:judgeRailSide";
 
 export const MUSHAF_ZOOM_MIN = 75;
 export const MUSHAF_ZOOM_FIT = 100;
-export const MUSHAF_ZOOM_DEFAULT = 110;
+export const MUSHAF_ZOOM_DEFAULT = MUSHAF_ZOOM_FIT;
 export const MUSHAF_ZOOM_MAX = 150;
 export const MUSHAF_ZOOM_STEP = 5;
 

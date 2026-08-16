@@ -1,4 +1,10 @@
-import { Fragment, useMemo, useState } from "react";
+import {
+  Fragment,
+  type ReactNode,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import {
   CATEGORIES,
   DEFAULT_CONFIG,
@@ -33,6 +39,76 @@ import type {
 } from "../types";
 import { Icon } from "./Icon";
 import { ParticipantRosterEditor } from "./ParticipantRosterEditor";
+
+const SETUP_PANEL_TRANSITION_MS = 220;
+
+function SetupAccordionPanel({
+  id,
+  open,
+  render,
+}: {
+  id: string;
+  open: boolean;
+  render: () => ReactNode;
+}) {
+  const [present, setPresent] = useState(open);
+  const [expanded, setExpanded] = useState(open);
+
+  useEffect(() => {
+    let animationFrame = 0;
+    let fallbackTimer = 0;
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (open) {
+      if (!present) {
+        setPresent(true);
+        return undefined;
+      }
+      animationFrame = window.requestAnimationFrame(() => setExpanded(true));
+    } else if (present) {
+      if (reducedMotion) {
+        setExpanded(false);
+        setPresent(false);
+        return undefined;
+      }
+      animationFrame = window.requestAnimationFrame(() => setExpanded(false));
+      fallbackTimer = window.setTimeout(
+        () => setPresent(false),
+        SETUP_PANEL_TRANSITION_MS + 60,
+      );
+    } else {
+      setExpanded(false);
+    }
+
+    return () => {
+      window.cancelAnimationFrame(animationFrame);
+      window.clearTimeout(fallbackTimer);
+    };
+  }, [open, present]);
+
+  if (!present) return null;
+
+  return (
+    <div
+      id={id}
+      className={`setup-checklist-panel-shell ${expanded ? "is-open" : ""}`}
+      aria-hidden={!open}
+      onTransitionEnd={(event) => {
+        if (
+          event.target === event.currentTarget &&
+          event.propertyName === "grid-template-rows" &&
+          !open
+        ) {
+          setPresent(false);
+        }
+      }}
+    >
+      <div className="setup-checklist-panel-clip">
+        <div className="setup-checklist-panel">{render()}</div>
+      </div>
+    </div>
+  );
+}
 import { SampleBadge } from "./SampleBadge";
 
 export type SetupTask =
@@ -173,6 +249,7 @@ export function CompetitionSetup({
       ? "review"
       : "details",
   );
+  const [scrollReserve, setScrollReserve] = useState(0);
   const [identity, setIdentity] = useState({
     name: state.competition.name,
     edition: state.competition.edition,
@@ -212,6 +289,19 @@ export function CompetitionSetup({
   const divisionValidation = useMemo(() => categoryErrors(divisionDrafts), [divisionDrafts]);
   const divisionsValid = divisionDrafts.length > 0 && Object.keys(divisionValidation).length === 0;
 
+  const closeActiveTask = () => {
+    const panel = activeTask
+      ? document.getElementById(`setup-task-panel-${activeTask}`)
+      : null;
+    const closingHeight = panel?.getBoundingClientRect().height ?? 0;
+    const finalDocumentHeight = document.documentElement.scrollHeight - closingHeight;
+    setScrollReserve(Math.max(
+      0,
+      Math.ceil(window.scrollY + window.innerHeight - finalDocumentHeight),
+    ));
+    setActiveTask(null);
+  };
+
   const sectionComplete = (task: SetupTask): boolean => {
     if (task === "review") return readiness.ready;
     if (task === "question-bank") return true;
@@ -230,19 +320,19 @@ export function CompetitionSetup({
         edition: identity.edition.trim(),
       },
     });
-    setActiveTask(null);
+    closeActiveTask();
   };
 
   const savePanel = () => {
     if (!editable || !panelValidation.valid || !panelDeviceValid) return;
     dispatch({ type: "SET_PANEL", panel: panelDraft, deviceJudgeId });
-    setActiveTask(null);
+    closeActiveTask();
   };
 
   const saveMarks = () => {
     if (!editable || marksTotal !== TOTAL_MARKS) return;
     dispatch({ type: "SET_SCORE_CONFIG", config: scoreDraft });
-    setActiveTask(null);
+    closeActiveTask();
   };
 
   // Switching a criterion off must never leave its marks in the total.
@@ -284,7 +374,7 @@ export function CompetitionSetup({
     if (!editable || !divisionsValid) return;
     dispatch({ type: "SET_DIVISIONS", divisions: cloneDivisions(divisionDrafts) });
     setEditingDivisionId(null);
-    setActiveTask(null);
+    closeActiveTask();
   };
 
   const updateParticipantEntrySettings = (
@@ -323,13 +413,13 @@ export function CompetitionSetup({
         },
       },
     });
-    setActiveTask(null);
+    closeActiveTask();
   };
 
   const saveQuestionPolicy = () => {
     if (!editable) return;
     dispatch({ type: "SET_QUESTION_POLICY", policy: questionPolicyDraft });
-    setActiveTask(null);
+    closeActiveTask();
   };
 
   const choosePreset = (preset: JudgePanelPreset) => {
@@ -432,12 +522,13 @@ export function CompetitionSetup({
     if (activeTask === next) {
       if (taskDirty(activeTask) && !window.confirm("Discard the unsaved changes in this setup task?")) return;
       resetTaskDraft(activeTask);
-      setActiveTask(null);
+      closeActiveTask();
       return;
     }
     if (taskDirty(activeTask) && !window.confirm("Discard the unsaved changes in the open setup task?")) return;
     resetTaskDraft(activeTask);
     resetTaskDraft(next);
+    setScrollReserve(0);
     setActiveTask(next);
   };
 
@@ -484,6 +575,7 @@ export function CompetitionSetup({
     dispatch({ type: "LOAD_SAMPLE_COMPETITION" });
     resetLocalDrafts(true);
     setRosterMessage("Sample competition and fictional participant list loaded.");
+    setScrollReserve(0);
     setActiveTask("review");
   };
 
@@ -496,11 +588,12 @@ export function CompetitionSetup({
     dispatch({ type: "REMOVE_SAMPLE_DATA" });
     resetLocalDrafts(false);
     setRosterMessage("");
+    setScrollReserve(0);
     setActiveTask("details");
   };
 
-  const renderTask = () => {
-    if (activeTask === "details") {
+  const renderTask = (task: SetupTask) => {
+    if (task === "details") {
       return (
         <section className="setup-work-card" aria-labelledby="setup-details-title">
           <div className="setup-work-head">
@@ -542,7 +635,7 @@ export function CompetitionSetup({
       );
     }
 
-    if (activeTask === "divisions") {
+    if (task === "divisions") {
       return (
         <section className="setup-work-card" aria-labelledby="setup-divisions-title">
           <div className="setup-work-head">
@@ -637,7 +730,7 @@ export function CompetitionSetup({
       );
     }
 
-    if (activeTask === "participants") {
+    if (task === "participants") {
       return (
         <section className="setup-work-card" aria-labelledby="setup-participants-title">
           <div className="setup-work-head">
@@ -782,7 +875,7 @@ export function CompetitionSetup({
       );
     }
 
-    if (activeTask === "panel") {
+    if (task === "panel") {
       const panelForDevice = state.competition.status === "live"
         ? state.competition.liveSnapshot?.panel ?? state.panel
         : panelDraft;
@@ -834,7 +927,7 @@ export function CompetitionSetup({
       );
     }
 
-    if (activeTask === "marks") {
+    if (task === "marks") {
       return (
         <section className="setup-work-card" aria-labelledby="setup-marks-title">
           <div className="setup-work-head"><span className="setup-step">Judging</span><h2 id="setup-marks-title">Marks and criteria</h2><p>Choose the criteria this competition judges, then divide {TOTAL_MARKS} marks between them. These values become immutable when the competition starts.</p></div>
@@ -877,7 +970,7 @@ export function CompetitionSetup({
       );
     }
 
-    if (activeTask === "questions") {
+    if (task === "questions") {
       const policy = questionPolicyDraft;
       return (
         <section className="setup-work-card" aria-labelledby="setup-questions-title">
@@ -906,7 +999,7 @@ export function CompetitionSetup({
       );
     }
 
-    if (activeTask === "question-bank") {
+    if (task === "question-bank") {
       return (
         <section className="setup-work-card question-builder-launch-card" aria-labelledby="setup-question-builder-title">
           <div className="setup-work-head">
@@ -956,7 +1049,7 @@ export function CompetitionSetup({
         {state.competition.status === "closed" && (
           <div className="official-start-block is-closed">
             <div><strong>Competition closed</strong><span>Its records remain available and unchanged.</span></div>
-            <button type="button" className="btn-primary" onClick={() => { if (window.confirm("Create a new draft? Existing records will remain in Records.")) { dispatch({ type: "NEW_COMPETITION" }); setIdentity({ name: "", edition: "" }); setPanelDraft(createPanelPreset("all", enabledCategories(DEFAULT_CONFIG))); setScoreDraft(cloneConfig(state.config)); setActiveTask("details"); } }}>New competition</button>
+            <button type="button" className="btn-primary" onClick={() => { if (window.confirm("Create a new draft? Existing records will remain in Records.")) { dispatch({ type: "NEW_COMPETITION" }); setIdentity({ name: "", edition: "" }); setPanelDraft(createPanelPreset("all", enabledCategories(DEFAULT_CONFIG))); setScoreDraft(cloneConfig(state.config)); setScrollReserve(0); setActiveTask("details"); } }}>New competition</button>
           </div>
         )}
       </section>
@@ -1010,12 +1103,23 @@ export function CompetitionSetup({
                       <span className="setup-task-status">{statusText(complete, locked, task.id, state.competition.status, competitionDraftCount)}</span>
                       <span className="setup-checklist-chevron" aria-hidden="true"><Icon name="chevron" size={15} /></span>
                     </button>
-                    {activeTask === task.id && <div className="setup-checklist-panel" id={`setup-task-panel-${task.id}`}>{renderTask()}</div>}
+                    <SetupAccordionPanel
+                      id={`setup-task-panel-${task.id}`}
+                      open={activeTask === task.id}
+                      render={() => renderTask(task.id)}
+                    />
                   </section>
                 </Fragment>
               );
             })}
         </div>
+        {scrollReserve > 0 && (
+          <div
+            className="setup-scroll-reserve"
+            style={{ height: scrollReserve }}
+            aria-hidden="true"
+          />
+        )}
       </div>
     </main>
   );

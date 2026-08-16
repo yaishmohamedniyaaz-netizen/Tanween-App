@@ -49,13 +49,13 @@ test("device preferences normalize invalid values without losing valid choices",
   assert.equal(normalizeDevicePreferences({ mushafZoom: null }).mushafZoom, MUSHAF_ZOOM_DEFAULT);
   assert.deepEqual(
     [MUSHAF_ZOOM_MIN, MUSHAF_ZOOM_FIT, MUSHAF_ZOOM_DEFAULT, MUSHAF_ZOOM_MAX, MUSHAF_ZOOM_STEP],
-    [75, 100, 110, 150, 5],
+    [75, 100, 100, 150, 5],
   );
 });
 
-test("a saved Fit choice is preserved while a new device starts at 110 percent", () => {
+test("Fit is the fresh-device default and saved zoom choices remain explicit", () => {
   const freshStorage = memoryStorage();
-  assert.equal(readDevicePreferences(freshStorage).mushafZoom, 110);
+  assert.equal(readDevicePreferences(freshStorage).mushafZoom, 100);
   const fitStorage = memoryStorage({
     [DEVICE_PREFERENCES_KEY]: JSON.stringify({
       ...DEFAULT_DEVICE_PREFERENCES,
@@ -63,6 +63,13 @@ test("a saved Fit choice is preserved while a new device starts at 110 percent",
     }),
   });
   assert.equal(readDevicePreferences(fitStorage).mushafZoom, 100);
+  const enlargedStorage = memoryStorage({
+    [DEVICE_PREFERENCES_KEY]: JSON.stringify({
+      ...DEFAULT_DEVICE_PREFERENCES,
+      mushafZoom: 110,
+    }),
+  });
+  assert.equal(readDevicePreferences(enlargedStorage).mushafZoom, 110);
 });
 
 test("legacy device keys migrate into the versioned settings object", () => {

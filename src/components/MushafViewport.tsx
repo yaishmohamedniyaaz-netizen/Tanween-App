@@ -12,6 +12,7 @@ import {
   computeMushafFitInlineSize,
   computeMushafRenderedBlockSize,
   computeMushafRenderedInlineSize,
+  MUSHAF_SPREAD_NAV_BLOCK_SIZE,
   STABLE_MUSHAF_STAGE_QUERY,
   type MushafPageLayout,
 } from "../lib/mushafFit";
@@ -29,6 +30,7 @@ type MushafViewportStyle = CSSProperties & {
   "--mushaf-fit-inline-size"?: string;
   "--mushaf-render-inline-size"?: string;
   "--mushaf-render-block-size"?: string;
+  "--mushaf-stage-block-size"?: string;
 };
 
 const MushafViewportContext = createContext({
@@ -119,6 +121,9 @@ export function MushafViewport({
     zoomPercent,
   );
   const renderScale = stableStage ? zoomPercent / 100 : 1;
+  const stageBlockSize = renderedBlockSize + (
+    layout === "spread" ? MUSHAF_SPREAD_NAV_BLOCK_SIZE : 0
+  );
   const coachGutter = Math.max(0, (frameInlineSize - renderedInlineSize) / 2);
   const style: MushafViewportStyle = {
     "--page-zoom": zoomPercent / 100,
@@ -127,6 +132,7 @@ export function MushafViewport({
           "--mushaf-fit-inline-size": `${fitInlineSize}px`,
           "--mushaf-render-inline-size": `${renderedInlineSize}px`,
           "--mushaf-render-block-size": `${renderedBlockSize}px`,
+          "--mushaf-stage-block-size": `${stageBlockSize}px`,
         }
       : {}),
   };

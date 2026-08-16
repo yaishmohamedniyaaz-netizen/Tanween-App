@@ -484,8 +484,12 @@ test("Adu and Raagu has one home in the rail, inside its score row", () => {
   assert.match(scorePanelSource, /<MarkPicker/);
   assert.match(scorePanelSource, /SET_IMPRESSION_NOTE/);
   assert.doesNotMatch(appSource, /ImpressionPanel/);
-  assert.match(ruleBody(".sc-score"), /text-align: center/);
-  assert.match(ruleBody(".sc-score"), /white-space: nowrap/);
+  assert.match(scorePanelSource, /sc-score score-value-layout/);
+  assert.match(pickerSource, /mark-picker score-value-layout/);
+  assert.match(ruleBody(".score-value-layout"), /align-items: baseline/);
+  assert.match(ruleBody(".score-value-layout"), /justify-content: center/);
+  assert.match(ruleBody(".score-value-layout"), /white-space: nowrap/);
+  assert.match(ruleBody(".mark-picker"), /width: 72px/);
   assert.match(ruleBody(".sc-score .sc-of"), /font-size: 12px/);
   assert.match(ruleBody(".mark-picker-of"), /font-size: 12px/);
   assert.match(ruleBody(".mark-picker-of"), /font-weight: 400/);

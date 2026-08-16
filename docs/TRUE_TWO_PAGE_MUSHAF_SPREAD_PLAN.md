@@ -4,6 +4,12 @@ Status: implemented and verified on 16 August 2026
 
 Prepared: 16 August 2026
 
+Follow-up refinement, 16 August 2026: `Fit` is now the fresh-device default,
+while an explicitly saved zoom remains unchanged. In Two pages, the shared page
+selector occupies its own row above both papers, and Fit reserves that row before
+calculating the uniform page scale. The desktop rail uses the remaining width
+without displacing or overlapping either page.
+
 Depends on:
 
 - [`JUDGE_WORKSPACE_LAYOUT_AND_GUIDANCE_DETAILED_PLAN.md`](./JUDGE_WORKSPACE_LAYOUT_AND_GUIDANCE_DETAILED_PLAN.md)
@@ -519,8 +525,12 @@ The update is complete only when:
 - Browser QA at 1440 x 900 verified `603 + 604` and `199 + 200`, right/left
   ordering, equal paper geometry, both fonts ready, Fit without Mushaf-frame
   overflow, and no console errors.
+- Follow-up browser QA at 1440 x 900 measured two equal 529.5 px papers, a
+  separate 28 px selector row with a 4 px gap, a 316.8 px judging rail 12 px
+  from the viewport edge, and no document overflow. At 390 x 844, the compact
+  fallback remained one page with no horizontal overflow.
 - Responsive QA at 390 x 844 verified one real page, no horizontal overflow,
   one-page navigation, and restoration of the saved two-page preference after
   returning to desktop width.
-- The full 261-test suite passes, the production build passes, and
+- The full 262-test suite passes, the production build passes, and
   `git diff --check` is clean.
