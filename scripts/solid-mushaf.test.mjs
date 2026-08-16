@@ -44,7 +44,8 @@ test("the source Mushaf selects one whole kalimah before exact rail choice", () 
   assert.doesNotMatch(mushafSource, /document\.createRange/);
   assert.match(mushafSource, /closest\("\.page-marginalia"\)/);
   assert.match(mushafSource, /page-opening-layout/);
-  assert.match(mushafStyleSource, /\.page-opening-layout:not\(\.page-split\)/);
+  assert.match(mushafStyleSource, /\.page-opening-layout/);
+  assert.doesNotMatch(mushafStyleSource, /\.page-split/);
 });
 
 test("shared Mushaf geometry protects Arabic ink and cartouche titles", () => {
@@ -62,7 +63,7 @@ test("shared Mushaf geometry protects Arabic ink and cartouche titles", () => {
   );
   assert.match(
     mushafStyleSource,
-    /\.page-opening-layout:not\(\.page-split\)[\s\S]*repeat\(8, calc\(100% \/ 15\)\)/,
+    /\.page-opening-layout[\s\S]*repeat\(8, calc\(100% \/ 15\)\)/,
   );
   assert.match(
     mushafStyleSource,
@@ -79,7 +80,7 @@ test("desktop Fit is owned by a measured frame instead of another viewport guess
   assert.match(mushafStyleSource, /\.app\.view-judge[\s\S]*height: 100svh/);
   assert.match(
     mushafStyleSource,
-    /\.mushaf-shell\[data-stage-fit="ready"\] \.page[\s\S]*--mushaf-fit-inline-size/,
+    /\.mushaf-shell\[data-stage-fit="ready"\] \.mushaf-composition[\s\S]*--mushaf-fit-inline-size/,
   );
   assert.match(mushafStyleSource, /zoom: var\(--page-zoom\)/);
   assert.match(mushafStyleSource, /--mushaf-render-block-size/);

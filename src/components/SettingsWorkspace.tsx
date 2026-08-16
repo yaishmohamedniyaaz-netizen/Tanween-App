@@ -24,7 +24,7 @@ const SECTIONS: Array<{
   hint: string;
 }> = [
   { id: "appearance", title: "Appearance", hint: "Light or dark theme" },
-  { id: "workspace", title: "Mushaf and judging workspace", hint: "Page view and panel position" },
+  { id: "workspace", title: "Mushaf and judging workspace", hint: "Judge panel position" },
   { id: "data", title: "Data and recovery", hint: "Backup, restore and preference reset" },
 ];
 
@@ -171,14 +171,6 @@ export function SettingsWorkspace({
                 <div className="settings-section-head">
                   <h2 id="settings-workspace-title">Mushaf and judging workspace</h2>
                 </div>
-
-                <fieldset className="settings-fieldset">
-                  <legend>Page view</legend>
-                  <div className="settings-segmented" role="radiogroup" aria-label="Mushaf page view">
-                    <button type="button" role="radio" aria-checked={preferences.mushafLayout === "full"} className={preferences.mushafLayout === "full" ? "is-active" : ""} onClick={() => onChange({ mushafLayout: "full" })}>Full page</button>
-                    <button type="button" role="radio" aria-checked={preferences.mushafLayout === "split"} className={preferences.mushafLayout === "split" ? "is-active" : ""} onClick={() => onChange({ mushafLayout: "split" })}>Split page</button>
-                  </div>
-                </fieldset>
 
                 <fieldset className="settings-fieldset">
                   <legend>Judge panel position</legend>

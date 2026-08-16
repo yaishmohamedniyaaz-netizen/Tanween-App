@@ -1,5 +1,5 @@
 export type AppTheme = "light" | "dark";
-export type MushafLayout = "full" | "split";
+export type MushafLayout = "full" | "spread";
 export type JudgeRailSide = "left" | "right";
 
 export interface DevicePreferencesV1 {
@@ -52,15 +52,18 @@ export function normalizeDevicePreferences(
   fallback: DevicePreferencesV1 = DEFAULT_DEVICE_PREFERENCES,
 ): DevicePreferencesV1 {
   const candidate = value && typeof value === "object"
-    ? value as Partial<DevicePreferencesV1>
+    ? value as Partial<Omit<DevicePreferencesV1, "mushafLayout">> & { mushafLayout?: unknown }
     : {};
+  const mushafLayout = candidate.mushafLayout === "split"
+    ? "spread"
+    : candidate.mushafLayout;
   return {
     version: 1,
     theme: candidate.theme === "dark" || candidate.theme === "light"
       ? candidate.theme
       : fallback.theme,
-    mushafLayout: candidate.mushafLayout === "split" || candidate.mushafLayout === "full"
-      ? candidate.mushafLayout
+    mushafLayout: mushafLayout === "spread" || mushafLayout === "full"
+      ? mushafLayout
       : fallback.mushafLayout,
     mushafZoom: normalizeMushafZoom(
       candidate.mushafZoom,

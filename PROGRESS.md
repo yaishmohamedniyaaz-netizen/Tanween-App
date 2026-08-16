@@ -1,5 +1,28 @@
 # Tahqeeq — build progress log
 
+## True two-page Mushaf view — IMPLEMENTED & VERIFIED (2026-08-16)
+
+- Replaced the misleading Split page mode with two independently rendered
+  consecutive KFGQPC V1 1405H pages.
+- The judging pair is the selected page on the right plus the next page on the
+  left. This intentionally supports even anchors such as `200 + 201` so a
+  cross-page question can remain visible; page 604 uses the closing `603 + 604`
+  pair.
+- The update adds atomic pair/font loading, shared pair navigation,
+  exact mistake-jump routing, page-tagged hitboxes, one pair-owned scroll
+  canvas, a compact-layout single-page fallback, and a Full/Two pages control
+  beside live Mushaf size controls.
+- The old one-page split CSS and duplicate Page view field in Settings are gone.
+  Browser QA verified `603 + 604` and `199 + 200` at 1440 x 900, including page
+  order, independent page assets, both QCF fonts ready, and zero console errors.
+  At 390 x 844 the same saved choice renders one page with no horizontal
+  overflow, navigates by one page, and restores a two-page pair on desktop.
+- All 261 tests pass, the production Sites build succeeds, and
+  `git diff --check` is clean. Quran source data, scoring, question rules,
+  Results, exports, and the separate phone plan remain protected.
+- Detailed implementation and verification contract:
+  [`docs/TRUE_TWO_PAGE_MUSHAF_SPREAD_PLAN.md`](docs/TRUE_TWO_PAGE_MUSHAF_SPREAD_PLAN.md).
+
 ## Desktop Mushaf stage — IMPLEMENTED & VERIFIED (2026-08-16)
 
 - The two-column judge shell now owns the stable screen height, the header takes

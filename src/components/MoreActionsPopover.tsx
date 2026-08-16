@@ -4,11 +4,14 @@ import { downloadSessionJSON } from "../lib/exportSession";
 import { useJudging } from "../state/store";
 import { Icon } from "./Icon";
 import { MushafSizeControl } from "./MushafSizeControl";
+import type { MushafLayout } from "../lib/devicePreferences";
 
 interface MoreActionsPopoverProps {
   view: AppView;
   mushafZoom: number;
   onMushafZoomChange: (value: number) => void;
+  mushafLayout: MushafLayout;
+  onMushafLayoutChange: (value: MushafLayout) => void;
   onShowMarkingGuide: () => void;
   onOpenChange: (open: boolean) => void;
   onOpenSettings: () => void;
@@ -19,6 +22,8 @@ export function MoreActionsPopover({
   view,
   mushafZoom,
   onMushafZoomChange,
+  mushafLayout,
+  onMushafLayoutChange,
   onShowMarkingGuide,
   onOpenChange,
   onOpenSettings,
@@ -100,6 +105,29 @@ export function MoreActionsPopover({
         >
           {view === "judge" && (
             <>
+              <fieldset className="mushaf-view-control">
+                <legend>Mushaf view</legend>
+                <div className="mushaf-view-options" role="radiogroup" aria-label="Mushaf view">
+                  <button
+                    type="button"
+                    role="radio"
+                    aria-checked={mushafLayout === "full"}
+                    className={mushafLayout === "full" ? "is-active" : ""}
+                    onClick={() => onMushafLayoutChange("full")}
+                  >
+                    Full page
+                  </button>
+                  <button
+                    type="button"
+                    role="radio"
+                    aria-checked={mushafLayout === "spread"}
+                    className={mushafLayout === "spread" ? "is-active" : ""}
+                    onClick={() => onMushafLayoutChange("spread")}
+                  >
+                    Two pages
+                  </button>
+                </div>
+              </fieldset>
               <MushafSizeControl
                 value={mushafZoom}
                 onChange={onMushafZoomChange}

@@ -459,6 +459,45 @@ textarea:focus-visible {
   font-size: 12px;
   font-weight: 550;
 }
+.mushaf-view-control {
+  margin: 0;
+  padding: 8px;
+  border: 0;
+}
+.mushaf-view-control legend {
+  margin-bottom: 8px;
+  padding: 0;
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 570;
+}
+.mushaf-view-options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 4px;
+  padding: 3px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  background: var(--bg);
+}
+.mushaf-view-options button {
+  min-height: 36px;
+  border: 1px solid transparent;
+  border-radius: calc(var(--r-sm) - 2px);
+  background: transparent;
+  color: var(--ink-2);
+  font-size: 12px;
+  font-weight: 550;
+}
+.mushaf-view-options button:hover,
+.mushaf-view-options button.is-active {
+  background: var(--surface);
+  color: var(--ink);
+}
+.mushaf-view-options button.is-active {
+  border-color: var(--line-2);
+  box-shadow: var(--shadow-rest);
+}
 
 /* ---- Workspace ---- */
 .workspace {
@@ -4419,8 +4458,39 @@ textarea:focus-visible {
 
 /* ---- Mushaf page (paper on a desk) ---- */
 .mushaf-scroll {
+  position: relative;
+  display: grid;
+  place-items: center;
   width: 100%;
   overflow-x: hidden;
+}
+.mushaf-composition {
+  position: relative;
+  width: 100%;
+  margin-inline: auto;
+}
+.mushaf-single {
+  max-width: min(
+    calc(760px * var(--page-zoom, 1)),
+    calc((100dvh - 96px) * 0.68 * var(--page-zoom, 1))
+  );
+}
+.mushaf-spread {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+.mushaf-spread > .page:first-child {
+  grid-column: 2;
+  grid-row: 1;
+}
+.mushaf-spread > .page:nth-child(2) {
+  grid-column: 1;
+  grid-row: 1;
+}
+.mushaf-composition > .page {
+  width: 100%;
+  max-width: none;
 }
 .page {
   /* Shared Mushaf geometry: one adjustment updates every page/cartouche. */
@@ -4458,30 +4528,6 @@ textarea:focus-visible {
     calc((100dvh - 96px) * 0.68 * var(--page-zoom, 1))
   );
 }
-.page.page-split {
-  max-width: min(
-    calc(1100px * var(--page-zoom, 1)),
-    calc((100dvh - 96px) * 1.24 * var(--page-zoom, 1))
-  );
-  aspect-ratio: 1.24;
-  padding: 12px 0 8px;
-}
-.page-split .mushaf-lines {
-  position: relative;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  grid-template-rows: repeat(8, minmax(0, 1fr));
-  column-gap: clamp(26px, 5vw, 56px);
-  padding: 3cqi 4cqi 1cqi;
-}
-.page-split .mushaf-lines::after {
-  content: "";
-  position: absolute;
-  top: 3%;
-  bottom: 1%;
-  left: 50%;
-  width: 1px;
-  background: var(--line);
-}
 .page-marginalia {
   position: relative;
   z-index: 12;
@@ -4513,6 +4559,15 @@ textarea:focus-visible {
   white-space: nowrap;
   justify-self: end;
 }
+.page-static-number {
+  min-width: 28px;
+  color: var(--ink-2);
+  font-size: 11px;
+  text-align: center;
+}
+.mushaf-single .page-static-number {
+  visibility: hidden;
+}
 .mushaf-lines {
   display: grid;
   grid-template-rows: repeat(15, minmax(0, 1fr));
@@ -4520,11 +4575,11 @@ textarea:focus-visible {
   padding: clamp(6px, 1.4cqi, 12px) clamp(16px, 6.5cqi, 44px)
     clamp(4px, 1cqi, 9px);
 }
-.page-short-layout:not(.page-split) .mushaf-lines {
+.page-short-layout .mushaf-lines {
   grid-template-rows: repeat(8, calc(100% / 15));
   align-content: center;
 }
-.page-opening-layout:not(.page-split) .mushaf-lines {
+.page-opening-layout .mushaf-lines {
   /* Pages 1–2 keep normal 15-line rhythm while the eight lines stay centered. */
   grid-template-rows: repeat(8, calc(100% / 15));
   align-content: center;
@@ -4613,13 +4668,6 @@ textarea:focus-visible {
   line-height: 1.15;
   padding: clamp(1px, 0.25cqi, 2px) var(--surah-band-title-pad-x);
 }
-.page-split .m-line {
-  font-size: clamp(16px, 2.75cqi, 27px);
-}
-.page-split .m-line-basmala,
-.page-split .surah-band-title {
-  font-size: clamp(15px, 2.3cqi, 24px);
-}
 /* Juz label at top of page */
 .juz-label {
   display: none;
@@ -4644,6 +4692,13 @@ textarea:focus-visible {
 /* ---- Page navigation ---- */
 .mushaf-shell {
   position: relative;
+}
+.mushaf-shared-nav {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  z-index: 30;
+  transform: translateX(-50%);
 }
 .page-nav {
   position: relative;
@@ -4677,7 +4732,7 @@ textarea:focus-visible {
   position: relative;
 }
 .page-nav-page {
-  min-width: 42px;
+  min-width: 52px;
   height: 28px;
   border: 1px solid var(--line-2);
   border-radius: var(--r-sm);
@@ -5672,6 +5727,22 @@ textarea:focus-visible {
 .setup-section-head p {
   margin: 4px 0 0;
   color: var(--ink-3);
+  font-size: 12px;
+}
+.mushaf-load-error {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  z-index: 35;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border: 1px solid var(--line-2);
+  border-radius: var(--r-sm);
+  background: var(--surface);
+  box-shadow: var(--shadow-float);
+  color: var(--ink-2);
   font-size: 12px;
 }
 .competition-identity-fields {
@@ -8261,10 +8332,17 @@ html:has(.dialog-backdrop) {
     padding: 8px;
     overflow: visible;
   }
-  .app.view-judge .mushaf-shell[data-stage-fit="ready"] .page {
+  .app.view-judge .mushaf-shell[data-stage-fit="ready"] .mushaf-composition {
     width: var(--mushaf-fit-inline-size);
     max-width: none;
     zoom: var(--page-zoom);
+  }
+  .app.view-judge .mushaf-shell[data-stage-fit="ready"] .mushaf-composition .page {
+    width: 100%;
+    max-width: none;
+  }
+  .app.view-judge .mushaf-shell[data-stage-fit="ready"] .mushaf-shared-nav {
+    top: calc(50% - (var(--mushaf-render-block-size) * 0.5) + 8px);
   }
   .app.view-judge .sidebar {
     position: static;

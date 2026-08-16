@@ -1,19 +1,23 @@
-export type MushafPageLayout = "full" | "split";
+export type MushafPageLayout = "full" | "spread";
 
 export const STABLE_MUSHAF_STAGE_QUERY =
   "(min-width: 901px) and (min-height: 620px)";
 export const MUSHAF_FRAME_INSET = 8;
 
-const LAYOUT_GEOMETRY: Record<
-  MushafPageLayout,
-  { aspectRatio: number; maximumInlineSize: number }
-> = {
-  full: { aspectRatio: 0.68, maximumInlineSize: 760 },
-  split: { aspectRatio: 1.24, maximumInlineSize: 1100 },
-};
+export const MUSHAF_PAGE_ASPECT_RATIO = 0.68;
+export const MUSHAF_PAGE_MAX_INLINE_SIZE = 760;
+export const MUSHAF_SPREAD_GAP = 12;
 
-export function mushafLayoutAspectRatio(layout: MushafPageLayout): number {
-  return LAYOUT_GEOMETRY[layout].aspectRatio;
+export function computeMushafComposedBlockSize(
+  inlineSize: number,
+  layout: MushafPageLayout,
+): number {
+  if (!Number.isFinite(inlineSize) || inlineSize <= 0) return 0;
+  const pageInlineSize = layout === "spread"
+    ? (inlineSize - MUSHAF_SPREAD_GAP) / 2
+    : inlineSize;
+  if (pageInlineSize <= 0) return 0;
+  return pageInlineSize / MUSHAF_PAGE_ASPECT_RATIO;
 }
 
 export interface MushafFitInput {
@@ -44,14 +48,19 @@ export function computeMushafFitInlineSize({
   const availableBlockSize = frameBlockSize - inset * 2;
   if (availableInlineSize <= 0 || availableBlockSize <= 0) return 0;
 
-  const geometry = LAYOUT_GEOMETRY[layout];
+  const maximumInlineSize = layout === "spread"
+    ? MUSHAF_PAGE_MAX_INLINE_SIZE * 2 + MUSHAF_SPREAD_GAP
+    : MUSHAF_PAGE_MAX_INLINE_SIZE;
+  const heightLimitedInlineSize = layout === "spread"
+    ? availableBlockSize * MUSHAF_PAGE_ASPECT_RATIO * 2 + MUSHAF_SPREAD_GAP
+    : availableBlockSize * MUSHAF_PAGE_ASPECT_RATIO;
   return Math.max(
     0,
     Math.floor(
       Math.min(
-        geometry.maximumInlineSize,
+        maximumInlineSize,
         availableInlineSize,
-        availableBlockSize * geometry.aspectRatio,
+        heightLimitedInlineSize,
       ),
     ),
   );
@@ -75,7 +84,10 @@ export function computeMushafRenderedBlockSize(
   zoomPercent: number,
 ): number {
   if (!Number.isFinite(fitInlineSize) || fitInlineSize <= 0) return 0;
-  const composedBlockSize = fitInlineSize / mushafLayoutAspectRatio(layout);
+  const composedBlockSize = computeMushafComposedBlockSize(
+    fitInlineSize,
+    layout,
+  );
   const normalizedZoom = normalizeMushafZoom(
     zoomPercent,
     MUSHAF_ZOOM_DEFAULT,

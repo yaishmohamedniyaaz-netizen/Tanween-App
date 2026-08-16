@@ -1,7 +1,6 @@
 import {
   useCallback,
   useEffect,
-  useRef,
   useState,
 } from "react";
 import { Header, type AppView } from "./components/Header";
@@ -22,11 +21,11 @@ import { FinishDialog } from "./components/FinishDialog";
 import { JudgeRoleStrip } from "./components/JudgeRoleStrip";
 import { PreparedRecitationStrip } from "./components/PreparedRecitationStrip";
 import { PreparedSidebar } from "./components/PreparedSidebar";
+import { PageNav } from "./components/PageNav";
 import { useJudging } from "./state/store";
 import { questionOpeningKey, questionOpeningPage } from "./lib/questionPage";
 import { isWaiting } from "./lib/rosterQueue";
 import { missingRequiredImpressionCategories } from "./lib/scoring";
-import surahIndex from "./data/surah-index.json";
 import {
   applyDeviceTheme,
   DEFAULT_DEVICE_PREFERENCES,
@@ -39,170 +38,6 @@ const LS_PAGE_KEY = "tahqeeq:lastPage";
 // Records the session and question the Mushaf was last opened for, so the
 // opening page is restored once per reciter rather than on every render.
 const LS_QUESTION_PAGE_KEY = "tahqeeq:questionOpenedFor";
-
-function PageNav({
-  page,
-  onChange,
-}: {
-  page: number;
-  onChange: (page: number) => void;
-}) {
-  const [popoverOpen, setPopoverOpen] = useState(false);
-  const [jumpInput, setJumpInput] = useState("");
-  const popoverRef = useRef<HTMLDivElement>(null);
-  const pageBtnRef = useRef<HTMLButtonElement>(null);
-  const jumpInputRef = useRef<HTMLInputElement>(null);
-  const lastWheelRef = useRef(0);
-
-  useEffect(() => {
-    if (!popoverOpen) return;
-    const onDoc = (e: MouseEvent) => {
-      if (!popoverRef.current?.contains(e.target as Node)) {
-        setPopoverOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", onDoc);
-    return () => document.removeEventListener("mousedown", onDoc);
-  }, [popoverOpen]);
-
-  useEffect(() => {
-    if (!popoverOpen) return;
-    const frame = requestAnimationFrame(() => {
-      jumpInputRef.current?.focus();
-      jumpInputRef.current?.select();
-    });
-    return () => cancelAnimationFrame(frame);
-  }, [popoverOpen]);
-
-  const handleJump = () => {
-    const n = Number(jumpInput);
-    if (!Number.isNaN(n) && n >= 1 && n <= 604) {
-      onChange(n);
-      setPopoverOpen(false);
-      setJumpInput("");
-    }
-  };
-
-  // Reading order is right-to-left: the next (higher-numbered) page sits to
-  // the left of the current one, like turning pages forward in a mushaf.
-  const goForward = useCallback(
-    () => onChange(Math.min(604, page + 1)),
-    [page, onChange],
-  );
-  const goBackward = useCallback(
-    () => onChange(Math.max(1, page - 1)),
-    [page, onChange],
-  );
-
-  // Scroll wheel over the page number flips pages — throttled so one wheel
-  // "click" moves one page instead of skipping several.
-  useEffect(() => {
-    const el = pageBtnRef.current;
-    if (!el) return;
-    const onWheel = (e: WheelEvent) => {
-      e.preventDefault();
-      const now = Date.now();
-      if (now - lastWheelRef.current < 180) return;
-      lastWheelRef.current = now;
-      if (e.deltaY > 0) goForward();
-      else if (e.deltaY < 0) goBackward();
-    };
-    el.addEventListener("wheel", onWheel, { passive: false });
-    return () => el.removeEventListener("wheel", onWheel);
-  }, [goForward, goBackward]);
-
-  return (
-    <div className="page-nav">
-      <button
-        type="button"
-        className="page-nav-btn"
-        aria-label="next page"
-        onClick={goForward}
-      >
-        ‹
-      </button>
-
-      <div className="page-nav-center" ref={popoverRef}>
-        <button
-          ref={pageBtnRef}
-          type="button"
-          className="page-nav-page"
-          title="Type a page number"
-          onClick={() => {
-            setPopoverOpen((v) => !v);
-            setJumpInput(String(page));
-          }}
-        >
-          {page}
-        </button>
-
-        {popoverOpen && (
-          <div className="page-nav-popover">
-            <div className="page-nav-popover-head">
-              <span className="t-label">Jump to page</span>
-              <form
-                className="page-nav-jump-row"
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  handleJump();
-                }}
-              >
-                <input
-                  ref={jumpInputRef}
-                  autoFocus
-                  type="number"
-                  inputMode="numeric"
-                  enterKeyHint="go"
-                  min={1}
-                  max={604}
-                  value={jumpInput}
-                  onChange={(e) => setJumpInput(e.target.value)}
-                  onKeyDown={(e) => {
-                    if (e.key === "Escape") {
-                      setPopoverOpen(false);
-                      pageBtnRef.current?.focus();
-                    }
-                  }}
-                  onFocus={(e) => e.currentTarget.select()}
-                  placeholder="1–604"
-                />
-                <button type="submit" className="btn-ghost">
-                  Go
-                </button>
-              </form>
-            </div>
-            <div className="page-nav-surah-list">
-              {surahIndex.map((s) => (
-                <button
-                  key={s.number}
-                  type="button"
-                  className="page-nav-surah"
-                  onClick={() => {
-                    onChange(s.firstPage);
-                    setPopoverOpen(false);
-                  }}
-                >
-                  <span className="page-nav-surah-num">{s.number}</span>
-                  <span className="page-nav-surah-name">{s.nameAr}</span>
-                  <span className="page-nav-surah-page t-num">p. {s.firstPage}</span>
-                </button>
-              ))}
-            </div>
-          </div>
-        )}
-      </div>
-
-      <button
-        type="button"
-        className="page-nav-btn"
-        aria-label="previous page"
-        onClick={goBackward}
-      >
-        ›
-      </button>
-    </div>
-  );
-}
 
 export function App() {
   const { state, dispatch } = useJudging();
@@ -295,6 +130,8 @@ export function App() {
         }}
         mushafZoom={preferences.mushafZoom}
         onMushafZoomChange={(mushafZoom) => updatePreferences({ mushafZoom })}
+        mushafLayout={preferences.mushafLayout}
+        onMushafLayoutChange={(mushafLayout) => updatePreferences({ mushafLayout })}
         onShowMarkingGuide={() => setMarkingGuideOpen(true)}
         onMoreControlsOpenChange={setMoreControlsOpen}
         theme={preferences.theme}
@@ -336,9 +173,15 @@ export function App() {
                 page={page}
                 pageLayout={preferences.mushafLayout}
                 onPageChange={handlePageChange}
-                headerControls={
-                  <PageNav page={page} onChange={handlePageChange} />
-                }
+                headerControls={(visiblePages, compact) => (
+                  <PageNav
+                    page={page}
+                    visiblePages={visiblePages}
+                    layout={preferences.mushafLayout}
+                    compact={compact}
+                    onChange={handlePageChange}
+                  />
+                )}
               />
             </MushafViewport>
           </div>

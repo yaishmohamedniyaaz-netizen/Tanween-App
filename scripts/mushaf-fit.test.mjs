@@ -21,17 +21,17 @@ test("full-page Fit respects the print maximum and both frame axes", () => {
   }), 403);
 });
 
-test("split-spread Fit is width- or height-limited without changing its ratio", () => {
+test("two-page spread Fit is width- or height-limited without changing either page ratio", () => {
   assert.equal(computeMushafFitInlineSize({
     frameInlineSize: 640,
     frameBlockSize: 900,
-    layout: "split",
+    layout: "spread",
   }), 624);
   assert.equal(computeMushafFitInlineSize({
     frameInlineSize: 1200,
     frameBlockSize: 700,
-    layout: "split",
-  }), 848);
+    layout: "spread",
+  }), 942);
 });
 
 test("Fit retains clearance and rejects unusable measurements", () => {
@@ -61,7 +61,7 @@ test("stored view scales remain uniform magnifications of Fit", () => {
   assert.equal(computeMushafRenderedInlineSize(403, 140), 564);
   assert.equal(computeMushafRenderedInlineSize(403, 190), 605);
   assert.equal(computeMushafRenderedBlockSize(403, "full", 110), 652);
-  assert.equal(computeMushafRenderedBlockSize(620, "split", 150), 750);
+  assert.equal(computeMushafRenderedBlockSize(620, "spread", 150), 671);
   assert.equal(computeMushafRenderedInlineSize(0, 100), 0);
 });
 

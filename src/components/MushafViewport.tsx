@@ -31,10 +31,17 @@ type MushafViewportStyle = CSSProperties & {
   "--mushaf-render-block-size"?: string;
 };
 
-const MushafRenderScaleContext = createContext(1);
+const MushafViewportContext = createContext({
+  renderScale: 1,
+  stableStage: false,
+});
 
 export function useMushafRenderScale(): number {
-  return useContext(MushafRenderScaleContext);
+  return useContext(MushafViewportContext).renderScale;
+}
+
+export function useStableMushafStage(): boolean {
+  return useContext(MushafViewportContext).stableStage;
 }
 
 function stableStageMatches(): boolean {
@@ -183,9 +190,9 @@ export function MushafViewport({
         style={style}
         onScroll={updateViewportCenter}
       >
-        <MushafRenderScaleContext.Provider value={renderScale}>
+        <MushafViewportContext.Provider value={{ renderScale, stableStage }}>
           {children}
-        </MushafRenderScaleContext.Provider>
+        </MushafViewportContext.Provider>
       </div>
       {overlay}
     </div>

@@ -32,13 +32,13 @@ function memoryStorage(initial = {}) {
 test("device preferences normalize invalid values without losing valid choices", () => {
   assert.deepEqual(normalizeDevicePreferences({
     theme: "dark",
-    mushafLayout: "split",
+    mushafLayout: "spread",
     mushafZoom: 83,
     judgeRailSide: "right",
   }), {
     version: 1,
     theme: "dark",
-    mushafLayout: "split",
+    mushafLayout: "spread",
     mushafZoom: 85,
     judgeRailSide: "right",
   });
@@ -75,7 +75,7 @@ test("legacy device keys migrate into the versioned settings object", () => {
   assert.deepEqual(readDevicePreferences(storage), {
     version: 1,
     theme: "dark",
-    mushafLayout: "split",
+    mushafLayout: "spread",
     mushafZoom: 75,
     judgeRailSide: "right",
   });
@@ -92,7 +92,7 @@ test("writing settings keeps the rollback-compatible legacy keys in sync", () =>
   }, storage);
   assert.equal(JSON.parse(storage.getItem(DEVICE_PREFERENCES_KEY)).mushafZoom, 75);
   assert.equal(storage.getItem(LEGACY_THEME_KEY), "dark");
-  assert.equal(storage.getItem(LEGACY_PAGE_LAYOUT_KEY), "split");
+  assert.equal(storage.getItem(LEGACY_PAGE_LAYOUT_KEY), "spread");
   assert.equal(storage.getItem(LEGACY_PAGE_ZOOM_KEY), "75");
   assert.equal(storage.getItem(LEGACY_JUDGE_RAIL_SIDE_KEY), "right");
   assert.equal(written.version, 1);

@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { enabledCategories } from "../config";
-import type { AppTheme } from "../lib/devicePreferences";
+import type { AppTheme, MushafLayout } from "../lib/devicePreferences";
 import {
   buildResultsReviewItems,
   summarizeResultsReview,
@@ -20,6 +20,8 @@ interface Props {
   onChangeReciter: () => void;
   mushafZoom: number;
   onMushafZoomChange: (value: number) => void;
+  mushafLayout: MushafLayout;
+  onMushafLayoutChange: (value: MushafLayout) => void;
   onShowMarkingGuide: () => void;
   onMoreControlsOpenChange: (open: boolean) => void;
   theme: AppTheme;
@@ -34,6 +36,8 @@ export function Header({
   onChangeReciter,
   mushafZoom,
   onMushafZoomChange,
+  mushafLayout,
+  onMushafLayoutChange,
   onShowMarkingGuide,
   onMoreControlsOpenChange,
   theme,
@@ -144,6 +148,8 @@ export function Header({
         view={view}
         mushafZoom={mushafZoom}
         onMushafZoomChange={onMushafZoomChange}
+        mushafLayout={mushafLayout}
+        onMushafLayoutChange={onMushafLayoutChange}
         onShowMarkingGuide={onShowMarkingGuide}
         onOpenChange={onMoreControlsOpenChange}
         onOpenSettings={onOpenSettings}
