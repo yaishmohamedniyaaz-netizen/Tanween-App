@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>Three Screens</title>
+<style>
+  :root {
+    --bg: #f2f1ee; --surface: #ffffff; --page-paper: #fbfaf7;
+    --ink: #1a1a1c; --ink-2: #62626a; --ink-3: #6a6a73;
+    --line: rgba(26,26,28,0.08); --line-2: rgba(26,26,28,0.16);
+    --gold: #b3892f;
+    --c-jali: #d8453d; --c-khafi: #c0892a; --c-fasaha: #5566e6; --c-adu: #2e9e83;
+    --r-sm: 8px; --r-md: 12px; --r-lg: 20px;
+    --t-micro: 12px; --t-small: 14px; --t-body: 15px; --t-lead: 17px; --t-title: 21px; --t-display: 27px;
+    --sp-1: 4px; --sp-2: 8px; --sp-3: 12px; --sp-4: 16px; --sp-5: 24px; --sp-6: 32px; --sp-7: 48px;
+    --tap: 44px;
+    --shadow-rest: 0 1px 2px rgba(26,26,28,0.05);
+    --shadow-float: 0 12px 32px rgba(26,26,28,0.14), 0 2px 8px rgba(26,26,28,0.08);
+    --ui: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --serif: ui-serif, Georgia, "Times New Roman", serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #131316; --surface: #1c1c20; --page-paper: #211f1c;
+      --ink: #ebebed; --ink-2: #a4a4ac; --ink-3: #8b8b95;
+      --line: rgba(255,255,255,0.08); --line-2: rgba(255,255,255,0.16);
+      --shadow-rest: 0 1px 2px rgba(0,0,0,0.4);
+      --shadow-float: 0 16px 40px rgba(0,0,0,0.5), 0 3px 10px rgba(0,0,0,0.35);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #131316; --surface: #1c1c20; --page-paper: #211f1c;
+    --ink: #ebebed; --ink-2: #a4a4ac; --ink-3: #8b8b95;
+    --line: rgba(255,255,255,0.08); --line-2: rgba(255,255,255,0.16);
+    --shadow-rest: 0 1px 2px rgba(0,0,0,0.4);
+    --shadow-float: 0 16px 40px rgba(0,0,0,0.5), 0 3px 10px rgba(0,0,0,0.35);
+  }
+  * { box-sizing: border-box; }
+  html, body { max-width: 100%; overflow-x: hidden; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--ui); font-size: var(--t-body); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: var(--sp-7) var(--sp-5) 96px; }
+  .topbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--sp-3); }
+  .eyebrow { font-size: var(--t-micro); letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3); font-weight: 600; margin: 0; }
+  .theme-toggle { font: inherit; font-size: var(--t-micro); background: var(--surface); border: 1px solid var(--line-2); color: var(--ink-2); border-radius: var(--r-sm); padding: var(--sp-1) var(--sp-3); min-height: 32px; cursor: pointer; }
+  h1 { font-family: var(--serif); font-weight: 500; font-size: clamp(28px, 4vw, var(--t-display)); line-height: 1.1; margin: 0 0 var(--sp-3); }
+  .lede { font-size: var(--t-lead); color: var(--ink-2); max-width: 64ch; margin: 0 0 var(--sp-6); }
+  h2 { font-family: var(--serif); font-weight: 500; font-size: var(--t-title); margin: 0 0 4px; }
+  .shot-note { color: var(--ink-3); font-size: var(--t-small); margin: 0 0 var(--sp-3); max-width: 68ch; }
+  section { margin-top: var(--sp-7); border-top: 1px solid var(--line); padding-top: var(--sp-5); }
+  .badge { display: inline-block; font-size: 10.5px; letter-spacing: 0.07em; text-transform: uppercase; color: var(--ink-3); border: 1px solid var(--line-2); border-radius: 999px; padding: 1px 8px; margin-left: var(--sp-2); vertical-align: 2px; }
+
+  /* ---- app chrome ---- */
+  .app { border: 1px solid var(--line-2); border-radius: var(--r-md); overflow: hidden; box-shadow: var(--shadow-rest); background: var(--bg); }
+  .app-header { display: flex; align-items: center; gap: var(--sp-3); padding: var(--sp-3) var(--sp-5); background: var(--surface); border-bottom: 1px solid var(--line); }
+  .brand { font-weight: 600; letter-spacing: -0.01em; }
+  .brand small { display: block; font-size: 10.5px; font-weight: 400; color: var(--ink-3); letter-spacing: 0.06em; text-transform: uppercase; }
+  .header-spacer { flex: 1; }
+  .hchip { font-size: var(--t-micro); color: var(--ink-2); background: var(--bg); border: 1px solid var(--line); border-radius: var(--r-sm); padding: 5px 10px; }
+  .hchip b { display: block; color: var(--ink); font-size: var(--t-small); font-weight: 600; }
+
+  .stage { padding: var(--sp-5); min-height: 300px; }
+  .dialog { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-md); box-shadow: var(--shadow-float); max-width: 880px; margin: 0 auto; overflow: hidden; }
+  .dlg-head { padding: var(--sp-5) var(--sp-5) var(--sp-4); border-bottom: 1px solid var(--line); }
+  .dlg-kicker { font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); }
+  .dlg-head h3 { margin: 4px 0 0; font-size: var(--t-title); font-weight: 560; letter-spacing: -0.02em; }
+  .strip { display: flex; align-items: center; gap: var(--sp-3); padding: var(--sp-3) var(--sp-5); background: var(--bg); border-bottom: 1px solid var(--line); font-size: var(--t-micro); color: var(--ink-3); }
+  .strip .num { font-variant-numeric: tabular-nums; font-weight: 600; color: var(--ink); font-size: var(--t-small); }
+  .strip .who { color: var(--ink); font-weight: 600; font-size: var(--t-small); }
+  .strip .grow { flex: 1; }
+  .btn { font: inherit; font-size: var(--t-micro); background: var(--surface); border: 1px solid var(--line-2); color: var(--ink-2); border-radius: var(--r-sm); padding: 5px 10px; min-height: 30px; cursor: pointer; }
+  .btn:hover { color: var(--ink); border-color: var(--ink-3); }
+  .btn-primary { background: var(--ink); border-color: var(--ink); color: var(--bg); font-size: var(--t-small); font-weight: 550; min-height: var(--tap); padding: 0 18px; border-radius: var(--r-sm); }
+  .dlg-body { padding: var(--sp-5); }
+
+  /* board B */
+  .board { display: grid; grid-template-columns: repeat(10, minmax(0,1fr)); gap: var(--sp-2); }
+  .tile { min-height: 52px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--line-2); border-radius: var(--r-sm); background: var(--surface); color: var(--ink); font-size: var(--t-lead); font-weight: 600; font-variant-numeric: tabular-nums; cursor: pointer; }
+  .tile:hover { border-color: var(--ink-3); }
+  .tile[disabled] { color: var(--ink-3); background: var(--bg); text-decoration: line-through; cursor: not-allowed; opacity: 0.55; }
+  .tile.is-chosen { background: var(--ink); border-color: var(--ink); color: var(--bg); }
+  .board-foot { display: flex; align-items: center; margin-top: var(--sp-4); padding-top: var(--sp-3); border-top: 1px solid var(--line); }
+  .board-foot .grow { flex: 1; }
+  .muted { color: var(--ink-3); font-size: var(--t-micro); }
+
+  /* running order C */
+  .ro { border: 1px solid var(--line); border-radius: var(--r-sm); overflow: hidden; }
+  .ro-scroll { max-height: 300px; overflow-y: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: var(--t-small); }
+  thead th { position: sticky; top: 0; background: var(--surface); text-align: left; font-size: 10.5px; letter-spacing: 0.07em; text-transform: uppercase; color: var(--ink-3); font-weight: 600; padding: var(--sp-2) var(--sp-3); border-bottom: 1px solid var(--line); z-index: 2; }
+  td { padding: var(--sp-2) var(--sp-3); border-bottom: 1px solid var(--line); color: var(--ink-2); vertical-align: middle; }
+  tr.group td { background: var(--bg); color: var(--ink-3); font-size: 10.5px; letter-spacing: 0.07em; text-transform: uppercase; font-weight: 600; position: sticky; top: 29px; }
+  td.num { font-variant-numeric: tabular-nums; color: var(--ink); font-weight: 600; width: 62px; }
+  td.nm { color: var(--ink); font-weight: 550; }
+  tr.next td { background: color-mix(in srgb, var(--ink) 4%, var(--surface)); }
+  .next-tag { font-size: 9.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink); border: 1px solid var(--line-2); border-radius: 999px; padding: 0 6px; margin-left: 6px; }
+  td.act { text-align: right; white-space: nowrap; width: 172px; }
+
+  /* setup B */
+  .setup { max-width: 640px; margin: 0 auto; }
+  .setup-head { text-align: left; margin-bottom: var(--sp-4); }
+  .setup-head h3 { margin: 0; font-size: var(--t-title); font-weight: 560; letter-spacing: -0.02em; }
+  .setup-head p { margin: 2px 0 0; color: var(--ink-3); font-size: var(--t-micro); }
+  .task { display: flex; align-items: center; gap: var(--sp-3); width: 100%; text-align: left; padding: var(--sp-3) var(--sp-3); background: transparent; border: 0; border-bottom: 1px solid var(--line); font: inherit; font-size: var(--t-small); color: var(--ink); cursor: pointer; min-height: var(--tap); }
+  .task:hover { background: var(--surface); }
+  .tick { width: 18px; height: 18px; border-radius: 999px; border: 1px solid var(--line-2); display: grid; place-items: center; flex: 0 0 auto; font-size: 11px; color: var(--ink-3); }
+  .tick.done { background: var(--ink); border-color: var(--ink); color: var(--bg); }
+  .task .label { flex: 0 0 auto; font-weight: 550; }
+  .task .val { flex: 1; color: var(--ink-3); font-size: var(--t-micro); text-align: right; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .task .chev { color: var(--ink-3); flex: 0 0 auto; }
+  .setup-start { display: flex; align-items: center; gap: var(--sp-4); margin-top: var(--sp-5); padding: var(--sp-4); background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-sm); }
+  .setup-start .grow { flex: 1; }
+  .setup-start b { display: block; font-size: var(--t-small); }
+  .setup-start span { color: var(--ink-3); font-size: var(--t-micro); }
+
+  .metrics { display: flex; flex-wrap: wrap; gap: var(--sp-2); margin-top: var(--sp-3); }
+  .metric { font-size: var(--t-micro); color: var(--ink-2); background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 3px 10px; }
+  .metric b { color: var(--ink); font-variant-numeric: tabular-nums; }
+  footer { margin-top: var(--sp-7); border-top: 1px solid var(--line); padding-top: var(--sp-4); color: var(--ink-3); font-size: var(--t-micro); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <p class="eyebrow">Tahqeeq &#183; Mockup &#183; 13 August 2026</p>
+    <button class="theme-toggle" id="themeBtn" type="button">Dark</button>
+  </div>
+
+  <h1>Three screens, as they would be</h1>
+  <p class="lede">The strongest candidate from each study, dropped into the app's own chrome so the
+  changes can be read as screens rather than as prototypes. Every screen below is live; the numbers
+  under each are measured as the page renders.</p>
+
+  <section>
+    <h2>The question board <span class="badge">Study A &#183; candidate B</span></h2>
+    <p class="shot-note">Ten columns of two. Twenty numbers in one glance, no scrolling, and the
+    external-question link sits below the board where it can actually be reached. Numbers 3, 7 and 12
+    are already taken.</p>
+    <div class="app">
+      <div class="app-header">
+        <span class="brand">Tahqeeq<small>Test mode</small></span>
+        <span class="header-spacer"></span>
+        <span class="hchip"><b>Tahqeeq Test Competition</b>Test mode &#183; Live</span>
+      </div>
+      <div class="stage">
+        <div class="dialog" id="boardDlg">
+          <div class="dlg-head">
+            <span class="dlg-kicker">Tahqeeq Test Competition &#183; Test mode</span>
+            <h3>Choose a question</h3>
+          </div>
+          <div class="strip">
+            <span class="num">T001</span>
+            <span class="who">Ahmed Rasheed</span>
+            <span>Hiriya School &#183; Under 14 &#183; Hifz &#183; Starting side</span>
+            <span class="grow"></span>
+            <button class="btn" type="button">Change reciter</button>
+          </div>
+          <div class="dlg-body">
+            <div class="board" id="board"></div>
+            <div class="board-foot">
+              <span class="muted" id="boardState">No number chosen</span>
+              <span class="grow"></span>
+              <button class="btn" type="button">Use an external question</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="metrics" id="m1"></div>
+  </section>
+
+  <section>
+    <h2>The running order <span class="badge">Study B &#183; candidate C</span></h2>
+    <p class="shot-note">One table, division as a sticky group row, the next reciter marked and
+    reachable in a single press. The body scrolls inside itself, so forty people are the same height
+    as eight &#8212; today's list reaches nearly 3900px at forty.</p>
+    <div class="app">
+      <div class="app-header">
+        <span class="brand">Tahqeeq<small>Test mode</small></span>
+        <span class="header-spacer"></span>
+        <span class="hchip"><b>Tahqeeq Test Competition</b>Test mode &#183; Live</span>
+      </div>
+      <div class="stage">
+        <div class="dialog" id="roDlg">
+          <div class="dlg-head">
+            <span class="dlg-kicker">Tahqeeq Test Competition &#183; Test mode</span>
+            <h3>Select reciter</h3>
+          </div>
+          <div class="strip">
+            <span>This device</span><span class="who">Judge 1</span>
+            <span>Lahn Jal&#299; + Lahn Khaf&#299; + Fa&#7779;&#257;&#7717;a + Adu / Raagu</span>
+            <span class="grow"></span>
+            <button class="btn" type="button">Change</button>
+          </div>
+          <div class="strip">
+            <span class="num" id="waitN">8</span><span>waiting</span>
+            <span class="num" id="doneN">0</span><span>finished</span>
+            <span class="grow"></span>
+            <span>Under 14 &#183; Hifz</span>
+          </div>
+          <div class="dlg-body">
+            <div class="ro"><div class="ro-scroll">
+              <table>
+                <thead><tr><th>No.</th><th>Name</th><th>Institution</th><th>Side</th><th></th></tr></thead>
+                <tbody id="roBody"></tbody>
+              </table>
+            </div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="metrics" id="m2"></div>
+  </section>
+
+  <section>
+    <h2>Competition setup <span class="badge">Study C &#183; candidate B</span></h2>
+    <p class="shot-note">One column, one line per task, each carrying its own value. No second pane
+    and no subtitle restating its own title. Press a line to open its controls in place. Today's
+    screen spends 248 words on these same nine facts.</p>
+    <div class="app">
+      <div class="app-header">
+        <span class="brand">Tahqeeq<small>Test mode</small></span>
+        <span class="header-spacer"></span>
+        <span class="hchip"><b>Tahqeeq Test Competition</b>Test mode &#183; Draft</span>
+      </div>
+      <div class="stage">
+        <div class="setup" id="setup">
+          <div class="setup-head">
+            <h3>Prepare competition</h3>
+            <p>Seven of eight done &#183; draft questions optional</p>
+          </div>
+          <div id="tasks"></div>
+          <div class="setup-start">
+            <span class="grow"><b>Start test session</b><span>Freezes the roster, panel, marks and question rules.</span></span>
+            <button class="btn-primary" type="button">Start sample</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="metrics" id="m3"></div>
+  </section>
+
+  <footer>Mockup only. Built from the three studies against
+  <code>docs/DESIGN_GRAMMAR.md</code>; no app source was changed to produce it.</footer>
+</div>
+
+<script>
+(function () {
+  var MID = "\u00b7";
+  function el(tag, cls, text) {
+    var n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (text !== undefined) n.textContent = text;
+    return n;
+  }
+
+  /* ---- board ---- */
+  var TAKEN = [3, 7, 12], chosen = null;
+  var board = document.getElementById("board");
+  var boardState = document.getElementById("boardState");
+  for (var i = 1; i <= 20; i++) {
+    var t = el("button", "tile", String(i));
+    t.type = "button";
+    t.dataset.n = String(i);
+    if (TAKEN.indexOf(i) >= 0) { t.disabled = true; t.title = "Already taken"; }
+    board.appendChild(t);
+  }
+  board.addEventListener("click", function (e) {
+    var b = e.target.closest(".tile");
+    if (!b || b.disabled) return;
+    chosen = Number(b.dataset.n);
+    [].forEach.call(board.children, function (c) { c.classList.toggle("is-chosen", c === b); });
+    boardState.textContent = "Question " + chosen + " chosen";
+  });
+
+  /* ---- running order ---- */
+  var PEOPLE = [
+    ["T001", "Ahmed Rasheed", "Hiriya School", "Starting side", "Under 14 " + MID + " Hifz", true],
+    ["T002", "Mariyam Aisha", "Amilla faraathun", "Ending side", "Under 14 " + MID + " Hifz", false],
+    ["T003", "Mohamed Zayan", "Noor Quran Class", "Starting side", "Under 14 " + MID + " Baliagen", false],
+    ["T004", "Aishath Zaina", "Aminiya School", "Ending side", "Under 14 " + MID + " Baliagen", false],
+    ["T005", "Ibrahim Nimal", "Noor Quran Class", "Starting side", "Under 16 " + MID + " Hifz", false],
+    ["T006", "Fathimath Reem", "Hiriya School", "Ending side", "Under 16 " + MID + " Hifz", false],
+    ["T007", "Hassan Saeed", "Aminiya School", "Starting side", "Under 16 " + MID + " Baliagen", false],
+    ["T008", "Aminath Nooh", "Amilla faraathun", "Ending side", "Under 16 " + MID + " Baliagen", false]
+  ];
+  var body = document.getElementById("roBody");
+  var waiting = PEOPLE.length;
+  function drawRO() {
+    body.innerHTML = "";
+    var group = null;
+    PEOPLE.forEach(function (p) {
+      if (p[4] !== group) {
+        group = p[4];
+        var gr = el("tr", "group");
+        var gd = el("td", null, group);
+        gd.colSpan = 5;
+        gr.appendChild(gd);
+        body.appendChild(gr);
+      }
+      var tr = el("tr", p[5] ? "next" : "");
+      var num = el("td", "num");
+      num.appendChild(document.createTextNode(p[0]));
+      if (p[5]) num.appendChild(el("span", "next-tag", "Next"));
+      tr.appendChild(num);
+      tr.appendChild(el("td", "nm", p[1]));
+      tr.appendChild(el("td", null, p[2]));
+      tr.appendChild(el("td", null, p[3]));
+      var act = el("td", "act");
+      var pick = el("button", "btn", p[5] ? "Choose question" : "Select");
+      pick.type = "button";
+      var nh = el("button", "btn", "Not here");
+      nh.type = "button";
+      nh.style.marginLeft = "6px";
+      nh.addEventListener("click", function () {
+        if (tr.dataset.out === "1") return;
+        tr.dataset.out = "1";
+        tr.style.opacity = "0.45";
+        nh.textContent = "Not here";
+        pick.disabled = true;
+        waiting -= 1;
+        document.getElementById("waitN").textContent = String(waiting);
+      });
+      act.appendChild(pick);
+      act.appendChild(nh);
+      tr.appendChild(act);
+      body.appendChild(tr);
+    });
+  }
+  drawRO();
+
+  /* ---- setup ---- */
+  var TASKS = [
+    ["Competition details", "Tahqeeq Test Competition " + MID + " Sample 2026", true],
+    ["Divisions", "4 divisions", true],
+    ["Participants", "8, roster validated", true],
+    ["Marks and criteria", "100 / 100 across four criteria", true],
+    ["Judging panel", "1 judge, every criterion owned", true],
+    ["Question rules", "Manual questions " + MID + " 7 lines", true],
+    ["Draft questions", "0 " + MID + " optional", false],
+    ["Review", "Checked", true]
+  ];
+  var tasks = document.getElementById("tasks");
+  TASKS.forEach(function (t) {
+    var b = el("button", "task");
+    b.type = "button";
+    var tick = el("span", "tick" + (t[2] ? " done" : ""), t[2] ? "\u2713" : "");
+    b.appendChild(tick);
+    b.appendChild(el("span", "label", t[0]));
+    b.appendChild(el("span", "val", t[1]));
+    b.appendChild(el("span", "chev", "\u203a"));
+    tasks.appendChild(b);
+  });
+
+  /* ---- measurements, taken from what actually rendered ---- */
+  function words(node) {
+    var t = node.innerText || "";
+    var m = t.match(/\S+/g);
+    return m ? m.length : 0;
+  }
+  function metric(host, label, value) {
+    var s = el("span", "metric");
+    s.appendChild(document.createTextNode(label + " "));
+    var b = el("b", null, value);
+    s.appendChild(b);
+    host.appendChild(s);
+  }
+  function measure() {
+    var m1 = document.getElementById("m1"), m2 = document.getElementById("m2"), m3 = document.getElementById("m3");
+    m1.innerHTML = ""; m2.innerHTML = ""; m3.innerHTML = "";
+    var bd = document.getElementById("board").getBoundingClientRect();
+    var tile = document.querySelector(".tile").getBoundingClientRect();
+    metric(m1, "Board height", Math.round(bd.height) + "px");
+    metric(m1, "Target", Math.round(tile.width) + "\u00d7" + Math.round(tile.height) + "px");
+    metric(m1, "Words in dialog", String(words(document.getElementById("boardDlg"))));
+    metric(m1, "Actions to pick 14", "1");
+
+    var ro = document.getElementById("roDlg").getBoundingClientRect();
+    metric(m2, "Dialog height", Math.round(ro.height) + "px");
+    metric(m2, "Height at 40 people", "unchanged");
+    metric(m2, "Actions to pick anyone", "1");
+
+    var su = document.getElementById("setup").getBoundingClientRect();
+    metric(m3, "Screen height", Math.round(su.height) + "px");
+    metric(m3, "Words on screen", words(document.getElementById("setup")) + " (was 248)");
+    metric(m3, "Fits 1024\u00d7768", su.height <= 768 - 57 ? "yes" : "no");
+  }
+  measure();
+  window.addEventListener("resize", measure);
+
+  var btn = document.getElementById("themeBtn");
+  btn.addEventListener("click", function () {
+    var dark = document.documentElement.getAttribute("data-theme") === "dark";
+    document.documentElement.setAttribute("data-theme", dark ? "light" : "dark");
+    btn.textContent = dark ? "Dark" : "Light";
+  });
+})();
+</script>
+</body>
+</html>

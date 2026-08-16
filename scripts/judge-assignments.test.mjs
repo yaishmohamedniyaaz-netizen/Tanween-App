@@ -170,6 +170,8 @@ test("the reciter handoff freezes the device assignment before Ready", () => {
   assert.match(startSource, /Select reciter/);
   assert.match(questionNumberSource, /aria-label="Question numbers"/);
   assert.doesNotMatch(questionNumberSource, /Choose a number/);
+  // One instruction, in the dialog head. The board does not repeat it.
+  assert.doesNotMatch(startSource, /The reciter chooses an available number/);
   assert.match(startSource, /prepareWithQuestion\(drawnId/);
   assert.match(startSource, /type: "PREPARE_RECITER"/);
   assert.doesNotMatch(startSource, /type: "BEGIN_RECITER"/);

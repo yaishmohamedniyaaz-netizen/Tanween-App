@@ -71,6 +71,7 @@ function ImpressionRow({
         step={step}
         marked={marked}
         label={label}
+        category={category}
         onChange={(value) => dispatch({ type: "SET_IMPRESSION", category, awarded: value })}
       />
       <input

@@ -1,0 +1,1080 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Question Board Study</title>
+<style>
+  /* ---- Tokens, copied from src/styles/global.css (lines 1-80) ---- */
+  :root {
+    --bg: #f2f1ee;
+    --surface: #ffffff;
+    --ink: #1a1a1c;
+    --ink-2: #62626a;
+    --ink-3: #6a6a73;
+    --line: rgba(26, 26, 28, 0.08);
+    --line-2: rgba(26, 26, 28, 0.16);
+
+    --r-sm: 8px;
+    --r-md: 12px;
+    --r-lg: 20px;
+
+    --t-micro: 12px;
+    --t-small: 14px;
+    --t-body: 15px;
+    --t-lead: 17px;
+    --t-title: 21px;
+    --t-display: 27px;
+
+    --sp-1: 4px;
+    --sp-2: 8px;
+    --sp-3: 12px;
+    --sp-4: 16px;
+    --sp-5: 24px;
+    --sp-6: 32px;
+    --sp-7: 48px;
+
+    --tap: 44px;
+
+    --shadow-rest: 0 1px 2px rgba(26, 26, 28, 0.05);
+    --shadow-float: 0 12px 32px rgba(26, 26, 28, 0.14), 0 2px 8px rgba(26, 26, 28, 0.08);
+
+    --ui: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --serif: ui-serif, Georgia, "Times New Roman", serif;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #131316;
+      --surface: #1c1c20;
+      --ink: #ebebed;
+      --ink-2: #a4a4ac;
+      --ink-3: #8b8b95;
+      --line: rgba(255, 255, 255, 0.08);
+      --line-2: rgba(255, 255, 255, 0.16);
+      --shadow-rest: 0 1px 2px rgba(0, 0, 0, 0.4);
+      --shadow-float: 0 16px 40px rgba(0, 0, 0, 0.5), 0 3px 10px rgba(0, 0, 0, 0.35);
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --bg: #131316;
+    --surface: #1c1c20;
+    --ink: #ebebed;
+    --ink-2: #a4a4ac;
+    --ink-3: #8b8b95;
+    --line: rgba(255, 255, 255, 0.08);
+    --line-2: rgba(255, 255, 255, 0.16);
+    --shadow-rest: 0 1px 2px rgba(0, 0, 0, 0.4);
+    --shadow-float: 0 16px 40px rgba(0, 0, 0, 0.5), 0 3px 10px rgba(0, 0, 0, 0.35);
+  }
+
+  * { box-sizing: border-box; }
+  html, body { max-width: 100%; overflow-x: hidden; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--ui);
+    font-size: var(--t-body);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: var(--sp-7) var(--sp-5) 96px;
+  }
+
+  @media (min-width: 1040px) {
+    .page {
+      grid-template-columns: 200px minmax(0, 1fr);
+      gap: var(--sp-6);
+      padding-top: 64px;
+    }
+  }
+
+  .rail { display: none; }
+  @media (min-width: 1040px) {
+    .rail {
+      display: block;
+      position: sticky;
+      top: 40px;
+      align-self: start;
+      font-size: var(--t-small);
+    }
+    .rail-title {
+      font-size: 10.5px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      margin-bottom: var(--sp-3);
+    }
+    .rail a {
+      display: block;
+      padding: 5px 0 5px var(--sp-3);
+      border-left: 2px solid var(--line);
+      color: var(--ink-2);
+      text-decoration: none;
+    }
+    .rail a:hover { color: var(--ink); border-left-color: var(--ink-3); }
+  }
+
+  main { min-width: 0; }
+
+  .topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--sp-3);
+    margin-bottom: var(--sp-3);
+  }
+
+  .eyebrow {
+    font-size: var(--t-micro);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .theme-toggle {
+    font: inherit;
+    font-size: var(--t-micro);
+    background: var(--surface);
+    border: 1px solid var(--line-2);
+    color: var(--ink-2);
+    border-radius: var(--r-sm);
+    padding: var(--sp-1) var(--sp-3);
+    min-height: 32px;
+    cursor: pointer;
+  }
+  .theme-toggle:hover { color: var(--ink); border-color: var(--ink-3); }
+
+  h1 {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: clamp(30px, 4.4vw, var(--t-display));
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    margin: 0 0 var(--sp-3);
+  }
+
+  h2 {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: clamp(var(--t-title), 2.6vw, 27px);
+    line-height: 1.18;
+    margin: 0 0 6px;
+  }
+
+  h3 {
+    font-size: var(--t-lead);
+    font-weight: 600;
+    letter-spacing: -0.005em;
+    margin: var(--sp-5) 0 6px;
+  }
+  h3:first-child { margin-top: 0; }
+
+  h4 {
+    font-size: var(--t-micro);
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin: 0 0 var(--sp-2);
+  }
+
+  p, li { color: var(--ink-2); }
+  p { margin: 0 0 var(--sp-4); max-width: 68ch; }
+  .lede { font-size: var(--t-lead); color: var(--ink); max-width: 62ch; }
+
+  section { margin-top: var(--sp-7); }
+  section > p:last-child { margin-bottom: 0; }
+
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    gap: var(--sp-3);
+    border-top: 1px solid var(--line);
+    padding-top: var(--sp-4);
+    margin-bottom: var(--sp-5);
+  }
+  .section-head .num {
+    font-size: var(--t-micro);
+    font-variant-numeric: tabular-nums;
+    color: var(--ink-3);
+    font-weight: 600;
+    padding-top: 6px;
+  }
+
+  strong { color: var(--ink); font-weight: 600; }
+
+  code {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 0.86em;
+    background: var(--bg);
+    padding: 1px 5px;
+    border-radius: 4px;
+    color: var(--ink);
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r-md);
+    padding: var(--sp-5);
+    box-shadow: var(--shadow-rest);
+  }
+
+  .factstrip {
+    display: grid;
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: var(--r-md);
+    overflow: hidden;
+    margin: var(--sp-5) 0 0;
+  }
+  @media (min-width: 700px) { .factstrip { grid-template-columns: repeat(4, 1fr); } }
+  .factstrip > div { background: var(--surface); padding: var(--sp-3) var(--sp-4); }
+  .factstrip dt {
+    font-size: 10.5px;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin-bottom: 4px;
+  }
+  .factstrip dd { margin: 0; font-size: var(--t-small); color: var(--ink); font-weight: 500; }
+
+  .callout {
+    border-left: 2px solid var(--line-2);
+    padding: 2px 0 2px var(--sp-4);
+    margin: 0 0 var(--sp-4);
+  }
+  .callout p:last-child { margin-bottom: 0; }
+
+  /* ---- Candidate cards ---- */
+  .cand-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--sp-4);
+  }
+  /* One candidate per row. Side by side, each card was about 460px wide and
+     the five- and ten-column boards were clipped inside it with their last
+     tile invisible -- the very failure this study is about (rule 7). A board
+     bound for a 940px dialog has to be measured at that width to mean
+     anything. */
+  .lab-card { max-width: 880px; }
+
+  .lab-card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r-md);
+    box-shadow: var(--shadow-rest);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .lab-head { padding: var(--sp-4) var(--sp-4) var(--sp-3); border-bottom: 1px solid var(--line); }
+  .lab-head h3 { margin: 0 0 4px; font-size: var(--t-lead); }
+  .lab-head .tag {
+    font-size: 10.5px;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    font-weight: 600;
+  }
+  .lab-head p { font-size: var(--t-small); margin: var(--sp-1) 0 0; max-width: none; }
+
+  .lab-stage {
+    padding: var(--sp-4);
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-3);
+    flex: 1;
+    overflow-x: auto;
+  }
+
+  .lab-meta {
+    font-size: var(--t-micro);
+    color: var(--ink-3);
+    margin: 0;
+  }
+  .lab-meta b { color: var(--ink-2); font-weight: 600; font-variant-numeric: tabular-nums; }
+  .lab-meta b.is-bad { color: var(--ink); text-decoration: underline; text-decoration-color: var(--line-2); }
+
+  .lab-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--sp-3);
+    padding: var(--sp-3) var(--sp-4);
+    border-top: 1px solid var(--line);
+    background: var(--bg);
+    font-size: var(--t-small);
+    color: var(--ink-2);
+  }
+  .counter { font-variant-numeric: tabular-nums; }
+  .counter b { color: var(--ink); font-weight: 600; }
+  .reset {
+    font: inherit;
+    font-size: var(--t-micro);
+    background: none;
+    border: 1px solid var(--line-2);
+    color: var(--ink-2);
+    border-radius: var(--r-sm);
+    padding: var(--sp-1) var(--sp-3);
+    min-height: 32px;
+    cursor: pointer;
+  }
+  .reset:hover { color: var(--ink); border-color: var(--ink-3); }
+
+  button { font-family: inherit; }
+  :focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; border-radius: 4px; }
+
+  /* Board tiles, shared look, sized per candidate below */
+  .board { display: grid; gap: var(--sp-2); }
+  .tile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-sm);
+    background: var(--surface);
+    color: var(--ink);
+    font-size: var(--t-body);
+    font-variant-numeric: tabular-nums;
+    cursor: pointer;
+    padding: 0;
+  }
+  .tile:hover:not(:disabled) { border-color: var(--ink-3); background: var(--bg); }
+  .tile[aria-pressed="true"] {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--surface);
+    font-weight: 600;
+  }
+  .tile:disabled {
+    color: var(--ink-3);
+    background: var(--bg);
+    text-decoration: line-through;
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
+
+  [data-board="a"] { grid-template-columns: repeat(5, 110px); }
+  [data-board="a"] .tile { width: 110px; height: 62px; font-size: var(--t-lead); }
+
+  [data-board="b"] { grid-template-columns: repeat(10, 64px); gap: var(--sp-1); }
+  [data-board="b"] .tile { width: 64px; height: 52px; font-size: var(--t-body); }
+
+  [data-board="c"] { grid-template-columns: repeat(4, 78px); }
+  [data-board="c"] .tile { width: 78px; height: 78px; font-size: var(--t-title); }
+
+  /* ---- D: type the number ---- */
+  .d-wrap { display: flex; flex-direction: column; gap: var(--sp-2); max-width: 320px; }
+  .d-input {
+    font: inherit;
+    font-size: var(--t-title);
+    font-variant-numeric: tabular-nums;
+    height: var(--tap);
+    width: 100%;
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-sm);
+    background: var(--surface);
+    color: var(--ink);
+    padding: 0 var(--sp-3);
+  }
+  .d-input:focus-visible { outline: 2px solid var(--ink); outline-offset: 1px; }
+  .d-hint { font-size: var(--t-micro); color: var(--ink-3); margin: 0; }
+  .d-msg {
+    font-size: var(--t-small);
+    color: var(--ink);
+    background: var(--bg);
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-sm);
+    padding: var(--sp-2) var(--sp-3);
+    margin: 0;
+    min-height: 1px;
+    display: none;
+  }
+  .d-msg.is-shown { display: block; }
+  .d-list {
+    max-height: 168px;
+    overflow-y: auto;
+    border: 1px solid var(--line);
+    border-radius: var(--r-sm);
+    padding: var(--sp-1);
+    display: flex;
+    flex-direction: column;
+  }
+  .d-row {
+    font: inherit;
+    font-size: var(--t-body);
+    font-variant-numeric: tabular-nums;
+    height: 36px;
+    min-height: 36px;
+    border: 0;
+    border-radius: 5px;
+    background: none;
+    color: var(--ink);
+    text-align: left;
+    padding: 0 var(--sp-3);
+    cursor: pointer;
+  }
+  .d-row:hover:not(:disabled) { background: var(--bg); }
+  .d-row[aria-pressed="true"] { background: var(--ink); color: var(--surface); font-weight: 600; }
+  .d-row:disabled {
+    color: var(--ink-3);
+    text-decoration: line-through;
+    cursor: not-allowed;
+  }
+  .d-empty { font-size: var(--t-small); color: var(--ink-3); padding: var(--sp-2) var(--sp-3); }
+
+  /* ---- Comparison table ---- */
+  .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--r-md); background: var(--surface); }
+  table { width: 100%; border-collapse: collapse; font-size: var(--t-small); min-width: 720px; }
+  th, td { text-align: left; padding: var(--sp-3) var(--sp-4); border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); font-weight: 600; }
+  tr:last-child td { border-bottom: 0; }
+  td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+  /* ---- Against the grammar ---- */
+  .grammar-cand { margin-top: var(--sp-6); }
+  .grammar-cand:first-child { margin-top: 0; }
+  .grammar-row { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--sp-2); }
+  @media (min-width: 700px) { .grammar-row { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--sp-4); } }
+  .grammar-row .card { padding: var(--sp-4); box-shadow: none; }
+  .grammar-row h4 { margin-bottom: var(--sp-2); }
+  .grammar-row ul { margin: 0; padding-left: 18px; }
+  .grammar-row li { font-size: var(--t-small); margin-bottom: 6px; }
+  .grammar-row li:last-child { margin-bottom: 0; }
+
+  .foot {
+    margin-top: 72px;
+    padding-top: var(--sp-4);
+    border-top: 1px solid var(--line);
+    font-size: var(--t-micro);
+    color: var(--ink-3);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; animation: none !important; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <nav class="rail" aria-label="Contents">
+    <div class="rail-title">Contents</div>
+    <a href="#problem">The problem</a>
+    <a href="#candidates">Four candidates</a>
+    <a href="#compare">How they compare</a>
+    <a href="#grammar">Against the grammar</a>
+  </nav>
+
+  <main>
+    <div class="topbar">
+      <p class="eyebrow">Tahqeeq &#183; interface study &#183; 13 August 2026</p>
+      <button type="button" class="theme-toggle" id="theme-toggle" aria-live="polite">Dark</button>
+    </div>
+
+    <h1>The question board</h1>
+    <p class="lede">
+      A judge shows a reciter twenty numbers; the reciter picks one aloud; the judge taps it.
+      This studies four ways of laying that board out, each built as a working prototype rather
+      than a picture of one. No candidate is picked here &#8212; the numbers below are the case
+      for a human to decide with.
+    </p>
+
+    <dl class="factstrip">
+      <div><dt>Dialog today</dt><dd>940px wide</dd></div>
+      <div><dt>Tile today</dt><dd>116&#215;76px</dd></div>
+      <div><dt>Instruction</dt><dd>78 &#8594; 59 words</dd></div>
+      <div><dt>Board today</dt><dd>5&#215;4, 20 numbers</dd></div>
+    </dl>
+
+    <section id="problem">
+      <div class="section-head"><span class="num">01</span><h2>The problem</h2></div>
+      <p>
+        The board holds twenty numbers in five columns of four. Each tile measures 116&#215;76px
+        &#8212; a size chosen for a phone, in a dialog that only ever opens on the laptop the app
+        actually runs on. At 1024&#215;768, a common laptop resolution, the board pushed the
+        dialog's footer out of reach: the rarely-used &#8220;use an external question&#8221; link
+        sat below the fold with no scroller, which by the grammar's own test (rule 7) makes it
+        unreachable rather than merely awkward.
+      </p>
+      <p>
+        The instruction text above the board has already been cut from 78 words to 59. A grid of
+        twenty numbers needs very little explaining &#8212; rule 6 says a grid is its own
+        instruction &#8212; but 59 words is still more than most of the candidates below need.
+      </p>
+      <div class="callout">
+        <p>
+          Every candidate that follows renders the same twenty numbers, with 3, 7 and 12 already
+          taken, so the taken state and the overflow risk can both be seen rather than described.
+        </p>
+      </div>
+    </section>
+
+    <section id="candidates">
+      <div class="section-head"><span class="num">02</span><h2>Four candidates</h2></div>
+      <p>
+        Each card is live. Numbers 3, 7 and 12 are struck out and cannot be pressed. Pick any
+        other number to see it chosen; Reset clears the card. The caption under each board is
+        measured at run time with <code>getBoundingClientRect()</code>, not typed in by hand.
+      </p>
+
+      <div class="cand-grid">
+
+        <!-- A -->
+        <div class="lab-card">
+          <div class="lab-head">
+            <h3>A <span class="tag">Board as-is, tightened</span></h3>
+            <p>The current 5&#215;4 grid, with the tile brought down from 116&#215;76 to about 110&#215;62.</p>
+          </div>
+          <div class="lab-stage">
+            <div class="board" data-board="a" role="group" aria-label="Question board, candidate A"></div>
+            <p class="lab-meta">
+              Board height: <b data-h="a">&#8212;</b>px &#183;
+              Target size: <b data-sz="a">&#8212;</b> &#183;
+              Fits a 420px-tall region: <b data-fit="a">&#8212;</b>
+            </p>
+          </div>
+          <div class="lab-foot">
+            <span class="counter" data-count="a">Actions: <b data-c-actions="a">0</b> &#183; Chosen: <b data-c-chosen="a">&#8212;</b></span>
+            <button type="button" class="reset" data-reset="a">Reset</button>
+          </div>
+        </div>
+
+        <!-- B -->
+        <div class="lab-card">
+          <div class="lab-head">
+            <h3>B <span class="tag">Dense grid</span></h3>
+            <p>Ten columns of two. The whole board sits in one glance; nothing scrolls.</p>
+          </div>
+          <div class="lab-stage">
+            <div class="board" data-board="b" role="group" aria-label="Question board, candidate B"></div>
+            <p class="lab-meta">
+              Board height: <b data-h="b">&#8212;</b>px &#183;
+              Target size: <b data-sz="b">&#8212;</b> &#183;
+              Fits a 420px-tall region: <b data-fit="b">&#8212;</b>
+            </p>
+          </div>
+          <div class="lab-foot">
+            <span class="counter" data-count="b">Actions: <b data-c-actions="b">0</b> &#183; Chosen: <b data-c-chosen="b">&#8212;</b></span>
+            <button type="button" class="reset" data-reset="b">Reset</button>
+          </div>
+        </div>
+
+        <!-- C -->
+        <div class="lab-card">
+          <div class="lab-head">
+            <h3>C <span class="tag">Numeric keypad</span></h3>
+            <p>Four columns of five, square tiles the size of a real keypad key, leaning on a shape people already know.</p>
+          </div>
+          <div class="lab-stage">
+            <div class="board" data-board="c" role="group" aria-label="Question board, candidate C"></div>
+            <p class="lab-meta">
+              Board height: <b data-h="c">&#8212;</b>px &#183;
+              Target size: <b data-sz="c">&#8212;</b> &#183;
+              Fits a 420px-tall region: <b data-fit="c">&#8212;</b>
+            </p>
+          </div>
+          <div class="lab-foot">
+            <span class="counter" data-count="c">Actions: <b data-c-actions="c">0</b> &#183; Chosen: <b data-c-chosen="c">&#8212;</b></span>
+            <button type="button" class="reset" data-reset="c">Reset</button>
+          </div>
+        </div>
+
+        <!-- D -->
+        <div class="lab-card">
+          <div class="lab-head">
+            <h3>D <span class="tag">Type the number</span></h3>
+            <p>One input. The reciter says a number, the judge types it and presses Enter; the list below filters live.</p>
+          </div>
+          <div class="lab-stage">
+            <div class="d-wrap" data-board="d">
+              <input class="d-input" type="text" inputmode="numeric" autocomplete="off" maxlength="2"
+                     aria-label="Type the reciter's number" placeholder="Type a number" data-d-input>
+              <p class="d-msg" data-d-msg role="alert"></p>
+              <div class="d-list" data-d-list role="listbox" aria-label="Matching numbers"></div>
+              <p class="d-hint">Press Enter to choose &#183; a taken number is refused, not chosen</p>
+            </div>
+            <p class="lab-meta">
+              Board height: <b data-h="d">&#8212;</b>px &#183;
+              Target size: <b data-sz="d">&#8212;</b> &#183;
+              Fits a 420px-tall region: <b data-fit="d">&#8212;</b>
+            </p>
+          </div>
+          <div class="lab-foot">
+            <span class="counter" data-count="d">Actions: <b data-c-actions="d">0</b> &#183; Chosen: <b data-c-chosen="d">&#8212;</b></span>
+            <button type="button" class="reset" data-reset="d">Reset</button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="compare">
+      <div class="section-head"><span class="num">03</span><h2>How they compare</h2></div>
+      <p>
+        Board height, target size and the cost of picking #14 are filled in below by the same
+        code that runs the prototypes above, so this table cannot say something the boards
+        themselves do not. &#8220;Fits 1024&#215;768&#8221; reuses the 420px-tall region quoted
+        under each board: at that viewport, once the dialog's header, its one-line instruction
+        and the footer holding the external-question link are accounted for, roughly 420px of
+        height is what remains for the board itself.
+      </p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Candidate</th>
+              <th class="num">Board height</th>
+              <th>Target size</th>
+              <th class="num">Actions to pick #14</th>
+              <th>Fits 1024&#215;768</th>
+              <th>Weakness</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>A</strong> Board as-is, tightened</td>
+              <td class="num" data-tbl-h="a">&#8212;</td>
+              <td data-tbl-sz="a">&#8212;</td>
+              <td class="num" data-tbl-act="a">&#8212;</td>
+              <td data-tbl-fit="a">&#8212;</td>
+              <td>Still the widest of the four &#8212; five columns need real horizontal room, and the tightened tile is still sized for a phone.</td>
+            </tr>
+            <tr>
+              <td><strong>B</strong> Dense grid</td>
+              <td class="num" data-tbl-h="b">&#8212;</td>
+              <td data-tbl-sz="b">&#8212;</td>
+              <td class="num" data-tbl-act="b">&#8212;</td>
+              <td data-tbl-fit="b">&#8212;</td>
+              <td>Twenty numbers read as one glance, but ten columns packed edge to edge leave the least room either side of a tile for a miss.</td>
+            </tr>
+            <tr>
+              <td><strong>C</strong> Numeric keypad</td>
+              <td class="num" data-tbl-h="c">&#8212;</td>
+              <td data-tbl-sz="c">&#8212;</td>
+              <td class="num" data-tbl-act="c">&#8212;</td>
+              <td data-tbl-fit="c">&#8212;</td>
+              <td>The most confident targets of the four, and the tallest board by a clear margin &#8212; measured over the 420px budget, not under it.</td>
+            </tr>
+            <tr>
+              <td><strong>D</strong> Type the number</td>
+              <td class="num" data-tbl-h="d">&#8212;</td>
+              <td data-tbl-sz="d">&#8212;</td>
+              <td class="num" data-tbl-act="d">&#8212;</td>
+              <td data-tbl-fit="d">&#8212;</td>
+              <td>The smallest board by far, but the reciter's spoken number now has to become the judge's keystrokes before it becomes a choice.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="grammar">
+      <div class="section-head"><span class="num">04</span><h2>Against the grammar</h2></div>
+      <p>
+        Every rule is one the app already keeps somewhere; the question is which ones each
+        candidate bends, and why. Numbers below are the ones measured on this page.
+      </p>
+
+      <div class="grammar-cand">
+        <h3>A &#8212; Board as-is, tightened</h3>
+        <div class="grammar-row">
+          <div class="card">
+            <h4>Keeps</h4>
+            <ul>
+              <li><strong>Rule 2</strong> &#8212; the grid is the only control; there is no second place to point.</li>
+              <li><strong>Rule 4</strong> &#8212; one tap commits one number.</li>
+              <li><strong>Rule 6</strong> &#8212; the grid needs no instruction beyond itself.</li>
+              <li><strong>Rule 10</strong> &#8212; 110&#215;62 clears the 44px floor on both sides.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h4>Bends</h4>
+            <ul>
+              <li><strong>Rule 1</strong> &#8212; five fixed columns still ask for more width than a compact dialog wants to give a control that is not the evidence.</li>
+              <li><strong>Rule 5</strong> &#8212; a tap commits instantly, with no press-drag-release correction of the kind rule 4 elsewhere relies on; a mis-tap is a mis-pick.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="grammar-cand">
+        <h3>B &#8212; Dense grid</h3>
+        <div class="grammar-row">
+          <div class="card">
+            <h4>Keeps</h4>
+            <ul>
+              <li><strong>Rule 7</strong> &#8212; the shortest board of the four, with the least chance of pushing anything below it out of reach.</li>
+              <li><strong>Rule 8</strong> &#8212; built entirely on the 4px grid, down to its 4px gaps.</li>
+              <li><strong>Rule 10</strong> &#8212; 64&#215;52 still clears 44px on both sides, despite being the smallest tile here.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h4>Bends</h4>
+            <ul>
+              <li><strong>Rule 5</strong> &#8212; ten columns with 4px between them is the least forgiving spacing of the four; a finger that lands 4px off lands on the wrong number, and the tap still commits at once.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="grammar-cand">
+        <h3>C &#8212; Numeric keypad</h3>
+        <div class="grammar-row">
+          <div class="card">
+            <h4>Keeps</h4>
+            <ul>
+              <li><strong>Rule 10</strong> &#8212; 78&#215;78 is the largest target of the four, well clear of the 44px floor.</li>
+              <li><strong>Rule 6</strong> &#8212; a keypad shape needs no legend; people already know how to read one.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h4>Bends</h4>
+            <ul>
+              <li><strong>Rule 7</strong> &#8212; measured over the 420px budget on this page. The tile size that makes rule 10 easy is the same size that pushes the board past the region that caused the original overflow.</li>
+              <li><strong>Rule 1</strong> &#8212; the tallest control of the four takes the most room from a dialog that is meant to be chrome around a decision, not the decision's own monument.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="grammar-cand">
+        <h3>D &#8212; Type the number</h3>
+        <div class="grammar-row">
+          <div class="card">
+            <h4>Keeps</h4>
+            <ul>
+              <li><strong>Rule 7</strong> &#8212; by far the shortest board; nothing here is at risk of overflow.</li>
+              <li><strong>Rule 5</strong> &#8212; the number sits visible in the input before Enter commits it, so a mis-typed digit is caught before it counts, unlike a tap that commits on contact.</li>
+              <li><strong>Rule 1</strong> &#8212; the smallest footprint of the four, leaving the most room for the rest of the dialog.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h4>Bends</h4>
+            <ul>
+              <li><strong>Rule 4</strong> &#8212; picking #14 costs three presses, not the one deliberate gesture the rest of the app aims for.</li>
+              <li><strong>Rule 10</strong> &#8212; the fallback list's rows are 36px tall, short of the 44px floor; typing and pressing Enter is the primary path precisely because the list is a secondary one.</li>
+              <li><strong>Rule 6</strong> &#8212; a text field is less self-evident than a grid of numbers and needs the one line of hint it carries.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <p class="foot">
+      Design study, not a decision. Built as one self-contained file against the tokens in
+      <code>src/styles/global.css</code> and the rules in <code>DESIGN_GRAMMAR.md</code>.
+      No app source was changed to produce it.
+    </p>
+  </main>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  var TAKEN = [3, 7, 12];
+  var GRID_KEYS = ["a", "b", "c"];
+
+  function isTaken(n) { return TAKEN.indexOf(n) !== -1; }
+
+  /* ---- shared counter rendering ---- */
+  function renderCounter(key, state) {
+    var actionsEl = document.querySelector('[data-c-actions="' + key + '"]');
+    var chosenEl = document.querySelector('[data-c-chosen="' + key + '"]');
+    if (actionsEl) actionsEl.textContent = String(state.actions);
+    if (chosenEl) chosenEl.textContent = state.chosen === null ? "\u2014" : String(state.chosen);
+  }
+
+  /* ---- A / B / C: tap grids ---- */
+  function buildGrid(key) {
+    var root = document.querySelector('[data-board="' + key + '"]');
+    var state = { chosen: null, actions: 0 };
+
+    for (var n = 1; n <= 20; n++) {
+      (function (n) {
+        var btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "tile";
+        btn.textContent = String(n);
+        btn.dataset.n = String(n);
+        btn.setAttribute("aria-pressed", "false");
+        if (isTaken(n)) {
+          btn.disabled = true;
+          btn.setAttribute("aria-disabled", "true");
+          btn.setAttribute("aria-label", n + ", already taken");
+        } else {
+          btn.setAttribute("aria-label", "Choose " + n);
+          btn.addEventListener("click", function () { pick(n); });
+        }
+        root.appendChild(btn);
+      })(n);
+    }
+
+    function pick(n) {
+      if (isTaken(n)) return;
+      state.chosen = n;
+      state.actions += 1;
+      render();
+    }
+
+    function render() {
+      root.querySelectorAll(".tile").forEach(function (btn) {
+        var n = parseInt(btn.dataset.n, 10);
+        btn.setAttribute("aria-pressed", n === state.chosen ? "true" : "false");
+      });
+      renderCounter(key, state);
+    }
+
+    function reset() {
+      state.chosen = null;
+      state.actions = 0;
+      render();
+    }
+
+    render();
+    var resetBtn = document.querySelector('[data-reset="' + key + '"]');
+    if (resetBtn) resetBtn.addEventListener("click", reset);
+
+    return {
+      state: state,
+      pick: pick,
+      reset: reset,
+      pickButton: function (n) { return root.querySelector('[data-n="' + n + '"]'); }
+    };
+  }
+
+  var boards = {};
+  GRID_KEYS.forEach(function (key) { boards[key] = buildGrid(key); });
+
+  /* ---- D: type the number ---- */
+  function buildTypeBoard() {
+    var wrap = document.querySelector('[data-board="d"]');
+    var input = wrap.querySelector("[data-d-input]");
+    var list = wrap.querySelector("[data-d-list]");
+    var msg = wrap.querySelector("[data-d-msg]");
+    var state = { chosen: null, actions: 0 };
+
+    function rowsFor(prefix) {
+      var out = [];
+      for (var n = 1; n <= 20; n++) {
+        if (!prefix || String(n).indexOf(prefix) === 0) out.push(n);
+      }
+      return out;
+    }
+
+    function renderList() {
+      var prefix = input.value.trim();
+      var nums = rowsFor(prefix);
+      list.innerHTML = "";
+      if (nums.length === 0) {
+        var empty = document.createElement("p");
+        empty.className = "d-empty";
+        empty.textContent = "No number matches.";
+        list.appendChild(empty);
+        return;
+      }
+      nums.forEach(function (n) {
+        var row = document.createElement("button");
+        row.type = "button";
+        row.className = "d-row";
+        row.textContent = String(n);
+        row.dataset.n = String(n);
+        row.setAttribute("role", "option");
+        row.setAttribute("aria-pressed", n === state.chosen ? "true" : "false");
+        if (isTaken(n)) {
+          row.disabled = true;
+          row.setAttribute("aria-disabled", "true");
+          row.setAttribute("aria-label", n + ", already taken");
+        } else {
+          row.setAttribute("aria-label", "Choose " + n);
+          row.addEventListener("click", function () {
+            state.actions += 1;
+            commit(n);
+          });
+        }
+        list.appendChild(row);
+      });
+    }
+
+    function showMessage(text) {
+      msg.textContent = text;
+      msg.classList.toggle("is-shown", !!text);
+    }
+
+    function commit(n) {
+      if (isTaken(n)) {
+        showMessage("Number " + n + " is already taken.");
+        render();
+        return;
+      }
+      state.chosen = n;
+      showMessage("");
+      input.value = "";
+      render();
+    }
+
+    function onInput() {
+      state.actions += 1;
+      showMessage("");
+      render();
+    }
+
+    function onKeydown(e) {
+      if (e.key !== "Enter") return;
+      e.preventDefault();
+      state.actions += 1;
+      var n = parseInt(input.value, 10);
+      if (isNaN(n)) { render(); return; }
+      commit(n);
+    }
+
+    function render() {
+      renderList();
+      renderCounter("d", state);
+    }
+
+    function reset() {
+      state.chosen = null;
+      state.actions = 0;
+      input.value = "";
+      showMessage("");
+      render();
+    }
+
+    input.addEventListener("input", onInput);
+    input.addEventListener("keydown", onKeydown);
+    render();
+    var resetBtn = document.querySelector('[data-reset="d"]');
+    if (resetBtn) resetBtn.addEventListener("click", reset);
+
+    return { state: state, input: input, reset: reset };
+  }
+
+  var dBoard = buildTypeBoard();
+
+  /* ---- measurement: board height, target size, fits-420 ---- */
+  var FIT_BUDGET = 420;
+
+  var SAMPLE_SELECTOR = {
+    a: '.tile:not(:disabled)',
+    b: '.tile:not(:disabled)',
+    c: '.tile:not(:disabled)'
+  };
+
+  function measure() {
+    GRID_KEYS.forEach(function (key) {
+      var root = document.querySelector('[data-board="' + key + '"]');
+      var rect = root.getBoundingClientRect();
+      var h = Math.round(rect.height);
+      var sample = root.querySelector(SAMPLE_SELECTOR[key]);
+      var srect = sample.getBoundingClientRect();
+      var sizeText = Math.round(srect.width) + "\u00d7" + Math.round(srect.height) + "px";
+      writeMeasure(key, h, sizeText, h <= FIT_BUDGET);
+    });
+
+    var dRoot = document.querySelector('[data-board="d"]');
+    var dRect = dRoot.getBoundingClientRect();
+    var dh = Math.round(dRect.height);
+    var inputRect = dRoot.querySelector("[data-d-input]").getBoundingClientRect();
+    var rowEl = dRoot.querySelector(".d-row");
+    var rowH = rowEl ? Math.round(rowEl.getBoundingClientRect().height) : 0;
+    var dSize = Math.round(inputRect.height) + "px input, " + rowH + "px rows";
+    writeMeasure("d", dh, dSize, dh <= FIT_BUDGET);
+  }
+
+  function writeMeasure(key, height, sizeText, fits) {
+    var fitText = fits ? "Yes" : "No";
+    setText('[data-h="' + key + '"]', String(height));
+    setText('[data-sz="' + key + '"]', sizeText);
+    setText('[data-fit="' + key + '"]', fitText, !fits);
+    setText('[data-tbl-h="' + key + '"]', height + "px");
+    setText('[data-tbl-sz="' + key + '"]', sizeText);
+    setText('[data-tbl-fit="' + key + '"]', fitText);
+  }
+
+  function setText(selector, text, isBad) {
+    document.querySelectorAll(selector).forEach(function (el) {
+      el.textContent = text;
+      if (isBad !== undefined) el.classList.toggle("is-bad", !!isBad);
+    });
+  }
+
+  /* ---- self-test: actions to pick #14, run once at load using the real
+     event pipeline, then reset so the live counters stay at zero ---- */
+  function testGridPick14(key) {
+    var b = boards[key];
+    b.reset();
+    var btn = b.pickButton(14);
+    btn.click();
+    var n = b.state.actions;
+    b.reset();
+    return n;
+  }
+
+  function testTypePick14() {
+    dBoard.reset();
+    var input = dBoard.input;
+    ["1", "4"].forEach(function (ch) {
+      input.value += ch;
+      input.dispatchEvent(new Event("input", { bubbles: true }));
+    });
+    input.dispatchEvent(new KeyboardEvent("keydown", { key: "Enter", bubbles: true, cancelable: true }));
+    var n = dBoard.state.actions;
+    dBoard.reset();
+    return n;
+  }
+
+  function runSelfTests() {
+    GRID_KEYS.forEach(function (key) {
+      var n = testGridPick14(key);
+      setText('[data-tbl-act="' + key + '"]', String(n));
+    });
+    var dn = testTypePick14();
+    setText('[data-tbl-act="d"]', String(dn));
+  }
+
+  runSelfTests();
+
+  function settle() {
+    requestAnimationFrame(function () {
+      requestAnimationFrame(measure);
+    });
+  }
+  if (document.readyState === "complete") settle();
+  else window.addEventListener("load", settle);
+  window.addEventListener("resize", measure);
+
+  /* ---- theme toggle ---- */
+  var toggle = document.getElementById("theme-toggle");
+  function currentIsDark() {
+    var attr = document.documentElement.getAttribute("data-theme");
+    if (attr === "dark") return true;
+    if (attr === "light") return false;
+    return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+  }
+  function syncToggleLabel() {
+    toggle.textContent = currentIsDark() ? "Light" : "Dark";
+  }
+  toggle.addEventListener("click", function () {
+    document.documentElement.setAttribute("data-theme", currentIsDark() ? "light" : "dark");
+    syncToggleLabel();
+  });
+  syncToggleLabel();
+})();
+</script>
+</body>
+</html>

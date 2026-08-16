@@ -25,6 +25,11 @@ interface Props {
   step: number;
   marked: boolean;
   label: string;
+  /** The criterion this mark belongs to, so the bar can carry its colour.
+   *  The bar is portalled to the body and so sits outside the score row;
+   *  custom properties inherit down the DOM, not the React tree, and without
+   *  this the bar would fall back to ink while its row reads as the criterion. */
+  category: string;
   onChange: (value: number) => void;
   autoFocus?: boolean;
   layer?: "workspace" | "dialog";
@@ -43,6 +48,7 @@ export function MarkPicker({
   step,
   marked,
   label,
+  category,
   onChange,
   autoFocus = false,
   layer = "workspace",
@@ -267,9 +273,9 @@ export function MarkPicker({
         createPortal(
           <div
             ref={barRef}
-            className={`mark-bar ${pinned ? "is-pinned" : ""} ${
-              layer === "dialog" ? "is-dialog-layer" : ""
-            }`}
+            className={`mark-bar cat-${category} ${
+              pinned ? "is-pinned" : ""
+            } ${layer === "dialog" ? "is-dialog-layer" : ""}`}
             style={{ top: anchor.top, left: anchor.left, width: anchor.width }}
           >
             <div
