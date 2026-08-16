@@ -129,6 +129,7 @@
    3:1 a filled chip needs against both the light and the dark surface. */
 .cat-adu-raagu {
   --c: #377b60;
+  --c-on: #ffffff;
   --c-strong: #26624b;
   --c-tint: #eef8f3;
   --c-wash: rgba(55, 123, 96, 0.14);
@@ -8999,12 +9000,12 @@ html:has(.dialog-backdrop) {
 .chip-strip button[aria-checked="true"] {
   background: var(--c, var(--ink));
   border-color: var(--c, var(--ink));
-  color: var(--surface);
+  color: var(--c-on, #ffffff);
   font-weight: 600;
 }
 .chip-strip button[aria-checked="true"]:hover {
   background: var(--c, var(--ink));
-  color: var(--surface);
+  color: var(--c-on, #ffffff);
 }
 /* A half mark reads as the boundary within a whole chip, not as a new number. */
 .chip-strip button.is-half {
@@ -9024,6 +9025,20 @@ html:has(.dialog-backdrop) {
     var(--surface) 50%
   );
   color: var(--ink-2);
+}
+/* A half mark puts the numeral across two surfaces. Clip its ink at the same
+   midpoint as the chip so the filled half stays white and the paper half uses
+   normal ink in both themes. */
+.chip-strip button.is-half .mark-chip-label {
+  color: transparent;
+  background: linear-gradient(
+    to right,
+    var(--c-on, #ffffff) 50%,
+    var(--ink) 50%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .finish-dialog {

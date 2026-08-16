@@ -320,7 +320,7 @@ export function MarkPicker({
                     data-mark={mark}
                     className={half ? "is-half" : ""}
                   >
-                    <span className="t-num">{mark}</span>
+                    <span className="mark-chip-label t-num">{mark}</span>
                   </button>
                 );
               })}

@@ -1,6 +1,7 @@
 # Results and analysis: the redesign plan
 
-> **Revised 16 August 2026, against `main` at `aced7d1`.** The first version of
+> **Re-verified 16 August 2026 against the current integration branch, descended
+> from `e8e5425`.** The first version of
 > this file was written against a branch point that predated the results Pass 1.
 > Two of its four headline findings have since been fixed on main, independently
 > and in substantially the way this file proposed. They are recorded as closed in

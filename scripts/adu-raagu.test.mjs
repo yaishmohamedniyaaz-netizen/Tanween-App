@@ -592,6 +592,33 @@ test("the mark bar carries its criterion's colour across the portal", () => {
   assert.match(scorePanelSource, /category=\{category\}/);
 });
 
+test("Adu and Raagu chips keep readable ink and a neutral uncommitted state", () => {
+  const categoryRule = ruleBody(".cat-adu-raagu");
+  const accent = categoryRule.match(/--c:\s*(#[0-9a-f]{6})/i)?.[1];
+  assert.equal(accent, "#377b60");
+  assert.match(categoryRule, /--c-on:\s*#ffffff/);
+
+  const luminance = (hex) => {
+    const channels = hex.match(/[0-9a-f]{2}/gi).map((channel) => parseInt(channel, 16) / 255);
+    const linear = channels.map((channel) =>
+      channel <= 0.04045 ? channel / 12.92 : ((channel + 0.055) / 1.055) ** 2.4,
+    );
+    return linear[0] * 0.2126 + linear[1] * 0.7152 + linear[2] * 0.0722;
+  };
+  const white = luminance("ffffff");
+  const green = luminance(accent.slice(1));
+  assert.ok((white + 0.05) / (green + 0.05) >= 4.5, "white must meet AA on the chosen green");
+
+  assert.match(ruleBody('.chip-strip button[aria-checked="true"]'), /var\(--c-on, #ffffff\)/);
+  assert.match(ruleBody(".chip-strip button.is-half .mark-chip-label"), /background-clip: text/);
+  assert.match(pickerSource, /className="mark-chip-label t-num"/);
+
+  const openRule = ruleBody(".mark-picker.is-open");
+  assert.match(openRule, /border-color: var\(--ink\)/);
+  assert.doesNotMatch(openRule, /--c(?:-wash)?|background:/);
+  assert.match(ruleBody(".mark-picker:hover"), /border-color: var\(--ink-3\)/);
+});
+
 test("the mark bar opens on a press and commits when the press ends", () => {
   assert.match(pickerSource, /className={`mark-bar/);
   assert.match(pickerSource, /setOpen\(true\);\s*setPinned\(false\);/);

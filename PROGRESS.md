@@ -1,5 +1,21 @@
 # Tahqeeq — build progress log
 
+## Adu / Raagu contrast and research reconciliation — IMPLEMENTED & VERIFIED (2026-08-16)
+
+- Integrated Claude's final resolved Adu / Raagu direction while retaining the
+  existing whole-number chip picker and half-mark gesture contract. The
+  discarded cell-grid experiment was not reintroduced.
+- The committed accent is now the quieter `#377b60`; selected text uses an
+  explicit white on-accent token in both themes, and half-filled chips split
+  their numeral between white and normal ink at the fill boundary.
+- Opening the picker is now a neutral monochrome border state rather than a
+  green border, green wash, and glow before any mark is committed.
+- Added the mark-bar and mark-picker studies plus the reconciled Results and
+  Analysis plan. The mark-bar plan now distinguishes historical slider findings,
+  implemented corrections, and proposals that remain unapproved.
+- All 262 tests pass, including the new contrast and neutral-open-state
+  contract; the production Sites build and `git diff --check` also pass.
+
 ## True two-page Mushaf view — IMPLEMENTED & VERIFIED (2026-08-16)
 
 - Replaced the misleading Split page mode with two independently rendered
