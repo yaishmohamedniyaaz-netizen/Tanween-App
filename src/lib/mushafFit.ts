@@ -12,6 +12,10 @@ const LAYOUT_GEOMETRY: Record<
   split: { aspectRatio: 1.24, maximumInlineSize: 1100 },
 };
 
+export function mushafLayoutAspectRatio(layout: MushafPageLayout): number {
+  return LAYOUT_GEOMETRY[layout].aspectRatio;
+}
+
 export interface MushafFitInput {
   frameInlineSize: number;
   frameBlockSize: number;
@@ -58,8 +62,27 @@ export function computeMushafRenderedInlineSize(
   zoomPercent: number,
 ): number {
   if (!Number.isFinite(fitInlineSize) || fitInlineSize <= 0) return 0;
-  const normalizedZoom = Number.isFinite(zoomPercent)
-    ? Math.min(100, Math.max(45, zoomPercent))
-    : 100;
+  const normalizedZoom = normalizeMushafZoom(
+    zoomPercent,
+    MUSHAF_ZOOM_DEFAULT,
+  );
   return Math.max(1, Math.round(fitInlineSize * (normalizedZoom / 100)));
 }
+
+export function computeMushafRenderedBlockSize(
+  fitInlineSize: number,
+  layout: MushafPageLayout,
+  zoomPercent: number,
+): number {
+  if (!Number.isFinite(fitInlineSize) || fitInlineSize <= 0) return 0;
+  const composedBlockSize = fitInlineSize / mushafLayoutAspectRatio(layout);
+  const normalizedZoom = normalizeMushafZoom(
+    zoomPercent,
+    MUSHAF_ZOOM_DEFAULT,
+  );
+  return Math.max(1, Math.round(composedBlockSize * (normalizedZoom / 100)));
+}
+import {
+  MUSHAF_ZOOM_DEFAULT,
+  normalizeMushafZoom,
+} from "./devicePreferences.ts";

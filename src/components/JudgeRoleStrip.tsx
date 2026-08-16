@@ -24,14 +24,15 @@ export function JudgeRoleStrip({ onChange }: { onChange: () => void }) {
           <i className={`cat-${category}`} key={category} />
         ))}
       </span>
-      <button
-        type="button"
-        disabled={state.sessionActive}
-        title={state.sessionActive ? "Finish this reciter before changing judge" : "Change judge assignment"}
-        onClick={onChange}
-      >
-        Change
-      </button>
+      {!state.sessionActive && (
+        <button
+          type="button"
+          title="Change judge assignment"
+          onClick={onChange}
+        >
+          Change
+        </button>
+      )}
     </section>
   );
 }

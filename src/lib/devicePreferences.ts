@@ -16,13 +16,30 @@ export const LEGACY_PAGE_ZOOM_KEY = "tahqeeq:pageZoom.v2";
 export const LEGACY_PAGE_LAYOUT_KEY = "tahqeeq:pageLayout";
 export const LEGACY_JUDGE_RAIL_SIDE_KEY = "tahqeeq:judgeRailSide";
 
+export const MUSHAF_ZOOM_MIN = 75;
+export const MUSHAF_ZOOM_FIT = 100;
+export const MUSHAF_ZOOM_DEFAULT = 110;
+export const MUSHAF_ZOOM_MAX = 150;
+export const MUSHAF_ZOOM_STEP = 5;
+
 export const DEFAULT_DEVICE_PREFERENCES: DevicePreferencesV1 = {
   version: 1,
   theme: "light",
   mushafLayout: "full",
-  mushafZoom: 100,
+  mushafZoom: MUSHAF_ZOOM_DEFAULT,
   judgeRailSide: "left",
 };
+
+export function normalizeMushafZoom(
+  value: unknown,
+  fallback = MUSHAF_ZOOM_DEFAULT,
+): number {
+  if (value === null || value === undefined || value === "") return fallback;
+  const numericValue = typeof value === "number" ? value : Number(value);
+  if (!Number.isFinite(numericValue)) return fallback;
+  const stepped = Math.round(numericValue / MUSHAF_ZOOM_STEP) * MUSHAF_ZOOM_STEP;
+  return Math.min(MUSHAF_ZOOM_MAX, Math.max(MUSHAF_ZOOM_MIN, stepped));
+}
 
 function storageOrNull(storage?: Storage | null): Storage | null {
   if (storage) return storage;
@@ -37,7 +54,6 @@ export function normalizeDevicePreferences(
   const candidate = value && typeof value === "object"
     ? value as Partial<DevicePreferencesV1>
     : {};
-  const zoom = Number(candidate.mushafZoom);
   return {
     version: 1,
     theme: candidate.theme === "dark" || candidate.theme === "light"
@@ -46,9 +62,10 @@ export function normalizeDevicePreferences(
     mushafLayout: candidate.mushafLayout === "split" || candidate.mushafLayout === "full"
       ? candidate.mushafLayout
       : fallback.mushafLayout,
-    mushafZoom: Number.isFinite(zoom) && zoom >= 45 && zoom <= 100
-      ? Math.round(zoom / 5) * 5
-      : fallback.mushafZoom,
+    mushafZoom: normalizeMushafZoom(
+      candidate.mushafZoom,
+      normalizeMushafZoom(fallback.mushafZoom),
+    ),
     judgeRailSide: candidate.judgeRailSide === "right" || candidate.judgeRailSide === "left"
       ? candidate.judgeRailSide
       : fallback.judgeRailSide,
@@ -56,10 +73,11 @@ export function normalizeDevicePreferences(
 }
 
 function legacyPreferences(storage: Storage): DevicePreferencesV1 {
+  const legacyZoom = storage.getItem(LEGACY_PAGE_ZOOM_KEY);
   return normalizeDevicePreferences({
     theme: storage.getItem(LEGACY_THEME_KEY),
     mushafLayout: storage.getItem(LEGACY_PAGE_LAYOUT_KEY),
-    mushafZoom: Number(storage.getItem(LEGACY_PAGE_ZOOM_KEY)),
+    mushafZoom: legacyZoom === null ? undefined : Number(legacyZoom),
     judgeRailSide: storage.getItem(LEGACY_JUDGE_RAIL_SIDE_KEY),
   });
 }

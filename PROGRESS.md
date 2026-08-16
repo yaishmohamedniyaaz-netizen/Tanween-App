@@ -472,7 +472,7 @@ How to run: `npm install` → `npm run dev` → http://localhost:5173 (launch co
 Safe, aligned polish that can proceed without product decisions:
 - [x] Touch-safety for the gesture — pointerId tracking (ignore stray multi-touch), touch-action:none on hitboxes, -webkit-touch-callout:none, onContextMenu prevent; also fixed closeAll() to clear startRef (Escape/cancel mid-press no longer freezes the gesture). Verified drag still commits (60→59).
 - [x] Keyboard a11y for the pill menu — tap pins → first pill auto-focused → ArrowUp/Down navigate → Enter/Space commit; :focus-visible ring. Verified (jali→khafi via ArrowDown, commit OK).
-- [x] First-run hint / drag affordance — dismissible coach banner above the mushaf (HintBanner), shows on clean slate only. Verified present + dismissable.
+- [x] First-run marking affordance — non-displacing coach tip in the free Mushaf gutter, retires after the first mark, and remains replayable from More controls.
 - [x] JSON export of a session — Export button → downloads structured JSON (app/schema/participant/config/score/notes/mistakes). Verified payload shape end-to-end.
 
 ALL FOUR SAFE-POLISH ITEMS DONE & VERIFIED.

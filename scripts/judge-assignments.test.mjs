@@ -234,7 +234,7 @@ test("only exports keep the plain ASCII criterion spellings", () => {
   const uiFiles = [
     "CompetitionIdlePanel",
     "FinishDialog",
-    "HintBanner",
+    "MarkingCoachTip",
     "JudgeRoleStrip",
     "JudgingHistory",
     "RecordsView",

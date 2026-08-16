@@ -79,8 +79,11 @@ test("desktop Fit is owned by a measured frame instead of another viewport guess
   assert.match(mushafStyleSource, /\.app\.view-judge[\s\S]*height: 100svh/);
   assert.match(
     mushafStyleSource,
-    /\.mushaf-shell\[data-stage-fit="ready"\] \.page[\s\S]*--mushaf-render-inline-size/,
+    /\.mushaf-shell\[data-stage-fit="ready"\] \.page[\s\S]*--mushaf-fit-inline-size/,
   );
+  assert.match(mushafStyleSource, /zoom: var\(--page-zoom\)/);
+  assert.match(mushafStyleSource, /--mushaf-render-block-size/);
+  assert.match(mushafSource, /value \/ renderScale/);
   assert.match(mushafStyleSource, /\.mushaf-shell[\s\S]*overflow: auto/);
   assert.match(
     mushafStyleSource,

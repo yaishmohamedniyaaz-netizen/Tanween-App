@@ -11,7 +11,7 @@ import { ScorePanel } from "./components/ScorePanel";
 import { MistakeLog } from "./components/MistakeLog";
 import { NotesBox } from "./components/NotesBox";
 import { ResultSheet } from "./components/ResultSheet";
-import { HintBanner } from "./components/HintBanner";
+import { MarkingCoachTip } from "./components/MarkingCoachTip";
 import { RecordsView } from "./components/RecordsView";
 import { StartDialog } from "./components/StartDialog";
 import { CompetitionSetup } from "./components/CompetitionSetup";
@@ -212,6 +212,8 @@ export function App() {
     "start" | "change-reciter" | "change-question"
   >("start");
   const [finishOpen, setFinishOpen] = useState(false);
+  const [markingGuideOpen, setMarkingGuideOpen] = useState(false);
+  const [moreControlsOpen, setMoreControlsOpen] = useState(false);
   const [preferences, setPreferences] = useState<DevicePreferencesV1>(() =>
     readDevicePreferences(),
   );
@@ -291,6 +293,10 @@ export function App() {
             setFinishOpen(true);
           }
         }}
+        mushafZoom={preferences.mushafZoom}
+        onMushafZoomChange={(mushafZoom) => updatePreferences({ mushafZoom })}
+        onShowMarkingGuide={() => setMarkingGuideOpen(true)}
+        onMoreControlsOpenChange={setMoreControlsOpen}
         theme={preferences.theme}
         onThemeChange={(theme) => updatePreferences({ theme })}
       />
@@ -300,7 +306,6 @@ export function App() {
           key="judge"
         >
           <div className="stage">
-            <HintBanner />
             {state.preparedRecitation && (
               <PreparedRecitationStrip
                 prepared={state.preparedRecitation}
@@ -318,6 +323,14 @@ export function App() {
             <MushafViewport
               layout={preferences.mushafLayout}
               zoomPercent={preferences.mushafZoom}
+              contentKey={`${page}:${preferences.mushafLayout}`}
+              overlay={
+                <MarkingCoachTip
+                  forcedOpen={markingGuideOpen}
+                  suppressed={moreControlsOpen}
+                  onForcedOpenChange={setMarkingGuideOpen}
+                />
+              }
             >
               <Mushaf
                 page={page}

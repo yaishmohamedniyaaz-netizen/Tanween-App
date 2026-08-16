@@ -1,6 +1,6 @@
 # Interface simplification and judging-flow plan
 
-Status: easy fixes, Adu / Raagu required entry, and desktop Mushaf stage implemented and verified; later slices remain
+Status: easy fixes, Adu / Raagu required entry, desktop Mushaf stage, and judge-workspace scale/guidance implemented and locally verified
 
 Prepared: 16 August 2026
 
@@ -46,7 +46,7 @@ lifecycle rules.
 | Finish workflow | confirmation and next-reciter handoff exist | the shared picker now appears inside Finish, Save remains disabled while pending, and reducer plus App guards prevent bypass | Implemented |
 | Idle judging screen | live/draft/closed states and actions are correct | copy, hierarchy, ruled data rows, and idle-only width are implemented; Mushaf stage geometry remains | In progress |
 | Mushaf source fidelity | one 1405H/QCF renderer, fixed lines, page fonts, IDs, and measured hitboxes exist | frame-owned Fit, centred remaining-height stage, print reset, and narrow fallback are verified | Implemented |
-| Mushaf zoom | `mushafZoom` is persisted and Settings already exposes 45–100% | add direct judge-screen access, a usable enlargement range, fit reset, and contained overflow policy | Planned |
+| Mushaf zoom and workspace | `mushafZoom` is persisted; the measured frame and current two-column judge workspace are stable | balanced workbench, non-displacing tip, More controls sizing, uniform magnification, and future-spread-safe geometry are implemented and locally verified | Implemented |
 | Phone judging | complete research plan exists | remains a later, separately approved implementation after desktop geometry is stable | Deferred |
 
 ## 3. Research translated into rules
@@ -126,8 +126,8 @@ Keep the index/detail architecture but flatten the presentation:
   choice cards;
 - theme becomes a compact two-choice control with a restrained swatch;
 - Page view and Judge panel position remain segmented controls;
-- Page scale remains a labelled range control, but shares the same range,
-  value, and Fit action as the judge-screen scrubber;
+- Mushaf size leaves Settings and lives in the judge screen's More controls,
+  where the page responds immediately and Fit remains one action away;
 - Data and recovery retains stronger separation because backup, restore, and
   reset are consequential actions;
 - helper text is retained only where it changes safe use, such as what a backup
@@ -457,17 +457,31 @@ short-height/narrow layouts preserve normal document flow. All 253 tests and
 the production build pass; representative full/split pages were browser-checked
 in both themes and rail positions.
 
-### Slice E — direct zoom scrubber
+### Slice E — judge workspace scale and guidance
 
-1. Centralize zoom bounds/step/labels.
-2. Extend the normalized supported range.
-3. Add the shared Mushaf toolbar control.
-4. Align the Settings control to the same contract.
-5. Add contained overflow above Fit and Fit reset.
-6. Re-run hitbox, mark-tray, jump, and responsive tests.
+Detailed researched contract:
+[`JUDGE_WORKSPACE_LAYOUT_AND_GUIDANCE_DETAILED_PLAN.md`](./JUDGE_WORKSPACE_LAYOUT_AND_GUIDANCE_DETAILED_PLAN.md).
+The earlier
+[`surface plan`](./JUDGE_WORKSPACE_LAYOUT_AND_GUIDANCE_SURFACE_PLAN.md) records
+the options considered. The detailed contract selects the balanced wide
+workbench, locks a 75–150% range in 5% steps with Fit at 100% and a new-user
+default of 110%, and specifies non-displacing guidance plus uniform Mushaf
+magnification.
+
+1. Replace the normal-flow hint with a non-displacing coach bubble.
+2. Apply the selected balanced wide workbench and confirm its two bounded visual variants.
+3. Centralize and extend the supported zoom contract.
+4. Move live Mushaf sizing from Settings into More actions.
+5. Enlarge the default Mushaf and rail while retaining frame-owned overflow.
+6. Re-run hitbox, mark-tray, jump, guidance, and responsive tests.
 
 Gate: the Mushaf remains faithful at every supported scale; the judge can
 operate zoom by pointer, touch, or keyboard without changing competition data.
+
+Implementation verification: the full and split views were checked at Fit,
+110%, and 150% on the available browser surface; contained scrolling reaches
+every page edge, hit areas remain aligned after scale normalization, guidance
+produces zero workspace movement, and the 390×844 fallback remains separate.
 
 Phone geometry and the phone judging dock remain separate later approvals from
 the existing mobile plan.
@@ -587,5 +601,6 @@ geometry.
 
 As of this update, the durable easy-fixes and required Adu / Raagu releases are
 implemented and build-verified; browser visual approval remains where noted.
-The remaining Settings/Results composition, direct zoom, and phone work remain
-separate slices. The stable desktop Mushaf stage is implemented and verified.
+The remaining Settings/Results composition and phone work remain separate
+slices. The stable desktop Mushaf stage and direct judge-workspace zoom are
+implemented and locally verified.

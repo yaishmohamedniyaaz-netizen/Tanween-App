@@ -7,6 +7,11 @@ import {
   LEGACY_PAGE_LAYOUT_KEY,
   LEGACY_PAGE_ZOOM_KEY,
   LEGACY_THEME_KEY,
+  MUSHAF_ZOOM_DEFAULT,
+  MUSHAF_ZOOM_FIT,
+  MUSHAF_ZOOM_MAX,
+  MUSHAF_ZOOM_MIN,
+  MUSHAF_ZOOM_STEP,
   normalizeDevicePreferences,
   readDevicePreferences,
   writeDevicePreferences,
@@ -37,7 +42,27 @@ test("device preferences normalize invalid values without losing valid choices",
     mushafZoom: 85,
     judgeRailSide: "right",
   });
-  assert.deepEqual(normalizeDevicePreferences({ mushafZoom: 140 }), DEFAULT_DEVICE_PREFERENCES);
+  assert.equal(normalizeDevicePreferences({ mushafZoom: 140 }).mushafZoom, 140);
+  assert.equal(normalizeDevicePreferences({ mushafZoom: 61 }).mushafZoom, MUSHAF_ZOOM_MIN);
+  assert.equal(normalizeDevicePreferences({ mushafZoom: 190 }).mushafZoom, MUSHAF_ZOOM_MAX);
+  assert.equal(normalizeDevicePreferences({ mushafZoom: "invalid" }).mushafZoom, MUSHAF_ZOOM_DEFAULT);
+  assert.equal(normalizeDevicePreferences({ mushafZoom: null }).mushafZoom, MUSHAF_ZOOM_DEFAULT);
+  assert.deepEqual(
+    [MUSHAF_ZOOM_MIN, MUSHAF_ZOOM_FIT, MUSHAF_ZOOM_DEFAULT, MUSHAF_ZOOM_MAX, MUSHAF_ZOOM_STEP],
+    [75, 100, 110, 150, 5],
+  );
+});
+
+test("a saved Fit choice is preserved while a new device starts at 110 percent", () => {
+  const freshStorage = memoryStorage();
+  assert.equal(readDevicePreferences(freshStorage).mushafZoom, 110);
+  const fitStorage = memoryStorage({
+    [DEVICE_PREFERENCES_KEY]: JSON.stringify({
+      ...DEFAULT_DEVICE_PREFERENCES,
+      mushafZoom: 100,
+    }),
+  });
+  assert.equal(readDevicePreferences(fitStorage).mushafZoom, 100);
 });
 
 test("legacy device keys migrate into the versioned settings object", () => {
@@ -65,10 +90,10 @@ test("writing settings keeps the rollback-compatible legacy keys in sync", () =>
     mushafZoom: 65,
     judgeRailSide: "right",
   }, storage);
-  assert.equal(JSON.parse(storage.getItem(DEVICE_PREFERENCES_KEY)).mushafZoom, 65);
+  assert.equal(JSON.parse(storage.getItem(DEVICE_PREFERENCES_KEY)).mushafZoom, 75);
   assert.equal(storage.getItem(LEGACY_THEME_KEY), "dark");
   assert.equal(storage.getItem(LEGACY_PAGE_LAYOUT_KEY), "split");
-  assert.equal(storage.getItem(LEGACY_PAGE_ZOOM_KEY), "65");
+  assert.equal(storage.getItem(LEGACY_PAGE_ZOOM_KEY), "75");
   assert.equal(storage.getItem(LEGACY_JUDGE_RAIL_SIDE_KEY), "right");
   assert.equal(written.version, 1);
 });

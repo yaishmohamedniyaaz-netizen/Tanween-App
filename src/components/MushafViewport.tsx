@@ -1,6 +1,8 @@
 import {
+  createContext,
   type CSSProperties,
   type ReactNode,
+  useContext,
   useEffect,
   useLayoutEffect,
   useRef,
@@ -8,6 +10,7 @@ import {
 } from "react";
 import {
   computeMushafFitInlineSize,
+  computeMushafRenderedBlockSize,
   computeMushafRenderedInlineSize,
   STABLE_MUSHAF_STAGE_QUERY,
   type MushafPageLayout,
@@ -17,12 +20,22 @@ interface MushafViewportProps {
   children: ReactNode;
   layout: MushafPageLayout;
   zoomPercent: number;
+  contentKey: string;
+  overlay?: ReactNode;
 }
 
 type MushafViewportStyle = CSSProperties & {
   "--page-zoom": number;
+  "--mushaf-fit-inline-size"?: string;
   "--mushaf-render-inline-size"?: string;
+  "--mushaf-render-block-size"?: string;
 };
+
+const MushafRenderScaleContext = createContext(1);
+
+export function useMushafRenderScale(): number {
+  return useContext(MushafRenderScaleContext);
+}
 
 function stableStageMatches(): boolean {
   return typeof window !== "undefined" &&
@@ -33,10 +46,15 @@ export function MushafViewport({
   children,
   layout,
   zoomPercent,
+  contentKey,
+  overlay,
 }: MushafViewportProps) {
   const frameRef = useRef<HTMLDivElement>(null);
+  const viewportCenterRef = useRef({ inline: 0.5, block: 0.5 });
+  const restoringScrollRef = useRef(false);
   const [stableStage, setStableStage] = useState(stableStageMatches);
   const [fitInlineSize, setFitInlineSize] = useState(0);
+  const [frameInlineSize, setFrameInlineSize] = useState(0);
 
   useEffect(() => {
     const media = window.matchMedia(STABLE_MUSHAF_STAGE_QUERY);
@@ -62,6 +80,7 @@ export function MushafViewport({
           frameBlockSize: frame.clientHeight,
           layout,
         });
+        setFrameInlineSize(frame.clientWidth);
         setFitInlineSize((current) => (current === next ? current : next));
       });
     };
@@ -87,21 +106,88 @@ export function MushafViewport({
     fitInlineSize,
     zoomPercent,
   );
+  const renderedBlockSize = computeMushafRenderedBlockSize(
+    fitInlineSize,
+    layout,
+    zoomPercent,
+  );
+  const renderScale = stableStage ? zoomPercent / 100 : 1;
+  const coachGutter = Math.max(0, (frameInlineSize - renderedInlineSize) / 2);
   const style: MushafViewportStyle = {
     "--page-zoom": zoomPercent / 100,
-    ...(renderedInlineSize > 0
-      ? { "--mushaf-render-inline-size": `${renderedInlineSize}px` }
+    ...(fitInlineSize > 0 && renderedInlineSize > 0 && renderedBlockSize > 0
+      ? {
+          "--mushaf-fit-inline-size": `${fitInlineSize}px`,
+          "--mushaf-render-inline-size": `${renderedInlineSize}px`,
+          "--mushaf-render-block-size": `${renderedBlockSize}px`,
+        }
       : {}),
+  };
+
+  const restoreViewportCenter = () => {
+    const frame = frameRef.current;
+    if (!frame) return;
+    restoringScrollRef.current = true;
+    const maxInline = Math.max(0, frame.scrollWidth - frame.clientWidth);
+    const maxBlock = Math.max(0, frame.scrollHeight - frame.clientHeight);
+    frame.scrollLeft = maxInline * viewportCenterRef.current.inline;
+    frame.scrollTop = maxBlock * viewportCenterRef.current.block;
+    requestAnimationFrame(() => {
+      restoringScrollRef.current = false;
+    });
+  };
+
+  useLayoutEffect(() => {
+    if (!stableStage || !renderedInlineSize || !renderedBlockSize) return;
+    const frame = requestAnimationFrame(restoreViewportCenter);
+    return () => cancelAnimationFrame(frame);
+  }, [renderedBlockSize, renderedInlineSize, stableStage]);
+
+  useLayoutEffect(() => {
+    if (!stableStage) return;
+    viewportCenterRef.current = { inline: 0.5, block: 0 };
+    const frame = requestAnimationFrame(() => {
+      const shell = frameRef.current;
+      if (!shell) return;
+      restoringScrollRef.current = true;
+      shell.scrollLeft = Math.max(0, shell.scrollWidth - shell.clientWidth) / 2;
+      shell.scrollTop = 0;
+      requestAnimationFrame(() => {
+        restoringScrollRef.current = false;
+      });
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [contentKey, stableStage]);
+
+  const updateViewportCenter = () => {
+    if (restoringScrollRef.current) return;
+    const frame = frameRef.current;
+    if (!frame) return;
+    const maxInline = Math.max(0, frame.scrollWidth - frame.clientWidth);
+    const maxBlock = Math.max(0, frame.scrollHeight - frame.clientHeight);
+    viewportCenterRef.current = {
+      inline: maxInline > 0 ? frame.scrollLeft / maxInline : 0.5,
+      block: maxBlock > 0 ? frame.scrollTop / maxBlock : 0.5,
+    };
   };
 
   return (
     <div
-      className="mushaf-shell"
-      data-stage-fit={stableStage && renderedInlineSize > 0 ? "ready" : "fallback"}
-      ref={frameRef}
-      style={style}
+      className="mushaf-viewport"
+      data-coach-space={coachGutter >= 202 ? "wide" : "compact"}
     >
-      {children}
+      <div
+        className="mushaf-shell"
+        data-stage-fit={stableStage && renderedInlineSize > 0 ? "ready" : "fallback"}
+        ref={frameRef}
+        style={style}
+        onScroll={updateViewportCenter}
+      >
+        <MushafRenderScaleContext.Provider value={renderScale}>
+          {children}
+        </MushafRenderScaleContext.Provider>
+      </div>
+      {overlay}
     </div>
   );
 }

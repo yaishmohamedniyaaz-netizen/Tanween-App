@@ -26,6 +26,7 @@ const questionScreenSource = read(
 const finishSource = read("../src/components/FinishDialog.tsx");
 const preparedStripSource = read("../src/components/PreparedRecitationStrip.tsx");
 const preparedSidebarSource = read("../src/components/PreparedSidebar.tsx");
+const moreActionsSource = read("../src/components/MoreActionsPopover.tsx");
 
 test("opening Tahqeeq remains a free Mushaf instead of auto-starting a session", () => {
   assert.match(appSource, /const \[startOpen, setStartOpen\] = useState\(false\)/);
@@ -56,13 +57,13 @@ test("competition preparation is a dedicated task workspace", () => {
   assert.match(setupSource, /Discard the unsaved changes in the open setup task/);
   assert.match(setupSource, /Save Categories/);
   assert.match(setupSource, /SET_SCORE_CONFIG/);
-  assert.match(headerSource, /Competition setup/);
+  assert.match(moreActionsSource, /Competition setup/);
 });
 
 test("general settings remain separate from competition setup", () => {
   assert.match(headerSource, /تَحْقِيق/);
   assert.doesNotMatch(headerSource, /Øª|Ù‚/);
-  assert.match(headerSource, /Settings/);
+  assert.match(moreActionsSource, /Settings/);
   assert.match(settingsSource, /Appearance/);
   assert.match(settingsSource, /Mushaf and judging workspace/);
   assert.match(settingsSource, /Data and recovery/);

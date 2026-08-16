@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import {
   computeMushafFitInlineSize,
+  computeMushafRenderedBlockSize,
   computeMushafRenderedInlineSize,
   MUSHAF_FRAME_INSET,
   STABLE_MUSHAF_STAGE_QUERY,
@@ -53,11 +54,14 @@ test("Fit retains clearance and rejects unusable measurements", () => {
   }), 0);
 });
 
-test("stored overview scales remain uniform fractions of Fit", () => {
+test("stored view scales remain uniform magnifications of Fit", () => {
   assert.equal(computeMushafRenderedInlineSize(403, 100), 403);
   assert.equal(computeMushafRenderedInlineSize(403, 85), 343);
-  assert.equal(computeMushafRenderedInlineSize(403, 10), 181);
-  assert.equal(computeMushafRenderedInlineSize(403, 140), 403);
+  assert.equal(computeMushafRenderedInlineSize(403, 10), 302);
+  assert.equal(computeMushafRenderedInlineSize(403, 140), 564);
+  assert.equal(computeMushafRenderedInlineSize(403, 190), 605);
+  assert.equal(computeMushafRenderedBlockSize(403, "full", 110), 652);
+  assert.equal(computeMushafRenderedBlockSize(620, "split", 150), 750);
   assert.equal(computeMushafRenderedInlineSize(0, 100), 0);
 });
 

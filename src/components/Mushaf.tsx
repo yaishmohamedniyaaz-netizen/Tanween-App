@@ -30,6 +30,7 @@ import { useJudging } from "../state/store";
 import { enabledCategories, isPinpointCategory } from "../config";
 import type { CategoryId, Mistake, TokenRole } from "../types";
 import { DragMenu, type MenuAnchor } from "./DragMenu";
+import { useMushafRenderScale } from "./MushafViewport";
 
 interface UnitTarget {
   tid: string;
@@ -139,6 +140,7 @@ export function Mushaf({
   headerControls,
 }: MushafProps) {
   const { state, dispatch } = useJudging();
+  const renderScale = useMushafRenderScale();
   const assignedConfig = state.activeAssignment?.config ?? state.config;
   // Only pinpoint criteria are marked on the page. A judge who owns just a
   // whole-recitation criterion has nothing to press here.
@@ -294,7 +296,7 @@ export function Mushaf({
   useLayoutEffect(() => {
     const frame = requestAnimationFrame(measure);
     return () => cancelAnimationFrame(frame);
-  }, [fontReadyPage, measure, measureEpoch, pageData?.page, pageLayout]);
+  }, [fontReadyPage, measure, measureEpoch, pageData?.page, pageLayout, renderScale]);
 
   useEffect(() => {
     const root = pageRef.current;
@@ -376,7 +378,7 @@ export function Mushaf({
   }, []);
 
   // A tray never survives navigation or a structural page-layout change.
-  useEffect(() => closeAll(), [closeAll, currentPage, pageLayout]);
+  useEffect(() => closeAll(), [closeAll, currentPage, pageLayout, renderScale]);
 
   useEffect(() => {
     if (!active) return;
@@ -651,6 +653,8 @@ export function Mushaf({
 
   const pageSurahs = surahsForPage(pageData.page);
   const visibleBoxes = boxesPage === pageData.page ? boxes : [];
+  const pageClientLeft = pageRef.current?.clientLeft ?? 0;
+  const pageClientTop = pageRef.current?.clientTop ?? 0;
   const mistakesForUnit = (unit: UnitTarget): Mistake[] => {
     const seen = new Set<string>();
     const matches: Mistake[] = [];
@@ -749,6 +753,9 @@ export function Mushaf({
 
         {judgingEnabled && <div className="hit-layer">
           {visibleBoxes.map((box) => {
+            const local = (value: number) => value / renderScale;
+            const localLeft = (value: number) => local(value) - pageClientLeft;
+            const localTop = (value: number) => local(value) - pageClientTop;
             const mistakes = mistakesForWord(box);
             const category = mistakes.length ? dominant(mistakes) : null;
             const isActive = active?.meta.wid === box.wid;
@@ -773,14 +780,14 @@ export function Mushaf({
                   className={`hit word-hit ${isActive ? `armed ${hovered ? `cat-${hovered}` : ""}` : ""}`}
                   style={
                     {
-                      left: box.hx,
-                      top: box.hy,
-                      width: box.hw,
-                      height: box.hh,
-                      "--ink-left": `${box.x - box.hx}px`,
-                      "--ink-top": `${box.y - box.hy}px`,
-                      "--ink-width": `${box.w}px`,
-                      "--ink-height": `${box.h}px`,
+                      left: localLeft(box.hx),
+                      top: localTop(box.hy),
+                      width: local(box.hw),
+                      height: local(box.hh),
+                      "--ink-left": `${local(box.x - box.hx)}px`,
+                      "--ink-top": `${local(box.y - box.hy)}px`,
+                      "--ink-width": `${local(box.w)}px`,
+                      "--ink-height": `${local(box.h)}px`,
                     } as CSSProperties
                   }
                   role="button"
@@ -796,10 +803,10 @@ export function Mushaf({
                   <div
                     className={inkClasses}
                     style={{
-                      left: box.x,
-                      top: box.y,
-                      width: box.w,
-                      height: box.h,
+                      left: localLeft(box.x),
+                      top: localTop(box.y),
+                      width: local(box.w),
+                      height: local(box.h),
                     }}
                   >
                     {mistakes.length > 1 && (
