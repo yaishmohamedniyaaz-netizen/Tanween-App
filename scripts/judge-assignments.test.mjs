@@ -166,8 +166,10 @@ test("setup derives judge count, requires a device role, and freezes active sett
 });
 
 test("the reciter handoff freezes the device assignment before Ready", () => {
-  assert.match(startSource, /This device/);
-  assert.match(startSource, /Select reciter/);
+  assert.match(startSource, /makeAssignmentSnapshot/);
+  assert.match(startSource, /Running order/);
+  assert.match(startSource, /Judge assignment required/);
+  assert.doesNotMatch(startSource, /This device/);
   assert.match(questionNumberSource, /aria-label="Question numbers"/);
   assert.doesNotMatch(questionNumberSource, /Choose a number/);
   // One instruction, in the dialog head. The board does not repeat it.

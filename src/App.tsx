@@ -19,11 +19,11 @@ import { QuestionPreparationWorkspace } from "./components/QuestionPreparationWo
 import { CompetitionIdlePanel } from "./components/CompetitionIdlePanel";
 import { FinishDialog } from "./components/FinishDialog";
 import { JudgeRoleStrip } from "./components/JudgeRoleStrip";
-import { PreparedRecitationStrip } from "./components/PreparedRecitationStrip";
 import { PreparedSidebar } from "./components/PreparedSidebar";
 import { PageNav } from "./components/PageNav";
 import { useJudging } from "./state/store";
 import { questionOpeningKey, questionOpeningPage } from "./lib/questionPage";
+import { participantDivision } from "./lib/reciterQuestions";
 import { isWaiting } from "./lib/rosterQueue";
 import { missingRequiredImpressionCategories } from "./lib/scoring";
 import {
@@ -44,7 +44,7 @@ export function App() {
   const [view, setView] = useState<AppView>("judge");
   const [startOpen, setStartOpen] = useState(false);
   const [startMode, setStartMode] = useState<
-    "start" | "change-reciter" | "change-question"
+    "start" | "next-question" | "change-reciter" | "change-question"
   >("start");
   const [finishOpen, setFinishOpen] = useState(false);
   const [markingGuideOpen, setMarkingGuideOpen] = useState(false);
@@ -143,20 +143,6 @@ export function App() {
           key="judge"
         >
           <div className="stage">
-            {state.preparedRecitation && (
-              <PreparedRecitationStrip
-                prepared={state.preparedRecitation}
-                participantCount={state.roster.length}
-                onChangeReciter={() => {
-                  setStartMode("change-reciter");
-                  setStartOpen(true);
-                }}
-                onChangeQuestion={() => {
-                  setStartMode("change-question");
-                  setStartOpen(true);
-                }}
-              />
-            )}
             <MushafViewport
               layout={preferences.mushafLayout}
               zoomPercent={preferences.mushafZoom}
@@ -189,7 +175,21 @@ export function App() {
             {state.preparedRecitation ? (
               <PreparedSidebar
                 prepared={state.preparedRecitation}
+                participantCount={state.roster.length}
+                division={participantDivision(
+                  state.preparedRecitation.participant,
+                  state.competition.liveSnapshot?.divisions ??
+                    state.competition.divisions,
+                )}
                 onReady={() => dispatch({ type: "BEGIN_RECITER" })}
+                onChangeQuestion={() => {
+                  setStartMode("change-question");
+                  setStartOpen(true);
+                }}
+                onChangeReciter={() => {
+                  setStartMode("change-reciter");
+                  setStartOpen(true);
+                }}
               />
             ) : state.sessionActive ? (
               <>
@@ -208,10 +208,15 @@ export function App() {
             ) : (
               <CompetitionIdlePanel
                 onPrepare={() => setView("setup")}
-                onStartReciter={() => {
+                onChooseQuestion={() => {
+                  setStartMode("next-question");
+                  setStartOpen(true);
+                }}
+                onOpenRunningOrder={() => {
                   setStartMode("start");
                   setStartOpen(true);
                 }}
+                onOpenResults={() => setView("records")}
               />
             )}
           </aside>

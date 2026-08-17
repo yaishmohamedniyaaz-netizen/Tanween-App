@@ -1,8 +1,8 @@
 import {
   Fragment,
   type ReactNode,
-  useEffect,
   useMemo,
+  useRef,
   useState,
 } from "react";
 import {
@@ -40,8 +40,6 @@ import type {
 import { Icon } from "./Icon";
 import { ParticipantRosterEditor } from "./ParticipantRosterEditor";
 
-const SETUP_PANEL_TRANSITION_MS = 220;
-
 function SetupAccordionPanel({
   id,
   open,
@@ -51,58 +49,10 @@ function SetupAccordionPanel({
   open: boolean;
   render: () => ReactNode;
 }) {
-  const [present, setPresent] = useState(open);
-  const [expanded, setExpanded] = useState(open);
-
-  useEffect(() => {
-    let animationFrame = 0;
-    let fallbackTimer = 0;
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-    if (open) {
-      if (!present) {
-        setPresent(true);
-        return undefined;
-      }
-      animationFrame = window.requestAnimationFrame(() => setExpanded(true));
-    } else if (present) {
-      if (reducedMotion) {
-        setExpanded(false);
-        setPresent(false);
-        return undefined;
-      }
-      animationFrame = window.requestAnimationFrame(() => setExpanded(false));
-      fallbackTimer = window.setTimeout(
-        () => setPresent(false),
-        SETUP_PANEL_TRANSITION_MS + 60,
-      );
-    } else {
-      setExpanded(false);
-    }
-
-    return () => {
-      window.cancelAnimationFrame(animationFrame);
-      window.clearTimeout(fallbackTimer);
-    };
-  }, [open, present]);
-
-  if (!present) return null;
+  if (!open) return null;
 
   return (
-    <div
-      id={id}
-      className={`setup-checklist-panel-shell ${expanded ? "is-open" : ""}`}
-      aria-hidden={!open}
-      onTransitionEnd={(event) => {
-        if (
-          event.target === event.currentTarget &&
-          event.propertyName === "grid-template-rows" &&
-          !open
-        ) {
-          setPresent(false);
-        }
-      }}
-    >
+    <div id={id} className="setup-checklist-panel-shell">
       <div className="setup-checklist-panel-clip">
         <div className="setup-checklist-panel">{render()}</div>
       </div>
@@ -249,7 +199,9 @@ export function CompetitionSetup({
       ? "review"
       : "details",
   );
-  const [scrollReserve, setScrollReserve] = useState(0);
+  const taskTriggerRefs = useRef<
+    Partial<Record<SetupTask, HTMLButtonElement | null>>
+  >({});
   const [identity, setIdentity] = useState({
     name: state.competition.name,
     edition: state.competition.edition,
@@ -289,17 +241,19 @@ export function CompetitionSetup({
   const divisionValidation = useMemo(() => categoryErrors(divisionDrafts), [divisionDrafts]);
   const divisionsValid = divisionDrafts.length > 0 && Object.keys(divisionValidation).length === 0;
 
+  const returnToTaskTrigger = (task: SetupTask, focus: boolean) => {
+    window.requestAnimationFrame(() => {
+      const trigger = taskTriggerRefs.current[task];
+      if (!trigger) return;
+      if (focus) trigger.focus({ preventScroll: true });
+      trigger.scrollIntoView({ block: "nearest", inline: "nearest" });
+    });
+  };
+
   const closeActiveTask = () => {
-    const panel = activeTask
-      ? document.getElementById(`setup-task-panel-${activeTask}`)
-      : null;
-    const closingHeight = panel?.getBoundingClientRect().height ?? 0;
-    const finalDocumentHeight = document.documentElement.scrollHeight - closingHeight;
-    setScrollReserve(Math.max(
-      0,
-      Math.ceil(window.scrollY + window.innerHeight - finalDocumentHeight),
-    ));
+    const closingTask = activeTask;
     setActiveTask(null);
+    if (closingTask) returnToTaskTrigger(closingTask, true);
   };
 
   const sectionComplete = (task: SetupTask): boolean => {
@@ -528,8 +482,8 @@ export function CompetitionSetup({
     if (taskDirty(activeTask) && !window.confirm("Discard the unsaved changes in the open setup task?")) return;
     resetTaskDraft(activeTask);
     resetTaskDraft(next);
-    setScrollReserve(0);
     setActiveTask(next);
+    returnToTaskTrigger(next, true);
   };
 
   const taskSummary = (task: SetupTask): string => {
@@ -575,7 +529,6 @@ export function CompetitionSetup({
     dispatch({ type: "LOAD_SAMPLE_COMPETITION" });
     resetLocalDrafts(true);
     setRosterMessage("Sample competition and fictional participant list loaded.");
-    setScrollReserve(0);
     setActiveTask("review");
   };
 
@@ -588,7 +541,6 @@ export function CompetitionSetup({
     dispatch({ type: "REMOVE_SAMPLE_DATA" });
     resetLocalDrafts(false);
     setRosterMessage("");
-    setScrollReserve(0);
     setActiveTask("details");
   };
 
@@ -1049,7 +1001,7 @@ export function CompetitionSetup({
         {state.competition.status === "closed" && (
           <div className="official-start-block is-closed">
             <div><strong>Competition closed</strong><span>Its records remain available and unchanged.</span></div>
-            <button type="button" className="btn-primary" onClick={() => { if (window.confirm("Create a new draft? Existing records will remain in Records.")) { dispatch({ type: "NEW_COMPETITION" }); setIdentity({ name: "", edition: "" }); setPanelDraft(createPanelPreset("all", enabledCategories(DEFAULT_CONFIG))); setScoreDraft(cloneConfig(state.config)); setScrollReserve(0); setActiveTask("details"); } }}>New competition</button>
+            <button type="button" className="btn-primary" onClick={() => { if (window.confirm("Create a new draft? Existing records will remain in Records.")) { dispatch({ type: "NEW_COMPETITION" }); setIdentity({ name: "", edition: "" }); setPanelDraft(createPanelPreset("all", enabledCategories(DEFAULT_CONFIG))); setScoreDraft(cloneConfig(state.config)); setActiveTask("details"); } }}>New competition</button>
           </div>
         )}
       </section>
@@ -1068,39 +1020,96 @@ export function CompetitionSetup({
     );
   }
 
+  const completedTaskCount = TASKS.filter((task) =>
+    sectionComplete(task.id),
+  ).length;
+  const setupHeading =
+    state.competition.status === "draft"
+      ? "Prepare competition"
+      : state.competition.name || "Competition setup";
   let lastGroup = "";
   return (
     <main className="competition-setup-page">
-      <section className={`sample-control-bar ${state.competition.isSample ? "is-active" : ""}`} aria-label="Sample competition controls">
-        <div>
-          {state.competition.isSample && <SampleBadge />}
-          <span>
-            <strong>{state.competition.isSample ? "Safe test competition loaded" : "Need test data?"}</strong>
-            <small>{state.competition.isSample ? "All names and phone numbers are fictional. Sample records stay out of official CSV exports." : "Load a ready-to-run competition with four categories and eight fictional participants."}</small>
-          </span>
-        </div>
-        {state.competition.isSample ? (
-          <button type="button" className="btn-ghost" disabled={state.competition.status === "live" || state.sessionActive} onClick={removeSampleData} title={state.competition.status === "live" ? "Close the sample competition before removing it" : undefined}>Remove sample data</button>
-        ) : (
-          <button type="button" className="btn-ghost" disabled={state.competition.status === "live" || state.sessionActive} onClick={loadSampleCompetition}>Load sample competition</button>
-        )}
-      </section>
       <div className="setup-checklist-shell">
-        <header className="setup-checklist-intro"><span>Competition setup</span><h1>Prepare competition {state.competition.isSample && <SampleBadge compact />}</h1><p>Open one task at a time. A check appears when its saved setup is ready.</p><div className="setup-progress" aria-label={`${TASKS.filter((task) => sectionComplete(task.id)).length} of ${TASKS.length} setup tasks complete`}><span style={{ width: `${(TASKS.filter((task) => sectionComplete(task.id)).length / TASKS.length) * 100}%` }} /><small>{TASKS.filter((task) => sectionComplete(task.id)).length} of {TASKS.length} ready</small></div></header>
+        <header className="setup-checklist-intro">
+          {state.competition.status !== "draft" && <span>Setup</span>}
+          <h1>{setupHeading}</h1>
+          <div
+            className="setup-progress"
+            aria-label={`${completedTaskCount} of ${TASKS.length} setup tasks complete`}
+          >
+            <span
+              style={{
+                width: `${(completedTaskCount / TASKS.length) * 100}%`,
+              }}
+            />
+            <small>{completedTaskCount} of {TASKS.length} ready</small>
+          </div>
+          <div className="setup-sample-utility" aria-label="Sample competition controls">
+            {state.competition.isSample && (
+              <span><SampleBadge compact /> Sample data</span>
+            )}
+            {state.competition.isSample ? (
+              <button
+                type="button"
+                className="btn-ghost"
+                disabled={state.competition.status === "live" || state.sessionActive}
+                onClick={removeSampleData}
+                title={state.competition.status === "live" ? "Close the sample competition before removing it" : undefined}
+              >
+                Remove sample data
+              </button>
+            ) : (
+              <button
+                type="button"
+                className="btn-ghost"
+                disabled={state.competition.status === "live" || state.sessionActive}
+                onClick={loadSampleCompetition}
+              >
+                Load sample competition
+              </button>
+            )}
+          </div>
+        </header>
         <div className="setup-checklist" aria-label="Competition setup tasks">
             {TASKS.map((task) => {
               const showGroup = task.group !== lastGroup;
               lastGroup = task.group;
               const locked = state.competition.status !== "draft" && task.id !== "review";
               const complete = sectionComplete(task.id);
+              const summary = taskSummary(task.id);
+              const context =
+                task.id === "details" && state.competition.name
+                  ? state.competition.name
+                  : task.hint;
+              const value = locked
+                ? "Locked"
+                : task.id === "details"
+                  ? state.competition.edition || "Needs setup"
+                  : summary;
+              const stateLabel = statusText(
+                complete,
+                locked,
+                task.id,
+                state.competition.status,
+                competitionDraftCount,
+              );
               return (
                 <Fragment key={task.id}>
                   {showGroup && <span className="setup-task-group">{task.group}</span>}
                   <section className={`setup-checklist-item ${activeTask === task.id ? "is-active" : ""} ${complete ? "is-complete" : "has-attention"} ${locked ? "is-locked" : ""}`}>
-                    <button type="button" className="setup-checklist-trigger" aria-expanded={activeTask === task.id} aria-controls={`setup-task-panel-${task.id}`} onClick={() => requestTask(task.id)}>
+                    <button
+                      ref={(node) => { taskTriggerRefs.current[task.id] = node; }}
+                      type="button"
+                      className="setup-checklist-trigger"
+                      aria-label={`${task.label}, ${stateLabel}, ${value}`}
+                      aria-expanded={activeTask === task.id}
+                      aria-controls={`setup-task-panel-${task.id}`}
+                      onClick={() => requestTask(task.id)}
+                    >
                       <span className="setup-checklist-mark" aria-hidden="true">{complete ? <Icon name="check" size={14} /> : <i />}</span>
-                      <span className="setup-task-copy"><strong>{task.label}</strong><small>{taskSummary(task.id)}</small></span>
-                      <span className="setup-task-status">{statusText(complete, locked, task.id, state.competition.status, competitionDraftCount)}</span>
+                      <span className="setup-task-copy"><strong>{task.label}</strong><small>{context}</small></span>
+                      <span className="setup-task-value">{value}</span>
                       <span className="setup-checklist-chevron" aria-hidden="true"><Icon name="chevron" size={15} /></span>
                     </button>
                     <SetupAccordionPanel
@@ -1113,13 +1122,6 @@ export function CompetitionSetup({
               );
             })}
         </div>
-        {scrollReserve > 0 && (
-          <div
-            className="setup-scroll-reserve"
-            style={{ height: scrollReserve }}
-            aria-hidden="true"
-          />
-        )}
       </div>
     </main>
   );

@@ -242,3 +242,29 @@ test("a position is only resolved to a question when one is pressed", () => {
   const handler = source.slice(source.indexOf("const drawPosition ="));
   assert.match(handler.slice(0, 400), /questionAtPosition\(deck, position\)/);
 });
+
+test("a missing judge assignment cannot reveal or spend a question", () => {
+  const startSource = readFileSync(
+    new URL("../src/components/StartDialog.tsx", import.meta.url),
+    "utf8",
+  );
+  const questionSource = readFileSync(
+    new URL("../src/components/QuestionNumberScreen.tsx", import.meta.url),
+    "utf8",
+  );
+  const handler = startSource.slice(
+    startSource.indexOf("const drawPosition ="),
+    startSource.indexOf("const rosterGroups ="),
+  );
+  const assignmentGuard = handler.indexOf("!assignment");
+  const recordDispatch = handler.indexOf('type: "RECORD_DRAW"');
+
+  assert.ok(assignmentGuard >= 0, "the draw handler checks the assignment");
+  assert.ok(
+    assignmentGuard < recordDispatch,
+    "the assignment is checked before RECORD_DRAW is dispatched",
+  );
+  assert.match(startSource, /selectionDisabled=\{!assignment\}/);
+  assert.match(questionSource, /disabled=\{Boolean\(blockedReason\) \|\| \(spent && !mine\)\}/);
+  assert.match(questionSource, /className="draw-external"\s+disabled=\{Boolean\(blockedReason\)\}/);
+});

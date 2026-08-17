@@ -3,11 +3,8 @@ import type {
   QuestionDeck,
   RosterEntry,
 } from "../types";
-import {
-  participantContextLabel,
-  participantNumberLabel,
-} from "../lib/participantPresentation.ts";
 import { Icon } from "./Icon";
+import { ParticipantIdentity } from "./ParticipantIdentity";
 
 export function QuestionNumberScreen({
   participant,
@@ -20,6 +17,7 @@ export function QuestionNumberScreen({
   loadFailed,
   allowManual,
   hasEligibleQuestions,
+  blockedReason,
   onDraw,
   onUseManual,
   onBack,
@@ -34,6 +32,7 @@ export function QuestionNumberScreen({
   loadFailed: boolean;
   allowManual: boolean;
   hasEligibleQuestions: boolean;
+  blockedReason?: string;
   onDraw: (position: number) => void;
   onUseManual: () => void;
   onBack: () => void;
@@ -42,13 +41,12 @@ export function QuestionNumberScreen({
     <section className="question-number-screen" aria-label="Choose a question">
       {participant && division ? (
         <div className="draw-reciter-strip">
-          <span className="reciter-row-copy">
-            <strong>{participant.name || "Unnamed"}</strong>
-            <small>{participantContextLabel(participant, division)}</small>
-          </span>
-          <span className="participant-number-badge">
-            {participantNumberLabel(participant.number, participantCount)}
-          </span>
+          <ParticipantIdentity
+            participant={participant}
+            participantCount={participantCount}
+            division={division}
+            density="row"
+          />
           <button type="button" className="btn-ghost" onClick={onBack}>
             Change reciter
           </button>
@@ -65,6 +63,11 @@ export function QuestionNumberScreen({
         </div>
       ) : participant && division ? (
         <>
+          {blockedReason && (
+            <div className="question-choice-warning" role="alert">
+              {blockedReason}
+            </div>
+          )}
           <div className="draw-board" role="group" aria-label="Question numbers">
             {deck?.tiles.map((tile) => {
               const spent = spentPositions.has(tile.position);
@@ -74,7 +77,7 @@ export function QuestionNumberScreen({
                   key={tile.position}
                   type="button"
                   className={`draw-tile ${mine ? "is-drawn" : ""} ${spent && !mine ? "is-spent" : ""}`}
-                  disabled={spent && !mine}
+                  disabled={Boolean(blockedReason) || (spent && !mine)}
                   aria-label={
                     spent && !mine
                       ? `Number ${tile.position}, already taken`
@@ -107,6 +110,7 @@ export function QuestionNumberScreen({
             <button
               type="button"
               className="draw-external"
+              disabled={Boolean(blockedReason)}
               onClick={onUseManual}
             >
               <strong>Use an external question</strong>

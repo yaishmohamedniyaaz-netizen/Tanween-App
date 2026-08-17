@@ -1,15 +1,23 @@
-import { categoryListLabel, judgeDisplayName, makeAssignmentSnapshot } from "../lib/judgeAssignments";
+import { competitionReadiness } from "../lib/competition";
+import { makeAssignmentSnapshot } from "../lib/judgeAssignments";
+import { participantDivision } from "../lib/reciterQuestions";
+import { isWaiting } from "../lib/rosterQueue";
 import { useJudging } from "../state/store";
 import { Icon } from "./Icon";
+import { ParticipantIdentity } from "./ParticipantIdentity";
 
 export function CompetitionIdlePanel({
   onPrepare,
-  onStartReciter,
+  onChooseQuestion,
+  onOpenRunningOrder,
+  onOpenResults,
 }: {
   onPrepare: () => void;
-  onStartReciter: () => void;
+  onChooseQuestion: () => void;
+  onOpenRunningOrder: () => void;
+  onOpenResults: () => void;
 }) {
-  const { state } = useJudging();
+  const { state, dispatch } = useJudging();
   const { competition } = state;
   const liveSnapshot =
     competition.status === "live" ? competition.liveSnapshot : null;
@@ -20,66 +28,206 @@ export function CompetitionIdlePanel({
         liveSnapshot.scoreConfig,
       )
     : null;
-  const remaining = state.roster.filter((participant) => !participant.judged);
+  const remaining = state.roster.filter(isWaiting);
   const next = remaining[0];
+  const absentCount = state.roster.filter(
+    (participant) => participant.absent && !participant.judged,
+  ).length;
+  const finishedCount = state.roster.filter(
+    (participant) => participant.judged,
+  ).length;
 
   if (liveSnapshot) {
-    return (
-      <section className="competition-idle-panel is-live" aria-labelledby="competition-idle-title">
-        <h2 id="competition-idle-title">{competition.name || "Live competition"}</h2>
-        {competition.edition && (
-          <p className="competition-idle-edition">{competition.edition}</p>
-        )}
-        {assignment && (
-          <div className="competition-idle-role">
-            <span>Judge</span>
-            <div>
-              <strong>{judgeDisplayName(assignment)}</strong>
-              <small>{categoryListLabel(assignment.categories)}</small>
-            </div>
-          </div>
-        )}
-        <dl className="competition-idle-progress">
-          <div><dt>Waiting</dt><dd>{remaining.length}</dd></div>
-          <div><dt>Finished</dt><dd>{state.roster.length - remaining.length}</dd></div>
-        </dl>
-        {next ? (
-          <button type="button" className="btn-primary competition-start-reciter" onClick={onStartReciter}>
-            Prepare next reciter
-            <span>{next.number ? `${next.number} · ` : ""}{next.name}</span>
+    if (!state.roster.length) {
+      return (
+        <section
+          className="competition-idle-panel is-blocked"
+          aria-labelledby="competition-idle-title"
+        >
+          <span className="competition-idle-eyebrow">Competition unavailable</span>
+          <h2 id="competition-idle-title">Participant roster required</h2>
+          <p>Open setup to review or close this restored competition.</p>
+          <button type="button" className="btn-primary" onClick={onPrepare}>
+            Open competition setup
           </button>
-        ) : state.roster.length ? (
-          <p className="competition-idle-complete">Every participant in this roster is finished.</p>
-        ) : (
-          <p className="competition-idle-complete">
-            This restored competition has no participant roster. Close it from
-            setup, then prepare a new competition.
+        </section>
+      );
+    }
+
+    if (!next) {
+      return (
+        <section
+          className="competition-idle-panel is-complete"
+          aria-labelledby="competition-idle-title"
+        >
+          <h2 id="competition-idle-title">
+            {absentCount ? "No one left waiting" : "All participants finished"}
+          </h2>
+          <p>
+            {absentCount
+              ? `${finishedCount} judged · ${absentCount} not here`
+              : `${finishedCount} of ${state.roster.length} completed`}
           </p>
-        )}
-        <button type="button" className="btn-ghost competition-setup-link" onClick={onPrepare}>
-          <Icon name="settings" size={15} /> View competition setup
+          {absentCount ? (
+            <>
+              <button
+                type="button"
+                className="btn-primary"
+                onClick={onOpenRunningOrder}
+              >
+                Review running order
+              </button>
+              <div className="competition-idle-secondary">
+                <button type="button" className="btn-ghost" onClick={onOpenResults}>
+                  Open results
+                </button>
+                <button type="button" className="btn-ghost" onClick={onPrepare}>
+                  Competition setup
+                </button>
+              </div>
+            </>
+          ) : (
+            <>
+              <button
+                type="button"
+                className="btn-primary"
+                onClick={onOpenResults}
+              >
+                Open results
+              </button>
+              <button
+                type="button"
+                className="btn-ghost competition-setup-link"
+                onClick={onPrepare}
+              >
+                <Icon name="settings" size={15} /> View competition setup
+              </button>
+            </>
+          )}
+        </section>
+      );
+    }
+
+    if (!assignment) {
+      return (
+        <section
+          className="competition-idle-panel is-blocked"
+          aria-labelledby="competition-idle-title"
+        >
+          <span className="competition-idle-eyebrow">Judging unavailable</span>
+          <h2 id="competition-idle-title">Judge assignment required</h2>
+          <p>Choose the judge and criteria before drawing a question.</p>
+          <button type="button" className="btn-primary" onClick={onPrepare}>
+            Open competition setup
+          </button>
+        </section>
+      );
+    }
+
+    const division = participantDivision(next, liveSnapshot.divisions);
+    return (
+      <section
+        className="competition-idle-panel is-live"
+        aria-labelledby="competition-idle-title"
+      >
+        <div className="competition-idle-heading">
+          <h2 id="competition-idle-title">Next reciter</h2>
+          <span>{remaining.length} waiting</span>
+        </div>
+        <ParticipantIdentity
+          participant={next}
+          participantCount={state.roster.length}
+          division={division}
+          density="lead"
+          className="competition-idle-participant"
+        />
+        <button
+          type="button"
+          className="btn-primary competition-start-reciter"
+          onClick={onChooseQuestion}
+        >
+          Choose question
+        </button>
+        <div className="competition-idle-secondary">
+          <button
+            type="button"
+            className="btn-ghost"
+            onClick={onOpenRunningOrder}
+          >
+            Running order
+          </button>
+          <button
+            type="button"
+            className="btn-ghost"
+            onClick={() =>
+              dispatch({
+                type: "SET_PARTICIPANT_ABSENT",
+                id: next.id,
+                absent: true,
+              })
+            }
+          >
+            Not here
+          </button>
+        </div>
+      </section>
+    );
+  }
+
+  const draft =
+    competition.status === "draft" &&
+    Boolean(competition.name || state.roster.length);
+  const readiness = draft
+    ? competitionReadiness({
+        competition,
+        panel: state.panel,
+        deviceJudgeId: state.deviceJudgeId,
+        config: state.config,
+        roster: state.roster,
+        rosterDraft: state.rosterDraft,
+      })
+    : null;
+  const incompleteSections = new Set(
+    readiness?.issues.map((issue) => issue.section) ?? [],
+  );
+  const completedSetupSteps = readiness
+    ? 6 - incompleteSections.size + 1 + (readiness.ready ? 1 : 0)
+    : 0;
+
+  if (competition.status === "closed") {
+    return (
+      <section
+        className="competition-idle-panel is-closed"
+        aria-labelledby="competition-idle-title"
+      >
+        <h2 id="competition-idle-title">Competition closed</h2>
+        <p>Results remain available.</p>
+        <button
+          type="button"
+          className="btn-primary"
+          onClick={onOpenResults}
+        >
+          View results
         </button>
       </section>
     );
   }
 
-  const draft = competition.status === "draft" && Boolean(competition.name || state.roster.length);
   return (
-    <section className={`competition-idle-panel ${competition.status === "closed" ? "is-closed" : ""}`} aria-labelledby="competition-idle-title">
-      <h2 id="competition-idle-title">{competition.name || "The Mushaf is ready"}</h2>
+    <section
+      className="competition-idle-panel"
+      aria-labelledby="competition-idle-title"
+    >
+      <h2 id="competition-idle-title">
+        {draft ? competition.name : "Mushaf ready"}
+      </h2>
       <p>
-        {competition.status === "closed"
-          ? "Results remain available for review."
-          : draft
-            ? "Continue setup when the competition is ready."
-            : "Browse freely, or prepare a competition when you are ready."}
+        {draft
+          ? `${completedSetupSteps} of 8 setup steps ready`
+          : "Prepare a competition to begin judging."}
       </p>
       <button type="button" className="btn-primary" onClick={onPrepare}>
-        {competition.status === "closed"
-          ? "View competition"
-          : draft
-            ? "Continue setup"
-            : "Prepare competition"}
+        {draft ? "Continue setup" : "Prepare competition"}
       </button>
     </section>
   );

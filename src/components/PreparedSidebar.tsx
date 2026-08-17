@@ -1,36 +1,64 @@
-import {
-  categoryListLabel,
-  judgeDisplayName,
-} from "../lib/judgeAssignments";
-import type { PreparedRecitation } from "../types";
+import type { CompetitionDivision, PreparedRecitation } from "../types";
+import { ParticipantIdentity } from "./ParticipantIdentity";
+
+function questionSummary(prepared: PreparedRecitation): string {
+  const { question } = prepared;
+  const choice =
+    question.kind === "manual"
+      ? "External question"
+      : question.drawPosition
+        ? `Number ${question.drawPosition}`
+        : "Question";
+  return question.startPage ? `${choice} · page ${question.startPage}` : choice;
+}
 
 export function PreparedSidebar({
   prepared,
+  participantCount,
+  division,
   onReady,
+  onChangeQuestion,
+  onChangeReciter,
 }: {
   prepared: PreparedRecitation;
+  participantCount: number;
+  division?: CompetitionDivision;
   onReady: () => void;
+  onChangeQuestion: () => void;
+  onChangeReciter: () => void;
 }) {
   return (
     <section className="prepared-sidebar" aria-label="Ready to begin judging">
-      <span className="prepared-sidebar-kicker">Prepared on this device</span>
-      <h2>Check the passage, then begin</h2>
-      <p>
-        The draw is recorded and the Mushaf is open at the starting page.
-        Marking remains locked until you are ready.
-      </p>
-      <div className="prepared-sidebar-assignment">
-        <span>This device</span>
-        <strong>{judgeDisplayName(prepared.assignment)}</strong>
-        <small>{categoryListLabel(prepared.assignment.categories)}</small>
+      <ParticipantIdentity
+        participant={prepared.participant}
+        participantCount={participantCount}
+        division={division}
+        density="lead"
+        className="prepared-sidebar-participant"
+      />
+      <div className="prepared-sidebar-question">
+        <span>Prepared question</span>
+        <strong>{questionSummary(prepared)}</strong>
       </div>
       <button type="button" className="btn-primary" onClick={onReady}>
-        Ready · begin judging
+        Begin judging
       </button>
-      <small className="prepared-device-note">
-        This confirms only this judge device. Shared readiness will be added
-        with multi-device synchronization.
-      </small>
+      <div className="prepared-sidebar-secondary">
+        <button
+          type="button"
+          className="btn-ghost"
+          onClick={onChangeQuestion}
+        >
+          Change question
+        </button>
+        <button
+          type="button"
+          className="btn-ghost"
+          onClick={onChangeReciter}
+        >
+          Change reciter
+        </button>
+      </div>
     </section>
   );
 }

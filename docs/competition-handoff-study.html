@@ -1,0 +1,1059 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Competition handoff study</title>
+<style>
+  /* ---- Tokens, copied from src/styles/global.css ---- */
+  :root {
+    --bg: #f2f1ee;
+    --surface: #ffffff;
+    --ink: #1a1a1c;
+    --ink-2: #62626a;
+    --ink-3: #6a6a73;
+    --line: rgba(26, 26, 28, 0.08);
+    --line-2: rgba(26, 26, 28, 0.16);
+    --ring: rgba(85, 102, 230, 0.35);
+    --warn: #8b5c18;
+    --warn-bg: rgba(196, 145, 66, 0.10);
+    --warn-line: rgba(151, 103, 34, 0.35);
+
+    --r-sm: 8px;
+    --r-md: 12px;
+    --r-lg: 20px;
+
+    --t-micro: 12px;
+    --t-small: 14px;
+    --t-body: 15px;
+    --t-lead: 17px;
+    --t-title: 21px;
+    --t-display: 27px;
+
+    --sp-1: 4px;  --sp-2: 8px;  --sp-3: 12px; --sp-4: 16px;
+    --sp-5: 24px; --sp-6: 32px; --sp-7: 48px;
+
+    --tap: 44px;
+
+    --shadow-rest: 0 1px 2px rgba(26, 26, 28, 0.05);
+    --shadow-float: 0 12px 32px rgba(26, 26, 28, 0.14), 0 2px 8px rgba(26, 26, 28, 0.08);
+    --ui: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  :root[data-theme="dark"] {
+    --bg: #131316;
+    --surface: #1c1c20;
+    --ink: #ebebed;
+    --ink-2: #a4a4ac;
+    --ink-3: #8b8b95;
+    --line: rgba(255, 255, 255, 0.08);
+    --line-2: rgba(255, 255, 255, 0.16);
+    --ring: rgba(120, 135, 255, 0.45);
+    --warn: #e0b16a;
+    --warn-bg: rgba(213, 157, 72, 0.12);
+    --warn-line: rgba(225, 178, 104, 0.36);
+    --shadow-rest: 0 1px 2px rgba(0, 0, 0, 0.4);
+    --shadow-float: 0 16px 40px rgba(0, 0, 0, 0.5), 0 3px 10px rgba(0, 0, 0, 0.35);
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 0 0 var(--sp-7);
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--ui);
+    font-size: var(--t-body);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 var(--sp-5); }
+
+  /* ---- Study chrome (deliberately not Tahqeeq; it is scaffolding) ---- */
+  .study-head {
+    position: sticky; top: 0; z-index: 20;
+    display: flex; align-items: center; justify-content: space-between; gap: var(--sp-4);
+    padding: var(--sp-3) var(--sp-5);
+    border-bottom: 1px solid var(--line);
+    background: color-mix(in srgb, var(--bg) 92%, transparent);
+    backdrop-filter: blur(8px);
+  }
+  .study-head h1 { margin: 0; font-size: var(--t-body); font-weight: 620; letter-spacing: -0.01em; }
+  .study-head .sub { color: var(--ink-3); font-size: var(--t-micro); }
+  .btn-chrome {
+    min-height: 32px; padding: 0 var(--sp-3);
+    border: 1px solid var(--line-2); border-radius: var(--r-sm);
+    background: var(--surface); color: var(--ink-2);
+    font: inherit; font-size: var(--t-micro); cursor: pointer;
+  }
+  .btn-chrome:hover { color: var(--ink); border-color: var(--ink-3); }
+  .btn-chrome[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+
+  section.doc { margin: var(--sp-6) 0; }
+  section.doc h2 { margin: 0 0 var(--sp-3); font-size: var(--t-title); font-weight: 590; letter-spacing: -0.02em; }
+  section.doc h3 { margin: var(--sp-5) 0 var(--sp-2); font-size: var(--t-body); font-weight: 620; }
+  section.doc p { margin: 0 0 var(--sp-3); max-width: 74ch; color: var(--ink-2); font-size: var(--t-small); }
+  section.doc p strong { color: var(--ink); font-weight: 600; }
+  code { padding: 1px 4px; border-radius: 4px; background: var(--line); font-family: ui-monospace, Menlo, monospace; font-size: 0.92em; }
+
+  .evidence { display: grid; gap: var(--sp-2); margin: 0 0 var(--sp-4); padding: 0; list-style: none; max-width: 74ch; }
+  .evidence li { padding: var(--sp-3); border: 1px solid var(--line); border-radius: var(--r-sm); background: var(--surface); font-size: var(--t-small); color: var(--ink-2); }
+  .evidence li b { display: block; margin-bottom: 2px; color: var(--ink); font-weight: 600; }
+  .tag-ev, .tag-inf {
+    display: inline-block; margin-inline-end: var(--sp-2); padding: 1px 6px;
+    border-radius: 4px; font-size: var(--t-micro); font-weight: 620; letter-spacing: 0.03em; text-transform: uppercase;
+  }
+  .tag-ev { background: var(--line); color: var(--ink-2); }
+  .tag-inf { background: var(--warn-bg); color: var(--warn); border: 1px solid var(--warn-line); }
+
+  .controls {
+    position: sticky; top: 49px; z-index: 15;
+    display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-4);
+    margin: var(--sp-5) 0; padding: var(--sp-3) var(--sp-4);
+    border: 1px solid var(--line); border-radius: var(--r-md);
+    background: var(--surface); box-shadow: var(--shadow-rest);
+  }
+  .ctrl { display: flex; align-items: center; gap: var(--sp-2); }
+  .ctrl > span { color: var(--ink-3); font-size: var(--t-micro); }
+  .seg { display: flex; gap: 2px; padding: 2px; border: 1px solid var(--line); border-radius: var(--r-sm); background: var(--bg); }
+  .seg .btn-chrome { border: 0; background: transparent; min-height: 28px; }
+  .seg .btn-chrome[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+
+  .stages { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--sp-4); align-items: start; }
+  @media (max-width: 1100px) { .stages { grid-template-columns: 1fr; } }
+  .stage-col { min-width: 0; }
+  .stage-title { display: flex; align-items: baseline; justify-content: space-between; gap: var(--sp-2); margin-bottom: var(--sp-2); }
+  .stage-title b { font-size: var(--t-small); font-weight: 620; }
+  .stage-title span { color: var(--ink-3); font-size: var(--t-micro); }
+  .stage-frame {
+    position: relative; overflow: hidden;
+    border: 1px solid var(--line-2); border-radius: var(--r-md);
+    background: var(--surface);
+  }
+  .stage-frame.over-budget { border-color: var(--warn-line); box-shadow: inset 0 0 0 1px var(--warn-line); }
+  .budget-line { position: absolute; left: 0; right: 0; z-index: 5; border-top: 1px dashed var(--warn-line); pointer-events: none; }
+  .budget-line::after {
+    content: attr(data-label); position: absolute; right: 4px; top: 2px;
+    color: var(--warn); font-size: 10px; letter-spacing: 0.04em; text-transform: uppercase;
+  }
+  .stage-meta { display: flex; flex-wrap: wrap; gap: var(--sp-3); margin-top: var(--sp-2); color: var(--ink-3); font-size: var(--t-micro); }
+  .stage-meta b { color: var(--ink-2); font-variant-numeric: tabular-nums; font-weight: 600; }
+  .stage-meta .bad { color: var(--warn); }
+
+  table.cmp { width: 100%; border-collapse: collapse; margin-top: var(--sp-3); font-size: var(--t-small); }
+  table.cmp th, table.cmp td { padding: var(--sp-2) var(--sp-3); border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+  table.cmp th { color: var(--ink-3); font-size: var(--t-micro); font-weight: 600; }
+  table.cmp td.num, table.cmp th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  table.cmp tbody tr:hover { background: color-mix(in srgb, var(--bg) 60%, transparent); }
+
+  /* ============================================================
+     SHARED across all three candidates. Direction E is a constraint,
+     not a candidate: identity geometry is identical everywhere so any
+     difference measured below is attributable to layout, not to the
+     participant block changing shape between stages.
+     ============================================================ */
+  .pid { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: var(--sp-3); min-width: 0; }
+  .pid-copy { display: grid; gap: 2px; min-width: 0; }
+  .pid-name {
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    font-size: var(--t-small); font-weight: 600; color: var(--ink);
+  }
+  .pid-ctx {
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    font-size: var(--t-micro); color: var(--ink-3);
+  }
+  .pid.is-lead .pid-name { font-size: var(--t-lead); font-weight: 590; letter-spacing: -0.015em; }
+  .pid.is-lead .pid-ctx { font-size: var(--t-small); color: var(--ink-2); white-space: normal; }
+  /* Reference ticket, not a status and not an identity. Rectangular, quiet,
+     tabular, and never smaller than --t-micro (the app ships it at 11px). */
+  .pid-num {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-width: 32px; min-height: 26px; padding: 3px 7px;
+    border: 1px solid var(--line); border-radius: var(--r-sm);
+    background: var(--bg); color: var(--ink-2);
+    font-size: var(--t-micro); font-weight: 620;
+    font-variant-numeric: tabular-nums; line-height: 1;
+  }
+  .pid-num.w3 { min-width: 40px; }
+
+  .btn-primary {
+    display: flex; align-items: center; justify-content: center; gap: var(--sp-2);
+    width: 100%; min-height: 54px; padding: 0 var(--sp-4);
+    border: 1px solid var(--ink); border-radius: var(--r-sm);
+    background: var(--ink); color: var(--bg);
+    font: inherit; font-size: var(--t-small); font-weight: 600; cursor: pointer;
+  }
+  .btn-primary:disabled { opacity: 0.45; cursor: not-allowed; }
+  .btn-ghost {
+    min-height: var(--tap); padding: 0 var(--sp-3);
+    border: 0; border-radius: var(--r-sm); background: transparent;
+    color: var(--ink-2); font: inherit; font-size: var(--t-small); cursor: pointer;
+  }
+  .btn-ghost:hover { color: var(--ink); background: var(--bg); }
+  .btn-quiet {
+    min-height: var(--tap); padding: 0 var(--sp-3);
+    border: 1px solid var(--line); border-radius: var(--r-sm); background: var(--surface);
+    color: var(--ink-2); font: inherit; font-size: var(--t-small); cursor: pointer;
+  }
+  .btn-quiet:hover { border-color: var(--ink-3); color: var(--ink); }
+  :where(button):focus-visible { outline: none; box-shadow: 0 0 0 3px var(--ring); }
+
+  /* Exception surface. Only a missing or invalid assignment earns this weight. */
+  .blocker {
+    display: grid; gap: var(--sp-1);
+    padding: var(--sp-3); margin-bottom: var(--sp-3);
+    border: 1px solid var(--warn-line); border-radius: var(--r-sm);
+    background: var(--warn-bg);
+  }
+  .blocker b { color: var(--warn); font-size: var(--t-small); font-weight: 620; }
+  .blocker small { color: var(--ink-2); font-size: var(--t-micro); }
+
+  /* Judge assignment, demoted to a disclosure in every candidate. */
+  .assign { border-top: 1px solid var(--line); margin-top: var(--sp-3); }
+  .assign-toggle {
+    display: flex; align-items: center; justify-content: space-between; gap: var(--sp-2);
+    width: 100%; min-height: var(--tap); padding: 0;
+    border: 0; background: transparent; color: var(--ink-3);
+    font: inherit; font-size: var(--t-micro); cursor: pointer; text-align: left;
+  }
+  .assign-toggle:hover { color: var(--ink-2); }
+  .assign-body { padding: 0 0 var(--sp-3); color: var(--ink-2); font-size: var(--t-micro); }
+  .assign-body dl { display: grid; grid-template-columns: 78px minmax(0, 1fr); gap: var(--sp-1) var(--sp-3); margin: 0; }
+  .assign-body dt { color: var(--ink-3); }
+  .assign-body dd { margin: 0; color: var(--ink); }
+  .assign[hidden], [hidden] { display: none !important; }
+
+  .state-line {
+    display: flex; align-items: baseline; gap: var(--sp-3);
+    color: var(--ink-3); font-size: var(--t-micro);
+    font-variant-numeric: tabular-nums;
+  }
+  .state-line b { color: var(--ink-2); font-weight: 600; }
+
+  /* ---- A. Next-action rail ------------------------------------ */
+  .cand-a { display: flex; flex-direction: column; padding: var(--sp-5); }
+  .cand-a .pid { margin: var(--sp-3) 0 var(--sp-4); }
+  .cand-a .rail-secondary { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-2); margin-top: var(--sp-1); }
+  .cand-a .rail-list { margin-top: var(--sp-3); border-top: 1px solid var(--line); max-height: 260px; overflow-y: auto; }
+  .cand-a .q-note { margin: var(--sp-3) 0 0; color: var(--ink-2); font-size: var(--t-small); }
+
+  /* ---- B. Operational ledger ---------------------------------- */
+  .cand-b { display: flex; flex-direction: column; padding: var(--sp-4) var(--sp-4) var(--sp-3); }
+  .cand-b .ledger { margin-top: var(--sp-3); overflow-y: auto; }
+  .lgroup-head {
+    position: sticky; top: 0; z-index: 2;
+    display: flex; align-items: baseline; justify-content: space-between; gap: var(--sp-2);
+    padding: var(--sp-2) var(--sp-2);
+    background: var(--surface); border-bottom: 1px solid var(--line);
+    color: var(--ink-3); font-size: var(--t-micro);
+  }
+  .lgroup-head b { color: var(--ink-2); font-size: var(--t-micro); font-weight: 620; }
+  .lrow-btn {
+    display: grid; grid-template-columns: 44px minmax(0, 1fr) auto; align-items: center; gap: var(--sp-3);
+    width: 100%; min-height: var(--tap); padding: var(--sp-1) var(--sp-2);
+    border: 1px solid transparent; border-radius: var(--r-sm);
+    background: transparent; color: var(--ink); font: inherit; text-align: left; cursor: pointer;
+  }
+  .lrow-btn:hover:not(:disabled) { border-color: var(--line); background: var(--bg); }
+  .lrow-btn:disabled { cursor: default; }
+  .lrow-btn:disabled .pid-name, .lrow-btn:disabled .pid-num { color: var(--ink-3); }
+  .lrow-btn .pid { display: contents; }
+  .lrow-btn .pid-num { justify-self: start; }
+  .lrow-btn .pid-copy { min-width: 0; }
+  .lstate { color: var(--ink-2); font-size: var(--t-micro); white-space: nowrap; }
+  .lstate.is-next { color: var(--ink); font-weight: 620; }
+  .lstate.is-finished, .lstate.is-absent { color: var(--ink-3); }
+  .lrow-wrap { display: flex; align-items: center; gap: var(--sp-2); }
+  .lrow-wrap.is-next { padding-bottom: var(--sp-2); border-bottom: 1px solid var(--line); margin-bottom: var(--sp-2); }
+  .lrow-wrap .btn-quiet { flex: 0 0 auto; margin-inline-start: var(--sp-3); }
+  .cand-b .foot { margin-top: var(--sp-3); padding-top: var(--sp-3); border-top: 1px solid var(--line); }
+
+  /* ---- C. Two-zone handoff ------------------------------------ */
+  .cand-c { display: grid; grid-template-columns: minmax(0, 300px) minmax(0, 1fr); gap: 0; }
+  .cand-c.is-narrow { grid-template-columns: 1fr; }
+  .cand-c .zone-focus { padding: var(--sp-5) var(--sp-4); border-inline-end: 1px solid var(--line); }
+  .cand-c.is-narrow .zone-focus { border-inline-end: 0; border-bottom: 1px solid var(--line); }
+  .cand-c .zone-order { display: flex; flex-direction: column; min-width: 0; padding: var(--sp-3) var(--sp-4); background: color-mix(in srgb, var(--bg) 45%, var(--surface)); }
+  .cand-c .zone-order h4 { display: flex; align-items: baseline; justify-content: space-between; margin: 0 0 var(--sp-2); color: var(--ink-3); font-size: var(--t-micro); font-weight: 600; }
+  .cand-c .order-scroll { overflow-y: auto; }
+  .cand-c .orow {
+    display: grid; grid-template-columns: 44px minmax(0, 1fr) auto; align-items: center; gap: var(--sp-3);
+    width: 100%; min-height: var(--tap); padding: var(--sp-1) var(--sp-2);
+    border: 1px solid transparent; border-radius: var(--r-sm);
+    background: transparent; color: var(--ink); font: inherit; text-align: left; cursor: pointer;
+  }
+  .cand-c .orow:hover:not(:disabled) { border-color: var(--line); background: var(--surface); }
+  .cand-c .orow:disabled { cursor: default; }
+  .cand-c .orow:disabled .pid-name, .cand-c .orow:disabled .pid-num { color: var(--ink-3); }
+  .cand-c .orow .pid { display: contents; }
+  .cand-c .orow .pid-num { justify-self: start; }
+  .cand-c .ostate { color: var(--ink-2); font-size: var(--t-micro); white-space: nowrap; }
+  .cand-c .ostate.is-finished, .cand-c .ostate.is-absent { color: var(--ink-3); }
+  .cand-c .zone-focus .pid { margin-bottom: var(--sp-4); }
+
+  /* Question board, shared by all three so the draw stage is comparable. */
+  .board { display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--sp-2); margin-top: var(--sp-3); }
+  .board button {
+    min-height: var(--tap); border: 1px solid var(--line-2); border-radius: var(--r-sm);
+    background: var(--surface); color: var(--ink); font: inherit; font-size: var(--t-body);
+    font-variant-numeric: tabular-nums; cursor: pointer;
+  }
+  .board button:disabled { color: var(--ink-3); background: var(--bg); border-color: var(--line); cursor: not-allowed; }
+
+  .appendix-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--sp-3); }
+  .appendix-card { padding: var(--sp-4); border: 1px solid var(--line); border-radius: var(--r-md); background: var(--surface); }
+  .appendix-card h4 { margin: 0 0 var(--sp-2); color: var(--ink-3); font-size: var(--t-micro); font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; }
+  .appendix-card h5 { margin: 0 0 var(--sp-1); font-size: var(--t-lead); font-weight: 590; letter-spacing: -0.015em; }
+  .appendix-card p { margin: 0 0 var(--sp-3); color: var(--ink-2); font-size: var(--t-small); }
+</style>
+</head>
+<body>
+
+<header class="study-head">
+  <div>
+    <h1>Competition handoff study</h1>
+    <div class="sub">Three candidates &middot; four states &middot; rosters of 8, 40 and 280 &middot; measured live</div>
+  </div>
+  <button type="button" class="btn-chrome" id="theme-toggle" aria-live="polite">Dark</button>
+</header>
+
+<div class="wrap">
+
+<section class="doc">
+  <h2>What this study is for</h2>
+  <p>
+    <code>docs/COMPETITION_STATE_AND_RECITER_HANDOFF_RESEARCH.md</code> proposed five directions.
+    This study builds three of them. Direction E, the continuity component, is not a candidate here:
+    it is applied to all three as a fixed constraint, so that any difference measured below is
+    attributable to layout rather than to the participant block changing shape between stages.
+    The progressive drawer was dropped, and the reason is recorded under <em>What was not built</em>.
+  </p>
+  <p>
+    Nothing here is an implementation specification. The numbers under each frame are measured from
+    the live DOM on every render, the same technique <code>docs/running-order-study.html</code> uses,
+    so a claim in the comparison table can be checked by resizing the window rather than trusted.
+  </p>
+
+  <h3>What the code says, before any design argument</h3>
+  <ul class="evidence">
+    <li>
+      <b><span class="tag-ev">Evidence</span>The next reciter&rsquo;s name is rendered at 10px.</b>
+      <code>.competition-start-reciter &gt; span</code> in <code>global.css</code> sets
+      <code>font-size: 10px</code>, <code>max-width: 225px</code>, <code>overflow: hidden</code>, and a
+      <code>color-mix</code> at 72% opacity. The most important identity fact in the waiting state sits
+      below the 12px floor rule 8 states, below the 14px minimum for anything read mid-recitation,
+      truncated, and at reduced contrast. Making the name dominant is a correction, not a preference.
+    </li>
+    <li>
+      <b><span class="tag-ev">Evidence</span>The rail and the dialog disagree about the number.</b>
+      <code>CompetitionIdlePanel</code> prints <code>next.number</code> raw; every other surface calls
+      <code>participantNumberLabel</code>, which pads to roster width. Participant 1 reads
+      <code>1 &middot; Ahmed Rasheed</code> in the rail and <code>01</code> in the dialog.
+    </li>
+    <li>
+      <b><span class="tag-ev">Evidence</span>A missing judge does not block, and burns a question.</b>
+      <code>StartDialog</code> shows <em>No judge assigned</em> but still advances to the board.
+      <code>drawPosition</code> dispatches <code>RECORD_DRAW</code> before calling
+      <code>prepareWithQuestion</code>, which returns early when <code>assignment</code> is null. The
+      position is consumed by <code>spentPositions</code> and nothing else happens. That is a defect to
+      log separately; the design below only shows what blocking would look like.
+    </li>
+    <li>
+      <b><span class="tag-ev">Evidence</span>Search does not exist at a roster of 8.</b>
+      <code>shouldOfferSearch</code> is <code>roster.length &gt; 8</code>. The 8 case below therefore
+      renders without a search field, because the app has none there.
+    </li>
+    <li>
+      <b><span class="tag-ev">Evidence</span>Candidate B changes a state contract.</b>
+      <code>visibleRosterGroups</code> excludes the recommended participant from the list. A single
+      ledger whose first row <em>is</em> the recommendation requires that exclusion to change. It is a
+      small reversible change to a pure function, but it is not free, and it is named here rather than
+      smuggled into a visual review.
+    </li>
+    <li>
+      <b><span class="tag-inf">Inference</span>Repetition is doing the work of continuity.</b>
+      Competition, judge and criteria are restated at each stage because the participant block is not
+      stable enough to carry recognition on its own. This is an interpretation of the five different
+      participant geometries in the code, not something the code states.
+    </li>
+  </ul>
+</section>
+
+<div class="controls" role="group" aria-label="Study controls">
+  <div class="ctrl">
+    <span>State</span>
+    <div class="seg" id="seg-state">
+      <button type="button" class="btn-chrome" data-state="waiting" aria-pressed="true">Live waiting</button>
+      <button type="button" class="btn-chrome" data-state="selection" aria-pressed="false">Reciter selection</button>
+      <button type="button" class="btn-chrome" data-state="prepared" aria-pressed="false">Prepared</button>
+      <button type="button" class="btn-chrome" data-state="nojudge" aria-pressed="false">No judge</button>
+    </div>
+  </div>
+  <div class="ctrl">
+    <span>Roster</span>
+    <div class="seg" id="seg-size">
+      <button type="button" class="btn-chrome" data-size="8" aria-pressed="true">8</button>
+      <button type="button" class="btn-chrome" data-size="40" aria-pressed="false">40</button>
+      <button type="button" class="btn-chrome" data-size="280" aria-pressed="false">280</button>
+    </div>
+  </div>
+  <div class="ctrl">
+    <span>Viewport</span>
+    <div class="seg" id="seg-view">
+      <button type="button" class="btn-chrome" data-view="1440" aria-pressed="true">1440&times;900</button>
+      <button type="button" class="btn-chrome" data-view="1280" aria-pressed="false">1280&times;800</button>
+      <button type="button" class="btn-chrome" data-view="1024" aria-pressed="false">1024&times;768</button>
+      <button type="button" class="btn-chrome" data-view="390" aria-pressed="false">390&times;844</button>
+    </div>
+  </div>
+  <div class="ctrl">
+    <button type="button" class="btn-chrome" id="reset">Reset interactions</button>
+  </div>
+</div>
+
+<section class="doc">
+  <h2>The three candidates</h2>
+  <p>
+    Every frame is clipped to the height a stage actually gets in the shell:
+    viewport height minus the 63px sticky header and 48px of workspace padding, the measurement
+    already recorded in <code>DESIGN_GRAMMAR.md</code>. The dashed line marks that budget. Content
+    below it is content a judge has to scroll the page to reach.
+  </p>
+  <div class="stages" id="stages">
+    <div class="stage-col">
+      <div class="stage-title"><b>A &middot; Next-action rail</b><span>rail width, 340px</span></div>
+      <div class="stage-frame" data-frame="a"><div class="cand cand-a" data-mount="a"></div></div>
+      <div class="stage-meta" data-meta="a"></div>
+    </div>
+    <div class="stage-col">
+      <div class="stage-title"><b>B &middot; Operational ledger</b><span>dialog width, 560px</span></div>
+      <div class="stage-frame" data-frame="b"><div class="cand cand-b" data-mount="b"></div></div>
+      <div class="stage-meta" data-meta="b"></div>
+    </div>
+    <div class="stage-col">
+      <div class="stage-title"><b>C &middot; Two-zone handoff</b><span>dialog width, 720px</span></div>
+      <div class="stage-frame" data-frame="c"><div class="cand cand-c" data-mount="c"></div></div>
+      <div class="stage-meta" data-meta="c"></div>
+    </div>
+  </div>
+</section>
+
+<section class="doc">
+  <h2>How they compare</h2>
+  <p>
+    Measured on the current state, roster size and viewport. <em>Words</em> counts visible text.
+    <em>Repeats</em> counts facts said more than once in the same frame: participant name, judge name,
+    competition name, and the waiting count. <em>Before</em> is the number of focusable controls a
+    judge passes before reaching the primary action in DOM order, which is also keyboard order.
+    <em>Small targets</em> counts interactive elements under 44px, the app&rsquo;s own floor, which is
+    stricter than the 24px WCAG 2.2 minimum. The numbers are zero until the page is opened in a real
+    browser; layout measurement needs layout.
+  </p>
+  <table class="cmp">
+    <thead>
+      <tr>
+        <th>Candidate</th>
+        <th class="num">Words</th>
+        <th class="num">Repeats</th>
+        <th class="num">Before</th>
+        <th class="num">Height</th>
+        <th class="num">Small targets</th>
+        <th>Last row reachable</th>
+        <th>Failure mode</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>A</strong> Next-action rail</td>
+        <td class="num" data-t="a-words">&mdash;</td><td class="num" data-t="a-rep">&mdash;</td>
+        <td class="num" data-t="a-before">&mdash;</td><td class="num" data-t="a-h">&mdash;</td>
+        <td class="num" data-t="a-small">&mdash;</td><td data-t="a-reach">&mdash;</td>
+        <td>The queue is behind a disclosure, so an out-of-order call costs an extra step and the judge cannot see how long the block actually is.</td>
+      </tr>
+      <tr>
+        <td><strong>B</strong> Operational ledger</td>
+        <td class="num" data-t="b-words">&mdash;</td><td class="num" data-t="b-rep">&mdash;</td>
+        <td class="num" data-t="b-before">&mdash;</td><td class="num" data-t="b-h">&mdash;</td>
+        <td class="num" data-t="b-small">&mdash;</td><td data-t="b-reach">&mdash;</td>
+        <td>The recommendation is only first position and a word. If the judge is scrolled away from the top, nothing on screen says who is next.</td>
+      </tr>
+      <tr>
+        <td><strong>C</strong> Two-zone handoff</td>
+        <td class="num" data-t="c-words">&mdash;</td><td class="num" data-t="c-rep">&mdash;</td>
+        <td class="num" data-t="c-before">&mdash;</td><td class="num" data-t="c-h">&mdash;</td>
+        <td class="num" data-t="c-small">&mdash;</td><td data-t="c-reach">&mdash;</td>
+        <td>Two zones need width. Below roughly 720px it becomes candidate A with a list under it, so it is really two designs maintained as one.</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="doc">
+  <h2>States that do not discriminate</h2>
+  <p>
+    No competition, draft setup, roster complete and closed came out near-identical in all three
+    candidates, because none of them is a queue problem. They are shown once here rather than three
+    times each. The content model is the argument; the layout is whichever candidate wins the four
+    states above.
+  </p>
+  <div class="appendix-grid">
+    <div class="appendix-card">
+      <h4>No competition</h4>
+      <h5>The Mushaf is ready</h5>
+      <p>Prepare a competition to begin judging.</p>
+      <button type="button" class="btn-primary">Prepare competition</button>
+    </div>
+    <div class="appendix-card">
+      <h4>Draft setup</h4>
+      <h5>Tahqeeq Test Competition</h5>
+      <p>6 of 8 setup steps ready.</p>
+      <button type="button" class="btn-primary">Continue setup</button>
+    </div>
+    <div class="appendix-card">
+      <h4>Roster complete</h4>
+      <h5>All participants finished</h5>
+      <p>8 of 8 completed.</p>
+      <button type="button" class="btn-primary">Review results</button>
+      <div style="margin-top:8px"><button type="button" class="btn-ghost">Close competition</button></div>
+    </div>
+    <div class="appendix-card">
+      <h4>Closed</h4>
+      <h5>Competition closed</h5>
+      <p>Results and records remain available.</p>
+      <button type="button" class="btn-primary">View results</button>
+      <div style="margin-top:8px"><button type="button" class="btn-ghost">Start another competition</button></div>
+    </div>
+  </div>
+  <p style="margin-top:16px">
+    One decision inside this group is not a layout decision and should not be settled here. After the
+    roster completes, whether the dominant action is <em>Review results</em> or <em>Close
+    competition</em> depends on who is allowed to finalise a result. That belongs in
+    <code>UNDECIDED_DECISIONS.md</code> under competition operations.
+  </p>
+</section>
+
+<section class="doc">
+  <h2>Against the grammar</h2>
+  <p>
+    <code>DESIGN_GRAMMAR.md</code> asks that a proposed screen state which rules it keeps and which it
+    bends. All three candidates keep rules 2, 3, 5 and 7, and all three fix an existing break of rule 8
+    by raising the participant number from 11px and the reciter name from 10px onto the scale.
+  </p>
+  <ul class="evidence">
+    <li>
+      <b>Rule 6, say it once</b>
+      All three remove the repeated judge and criteria block from the hot path and put it behind one
+      disclosure. In the current build the judge name and the criteria list are stated in the idle rail
+      (<code>CompetitionIdlePanel</code>) and stated again in the dialog
+      (<code>StartDialog</code>) and a third time in the prepared rail
+      (<code>PreparedSidebar</code>); the waiting count appears in the rail, again in
+      <code>reciter-queue-summary</code>, and again in every group header. The <em>Repeats</em> column
+      is the mechanical version of that count, within a single frame.
+    </li>
+    <li>
+      <b>Rule 10, 44px during a live recitation</b>
+      Candidate B looks the most compact and is not: the row is the target, so its hit area is 44px
+      even where the type is 12px. The <em>Small targets</em> column checks this rather than trusting it.
+    </li>
+    <li>
+      <b>Rule 1, the page is the evidence</b>
+      Candidate C spends the most horizontal room, which is the strongest argument against it. At
+      1024&times;768 it is competing with the Mushaf for the same region.
+    </li>
+    <li>
+      <b>The open violation</b>
+      The shell already overflows by 69px at 1024&times;768, and who owns viewport height is unresolved.
+      Every frame above is clipped to the real budget so that this is visible rather than assumed.
+    </li>
+  </ul>
+
+  <h3>What was not built, and why</h3>
+  <p>
+    The progressive command drawer was dropped. It proposes taking room from the same region the
+    Mushaf occupies, in a shell that is already 69px over budget at 1024&times;768 with an unresolved
+    question about who owns the viewport height. Tested now, it would produce a verdict about the
+    shell rather than about the drawer. It is worth revisiting once the setup-flow work settles that
+    question, and not before.
+  </p>
+</section>
+
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ================= Dataset =================
+     One roster for all three candidates, so a difference in the table is a
+     difference in the design. It deliberately contains a name long enough to
+     truncate, a participant matching no division (groupRosterByDivision keeps
+     these in a trailing group), one absent and one finished. */
+  var DIVS = ["Under 14 · Hifz", "Under 14 · Baliagen", "Under 16 · Hifz", "Under 16 · Baliagen"];
+  var INSTS = ["Hiriya School", "Amilla faraathun", "Noor Quran Class", "Aminiya School"];
+  var JUDGE = "Judge 1";
+  var CRITERIA = "Lahn Jali · Lahn Khafi · Fasaha · Adu / Raagu";
+  var COMPETITION = "Tahqeeq Test Competition";
+
+  var BASE = [
+    { n: 1, name: "Ahmed Rasheed",                inst: INSTS[0], div: DIVS[0], side: "Starting side", status: "waiting"  },
+    { n: 2, name: "Mariyam Aishath Ibrahim Didi", inst: INSTS[1], div: DIVS[0], side: "Ending side",   status: "waiting"  },
+    { n: 3, name: "Mohamed Zayan",                inst: INSTS[2], div: DIVS[1], side: "Starting side", status: "waiting"  },
+    { n: 4, name: "Aishath Zaina",                inst: INSTS[3], div: DIVS[1], side: "Ending side",   status: "absent"   },
+    { n: 5, name: "Ibrahim Nimal",                inst: INSTS[2], div: DIVS[2], side: "Starting side", status: "finished" },
+    { n: 6, name: "Fathimath Reem",               inst: INSTS[0], div: DIVS[2], side: "Ending side",   status: "waiting"  },
+    { n: 7, name: "Hassan Saeed",                 inst: INSTS[3], div: null,    side: "Starting side", status: "waiting"  },
+    { n: 8, name: "Aminath Nooh",                 inst: INSTS[1], div: DIVS[3], side: "Ending side",   status: "waiting"  }
+  ];
+
+  function makeRoster(size) {
+    var out = BASE.map(function (p) { return Object.assign({}, p); });
+    for (var n = 9; n <= size; n++) {
+      out.push({
+        n: n,
+        name: "Reciter " + n,
+        inst: INSTS[(n - 1) % INSTS.length],
+        div: DIVS[(n - 1) % DIVS.length],
+        side: (n % 2 === 0) ? "Ending side" : "Starting side",
+        status: "waiting"
+      });
+    }
+    return out;
+  }
+
+  /* ================= UI state ================= */
+  var KEYS = ["a", "b", "c"];
+  var ui = { state: "waiting", size: 8, view: 1440, roster: makeRoster(8) };
+  var open = { a: false, b: false, c: false };
+  var chosen = { a: null, b: null, c: null };
+
+  var FRAME_W = { a: 340, b: 560, c: 720 };
+  function budgetFor(view) {
+    var h = view === 1440 ? 900 : view === 1280 ? 800 : view === 1024 ? 768 : 844;
+    return h - 63 - 48; /* sticky header + workspace padding, per DESIGN_GRAMMAR */
+  }
+  function frameWidth(key) { return ui.view === 390 ? 358 : FRAME_W[key]; }
+
+  /* ================= Helpers ================= */
+  function esc(s) {
+    return String(s).replace(/[&<>"]/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c];
+    });
+  }
+  function numWidth() { return Math.max(2, String(ui.roster.length).length); }
+  function pad(n) {
+    var s = String(n), w = numWidth();
+    while (s.length < w) s = "0" + s;
+    return s;
+  }
+  function ctx(p) {
+    return [p.inst, p.div || "Category required", p.side].filter(Boolean).join(" · ");
+  }
+  function counts() {
+    var c = { waiting: 0, absent: 0, finished: 0 };
+    ui.roster.forEach(function (p) { c[p.status] += 1; });
+    return c;
+  }
+  function nextWaiting() {
+    for (var i = 0; i < ui.roster.length; i++) if (ui.roster[i].status === "waiting") return ui.roster[i];
+    return null;
+  }
+  function focusOf(key) {
+    if (chosen[key]) {
+      var hit = ui.roster.filter(function (p) { return p.n === chosen[key]; })[0];
+      if (hit) return hit;
+    }
+    return nextWaiting();
+  }
+
+  /* The one identity component. Two presentations, lead and row, sharing the
+     same parts, the same number format and the same primacy of name over
+     number, in every candidate and every state. Direction E is applied here
+     rather than tested, so the table below measures layout and nothing else. */
+  function pid(p, lead) {
+    var w3 = numWidth() >= 3 ? " w3" : "";
+    return '<span class="pid' + (lead ? " is-lead" : "") + '">' +
+             '<span class="pid-copy">' +
+               '<strong class="pid-name">' + esc(p.name) + '</strong>' +
+               '<small class="pid-ctx">' + esc(ctx(p)) + '</small>' +
+             '</span>' +
+             '<span class="pid-num' + w3 + '">' + pad(p.n) + '</span>' +
+           '</span>';
+  }
+  function stateLine() {
+    var c = counts();
+    return '<div class="state-line">' +
+             '<span><b>' + c.waiting + '</b> waiting</span>' +
+             '<span><b>' + c.finished + '</b> finished</span>' +
+             (c.absent ? '<span><b>' + c.absent + '</b> not here</span>' : '') +
+           '</div>';
+  }
+  function assignBlock(key, missing) {
+    if (missing) {
+      return '<div class="assign">' +
+               '<div class="assign-body"><dl>' +
+                 '<dt>This device</dt><dd>No judge assigned</dd>' +
+                 '<dt>Criteria</dt><dd>&mdash;</dd>' +
+               '</dl></div>' +
+             '</div>';
+    }
+    var isOpen = open[key];
+    return '<div class="assign">' +
+             '<button type="button" class="assign-toggle" data-act="assign" aria-expanded="' + isOpen + '">' +
+               '<span>Judged on this device by ' + esc(JUDGE) + '</span><span>' + (isOpen ? "Hide" : "Details") + '</span>' +
+             '</button>' +
+             (isOpen
+               ? '<div class="assign-body"><dl>' +
+                   '<dt>Competition</dt><dd>' + esc(COMPETITION) + '</dd>' +
+                   '<dt>This device</dt><dd>' + esc(JUDGE) + '</dd>' +
+                   '<dt>Criteria</dt><dd>' + esc(CRITERIA) + '</dd>' +
+                 '</dl>' +
+                 '<div style="margin-top:8px"><button type="button" class="btn-quiet" data-act="setup">Change assignment</button></div></div>'
+               : '') +
+           '</div>';
+  }
+  function blocker() {
+    return '<div class="blocker">' +
+             '<b>No judge assigned to this device</b>' +
+             '<small>Choose a judge and criteria in setup before a reciter can be prepared. ' +
+             'Drawing a question now would spend it without recording anything.</small>' +
+             '<div style="margin-top:8px"><button type="button" class="btn-quiet" data-act="setup">Open competition setup</button></div>' +
+           '</div>';
+  }
+  function board(disabled) {
+    var out = '<div class="board" role="group" aria-label="Question numbers">';
+    for (var i = 1; i <= 20; i++) {
+      var spent = (i % 7 === 0);
+      out += '<button type="button"' + ((spent || disabled) ? " disabled" : "") + '>' + i + '</button>';
+    }
+    return out + '</div>';
+  }
+  function searchField() {
+    if (ui.roster.length <= 8) return ""; /* shouldOfferSearch is roster.length > 8 */
+    return '<label class="assign-toggle" style="min-height:0;padding-top:8px">' +
+             '<input type="search" placeholder="Find by number, name or institution" aria-label="Find a participant" ' +
+             'style="width:100%;min-height:44px;padding:0 12px;border:1px solid var(--line-2);border-radius:8px;background:var(--bg);color:var(--ink);font:inherit;font-size:14px">' +
+           '</label>';
+  }
+
+  /* Grouped rows, preserving roster order between and within groups. */
+  function groups() {
+    var order = [], map = {};
+    ui.roster.forEach(function (p) {
+      var k = p.div || "— no division —";
+      if (!map[k]) { map[k] = { label: p.div || "Category required", rows: [], waiting: 0, finished: 0, absent: 0 }; order.push(k); }
+      map[k].rows.push(p);
+      map[k][p.status] += 1;
+    });
+    return order.map(function (k) { return map[k]; });
+  }
+  function rank(p) { return p.status === "waiting" ? 0 : p.status === "absent" ? 1 : 2; }
+  function sortRows(rows) { return rows.slice().sort(function (x, y) { return rank(x) - rank(y); }); }
+  function stateWord(p) {
+    return p.status === "finished" ? "Finished" : p.status === "absent" ? "Not here" : "Select";
+  }
+
+  /* Row presentation of the same identity component: the reference number
+     leads the scan column, the name keeps primacy in weight. */
+  function pidRow(p) {
+    var w3 = numWidth() >= 3 ? " w3" : "";
+    return '<span class="pid">' +
+             '<span class="pid-num' + w3 + '">' + pad(p.n) + '</span>' +
+             '<span class="pid-copy">' +
+               '<strong class="pid-name">' + esc(p.name) + '</strong>' +
+               '<small class="pid-ctx">' + esc(ctx(p)) + '</small>' +
+             '</span>' +
+           '</span>';
+  }
+  function rowBtn(p, cls, stateCls, primary, disabled) {
+    return '<button type="button" class="' + cls + '" data-act="pick" data-n="' + p.n + '"' +
+           (primary ? ' data-primary="1"' : '') +
+           ((disabled || p.status !== "waiting") ? " disabled" : "") + '>' +
+             pidRow(p) +
+             '<small class="' + stateCls + (p.status === "finished" ? " is-finished" : p.status === "absent" ? " is-absent" : "") + '">' +
+               esc(stateWord(p)) + '</small>' +
+           '</button>';
+  }
+  function groupRows(cls, stateCls, disabled, skipN) {
+    var out = "";
+    groups().forEach(function (g) {
+      var rows = sortRows(g.rows).filter(function (p) { return p.n !== skipN; });
+      if (!rows.length) return;
+      out += '<div class="lgroup-head"><b>' + esc(g.label) + '</b><span>' +
+             (g.waiting ? g.waiting + " waiting" : "None waiting") +
+             (g.absent ? " · " + g.absent + " not here" : "") +
+             (g.finished ? " · " + g.finished + " finished" : "") + '</span></div>';
+      rows.forEach(function (p) { out += rowBtn(p, cls, stateCls, false, disabled); });
+    });
+    return out;
+  }
+
+  /* ================= A. Next-action rail ================= */
+  function renderA() {
+    var p = focusOf("a"), missing = ui.state === "nojudge";
+    if (!p) return '<div>' + stateLine() + '<p>Every participant in this roster is finished.</p></div>';
+
+    if (ui.state === "selection") {
+      return stateLine() + searchField() +
+        '<div class="rail-list">' + groupRows("lrow-btn", "lstate", false, null) + '</div>' +
+        '<div class="rail-secondary"><button type="button" class="btn-ghost" data-act="back">Back</button></div>' +
+        assignBlock("a", false);
+    }
+    if (ui.state === "prepared") {
+      return stateLine() + pid(p, true) +
+        '<p class="q-note"><strong>Number 7</strong> · page 585</p>' +
+        '<button type="button" class="btn-primary" data-primary="1">Begin judging</button>' +
+        '<div class="rail-secondary">' +
+          '<button type="button" class="btn-ghost">Change question</button>' +
+          '<button type="button" class="btn-ghost">Change reciter</button>' +
+        '</div>' + assignBlock("a", false);
+    }
+    return (missing ? blocker() : "") + stateLine() + pid(p, true) +
+      '<button type="button" class="btn-primary" data-primary="1" data-act="choose"' + (missing ? " disabled" : "") + '>Choose question</button>' +
+      '<div class="rail-secondary">' +
+        '<button type="button" class="btn-ghost" data-act="absent">Not here</button>' +
+        '<button type="button" class="btn-ghost" data-act="list">Running order</button>' +
+      '</div>' + assignBlock("a", missing);
+  }
+
+  /* ================= B. Operational ledger ================= */
+  function renderB() {
+    var p = focusOf("b"), missing = ui.state === "nojudge";
+    if (!p) return '<div>' + stateLine() + '<p>Every participant in this roster is finished.</p></div>';
+
+    if (ui.state === "prepared") {
+      return stateLine() +
+        '<div class="lrow-wrap is-next">' + rowBtn(p, "lrow-btn", "lstate is-next", false, true) + '</div>' +
+        '<p style="margin:0 0 12px;color:var(--ink-2);font-size:14px"><strong>Number 7</strong> · page 585</p>' +
+        '<button type="button" class="btn-primary" data-primary="1">Begin judging</button>' +
+        '<div class="foot"><button type="button" class="btn-ghost">Change question</button>' +
+        '<button type="button" class="btn-ghost">Change reciter</button></div>' + assignBlock("b", false);
+    }
+    var head = (missing ? blocker() : "") + stateLine() +
+      '<div class="lrow-wrap is-next">' +
+        rowBtn(p, "lrow-btn", "lstate is-next", true, missing) +
+        '<button type="button" class="btn-quiet" data-act="absent">Not here</button>' +
+      '</div>';
+    return head + (ui.state === "selection" ? searchField() : "") +
+      '<div class="ledger">' + groupRows("lrow-btn", "lstate", missing, p.n) + '</div>' +
+      assignBlock("b", missing);
+  }
+
+  /* ================= C. Two-zone handoff ================= */
+  function renderC() {
+    var p = focusOf("c"), missing = ui.state === "nojudge", c = counts();
+    if (!p) return '<div style="padding:24px">' + stateLine() + '<p>Every participant in this roster is finished.</p></div>';
+
+    var focus;
+    if (ui.state === "prepared") {
+      focus = pid(p, true) +
+        '<p style="margin:0 0 12px;color:var(--ink-2);font-size:14px"><strong>Number 7</strong> · page 585</p>' +
+        '<button type="button" class="btn-primary" data-primary="1">Begin judging</button>' +
+        '<div class="rail-secondary" style="margin-top:8px"><button type="button" class="btn-ghost">Change question</button>' +
+        '<button type="button" class="btn-ghost">Change reciter</button></div>';
+    } else {
+      focus = (missing ? blocker() : "") + pid(p, true) +
+        '<button type="button" class="btn-primary" data-primary="1" data-act="choose"' + (missing ? " disabled" : "") + '>Choose question</button>' +
+        '<div class="rail-secondary" style="margin-top:8px"><button type="button" class="btn-ghost" data-act="absent">Not here</button></div>';
+    }
+
+    return '<div class="zone-focus">' +
+             '<div class="state-line" style="margin-bottom:12px"><span>Next reciter</span></div>' +
+             focus + assignBlock("c", missing) +
+           '</div>' +
+           '<div class="zone-order">' +
+             '<h4><span>Running order</span><span>' + c.waiting + ' waiting · ' + c.finished + ' finished</span></h4>' +
+             (ui.state === "selection" ? searchField() : "") +
+             '<div class="order-scroll">' + groupRows("orow", "ostate", missing, p.n) + '</div>' +
+           '</div>';
+  }
+
+  var RENDER = { a: renderA, b: renderB, c: renderC };
+
+  /* ================= Measurement =================
+     Everything in the comparison table is read off the live DOM, so it can be
+     checked by resizing the window rather than trusted. */
+  function factRepeats(text, p) {
+    var facts = [p.name, JUDGE, COMPETITION, counts().waiting + " waiting"];
+    var extra = 0;
+    facts.forEach(function (f) {
+      if (!f) return;
+      var hits = text.split(f).length - 1;
+      if (hits > 1) extra += hits - 1;
+    });
+    return extra;
+  }
+  function focusables(root) {
+    return Array.prototype.filter.call(
+      root.querySelectorAll('button, input, [tabindex]:not([tabindex="-1"])'),
+      function (el) { return !el.disabled && el.offsetParent !== null; }
+    );
+  }
+  function unreachable(root) {
+    var bad = 0;
+    Array.prototype.forEach.call(root.querySelectorAll("*"), function (el) {
+      if (el.scrollHeight > el.clientHeight + 1) {
+        var ov = getComputedStyle(el).overflowY;
+        if (ov !== "auto" && ov !== "scroll") bad += 1;
+      }
+    });
+    return bad;
+  }
+  function measure(key) {
+    var mount = document.querySelector('[data-mount="' + key + '"]');
+    var frame = document.querySelector('[data-frame="' + key + '"]');
+    var meta = document.querySelector('[data-meta="' + key + '"]');
+    var p = focusOf(key);
+    var text = (mount.innerText || mount.textContent || "").replace(/\s+/g, " ").trim();
+    var words = text ? text.split(" ").length : 0;
+    var reps = p ? factRepeats(text, p) : 0;
+    var f = focusables(mount);
+    var primary = mount.querySelector("[data-primary]");
+    var before = primary ? Math.max(0, f.indexOf(primary)) : f.length;
+    var small = f.filter(function (el) {
+      var r = el.getBoundingClientRect();
+      return r.height > 0 && r.height < 44;
+    }).length;
+    var h = Math.round(mount.getBoundingClientRect().height);
+    var budget = budgetFor(ui.view);
+    var over = h - budget;
+    var un = unreachable(mount);
+    var lastRow = mount.querySelector("[data-n]:last-of-type");
+    var scrollers = mount.querySelectorAll(".rail-list, .ledger, .order-scroll").length;
+    var reach = un > 0 ? "No, clipped"
+      : (over > 0 && !scrollers) ? "Page scroll"
+      : (lastRow ? "Yes, scrolls" : "n/a");
+
+    frame.classList.toggle("over-budget", over > 0);
+    meta.innerHTML =
+      '<span>height <b>' + h + '</b>px</span>' +
+      '<span class="' + (over > 0 ? "bad" : "") + '">budget <b>' + budget + '</b>px' + (over > 0 ? " · over by " + over : "") + '</span>' +
+      '<span>words <b>' + words + '</b></span>' +
+      '<span class="' + (small ? "bad" : "") + '">under 44px <b>' + small + '</b></span>' +
+      '<span class="' + (un ? "bad" : "") + '">unreachable regions <b>' + un + '</b></span>';
+
+    set(key + "-words", words); set(key + "-rep", reps); set(key + "-before", before);
+    set(key + "-h", h); set(key + "-small", small); set(key + "-reach", reach);
+  }
+  function set(name, value) {
+    var el = document.querySelector('[data-t="' + name + '"]');
+    if (el) el.textContent = String(value);
+  }
+
+  /* ================= Render + wiring ================= */
+  function render() {
+    var budget = budgetFor(ui.view);
+    var scrollMax = Math.max(140, budget - 260);
+
+    KEYS.forEach(function (key) {
+      var mount = document.querySelector('[data-mount="' + key + '"]');
+      var frame = document.querySelector('[data-frame="' + key + '"]');
+      mount.style.setProperty("--scroll-max", scrollMax + "px");
+      mount.innerHTML = RENDER[key]();
+      if (key === "c") mount.classList.toggle("is-narrow", ui.view === 390 || frameWidth("c") < 640);
+      frame.style.width = frameWidth(key) + "px";
+      frame.style.maxWidth = "100%";
+      frame.style.height = "auto";
+    });
+
+    /* Scrollers get the height they would really have in the shell. */
+    document.querySelectorAll(".rail-list, .ledger, .order-scroll").forEach(function (el) {
+      el.style.maxHeight = "var(--scroll-max)";
+    });
+
+    requestAnimationFrame(function () {
+      KEYS.forEach(function (key) {
+        var frame = document.querySelector('[data-frame="' + key + '"]');
+        var mount = document.querySelector('[data-mount="' + key + '"]');
+        var h = mount.getBoundingClientRect().height;
+        var shown = Math.min(h, budget + 160);
+        frame.style.height = Math.max(shown, Math.min(h, budget)) + "px";
+        var line = frame.querySelector(".budget-line");
+        if (h > budget) {
+          if (!line) {
+            line = document.createElement("div");
+            line.className = "budget-line";
+            frame.appendChild(line);
+          }
+          line.style.top = budget + "px";
+          line.setAttribute("data-label", "fold at " + ui.view);
+        } else if (line) {
+          line.remove();
+        }
+        measure(key);
+      });
+    });
+  }
+
+  function candidateKeyOf(el) {
+    var mount = el.closest("[data-mount]");
+    return mount ? mount.getAttribute("data-mount") : null;
+  }
+
+  document.addEventListener("click", function (ev) {
+    var btn = ev.target.closest("button");
+    if (!btn) return;
+
+    if (btn.id === "theme-toggle") {
+      var dark = document.documentElement.getAttribute("data-theme") === "dark";
+      document.documentElement.setAttribute("data-theme", dark ? "light" : "dark");
+      btn.textContent = dark ? "Dark" : "Light";
+      return;
+    }
+    if (btn.id === "reset") {
+      ui.roster = makeRoster(ui.size);
+      chosen = { a: null, b: null, c: null };
+      open = { a: false, b: false, c: false };
+      render();
+      return;
+    }
+    if (btn.dataset.state) {
+      ui.state = btn.dataset.state;
+      press("seg-state", "state", ui.state);
+      render();
+      return;
+    }
+    if (btn.dataset.size) {
+      ui.size = Number(btn.dataset.size);
+      ui.roster = makeRoster(ui.size);
+      chosen = { a: null, b: null, c: null };
+      press("seg-size", "size", String(ui.size));
+      render();
+      return;
+    }
+    if (btn.dataset.view) {
+      ui.view = Number(btn.dataset.view);
+      press("seg-view", "view", String(ui.view));
+      render();
+      return;
+    }
+
+    var key = candidateKeyOf(btn);
+    if (!key) return;
+    var act = btn.dataset.act;
+
+    if (act === "assign") { open[key] = !open[key]; render(); return; }
+    if (act === "list" || act === "choose") { ui.state = act === "list" ? "selection" : "prepared"; press("seg-state", "state", ui.state); render(); return; }
+    if (act === "back") { ui.state = "waiting"; press("seg-state", "state", ui.state); render(); return; }
+    if (act === "pick") { chosen[key] = Number(btn.dataset.n); ui.state = "prepared"; press("seg-state", "state", ui.state); render(); return; }
+    if (act === "absent") {
+      var p = focusOf(key);
+      if (p) p.status = "absent";
+      chosen[key] = null;
+      render();
+      return;
+    }
+  });
+
+  function press(groupId, attr, value) {
+    var group = document.getElementById(groupId);
+    if (!group) return;
+    group.querySelectorAll("button").forEach(function (b) {
+      b.setAttribute("aria-pressed", String(b.dataset[attr] === value));
+    });
+  }
+
+  window.addEventListener("resize", function () { render(); });
+  render();
+})();
+</script>
+</body>
+</html>

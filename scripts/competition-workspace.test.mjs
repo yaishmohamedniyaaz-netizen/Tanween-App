@@ -18,6 +18,9 @@ const previewSource = read("../src/components/QuestionMushafPreview.tsx");
 const participantScreenSource = read(
   "../src/components/ParticipantSelectionScreen.tsx",
 );
+const participantIdentitySource = read(
+  "../src/components/ParticipantIdentity.tsx",
+);
 const participantPresentationSource = read(
   "../src/lib/participantPresentation.ts",
 );
@@ -56,12 +59,16 @@ test("competition preparation is a dedicated task workspace", () => {
   assert.match(setupSource, /setup-checklist-trigger/);
   assert.match(setupSource, /aria-expanded=\{activeTask === task\.id\}/);
   assert.match(setupSource, /SetupAccordionPanel/);
-  assert.match(setupSource, /SETUP_PANEL_TRANSITION_MS = 220/);
-  assert.match(setupSource, /setup-scroll-reserve/);
-  assert.match(setupSource, /window\.scrollY \+ window\.innerHeight - finalDocumentHeight/);
-  assert.match(setupStyles, /grid-template-rows 220ms/);
+  assert.match(setupSource, /taskTriggerRefs/);
+  assert.match(setupSource, /scrollIntoView\(\{ block: "nearest", inline: "nearest" \}\)/);
+  assert.match(setupSource, /focus\(\{ preventScroll: true \}\)/);
+  assert.doesNotMatch(setupSource, /SETUP_PANEL_TRANSITION_MS|setup-scroll-reserve|scrollReserve/);
+  assert.doesNotMatch(setupStyles, /grid-template-rows 220ms|setup-scroll-reserve/);
+  assert.match(setupStyles, /animation: setup-panel-fade 120ms/);
   assert.match(setupStyles, /prefers-reduced-motion: reduce/);
   assert.doesNotMatch(setupStyles, /setup-checklist-panel \{[^}]*animation: view-in/s);
+  assert.match(setupSource, /setup-sample-utility/);
+  assert.doesNotMatch(setupSource, /All names and phone numbers are fictional/);
   assert.match(setupSource, /Discard the unsaved changes in the open setup task/);
   assert.match(setupSource, /Save Categories/);
   assert.match(setupSource, /SET_SCORE_CONFIG/);
@@ -101,7 +108,11 @@ test("judging hit targets remain disabled outside an active reciter session", ()
   assert.match(mushafSource, /judgingEnabled && \(/);
   assert.match(mushafSource, /<div className="hit-layer">/);
   assert.match(mushafSource, /onPointerDown=\{judgingEnabled \? \(event\) => onPointerDown\(event, data\.page\) : undefined\}/);
-  assert.match(idleSource, /Browse freely, or prepare a competition/);
+  assert.match(idleSource, /Prepare a competition to begin judging/);
+  assert.match(idleSource, /makeAssignmentSnapshot/);
+  assert.match(idleSource, /Judge assignment required/);
+  assert.match(idleSource, /Review running order/);
+  assert.match(idleSource, /Participant roster required/);
 });
 
 test("the live handoff uses quiet status text and two focused screens", () => {
@@ -112,7 +123,10 @@ test("the live handoff uses quiet status text and two focused screens", () => {
   assert.doesNotMatch(idleSource, /Test mode|competition-state-label/);
   assert.match(appSource, /\? "is-idle" : ""/);
   assert.match(participantScreenSource, /Participant running order/);
-  assert.match(participantScreenSource, /participantContextLabel/);
+  assert.match(participantScreenSource, /ParticipantIdentity/);
+  assert.match(participantScreenSource, /current\.has\(groupId\) \? new Set\(\) : new Set\(\[groupId\]\)/);
+  assert.match(participantIdentitySource, /participantContextLabel/);
+  assert.match(participantIdentitySource, /participantNumberLabel/);
   assert.match(participantPresentationSource, /participant\.institution/);
   assert.match(participantScreenSource, /aria-expanded/);
   assert.match(questionScreenSource, /aria-label="Question numbers"/);
@@ -127,12 +141,14 @@ test("a draw opens a locked, recoverable Prepared Mushaf before judging", () => 
   assert.match(appSource, /state\.preparedRecitation/);
   assert.match(appSource, /type: "BEGIN_RECITER"/);
   assert.match(appSource, /state\.activeSessionId \?\? state\.preparedRecitation\?\.id/);
-  assert.match(preparedStripSource, /Change reciter/);
-  assert.match(preparedStripSource, /Change question/);
   assert.doesNotMatch(preparedStripSource, /drawCycle|cycle/);
-  assert.match(preparedSidebarSource, /Prepared on this device/);
-  assert.match(preparedSidebarSource, /Ready · begin judging/);
-  assert.match(preparedSidebarSource, /This confirms only this judge device/);
+  assert.match(preparedSidebarSource, /ParticipantIdentity/);
+  assert.match(appSource, /division=\{participantDivision\(/);
+  assert.match(preparedSidebarSource, /Begin judging/);
+  assert.match(preparedSidebarSource, /Change question/);
+  assert.match(preparedSidebarSource, /Change reciter/);
+  assert.doesNotMatch(preparedSidebarSource, /Prepared on this device|This device|synchronization/);
+  assert.match(appSource, /"next-question"/);
 });
 
 test("finishing a reciter moves directly to the next running-order choice", () => {
