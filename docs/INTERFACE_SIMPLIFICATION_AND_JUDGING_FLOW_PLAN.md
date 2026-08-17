@@ -610,3 +610,11 @@ implemented and build-verified; browser visual approval remains where noted.
 The remaining Settings/Results composition and phone work remain separate
 slices. The stable desktop Mushaf stage and direct judge-workspace zoom are
 implemented and locally verified.
+
+## 15. Follow-up recorded on 17 August 2026
+
+A later browser review found a score-readout alignment regression and identified
+wide-workspace rhythm, finish-review hierarchy, live rail-side access, and PWA
+installability as bounded follow-ups. The implemented status above remains
+unchanged. See
+[`JUDGE_WORKSPACE_FIT_RAIL_FINISH_FOLLOW_UP_PLAN.md`](./JUDGE_WORKSPACE_FIT_RAIL_FINISH_FOLLOW_UP_PLAN.md).

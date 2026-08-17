@@ -465,3 +465,10 @@ Completed on 16 August 2026.
   migration, synthetic event, or export change was introduced.
 - Verification passed: 31 focused Adu / Raagu tests, all 246 repository tests,
   TypeScript production build, and Sites artifact preparation.
+
+## 18. Follow-up recorded on 17 August 2026
+
+The required-entry contract remains implemented. A later visual review found a
+score-readout alignment regression and insufficient emphasis for a missing
+required mark in the Finish review. The bounded correction is planned in
+[`JUDGE_WORKSPACE_FIT_RAIL_FINISH_FOLLOW_UP_PLAN.md`](./JUDGE_WORKSPACE_FIT_RAIL_FINISH_FOLLOW_UP_PLAN.md).

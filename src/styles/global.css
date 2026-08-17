@@ -5276,15 +5276,18 @@ textarea:focus-visible {
 }
 .score-value-layout {
   display: inline-flex;
-  align-items: baseline;
+  align-items: center;
   justify-content: center;
-  gap: 0.3ch;
+  gap: 2px;
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
 .score-value-number {
   font-size: 14.5px;
   font-weight: 500;
+  line-height: 1;
+}
+.score-value-layout .sc-of {
   line-height: 1;
 }
 .sc-score .sc-of {

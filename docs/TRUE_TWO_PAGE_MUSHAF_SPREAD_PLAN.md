@@ -534,3 +534,10 @@ The update is complete only when:
   returning to desktop width.
 - The full 262-test suite passes, the production build passes, and
   `git diff --check` is clean.
+
+## 17. Follow-up recorded on 17 August 2026
+
+The true two-page implementation record remains unchanged. A later geometry
+review identified a header-to-selector rhythm follow-up, consistent Full-page
+stage padding, and live rail-side access for the wide judge workspace. See
+[`JUDGE_WORKSPACE_FIT_RAIL_FINISH_FOLLOW_UP_PLAN.md`](./JUDGE_WORKSPACE_FIT_RAIL_FINISH_FOLLOW_UP_PLAN.md).
