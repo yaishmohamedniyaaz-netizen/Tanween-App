@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { CATEGORY_BY_ID } from "../config";
+import { CATEGORIES, CATEGORY_BY_ID } from "../config";
 import {
   buildParticipantResultPreview,
   finalizeParticipantResult,
@@ -104,6 +104,10 @@ function stateLabel(item: ResultsReviewItem): string {
   return "Needs review";
 }
 
+function tableStateLabel(item: ResultsReviewItem): string {
+  return item.state === "ready" ? "Ready" : stateLabel(item);
+}
+
 export function FinalResultsPanel({
   allItems,
   visibleItems,
@@ -130,6 +134,15 @@ export function FinalResultsPanel({
     ),
     [currentResults],
   );
+  const categoryColumns = useMemo(
+    () => CATEGORIES
+      .map((category) => category.id)
+      .filter((categoryId) => allItems.some(
+        (item) => item.candidate.categories.includes(categoryId),
+      )),
+    [allItems],
+  );
+  const scoreConfig = state.competition.liveSnapshot?.scoreConfig ?? state.config;
 
   useEffect(() => {
     setExpandedParticipantId((current) => {
@@ -202,6 +215,144 @@ export function FinalResultsPanel({
     }
   };
 
+  const selectedItem = visibleItems.find(
+    (item) => item.candidate.participant.id === expandedParticipantId,
+  ) ?? null;
+
+  const renderEvidencePanel = (item: ResultsReviewItem) => {
+    const candidate = item.candidate;
+    const previous = item.activeFinal;
+    const placed = placedByParticipant.get(candidate.participant.id);
+    const selected = selectedForCandidate(candidate, previous);
+    const preview = buildParticipantResultPreview(candidate, selected);
+    const unresolved = candidate.categories.some(
+      (category) => !selected[category],
+    );
+    const participantReady = hasCompleteFinalizationIdentity(candidate.participant);
+    const total = placed?.total ?? preview?.total;
+    const totalMax = placed?.totalMax ?? preview?.totalMax;
+    return (
+      <aside
+        id="result-participant-evidence"
+        className={`result-evidence-panel is-${item.state}`}
+        aria-labelledby="result-evidence-title"
+      >
+        <div className="result-evidence-head">
+          <span className="result-evidence-kicker">
+            Participant <bdi>{candidate.participant.number || "—"}</bdi>
+          </span>
+          <h3 id="result-evidence-title">
+            {candidate.participant.name || "Unnamed participant"}
+          </h3>
+          <p>
+            {[
+              candidate.participant.ageGroup,
+              participantCategoryLabel(candidate.participant.category),
+              muqarrarLabel(candidate.participant.muqarrar),
+            ].filter(Boolean).join(" · ")}
+          </p>
+          <div className="result-evidence-summary">
+            <span className={`result-ledger-state is-${item.state}`}>
+              <span aria-hidden="true" />
+              {tableStateLabel(item)}
+            </span>
+            <strong>
+              <bdi>{total ?? "—"}</bdi>
+              {totalMax !== undefined && <small>/<bdi>{totalMax}</bdi></small>}
+            </strong>
+          </div>
+          {item.reasons.length > 0 && (
+            <p className="result-evidence-reason">
+              {item.reasons.map(reasonText).join(" · ")}
+            </p>
+          )}
+        </div>
+
+        <div className="result-evidence-sources">
+          <h4>Judge sources</h4>
+          {candidate.categories.map((categoryId) => {
+            const category = CATEGORY_BY_ID[categoryId];
+            const options = candidate.byCategory[categoryId];
+            const value = selected[categoryId];
+            const selectedSource = options.find((option) => option.id === value);
+            const score = selectedSource
+              ? sourceScore(selectedSource, categoryId)
+              : null;
+            return (
+              <div className={`final-source-block cat-${categoryId}`} key={categoryId}>
+                <div className="result-evidence-source-label">
+                  <span aria-hidden="true" />
+                  <strong>{category.label}</strong>
+                </div>
+                {options.length <= 1 ? (
+                  <div className={options.length ? "final-source-value is-ready" : "final-source-value is-missing"}>
+                    <strong>
+                      {options.length && score
+                        ? <bdi>{score.score}/{score.start}</bdi>
+                        : "Missing result"}
+                    </strong>
+                    <small>
+                      {options.length
+                        ? <>{sourceJudge(options[0])} · revision {options[0].revision ?? 1}</>
+                        : "Required before finalization"}
+                    </small>
+                  </div>
+                ) : (
+                  <div className="result-evidence-source-choice">
+                    <select
+                      value={value}
+                      aria-label={`${category.label} source for ${candidate.participant.name}`}
+                      onChange={(event) =>
+                        setSelection(
+                          candidate.participant.id,
+                          categoryId,
+                          event.target.value,
+                        )
+                      }
+                    >
+                      <option value="">Choose result</option>
+                      {options.map((session) => {
+                        const optionScore = sourceScore(session, categoryId);
+                        return (
+                          <option value={session.id} key={session.id}>
+                            {sourceJudge(session)} · revision {session.revision ?? 1} · {optionScore.score}/{optionScore.start}
+                          </option>
+                        );
+                      })}
+                    </select>
+                    <small className="final-source-selection-meta">
+                      {selectedSource && score
+                        ? <>Selected revision {selectedSource.revision ?? 1} · <bdi>{score.score}/{score.start}</bdi></>
+                        : "Compare judge, revision, and score before finalizing"}
+                    </small>
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+
+        <div className="result-evidence-action">
+          <span>
+            {item.state === "finalized"
+              ? `Current final result · revision ${item.activeFinal?.revision ?? 1}`
+              : item.state === "ready"
+                ? "All required judge sources are present."
+                : "Resolve the review reason before finalizing."}
+          </span>
+          <button
+            type="button"
+            className="btn-primary"
+            disabled={unresolved || !participantReady}
+            onClick={() => finalize(item)}
+          >
+            {previous ? "Finalize revision" : "Finalize result"}
+          </button>
+        </div>
+      </aside>
+    );
+  };
+
   return (
     <section className="final-results-panel results-candidate-panel">
       {visibleItems.length === 0 ? (
@@ -221,173 +372,100 @@ export function FinalResultsPanel({
           )}
         </div>
       ) : (
-        <div className="final-result-list">
-          {visibleItems.map((item) => {
-            const candidate = item.candidate;
-            const previous = item.activeFinal;
-            const placed = placedByParticipant.get(candidate.participant.id);
-            const selected = selectedForCandidate(candidate, previous);
-            const preview = buildParticipantResultPreview(candidate, selected);
-            const unresolved = candidate.categories.some(
-              (category) => !selected[category],
-            );
-            const participantReady = hasCompleteFinalizationIdentity(
-              candidate.participant,
-            );
-            const headingId = `result-candidate-${candidate.participant.id}`;
-            const detailId = `${headingId}-detail`;
-            const isExpanded = expandedParticipantId === candidate.participant.id;
-            const displayedTotal = placed
-              ? `${placed.total}/${placed.totalMax}`
-              : preview
-                ? `${preview.total}/${preview.totalMax}`
-                : "—";
-            return (
-              <article
-                className={`final-result-row is-${item.state}`}
-                key={candidate.participant.id}
-                aria-labelledby={headingId}
-              >
-                <button
-                  type="button"
-                  className="final-result-summary"
-                  aria-expanded={isExpanded}
-                  aria-controls={detailId}
-                  onClick={() => setExpandedParticipantId(
-                    isExpanded ? null : candidate.participant.id,
-                  )}
-                >
-                  <div className="final-result-person">
-                    <bdi className="final-result-number">
-                      {candidate.participant.number || "—"}
-                    </bdi>
-                    <span>
-                      <strong id={headingId}>
-                        {candidate.participant.name || "Unnamed participant"}
-                      </strong>
-                      <small>
-                        {[
-                          candidate.participant.ageGroup,
-                          participantCategoryLabel(candidate.participant.category),
-                          muqarrarLabel(candidate.participant.muqarrar),
-                        ].filter(Boolean).join(" · ")}
-                      </small>
-                    </span>
-                  </div>
-                  <div className="final-result-state">
-                    <span className={`results-state-chip is-${item.state}`}>
-                      <span className="results-state-icon" aria-hidden="true">
-                        {item.state === "needs-review" ? "!" : <Icon name="check" size={12} />}
+        <div className="results-review-workbench">
+          <div className="result-ledger-scroll">
+            <table className="result-ledger-table">
+              <thead>
+                <tr>
+                  <th scope="col" className="result-ledger-place">Place</th>
+                  <th scope="col" className="result-ledger-number">No.</th>
+                  <th scope="col">Participant</th>
+                  {categoryColumns.map((categoryId) => (
+                    <th scope="col" className="result-ledger-numeric" key={categoryId}>
+                      <span className={`result-ledger-category cat-${categoryId}`}>
+                        <span aria-hidden="true" />
+                        {CATEGORY_BY_ID[categoryId].label}
+                        <small>of {scoreConfig[categoryId].start}</small>
                       </span>
-                      {stateLabel(item)}
-                    </span>
-                    <small>
-                      {item.reasons.length
-                        ? item.reasons.map(reasonText).join(" · ")
-                        : item.state === "finalized"
-                          ? `Revision ${item.activeFinal?.revision ?? 1} is current`
-                          : "Every required judge source is present"}
-                    </small>
-                  </div>
-                  <div className="final-result-overview">
-                    <span className="final-score">
-                      <small>{placed ? "Final total" : "Proposed total"}</small>
-                      <strong><bdi>{displayedTotal}</bdi></strong>
-                      {placed && <small>Place {placed.place} · revision {placed.revision}</small>}
-                    </span>
-                    <span className="final-result-timing">
-                      <span>Last change</span>
-                      <bdi>{item.lastChangedAt ? new Date(item.lastChangedAt).toLocaleDateString() : "—"}</bdi>
-                    </span>
-                    <span className="final-result-disclosure" aria-hidden="true">
-                      <span>{isExpanded ? "Close" : "Review"}</span>
-                      <Icon name="chevron" size={16} />
-                    </span>
-                  </div>
-                </button>
-
-                <div id={detailId} className="final-result-detail" hidden={!isExpanded}>
-                  <div className="final-category-sources">
-                    {candidate.categories.map((categoryId) => {
-                      const category = CATEGORY_BY_ID[categoryId];
-                      const options = candidate.byCategory[categoryId];
-                      const value = selected[categoryId];
-                      const selectedSource = options.find((option) => option.id === value);
-                      const score = selectedSource
-                        ? sourceScore(selectedSource, categoryId)
-                        : null;
-                      return (
-                        <div className={`final-source-block cat-${categoryId}`} key={categoryId}>
-                          <span className="final-source-label">{category.label}</span>
-                          {options.length <= 1 ? (
-                            <div className={options.length ? "final-source-value is-ready" : "final-source-value is-missing"}>
-                              <strong>
-                                {options.length && score
-                                  ? <bdi>{score.score}/{score.start}</bdi>
-                                  : "Missing result"}
-                              </strong>
-                              <small>
-                                {options.length
-                                  ? <>{sourceJudge(options[0])} · revision {options[0].revision ?? 1}</>
-                                  : "Required before finalization"}
-                              </small>
-                            </div>
-                          ) : (
-                            <>
-                              <select
-                                value={value}
-                                aria-label={`${category.label} source for ${candidate.participant.name}`}
-                                onChange={(event) =>
-                                  setSelection(
-                                    candidate.participant.id,
-                                    categoryId,
-                                    event.target.value,
-                                  )
-                                }
-                              >
-                                <option value="">Choose result</option>
-                                {options.map((session) => {
-                                  const optionScore = sourceScore(session, categoryId);
-                                  return (
-                                    <option value={session.id} key={session.id}>
-                                      {sourceJudge(session)} · revision {session.revision ?? 1} · {optionScore.score}/{optionScore.start}
-                                    </option>
-                                  );
-                                })}
-                              </select>
-                              <small className="final-source-selection-meta">
-                                {selectedSource && score
-                                  ? <>Selected revision {selectedSource.revision ?? 1} · <bdi>{score.score}/{score.start}</bdi></>
-                                  : "Compare judge, revision, and score before finalizing"}
-                              </small>
-                            </>
-                          )}
-                        </div>
-                      );
-                    })}
-                  </div>
-
-                  <div className="final-result-action">
-                    <span className="final-result-action-note">
-                      {item.state === "needs-review"
-                        ? item.reasons.map(reasonText).join(" · ")
-                        : item.state === "finalized"
-                          ? `Current final result · revision ${item.activeFinal?.revision ?? 1}`
-                          : "All required judge sources are ready for final review."}
-                    </span>
-                    <button
-                      type="button"
-                      className="btn-primary"
-                      disabled={unresolved || !participantReady}
-                      onClick={() => finalize(item)}
+                    </th>
+                  ))}
+                  <th scope="col" className="result-ledger-numeric">Total</th>
+                  <th scope="col" className="result-ledger-state-column">State</th>
+                </tr>
+              </thead>
+              <tbody>
+                {visibleItems.map((item) => {
+                  const candidate = item.candidate;
+                  const previous = item.activeFinal;
+                  const placed = placedByParticipant.get(candidate.participant.id);
+                  const selected = selectedForCandidate(candidate, previous);
+                  const preview = buildParticipantResultPreview(candidate, selected);
+                  const isSelected = expandedParticipantId === candidate.participant.id;
+                  const total = placed?.total ?? preview?.total;
+                  const totalMax = placed?.totalMax ?? preview?.totalMax;
+                  const primaryReason = item.state === "needs-review" && item.reasons[0]
+                    ? reasonText(item.reasons[0])
+                    : "";
+                  return (
+                    <tr
+                      className={`result-ledger-row is-${item.state} ${isSelected ? "is-selected" : ""}`}
+                      key={candidate.participant.id}
                     >
-                      {previous ? "Finalize revision" : "Finalize result"}
-                    </button>
-                  </div>
-                </div>
-              </article>
-            );
-          })}
+                      <td className="result-ledger-place">
+                        <bdi>{placed?.place ?? "—"}</bdi>
+                      </td>
+                      <td className="result-ledger-number">
+                        <bdi>{candidate.participant.number || "—"}</bdi>
+                      </td>
+                      <td className="result-ledger-participant">
+                        <button
+                          type="button"
+                          aria-pressed={isSelected}
+                          aria-controls="result-participant-evidence"
+                          onClick={() => setExpandedParticipantId(candidate.participant.id)}
+                        >
+                          <strong>{candidate.participant.name || "Unnamed participant"}</strong>
+                          <small>
+                            {[
+                              candidate.participant.ageGroup,
+                              participantCategoryLabel(candidate.participant.category),
+                              muqarrarLabel(candidate.participant.muqarrar),
+                            ].filter(Boolean).join(" · ")}
+                          </small>
+                        </button>
+                      </td>
+                      {categoryColumns.map((categoryId) => {
+                        const sourceId = selected[categoryId];
+                        const source = candidate.byCategory[categoryId]?.find(
+                          (session) => session.id === sourceId,
+                        );
+                        const categoryScore = source
+                          ? sourceScore(source, categoryId)
+                          : null;
+                        return (
+                          <td className="result-ledger-numeric result-ledger-mark" key={categoryId}>
+                            <bdi>{categoryScore?.score ?? "—"}</bdi>
+                          </td>
+                        );
+                      })}
+                      <td className="result-ledger-numeric result-ledger-total">
+                        <strong><bdi>{total ?? "—"}</bdi></strong>
+                        {totalMax !== undefined && <small>/<bdi>{totalMax}</bdi></small>}
+                      </td>
+                      <td className="result-ledger-state-column">
+                        <span className={`result-ledger-state is-${item.state}`}>
+                          <span aria-hidden="true" />
+                          {tableStateLabel(item)}
+                        </span>
+                        {primaryReason && <small>{primaryReason}</small>}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+          {selectedItem && renderEvidencePanel(selectedItem)}
         </div>
       )}
       <div className="results-candidate-toolbar">

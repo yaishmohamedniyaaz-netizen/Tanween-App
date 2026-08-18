@@ -658,57 +658,6 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
         hidden={activeTab !== "review"}
         className="results-tab-panel"
       >
-        <div className="results-status-strip" role="group" aria-label="Filter participant results by status">
-          <button
-            type="button"
-            className="results-status-card is-needs-review"
-            aria-pressed={reviewState === "needs-review"}
-            onClick={() => setReviewFilter(() => setReviewState("needs-review"))}
-          >
-            <span className="results-status-card-copy">
-              <span>Needs review</span>
-              <small>Resolve first</small>
-            </span>
-            <strong>{reviewSummary.needsReview}</strong>
-          </button>
-          <button
-            type="button"
-            className="results-status-card is-ready"
-            aria-pressed={reviewState === "ready"}
-            onClick={() => setReviewFilter(() => setReviewState("ready"))}
-          >
-            <span className="results-status-card-copy">
-              <span>Ready</span>
-              <small>Can finalize</small>
-            </span>
-            <strong>{reviewSummary.ready}</strong>
-          </button>
-          <button
-            type="button"
-            className="results-status-card is-finalized"
-            aria-pressed={reviewState === "finalized"}
-            onClick={() => setReviewFilter(() => setReviewState("finalized"))}
-          >
-            <span className="results-status-card-copy">
-              <span>Finalized</span>
-              <small>Current result</small>
-            </span>
-            <strong>{reviewSummary.finalized}</strong>
-          </button>
-          <button
-            type="button"
-            className="results-status-card is-total"
-            aria-pressed={reviewState === "all"}
-            onClick={() => setReviewFilter(() => setReviewState("all"))}
-          >
-            <span className="results-status-card-copy">
-              <span>All candidates</span>
-              <small>Complete queue</small>
-            </span>
-            <strong>{reviewSummary.total}</strong>
-          </button>
-        </div>
-
         <section className="results-review-section" aria-labelledby="results-review-heading">
           <div className="results-review-head">
             <div>
@@ -722,62 +671,105 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
               {reviewPageData.pageCount > 1 && ` · Page ${reviewPageData.page} of ${reviewPageData.pageCount}`}
             </p>
           </div>
-          <div className="results-review-filters">
-            <label className="results-search-filter">
-              <span>Find participant</span>
-              <input
-                type="search"
-                value={reviewQuery}
-                placeholder="Name or number"
-                onChange={(event) =>
-                  setReviewFilter(() => setReviewQuery(event.target.value))
-                }
-              />
-            </label>
-            <details className="results-filter-disclosure">
-              <summary>
-                <span>More filters</span>
-                {reviewAdvancedFilterCount > 0 && (
-                  <strong>{reviewAdvancedFilterCount}</strong>
-                )}
-              </summary>
-              <div className="results-advanced-filter-grid">
-                <label className="records-filter">
-                  <span>Age group</span>
-                  <select
-                    value={reviewAgeGroup}
-                    onChange={(event) =>
-                      setReviewFilter(() => setReviewAgeGroup(event.target.value))
-                    }
-                  >
-                    <option value="">All age groups</option>
-                    {reviewAgeGroups.map((group) => (
-                      <option key={group} value={group}>{group}</option>
-                    ))}
-                  </select>
-                </label>
-                <label className="records-filter">
-                  <span>Participant category</span>
-                  <select
-                    value={reviewParticipantCategory}
-                    onChange={(event) =>
-                      setReviewFilter(() => setReviewParticipantCategory(
-                        event.target.value as ParticipantCategory,
-                      ))
-                    }
-                  >
-                    <option value="">All categories</option>
-                    <option value="baliagen">Baliagen</option>
-                    <option value="nubalaa">Hifz</option>
-                  </select>
-                </label>
-                {hasReviewFilters && (
-                  <button type="button" className="btn-ghost results-clear-filters" onClick={clearReviewFilters}>
-                    Clear all filters
-                  </button>
-                )}
-              </div>
-            </details>
+          <div className="results-ledger-controls">
+            <div className="results-status-filters" role="group" aria-label="Filter participant results by status">
+              <button
+                type="button"
+                className="results-status-filter is-total"
+                aria-pressed={reviewState === "all"}
+                onClick={() => setReviewFilter(() => setReviewState("all"))}
+              >
+                <span>All candidates</span>
+                <strong>{reviewSummary.total}</strong>
+              </button>
+              <button
+                type="button"
+                className="results-status-filter is-needs-review"
+                aria-pressed={reviewState === "needs-review"}
+                onClick={() => setReviewFilter(() => setReviewState("needs-review"))}
+              >
+                <span className="results-status-marker" aria-hidden="true" />
+                <span>Needs review</span>
+                <strong>{reviewSummary.needsReview}</strong>
+              </button>
+              <button
+                type="button"
+                className="results-status-filter is-ready"
+                aria-pressed={reviewState === "ready"}
+                onClick={() => setReviewFilter(() => setReviewState("ready"))}
+              >
+                <span className="results-status-marker" aria-hidden="true" />
+                <span>Ready</span>
+                <strong>{reviewSummary.ready}</strong>
+              </button>
+              <button
+                type="button"
+                className="results-status-filter is-finalized"
+                aria-pressed={reviewState === "finalized"}
+                onClick={() => setReviewFilter(() => setReviewState("finalized"))}
+              >
+                <span className="results-status-marker" aria-hidden="true" />
+                <span>Finalized</span>
+                <strong>{reviewSummary.finalized}</strong>
+              </button>
+            </div>
+            <div className="results-review-filters">
+              <label className="results-search-filter">
+                <span>Find participant</span>
+                <input
+                  type="search"
+                  value={reviewQuery}
+                  placeholder="Name or number"
+                  onChange={(event) =>
+                    setReviewFilter(() => setReviewQuery(event.target.value))
+                  }
+                />
+              </label>
+              <details className="results-filter-disclosure">
+                <summary>
+                  <span>More filters</span>
+                  {reviewAdvancedFilterCount > 0 && (
+                    <strong>{reviewAdvancedFilterCount}</strong>
+                  )}
+                </summary>
+                <div className="results-advanced-filter-grid">
+                  <label className="records-filter">
+                    <span>Age group</span>
+                    <select
+                      value={reviewAgeGroup}
+                      onChange={(event) =>
+                        setReviewFilter(() => setReviewAgeGroup(event.target.value))
+                      }
+                    >
+                      <option value="">All age groups</option>
+                      {reviewAgeGroups.map((group) => (
+                        <option key={group} value={group}>{group}</option>
+                      ))}
+                    </select>
+                  </label>
+                  <label className="records-filter">
+                    <span>Participant category</span>
+                    <select
+                      value={reviewParticipantCategory}
+                      onChange={(event) =>
+                        setReviewFilter(() => setReviewParticipantCategory(
+                          event.target.value as ParticipantCategory,
+                        ))
+                      }
+                    >
+                      <option value="">All categories</option>
+                      <option value="baliagen">Baliagen</option>
+                      <option value="nubalaa">Hifz</option>
+                    </select>
+                  </label>
+                  {hasReviewFilters && (
+                    <button type="button" className="btn-ghost results-clear-filters" onClick={clearReviewFilters}>
+                      Clear all filters
+                    </button>
+                  )}
+                </div>
+              </details>
+            </div>
           </div>
 
           <FinalResultsPanel
