@@ -1,0 +1,664 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Synthetic Tahqeeq Results redesign checkpoint for visual review." />
+  <title>Tahqeeq — Results command desk</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #171816;
+      --muted: #666862;
+      --faint: #8a8c85;
+      --canvas: #f4f3ef;
+      --paper: #fff;
+      --paper-soft: #faf9f6;
+      --line: #deddd7;
+      --line-strong: #c9c8c1;
+      --accent: #1e4f44;
+      --accent-hover: #173f37;
+      --accent-soft: #e8f0ed;
+      --review: #8c4f22;
+      --review-soft: #f7eee7;
+      --shadow: 0 16px 44px rgba(28, 31, 27, .08);
+      --radius-s: 10px;
+      --radius-m: 15px;
+      --radius-l: 20px;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-width: 320px;
+      background: var(--canvas);
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 15px;
+      line-height: 1.45;
+    }
+    button, input, select { font: inherit; }
+    button { color: inherit; }
+    .sr-only {
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+    }
+    .icon { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+    .preview-note {
+      min-height: 34px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 7px 18px;
+      border-bottom: 1px solid #d8d7d0;
+      background: #ebeae5;
+      color: #50524d;
+      font-size: 12px;
+      letter-spacing: .01em;
+    }
+    .preview-note svg { width: 14px; height: 14px; }
+
+    .app-bar {
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 0 32px;
+      background: var(--paper);
+      border-bottom: 1px solid var(--line);
+    }
+    .brand { display: flex; align-items: center; gap: 12px; min-width: 0; }
+    .brand-arabic { font-family: "Traditional Arabic", "Noto Naskh Arabic", serif; font-size: 28px; line-height: 1; }
+    .brand-name { font-size: 17px; font-weight: 650; letter-spacing: -.02em; }
+    .app-actions { display: flex; align-items: center; gap: 8px; }
+    .competition-pill {
+      min-height: 42px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 7px 12px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-s);
+      background: var(--paper);
+    }
+    .competition-pill .dot { width: 7px; height: 7px; border-radius: 50%; background: #777972; }
+    .competition-pill strong { display: block; font-size: 13px; line-height: 1.15; }
+    .competition-pill small { display: block; margin-top: 2px; color: var(--muted); font-size: 11px; line-height: 1.1; }
+    .icon-button {
+      width: 42px; height: 42px; display: grid; place-items: center;
+      border: 1px solid var(--line); border-radius: var(--radius-s); background: var(--paper); cursor: pointer;
+    }
+
+    main { width: min(1280px, calc(100% - 48px)); margin: 0 auto; padding: 36px 0 64px; }
+    .page-heading { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 22px; }
+    .eyebrow { margin: 0 0 6px; color: var(--muted); font-size: 12px; font-weight: 650; letter-spacing: .075em; text-transform: uppercase; }
+    h1 { margin: 0; font-size: clamp(30px, 3.4vw, 44px); line-height: 1.05; letter-spacing: -.045em; }
+    .page-meta { margin: 9px 0 0; color: var(--muted); }
+    .page-actions { display: flex; align-items: center; gap: 9px; }
+
+    .button {
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 0 15px;
+      border: 1px solid var(--line-strong);
+      border-radius: var(--radius-s);
+      background: var(--paper);
+      font-weight: 650;
+      cursor: pointer;
+      transition: background .16s ease, border-color .16s ease, transform .16s ease;
+    }
+    .button:hover { border-color: #aaa9a2; background: #fdfcf9; }
+    .button:active { transform: translateY(1px); }
+    .button-primary { border-color: var(--accent); background: var(--accent); color: #fff; }
+    .button-primary:hover { border-color: var(--accent-hover); background: var(--accent-hover); }
+    .button-quiet { border-color: transparent; background: transparent; color: var(--muted); }
+    .button:disabled { border-color: var(--line); background: #e8e8e3; color: #777a73; cursor: default; transform: none; }
+
+    .section-tabs {
+      display: flex;
+      gap: 4px;
+      padding: 4px;
+      margin-bottom: 18px;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      background: rgba(255,255,255,.54);
+    }
+    .section-tab {
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 0 18px;
+      border: 0;
+      border-radius: 9px;
+      background: transparent;
+      color: var(--muted);
+      font-weight: 650;
+      cursor: pointer;
+    }
+    .section-tab[aria-selected="true"] { background: var(--paper); color: var(--ink); box-shadow: 0 1px 5px rgba(26,28,25,.09); }
+    .section-tab .count { min-width: 22px; height: 22px; display: grid; place-items: center; padding: 0 6px; border-radius: 999px; background: #e7e6e0; font-size: 11px; }
+    .section-tab[aria-selected="true"] .count { background: var(--ink); color: #fff; }
+
+    .command-card {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 28px;
+      align-items: center;
+      min-height: 132px;
+      padding: 24px 26px;
+      margin-bottom: 14px;
+      border: 1px solid #cad6d2;
+      border-radius: var(--radius-l);
+      background: linear-gradient(110deg, #edf3f0 0%, #f7f9f7 64%, #fff 100%);
+    }
+    .command-copy { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 16px; align-items: start; }
+    .command-icon { width: 44px; height: 44px; display: grid; place-items: center; border-radius: 13px; background: var(--paper); color: var(--accent); box-shadow: 0 3px 12px rgba(32,70,60,.08); }
+    .command-icon .icon { width: 21px; height: 21px; }
+    .command-card h2 { margin: 0; font-size: 21px; letter-spacing: -.025em; }
+    .command-card p { max-width: 680px; margin: 6px 0 0; color: var(--muted); }
+    .command-detail { display: flex; flex-wrap: wrap; gap: 8px 16px; margin-top: 13px; color: #4e514b; font-size: 12px; }
+    .command-detail span { display: inline-flex; align-items: center; gap: 6px; }
+    .command-detail .mini-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); }
+    .batch-cta { min-width: 212px; min-height: 50px; font-size: 15px; }
+
+    .status-band {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      margin-bottom: 14px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-m);
+      overflow: hidden;
+      background: var(--paper);
+    }
+    .status-filter {
+      min-height: 76px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 18px;
+      border: 0;
+      border-right: 1px solid var(--line);
+      background: var(--paper);
+      text-align: left;
+      cursor: pointer;
+    }
+    .status-filter:last-child { border-right: 0; }
+    .status-filter:hover { background: var(--paper-soft); }
+    .status-filter[aria-pressed="true"] { box-shadow: inset 0 -3px var(--ink); background: var(--paper-soft); }
+    .status-filter strong { display: block; font-size: 14px; }
+    .status-filter small { display: block; margin-top: 3px; color: var(--muted); font-size: 11px; }
+    .status-filter .number { font-size: 24px; font-weight: 700; letter-spacing: -.035em; }
+    .status-filter[data-filter="review"] .number { color: var(--review); }
+    .status-filter[data-filter="ready"] .number { color: var(--accent); }
+
+    .queue-panel { border: 1px solid var(--line); border-radius: var(--radius-l); background: var(--paper); overflow: hidden; }
+    .queue-header { display: flex; justify-content: space-between; gap: 20px; padding: 22px 24px 18px; }
+    .queue-header h2 { margin: 0; font-size: 21px; letter-spacing: -.025em; }
+    .queue-header p { margin: 5px 0 0; color: var(--muted); font-size: 13px; }
+    .queue-count { align-self: start; padding-top: 4px; color: var(--muted); font-size: 12px; white-space: nowrap; }
+
+    .toolbar {
+      display: grid;
+      grid-template-columns: minmax(260px, 1fr) 170px 170px auto;
+      gap: 9px;
+      padding: 0 24px 18px;
+      border-bottom: 1px solid var(--line);
+    }
+    .field { position: relative; }
+    .field > .icon { position: absolute; left: 13px; top: 13px; color: var(--faint); pointer-events: none; }
+    .control {
+      width: 100%; min-height: 44px; padding: 0 12px;
+      border: 1px solid var(--line-strong); border-radius: var(--radius-s); background: var(--paper); color: var(--ink);
+    }
+    .field .control { padding-left: 40px; }
+    select.control { cursor: pointer; }
+    .source-button { white-space: nowrap; }
+
+    .queue-columns {
+      display: grid;
+      grid-template-columns: 56px minmax(230px, 1.25fr) minmax(240px, 1.1fr) 120px 104px;
+      gap: 14px;
+      padding: 10px 24px;
+      border-bottom: 1px solid var(--line);
+      background: var(--paper-soft);
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 650;
+      letter-spacing: .055em;
+      text-transform: uppercase;
+    }
+    .queue-columns span:nth-last-child(-n+2) { text-align: right; }
+    .queue-list { margin: 0; padding: 0; list-style: none; }
+    .participant-row {
+      display: grid;
+      grid-template-columns: 56px minmax(230px, 1.25fr) minmax(240px, 1.1fr) 120px 104px;
+      gap: 14px;
+      align-items: center;
+      min-height: 74px;
+      padding: 10px 24px;
+      border-bottom: 1px solid var(--line);
+    }
+    .participant-row:last-child { border-bottom: 0; }
+    .participant-row:hover { background: #fcfbf8; }
+    .participant-no { color: var(--muted); font-variant-numeric: tabular-nums; }
+    .participant-button {
+      display: block;
+      width: fit-content;
+      max-width: 100%;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      text-align: left;
+      cursor: pointer;
+    }
+    .participant-button strong { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px; }
+    .participant-button:hover strong { text-decoration: underline; text-underline-offset: 3px; }
+    .participant-meta { display: block; margin-top: 3px; color: var(--muted); font-size: 11px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .state-cell { min-width: 0; }
+    .state-label { display: inline-flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 700; }
+    .state-label .state-icon { width: 20px; height: 20px; display: grid; place-items: center; border-radius: 50%; background: #efefeb; color: #5f625c; }
+    .state-label.review { color: var(--review); }
+    .state-label.review .state-icon { background: var(--review-soft); }
+    .state-label.ready { color: var(--accent); }
+    .state-label.ready .state-icon { background: var(--accent-soft); }
+    .state-reason { display: block; margin-top: 3px; color: var(--muted); font-size: 11px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .score { text-align: right; font-variant-numeric: tabular-nums; }
+    .score strong { font-size: 18px; letter-spacing: -.025em; }
+    .score small { color: var(--muted); }
+    .row-action { justify-self: end; min-width: 88px; min-height: 38px; padding: 0 12px; font-size: 12px; }
+    .empty-state { display: none; padding: 56px 24px; color: var(--muted); text-align: center; }
+
+    .queue-footer { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 16px 24px; border-top: 1px solid var(--line); background: var(--paper-soft); }
+    .queue-footer p { margin: 0; color: var(--muted); font-size: 12px; }
+    .page-control { display: flex; gap: 7px; }
+    .page-control button { width: 38px; height: 38px; display: grid; place-items: center; border: 1px solid var(--line); border-radius: 9px; background: var(--paper); cursor: pointer; }
+
+    dialog {
+      width: min(640px, calc(100% - 32px));
+      max-height: calc(100vh - 40px);
+      padding: 0;
+      border: 1px solid var(--line-strong);
+      border-radius: var(--radius-l);
+      background: var(--paper);
+      color: var(--ink);
+      box-shadow: var(--shadow);
+    }
+    dialog::backdrop { background: rgba(22, 24, 21, .48); backdrop-filter: blur(2px); }
+    .dialog-head { display: flex; justify-content: space-between; gap: 20px; padding: 24px 24px 18px; border-bottom: 1px solid var(--line); }
+    .dialog-head h2 { margin: 0; font-size: 24px; letter-spacing: -.03em; }
+    .dialog-head p { margin: 6px 0 0; color: var(--muted); }
+    .dialog-close { width: 38px; height: 38px; display: grid; place-items: center; border: 1px solid var(--line); border-radius: 9px; background: var(--paper); cursor: pointer; }
+    .dialog-body { padding: 20px 24px; overflow: auto; }
+    .scope-strip { display: grid; grid-template-columns: repeat(3, 1fr); margin-bottom: 18px; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+    .scope-item { padding: 12px 14px; border-right: 1px solid var(--line); }
+    .scope-item:last-child { border-right: 0; }
+    .scope-item strong { display: block; font-size: 18px; }
+    .scope-item small { display: block; margin-top: 2px; color: var(--muted); font-size: 11px; }
+    .batch-list { margin: 0; padding: 0; border-top: 1px solid var(--line); list-style: none; }
+    .batch-list li { display: grid; grid-template-columns: 42px minmax(0,1fr) auto; gap: 12px; align-items: center; padding: 13px 4px; border-bottom: 1px solid var(--line); }
+    .batch-list .batch-no { color: var(--muted); }
+    .batch-list strong { display: block; }
+    .batch-list small { display: block; margin-top: 2px; color: var(--muted); }
+    .batch-score { font-size: 17px; font-weight: 700; font-variant-numeric: tabular-nums; }
+    .safety-note { display: flex; gap: 10px; margin: 18px 0 0; padding: 13px 14px; border-radius: 11px; background: var(--paper-soft); color: #4f524c; font-size: 12px; }
+    .dialog-actions { display: flex; align-items: center; justify-content: flex-end; gap: 9px; padding: 16px 24px 20px; border-top: 1px solid var(--line); }
+
+    .toast {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      z-index: 30;
+      max-width: min(420px, calc(100% - 40px));
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 13px 15px;
+      border-radius: 12px;
+      background: #20231f;
+      color: #fff;
+      box-shadow: var(--shadow);
+      opacity: 0;
+      transform: translateY(12px);
+      pointer-events: none;
+      transition: opacity .18s ease, transform .18s ease;
+    }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast .icon { color: #b9d8ce; }
+
+    .placeholder-panel { display: none; padding: 68px 24px; border: 1px solid var(--line); border-radius: var(--radius-l); background: var(--paper); text-align: center; }
+    .placeholder-panel h2 { margin: 0; font-size: 24px; }
+    .placeholder-panel p { max-width: 520px; margin: 9px auto 0; color: var(--muted); }
+
+    @media (max-width: 920px) {
+      main { width: min(100% - 28px, 920px); padding-top: 26px; }
+      .page-heading { align-items: start; }
+      .page-actions .button span { display: none; }
+      .page-actions .button { width: 44px; padding: 0; }
+      .toolbar { grid-template-columns: minmax(220px, 1fr) 160px auto; }
+      .toolbar .category-filter { display: none; }
+      .queue-columns, .participant-row { grid-template-columns: 44px minmax(210px, 1fr) minmax(190px, .85fr) 92px; }
+      .queue-columns span:last-child { display: none; }
+      .participant-row .row-action { display: none; }
+    }
+
+    @media (max-width: 680px) {
+      .preview-note { justify-content: flex-start; padding-inline: 14px; }
+      .app-bar { height: 62px; padding: 0 14px; }
+      .brand-arabic { font-size: 24px; }
+      .brand-name { font-size: 15px; }
+      .competition-pill { border: 0; padding: 6px; }
+      .competition-pill strong { display: none; }
+      .competition-pill small { margin: 0; font-size: 12px; }
+      .app-actions .icon-button { display: none; }
+      main { width: calc(100% - 20px); padding: 22px 0 40px; }
+      .page-heading { align-items: center; margin-bottom: 18px; }
+      h1 { font-size: 32px; }
+      .page-meta { font-size: 12px; }
+      .page-actions { gap: 5px; }
+      .section-tabs { overflow-x: auto; }
+      .section-tab { flex: 1 0 auto; justify-content: center; padding-inline: 13px; }
+      .command-card { grid-template-columns: 1fr; gap: 19px; padding: 20px; }
+      .command-copy { grid-template-columns: 1fr; gap: 11px; }
+      .command-icon { width: 39px; height: 39px; }
+      .batch-cta { width: 100%; min-width: 0; }
+      .status-band { grid-template-columns: repeat(2, 1fr); }
+      .status-filter { min-height: 68px; padding: 11px 13px; }
+      .status-filter:nth-child(2) { border-right: 0; }
+      .status-filter:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+      .status-filter .number { font-size: 21px; }
+      .queue-header { padding: 20px 18px 15px; }
+      .queue-count { display: none; }
+      .toolbar { grid-template-columns: 1fr auto; padding: 0 18px 16px; }
+      .toolbar .age-filter, .toolbar .category-filter { display: none; }
+      .source-button { width: 44px; padding: 0; }
+      .source-button span { display: none; }
+      .queue-columns { display: none; }
+      .participant-row {
+        grid-template-columns: 34px minmax(0, 1fr) auto;
+        grid-template-areas: "no person score" ". state state";
+        gap: 6px 10px;
+        min-height: 100px;
+        padding: 14px 18px;
+      }
+      .participant-no { grid-area: no; align-self: start; padding-top: 2px; }
+      .participant-button { grid-area: person; }
+      .state-cell { grid-area: state; }
+      .score { grid-area: score; align-self: start; }
+      .participant-row .row-action { display: none; }
+      .state-reason { white-space: normal; }
+      .queue-footer { padding: 14px 18px; }
+      .queue-footer p { max-width: 210px; }
+      .scope-strip { grid-template-columns: 1fr; }
+      .scope-item { border-right: 0; border-bottom: 1px solid var(--line); }
+      .scope-item:last-child { border-bottom: 0; }
+      .dialog-head, .dialog-body { padding-inline: 18px; }
+      .dialog-actions { padding-inline: 18px; }
+    }
+
+    @media (max-width: 410px) {
+      .page-actions .export-button { display: none; }
+      .section-tab { font-size: 13px; }
+      .section-tab .count { display: none; }
+      .queue-footer p { display: none; }
+      .queue-footer { justify-content: flex-end; }
+    }
+  </style>
+</head>
+<body>
+  <div class="preview-note">
+    <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></svg>
+    Design preview only — synthetic participants; no Tahqeeq records can change
+  </div>
+
+  <header class="app-bar">
+    <div class="brand" aria-label="Tahqeeq">
+      <span class="brand-arabic" lang="ar" dir="rtl">تَحْقِيق</span>
+      <span class="brand-name">Tahqeeq</span>
+    </div>
+    <div class="app-actions">
+      <div class="competition-pill" aria-label="Competition closed">
+        <span class="dot" aria-hidden="true"></span>
+        <span><strong>National Hifz 1448</strong><small>Closed</small></span>
+      </div>
+      <button class="icon-button" type="button" aria-label="More actions">
+        <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <div class="page-heading">
+      <div>
+        <p class="eyebrow">Competition results</p>
+        <h1>Results</h1>
+        <p class="page-meta">24 participants · competition closed 18 Aug 2026</p>
+      </div>
+      <div class="page-actions">
+        <button class="button export-button" id="exportButton" type="button">
+          <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
+          <span>Export workbook</span>
+        </button>
+        <button class="button" type="button" aria-label="More results actions">
+          <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <nav class="section-tabs" role="tablist" aria-label="Results sections">
+      <button class="section-tab" type="button" role="tab" aria-selected="true" data-panel="reviewPanel">Review <span class="count" id="reviewTabCount">4</span></button>
+      <button class="section-tab" type="button" role="tab" aria-selected="false" data-panel="standingsPanel">Standings</button>
+      <button class="section-tab" type="button" role="tab" aria-selected="false" data-panel="analysisPanel">Analysis</button>
+    </nav>
+
+    <section id="reviewPanel" role="tabpanel">
+      <section class="command-card" aria-labelledby="commandTitle">
+        <div class="command-copy">
+          <span class="command-icon" aria-hidden="true">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          </span>
+          <div>
+            <h2 id="commandTitle"><span id="readySentenceCount">2</span> results are ready to finalize</h2>
+            <p>Finalize the routine results together. Anyone needing a decision or another judge result stays out of the batch.</p>
+            <div class="command-detail">
+              <span><i class="mini-dot"></i>Totals and source revisions checked</span>
+              <span><i class="mini-dot"></i>Exceptions remain editable</span>
+            </div>
+          </div>
+        </div>
+        <button class="button button-primary batch-cta" id="openBatch" type="button">Review batch · <span id="readyButtonCount">2</span></button>
+      </section>
+
+      <div class="status-band" role="group" aria-label="Filter participant results by status">
+        <button class="status-filter" type="button" data-filter="review" aria-pressed="false"><span><strong>Needs review</strong><small>Decision required</small></span><span class="number">2</span></button>
+        <button class="status-filter" type="button" data-filter="ready" aria-pressed="false"><span><strong>Ready</strong><small>Can finalize</small></span><span class="number" id="readyBandCount">2</span></button>
+        <button class="status-filter" type="button" data-filter="waiting" aria-pressed="false"><span><strong>Waiting</strong><small>Judge result missing</small></span><span class="number">2</span></button>
+        <button class="status-filter" type="button" data-filter="final" aria-pressed="false"><span><strong>Finalized</strong><small>Official result</small></span><span class="number" id="finalBandCount">18</span></button>
+      </div>
+
+      <section class="queue-panel" aria-labelledby="queueTitle">
+        <header class="queue-header">
+          <div><h2 id="queueTitle">Participant queue</h2><p>Exceptions first, then ready and finalized results.</p></div>
+          <span class="queue-count" id="queueCount">6 representative participants</span>
+        </header>
+
+        <div class="toolbar">
+          <label class="field">
+            <span class="sr-only">Find participant</span>
+            <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+            <input class="control" id="searchInput" type="search" placeholder="Find participant" autocomplete="off" />
+          </label>
+          <label class="age-filter"><span class="sr-only">Age group</span><select class="control"><option>All age groups</option><option>Under 14</option><option>Under 16</option></select></label>
+          <label class="category-filter"><span class="sr-only">Category</span><select class="control"><option>All categories</option><option>Hifz</option><option>Baliagen</option></select></label>
+          <button class="button source-button" id="sourceRecords" type="button">
+            <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 5h16v14H4z"/><path d="M8 9h8M8 13h5"/></svg>
+            <span>Source records</span>
+          </button>
+        </div>
+
+        <div class="queue-columns" aria-hidden="true"><span>No.</span><span>Participant</span><span>Status</span><span>Score</span><span>Action</span></div>
+        <ol class="queue-list" id="queueList">
+          <li class="participant-row" data-state="review" data-name="Mohamed Yaish Niyaaz 07">
+            <span class="participant-no">07</span>
+            <button class="participant-button" type="button" data-person="Mohamed Yaish Niyaaz"><strong>Mohamed Yaish Niyaaz</strong><span class="participant-meta">Under 14 · Hifz · Hiriya School</span></button>
+            <span class="state-cell"><span class="state-label review"><span class="state-icon">!</span>Needs review</span><span class="state-reason">Two Khafī sources — choose one</span></span>
+            <span class="score"><strong>—</strong></span>
+            <button class="button row-action" type="button" data-person="Mohamed Yaish Niyaaz">Review</button>
+          </li>
+          <li class="participant-row" data-state="review" data-name="Hawwa Zaina Ibrahim 09">
+            <span class="participant-no">09</span>
+            <button class="participant-button" type="button" data-person="Hawwa Zaina Ibrahim"><strong>Hawwa Zaina Ibrahim</strong><span class="participant-meta">Under 16 · Hifz · Thā School</span></button>
+            <span class="state-cell"><span class="state-label review"><span class="state-icon">!</span>Needs review</span><span class="state-reason">Source corrected after finalization</span></span>
+            <span class="score"><strong>81</strong><small>/100</small></span>
+            <button class="button row-action" type="button" data-person="Hawwa Zaina Ibrahim">Review</button>
+          </li>
+          <li class="participant-row" data-state="ready" data-name="Aishath Rulya Ahmed 04">
+            <span class="participant-no">04</span>
+            <button class="participant-button" type="button" data-person="Aishath Rulya Ahmed"><strong>Aishath Rulya Ahmed</strong><span class="participant-meta">Under 14 · Hifz · Hiriya School</span></button>
+            <span class="state-cell"><span class="state-label ready"><span class="state-icon">✓</span>Ready</span><span class="state-reason">4 of 4 sections checked</span></span>
+            <span class="score"><strong>90</strong><small>/100</small></span>
+            <button class="button row-action" type="button" data-person="Aishath Rulya Ahmed">Open</button>
+          </li>
+          <li class="participant-row" data-state="ready" data-name="Ali Sinan Rasheed 15">
+            <span class="participant-no">15</span>
+            <button class="participant-button" type="button" data-person="Ali Sinan Rasheed"><strong>Ali Sinan Rasheed</strong><span class="participant-meta">Under 16 · Baliagen · Thā School</span></button>
+            <span class="state-cell"><span class="state-label ready"><span class="state-icon">✓</span>Ready</span><span class="state-reason">4 of 4 sections checked</span></span>
+            <span class="score"><strong>73</strong><small>/100</small></span>
+            <button class="button row-action" type="button" data-person="Ali Sinan Rasheed">Open</button>
+          </li>
+          <li class="participant-row" data-state="waiting" data-name="Fathimath Leena Saeed 11">
+            <span class="participant-no">11</span>
+            <button class="participant-button" type="button" data-person="Fathimath Leena Saeed"><strong>Fathimath Leena Saeed</strong><span class="participant-meta">Under 14 · Baliagen · Hiriya School</span></button>
+            <span class="state-cell"><span class="state-label"><span class="state-icon">·</span>Waiting</span><span class="state-reason">Faṣāḥa judge result not received</span></span>
+            <span class="score"><strong>—</strong></span>
+            <button class="button row-action" type="button" data-person="Fathimath Leena Saeed">Open</button>
+          </li>
+          <li class="participant-row" data-state="final" data-name="Ahmed Nadhy Hassan 02">
+            <span class="participant-no">02</span>
+            <button class="participant-button" type="button" data-person="Ahmed Nadhy Hassan"><strong>Ahmed Nadhy Hassan</strong><span class="participant-meta">Under 16 · Hifz · Thā School</span></button>
+            <span class="state-cell"><span class="state-label"><span class="state-icon">✓</span>Finalized</span><span class="state-reason">Revision 1 · 18 Aug 2026</span></span>
+            <span class="score"><strong>88</strong><small>/100</small></span>
+            <button class="button row-action" type="button" data-person="Ahmed Nadhy Hassan">Open</button>
+          </li>
+        </ol>
+        <div class="empty-state" id="emptyState">No participants match this filter.</div>
+        <footer class="queue-footer">
+          <p>Showing representative records from a 24-participant competition.</p>
+          <div class="page-control" aria-label="Queue pages"><button type="button" aria-label="Previous page">‹</button><button type="button" aria-label="Next page">›</button></div>
+        </footer>
+      </section>
+    </section>
+
+    <section class="placeholder-panel" id="standingsPanel" role="tabpanel"><h2>Official standings</h2><p>Checkpoint 3 will test division grouping, tie treatment, winner emphasis, and the merged workbook export.</p></section>
+    <section class="placeholder-panel" id="analysisPanel" role="tabpanel"><h2>Participant analysis</h2><p>Checkpoint 4 will test exact recited-passage cutouts, mistake locations, replay entry points, and printable reports.</p></section>
+  </main>
+
+  <dialog id="batchDialog" aria-labelledby="batchTitle">
+    <div class="dialog-head">
+      <div><h2 id="batchTitle">Finalize 2 ready results?</h2><p>One confirmation replaces finalizing each participant separately.</p></div>
+      <button class="dialog-close" id="closeBatch" type="button" aria-label="Close"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
+    </div>
+    <div class="dialog-body">
+      <div class="scope-strip">
+        <span class="scope-item"><strong>2</strong><small>included now</small></span>
+        <span class="scope-item"><strong>4</strong><small>excluded safely</small></span>
+        <span class="scope-item"><strong>18</strong><small>already finalized</small></span>
+      </div>
+      <ol class="batch-list">
+        <li><span class="batch-no">04</span><span><strong>Aishath Rulya Ahmed</strong><small>Under 14 · Hifz</small></span><span class="batch-score">90/100</span></li>
+        <li><span class="batch-no">15</span><span><strong>Ali Sinan Rasheed</strong><small>Under 16 · Baliagen</small></span><span class="batch-score">73/100</span></li>
+      </ol>
+      <p class="safety-note"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></svg><span>Only results marked <strong>Ready</strong> are included. Review-required and waiting participants remain unchanged.</span></p>
+    </div>
+    <div class="dialog-actions"><button class="button" id="cancelBatch" type="button">Cancel</button><button class="button button-primary" id="finalizeBatch" type="button">Finalize 2 results</button></div>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg><span id="toastMessage">Done</span></div>
+
+  <script>
+    const queueRows = [...document.querySelectorAll('.participant-row')];
+    const statusButtons = [...document.querySelectorAll('.status-filter')];
+    const searchInput = document.getElementById('searchInput');
+    const emptyState = document.getElementById('emptyState');
+    const queueCount = document.getElementById('queueCount');
+    const batchDialog = document.getElementById('batchDialog');
+    const toast = document.getElementById('toast');
+    const toastMessage = document.getElementById('toastMessage');
+    let activeFilter = 'all';
+    let toastTimer;
+
+    function showToast(message) {
+      toastMessage.textContent = message;
+      toast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove('show'), 3000);
+    }
+
+    function applyFilters() {
+      const query = searchInput.value.trim().toLowerCase();
+      let visible = 0;
+      queueRows.forEach((row) => {
+        const matchesState = activeFilter === 'all' || row.dataset.state === activeFilter;
+        const matchesQuery = !query || row.dataset.name.toLowerCase().includes(query);
+        const show = matchesState && matchesQuery;
+        row.hidden = !show;
+        if (show) visible += 1;
+      });
+      emptyState.style.display = visible ? 'none' : 'block';
+      queueCount.textContent = `${visible} representative participant${visible === 1 ? '' : 's'}`;
+    }
+
+    statusButtons.forEach((button) => button.addEventListener('click', () => {
+      const next = button.dataset.filter;
+      activeFilter = activeFilter === next ? 'all' : next;
+      statusButtons.forEach((item) => item.setAttribute('aria-pressed', String(item.dataset.filter === activeFilter)));
+      applyFilters();
+    }));
+    searchInput.addEventListener('input', applyFilters);
+
+    document.getElementById('openBatch').addEventListener('click', () => batchDialog.showModal());
+    document.getElementById('closeBatch').addEventListener('click', () => batchDialog.close());
+    document.getElementById('cancelBatch').addEventListener('click', () => batchDialog.close());
+    document.getElementById('finalizeBatch').addEventListener('click', () => {
+      batchDialog.close();
+      document.getElementById('readySentenceCount').textContent = '0';
+      document.getElementById('readyButtonCount').textContent = '0';
+      document.getElementById('readyBandCount').textContent = '0';
+      document.getElementById('finalBandCount').textContent = '20';
+      document.getElementById('reviewTabCount').textContent = '4';
+      document.getElementById('commandTitle').innerHTML = 'All routine results are finalized';
+      document.querySelector('.command-card p').textContent = 'Only exceptions and missing judge results remain in the queue.';
+      document.getElementById('openBatch').disabled = true;
+      document.getElementById('openBatch').textContent = 'No ready results';
+      queueRows.filter((row) => row.dataset.state === 'ready').forEach((row) => {
+        row.dataset.state = 'final';
+        row.querySelector('.state-cell').innerHTML = '<span class="state-label"><span class="state-icon">✓</span>Finalized</span><span class="state-reason">Revision 1 · just now</span>';
+      });
+      activeFilter = 'all';
+      statusButtons.forEach((item) => item.setAttribute('aria-pressed', 'false'));
+      applyFilters();
+      showToast('2 results finalized in this synthetic preview.');
+    });
+
+    document.querySelectorAll('[data-person]').forEach((button) => button.addEventListener('click', () => {
+      showToast(`${button.dataset.person} detail is the next design checkpoint.`);
+    }));
+    document.getElementById('sourceRecords').addEventListener('click', () => showToast('Source records stay available without competing with the review queue.'));
+    document.getElementById('exportButton').addEventListener('click', () => showToast('The merged, styled workbook is designed in Checkpoint 3.'));
+
+    document.querySelectorAll('.section-tab').forEach((tab) => tab.addEventListener('click', () => {
+      document.querySelectorAll('.section-tab').forEach((item) => item.setAttribute('aria-selected', String(item === tab)));
+      document.querySelectorAll('[role="tabpanel"]').forEach((panel) => panel.style.display = 'none');
+      const panel = document.getElementById(tab.dataset.panel);
+      panel.style.display = tab.dataset.panel === 'reviewPanel' ? 'block' : 'block';
+    }));
+  </script>
+</body>
+</html>
