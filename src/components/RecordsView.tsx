@@ -158,8 +158,6 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
     reviewAgeGroup ||
     reviewParticipantCategory,
   );
-  const reviewAdvancedFilterCount = Number(Boolean(reviewAgeGroup)) +
-    Number(Boolean(reviewParticipantCategory));
 
   useEffect(() => {
     if (reviewPage !== reviewPageData.page) setReviewPage(reviewPageData.page);
@@ -658,159 +656,105 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
         hidden={activeTab !== "review"}
         className="results-tab-panel"
       >
-        <div className="results-status-strip" role="group" aria-label="Filter participant results by status">
-          <button
-            type="button"
-            className="results-status-card is-needs-review"
-            aria-pressed={reviewState === "needs-review"}
-            onClick={() => setReviewFilter(() => setReviewState("needs-review"))}
-          >
-            <span className="results-status-card-copy">
-              <span>Needs review</span>
-              <small>Resolve first</small>
-            </span>
-            <strong>{reviewSummary.needsReview}</strong>
-          </button>
-          <button
-            type="button"
-            className="results-status-card is-ready"
-            aria-pressed={reviewState === "ready"}
-            onClick={() => setReviewFilter(() => setReviewState("ready"))}
-          >
-            <span className="results-status-card-copy">
-              <span>Ready</span>
-              <small>Can finalize</small>
-            </span>
-            <strong>{reviewSummary.ready}</strong>
-          </button>
-          <button
-            type="button"
-            className="results-status-card is-finalized"
-            aria-pressed={reviewState === "finalized"}
-            onClick={() => setReviewFilter(() => setReviewState("finalized"))}
-          >
-            <span className="results-status-card-copy">
-              <span>Finalized</span>
-              <small>Current result</small>
-            </span>
-            <strong>{reviewSummary.finalized}</strong>
-          </button>
-          <button
-            type="button"
-            className="results-status-card is-total"
-            aria-pressed={reviewState === "all"}
-            onClick={() => setReviewFilter(() => setReviewState("all"))}
-          >
-            <span className="results-status-card-copy">
-              <span>All candidates</span>
-              <small>Complete queue</small>
-            </span>
-            <strong>{reviewSummary.total}</strong>
-          </button>
+        <div className="results-review-bar">
+          <label className="results-search">
+            <span>Find participant</span>
+            <input
+              type="search"
+              value={reviewQuery}
+              placeholder="Name or number"
+              onChange={(event) =>
+                setReviewFilter(() => setReviewQuery(event.target.value))
+              }
+            />
+          </label>
+          <label className="results-filter">
+            <span>Age group</span>
+            <select
+              value={reviewAgeGroup}
+              onChange={(event) =>
+                setReviewFilter(() => setReviewAgeGroup(event.target.value))
+              }
+            >
+              <option value="">All age groups</option>
+              {reviewAgeGroups.map((group) => (
+                <option key={group} value={group}>{group}</option>
+              ))}
+            </select>
+          </label>
+          <label className="results-filter">
+            <span>Participant category</span>
+            <select
+              value={reviewParticipantCategory}
+              onChange={(event) =>
+                setReviewFilter(() => setReviewParticipantCategory(
+                  event.target.value as ParticipantCategory,
+                ))
+              }
+            >
+              <option value="">All categories</option>
+              <option value="baliagen">Baliagen</option>
+              <option value="nubalaa">Hifz</option>
+            </select>
+          </label>
+          <label className="results-filter">
+            <span>State</span>
+            <select
+              value={reviewState}
+              aria-label="Filter participant results by status"
+              onChange={(event) =>
+                setReviewFilter(() => setReviewState(
+                  event.target.value as "all" | ResultsReviewState,
+                ))
+              }
+            >
+              <option value="all">All candidates · {reviewSummary.total}</option>
+              <option value="needs-review">Needs review · {reviewSummary.needsReview}</option>
+              <option value="ready">Ready · {reviewSummary.ready}</option>
+              <option value="finalized">Finalized · {reviewSummary.finalized}</option>
+            </select>
+          </label>
+          {hasReviewFilters && (
+            <button type="button" className="btn-ghost" onClick={clearReviewFilters}>
+              Clear filters
+            </button>
+          )}
+          <p className="results-visible-count" role="status" aria-live="polite">
+            {filteredReviewItems.length} of {reviewItems.length} result candidates
+            {reviewPageData.pageCount > 1 && ` · Page ${reviewPageData.page} of ${reviewPageData.pageCount}`}
+          </p>
         </div>
 
-        <section className="results-review-section" aria-labelledby="results-review-heading">
-          <div className="results-review-head">
-            <div>
-              <h2 id="results-review-heading" className="results-section-title">
-                Participant review
-              </h2>
-              <p className="panel-sub">Unresolved participants appear first.</p>
-            </div>
-            <p className="results-visible-count" role="status" aria-live="polite">
-              {filteredReviewItems.length} of {reviewItems.length} result candidates
-              {reviewPageData.pageCount > 1 && ` · Page ${reviewPageData.page} of ${reviewPageData.pageCount}`}
-            </p>
-          </div>
-          <div className="results-review-filters">
-            <label className="results-search-filter">
-              <span>Find participant</span>
-              <input
-                type="search"
-                value={reviewQuery}
-                placeholder="Name or number"
-                onChange={(event) =>
-                  setReviewFilter(() => setReviewQuery(event.target.value))
-                }
-              />
-            </label>
-            <details className="results-filter-disclosure">
-              <summary>
-                <span>More filters</span>
-                {reviewAdvancedFilterCount > 0 && (
-                  <strong>{reviewAdvancedFilterCount}</strong>
-                )}
-              </summary>
-              <div className="results-advanced-filter-grid">
-                <label className="records-filter">
-                  <span>Age group</span>
-                  <select
-                    value={reviewAgeGroup}
-                    onChange={(event) =>
-                      setReviewFilter(() => setReviewAgeGroup(event.target.value))
-                    }
-                  >
-                    <option value="">All age groups</option>
-                    {reviewAgeGroups.map((group) => (
-                      <option key={group} value={group}>{group}</option>
-                    ))}
-                  </select>
-                </label>
-                <label className="records-filter">
-                  <span>Participant category</span>
-                  <select
-                    value={reviewParticipantCategory}
-                    onChange={(event) =>
-                      setReviewFilter(() => setReviewParticipantCategory(
-                        event.target.value as ParticipantCategory,
-                      ))
-                    }
-                  >
-                    <option value="">All categories</option>
-                    <option value="baliagen">Baliagen</option>
-                    <option value="nubalaa">Hifz</option>
-                  </select>
-                </label>
-                {hasReviewFilters && (
-                  <button type="button" className="btn-ghost results-clear-filters" onClick={clearReviewFilters}>
-                    Clear all filters
-                  </button>
-                )}
-              </div>
-            </details>
-          </div>
+        <FinalResultsPanel
+          allItems={reviewItems}
+          visibleItems={reviewPageData.items}
+          filteredEmpty={reviewItems.length > 0 && filteredReviewItems.length === 0}
+          onClearFilters={clearReviewFilters}
+        />
 
-          <FinalResultsPanel
-            allItems={reviewItems}
-            visibleItems={reviewPageData.items}
-            filteredEmpty={reviewItems.length > 0 && filteredReviewItems.length === 0}
-            onClearFilters={clearReviewFilters}
-          />
-
-          {reviewPageData.pageCount > 1 && (
-            <nav className="results-pagination" aria-label="Participant review pages">
-              <button
-                type="button"
-                className="btn-ghost"
-                disabled={reviewPageData.page === 1}
-                aria-label="Previous participant review page"
-                onClick={() => setReviewPage((page) => Math.max(1, page - 1))}
-              >
-                Previous
-              </button>
-              <span>Page <bdi>{reviewPageData.page}</bdi> of <bdi>{reviewPageData.pageCount}</bdi></span>
-              <button
-                type="button"
-                className="btn-ghost"
-                disabled={reviewPageData.page === reviewPageData.pageCount}
-                aria-label="Next participant review page"
-                onClick={() => setReviewPage((page) => Math.min(reviewPageData.pageCount, page + 1))}
-              >
-                Next
-              </button>
-            </nav>
-          )}
-        </section>
+        {reviewPageData.pageCount > 1 && (
+          <nav className="results-pagination" aria-label="Participant review pages">
+            <button
+              type="button"
+              className="btn-ghost"
+              disabled={reviewPageData.page === 1}
+              aria-label="Previous participant review page"
+              onClick={() => setReviewPage((page) => Math.max(1, page - 1))}
+            >
+              Previous
+            </button>
+            <span>Page <bdi>{reviewPageData.page}</bdi> of <bdi>{reviewPageData.pageCount}</bdi></span>
+            <button
+              type="button"
+              className="btn-ghost"
+              disabled={reviewPageData.page === reviewPageData.pageCount}
+              aria-label="Next participant review page"
+              onClick={() => setReviewPage((page) => Math.min(reviewPageData.pageCount, page + 1))}
+            >
+              Next
+            </button>
+          </nav>
+        )}
 
         {renderJudgeResults()}
       </section>

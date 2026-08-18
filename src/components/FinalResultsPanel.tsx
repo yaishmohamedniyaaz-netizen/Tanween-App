@@ -2,9 +2,10 @@ import { useEffect, useMemo, useState } from "react";
 import { CATEGORY_BY_ID } from "../config";
 import {
   buildParticipantResultPreview,
+  divisionRankGroup,
   finalizeParticipantResult,
   hasCompleteFinalizationIdentity,
-  placeFinalizedResults,
+  rankRowsByDivision,
   type ParticipantResultCandidate,
 } from "../lib/finalResults";
 import { downloadFinalResultsWorkbook } from "../lib/finalResultsWorkbook";
@@ -100,9 +101,37 @@ function reasonText(reason: ResultsReviewReason): string {
 
 function stateLabel(item: ResultsReviewItem): string {
   if (item.state === "finalized") return "Finalized";
-  if (item.state === "ready") return "Ready to finalize";
+  if (item.state === "ready") return "Ready";
   return "Needs review";
 }
+
+/** The mark shown in each criterion column: the finalized number once there is
+ *  one, otherwise the currently selected source's. A criterion with no source
+ *  chosen has no number to show, and says so rather than reading as zero. */
+function rowMarks(
+  item: ResultsReviewItem,
+  selected: Record<CategoryId, string>,
+): Partial<Record<CategoryId, { score: number; max: number }>> {
+  const marks: Partial<Record<CategoryId, { score: number; max: number }>> = {};
+  const active = item.state === "finalized" ? item.activeFinal : undefined;
+  for (const category of item.candidate.categories) {
+    const finalized = active?.byCategory[category];
+    if (finalized) {
+      marks[category] = { score: finalized.score, max: finalized.max };
+      continue;
+    }
+    const session = item.candidate.byCategory[category].find(
+      (option) => option.id === selected[category],
+    );
+    if (!session) continue;
+    const score = sourceScore(session, category);
+    marks[category] = { score: score.score, max: score.start };
+  }
+  return marks;
+}
+
+const formatMark = (value: number) =>
+  Number.isInteger(value) ? String(value) : value.toFixed(1);
 
 export function FinalResultsPanel({
   allItems,
@@ -112,27 +141,37 @@ export function FinalResultsPanel({
 }: Props) {
   const { state, dispatch } = useJudging();
   const [selections, setSelections] = useState<CandidateSelections>({});
+  const [reasons, setReasons] = useState<Record<string, string>>({});
   const [exportError, setExportError] = useState("");
   const [exporting, setExporting] = useState(false);
-  const [expandedParticipantId, setExpandedParticipantId] = useState<string | null>(null);
+  const [selectedParticipantId, setSelectedParticipantId] = useState<string | null>(null);
+
   const currentResults = useMemo(
     () => allItems.flatMap((item) =>
       item.state === "finalized" && item.activeFinal ? [item.activeFinal] : [],
     ),
     [allItems],
   );
-  const placedByParticipant = useMemo(
-    () => new Map(
-      placeFinalizedResults(currentResults).map((result) => [
-        result.participant.id,
-        result,
-      ]),
-    ),
-    [currentResults],
+
+  /** One column per criterion this competition actually judged, in reading
+   *  order — the same set, in the same order, that the workbook writes. */
+  const columns = useMemo(() => {
+    const judged = new Set<CategoryId>();
+    for (const item of allItems) {
+      for (const category of item.candidate.categories) judged.add(category);
+    }
+    return (Object.keys(CATEGORY_BY_ID) as CategoryId[]).filter((category) =>
+      judged.has(category),
+    );
+  }, [allItems]);
+
+  const totalMax = useMemo(
+    () => columns.reduce((sum, category) => sum + (state.config[category]?.start ?? 0), 0),
+    [columns, state.config],
   );
 
   useEffect(() => {
-    setExpandedParticipantId((current) => {
+    setSelectedParticipantId((current) => {
       if (current && visibleItems.some(
         (item) => item.candidate.participant.id === current,
       )) return current;
@@ -166,23 +205,82 @@ export function FinalResultsPanel({
     ]),
   ) as Record<CategoryId, string>;
 
-  const finalize = (item: ResultsReviewItem) => {
+  /** Every visible row, ranked inside its own division, with the marks and the
+   *  total the row shows. A proposed total ranks alongside a finalized one, so
+   *  a judge can see where a result would land before committing it. */
+  const rows = useMemo(() => {
+    const prepared = visibleItems.map((item) => {
+      const selected = selectedForCandidate(item.candidate, item.activeFinal);
+      const preview = buildParticipantResultPreview(item.candidate, selected);
+      const placed = item.state === "finalized" ? item.activeFinal : undefined;
+      const total = placed
+        ? { total: placed.total, totalMax: placed.totalMax }
+        : preview
+          ? { total: preview.total, totalMax: preview.totalMax }
+          : null;
+      return {
+        item,
+        selected,
+        marks: rowMarks(item, selected),
+        total,
+      };
+    });
+    return rankRowsByDivision(prepared, (row) => ({
+      participant: row.item.candidate.participant,
+      total: row.total?.total ?? null,
+      totalMax: row.total?.totalMax ?? 1,
+    }));
+    // selections feed selectedForCandidate, so a source change re-ranks the table.
+  }, [visibleItems, selections]);
+
+  const divisions = useMemo(() => {
+    const groups: Array<{ key: string; label: string; rows: typeof rows }> = [];
+    for (const ranked of rows) {
+      const participant = ranked.row.item.candidate.participant;
+      const key = divisionRankGroup(participant);
+      const last = groups[groups.length - 1];
+      if (last?.key === key) {
+        last.rows.push(ranked);
+        continue;
+      }
+      groups.push({
+        key,
+        label: [
+          participant.ageGroup || "No age group",
+          participantCategoryLabel(participant.category),
+        ].filter(Boolean).join(" · "),
+        rows: [ranked],
+      });
+    }
+    return groups;
+  }, [rows]);
+
+  const selectedRow = rows.find(
+    (ranked) => ranked.row.item.candidate.participant.id === selectedParticipantId,
+  )?.row;
+  const selectedPlace = rows.find(
+    (ranked) => ranked.row.item.candidate.participant.id === selectedParticipantId,
+  )?.place ?? null;
+  const selectedDivisionSize = selectedRow
+    ? rows.filter((ranked) =>
+        divisionRankGroup(ranked.row.item.candidate.participant) ===
+          divisionRankGroup(selectedRow.item.candidate.participant),
+      ).length
+    : 0;
+
+  const finalize = (item: ResultsReviewItem, revisionReason: string) => {
     const candidate = item.candidate;
     const previous = item.activeFinal;
-    const revisionReason = previous
-      ? window.prompt(
-          `Reason for revision ${previous.revision + 1} of ${candidate.participant.name}'s final result:`,
-          "",
-        )
-      : undefined;
-    if (previous && !revisionReason?.trim()) return;
+    if (previous && !revisionReason.trim()) return;
     const result = finalizeParticipantResult(
       candidate,
       selectedForCandidate(candidate, previous),
       previous,
-      revisionReason ?? undefined,
+      revisionReason.trim() || undefined,
     );
-    if (result) dispatch({ type: "UPSERT_FINAL_RESULT", result });
+    if (!result) return;
+    dispatch({ type: "UPSERT_FINAL_RESULT", result });
+    setReasons((current) => ({ ...current, [candidate.participant.id]: "" }));
   };
 
   const exportWorkbook = async () => {
@@ -202,10 +300,10 @@ export function FinalResultsPanel({
     }
   };
 
-  return (
-    <section className="final-results-panel results-candidate-panel">
-      {visibleItems.length === 0 ? (
-        <div className="results-empty results-candidate-empty">
+  if (visibleItems.length === 0) {
+    return (
+      <section className="final-results-panel is-empty">
+        <div className="results-empty">
           <strong>
             {filteredEmpty ? "No results match these filters" : "No result candidates yet"}
           </strong>
@@ -220,177 +318,254 @@ export function FinalResultsPanel({
             </button>
           )}
         </div>
-      ) : (
-        <div className="final-result-list">
-          {visibleItems.map((item) => {
-            const candidate = item.candidate;
-            const previous = item.activeFinal;
-            const placed = placedByParticipant.get(candidate.participant.id);
-            const selected = selectedForCandidate(candidate, previous);
-            const preview = buildParticipantResultPreview(candidate, selected);
-            const unresolved = candidate.categories.some(
-              (category) => !selected[category],
-            );
-            const participantReady = hasCompleteFinalizationIdentity(
-              candidate.participant,
-            );
-            const headingId = `result-candidate-${candidate.participant.id}`;
-            const detailId = `${headingId}-detail`;
-            const isExpanded = expandedParticipantId === candidate.participant.id;
-            const displayedTotal = placed
-              ? `${placed.total}/${placed.totalMax}`
-              : preview
-                ? `${preview.total}/${preview.totalMax}`
-                : "—";
-            return (
-              <article
-                className={`final-result-row is-${item.state}`}
-                key={candidate.participant.id}
-                aria-labelledby={headingId}
-              >
-                <button
-                  type="button"
-                  className="final-result-summary"
-                  aria-expanded={isExpanded}
-                  aria-controls={detailId}
-                  onClick={() => setExpandedParticipantId(
-                    isExpanded ? null : candidate.participant.id,
-                  )}
-                >
-                  <div className="final-result-person">
-                    <bdi className="final-result-number">
-                      {candidate.participant.number || "—"}
-                    </bdi>
-                    <span>
-                      <strong id={headingId}>
-                        {candidate.participant.name || "Unnamed participant"}
-                      </strong>
-                      <small>
-                        {[
-                          candidate.participant.ageGroup,
-                          participantCategoryLabel(candidate.participant.category),
-                          muqarrarLabel(candidate.participant.muqarrar),
-                        ].filter(Boolean).join(" · ")}
-                      </small>
-                    </span>
-                  </div>
-                  <div className="final-result-state">
-                    <span className={`results-state-chip is-${item.state}`}>
-                      <span className="results-state-icon" aria-hidden="true">
-                        {item.state === "needs-review" ? "!" : <Icon name="check" size={12} />}
-                      </span>
-                      {stateLabel(item)}
-                    </span>
-                    <small>
-                      {item.reasons.length
-                        ? item.reasons.map(reasonText).join(" · ")
-                        : item.state === "finalized"
-                          ? `Revision ${item.activeFinal?.revision ?? 1} is current`
-                          : "Every required judge source is present"}
-                    </small>
-                  </div>
-                  <div className="final-result-overview">
-                    <span className="final-score">
-                      <small>{placed ? "Final total" : "Proposed total"}</small>
-                      <strong><bdi>{displayedTotal}</bdi></strong>
-                      {placed && <small>Place {placed.place} · revision {placed.revision}</small>}
-                    </span>
-                    <span className="final-result-timing">
-                      <span>Last change</span>
-                      <bdi>{item.lastChangedAt ? new Date(item.lastChangedAt).toLocaleDateString() : "—"}</bdi>
-                    </span>
-                    <span className="final-result-disclosure" aria-hidden="true">
-                      <span>{isExpanded ? "Close" : "Review"}</span>
-                      <Icon name="chevron" size={16} />
-                    </span>
-                  </div>
-                </button>
+      </section>
+    );
+  }
 
-                <div id={detailId} className="final-result-detail" hidden={!isExpanded}>
-                  <div className="final-category-sources">
-                    {candidate.categories.map((categoryId) => {
-                      const category = CATEGORY_BY_ID[categoryId];
-                      const options = candidate.byCategory[categoryId];
-                      const value = selected[categoryId];
-                      const selectedSource = options.find((option) => option.id === value);
-                      const score = selectedSource
-                        ? sourceScore(selectedSource, categoryId)
-                        : null;
+  return (
+    <section className="final-results-panel">
+      <div className="results-ledger">
+        <table className="results-table">
+          <thead>
+            <tr>
+              <th scope="col" className="col-place">Place</th>
+              <th scope="col" className="col-number">No</th>
+              <th scope="col" className="col-name">Name</th>
+              {columns.map((category) => (
+                <th scope="col" className="col-mark" key={category}>
+                  {CATEGORY_BY_ID[category].label}
+                  <small className="t-num">of {state.config[category]?.start ?? 0}</small>
+                </th>
+              ))}
+              <th scope="col" className="col-total">Total<small className="t-num">of {totalMax}</small></th>
+              <th scope="col" className="col-state">State</th>
+            </tr>
+          </thead>
+          {divisions.map((division) => (
+            <tbody key={division.key}>
+              <tr className="results-division">
+                <th scope="colgroup" colSpan={columns.length + 5}>
+                  <span>{division.label}</span>
+                  <small className="t-num">
+                    {division.rows.length} {division.rows.length === 1 ? "candidate" : "candidates"}
+                  </small>
+                </th>
+              </tr>
+              {division.rows.map(({ row, place }) => {
+                const participant = row.item.candidate.participant;
+                const isSelected = participant.id === selectedParticipantId;
+                return (
+                  <tr
+                    key={participant.id}
+                    className={`results-row is-${row.item.state} ${isSelected ? "is-selected" : ""}`}
+                    onClick={() => setSelectedParticipantId(participant.id)}
+                  >
+                    <td className="col-place t-num">{place ?? "—"}</td>
+                    <td className="col-number t-num">
+                      <bdi>{participant.number || "—"}</bdi>
+                    </td>
+                    <th scope="row" className="col-name">
+                      <button
+                        type="button"
+                        aria-current={isSelected ? "true" : undefined}
+                        onClick={() => setSelectedParticipantId(participant.id)}
+                      >
+                        {participant.name || "Unnamed participant"}
+                      </button>
+                    </th>
+                    {columns.map((category) => {
+                      const mark = row.marks[category];
+                      const sources = row.item.candidate.byCategory[category] ?? [];
                       return (
-                        <div className={`final-source-block cat-${categoryId}`} key={categoryId}>
-                          <span className="final-source-label">{category.label}</span>
-                          {options.length <= 1 ? (
-                            <div className={options.length ? "final-source-value is-ready" : "final-source-value is-missing"}>
-                              <strong>
-                                {options.length && score
-                                  ? <bdi>{score.score}/{score.start}</bdi>
-                                  : "Missing result"}
-                              </strong>
-                              <small>
-                                {options.length
-                                  ? <>{sourceJudge(options[0])} · revision {options[0].revision ?? 1}</>
-                                  : "Required before finalization"}
-                              </small>
-                            </div>
-                          ) : (
-                            <>
-                              <select
-                                value={value}
-                                aria-label={`${category.label} source for ${candidate.participant.name}`}
-                                onChange={(event) =>
-                                  setSelection(
-                                    candidate.participant.id,
-                                    categoryId,
-                                    event.target.value,
-                                  )
-                                }
-                              >
-                                <option value="">Choose result</option>
-                                {options.map((session) => {
-                                  const optionScore = sourceScore(session, categoryId);
-                                  return (
-                                    <option value={session.id} key={session.id}>
-                                      {sourceJudge(session)} · revision {session.revision ?? 1} · {optionScore.score}/{optionScore.start}
-                                    </option>
-                                  );
-                                })}
-                              </select>
-                              <small className="final-source-selection-meta">
-                                {selectedSource && score
-                                  ? <>Selected revision {selectedSource.revision ?? 1} · <bdi>{score.score}/{score.start}</bdi></>
-                                  : "Compare judge, revision, and score before finalizing"}
-                              </small>
-                            </>
+                        <td className="col-mark t-num" key={category}>
+                          {mark ? formatMark(mark.score) : "—"}
+                          {sources.length > 1 && (
+                            <span className={`results-choice cat-${category}`} title="Two judge results">
+                              &nbsp;•
+                            </span>
                           )}
-                        </div>
+                        </td>
                       );
                     })}
-                  </div>
+                    <td className="col-total t-num">
+                      {row.total ? <strong>{formatMark(row.total.total)}</strong> : "—"}
+                    </td>
+                    <td className="col-state">
+                      <span className={`results-state-chip is-${row.item.state}`}>
+                        <span aria-hidden="true" />
+                        {stateLabel(row.item)}
+                      </span>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          ))}
+        </table>
+      </div>
 
-                  <div className="final-result-action">
-                    <span className="final-result-action-note">
-                      {item.state === "needs-review"
-                        ? item.reasons.map(reasonText).join(" · ")
-                        : item.state === "finalized"
-                          ? `Current final result · revision ${item.activeFinal?.revision ?? 1}`
-                          : "All required judge sources are ready for final review."}
-                    </span>
-                    <button
-                      type="button"
-                      className="btn-primary"
-                      disabled={unresolved || !participantReady}
-                      onClick={() => finalize(item)}
-                    >
-                      {previous ? "Finalize revision" : "Finalize result"}
-                    </button>
-                  </div>
-                </div>
-              </article>
-            );
-          })}
-        </div>
-      )}
-      <div className="results-candidate-toolbar">
+      {selectedRow && (() => {
+        const item = selectedRow.item;
+        const candidate = item.candidate;
+        const participant = candidate.participant;
+        const previous = item.activeFinal;
+        const preview = buildParticipantResultPreview(candidate, selectedRow.selected);
+        const unresolved = candidate.categories.some(
+          (category) => !selectedRow.selected[category],
+        );
+        const participantReady = hasCompleteFinalizationIdentity(participant);
+        const reason = reasons[participant.id] ?? "";
+        const reasonRequired = Boolean(previous);
+        const finalized = item.state === "finalized" ? previous : undefined;
+        const displayedTotal = selectedRow.total
+          ? `${formatMark(selectedRow.total.total)}/${selectedRow.total.totalMax}`
+          : "—";
+        return (
+          <aside className="results-record" aria-label={`Result record for ${participant.name}`}>
+            <div className="results-record-head">
+              <span className="t-label">
+                {[
+                  participant.number ? `Participant ${participant.number}` : null,
+                  participant.ageGroup,
+                  participantCategoryLabel(participant.category),
+                ].filter(Boolean).join(" · ")}
+              </span>
+              <h3>{participant.name || "Unnamed participant"}</h3>
+              <p>
+                {[
+                  muqarrarLabel(participant.muqarrar),
+                  participant.institution,
+                ].filter(Boolean).join(" · ") || "No further participant details"}
+              </p>
+            </div>
+
+            <div className="results-record-group">
+              <h4>Judge sources</h4>
+              <div className="results-source-list">
+                {candidate.categories.map((categoryId) => {
+                  const category = CATEGORY_BY_ID[categoryId];
+                  const options = candidate.byCategory[categoryId];
+                  const value = selectedRow.selected[categoryId];
+                  const chosen = options.find((option) => option.id === value);
+                  const score = chosen ? sourceScore(chosen, categoryId) : null;
+                  if (options.length <= 1) {
+                    return (
+                      <div className={`results-source cat-${categoryId}`} key={categoryId}>
+                        <span className="results-source-name">{category.label}</span>
+                        <span className="results-source-meta">
+                          {chosen
+                            ? `${sourceJudge(chosen)} · revision ${chosen.revision ?? 1}`
+                            : "No judge result yet"}
+                        </span>
+                        <strong className="t-num">
+                          {score ? <bdi>{formatMark(score.score)}/{score.start}</bdi> : "—"}
+                        </strong>
+                      </div>
+                    );
+                  }
+                  return (
+                    <div className={`results-source is-choice cat-${categoryId}`} key={categoryId}>
+                      <span className="results-source-name">
+                        {category.label}
+                        <small>{options.length} judge results — choose one</small>
+                      </span>
+                      <div className="results-source-options" role="radiogroup" aria-label={`${category.label} source`}>
+                        {options.map((session) => {
+                          const optionScore = sourceScore(session, categoryId);
+                          const active = session.id === value;
+                          return (
+                            <button
+                              type="button"
+                              role="radio"
+                              aria-checked={active}
+                              className={active ? "is-active" : ""}
+                              key={session.id}
+                              onClick={() => setSelection(participant.id, categoryId, session.id)}
+                            >
+                              <span>{sourceJudge(session)} · revision {session.revision ?? 1}</span>
+                              <strong className="t-num">
+                                <bdi>{formatMark(optionScore.score)}/{optionScore.start}</bdi>
+                              </strong>
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            <div className="results-record-group">
+              <h4>
+                <label htmlFor={`result-reason-${participant.id}`}>
+                  Reason for this result
+                </label>
+              </h4>
+              <textarea
+                id={`result-reason-${participant.id}`}
+                className="results-reason"
+                rows={2}
+                value={reason}
+                placeholder={reasonRequired
+                  ? "Why this result is being revised. Kept on the record and exported."
+                  : "Optional. Kept on the record and exported."}
+                onChange={(event) =>
+                  setReasons((current) => ({
+                    ...current,
+                    [participant.id]: event.target.value,
+                  }))}
+              />
+              <p className="results-record-note">
+                {reasonRequired
+                  ? `Required for revision ${(previous?.revision ?? 1) + 1}.`
+                  : "Recorded with the first finalization."}
+              </p>
+            </div>
+
+            <dl className="results-record-facts">
+              <div>
+                <dt>Standing in division</dt>
+                <dd className="t-num">
+                  {selectedPlace ? `${selectedPlace} of ${selectedDivisionSize}` : "Not yet ranked"}
+                </dd>
+              </div>
+              <div>
+                <dt>Verification manifest</dt>
+                <dd className="t-num">{finalized?.manifest ?? "After finalizing"}</dd>
+              </div>
+            </dl>
+
+            {item.reasons.length > 0 && (
+              <p className="results-record-blocked" role="status">
+                {item.reasons.map(reasonText).join(" · ")}
+              </p>
+            )}
+
+            <div className="results-record-action">
+              <span>
+                <small>{finalized ? "Final total" : "Proposed total"}</small>
+                <strong className="t-num"><bdi>{displayedTotal}</bdi></strong>
+              </span>
+              <button
+                type="button"
+                className="btn-primary"
+                disabled={
+                  unresolved ||
+                  !participantReady ||
+                  !preview ||
+                  (reasonRequired && !reason.trim())
+                }
+                onClick={() => finalize(item, reason)}
+              >
+                {previous ? "Finalize revision" : "Finalize result"}
+              </button>
+            </div>
+          </aside>
+        );
+      })()}
+
+      <div className="results-export">
         <p>
           The workbook always includes every current, checked final result in this competition—not only the visible filter.
         </p>

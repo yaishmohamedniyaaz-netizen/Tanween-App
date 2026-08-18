@@ -321,8 +321,9 @@ test("Results UI retains the reviewed navigation, tabs, audit, and export contra
   assert.match(records, /role="tablist"/);
   assert.match(records, /role="tabpanel"/);
   assert.match(records, /Filter participant results by status/);
-  assert.match(records, /results-status-card is-needs-review/);
-  assert.match(records, /results-filter-disclosure/);
+  assert.match(records, /results-review-bar/);
+  assert.match(records, /<option value="needs-review">Needs review/);
+  assert.doesNotMatch(records, /results-filter-disclosure|results-status-card/);
   assert.match(records, /ArrowLeft/);
   assert.match(records, /Current competition/);
   assert.match(records, /All stored competitions/);
@@ -331,15 +332,28 @@ test("Results UI retains the reviewed navigation, tabs, audit, and export contra
   assert.match(records, /different competition or edition/);
   assert.match(records, /uses different scoring rules/);
   assert.doesNotMatch(records, />Rankings<|>Exports</);
-  assert.match(finalPanel, /window\.prompt/);
+  assert.doesNotMatch(finalPanel, /window\.prompt/);
+  assert.match(finalPanel, /className="results-reason"/);
+  assert.match(finalPanel, /reasonRequired && !reason\.trim\(\)/);
   assert.match(finalPanel, /UPSERT_FINAL_RESULT/);
-  assert.match(finalPanel, /aria-expanded=\{isExpanded\}/);
-  assert.match(finalPanel, /final-source-block cat-\$\{categoryId\}/);
+  assert.match(finalPanel, /aria-current=\{isSelected \? "true" : undefined\}/);
+  assert.match(finalPanel, /results-state-chip is-\$\{row\.item\.state\}/);
+  assert.match(finalPanel, /results-source cat-\$\{categoryId\}/);
+  assert.match(finalPanel, /results-source is-choice cat-\$\{categoryId\}/);
   assert.match(finalPanel, /Finalized results \(\.xlsx\)/);
   assert.match(styles, /\.results-workspace \.cat-row-top/);
   assert.match(styles, /\.results-workspace \.cat-bar-fill/);
-  assert.match(styles, /\.results-status-card\[aria-pressed="true"\]/);
+  assert.match(styles, /\.results-ledger,\s*\n\.results-record \{[^}]*border-radius: var\(--r-md\)/s);
+  assert.match(styles, /\.results-row\.is-selected/);
   assert.match(styles, /\.results-workspace \.metric-cards\.results-metrics\s*\{[^}]*display:\s*grid[^}]*gap:\s*0/s);
-  assert.match(styles, /\.results-workspace \.final-source-value strong\s*\{[^}]*background:\s*transparent/s);
+  assert.doesNotMatch(styles, /\.final-result-row|\.results-status-card|\.final-source-block/);
   assert.doesNotMatch(records, /dispatch\(\{ type: "(?:DELETE_SESSION|CLEAR_HISTORY)"/);
+
+  // The table is the workbook: Place leads, the judged criteria follow in
+  // reading order, and every row carries a place inside its own division.
+  assert.match(finalPanel, /className="col-place">Place</);
+  assert.match(finalPanel, /rankRowsByDivision/);
+  assert.match(finalPanel, /divisionRankGroup/);
+  // The verification manifest reaches the screen instead of only the file.
+  assert.match(finalPanel, /finalized\?\.manifest/);
 });

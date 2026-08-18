@@ -26,6 +26,14 @@ Two surfaces, both inside `RecordsView.tsx` (952 lines):
 
 ## 1. What Pass 1 closed
 
+**The Review surface is now a table beside one open record.** The four tinted
+status cards, the boxed review section, the filter disclosure and the
+expand-in-place rows are gone. `FinalResultsPanel.tsx` renders one `.results-table`
+grouped by division in place order, with `.results-record` docked beside it. The
+measured reason: the shipping screen nested boxes four deep at radii 12/10/8/6
+and carried 110 distinct class names against the Settings screen's 28, and
+grouping-by-box is what a hairline and 22px of space do in `.settings-fieldset`.
+
 **The total is now visible before it is committed.** `FinalResultsPanel.tsx:229`
 builds a `preview` through `buildParticipantResultPreview`, and `:240` renders it
 as `displayedTotal` under the label **Proposed total**, switching to **Final
@@ -50,26 +58,18 @@ Verified line by line against the current working tree, not inferred.
 
 ### Results — three loose ends
 
-**2.1 `window.prompt()` still collects the audit reason.**
-`FinalResultsPanel.tsx:173`. The field that makes an official revision
-accountable is still gathered through a browser dialog — unstyleable,
-unvalidatable, no character record, and blocked outright in some embedded
-contexts. It remains the only `window.prompt` in the application.
+**2.1 The audit reason is a field. Closed.** `window.prompt` is gone; the
+record carries a `.results-reason` textarea, and Finalize stays disabled until a
+revision carries text. There is now no `window.prompt` in the application.
 
-**2.2 The standings are still computed and thrown away.**
-`lib/finalResults.ts:151` — `placeFinalizedResults()` groups by age group and
-participant category, sorts by ratio and handles ties. Its entire output still
-reaches the screen as `Place {n} · revision {n}` in a `<small>`
-(`FinalResultsPanel.tsx:296`). There is still no view that ranks a division,
-though winners-by-division is sheet 2 of the export
-`PRODUCT_FOUNDATION.md` §10.5 specifies.
+**2.2 The standings are on the screen. Closed.** `rankRowsByDivision()` in
+`lib/finalResults.ts` ranks *any* row — a proposed total as well as a finalized
+one — inside its own division, and `placeFinalizedResults()` now delegates to
+it. The table's first column is Place, and the open record names the standing.
+A row with no total is kept, unplaced, at the end of its division.
 
-**2.3 The verification manifest is still invisible.**
-`lib/finalResults.ts:142` stamps every finalized result with
-`manifest: fnv1a-<hash>`; the workbook writes it and reads it back to verify a
-re-imported file. Grepping `src/components/` for `manifest` returns nothing. The
-app computes the evidence that a result is unaltered and never lets anyone look
-at it.
+**2.3 The verification manifest is visible. Closed.** It is a fact in the open
+record, next to the standing, reading "After finalizing" until there is one.
 
 ### Analysis — untouched by Pass 1
 
@@ -102,16 +102,13 @@ implement it.
 
 Scoped so each piece is separately shippable and separately revertible.
 
-**Step 1 — the audit reason (2.1).** Smallest, and the only one that is a
-correctness problem rather than a design one. Replace the prompt with a field in
-the expanded row, disable Finalize until it carries text, keep the reason on the
-result exactly as now. No new concepts. Half a day.
-
-**Step 2 — the manifest and the standings (2.2, 2.3).** These belong together:
-both are about making a finalized result inspectable. The manifest gets a home in
-the expanded row beside the revision; the standings get a division-grouped view.
-Candidate **C** of `final-results-study.html` (the reporting board) is the shape;
-its completeness meter is already served by main's `results-state-chip`.
+**Steps 1 and 2 — done.** See §1. The shape that shipped is the table with a
+docked record, drawn as "B+A" in `results-screen-candidates`: candidate B's
+columns follow `finalResultsWorkbook.ts` exactly — Place, participant number,
+name, the judged criteria in reading order, Total — so the screen and the
+exported sheet are one object, and candidate A's detail pane is docked rather
+than overlaid. Two boxes on the screen, radii `--r-md` and `--r-sm`, nesting
+depth 2.
 
 **Step 3 — the average-score card (2.4).** A deletion plus a decision about what,
 if anything, replaces it. Cheap to do, needs an owner's call on what the three
