@@ -8772,7 +8772,7 @@ html:has(.dialog-backdrop) {
   }
 
   .result-ledger-table {
-    min-width: 660px;
+    min-width: 640px;
   }
 }
 
