@@ -114,12 +114,12 @@ depth 2.
 if anything, replaces it. Cheap to do, needs an owner's call on what the three
 cards should say — which is why it is not bundled with step 4.
 
-**Step 4 — the analysis surface (2.5).** The real work, and the reason the two
-studies exist. Requires `computeRecords` to retain `page` and `wordText` rather
-than discarding them — a contained change to `lib/stats.ts`, named here so the
-studies are not read as free. Candidates **A** and **B** of
-`records-analysis-study.html` are the two shapes worth building; A is the one
-nothing else in the world can draw.
+**Step 4 — the analysis surface (2.5).** Planned in full in
+[`ANALYSIS_SURFACE_IMPLEMENTATION_PLAN.md`](./ANALYSIS_SURFACE_IMPLEMENTATION_PLAN.md),
+which now owns the detail: candidates A and B of `records-analysis-study.html`
+fuse the way Review's B+A did — the teaching list becomes the ledger, the page
+becomes the record — and `computeRecords` retains `page`, `wordText` and the
+judge instead of discarding them.
 
 **Step 5 — judge calibration (2.6).** Last, because it is the only piece that
 reaches past design into statistics. Candidate **C** of the analysis study is
