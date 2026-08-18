@@ -222,37 +222,72 @@
     select.control { cursor: pointer; }
     .source-button { white-space: nowrap; }
 
+    .review-workspace {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 342px;
+      gap: 14px;
+      align-items: start;
+      padding: 14px;
+      background: #efeee9;
+    }
+    .ledger-scroll {
+      min-width: 0;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      background: var(--paper);
+    }
+    .ledger-table { min-width: 850px; }
     .queue-columns {
       display: grid;
-      grid-template-columns: 56px minmax(230px, 1.25fr) minmax(240px, 1.1fr) 120px 104px;
-      gap: 14px;
-      padding: 10px 24px;
+      grid-template-columns: 40px minmax(196px, 1.3fr) 62px 62px 62px 78px 80px 126px;
+      gap: 8px;
+      align-items: end;
+      min-height: 58px;
+      padding: 10px 14px;
       border-bottom: 1px solid var(--line);
       background: var(--paper-soft);
       color: var(--muted);
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 650;
-      letter-spacing: .055em;
+      letter-spacing: .05em;
       text-transform: uppercase;
     }
-    .queue-columns span:nth-last-child(-n+2) { text-align: right; }
+    .queue-columns .mark-heading,
+    .queue-columns .total-heading { text-align: right; }
+    .queue-columns .criterion-heading { position: relative; padding-top: 7px; color: #494b46; }
+    .queue-columns .criterion-heading::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 8px;
+      right: 0;
+      height: 2px;
+      border-radius: 2px;
+      background: var(--criterion-line, var(--line-strong));
+      opacity: .78;
+    }
+    .queue-columns small { display: block; margin-top: 2px; color: var(--faint); font-size: 9px; letter-spacing: 0; text-transform: none; }
     .queue-list { margin: 0; padding: 0; list-style: none; }
     .participant-row {
       display: grid;
-      grid-template-columns: 56px minmax(230px, 1.25fr) minmax(240px, 1.1fr) 120px 104px;
-      gap: 14px;
+      grid-template-columns: 40px minmax(196px, 1.3fr) 62px 62px 62px 78px 80px 126px;
+      gap: 8px;
       align-items: center;
-      min-height: 74px;
-      padding: 10px 24px;
+      min-height: 64px;
+      padding: 9px 14px;
       border-bottom: 1px solid var(--line);
+      cursor: pointer;
     }
     .participant-row:last-child { border-bottom: 0; }
     .participant-row:hover { background: #fcfbf8; }
+    .participant-row.is-selected { background: #f4f3ef; box-shadow: inset 3px 0 var(--ink); }
     .participant-no { color: var(--muted); font-variant-numeric: tabular-nums; }
     .participant-button {
       display: block;
       width: fit-content;
       max-width: 100%;
+      min-height: 44px;
       padding: 0;
       border: 0;
       background: transparent;
@@ -262,19 +297,58 @@
     .participant-button strong { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px; }
     .participant-button:hover strong { text-decoration: underline; text-underline-offset: 3px; }
     .participant-meta { display: block; margin-top: 3px; color: var(--muted); font-size: 11px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-    .state-cell { min-width: 0; }
-    .state-label { display: inline-flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 700; }
-    .state-label .state-icon { width: 20px; height: 20px; display: grid; place-items: center; border-radius: 50%; background: #efefeb; color: #5f625c; }
-    .state-label.review { color: var(--review); }
-    .state-label.review .state-icon { background: var(--review-soft); }
-    .state-label.ready { color: var(--accent); }
-    .state-label.ready .state-icon { background: var(--accent-soft); }
-    .state-reason { display: block; margin-top: 3px; color: var(--muted); font-size: 11px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .mark-cell,
     .score { text-align: right; font-variant-numeric: tabular-nums; }
+    .mark-cell { color: #30322e; font-size: 13px; font-weight: 650; }
+    .mark-cell.missing { color: var(--faint); font-weight: 500; }
+    .mark-cell.conflict { color: var(--review); }
+    .state-cell { min-width: 0; }
+    .state-label { display: inline-flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 700; white-space: nowrap; }
+    .state-label .state-icon { width: 6px; height: 6px; display: block; border-radius: 50%; background: #777a73; font-size: 0; }
+    .state-label.review { color: var(--review); }
+    .state-label.review .state-icon { background: var(--review); }
+    .state-label.ready { color: var(--accent); }
+    .state-label.ready .state-icon { background: var(--accent); }
+    .state-reason { display: block; margin-top: 3px; color: var(--muted); font-size: 11px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     .score strong { font-size: 18px; letter-spacing: -.025em; }
     .score small { color: var(--muted); }
-    .row-action { justify-self: end; min-width: 88px; min-height: 38px; padding: 0 12px; font-size: 12px; }
     .empty-state { display: none; padding: 56px 24px; color: var(--muted); text-align: center; }
+
+    .participant-detail {
+      position: sticky;
+      top: 14px;
+      min-width: 0;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      background: var(--paper);
+      overflow: hidden;
+    }
+    .detail-head { padding: 18px 18px 16px; border-bottom: 1px solid var(--line); }
+    .detail-kicker { display: flex; justify-content: space-between; gap: 12px; align-items: center; color: var(--muted); font-size: 10px; font-weight: 700; letter-spacing: .055em; text-transform: uppercase; }
+    .detail-head h3 { margin: 9px 0 0; font-size: 22px; line-height: 1.12; letter-spacing: -.03em; }
+    .detail-meta { margin: 6px 0 0; color: var(--muted); font-size: 11px; }
+    .detail-alert { margin: 14px 18px 0; padding: 12px 13px; border: 1px solid #ead5c6; border-radius: 10px; background: var(--review-soft); }
+    .detail-alert strong { display: block; color: var(--review); font-size: 11px; }
+    .detail-alert span { display: block; margin-top: 3px; color: #62554a; font-size: 11px; }
+    .detail-section { padding: 17px 18px; border-bottom: 1px solid var(--line); }
+    .detail-section h4 { margin: 0 0 11px; font-size: 11px; letter-spacing: .045em; text-transform: uppercase; }
+    .criterion-list { margin: 0; padding: 0; list-style: none; }
+    .criterion-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; align-items: start; padding: 9px 0; border-bottom: 1px solid #ecebe6; }
+    .criterion-row:last-child { border-bottom: 0; }
+    .criterion-label { display: flex; gap: 9px; min-width: 0; }
+    .criterion-rule { width: 3px; min-height: 30px; border-radius: 3px; background: var(--criterion-line, var(--line-strong)); opacity: .8; }
+    .criterion-label strong { display: block; font-size: 12px; }
+    .criterion-label small { display: block; margin-top: 2px; color: var(--muted); font-size: 10px; }
+    .criterion-mark { padding-top: 1px; font-size: 14px; font-weight: 750; font-variant-numeric: tabular-nums; }
+    .source-options { display: grid; gap: 7px; margin-top: 9px; }
+    .source-option { min-height: 40px; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 0 11px; border: 1px solid var(--line); border-radius: 9px; background: var(--paper); font-size: 11px; cursor: pointer; }
+    .source-option:hover { border-color: var(--line-strong); background: var(--paper-soft); }
+    .source-option strong { font-size: 12px; }
+    .detail-total { display: flex; align-items: end; justify-content: space-between; gap: 14px; padding: 16px 18px; }
+    .detail-total span { color: var(--muted); font-size: 11px; }
+    .detail-total strong { font-size: 25px; letter-spacing: -.04em; font-variant-numeric: tabular-nums; }
+    .detail-actions { display: grid; grid-template-columns: 1fr; gap: 8px; padding: 0 18px 18px; }
+    .detail-actions .button { width: 100%; }
 
     .queue-footer { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 16px 24px; border-top: 1px solid var(--line); background: var(--paper-soft); }
     .queue-footer p { margin: 0; color: var(--muted); font-size: 12px; }
@@ -344,9 +418,8 @@
       .page-actions .button { width: 44px; padding: 0; }
       .toolbar { grid-template-columns: minmax(220px, 1fr) 160px auto; }
       .toolbar .category-filter { display: none; }
-      .queue-columns, .participant-row { grid-template-columns: 44px minmax(210px, 1fr) minmax(190px, .85fr) 92px; }
-      .queue-columns span:last-child { display: none; }
-      .participant-row .row-action { display: none; }
+      .review-workspace { grid-template-columns: 1fr; }
+      .participant-detail { position: static; }
     }
 
     @media (max-width: 680px) {
@@ -380,20 +453,7 @@
       .toolbar .age-filter, .toolbar .category-filter { display: none; }
       .source-button { width: 44px; padding: 0; }
       .source-button span { display: none; }
-      .queue-columns { display: none; }
-      .participant-row {
-        grid-template-columns: 34px minmax(0, 1fr) auto;
-        grid-template-areas: "no person score" ". state state";
-        gap: 6px 10px;
-        min-height: 100px;
-        padding: 14px 18px;
-      }
-      .participant-no { grid-area: no; align-self: start; padding-top: 2px; }
-      .participant-button { grid-area: person; }
-      .state-cell { grid-area: state; }
-      .score { grid-area: score; align-self: start; }
-      .participant-row .row-action { display: none; }
-      .state-reason { white-space: normal; }
+      .review-workspace { padding: 10px; }
       .queue-footer { padding: 14px 18px; }
       .queue-footer p { max-width: 210px; }
       .scope-strip { grid-template-columns: 1fr; }
@@ -485,7 +545,7 @@
 
       <section class="queue-panel" aria-labelledby="queueTitle">
         <header class="queue-header">
-          <div><h2 id="queueTitle">Participant queue</h2><p>Exceptions first, then ready and finalized results.</p></div>
+          <div><h2 id="queueTitle">Review ledger</h2><p>Every criterion remains visible; total and status stay at the right edge.</p></div>
           <span class="queue-count" id="queueCount">6 representative participants</span>
         </header>
 
@@ -503,52 +563,82 @@
           </button>
         </div>
 
-        <div class="queue-columns" aria-hidden="true"><span>No.</span><span>Participant</span><span>Status</span><span>Score</span><span>Action</span></div>
-        <ol class="queue-list" id="queueList">
-          <li class="participant-row" data-state="review" data-name="Mohamed Yaish Niyaaz 07">
-            <span class="participant-no">07</span>
-            <button class="participant-button" type="button" data-person="Mohamed Yaish Niyaaz"><strong>Mohamed Yaish Niyaaz</strong><span class="participant-meta">Under 14 · Hifz · Hiriya School</span></button>
-            <span class="state-cell"><span class="state-label review"><span class="state-icon">!</span>Needs review</span><span class="state-reason">Two Khafī sources — choose one</span></span>
-            <span class="score"><strong>—</strong></span>
-            <button class="button row-action" type="button" data-person="Mohamed Yaish Niyaaz">Review</button>
-          </li>
-          <li class="participant-row" data-state="review" data-name="Hawwa Zaina Ibrahim 09">
-            <span class="participant-no">09</span>
-            <button class="participant-button" type="button" data-person="Hawwa Zaina Ibrahim"><strong>Hawwa Zaina Ibrahim</strong><span class="participant-meta">Under 16 · Hifz · Thā School</span></button>
-            <span class="state-cell"><span class="state-label review"><span class="state-icon">!</span>Needs review</span><span class="state-reason">Source corrected after finalization</span></span>
-            <span class="score"><strong>81</strong><small>/100</small></span>
-            <button class="button row-action" type="button" data-person="Hawwa Zaina Ibrahim">Review</button>
-          </li>
-          <li class="participant-row" data-state="ready" data-name="Aishath Rulya Ahmed 04">
-            <span class="participant-no">04</span>
-            <button class="participant-button" type="button" data-person="Aishath Rulya Ahmed"><strong>Aishath Rulya Ahmed</strong><span class="participant-meta">Under 14 · Hifz · Hiriya School</span></button>
-            <span class="state-cell"><span class="state-label ready"><span class="state-icon">✓</span>Ready</span><span class="state-reason">4 of 4 sections checked</span></span>
-            <span class="score"><strong>90</strong><small>/100</small></span>
-            <button class="button row-action" type="button" data-person="Aishath Rulya Ahmed">Open</button>
-          </li>
-          <li class="participant-row" data-state="ready" data-name="Ali Sinan Rasheed 15">
-            <span class="participant-no">15</span>
-            <button class="participant-button" type="button" data-person="Ali Sinan Rasheed"><strong>Ali Sinan Rasheed</strong><span class="participant-meta">Under 16 · Baliagen · Thā School</span></button>
-            <span class="state-cell"><span class="state-label ready"><span class="state-icon">✓</span>Ready</span><span class="state-reason">4 of 4 sections checked</span></span>
-            <span class="score"><strong>73</strong><small>/100</small></span>
-            <button class="button row-action" type="button" data-person="Ali Sinan Rasheed">Open</button>
-          </li>
-          <li class="participant-row" data-state="waiting" data-name="Fathimath Leena Saeed 11">
-            <span class="participant-no">11</span>
-            <button class="participant-button" type="button" data-person="Fathimath Leena Saeed"><strong>Fathimath Leena Saeed</strong><span class="participant-meta">Under 14 · Baliagen · Hiriya School</span></button>
-            <span class="state-cell"><span class="state-label"><span class="state-icon">·</span>Waiting</span><span class="state-reason">Faṣāḥa judge result not received</span></span>
-            <span class="score"><strong>—</strong></span>
-            <button class="button row-action" type="button" data-person="Fathimath Leena Saeed">Open</button>
-          </li>
-          <li class="participant-row" data-state="final" data-name="Ahmed Nadhy Hassan 02">
-            <span class="participant-no">02</span>
-            <button class="participant-button" type="button" data-person="Ahmed Nadhy Hassan"><strong>Ahmed Nadhy Hassan</strong><span class="participant-meta">Under 16 · Hifz · Thā School</span></button>
-            <span class="state-cell"><span class="state-label"><span class="state-icon">✓</span>Finalized</span><span class="state-reason">Revision 1 · 18 Aug 2026</span></span>
-            <span class="score"><strong>88</strong><small>/100</small></span>
-            <button class="button row-action" type="button" data-person="Ahmed Nadhy Hassan">Open</button>
-          </li>
-        </ol>
-        <div class="empty-state" id="emptyState">No participants match this filter.</div>
+        <div class="review-workspace">
+          <div class="ledger-scroll" aria-label="Participant marks table">
+            <div class="ledger-table">
+              <div class="queue-columns" aria-hidden="true">
+                <span>No.</span>
+                <span>Participant</span>
+                <span class="criterion-heading mark-heading" style="--criterion-line:#b9524b">Jalī<small>of 50</small></span>
+                <span class="criterion-heading mark-heading" style="--criterion-line:#b08b38">Khafī<small>of 30</small></span>
+                <span class="criterion-heading mark-heading" style="--criterion-line:#6079bf">Faṣāḥa<small>of 10</small></span>
+                <span class="criterion-heading mark-heading" style="--criterion-line:#548276">Adu &amp; Raagu<small>of 10</small></span>
+                <span class="total-heading">Total<small>of 100</small></span>
+                <span>Status</span>
+              </div>
+              <ol class="queue-list" id="queueList">
+                <li class="participant-row is-selected" data-id="07" data-state="review" data-name="Mohamed Yaish Niyaaz 07">
+                  <span class="participant-no">07</span>
+                  <button class="participant-button" type="button" data-person="Mohamed Yaish Niyaaz"><strong>Mohamed Yaish Niyaaz</strong><span class="participant-meta">Under 14 · Hifz · Hiriya School</span></button>
+                  <span class="mark-cell">43</span><span class="mark-cell conflict">2 sources</span><span class="mark-cell">9</span><span class="mark-cell">8</span>
+                  <span class="score"><strong>—</strong></span>
+                  <span class="state-cell"><span class="state-label review"><span class="state-icon"></span>Needs review</span><span class="state-reason">Choose a source</span></span>
+                </li>
+                <li class="participant-row" data-id="09" data-state="review" data-name="Hawwa Zaina Ibrahim 09">
+                  <span class="participant-no">09</span>
+                  <button class="participant-button" type="button" data-person="Hawwa Zaina Ibrahim"><strong>Hawwa Zaina Ibrahim</strong><span class="participant-meta">Under 16 · Hifz · Thā School</span></button>
+                  <span class="mark-cell">41</span><span class="mark-cell">25</span><span class="mark-cell">8</span><span class="mark-cell">7</span>
+                  <span class="score"><strong>81</strong><small>/100</small></span>
+                  <span class="state-cell"><span class="state-label review"><span class="state-icon"></span>Needs review</span><span class="state-reason">Source changed</span></span>
+                </li>
+                <li class="participant-row" data-id="04" data-state="ready" data-name="Aishath Rulya Ahmed 04">
+                  <span class="participant-no">04</span>
+                  <button class="participant-button" type="button" data-person="Aishath Rulya Ahmed"><strong>Aishath Rulya Ahmed</strong><span class="participant-meta">Under 14 · Hifz · Hiriya School</span></button>
+                  <span class="mark-cell">46</span><span class="mark-cell">27</span><span class="mark-cell">8</span><span class="mark-cell">9</span>
+                  <span class="score"><strong>90</strong><small>/100</small></span>
+                  <span class="state-cell"><span class="state-label ready"><span class="state-icon"></span>Ready</span><span class="state-reason">4 sections checked</span></span>
+                </li>
+                <li class="participant-row" data-id="15" data-state="ready" data-name="Ali Sinan Rasheed 15">
+                  <span class="participant-no">15</span>
+                  <button class="participant-button" type="button" data-person="Ali Sinan Rasheed"><strong>Ali Sinan Rasheed</strong><span class="participant-meta">Under 16 · Baliagen · Thā School</span></button>
+                  <span class="mark-cell">38</span><span class="mark-cell">22</span><span class="mark-cell">7</span><span class="mark-cell">6</span>
+                  <span class="score"><strong>73</strong><small>/100</small></span>
+                  <span class="state-cell"><span class="state-label ready"><span class="state-icon"></span>Ready</span><span class="state-reason">4 sections checked</span></span>
+                </li>
+                <li class="participant-row" data-id="11" data-state="waiting" data-name="Fathimath Leena Saeed 11">
+                  <span class="participant-no">11</span>
+                  <button class="participant-button" type="button" data-person="Fathimath Leena Saeed"><strong>Fathimath Leena Saeed</strong><span class="participant-meta">Under 14 · Baliagen · Hiriya School</span></button>
+                  <span class="mark-cell">44</span><span class="mark-cell">24</span><span class="mark-cell missing">—</span><span class="mark-cell">9</span>
+                  <span class="score"><strong>—</strong></span>
+                  <span class="state-cell"><span class="state-label"><span class="state-icon"></span>Waiting</span><span class="state-reason">Faṣāḥa missing</span></span>
+                </li>
+                <li class="participant-row" data-id="02" data-state="final" data-name="Ahmed Nadhy Hassan 02">
+                  <span class="participant-no">02</span>
+                  <button class="participant-button" type="button" data-person="Ahmed Nadhy Hassan"><strong>Ahmed Nadhy Hassan</strong><span class="participant-meta">Under 16 · Hifz · Thā School</span></button>
+                  <span class="mark-cell">45</span><span class="mark-cell">26</span><span class="mark-cell">9</span><span class="mark-cell">8</span>
+                  <span class="score"><strong>88</strong><small>/100</small></span>
+                  <span class="state-cell"><span class="state-label"><span class="state-icon"></span>Finalized</span><span class="state-reason">Revision 1</span></span>
+                </li>
+              </ol>
+              <div class="empty-state" id="emptyState">No participants match this filter.</div>
+            </div>
+          </div>
+
+          <aside class="participant-detail" aria-labelledby="detailName">
+            <header class="detail-head">
+              <div class="detail-kicker"><span id="detailNumber">Participant 07</span><span id="detailStatus">Needs review</span></div>
+              <h3 id="detailName">Mohamed Yaish Niyaaz</h3>
+              <p class="detail-meta" id="detailMeta">Under 14 · Hifz · Hiriya School</p>
+            </header>
+            <div class="detail-alert" id="detailAlert"><strong>Why this needs review</strong><span>Two Khafī sources are available. Choose the source that belongs in the official result.</span></div>
+            <section class="detail-section">
+              <h4>Judge sources</h4>
+              <ol class="criterion-list" id="detailCriteria"></ol>
+            </section>
+            <div class="detail-total"><span id="detailTotalLabel">Proposed total</span><strong id="detailTotal">—</strong></div>
+            <div class="detail-actions"><button class="button button-primary" id="detailAction" type="button">Resolve source</button><button class="button" id="openEvidence" type="button">Open evidence report</button></div>
+          </aside>
+        </div>
         <footer class="queue-footer">
           <p>Showing representative records from a 24-participant competition.</p>
           <div class="page-control" aria-label="Queue pages"><button type="button" aria-label="Previous page">‹</button><button type="button" aria-label="Next page">›</button></div>
@@ -591,6 +681,66 @@
     const batchDialog = document.getElementById('batchDialog');
     const toast = document.getElementById('toast');
     const toastMessage = document.getElementById('toastMessage');
+    const detailCriteria = document.getElementById('detailCriteria');
+    const participantData = {
+      '07': {
+        name: 'Mohamed Yaish Niyaaz', meta: 'Under 14 · Hifz · Hiriya School', status: 'Needs review',
+        reason: 'Two Khafī sources are available. Choose the source that belongs in the official result.', total: '—', totalLabel: 'Proposed total', action: 'Resolve source',
+        criteria: [
+          { key: 'jalī', color: '#b9524b', label: 'Laḥn Jalī', source: 'Judge A · revision 1', mark: '43/50' },
+          { key: 'khafī', color: '#b08b38', label: 'Laḥn Khafī', source: 'Two judge results — choose one', mark: '—', options: [['Judge B · revision 2', '27/30', '87/100'], ['Judge B · revision 1', '22/30', '82/100']] },
+          { key: 'faṣāḥa', color: '#6079bf', label: 'Faṣāḥa', source: 'Judge C · revision 1', mark: '9/10' },
+          { key: 'adu', color: '#548276', label: 'Adu & Raagu', source: 'Judge D · revision 1', mark: '8/10' }
+        ]
+      },
+      '09': {
+        name: 'Hawwa Zaina Ibrahim', meta: 'Under 16 · Hifz · Thā School', status: 'Needs review',
+        reason: 'A judge source was corrected after this result was finalized. Review the change before signing revision 2.', total: '81/100', totalLabel: 'Revised total', action: 'Review correction',
+        criteria: [
+          { color: '#b9524b', label: 'Laḥn Jalī', source: 'Judge A · revision 2', mark: '41/50' },
+          { color: '#b08b38', label: 'Laḥn Khafī', source: 'Judge B · revision 1', mark: '25/30' },
+          { color: '#6079bf', label: 'Faṣāḥa', source: 'Judge C · revision 1', mark: '8/10' },
+          { color: '#548276', label: 'Adu & Raagu', source: 'Judge D · revision 1', mark: '7/10' }
+        ]
+      },
+      '04': {
+        name: 'Aishath Rulya Ahmed', meta: 'Under 14 · Hifz · Hiriya School', status: 'Ready', reason: '', total: '90/100', totalLabel: 'Proposed total', action: 'Open ready result',
+        criteria: [
+          { color: '#b9524b', label: 'Laḥn Jalī', source: 'Judge A · revision 1', mark: '46/50' },
+          { color: '#b08b38', label: 'Laḥn Khafī', source: 'Judge B · revision 1', mark: '27/30' },
+          { color: '#6079bf', label: 'Faṣāḥa', source: 'Judge C · revision 1', mark: '8/10' },
+          { color: '#548276', label: 'Adu & Raagu', source: 'Judge D · revision 1', mark: '9/10' }
+        ]
+      },
+      '15': {
+        name: 'Ali Sinan Rasheed', meta: 'Under 16 · Baliagen · Thā School', status: 'Ready', reason: '', total: '73/100', totalLabel: 'Proposed total', action: 'Open ready result',
+        criteria: [
+          { color: '#b9524b', label: 'Laḥn Jalī', source: 'Judge A · revision 1', mark: '38/50' },
+          { color: '#b08b38', label: 'Laḥn Khafī', source: 'Judge B · revision 1', mark: '22/30' },
+          { color: '#6079bf', label: 'Faṣāḥa', source: 'Judge C · revision 1', mark: '7/10' },
+          { color: '#548276', label: 'Adu & Raagu', source: 'Judge D · revision 1', mark: '6/10' }
+        ]
+      },
+      '11': {
+        name: 'Fathimath Leena Saeed', meta: 'Under 14 · Baliagen · Hiriya School', status: 'Waiting',
+        reason: 'The Faṣāḥa judge result has not been received. This participant is excluded from finalization.', total: '—', totalLabel: 'Total waits on every section', action: 'View missing section',
+        criteria: [
+          { color: '#b9524b', label: 'Laḥn Jalī', source: 'Judge A · revision 1', mark: '44/50' },
+          { color: '#b08b38', label: 'Laḥn Khafī', source: 'Judge B · revision 1', mark: '24/30' },
+          { color: '#6079bf', label: 'Faṣāḥa', source: 'No judge result', mark: '—' },
+          { color: '#548276', label: 'Adu & Raagu', source: 'Judge D · revision 1', mark: '9/10' }
+        ]
+      },
+      '02': {
+        name: 'Ahmed Nadhy Hassan', meta: 'Under 16 · Hifz · Thā School', status: 'Finalized', reason: '', total: '88/100', totalLabel: 'Official total', action: 'View finalized result',
+        criteria: [
+          { color: '#b9524b', label: 'Laḥn Jalī', source: 'Judge A · revision 1', mark: '45/50' },
+          { color: '#b08b38', label: 'Laḥn Khafī', source: 'Judge B · revision 1', mark: '26/30' },
+          { color: '#6079bf', label: 'Faṣāḥa', source: 'Judge C · revision 1', mark: '9/10' },
+          { color: '#548276', label: 'Adu & Raagu', source: 'Judge D · revision 1', mark: '8/10' }
+        ]
+      }
+    };
     let activeFilter = 'all';
     let toastTimer;
 
@@ -600,6 +750,41 @@
       clearTimeout(toastTimer);
       toastTimer = setTimeout(() => toast.classList.remove('show'), 3000);
     }
+
+    function renderParticipantDetail(id) {
+      const data = participantData[id];
+      if (!data) return;
+      document.getElementById('detailNumber').textContent = `Participant ${id}`;
+      document.getElementById('detailStatus').textContent = data.status;
+      document.getElementById('detailName').textContent = data.name;
+      document.getElementById('detailMeta').textContent = data.meta;
+      document.getElementById('detailTotalLabel').textContent = data.totalLabel;
+      document.getElementById('detailTotal').textContent = data.total;
+      document.getElementById('detailAction').textContent = data.action;
+      const alert = document.getElementById('detailAlert');
+      alert.hidden = !data.reason;
+      alert.querySelector('span').textContent = data.reason;
+      detailCriteria.innerHTML = data.criteria.map((criterion) => {
+        const options = criterion.options ? `<div class="source-options">${criterion.options.map((option) => `<button class="source-option" type="button" data-preview-total="${option[2]}"><span>${option[0]}</span><strong>${option[1]}</strong></button>`).join('')}</div>` : '';
+        return `<li class="criterion-row"><span class="criterion-label"><i class="criterion-rule" style="--criterion-line:${criterion.color}"></i><span><strong>${criterion.label}</strong><small>${criterion.source}</small>${options}</span></span><span class="criterion-mark">${criterion.mark}</span></li>`;
+      }).join('');
+      detailCriteria.querySelectorAll('.source-option').forEach((button) => button.addEventListener('click', () => {
+        detailCriteria.querySelectorAll('.source-option').forEach((item) => item.setAttribute('aria-pressed', String(item === button)));
+        document.getElementById('detailTotal').textContent = button.dataset.previewTotal;
+        document.getElementById('detailAction').textContent = 'Use selected source';
+      }));
+    }
+
+    function selectParticipantRow(row) {
+      if (!row || row.hidden) return;
+      queueRows.forEach((item) => item.classList.toggle('is-selected', item === row));
+      renderParticipantDetail(row.dataset.id);
+    }
+
+    queueRows.forEach((row) => {
+      row.addEventListener('click', () => selectParticipantRow(row));
+    });
+    renderParticipantDetail('07');
 
     function applyFilters() {
       const query = searchInput.value.trim().toLowerCase();
@@ -613,6 +798,8 @@
       });
       emptyState.style.display = visible ? 'none' : 'block';
       queueCount.textContent = `${visible} representative participant${visible === 1 ? '' : 's'}`;
+      const selected = document.querySelector('.participant-row.is-selected');
+      if (visible && (!selected || selected.hidden)) selectParticipantRow(queueRows.find((row) => !row.hidden));
     }
 
     statusButtons.forEach((button) => button.addEventListener('click', () => {
@@ -639,17 +826,21 @@
       document.getElementById('openBatch').textContent = 'No ready results';
       queueRows.filter((row) => row.dataset.state === 'ready').forEach((row) => {
         row.dataset.state = 'final';
-        row.querySelector('.state-cell').innerHTML = '<span class="state-label"><span class="state-icon">✓</span>Finalized</span><span class="state-reason">Revision 1 · just now</span>';
+        row.querySelector('.state-cell').innerHTML = '<span class="state-label"><span class="state-icon"></span>Finalized</span><span class="state-reason">Revision 1 · just now</span>';
+        participantData[row.dataset.id].status = 'Finalized';
+        participantData[row.dataset.id].totalLabel = 'Official total';
+        participantData[row.dataset.id].action = 'View finalized result';
       });
       activeFilter = 'all';
       statusButtons.forEach((item) => item.setAttribute('aria-pressed', 'false'));
       applyFilters();
+      const selected = document.querySelector('.participant-row.is-selected');
+      if (selected) renderParticipantDetail(selected.dataset.id);
       showToast('2 results finalized in this synthetic preview.');
     });
 
-    document.querySelectorAll('[data-person]').forEach((button) => button.addEventListener('click', () => {
-      showToast(`${button.dataset.person} detail is the next design checkpoint.`);
-    }));
+    document.getElementById('detailAction').addEventListener('click', () => showToast('This checkpoint tests the table and review-panel hierarchy only.'));
+    document.getElementById('openEvidence').addEventListener('click', () => showToast('The continuous Mushaf evidence report is the next checkpoint.'));
     document.getElementById('sourceRecords').addEventListener('click', () => showToast('Source records stay available without competing with the review queue.'));
     document.getElementById('exportButton').addEventListener('click', () => showToast('The merged, styled workbook is designed in Checkpoint 3.'));
 
