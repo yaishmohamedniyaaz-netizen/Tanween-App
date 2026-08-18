@@ -6,6 +6,10 @@ const moreSource = readFileSync(
   new URL("../src/components/MoreActionsPopover.tsx", import.meta.url),
   "utf8",
 );
+const appSource = readFileSync(
+  new URL("../src/App.tsx", import.meta.url),
+  "utf8",
+);
 const sizeSource = readFileSync(
   new URL("../src/components/MushafSizeControl.tsx", import.meta.url),
   "utf8",
@@ -48,4 +52,24 @@ test("the desktop workbench uses the researched canvas, rail, and safe scroll ca
   assert.match(viewportSource, /mushaf-scroll-canvas|mushaf-render-block-size|renderedBlockSize/);
   assert.match(viewportSource, /viewportCenterRef/);
   assert.match(styleSource, /overscroll-behavior: contain/);
+});
+
+test("the wide judge workspace spends recovered chrome height on a larger Fit canvas", () => {
+  assert.match(
+    styleSource,
+    /@media \(min-width: 901px\) and \(min-height: 620px\)[\s\S]*?\.app\.view-judge \.workspace \{[\s\S]*?gap: 12px;[\s\S]*?padding: 8px 12px;/,
+  );
+  assert.match(
+    styleSource,
+    /\.app\.view-judge \.app-header \{\s*padding-block: 6px;/,
+  );
+});
+
+test("the live More controls expose the persisted scorecard side preference", () => {
+  assert.match(moreSource, /Scorecard side/);
+  assert.match(moreSource, /role="radiogroup" aria-label="Scorecard side"/);
+  assert.match(moreSource, /onJudgeRailSideChange\("left"\)/);
+  assert.match(moreSource, /onJudgeRailSideChange\("right"\)/);
+  assert.match(appSource, /judgeRailSide=\{preferences\.judgeRailSide\}/);
+  assert.match(appSource, /updatePreferences\(\{ judgeRailSide \}\)/);
 });

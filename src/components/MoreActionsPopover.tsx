@@ -4,7 +4,7 @@ import { downloadSessionJSON } from "../lib/exportSession";
 import { useJudging } from "../state/store";
 import { Icon } from "./Icon";
 import { MushafSizeControl } from "./MushafSizeControl";
-import type { MushafLayout } from "../lib/devicePreferences";
+import type { JudgeRailSide, MushafLayout } from "../lib/devicePreferences";
 
 interface MoreActionsPopoverProps {
   view: AppView;
@@ -12,6 +12,8 @@ interface MoreActionsPopoverProps {
   onMushafZoomChange: (value: number) => void;
   mushafLayout: MushafLayout;
   onMushafLayoutChange: (value: MushafLayout) => void;
+  judgeRailSide: JudgeRailSide;
+  onJudgeRailSideChange: (value: JudgeRailSide) => void;
   onShowMarkingGuide: () => void;
   onOpenChange: (open: boolean) => void;
   onOpenSettings: () => void;
@@ -24,6 +26,8 @@ export function MoreActionsPopover({
   onMushafZoomChange,
   mushafLayout,
   onMushafLayoutChange,
+  judgeRailSide,
+  onJudgeRailSideChange,
   onShowMarkingGuide,
   onOpenChange,
   onOpenSettings,
@@ -133,6 +137,29 @@ export function MoreActionsPopover({
                 onChange={onMushafZoomChange}
                 inputRef={rangeRef}
               />
+              <fieldset className="judge-rail-control">
+                <legend>Scorecard side</legend>
+                <div className="mushaf-view-options" role="radiogroup" aria-label="Scorecard side">
+                  <button
+                    type="button"
+                    role="radio"
+                    aria-checked={judgeRailSide === "left"}
+                    className={judgeRailSide === "left" ? "is-active" : ""}
+                    onClick={() => onJudgeRailSideChange("left")}
+                  >
+                    Left
+                  </button>
+                  <button
+                    type="button"
+                    role="radio"
+                    aria-checked={judgeRailSide === "right"}
+                    className={judgeRailSide === "right" ? "is-active" : ""}
+                    onClick={() => onJudgeRailSideChange("right")}
+                  >
+                    Right
+                  </button>
+                </div>
+              </fieldset>
               <div className="overflow-sep" />
             </>
           )}

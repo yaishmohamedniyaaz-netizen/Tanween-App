@@ -1,6 +1,8 @@
 # Judge workspace fit, rail, and finish follow-up plan
 
-Status: implementation in progress; score-readout alignment slice completed
+Status: implementation in progress; score-readout alignment completed; wide
+workspace and More-menu rail control implemented locally, pending visual
+approval
 
 Prepared: 17 August 2026
 
@@ -13,6 +15,9 @@ Related implemented plans:
 [`ADU_RAAGU_REQUIRED_ENTRY_IMPLEMENTATION_PLAN.md`](./ADU_RAAGU_REQUIRED_ENTRY_IMPLEMENTATION_PLAN.md),
 and
 [`TRUE_TWO_PAGE_MUSHAF_SPREAD_PLAN.md`](./TRUE_TWO_PAGE_MUSHAF_SPREAD_PLAN.md).
+
+Detailed next-slice plan:
+[`FINISH_REVIEW_AND_ADU_RAAGU_EXIT_PLAN.md`](./FINISH_REVIEW_AND_ADU_RAAGU_EXIT_PLAN.md).
 
 ## 1. Decision boundary
 
@@ -169,6 +174,10 @@ ownership is deliberately resolved.
 This is a discoverability improvement, not a new rail-placement model.
 
 ### 3.4 Strengthen the Finish review
+
+The detailed information architecture, exit-state machine, inline picker
+design, geometry matrix, and confidence gate are specified in
+[`FINISH_REVIEW_AND_ADU_RAAGU_EXIT_PLAN.md`](./FINISH_REVIEW_AND_ADU_RAAGU_EXIT_PLAN.md).
 
 Preserve the shared embedded picker and both hard guards. Improve hierarchy:
 
@@ -378,3 +387,26 @@ silently treated as competition or application rules.
 
 The wide-workspace, Finish-validation, PWA, and optional prototype slices remain
 pending under the gates above.
+
+### 17 August 2026: wide workspace and live rail-side control
+
+- Scoped the compact header to the wide judging view and gave Full page the
+  same 8 x 12 px stage-padding discipline already used by Two pages. Settings,
+  Results, setup, print, and compact layouts retain their existing headers.
+- Added a `Scorecard side` Left/Right segmented control to More. It writes
+  through the existing versioned `judgeRailSide` device preference, updates the
+  workspace immediately, and keeps native radio semantics.
+- Verified the full Cartesian browser matrix at 1280 x 720, 1366 x 768,
+  1440 x 900, 1528 x 675, 1528 x 732, and 1600 x 900: Full/Two pages,
+  Fit/105%, and Left/Right. Fit produced no body or Mushaf-shell overflow;
+  105% produced only contained Mushaf-shell scrolling.
+- At 1528 x 732, Full Fit increased from 427 x 628 px to 444 x 653 px. Two-page
+  Fit renders two real 422 x 621 px pages with a 4 px selector-to-paper gap.
+- Reload retained `layout-spread`, `rail-right`, and Fit. The browser console
+  reported no warnings or errors.
+- All 265 repository tests, the TypeScript production build, and
+  `git diff --check` passed.
+
+This slice still requires explicit visual approval before commit and
+publication. Finish validation, PWA installability, and the optional alignment
+prototype remain pending.

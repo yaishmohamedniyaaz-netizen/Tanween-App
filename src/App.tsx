@@ -132,6 +132,8 @@ export function App() {
         onMushafZoomChange={(mushafZoom) => updatePreferences({ mushafZoom })}
         mushafLayout={preferences.mushafLayout}
         onMushafLayoutChange={(mushafLayout) => updatePreferences({ mushafLayout })}
+        judgeRailSide={preferences.judgeRailSide}
+        onJudgeRailSideChange={(judgeRailSide) => updatePreferences({ judgeRailSide })}
         onShowMarkingGuide={() => setMarkingGuideOpen(true)}
         onMoreControlsOpenChange={setMoreControlsOpen}
         theme={preferences.theme}

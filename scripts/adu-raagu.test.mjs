@@ -599,6 +599,17 @@ test("the mark bar carries its criterion's colour across the portal", () => {
   assert.match(scorePanelSource, /category=\{category\}/);
 });
 
+test("the finish checkpoint reviews assigned category scores and exact remarks", () => {
+  assert.match(finishDialogSource, /role="table" aria-label="Score by criterion"/);
+  assert.match(finishDialogSource, /reviewCategories\.map/);
+  assert.match(finishDialogSource, /byCategory\[category\]/);
+  assert.match(finishDialogSource, /state\.activeQuestion\.label/);
+  assert.match(finishDialogSource, /label: "Notes", text: state\.notes/);
+  assert.match(finishDialogSource, /finish-remarks/);
+  assert.doesNotMatch(finishDialogSource, /finish-summary/);
+  assert.doesNotMatch(finishDialogSource, /This saves the result and opens the next reciter/);
+});
+
 test("Adu and Raagu chips keep readable ink and a neutral uncommitted state", () => {
   const categoryRule = ruleBody(".cat-adu-raagu");
   const accent = categoryRule.match(/--c:\s*(#[0-9a-f]{6})/i)?.[1];

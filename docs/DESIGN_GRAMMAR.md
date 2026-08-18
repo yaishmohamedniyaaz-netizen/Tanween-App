@@ -145,3 +145,10 @@ why. A bend needs a reason in one sentence; a rule broken silently is a bug.
 When comparing designs, measure rather than argue: **clicks to complete, words
 on screen, height at 1024×768, count of targets under 44px, and unreachable
 regions.** Those five numbers decided the mark bar, and they were right.
+
+Confidence is a gate, not decoration. Score **practicality, architecture/data
+safety, and visual certainty** separately. A score of 85 or more may proceed
+after its named checks; 70-84 needs a focused prototype or more evidence;
+below 70 must be narrowed, deferred, or rejected transparently. Browser proof
+and explicit visual approval are still required for visible UI work: neither a
+high score nor a passing test suite can substitute for seeing the result.
