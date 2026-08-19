@@ -28,6 +28,8 @@ interface Props {
   onMushafLayoutChange: (value: MushafLayout) => void;
   judgeRailSide: JudgeRailSide;
   onJudgeRailSideChange: (value: JudgeRailSide) => void;
+  questionFocusEnabled: boolean;
+  onQuestionFocusEnabledChange: (value: boolean) => void;
   onShowMarkingGuide: () => void;
   onMoreControlsOpenChange: (open: boolean) => void;
   theme: AppTheme;
@@ -46,6 +48,8 @@ export function Header({
   onMushafLayoutChange,
   judgeRailSide,
   onJudgeRailSideChange,
+  questionFocusEnabled,
+  onQuestionFocusEnabledChange,
   onShowMarkingGuide,
   onMoreControlsOpenChange,
   theme,
@@ -161,6 +165,8 @@ export function Header({
         onMushafLayoutChange={onMushafLayoutChange}
         judgeRailSide={judgeRailSide}
         onJudgeRailSideChange={onJudgeRailSideChange}
+        questionFocusEnabled={questionFocusEnabled}
+        onQuestionFocusEnabledChange={onQuestionFocusEnabledChange}
         onShowMarkingGuide={onShowMarkingGuide}
         onOpenChange={onMoreControlsOpenChange}
         onOpenSettings={onOpenSettings}

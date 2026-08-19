@@ -35,18 +35,21 @@ test("device preferences normalize invalid values without losing valid choices",
     mushafLayout: "spread",
     mushafZoom: 83,
     judgeRailSide: "right",
+    questionFocusEnabled: false,
   }), {
     version: 1,
     theme: "dark",
     mushafLayout: "spread",
     mushafZoom: 85,
     judgeRailSide: "right",
+    questionFocusEnabled: false,
   });
   assert.equal(normalizeDevicePreferences({ mushafZoom: 140 }).mushafZoom, 140);
   assert.equal(normalizeDevicePreferences({ mushafZoom: 61 }).mushafZoom, MUSHAF_ZOOM_MIN);
   assert.equal(normalizeDevicePreferences({ mushafZoom: 190 }).mushafZoom, MUSHAF_ZOOM_MAX);
   assert.equal(normalizeDevicePreferences({ mushafZoom: "invalid" }).mushafZoom, MUSHAF_ZOOM_DEFAULT);
   assert.equal(normalizeDevicePreferences({ mushafZoom: null }).mushafZoom, MUSHAF_ZOOM_DEFAULT);
+  assert.equal(normalizeDevicePreferences({}).questionFocusEnabled, true);
   assert.deepEqual(
     [MUSHAF_ZOOM_MIN, MUSHAF_ZOOM_FIT, MUSHAF_ZOOM_DEFAULT, MUSHAF_ZOOM_MAX, MUSHAF_ZOOM_STEP],
     [75, 100, 100, 150, 5],
@@ -85,6 +88,7 @@ test("legacy device keys migrate into the versioned settings object", () => {
     mushafLayout: "spread",
     mushafZoom: 75,
     judgeRailSide: "right",
+    questionFocusEnabled: true,
   });
 });
 
@@ -96,12 +100,14 @@ test("writing settings keeps the rollback-compatible legacy keys in sync", () =>
     mushafLayout: "split",
     mushafZoom: 65,
     judgeRailSide: "right",
+    questionFocusEnabled: false,
   }, storage);
   assert.equal(JSON.parse(storage.getItem(DEVICE_PREFERENCES_KEY)).mushafZoom, 75);
   assert.equal(storage.getItem(LEGACY_THEME_KEY), "dark");
   assert.equal(storage.getItem(LEGACY_PAGE_LAYOUT_KEY), "spread");
   assert.equal(storage.getItem(LEGACY_PAGE_ZOOM_KEY), "75");
   assert.equal(storage.getItem(LEGACY_JUDGE_RAIL_SIDE_KEY), "right");
+  assert.equal(JSON.parse(storage.getItem(DEVICE_PREFERENCES_KEY)).questionFocusEnabled, false);
   assert.equal(written.version, 1);
 });
 
@@ -114,5 +120,6 @@ test("unavailable storage never prevents an in-memory preference change", () => 
     mushafLayout: "full",
     mushafZoom: 90,
     judgeRailSide: "left",
+    questionFocusEnabled: true,
   }, storage));
 });

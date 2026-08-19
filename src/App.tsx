@@ -87,9 +87,11 @@ export function App() {
     state.activeSessionId ?? state.preparedRecitation?.id,
     state.activeQuestion ?? state.preparedRecitation?.question,
   );
-  const openingPage = questionOpeningPage(
-    state.activeQuestion ?? state.preparedRecitation?.question,
-  );
+  const visibleQuestion = state.activeQuestion ?? state.preparedRecitation?.question;
+  const openingPage = questionOpeningPage(visibleQuestion);
+  const visibleQuestionRange = visibleQuestion?.version === 2
+    ? visibleQuestion.range ?? null
+    : null;
 
   useEffect(() => {
     if (!openedForKey) return;
@@ -138,6 +140,10 @@ export function App() {
         onMushafLayoutChange={(mushafLayout) => updatePreferences({ mushafLayout })}
         judgeRailSide={preferences.judgeRailSide}
         onJudgeRailSideChange={(judgeRailSide) => updatePreferences({ judgeRailSide })}
+        questionFocusEnabled={preferences.questionFocusEnabled}
+        onQuestionFocusEnabledChange={(questionFocusEnabled) =>
+          updatePreferences({ questionFocusEnabled })
+        }
         onShowMarkingGuide={() => setMarkingGuideOpen(true)}
         onMoreControlsOpenChange={setMoreControlsOpen}
         theme={preferences.theme}
@@ -164,6 +170,8 @@ export function App() {
               <Mushaf
                 page={page}
                 pageLayout={preferences.mushafLayout}
+                questionFocusEnabled={preferences.questionFocusEnabled}
+                questionRange={visibleQuestionRange}
                 onPageChange={handlePageChange}
                 headerControls={(visiblePages, compact) => (
                   <PageNav

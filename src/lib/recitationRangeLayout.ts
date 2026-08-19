@@ -1,0 +1,102 @@
+import type { RecitationRangeSnapshot } from "../types.ts";
+import type { MushafPage, PageLine } from "./page.ts";
+
+export type RangeLineState = "question" | "mixed" | "context";
+
+export interface RangePageDisplay {
+  selectedWordIds: Set<string>;
+  lineStates: Map<number, RangeLineState>;
+}
+
+function recitedWords(line: PageLine) {
+  return line.type === "surah-header"
+    ? []
+    : line.words.filter(
+        (word) => word.role === "letter" || word.role === "ayah-end",
+      );
+}
+
+export function linesForRangePage(
+  page: MushafPage,
+  range: RecitationRangeSnapshot,
+): PageLine[] {
+  if (page.page < range.startPage || page.page > range.endPage) return [];
+  const startLine = page.page === range.startPage ? range.startLine : 1;
+  const endLine = page.page === range.endPage ? range.endLine : 15;
+  return page.lines.filter((line) => line.n >= startLine && line.n <= endLine);
+}
+
+export function wordIdsForRangePage(
+  page: MushafPage,
+  range: RecitationRangeSnapshot,
+): Set<string> | null {
+  if (page.page < range.startPage || page.page > range.endPage) return new Set();
+  const lines = linesForRangePage(page, range);
+  const words = lines.flatMap(recitedWords);
+  let start = 0;
+  let end = words.length - 1;
+  if (page.page === range.startPage) {
+    const boundaryLine = lines.find((line) => line.n === range.startLine);
+    if (
+      !boundaryLine ||
+      boundaryLine.type === "surah-header" ||
+      !boundaryLine.words.some((word) => word.wid === range.startWordId)
+    ) {
+      return null;
+    }
+    start = words.findIndex((word) => word.wid === range.startWordId);
+  }
+  if (page.page === range.endPage) {
+    const boundaryLine = lines.find((line) => line.n === range.endLine);
+    if (
+      !boundaryLine ||
+      boundaryLine.type === "surah-header" ||
+      !boundaryLine.words.some((word) => word.wid === range.endMarkerId)
+    ) {
+      return null;
+    }
+    end = words.findIndex((word) => word.wid === range.endMarkerId);
+  }
+  if (start < 0 || end < start) return null;
+  return new Set(words.slice(start, end + 1).map((word) => word.wid));
+}
+
+/**
+ * Resolves the exact visual emphasis for one already-loaded printed page.
+ * A null result means the saved boundaries cannot be verified, so callers
+ * must leave the complete Mushaf undimmed rather than guess.
+ */
+export function rangeDisplayForPage(
+  page: MushafPage,
+  range: RecitationRangeSnapshot,
+): RangePageDisplay | null {
+  const selectedWordIds = wordIdsForRangePage(page, range);
+  if (selectedWordIds === null) return null;
+  const rangeLineNumbers = new Set(
+    linesForRangePage(page, range).map((line) => line.n),
+  );
+  const lineStates = new Map<number, RangeLineState>();
+
+  for (const line of page.lines) {
+    if (!rangeLineNumbers.has(line.n)) {
+      lineStates.set(line.n, "context");
+      continue;
+    }
+    const words = recitedWords(line);
+    if (!words.length) {
+      lineStates.set(line.n, "question");
+      continue;
+    }
+    const selectedCount = words.filter((word) => selectedWordIds.has(word.wid)).length;
+    lineStates.set(
+      line.n,
+      selectedCount === 0
+        ? "context"
+        : selectedCount === words.length
+          ? "question"
+          : "mixed",
+    );
+  }
+
+  return { selectedWordIds, lineStates };
+}

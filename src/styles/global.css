@@ -32,6 +32,11 @@
   --line-2: rgba(26, 26, 28, 0.16);
   --ring: rgba(85, 102, 230, 0.35);
   --mushaf-ink: #1c1b16;
+  --question-context-ink: color-mix(
+    in srgb,
+    var(--mushaf-ink) 44%,
+    var(--page-paper)
+  );
   --gold: #b3892f;
   /* Holding a word is not yet a verdict, so it stays neutral. Colour on the
      page belongs to the criteria alone. */
@@ -88,6 +93,11 @@
   --line-2: rgba(255, 255, 255, 0.16);
   --ring: rgba(120, 135, 255, 0.45);
   --mushaf-ink: #eae7de;
+  --question-context-ink: color-mix(
+    in srgb,
+    var(--mushaf-ink) 52%,
+    var(--page-paper)
+  );
   --gold: #c9a052;
   --hold-wash: rgba(255, 255, 255, 0.07);
   --hold-wash-strong: rgba(255, 255, 255, 0.13);
@@ -467,13 +477,15 @@ textarea:focus-visible {
   font-weight: 550;
 }
 .mushaf-view-control,
-.judge-rail-control {
+.judge-rail-control,
+.question-focus-control {
   margin: 0;
   padding: 8px;
   border: 0;
 }
 .mushaf-view-control legend,
-.judge-rail-control legend {
+.judge-rail-control legend,
+.question-focus-control legend {
   margin-bottom: 8px;
   padding: 0;
   color: var(--ink);
@@ -4993,6 +5005,18 @@ textarea:focus-visible {
   left: 50%;
   z-index: 30;
   transform: translateX(-50%);
+}
+
+/* Question focus changes ink only. The printed geometry, hit layer, mistake
+   colour and navigation remain untouched. */
+.page[data-question-focus="true"] .question-context-line,
+.page[data-question-focus="true"] .question-context-word {
+  color: var(--question-context-ink);
+}
+.page[data-question-focus="true"] .question-context-line .sajdah-mark,
+.page[data-question-focus="true"] .question-context-word .sajdah-mark {
+  color: color-mix(in srgb, var(--gold) 46%, var(--page-paper));
+  opacity: 1;
 }
 .mushaf-scroll.is-spread {
   grid-template-rows: auto auto;

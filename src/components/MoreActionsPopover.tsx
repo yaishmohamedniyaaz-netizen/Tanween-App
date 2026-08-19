@@ -14,6 +14,8 @@ interface MoreActionsPopoverProps {
   onMushafLayoutChange: (value: MushafLayout) => void;
   judgeRailSide: JudgeRailSide;
   onJudgeRailSideChange: (value: JudgeRailSide) => void;
+  questionFocusEnabled: boolean;
+  onQuestionFocusEnabledChange: (value: boolean) => void;
   onShowMarkingGuide: () => void;
   onOpenChange: (open: boolean) => void;
   onOpenSettings: () => void;
@@ -28,6 +30,8 @@ export function MoreActionsPopover({
   onMushafLayoutChange,
   judgeRailSide,
   onJudgeRailSideChange,
+  questionFocusEnabled,
+  onQuestionFocusEnabledChange,
   onShowMarkingGuide,
   onOpenChange,
   onOpenSettings,
@@ -157,6 +161,29 @@ export function MoreActionsPopover({
                     onClick={() => onJudgeRailSideChange("right")}
                   >
                     Right
+                  </button>
+                </div>
+              </fieldset>
+              <fieldset className="question-focus-control">
+                <legend>Question focus</legend>
+                <div className="mushaf-view-options" role="radiogroup" aria-label="Question focus">
+                  <button
+                    type="button"
+                    role="radio"
+                    aria-checked={questionFocusEnabled}
+                    className={questionFocusEnabled ? "is-active" : ""}
+                    onClick={() => onQuestionFocusEnabledChange(true)}
+                  >
+                    On
+                  </button>
+                  <button
+                    type="button"
+                    role="radio"
+                    aria-checked={!questionFocusEnabled}
+                    className={!questionFocusEnabled ? "is-active" : ""}
+                    onClick={() => onQuestionFocusEnabledChange(false)}
+                  >
+                    Off
                   </button>
                 </div>
               </fieldset>

@@ -20,6 +20,7 @@ import {
   linesForEvidencePage,
   wordIdsForEvidencePage,
 } from "../src/lib/recitationEvidenceLayout.ts";
+import { rangeDisplayForPage } from "../src/lib/recitationRangeLayout.ts";
 import {
   normalizeQuestionAssignment,
   normalizeRecitationRangeSnapshot,
@@ -156,6 +157,15 @@ test("page 598 renders only the recorded physical rows while retaining structura
   assert.equal(selected.has("97.1.0"), false);
   assert.equal(selected.has("98.7.0"), false);
   assert.equal(wordIdsForEvidencePage(page, {
+    ...range,
+    startLine: range.startLine + 1,
+  }), null);
+  const display = rangeDisplayForPage(page, range);
+  assert.ok(display);
+  assert.equal(display.lineStates.get(1), "context");
+  assert.equal(display.lineStates.get(15), "context");
+  assert.ok([...display.lineStates.values()].includes("mixed"));
+  assert.equal(rangeDisplayForPage(page, {
     ...range,
     startLine: range.startLine + 1,
   }), null);

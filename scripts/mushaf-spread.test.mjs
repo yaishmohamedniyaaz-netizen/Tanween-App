@@ -76,3 +76,14 @@ test("view choice lives beside live size controls and not in Settings", () => {
   assert.match(moreSource, /Two pages/);
   assert.doesNotMatch(settingsSource, /Page view/);
 });
+
+test("question focus is a device view control and stays range-aware in both page layouts", () => {
+  assert.match(moreSource, /Question focus/);
+  assert.match(mushafSource, /rangeDisplayForPage/);
+  assert.match(mushafSource, /data-question-focus=/);
+  assert.match(mushafSource, /question-context-line/);
+  assert.match(mushafSource, /question-context-word/);
+  assert.match(stylesSource, /--question-context-ink/);
+  assert.match(stylesSource, /\.question-context-line/);
+  assert.doesNotMatch(settingsSource, /Question focus/);
+});

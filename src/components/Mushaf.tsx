@@ -19,7 +19,13 @@ import {
   TARGET_SCHEMA_VERSION,
   TARGET_SOURCE_VERSION,
 } from "../lib/judgingUnits";
-import { loadPage, locationLabel, preloadPage } from "../lib/page";
+import {
+  loadPage,
+  locationLabel,
+  MUSHAF_DATA_VERSION,
+  MUSHAF_LAYOUT,
+  preloadPage,
+} from "../lib/page";
 import type { MushafPage, PageWord } from "../lib/page";
 import {
   loadQcfPageFont,
@@ -28,7 +34,12 @@ import {
 } from "../lib/qcfFont";
 import { useJudging } from "../state/store";
 import { enabledCategories, isPinpointCategory } from "../config";
-import type { CategoryId, Mistake, TokenRole } from "../types";
+import type {
+  CategoryId,
+  Mistake,
+  RecitationRangeSnapshot,
+  TokenRole,
+} from "../types";
 import { DragMenu, type MenuAnchor } from "./DragMenu";
 import {
   useMushafRenderScale,
@@ -40,6 +51,12 @@ import {
   pageIsVisible,
   visibleMushafPages,
 } from "../lib/mushafSpread";
+import { QUESTION_INDEX_VERSION } from "../lib/questionBank.ts";
+import {
+  rangeDisplayForPage,
+  type RangeLineState,
+  type RangePageDisplay,
+} from "../lib/recitationRangeLayout.ts";
 
 interface UnitTarget {
   tid: string;
@@ -125,12 +142,14 @@ function surahsForPage(page: number) {
 function SurahBand({
   nameAr,
   style,
+  className = "",
 }: {
   nameAr: string;
   style: CSSProperties;
+  className?: string;
 }) {
   return (
-    <div className="surah-band" style={style}>
+    <div className={`surah-band ${className}`.trim()} style={style}>
       <span className="surah-band-title">سُورَةُ {nameAr}</span>
     </div>
   );
@@ -139,6 +158,8 @@ function SurahBand({
 interface MushafProps {
   page: number;
   pageLayout: MushafLayout;
+  questionFocusEnabled: boolean;
+  questionRange: RecitationRangeSnapshot | null;
   onPageChange: (page: number) => void;
   headerControls: (visiblePages: readonly number[], compact: boolean) => ReactNode;
 }
@@ -146,6 +167,8 @@ interface MushafProps {
 export function Mushaf({
   page: currentPage,
   pageLayout,
+  questionFocusEnabled,
+  questionRange,
   onPageChange,
   headerControls,
 }: MushafProps) {
@@ -175,6 +198,23 @@ export function Mushaf({
   const [measureEpoch, setMeasureEpoch] = useState(0);
   const [flashTid, setFlashTid] = useState<string | null>(null);
   const [pendingFlash, setPendingFlash] = useState<{ tid: string; page: number } | null>(null);
+
+  const compatibleQuestionRange = questionFocusEnabled &&
+      questionRange?.mushafLayout === MUSHAF_LAYOUT &&
+      questionRange.sourceVersion === MUSHAF_DATA_VERSION &&
+      questionRange.questionIndexVersion === QUESTION_INDEX_VERSION
+    ? questionRange
+    : null;
+  const questionDisplays = useMemo(() => {
+    if (!compatibleQuestionRange || !pageData.length) return null;
+    const displays = new Map<number, RangePageDisplay>();
+    for (const page of pageData) {
+      const display = rangeDisplayForPage(page, compatibleQuestionRange);
+      if (!display) return null;
+      displays.set(page.page, display);
+    }
+    return displays;
+  }, [compatibleQuestionRange, pageData]);
 
   const [active, setActive] = useState<ActiveDrag | null>(null);
   const [hovered, setHovered] = useState<CategoryId | null>(null);
@@ -689,16 +729,28 @@ export function Mushaf({
     const qcfLineStyle: CSSProperties = qcfReady
       ? { fontFamily: `"${qcfFontFamily(data.page)}"` }
       : { fontFamily: "var(--quran)" };
-    const renderWord = (word: PageWord) => {
+    const questionDisplay = questionDisplays?.get(data.page) ?? null;
+    const lineClass = (lineState: RangeLineState | undefined) =>
+      lineState === "context"
+        ? "question-context-line"
+        : lineState === "mixed"
+          ? "question-mixed-line"
+          : "";
+    const renderWord = (word: PageWord, lineState?: RangeLineState) => {
       const isSajdah =
         word.role === "ayah-end" &&
         word.ayah !== null &&
         sajdahSet.has(`${word.surah}:${word.ayah}`);
       const displayedText = qcfReady && word.glyph ? word.glyph : word.text;
+      const isContextWord = Boolean(
+        questionDisplay &&
+        lineState === "mixed" &&
+        !questionDisplay.selectedWordIds.has(word.wid),
+      );
       return (
         <span
           key={word.wid}
-          className={`m-word ${word.role === "ayah-end" ? "ayah-num" : ""} ${word.role === "ornament" ? "m-ornament" : ""} ${isSajdah ? "sajdah" : ""}`}
+          className={`m-word ${word.role === "ayah-end" ? "ayah-num" : ""} ${word.role === "ornament" ? "m-ornament" : ""} ${isSajdah ? "sajdah" : ""} ${isContextWord ? "question-context-word" : ""}`}
           data-wid={word.wid}
           data-semantic={word.text}
           data-role={word.role}
@@ -726,6 +778,7 @@ export function Mushaf({
         data-page={data.page}
         data-font-ready={qcfReady ? "true" : "false"}
         data-judging-enabled={judgingEnabled ? "true" : "false"}
+        data-question-focus={questionDisplay ? "true" : "false"}
         onPointerDown={judgingEnabled ? (event) => onPointerDown(event, data.page) : undefined}
         onPointerMove={judgingEnabled ? onPointerMove : undefined}
         onPointerUp={judgingEnabled ? onPointerUp : undefined}
@@ -744,12 +797,14 @@ export function Mushaf({
         )}
         <div className="mushaf-lines">
           {data.lines.map((line) => {
+            const lineState = questionDisplay?.lineStates.get(line.n);
             if (line.type === "surah-header") {
               return (
                 <SurahBand
                   key={line.n}
                   nameAr={line.nameAr}
                   style={lineStyle(line.n)}
+                  className={lineClass(lineState)}
                 />
               );
             }
@@ -757,10 +812,10 @@ export function Mushaf({
               return (
                 <div
                   key={line.n}
-                  className="m-line m-line-basmala"
+                  className={`m-line m-line-basmala ${lineClass(lineState)}`.trim()}
                   style={lineStyle(line.n)}
                 >
-                  {line.words.map(renderWord)}
+                  {line.words.map((word) => renderWord(word, lineState))}
                 </div>
               );
             }
@@ -768,10 +823,10 @@ export function Mushaf({
               <div
                 key={line.n}
                 data-mline={line.n}
-                className={`m-line ${line.centered ? "m-line-center" : "m-line-ayah"}`}
+                className={`m-line ${line.centered ? "m-line-center" : "m-line-ayah"} ${lineClass(lineState)}`.trim()}
                 style={{ ...lineStyle(line.n), ...qcfLineStyle }}
               >
-                {line.words.map(renderWord)}
+                {line.words.map((word) => renderWord(word, lineState))}
               </div>
             );
           })}

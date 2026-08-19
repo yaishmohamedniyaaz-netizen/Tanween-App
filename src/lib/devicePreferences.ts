@@ -8,6 +8,7 @@ export interface DevicePreferencesV1 {
   mushafLayout: MushafLayout;
   mushafZoom: number;
   judgeRailSide: JudgeRailSide;
+  questionFocusEnabled: boolean;
 }
 
 export const DEVICE_PREFERENCES_KEY = "tahqeeq:devicePreferences.v1";
@@ -28,6 +29,7 @@ export const DEFAULT_DEVICE_PREFERENCES: DevicePreferencesV1 = {
   mushafLayout: "full",
   mushafZoom: MUSHAF_ZOOM_DEFAULT,
   judgeRailSide: "left",
+  questionFocusEnabled: true,
 };
 
 export function normalizeMushafZoom(
@@ -72,6 +74,9 @@ export function normalizeDevicePreferences(
     judgeRailSide: candidate.judgeRailSide === "right" || candidate.judgeRailSide === "left"
       ? candidate.judgeRailSide
       : fallback.judgeRailSide,
+    questionFocusEnabled: typeof candidate.questionFocusEnabled === "boolean"
+      ? candidate.questionFocusEnabled
+      : fallback.questionFocusEnabled,
   };
 }
 
