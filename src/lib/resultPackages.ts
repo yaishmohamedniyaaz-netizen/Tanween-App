@@ -4,7 +4,9 @@ import type {
   SavedSession,
 } from "../types";
 
-const CATEGORY_IDS = new Set(["jali", "khafi", "fasaha", "adu-raagu"]);
+const PINPOINT_CATEGORY_IDS = new Set(["jali", "khafi", "fasaha"]);
+const IMPRESSION_CATEGORY_IDS = new Set(["adu-raagu"]);
+const MAX_DATE_TIMESTAMP = 8_640_000_000_000_000;
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return Boolean(value) && typeof value === "object" && !Array.isArray(value);
@@ -16,6 +18,14 @@ function isNonEmptyString(value: unknown): value is string {
 
 function isFiniteNumber(value: unknown): value is number {
   return typeof value === "number" && Number.isFinite(value);
+}
+
+function isTimestamp(value: unknown): value is number {
+  return (
+    isFiniteNumber(value) &&
+    value >= 0 &&
+    value <= MAX_DATE_TIMESTAMP
+  );
 }
 
 function isParticipantSnapshot(value: unknown): boolean {
@@ -41,9 +51,10 @@ function isMistakeSnapshot(value: unknown): boolean {
     (value.ayah === null || Number.isInteger(value.ayah)) &&
     typeof value.glyph === "string" &&
     typeof value.label === "string" &&
-    CATEGORY_IDS.has(value.category as string) &&
+    PINPOINT_CATEGORY_IDS.has(value.category as string) &&
     isFiniteNumber(value.amount) &&
-    isFiniteNumber(value.ts) &&
+    value.amount >= 0 &&
+    isTimestamp(value.ts) &&
     (value.page === undefined || Number.isInteger(value.page))
   );
 }
@@ -51,11 +62,12 @@ function isMistakeSnapshot(value: unknown): boolean {
 function isImpressionSnapshot(value: unknown): boolean {
   if (!isRecord(value)) return false;
   return (
-    CATEGORY_IDS.has(value.category as string) &&
+    IMPRESSION_CATEGORY_IDS.has(value.category as string) &&
     isFiniteNumber(value.awarded) &&
+    value.awarded >= 0 &&
     typeof value.note === "string" &&
     typeof value.set === "boolean" &&
-    isFiniteNumber(value.ts) &&
+    isTimestamp(value.ts) &&
     (value.judgeSeatId === undefined || typeof value.judgeSeatId === "string")
   );
 }
@@ -64,7 +76,7 @@ function isValidJudgingEvent(value: unknown): boolean {
   if (
     !isRecord(value) ||
     !isNonEmptyString(value.id) ||
-    !isFiniteNumber(value.at) ||
+    !isTimestamp(value.at) ||
     typeof value.type !== "string"
   ) return false;
   switch (value.type) {
@@ -85,17 +97,21 @@ function isValidJudgingEvent(value: unknown): boolean {
         typeof value.glyph === "string" &&
         typeof value.label === "string" &&
         isFiniteNumber(value.from) &&
-        isFiniteNumber(value.to)
+        value.from >= 0 &&
+        isFiniteNumber(value.to) &&
+        value.to >= 0
       );
     case "mistake_recategorized":
       return (
         isNonEmptyString(value.mistakeId) &&
         typeof value.glyph === "string" &&
         typeof value.label === "string" &&
-        CATEGORY_IDS.has(value.from as string) &&
-        CATEGORY_IDS.has(value.to as string) &&
+        PINPOINT_CATEGORY_IDS.has(value.from as string) &&
+        PINPOINT_CATEGORY_IDS.has(value.to as string) &&
         isFiniteNumber(value.fromAmount) &&
-        isFiniteNumber(value.toAmount)
+        value.fromAmount >= 0 &&
+        isFiniteNumber(value.toAmount) &&
+        value.toAmount >= 0
       );
     case "mistake_note_changed":
       return (
@@ -107,14 +123,16 @@ function isValidJudgingEvent(value: unknown): boolean {
       );
     case "impression_changed":
       return (
-        CATEGORY_IDS.has(value.category as string) &&
+        IMPRESSION_CATEGORY_IDS.has(value.category as string) &&
         isFiniteNumber(value.from) &&
+        value.from >= 0 &&
         isFiniteNumber(value.to) &&
+        value.to >= 0 &&
         (value.judgeSeatId === undefined || typeof value.judgeSeatId === "string")
       );
     case "impression_note_changed":
       return (
-        CATEGORY_IDS.has(value.category as string) &&
+        IMPRESSION_CATEGORY_IDS.has(value.category as string) &&
         typeof value.from === "string" &&
         typeof value.to === "string"
       );
@@ -218,9 +236,9 @@ export function parseJudgeResultPackage(value: unknown): JudgeResultPackage {
     !isNonEmptyString(payload.competition?.id) ||
     !payload.session ||
     !isNonEmptyString(payload.session.id) ||
-    !isFiniteNumber(payload.session.savedAt) ||
+    !isTimestamp(payload.session.savedAt) ||
     (payload.session.startedAt !== undefined &&
-      !isFiniteNumber(payload.session.startedAt)) ||
+      !isTimestamp(payload.session.startedAt)) ||
     !isParticipantSnapshot(payload.session.participant) ||
     !isRecord(payload.session.config) ||
     !isFiniteNumber(payload.session.total) ||

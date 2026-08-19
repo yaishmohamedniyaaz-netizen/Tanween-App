@@ -241,7 +241,27 @@ test("judge packages and full backups reject incomplete files", () => {
   assert.throws(
     () => parseJudgeResultPackage({
       ...resultPackage,
-      session: { ...resultPackage.session, savedAt: Number.NaN },
+      session: { ...resultPackage.session, savedAt: Number.MAX_VALUE },
+    }),
+    /not a complete Tahqeeq judge-result file/,
+  );
+  assert.throws(
+    () => parseJudgeResultPackage({
+      ...resultPackage,
+      session: {
+        ...resultPackage.session,
+        mistakes: [{ ...mistake("jali", 2), amount: -2 }],
+      },
+    }),
+    /not a complete Tahqeeq judge-result file/,
+  );
+  assert.throws(
+    () => parseJudgeResultPackage({
+      ...resultPackage,
+      session: {
+        ...resultPackage.session,
+        mistakes: [{ ...mistake("jali", 2), category: "adu-raagu" }],
+      },
     }),
     /not a complete Tahqeeq judge-result file/,
   );
