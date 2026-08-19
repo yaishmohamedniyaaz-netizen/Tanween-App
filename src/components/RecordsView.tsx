@@ -6,7 +6,6 @@ import {
   useState,
 } from "react";
 import {
-  CATEGORIES,
   CATEGORY_BY_ID,
   PINPOINT_CATEGORIES,
   enabledCategories,
@@ -18,6 +17,7 @@ import {
   judgeDisplayName,
 } from "../lib/judgeAssignments";
 import { mistakePrimaryGlyph } from "../lib/mistakeDisplay";
+import { participantNumberLabel } from "../lib/participantPresentation";
 import { participantCategoryLabel } from "../lib/participants";
 import {
   RESULTS_REVIEW_PAGE_SIZE,
@@ -87,6 +87,7 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
   const [analysisAgeGroup, setAnalysisAgeGroup] = useState("");
   const [analysisParticipantCategory, setAnalysisParticipantCategory] =
     useState<ParticipantCategory>("");
+  const [selectedAnalysisTid, setSelectedAnalysisTid] = useState<string | null>(null);
   const [judgeSeat, setJudgeSeat] = useState("");
   const [section, setSection] = useState("");
   const [expanded, setExpanded] = useState<string | null>(null);
@@ -222,11 +223,79 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
       !analysisAgeGroup ||
       (session.participant.ageGroup?.trim() || "") === analysisAgeGroup,
   );
-  const maxCatCount = Math.max(
-    1,
-    ...PINPOINT_CATEGORIES.map((id) => stats.byCategory[id].count),
+  const analysisLocations = useMemo(() => {
+    const locations = new Map<string, {
+      tid: string;
+      word: string;
+      label: string;
+      surah: number;
+      ayah: number | null;
+      page?: number;
+      marks: number;
+      reciters: Set<string>;
+      entries: {
+        id: string;
+        participantName: string;
+        participantNumber: string;
+        judgeName: string;
+        category: (typeof PINPOINT_CATEGORIES)[number];
+        amount: number;
+      }[];
+    }>();
+
+    sessions.forEach((session) => {
+      session.mistakes.forEach((mistake) => {
+        if (!PINPOINT_CATEGORIES.includes(mistake.category as (typeof PINPOINT_CATEGORIES)[number])) {
+          return;
+        }
+        const current = locations.get(mistake.tid) ?? {
+          tid: mistake.tid,
+          word: mistake.wordText?.trim() || mistakePrimaryGlyph(mistake),
+          label: mistake.label,
+          surah: mistake.surah,
+          ayah: mistake.ayah,
+          page: mistake.page,
+          marks: 0,
+          reciters: new Set<string>(),
+          entries: [],
+        };
+        current.marks += 1;
+        current.reciters.add(session.participant.id);
+        current.entries.push({
+          id: `${session.id}:${mistake.id}`,
+          participantName: session.participant.name,
+          participantNumber: session.participant.number,
+          judgeName: session.assignment ? judgeDisplayName(session.assignment) : "Judge 1",
+          category: mistake.category as (typeof PINPOINT_CATEGORIES)[number],
+          amount: mistake.amount,
+        });
+        locations.set(mistake.tid, current);
+      });
+    });
+
+    return [...locations.values()]
+      .map((location) => ({
+        ...location,
+        reciterCount: location.reciters.size,
+        entries: location.entries.sort((left, right) =>
+          left.participantNumber.localeCompare(right.participantNumber, undefined, {
+            numeric: true,
+          }),
+        ),
+      }))
+      .sort((left, right) =>
+        right.marks - left.marks ||
+        right.reciterCount - left.reciterCount ||
+        left.label.localeCompare(right.label),
+      );
+  }, [sessions]);
+  const selectedAnalysisLocation = analysisLocations.find(
+    (location) => location.tid === selectedAnalysisTid,
+  ) ?? analysisLocations[0] ?? null;
+  const analysisReciterCount = useMemo(
+    () => new Set(sessions.map((session) => session.participant.id)).size,
+    [sessions],
   );
-  const maxLocCount = Math.max(1, ...stats.topLocations.map((location) => location.count));
 
   useEffect(() => {
     if (analysisAgeGroup && !stats.ageGroups.includes(analysisAgeGroup)) {
@@ -813,8 +882,12 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
       >
         <div className="results-analysis-intro">
           <div>
-            <h2 className="results-section-title">Analysis</h2>
-            <p>Raw counts and score summaries for the selected stored judge results.</p>
+            <h2 className="results-section-title">Mistake overview</h2>
+            <p>
+              {stats.totalMistakes} mark{stats.totalMistakes === 1 ? "" : "s"}
+              {" · "}{analysisLocations.length} location{analysisLocations.length === 1 ? "" : "s"}
+              {" · "}{analysisReciterCount} reciter{analysisReciterCount === 1 ? "" : "s"}
+            </p>
           </div>
           <details className="results-analysis-filter-disclosure">
             <summary>
@@ -824,105 +897,97 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
             {renderHistoryFilters()}
           </details>
         </div>
-
-        <div className="metric-cards results-metrics">
-          <div className="metric">
-            <span className="metric-label">Judge results</span>
-            <span className="metric-num">{stats.sessions}</span>
-          </div>
-          <div className="metric">
-            <span className="metric-label">Average score</span>
-            <span className="metric-num">{stats.avgPercent}%</span>
-          </div>
-          <div className="metric">
-            <span className="metric-label">Mistakes logged</span>
-            <span className="metric-num">{stats.totalMistakes}</span>
-          </div>
-        </div>
         <p className="results-analysis-scope-note">
-          Showing descriptive counts from <strong>{sessions.length}</strong> stored judge result{sessions.length === 1 ? "" : "s"}; these are not normalized participant comparisons.
+          Descriptive evidence from <strong>{sessions.length}</strong> stored judge result{sessions.length === 1 ? "" : "s"}; this is not a normalized participant comparison.
         </p>
 
-        <div className="records-grid">
-          <section className="panel">
-            <div className="panel-head">
-              <h3 className="results-panel-title">Mistakes by category</h3>
+        <div className="analysis-ledger">
+          <section className="analysis-ledger-list" aria-labelledby="analysis-ledger-heading">
+            <div className="analysis-ledger-head">
+              <h3 id="analysis-ledger-heading" className="results-panel-title">Marked locations</h3>
+              <span>Sorted by marks, then reciters</span>
             </div>
-            <div className="cat-list">
-              {CATEGORIES.filter((category) => category.kind === "pinpoint").map((category) => {
-                const value = stats.byCategory[category.id];
-                return (
-                  <div className={`cat-row cat-${category.id}`} key={category.id}>
-                    <div className="cat-row-top">
-                      <span className="cat-dot" aria-hidden="true" />
-                      <span className="cat-name">{category.label}</span>
-                      <span className="cat-score">{value.count}</span>
-                    </div>
-                    <div className="cat-bar">
-                      <span
-                        className="cat-bar-fill"
-                        style={{ width: `${(value.count / maxCatCount) * 100}%` }}
-                      />
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </section>
-
-          <section className="panel">
-            <div className="panel-head">
-              <h3 className="results-panel-title">Most marked letters</h3>
-            </div>
-            {stats.topLetters.length === 0 ? (
-              <p className="empty">No marks yet.</p>
+            {analysisLocations.length === 0 ? (
+              <p className="empty">No pinpointed mistakes have been recorded in this view.</p>
             ) : (
-              <div className="letter-chips">
-                {stats.topLetters.map((letter) => (
-                  <span className="letter-chip" key={letter.glyph}>
-                    <span className="letter-chip-glyph">{letter.glyph}</span>
-                    <span className="letter-chip-count">{letter.count}</span>
-                  </span>
-                ))}
+              <div className="analysis-location-table" aria-label="Marked Quran locations">
+                <div className="analysis-location-columns" aria-hidden="true">
+                  <span>Word</span>
+                  <span>Location</span>
+                  <span>Marks</span>
+                  <span>Reciters</span>
+                </div>
+                <ol>
+                  {analysisLocations.map((location) => (
+                    <li key={location.tid}>
+                      <button
+                        type="button"
+                        className="analysis-location-row"
+                        aria-pressed={selectedAnalysisLocation?.tid === location.tid}
+                        aria-label={`${location.word}, ${location.label}, ${location.marks} marks across ${location.reciterCount} reciters`}
+                        onClick={() => setSelectedAnalysisTid(location.tid)}
+                      >
+                        <span className="analysis-location-word" dir="rtl">{location.word}</span>
+                        <span className="analysis-location-label">{location.label}</span>
+                        <strong>{location.marks}</strong>
+                        <strong>{location.reciterCount}</strong>
+                      </button>
+                    </li>
+                  ))}
+                </ol>
               </div>
             )}
           </section>
-        </div>
 
-        <section className="panel">
-          <div className="panel-head">
-            <h3 className="results-panel-title">Most repeated mistakes</h3>
-            <span className="panel-sub">Same letter across reciters</span>
-          </div>
-          {stats.topLocations.length === 0 ? (
-            <p className="empty">No marks yet.</p>
-          ) : (
-            <ol className="repeat-list">
-              {stats.topLocations.map((location, index) => (
-                <li className={`repeat-item cat-${location.topCategory}`} key={location.tid}>
-                  <span className="repeat-rank" aria-hidden="true">{index + 1}</span>
-                  <span className="repeat-glyph">{location.glyph}</span>
-                  <span className="repeat-body">
-                    <span className="repeat-loc">{location.label}</span>
-                    <span className="repeat-chip">
-                      {CATEGORY_BY_ID[location.topCategory].label}
-                    </span>
+          <aside className="analysis-evidence-panel" aria-live="polite">
+            {selectedAnalysisLocation ? (
+              <>
+                <div className="analysis-evidence-head">
+                  <div>
+                    <span>Selected location</span>
+                    <p>
+                      Surah <bdi>{selectedAnalysisLocation.surah}</bdi>
+                      {selectedAnalysisLocation.ayah === null
+                        ? " · Basmala"
+                        : <> · Ayah <bdi>{selectedAnalysisLocation.ayah}</bdi></>}
+                      {selectedAnalysisLocation.page && <> · Page <bdi>{selectedAnalysisLocation.page}</bdi></>}
+                    </p>
+                  </div>
+                  <span className="analysis-evidence-total">
+                    <strong>{selectedAnalysisLocation.marks}</strong>
+                    <small>{selectedAnalysisLocation.marks === 1 ? "mark" : "marks"}</small>
                   </span>
-                  <span className="repeat-bar">
-                    <span
-                      className="repeat-bar-fill"
-                      style={{ width: `${(location.count / maxLocCount) * 100}%` }}
-                    />
-                  </span>
-                  <span className="repeat-count">
-                    <strong>{location.count}</strong>
-                    <small>{location.count === 1 ? "mark" : "marks"}</small>
-                  </span>
-                </li>
-              ))}
-            </ol>
-          )}
-        </section>
+                </div>
+                <div className="analysis-evidence-word" dir="rtl">{selectedAnalysisLocation.word}</div>
+                <p className="analysis-evidence-location">{selectedAnalysisLocation.label}</p>
+                <div className="analysis-evidence-list-head">
+                  <h4>Recorded marks</h4>
+                  <span>{selectedAnalysisLocation.reciterCount} reciter{selectedAnalysisLocation.reciterCount === 1 ? "" : "s"}</span>
+                </div>
+                <ul className="analysis-evidence-list">
+                  {selectedAnalysisLocation.entries.map((entry) => (
+                    <li key={entry.id} className={`cat-${entry.category}`}>
+                      <bdi className="analysis-evidence-number">
+                        {participantNumberLabel(entry.participantNumber)}
+                      </bdi>
+                      <span className="analysis-evidence-person">
+                        <strong>{entry.participantName}</strong>
+                        <small>{entry.judgeName}</small>
+                      </span>
+                      <span className="analysis-evidence-category">
+                        <i aria-hidden="true" />
+                        {CATEGORY_BY_ID[entry.category].label}
+                      </span>
+                      <strong className="analysis-evidence-deduction">−{entry.amount}</strong>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            ) : (
+              <p className="empty">Select a marked location to see its evidence.</p>
+            )}
+          </aside>
+        </div>
       </section>
 
       {reopenSession && (
