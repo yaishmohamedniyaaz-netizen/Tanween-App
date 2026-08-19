@@ -8301,8 +8301,8 @@ html:has(.dialog-backdrop) {
 }
 
 .results-ledger-controls .results-status-filter:focus-visible {
-  outline: 2px solid var(--ink);
-  outline-offset: 2px;
+  outline: 0;
+  box-shadow: inset 0 -2px var(--ink-3);
 }
 
 .results-ledger-controls .results-status-filter strong {
