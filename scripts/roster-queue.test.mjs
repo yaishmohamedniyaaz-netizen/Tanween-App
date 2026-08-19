@@ -128,10 +128,10 @@ test("search ignores case and stray spacing", () => {
   assert.ok(matchesParticipantSearch(e, "  MARIYAM "));
 });
 
-test("ordinary participant numbers use a clean roster-width label", () => {
+test("ordinary participant numbers keep a two-digit minimum without roster-width padding", () => {
   assert.equal(participantNumberLabel("1", 8), "01");
   assert.equal(participantNumberLabel("01", 8), "01");
-  assert.equal(participantNumberLabel("1", 100), "001");
+  assert.equal(participantNumberLabel("1", 100), "01");
   assert.equal(participantNumberLabel("104", 8), "104");
 });
 

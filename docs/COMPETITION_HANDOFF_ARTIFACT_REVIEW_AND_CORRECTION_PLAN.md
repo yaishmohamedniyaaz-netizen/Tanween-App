@@ -106,7 +106,7 @@ correction, not an aesthetic preference.
 
 Verified in `CompetitionIdlePanel.tsx`: the rail prints `next.number` directly.
 Participant selection and question selection use `participantNumberLabel`, which
-pads ordinary numeric values to the roster width. The rail can therefore show `1`
+gives ordinary numeric values a two-digit minimum. The rail can therefore show `1`
 while the dialog shows `01`.
 
 This should be fixed through one presentation component/helper, not with local CSS.

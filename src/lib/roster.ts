@@ -167,8 +167,8 @@ function rowId(index: number): string {
   return `roster-row-${Date.now().toString(36)}-${index.toString(36)}-${Math.random().toString(36).slice(2, 7)}`;
 }
 
-export function automaticParticipantNumber(index: number, count: number): string {
-  return String(index + 1).padStart(Math.max(2, String(Math.max(1, count)).length), "0");
+export function automaticParticipantNumber(index: number, _count: number): string {
+  return String(index + 1).padStart(2, "0");
 }
 
 function divisionKey(ageGroup: string, category: string): string {

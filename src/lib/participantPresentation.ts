@@ -30,7 +30,7 @@ export function divisionLabel(division: CompetitionDivision): string {
  */
 export function participantNumberLabel(
   value: string,
-  participantCount = 0,
+  _participantCount = 0,
 ): string {
   const raw = value.trim();
   if (!raw) return "—";
@@ -39,11 +39,7 @@ export function participantNumberLabel(
   const number = Number(raw);
   if (!Number.isSafeInteger(number) || number < 1) return raw;
 
-  const width = Math.max(
-    2,
-    String(Math.max(number, Math.floor(participantCount))).length,
-  );
-  return String(number).padStart(width, "0");
+  return String(number).padStart(2, "0");
 }
 
 /** One compact, non-repeating context line shared by every participant card. */

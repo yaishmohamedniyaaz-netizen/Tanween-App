@@ -49,7 +49,7 @@ ready status. Validation never relies on colour alone.
 
 `CompetitionConfig.participantNumbering` is either:
 
-- `automatic`: the final row order produces `01–99`, then `001–999`;
+- `automatic`: the final row order produces `01–99`, then continues naturally at `100`;
 - `supplied`: the participant number is editable, required, and unique without
   regard to letter case.
 

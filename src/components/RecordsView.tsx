@@ -688,7 +688,6 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
                 aria-pressed={reviewState === "needs-review"}
                 onClick={() => setReviewFilter(() => setReviewState("needs-review"))}
               >
-                <span className="results-status-marker" aria-hidden="true" />
                 <span>Needs review</span>
                 <strong>{reviewSummary.needsReview}</strong>
               </button>
@@ -698,7 +697,6 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
                 aria-pressed={reviewState === "ready"}
                 onClick={() => setReviewFilter(() => setReviewState("ready"))}
               >
-                <span className="results-status-marker" aria-hidden="true" />
                 <span>Ready</span>
                 <strong>{reviewSummary.ready}</strong>
               </button>
@@ -708,7 +706,6 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
                 aria-pressed={reviewState === "finalized"}
                 onClick={() => setReviewFilter(() => setReviewState("finalized"))}
               >
-                <span className="results-status-marker" aria-hidden="true" />
                 <span>Finalized</span>
                 <strong>{reviewSummary.finalized}</strong>
               </button>

@@ -322,6 +322,7 @@ test("Results UI retains the reviewed navigation, tabs, audit, and export contra
   assert.match(records, /role="tabpanel"/);
   assert.match(records, /Filter participant results by status/);
   assert.match(records, /results-status-filter is-needs-review/);
+  assert.doesNotMatch(records, /results-status-marker/);
   assert.doesNotMatch(records, /Resolve first|Can finalize|Current result|Complete queue/);
   assert.match(records, /results-filter-disclosure/);
   assert.match(records, /ArrowLeft/);
@@ -337,6 +338,8 @@ test("Results UI retains the reviewed navigation, tabs, audit, and export contra
   assert.match(finalPanel, /className="result-ledger-table"/);
   assert.match(finalPanel, /aria-pressed=\{isSelected\}/);
   assert.match(finalPanel, /id="result-participant-evidence"/);
+  assert.match(finalPanel, /result-ledger-participant-number/);
+  assert.doesNotMatch(finalPanel, /result-ledger-place|result-ledger-number|result-ledger-category/);
   assert.match(finalPanel, /final-source-block cat-\$\{categoryId\}/);
   assert.match(finalPanel, /Finalized results \(\.xlsx\)/);
   assert.match(styles, /\.results-workspace \.cat-row-top/);
@@ -344,6 +347,7 @@ test("Results UI retains the reviewed navigation, tabs, audit, and export contra
   assert.match(styles, /\.results-ledger-controls \.results-status-filter\[aria-pressed="true"\]/);
   assert.match(styles, /\.result-ledger-table\s*\{/);
   assert.match(styles, /\.result-evidence-panel\s*\{/);
+  assert.doesNotMatch(styles, /\.results-status-marker\s*\{/);
   assert.match(styles, /\.results-workspace \.metric-cards\.results-metrics\s*\{[^}]*display:\s*grid[^}]*gap:\s*0/s);
   assert.match(styles, /\.results-workspace \.final-source-value strong\s*\{[^}]*background:\s*transparent/s);
   assert.doesNotMatch(records, /dispatch\(\{ type: "(?:DELETE_SESSION|CLEAR_HISTORY)"/);

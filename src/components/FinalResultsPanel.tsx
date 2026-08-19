@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { CATEGORIES, CATEGORY_BY_ID } from "../config";
+import { CATEGORY_BY_ID } from "../config";
 import {
   buildParticipantResultPreview,
   finalizeParticipantResult,
@@ -12,6 +12,7 @@ import {
   muqarrarLabel,
   participantCategoryLabel,
 } from "../lib/participants";
+import { participantNumberLabel } from "../lib/participantPresentation";
 import type {
   ResultsReviewItem,
   ResultsReviewReason,
@@ -108,6 +109,13 @@ function tableStateLabel(item: ResultsReviewItem): string {
   return item.state === "ready" ? "Ready" : stateLabel(item);
 }
 
+function resultParticipantNumber(value: string, isSample: boolean): string {
+  const sampleNumber = isSample && /^T\d+$/i.test(value.trim())
+    ? value.trim().slice(1)
+    : value;
+  return participantNumberLabel(sampleNumber);
+}
+
 export function FinalResultsPanel({
   allItems,
   visibleItems,
@@ -134,16 +142,6 @@ export function FinalResultsPanel({
     ),
     [currentResults],
   );
-  const categoryColumns = useMemo(
-    () => CATEGORIES
-      .map((category) => category.id)
-      .filter((categoryId) => allItems.some(
-        (item) => item.candidate.categories.includes(categoryId),
-      )),
-    [allItems],
-  );
-  const scoreConfig = state.competition.liveSnapshot?.scoreConfig ?? state.config;
-
   useEffect(() => {
     setExpandedParticipantId((current) => {
       if (current && visibleItems.some(
@@ -231,6 +229,10 @@ export function FinalResultsPanel({
     const participantReady = hasCompleteFinalizationIdentity(candidate.participant);
     const total = placed?.total ?? preview?.total;
     const totalMax = placed?.totalMax ?? preview?.totalMax;
+    const participantNumber = resultParticipantNumber(
+      candidate.participant.number,
+      state.competition.isSample,
+    );
     return (
       <aside
         id="result-participant-evidence"
@@ -239,7 +241,7 @@ export function FinalResultsPanel({
       >
         <div className="result-evidence-head">
           <span className="result-evidence-kicker">
-            Participant <bdi>{candidate.participant.number || "—"}</bdi>
+            Participant <bdi>{participantNumber}</bdi>
           </span>
           <h3 id="result-evidence-title">
             {candidate.participant.name || "Unnamed participant"}
@@ -253,7 +255,6 @@ export function FinalResultsPanel({
           </p>
           <div className="result-evidence-summary">
             <span className={`result-ledger-state is-${item.state}`}>
-              <span aria-hidden="true" />
               {tableStateLabel(item)}
             </span>
             <strong>
@@ -377,18 +378,7 @@ export function FinalResultsPanel({
             <table className="result-ledger-table">
               <thead>
                 <tr>
-                  <th scope="col" className="result-ledger-place">Place</th>
-                  <th scope="col" className="result-ledger-number">No.</th>
                   <th scope="col">Participant</th>
-                  {categoryColumns.map((categoryId) => (
-                    <th scope="col" className="result-ledger-numeric" key={categoryId}>
-                      <span className={`result-ledger-category cat-${categoryId}`}>
-                        <span aria-hidden="true" />
-                        {CATEGORY_BY_ID[categoryId].label}
-                        <small>of {scoreConfig[categoryId].start}</small>
-                      </span>
-                    </th>
-                  ))}
                   <th scope="col" className="result-ledger-numeric">Total</th>
                   <th scope="col" className="result-ledger-state-column">State</th>
                 </tr>
@@ -406,17 +396,20 @@ export function FinalResultsPanel({
                   const primaryReason = item.state === "needs-review" && item.reasons[0]
                     ? reasonText(item.reasons[0])
                     : "";
+                  const participantNumber = resultParticipantNumber(
+                    candidate.participant.number,
+                    state.competition.isSample,
+                  );
+                  const participantContext = [
+                    candidate.participant.ageGroup,
+                    participantCategoryLabel(candidate.participant.category),
+                    muqarrarLabel(candidate.participant.muqarrar),
+                  ].filter(Boolean).join(" · ");
                   return (
                     <tr
                       className={`result-ledger-row is-${item.state} ${isSelected ? "is-selected" : ""}`}
                       key={candidate.participant.id}
                     >
-                      <td className="result-ledger-place">
-                        <bdi>{placed?.place ?? "—"}</bdi>
-                      </td>
-                      <td className="result-ledger-number">
-                        <bdi>{candidate.participant.number || "—"}</bdi>
-                      </td>
                       <td className="result-ledger-participant">
                         <button
                           type="button"
@@ -426,35 +419,17 @@ export function FinalResultsPanel({
                         >
                           <strong>{candidate.participant.name || "Unnamed participant"}</strong>
                           <small>
-                            {[
-                              candidate.participant.ageGroup,
-                              participantCategoryLabel(candidate.participant.category),
-                              muqarrarLabel(candidate.participant.muqarrar),
-                            ].filter(Boolean).join(" · ")}
+                            <bdi className="result-ledger-participant-number">{participantNumber}</bdi>
+                            {participantContext && <> · {participantContext}</>}
                           </small>
                         </button>
                       </td>
-                      {categoryColumns.map((categoryId) => {
-                        const sourceId = selected[categoryId];
-                        const source = candidate.byCategory[categoryId]?.find(
-                          (session) => session.id === sourceId,
-                        );
-                        const categoryScore = source
-                          ? sourceScore(source, categoryId)
-                          : null;
-                        return (
-                          <td className="result-ledger-numeric result-ledger-mark" key={categoryId}>
-                            <bdi>{categoryScore?.score ?? "—"}</bdi>
-                          </td>
-                        );
-                      })}
                       <td className="result-ledger-numeric result-ledger-total">
                         <strong><bdi>{total ?? "—"}</bdi></strong>
                         {totalMax !== undefined && <small>/<bdi>{totalMax}</bdi></small>}
                       </td>
                       <td className="result-ledger-state-column">
                         <span className={`result-ledger-state is-${item.state}`}>
-                          <span aria-hidden="true" />
                           {tableStateLabel(item)}
                         </span>
                         {primaryReason && <small>{primaryReason}</small>}

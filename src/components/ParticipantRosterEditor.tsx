@@ -380,7 +380,7 @@ export function ParticipantRosterEditor({
             <button type="button" role="radio" aria-checked={draft.numberingMode === "automatic"} className={draft.numberingMode === "automatic" ? "is-active" : ""} onClick={() => save({ ...draft, numberingMode: "automatic" })}>Automatic</button>
             <button type="button" role="radio" aria-checked={draft.numberingMode === "supplied"} className={draft.numberingMode === "supplied" ? "is-active" : ""} onClick={() => save({ ...draft, numberingMode: "supplied" })}>Supplied</button>
           </div>
-          <small>{draft.numberingMode === "automatic" ? "Assigned from final row order: 01–99, then 001–999." : "Keep the numbers supplied by the competition."}</small>
+          <small>{draft.numberingMode === "automatic" ? "Assigned from final row order: 01–99, then 100 onward." : "Keep the numbers supplied by the competition."}</small>
         </div>
         <div className="roster-source-actions">
           <button type="button" className="btn-ghost" onClick={() => addRow()}><Icon name="plus" size={14} /> Add participant</button>

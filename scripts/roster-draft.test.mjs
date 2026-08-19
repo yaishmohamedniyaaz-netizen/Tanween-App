@@ -22,7 +22,7 @@ const divisions = [
 test("automatic numbering uses two digits below 100 and three at 100", () => {
   assert.equal(automaticParticipantNumber(0, 8), "01");
   assert.equal(automaticParticipantNumber(98, 99), "99");
-  assert.equal(automaticParticipantNumber(0, 100), "001");
+  assert.equal(automaticParticipantNumber(0, 100), "01");
   assert.equal(automaticParticipantNumber(99, 100), "100");
 });
 
