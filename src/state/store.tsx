@@ -1298,6 +1298,19 @@ export function normalizeSavedSession(session: SavedSession): SavedSession {
   };
 }
 
+export function normalizeImportedSavedSession(session: SavedSession): SavedSession {
+  const normalized = normalizeSavedSession(session);
+  if (!session.events?.length) return normalized;
+  const cacheNormalized = normalizeSavedSession({ ...session, events: [] });
+  if (
+    JSON.stringify(normalized.mistakes) !== JSON.stringify(cacheNormalized.mistakes) ||
+    JSON.stringify(normalized.impressions) !== JSON.stringify(cacheNormalized.impressions)
+  ) {
+    throw new Error("The judging ledger does not agree with its saved score evidence.");
+  }
+  return normalized;
+}
+
 export function normalizeLedgerState(
   parsed: Partial<JudgingState>,
 ): JudgingState {

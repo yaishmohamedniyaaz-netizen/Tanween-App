@@ -45,7 +45,7 @@ import {
   type JudgeResultPackage,
 } from "../lib/resultPackages";
 import { computeRecords } from "../lib/stats";
-import { useJudging } from "../state/store";
+import { normalizeImportedSavedSession, useJudging } from "../state/store";
 import type { ParticipantCategory, SavedSession } from "../types";
 import { FinalResultsPanel } from "./FinalResultsPanel";
 import { Icon } from "./Icon";
@@ -451,7 +451,9 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
         rosterParticipant.name !== incomingParticipant.name ||
         rosterParticipant.ageGroup !== incomingParticipant.ageGroup ||
         rosterParticipant.category !== incomingParticipant.category ||
-        rosterParticipant.muqarrar !== incomingParticipant.muqarrar
+        rosterParticipant.muqarrar !== incomingParticipant.muqarrar ||
+        rosterParticipant.phone !== incomingParticipant.phone ||
+        rosterParticipant.institution !== incomingParticipant.institution
       ) {
         throw new Error("That result's participant details do not match the current roster.");
       }
@@ -539,15 +541,32 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
           );
         }
       }
-      setImportPreview({
-        ...payload,
-        session: {
+      const canonicalParticipant = {
+        id: rosterParticipant.id,
+        number: rosterParticipant.number,
+        name: rosterParticipant.name,
+        ageGroup: rosterParticipant.ageGroup,
+        category: rosterParticipant.category,
+        muqarrar: rosterParticipant.muqarrar,
+        phone: rosterParticipant.phone,
+        institution: rosterParticipant.institution,
+      };
+      let normalizedSession: SavedSession;
+      try {
+        normalizedSession = normalizeImportedSavedSession({
           ...payload.session,
           competitionId: payload.competition.id,
           competitionVersionId: packageVersionId ?? undefined,
           isSample: payload.competition.isSample,
+          participant: canonicalParticipant,
           ...(normalizedQuestion ? { question: normalizedQuestion } : {}),
-        },
+        });
+      } catch {
+        throw new Error("That result contains invalid or inconsistent judging history.");
+      }
+      setImportPreview({
+        ...payload,
+        session: normalizedSession,
       });
     } catch (error) {
       setImportError(

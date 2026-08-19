@@ -227,6 +227,11 @@ test("legacy injected ranges and mismatched question context never become exact 
   const range = exactRange({ surah: 97, ayah: 2 }, 10);
   const legacyPrepared = { ...question(range), version: 1 };
   const legacyManual = { ...legacyPrepared, kind: "manual", sourceQuestionId: undefined };
+  const exactManual = {
+    ...question(range),
+    kind: "manual",
+    sourceQuestionId: undefined,
+  };
   assert.equal(
     buildParticipantQuestionEvidence(
       buildResultCandidates([
@@ -242,6 +247,16 @@ test("legacy injected ranges and mismatched question context never become exact 
       buildResultCandidates([
         session("jali", "jali", legacyManual),
         session("khafi", "khafi", legacyManual),
+      ], ["jali", "khafi"])[0],
+      {},
+    ).status,
+    "manual-missing",
+  );
+  assert.equal(
+    buildParticipantQuestionEvidence(
+      buildResultCandidates([
+        session("jali", "jali", exactManual),
+        session("khafi", "khafi", exactManual),
       ], ["jali", "khafi"])[0],
       {},
     ).status,

@@ -4,6 +4,20 @@ import type {
   SavedSession,
 } from "../types";
 
+const JUDGING_EVENT_TYPES = new Set([
+  "session_started",
+  "mistake_added",
+  "mistake_amount_changed",
+  "mistake_recategorized",
+  "mistake_note_changed",
+  "mistake_undone",
+  "mistake_restored",
+  "impression_changed",
+  "impression_note_changed",
+  "session_reopened",
+  "session_finalized",
+]);
+
 export interface JudgeResultPackage {
   app: "tahqeeq";
   schema: "judge-result-v1";
@@ -81,6 +95,7 @@ export function downloadJudgeResultPackage(
 
 export function parseJudgeResultPackage(value: unknown): JudgeResultPackage {
   const payload = value as Partial<JudgeResultPackage> | null;
+  const events = payload?.session?.events;
   if (
     !payload ||
     payload.app !== "tahqeeq" ||
@@ -90,7 +105,14 @@ export function parseJudgeResultPackage(value: unknown): JudgeResultPackage {
     !payload.session.participant?.name ||
     !payload.session.assignment ||
     !Array.isArray(payload.session.mistakes) ||
-    typeof payload.competition.isSample !== "boolean"
+    typeof payload.competition.isSample !== "boolean" ||
+    (events !== undefined &&
+      (!Array.isArray(events) ||
+        events.some((event) =>
+          !event ||
+          typeof event !== "object" ||
+          !JUDGING_EVENT_TYPES.has((event as { type?: unknown }).type as string)
+        )))
   ) {
     throw new Error("This is not a complete Tahqeeq judge-result file.");
   }

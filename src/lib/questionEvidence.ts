@@ -266,14 +266,13 @@ export function buildParticipantQuestionEvidence(
     session,
     question: session.question!,
   }));
-  const manualWithoutRange = records.find(
-    ({ question }) => question.kind === "manual" &&
-      (question.version !== 2 || !question.range),
+  const manualQuestion = records.find(
+    ({ question }) => question.kind === "manual",
   );
-  if (manualWithoutRange) {
+  if (manualQuestion) {
     return {
       status: "manual-missing",
-      question: manualWithoutRange.question,
+      question: manualQuestion.question,
       range: null,
       fingerprint: null,
       selectedSessions,

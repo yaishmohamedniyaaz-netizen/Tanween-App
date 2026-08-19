@@ -221,6 +221,13 @@ test("judge packages and full backups reject incomplete files", () => {
     }),
     /not a complete Tahqeeq judge-result file/,
   );
+  assert.throws(
+    () => parseJudgeResultPackage({
+      ...resultPackage,
+      session: { ...resultPackage.session, events: [null] },
+    }),
+    /not a complete Tahqeeq judge-result file/,
+  );
 
   const state = { history: [source], roster: [] };
   const backup = buildStateBackup(state);
@@ -242,4 +249,7 @@ test("the UI retains old final revisions and validates imported competition reco
   assert.match(recordsSource, /not in this competition's participant list/);
   assert.match(recordsSource, /does not match this competition's panel assignments/);
   assert.match(recordsSource, /uses different scoring rules/);
+  assert.match(recordsSource, /normalizeImportedSavedSession/);
+  assert.match(recordsSource, /participant: canonicalParticipant/);
+  assert.match(storeSource, /judging ledger does not agree with its saved score evidence/);
 });
