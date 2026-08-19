@@ -307,6 +307,14 @@ test("Results UI retains the reviewed navigation, tabs, audit, and export contra
     new URL("../src/components/FinalResultsPanel.tsx", import.meta.url),
     "utf8",
   );
+  const participantDetail = readFileSync(
+    new URL("../src/components/ParticipantResultDetail.tsx", import.meta.url),
+    "utf8",
+  );
+  const evidenceSpan = readFileSync(
+    new URL("../src/components/RecitationEvidenceSpan.tsx", import.meta.url),
+    "utf8",
+  );
   const styles = readFileSync(
     new URL("../src/styles/global.css", import.meta.url),
     "utf8",
@@ -332,21 +340,42 @@ test("Results UI retains the reviewed navigation, tabs, audit, and export contra
   assert.match(records, /Reopen to correct/);
   assert.match(records, /different competition or edition/);
   assert.match(records, /uses different scoring rules/);
+  assert.match(records, /recitationRangeMatchesQuestionIndex/);
+  assert.match(records, /inspectImportedSessionQuestion/);
+  assert.match(records, /different frozen competition version/);
+  assert.match(records, /conflicting competition identity/);
+  assert.match(records, /conflicting sample identity/);
+  assert.match(records, /Add for review/);
+  assert.match(records, /detailParticipantId/);
+  assert.match(records, /Back to all participants|onCloseParticipant/);
   assert.doesNotMatch(records, />Rankings<|>Exports</);
   assert.match(finalPanel, /window\.prompt/);
   assert.match(finalPanel, /UPSERT_FINAL_RESULT/);
   assert.match(finalPanel, /className="result-ledger-table"/);
-  assert.match(finalPanel, /aria-pressed=\{isSelected\}/);
-  assert.match(finalPanel, /id="result-participant-evidence"/);
+  assert.match(finalPanel, /ParticipantResultDetail/);
+  assert.match(finalPanel, /detailParticipantId/);
+  assert.doesNotMatch(finalPanel, /aria-pressed=\{isSelected\}/);
+  assert.doesNotMatch(finalPanel, /id="result-participant-evidence"/);
   assert.match(finalPanel, /result-ledger-participant-number/);
   assert.doesNotMatch(finalPanel, /result-ledger-place|result-ledger-number|result-ledger-category/);
-  assert.match(finalPanel, /final-source-block cat-\$\{categoryId\}/);
   assert.match(finalPanel, /Finalized results \(\.xlsx\)/);
+  assert.match(participantDetail, /Recorded Quran span/);
+  assert.match(participantDetail, /RecitationEvidenceSpan/);
+  assert.match(participantDetail, /Changing a source can change the score and recorded question/);
+  assert.match(participantDetail, /Pre-Ready replacement records/);
+  assert.doesNotMatch(participantDetail, /Choose another question|Correct question/);
+  assert.match(evidenceSpan, /evidence-context-word/);
+  assert.match(evidenceSpan, /evidence-marker-button/);
+  assert.match(evidenceSpan, /evidence-semantic-word/);
+  assert.match(participantDetail, /disabled=\{!locatable\}/);
+  assert.match(evidenceSpan, /loadQuestionIndex/);
   assert.match(styles, /\.results-workspace \.cat-row-top/);
   assert.match(styles, /\.results-workspace \.cat-bar-fill/);
   assert.match(styles, /\.results-ledger-controls \.results-status-filter\[aria-pressed="true"\]/);
   assert.match(styles, /\.result-ledger-table\s*\{/);
-  assert.match(styles, /\.result-evidence-panel\s*\{/);
+  assert.match(styles, /\.result-participant-detail\s*\{/);
+  assert.match(styles, /\.result-detail-main\s*\{[^}]*grid-template-columns:\s*minmax\(0, 1fr\) minmax\(300px, 320px\)/s);
+  assert.match(styles, /\.evidence-context-word\s*\{[^}]*visibility:\s*hidden/s);
   assert.doesNotMatch(styles, /\.results-status-marker\s*\{/);
   assert.match(styles, /\.results-workspace \.metric-cards\.results-metrics\s*\{[^}]*display:\s*grid[^}]*gap:\s*0/s);
   assert.match(styles, /\.results-workspace \.final-source-value strong\s*\{[^}]*background:\s*transparent/s);

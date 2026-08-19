@@ -1,15 +1,17 @@
 import type { CompetitionDivision, PreparedRecitation } from "../types";
+import { questionStartPage } from "../lib/reciterQuestions.ts";
 import { ParticipantIdentity } from "./ParticipantIdentity";
 
 function questionSummary(prepared: PreparedRecitation): string {
   const { question } = prepared;
+  const startPage = questionStartPage(question);
   const choice =
     question.kind === "manual"
       ? "External question"
       : question.drawPosition
         ? `Number ${question.drawPosition}`
         : "Question";
-  return question.startPage ? `${choice} · page ${question.startPage}` : choice;
+  return startPage ? `${choice} · page ${startPage}` : choice;
 }
 
 export function PreparedSidebar({

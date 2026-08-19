@@ -7,6 +7,10 @@ import type {
   SavedSession,
 } from "../types";
 import { judgeDisplayName } from "./judgeAssignments.ts";
+import {
+  buildParticipantQuestionEvidence,
+  type ParticipantQuestionEvidence,
+} from "./questionEvidence.ts";
 import { computeCategoryScores } from "./scoring.ts";
 
 export interface ParticipantResultCandidate {
@@ -23,6 +27,7 @@ export interface ParticipantResultPreview {
   byCategory: Partial<Record<CategoryId, FinalizedCategoryScore>>;
   total: number;
   totalMax: number;
+  questionEvidence: ParticipantQuestionEvidence;
 }
 
 const round2 = (value: number) => Math.round(value * 100) / 100;
@@ -98,7 +103,7 @@ export function finalizeParticipantResult(
   if (!hasCompleteFinalizationIdentity(candidate.participant)) return null;
   const preview = buildParticipantResultPreview(candidate, selectedSessionIds);
   if (!preview) return null;
-  const { byCategory, total, totalMax } = preview;
+  const { byCategory, total, totalMax, questionEvidence } = preview;
   const revision = (previous?.revision ?? 0) + 1;
   const normalizedReason = revisionReason?.trim() || undefined;
   const manifestSource = JSON.stringify({
@@ -108,6 +113,8 @@ export function finalizeParticipantResult(
     byCategory,
     total,
     totalMax,
+    questionEvidenceFingerprint: questionEvidence.fingerprint,
+    questionEvidenceStatus: questionEvidence.status,
   });
 
   return {
@@ -120,6 +127,32 @@ export function finalizeParticipantResult(
     byCategory,
     total,
     totalMax,
+    questionEvidence:
+      questionEvidence.status === "ready" &&
+      questionEvidence.question &&
+      questionEvidence.fingerprint
+        ? {
+            version: 1,
+            fingerprint: questionEvidence.fingerprint,
+            question: {
+              ...questionEvidence.question,
+              ...(questionEvidence.question.range
+                ? {
+                    range: {
+                      ...questionEvidence.question.range,
+                      startAyah: { ...questionEvidence.question.range.startAyah },
+                      endAyah: { ...questionEvidence.question.range.endAyah },
+                    },
+                  }
+                : {}),
+            },
+            sources: questionEvidence.selectedSessions.map((session) => ({
+              sessionId: session.id,
+              sessionRevision: session.revision ?? 1,
+              judgeSeatId: session.assignment?.judgeSeatId ?? "judge-1",
+            })),
+          }
+        : undefined,
     manifest: `fnv1a-${stableHash(manifestSource)}`,
   };
 }
@@ -160,7 +193,15 @@ export function buildParticipantResultPreview(
   const totalMax = round2(
     categoryIds.reduce((sum, category) => sum + (byCategory[category]?.max ?? 0), 0),
   );
-  return { byCategory, total, totalMax };
+  return {
+    byCategory,
+    total,
+    totalMax,
+    questionEvidence: buildParticipantQuestionEvidence(
+      candidate,
+      selectedSessionIds,
+    ),
+  };
 }
 
 export interface PlacedResult extends FinalizedResult {

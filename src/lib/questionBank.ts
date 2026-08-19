@@ -1,3 +1,4 @@
+import type { RecitationRangeSnapshot } from "../types.ts";
 import { MUSHAF_DATA_VERSION, MUSHAF_LAYOUT } from "./mushafContract.ts";
 
 export const QUESTION_INDEX_VERSION = "qpc-v1-1405h-question-index-v1";
@@ -196,6 +197,50 @@ export function resolveQuestionRange(
       layoutHash: lookup.asset.layoutHash,
     },
   };
+}
+
+/**
+ * Proves that a frozen result range is the exact deterministic range produced
+ * by the active immutable question index. Structural validation alone is not
+ * enough: a real word id paired with a different page or line must fail closed.
+ */
+export function recitationRangeMatchesQuestionIndex(
+  lookup: QuestionIndexLookup,
+  range: RecitationRangeSnapshot,
+): boolean {
+  if (
+    range.mushafLayout !== MUSHAF_LAYOUT ||
+    range.sourceVersion !== lookup.asset.sourceVersion ||
+    range.questionIndexVersion !== lookup.asset.version ||
+    range.layoutHash !== lookup.asset.layoutHash
+  ) {
+    return false;
+  }
+  const resolved = resolveQuestionRange(
+    lookup,
+    range.startAyah,
+    range.requestedLines,
+    range.finalPrintedLineScoring,
+  );
+  if (!resolved.ok) return false;
+  const expected = resolved.range;
+  return (
+    expected.startAyah.surah === range.startAyah.surah &&
+    expected.startAyah.ayah === range.startAyah.ayah &&
+    expected.endAyah.surah === range.endAyah.surah &&
+    expected.endAyah.ayah === range.endAyah.ayah &&
+    expected.requestedLines === range.requestedLines &&
+    expected.resolvedLines === range.resolvedLines &&
+    expected.extensionLines === range.extensionLines &&
+    expected.startPage === range.startPage &&
+    expected.startLine === range.startLine &&
+    expected.endPage === range.endPage &&
+    expected.endLine === range.endLine &&
+    expected.startWordId === range.startWordId &&
+    expected.endWordId === range.endWordId &&
+    expected.endMarkerId === range.endMarkerId &&
+    expected.finalPrintedLineScoring === range.finalPrintedLineScoring
+  );
 }
 
 let indexPromise: Promise<QuestionIndexLookup> | null = null;

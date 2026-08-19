@@ -1223,10 +1223,10 @@ export function normalizeSavedSession(session: SavedSession): SavedSession {
   const eventQuestion = session.events?.find(
     (event) => event.type === "session_started" && event.question,
   );
-  const question = normalizeQuestionAssignment(
-    session.question ??
-      (eventQuestion?.type === "session_started" ? eventQuestion.question : undefined),
-  );
+  const question = normalizeQuestionAssignment(session.question) ??
+    normalizeQuestionAssignment(
+      eventQuestion?.type === "session_started" ? eventQuestion.question : undefined,
+    );
   const startedAt =
     session.startedAt ??
     Math.min(session.savedAt, ...session.mistakes.map((mistake) => mistake.ts));
@@ -1395,11 +1395,11 @@ export function normalizeLedgerState(
     (event) => event.type === "session_started" && event.question,
   );
   const activeQuestion = sessionActive
-    ? normalizeQuestionAssignment(
-        parsed.activeQuestion ??
-          (activeEventQuestion?.type === "session_started"
-            ? activeEventQuestion.question
-            : undefined),
+    ? normalizeQuestionAssignment(parsed.activeQuestion) ??
+      normalizeQuestionAssignment(
+        activeEventQuestion?.type === "session_started"
+          ? activeEventQuestion.question
+          : undefined,
       )
     : null;
   let preparedRecitation =

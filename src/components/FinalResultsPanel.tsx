@@ -1,26 +1,25 @@
-import { useEffect, useMemo, useState } from "react";
-import { CATEGORY_BY_ID } from "../config";
+import { useMemo, useState } from "react";
+import { CATEGORY_BY_ID } from "../config.ts";
 import {
   buildParticipantResultPreview,
   finalizeParticipantResult,
-  hasCompleteFinalizationIdentity,
   placeFinalizedResults,
   type ParticipantResultCandidate,
-} from "../lib/finalResults";
-import { downloadFinalResultsWorkbook } from "../lib/finalResultsWorkbook";
+} from "../lib/finalResults.ts";
+import { downloadFinalResultsWorkbook } from "../lib/finalResultsWorkbook.ts";
 import {
   muqarrarLabel,
   participantCategoryLabel,
-} from "../lib/participants";
-import { participantNumberLabel } from "../lib/participantPresentation";
+} from "../lib/participants.ts";
+import { participantNumberLabel } from "../lib/participantPresentation.ts";
 import type {
   ResultsReviewItem,
   ResultsReviewReason,
-} from "../lib/resultsReview";
-import { computeCategoryScores } from "../lib/scoring";
-import { useJudging } from "../state/store";
-import type { CategoryId, FinalizedResult, SavedSession } from "../types";
-import { Icon } from "./Icon";
+} from "../lib/resultsReview.ts";
+import { useJudging } from "../state/store.tsx";
+import type { CategoryId, FinalizedResult } from "../types.ts";
+import { Icon } from "./Icon.tsx";
+import { ParticipantResultDetail } from "./ParticipantResultDetail.tsx";
 
 type CandidateSelections = Record<
   string,
@@ -31,6 +30,13 @@ interface Props {
   allItems: ResultsReviewItem[];
   visibleItems: ResultsReviewItem[];
   filteredEmpty: boolean;
+  detailParticipantId: string | null;
+  onOpenParticipant: (participantId: string) => void;
+  onCloseParticipant: () => void;
+  registerParticipantButton: (
+    participantId: string,
+    node: HTMLButtonElement | null,
+  ) => void;
   onClearFilters: () => void;
 }
 
@@ -62,20 +68,6 @@ function selectedSessionId(
     : "";
 }
 
-function sourceJudge(session: SavedSession): string {
-  return session.assignment?.judgeName ||
-    session.assignment?.judgeLabel ||
-    "Judge 1";
-}
-
-function sourceScore(session: SavedSession, category: CategoryId) {
-  return computeCategoryScores(
-    session.config,
-    session.mistakes,
-    session.impressions ?? [],
-  ).byCategory[category];
-}
-
 function categoryNames(categories: CategoryId[]): string {
   return categories.map((category) => CATEGORY_BY_ID[category].label).join(", ");
 }
@@ -101,12 +93,8 @@ function reasonText(reason: ResultsReviewReason): string {
 
 function stateLabel(item: ResultsReviewItem): string {
   if (item.state === "finalized") return "Finalized";
-  if (item.state === "ready") return "Ready to finalize";
+  if (item.state === "ready") return "Ready";
   return "Needs review";
-}
-
-function tableStateLabel(item: ResultsReviewItem): string {
-  return item.state === "ready" ? "Ready" : stateLabel(item);
 }
 
 function resultParticipantNumber(value: string, isSample: boolean): string {
@@ -120,13 +108,16 @@ export function FinalResultsPanel({
   allItems,
   visibleItems,
   filteredEmpty,
+  detailParticipantId,
+  onOpenParticipant,
+  onCloseParticipant,
+  registerParticipantButton,
   onClearFilters,
 }: Props) {
   const { state, dispatch } = useJudging();
   const [selections, setSelections] = useState<CandidateSelections>({});
   const [exportError, setExportError] = useState("");
   const [exporting, setExporting] = useState(false);
-  const [expandedParticipantId, setExpandedParticipantId] = useState<string | null>(null);
   const currentResults = useMemo(
     () => allItems.flatMap((item) =>
       item.state === "finalized" && item.activeFinal ? [item.activeFinal] : [],
@@ -142,16 +133,6 @@ export function FinalResultsPanel({
     ),
     [currentResults],
   );
-  useEffect(() => {
-    setExpandedParticipantId((current) => {
-      if (current && visibleItems.some(
-        (item) => item.candidate.participant.id === current,
-      )) return current;
-      const priorityItem = visibleItems.find((item) => item.state === "needs-review") ??
-        visibleItems[0];
-      return priorityItem?.candidate.participant.id ?? null;
-    });
-  }, [visibleItems]);
 
   const setSelection = (
     participantId: string,
@@ -213,146 +194,30 @@ export function FinalResultsPanel({
     }
   };
 
-  const selectedItem = visibleItems.find(
-    (item) => item.candidate.participant.id === expandedParticipantId,
-  ) ?? null;
+  const detailItem = detailParticipantId
+    ? allItems.find(
+        (item) => item.candidate.participant.id === detailParticipantId,
+      ) ?? null
+    : null;
 
-  const renderEvidencePanel = (item: ResultsReviewItem) => {
-    const candidate = item.candidate;
-    const previous = item.activeFinal;
-    const placed = placedByParticipant.get(candidate.participant.id);
-    const selected = selectedForCandidate(candidate, previous);
-    const preview = buildParticipantResultPreview(candidate, selected);
-    const unresolved = candidate.categories.some(
-      (category) => !selected[category],
-    );
-    const participantReady = hasCompleteFinalizationIdentity(candidate.participant);
-    const total = placed?.total ?? preview?.total;
-    const totalMax = placed?.totalMax ?? preview?.totalMax;
-    const participantNumber = resultParticipantNumber(
-      candidate.participant.number,
-      state.competition.isSample,
-    );
+  if (detailItem) {
+    const candidate = detailItem.candidate;
     return (
-      <aside
-        id="result-participant-evidence"
-        className={`result-evidence-panel is-${item.state}`}
-        aria-labelledby="result-evidence-title"
-      >
-        <div className="result-evidence-head">
-          <span className="result-evidence-kicker">
-            Participant <bdi>{participantNumber}</bdi>
-          </span>
-          <h3 id="result-evidence-title">
-            {candidate.participant.name || "Unnamed participant"}
-          </h3>
-          <p>
-            {[
-              candidate.participant.ageGroup,
-              participantCategoryLabel(candidate.participant.category),
-              muqarrarLabel(candidate.participant.muqarrar),
-            ].filter(Boolean).join(" · ")}
-          </p>
-          <div className="result-evidence-summary">
-            <span className={`result-ledger-state is-${item.state}`}>
-              {tableStateLabel(item)}
-            </span>
-            <strong>
-              <bdi>{total ?? "—"}</bdi>
-              {totalMax !== undefined && <small>/<bdi>{totalMax}</bdi></small>}
-            </strong>
-          </div>
-          {item.reasons.length > 0 && (
-            <p className="result-evidence-reason">
-              {item.reasons.map(reasonText).join(" · ")}
-            </p>
-          )}
-        </div>
-
-        <div className="result-evidence-sources">
-          <h4>Judge sources</h4>
-          {candidate.categories.map((categoryId) => {
-            const category = CATEGORY_BY_ID[categoryId];
-            const options = candidate.byCategory[categoryId];
-            const value = selected[categoryId];
-            const selectedSource = options.find((option) => option.id === value);
-            const score = selectedSource
-              ? sourceScore(selectedSource, categoryId)
-              : null;
-            return (
-              <div className={`final-source-block cat-${categoryId}`} key={categoryId}>
-                <div className="result-evidence-source-label">
-                  <span aria-hidden="true" />
-                  <strong>{category.label}</strong>
-                </div>
-                {options.length <= 1 ? (
-                  <div className={options.length ? "final-source-value is-ready" : "final-source-value is-missing"}>
-                    <strong>
-                      {options.length && score
-                        ? <bdi>{score.score}/{score.start}</bdi>
-                        : "Missing result"}
-                    </strong>
-                    <small>
-                      {options.length
-                        ? <>{sourceJudge(options[0])} · revision {options[0].revision ?? 1}</>
-                        : "Required before finalization"}
-                    </small>
-                  </div>
-                ) : (
-                  <div className="result-evidence-source-choice">
-                    <select
-                      value={value}
-                      aria-label={`${category.label} source for ${candidate.participant.name}`}
-                      onChange={(event) =>
-                        setSelection(
-                          candidate.participant.id,
-                          categoryId,
-                          event.target.value,
-                        )
-                      }
-                    >
-                      <option value="">Choose result</option>
-                      {options.map((session) => {
-                        const optionScore = sourceScore(session, categoryId);
-                        return (
-                          <option value={session.id} key={session.id}>
-                            {sourceJudge(session)} · revision {session.revision ?? 1} · {optionScore.score}/{optionScore.start}
-                          </option>
-                        );
-                      })}
-                    </select>
-                    <small className="final-source-selection-meta">
-                      {selectedSource && score
-                        ? <>Selected revision {selectedSource.revision ?? 1} · <bdi>{score.score}/{score.start}</bdi></>
-                        : "Compare judge, revision, and score before finalizing"}
-                    </small>
-                  </div>
-                )}
-              </div>
-            );
-          })}
-        </div>
-
-        <div className="result-evidence-action">
-          <span>
-            {item.state === "finalized"
-              ? `Current final result · revision ${item.activeFinal?.revision ?? 1}`
-              : item.state === "ready"
-                ? "All required judge sources are present."
-                : "Resolve the review reason before finalizing."}
-          </span>
-          <button
-            type="button"
-            className="btn-primary"
-            disabled={unresolved || !participantReady}
-            onClick={() => finalize(item)}
-          >
-            {previous ? "Finalize revision" : "Finalize result"}
-          </button>
-        </div>
-      </aside>
+      <section className="final-results-panel results-candidate-panel is-detail-open">
+        <ParticipantResultDetail
+          item={detailItem}
+          placed={placedByParticipant.get(candidate.participant.id)}
+          selected={selectedForCandidate(candidate, detailItem.activeFinal)}
+          isSample={state.competition.isSample}
+          onSelectSource={(category, sessionId) =>
+            setSelection(candidate.participant.id, category, sessionId)
+          }
+          onFinalize={() => finalize(detailItem)}
+          onBack={onCloseParticipant}
+        />
+      </section>
     );
-  };
+  }
 
   return (
     <section className="final-results-panel results-candidate-panel">
@@ -390,7 +255,6 @@ export function FinalResultsPanel({
                   const placed = placedByParticipant.get(candidate.participant.id);
                   const selected = selectedForCandidate(candidate, previous);
                   const preview = buildParticipantResultPreview(candidate, selected);
-                  const isSelected = expandedParticipantId === candidate.participant.id;
                   const total = placed?.total ?? preview?.total;
                   const totalMax = placed?.totalMax ?? preview?.totalMax;
                   const primaryReason = item.state === "needs-review" && item.reasons[0]
@@ -407,15 +271,17 @@ export function FinalResultsPanel({
                   ].filter(Boolean).join(" · ");
                   return (
                     <tr
-                      className={`result-ledger-row is-${item.state} ${isSelected ? "is-selected" : ""}`}
+                      className={`result-ledger-row is-${item.state}`}
                       key={candidate.participant.id}
                     >
                       <td className="result-ledger-participant">
                         <button
+                          ref={(node) => registerParticipantButton(
+                            candidate.participant.id,
+                            node,
+                          )}
                           type="button"
-                          aria-pressed={isSelected}
-                          aria-controls="result-participant-evidence"
-                          onClick={() => setExpandedParticipantId(candidate.participant.id)}
+                          onClick={() => onOpenParticipant(candidate.participant.id)}
                         >
                           <strong>{candidate.participant.name || "Unnamed participant"}</strong>
                           <small>
@@ -430,7 +296,7 @@ export function FinalResultsPanel({
                       </td>
                       <td className="result-ledger-state-column">
                         <span className={`result-ledger-state is-${item.state}`}>
-                          {tableStateLabel(item)}
+                          {stateLabel(item)}
                         </span>
                         {primaryReason && <small>{primaryReason}</small>}
                       </td>
@@ -440,7 +306,6 @@ export function FinalResultsPanel({
               </tbody>
             </table>
           </div>
-          {selectedItem && renderEvidencePanel(selectedItem)}
         </div>
       )}
       <div className="results-candidate-toolbar">

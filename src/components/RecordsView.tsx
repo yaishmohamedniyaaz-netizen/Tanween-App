@@ -20,6 +20,15 @@ import { mistakePrimaryGlyph } from "../lib/mistakeDisplay";
 import { participantNumberLabel } from "../lib/participantPresentation";
 import { participantCategoryLabel } from "../lib/participants";
 import {
+  loadQuestionIndex,
+  recitationRangeMatchesQuestionIndex,
+} from "../lib/questionBank.ts";
+import {
+  inspectImportedSessionQuestion,
+  questionEvidenceExactKey,
+} from "../lib/questionEvidence.ts";
+import { participantDivision } from "../lib/reciterQuestions";
+import {
   RESULTS_REVIEW_PAGE_SIZE,
   buildResultsReviewItems,
   filterResultsReviewItems,
@@ -84,6 +93,7 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
   const [reviewParticipantCategory, setReviewParticipantCategory] =
     useState<ParticipantCategory>("");
   const [reviewPage, setReviewPage] = useState(1);
+  const [detailParticipantId, setDetailParticipantId] = useState<string | null>(null);
   const [analysisAgeGroup, setAnalysisAgeGroup] = useState("");
   const [analysisParticipantCategory, setAnalysisParticipantCategory] =
     useState<ParticipantCategory>("");
@@ -93,10 +103,13 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
   const [expanded, setExpanded] = useState<string | null>(null);
   const [reopenSession, setReopenSession] = useState<SavedSession | null>(null);
   const [importPreview, setImportPreview] = useState<JudgeResultPackage | null>(null);
+  const [importEvidenceWarning, setImportEvidenceWarning] = useState("");
   const [importError, setImportError] = useState("");
   const importRef = useRef<HTMLInputElement>(null);
   const reviewTabRef = useRef<HTMLButtonElement>(null);
   const analysisTabRef = useRef<HTMLButtonElement>(null);
+  const participantButtonRefs = useRef(new Map<string, HTMLButtonElement>());
+  const reviewScrollRef = useRef(0);
 
   const judgedCategories = useMemo(
     () => enabledCategories(
@@ -165,6 +178,17 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
   useEffect(() => {
     if (reviewPage !== reviewPageData.page) setReviewPage(reviewPageData.page);
   }, [reviewPage, reviewPageData.page]);
+
+  useEffect(() => {
+    if (
+      detailParticipantId &&
+      !reviewItems.some(
+        (item) => item.candidate.participant.id === detailParticipantId,
+      )
+    ) {
+      setDetailParticipantId(null);
+    }
+  }, [detailParticipantId, reviewItems]);
 
   const historyInScope = useMemo(
     () => selectStoredResultsHistory(
@@ -327,6 +351,23 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
     setReviewPage(1);
   };
 
+  const openParticipantDetail = (participantId: string) => {
+    reviewScrollRef.current = window.scrollY;
+    setDetailParticipantId(participantId);
+    window.requestAnimationFrame(() => window.scrollTo({ top: 0 }));
+  };
+
+  const closeParticipantDetail = () => {
+    const participantId = detailParticipantId;
+    setDetailParticipantId(null);
+    window.requestAnimationFrame(() => {
+      window.scrollTo({ top: reviewScrollRef.current });
+      participantButtonRefs.current.get(participantId ?? "")?.focus({
+        preventScroll: true,
+      });
+    });
+  };
+
   const handleTabKeyDown = (
     event: ReactKeyboardEvent<HTMLButtonElement>,
     current: ResultsTab,
@@ -350,6 +391,7 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
     if (!file) return;
     setImportError("");
     setImportPreview(null);
+    setImportEvidenceWarning("");
     try {
       if (state.sessionActive) {
         throw new Error("Finish the active reciter before importing a judge result.");
@@ -364,11 +406,95 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
       if (Boolean(payload.competition.isSample) !== state.competition.isSample) {
         throw new Error("Sample and official judge results cannot be mixed.");
       }
+      if (
+        payload.session.competitionId &&
+        payload.session.competitionId !== payload.competition.id
+      ) {
+        throw new Error("That result contains conflicting competition identity.");
+      }
+      if (
+        payload.session.isSample !== undefined &&
+        payload.session.isSample !== payload.competition.isSample
+      ) {
+        throw new Error("That result contains conflicting sample identity.");
+      }
+      const packageVersionId = payload.competition.versionId ??
+        payload.session.competitionVersionId ?? null;
+      const sessionVersionId = payload.session.competitionVersionId ?? null;
+      const liveVersionId = state.competition.liveSnapshot?.versionId ?? null;
+      if (
+        payload.competition.versionId &&
+        sessionVersionId &&
+        payload.competition.versionId !== sessionVersionId
+      ) {
+        throw new Error("That result contains conflicting competition-version evidence.");
+      }
+      if (
+        packageVersionId &&
+        liveVersionId &&
+        packageVersionId !== liveVersionId
+      ) {
+        throw new Error("That result belongs to a different frozen competition version.");
+      }
       if (!state.roster.length) {
         throw new Error("Upload this competition's participant list before importing judge results.");
       }
-      if (!state.roster.some((entry) => entry.id === payload.session.participant.id)) {
+      const rosterParticipant = state.roster.find(
+        (entry) => entry.id === payload.session.participant.id,
+      );
+      if (!rosterParticipant) {
         throw new Error("That participant is not in this competition's participant list.");
+      }
+      const incomingParticipant = payload.session.participant;
+      if (
+        rosterParticipant.number !== incomingParticipant.number ||
+        rosterParticipant.name !== incomingParticipant.name ||
+        rosterParticipant.ageGroup !== incomingParticipant.ageGroup ||
+        rosterParticipant.category !== incomingParticipant.category ||
+        rosterParticipant.muqarrar !== incomingParticipant.muqarrar
+      ) {
+        throw new Error("That result's participant details do not match the current roster.");
+      }
+      const importQuestionContext = {
+        competitionId: payload.session.competitionId ?? payload.competition.id,
+        competitionVersionId: packageVersionId ?? undefined,
+      };
+      const questionInspection = inspectImportedSessionQuestion(
+        payload.session,
+        importQuestionContext,
+      );
+      if (!questionInspection.ok) {
+        throw new Error(
+          questionInspection.reason === "invalid-events"
+            ? "That result contains invalid judging history."
+            : questionInspection.reason === "question-conflict"
+              ? "That result contains conflicting recorded-question evidence."
+              : "That result contains invalid recorded-question evidence.",
+        );
+      }
+      const normalizedQuestion = questionInspection.question;
+      if (
+        normalizedQuestion &&
+        normalizedQuestion.participantId !== incomingParticipant.id
+      ) {
+        throw new Error("That result's recorded question belongs to another participant.");
+      }
+      const rosterDivision = participantDivision(
+        rosterParticipant,
+        state.competition.liveSnapshot?.divisions ?? state.competition.divisions,
+      );
+      if (
+        normalizedQuestion &&
+        (normalizedQuestion.divisionId !== rosterDivision?.id ||
+          normalizedQuestion.muqarrar !== rosterParticipant.muqarrar)
+      ) {
+        throw new Error("That result's recorded question does not match the participant's division and muqarrar.");
+      }
+      if (normalizedQuestion?.version === 2 && normalizedQuestion.range) {
+        const questionIndex = await loadQuestionIndex();
+        if (!recitationRangeMatchesQuestionIndex(questionIndex, normalizedQuestion.range)) {
+          throw new Error("That result's recorded Quran range does not match the active question index.");
+        }
       }
       const incomingAssignment = payload.session.assignment;
       if (!incomingAssignment) {
@@ -387,7 +513,37 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
       if (JSON.stringify(payload.session.config) !== JSON.stringify(state.config)) {
         throw new Error("That judge result uses different scoring rules.");
       }
-      setImportPreview(payload);
+      if (normalizedQuestion) {
+        const incomingEvidenceKey = questionEvidenceExactKey(
+          importQuestionContext,
+          normalizedQuestion,
+        );
+        const existingEvidenceKeys = state.history.flatMap((session) => {
+          if (
+            session.participant.id !== incomingParticipant.id ||
+            !session.question
+          ) {
+            return [];
+          }
+          const key = questionEvidenceExactKey(session, session.question);
+          return key ? [key] : [];
+        });
+        if (
+          incomingEvidenceKey &&
+          existingEvidenceKeys.some((key) => key !== incomingEvidenceKey)
+        ) {
+          setImportEvidenceWarning(
+            "This source records a different question or Mushaf version. Add it for review; Tahqeeq will not choose one primary recitation area automatically.",
+          );
+        }
+      }
+      setImportPreview({
+        ...payload,
+        session: {
+          ...payload.session,
+          ...(normalizedQuestion ? { question: normalizedQuestion } : {}),
+        },
+      });
     } catch (error) {
       setImportError(
         error instanceof Error ? error.message : "Could not read that result file.",
@@ -532,11 +688,15 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
                   ? categoryListLabel(importPreview.session.assignment.categories)
                   : "Judge section"}
               </small>
+              {importEvidenceWarning && <small>{importEvidenceWarning}</small>}
             </span>
             <button
               type="button"
               className="btn-ghost"
-              onClick={() => setImportPreview(null)}
+              onClick={() => {
+                setImportPreview(null);
+                setImportEvidenceWarning("");
+              }}
             >
               Cancel
             </button>
@@ -546,9 +706,10 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
               onClick={() => {
                 dispatch({ type: "IMPORT_SESSION", session: importPreview.session });
                 setImportPreview(null);
+                setImportEvidenceWarning("");
               }}
             >
-              Add to records
+              {importEvidenceWarning ? "Add for review" : "Add to records"}
             </button>
           </div>
         )}
@@ -729,7 +890,12 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
         hidden={activeTab !== "review"}
         className="results-tab-panel"
       >
-        <section className="results-review-section" aria-labelledby="results-review-heading">
+        <section
+          className={`results-review-section ${detailParticipantId ? "is-detail-open" : ""}`}
+          aria-labelledby={detailParticipantId ? undefined : "results-review-heading"}
+          aria-label={detailParticipantId ? "Participant result detail" : undefined}
+        >
+          {!detailParticipantId && <>
           <div className="results-review-head">
             <div>
               <h2 id="results-review-heading" className="results-section-title">
@@ -839,15 +1005,23 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
               </details>
             </div>
           </div>
+          </>}
 
           <FinalResultsPanel
             allItems={reviewItems}
             visibleItems={reviewPageData.items}
             filteredEmpty={reviewItems.length > 0 && filteredReviewItems.length === 0}
+            detailParticipantId={detailParticipantId}
+            onOpenParticipant={openParticipantDetail}
+            onCloseParticipant={closeParticipantDetail}
+            registerParticipantButton={(participantId, node) => {
+              if (node) participantButtonRefs.current.set(participantId, node);
+              else participantButtonRefs.current.delete(participantId);
+            }}
             onClearFilters={clearReviewFilters}
           />
 
-          {reviewPageData.pageCount > 1 && (
+          {!detailParticipantId && reviewPageData.pageCount > 1 && (
             <nav className="results-pagination" aria-label="Participant review pages">
               <button
                 type="button"
@@ -872,7 +1046,7 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
           )}
         </section>
 
-        {renderJudgeResults()}
+        {!detailParticipantId && renderJudgeResults()}
       </section>
 
       <section

@@ -315,8 +315,29 @@ export interface CompetitionQuestionDraft {
 }
 
 /** The exact question choice frozen when one reciter's judging begins. */
-export interface ReciterQuestionAssignment {
+export interface RecitationRangeSnapshot {
   version: 1;
+  startAyah: { surah: number; ayah: number };
+  endAyah: { surah: number; ayah: number };
+  requestedLines: number;
+  resolvedLines: number;
+  extensionLines: number;
+  startPage: number;
+  startLine: number;
+  endPage: number;
+  endLine: number;
+  startWordId: string;
+  endWordId: string;
+  endMarkerId: string;
+  finalPrintedLineScoring: "include" | "exclude";
+  mushafLayout: string;
+  sourceVersion: string;
+  questionIndexVersion: string;
+  layoutHash: string;
+}
+
+export interface ReciterQuestionAssignment {
+  version: 1 | 2;
   id: string;
   kind: "prepared-draft" | "manual";
   participantId: string;
@@ -334,6 +355,8 @@ export interface ReciterQuestionAssignment {
   sourceVersion?: string;
   questionIndexVersion?: string;
   layoutHash?: string;
+  /** Exact immutable printed range. Present on every newly prepared question. */
+  range?: RecitationRangeSnapshot;
   /** Immutable link back to the revealed number when Tahqeeq supplied it. */
   drawId?: string;
   drawPosition?: number;
@@ -474,6 +497,17 @@ export interface FinalizedResult {
   total: number;
   totalMax: number;
   manifest: string;
+  /** Frozen only when every selected judge source agrees on one exact question. */
+  questionEvidence?: {
+    version: 1;
+    fingerprint: string;
+    question: ReciterQuestionAssignment;
+    sources: Array<{
+      sessionId: string;
+      sessionRevision: number;
+      judgeSeatId: string;
+    }>;
+  };
   /** Earlier revisions remain in the audit record but never enter rankings. */
   supersededAt?: number;
   supersededByRevision?: number;

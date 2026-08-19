@@ -28,6 +28,12 @@ const manual = {
 
 test("a prepared question opens on its own starting page", () => {
   assert.equal(questionOpeningPage(prepared), 582);
+  assert.equal(questionOpeningPage({
+    ...prepared,
+    version: 2,
+    startPage: undefined,
+    range: { startPage: 598 },
+  }), 598);
 });
 
 test("a manual question leaves the current page alone", () => {
