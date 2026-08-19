@@ -37,7 +37,14 @@ export interface ParticipantQuestionEvidence {
 
 export type ImportedQuestionInspection =
   | { ok: true; question: ReciterQuestionAssignment | null }
-  | { ok: false; reason: "invalid-events" | "invalid-question" | "question-conflict" };
+  | {
+      ok: false;
+      reason:
+        | "invalid-events"
+        | "invalid-question"
+        | "question-conflict"
+        | "version-missing";
+    };
 
 function stableHash(value: string): string {
   let result = 0x811c9dc5;
@@ -155,7 +162,15 @@ export function inspectImportedSessionQuestion(
       return { ok: false, reason: "question-conflict" };
     }
   }
-  return { ok: true, question: topLevelQuestion ?? eventQuestion };
+  const question = topLevelQuestion ?? eventQuestion;
+  if (
+    question?.version === 2 &&
+    question.range &&
+    !context.competitionVersionId
+  ) {
+    return { ok: false, reason: "version-missing" };
+  }
+  return { ok: true, question };
 }
 
 export function selectedSessionsForCandidate(

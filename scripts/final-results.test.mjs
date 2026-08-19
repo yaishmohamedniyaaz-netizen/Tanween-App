@@ -214,6 +214,13 @@ test("judge packages and full backups reject incomplete files", () => {
     }),
     /conflicting competition identity/,
   );
+  assert.throws(
+    () => parseJudgeResultPackage({
+      ...resultPackage,
+      competition: { ...resultPackage.competition, isSample: undefined },
+    }),
+    /not a complete Tahqeeq judge-result file/,
+  );
 
   const state = { history: [source], roster: [] };
   const backup = buildStateBackup(state);

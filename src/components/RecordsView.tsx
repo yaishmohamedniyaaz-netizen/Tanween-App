@@ -465,11 +465,13 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
       );
       if (!questionInspection.ok) {
         throw new Error(
-          questionInspection.reason === "invalid-events"
-            ? "That result contains invalid judging history."
-            : questionInspection.reason === "question-conflict"
-              ? "That result contains conflicting recorded-question evidence."
-              : "That result contains invalid recorded-question evidence.",
+           questionInspection.reason === "invalid-events"
+             ? "That result contains invalid judging history."
+             : questionInspection.reason === "question-conflict"
+               ? "That result contains conflicting recorded-question evidence."
+               : questionInspection.reason === "version-missing"
+                 ? "That result's exact Quran evidence is missing its frozen competition version."
+               : "That result contains invalid recorded-question evidence.",
         );
       }
       const normalizedQuestion = questionInspection.question;
@@ -543,6 +545,7 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
           ...payload.session,
           competitionId: payload.competition.id,
           competitionVersionId: packageVersionId ?? undefined,
+          isSample: payload.competition.isSample,
           ...(normalizedQuestion ? { question: normalizedQuestion } : {}),
         },
       });

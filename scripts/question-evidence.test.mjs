@@ -293,6 +293,12 @@ test("import inspection validates the session-started fallback before it becomes
     inspectImportedSessionQuestion({ events: {} }, {}),
     { ok: false, reason: "invalid-events" },
   );
+  assert.deepEqual(
+    inspectImportedSessionQuestion({ question: recorded }, {
+      competitionId: "competition-1",
+    }),
+    { ok: false, reason: "version-missing" },
+  );
 });
 
 test("matching ranges with different source provenance are not merged", () => {

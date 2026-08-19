@@ -61,7 +61,7 @@ export function buildJudgeResultPackage(
       name: competition.name,
       edition: competition.edition,
       versionId: competition.liveSnapshot?.versionId ?? null,
-      isSample: competition.isSample,
+      isSample: Boolean(competition.isSample),
     },
     session,
   };
@@ -89,7 +89,8 @@ export function parseJudgeResultPackage(value: unknown): JudgeResultPackage {
     !payload.session?.id ||
     !payload.session.participant?.name ||
     !payload.session.assignment ||
-    !Array.isArray(payload.session.mistakes)
+    !Array.isArray(payload.session.mistakes) ||
+    typeof payload.competition.isSample !== "boolean"
   ) {
     throw new Error("This is not a complete Tahqeeq judge-result file.");
   }
