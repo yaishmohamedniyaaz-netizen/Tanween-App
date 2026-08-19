@@ -2739,6 +2739,13 @@ textarea:focus-visible {
   }
 }
 
+@media (min-width: 761px) and (max-width: 1080px) {
+  .results-analysis-intro {
+    align-items: flex-end;
+    flex-direction: row;
+  }
+}
+
 @media (max-width: 620px) {
   .analysis-location-columns,
   .analysis-location-row {
