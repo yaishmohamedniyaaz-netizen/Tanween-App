@@ -880,12 +880,12 @@ async function buildParticipantWorkbook(
     [],
     ["How to use"],
     ["1", "Enter one participant per prepared row in Participants."],
-    ["2", sample ? "This file contains fictional test participants." : "Use the Category and Muqarrar start dropdowns. Institution remains optional and may be typed."],
+    ["2", sample ? "This practice file contains fictional participants." : "Use the Category and Muqarrar start dropdowns. Institution remains optional and may be typed."],
     ["3", context.numberingMode === "automatic" ? "Tahqeeq assigns clean numbers from the final row order." : "Participant Number is required and must be unique."],
     ["4", "Name, Category and Muqarrar start are required. Institution and Phone Number are recommended."],
     ["5", "Import the completed file, fix highlighted rows in Tahqeeq, then review before applying."],
     ["6", "Keep phone numbers and supplied participant numbers as text when they begin with zero."],
-    ...(sample ? [[], ["Sample file", "Every participant is fictional test data."]] : []),
+    ...(sample ? [[], ["Practice file", "Every participant is fictional and must not be treated as an official roster."]] : []),
   ];
   instructionRows.forEach((row) => instructions.addRow(row));
   instructions.columns = [{ width: 20 }, { width: 92 }];
@@ -930,7 +930,7 @@ export async function buildSampleParticipantWorkbook(): Promise<ArrayBuffer> {
   return buildParticipantWorkbook(
     genericTemplateContext(),
     createSampleRoster(),
-    "Tahqeeq Sample Participant Roster",
+    "Tahqeeq Practice Participant Roster",
     true,
   );
 }
@@ -1002,7 +1002,7 @@ export async function downloadParticipantTemplate(competition?: CompetitionConfi
 
 export async function downloadSampleParticipantWorkbook(): Promise<void> {
   const buffer = await buildSampleParticipantWorkbook();
-  const preview = await parseRosterFile(new File([buffer], "Tahqeeq-sample-participants.xlsx"));
-  if (preview.entries.length !== createSampleRoster().length) throw new Error("The sample participant workbook did not verify.");
-  downloadBuffer(buffer, "Tahqeeq-sample-participants.xlsx");
+  const preview = await parseRosterFile(new File([buffer], "Tahqeeq-practice-participants.xlsx"));
+  if (preview.entries.length !== createSampleRoster().length) throw new Error("The practice participant workbook did not verify.");
+  downloadBuffer(buffer, "Tahqeeq-practice-participants.xlsx");
 }

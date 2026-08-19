@@ -404,7 +404,7 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
         throw new Error("That result belongs to a different competition or edition.");
       }
       if (Boolean(payload.competition.isSample) !== state.competition.isSample) {
-        throw new Error("Sample and official judge results cannot be mixed.");
+        throw new Error("Practice and official judge results cannot be mixed.");
       }
       if (
         payload.session.competitionId != null &&
@@ -416,7 +416,7 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
         payload.session.isSample !== undefined &&
         payload.session.isSample !== payload.competition.isSample
       ) {
-        throw new Error("That result contains conflicting sample identity.");
+        throw new Error("That result contains conflicting practice identity.");
       }
       const packageVersionId = payload.competition.versionId ??
         payload.session.competitionVersionId ?? null;
@@ -675,7 +675,7 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
               >
                 <Icon name="download" size={15} />
                 {currentScopeIsSample
-                  ? "Current sample results (.csv)"
+                  ? "Current practice results (.csv)"
                   : "Current competition results (.csv)"}
               </button>
             ) : (
@@ -694,7 +694,7 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
                     className="btn-ghost"
                     onClick={() => downloadRecordsCSV(state.history, "sample")}
                   >
-                    <Icon name="download" size={15} /> All stored sample (.csv)
+                    <Icon name="download" size={15} /> All stored practice (.csv)
                   </button>
                 )}
               </>
@@ -772,7 +772,7 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
                     <span className="session-main">
                       <span className="session-name">
                         {saved.participant.name || "Unnamed reciter"}
-                        {saved.isSample && <SampleBadge compact />}
+                        {historyScope === "all" && saved.isSample && <SampleBadge compact />}
                       </span>
                       <span className="session-meta">
                         {[

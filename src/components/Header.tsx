@@ -98,9 +98,10 @@ export function Header({
       : state.competition.name
         ? "Draft"
         : "Browse the Mushaf";
-  const competitionContext = state.competition.isSample
-    ? `Sample · ${competitionLifecycle}`
-    : competitionLifecycle;
+  const competitionContext = [
+    state.competition.edition.trim(),
+    competitionLifecycle,
+  ].filter(Boolean).join(" · ");
 
   return (
     <header className="app-header">
@@ -112,7 +113,7 @@ export function Header({
       {!state.sessionActive && !prepared && (
         <button
           type="button"
-          className={`competition-header-state is-${state.competition.status} ${state.competition.isSample ? "is-sample" : ""}`}
+          className={`competition-header-state is-${state.competition.status}`}
           onClick={onOpenSetup}
           aria-label={`Open competition setup. ${competitionTitle}. ${competitionContext}.`}
         >

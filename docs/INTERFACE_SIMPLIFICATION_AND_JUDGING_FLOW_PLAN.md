@@ -618,3 +618,19 @@ wide-workspace rhythm, finish-review hierarchy, live rail-side access, and PWA
 installability as bounded follow-ups. The implemented status above remains
 unchanged. See
 [`JUDGE_WORKSPACE_FIT_RAIL_FINISH_FOLLOW_UP_PLAN.md`](./JUDGE_WORKSPACE_FIT_RAIL_FINISH_FOLLOW_UP_PLAN.md).
+
+## 16. Credible practice fixture follow-up — 19 August 2026
+
+The built-in practice dataset now presents a coherent competition identity in
+ordinary judging screens: `Falaah Quran Mubaaraai`, edition `1448`, with one
+judge named `Hassan Yoonus`. Generic test naming, repeated Sample labels and
+technical question-fixture controls are removed from the production-facing
+workspace. Technical question fixtures remain available in development builds.
+
+The underlying `isSample` contract is retained. Practice data remains excluded
+from official exports and is still labelled explicitly at consequential
+boundaries: loading or removing the fixture, starting it, and exporting its
+records. Persisted practice identity, roster and judge display names migrate in
+place; official competition records are not rewritten. This is presentation and
+fixture maintenance, not a Maldivian rules preset and not a Supabase or
+multi-device persistence release.

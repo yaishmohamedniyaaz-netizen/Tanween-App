@@ -344,7 +344,7 @@ test("Results UI retains the reviewed navigation, tabs, audit, and export contra
   assert.match(records, /inspectImportedSessionQuestion/);
   assert.match(records, /different frozen competition version/);
   assert.match(records, /conflicting competition identity/);
-  assert.match(records, /conflicting sample identity/);
+  assert.match(records, /conflicting practice identity/);
   assert.match(records, /Add for review/);
   assert.match(records, /detailParticipantId/);
   assert.match(records, /Back to all participants|onCloseParticipant/);

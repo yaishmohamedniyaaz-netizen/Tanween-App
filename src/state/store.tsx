@@ -55,7 +55,12 @@ import {
 } from "../lib/competition";
 import {
   createSampleCompetition,
+  createSampleJudgePanel,
   createSampleRoster,
+  SAMPLE_COMPETITION_EDITION,
+  SAMPLE_COMPETITION_NAME,
+  SAMPLE_JUDGE_NAME,
+  withSampleJudgeName,
 } from "../lib/sampleCompetition";
 import { normalizeQuestionDrafts } from "../lib/questionDrafts";
 import {
@@ -115,7 +120,7 @@ const initialState: JudgingState = {
   activeQuestion: null,
   events: [],
   config: cloneScoreConfig(DEFAULT_CONFIG),
-  panel: createPanelPreset("all", enabledCategories(DEFAULT_CONFIG)),
+  panel: createSampleJudgePanel(DEFAULT_CONFIG),
   deviceJudgeId: "judge-1",
   mistakes: [],
   impressions: [],
@@ -643,7 +648,7 @@ function reducer(state: JudgingState, action: Action): JudgingState {
         participant: { ...EMPTY_PARTICIPANT },
         preparedRecitation: null,
         config: cloneScoreConfig(DEFAULT_CONFIG),
-        panel: createPanelPreset("all", enabledCategories(DEFAULT_CONFIG)),
+        panel: createSampleJudgePanel(DEFAULT_CONFIG),
         deviceJudgeId: "judge-1",
         roster: createSampleRoster(),
         mistakes: [],
@@ -1332,6 +1337,7 @@ export function normalizeLedgerState(
   let roster = (parsed.roster ?? []).map((entry) => normalizeRosterEntry(entry));
   let competition = normalizeCompetition(parsed.competition);
   if (competition.isSample) {
+    panel = withSampleJudgeName(panel);
     const sampleById = new Map(
       createSampleRoster().map((entry) => [entry.id, entry]),
     );
@@ -1344,10 +1350,21 @@ export function normalizeLedgerState(
     if (competition.liveSnapshot) {
       competition = {
         ...competition,
+        name: SAMPLE_COMPETITION_NAME,
+        edition: SAMPLE_COMPETITION_EDITION,
         liveSnapshot: {
           ...competition.liveSnapshot,
+          name: SAMPLE_COMPETITION_NAME,
+          edition: SAMPLE_COMPETITION_EDITION,
+          panel: withSampleJudgeName(competition.liveSnapshot.panel),
           roster: competition.liveSnapshot.roster.map(updateSampleIdentity),
         },
+      };
+    } else {
+      competition = {
+        ...competition,
+        name: SAMPLE_COMPETITION_NAME,
+        edition: SAMPLE_COMPETITION_EDITION,
       };
     }
   }
@@ -1392,7 +1409,7 @@ export function normalizeLedgerState(
   const activeEventAssignment = parsed.events?.find(
     (event) => event.type === "session_started" && event.assignment,
   );
-  const activeAssignment = sessionActive
+  let activeAssignment = sessionActive
     ? parsed.activeAssignment || activeEventAssignment
       ? normalizeAssignment(
           parsed.activeAssignment ??
@@ -1415,6 +1432,15 @@ export function normalizeLedgerState(
           : undefined,
       )
     : null;
+  if (competition.isSample && activeAssignment) {
+    activeAssignment = {
+      ...activeAssignment,
+      panel: withSampleJudgeName(activeAssignment.panel),
+      judgeName: activeAssignment.judgeSeatId === activeAssignment.panel.seats[0]?.id
+        ? SAMPLE_JUDGE_NAME
+        : activeAssignment.judgeName,
+    };
+  }
   let preparedRecitation =
     !sessionActive && competition.status === "live"
       ? normalizePreparedRecitation(
@@ -1433,7 +1459,7 @@ export function normalizeLedgerState(
       };
     }
   }
-  const events = sessionActive
+  let events = sessionActive
     ? eventsWithAssignment(
         parsed.events?.length
           ? parsed.events
@@ -1449,6 +1475,22 @@ export function normalizeLedgerState(
         activeAssignment!,
       )
     : [];
+  if (competition.isSample) {
+    events = events.map((event) =>
+      event.type === "session_started" && event.assignment
+        ? {
+            ...event,
+            assignment: {
+              ...event.assignment,
+              panel: withSampleJudgeName(event.assignment.panel),
+              judgeName: event.assignment.judgeSeatId === event.assignment.panel.seats[0]?.id
+                ? SAMPLE_JUDGE_NAME
+                : event.assignment.judgeName,
+            },
+          }
+        : event,
+    );
+  }
 
   return {
     ...initialState,
@@ -1483,23 +1525,52 @@ export function normalizeLedgerState(
     deviceJudgeId: preferredJudge,
     mistakes: projectMistakes(events),
     impressions: projectImpressions(events),
-    history: (parsed.history ?? []).map((session) =>
-      normalizeSavedSession({
+    history: (parsed.history ?? []).map((session) => {
+      const normalized = normalizeSavedSession({
         ...session,
         competitionId: session.competitionId ?? competition.id,
         competitionVersionId:
           session.competitionVersionId ?? competition.liveSnapshot?.versionId,
-      }),
-    ),
+      });
+      if (!normalized.isSample) return normalized;
+      const normalizedAssignment = normalized.assignment ?? legacyAssignment(normalized.config);
+      const assignment: JudgeAssignmentSnapshot = {
+        ...normalizedAssignment,
+        panel: withSampleJudgeName(normalizedAssignment.panel),
+        judgeName: normalizedAssignment.judgeSeatId === normalizedAssignment.panel.seats[0]?.id
+          ? SAMPLE_JUDGE_NAME
+          : normalizedAssignment.judgeName,
+      };
+      return {
+        ...normalized,
+        assignment,
+        events: normalized.events?.map((event) =>
+          event.type === "session_started"
+            ? { ...event, assignment }
+            : event,
+        ),
+      };
+    }),
     roster,
-    finalizedResults: (parsed.finalizedResults ?? []).map((result) => ({
-      ...result,
-      isSample: Boolean(result.isSample),
-      competitionId: result.competitionId ?? competition.id,
-      competitionVersionId:
-        result.competitionVersionId ?? competition.liveSnapshot?.versionId,
-      participant: normalizeParticipant(result.participant),
-    })),
+    finalizedResults: (parsed.finalizedResults ?? []).map((result) => {
+      const isSample = Boolean(result.isSample);
+      return {
+        ...result,
+        isSample,
+        competitionId: result.competitionId ?? competition.id,
+        competitionVersionId:
+          result.competitionVersionId ?? competition.liveSnapshot?.versionId,
+        participant: normalizeParticipant(result.participant),
+        byCategory: isSample
+          ? Object.fromEntries(
+              Object.entries(result.byCategory).map(([category, score]) => [
+                category,
+                score ? { ...score, judgeName: SAMPLE_JUDGE_NAME } : score,
+              ]),
+            )
+          : result.byCategory,
+      };
+    }),
   };
 }
 

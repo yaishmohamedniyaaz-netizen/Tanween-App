@@ -12,7 +12,11 @@ import {
 } from "../src/lib/judgeAssignments.ts";
 import {
   createSampleCompetition,
+  createSampleJudgePanel,
   createSampleRoster,
+  SAMPLE_COMPETITION_EDITION,
+  SAMPLE_COMPETITION_NAME,
+  SAMPLE_JUDGE_NAME,
 } from "../src/lib/sampleCompetition.ts";
 import { normalizePreparedRecitation } from "../src/lib/preparedRecitation.ts";
 
@@ -188,8 +192,13 @@ test("the live competition snapshot is detached and versioned", () => {
 
 test("the built-in sample is complete, clearly marked, and ready to test", () => {
   const competition = createSampleCompetition();
+  const panel = createSampleJudgePanel(baseConfig);
   const roster = createSampleRoster();
   assert.equal(competition.isSample, true);
+  assert.equal(competition.name, SAMPLE_COMPETITION_NAME);
+  assert.equal(competition.edition, SAMPLE_COMPETITION_EDITION);
+  assert.equal(panel.seats.length, 1);
+  assert.equal(panel.seats[0].name, SAMPLE_JUDGE_NAME);
   assert.equal(competition.divisions.length, 4);
   assert.equal(roster.length, 8);
   assert.equal(new Set(roster.map((entry) => entry.name)).size, roster.length);
@@ -197,7 +206,7 @@ test("the built-in sample is complete, clearly marked, and ready to test", () =>
   assert.equal(roster[0].name, "Ahmed Rasheed");
   const input = {
     competition,
-    panel: createPanelPreset("all", JUDGED),
+    panel,
     deviceJudgeId: "judge-1",
     config: structuredClone(baseConfig),
     roster,

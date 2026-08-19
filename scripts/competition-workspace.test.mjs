@@ -118,8 +118,9 @@ test("judging hit targets remain disabled outside an active reciter session", ()
 test("the live handoff uses quiet status text and two focused screens", () => {
   assert.doesNotMatch(headerSource, /offline-dot|chip-dot/);
   assert.doesNotMatch(idleSource, /<i aria-hidden/);
-  assert.match(headerSource, /Sample · \$\{competitionLifecycle\}/);
-  assert.doesNotMatch(headerSource, /Test mode/);
+  assert.match(headerSource, /state\.competition\.edition\.trim\(\)/);
+  assert.doesNotMatch(headerSource, /Sample ·|Test mode/);
+  assert.doesNotMatch(headerSource, /competition-header-state is-sample/);
   assert.doesNotMatch(idleSource, /Test mode|competition-state-label/);
   assert.match(appSource, /\? "is-idle" : ""/);
   assert.match(participantScreenSource, /Participant running order/);

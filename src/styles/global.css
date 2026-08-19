@@ -9421,9 +9421,6 @@ html:has(.dialog-backdrop) {
   .competition-header-state small {
     display: none;
   }
-  .competition-header-state.is-sample small {
-    display: block;
-  }
   .reciter-chip {
     min-width: 0;
     max-width: 112px;

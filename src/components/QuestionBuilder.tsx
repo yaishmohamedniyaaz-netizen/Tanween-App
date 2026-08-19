@@ -263,7 +263,7 @@ export function QuestionBuilder({ editable }: { editable: boolean }) {
         </label>
       </div>
 
-      {state.competition.isSample && (
+      {import.meta.env.DEV && state.competition.isSample && (
         <div className="question-sample-tests">
           <SampleBadge compact />
           <span>Test questions are loaded for every category and Muqarrar start.</span>

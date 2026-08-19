@@ -103,7 +103,7 @@ export async function buildFinalResultsWorkbook(
     ["Competition", competition.name || "Not set"],
     ["Edition", competition.edition || "Not set"],
     ["Competition ID", competition.id],
-    ["Record type", competition.isSample ? "SAMPLE TEST DATA — NOT OFFICIAL" : "Official competition data"],
+    ["Record type", competition.isSample ? "PRACTICE DATA — NOT OFFICIAL" : "Official competition data"],
     ["Exported at", new Date().toISOString()],
     ["Finalized result count", results.length],
     ["Ranking groups", new Set(placed.map((result) => result.rankGroup)).size],
@@ -120,7 +120,7 @@ export async function buildFinalResultsWorkbook(
   workbook.Props = {
     Title: `${competition.name || "Tahqeeq"} Results`,
     Subject: competition.isSample
-      ? "Sample test results — not official"
+      ? "Practice results — not official"
       : "Verified competition results",
     Author: "Tahqeeq",
   };
@@ -175,7 +175,7 @@ export async function downloadFinalResultsWorkbook(
   const anchor = document.createElement("a");
   anchor.href = url;
   anchor.download = competition.isSample
-    ? "Tahqeeq-sample-results-NOT-OFFICIAL.xlsx"
+    ? "Tahqeeq-practice-results-NOT-OFFICIAL.xlsx"
     : "Tahqeeq-final-results.xlsx";
   document.body.appendChild(anchor);
   anchor.click();

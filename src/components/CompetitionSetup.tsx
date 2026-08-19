@@ -28,6 +28,11 @@ import {
   shortCategoryLabel,
   validateJudgePanel,
 } from "../lib/judgeAssignments";
+import {
+  createSampleJudgePanel,
+  SAMPLE_COMPETITION_EDITION,
+  SAMPLE_COMPETITION_NAME,
+} from "../lib/sampleCompetition";
 import { useJudging } from "../state/store";
 import type {
   CategoryId,
@@ -59,7 +64,6 @@ function SetupAccordionPanel({
     </div>
   );
 }
-import { SampleBadge } from "./SampleBadge";
 
 export type SetupTask =
   | "details"
@@ -84,7 +88,7 @@ const TASKS: Array<{
   { id: "panel", group: "Judging", label: "Judging panel", hint: "Give every criterion an owner" },
   { id: "questions", group: "Questions", label: "Question rules", hint: "Ayah and printed-line policy" },
   { id: "question-bank", group: "Questions", label: "Draft questions", hint: "Build and preview passages" },
-  { id: "review", group: "Launch", label: "Review and start", hint: "Check the official setup" },
+  { id: "review", group: "Launch", label: "Review and start", hint: "Check the competition setup" },
 ];
 
 function presets(judged: CategoryId[]): Array<{ id: JudgePanelPreset; title: string; detail: string }> {
@@ -500,9 +504,11 @@ export function CompetitionSetup({
   };
 
   const resetLocalDrafts = (sample: boolean) => {
-    const panel = createPanelPreset("all", enabledCategories(DEFAULT_CONFIG));
+    const panel = sample
+      ? createSampleJudgePanel(DEFAULT_CONFIG)
+      : createPanelPreset("all", enabledCategories(DEFAULT_CONFIG));
     setIdentity(sample
-      ? { name: "Tahqeeq Test Competition", edition: "Sample 2026" }
+      ? { name: SAMPLE_COMPETITION_NAME, edition: SAMPLE_COMPETITION_EDITION }
       : { name: "", edition: "" });
     setPanelDraft(panel);
     setDeviceJudgeId(panel.seats[0]?.id ?? "judge-1");
@@ -523,19 +529,19 @@ export function CompetitionSetup({
     if (
       hasDraftData &&
       !window.confirm(
-        "Replace the current draft with the Tahqeeq sample competition? Official records already saved in Records will remain unchanged.",
+        "Replace the current draft with the Tahqeeq practice competition? Official records already saved in Results will remain unchanged.",
       )
     ) return;
     dispatch({ type: "LOAD_SAMPLE_COMPETITION" });
     resetLocalDrafts(true);
-    setRosterMessage("Sample competition and fictional participant list loaded.");
+    setRosterMessage("Practice competition and fictional participant list loaded.");
     setActiveTask("review");
   };
 
   const removeSampleData = () => {
     if (
       !window.confirm(
-        "Remove the sample competition, its fictional participants, and any sample results from this device? Official records will not be changed.",
+        "Remove the practice competition, its fictional participants, and its practice results from this device? Official records will not be changed.",
       )
     ) return;
     dispatch({ type: "REMOVE_SAMPLE_DATA" });
@@ -967,7 +973,7 @@ export function CompetitionSetup({
 
     return (
       <section className="setup-work-card setup-review-card" aria-labelledby="setup-review-title">
-        <div className="setup-work-head"><span className="setup-step">Launch</span><h2 id="setup-review-title">Review and start {state.competition.isSample && <SampleBadge compact />}</h2><p>{state.competition.isSample ? "This is fictional test data. It stays separate from official exports." : "The competition is not official until this screen is confirmed."}</p></div>
+        <div className="setup-work-head"><span className="setup-step">Launch</span><h2 id="setup-review-title">Review and start</h2><p>Confirm the competition, panel and question rules before judging begins.</p></div>
         <div className="review-summary-list">
           <button type="button" onClick={() => requestTask("details")}><span>Competition</span><strong>{state.competition.name || "Not set"}</strong><small>{state.competition.edition || "Edition missing"}</small><em>Change</em></button>
           <button type="button" onClick={() => requestTask("divisions")}><span>Categories</span><strong>{state.competition.divisions.length || "None"}</strong><small>{state.competition.divisions.map((division) => `${division.name || "Unnamed"} · ${portionLabel(division.quranPortion)}`).join("; ") || "Add a Category"}</small><em>Change</em></button>
@@ -988,8 +994,8 @@ export function CompetitionSetup({
         )}
         {state.competition.status === "draft" && (
           <div className="official-start-block">
-            <div><strong>{state.competition.isSample ? "Start test session" : "Start officially"}</strong><span>This freezes the roster, categories, panel, marks, question rules and Mushaf data version.</span></div>
-            <button type="button" className="btn-primary" disabled={!readiness.ready} onClick={() => { dispatch({ type: "START_COMPETITION" }); onBack(); }}>{state.competition.isSample ? "Start sample" : "Start competition"}</button>
+            <div><strong>{state.competition.isSample ? "Start practice competition" : "Start officially"}</strong><span>This freezes the roster, categories, panel, marks, question rules and Mushaf data version.</span></div>
+            <button type="button" className="btn-primary" disabled={!readiness.ready} onClick={() => { dispatch({ type: "START_COMPETITION" }); onBack(); }}>Start competition</button>
           </div>
         )}
         {state.competition.status === "live" && (
@@ -1045,9 +1051,9 @@ export function CompetitionSetup({
             />
             <small>{completedTaskCount} of {TASKS.length} ready</small>
           </div>
-          <div className="setup-sample-utility" aria-label="Sample competition controls">
+          <div className="setup-sample-utility" aria-label="Practice competition controls">
             {state.competition.isSample && (
-              <span><SampleBadge compact /> Sample data</span>
+              <span>Practice data · not official</span>
             )}
             {state.competition.isSample ? (
               <button
@@ -1055,9 +1061,9 @@ export function CompetitionSetup({
                 className="btn-ghost"
                 disabled={state.competition.status === "live" || state.sessionActive}
                 onClick={removeSampleData}
-                title={state.competition.status === "live" ? "Close the sample competition before removing it" : undefined}
+                title={state.competition.status === "live" ? "Close the practice competition before removing it" : undefined}
               >
-                Remove sample data
+                Remove practice data
               </button>
             ) : (
               <button
@@ -1066,7 +1072,7 @@ export function CompetitionSetup({
                 disabled={state.competition.status === "live" || state.sessionActive}
                 onClick={loadSampleCompetition}
               >
-                Load sample competition
+                Load practice competition
               </button>
             )}
           </div>

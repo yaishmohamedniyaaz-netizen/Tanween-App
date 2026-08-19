@@ -322,7 +322,7 @@ export function FinalResultsPanel({
           {exporting
             ? "Checking…"
             : state.competition.isSample
-              ? "Sample finalized results (.xlsx)"
+              ? "Practice results (.xlsx)"
               : "Finalized results (.xlsx)"}
         </button>
       </div>
