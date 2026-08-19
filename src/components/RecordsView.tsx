@@ -237,6 +237,7 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
         id: string;
         participantName: string;
         participantNumber: string;
+        isSample: boolean;
         judgeName: string;
         category: (typeof PINPOINT_CATEGORIES)[number];
         amount: number;
@@ -265,6 +266,7 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
           id: `${session.id}:${mistake.id}`,
           participantName: session.participant.name,
           participantNumber: session.participant.number,
+          isSample: Boolean(session.isSample),
           judgeName: session.assignment ? judgeDisplayName(session.assignment) : "Judge 1",
           category: mistake.category as (typeof PINPOINT_CATEGORIES)[number],
           amount: mistake.amount,
@@ -968,7 +970,11 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
                   {selectedAnalysisLocation.entries.map((entry) => (
                     <li key={entry.id} className={`cat-${entry.category}`}>
                       <bdi className="analysis-evidence-number">
-                        {participantNumberLabel(entry.participantNumber)}
+                        {participantNumberLabel(
+                          entry.isSample && /^T\d+$/i.test(entry.participantNumber.trim())
+                            ? entry.participantNumber.trim().slice(1)
+                            : entry.participantNumber,
+                        )}
                       </bdi>
                       <span className="analysis-evidence-person">
                         <strong>{entry.participantName}</strong>
