@@ -156,4 +156,6 @@ test("finishing a reciter moves directly to the next running-order choice", () =
   assert.match(appSource, /setStartOpen\(hasNextReciter\)/);
   assert.match(appSource, /Finish recitation/);
   assert.match(finishSource, /Save and select next reciter/);
+  assert.match(finishSource, /Save recitation/);
+  assert.match(finishSource, /hasNextReciter/);
 });

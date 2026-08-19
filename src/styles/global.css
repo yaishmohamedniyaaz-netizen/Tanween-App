@@ -9772,6 +9772,14 @@ html:has(.dialog-backdrop) {
 .mark-bar.is-dialog-layer {
   z-index: 90;
 }
+.mark-bar.is-inline {
+  position: static;
+  width: 100%;
+  padding: 10px;
+  border-color: color-mix(in srgb, var(--c, var(--ink)) 24%, var(--line));
+  background: color-mix(in srgb, var(--c, var(--ink)) 3%, var(--surface));
+  box-shadow: none;
+}
 .chip-strip {
   display: flex;
   flex-wrap: wrap;
@@ -9863,7 +9871,20 @@ html:has(.dialog-backdrop) {
   grid-template-rows: auto minmax(0, 1fr) auto;
   width: min(620px, calc(100vw - 32px));
   max-height: calc(100dvh - 32px);
+  margin: auto;
   padding: 0;
+  color: var(--ink);
+  overflow: hidden;
+}
+.finish-dialog:not([open]) {
+  display: none;
+}
+.finish-dialog::backdrop {
+  background: color-mix(in srgb, var(--bg) 55%, transparent);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+html:has(.finish-dialog[open]) {
   overflow: hidden;
 }
 .finish-dialog-head {
@@ -9963,6 +9984,8 @@ html:has(.dialog-backdrop) {
 .finish-score-row {
   min-height: 50px;
   border-top: 1px solid var(--line);
+  transition: background-color var(--t-fast) var(--ease-out),
+    box-shadow var(--t-fast) var(--ease-out);
 }
 .finish-criterion {
   display: flex;
@@ -10007,6 +10030,38 @@ html:has(.dialog-backdrop) {
 .finish-score-row.is-pending .finish-criterion strong {
   color: var(--c, var(--ink));
 }
+.finish-score-row.is-invalid {
+  margin-inline: -10px;
+  padding: 0 10px 10px;
+  border-radius: var(--r-sm);
+  background: color-mix(in srgb, #d8453d 6%, var(--surface));
+  box-shadow: inset 3px 0 0 color-mix(in srgb, #d8453d 78%, var(--line));
+}
+.finish-score-row.is-invalid .finish-criterion small,
+.finish-mark-error {
+  color: #9e2820;
+}
+.finish-score-row.is-invalid .mark-picker[aria-invalid="true"] {
+  border-color: color-mix(in srgb, #d8453d 72%, var(--line));
+  box-shadow: 0 0 0 2px color-mix(in srgb, #d8453d 13%, transparent);
+}
+.finish-mark-error,
+.finish-inline-picker {
+  grid-column: 1 / -1;
+}
+.finish-mark-error {
+  margin: -1px 0 0 17px;
+  font-size: 11.5px;
+  font-weight: 570;
+  line-height: 1.4;
+}
+.finish-inline-picker {
+  min-width: 0;
+  margin-top: 2px;
+}
+.finish-inline-picker:empty {
+  display: none;
+}
 .finish-remarks {
   margin-top: 18px;
 }
@@ -10049,10 +10104,6 @@ html:has(.dialog-backdrop) {
 .finish-dialog-actions .btn-ghost {
   min-height: 44px;
 }
-.finish-dialog .btn-primary:disabled {
-  cursor: default;
-  opacity: 0.4;
-}
 @media (max-width: 600px) {
   .finish-dialog {
     width: calc(100vw - 16px);
@@ -10075,6 +10126,13 @@ html:has(.dialog-backdrop) {
   .finish-score-row {
     grid-template-columns: minmax(0, 1fr) 58px 74px;
     gap: 8px;
+  }
+  .finish-score-row.is-invalid {
+    margin-inline: -7px;
+    padding-inline: 7px;
+  }
+  .finish-mark-error {
+    margin-left: 15px;
   }
   .finish-score-head {
     font-size: 8.5px;

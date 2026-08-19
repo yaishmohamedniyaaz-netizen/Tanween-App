@@ -243,9 +243,17 @@ test("completion uses the same required-entry rule at every boundary", () => {
     appSource,
     /onConfirm=\{\(\) => \{[\s\S]*missingRequiredImpressionCategories\([\s\S]*return;/,
   );
-  assert.match(finishDialogSource, /disabled=\{missing\.length > 0\}/);
+  assert.doesNotMatch(finishDialogSource, /disabled=\{missing\.length > 0\}/);
+  assert.match(
+    finishDialogSource,
+    /if \(missing\.length > 0\) \{\s*setSaveAttempted\(true\);\s*return;/,
+  );
+  assert.match(finishDialogSource, /presentation="inline"/);
+  assert.match(finishDialogSource, /invalid=\{invalid\}/);
+  assert.match(finishDialogSource, /describedBy=\{invalid \? errorId : undefined\}/);
+  assert.match(pickerSource, /focusAndOpen/);
   assert.match(finishDialogSource, /layer="dialog"/);
-  assert.match(finishDialogSource, /autoFocus=\{missing\[0\] === category\}/);
+  assert.doesNotMatch(finishDialogSource, /autoFocus=\{missing\[0\] === category\}/);
   assert.match(scorePanelSource, /missingRequiredImpressionCategories\(/);
   assert.match(
     storeSource,
@@ -610,6 +618,17 @@ test("the finish checkpoint reviews assigned category scores and exact remarks",
   assert.doesNotMatch(finishDialogSource, /This saves the result and opens the next reciter/);
 });
 
+test("the finish checkpoint focuses its heading and contains keyboard focus", () => {
+  assert.match(finishDialogSource, /<dialog/);
+  assert.match(finishDialogSource, /dialog\.showModal\(\)/);
+  assert.match(finishDialogSource, /headingRef\.current\?\.focus/);
+  assert.match(finishDialogSource, /onCancel=\{\(event\) =>/);
+  assert.match(finishDialogSource, /const containFocus/);
+  assert.match(finishDialogSource, /active === headingRef\.current/);
+  assert.match(finishDialogSource, /last\.focus\(\)/);
+  assert.match(finishDialogSource, /first\.focus\(\)/);
+});
+
 test("Adu and Raagu chips keep readable ink and a neutral uncommitted state", () => {
   const categoryRule = ruleBody(".cat-adu-raagu");
   const accent = categoryRule.match(/--c:\s*(#[0-9a-f]{6})/i)?.[1];
@@ -682,8 +701,9 @@ test("a chip previews halves and commits only when the pointer is released", () 
 });
 
 test("the quiet chip state shows only the chosen whole or half mark", () => {
-  assert.match(pickerSource, /const exact = Math\.abs\(mark - shown\) < 0\.001/);
-  assert.match(pickerSource, /const half = Math\.abs\(mark - 0\.5 - shown\) < 0\.001/);
+  assert.match(pickerSource, /const hasSelection = marked \|\| preview !== null/);
+  assert.match(pickerSource, /const exact = hasSelection && Math\.abs\(mark - shown\) < 0\.001/);
+  assert.match(pickerSource, /const half = hasSelection && Math\.abs\(mark - 0\.5 - shown\) < 0\.001/);
   assert.match(pickerSource, /aria-checked=\{exact \|\| half\}/);
   assert.match(pickerSource, /half \? "is-half"/);
   assert.doesNotMatch(pickerSource, /is-filled/);

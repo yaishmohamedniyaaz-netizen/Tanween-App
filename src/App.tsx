@@ -107,6 +107,10 @@ export function App() {
     [page],
   );
 
+  const hasNextReciter = state.roster.some(
+    (entry) => entry.id !== state.participant.id && isWaiting(entry),
+  );
+
   return (
     <div className={`app view-${view}`}>
       <Header
@@ -259,6 +263,7 @@ export function App() {
       )}
       {finishOpen && state.sessionActive && (
         <FinishDialog
+          hasNextReciter={hasNextReciter}
           onCancel={() => setFinishOpen(false)}
           onConfirm={() => {
             const assignment = state.activeAssignment;
@@ -272,10 +277,6 @@ export function App() {
             ) {
               return;
             }
-            const hasNextReciter = state.roster.some(
-              (entry) =>
-                entry.id !== state.participant.id && isWaiting(entry),
-            );
             dispatch({ type: "FINISH_SESSION" });
             setFinishOpen(false);
             setStartMode("start");

@@ -1,8 +1,10 @@
 # Finish review card and Adu / Raagu exit plan
 
-Status: detailed implementation plan; ready for one bounded visual prototype
+Status: implemented locally; final visual approval, commit, and publication pending
 
 Prepared: 18 August 2026
+
+Implemented and browser-reviewed locally: 19 August 2026
 
 Scope: the final review shown after `Finish recitation`, including its score
 detail, remarks, required Adu / Raagu recovery, low-height behavior, and modal
@@ -34,7 +36,38 @@ The recommended replacement is a compact review sheet, not another dashboard:
 The App guard and reducer guard remain unchanged. Explicitly selecting zero
 remains valid and must be visually distinct from an uncommitted zero.
 
-## 2. Verified current state
+### Local implementation outcome
+
+The bounded prototype is now the local implementation:
+
+- Save remains active while Adu / Raagu is calmly pending.
+- The first invalid Save keeps the review open, gives the complete row a
+  restrained validation surface, shows a specific correction, focuses the
+  shared picker, and opens its choices inside the score table.
+- A deliberate zero and a half mark both clear validation without
+  automatically saving.
+- The same `SET_IMPRESSION` ledger event, App guard, reducer guard, scoring
+  arithmetic, assignment, question snapshot, and saved evidence model remain
+  in force.
+- The primary label changes to `Save recitation` when no participant is
+  waiting.
+- Finish now uses the repository's native modal pattern for background
+  inertness, Escape, and focus return. A small dialog-local boundary guard was
+  added after browser testing found that Chromium could move Shift+Tab from a
+  programmatically focused static heading to the document body.
+- The uncommitted zero no longer paints the zero chip as selected when the
+  choices first open.
+
+Browser evidence so far covers the normal desktop window and 390 x 844 compact
+view, calm pending, attempted recovery, explicit zero, 0.5 selection, live
+total/deduction updates, picker-first Escape, dialog Escape, focus return to
+`Finish recitation`, and Shift+Tab containment. The expanded compact dialog
+measured 356.4 x 565.7 px with no horizontal document overflow. The remaining
+visual approval gate is the user's review and the 20-mark/long-remarks stress
+case before publication. The complete 276-test suite, Quran/question integrity
+check, TypeScript build, production/Sites bundle, and `git diff --check` pass.
+
+## 2. Verified baseline before this implementation
 
 ### 2.1 Browser evidence
 
@@ -59,9 +92,10 @@ large generic tiles.
 - Saved sessions already include category marks, general notes, Adu / Raagu
   note, mistakes, events, judge assignment, and question evidence. No schema
   change is needed for the proposed card.
-- The custom modal currently has `role="dialog"` and `aria-modal="true"`, but
-  the Finish component does not yet establish initial focus, contain Tab focus,
-  handle Escape, or restore focus to the invoking Finish button on cancel.
+- The previous custom modal had `role="dialog"` and `aria-modal="true"`, but
+  did not establish initial focus, contain Tab focus, handle Escape, or restore
+  focus to the invoking Finish button on cancel. The local implementation now
+  covers those behaviors with a native modal plus the tested boundary guard.
 
 ## 3. Research translated into this product
 
@@ -393,25 +427,25 @@ At each applicable viewport, check:
 
 | Slice | Practicality | Architecture/data safety | Visual certainty | Decision |
 | --- | ---: | ---: | ---: | --- |
-| Flat detailed review card | 95 | 99 | 90 | Implement as the first visual checkpoint |
-| Submit-time Adu / Raagu recovery | 96 | 99 | 94 | Implementation-ready |
-| Inline reuse of the MarkPicker chip strip | 88 | 98 | 89 | Ready for bounded prototype and gesture regression QA |
-| Modal focus, Escape, and focus return | 91 | 99 | 96 | Implementation-ready |
-| Scroll-safe fixed action row | 94 | 99 | 91 | Implementation-ready after low-height proof |
-| Dynamic next-reciter action label | 99 | 99 | 98 | Implementation-ready |
-| Conditional exact remarks | 98 | 99 | 95 | Implementation-ready |
+| Flat detailed review card | 97 | 99 | 94 | Implemented; desktop and compact browser proof |
+| Submit-time Adu / Raagu recovery | 98 | 99 | 95 | Implemented; pending, error, zero, and half states proved |
+| Inline reuse of the MarkPicker chip strip | 96 | 99 | 93 | Implemented; shared commit path and compact wrap proved |
+| Modal focus, Escape, and focus return | 97 | 99 | 96 | Implemented; browser edge found and corrected |
+| Scroll-safe fixed action row | 96 | 99 | 94 | Implemented; compact action row remained visible |
+| Dynamic next-reciter action label | 99 | 99 | 98 | Implemented |
+| Conditional exact remarks | 98 | 99 | 95 | Implemented; long-text stress case remains |
 
-Overall core-plan confidence is **94 / 100**:
+After the local browser prototype, overall core-plan confidence is **96 / 100**:
 
-- practicality: **93 / 100**;
+- practicality: **97 / 100**;
 - architecture and data safety: **99 / 100**;
-- visual certainty: **90 / 100**.
+- visual certainty: **93 / 100**.
 
 The plan clears the repository's 85-point implementation threshold. The
-remaining uncertainty is not the scoring model; it is the visual density of an
-expanded 20-mark inline strip alongside long remarks at 1528 x 675 and
-390 x 844. More web research will not resolve that. It requires one real
-browser prototype, visual review, and the named geometry matrix before commit.
+remaining uncertainty is not the scoring model. It is the visual density of an
+expanded 20-mark inline strip alongside long remarks at the shortest desktop
+height. More web research will not resolve that; the implementation needs that
+stress fixture and explicit visual approval before commit and publication.
 
 ## 13. Recommended implementation sequence
 
