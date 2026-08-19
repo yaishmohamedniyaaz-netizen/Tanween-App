@@ -39,6 +39,7 @@ interface Props {
   inlineTarget?: HTMLElement | null;
   invalid?: boolean;
   describedBy?: string;
+  dismissOnOutsidePress?: boolean;
 }
 
 export interface MarkPickerHandle {
@@ -66,6 +67,7 @@ export const MarkPicker = forwardRef<MarkPickerHandle, Props>(function MarkPicke
   inlineTarget = null,
   invalid = false,
   describedBy,
+  dismissOnOutsidePress = true,
 }: Props, forwardedRef) {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const barRef = useRef<HTMLDivElement>(null);
@@ -162,6 +164,7 @@ export const MarkPicker = forwardRef<MarkPickerHandle, Props>(function MarkPicke
       buttonRef.current?.focus();
     };
     const onDown = (event: PointerEvent) => {
+      if (!dismissOnOutsidePress) return;
       if (
         !barRef.current?.contains(event.target as Node) &&
         !buttonRef.current?.contains(event.target as Node)
@@ -182,7 +185,7 @@ export const MarkPicker = forwardRef<MarkPickerHandle, Props>(function MarkPicke
       window.removeEventListener("resize", onViewportChange);
       window.removeEventListener("scroll", onViewportChange, true);
     };
-  }, [close, open, presentation]);
+  }, [close, dismissOnOutsidePress, open, presentation]);
 
   // The wheel adjusts marks only once this control has been focused on purpose.
   // Acting on hover alone is how people change official numbers by accident.

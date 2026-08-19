@@ -39,7 +39,7 @@ export function PreparedSidebar({
         className="prepared-sidebar-participant"
       />
       <div className="prepared-sidebar-question">
-        <span>Prepared question</span>
+        <span>Suvaalu</span>
         <strong>{questionSummary(prepared)}</strong>
       </div>
       <button type="button" className="btn-primary" onClick={onReady}>

@@ -57,6 +57,16 @@ The bounded prototype is now the local implementation:
   programmatically focused static heading to the document body.
 - The uncommitted zero no longer paints the zero chip as selected when the
   choices first open.
+- A repeated invalid Save now keeps the inline choices available. If the judge
+  closes them with Escape, the next invalid Save focuses and opens them again;
+  the recovery no longer depends on a one-shot boolean transition.
+- The attempted-error row now uses balanced block spacing and a quiet complete
+  surface. The asymmetric red inset rail was removed, while the specific error
+  text and invalid picker border continue to identify the failure.
+- The 20-mark picker uses distinct row and column gaps plus additional bottom
+  breathing room. Browser checks at 1528 x 675 and 390 x 844 produced two and
+  four centred chip rows respectively, with no document overflow or action-row
+  collision. Dark-mode error text now uses the existing light red treatment.
 
 Browser evidence so far covers the normal desktop window and 390 x 844 compact
 view, calm pending, attempted recovery, explicit zero, 0.5 selection, live

@@ -303,7 +303,7 @@ textarea:focus-visible {
   letter-spacing: -0.02em;
 }
 
-/* current reciter chip — same row treatment as roster/log rows */
+/* Current reciter control — compact, but not a capsule. */
 .reciter-chip {
   display: inline-flex;
   align-items: center;
@@ -311,7 +311,7 @@ textarea:focus-visible {
   height: 34px;
   padding: 0 14px;
   border: 1px solid var(--line-2);
-  border-radius: 999px;
+  border-radius: var(--r-sm);
   background: transparent;
   font-size: 13px;
   font-weight: 500;
@@ -9775,7 +9775,7 @@ html:has(.dialog-backdrop) {
 .mark-bar.is-inline {
   position: static;
   width: 100%;
-  padding: 10px;
+  padding: 12px 10px 16px;
   border-color: color-mix(in srgb, var(--c, var(--ink)) 24%, var(--line));
   background: color-mix(in srgb, var(--c, var(--ink)) 3%, var(--surface));
   box-shadow: none;
@@ -9784,7 +9784,8 @@ html:has(.dialog-backdrop) {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 6px;
+  column-gap: 6px;
+  row-gap: 8px;
   touch-action: none;
   user-select: none;
 }
@@ -10032,14 +10033,18 @@ html:has(.finish-dialog[open]) {
 }
 .finish-score-row.is-invalid {
   margin-inline: -10px;
-  padding: 0 10px 10px;
+  padding: 8px 10px 12px;
   border-radius: var(--r-sm);
   background: color-mix(in srgb, #d8453d 6%, var(--surface));
-  box-shadow: inset 3px 0 0 color-mix(in srgb, #d8453d 78%, var(--line));
+  row-gap: 8px;
 }
 .finish-score-row.is-invalid .finish-criterion small,
 .finish-mark-error {
   color: #9e2820;
+}
+[data-theme="dark"] .finish-score-row.is-invalid .finish-criterion small,
+[data-theme="dark"] .finish-mark-error {
+  color: #e17c73;
 }
 .finish-score-row.is-invalid .mark-picker[aria-invalid="true"] {
   border-color: color-mix(in srgb, #d8453d 72%, var(--line));
@@ -10050,7 +10055,7 @@ html:has(.finish-dialog[open]) {
   grid-column: 1 / -1;
 }
 .finish-mark-error {
-  margin: -1px 0 0 17px;
+  margin: 0 0 0 17px;
   font-size: 11.5px;
   font-weight: 570;
   line-height: 1.4;
@@ -10129,7 +10134,7 @@ html:has(.finish-dialog[open]) {
   }
   .finish-score-row.is-invalid {
     margin-inline: -7px;
-    padding-inline: 7px;
+    padding: 8px 7px 12px;
   }
   .finish-mark-error {
     margin-left: 15px;

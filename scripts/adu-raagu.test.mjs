@@ -246,7 +246,7 @@ test("completion uses the same required-entry rule at every boundary", () => {
   assert.doesNotMatch(finishDialogSource, /disabled=\{missing\.length > 0\}/);
   assert.match(
     finishDialogSource,
-    /if \(missing\.length > 0\) \{\s*setSaveAttempted\(true\);\s*return;/,
+    /if \(missing\.length > 0\) \{\s*setSaveAttemptCount\(\(attempts\) => attempts \+ 1\);\s*return;/,
   );
   assert.match(finishDialogSource, /presentation="inline"/);
   assert.match(finishDialogSource, /invalid=\{invalid\}/);
@@ -676,8 +676,24 @@ test("the mark bar offers one whole-number chip per mark", () => {
   assert.match(pickerSource, /data-mark=\{mark\}/);
   assert.match(ruleBody(".chip-strip"), /flex-wrap: wrap/);
   assert.match(ruleBody(".chip-strip"), /justify-content: center/);
+  assert.match(ruleBody(".chip-strip"), /row-gap: 8px/);
   assert.match(ruleBody(".chip-strip button"), /flex: 0 0 38px/);
   assert.doesNotMatch(pickerSource, /mark-bar-head|mark-bar-hint/);
+});
+
+test("the Finish recovery remains available across repeated invalid saves", () => {
+  assert.match(finishDialogSource, /const \[saveAttemptCount, setSaveAttemptCount\] = useState\(0\)/);
+  assert.match(finishDialogSource, /setSaveAttemptCount\(\(attempts\) => attempts \+ 1\)/);
+  assert.match(finishDialogSource, /\[firstMissing, saveAttemptCount\]/);
+  assert.match(finishDialogSource, /dismissOnOutsidePress=\{!invalid\}/);
+  assert.match(pickerSource, /dismissOnOutsidePress\?: boolean/);
+  assert.match(pickerSource, /if \(!dismissOnOutsidePress\) return/);
+  assert.doesNotMatch(ruleBody(".finish-score-row.is-invalid"), /inset 3px/);
+  assert.match(ruleBody(".finish-score-row.is-invalid"), /padding: 8px 10px 12px/);
+  assert.match(
+    ruleBody('[data-theme="dark"] .finish-mark-error'),
+    /color: #e17c73/,
+  );
 });
 
 test("a chip previews halves and commits only when the pointer is released", () => {

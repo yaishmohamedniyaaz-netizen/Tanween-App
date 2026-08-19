@@ -128,10 +128,10 @@ export function Header({
           type="button"
           className={`reciter-chip ${prepared ? "is-prepared" : ""}`}
           onClick={onChangeReciter}
-          title={prepared ? "Change prepared reciter" : "Finish or change reciter"}
+          title={prepared ? "Change ready reciter" : "Finish or change reciter"}
         >
           {participant.name || "Unnamed"}
-          {prepared && <span className="reciter-prepared-state">Prepared</span>}
+          {prepared && <span className="reciter-prepared-state">Ready</span>}
           {visibleQuestion && <span className="reciter-question-ref">Q · {visibleQuestion.label}</span>}
           {rosterTotal > 0 && <span className="chip-idx t-num">{rosterDone + 1}/{rosterTotal}</span>}
         </button>

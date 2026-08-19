@@ -73,6 +73,7 @@ function FinishImpressionRow({
           inlineTarget={inlineTarget}
           invalid={invalid}
           describedBy={invalid ? errorId : undefined}
+          dismissOnOutsidePress={!invalid}
         />
       </div>
       {invalid && (
@@ -95,7 +96,8 @@ export function FinishDialog({
   hasNextReciter: boolean;
 }) {
   const { state, dispatch } = useJudging();
-  const [saveAttempted, setSaveAttempted] = useState(false);
+  const [saveAttemptCount, setSaveAttemptCount] = useState(0);
+  const saveAttempted = saveAttemptCount > 0;
   const dialogRef = useRef<HTMLDialogElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
   const pickerRefs = useRef<Partial<Record<CategoryId, MarkPickerHandle | null>>>({});
@@ -143,7 +145,7 @@ export function FinishDialog({
   }, []);
 
   useEffect(() => {
-    if (!saveAttempted || !firstMissing) return;
+    if (saveAttemptCount === 0 || !firstMissing) return;
     let scrollFrame = 0;
     const focusFrame = requestAnimationFrame(() => {
       pickerRefs.current[firstMissing]?.focusAndOpen();
@@ -158,7 +160,7 @@ export function FinishDialog({
       cancelAnimationFrame(focusFrame);
       cancelAnimationFrame(scrollFrame);
     };
-  }, [firstMissing, saveAttempted]);
+  }, [firstMissing, saveAttemptCount]);
 
   const closeDialog = () => {
     if (dialogRef.current?.open) dialogRef.current.close();
@@ -171,7 +173,7 @@ export function FinishDialog({
 
   const confirm = () => {
     if (missing.length > 0) {
-      setSaveAttempted(true);
+      setSaveAttemptCount((attempts) => attempts + 1);
       return;
     }
     closeDialog();
@@ -283,7 +285,7 @@ export function FinishDialog({
                       category,
                       awarded: value,
                     });
-                    setSaveAttempted(false);
+                    setSaveAttemptCount(0);
                   }}
                 />
               );

@@ -19,8 +19,8 @@ export function PreparedRecitationStrip({
   onChangeQuestion: () => void;
 }) {
   return (
-    <section className="prepared-recitation-strip" aria-label="Prepared recitation">
-      <span className="prepared-state">Prepared</span>
+    <section className="prepared-recitation-strip" aria-label="Ready recitation">
+      <span className="prepared-state">Ready</span>
       <ParticipantIdentity
         participant={prepared.participant}
         participantCount={participantCount}

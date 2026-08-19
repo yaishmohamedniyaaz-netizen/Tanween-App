@@ -145,6 +145,11 @@ test("a draw opens a locked, recoverable Prepared Mushaf before judging", () => 
   assert.match(preparedSidebarSource, /ParticipantIdentity/);
   assert.match(appSource, /division=\{participantDivision\(/);
   assert.match(preparedSidebarSource, /Begin judging/);
+  assert.match(headerSource, /reciter-prepared-state">Ready</);
+  assert.match(preparedStripSource, /aria-label="Ready recitation"/);
+  assert.match(preparedStripSource, /prepared-state">Ready</);
+  assert.match(preparedSidebarSource, /<span>Suvaalu<\/span>/);
+  assert.doesNotMatch(preparedSidebarSource, /<span>Prepared question<\/span>/);
   assert.match(preparedSidebarSource, /Change question/);
   assert.match(preparedSidebarSource, /Change reciter/);
   assert.doesNotMatch(preparedSidebarSource, /Prepared on this device|This device|synchronization/);
