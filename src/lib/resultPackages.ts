@@ -4,19 +4,133 @@ import type {
   SavedSession,
 } from "../types";
 
-const JUDGING_EVENT_TYPES = new Set([
-  "session_started",
-  "mistake_added",
-  "mistake_amount_changed",
-  "mistake_recategorized",
-  "mistake_note_changed",
-  "mistake_undone",
-  "mistake_restored",
-  "impression_changed",
-  "impression_note_changed",
-  "session_reopened",
-  "session_finalized",
-]);
+const CATEGORY_IDS = new Set(["jali", "khafi", "fasaha", "adu-raagu"]);
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return Boolean(value) && typeof value === "object" && !Array.isArray(value);
+}
+
+function isNonEmptyString(value: unknown): value is string {
+  return typeof value === "string" && Boolean(value.trim());
+}
+
+function isFiniteNumber(value: unknown): value is number {
+  return typeof value === "number" && Number.isFinite(value);
+}
+
+function isParticipantSnapshot(value: unknown): boolean {
+  if (!isRecord(value)) return false;
+  return (
+    isNonEmptyString(value.id) &&
+    isNonEmptyString(value.name) &&
+    typeof value.number === "string" &&
+    typeof value.ageGroup === "string" &&
+    typeof value.category === "string" &&
+    typeof value.muqarrar === "string" &&
+    typeof value.phone === "string" &&
+    typeof value.institution === "string"
+  );
+}
+
+function isMistakeSnapshot(value: unknown): boolean {
+  if (!isRecord(value)) return false;
+  return (
+    isNonEmptyString(value.id) &&
+    isNonEmptyString(value.tid) &&
+    Number.isInteger(value.surah) &&
+    (value.ayah === null || Number.isInteger(value.ayah)) &&
+    typeof value.glyph === "string" &&
+    typeof value.label === "string" &&
+    CATEGORY_IDS.has(value.category as string) &&
+    isFiniteNumber(value.amount) &&
+    isFiniteNumber(value.ts) &&
+    (value.page === undefined || Number.isInteger(value.page))
+  );
+}
+
+function isImpressionSnapshot(value: unknown): boolean {
+  if (!isRecord(value)) return false;
+  return (
+    CATEGORY_IDS.has(value.category as string) &&
+    isFiniteNumber(value.awarded) &&
+    typeof value.note === "string" &&
+    typeof value.set === "boolean" &&
+    isFiniteNumber(value.ts) &&
+    (value.judgeSeatId === undefined || typeof value.judgeSeatId === "string")
+  );
+}
+
+function isValidJudgingEvent(value: unknown): boolean {
+  if (
+    !isRecord(value) ||
+    !isNonEmptyString(value.id) ||
+    !isFiniteNumber(value.at) ||
+    typeof value.type !== "string"
+  ) return false;
+  switch (value.type) {
+    case "session_started":
+      return (
+        isNonEmptyString(value.sessionId) &&
+        isParticipantSnapshot(value.participant) &&
+        (value.assignment === undefined || isRecord(value.assignment)) &&
+        (value.question === undefined || isRecord(value.question))
+      );
+    case "mistake_added":
+    case "mistake_undone":
+    case "mistake_restored":
+      return isMistakeSnapshot(value.mistake);
+    case "mistake_amount_changed":
+      return (
+        isNonEmptyString(value.mistakeId) &&
+        typeof value.glyph === "string" &&
+        typeof value.label === "string" &&
+        isFiniteNumber(value.from) &&
+        isFiniteNumber(value.to)
+      );
+    case "mistake_recategorized":
+      return (
+        isNonEmptyString(value.mistakeId) &&
+        typeof value.glyph === "string" &&
+        typeof value.label === "string" &&
+        CATEGORY_IDS.has(value.from as string) &&
+        CATEGORY_IDS.has(value.to as string) &&
+        isFiniteNumber(value.fromAmount) &&
+        isFiniteNumber(value.toAmount)
+      );
+    case "mistake_note_changed":
+      return (
+        isNonEmptyString(value.mistakeId) &&
+        typeof value.glyph === "string" &&
+        typeof value.label === "string" &&
+        typeof value.from === "string" &&
+        typeof value.to === "string"
+      );
+    case "impression_changed":
+      return (
+        CATEGORY_IDS.has(value.category as string) &&
+        isFiniteNumber(value.from) &&
+        isFiniteNumber(value.to) &&
+        (value.judgeSeatId === undefined || typeof value.judgeSeatId === "string")
+      );
+    case "impression_note_changed":
+      return (
+        CATEGORY_IDS.has(value.category as string) &&
+        typeof value.from === "string" &&
+        typeof value.to === "string"
+      );
+    case "session_reopened":
+      return isNonEmptyString(value.sessionId) && typeof value.reason === "string";
+    case "session_finalized":
+      return (
+        isNonEmptyString(value.sessionId) &&
+        isFiniteNumber(value.total) &&
+        isFiniteNumber(value.totalMax) &&
+        (value.scoreKind === undefined || value.scoreKind === "judge-section")
+      );
+    default:
+      return false;
+  }
+}
 
 export interface JudgeResultPackage {
   app: "tahqeeq";
@@ -96,23 +210,32 @@ export function downloadJudgeResultPackage(
 export function parseJudgeResultPackage(value: unknown): JudgeResultPackage {
   const payload = value as Partial<JudgeResultPackage> | null;
   const events = payload?.session?.events;
+  const impressions = payload?.session?.impressions;
   if (
     !payload ||
     payload.app !== "tahqeeq" ||
     payload.schema !== "judge-result-v1" ||
-    !payload.competition?.id ||
-    !payload.session?.id ||
-    !payload.session.participant?.name ||
-    !payload.session.assignment ||
+    !isNonEmptyString(payload.competition?.id) ||
+    !payload.session ||
+    !isNonEmptyString(payload.session.id) ||
+    !isFiniteNumber(payload.session.savedAt) ||
+    (payload.session.startedAt !== undefined &&
+      !isFiniteNumber(payload.session.startedAt)) ||
+    !isParticipantSnapshot(payload.session.participant) ||
+    !isRecord(payload.session.config) ||
+    !isFiniteNumber(payload.session.total) ||
+    !isFiniteNumber(payload.session.totalMax) ||
+    !isRecord(payload.session.assignment) ||
+    typeof payload.session.notes !== "string" ||
     !Array.isArray(payload.session.mistakes) ||
+    payload.session.mistakes.some((mistake) => !isMistakeSnapshot(mistake)) ||
+    (impressions !== undefined &&
+      (!Array.isArray(impressions) ||
+        impressions.some((impression) => !isImpressionSnapshot(impression)))) ||
     typeof payload.competition.isSample !== "boolean" ||
     (events !== undefined &&
       (!Array.isArray(events) ||
-        events.some((event) =>
-          !event ||
-          typeof event !== "object" ||
-          !JUDGING_EVENT_TYPES.has((event as { type?: unknown }).type as string)
-        )))
+        events.some((event) => !isValidJudgingEvent(event))))
   ) {
     throw new Error("This is not a complete Tahqeeq judge-result file.");
   }

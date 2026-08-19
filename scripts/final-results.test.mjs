@@ -228,6 +228,23 @@ test("judge packages and full backups reject incomplete files", () => {
     }),
     /not a complete Tahqeeq judge-result file/,
   );
+  assert.throws(
+    () => parseJudgeResultPackage({
+      ...resultPackage,
+      session: {
+        ...resultPackage.session,
+        events: [{ type: "session_finalized" }],
+      },
+    }),
+    /not a complete Tahqeeq judge-result file/,
+  );
+  assert.throws(
+    () => parseJudgeResultPackage({
+      ...resultPackage,
+      session: { ...resultPackage.session, savedAt: Number.NaN },
+    }),
+    /not a complete Tahqeeq judge-result file/,
+  );
 
   const state = { history: [source], roster: [] };
   const backup = buildStateBackup(state);
