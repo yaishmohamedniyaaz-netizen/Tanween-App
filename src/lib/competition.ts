@@ -24,7 +24,7 @@ import { QUESTION_INDEX_VERSION } from "./questionBank.ts";
 export const DEFAULT_QUESTION_POLICY: CompetitionQuestionPolicy = {
   version: 1,
   mode: "manual",
-  targetRecitationLines: 7,
+  targetRecitationLines: 10,
   endRule: "first-ayah-end-at-or-after-target",
   firstPrintedLinePolicy: "containing-start-ayah",
   finalPrintedLineScoring: "exclude",
@@ -105,7 +105,12 @@ export function normalizeCompetition(
     divisions: Array.isArray(value?.divisions)
       ? value.divisions.map(normalizeDivision).filter(Boolean) as CompetitionDivision[]
       : [],
-    questionPolicy: normalizeQuestionPolicy(value?.questionPolicy),
+    questionPolicy: normalizeQuestionPolicy(
+      value?.questionPolicy,
+      value && !Object.prototype.hasOwnProperty.call(value, "questionPolicy")
+        ? 7
+        : DEFAULT_QUESTION_POLICY.targetRecitationLines,
+    ),
     liveSnapshot:
       value?.liveSnapshot && typeof value.liveSnapshot === "object"
         ? cloneLiveSnapshot(value.liveSnapshot)
@@ -147,13 +152,22 @@ export function normalizeDivision(
 
 export function normalizeQuestionPolicy(
   value?: Partial<CompetitionQuestionPolicy>,
+  fallbackTargetLines = DEFAULT_QUESTION_POLICY.targetRecitationLines,
 ): CompetitionQuestionPolicy {
+  const requestedLines = Number(value?.targetRecitationLines);
   return {
     version: 1,
     mode: value?.mode === "tahqeeq" ? "tahqeeq" : "manual",
     targetRecitationLines: Math.min(
       30,
-      Math.max(1, Math.floor(Number(value?.targetRecitationLines) || 7)),
+      Math.max(
+        1,
+        Math.floor(
+          Number.isFinite(requestedLines) && requestedLines >= 1
+            ? requestedLines
+            : fallbackTargetLines,
+        ),
+      ),
     ),
     endRule: "first-ayah-end-at-or-after-target",
     firstPrintedLinePolicy: "containing-start-ayah",

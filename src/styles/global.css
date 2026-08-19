@@ -8175,15 +8175,6 @@ html:has(.dialog-backdrop) {
   gap: 8px;
   flex-wrap: wrap;
 }
-.session-status {
-  padding: 2px 7px;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  color: var(--ink-3);
-  font-size: 10px;
-  font-weight: 500;
-  text-transform: uppercase;
-}
 .session-drill {
   border: 1px solid var(--line);
   border-top: none;
@@ -9487,9 +9478,6 @@ html:has(.dialog-backdrop) {
     inset: 64px 12px 12px;
     border: 1px solid var(--line);
     border-radius: var(--r-lg);
-  }
-  .session-status {
-    display: none;
   }
   .session-item {
     gap: 8px;

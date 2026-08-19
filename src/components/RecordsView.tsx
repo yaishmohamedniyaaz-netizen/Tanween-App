@@ -589,15 +589,17 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
           ))}
         </select>
       </label>
-      <label className="records-filter">
-        <span>Section</span>
-        <select value={section} onChange={(event) => setSection(event.target.value)}>
-          <option value="">All sections</option>
-          {sectionOptions.map(([id, label]) => (
-            <option key={id} value={id}>{label}</option>
-          ))}
-        </select>
-      </label>
+      {sectionOptions.length > 1 && (
+        <label className="records-filter">
+          <span>Criteria judged</span>
+          <select value={section} onChange={(event) => setSection(event.target.value)}>
+            <option value="">All criteria sets</option>
+            {sectionOptions.map(([id, label]) => (
+              <option key={id} value={id}>{label}</option>
+            ))}
+          </select>
+        </label>
+      )}
       <label className="records-filter">
         <span>Age group</span>
         <select
@@ -788,14 +790,13 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
                     <bdi className="session-score">
                       {saved.total}<span className="session-max">/{saved.totalMax}</span>
                     </bdi>
-                    <span className="session-status">Section</span>
                   </div>
                   {isOpen && (
                     <div className="session-drill">
                       <div className="session-assignment">
                         <strong>{saved.assignment ? judgeDisplayName(saved.assignment) : "Judge 1"}</strong>
                         <span>{categoryListLabel(saved.assignment?.categories ?? CATEGORY_ORDER)}</span>
-                        <small>Judge-section result · <bdi>{saved.total}/{saved.totalMax}</bdi></small>
+                        <small>Saved result · <bdi>{saved.total}/{saved.totalMax}</bdi></small>
                       </div>
                       {saved.mistakes.length === 0 ? (
                         <p className="empty">No mistakes in this session.</p>

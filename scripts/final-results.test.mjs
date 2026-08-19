@@ -176,23 +176,64 @@ test("final workbook preserves requested participant fields and verified fixed t
   ], JUDGED)[0];
   const result = finalizeParticipantResult(candidate, {});
   assert.ok(result);
-  const buffer = await buildFinalResultsWorkbook([result], competition);
+  const exportedAt = Date.UTC(2026, 7, 19, 10, 15, 0);
+  const buffer = await buildFinalResultsWorkbook([result], competition, { exportedAt });
   await verifyFinalResultsWorkbook(buffer, [result]);
   const { read, utils } = await import("xlsx");
   const workbook = read(buffer, { type: "array" });
-  assert.deepEqual(workbook.SheetNames, ["Results", "Verification"]);
+  assert.deepEqual(workbook.SheetNames, ["Results", "Audit", "Verification"]);
   const rows = utils.sheet_to_json(workbook.Sheets.Results, { header: 1, defval: "" });
   assert.deepEqual(rows[0], finalResultsHeaders([result]));
-  assert.deepEqual(rows[1].slice(1, 8), [
+  assert.deepEqual(rows[1].slice(1, 7), [
     "014",
     "Aishath Latheefa",
     "Under 14",
     "Baliagen · Tarteel / reading",
     "Feshey kolhu · Starting side",
-    "7771234",
     "School A",
   ]);
-  assert.deepEqual(rows[1].slice(8, 13), [48, 30, 20, 98, 100]);
+  assert.deepEqual(rows[1].slice(7, 11), [48, 30, 20, 98]);
+  assert.doesNotMatch(rows[0].join("|"), /Phone|Maximum|Revision|Manifest|Date/);
+
+  const auditRows = utils.sheet_to_json(workbook.Sheets.Audit, { header: 1, defval: "" });
+  assert.deepEqual(auditRows[0], [
+    "Participant Number",
+    "Name",
+    "Maximum",
+    "Result Revision",
+    "Revision Reason",
+    "Verification Manifest",
+  ]);
+  assert.deepEqual(auditRows[1], ["014", "Aishath Latheefa", 100, 1, "", result.manifest]);
+  const verificationRows = utils.sheet_to_json(workbook.Sheets.Verification, {
+    header: 1,
+    defval: "",
+    blankrows: false,
+  });
+  assert.ok(verificationRows.some((row) =>
+    row[0] === "Export generated (UTC)" && row[1] === "2026-08-19T10:15:00.000Z"
+  ));
+
+  const ExcelJS = (await import("exceljs")).default;
+  const styled = new ExcelJS.Workbook();
+  await styled.xlsx.load(buffer);
+  const resultSheet = styled.getWorksheet("Results");
+  const auditSheet = styled.getWorksheet("Audit");
+  assert.ok(resultSheet);
+  assert.ok(auditSheet);
+  assert.equal(resultSheet.views[0].xSplit, 3);
+  assert.equal(resultSheet.views[0].ySplit, 1);
+  assert.equal(resultSheet.pageSetup.orientation, "landscape");
+  assert.equal(resultSheet.pageSetup.fitToWidth, 1);
+  assert.equal(resultSheet.pageSetup.fitToHeight, 0);
+  assert.ok(resultSheet.autoFilter);
+  assert.equal(resultSheet.getColumn(2).width, 19);
+  assert.equal(resultSheet.getCell("B2").numFmt, "@");
+  assert.equal(resultSheet.getCell("H1").fill.fgColor.argb, "FFFCECEA");
+  assert.equal(resultSheet.getCell("H1").font.color.argb, "FF9E2820");
+  assert.equal(resultSheet.getCell("I1").fill.fgColor.argb, "FFFAF2DC");
+  assert.equal(resultSheet.getCell("J1").fill.fgColor.argb, "FFECEEFB");
+  assert.ok(auditSheet.autoFilter);
 });
 
 test("judge packages and full backups reject incomplete files", () => {

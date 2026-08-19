@@ -81,6 +81,13 @@ test("legacy competition identity becomes a non-live draft", () => {
   assert.equal(competition.questionPolicy.targetRecitationLines, 7);
 });
 
+test("new competitions default to ten lines while explicit seven-line policies stay unchanged", () => {
+  assert.equal(normalizeCompetition().questionPolicy.targetRecitationLines, 10);
+  assert.equal(normalizeCompetition({
+    questionPolicy: { targetRecitationLines: 7 },
+  }).questionPolicy.targetRecitationLines, 7);
+});
+
 test("official start readiness names every incomplete section", () => {
   const empty = competitionReadiness({
     competition: normalizeCompetition(),

@@ -337,6 +337,9 @@ test("Results UI retains the reviewed navigation, tabs, audit, and export contra
   assert.match(records, /Current competition/);
   assert.match(records, /All stored competitions/);
   assert.match(records, /Judge results/);
+  assert.match(records, /Criteria judged/);
+  assert.match(records, /All criteria sets/);
+  assert.doesNotMatch(records, /<span className="session-status">Section<\/span>|Judge-section result/);
   assert.match(records, /Reopen to correct/);
   assert.match(records, /different competition or edition/);
   assert.match(records, /uses different scoring rules/);

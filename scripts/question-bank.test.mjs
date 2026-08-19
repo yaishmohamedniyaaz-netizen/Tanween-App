@@ -102,6 +102,22 @@ test("every possible seven-line start resolves deterministically or reports the 
   }
 });
 
+test("every possible ten-line start resolves deterministically or reports the Quran end", () => {
+  for (const start of lookup.ayahs) {
+    const result = resolveQuestionRange(lookup, start, 10);
+    const availableLines = asset.recitationLineCount - start.startGlobalLine;
+    if (availableLines < 10) {
+      assert.equal(result.ok, false, `${start.surah}:${start.ayah}`);
+      assert.equal(!result.ok && result.reason, "insufficient-lines");
+      continue;
+    }
+    assert.equal(result.ok, true, `${start.surah}:${start.ayah}`);
+    assert.ok(result.ok && result.range.resolvedLines >= 10);
+    assert.equal(result.ok && result.range.startWordId, start.firstWordId);
+    assert.match(result.ok ? result.range.layoutHash : "", /^sha256:/);
+  }
+});
+
 test("division limits use exact ayah-level juz and surah boundaries", () => {
   assert.equal(juzForAyah({ surah: 2, ayah: 141 }), 1);
   assert.equal(juzForAyah({ surah: 2, ayah: 142 }), 2);
@@ -125,7 +141,11 @@ test("drafts retain exact provenance and become stale instead of silently changi
   const competition = createSampleCompetition();
   const division = competition.divisions.find((item) => item.quranPortion.kind === "full-quran");
   assert.ok(division);
-  const resolution = resolveQuestionRange(lookup, { surah: 1, ayah: 1 }, 7);
+  const resolution = resolveQuestionRange(
+    lookup,
+    { surah: 1, ayah: 1 },
+    competition.questionPolicy.targetRecitationLines,
+  );
   assert.equal(resolution.ok, true);
   const draft = createQuestionDraft({
     id: "draft-1",
@@ -147,7 +167,10 @@ test("drafts retain exact provenance and become stale instead of silently changi
   assert.match(questionDraftIssues({
     draft,
     competition,
-    policy: { ...competition.questionPolicy, targetRecitationLines: 8 },
+    policy: {
+      ...competition.questionPolicy,
+      targetRecitationLines: competition.questionPolicy.targetRecitationLines + 1,
+    },
     lookup,
   })[0], /target line rule changed/);
   assert.equal(normalizeQuestionDraft({ ...draft, layoutHash: "unversioned" }), null);
@@ -157,7 +180,7 @@ test("the sample competition includes normal, cross-page, and extended draft fix
   const competition = createSampleCompetition();
   const drafts = buildSampleQuestionDrafts(lookup, competition);
   assert.equal(drafts.length, 160);
-  assert.ok(drafts.some((draft) => draft.resolvedLines === 7));
+  assert.ok(drafts.some((draft) => draft.resolvedLines === 10));
   assert.ok(drafts.some((draft) => draft.endPage > draft.startPage));
   assert.ok(drafts.some((draft) => draft.extensionLines > 0));
   assert.ok(drafts.every((draft) => draft.isSample && draft.competitionId === competition.id));

@@ -156,7 +156,17 @@ test("the competition workbook round-trips with V4 dropdowns, choices and suppli
   assert.equal(participantSheet.getCell("E2").dataValidation.type, "list");
   assert.equal(participantSheet.getCell("A2").numFmt, "@");
   assert.equal(participantSheet.getCell("F2").numFmt, "@");
+  assert.equal(participantSheet.views[0].ySplit, 1);
+  assert.equal(participantSheet.views[0].showGridLines, false);
+  assert.equal(participantSheet.pageSetup.orientation, "landscape");
+  assert.equal(participantSheet.pageSetup.fitToWidth, 1);
+  assert.equal(participantSheet.getColumn(1).width, 19);
+  assert.equal(participantSheet.getColumn(2).width, 30);
+  assert.equal(participantSheet.getColumn(4).width, 20);
+  assert.ok(participantSheet.autoFilter);
+  assert.equal(styled.getWorksheet("Choices").state, "hidden");
   assert.equal(styled.getWorksheet("_Tahqeeq").state, "veryHidden");
+  assert.doesNotMatch(rows[0].join("|"), /Date/);
   const readMe = utils.sheet_to_json(workbook.Sheets.Instructions, {
     header: 1,
     defval: "",

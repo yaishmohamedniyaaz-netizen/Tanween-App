@@ -667,15 +667,19 @@ type Question = {
 };
 ```
 
-For the common seven-line policy, the resolver starts at the chosen ayah and
-continues to the first complete ayah ending on or after the seventh printed
-recitation line. If the first available ayah ending is on line eight, the
-question ends there. The complete ending ayah remains visible. Whether its
+New competitions use a ten-line target by default. The resolver starts at the
+chosen ayah and continues to the first complete ayah ending on or after the
+tenth printed recitation line. If the first available ayah ending is on line
+eleven, the question ends there. The complete ending ayah remains visible. Whether its
 final printed line is included in scoring is a competition setting; this is
 local rules data and does not require an external API call.
 
+Saved competitions retain their explicit target. Records from before question
+policies were stored normalize to the former seven-line default rather than
+silently changing an existing competition.
+
 This prevents zoom or a future Mushaf edition from changing the meaning of
-“seven lines.” Passage dimming or hiding is technically possible from the
+“ten lines.” Passage dimming or hiding is technically possible from the
 resolved anchors, but its participant behavior remains deliberately undecided
 and is not part of the first question-bank display.
 
@@ -878,6 +882,19 @@ results.
 
 Export value-only sheets:
 
+The current local-first pilot export deliberately uses three sheets:
+**Results** for the clean ranked table, **Audit** for maximums, revisions and
+verification manifests, and **Verification** for competition identity, the UTC
+export timestamp, criteria and calculation notes. The Results sheet excludes
+phone numbers and generic date columns. It freezes the header and participant
+identity columns, repeats the header for print, fits landscape output to one
+page wide, and uses solid pre-blended criterion tints so the same `.xlsx`
+remains legible when imported into Google Sheets. The participant-import
+template has no date column; its hidden Choices sheet only supports dropdown
+validation.
+
+The expanded official workbook target remains:
+
 1. **Read me** — competition, export time, result-run ID, source/rule/calculation
    versions, status, ledger hash;
 2. **Winners** — final placements by division and unresolved-tie status, with
@@ -918,10 +935,10 @@ separate external tracks with unbounded calendar time.
 | 2. Reliable judging ledger | implemented | Versioned rules, append-only events/corrections, session finalization, structured optional details, local recovery | Audit reconstruction and recovery checks pass |
 | 2.5 Judge assignment mode | implemented | Friendly panel templates, current-device judge choice, assigned-only tray and score panel, frozen assignment in results | Every assignment combination is enforced; no section is presented as a combined score |
 | 2.6 Judge workflow polish | implemented | One-target tray geometry, complete rounded selection rings, and removal of the visible “Your section” phrase | Tray interaction passes without changing the Mushaf or saved meaning |
-| 3A. Competition structure | implemented | Competition identity, Category-grouped recoverable roster editor, entry presets, grouped import resolution, automatic/supplied numbering, V4 native-dropdown template with V1/V2/V3 compatibility, stable participant identities, and a scroll-stable animated setup accordion | Draft, preset, accordion, paste, legacy/template, identity, validation, and workbook round-trip tests pass |
+| 3A. Competition structure | implemented | Competition identity, Category-grouped recoverable roster editor, entry presets, grouped import resolution, automatic/supplied numbering, V4 native-dropdown template with hidden validation choices and V1/V2/V3 compatibility, stable participant identities, and a scroll-stable animated setup accordion | Draft, preset, accordion, paste, legacy/template, identity, validation, and workbook round-trip tests pass |
 | 3B. Judge-section collection | implemented | Offline-friendly result packages, competition mismatch checks, duplicate and conflict preservation | Wrong, missing, or duplicate sections cannot silently enter a final result |
 | 3C. Result finalization | implemented | Evidence-recalculated combined result, source selection, revisions, verification manifest | Every final score reconstructs from selected judge histories |
-| 3D. Placements and XLSX | implemented; rehearsal remains | Tied Age Group + Category rankings and value-only verified workbook | Golden edge cases and spreadsheet re-import checks pass |
+| 3D. Placements and XLSX | implemented; rehearsal remains | Tied Age Group + Category rankings and value-only Results, Audit and Verification workbook | Golden edge cases and spreadsheet re-import checks pass |
 | 3.7 Exact mistake details | optional before questions; reviewer-gated | Optional reviewed descriptions beneath Jali, Khafi, and Fasaha | Qualified reviewer approves the supported taxonomy and fixtures |
 | 4A. Question preparation foundation | 1–2 coding weeks | Competition task workspace, explicit official start, generated ayah index, deterministic printed-line resolver | App launch creates no official session; all 6,236 ayah boundaries pass |
 | 4B. Manual question bank | 2–4 coding weeks | Ayah-first builder, preview, versioned review and approval | Every usable question has exact anchors, provenance and approval |

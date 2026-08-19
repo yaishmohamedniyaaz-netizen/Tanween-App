@@ -747,9 +747,18 @@ async function buildParticipantWorkbook(
   workbook.description = `Template version ${PARTICIPANT_TEMPLATE_VERSION}`;
 
   const participants = workbook.addWorksheet("Participants", {
-    views: [{ state: "frozen", ySplit: 1, activeCell: "A2" }],
-    properties: { defaultRowHeight: 22 },
+    views: [{ state: "frozen", ySplit: 1, activeCell: "A2", showGridLines: false }],
+    properties: { defaultRowHeight: 24 },
+    pageSetup: {
+      orientation: "landscape",
+      fitToPage: true,
+      fitToWidth: 1,
+      fitToHeight: 0,
+      paperSize: 9,
+      margins: { left: 0.25, right: 0.25, top: 0.5, bottom: 0.5, header: 0.2, footer: 0.2 },
+    },
   });
+  participants.pageSetup.printTitlesRow = "1:1";
   participants.addRow(headers);
   body.forEach((row) => participants.addRow(row));
   const preparedRowCount = sample ? body.length : 100;
@@ -763,17 +772,17 @@ async function buildParticipantWorkbook(
   participants.columns.forEach((column, index) => {
     const header = headers[index];
     column.width = header === "Participant Number"
-      ? 22
+      ? 19
       : header === "Name" || header === "Institution"
-      ? 28
+      ? 30
       : header === "Category"
-        ? 34
+        ? 30
         : header === "Muqarrar start"
-          ? 22
+          ? 20
           : 18;
   });
   const headerRow = participants.getRow(1);
-  headerRow.height = 28;
+  headerRow.height = 30;
   headerRow.eachCell((cell) => {
     cell.font = { name: "Aptos", size: 11, bold: true, color: { argb: "FFFFFFFF" } };
     cell.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FF242421" } };
@@ -787,6 +796,8 @@ async function buildParticipantWorkbook(
   });
 
   const choices = sample ? null : workbook.addWorksheet("Choices", {
+    state: "hidden",
+    views: [{ showGridLines: false }],
     properties: { defaultRowHeight: 22 },
   });
   if (choices) {
@@ -801,7 +812,7 @@ async function buildParticipantWorkbook(
     }
     choices.columns = [{ width: 38 }, { width: 24 }, { width: 34 }];
     const choicesHeader = choices.getRow(1);
-    choicesHeader.height = 28;
+    choicesHeader.height = 30;
     choicesHeader.eachCell((cell) => {
       cell.font = { name: "Aptos", size: 11, bold: true, color: { argb: "FFFFFFFF" } };
       cell.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FF242421" } };
@@ -869,7 +880,15 @@ async function buildParticipantWorkbook(
   }
 
   const instructions = workbook.addWorksheet("Instructions", {
+    views: [{ showGridLines: false }],
     properties: { defaultRowHeight: 22 },
+    pageSetup: {
+      orientation: "portrait",
+      fitToPage: true,
+      fitToWidth: 1,
+      fitToHeight: 1,
+      margins: { left: 0.5, right: 0.5, top: 0.6, bottom: 0.6, header: 0.2, footer: 0.2 },
+    },
   });
   const instructionRows = [
     [title],
@@ -967,8 +986,16 @@ export async function verifyParticipantTemplate(
   const styledWorkbook = new ExcelJS.Workbook();
   await styledWorkbook.xlsx.load(buffer);
   const styledParticipants = styledWorkbook.getWorksheet("Participants");
+  const styledChoices = styledWorkbook.getWorksheet("Choices");
+  const participantView = styledParticipants?.views[0];
+  const participantViewMatches =
+    participantView?.state === "frozen" && participantView.ySplit === 1;
   if (
     !styledParticipants ||
+    !styledChoices ||
+    styledChoices.state !== "hidden" ||
+    !participantViewMatches ||
+    !styledParticipants.autoFilter ||
     styledParticipants.getCell(2, expected.indexOf("Category") + 1).dataValidation.type !== "list" ||
     styledParticipants.getCell(2, expected.indexOf("Muqarrar start") + 1).dataValidation.type !== "list"
   ) {
