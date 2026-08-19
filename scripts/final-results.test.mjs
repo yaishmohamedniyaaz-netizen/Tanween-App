@@ -200,6 +200,20 @@ test("judge packages and full backups reject incomplete files", () => {
   const resultPackage = buildJudgeResultPackage(source, competition);
   assert.equal(parseJudgeResultPackage(resultPackage).session.id, "jali");
   assert.throws(() => parseJudgeResultPackage({ app: "tahqeeq" }));
+  assert.throws(
+    () => parseJudgeResultPackage({
+      ...resultPackage,
+      session: { ...resultPackage.session, competitionId: "" },
+    }),
+    /conflicting competition identity/,
+  );
+  assert.throws(
+    () => parseJudgeResultPackage({
+      ...resultPackage,
+      session: { ...resultPackage.session, competitionVersionId: "" },
+    }),
+    /conflicting competition identity/,
+  );
 
   const state = { history: [source], roster: [] };
   const backup = buildStateBackup(state);

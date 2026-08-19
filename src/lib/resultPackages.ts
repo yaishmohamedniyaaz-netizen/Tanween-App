@@ -93,6 +93,24 @@ export function parseJudgeResultPackage(value: unknown): JudgeResultPackage {
   ) {
     throw new Error("This is not a complete Tahqeeq judge-result file.");
   }
+  const sessionCompetitionId = payload.session.competitionId;
+  const packageVersionId = payload.competition.versionId;
+  const sessionVersionId = payload.session.competitionVersionId;
+  if (
+    (sessionCompetitionId != null &&
+      (typeof sessionCompetitionId !== "string" ||
+        !sessionCompetitionId.trim() ||
+        sessionCompetitionId !== payload.competition.id)) ||
+    (packageVersionId != null &&
+      (typeof packageVersionId !== "string" || !packageVersionId.trim())) ||
+    (sessionVersionId != null &&
+      (typeof sessionVersionId !== "string" || !sessionVersionId.trim())) ||
+    (packageVersionId != null &&
+      sessionVersionId != null &&
+      packageVersionId !== sessionVersionId)
+  ) {
+    throw new Error("This Tahqeeq judge-result file has conflicting competition identity.");
+  }
   return payload as JudgeResultPackage;
 }
 

@@ -407,7 +407,7 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
         throw new Error("Sample and official judge results cannot be mixed.");
       }
       if (
-        payload.session.competitionId &&
+        payload.session.competitionId != null &&
         payload.session.competitionId !== payload.competition.id
       ) {
         throw new Error("That result contains conflicting competition identity.");
@@ -423,15 +423,15 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
       const sessionVersionId = payload.session.competitionVersionId ?? null;
       const liveVersionId = state.competition.liveSnapshot?.versionId ?? null;
       if (
-        payload.competition.versionId &&
-        sessionVersionId &&
+        payload.competition.versionId != null &&
+        sessionVersionId != null &&
         payload.competition.versionId !== sessionVersionId
       ) {
         throw new Error("That result contains conflicting competition-version evidence.");
       }
       if (
-        packageVersionId &&
-        liveVersionId &&
+        packageVersionId != null &&
+        liveVersionId != null &&
         packageVersionId !== liveVersionId
       ) {
         throw new Error("That result belongs to a different frozen competition version.");
@@ -541,6 +541,8 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
         ...payload,
         session: {
           ...payload.session,
+          competitionId: payload.competition.id,
+          competitionVersionId: packageVersionId ?? undefined,
           ...(normalizedQuestion ? { question: normalizedQuestion } : {}),
         },
       });
