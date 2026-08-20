@@ -57,6 +57,7 @@ import {
   createSampleCompetition,
   createSampleJudgePanel,
   createSampleRoster,
+  refreshSampleRoster,
   SAMPLE_COMPETITION_EDITION,
   SAMPLE_COMPETITION_NAME,
   SAMPLE_JUDGE_NAME,
@@ -1346,6 +1347,14 @@ export function normalizeLedgerState(
       return sample ? { ...entry, ...sample, ...("judged" in entry ? { judged: entry.judged } : {}) } : entry;
     };
     roster = roster.map(updateSampleIdentity);
+    if (
+      !sessionActive &&
+      competition.status !== "live" &&
+      !parsed.preparedRecitation &&
+      !parsed.rosterDraft
+    ) {
+      roster = refreshSampleRoster(roster);
+    }
     participant = updateSampleIdentity(participant);
     if (competition.liveSnapshot) {
       competition = {

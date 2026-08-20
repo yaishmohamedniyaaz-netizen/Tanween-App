@@ -56,6 +56,67 @@ const SAMPLE_PARTICIPANTS: Omit<RosterEntry, "judged">[] = [
   { id: "sample-participant-08", number: "08", name: "Hawwa Sameeha", ageGroup: "Under 16", category: "baliagen", muqarrar: "nimey-kolhu", phone: "", institution: "Noor Quran Class" },
 ];
 
+const STRESS_GIVEN_NAMES = [
+  "Mohamed",
+  "Ahmed",
+  "Ibrahim",
+  "Abdulla",
+  "Ali",
+  "Ismail",
+  "Yoosuf",
+  "Hassan",
+  "Mariyam",
+  "Aishath",
+  "Fathimath",
+  "Hawwa",
+  "Aminath",
+  "Shifza",
+  "Zainab",
+  "Thasneem",
+] as const;
+
+const STRESS_FAMILY_NAMES = ["Naseer", "Shareef", "Waheed", "Nazeer"] as const;
+
+const STRESS_GROUPS = [
+  { ageGroup: "Under 14", category: "nubalaa" },
+  { ageGroup: "Under 14", category: "baliagen" },
+  { ageGroup: "Under 16", category: "nubalaa" },
+  { ageGroup: "Under 16", category: "baliagen" },
+] as const;
+
+const STRESS_INSTITUTIONS = [
+  "Hiriya School",
+  "Amilla faraathun",
+  "Noor Quran Class",
+  "Aminiya School",
+  "Majeediyya School",
+] as const;
+
+const STRESS_PARTICIPANTS: Omit<RosterEntry, "judged">[] =
+  STRESS_FAMILY_NAMES.flatMap((familyName) =>
+    STRESS_GIVEN_NAMES.map((givenName) => `${givenName} ${familyName}`),
+  ).map((name, index) => {
+    const participantNumber = index + SAMPLE_PARTICIPANTS.length + 1;
+    const group = STRESS_GROUPS[index % STRESS_GROUPS.length];
+    return {
+      id: `sample-participant-${String(participantNumber).padStart(2, "0")}`,
+      number: String(participantNumber).padStart(2, "0"),
+      name,
+      ageGroup: group.ageGroup,
+      category: group.category,
+      muqarrar: Math.floor(index / STRESS_GROUPS.length) % 2 === 0
+        ? "feshey-kolhu"
+        : "nimey-kolhu",
+      phone: "",
+      institution: STRESS_INSTITUTIONS[index % STRESS_INSTITUTIONS.length],
+    };
+  });
+
+const ALL_SAMPLE_PARTICIPANTS = [
+  ...SAMPLE_PARTICIPANTS,
+  ...STRESS_PARTICIPANTS,
+];
+
 export function createSampleCompetition(): CompetitionConfig {
   return {
     version: 2,
@@ -98,8 +159,16 @@ export function createSampleJudgePanel(
 }
 
 export function createSampleRoster(): RosterEntry[] {
-  return SAMPLE_PARTICIPANTS.map((participant) => ({
+  return ALL_SAMPLE_PARTICIPANTS.map((participant) => ({
     ...participant,
     judged: false,
+  }));
+}
+
+export function refreshSampleRoster(roster: RosterEntry[]): RosterEntry[] {
+  const existingById = new Map(roster.map((entry) => [entry.id, entry]));
+  return createSampleRoster().map((sample) => ({
+    ...sample,
+    judged: existingById.get(sample.id)?.judged ?? false,
   }));
 }

@@ -14,6 +14,7 @@ import {
   createSampleCompetition,
   createSampleJudgePanel,
   createSampleRoster,
+  refreshSampleRoster,
   SAMPLE_COMPETITION_EDITION,
   SAMPLE_COMPETITION_NAME,
   SAMPLE_JUDGE_NAME,
@@ -207,10 +208,35 @@ test("the built-in sample is complete, clearly marked, and ready to test", () =>
   assert.equal(panel.seats.length, 1);
   assert.equal(panel.seats[0].name, SAMPLE_JUDGE_NAME);
   assert.equal(competition.divisions.length, 4);
-  assert.equal(roster.length, 8);
+  assert.equal(roster.length, 72);
+  assert.equal(roster.at(-1).number, "72");
+  assert.equal(new Set(roster.map((entry) => entry.id)).size, roster.length);
+  assert.equal(new Set(roster.map((entry) => entry.number)).size, roster.length);
   assert.equal(new Set(roster.map((entry) => entry.name)).size, roster.length);
   assert.ok(roster.every((entry) => !entry.name.startsWith("Sample Participant")));
   assert.equal(roster[0].name, "Ahmed Rasheed");
+  const refreshedRoster = refreshSampleRoster([
+    { ...roster[0], judged: true },
+    ...roster.slice(1, 8),
+  ]);
+  assert.equal(refreshedRoster.length, 72);
+  assert.equal(refreshedRoster[0].judged, true);
+  assert.equal(refreshedRoster[8].judged, false);
+  for (const division of competition.divisions) {
+    const divisionRoster = roster.filter(
+      (entry) =>
+        entry.ageGroup === division.ageGroup && entry.category === division.category,
+    );
+    assert.equal(divisionRoster.length, 18);
+    assert.equal(
+      divisionRoster.filter((entry) => entry.muqarrar === "feshey-kolhu").length,
+      9,
+    );
+    assert.equal(
+      divisionRoster.filter((entry) => entry.muqarrar === "nimey-kolhu").length,
+      9,
+    );
+  }
   const input = {
     competition,
     panel,
