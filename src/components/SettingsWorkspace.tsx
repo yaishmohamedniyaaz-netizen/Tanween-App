@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import type { DevicePreferencesV1 } from "../lib/devicePreferences";
+import type { DevicePreferencesV2 } from "../lib/devicePreferences";
 import {
   DEFAULT_DEVICE_PREFERENCES,
 } from "../lib/devicePreferences";
@@ -44,8 +44,8 @@ export function SettingsWorkspace({
   onReset,
   onBack,
 }: {
-  preferences: DevicePreferencesV1;
-  onChange: (patch: Partial<DevicePreferencesV1>) => void;
+  preferences: DevicePreferencesV2;
+  onChange: (patch: Partial<DevicePreferencesV2>) => void;
   onReset: () => void;
   onBack: () => void;
 }) {

@@ -1,17 +1,19 @@
 export type AppTheme = "light" | "dark";
 export type MushafLayout = "full" | "spread";
 export type JudgeRailSide = "left" | "right";
+export type QuestionFocusMode = "off" | "fade" | "shade";
 
-export interface DevicePreferencesV1 {
-  version: 1;
+export interface DevicePreferencesV2 {
+  version: 2;
   theme: AppTheme;
   mushafLayout: MushafLayout;
   mushafZoom: number;
   judgeRailSide: JudgeRailSide;
-  questionFocusEnabled: boolean;
+  questionFocusMode: QuestionFocusMode;
 }
 
-export const DEVICE_PREFERENCES_KEY = "tahqeeq:devicePreferences.v1";
+export const DEVICE_PREFERENCES_KEY = "tahqeeq:devicePreferences.v2";
+export const LEGACY_DEVICE_PREFERENCES_KEY = "tahqeeq:devicePreferences.v1";
 export const LEGACY_THEME_KEY = "tahqeeq.theme";
 export const LEGACY_PAGE_ZOOM_KEY = "tahqeeq:pageZoom.v2";
 export const LEGACY_PAGE_LAYOUT_KEY = "tahqeeq:pageLayout";
@@ -23,13 +25,13 @@ export const MUSHAF_ZOOM_DEFAULT = MUSHAF_ZOOM_FIT;
 export const MUSHAF_ZOOM_MAX = 150;
 export const MUSHAF_ZOOM_STEP = 5;
 
-export const DEFAULT_DEVICE_PREFERENCES: DevicePreferencesV1 = {
-  version: 1,
+export const DEFAULT_DEVICE_PREFERENCES: DevicePreferencesV2 = {
+  version: 2,
   theme: "light",
   mushafLayout: "full",
   mushafZoom: MUSHAF_ZOOM_DEFAULT,
   judgeRailSide: "left",
-  questionFocusEnabled: true,
+  questionFocusMode: "fade",
 };
 
 export function normalizeMushafZoom(
@@ -51,16 +53,23 @@ function storageOrNull(storage?: Storage | null): Storage | null {
 
 export function normalizeDevicePreferences(
   value: unknown,
-  fallback: DevicePreferencesV1 = DEFAULT_DEVICE_PREFERENCES,
-): DevicePreferencesV1 {
+  fallback: DevicePreferencesV2 = DEFAULT_DEVICE_PREFERENCES,
+): DevicePreferencesV2 {
   const candidate = value && typeof value === "object"
-    ? value as Partial<Omit<DevicePreferencesV1, "mushafLayout">> & { mushafLayout?: unknown }
+    ? value as Record<string, unknown>
     : {};
   const mushafLayout = candidate.mushafLayout === "split"
     ? "spread"
     : candidate.mushafLayout;
+  const questionFocusMode = candidate.questionFocusMode === "off" ||
+      candidate.questionFocusMode === "fade" ||
+      candidate.questionFocusMode === "shade"
+    ? candidate.questionFocusMode
+    : typeof candidate.questionFocusEnabled === "boolean"
+      ? candidate.questionFocusEnabled ? "fade" : "off"
+      : fallback.questionFocusMode;
   return {
-    version: 1,
+    version: 2,
     theme: candidate.theme === "dark" || candidate.theme === "light"
       ? candidate.theme
       : fallback.theme,
@@ -74,13 +83,11 @@ export function normalizeDevicePreferences(
     judgeRailSide: candidate.judgeRailSide === "right" || candidate.judgeRailSide === "left"
       ? candidate.judgeRailSide
       : fallback.judgeRailSide,
-    questionFocusEnabled: typeof candidate.questionFocusEnabled === "boolean"
-      ? candidate.questionFocusEnabled
-      : fallback.questionFocusEnabled,
+    questionFocusMode,
   };
 }
 
-function legacyPreferences(storage: Storage): DevicePreferencesV1 {
+function legacyPreferences(storage: Storage): DevicePreferencesV2 {
   const legacyZoom = storage.getItem(LEGACY_PAGE_ZOOM_KEY);
   return normalizeDevicePreferences({
     theme: storage.getItem(LEGACY_THEME_KEY),
@@ -90,30 +97,50 @@ function legacyPreferences(storage: Storage): DevicePreferencesV1 {
   });
 }
 
-export function readDevicePreferences(storage?: Storage | null): DevicePreferencesV1 {
-  const target = storageOrNull(storage);
-  if (!target) return { ...DEFAULT_DEVICE_PREFERENCES };
-  const legacy = legacyPreferences(target);
+function readStoredPreferences(
+  storage: Storage,
+  key: string,
+  fallback: DevicePreferencesV2,
+): DevicePreferencesV2 {
   try {
-    const raw = target.getItem(DEVICE_PREFERENCES_KEY);
-    if (!raw) return legacy;
-    return normalizeDevicePreferences(JSON.parse(raw), legacy);
+    const raw = storage.getItem(key);
+    return raw ? normalizeDevicePreferences(JSON.parse(raw), fallback) : fallback;
   } catch {
-    return legacy;
+    return fallback;
   }
 }
 
+export function readDevicePreferences(storage?: Storage | null): DevicePreferencesV2 {
+  const target = storageOrNull(storage);
+  if (!target) return { ...DEFAULT_DEVICE_PREFERENCES };
+  const legacy = legacyPreferences(target);
+  const migratedV1 = readStoredPreferences(
+    target,
+    LEGACY_DEVICE_PREFERENCES_KEY,
+    legacy,
+  );
+  return readStoredPreferences(target, DEVICE_PREFERENCES_KEY, migratedV1);
+}
+
 export function writeDevicePreferences(
-  preferences: DevicePreferencesV1,
+  preferences: DevicePreferencesV2,
   storage?: Storage | null,
-): DevicePreferencesV1 {
+): DevicePreferencesV2 {
   const normalized = normalizeDevicePreferences(preferences);
   const target = storageOrNull(storage);
   if (!target) return normalized;
   try {
     target.setItem(DEVICE_PREFERENCES_KEY, JSON.stringify(normalized));
-    // Mirror existing keys during the V1 migration so the pre-React theme script
-    // and a rollback build continue to honor the same choices.
+    // Keep the previous settings object and individual keys synchronized so a
+    // rollback build continues to honor the closest equivalent choices.
+    target.setItem(LEGACY_DEVICE_PREFERENCES_KEY, JSON.stringify({
+      version: 1,
+      theme: normalized.theme,
+      mushafLayout: normalized.mushafLayout,
+      mushafZoom: normalized.mushafZoom,
+      judgeRailSide: normalized.judgeRailSide,
+      questionFocusEnabled: normalized.questionFocusMode !== "off",
+    }));
     target.setItem(LEGACY_THEME_KEY, normalized.theme);
     target.setItem(LEGACY_PAGE_LAYOUT_KEY, normalized.mushafLayout);
     target.setItem(LEGACY_PAGE_ZOOM_KEY, String(normalized.mushafZoom));

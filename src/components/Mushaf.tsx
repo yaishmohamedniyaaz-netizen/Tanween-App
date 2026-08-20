@@ -45,7 +45,10 @@ import {
   useMushafRenderScale,
   useStableMushafStage,
 } from "./MushafViewport";
-import type { MushafLayout } from "../lib/devicePreferences";
+import type {
+  MushafLayout,
+  QuestionFocusMode,
+} from "../lib/devicePreferences";
 import {
   moveMushafView,
   pageIsVisible,
@@ -158,7 +161,7 @@ function SurahBand({
 interface MushafProps {
   page: number;
   pageLayout: MushafLayout;
-  questionFocusEnabled: boolean;
+  questionFocusMode: QuestionFocusMode;
   questionRange: RecitationRangeSnapshot | null;
   onPageChange: (page: number) => void;
   headerControls: (visiblePages: readonly number[], compact: boolean) => ReactNode;
@@ -167,7 +170,7 @@ interface MushafProps {
 export function Mushaf({
   page: currentPage,
   pageLayout,
-  questionFocusEnabled,
+  questionFocusMode,
   questionRange,
   onPageChange,
   headerControls,
@@ -199,7 +202,7 @@ export function Mushaf({
   const [flashTid, setFlashTid] = useState<string | null>(null);
   const [pendingFlash, setPendingFlash] = useState<{ tid: string; page: number } | null>(null);
 
-  const compatibleQuestionRange = questionFocusEnabled &&
+  const compatibleQuestionRange = questionFocusMode !== "off" &&
       questionRange?.mushafLayout === MUSHAF_LAYOUT &&
       questionRange.sourceVersion === MUSHAF_DATA_VERSION &&
       questionRange.questionIndexVersion === QUESTION_INDEX_VERSION
@@ -778,7 +781,7 @@ export function Mushaf({
         data-page={data.page}
         data-font-ready={qcfReady ? "true" : "false"}
         data-judging-enabled={judgingEnabled ? "true" : "false"}
-        data-question-focus={questionDisplay ? "true" : "false"}
+        data-question-focus-mode={questionDisplay ? questionFocusMode : "off"}
         onPointerDown={judgingEnabled ? (event) => onPointerDown(event, data.page) : undefined}
         onPointerMove={judgingEnabled ? onPointerMove : undefined}
         onPointerUp={judgingEnabled ? onPointerUp : undefined}
@@ -796,6 +799,14 @@ export function Mushaf({
           <div className="juz-label">الجزء {toArabicNum(juzByPage[data.page])}</div>
         )}
         <div className="mushaf-lines">
+          {questionFocusMode === "shade" && questionDisplay?.contextLineRuns.map((run) => (
+            <div
+              key={`context:${run.startLine}-${run.endLine}`}
+              className="question-context-band"
+              style={{ gridRow: `${run.startLine} / ${run.endLine + 1}` }}
+              aria-hidden="true"
+            />
+          ))}
           {data.lines.map((line) => {
             const lineState = questionDisplay?.lineStates.get(line.n);
             if (line.type === "surah-header") {

@@ -4,6 +4,7 @@ import type {
   AppTheme,
   JudgeRailSide,
   MushafLayout,
+  QuestionFocusMode,
 } from "../lib/devicePreferences";
 import {
   buildResultsReviewItems,
@@ -28,8 +29,8 @@ interface Props {
   onMushafLayoutChange: (value: MushafLayout) => void;
   judgeRailSide: JudgeRailSide;
   onJudgeRailSideChange: (value: JudgeRailSide) => void;
-  questionFocusEnabled: boolean;
-  onQuestionFocusEnabledChange: (value: boolean) => void;
+  questionFocusMode: QuestionFocusMode;
+  onQuestionFocusModeChange: (value: QuestionFocusMode) => void;
   onShowMarkingGuide: () => void;
   onMoreControlsOpenChange: (open: boolean) => void;
   theme: AppTheme;
@@ -48,8 +49,8 @@ export function Header({
   onMushafLayoutChange,
   judgeRailSide,
   onJudgeRailSideChange,
-  questionFocusEnabled,
-  onQuestionFocusEnabledChange,
+  questionFocusMode,
+  onQuestionFocusModeChange,
   onShowMarkingGuide,
   onMoreControlsOpenChange,
   theme,
@@ -165,8 +166,8 @@ export function Header({
         onMushafLayoutChange={onMushafLayoutChange}
         judgeRailSide={judgeRailSide}
         onJudgeRailSideChange={onJudgeRailSideChange}
-        questionFocusEnabled={questionFocusEnabled}
-        onQuestionFocusEnabledChange={onQuestionFocusEnabledChange}
+        questionFocusMode={questionFocusMode}
+        onQuestionFocusModeChange={onQuestionFocusModeChange}
         onShowMarkingGuide={onShowMarkingGuide}
         onOpenChange={onMoreControlsOpenChange}
         onOpenSettings={onOpenSettings}

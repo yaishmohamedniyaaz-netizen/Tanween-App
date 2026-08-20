@@ -34,7 +34,17 @@
   --mushaf-ink: #1c1b16;
   --question-context-ink: color-mix(
     in srgb,
-    var(--mushaf-ink) 44%,
+    var(--mushaf-ink) 38%,
+    var(--page-paper)
+  );
+  --question-shade-context-ink: color-mix(
+    in srgb,
+    var(--mushaf-ink) 34%,
+    var(--page-paper)
+  );
+  --question-shade-fill: color-mix(
+    in srgb,
+    var(--mushaf-ink) 5%,
     var(--page-paper)
   );
   --gold: #b3892f;
@@ -95,7 +105,17 @@
   --mushaf-ink: #eae7de;
   --question-context-ink: color-mix(
     in srgb,
-    var(--mushaf-ink) 52%,
+    var(--mushaf-ink) 46%,
+    var(--page-paper)
+  );
+  --question-shade-context-ink: color-mix(
+    in srgb,
+    var(--mushaf-ink) 42%,
+    var(--page-paper)
+  );
+  --question-shade-fill: color-mix(
+    in srgb,
+    var(--mushaf-ink) 7%,
     var(--page-paper)
   );
   --gold: #c9a052;
@@ -500,6 +520,9 @@ textarea:focus-visible {
   border: 1px solid var(--line);
   border-radius: var(--r-sm);
   background: var(--bg);
+}
+.question-focus-control .mushaf-view-options {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 .mushaf-view-options button {
   min-height: 36px;
@@ -4875,6 +4898,8 @@ textarea:focus-visible {
   visibility: hidden;
 }
 .mushaf-lines {
+  position: relative;
+  isolation: isolate;
   display: grid;
   grid-template-rows: repeat(15, minmax(0, 1fr));
   min-height: 0;
@@ -5006,17 +5031,52 @@ textarea:focus-visible {
   z-index: 30;
   transform: translateX(-50%);
 }
+.mushaf-lines > .m-line,
+.mushaf-lines > .surah-band {
+  position: relative;
+  z-index: 1;
+  grid-column: 1;
+}
+.question-context-band {
+  z-index: 0;
+  grid-column: 1;
+  align-self: stretch;
+  min-width: 0;
+  border-radius: 4px;
+  background: var(--question-shade-fill);
+  pointer-events: none;
+}
 
-/* Question focus changes ink only. The printed geometry, hit layer, mistake
-   colour and navigation remain untouched. */
-.page[data-question-focus="true"] .question-context-line,
-.page[data-question-focus="true"] .question-context-word {
+/* Question focus changes presentation only. Printed geometry, hit targets,
+   mistake colour and navigation remain untouched. */
+.page:is(
+  [data-question-focus-mode="fade"],
+  [data-question-focus-mode="shade"]
+) .question-context-line,
+.page:is(
+  [data-question-focus-mode="fade"],
+  [data-question-focus-mode="shade"]
+) .question-context-word {
   color: var(--question-context-ink);
 }
-.page[data-question-focus="true"] .question-context-line .sajdah-mark,
-.page[data-question-focus="true"] .question-context-word .sajdah-mark {
-  color: color-mix(in srgb, var(--gold) 46%, var(--page-paper));
+.page[data-question-focus-mode="shade"] .question-context-line,
+.page[data-question-focus-mode="shade"] .question-context-word {
+  color: var(--question-shade-context-ink);
+}
+.page:is(
+  [data-question-focus-mode="fade"],
+  [data-question-focus-mode="shade"]
+) .question-context-line .sajdah-mark,
+.page:is(
+  [data-question-focus-mode="fade"],
+  [data-question-focus-mode="shade"]
+) .question-context-word .sajdah-mark {
+  color: color-mix(in srgb, var(--gold) 40%, var(--page-paper));
   opacity: 1;
+}
+.page[data-question-focus-mode="shade"] .question-context-line .sajdah-mark,
+.page[data-question-focus-mode="shade"] .question-context-word .sajdah-mark {
+  color: color-mix(in srgb, var(--gold) 34%, var(--page-paper));
 }
 .mushaf-scroll.is-spread {
   grid-template-rows: auto auto;

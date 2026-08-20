@@ -4,7 +4,11 @@ import { downloadSessionJSON } from "../lib/exportSession";
 import { useJudging } from "../state/store";
 import { Icon } from "./Icon";
 import { MushafSizeControl } from "./MushafSizeControl";
-import type { JudgeRailSide, MushafLayout } from "../lib/devicePreferences";
+import type {
+  JudgeRailSide,
+  MushafLayout,
+  QuestionFocusMode,
+} from "../lib/devicePreferences";
 
 interface MoreActionsPopoverProps {
   view: AppView;
@@ -14,8 +18,8 @@ interface MoreActionsPopoverProps {
   onMushafLayoutChange: (value: MushafLayout) => void;
   judgeRailSide: JudgeRailSide;
   onJudgeRailSideChange: (value: JudgeRailSide) => void;
-  questionFocusEnabled: boolean;
-  onQuestionFocusEnabledChange: (value: boolean) => void;
+  questionFocusMode: QuestionFocusMode;
+  onQuestionFocusModeChange: (value: QuestionFocusMode) => void;
   onShowMarkingGuide: () => void;
   onOpenChange: (open: boolean) => void;
   onOpenSettings: () => void;
@@ -30,8 +34,8 @@ export function MoreActionsPopover({
   onMushafLayoutChange,
   judgeRailSide,
   onJudgeRailSideChange,
-  questionFocusEnabled,
-  onQuestionFocusEnabledChange,
+  questionFocusMode,
+  onQuestionFocusModeChange,
   onShowMarkingGuide,
   onOpenChange,
   onOpenSettings,
@@ -167,24 +171,18 @@ export function MoreActionsPopover({
               <fieldset className="question-focus-control">
                 <legend>Question focus</legend>
                 <div className="mushaf-view-options" role="radiogroup" aria-label="Question focus">
-                  <button
-                    type="button"
-                    role="radio"
-                    aria-checked={questionFocusEnabled}
-                    className={questionFocusEnabled ? "is-active" : ""}
-                    onClick={() => onQuestionFocusEnabledChange(true)}
-                  >
-                    On
-                  </button>
-                  <button
-                    type="button"
-                    role="radio"
-                    aria-checked={!questionFocusEnabled}
-                    className={!questionFocusEnabled ? "is-active" : ""}
-                    onClick={() => onQuestionFocusEnabledChange(false)}
-                  >
-                    Off
-                  </button>
+                  {(["off", "fade", "shade"] as const).map((mode) => (
+                    <button
+                      key={mode}
+                      type="button"
+                      role="radio"
+                      aria-checked={questionFocusMode === mode}
+                      className={questionFocusMode === mode ? "is-active" : ""}
+                      onClick={() => onQuestionFocusModeChange(mode)}
+                    >
+                      {mode === "off" ? "Off" : mode === "fade" ? "Fade" : "Shade"}
+                    </button>
+                  ))}
                 </div>
               </fieldset>
               <div className="overflow-sep" />

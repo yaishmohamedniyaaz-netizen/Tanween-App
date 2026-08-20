@@ -20,7 +20,10 @@ import {
   linesForEvidencePage,
   wordIdsForEvidencePage,
 } from "../src/lib/recitationEvidenceLayout.ts";
-import { rangeDisplayForPage } from "../src/lib/recitationRangeLayout.ts";
+import {
+  contextRunsForLineStates,
+  rangeDisplayForPage,
+} from "../src/lib/recitationRangeLayout.ts";
 import {
   normalizeQuestionAssignment,
   normalizeRecitationRangeSnapshot,
@@ -165,6 +168,10 @@ test("page 598 renders only the recorded physical rows while retaining structura
   assert.equal(display.lineStates.get(1), "context");
   assert.equal(display.lineStates.get(15), "context");
   assert.ok([...display.lineStates.values()].includes("mixed"));
+  assert.deepEqual(display.contextLineRuns, [
+    { startLine: 1, endLine: 2 },
+    { startLine: 15, endLine: 15 },
+  ]);
   assert.equal(rangeDisplayForPage(page, {
     ...range,
     startLine: range.startLine + 1,
@@ -174,6 +181,21 @@ test("page 598 renders only the recorded physical rows while retaining structura
     ...range,
     startLine: range.startLine + 1,
   }), false);
+});
+
+test("context lines collapse into stable shade bands without crossing mixed lines", () => {
+  assert.deepEqual(contextRunsForLineStates(new Map([
+    [1, "context"],
+    [2, "context"],
+    [3, "mixed"],
+    [4, "question"],
+    [5, "context"],
+    [7, "context"],
+    [6, "context"],
+  ])), [
+    { startLine: 1, endLine: 2 },
+    { startLine: 5, endLine: 7 },
+  ]);
 });
 
 test("cross-page evidence cuts page 603 and 604 at the exact recorded lines", () => {

@@ -31,7 +31,7 @@ import {
   DEFAULT_DEVICE_PREFERENCES,
   readDevicePreferences,
   writeDevicePreferences,
-  type DevicePreferencesV1,
+  type DevicePreferencesV2,
 } from "./lib/devicePreferences";
 
 const LS_PAGE_KEY = "tahqeeq:lastPage";
@@ -49,7 +49,7 @@ export function App() {
   const [finishOpen, setFinishOpen] = useState(false);
   const [markingGuideOpen, setMarkingGuideOpen] = useState(false);
   const [moreControlsOpen, setMoreControlsOpen] = useState(false);
-  const [preferences, setPreferences] = useState<DevicePreferencesV1>(() =>
+  const [preferences, setPreferences] = useState<DevicePreferencesV2>(() =>
     readDevicePreferences(),
   );
   const [page, setPage] = useState(() => {
@@ -74,8 +74,8 @@ export function App() {
     window.scrollTo({ top: 0, left: 0, behavior: "auto" });
   }, [view]);
 
-  const updatePreferences = (patch: Partial<DevicePreferencesV1>) => {
-    setPreferences((current) => ({ ...current, ...patch, version: 1 }));
+  const updatePreferences = (patch: Partial<DevicePreferencesV2>) => {
+    setPreferences((current) => ({ ...current, ...patch, version: 2 }));
   };
 
   // Open the Mushaf on the page the reciter's question actually starts on.
@@ -140,9 +140,9 @@ export function App() {
         onMushafLayoutChange={(mushafLayout) => updatePreferences({ mushafLayout })}
         judgeRailSide={preferences.judgeRailSide}
         onJudgeRailSideChange={(judgeRailSide) => updatePreferences({ judgeRailSide })}
-        questionFocusEnabled={preferences.questionFocusEnabled}
-        onQuestionFocusEnabledChange={(questionFocusEnabled) =>
-          updatePreferences({ questionFocusEnabled })
+        questionFocusMode={preferences.questionFocusMode}
+        onQuestionFocusModeChange={(questionFocusMode) =>
+          updatePreferences({ questionFocusMode })
         }
         onShowMarkingGuide={() => setMarkingGuideOpen(true)}
         onMoreControlsOpenChange={setMoreControlsOpen}
@@ -170,7 +170,7 @@ export function App() {
               <Mushaf
                 page={page}
                 pageLayout={preferences.mushafLayout}
-                questionFocusEnabled={preferences.questionFocusEnabled}
+                questionFocusMode={preferences.questionFocusMode}
                 questionRange={visibleQuestionRange}
                 onPageChange={handlePageChange}
                 headerControls={(visiblePages, compact) => (

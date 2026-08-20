@@ -3,9 +3,15 @@ import type { MushafPage, PageLine } from "./page.ts";
 
 export type RangeLineState = "question" | "mixed" | "context";
 
+export interface ContextLineRun {
+  startLine: number;
+  endLine: number;
+}
+
 export interface RangePageDisplay {
   selectedWordIds: Set<string>;
   lineStates: Map<number, RangeLineState>;
+  contextLineRuns: ContextLineRun[];
 }
 
 function recitedWords(line: PageLine) {
@@ -61,6 +67,27 @@ export function wordIdsForRangePage(
   return new Set(words.slice(start, end + 1).map((word) => word.wid));
 }
 
+export function contextRunsForLineStates(
+  lineStates: Map<number, RangeLineState>,
+): ContextLineRun[] {
+  const contextLines = [...lineStates.entries()]
+    .filter(([, state]) => state === "context")
+    .map(([line]) => line)
+    .sort((first, second) => first - second);
+  const runs: ContextLineRun[] = [];
+
+  for (const line of contextLines) {
+    const previous = runs[runs.length - 1];
+    if (previous && line === previous.endLine + 1) {
+      previous.endLine = line;
+    } else {
+      runs.push({ startLine: line, endLine: line });
+    }
+  }
+
+  return runs;
+}
+
 /**
  * Resolves the exact visual emphasis for one already-loaded printed page.
  * A null result means the saved boundaries cannot be verified, so callers
@@ -98,5 +125,9 @@ export function rangeDisplayForPage(
     );
   }
 
-  return { selectedWordIds, lineStates };
+  return {
+    selectedWordIds,
+    lineStates,
+    contextLineRuns: contextRunsForLineStates(lineStates),
+  };
 }
