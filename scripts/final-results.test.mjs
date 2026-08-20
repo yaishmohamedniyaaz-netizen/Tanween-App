@@ -35,6 +35,14 @@ const participant = {
   phone: "7771234",
   institution: "School A",
 };
+
+const participantForAge = (id, number, name, ageGroup) => ({
+  ...participant,
+  id,
+  number,
+  name,
+  ageGroup,
+});
 const competition = {
   version: 1,
   id: "competition-test",
@@ -229,11 +237,42 @@ test("final workbook preserves requested participant fields and verified fixed t
   assert.ok(resultSheet.autoFilter);
   assert.equal(resultSheet.getColumn(2).width, 19);
   assert.equal(resultSheet.getCell("B2").numFmt, "@");
-  assert.equal(resultSheet.getCell("H1").fill.fgColor.argb, "FFFCECEA");
-  assert.equal(resultSheet.getCell("H1").font.color.argb, "FF9E2820");
-  assert.equal(resultSheet.getCell("I1").fill.fgColor.argb, "FFFAF2DC");
-  assert.equal(resultSheet.getCell("J1").fill.fgColor.argb, "FFECEEFB");
+  assert.equal(resultSheet.getCell("A1").fill.fgColor.argb, "FFFFFFFF");
+  assert.equal(resultSheet.getCell("A1").font.color.argb, "FF242421");
+  assert.equal(resultSheet.getCell("H1").fill.fgColor.argb, "FFFFFFFF");
+  assert.equal(resultSheet.getCell("H1").font.color.argb, "FF242421");
+  assert.equal(resultSheet.getCell("H1").border.bottom.color.argb, "FF9E2820");
+  assert.equal(resultSheet.getCell("I1").border.bottom.color.argb, "FF7C540E");
+  assert.equal(resultSheet.getCell("J1").border.bottom.color.argb, "FF2F3AA3");
+  assert.equal(auditSheet.getCell("A1").fill.fgColor.argb, "FFFFFFFF");
+  assert.equal(auditSheet.getCell("A1").font.color.argb, "FF242421");
   assert.ok(auditSheet.autoFilter);
+});
+
+test("final workbook orders numeric age groups from youngest to oldest", async () => {
+  const baseCandidate = buildResultCandidates([
+    session("age-base", ["jali", "khafi", "fasaha"]),
+  ], JUDGED)[0];
+  const base = finalizeParticipantResult(baseCandidate, {});
+  assert.ok(base);
+  const results = [
+    { ...base, id: "r-open", participant: participantForAge("p-open", "090", "Open", "Open"), manifest: "m-open" },
+    { ...base, id: "r-16", participant: participantForAge("p-16", "016", "Older", "Under 16"), manifest: "m-16" },
+    { ...base, id: "r-10", participant: participantForAge("p-10", "010", "Youngest", "Under 10"), manifest: "m-10" },
+    { ...base, id: "r-12", participant: participantForAge("p-12", "012", "Younger", "Under 12"), manifest: "m-12" },
+  ];
+  const buffer = await buildFinalResultsWorkbook(results, competition, {
+    exportedAt: Date.UTC(2026, 7, 20),
+  });
+  const { read, utils } = await import("xlsx");
+  const workbook = read(buffer, { type: "array" });
+  const rows = utils.sheet_to_json(workbook.Sheets.Results, { defval: "", raw: false });
+  assert.deepEqual(rows.map((row) => row["Age Group"]), [
+    "Under 10",
+    "Under 12",
+    "Under 16",
+    "Open",
+  ]);
 });
 
 test("judge packages and full backups reject incomplete files", () => {

@@ -1,5 +1,6 @@
 import { CATEGORY_BY_ID } from "../config.ts";
 import type { CategoryId, CompetitionConfig, FinalizedResult } from "../types";
+import { compareAgeGroups } from "./ageGroupOrder.ts";
 import {
   muqarrarLabel,
   participantCategoryLabel,
@@ -78,6 +79,15 @@ export async function buildFinalResultsWorkbook(
 ): Promise<ArrayBuffer> {
   const ExcelJS = (await import("exceljs")).default;
   const placed = placeFinalizedResults(results);
+  placed.sort((left, right) =>
+    compareAgeGroups(left.participant.ageGroup, right.participant.ageGroup) ||
+    left.participant.category.localeCompare(right.participant.category) ||
+    left.place - right.place ||
+    left.participant.number.localeCompare(right.participant.number, undefined, {
+      numeric: true,
+      sensitivity: "base",
+    }),
+  );
   const categories = finalResultsCategories(results);
   const headers = finalResultsHeaders(results);
   const exportedAt = safeExportDate(options.exportedAt);
@@ -135,12 +145,12 @@ export async function buildFinalResultsWorkbook(
       name: "Aptos",
       size: 11,
       bold: true,
-      color: { argb: category ? CATEGORY_COLORS[category].strong : "FFFFFFFF" },
+      color: { argb: "FF242421" },
     };
     cell.fill = {
       type: "pattern",
       pattern: "solid",
-      fgColor: { argb: category ? CATEGORY_COLORS[category].tint : "FF242421" },
+      fgColor: { argb: "FFFFFFFF" },
     };
     cell.alignment = {
       vertical: "middle",
@@ -149,11 +159,20 @@ export async function buildFinalResultsWorkbook(
         : "left",
       wrapText: true,
     };
-    cell.border = { bottom: { style: "thin", color: { argb: "FF11110F" } } };
+    cell.border = {
+      bottom: {
+        style: "medium",
+        color: { argb: category ? CATEGORY_COLORS[category].strong : "FF242421" },
+      },
+    };
   });
 
+  let previousAgeGroup = "";
   for (let rowNumber = 2; rowNumber <= resultSheet.rowCount; rowNumber += 1) {
     const row = resultSheet.getRow(rowNumber);
+    const ageGroup = String(resultSheet.getCell(rowNumber, 4).value ?? "");
+    const isNewAgeGroup = ageGroup !== previousAgeGroup;
+    previousAgeGroup = ageGroup;
     row.height = 24;
     row.eachCell({ includeEmpty: true }, (cell, columnNumber) => {
       const category = categories[columnNumber - RESULTS_LEADING_HEADERS.length - 1];
@@ -175,7 +194,12 @@ export async function buildFinalResultsWorkbook(
           ? "center"
           : "left",
       };
-      cell.border = { bottom: { style: "hair", color: { argb: "FFD8D7D1" } } };
+      cell.border = {
+        top: isNewAgeGroup
+          ? { style: "medium", color: { argb: "FFAAA9A3" } }
+          : undefined,
+        bottom: { style: "hair", color: { argb: "FFD8D7D1" } },
+      };
     });
     resultSheet.getCell(rowNumber, 2).numFmt = "@";
     resultSheet.getCell(rowNumber, headers.length).font = {
@@ -198,6 +222,7 @@ export async function buildFinalResultsWorkbook(
       fitToPage: true,
       fitToWidth: 1,
       fitToHeight: 0,
+      paperSize: 9,
       margins: { left: 0.25, right: 0.25, top: 0.5, bottom: 0.5, header: 0.2, footer: 0.2 },
     },
   });
@@ -223,10 +248,10 @@ export async function buildFinalResultsWorkbook(
   const auditHeader = auditSheet.getRow(1);
   auditHeader.height = 30;
   auditHeader.eachCell((cell) => {
-    cell.font = { name: "Aptos", size: 11, bold: true, color: { argb: "FFFFFFFF" } };
-    cell.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FF242421" } };
+    cell.font = { name: "Aptos", size: 11, bold: true, color: { argb: "FF242421" } };
+    cell.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FFFFFFFF" } };
     cell.alignment = { vertical: "middle", horizontal: "left", wrapText: true };
-    cell.border = { bottom: { style: "thin", color: { argb: "FF11110F" } } };
+    cell.border = { bottom: { style: "medium", color: { argb: "FF242421" } } };
   });
   for (let rowNumber = 2; rowNumber <= auditSheet.rowCount; rowNumber += 1) {
     const row = auditSheet.getRow(rowNumber);

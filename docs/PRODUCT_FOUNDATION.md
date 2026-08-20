@@ -882,16 +882,20 @@ results.
 
 Export value-only sheets:
 
-The current local-first pilot export deliberately uses three sheets:
-**Results** for the clean ranked table, **Audit** for maximums, revisions and
-verification manifests, and **Verification** for competition identity, the UTC
-export timestamp, criteria and calculation notes. The Results sheet excludes
-phone numbers and generic date columns. It freezes the header and participant
-identity columns, repeats the header for print, fits landscape output to one
-page wide, and uses solid pre-blended criterion tints so the same `.xlsx`
-remains legible when imported into Google Sheets. The participant-import
-template has no date column; its hidden Choices sheet only supports dropdown
-validation.
+The current local-first pilot has two value-only spreadsheet exports. The
+finalized-results workbook uses **Results** for the clean ranked table,
+**Audit** for maximums, revisions and verification manifests, and
+**Verification** for competition identity, the UTC export timestamp, criteria
+and calculation notes. The judge-record workbook uses **Judge records** for one
+row per saved judge section, **Mistakes** for pinpoint and whole-recitation
+evidence, and **Verification** for scope and record counts. Both exports place
+numeric age groups from youngest to oldest, preserve participant numbers as
+text, use white headers with bold dark text, freeze the header and participant
+identity columns, repeat the header for print, and fit landscape tables to one
+page wide. Criterion colour stays as a semantic accent or pale body tint rather
+than reversing the header to white text on a dark fill. Phone numbers remain
+outside result exports. The participant-import template has no date column;
+its hidden Choices sheet only supports dropdown validation.
 
 The expanded official workbook target remains:
 

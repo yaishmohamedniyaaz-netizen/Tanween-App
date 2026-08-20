@@ -10,7 +10,7 @@ import {
   PINPOINT_CATEGORIES,
   enabledCategories,
 } from "../config";
-import { downloadRecordsCSV } from "../lib/exportSession";
+import { downloadJudgeRecordsWorkbook } from "../lib/judgeRecordsWorkbook";
 import {
   CATEGORY_ORDER,
   categoryListLabel,
@@ -105,6 +105,8 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
   const [importPreview, setImportPreview] = useState<JudgeResultPackage | null>(null);
   const [importEvidenceWarning, setImportEvidenceWarning] = useState("");
   const [importError, setImportError] = useState("");
+  const [recordsExporting, setRecordsExporting] = useState(false);
+  const [recordsExportError, setRecordsExportError] = useState("");
   const importRef = useRef<HTMLInputElement>(null);
   const reviewTabRef = useRef<HTMLButtonElement>(null);
   const analysisTabRef = useRef<HTMLButtonElement>(null);
@@ -634,6 +636,30 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
     const currentScopeIsSample = state.competition.isSample;
     const storedOfficial = state.history.some((session) => !session.isSample);
     const storedSample = state.history.some((session) => session.isSample);
+    const exportJudgeRecords = async (
+      history: SavedSession[],
+      scope: "official" | "sample" | "all",
+      currentCompetition = false,
+      allStored = false,
+    ) => {
+      if (!history.length || recordsExporting) return;
+      setRecordsExportError("");
+      setRecordsExporting(true);
+      try {
+        await downloadJudgeRecordsWorkbook(history, scope, {
+          competition: currentCompetition ? state.competition : undefined,
+          allStored,
+        });
+      } catch (error) {
+        setRecordsExportError(
+          error instanceof Error
+            ? error.message
+            : "The judge-record workbook could not be verified.",
+        );
+      } finally {
+        setRecordsExporting(false);
+      }
+    };
     return (
       <section className="panel results-judge-panel">
         <div className="panel-head results-section-head">
@@ -666,37 +692,39 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
               <button
                 type="button"
                 className="btn-ghost"
-                disabled={!historyInScope.length}
-                onClick={() =>
-                  downloadRecordsCSV(
+                disabled={!historyInScope.length || recordsExporting}
+                onClick={() => void exportJudgeRecords(
                     historyInScope,
                     currentScopeIsSample ? "sample" : "official",
-                  )
-                }
-                title="Export the current competition's judge results"
+                    true,
+                  )}
+                title="Export formatted judge records for the current competition"
               >
                 <Icon name="download" size={15} />
-                {currentScopeIsSample
-                  ? "Current practice results (.csv)"
-                  : "Current competition results (.csv)"}
+                {recordsExporting
+                  ? "Checking…"
+                  : currentScopeIsSample
+                    ? "Practice judge records (.xlsx)"
+                    : "Judge records (.xlsx)"}
               </button>
             ) : (
               <>
                 <button
                   type="button"
                   className="btn-ghost"
-                  disabled={!storedOfficial}
-                  onClick={() => downloadRecordsCSV(state.history, "official")}
+                  disabled={!storedOfficial || recordsExporting}
+                  onClick={() => void exportJudgeRecords(state.history, "official", false, true)}
                 >
-                  <Icon name="download" size={15} /> All stored official (.csv)
+                  <Icon name="download" size={15} /> All stored official (.xlsx)
                 </button>
                 {storedSample && (
                   <button
                     type="button"
                     className="btn-ghost"
-                    onClick={() => downloadRecordsCSV(state.history, "sample")}
+                    disabled={recordsExporting}
+                    onClick={() => void exportJudgeRecords(state.history, "sample", false, true)}
                   >
-                    <Icon name="download" size={15} /> All stored practice (.csv)
+                    <Icon name="download" size={15} /> All stored practice (.xlsx)
                   </button>
                 )}
               </>
@@ -705,6 +733,7 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
         </div>
         {renderHistoryFilters()}
         {importError && <p className="import-error">{importError}</p>}
+        {recordsExportError && <p className="import-error">{recordsExportError}</p>}
         {importPreview && (
           <div className="result-import-preview" role="status">
             <span>
