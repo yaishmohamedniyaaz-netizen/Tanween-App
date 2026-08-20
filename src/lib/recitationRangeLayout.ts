@@ -3,15 +3,18 @@ import type { MushafPage, PageLine } from "./page.ts";
 
 export type RangeLineState = "question" | "mixed" | "context";
 
-export interface ContextLineRun {
-  startLine: number;
-  endLine: number;
+export interface ContextAyahSegment {
+  id: string;
+  line: number;
+  surah: number;
+  ayah: number | null;
+  wordIds: string[];
 }
 
 export interface RangePageDisplay {
   selectedWordIds: Set<string>;
   lineStates: Map<number, RangeLineState>;
-  contextLineRuns: ContextLineRun[];
+  contextAyahSegments: ContextAyahSegment[];
 }
 
 function recitedWords(line: PageLine) {
@@ -67,25 +70,34 @@ export function wordIdsForRangePage(
   return new Set(words.slice(start, end + 1).map((word) => word.wid));
 }
 
-export function contextRunsForLineStates(
+export function contextAyahSegmentsForPage(
+  page: MushafPage,
   lineStates: Map<number, RangeLineState>,
-): ContextLineRun[] {
-  const contextLines = [...lineStates.entries()]
-    .filter(([, state]) => state === "context")
-    .map(([line]) => line)
-    .sort((first, second) => first - second);
-  const runs: ContextLineRun[] = [];
+): ContextAyahSegment[] {
+  const segments: ContextAyahSegment[] = [];
 
-  for (const line of contextLines) {
-    const previous = runs[runs.length - 1];
-    if (previous && line === previous.endLine + 1) {
-      previous.endLine = line;
-    } else {
-      runs.push({ startLine: line, endLine: line });
+  for (const line of page.lines) {
+    if (lineStates.get(line.n) !== "context" || line.type === "surah-header") {
+      continue;
+    }
+    for (const word of recitedWords(line)) {
+      const ayahKey = `${word.surah}:${word.ayah ?? "b"}`;
+      const previous = segments[segments.length - 1];
+      if (previous && previous.id === `${line.n}:${ayahKey}`) {
+        previous.wordIds.push(word.wid);
+      } else {
+        segments.push({
+          id: `${line.n}:${ayahKey}`,
+          line: line.n,
+          surah: word.surah,
+          ayah: word.ayah,
+          wordIds: [word.wid],
+        });
+      }
     }
   }
 
-  return runs;
+  return segments;
 }
 
 /**
@@ -128,6 +140,6 @@ export function rangeDisplayForPage(
   return {
     selectedWordIds,
     lineStates,
-    contextLineRuns: contextRunsForLineStates(lineStates),
+    contextAyahSegments: contextAyahSegmentsForPage(page, lineStates),
   };
 }

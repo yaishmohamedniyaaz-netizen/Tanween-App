@@ -21,7 +21,7 @@ import {
   wordIdsForEvidencePage,
 } from "../src/lib/recitationEvidenceLayout.ts";
 import {
-  contextRunsForLineStates,
+  contextAyahSegmentsForPage,
   rangeDisplayForPage,
 } from "../src/lib/recitationRangeLayout.ts";
 import {
@@ -168,9 +168,24 @@ test("page 598 renders only the recorded physical rows while retaining structura
   assert.equal(display.lineStates.get(1), "context");
   assert.equal(display.lineStates.get(15), "context");
   assert.ok([...display.lineStates.values()].includes("mixed"));
-  assert.deepEqual(display.contextLineRuns, [
-    { startLine: 1, endLine: 2 },
-    { startLine: 15, endLine: 15 },
+  assert.deepEqual(display.contextAyahSegments, [
+    {
+      id: "2:97:b",
+      line: 2,
+      surah: 97,
+      ayah: null,
+      wordIds: ["97.b.0", "97.b.1", "97.b.2", "97.b.3"],
+    },
+    {
+      id: "15:98:7",
+      line: 15,
+      surah: 98,
+      ayah: 7,
+      wordIds: [
+        "98.7.1", "98.7.2", "98.7.3", "98.7.4", "98.7.5",
+        "98.7.6", "98.7.7", "98.7.8", "98.7.9",
+      ],
+    },
   ]);
   assert.equal(rangeDisplayForPage(page, {
     ...range,
@@ -183,19 +198,22 @@ test("page 598 renders only the recorded physical rows while retaining structura
   }), false);
 });
 
-test("context lines collapse into stable shade bands without crossing mixed lines", () => {
-  assert.deepEqual(contextRunsForLineStates(new Map([
+test("shade segments follow ayahs and never enter a mixed boundary line", () => {
+  const page = JSON.parse(fs.readFileSync("public/pages/p588.json", "utf8"));
+  const segments = contextAyahSegmentsForPage(page, new Map([
     [1, "context"],
     [2, "context"],
     [3, "mixed"],
-    [4, "question"],
-    [5, "context"],
-    [7, "context"],
-    [6, "context"],
-  ])), [
-    { startLine: 1, endLine: 2 },
-    { startLine: 5, endLine: 7 },
+  ]));
+  assert.deepEqual(segments.map((segment) => segment.id), [
+    "1:83:7",
+    "1:83:8",
+    "1:83:9",
+    "2:83:9",
+    "2:83:10",
+    "2:83:11",
   ]);
+  assert.equal(segments.some((segment) => segment.line === 3), false);
 });
 
 test("cross-page evidence cuts page 603 and 604 at the exact recorded lines", () => {

@@ -167,6 +167,16 @@ interface MushafProps {
   headerControls: (visiblePages: readonly number[], compact: boolean) => ReactNode;
 }
 
+interface ContextShadeBox {
+  id: string;
+  page: number;
+  ayahLabel: string;
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+}
+
 export function Mushaf({
   page: currentPage,
   pageLayout,
@@ -197,6 +207,7 @@ export function Mushaf({
   const [loadAttempt, setLoadAttempt] = useState(0);
   const pageRefs = useRef(new Map<number, HTMLDivElement>());
   const [boxes, setBoxes] = useState<WordHitbox[]>([]);
+  const [shadeBoxes, setShadeBoxes] = useState<ContextShadeBox[]>([]);
   const [boxesKey, setBoxesKey] = useState("");
   const [measureEpoch, setMeasureEpoch] = useState(0);
   const [flashTid, setFlashTid] = useState<string | null>(null);
@@ -311,10 +322,14 @@ export function Mushaf({
   // the whole kalimah; semantic letter units live only in the connected rail.
   const measure = useCallback(() => {
     const next: WordHitbox[] = [];
+    const nextShadeBoxes: ContextShadeBox[] = [];
+    const shadeEnabled = questionFocusMode === "shade" ||
+      questionFocusMode === "shade-fade";
     for (const page of pageData) {
       const root = pageRefs.current.get(page.page);
       if (!root) continue;
       const rootRect = root.getBoundingClientRect();
+      const linesRoot = root.querySelector<HTMLElement>(".mushaf-lines");
       const wordElements = root.querySelectorAll<HTMLElement>(
         '.m-word[data-role="letter"]',
       );
@@ -361,11 +376,41 @@ export function Mushaf({
           hh: rect.height + HIT_PAD_Y * 2,
         });
       });
+
+      const questionDisplay = questionDisplays?.get(page.page);
+      if (shadeEnabled && linesRoot && questionDisplay) {
+        const linesRect = linesRoot.getBoundingClientRect();
+        const elementsByWordId = new Map(
+          [...root.querySelectorAll<HTMLElement>(".m-word[data-wid]")]
+            .map((element) => [element.dataset.wid, element] as const)
+            .filter((entry): entry is [string, HTMLElement] => Boolean(entry[0])),
+        );
+        for (const segment of questionDisplay.contextAyahSegments) {
+          const rects = segment.wordIds
+            .map((wordId) => elementsByWordId.get(wordId)?.getBoundingClientRect())
+            .filter((rect): rect is DOMRect => Boolean(rect?.width && rect?.height));
+          if (!rects.length) continue;
+          const left = Math.min(...rects.map((rect) => rect.left));
+          const right = Math.max(...rects.map((rect) => rect.right));
+          const top = Math.min(...rects.map((rect) => rect.top));
+          const bottom = Math.max(...rects.map((rect) => rect.bottom));
+          nextShadeBoxes.push({
+            id: segment.id,
+            page: page.page,
+            ayahLabel: `${segment.surah}:${segment.ayah ?? "b"}`,
+            x: left - linesRect.left,
+            y: top - linesRect.top,
+            w: right - left,
+            h: bottom - top,
+          });
+        }
+      }
     }
 
     setBoxes(next);
+    setShadeBoxes(nextShadeBoxes);
     setBoxesKey(pageData.map(({ page }) => page).join(":"));
-  }, [pageData]);
+  }, [pageData, questionDisplays, questionFocusMode]);
 
   useLayoutEffect(() => {
     const frame = requestAnimationFrame(measure);
@@ -721,9 +766,13 @@ export function Mushaf({
   const readyKey = pageData.map(({ page }) => page).join(":");
   const renderPage = (data: MushafPage) => {
     const qcfReady = fontReadyPages.has(data.page);
+    const local = (value: number) => value / renderScale;
     const pageSurahs = surahsForPage(data.page);
     const visibleBoxes = boxesKey === readyKey
       ? boxes.filter((box) => box.page === data.page)
+      : [];
+    const visibleShadeBoxes = boxesKey === readyKey
+      ? shadeBoxes.filter((box) => box.page === data.page)
       : [];
     const root = rootForPage(data.page);
     const pageClientLeft = root?.clientLeft ?? 0;
@@ -799,11 +848,17 @@ export function Mushaf({
           <div className="juz-label">الجزء {toArabicNum(juzByPage[data.page])}</div>
         )}
         <div className="mushaf-lines">
-          {questionFocusMode === "shade" && questionDisplay?.contextLineRuns.map((run) => (
+          {visibleShadeBoxes.map((box) => (
             <div
-              key={`context:${run.startLine}-${run.endLine}`}
+              key={box.id}
               className="question-context-band"
-              style={{ gridRow: `${run.startLine} / ${run.endLine + 1}` }}
+              data-context-ayah={box.ayahLabel}
+              style={{
+                left: local(box.x) - 3,
+                top: local(box.y) - 2,
+                width: local(box.w) + 6,
+                height: local(box.h) + 4,
+              }}
               aria-hidden="true"
             />
           ))}
@@ -846,7 +901,6 @@ export function Mushaf({
         {judgingEnabled && (
           <div className="hit-layer">
             {visibleBoxes.map((box) => {
-              const local = (value: number) => value / renderScale;
               const localLeft = (value: number) => local(value) - pageClientLeft;
               const localTop = (value: number) => local(value) - pageClientTop;
               const mistakes = mistakesForWord(box);

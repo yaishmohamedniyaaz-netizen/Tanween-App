@@ -170,8 +170,8 @@ export function MoreActionsPopover({
               </fieldset>
               <fieldset className="question-focus-control">
                 <legend>Question focus</legend>
-                <div className="mushaf-view-options" role="radiogroup" aria-label="Question focus">
-                  {(["off", "fade", "shade"] as const).map((mode) => (
+                <div className="mushaf-view-options focus-mode-options" role="radiogroup" aria-label="Question focus">
+                  {(["off", "fade", "shade", "shade-fade"] as const).map((mode) => (
                     <button
                       key={mode}
                       type="button"
@@ -180,7 +180,13 @@ export function MoreActionsPopover({
                       className={questionFocusMode === mode ? "is-active" : ""}
                       onClick={() => onQuestionFocusModeChange(mode)}
                     >
-                      {mode === "off" ? "Off" : mode === "fade" ? "Fade" : "Shade"}
+                      {mode === "off"
+                        ? "Off"
+                        : mode === "fade"
+                          ? "Fade"
+                          : mode === "shade"
+                            ? "Shade"
+                            : "Shade + fade"}
                     </button>
                   ))}
                 </div>

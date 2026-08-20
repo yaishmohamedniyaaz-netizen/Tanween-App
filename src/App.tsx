@@ -31,7 +31,7 @@ import {
   DEFAULT_DEVICE_PREFERENCES,
   readDevicePreferences,
   writeDevicePreferences,
-  type DevicePreferencesV2,
+  type DevicePreferencesV3,
 } from "./lib/devicePreferences";
 
 const LS_PAGE_KEY = "tahqeeq:lastPage";
@@ -49,7 +49,7 @@ export function App() {
   const [finishOpen, setFinishOpen] = useState(false);
   const [markingGuideOpen, setMarkingGuideOpen] = useState(false);
   const [moreControlsOpen, setMoreControlsOpen] = useState(false);
-  const [preferences, setPreferences] = useState<DevicePreferencesV2>(() =>
+  const [preferences, setPreferences] = useState<DevicePreferencesV3>(() =>
     readDevicePreferences(),
   );
   const [page, setPage] = useState(() => {
@@ -74,8 +74,8 @@ export function App() {
     window.scrollTo({ top: 0, left: 0, behavior: "auto" });
   }, [view]);
 
-  const updatePreferences = (patch: Partial<DevicePreferencesV2>) => {
-    setPreferences((current) => ({ ...current, ...patch, version: 2 }));
+  const updatePreferences = (patch: Partial<DevicePreferencesV3>) => {
+    setPreferences((current) => ({ ...current, ...patch, version: 3 }));
   };
 
   // Open the Mushaf on the page the reciter's question actually starts on.

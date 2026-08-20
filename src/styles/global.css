@@ -521,8 +521,8 @@ textarea:focus-visible {
   border-radius: var(--r-sm);
   background: var(--bg);
 }
-.question-focus-control .mushaf-view-options {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+.question-focus-control .focus-mode-options {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 .mushaf-view-options button {
   min-height: 36px;
@@ -5038,11 +5038,9 @@ textarea:focus-visible {
   grid-column: 1;
 }
 .question-context-band {
+  position: absolute;
   z-index: 0;
-  grid-column: 1;
-  align-self: stretch;
-  min-width: 0;
-  border-radius: 4px;
+  border-radius: 3px;
   background: var(--question-shade-fill);
   pointer-events: none;
 }
@@ -5051,31 +5049,33 @@ textarea:focus-visible {
    mistake colour and navigation remain untouched. */
 .page:is(
   [data-question-focus-mode="fade"],
-  [data-question-focus-mode="shade"]
+  [data-question-focus-mode="shade-fade"]
 ) .question-context-line,
 .page:is(
   [data-question-focus-mode="fade"],
-  [data-question-focus-mode="shade"]
+  [data-question-focus-mode="shade"],
+  [data-question-focus-mode="shade-fade"]
 ) .question-context-word {
   color: var(--question-context-ink);
 }
-.page[data-question-focus-mode="shade"] .question-context-line,
-.page[data-question-focus-mode="shade"] .question-context-word {
+.page[data-question-focus-mode="shade-fade"] .question-context-line,
+.page[data-question-focus-mode="shade-fade"] .question-context-word {
   color: var(--question-shade-context-ink);
 }
 .page:is(
   [data-question-focus-mode="fade"],
-  [data-question-focus-mode="shade"]
+  [data-question-focus-mode="shade-fade"]
 ) .question-context-line .sajdah-mark,
 .page:is(
   [data-question-focus-mode="fade"],
-  [data-question-focus-mode="shade"]
+  [data-question-focus-mode="shade"],
+  [data-question-focus-mode="shade-fade"]
 ) .question-context-word .sajdah-mark {
   color: color-mix(in srgb, var(--gold) 40%, var(--page-paper));
   opacity: 1;
 }
-.page[data-question-focus-mode="shade"] .question-context-line .sajdah-mark,
-.page[data-question-focus-mode="shade"] .question-context-word .sajdah-mark {
+.page[data-question-focus-mode="shade-fade"] .question-context-line .sajdah-mark,
+.page[data-question-focus-mode="shade-fade"] .question-context-word .sajdah-mark {
   color: color-mix(in srgb, var(--gold) 34%, var(--page-paper));
 }
 .mushaf-scroll.is-spread {
