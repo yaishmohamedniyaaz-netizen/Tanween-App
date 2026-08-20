@@ -7,8 +7,8 @@ export const MUSHAF_FRAME_INSET = 8;
 export const MUSHAF_PAGE_ASPECT_RATIO = 0.68;
 export const MUSHAF_PAGE_MAX_INLINE_SIZE = 760;
 export const MUSHAF_SPREAD_GAP = 12;
-/** The two-page control is a real row above the spread, not an overlay. */
-export const MUSHAF_SPREAD_NAV_BLOCK_SIZE = 32;
+/** The shared page control floats in the page's safe upper margin. */
+export const MUSHAF_SPREAD_NAV_BLOCK_SIZE = 0;
 
 export function computeMushafComposedBlockSize(
   inlineSize: number,

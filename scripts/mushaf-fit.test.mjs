@@ -32,8 +32,8 @@ test("two-page spread Fit is width- or height-limited without changing either pa
     frameInlineSize: 1200,
     frameBlockSize: 700,
     layout: "spread",
-  }), 898);
-  assert.equal(MUSHAF_SPREAD_NAV_BLOCK_SIZE, 32);
+  }), 942);
+  assert.equal(MUSHAF_SPREAD_NAV_BLOCK_SIZE, 0);
 });
 
 test("Fit retains clearance and rejects unusable measurements", () => {

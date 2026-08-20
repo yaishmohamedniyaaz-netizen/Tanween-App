@@ -15,6 +15,12 @@ The recitation is the work; the interface is how a judge touches it. So the
 Mushaf gets the room and the chrome gets out of the way — the rail is narrow,
 the page is wide, and no panel competes with the text for the same region.
 
+In the live workspace, a two-page spread owns the available width and pushes
+the scorecard to the chosen outer edge. Its shared page control sits in the
+safe upper page margin instead of shortening both pages. A single-page view is
+different: its page and scorecard stay inside a bounded, centred composition
+so the rail does not feel detached from the page.
+
 **Fails this rule:** a screen where the explanation is larger than the thing
 being explained. The setup review carries 248 words to convey nine facts.
 

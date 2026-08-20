@@ -5031,6 +5031,9 @@ textarea:focus-visible {
   z-index: 30;
   transform: translateX(-50%);
 }
+.mushaf-scroll.is-spread .mushaf-shared-nav {
+  top: 0;
+}
 .mushaf-lines > .m-line,
 .mushaf-lines > .surah-band {
   position: relative;
@@ -5075,17 +5078,6 @@ textarea:focus-visible {
 .page[data-question-focus-mode="shade-fade"] .question-context-line .sajdah-mark,
 .page[data-question-focus-mode="shade-fade"] .question-context-word .sajdah-mark {
   color: color-mix(in srgb, var(--gold) 34%, var(--page-paper));
-}
-.mushaf-scroll.is-spread {
-  grid-template-rows: auto auto;
-  align-content: center;
-  row-gap: 4px;
-}
-.mushaf-scroll.is-spread .mushaf-shared-nav {
-  position: relative;
-  top: auto;
-  left: auto;
-  transform: none;
 }
 .page-nav {
   position: relative;
@@ -9203,10 +9195,15 @@ html:has(.dialog-backdrop) {
     grid-template-areas: "stage sidebar";
     gap: 12px;
     padding: 8px 12px;
+    max-width: none;
+    margin-inline: 0;
   }
   .app.view-judge .workspace.layout-spread.rail-left {
     grid-template-columns: clamp(304px, 22vw, 324px) minmax(0, 1fr);
     grid-template-areas: "sidebar stage";
+  }
+  .app.view-judge .workspace.layout-full:not(.is-idle) {
+    max-width: clamp(1040px, 75vw, 1200px);
   }
   .app.view-judge .stage {
     display: flex;
