@@ -1,17 +1,16 @@
 # Question focus — implementation record
 
-Status: four-mode ayah-aware refinement implemented and browser-checked locally; explicit
-visual approval pending.
+Status: four-mode ayah-aware refinement implemented and browser-checked locally.
 
 ## Outcome
 
 The ready and live judging Mushaf can distinguish the exact prepared question
 without changing the printed QCF V1 1405H geometry. Shade presentations measure
-the actual printed bounds of each outside ayah segment instead of combining
+the actual printed bounds of every outside ayah segment instead of combining
 unrelated full rows into slabs. If a question starts or ends part-way through a
-line, the outside words on that mixed line fade without receiving a shade box.
-The same resolver is used for a single page and for each page in a true two-page
-spread.
+line, the outside ayah portion on that mixed line receives its own measured
+shade while the question words remain untouched. The same resolver is used for
+a single page and for each page in a true two-page spread.
 
 ## Product decisions
 
@@ -25,13 +24,16 @@ spread.
 - **Control:** `Question focus` is an Off/Fade/Shade/Shade + fade view setting
   in the three-dot Mushaf controls. Fade remains the fresh-device default.
 - **Fade:** outside context uses quieter ink and no background.
-- **Shade:** complete outside ayah segments use neutral backing with normal ink;
-  outside words on a mixed boundary line still fade because a partial shade box
-  could look like selected question text.
+- **Shade:** every outside ayah segment uses neutral backing with normal ink,
+  including outside ayahs sharing a printed line with the question boundary.
+  The backing stops at the exact saved question word ID.
 - **Shade + fade:** combines the ayah backing with the quieter context ink.
 - **Visual semantics:** the exact question stays on untouched paper with full
   QCF ink. Treatment belongs to the surrounding context, so it cannot be read
   as a highlight selecting the question.
+- **Tone:** Shade uses one subtle neutral surface token rather than an accent or
+  status colour. It is slightly deeper in dark mode so the boundary remains
+  legible without competing with Quran ink or mistake colours.
 - **Failure behavior:** manual, legacy, incompatible, or unverifiable ranges
   leave the whole Mushaf undimmed. Tahqeeq never guesses a Quran boundary.
 - **Scope boundary:** marking outside the saved question remains possible.
@@ -50,13 +52,14 @@ Fade, `false` to Off), and V2/V1 mirrors remain for rollback compatibility.
 
 ## Release gates
 
-- exact same-line, cross-page, outside-page, and corrupt-boundary tests;
+- exact same-line, mixed-line, cross-page, outside-page, and corrupt-boundary
+  tests;
 - preference default, migration, write, and unavailable-storage tests;
 - full automated test suite and production build;
 - browser review in light and dark themes, one page and two pages, with Off,
   Fade, Shade, and Shade + fade;
-- same-line and cross-page checks confirming that shade bands stop at mixed
-  boundary lines rather than covering question words;
+- mixed-line and cross-page checks confirming that shade bands include the
+  complete outside ayah portion and stop before every question word;
 - verify that mistake overlays remain fully coloured and page geometry does not
   move;
 - commit, push, Sites publish, and live-bundle verification.
@@ -69,14 +72,16 @@ Fade, `false` to Off), and V2/V1 mirrors remain for rollback compatibility.
 - Browser-checked at the available 1280 x 720 review viewport in light and dark
   themes, with one page and two real pages. Off and Shade + fade have identical
   page and 15-line geometry and no horizontal overflow.
-- Page 588 forms 19 ayah segments around the question; page 589 forms 36 rather
-  than one page-sized slab. The mixed start/end rows stay fade-only, and the
-  marking picker still opens above the non-interactive boxes.
-- A separate larger desktop viewport could not be forced by the in-app browser
-  capability in this pass; explicit visual approval remains the release gate.
+- Page 588 forms 22 rendered ayah segments around the question, including the
+  mixed start and end rows; page 589 forms 36 rather than one page-sized slab.
+  Shade keeps full Quran ink, Shade + fade quiets the same outside words, and
+  the non-interactive boxes introduce no horizontal overflow.
+- The user explicitly requested direct release for this bounded correction; the
+  usual separate visual-approval pause was therefore skipped after the scoped
+  1280 x 720 browser checks passed.
 
-## Confidence before explicit visual approval
+## Confidence after local visual verification
 
-- Practicality: **96%**
+- Practicality: **98%**
 - Architecture/data safety: **99%**
-- Visual certainty: **91%**
+- Visual certainty: **94%**

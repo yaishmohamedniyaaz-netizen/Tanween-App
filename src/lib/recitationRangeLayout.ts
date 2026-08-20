@@ -73,14 +73,21 @@ export function wordIdsForRangePage(
 export function contextAyahSegmentsForPage(
   page: MushafPage,
   lineStates: Map<number, RangeLineState>,
+  selectedWordIds: Set<string> = new Set(),
 ): ContextAyahSegment[] {
   const segments: ContextAyahSegment[] = [];
 
   for (const line of page.lines) {
-    if (lineStates.get(line.n) !== "context" || line.type === "surah-header") {
+    const lineState = lineStates.get(line.n);
+    if (
+      (lineState !== "context" && lineState !== "mixed") ||
+      line.type === "surah-header"
+    ) {
       continue;
     }
-    for (const word of recitedWords(line)) {
+    for (const word of recitedWords(line).filter(
+      (candidate) => !selectedWordIds.has(candidate.wid),
+    )) {
       const ayahKey = `${word.surah}:${word.ayah ?? "b"}`;
       const previous = segments[segments.length - 1];
       if (previous && previous.id === `${line.n}:${ayahKey}`) {
@@ -140,6 +147,10 @@ export function rangeDisplayForPage(
   return {
     selectedWordIds,
     lineStates,
-    contextAyahSegments: contextAyahSegmentsForPage(page, lineStates),
+    contextAyahSegments: contextAyahSegmentsForPage(
+      page,
+      lineStates,
+      selectedWordIds,
+    ),
   };
 }

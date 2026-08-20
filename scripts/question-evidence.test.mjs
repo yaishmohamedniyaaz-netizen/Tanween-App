@@ -177,6 +177,22 @@ test("page 598 renders only the recorded physical rows while retaining structura
       wordIds: ["97.b.0", "97.b.1", "97.b.2", "97.b.3"],
     },
     {
+      id: "3:97:1",
+      line: 3,
+      surah: 97,
+      ayah: 1,
+      wordIds: [
+        "97.1.0", "97.1.1", "97.1.2", "97.1.3", "97.1.4", "97.1.5",
+      ],
+    },
+    {
+      id: "14:98:7",
+      line: 14,
+      surah: 98,
+      ayah: 7,
+      wordIds: ["98.7.0"],
+    },
+    {
       id: "15:98:7",
       line: 15,
       surah: 98,
@@ -198,22 +214,26 @@ test("page 598 renders only the recorded physical rows while retaining structura
   }), false);
 });
 
-test("shade segments follow ayahs and never enter a mixed boundary line", () => {
+test("shade segments include only outside ayah portions on mixed boundary lines", () => {
   const page = JSON.parse(fs.readFileSync("public/pages/p588.json", "utf8"));
-  const segments = contextAyahSegmentsForPage(page, new Map([
-    [1, "context"],
-    [2, "context"],
-    [3, "mixed"],
-  ]));
-  assert.deepEqual(segments.map((segment) => segment.id), [
-    "1:83:7",
-    "1:83:8",
-    "1:83:9",
-    "2:83:9",
-    "2:83:10",
-    "2:83:11",
-  ]);
-  assert.equal(segments.some((segment) => segment.line === 3), false);
+  const range = exactRange({ surah: 83, ayah: 15 }, 10);
+  const display = rangeDisplayForPage(page, range);
+  assert.ok(display);
+  assert.equal(display.lineStates.get(4), "mixed");
+  assert.equal(display.lineStates.get(13), "mixed");
+  assert.ok(display.contextAyahSegments.some((segment) => segment.id === "4:83:13"));
+  assert.ok(display.contextAyahSegments.some((segment) => segment.id === "4:83:14"));
+  assert.ok(display.contextAyahSegments.some((segment) => segment.id === "13:83:31"));
+  assert.equal(
+    display.contextAyahSegments.some((segment) => segment.id === "4:83:15"),
+    false,
+  );
+  assert.equal(
+    display.contextAyahSegments.some((segment) =>
+      segment.wordIds.some((wordId) => display.selectedWordIds.has(wordId)),
+    ),
+    false,
+  );
 });
 
 test("cross-page evidence cuts page 603 and 604 at the exact recorded lines", () => {

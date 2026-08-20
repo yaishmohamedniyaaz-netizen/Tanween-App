@@ -44,7 +44,7 @@
   );
   --question-shade-fill: color-mix(
     in srgb,
-    var(--mushaf-ink) 5%,
+    var(--mushaf-ink) 7%,
     var(--page-paper)
   );
   --gold: #b3892f;
@@ -115,7 +115,7 @@
   );
   --question-shade-fill: color-mix(
     in srgb,
-    var(--mushaf-ink) 7%,
+    var(--mushaf-ink) 10%,
     var(--page-paper)
   );
   --gold: #c9a052;
@@ -5053,7 +5053,6 @@ textarea:focus-visible {
 ) .question-context-line,
 .page:is(
   [data-question-focus-mode="fade"],
-  [data-question-focus-mode="shade"],
   [data-question-focus-mode="shade-fade"]
 ) .question-context-word {
   color: var(--question-context-ink);
@@ -5068,7 +5067,6 @@ textarea:focus-visible {
 ) .question-context-line .sajdah-mark,
 .page:is(
   [data-question-focus-mode="fade"],
-  [data-question-focus-mode="shade"],
   [data-question-focus-mode="shade-fade"]
 ) .question-context-word .sajdah-mark {
   color: color-mix(in srgb, var(--gold) 40%, var(--page-paper));
