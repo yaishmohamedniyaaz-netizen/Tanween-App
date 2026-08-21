@@ -4,6 +4,9 @@ import { downloadSessionJSON } from "../lib/exportSession";
 import { useJudging } from "../state/store";
 import { Icon } from "./Icon";
 import { MushafSizeControl } from "./MushafSizeControl";
+import { useOfflineStatus } from "../hooks/useOfflineStatus";
+import { usePwaInstall } from "../hooks/usePwaInstall";
+import { reloadForServiceWorkerUpdate } from "../lib/sw-register";
 import type {
   JudgeRailSide,
   MushafLayout,
@@ -42,6 +45,13 @@ export function MoreActionsPopover({
   onOpenSetup,
 }: MoreActionsPopoverProps) {
   const { state } = useJudging();
+  const serviceWorker = useOfflineStatus();
+  const {
+    installAvailable,
+    installing,
+    standalone,
+    requestInstall,
+  } = usePwaInstall();
   const [open, setOpen] = useState(false);
   const wrapRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
@@ -89,6 +99,16 @@ export function MoreActionsPopover({
     setOpen(false);
     requestAnimationFrame(action);
   };
+
+  const installTahqeeq = () => {
+    // prompt() must stay inside the click's user-activation task.
+    void requestInstall().finally(() => {
+      if (document.visibilityState === "visible") triggerRef.current?.focus();
+    });
+    setOpen(false);
+  };
+
+  const hasPwaAction = (installAvailable && !standalone) || serviceWorker.updateReady;
 
   return (
     <div className="overflow-wrap" ref={wrapRef}>
@@ -235,6 +255,36 @@ export function MoreActionsPopover({
                 <Icon name="download" size={16} /> Export current session
               </button>
             </>
+          )}
+          {hasPwaAction && <div className="overflow-sep" />}
+          {installAvailable && !standalone && (
+            <button
+              type="button"
+              className="overflow-item"
+              disabled={installing}
+              onClick={installTahqeeq}
+            >
+              <Icon name="install" size={16} />
+              {installing ? "Opening installer…" : "Install Tahqeeq"}
+            </button>
+          )}
+          {serviceWorker.updateReady && state.sessionActive && (
+            <div className="overflow-system-status" role="status">
+              <Icon name="refresh" size={16} />
+              <span>
+                <strong>Update ready</strong>
+                <small>Available after this recitation.</small>
+              </span>
+            </div>
+          )}
+          {serviceWorker.updateReady && !state.sessionActive && (
+            <button
+              type="button"
+              className="overflow-item"
+              onClick={() => runAction(reloadForServiceWorkerUpdate)}
+            >
+              <Icon name="refresh" size={16} /> Apply update
+            </button>
           )}
         </div>
       )}

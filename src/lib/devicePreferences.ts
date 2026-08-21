@@ -175,4 +175,7 @@ export function writeDevicePreferences(
 export function applyDeviceTheme(theme: AppTheme): void {
   if (typeof document === "undefined") return;
   document.documentElement.setAttribute("data-theme", theme);
+  document
+    .querySelector<HTMLMetaElement>('meta[name="theme-color"]')
+    ?.setAttribute("content", theme === "dark" ? "#131316" : "#f2f1ee");
 }

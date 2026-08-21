@@ -8,7 +8,7 @@
 
 // App-shell releases and Mushaf source data have separate version contracts.
 // Updating the interface must never relabel or invalidate the 1405H page data.
-const APP_CACHE_VERSION = "app-v26";
+const APP_CACHE_VERSION = "app-v27";
 const MUSHAF_DATA_VERSION = "v1-1405-r2";
 const STATIC_CACHE = "tahqeeq-static-" + APP_CACHE_VERSION;
 
@@ -21,6 +21,11 @@ const FONT_URLS = [
 ];
 
 const PRECACHE_URLS = FONT_URLS.concat([
+  "/manifest.webmanifest",
+  "/icons/tahqeeq-192.png",
+  "/icons/tahqeeq-512.png",
+  "/icons/tahqeeq-maskable-512.png",
+  "/icons/tahqeeq-apple-touch-180.png",
   "/pages/p604.json?v=" + MUSHAF_DATA_VERSION,
   "/question-index.json?v=qpc-v1-1405h-question-index-v1",
 ]);
@@ -57,7 +62,9 @@ self.addEventListener("activate", (event) => {
     (async () => {
       const keys = await caches.keys();
       for (const key of keys) {
-        if (key !== STATIC_CACHE) await caches.delete(key);
+        if (key.startsWith("tahqeeq-") && key !== STATIC_CACHE) {
+          await caches.delete(key);
+        }
       }
       await self.clients.claim();
     })(),

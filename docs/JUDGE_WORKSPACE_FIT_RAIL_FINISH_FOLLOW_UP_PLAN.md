@@ -90,11 +90,10 @@ quality of an unreviewed implementation.
 
 ### 2.5 Windows and PWA baseline
 
-- The repository already registers a production service worker in
-  `src/lib/sw-register.ts`, and `public/sw.js` exists.
-- Sites serves the application over HTTPS.
-- `index.html` has no web app manifest link, and the repository has no install
-  icon set or manifest.
+- Before the installability slice, the repository already registered a
+  production service worker in `src/lib/sw-register.ts` and Sites served the
+  application over HTTPS, but `index.html` had no manifest link and the
+  repository had no install icon set or manifest.
 
 ### 2.6 Browser-audit caveat
 
@@ -410,3 +409,30 @@ pending under the gates above.
 This slice still requires explicit visual approval before commit and
 publication. Finish validation, PWA installability, and the optional alignment
 prototype remain pending.
+
+### 21 August 2026: installable PWA shell
+
+- Added a standalone web-app manifest, deterministic 192 px, 512 px, maskable,
+  and Apple-touch icons derived from Tahqeeq's existing Arabic wordmark, plus
+  theme and platform metadata in `index.html`.
+- Added one-shot browser-install handling. `Install Tahqeeq` appears in More
+  only while the browser exposes an actionable prompt, is retired after the
+  prompt is consumed, and is hidden in standalone display mode.
+- Made service-worker updates deliberate. A newly controlling worker exposes
+  `Apply update` only outside an active recitation; during judging it reports
+  that the update is available after the recitation and never reloads the
+  workspace automatically.
+- Constrained the tall More popover to the available viewport with contained
+  scrolling, so installation or update actions cannot extend the document or
+  clip below a short desktop window.
+- Kept the existing local judging and storage contracts unchanged. The worker
+  precaches only small identity/font/index essentials and pages already covered
+  by the existing strategy; this does **not** claim complete offline Mushaf
+  coverage or protection from cleared browser site data.
+- Verified the production preview serves the manifest as
+  `application/manifest+json` and both standard and maskable 512 px icons with
+  HTTP 200. Seven focused PWA tests, the complete 296-test repository suite,
+  and the TypeScript production build pass.
+
+This slice remains uncommitted and unpublished until its visible More-menu and
+app-identity treatment receives the required approval checkpoint.
