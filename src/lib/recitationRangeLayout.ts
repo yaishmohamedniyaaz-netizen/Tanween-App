@@ -25,6 +25,25 @@ function recitedWords(line: PageLine) {
       );
 }
 
+function startBasmalaForRangePage(
+  page: MushafPage,
+  range: RecitationRangeSnapshot,
+): PageLine | null {
+  if (
+    page.page !== range.startPage ||
+    range.startAyah.ayah !== 1 ||
+    range.startLine <= 1
+  ) {
+    return null;
+  }
+  return page.lines.find(
+    (line) =>
+      line.n === range.startLine - 1 &&
+      line.type === "basmala" &&
+      line.surah === range.startAyah.surah,
+  ) ?? null;
+}
+
 export function linesForRangePage(
   page: MushafPage,
   range: RecitationRangeSnapshot,
@@ -32,7 +51,11 @@ export function linesForRangePage(
   if (page.page < range.startPage || page.page > range.endPage) return [];
   const startLine = page.page === range.startPage ? range.startLine : 1;
   const endLine = page.page === range.endPage ? range.endLine : 15;
-  return page.lines.filter((line) => line.n >= startLine && line.n <= endLine);
+  const recitationRows = page.lines.filter(
+    (line) => line.n >= startLine && line.n <= endLine,
+  );
+  const startBasmala = startBasmalaForRangePage(page, range);
+  return startBasmala ? [startBasmala, ...recitationRows] : recitationRows;
 }
 
 export function wordIdsForRangePage(
@@ -53,7 +76,9 @@ export function wordIdsForRangePage(
     ) {
       return null;
     }
-    start = words.findIndex((word) => word.wid === range.startWordId);
+    start = startBasmalaForRangePage(page, range)
+      ? 0
+      : words.findIndex((word) => word.wid === range.startWordId);
   }
   if (page.page === range.endPage) {
     const boundaryLine = lines.find((line) => line.n === range.endLine);

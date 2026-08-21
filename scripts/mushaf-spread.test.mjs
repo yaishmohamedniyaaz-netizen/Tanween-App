@@ -65,9 +65,15 @@ test("the renderer loads and swaps both page assets as one spread", () => {
   assert.match(stylesSource, /\.mushaf-spread > \.page:first-child/);
   assert.match(mushafSource, /mushaf-scroll.*is-spread/);
   assert.match(stylesSource, /\.mushaf-shared-nav\s*\{[\s\S]*?position: absolute/);
-  assert.match(stylesSource, /\.mushaf-scroll\.is-spread \.mushaf-shared-nav\s*\{[\s\S]*?top: 0/);
+  assert.match(stylesSource, /\.mushaf-scroll\.is-spread \.mushaf-shared-nav\s*\{[\s\S]*?position: relative/);
+  assert.match(stylesSource, /\.mushaf-shared-nav > \.page-nav\s*\{[\s\S]*?grid-row: 1/);
+  assert.match(stylesSource, /\.question-return-bubble\s*\{[\s\S]*?grid-row: 1/);
+  assert.match(stylesSource, /\.mushaf-scroll\.is-spread\s*\{[\s\S]*?grid-template-rows: 36px auto/);
+  assert.match(stylesSource, /\.mushaf-scroll\.is-spread\s*\{[\s\S]*?row-gap: 4px/);
+  assert.match(stylesSource, /\.mushaf-scroll\.is-spread \.page-nav-btn\s*\{[\s\S]*?height: 32px/);
   assert.match(stylesSource, /\.workspace\.layout-spread\s*\{[\s\S]*?max-width: none/);
-  assert.match(stylesSource, /\.workspace\.layout-full:not\(\.is-idle\)\s*\{[\s\S]*?max-width: clamp\(1040px, 75vw, 1200px\)/);
+  assert.match(stylesSource, /\.workspace\.layout-full\s*\{[\s\S]*?max-width: none/);
+  assert.match(stylesSource, /\.question-return-bubble/);
   assert.match(stylesSource, /--mushaf-stage-block-size/);
   assert.doesNotMatch(stylesSource, /\.page-split/);
 });

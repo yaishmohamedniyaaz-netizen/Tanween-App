@@ -20,8 +20,8 @@ export const LEGACY_PAGE_ZOOM_KEY = "tahqeeq:pageZoom.v2";
 export const LEGACY_PAGE_LAYOUT_KEY = "tahqeeq:pageLayout";
 export const LEGACY_JUDGE_RAIL_SIDE_KEY = "tahqeeq:judgeRailSide";
 
-export const MUSHAF_ZOOM_MIN = 75;
 export const MUSHAF_ZOOM_FIT = 100;
+export const MUSHAF_ZOOM_MIN = MUSHAF_ZOOM_FIT;
 export const MUSHAF_ZOOM_DEFAULT = MUSHAF_ZOOM_FIT;
 export const MUSHAF_ZOOM_MAX = 150;
 export const MUSHAF_ZOOM_STEP = 5;

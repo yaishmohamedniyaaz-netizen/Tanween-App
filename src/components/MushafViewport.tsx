@@ -16,6 +16,7 @@ import {
   STABLE_MUSHAF_STAGE_QUERY,
   type MushafPageLayout,
 } from "../lib/mushafFit";
+import { MUSHAF_ZOOM_FIT } from "../lib/devicePreferences";
 
 interface MushafViewportProps {
   children: ReactNode;
@@ -192,6 +193,7 @@ export function MushafViewport({
       <div
         className="mushaf-shell"
         data-stage-fit={stableStage && renderedInlineSize > 0 ? "ready" : "fallback"}
+        data-fit-mode={zoomPercent === MUSHAF_ZOOM_FIT ? "true" : "false"}
         ref={frameRef}
         style={style}
         onScroll={updateViewportCenter}

@@ -214,6 +214,24 @@ test("page 598 renders only the recorded physical rows while retaining structura
   }), false);
 });
 
+test("a surah-opening basmala belongs to the question without changing its recitation-line count", () => {
+  const range = exactRange({ surah: 98, ayah: 1 }, 10);
+  const page = JSON.parse(fs.readFileSync("public/pages/p598.json", "utf8"));
+  const lines = linesForEvidencePage(page, range);
+  const selected = wordIdsForEvidencePage(page, range);
+  const display = rangeDisplayForPage(page, range);
+
+  assert.equal(range.requestedLines, 10);
+  assert.equal(lines[0].type, "basmala");
+  assert.equal(lines[0].n, range.startLine - 1);
+  assert.equal(lines.some((line) => line.type === "surah-header"), false);
+  assert.ok(selected);
+  assert.equal(selected.has("98.b.0"), true);
+  assert.equal(selected.has(range.startWordId), true);
+  assert.ok(display);
+  assert.equal(display.lineStates.get(range.startLine - 1), "question");
+});
+
 test("shade segments include only outside ayah portions on mixed boundary lines", () => {
   const page = JSON.parse(fs.readFileSync("public/pages/p588.json", "utf8"));
   const range = exactRange({ surah: 83, ayah: 15 }, 10);
@@ -242,13 +260,13 @@ test("cross-page evidence cuts page 603 and 604 at the exact recorded lines", ()
   const page604 = JSON.parse(fs.readFileSync("public/pages/p604.json", "utf8"));
   assert.deepEqual(
     linesForEvidencePage(page603, range).map((line) => line.n),
-    [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+    [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
   );
   assert.deepEqual(
     linesForEvidencePage(page604, range).map((line) => line.n),
     [1, 2, 3],
   );
-  assert.equal([...wordIdsForEvidencePage(page603, range)][0], "109.1.0");
+  assert.equal([...wordIdsForEvidencePage(page603, range)][0], "109.b.0");
   assert.equal([...wordIdsForEvidencePage(page604, range)].at(-1), "112.1.4");
 });
 

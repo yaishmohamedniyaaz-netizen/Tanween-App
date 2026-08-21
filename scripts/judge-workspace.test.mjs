@@ -61,7 +61,19 @@ test("the wide judge workspace spends recovered chrome height on a larger Fit ca
   );
   assert.match(
     styleSource,
-    /\.app\.view-judge \.app-header \{\s*padding-block: 6px;/,
+    /\.app\.view-judge \.app-header \{\s*padding-block: 4px;/,
+  );
+  assert.match(
+    styleSource,
+    /\.app\.view-judge \.workspace\.layout-spread \{[\s\S]*?padding: 0 12px 8px;/,
+  );
+  assert.match(
+    viewportSource,
+    /data-fit-mode=\{zoomPercent === MUSHAF_ZOOM_FIT \? "true" : "false"\}/,
+  );
+  assert.match(
+    styleSource,
+    /\.mushaf-shell\[data-stage-fit="ready"\]\[data-fit-mode="true"\] \{\s*overflow: hidden;/,
   );
 });
 

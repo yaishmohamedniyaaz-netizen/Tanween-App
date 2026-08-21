@@ -42,7 +42,7 @@ test("device preferences normalize invalid values without losing valid choices",
     version: 3,
     theme: "dark",
     mushafLayout: "spread",
-    mushafZoom: 85,
+    mushafZoom: 100,
     judgeRailSide: "right",
     questionFocusMode: "shade-fade",
   });
@@ -66,7 +66,7 @@ test("device preferences normalize invalid values without losing valid choices",
   );
   assert.deepEqual(
     [MUSHAF_ZOOM_MIN, MUSHAF_ZOOM_FIT, MUSHAF_ZOOM_DEFAULT, MUSHAF_ZOOM_MAX, MUSHAF_ZOOM_STEP],
-    [75, 100, 100, 150, 5],
+    [100, 100, 100, 150, 5],
   );
 });
 
@@ -100,7 +100,7 @@ test("legacy device keys migrate into the versioned settings object", () => {
     version: 3,
     theme: "dark",
     mushafLayout: "spread",
-    mushafZoom: 75,
+    mushafZoom: 100,
     judgeRailSide: "right",
     questionFocusMode: "fade",
   });
@@ -154,13 +154,13 @@ test("writing settings keeps the rollback-compatible legacy keys in sync", () =>
   const current = JSON.parse(storage.getItem(DEVICE_PREFERENCES_KEY));
   const rollbackV2 = JSON.parse(storage.getItem(LEGACY_DEVICE_PREFERENCES_V2_KEY));
   const rollback = JSON.parse(storage.getItem(LEGACY_DEVICE_PREFERENCES_KEY));
-  assert.equal(current.mushafZoom, 75);
+  assert.equal(current.mushafZoom, 100);
   assert.equal(current.questionFocusMode, "shade-fade");
   assert.equal(rollbackV2.questionFocusMode, "shade");
   assert.equal(rollback.questionFocusEnabled, true);
   assert.equal(storage.getItem(LEGACY_THEME_KEY), "dark");
   assert.equal(storage.getItem(LEGACY_PAGE_LAYOUT_KEY), "spread");
-  assert.equal(storage.getItem(LEGACY_PAGE_ZOOM_KEY), "75");
+  assert.equal(storage.getItem(LEGACY_PAGE_ZOOM_KEY), "100");
   assert.equal(storage.getItem(LEGACY_JUDGE_RAIL_SIDE_KEY), "right");
   assert.equal(written.version, 3);
 

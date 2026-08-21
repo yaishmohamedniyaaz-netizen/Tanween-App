@@ -35,3 +35,32 @@ export function questionOpeningPage(
 ): number | null {
   return questionStartPage(question);
 }
+
+function validQuestionPage(value: unknown): value is number {
+  return Number.isInteger(value) && Number(value) >= FIRST_PAGE && Number(value) <= LAST_PAGE;
+}
+
+/**
+ * Whether one of the currently rendered pages intersects the selected
+ * question. A null result means there is no trustworthy page-backed question
+ * to return to (for example, a manual question).
+ */
+export function questionIsVisibleOnPages(
+  question: Pick<
+    ReciterQuestionAssignment,
+    "version" | "range" | "startPage" | "endPage"
+  > | null | undefined,
+  visiblePages: readonly number[],
+): boolean | null {
+  const startPage = questionOpeningPage(question);
+  if (startPage === null) return null;
+  const storedEndPage = question?.version === 2
+    ? question.range?.endPage ?? question.endPage
+    : question?.endPage;
+  const endPage = validQuestionPage(storedEndPage) && storedEndPage >= startPage
+    ? storedEndPage
+    : startPage;
+  return visiblePages.some(
+    (page) => validQuestionPage(page) && page >= startPage && page <= endPage,
+  );
+}

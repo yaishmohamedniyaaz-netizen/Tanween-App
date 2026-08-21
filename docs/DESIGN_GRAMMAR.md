@@ -15,11 +15,15 @@ The recitation is the work; the interface is how a judge touches it. So the
 Mushaf gets the room and the chrome gets out of the way — the rail is narrow,
 the page is wide, and no panel competes with the text for the same region.
 
-In the live workspace, a two-page spread owns the available width and pushes
-the scorecard to the chosen outer edge. Its shared page control sits in the
-safe upper page margin instead of shortening both pages. A single-page view is
-different: its page and scorecard stay inside a bounded, centred composition
-so the rail does not feel detached from the page.
+In the live workspace, the scorecard stays on the chosen outer edge before and
+after a recitation begins. A two-page spread owns the remaining width, but its
+shared page control also owns a small row between the top bar and the pages;
+Fit accounts for that row instead of laying the control over Quran text, and
+Fit is the smallest live size rather than one stop among smaller scales. A
+temporary return-to-question control shares the same fixed row when the judge
+has navigated outside the selected passage; appearing or disappearing must not
+move the page selector or change the row's height. The spread uses a compact
+4px outer rhythm around that row; the single-page marginalia remains untouched.
 
 **Fails this rule:** a screen where the explanation is larger than the thing
 being explained. The setup review carries 248 words to convey nine facts.

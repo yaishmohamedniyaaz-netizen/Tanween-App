@@ -232,6 +232,17 @@ test("the board renders positions and nothing that names a passage", () => {
   assert.match(board, /tile\.position/, "the board renders positions");
 });
 
+test("the draw board keeps large choices, a centred fallback, and a visibly spent state", () => {
+  const styles = readFileSync(
+    new URL("../src/styles/global.css", import.meta.url),
+    "utf8",
+  );
+  assert.match(styles, /\.question-number-screen \.draw-board\s*\{[\s\S]*?max-width: 760px/);
+  assert.match(styles, /\.question-number-screen \.draw-tile\s*\{[\s\S]*?min-height: 68px/);
+  assert.match(styles, /\.draw-tile\.is-spent\s*\{[\s\S]*?opacity: 0\.46/);
+  assert.match(styles, /\.question-number-screen \.draw-external\s*\{[\s\S]*?justify-content: center/);
+});
+
 test("a position is only resolved to a question when one is pressed", () => {
   const source = readFileSync(
     new URL("../src/components/StartDialog.tsx", import.meta.url),

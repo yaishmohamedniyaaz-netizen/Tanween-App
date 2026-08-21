@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import {
+  questionIsVisibleOnPages,
   questionOpeningKey,
   questionOpeningPage,
 } from "../src/lib/questionPage.ts";
@@ -60,6 +61,20 @@ test("a non-integer page is refused", () => {
   assert.equal(questionOpeningPage({ startPage: 12.5 }), null);
   assert.equal(questionOpeningPage({ startPage: Number.NaN }), null);
   assert.equal(questionOpeningPage({ startPage: "582" }), null);
+});
+
+test("the return control appears only after every visible page leaves the question span", () => {
+  assert.equal(questionIsVisibleOnPages(prepared, [581, 582]), true);
+  assert.equal(questionIsVisibleOnPages(prepared, [582, 583]), true);
+  assert.equal(questionIsVisibleOnPages(prepared, [580, 581]), false);
+  assert.equal(questionIsVisibleOnPages(manual, [582]), null);
+  assert.equal(questionIsVisibleOnPages({
+    ...prepared,
+    version: 2,
+    startPage: undefined,
+    endPage: undefined,
+    range: { startPage: 603, endPage: 604 },
+  }, [602, 603]), true);
 });
 
 test("no session means nothing to open", () => {

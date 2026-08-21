@@ -2,13 +2,14 @@ export type MushafPageLayout = "full" | "spread";
 
 export const STABLE_MUSHAF_STAGE_QUERY =
   "(min-width: 901px) and (min-height: 620px)";
-export const MUSHAF_FRAME_INSET = 8;
+export const MUSHAF_FRAME_INSET = 6;
+export const MUSHAF_SPREAD_FRAME_INSET = 4;
 
 export const MUSHAF_PAGE_ASPECT_RATIO = 0.68;
 export const MUSHAF_PAGE_MAX_INLINE_SIZE = 760;
 export const MUSHAF_SPREAD_GAP = 12;
-/** The shared page control floats in the page's safe upper margin. */
-export const MUSHAF_SPREAD_NAV_BLOCK_SIZE = 0;
+/** A 36px control row plus one 4px spacing unit above a two-page spread. */
+export const MUSHAF_SPREAD_NAV_BLOCK_SIZE = 40;
 
 export function computeMushafComposedBlockSize(
   inlineSize: number,
@@ -33,24 +34,27 @@ export function computeMushafFitInlineSize({
   frameInlineSize,
   frameBlockSize,
   layout,
-  inset = MUSHAF_FRAME_INSET,
+  inset,
 }: MushafFitInput): number {
+  const resolvedInset = inset ?? (
+    layout === "spread" ? MUSHAF_SPREAD_FRAME_INSET : MUSHAF_FRAME_INSET
+  );
   if (
     !Number.isFinite(frameInlineSize) ||
     !Number.isFinite(frameBlockSize) ||
-    !Number.isFinite(inset) ||
+    !Number.isFinite(resolvedInset) ||
     frameInlineSize <= 0 ||
     frameBlockSize <= 0 ||
-    inset < 0
+    resolvedInset < 0
   ) {
     return 0;
   }
 
-  const availableInlineSize = frameInlineSize - inset * 2;
+  const availableInlineSize = frameInlineSize - resolvedInset * 2;
   const reservedBlockSize = layout === "spread"
     ? MUSHAF_SPREAD_NAV_BLOCK_SIZE
     : 0;
-  const availableBlockSize = frameBlockSize - inset * 2 - reservedBlockSize;
+  const availableBlockSize = frameBlockSize - resolvedInset * 2 - reservedBlockSize;
   if (availableInlineSize <= 0 || availableBlockSize <= 0) return 0;
 
   const maximumInlineSize = layout === "spread"

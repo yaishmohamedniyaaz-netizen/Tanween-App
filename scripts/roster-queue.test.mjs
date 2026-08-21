@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import test from "node:test";
 import {
   SEARCH_THRESHOLD,
@@ -181,6 +182,21 @@ test("search appears only once the queue outgrows the screen", () => {
   const small = Array.from({ length: SEARCH_THRESHOLD }, (_, i) => entry(`s${i}`));
   assert.equal(shouldOfferSearch(small), false);
   assert.equal(shouldOfferSearch([...small, entry("extra")]), true);
+});
+
+test("the running-order context stays fixed while only the participant list scrolls", () => {
+  const styles = readFileSync(
+    new URL("../src/styles/global.css", import.meta.url),
+    "utf8",
+  );
+  assert.match(
+    styles,
+    /\.reciter-queue-summary,\s*\.next-reciter-row,\s*\.reciter-selection-screen \.queue-search\s*\{[\s\S]*?flex: 0 0 auto/,
+  );
+  assert.match(
+    styles,
+    /\.reciter-selection-screen \.queue-scroll\s*\{[\s\S]*?flex: 1 1 auto;[\s\S]*?overflow-y: auto/,
+  );
 });
 
 test("somebody marked away is no longer waiting", () => {

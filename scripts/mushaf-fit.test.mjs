@@ -5,6 +5,7 @@ import {
   computeMushafRenderedBlockSize,
   computeMushafRenderedInlineSize,
   MUSHAF_FRAME_INSET,
+  MUSHAF_SPREAD_FRAME_INSET,
   MUSHAF_SPREAD_NAV_BLOCK_SIZE,
   STABLE_MUSHAF_STAGE_QUERY,
 } from "../src/lib/mushafFit.ts";
@@ -19,7 +20,7 @@ test("full-page Fit respects the print maximum and both frame axes", () => {
     frameInlineSize: 900,
     frameBlockSize: 610,
     layout: "full",
-  }), 403);
+  }), 406);
 });
 
 test("two-page spread Fit is width- or height-limited without changing either page ratio", () => {
@@ -27,19 +28,20 @@ test("two-page spread Fit is width- or height-limited without changing either pa
     frameInlineSize: 640,
     frameBlockSize: 900,
     layout: "spread",
-  }), 624);
+  }), 632);
   assert.equal(computeMushafFitInlineSize({
     frameInlineSize: 1200,
     frameBlockSize: 700,
     layout: "spread",
-  }), 942);
-  assert.equal(MUSHAF_SPREAD_NAV_BLOCK_SIZE, 0);
+  }), 898);
+  assert.equal(MUSHAF_SPREAD_NAV_BLOCK_SIZE, 40);
 });
 
 test("Fit retains clearance and rejects unusable measurements", () => {
-  assert.equal(MUSHAF_FRAME_INSET, 8);
+  assert.equal(MUSHAF_FRAME_INSET, 6);
+  assert.equal(MUSHAF_SPREAD_FRAME_INSET, 4);
   assert.equal(computeMushafFitInlineSize({
-    frameInlineSize: 16,
+    frameInlineSize: 12,
     frameBlockSize: 500,
     layout: "full",
   }), 0);
@@ -58,8 +60,8 @@ test("Fit retains clearance and rejects unusable measurements", () => {
 
 test("stored view scales remain uniform magnifications of Fit", () => {
   assert.equal(computeMushafRenderedInlineSize(403, 100), 403);
-  assert.equal(computeMushafRenderedInlineSize(403, 85), 343);
-  assert.equal(computeMushafRenderedInlineSize(403, 10), 302);
+  assert.equal(computeMushafRenderedInlineSize(403, 85), 403);
+  assert.equal(computeMushafRenderedInlineSize(403, 10), 403);
   assert.equal(computeMushafRenderedInlineSize(403, 140), 564);
   assert.equal(computeMushafRenderedInlineSize(403, 190), 605);
   assert.equal(computeMushafRenderedBlockSize(403, "full", 110), 652);

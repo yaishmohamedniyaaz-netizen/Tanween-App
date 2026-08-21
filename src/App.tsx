@@ -22,7 +22,11 @@ import { JudgeRoleStrip } from "./components/JudgeRoleStrip";
 import { PreparedSidebar } from "./components/PreparedSidebar";
 import { PageNav } from "./components/PageNav";
 import { useJudging } from "./state/store";
-import { questionOpeningKey, questionOpeningPage } from "./lib/questionPage";
+import {
+  questionIsVisibleOnPages,
+  questionOpeningKey,
+  questionOpeningPage,
+} from "./lib/questionPage";
 import { participantDivision } from "./lib/reciterQuestions";
 import { isWaiting } from "./lib/rosterQueue";
 import { missingRequiredImpressionCategories } from "./lib/scoring";
@@ -174,13 +178,28 @@ export function App() {
                 questionRange={visibleQuestionRange}
                 onPageChange={handlePageChange}
                 headerControls={(visiblePages, compact) => (
-                  <PageNav
-                    page={page}
-                    visiblePages={visiblePages}
-                    layout={preferences.mushafLayout}
-                    compact={compact}
-                    onChange={handlePageChange}
-                  />
+                  <>
+                    <PageNav
+                      page={page}
+                      visiblePages={visiblePages}
+                      layout={preferences.mushafLayout}
+                      compact={compact}
+                      onChange={handlePageChange}
+                    />
+                    {openingPage !== null &&
+                      questionIsVisibleOnPages(visibleQuestion, visiblePages) === false && (
+                      <button
+                        type="button"
+                        className="question-return-bubble"
+                        aria-label={`Return to selected question on page ${openingPage}`}
+                        onClick={() => handlePageChange(openingPage)}
+                      >
+                        <span aria-hidden="true">↩</span>
+                        <span>Return to question</span>
+                        <span className="question-return-page t-num">p. {openingPage}</span>
+                      </button>
+                    )}
+                  </>
                 )}
               />
             </MushafViewport>
