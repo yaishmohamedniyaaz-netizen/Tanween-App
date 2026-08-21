@@ -3,6 +3,7 @@ import {
   createBlankRosterDraftRow,
   createRosterDraftFromRoster,
   createRosterDraftFromRows,
+  DEFAULT_PARTICIPANT_TEMPLATE_OPTIONS,
   downloadParticipantTemplate,
   fillEmptyRosterFields,
   importedCategoryGroups,
@@ -14,6 +15,7 @@ import {
   validateRosterDraft,
   type RosterColumnKey,
   type RosterDraftField,
+  type ParticipantTemplateOptions,
 } from "../lib/roster";
 import { divisionLabel } from "../lib/participantPresentation";
 import { normalizeMuqarrarSide } from "../lib/participants";
@@ -101,6 +103,10 @@ export function ParticipantRosterEditor({
   const [pasteText, setPasteText] = useState("");
   const [pasteMapping, setPasteMapping] = useState<RosterColumnKey[]>([]);
   const [firstRowIsHeader, setFirstRowIsHeader] = useState(true);
+  const [templateOpen, setTemplateOpen] = useState(false);
+  const [templateOptions, setTemplateOptions] = useState<ParticipantTemplateOptions>(
+    () => ({ ...DEFAULT_PARTICIPANT_TEMPLATE_OPTIONS }),
+  );
   const [reviewOpen, setReviewOpen] = useState(false);
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState("");
@@ -292,8 +298,9 @@ export function ParticipantRosterEditor({
       await downloadParticipantTemplate({
         ...state.competition,
         participantNumbering: draft.numberingMode,
-      });
-      setMessage("Competition template prepared.");
+      }, templateOptions);
+      setTemplateOpen(false);
+      setMessage("Participant template downloaded.");
     } catch {
       setError("The competition template could not be prepared.");
     } finally {
@@ -386,7 +393,7 @@ export function ParticipantRosterEditor({
           <button type="button" className="btn-ghost" onClick={() => addRow()}><Icon name="plus" size={14} /> Add participant</button>
           <button type="button" className="btn-ghost" onClick={openPaste}>Paste table</button>
           <button type="button" className="btn-ghost" disabled={busy} onClick={() => fileRef.current?.click()}><Icon name="upload" size={14} /> Upload</button>
-          <button type="button" className="btn-ghost" disabled={busy || !state.competition.divisions.length} onClick={() => void downloadTemplate()}><Icon name="download" size={14} /> Competition template</button>
+          <button type="button" className="btn-ghost" aria-haspopup="dialog" disabled={busy || !state.competition.divisions.length} onClick={() => setTemplateOpen(true)}><Icon name="download" size={14} /> Participant template</button>
         </div>
       </section>
 
@@ -561,6 +568,36 @@ export function ParticipantRosterEditor({
       </footer>
 
       {deleted && <div className="roster-undo-toast" role="status"><span>Participant removed from draft.</span><button type="button" onClick={undoDelete}>Undo</button><button type="button" aria-label="Dismiss" onClick={() => setDeleted(null)}>×</button></div>}
+
+      {templateOpen && (
+        <div className="dialog-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) setTemplateOpen(false); }}>
+          <section className="roster-dialog roster-template-dialog" role="dialog" aria-modal="true" aria-labelledby="roster-template-title">
+            <div className="roster-dialog-head">
+              <div><span>Excel template</span><h2 id="roster-template-title">Choose participant columns</h2><p>The competition fields needed for a clean import stay included.</p></div>
+              <button type="button" onClick={() => setTemplateOpen(false)} aria-label="Close">×</button>
+            </div>
+            <div className="roster-template-fields">
+              <div className="roster-template-required">
+                <div><strong>Required</strong><small>{draft.numberingMode === "supplied" ? "Participant number, Name, Category, Muqarrar start" : "Name, Category, Muqarrar start"}</small></div>
+                <span>Always included</span>
+              </div>
+              <fieldset>
+                <legend>Optional columns</legend>
+                <label className="roster-template-option">
+                  <input type="checkbox" checked={templateOptions.includeInstitution} onChange={(event) => setTemplateOptions((current) => ({ ...current, includeInstitution: event.target.checked }))} />
+                  <span><strong>Institution</strong><small>School, class or organisation</small></span>
+                </label>
+                <label className="roster-template-option">
+                  <input type="checkbox" checked={templateOptions.includePhone} onChange={(event) => setTemplateOptions((current) => ({ ...current, includePhone: event.target.checked }))} />
+                  <span><strong>Phone number</strong><small>Stored as text so leading zeroes remain</small></span>
+                </label>
+              </fieldset>
+            </div>
+            <div className="roster-template-format"><Icon name="download" size={17} /><div><strong>Excel workbook</strong><small>.xlsx with dropdowns and 100 prepared rows</small></div></div>
+            <div className="roster-dialog-actions"><button type="button" className="btn-ghost" onClick={() => setTemplateOpen(false)}>Cancel</button><button type="button" className="btn-primary" disabled={busy} onClick={() => void downloadTemplate()}>{busy ? "Preparing…" : "Download Excel"}</button></div>
+          </section>
+        </div>
+      )}
 
       {pasteOpen && (
         <div className="dialog-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) setPasteOpen(false); }}>

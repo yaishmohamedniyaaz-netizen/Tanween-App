@@ -3924,6 +3924,108 @@ textarea:focus-visible {
 .roster-review-dialog {
   width: min(520px, calc(100vw - 32px));
 }
+.roster-template-dialog {
+  width: min(560px, calc(100vw - 32px));
+}
+.roster-template-fields {
+  display: grid;
+  gap: 14px;
+  margin-top: 20px;
+}
+.roster-template-required {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 66px;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  background: var(--bg);
+}
+.roster-template-required > div,
+.roster-template-option > span,
+.roster-template-format > div {
+  display: grid;
+  gap: 3px;
+}
+.roster-template-required strong,
+.roster-template-option strong,
+.roster-template-format strong {
+  color: var(--ink);
+  font-size: 11.5px;
+  font-weight: 610;
+}
+.roster-template-required small,
+.roster-template-option small,
+.roster-template-format small {
+  color: var(--ink-3);
+  font-size: 10.5px;
+  line-height: 1.4;
+}
+.roster-template-required > span {
+  flex: 0 0 auto;
+  color: var(--ink-3);
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 0.025em;
+  text-transform: uppercase;
+}
+.roster-template-fields fieldset {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.roster-template-fields legend {
+  margin-bottom: 8px;
+  padding: 0;
+  color: var(--ink-3);
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 0.025em;
+  text-transform: uppercase;
+}
+.roster-template-option {
+  display: grid;
+  grid-template-columns: 20px minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
+  min-height: 60px;
+  padding: 10px 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  background: var(--surface);
+  cursor: pointer;
+  transition: border-color var(--t-fast) ease, background var(--t-fast) ease;
+}
+.roster-template-option:hover {
+  border-color: var(--line-2);
+  background: var(--bg);
+}
+.roster-template-option:has(input:focus-visible) {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+.roster-template-option input {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  accent-color: var(--ink);
+}
+.roster-template-format {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  min-height: 54px;
+  margin-top: 14px;
+  padding: 10px 13px;
+  border-radius: var(--r-sm);
+  background: color-mix(in srgb, var(--bg) 76%, #eaf2f6);
+  color: var(--ink-2);
+}
 .roster-dialog-head {
   display: flex;
   align-items: flex-start;
@@ -10734,6 +10836,11 @@ html:has(.finish-dialog[open]) {
   .roster-dialog-actions .btn-primary,
   .roster-dialog-actions .btn-ghost {
     width: 100%;
+  }
+  .roster-template-required {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
   }
   .roster-setup-paths {
     grid-template-columns: 1fr;

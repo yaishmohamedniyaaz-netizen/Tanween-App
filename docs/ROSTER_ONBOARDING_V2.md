@@ -1,10 +1,10 @@
-# Roster Onboarding V2 with V4 fast entry
+# Roster Onboarding V2 with V5 fast entry
 
 Status: implemented in the August 2026 participant-onboarding release
 Scope: draft competition participant preparation only
 
 The V3 follow-up changed participant-facing language from Division to Category
-and from Muqarrar to Muqarrar start. V4 adds competition presets, faster
+and from Muqarrar to Muqarrar start. V5 adds competition presets, faster
 category-level entry, grouped import resolution, and a visually structured
 Excel template with native dropdowns. Internal `divisionId` and `muqarrar`
 properties remain stable so saved competitions, questions, and results do not
@@ -128,30 +128,34 @@ change; every row with the same normalized raw value updates together. There is
 no fuzzy auto-merge, so a plausible-looking label cannot silently move several
 participants into the wrong Category.
 
-## Competition Template V4
+## Competition Template V5
 
-The template is generated from the active competition and numbering mode.
+The template is generated from the active competition, numbering mode, and the
+organizer's column choices.
 
-- Participants: 100 prepared, striped entry rows with a frozen heading row,
-  filtering, practical widths, text-safe number and phone columns, and concise
-  Required/Optional notes;
+- Participants: 100 compact, visibly bordered prepared rows with a frozen
+  heading row, filtering, familiar spreadsheet gridlines, practical widths,
+  text-safe number and phone columns, dark text on restrained pastel header
+  groups, and concise Required/Optional notes;
 - Choices: exact Category and Muqarrar start values plus competition-specific
   institution suggestions;
 - Instructions: competition identity, version, numbering rules, and the
   import/review sequence.
 
 Automatic mode omits Participant Number. Supplied mode includes it first.
-Excel data validation supplies dropdowns for Category and Muqarrar start.
-Institution also has a dropdown, but its validation remains non-blocking so a
-new school, class, or independent entry can still be typed. Spreadsheet
+Name, Category, and Muqarrar start are always included. The download dialog
+includes Institution by default and leaves Phone Number off by default; either
+stored optional field can be included or removed without shifting the required
+dropdowns. Institution has a non-blocking dropdown when selected, so a new
+school, class, or independent entry can still be typed. Spreadsheet
 validation helps entry but Tahqeeq's review remains authoritative because
 pasted cells and third-party spreadsheet tools can bypass it.
 
 Workbook custom properties and the very-hidden `_Tahqeeq` sheet record the
-competition ID, template version, numbering mode, and category fingerprint.
+competition ID, template version, numbering mode, selected columns, and category fingerprint.
 The legacy division-fingerprint value is also emitted for older Tahqeeq builds.
-V3, V2, and V1 files remain importable, and the 99 unused styled rows do not
-become empty participants when a completed V4 file is uploaded.
+V4, V3, V2, and V1 files remain importable, and the 99 unused prepared rows do
+not become empty participants when a completed V5 file is uploaded.
 
 Feshey kolhu and Nimey kolhu remain explicit enum values, not Boolean
 `true`/`false`. The participant editor presents them as a two-option radio
@@ -193,8 +197,8 @@ closed competition states.
 - invalid imported rows retained with field issues;
 - quoted/multiline spreadsheet paste;
 - existing participant ID preservation;
-- Template V4 sheet/header/style/dropdown/choice/metadata read-back;
-- completed V4 prepared-row import with blank prepared rows ignored;
+- Template V5 default and selectable-column sheet/header/style/dropdown/choice/metadata read-back;
+- completed V5 prepared-row import with blank prepared rows ignored;
 - stored entry preset normalization and scoped fill-without-overwrite;
 - grouped identical imported-Category resolution;
 - refresh recovery, discard, apply comparison, and official-start blocking;

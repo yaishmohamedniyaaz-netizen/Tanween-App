@@ -16,7 +16,7 @@ import {
 } from "./participants.ts";
 import { createSampleRoster } from "./sampleCompetition.ts";
 
-export const PARTICIPANT_TEMPLATE_VERSION = 4;
+export const PARTICIPANT_TEMPLATE_VERSION = 5;
 export const LEGACY_PARTICIPANT_TEMPLATE_HEADERS = [
   "Participant Number",
   "Name",
@@ -38,6 +38,16 @@ const SAMPLE_PARTICIPANT_TEMPLATE_HEADERS = [
   "Institution",
 ] as const;
 export const ROSTER_DRAFT_VERSION = 1;
+
+export interface ParticipantTemplateOptions {
+  includeInstitution: boolean;
+  includePhone: boolean;
+}
+
+export const DEFAULT_PARTICIPANT_TEMPLATE_OPTIONS: Readonly<ParticipantTemplateOptions> = Object.freeze({
+  includeInstitution: true,
+  includePhone: false,
+});
 
 export interface RosterEntryDefaults {
   divisionId?: string;
@@ -686,14 +696,24 @@ export async function parseRosterFile(file: File): Promise<RosterImportPreview> 
   return { ...parseRosterRows(rows), filename: file.name };
 }
 
-function templateHeaders(mode: ParticipantNumberingMode): string[] {
+function resolvedTemplateOptions(
+  options?: Partial<ParticipantTemplateOptions>,
+): ParticipantTemplateOptions {
+  return { ...DEFAULT_PARTICIPANT_TEMPLATE_OPTIONS, ...options };
+}
+
+function templateHeaders(
+  mode: ParticipantNumberingMode,
+  options?: Partial<ParticipantTemplateOptions>,
+): string[] {
+  const resolved = resolvedTemplateOptions(options);
   return [
     ...(mode === "supplied" ? ["Participant Number"] : []),
     "Name",
     "Category",
     "Muqarrar start",
-    "Institution",
-    "Phone Number",
+    ...(resolved.includeInstitution ? ["Institution"] : []),
+    ...(resolved.includePhone ? ["Phone Number"] : []),
   ];
 }
 
@@ -724,9 +744,15 @@ async function buildParticipantWorkbook(
   entries: RosterEntry[],
   title: string,
   sample: boolean,
+  templateOptions?: Partial<ParticipantTemplateOptions>,
 ): Promise<ArrayBuffer> {
   const ExcelJS = (await import("exceljs")).default;
-  const headers = sample ? [...SAMPLE_PARTICIPANT_TEMPLATE_HEADERS] : templateHeaders(context.numberingMode);
+  const resolvedOptions = sample
+    ? { includeInstitution: true, includePhone: true }
+    : resolvedTemplateOptions(templateOptions);
+  const headers = sample
+    ? [...SAMPLE_PARTICIPANT_TEMPLATE_HEADERS]
+    : templateHeaders(context.numberingMode, resolvedOptions);
   const body = sample
     ? entries.map((entry) => [
         entry.number,
@@ -747,8 +773,8 @@ async function buildParticipantWorkbook(
   workbook.description = `Template version ${PARTICIPANT_TEMPLATE_VERSION}`;
 
   const participants = workbook.addWorksheet("Participants", {
-    views: [{ state: "frozen", ySplit: 1, activeCell: "A2", showGridLines: false }],
-    properties: { defaultRowHeight: 24 },
+    views: [{ state: "frozen", ySplit: 1, activeCell: "A2", showGridLines: true }],
+    properties: { defaultRowHeight: 24, tabColor: { argb: "FFAAC7D1" } },
     pageSetup: {
       orientation: "landscape",
       fitToPage: true,
@@ -772,22 +798,35 @@ async function buildParticipantWorkbook(
   participants.columns.forEach((column, index) => {
     const header = headers[index];
     column.width = header === "Participant Number"
-      ? 19
+      ? 17
       : header === "Name" || header === "Institution"
-      ? 30
+      ? header === "Name" ? 30 : 28
       : header === "Category"
         ? 30
         : header === "Muqarrar start"
-          ? 20
-          : 18;
+          ? 19
+          : 17;
   });
   const headerRow = participants.getRow(1);
   headerRow.height = 30;
-  headerRow.eachCell((cell) => {
-    cell.font = { name: "Aptos", size: 11, bold: true, color: { argb: "FFFFFFFF" } };
-    cell.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FF242421" } };
+  headerRow.eachCell((cell, columnNumber) => {
+    const header = headers[columnNumber - 1];
+    const fill = header === "Name"
+      ? "FFEAF2F6"
+      : header === "Category" || header === "Muqarrar start"
+        ? "FFEAF3EF"
+        : header === "Institution" || header === "Phone Number"
+          ? "FFF6F1E8"
+          : "FFF2F1ED";
+    cell.font = { name: "Aptos", size: 11, bold: true, color: { argb: "FF242421" } };
+    cell.fill = { type: "pattern", pattern: "solid", fgColor: { argb: fill } };
     cell.alignment = { vertical: "middle", horizontal: "left" };
-    cell.border = { bottom: { style: "thin", color: { argb: "FF11110F" } } };
+    cell.border = {
+      top: { style: "thin", color: { argb: "FFAAA8A1" } },
+      left: { style: "thin", color: { argb: "FFAAA8A1" } },
+      bottom: { style: "medium", color: { argb: "FF9EA7A8" } },
+      right: { style: "thin", color: { argb: "FFAAA8A1" } },
+    };
   });
   headers.forEach((header, index) => {
     participants.getCell(1, index + 1).note = ["Name", "Category", "Muqarrar start", "Participant Number"].includes(header)
@@ -798,7 +837,7 @@ async function buildParticipantWorkbook(
   const choices = sample ? null : workbook.addWorksheet("Choices", {
     state: "hidden",
     views: [{ showGridLines: false }],
-    properties: { defaultRowHeight: 22 },
+    properties: { defaultRowHeight: 22, tabColor: { argb: "FFD9D6CF" } },
   });
   if (choices) {
     choices.addRow(["Category", "Muqarrar start", "Institution"]);
@@ -814,8 +853,8 @@ async function buildParticipantWorkbook(
     const choicesHeader = choices.getRow(1);
     choicesHeader.height = 30;
     choicesHeader.eachCell((cell) => {
-      cell.font = { name: "Aptos", size: 11, bold: true, color: { argb: "FFFFFFFF" } };
-      cell.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FF242421" } };
+      cell.font = { name: "Aptos", size: 11, bold: true, color: { argb: "FF242421" } };
+      cell.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FFF2F1ED" } };
       cell.alignment = { vertical: "middle" };
     });
   }
@@ -828,16 +867,22 @@ async function buildParticipantWorkbook(
   for (let row = 2; row <= preparedRowCount + 1; row += 1) {
     const worksheetRow = participants.getRow(row);
     worksheetRow.height = 24;
-    worksheetRow.eachCell({ includeEmpty: true }, (cell) => {
+    for (let column = 1; column <= headers.length; column += 1) {
+      const cell = participants.getCell(row, column);
       cell.font = { name: "Aptos", size: 11, color: { argb: "FF242421" } };
       cell.alignment = { vertical: "middle" };
       cell.fill = {
         type: "pattern",
         pattern: "solid",
-        fgColor: { argb: row % 2 === 0 ? "FFF7F6F2" : "FFFFFFFF" },
+        fgColor: { argb: "FFFFFFFF" },
       };
-      cell.border = { bottom: { style: "hair", color: { argb: "FFD8D7D1" } } };
-    });
+      cell.border = {
+        top: { style: "thin", color: { argb: "FFD4D2CC" } },
+        left: { style: "thin", color: { argb: "FFD4D2CC" } },
+        bottom: { style: "thin", color: { argb: "FFD4D2CC" } },
+        right: { style: "thin", color: { argb: "FFD4D2CC" } },
+      };
+    }
     if (numberColumn > 0) participants.getCell(row, numberColumn).numFmt = "@";
     if (phoneColumn > 0) participants.getCell(row, phoneColumn).numFmt = "@";
     if (!sample && choices) {
@@ -881,7 +926,7 @@ async function buildParticipantWorkbook(
 
   const instructions = workbook.addWorksheet("Instructions", {
     views: [{ showGridLines: false }],
-    properties: { defaultRowHeight: 22 },
+    properties: { defaultRowHeight: 22, tabColor: { argb: "FFC8D9D2" } },
     pageSetup: {
       orientation: "portrait",
       fitToPage: true,
@@ -890,6 +935,10 @@ async function buildParticipantWorkbook(
       margins: { left: 0.5, right: 0.5, top: 0.6, bottom: 0.6, header: 0.2, footer: 0.2 },
     },
   });
+  const optionalFields = [
+    resolvedOptions.includeInstitution ? "Institution" : "",
+    resolvedOptions.includePhone ? "Phone Number" : "",
+  ].filter(Boolean);
   const instructionRows = [
     [title],
     ["Template version", PARTICIPANT_TEMPLATE_VERSION],
@@ -899,21 +948,31 @@ async function buildParticipantWorkbook(
     [],
     ["How to use"],
     ["1", "Enter one participant per prepared row in Participants."],
-    ["2", sample ? "This practice file contains fictional participants." : "Use the Category and Muqarrar start dropdowns. Institution remains optional and may be typed."],
+    ["2", sample
+      ? "This practice file contains fictional participants."
+      : `Use the Category and Muqarrar start dropdowns.${resolvedOptions.includeInstitution ? " Institution is optional and may also be typed." : ""}`],
     ["3", context.numberingMode === "automatic" ? "Tahqeeq assigns clean numbers from the final row order." : "Participant Number is required and must be unique."],
-    ["4", "Name, Category and Muqarrar start are required. Institution and Phone Number are recommended."],
+    ["4", `Name, Category and Muqarrar start are required.${optionalFields.length ? ` ${optionalFields.join(" and ")} ${optionalFields.length === 1 ? "is" : "are"} optional.` : ""}`],
     ["5", "Import the completed file, fix highlighted rows in Tahqeeq, then review before applying."],
-    ["6", "Keep phone numbers and supplied participant numbers as text when they begin with zero."],
+    ...((resolvedOptions.includePhone || context.numberingMode === "supplied")
+      ? [["6", resolvedOptions.includePhone && context.numberingMode === "supplied"
+        ? "Keep phone numbers and supplied participant numbers as text when they begin with zero."
+        : resolvedOptions.includePhone
+          ? "Keep phone numbers as text when they begin with zero."
+          : "Keep supplied participant numbers as text when they begin with zero."]]
+      : []),
     ...(sample ? [[], ["Practice file", "Every participant is fictional and must not be treated as an official roster."]] : []),
   ];
   instructionRows.forEach((row) => instructions.addRow(row));
   instructions.columns = [{ width: 20 }, { width: 92 }];
-  instructions.getRow(1).height = 34;
+  instructions.getRow(1).height = 40;
   instructions.getCell("A1").font = { name: "Aptos Display", size: 18, bold: true, color: { argb: "FF242421" } };
+  instructions.getCell("A1").fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FFEAF2F6" } };
+  instructions.getCell("A1").alignment = { vertical: "middle" };
   instructions.mergeCells("A1:B1");
   instructions.getRow(7).eachCell((cell) => {
-    cell.font = { name: "Aptos", size: 11, bold: true, color: { argb: "FFFFFFFF" } };
-    cell.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FF242421" } };
+    cell.font = { name: "Aptos", size: 11, bold: true, color: { argb: "FF242421" } };
+    cell.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FFEAF3EF" } };
   });
   instructions.eachRow((row, index) => {
     if (index > 1 && index !== 7) {
@@ -932,6 +991,7 @@ async function buildParticipantWorkbook(
     ["TahqeeqCategoryFingerprint", rosterTemplateFingerprint(context.divisions)],
     ["TahqeeqDivisionFingerprint", rosterTemplateFingerprint(context.divisions)],
     ["TahqeeqNumberingMode", context.numberingMode],
+    ["TahqeeqTemplateColumns", headers.join("|")],
   ]);
 
   const output = await workbook.xlsx.writeBuffer();
@@ -940,9 +1000,10 @@ async function buildParticipantWorkbook(
 
 export async function buildParticipantTemplate(
   competition?: CompetitionConfig,
+  options?: Partial<ParticipantTemplateOptions>,
 ): Promise<ArrayBuffer> {
   const context = competition ? templateContextFromCompetition(competition) : genericTemplateContext();
-  return buildParticipantWorkbook(context, [], "Tahqeeq Participant Template", false);
+  return buildParticipantWorkbook(context, [], "Tahqeeq Participant Template", false, options);
 }
 
 export async function buildSampleParticipantWorkbook(): Promise<ArrayBuffer> {
@@ -957,6 +1018,7 @@ export async function buildSampleParticipantWorkbook(): Promise<ArrayBuffer> {
 export async function verifyParticipantTemplate(
   buffer: ArrayBuffer,
   competition?: CompetitionConfig,
+  options?: Partial<ParticipantTemplateOptions>,
 ): Promise<void> {
   const { read, utils } = await import("xlsx");
   const workbook = read(buffer, { type: "array" });
@@ -969,7 +1031,7 @@ export async function verifyParticipantTemplate(
     raw: false,
     blankrows: false,
   });
-  const expected = templateHeaders(competition?.participantNumbering ?? "supplied");
+  const expected = templateHeaders(competition?.participantNumbering ?? "supplied", options);
   if (JSON.stringify(participantRows[0] ?? []) !== JSON.stringify(expected)) {
     throw new Error("The participant template headers did not verify.");
   }
@@ -981,6 +1043,9 @@ export async function verifyParticipantTemplate(
   const metadata = metadataForWorkbook(workbook, metadataRows);
   if (Number(metadata.TahqeeqTemplateVersion) !== PARTICIPANT_TEMPLATE_VERSION) {
     throw new Error("The participant template version did not verify.");
+  }
+  if (String(metadata.TahqeeqTemplateColumns) !== expected.join("|")) {
+    throw new Error("The participant template column selection did not verify.");
   }
   const ExcelJS = (await import("exceljs")).default;
   const styledWorkbook = new ExcelJS.Workbook();
@@ -1021,9 +1086,12 @@ function downloadBuffer(buffer: ArrayBuffer, filename: string) {
   setTimeout(() => URL.revokeObjectURL(url), 0);
 }
 
-export async function downloadParticipantTemplate(competition?: CompetitionConfig): Promise<void> {
-  const buffer = await buildParticipantTemplate(competition);
-  await verifyParticipantTemplate(buffer, competition);
+export async function downloadParticipantTemplate(
+  competition?: CompetitionConfig,
+  options?: Partial<ParticipantTemplateOptions>,
+): Promise<void> {
+  const buffer = await buildParticipantTemplate(competition, options);
+  await verifyParticipantTemplate(buffer, competition, options);
   downloadBuffer(buffer, "Tahqeeq-participant-template.xlsx");
 }
 

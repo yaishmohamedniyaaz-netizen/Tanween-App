@@ -100,7 +100,7 @@ test("legacy island or class data migrates into Institution", () => {
   assert.match(participant.id, /^participant-/);
 });
 
-test("the competition workbook round-trips with V4 dropdowns, choices and supplied numbering", async () => {
+test("the competition workbook round-trips with V5 dropdowns, choices and supplied numbering", async () => {
   const competition = {
     version: 2,
     isSample: false,
@@ -125,7 +125,7 @@ test("the competition workbook round-trips with V4 dropdowns, choices and suppli
   assert.deepEqual(workbook.SheetNames, ["Participants", "Choices", "Instructions", "_Tahqeeq"]);
   const metadataRows = utils.sheet_to_json(workbook.Sheets._Tahqeeq, { defval: "", raw: false });
   const metadata = Object.fromEntries(metadataRows.map((row) => [row.Key, row.Value]));
-  assert.equal(Number(metadata.TahqeeqTemplateVersion), 4);
+  assert.equal(Number(metadata.TahqeeqTemplateVersion), 5);
   assert.equal(metadata.TahqeeqCompetitionId, "competition-test");
   assert.equal(metadata.TahqeeqNumberingMode, "supplied");
   assert.ok(String(metadata.TahqeeqCategoryFingerprint).length > 0);
@@ -136,7 +136,7 @@ test("the competition workbook round-trips with V4 dropdowns, choices and suppli
     raw: false,
     blankrows: false,
   });
-  assert.deepEqual(rows[0], ["Participant Number", "Name", "Category", "Muqarrar start", "Institution", "Phone Number"]);
+  assert.deepEqual(rows[0], ["Participant Number", "Name", "Category", "Muqarrar start", "Institution"]);
   assert.equal(rows.length, 1);
   const choices = utils.sheet_to_json(workbook.Sheets.Choices, {
     header: 1,
@@ -155,14 +155,19 @@ test("the competition workbook round-trips with V4 dropdowns, choices and suppli
   assert.equal(participantSheet.getCell("D2").dataValidation.type, "list");
   assert.equal(participantSheet.getCell("E2").dataValidation.type, "list");
   assert.equal(participantSheet.getCell("A2").numFmt, "@");
-  assert.equal(participantSheet.getCell("F2").numFmt, "@");
   assert.equal(participantSheet.views[0].ySplit, 1);
-  assert.equal(participantSheet.views[0].showGridLines, false);
+  assert.equal(participantSheet.views[0].showGridLines, true);
   assert.equal(participantSheet.pageSetup.orientation, "landscape");
   assert.equal(participantSheet.pageSetup.fitToWidth, 1);
-  assert.equal(participantSheet.getColumn(1).width, 19);
+  assert.equal(participantSheet.getColumn(1).width, 17);
   assert.equal(participantSheet.getColumn(2).width, 30);
-  assert.equal(participantSheet.getColumn(4).width, 20);
+  assert.equal(participantSheet.getColumn(4).width, 19);
+  assert.equal(participantSheet.getCell("A1").font.color.argb, "FF242421");
+  assert.notEqual(participantSheet.getCell("A1").fill.fgColor.argb, "FF242421");
+  assert.equal(participantSheet.getCell("A2").border.left.style, "thin");
+  assert.equal(participantSheet.getCell("A2").border.right.style, "thin");
+  assert.equal(participantSheet.getCell("A2").border.bottom.style, "thin");
+  assert.equal(participantSheet.getCell("E101").border.bottom.style, "thin");
   assert.ok(participantSheet.autoFilter);
   assert.equal(styled.getWorksheet("Choices").state, "hidden");
   assert.equal(styled.getWorksheet("_Tahqeeq").state, "veryHidden");
@@ -177,12 +182,12 @@ test("the competition workbook round-trips with V4 dropdowns, choices and suppli
   assert.ok(readMeCells.some((value) => value.includes("review before applying")));
 });
 
-test("a completed V4 prepared row imports without the remaining blank rows", async () => {
+test("a completed V5 prepared row imports without the remaining blank rows", async () => {
   const competition = {
     version: 2,
     isSample: false,
-    id: "competition-v4-import",
-    name: "V4 Import Competition",
+    id: "competition-v5-import",
+    name: "V5 Import Competition",
     edition: "2026",
     status: "draft",
     setupRevision: 1,
@@ -197,7 +202,10 @@ test("a completed V4 prepared row imports without the remaining blank rows", asy
     liveSnapshot: null,
   };
   const workbook = new ExcelJS.Workbook();
-  await workbook.xlsx.load(Buffer.from(await buildParticipantTemplate(competition)));
+  await workbook.xlsx.load(Buffer.from(await buildParticipantTemplate(competition, {
+    includeInstitution: true,
+    includePhone: true,
+  })));
   const participants = workbook.getWorksheet("Participants");
   participants.getCell("A2").value = "007";
   participants.getCell("B2").value = "Aishath Ali";
@@ -206,7 +214,7 @@ test("a completed V4 prepared row imports without the remaining blank rows", asy
   participants.getCell("E2").value = "School A";
   participants.getCell("F2").value = "0777000";
   const completed = await workbook.xlsx.writeBuffer();
-  const file = new File([completed], "participants-v4.xlsx", {
+  const file = new File([completed], "participants-v5.xlsx", {
     type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
   });
   const draft = await parseRosterFileToDraft(file, competition);
@@ -246,10 +254,50 @@ test("automatic numbering templates omit the participant-number column", async (
     raw: false,
   });
 
-  assert.deepEqual(rows[0], ["Name", "Category", "Muqarrar start", "Institution", "Phone Number"]);
+  assert.deepEqual(rows[0], ["Name", "Category", "Muqarrar start", "Institution"]);
   const metadataRows = utils.sheet_to_json(workbook.Sheets._Tahqeeq, { defval: "", raw: false });
   const metadata = Object.fromEntries(metadataRows.map((row) => [row.Key, row.Value]));
   assert.equal(metadata.TahqeeqNumberingMode, "automatic");
+});
+
+test("participant templates can omit Institution and include Phone without shifting validation", async () => {
+  const competition = {
+    version: 2,
+    isSample: false,
+    id: "competition-custom-columns",
+    name: "Custom Columns Competition",
+    edition: "2026",
+    status: "draft",
+    setupRevision: 1,
+    participantNumbering: "supplied",
+    participantEntrySettings: {
+      institutions: ["School A"],
+      defaultMuqarrar: "feshey-kolhu",
+      defaultInstitution: "School A",
+    },
+    divisions: [{ id: "open", name: "Open", ageGroup: "Open", category: "nubalaa", quranPortion: { kind: "full-quran" } }],
+    questionPolicy: {},
+    liveSnapshot: null,
+  };
+  const options = { includeInstitution: false, includePhone: true };
+  const buffer = await buildParticipantTemplate(competition, options);
+  await verifyParticipantTemplate(buffer, competition, options);
+  const workbook = read(buffer, { type: "array" });
+  const rows = utils.sheet_to_json(workbook.Sheets.Participants, {
+    header: 1,
+    defval: "",
+    raw: false,
+  });
+  assert.deepEqual(rows[0], ["Participant Number", "Name", "Category", "Muqarrar start", "Phone Number"]);
+  const metadataRows = utils.sheet_to_json(workbook.Sheets._Tahqeeq, { defval: "", raw: false });
+  const metadata = Object.fromEntries(metadataRows.map((row) => [row.Key, row.Value]));
+  assert.equal(metadata.TahqeeqTemplateColumns, rows[0].join("|"));
+  const styled = new ExcelJS.Workbook();
+  await styled.xlsx.load(Buffer.from(buffer));
+  const participants = styled.getWorksheet("Participants");
+  assert.equal(participants.getCell("C2").dataValidation.type, "list");
+  assert.equal(participants.getCell("D2").dataValidation.type, "list");
+  assert.equal(participants.getCell("E2").numFmt, "@");
 });
 
 test("the separate sample workbook contains fictional, importable participants", async () => {
@@ -274,7 +322,9 @@ test("settings opens one recoverable editor instead of applying imports immediat
   assert.match(setupSource, /review every row before it becomes official/i);
   assert.doesNotMatch(setupSource, /rosterPreview/);
   assert.match(rosterEditorSource, /Paste table/);
-  assert.match(rosterEditorSource, /Competition template/);
+  assert.match(rosterEditorSource, /Participant template/);
+  assert.match(rosterEditorSource, /Choose participant columns/);
+  assert.match(rosterEditorSource, /Download Excel/);
   assert.match(rosterEditorSource, /Review and apply/);
   assert.match(rosterEditorSource, /Participants by category/);
   assert.match(setupSource, /Participant defaults/);

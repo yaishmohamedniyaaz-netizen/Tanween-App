@@ -1,6 +1,6 @@
 # Undecided decisions
 
-Last reviewed: 15 August 2026
+Last reviewed: 21 August 2026
 
 This file contains only decisions that still need a human answer. Confirmed
 product rules belong in `PRODUCT_FOUNDATION.md`, not here.
@@ -234,3 +234,13 @@ product rules belong in `PRODUCT_FOUNDATION.md`, not here.
       correction deliberately retained a flat, newest-first current list and a
       chronological History. No findings were grouped, merged, or reordered,
       so this product decision remains open.
+
+25. **Additional participant contact and school fields**
+    - Current implementation: the participant record retains Institution and
+      Phone Number. The V5 Excel-template dialog can include or omit those
+      stored optional fields; it does not offer Grade/Class or Address because
+      Tahqeeq would discard them after import.
+    - Decision needed: should Grade/Class and Address become retained participant
+      fields? If yes, which are needed for competition operation rather than
+      convenience, who may see them, how long are they retained, and must they
+      be excluded from judge and result exports by default?

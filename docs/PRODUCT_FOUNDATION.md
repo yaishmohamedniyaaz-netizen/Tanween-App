@@ -894,8 +894,13 @@ text, use white headers with bold dark text, freeze the header and participant
 identity columns, repeat the header for print, and fit landscape tables to one
 page wide. Criterion colour stays as a semantic accent or pale body tint rather
 than reversing the header to white text on a dark fill. Phone numbers remain
-outside result exports. The participant-import template has no date column;
-its hidden Choices sheet only supports dropdown validation.
+outside result exports. The participant-import template has no date column. Its
+required columns are Name, Category, and Muqarrar start, plus Participant Number
+when supplied numbering is active. Institution is included by default and Phone
+Number can be selected before download; the hidden Choices sheet only supports
+dropdown validation. Grade/Class and Address are not collected by the current
+participant model and therefore are not offered as disposable template-only
+columns.
 
 The expanded official workbook target remains:
 
@@ -939,7 +944,7 @@ separate external tracks with unbounded calendar time.
 | 2. Reliable judging ledger | implemented | Versioned rules, append-only events/corrections, session finalization, structured optional details, local recovery | Audit reconstruction and recovery checks pass |
 | 2.5 Judge assignment mode | implemented | Friendly panel templates, current-device judge choice, assigned-only tray and score panel, frozen assignment in results | Every assignment combination is enforced; no section is presented as a combined score |
 | 2.6 Judge workflow polish | implemented | One-target tray geometry, complete rounded selection rings, and removal of the visible “Your section” phrase | Tray interaction passes without changing the Mushaf or saved meaning |
-| 3A. Competition structure | implemented | Competition identity, Category-grouped recoverable roster editor, entry presets, grouped import resolution, automatic/supplied numbering, V4 native-dropdown template with hidden validation choices and V1/V2/V3 compatibility, stable participant identities, and a scroll-stable animated setup accordion | Draft, preset, accordion, paste, legacy/template, identity, validation, and workbook round-trip tests pass |
+| 3A. Competition structure | implemented | Competition identity, Category-grouped recoverable roster editor, entry presets, grouped import resolution, automatic/supplied numbering, V5 selectable-column native-dropdown template with restrained pastel field grouping, hidden validation choices and V1–V4 compatibility, stable participant identities, and a scroll-stable animated setup accordion | Draft, preset, accordion, paste, legacy/template, identity, validation, and workbook round-trip tests pass |
 | 3B. Judge-section collection | implemented | Offline-friendly result packages, competition mismatch checks, duplicate and conflict preservation | Wrong, missing, or duplicate sections cannot silently enter a final result |
 | 3C. Result finalization | implemented | Evidence-recalculated combined result, source selection, revisions, verification manifest | Every final score reconstructs from selected judge histories |
 | 3D. Placements and XLSX | implemented; rehearsal remains | Tied Age Group + Category rankings and value-only Results, Audit and Verification workbook | Golden edge cases and spreadsheet re-import checks pass |
