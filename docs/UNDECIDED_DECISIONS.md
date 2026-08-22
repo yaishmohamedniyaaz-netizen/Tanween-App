@@ -51,12 +51,12 @@ product rules belong in `PRODUCT_FOUNDATION.md`, not here.
 
 ## Participant display
 
-8. **Hifz display**
+8. **Nubalaa (memorisation) display**
    - Confirmed: questions always start at the beginning of an ayah.
    - Decision needed: does the participant see the opening ayah prompt, hear it
      from a judge, or see no Quran text at all?
 
-9. **Hifz inability to start or continue**
+9. **Nubalaa inability to start or continue**
    - Problem: a participant may be unable to start the next ayah, may stop
      partway through an ayah or page, or may be unable to complete the assigned
      question. Marking the first letter of the missing passage as Lahn Jali
@@ -237,10 +237,22 @@ product rules belong in `PRODUCT_FOUNDATION.md`, not here.
 
 25. **Additional participant contact and school fields**
     - Current implementation: the participant record retains Institution and
-      Phone Number. The V5 Excel-template dialog can include or omit those
+      Phone Number. The V7 Excel-template dialog can include or omit those
       stored optional fields; it does not offer Grade/Class or Address because
       Tahqeeq would discard them after import.
     - Decision needed: should Grade/Class and Address become retained participant
       fields? If yes, which are needed for competition operation rather than
       convenience, who may see them, how long are they retained, and must they
       be excluded from judge and result exports by default?
+
+26. **Reviewed non-Romanized competition terminology**
+    - Confirmed architecture: `Nubalaa`, `Balaigen`, `Fesheykolhu`, and
+      `Nimeykolhu` are Maldivian Romanized display terms, not durable data IDs.
+      Neutral IDs and legacy import aliases are specified in the participant
+      template V7 plan.
+    - Decision needed: what are the reviewed Thaana labels, and does a future
+      Arabic interface use Arabic domain labels, transliterated competition
+      terms, or both? A language reviewer must approve them before release.
+    - Decision needed: should a competition choose one terminology profile for
+      all exports, or may the organizer select a different export language from
+      the current interface language?

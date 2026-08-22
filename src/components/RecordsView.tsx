@@ -625,8 +625,8 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
           }
         >
           <option value="">All categories</option>
-          <option value="baliagen">Baliagen</option>
-          <option value="nubalaa">Hifz</option>
+          <option value="mushaf-reading">Balaigen</option>
+          <option value="memorisation">Nubalaa</option>
         </select>
       </label>
     </div>
@@ -1046,8 +1046,8 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
                       }
                     >
                       <option value="">All categories</option>
-                      <option value="baliagen">Baliagen</option>
-                      <option value="nubalaa">Hifz</option>
+                      <option value="mushaf-reading">Balaigen</option>
+                      <option value="memorisation">Nubalaa</option>
                     </select>
                   </label>
                   {hasReviewFilters && (

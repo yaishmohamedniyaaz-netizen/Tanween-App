@@ -3933,23 +3933,17 @@ textarea:focus-visible {
   margin-top: 20px;
 }
 .roster-template-required {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  min-height: 66px;
-  padding: 12px 14px;
-  border: 1px solid var(--line);
-  border-radius: var(--r-sm);
-  background: var(--bg);
+  padding: 0 0 2px;
 }
 .roster-template-required > div,
+.roster-template-category > span,
 .roster-template-option > span,
 .roster-template-format > div {
   display: grid;
   gap: 3px;
 }
 .roster-template-required strong,
+.roster-template-category strong,
 .roster-template-option strong,
 .roster-template-format strong {
   color: var(--ink);
@@ -3957,19 +3951,12 @@ textarea:focus-visible {
   font-weight: 610;
 }
 .roster-template-required small,
+.roster-template-category small,
 .roster-template-option small,
 .roster-template-format small {
   color: var(--ink-3);
   font-size: 10.5px;
   line-height: 1.4;
-}
-.roster-template-required > span {
-  flex: 0 0 auto;
-  color: var(--ink-3);
-  font-size: 9.5px;
-  font-weight: 600;
-  letter-spacing: 0.025em;
-  text-transform: uppercase;
 }
 .roster-template-fields fieldset {
   display: grid;
@@ -4000,6 +3987,49 @@ textarea:focus-visible {
   background: var(--surface);
   cursor: pointer;
   transition: border-color var(--t-fast) ease, background var(--t-fast) ease;
+}
+.roster-template-categories {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+}
+.roster-template-category {
+  display: grid;
+  grid-template-columns: 18px minmax(0, 1fr);
+  align-items: center;
+  gap: 10px;
+  min-height: 52px;
+  padding: 9px 12px;
+  background: var(--surface);
+  cursor: pointer;
+}
+.roster-template-category:nth-child(odd) {
+  border-right: 1px solid var(--line);
+}
+.roster-template-category:nth-child(n + 3) {
+  border-top: 1px solid var(--line);
+}
+.roster-template-category:hover {
+  background: var(--bg);
+}
+.roster-template-category:has(input:focus-visible) {
+  position: relative;
+  z-index: 1;
+  outline: 2px solid var(--ink);
+  outline-offset: -2px;
+}
+.roster-template-category input {
+  width: 17px;
+  height: 17px;
+  margin: 0;
+  accent-color: var(--ink);
+}
+.roster-template-error {
+  margin: 12px 0 0;
+  color: var(--danger);
+  font-size: 11px;
 }
 .roster-template-option:hover {
   border-color: var(--line-2);
@@ -10838,9 +10868,16 @@ html:has(.finish-dialog[open]) {
     width: 100%;
   }
   .roster-template-required {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 8px;
+    padding-bottom: 0;
+  }
+  .roster-template-categories {
+    grid-template-columns: 1fr;
+  }
+  .roster-template-category:nth-child(odd) {
+    border-right: 0;
+  }
+  .roster-template-category:nth-child(n + 2) {
+    border-top: 1px solid var(--line);
   }
   .roster-setup-paths {
     grid-template-columns: 1fr;

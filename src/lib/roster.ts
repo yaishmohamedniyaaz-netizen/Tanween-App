@@ -1,5 +1,6 @@
 // Participant workbook parsing and template generation are loaded on demand so
 // the SheetJS bundle never slows the Mushaf or judging path.
+import type { DataValidation } from "exceljs";
 import type {
   CompetitionConfig,
   CompetitionDivision,
@@ -10,13 +11,15 @@ import type {
 } from "../types";
 import { divisionLabel } from "./participantPresentation.ts";
 import {
+  muqarrarLabel,
   normalizeMuqarrarSide,
   normalizeParticipantCategory,
   normalizeRosterEntry,
+  participantCategoryLabel,
 } from "./participants.ts";
 import { createSampleRoster } from "./sampleCompetition.ts";
 
-export const PARTICIPANT_TEMPLATE_VERSION = 5;
+export const PARTICIPANT_TEMPLATE_VERSION = 7;
 export const LEGACY_PARTICIPANT_TEMPLATE_HEADERS = [
   "Participant Number",
   "Name",
@@ -42,12 +45,53 @@ export const ROSTER_DRAFT_VERSION = 1;
 export interface ParticipantTemplateOptions {
   includeInstitution: boolean;
   includePhone: boolean;
+  /** Undefined means every active competition Category. */
+  selectedDivisionIds?: string[];
 }
 
 export const DEFAULT_PARTICIPANT_TEMPLATE_OPTIONS: Readonly<ParticipantTemplateOptions> = Object.freeze({
-  includeInstitution: true,
+  includeInstitution: false,
   includePhone: false,
 });
+
+const PARTICIPANT_TEMPLATE_PREFERENCES_KEY =
+  "tahqeeq:participantTemplatePreferences.v1";
+
+export function readParticipantTemplatePreferences(
+  storage?: Storage | null,
+): ParticipantTemplateOptions {
+  const target = storage ?? (typeof localStorage === "undefined" ? null : localStorage);
+  if (!target) return { ...DEFAULT_PARTICIPANT_TEMPLATE_OPTIONS };
+  try {
+    const value = JSON.parse(target.getItem(PARTICIPANT_TEMPLATE_PREFERENCES_KEY) ?? "null") as
+      | Record<string, unknown>
+      | null;
+    return {
+      includeInstitution: value?.includeInstitution === true,
+      includePhone: value?.includePhone === true,
+    };
+  } catch {
+    return { ...DEFAULT_PARTICIPANT_TEMPLATE_OPTIONS };
+  }
+}
+
+export function writeParticipantTemplatePreferences(
+  options: ParticipantTemplateOptions,
+  storage?: Storage | null,
+): ParticipantTemplateOptions {
+  const normalized = {
+    includeInstitution: options.includeInstitution === true,
+    includePhone: options.includePhone === true,
+  };
+  const target = storage ?? (typeof localStorage === "undefined" ? null : localStorage);
+  if (!target) return normalized;
+  try {
+    target.setItem(PARTICIPANT_TEMPLATE_PREFERENCES_KEY, JSON.stringify(normalized));
+  } catch {
+    // A preference failure must never prevent template generation.
+  }
+  return normalized;
+}
 
 export interface RosterEntryDefaults {
   divisionId?: string;
@@ -133,7 +177,7 @@ export interface ParsedRosterGrid {
 }
 
 const norm = (value: string) =>
-  value.trim().toLowerCase().replace(/[\s_.\-/()–—]+/g, "");
+  value.trim().toLowerCase().replace(/[\s_.·\-/()–—]+/g, "");
 
 const HEADER_ALIASES: Record<Exclude<RosterColumnKey, "ignore">, string[]> = {
   number: ["participantnumber", "number", "participantno", "no", "num", "id", "#"],
@@ -173,6 +217,10 @@ function rowHasContent(row: Row): boolean {
   return Object.values(row).some((value) => String(value ?? "").trim());
 }
 
+function rowHasParticipantName(row: Row): boolean {
+  return Boolean(pickColumn(row, "name"));
+}
+
 function rowId(index: number): string {
   return `roster-row-${Date.now().toString(36)}-${index.toString(36)}-${Math.random().toString(36).slice(2, 7)}`;
 }
@@ -193,18 +241,34 @@ function matchDivision(
 ): string {
   const requestedDivision = norm(divisionValue);
   if (requestedDivision) {
-    const matches = divisions.filter((division) =>
-      [division.id, division.name, divisionLabel(division)].some(
+    const matches = divisions.filter((division) => {
+      const category = normalizeParticipantCategory(division.category);
+      const legacyCategoryAliases = category === "memorisation"
+        ? ["Nubalaa", "Hifz"]
+        : category === "mushaf-reading"
+          ? ["Balaigen", "Baliagen", "Tarteel", "Reading"]
+          : [];
+      return [
+        division.id,
+        division.name,
+        divisionLabel(division),
+        ...legacyCategoryAliases.map((label) => `${division.ageGroup} · ${label}`),
+      ].some(
         (candidate) => norm(candidate) === requestedDivision,
-      ),
-    );
+      );
+    });
     return matches.length === 1 ? matches[0].id : "";
   }
   const category = normalizeParticipantCategory(categoryValue);
   if (!ageGroup || !category) return "";
   const requestedKey = divisionKey(ageGroup, category);
   const matches = divisions.filter(
-    (division) => divisionKey(division.ageGroup, division.category) === requestedKey,
+    (division) => {
+      const normalizedCategory = normalizeParticipantCategory(division.category);
+      return normalizedCategory
+        ? divisionKey(division.ageGroup, normalizedCategory) === requestedKey
+        : false;
+    },
   );
   return matches.length === 1 ? matches[0].id : "";
 }
@@ -267,7 +331,7 @@ export function createBlankRosterDraftRow(
     number: "",
     name: "",
     divisionId: defaults.divisionId ?? "",
-    muqarrar: defaults.muqarrar ?? "",
+    muqarrar: normalizeMuqarrarSide(defaults.muqarrar) ?? defaults.muqarrar ?? "",
     phone: "",
     institution: defaults.institution?.trim() ?? "",
   };
@@ -313,6 +377,7 @@ export function fillEmptyRosterFields(
   defaults: RosterEntryDefaults,
   scopeDivisionId?: string,
 ): RosterDraft {
+  const defaultMuqarrar = normalizeMuqarrarSide(defaults.muqarrar) ?? "";
   return {
     ...draft,
     rows: draft.rows.map((row) => {
@@ -320,7 +385,7 @@ export function fillEmptyRosterFields(
       return {
         ...row,
         divisionId: row.divisionId || defaults.divisionId || "",
-        muqarrar: row.muqarrar || defaults.muqarrar || "",
+        muqarrar: normalizeMuqarrarSide(row.muqarrar) || defaultMuqarrar,
         institution: row.institution || defaults.institution?.trim() || "",
       };
     }),
@@ -529,10 +594,10 @@ export function parseRosterRows(rows: Row[]): RosterImportPreview {
     if (!ageGroup) rowErrors.push("Age Group is required");
     const category = normalizeParticipantCategory(categoryRaw);
     if (!categoryRaw) rowErrors.push("Category is required");
-    else if (!category) rowErrors.push("Category must be Baliagen or Hifz");
+    else if (!category) rowErrors.push("Category must be Balaigen or Nubalaa");
     const muqarrar = normalizeMuqarrarSide(muqarrarRaw);
     if (!muqarrarRaw) rowErrors.push("Muqarrar start is required");
-    else if (!muqarrar) rowErrors.push("Muqarrar start must be Feshey kolhu or Nimey kolhu");
+    else if (!muqarrar) rowErrors.push("Muqarrar start must be Fesheykolhu or Nimeykolhu");
     const numberKey = number.toLocaleLowerCase();
     if (number && seenNumbers.has(numberKey)) rowErrors.push(`Participant Number ${number} is duplicated`);
     if (rowErrors.length) {
@@ -661,6 +726,7 @@ export async function parseRosterFileToDraft(
     ? utils.sheet_to_json<Row>(metadataSheet, { defval: "", raw: false, blankrows: false })
     : [];
   const metadata = metadataForWorkbook(workbook, metadataRows);
+  const templateVersion = Number(metadata.TahqeeqTemplateVersion ?? 0);
   const sourceWarnings: string[] = [];
   const fingerprint = String(
     metadata.TahqeeqCategoryFingerprint ?? metadata.TahqeeqDivisionFingerprint ?? "",
@@ -674,7 +740,10 @@ export async function parseRosterFileToDraft(
       ? metadataMode
       : competition.participantNumbering;
   return createRosterDraftFromRows({
-    rows,
+    // V6 templates reserve visibly grouped category rows in advance. Only a
+    // row with a participant name is an entered participant; the prefilled
+    // category cells are layout scaffolding, not roster data.
+    rows: templateVersion >= 6 ? rows.filter(rowHasParticipantName) : rows,
     competitionId: competition.id,
     divisions: competition.divisions,
     numberingMode,
@@ -699,7 +768,13 @@ export async function parseRosterFile(file: File): Promise<RosterImportPreview> 
 function resolvedTemplateOptions(
   options?: Partial<ParticipantTemplateOptions>,
 ): ParticipantTemplateOptions {
-  return { ...DEFAULT_PARTICIPANT_TEMPLATE_OPTIONS, ...options };
+  return {
+    includeInstitution: options?.includeInstitution === true,
+    includePhone: options?.includePhone === true,
+    ...(Array.isArray(options?.selectedDivisionIds)
+      ? { selectedDivisionIds: [...new Set(options.selectedDivisionIds.map(String))] }
+      : {}),
+  };
 }
 
 function templateHeaders(
@@ -712,17 +787,24 @@ function templateHeaders(
     "Name",
     "Category",
     "Muqarrar start",
-    ...(resolved.includeInstitution ? ["Institution"] : []),
     ...(resolved.includePhone ? ["Phone Number"] : []),
+    ...(resolved.includeInstitution ? ["Institution"] : []),
   ];
 }
 
-function templateContextFromCompetition(competition: CompetitionConfig): RosterTemplateContext {
+function templateContextFromCompetition(
+  competition: CompetitionConfig,
+  options?: Partial<ParticipantTemplateOptions>,
+): RosterTemplateContext {
+  const selected = resolvedTemplateOptions(options).selectedDivisionIds;
+  const divisions = selected
+    ? competition.divisions.filter((division) => selected.includes(division.id))
+    : competition.divisions;
   return {
     competitionId: competition.id,
     competitionName: competition.name,
     edition: competition.edition,
-    divisions: competition.divisions,
+    divisions,
     numberingMode: competition.participantNumbering,
     institutions: competition.participantEntrySettings.institutions,
   };
@@ -758,8 +840,8 @@ async function buildParticipantWorkbook(
         entry.number,
         entry.name,
         entry.ageGroup,
-        entry.category === "nubalaa" ? "Hifz" : "Baliagen",
-        entry.muqarrar === "nimey-kolhu" ? "Nimey kolhu" : "Feshey kolhu",
+        participantCategoryLabel(entry.category),
+        muqarrarLabel(entry.muqarrar),
         entry.phone,
         entry.institution,
       ])
@@ -785,20 +867,72 @@ async function buildParticipantWorkbook(
     },
   });
   participants.pageSetup.printTitlesRow = "1:1";
-  participants.addRow(headers);
-  body.forEach((row) => participants.addRow(row));
-  const preparedRowCount = sample ? body.length : 100;
-  if (!sample) {
-    for (let row = 2; row <= preparedRowCount + 1; row += 1) participants.getRow(row);
+  const preparedDivisions = sample
+    ? []
+    : context.divisions.flatMap((division) => Array.from({ length: 4 }, () => division));
+  const preparedBody = sample
+    ? body
+    : (preparedDivisions.length ? preparedDivisions : [undefined, undefined, undefined, undefined])
+        .map((division) => headers.map((header) =>
+          header === "Category" && division ? divisionLabel(division) : null));
+  participants.addTable({
+    name: sample ? "TahqeeqPracticeParticipants" : "TahqeeqParticipants",
+    ref: "A1",
+    headerRow: true,
+    totalsRow: false,
+    style: {
+      theme: "TableStyleLight1",
+      showFirstColumn: false,
+      showLastColumn: false,
+      showRowStripes: false,
+      showColumnStripes: false,
+    },
+    columns: headers.map((name) => ({ name })),
+    rows: preparedBody,
+  });
+  const preparedRows: Array<{
+    row: number;
+    division?: CompetitionDivision;
+    divisionIndex: number;
+    startsBlock: boolean;
+    endsBlock: boolean;
+  }> = [];
+  if (sample) {
+    body.forEach((_, index) => preparedRows.push({
+      row: index + 2,
+      divisionIndex: -1,
+      startsBlock: false,
+      endsBlock: false,
+    }));
+  } else if (preparedDivisions.length) {
+    preparedDivisions.forEach((division, index) => {
+      const previousDivision = index > 0 ? preparedDivisions[index - 1] : undefined;
+      const nextDivision = preparedDivisions[index + 1];
+      const startsBlock = division !== previousDivision;
+      const endsBlock = division !== nextDivision;
+      const divisionIndex = context.divisions.indexOf(division);
+      preparedRows.push({
+        row: index + 2,
+        division,
+        divisionIndex,
+        startsBlock,
+        endsBlock,
+      });
+    });
+  } else {
+    for (let index = 0; index < preparedBody.length; index += 1) {
+      preparedRows.push({
+        row: index + 2,
+        divisionIndex: -1,
+        startsBlock: false,
+        endsBlock: false,
+      });
+    }
   }
-  participants.autoFilter = {
-    from: { row: 1, column: 1 },
-    to: { row: 1, column: headers.length },
-  };
   participants.columns.forEach((column, index) => {
     const header = headers[index];
     column.width = header === "Participant Number"
-      ? 17
+      ? 22
       : header === "Name" || header === "Institution"
       ? header === "Name" ? 30 : 28
       : header === "Category"
@@ -809,31 +943,17 @@ async function buildParticipantWorkbook(
   });
   const headerRow = participants.getRow(1);
   headerRow.height = 30;
-  headerRow.eachCell((cell, columnNumber) => {
-    const header = headers[columnNumber - 1];
-    const fill = header === "Name"
-      ? "FFEAF2F6"
-      : header === "Category" || header === "Muqarrar start"
-        ? "FFEAF3EF"
-        : header === "Institution" || header === "Phone Number"
-          ? "FFF6F1E8"
-          : "FFF2F1ED";
-    cell.font = { name: "Aptos", size: 11, bold: true, color: { argb: "FF242421" } };
-    cell.fill = { type: "pattern", pattern: "solid", fgColor: { argb: fill } };
+  headerRow.eachCell((cell) => {
+    cell.font = { name: "Aptos", size: 11, bold: true, color: { argb: "FF1D2327" } };
+    cell.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FFC87838" } };
     cell.alignment = { vertical: "middle", horizontal: "left" };
     cell.border = {
-      top: { style: "thin", color: { argb: "FFAAA8A1" } },
-      left: { style: "thin", color: { argb: "FFAAA8A1" } },
-      bottom: { style: "medium", color: { argb: "FF9EA7A8" } },
-      right: { style: "thin", color: { argb: "FFAAA8A1" } },
+      top: { style: "medium", color: { argb: "FF59636A" } },
+      left: { style: "thin", color: { argb: "FF59636A" } },
+      bottom: { style: "medium", color: { argb: "FF59636A" } },
+      right: { style: "thin", color: { argb: "FF59636A" } },
     };
   });
-  headers.forEach((header, index) => {
-    participants.getCell(1, index + 1).note = ["Name", "Category", "Muqarrar start", "Participant Number"].includes(header)
-      ? "Required field"
-      : "Optional field";
-  });
-
   const choices = sample ? null : workbook.addWorksheet("Choices", {
     state: "hidden",
     views: [{ showGridLines: false }],
@@ -845,7 +965,7 @@ async function buildParticipantWorkbook(
     for (let index = 0; index < choiceRows; index += 1) {
       choices.addRow([
         context.divisions[index] ? divisionLabel(context.divisions[index]) : "",
-        ["Feshey kolhu", "Nimey kolhu"][index] ?? "",
+        ["Fesheykolhu", "Nimeykolhu"][index] ?? "",
         context.institutions[index] ?? "",
       ]);
     }
@@ -864,63 +984,104 @@ async function buildParticipantWorkbook(
   const institutionColumn = headers.indexOf("Institution") + 1;
   const numberColumn = headers.indexOf("Participant Number") + 1;
   const phoneColumn = headers.indexOf("Phone Number") + 1;
-  for (let row = 2; row <= preparedRowCount + 1; row += 1) {
+  const blockPalette = [
+    { first: "FFCEDCE6", even: "FFDDE7EE", odd: "FFE8EFF3", edge: "FF758A96" },
+    { first: "FFD4DFC7", even: "FFE2E9D8", odd: "FFECF0E7", edge: "FF7E8D71" },
+    { first: "FFE5D8BE", even: "FFF0E5CF", odd: "FFF6EEDF", edge: "FF9D8866" },
+    { first: "FFDBD1DE", even: "FFE8E1EA", odd: "FFF0EBF1", edge: "FF8B788F" },
+    { first: "FFCEE0DE", even: "FFDCEAE9", odd: "FFE8F1F0", edge: "FF748D8A" },
+  ];
+  for (const preparedRow of preparedRows) {
+    const { row, division, divisionIndex, startsBlock, endsBlock } = preparedRow;
+    const palette = blockPalette[Math.max(0, divisionIndex) % blockPalette.length];
     const worksheetRow = participants.getRow(row);
     worksheetRow.height = 24;
+    const rowFill = division
+      ? startsBlock
+        ? palette.first
+        : (row - 2) % 2 === 0
+          ? palette.even
+          : palette.odd
+      : (row - 2) % 2 === 0
+        ? "FFF7F7F5"
+        : "FFFFFFFF";
     for (let column = 1; column <= headers.length; column += 1) {
       const cell = participants.getCell(row, column);
-      cell.font = { name: "Aptos", size: 11, color: { argb: "FF242421" } };
+      cell.font = { name: "Aptos", size: 11, color: { argb: "FF1D2327" } };
       cell.alignment = { vertical: "middle" };
       cell.fill = {
         type: "pattern",
         pattern: "solid",
-        fgColor: { argb: "FFFFFFFF" },
+        fgColor: { argb: rowFill },
       };
       cell.border = {
-        top: { style: "thin", color: { argb: "FFD4D2CC" } },
-        left: { style: "thin", color: { argb: "FFD4D2CC" } },
-        bottom: { style: "thin", color: { argb: "FFD4D2CC" } },
-        right: { style: "thin", color: { argb: "FFD4D2CC" } },
+        top: { style: startsBlock ? "medium" : "thin", color: { argb: startsBlock ? palette.edge : "FF90989D" } },
+        left: { style: "thin", color: { argb: "FF90989D" } },
+        bottom: { style: endsBlock ? "medium" : "thin", color: { argb: endsBlock ? palette.edge : "FF90989D" } },
+        right: { style: "thin", color: { argb: "FF90989D" } },
       };
+    }
+    if (division && !sample) {
+      const categoryCell = participants.getCell(row, categoryColumn);
+      categoryCell.value = divisionLabel(division);
+      categoryCell.font = { name: "Aptos", size: 10.5, bold: startsBlock, color: { argb: "FF1D2327" } };
+      categoryCell.alignment = { vertical: "middle", horizontal: "left" };
     }
     if (numberColumn > 0) participants.getCell(row, numberColumn).numFmt = "@";
     if (phoneColumn > 0) participants.getCell(row, phoneColumn).numFmt = "@";
-    if (!sample && choices) {
-      participants.getCell(row, categoryColumn).dataValidation = {
+  }
+
+  if (!sample && choices && preparedRows.length) {
+    const firstPreparedRow = preparedRows[0].row;
+    const lastPreparedRow = preparedRows[preparedRows.length - 1]?.row ?? firstPreparedRow;
+    const categoryRange = `${participants.getColumn(categoryColumn).letter}${firstPreparedRow}:${participants.getColumn(categoryColumn).letter}${lastPreparedRow}`;
+    const muqarrarRange = `${participants.getColumn(muqarrarColumn).letter}${firstPreparedRow}:${participants.getColumn(muqarrarColumn).letter}${lastPreparedRow}`;
+    const validationRanges = participants as typeof participants & {
+      dataValidations: { add: (range: string, validation: DataValidation) => void };
+    };
+
+    // Add one validation rule per contiguous column range. Assigning the same
+    // rule cell-by-cell makes ExcelJS emit overlapping ranges once row numbers
+    // reach two digits (for example C10:C17 and C2:C17), which desktop Excel
+    // correctly treats as damaged workbook content.
+    validationRanges.dataValidations.add(categoryRange, {
+      type: "list",
+      allowBlank: false,
+      formulae: [`'Choices'!$A$2:$A$${Math.max(2, context.divisions.length + 1)}`],
+      showInputMessage: true,
+      promptTitle: "Category",
+      prompt: "Choose one of this competition's categories.",
+      showErrorMessage: true,
+      errorStyle: "stop",
+      errorTitle: "Choose a listed category",
+      error: "Use a Category from the Choices sheet.",
+    });
+    validationRanges.dataValidations.add(muqarrarRange, {
+      type: "list",
+      // Starter rows are intentionally incomplete until an organizer enters a
+      // participant. Tahqeeq still requires this value on import, while Excel
+      // should not flag every untouched starter row as an error.
+      allowBlank: true,
+      formulae: ["'Choices'!$B$2:$B$3"],
+      showInputMessage: true,
+      promptTitle: "Muqarrar start",
+      prompt: "Choose Fesheykolhu or Nimeykolhu.",
+      showErrorMessage: true,
+      errorStyle: "stop",
+      errorTitle: "Choose a valid start",
+      error: "Use Fesheykolhu or Nimeykolhu.",
+    });
+    if (institutionColumn > 0 && context.institutions.length) {
+      const institutionRange = `${participants.getColumn(institutionColumn).letter}${firstPreparedRow}:${participants.getColumn(institutionColumn).letter}${lastPreparedRow}`;
+      validationRanges.dataValidations.add(institutionRange, {
         type: "list",
-        allowBlank: false,
-        formulae: [`'Choices'!$A$2:$A$${Math.max(2, context.divisions.length + 1)}`],
+        allowBlank: true,
+        formulae: [`'Choices'!$C$2:$C$${context.institutions.length + 1}`],
         showInputMessage: true,
-        promptTitle: "Category",
-        prompt: "Choose one of this competition's categories.",
-        showErrorMessage: true,
-        errorStyle: "stop",
-        errorTitle: "Choose a listed category",
-        error: "Use a Category from the Choices sheet.",
-      };
-      participants.getCell(row, muqarrarColumn).dataValidation = {
-        type: "list",
-        allowBlank: false,
-        formulae: ["'Choices'!$B$2:$B$3"],
-        showInputMessage: true,
-        promptTitle: "Muqarrar start",
-        prompt: "Choose Feshey kolhu or Nimey kolhu.",
-        showErrorMessage: true,
-        errorStyle: "stop",
-        errorTitle: "Choose a valid start",
-        error: "Use Feshey kolhu or Nimey kolhu.",
-      };
-      if (institutionColumn > 0 && context.institutions.length) {
-        participants.getCell(row, institutionColumn).dataValidation = {
-          type: "list",
-          allowBlank: true,
-          formulae: [`'Choices'!$C$2:$C$${context.institutions.length + 1}`],
-          showInputMessage: true,
-          promptTitle: "Institution",
-          prompt: "Choose a saved institution or type another value.",
-          showErrorMessage: false,
-        };
-      }
+        promptTitle: "Institution",
+        prompt: "Choose a saved institution or type another value.",
+        showErrorMessage: false,
+      });
     }
   }
 
@@ -936,8 +1097,8 @@ async function buildParticipantWorkbook(
     },
   });
   const optionalFields = [
-    resolvedOptions.includeInstitution ? "Institution" : "",
     resolvedOptions.includePhone ? "Phone Number" : "",
+    resolvedOptions.includeInstitution ? "Institution" : "",
   ].filter(Boolean);
   const instructionRows = [
     [title],
@@ -947,7 +1108,7 @@ async function buildParticipantWorkbook(
     ["Numbering", context.numberingMode === "automatic" ? "Automatic in Tahqeeq" : "Supplied in this sheet"],
     [],
     ["How to use"],
-    ["1", "Enter one participant per prepared row in Participants."],
+    ["1", "Enter one participant per starter row in Participants. Press Tab from the last cell to extend the table."],
     ["2", sample
       ? "This practice file contains fictional participants."
       : `Use the Category and Muqarrar start dropdowns.${resolvedOptions.includeInstitution ? " Institution is optional and may also be typed." : ""}`],
@@ -992,6 +1153,9 @@ async function buildParticipantWorkbook(
     ["TahqeeqDivisionFingerprint", rosterTemplateFingerprint(context.divisions)],
     ["TahqeeqNumberingMode", context.numberingMode],
     ["TahqeeqTemplateColumns", headers.join("|")],
+    ["TahqeeqPreparedCategoryRows", preparedDivisions.length ? "true" : "false"],
+    ["TahqeeqSelectedCategoryIds", context.divisions.map((division) => division.id).join("|")],
+    ["TahqeeqDisciplineSchema", "neutral-v1"],
   ]);
 
   const output = await workbook.xlsx.writeBuffer();
@@ -1002,7 +1166,9 @@ export async function buildParticipantTemplate(
   competition?: CompetitionConfig,
   options?: Partial<ParticipantTemplateOptions>,
 ): Promise<ArrayBuffer> {
-  const context = competition ? templateContextFromCompetition(competition) : genericTemplateContext();
+  const context = competition
+    ? templateContextFromCompetition(competition, options)
+    : genericTemplateContext();
   return buildParticipantWorkbook(context, [], "Tahqeeq Participant Template", false, options);
 }
 
@@ -1052,6 +1218,7 @@ export async function verifyParticipantTemplate(
   await styledWorkbook.xlsx.load(buffer);
   const styledParticipants = styledWorkbook.getWorksheet("Participants");
   const styledChoices = styledWorkbook.getWorksheet("Choices");
+  const firstPreparedEntryRow = 2;
   const participantView = styledParticipants?.views[0];
   const participantViewMatches =
     participantView?.state === "frozen" && participantView.ySplit === 1;
@@ -1060,9 +1227,9 @@ export async function verifyParticipantTemplate(
     !styledChoices ||
     styledChoices.state !== "hidden" ||
     !participantViewMatches ||
-    !styledParticipants.autoFilter ||
-    styledParticipants.getCell(2, expected.indexOf("Category") + 1).dataValidation.type !== "list" ||
-    styledParticipants.getCell(2, expected.indexOf("Muqarrar start") + 1).dataValidation.type !== "list"
+    !styledParticipants.getTable("TahqeeqParticipants") ||
+    styledParticipants.getCell(firstPreparedEntryRow, expected.indexOf("Category") + 1).dataValidation.type !== "list" ||
+    styledParticipants.getCell(firstPreparedEntryRow, expected.indexOf("Muqarrar start") + 1).dataValidation.type !== "list"
   ) {
     throw new Error("The participant template dropdowns did not verify.");
   }

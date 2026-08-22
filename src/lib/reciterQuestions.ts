@@ -8,6 +8,7 @@ import type {
   ReciterQuestionAssignment,
 } from "../types.ts";
 import { MUSHAF_LAYOUT } from "./mushafContract.ts";
+import { normalizeMuqarrarSide } from "./participants.ts";
 
 const eligibleSide = (
   questionSide: QuestionMuqarrar,
@@ -125,13 +126,14 @@ export function manualQuestionAssignment(input: {
 export function normalizeQuestionAssignment(
   value: Partial<ReciterQuestionAssignment> | null | undefined,
 ): ReciterQuestionAssignment | null {
+  const normalizedMuqarrar = normalizeMuqarrarSide(value?.muqarrar);
   if (
     (value?.version !== 1 && value?.version !== 2) ||
     (value.kind !== "prepared-draft" && value.kind !== "manual") ||
     !value.id ||
     !value.participantId ||
     !value.divisionId ||
-    (value.muqarrar !== "feshey-kolhu" && value.muqarrar !== "nimey-kolhu") ||
+    !normalizedMuqarrar ||
     !Number.isFinite(value.selectedAt) ||
     !value.label
   ) {
@@ -175,7 +177,7 @@ export function normalizeQuestionAssignment(
     id: String(value.id),
     participantId: String(value.participantId),
     divisionId: String(value.divisionId),
-    muqarrar: value.muqarrar,
+    muqarrar: normalizedMuqarrar,
     selectedAt: Number(value.selectedAt),
     label: String(value.label),
     ...(value.sourceQuestionId

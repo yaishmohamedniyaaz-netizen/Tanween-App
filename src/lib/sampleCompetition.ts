@@ -17,43 +17,43 @@ export const SAMPLE_JUDGE_NAME = "Hassan Yoonus";
 export const SAMPLE_DIVISIONS: CompetitionDivision[] = [
   {
     id: "sample-under-14-hifz",
-    name: "Under 14 · Hifz",
+    name: "Under 14 · Nubalaa",
     ageGroup: "Under 14",
-    category: "nubalaa",
+    category: "memorisation",
     quranPortion: { kind: "juz-range", startJuz: 30, endJuz: 30 },
   },
   {
     id: "sample-under-14-baliagen",
-    name: "Under 14 · Baliagen",
+    name: "Under 14 · Balaigen",
     ageGroup: "Under 14",
-    category: "baliagen",
+    category: "mushaf-reading",
     quranPortion: { kind: "full-quran" },
   },
   {
     id: "sample-under-16-hifz",
-    name: "Under 16 · Hifz",
+    name: "Under 16 · Nubalaa",
     ageGroup: "Under 16",
-    category: "nubalaa",
+    category: "memorisation",
     quranPortion: { kind: "juz-range", startJuz: 29, endJuz: 30 },
   },
   {
     id: "sample-under-16-baliagen",
-    name: "Under 16 · Baliagen",
+    name: "Under 16 · Balaigen",
     ageGroup: "Under 16",
-    category: "baliagen",
+    category: "mushaf-reading",
     quranPortion: { kind: "full-quran" },
   },
 ];
 
 const SAMPLE_PARTICIPANTS: Omit<RosterEntry, "judged">[] = [
-  { id: "sample-participant-01", number: "01", name: "Ahmed Rasheed", ageGroup: "Under 14", category: "nubalaa", muqarrar: "feshey-kolhu", phone: "", institution: "Hiriya School" },
-  { id: "sample-participant-02", number: "02", name: "Mariyam Aisha", ageGroup: "Under 14", category: "nubalaa", muqarrar: "nimey-kolhu", phone: "", institution: "Independent" },
-  { id: "sample-participant-03", number: "03", name: "Mohamed Zayan", ageGroup: "Under 14", category: "baliagen", muqarrar: "feshey-kolhu", phone: "", institution: "Noor Quran Class" },
-  { id: "sample-participant-04", number: "04", name: "Aishath Zaina", ageGroup: "Under 14", category: "baliagen", muqarrar: "nimey-kolhu", phone: "", institution: "Aminiya School" },
-  { id: "sample-participant-05", number: "05", name: "Ibrahim Nimal", ageGroup: "Under 16", category: "nubalaa", muqarrar: "feshey-kolhu", phone: "", institution: "Noor Quran Class" },
-  { id: "sample-participant-06", number: "06", name: "Fathimath Raniya", ageGroup: "Under 16", category: "nubalaa", muqarrar: "nimey-kolhu", phone: "", institution: "Independent" },
-  { id: "sample-participant-07", number: "07", name: "Abdulla Ihsan", ageGroup: "Under 16", category: "baliagen", muqarrar: "feshey-kolhu", phone: "", institution: "Majeediyya School" },
-  { id: "sample-participant-08", number: "08", name: "Hawwa Sameeha", ageGroup: "Under 16", category: "baliagen", muqarrar: "nimey-kolhu", phone: "", institution: "Noor Quran Class" },
+  { id: "sample-participant-01", number: "01", name: "Ahmed Rasheed", ageGroup: "Under 14", category: "memorisation", muqarrar: "starting-side", phone: "", institution: "Hiriya School" },
+  { id: "sample-participant-02", number: "02", name: "Mariyam Aisha", ageGroup: "Under 14", category: "memorisation", muqarrar: "ending-side", phone: "", institution: "Independent" },
+  { id: "sample-participant-03", number: "03", name: "Mohamed Zayan", ageGroup: "Under 14", category: "mushaf-reading", muqarrar: "starting-side", phone: "", institution: "Noor Quran Class" },
+  { id: "sample-participant-04", number: "04", name: "Aishath Zaina", ageGroup: "Under 14", category: "mushaf-reading", muqarrar: "ending-side", phone: "", institution: "Aminiya School" },
+  { id: "sample-participant-05", number: "05", name: "Ibrahim Nimal", ageGroup: "Under 16", category: "memorisation", muqarrar: "starting-side", phone: "", institution: "Noor Quran Class" },
+  { id: "sample-participant-06", number: "06", name: "Fathimath Raniya", ageGroup: "Under 16", category: "memorisation", muqarrar: "ending-side", phone: "", institution: "Independent" },
+  { id: "sample-participant-07", number: "07", name: "Abdulla Ihsan", ageGroup: "Under 16", category: "mushaf-reading", muqarrar: "starting-side", phone: "", institution: "Majeediyya School" },
+  { id: "sample-participant-08", number: "08", name: "Hawwa Sameeha", ageGroup: "Under 16", category: "mushaf-reading", muqarrar: "ending-side", phone: "", institution: "Noor Quran Class" },
 ];
 
 const STRESS_GIVEN_NAMES = [
@@ -78,10 +78,10 @@ const STRESS_GIVEN_NAMES = [
 const STRESS_FAMILY_NAMES = ["Naseer", "Shareef", "Waheed", "Nazeer"] as const;
 
 const STRESS_GROUPS = [
-  { ageGroup: "Under 14", category: "nubalaa" },
-  { ageGroup: "Under 14", category: "baliagen" },
-  { ageGroup: "Under 16", category: "nubalaa" },
-  { ageGroup: "Under 16", category: "baliagen" },
+  { ageGroup: "Under 14", category: "memorisation" },
+  { ageGroup: "Under 14", category: "mushaf-reading" },
+  { ageGroup: "Under 16", category: "memorisation" },
+  { ageGroup: "Under 16", category: "mushaf-reading" },
 ] as const;
 
 const STRESS_INSTITUTIONS = [
@@ -105,8 +105,8 @@ const STRESS_PARTICIPANTS: Omit<RosterEntry, "judged">[] =
       ageGroup: group.ageGroup,
       category: group.category,
       muqarrar: Math.floor(index / STRESS_GROUPS.length) % 2 === 0
-        ? "feshey-kolhu"
-        : "nimey-kolhu",
+        ? "starting-side"
+        : "ending-side",
       phone: "",
       institution: STRESS_INSTITUTIONS[index % STRESS_INSTITUTIONS.length],
     };

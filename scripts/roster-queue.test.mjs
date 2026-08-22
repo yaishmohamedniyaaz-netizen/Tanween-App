@@ -152,11 +152,11 @@ test("participant context does not repeat a category already in the division nam
       ...divisions[1],
       name: "Under 14 Hifz",
     }),
-    "Hiriya School · Under 14 Hifz · Starting side",
+    "Hiriya School · Under 14 · Nubalaa · Fesheykolhu",
   );
   assert.equal(
     participantContextLabel(hifz, divisions[1]),
-    "Hiriya School · Under 14 — Hifz · Starting side",
+    "Hiriya School · Under 14 · Nubalaa · Fesheykolhu",
   );
 });
 

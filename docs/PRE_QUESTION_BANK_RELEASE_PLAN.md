@@ -52,7 +52,7 @@ workbook from the active competition and numbering mode:
 | Participant Number | included and required only in supplied numbering mode | number used by judges and organizers |
 | Name | required | participant name |
 | Category | required | one active competition category, which already carries age group and recitation type |
-| Muqarrar start | required | `Feshey kolhu` for starting side or `Nimey kolhu` for ending side |
+| Muqarrar start | required | `Fesheykolhu` for starting side or `Nimeykolhu` for ending side |
 | Institution | optional; included by default | class, school, organisation, or independent entry |
 | Phone Number | optional; off by default | organizer contact number |
 
@@ -184,7 +184,7 @@ evidence in place.
 
 - all 604 QPC V1 1405H pages retain their source/layout invariants;
 - one-target and multi-target selector geometry remains stable;
-- participant template round-trips with its selected V5 headers and preserved required dropdowns;
+- participant template round-trips with its selected V7 headers and Categories, native table, starter rows, neutral IDs, and preserved required dropdowns;
 - invalid participant rows cannot silently enter the roster;
 - judge-result conflicts require a choice;
 - final totals reconstruct from selected judge sections;

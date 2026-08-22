@@ -1,6 +1,10 @@
 export type CategoryId = "jali" | "khafi" | "fasaha" | "adu-raagu";
-export type ParticipantCategory = "" | "baliagen" | "nubalaa";
-export type MuqarrarSide = "" | "feshey-kolhu" | "nimey-kolhu";
+/** Locale-neutral discipline IDs. Legacy Dhivehi/English spellings are
+ * accepted only at normalization and import boundaries. */
+export type ParticipantCategory = "" | "memorisation" | "mushaf-reading";
+/** Locale-neutral start-side IDs. Display wording belongs to the terminology
+ * registry rather than persisted competition data. */
+export type MuqarrarSide = "" | "starting-side" | "ending-side";
 export type QuestionMuqarrar = Exclude<MuqarrarSide, ""> | "both";
 export type CompetitionStatus = "draft" | "live" | "closed";
 

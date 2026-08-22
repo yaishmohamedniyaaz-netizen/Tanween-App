@@ -138,7 +138,7 @@ test("participant entry settings normalize duplicate institutions without invent
   });
   assert.deepEqual(competition.participantEntrySettings, {
     institutions: ["School A", "Quran Class"],
-    defaultMuqarrar: "feshey-kolhu",
+    defaultMuqarrar: "starting-side",
     defaultInstitution: "School A",
   });
 });
@@ -229,11 +229,11 @@ test("the built-in sample is complete, clearly marked, and ready to test", () =>
     );
     assert.equal(divisionRoster.length, 18);
     assert.equal(
-      divisionRoster.filter((entry) => entry.muqarrar === "feshey-kolhu").length,
+      divisionRoster.filter((entry) => entry.muqarrar === "starting-side").length,
       9,
     );
     assert.equal(
-      divisionRoster.filter((entry) => entry.muqarrar === "nimey-kolhu").length,
+      divisionRoster.filter((entry) => entry.muqarrar === "ending-side").length,
       9,
     );
   }

@@ -103,10 +103,11 @@ in [`PRODUCT_FOUNDATION.md`](./PRODUCT_FOUNDATION.md), and unresolved choices
 are kept in [`UNDECIDED_DECISIONS.md`](./UNDECIDED_DECISIONS.md).
 
 - The product remains a judging and competition-administration system.
-- Participant categories are shown as **Baliagen** for reading/Tarteel and
-  **Hifz** for memorization. The older public label "Nubalaa" is retired;
-  the existing storage key and legacy spreadsheet spelling remain readable so
-  saved competitions are not broken by the label change.
+- Participant disciplines are shown as **Balaigen** for reading/Tarteel and
+  **Nubalaa** for memorisation in the Maldivian Romanized terminology profile.
+  Persisted data uses the locale-neutral IDs `mushaf-reading` and
+  `memorisation`; legacy Hifz, Tarteel, Baliagen, and older storage values
+  remain readable so saved competitions and spreadsheets are not broken.
 - Every official question starts at the beginning of an ayah. The organizer
   works with surah/ayah references; exact word IDs are internal safeguards.
 - A target such as seven lines continues to the first complete ayah ending on

@@ -187,7 +187,7 @@ test("the sample competition includes normal, cross-page, and extended draft fix
   for (const division of competition.divisions) {
     const divisionDrafts = drafts.filter((draft) => draft.divisionId === division.id);
     assert.equal(divisionDrafts.length, 40);
-    for (const side of ["feshey-kolhu", "nimey-kolhu"]) {
+    for (const side of ["starting-side", "ending-side"]) {
       const sideDrafts = divisionDrafts.filter((draft) => draft.muqarrar === side);
       assert.equal(sideDrafts.length, 20);
       assert.equal(

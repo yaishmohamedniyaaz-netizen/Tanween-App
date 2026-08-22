@@ -3,7 +3,7 @@ import type { CompetitionDivision, RosterEntry } from "../types";
 
 /**
  * One block of the running order. A session is worked through a group at a
- * time — a morning block might be Under 8 Baliagen — so the queue is grouped
+ * time — a morning block might be Under 8 Balaigen — so the queue is grouped
  * the way the hall actually runs rather than shown as one flat roster.
  */
 export interface RosterGroup {

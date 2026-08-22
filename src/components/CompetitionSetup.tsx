@@ -20,6 +20,11 @@ import {
   competitionReadiness,
 } from "../lib/competition";
 import {
+  muqarrarLabel,
+  participantCategoryDetailLabel,
+  participantCategoryLabel,
+} from "../lib/participants";
+import {
   MAX_JUDGE_SEATS,
   categoriesInOrder,
   categoryListLabel,
@@ -159,7 +164,7 @@ function cloneDivisions(divisions: CompetitionDivision[]): CompetitionDivision[]
 
 function generatedCategoryName(division: Pick<CompetitionDivision, "ageGroup" | "category">): string {
   const age = division.ageGroup.trim();
-  const recitation = division.category === "nubalaa" ? "Hifz" : "Baliagen";
+  const recitation = participantCategoryLabel(division.category);
   return age ? `${age} · ${recitation}` : recitation;
 }
 
@@ -310,9 +315,9 @@ export function CompetitionSetup({
     const id = `division-${Date.now().toString(36)}`;
     setDivisionDrafts((current) => [...current, {
       id,
-      name: "Hifz",
+      name: "Nubalaa",
       ageGroup: "",
-      category: "nubalaa",
+      category: "memorisation",
       quranPortion: { kind: "full-quran" },
     }]);
     setEditingDivisionId(id);
@@ -606,7 +611,7 @@ export function CompetitionSetup({
               <article className={`division-card category-summary-row ${editingDivisionId === division.id ? "is-editing" : ""} ${(divisionValidation[division.id] ?? []).length ? "has-error" : ""}`} key={division.id}>
                 <div className="division-card-head">
                   <button type="button" className="category-summary-main" aria-expanded={editingDivisionId === division.id} onClick={() => setEditingDivisionId((current) => current === division.id ? null : division.id)}>
-                    <span><strong>{division.name || generatedCategoryName(division)}</strong><small>{division.ageGroup || "Age group missing"} · {division.category === "nubalaa" ? "Hifz" : "Baliagen"} · {portionLabel(division.quranPortion)}</small></span>
+                    <span><strong>{division.name || generatedCategoryName(division)}</strong><small>{division.ageGroup || "Age group missing"} · {participantCategoryLabel(division.category)} · {portionLabel(division.quranPortion)}</small></span>
                     <span className="category-row-state">{(divisionValidation[division.id] ?? []).length ? "Needs attention" : editingDivisionId === division.id ? "Editing" : "Edit"}</span>
                   </button>
                   {editable && (
@@ -627,9 +632,9 @@ export function CompetitionSetup({
                   </label>
                   <label>
                     <span>Recitation type</span>
-                    <select value={division.category} disabled={!editable} onChange={(event) => patchDivision(division.id, { category: event.target.value as "baliagen" | "nubalaa" })}>
-                      <option value="nubalaa">Hifz</option>
-                      <option value="baliagen">Baliagen · Tarteel / reading</option>
+                    <select value={division.category} disabled={!editable} onChange={(event) => patchDivision(division.id, { category: event.target.value as "memorisation" | "mushaf-reading" })}>
+                      <option value="memorisation">{participantCategoryDetailLabel("memorisation")}</option>
+                      <option value="mushaf-reading">{participantCategoryDetailLabel("mushaf-reading")}</option>
                     </select>
                   </label>
                   <label>
@@ -712,7 +717,7 @@ export function CompetitionSetup({
           </div>
           {editable && (
             <details className="participant-entry-settings participant-entry-disclosure">
-              <summary><span><strong>Entry defaults</strong><small>{participantSettingsDraft.defaultMuqarrar ? `${participantSettingsDraft.defaultMuqarrar === "feshey-kolhu" ? "Feshey kolhu" : "Nimey kolhu"}${participantSettingsDraft.defaultInstitution ? ` · ${participantSettingsDraft.defaultInstitution}` : ""}` : participantSettingsDraft.defaultInstitution || "No defaults"}</small></span><span>Optional</span></summary>
+              <summary><span><strong>Entry defaults</strong><small>{participantSettingsDraft.defaultMuqarrar ? `${muqarrarLabel(participantSettingsDraft.defaultMuqarrar)}${participantSettingsDraft.defaultInstitution ? ` · ${participantSettingsDraft.defaultInstitution}` : ""}` : participantSettingsDraft.defaultInstitution || "No defaults"}</small></span><span>Optional</span></summary>
               <div className="participant-entry-settings-head">
                 <div>
                   <span>Entry helper</span>
@@ -724,8 +729,8 @@ export function CompetitionSetup({
                   <div role="radiogroup" aria-label="Default Muqarrar start">
                     {([
                       ["", "No default"],
-                      ["feshey-kolhu", "Feshey kolhu"],
-                      ["nimey-kolhu", "Nimey kolhu"],
+                      ["starting-side", "Fesheykolhu"],
+                      ["ending-side", "Nimeykolhu"],
                     ] as const).map(([value, label]) => (
                       <button
                         type="button"

@@ -196,8 +196,8 @@ test("final workbook preserves requested participant fields and verified fixed t
     "014",
     "Aishath Latheefa",
     "Under 14",
-    "Baliagen · Tarteel / reading",
-    "Feshey kolhu · Starting side",
+    "Balaigen",
+    "Fesheykolhu",
     "School A",
   ]);
   assert.deepEqual(rows[1].slice(7, 11), [48, 30, 20, 98]);

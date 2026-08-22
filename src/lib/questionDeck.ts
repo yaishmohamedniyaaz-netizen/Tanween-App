@@ -1,4 +1,5 @@
 import type { MuqarrarSide, QuestionDeck, QuestionDrawRecord } from "../types";
+import { normalizeMuqarrarSide } from "./participants.ts";
 
 /**
  * Bump when the shuffle or the scope key changes. A deck records the version
@@ -115,12 +116,13 @@ export function deckCycle(deck: Pick<QuestionDeck, "cycle">): number {
 export function normalizeQuestionDeck(
   value: Partial<QuestionDeck>,
 ): QuestionDeck | null {
+  const normalizedMuqarrar = normalizeMuqarrarSide(value.muqarrar);
   if (
     (value.version !== 1 && value.version !== 2) ||
     !Number.isInteger(value.generatorVersion) ||
     !value.competitionId ||
     !value.divisionId ||
-    (value.muqarrar !== "feshey-kolhu" && value.muqarrar !== "nimey-kolhu") ||
+    !normalizedMuqarrar ||
     !value.seed ||
     !value.candidateFingerprint ||
     !Number.isFinite(value.frozenAt) ||
@@ -150,7 +152,7 @@ export function normalizeQuestionDeck(
     generatorVersion: Number(value.generatorVersion),
     competitionId: String(value.competitionId),
     divisionId: String(value.divisionId),
-    muqarrar: value.muqarrar,
+    muqarrar: normalizedMuqarrar,
     seed: String(value.seed),
     cycle: deckCycle(value),
     candidateFingerprint: String(value.candidateFingerprint),

@@ -9,7 +9,9 @@ import {
   parseRosterFileToDraft,
   parseRosterRows,
   PARTICIPANT_TEMPLATE_HEADERS,
+  readParticipantTemplatePreferences,
   verifyParticipantTemplate,
+  writeParticipantTemplatePreferences,
 } from "../src/lib/roster.ts";
 import {
   normalizeParticipant,
@@ -52,14 +54,14 @@ test("the requested participant columns parse into stable typed entries", () => 
   assert.equal(preview.entries.length, 2);
   assert.equal(preview.issues.length, 0);
   assert.equal(preview.entries[0].number, "014");
-  assert.equal(preview.entries[0].category, "baliagen");
-  assert.equal(preview.entries[0].muqarrar, "feshey-kolhu");
-  assert.equal(preview.entries[1].category, "nubalaa");
-  assert.equal(participantCategoryLabel(preview.entries[1].category), "Hifz · Memorisation");
-  assert.equal(normalizeParticipantCategory("Nubalaa"), "nubalaa");
+  assert.equal(preview.entries[0].category, "mushaf-reading");
+  assert.equal(preview.entries[0].muqarrar, "starting-side");
+  assert.equal(preview.entries[1].category, "memorisation");
+  assert.equal(participantCategoryLabel(preview.entries[1].category), "Nubalaa");
+  assert.equal(normalizeParticipantCategory("Nubalaa"), "memorisation");
   assert.match(preview.entries[0].id, /^participant-/);
-  assert.equal(participantCategoryLabel(preview.entries[0].category), "Baliagen · Tarteel / reading");
-  assert.equal(muqarrarLabel(preview.entries[1].muqarrar), "Nimey kolhu · Ending side");
+  assert.equal(participantCategoryLabel(preview.entries[0].category), "Balaigen");
+  assert.equal(muqarrarLabel(preview.entries[1].muqarrar), "Nimeykolhu");
 });
 
 test("duplicates and unknown competition values cannot silently enter the roster", () => {
@@ -84,8 +86,8 @@ test("duplicates and unknown competition values cannot silently enter the roster
   assert.equal(preview.issues.filter((issue) => issue.level === "error").length, 1);
   const rejected = preview.issues.find((issue) => issue.level === "error");
   assert.ok(rejected);
-  assert.match(rejected.message, /Baliagen or Hifz/);
-  assert.match(rejected.message, /Feshey kolhu or Nimey kolhu/);
+  assert.match(rejected.message, /Balaigen or Nubalaa/);
+  assert.match(rejected.message, /Fesheykolhu or Nimeykolhu/);
   assert.match(rejected.message, /duplicated/);
 });
 
@@ -100,7 +102,27 @@ test("legacy island or class data migrates into Institution", () => {
   assert.match(participant.id, /^participant-/);
 });
 
-test("the competition workbook round-trips with V5 dropdowns, choices and supplied numbering", async () => {
+test("template contact columns default off and remember the organizer's choice", () => {
+  const values = new Map();
+  const storage = {
+    getItem: (key) => values.get(key) ?? null,
+    setItem: (key, value) => values.set(key, value),
+  };
+  assert.deepEqual(readParticipantTemplatePreferences(storage), {
+    includeInstitution: false,
+    includePhone: false,
+  });
+  writeParticipantTemplatePreferences({
+    includeInstitution: true,
+    includePhone: false,
+  }, storage);
+  assert.deepEqual(readParticipantTemplatePreferences(storage), {
+    includeInstitution: true,
+    includePhone: false,
+  });
+});
+
+test("the competition workbook round-trips with a V7 native table and supplied numbering", async () => {
   const competition = {
     version: 2,
     isSample: false,
@@ -115,7 +137,12 @@ test("the competition workbook round-trips with V5 dropdowns, choices and suppli
       defaultMuqarrar: "",
       defaultInstitution: "School A",
     },
-    divisions: [{ id: "u14-hifz", name: "Under 14", ageGroup: "Under 14", category: "nubalaa", quranPortion: { kind: "full-quran" } }],
+    divisions: [
+      { id: "u14-hifz", name: "Under 14 · Hifz", ageGroup: "Under 14", category: "nubalaa", quranPortion: { kind: "full-quran" } },
+      { id: "u14-baliagen", name: "Under 14 · Baliagen", ageGroup: "Under 14", category: "baliagen", quranPortion: { kind: "full-quran" } },
+      { id: "u16-hifz", name: "Under 16 · Hifz", ageGroup: "Under 16", category: "nubalaa", quranPortion: { kind: "full-quran" } },
+      { id: "u16-baliagen", name: "Under 16 · Baliagen", ageGroup: "Under 16", category: "baliagen", quranPortion: { kind: "full-quran" } },
+    ],
     questionPolicy: {},
     liveSnapshot: null,
   };
@@ -125,7 +152,7 @@ test("the competition workbook round-trips with V5 dropdowns, choices and suppli
   assert.deepEqual(workbook.SheetNames, ["Participants", "Choices", "Instructions", "_Tahqeeq"]);
   const metadataRows = utils.sheet_to_json(workbook.Sheets._Tahqeeq, { defval: "", raw: false });
   const metadata = Object.fromEntries(metadataRows.map((row) => [row.Key, row.Value]));
-  assert.equal(Number(metadata.TahqeeqTemplateVersion), 5);
+  assert.equal(Number(metadata.TahqeeqTemplateVersion), 7);
   assert.equal(metadata.TahqeeqCompetitionId, "competition-test");
   assert.equal(metadata.TahqeeqNumberingMode, "supplied");
   assert.ok(String(metadata.TahqeeqCategoryFingerprint).length > 0);
@@ -136,39 +163,42 @@ test("the competition workbook round-trips with V5 dropdowns, choices and suppli
     raw: false,
     blankrows: false,
   });
-  assert.deepEqual(rows[0], ["Participant Number", "Name", "Category", "Muqarrar start", "Institution"]);
-  assert.equal(rows.length, 1);
+  assert.deepEqual(rows[0], ["Participant Number", "Name", "Category", "Muqarrar start"]);
+  assert.equal(rows.length, 17);
+  assert.equal(rows[1][2], "Under 14 · Nubalaa");
+  assert.equal(rows[5][2], "Under 14 · Balaigen");
+  assert.equal(rows[9][2], "Under 16 · Nubalaa");
+  assert.equal(rows[13][2], "Under 16 · Balaigen");
   const choices = utils.sheet_to_json(workbook.Sheets.Choices, {
     header: 1,
     defval: "",
     raw: false,
   });
   assert.deepEqual(choices[0], ["Category", "Muqarrar start", "Institution"]);
-  assert.equal(choices[1][0], "Under 14 — Hifz");
+  assert.equal(choices[1][0], "Under 14 · Nubalaa");
   assert.equal(choices[1][2], "School A");
   const styled = new ExcelJS.Workbook();
   await styled.xlsx.load(Buffer.from(buffer));
   const participantSheet = styled.getWorksheet("Participants");
   assert.ok(participantSheet);
-  assert.equal(participantSheet.rowCount, 101);
+  assert.equal(participantSheet.rowCount, 17);
   assert.equal(participantSheet.getCell("C2").dataValidation.type, "list");
   assert.equal(participantSheet.getCell("D2").dataValidation.type, "list");
-  assert.equal(participantSheet.getCell("E2").dataValidation.type, "list");
   assert.equal(participantSheet.getCell("A2").numFmt, "@");
   assert.equal(participantSheet.views[0].ySplit, 1);
   assert.equal(participantSheet.views[0].showGridLines, true);
   assert.equal(participantSheet.pageSetup.orientation, "landscape");
   assert.equal(participantSheet.pageSetup.fitToWidth, 1);
-  assert.equal(participantSheet.getColumn(1).width, 17);
+  assert.equal(participantSheet.getColumn(1).width, 22);
   assert.equal(participantSheet.getColumn(2).width, 30);
   assert.equal(participantSheet.getColumn(4).width, 19);
-  assert.equal(participantSheet.getCell("A1").font.color.argb, "FF242421");
-  assert.notEqual(participantSheet.getCell("A1").fill.fgColor.argb, "FF242421");
-  assert.equal(participantSheet.getCell("A2").border.left.style, "thin");
-  assert.equal(participantSheet.getCell("A2").border.right.style, "thin");
-  assert.equal(participantSheet.getCell("A2").border.bottom.style, "thin");
-  assert.equal(participantSheet.getCell("E101").border.bottom.style, "thin");
-  assert.ok(participantSheet.autoFilter);
+  assert.equal(participantSheet.getCell("A1").font.color.argb, "FF1D2327");
+  assert.equal(participantSheet.getCell("A1").fill.fgColor.argb, "FFC87838");
+  assert.equal(participantSheet.getCell("A2").border.top.style, "medium");
+  assert.equal(participantSheet.getCell("D5").border.bottom.style, "medium");
+  assert.equal(participantSheet.getCell("A6").border.top.style, "medium");
+  assert.notEqual(participantSheet.getCell("A2").fill.fgColor.argb, participantSheet.getCell("A3").fill.fgColor.argb);
+  assert.ok(participantSheet.getTable("TahqeeqParticipants"));
   assert.equal(styled.getWorksheet("Choices").state, "hidden");
   assert.equal(styled.getWorksheet("_Tahqeeq").state, "veryHidden");
   assert.doesNotMatch(rows[0].join("|"), /Date/);
@@ -182,12 +212,72 @@ test("the competition workbook round-trips with V5 dropdowns, choices and suppli
   assert.ok(readMeCells.some((value) => value.includes("review before applying")));
 });
 
-test("a completed V5 prepared row imports without the remaining blank rows", async () => {
+test("unused V7 starter rows do not become participant drafts", async () => {
+  const competition = {
+    version: 2,
+    isSample: false,
+    id: "competition-v6-prepared-rows",
+    name: "Prepared Rows Competition",
+    edition: "2026",
+    status: "draft",
+    setupRevision: 1,
+    participantNumbering: "supplied",
+    participantEntrySettings: { institutions: [], defaultMuqarrar: "", defaultInstitution: "" },
+    divisions: [
+      { id: "u14-hifz", name: "Under 14 · Hifz", ageGroup: "Under 14", category: "nubalaa", quranPortion: { kind: "full-quran" } },
+      { id: "u16-hifz", name: "Under 16 · Hifz", ageGroup: "Under 16", category: "nubalaa", quranPortion: { kind: "full-quran" } },
+    ],
+    questionPolicy: {},
+    liveSnapshot: null,
+  };
+  const buffer = await buildParticipantTemplate(competition);
+  const draft = await parseRosterFileToDraft(
+    new File([buffer], "prepared-category-rows.xlsx"),
+    competition,
+  );
+  assert.equal(draft.rows.length, 0);
+});
+
+test("V7 generates four starter rows only for selected Categories", async () => {
+  const competition = {
+    version: 2,
+    isSample: false,
+    id: "competition-selected-categories",
+    name: "Selected Categories Competition",
+    edition: "2026",
+    status: "draft",
+    setupRevision: 1,
+    participantNumbering: "automatic",
+    participantEntrySettings: { institutions: [], defaultMuqarrar: "", defaultInstitution: "" },
+    divisions: [
+      { id: "junior-memory", name: "Junior", ageGroup: "Junior", category: "memorisation", quranPortion: { kind: "full-quran" } },
+      { id: "open-reading", name: "Open", ageGroup: "Open", category: "mushaf-reading", quranPortion: { kind: "full-quran" } },
+    ],
+    questionPolicy: {},
+    liveSnapshot: null,
+  };
+  const options = { selectedDivisionIds: ["open-reading"] };
+  const buffer = await buildParticipantTemplate(competition, options);
+  await verifyParticipantTemplate(buffer, competition, options);
+  const workbook = read(buffer, { type: "array" });
+  const rows = utils.sheet_to_json(workbook.Sheets.Participants, {
+    header: 1,
+    defval: "",
+    raw: false,
+  });
+  assert.equal(rows.length, 5);
+  assert.ok(rows.slice(1).every((row) => row[1] === "Open · Balaigen"));
+  const metadataRows = utils.sheet_to_json(workbook.Sheets._Tahqeeq, { defval: "", raw: false });
+  const metadata = Object.fromEntries(metadataRows.map((row) => [row.Key, row.Value]));
+  assert.equal(metadata.TahqeeqSelectedCategoryIds, "open-reading");
+});
+
+test("a completed V7 starter row imports without the remaining starter rows", async () => {
   const competition = {
     version: 2,
     isSample: false,
     id: "competition-v5-import",
-    name: "V5 Import Competition",
+    name: "V7 Import Competition",
     edition: "2026",
     status: "draft",
     setupRevision: 1,
@@ -211,10 +301,10 @@ test("a completed V5 prepared row imports without the remaining blank rows", asy
   participants.getCell("B2").value = "Aishath Ali";
   participants.getCell("C2").value = "Under 14 — Hifz";
   participants.getCell("D2").value = "Feshey kolhu";
-  participants.getCell("E2").value = "School A";
-  participants.getCell("F2").value = "0777000";
+  participants.getCell("E2").value = "0777000";
+  participants.getCell("F2").value = "School A";
   const completed = await workbook.xlsx.writeBuffer();
-  const file = new File([completed], "participants-v5.xlsx", {
+  const file = new File([completed], "participants-v7.xlsx", {
     type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
   });
   const draft = await parseRosterFileToDraft(file, competition);
@@ -223,7 +313,7 @@ test("a completed V5 prepared row imports without the remaining blank rows", asy
   assert.equal(draft.numberingMode, "supplied");
   assert.equal(draft.rows[0].number, "007");
   assert.equal(draft.rows[0].divisionId, "u14-hifz");
-  assert.equal(draft.rows[0].muqarrar, "feshey-kolhu");
+  assert.equal(draft.rows[0].muqarrar, "starting-side");
   assert.equal(draft.rows[0].institution, "School A");
   assert.equal(draft.rows[0].phone, "0777000");
 });
@@ -254,7 +344,7 @@ test("automatic numbering templates omit the participant-number column", async (
     raw: false,
   });
 
-  assert.deepEqual(rows[0], ["Name", "Category", "Muqarrar start", "Institution"]);
+  assert.deepEqual(rows[0], ["Name", "Category", "Muqarrar start"]);
   const metadataRows = utils.sheet_to_json(workbook.Sheets._Tahqeeq, { defval: "", raw: false });
   const metadata = Object.fromEntries(metadataRows.map((row) => [row.Key, row.Value]));
   assert.equal(metadata.TahqeeqNumberingMode, "automatic");
@@ -323,7 +413,7 @@ test("settings opens one recoverable editor instead of applying imports immediat
   assert.doesNotMatch(setupSource, /rosterPreview/);
   assert.match(rosterEditorSource, /Paste table/);
   assert.match(rosterEditorSource, /Participant template/);
-  assert.match(rosterEditorSource, /Choose participant columns/);
+  assert.match(rosterEditorSource, /Build participant list/);
   assert.match(rosterEditorSource, /Download Excel/);
   assert.match(rosterEditorSource, /Review and apply/);
   assert.match(rosterEditorSource, /Participants by category/);
