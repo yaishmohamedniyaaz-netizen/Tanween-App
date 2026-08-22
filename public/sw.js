@@ -8,8 +8,9 @@
 
 // App-shell releases and Mushaf source data have separate version contracts.
 // Updating the interface must never relabel or invalidate the 1405H page data.
-const APP_CACHE_VERSION = "app-v27";
+const APP_CACHE_VERSION = "app-v28";
 const MUSHAF_DATA_VERSION = "v1-1405-r2";
+const CANONICAL_MUSHAF_SOURCE = "quran-android-madani-v8-ayahinfo-1260";
 const STATIC_CACHE = "tahqeeq-static-" + APP_CACHE_VERSION;
 
 const QCF_DEFAULT_FONT =
@@ -27,6 +28,8 @@ const PRECACHE_URLS = FONT_URLS.concat([
   "/icons/tahqeeq-maskable-512.png",
   "/icons/tahqeeq-apple-touch-180.png",
   "/pages/p604.json?v=" + MUSHAF_DATA_VERSION,
+  "/madani-coordinates/p604.json?v=" + CANONICAL_MUSHAF_SOURCE,
+  "https://files.quran.app/hafs/madani/width_1260/page604.png",
   "/question-index.json?v=qpc-v1-1405h-question-index-v1",
 ]);
 
@@ -38,7 +41,9 @@ self.addEventListener("install", (event) => {
       const results = await Promise.allSettled(
         PRECACHE_URLS.map(async (url) => {
           const response = await fetch(url, { cache: "no-store" });
-          if (!response.ok) throw new Error("HTTP " + response.status);
+          if (!response.ok && response.type !== "opaque") {
+            throw new Error("HTTP " + response.status);
+          }
           await cache.put(url, response);
         }),
       );
@@ -85,6 +90,14 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
+  const isCanonicalMadaniPage =
+    url.origin === "https://files.quran.app" &&
+    url.pathname.startsWith("/hafs/madani/width_1260/page");
+  if (isCanonicalMadaniPage) {
+    event.respondWith(cacheFirst(request));
+    return;
+  }
+
   if (url.origin !== self.location.origin) return;
 
   // Fonts, page JSONs and the generated question index are immutable per
@@ -92,6 +105,7 @@ self.addEventListener("fetch", (event) => {
   if (
     url.pathname.startsWith("/fonts/") ||
     url.pathname.startsWith("/pages/") ||
+    url.pathname.startsWith("/madani-coordinates/") ||
     url.pathname === "/question-index.json"
   ) {
     event.respondWith(cacheFirst(request));
@@ -131,7 +145,9 @@ async function cacheFirst(request) {
   if (cached) return cached;
   try {
     const network = await fetch(request);
-    if (network.ok) cache.put(request, network.clone());
+    if (network.ok || network.type === "opaque") {
+      cache.put(request, network.clone());
+    }
     return network;
   } catch (e) {
     return new Response("Offline", { status: 503, statusText: "Service Unavailable" });

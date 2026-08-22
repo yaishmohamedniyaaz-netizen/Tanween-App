@@ -60,6 +60,16 @@ import {
   type RangeLineState,
   type RangePageDisplay,
 } from "../lib/recitationRangeLayout.ts";
+import {
+  CANONICAL_MUSHAF_HEIGHT,
+  CANONICAL_MUSHAF_WIDTH,
+  canonicalMushafImageUrl,
+  loadCanonicalCoordinates,
+  loadCanonicalMushafImage,
+  preloadCanonicalCoordinates,
+  preloadCanonicalMushafImage,
+  type CanonicalPageCoordinates,
+} from "../lib/canonicalMushaf.ts";
 
 interface UnitTarget {
   tid: string;
@@ -203,6 +213,9 @@ export function Mushaf({
   const judgingEnabled = state.sessionActive && allowedCategories.length > 0;
   const [pageData, setPageData] = useState<MushafPage[]>([]);
   const [fontReadyPages, setFontReadyPages] = useState<Set<number>>(() => new Set());
+  const [canonicalCoordinates, setCanonicalCoordinates] = useState<
+    Map<number, CanonicalPageCoordinates>
+  >(() => new Map());
   const [loadError, setLoadError] = useState(false);
   const [loadAttempt, setLoadAttempt] = useState(0);
   const pageRefs = useRef(new Map<number, HTMLDivElement>());
@@ -258,11 +271,17 @@ export function Mushaf({
     setLoadError(false);
     Promise.all(
       requestedPages.map(async (page) => {
-        const [data, fontLoaded] = await Promise.all([
+        const [data, fontLoaded, coordinates] = await Promise.all([
           loadPage(page),
-          loadQcfPageFont(page).then(() => true),
+          compact ? Promise.resolve(false) : loadQcfPageFont(page).then(() => true),
+          compact
+            ? Promise.all([
+                loadCanonicalCoordinates(page),
+                loadCanonicalMushafImage(page),
+              ]).then(([readyCoordinates]) => readyCoordinates)
+            : Promise.resolve(null),
         ]);
-        return { data, fontLoaded };
+        return { data, fontLoaded, coordinates };
       }),
     )
       .then((readyPages) => {
@@ -270,6 +289,14 @@ export function Mushaf({
         setPageData(readyPages.map(({ data }) => data));
         setFontReadyPages(new Set(
           readyPages.filter(({ fontLoaded }) => fontLoaded).map(({ data }) => data.page),
+        ));
+        setCanonicalCoordinates(new Map(
+          readyPages
+            .filter(
+              (ready): ready is typeof ready & { coordinates: CanonicalPageCoordinates } =>
+                ready.coordinates !== null,
+            )
+            .map(({ data, coordinates }) => [data.page, coordinates]),
         ));
         setLoadError(false);
       })
@@ -279,7 +306,7 @@ export function Mushaf({
     return () => {
       cancelled = true;
     };
-  }, [loadAttempt, requestKey]);
+  }, [compact, loadAttempt, requestKey, requestedPages]);
 
   // Warm both neighboring views so the next pair swaps atomically from cache.
   useEffect(() => {
@@ -290,7 +317,12 @@ export function Mushaf({
     for (const anchor of neighborAnchors) {
       for (const page of visibleMushafPages(anchor, pageLayout, compact)) {
         preloadPage(page);
-        preloadQcfPageFont(page);
+        if (compact) {
+          preloadCanonicalCoordinates(page);
+          preloadCanonicalMushafImage(page);
+        } else {
+          preloadQcfPageFont(page);
+        }
       }
     }
   }, [compact, currentPage, pageLayout]);
@@ -329,10 +361,16 @@ export function Mushaf({
       const root = pageRefs.current.get(page.page);
       if (!root) continue;
       const rootRect = root.getBoundingClientRect();
+      const pageCoordinates = compact
+        ? canonicalCoordinates.get(page.page) ?? null
+        : null;
+      const canonicalScaleX = rootRect.width / CANONICAL_MUSHAF_WIDTH;
+      const canonicalScaleY = rootRect.height / CANONICAL_MUSHAF_HEIGHT;
       const linesRoot = root.querySelector<HTMLElement>(".mushaf-lines");
       const wordElements = root.querySelectorAll<HTMLElement>(
         '.m-word[data-role="letter"]',
       );
+      const measuredWords = new Map<string, { x: number; y: number; w: number; h: number }>();
 
       wordElements.forEach((wordElement) => {
         const semanticText = wordElement.dataset.semantic ?? "";
@@ -342,13 +380,25 @@ export function Mushaf({
         const units = judgingTargetsOf(semanticText, role, wid);
         if (!units.length) return;
 
+        const canonicalBounds = pageCoordinates?.words[wid];
         const rect = wordElement.getBoundingClientRect();
-        if (!rect.width || !rect.height) return;
+        const x = canonicalBounds
+          ? canonicalBounds[0] * canonicalScaleX
+          : rect.left - rootRect.left;
+        const y = canonicalBounds
+          ? canonicalBounds[1] * canonicalScaleY
+          : rect.top - rootRect.top;
+        const width = canonicalBounds
+          ? (canonicalBounds[2] - canonicalBounds[0]) * canonicalScaleX
+          : rect.width;
+        const height = canonicalBounds
+          ? (canonicalBounds[3] - canonicalBounds[1]) * canonicalScaleY
+          : rect.height;
+        if (!width || !height) return;
         const surah = Number(wordElement.dataset.surah);
         const ayahValue = wordElement.dataset.ayah;
         const ayah = ayahValue === "b" ? null : Number(ayahValue);
-        const x = rect.left - rootRect.left;
-        const y = rect.top - rootRect.top;
+        measuredWords.set(wid, { x, y, w: width, h: height });
 
         next.push({
           page: page.page,
@@ -368,27 +418,42 @@ export function Mushaf({
           })),
           x,
           y,
-          w: rect.width,
-          h: rect.height,
+          w: width,
+          h: height,
           hx: x - HIT_PAD_X,
           hy: y - HIT_PAD_Y,
-          hw: rect.width + HIT_PAD_X * 2,
-          hh: rect.height + HIT_PAD_Y * 2,
+          hw: width + HIT_PAD_X * 2,
+          hh: height + HIT_PAD_Y * 2,
         });
       });
 
       const questionDisplay = questionDisplays?.get(page.page);
       if (shadeEnabled && linesRoot && questionDisplay) {
         const linesRect = linesRoot.getBoundingClientRect();
-        const elementsByWordId = new Map(
-          [...root.querySelectorAll<HTMLElement>(".m-word[data-wid]")]
-            .map((element) => [element.dataset.wid, element] as const)
-            .filter((entry): entry is [string, HTMLElement] => Boolean(entry[0])),
-        );
+        const elementsByWordId = pageCoordinates
+          ? null
+          : new Map(
+              [...root.querySelectorAll<HTMLElement>(".m-word[data-wid]")]
+                .map((element) => [element.dataset.wid, element] as const)
+                .filter((entry): entry is [string, HTMLElement] => Boolean(entry[0])),
+            );
         for (const segment of questionDisplay.contextAyahSegments) {
-          const rects = segment.wordIds
-            .map((wordId) => elementsByWordId.get(wordId)?.getBoundingClientRect())
-            .filter((rect): rect is DOMRect => Boolean(rect?.width && rect?.height));
+          const rects = pageCoordinates
+            ? segment.wordIds
+                .map((wordId) => measuredWords.get(wordId))
+                .filter(
+                  (rect): rect is { x: number; y: number; w: number; h: number } =>
+                    Boolean(rect?.w && rect?.h),
+                )
+                .map((rect) => ({
+                  left: rootRect.left + rect.x,
+                  right: rootRect.left + rect.x + rect.w,
+                  top: rootRect.top + rect.y,
+                  bottom: rootRect.top + rect.y + rect.h,
+                }))
+            : segment.wordIds
+                .map((wordId) => elementsByWordId?.get(wordId)?.getBoundingClientRect())
+                .filter((rect): rect is DOMRect => Boolean(rect?.width && rect?.height));
           if (!rects.length) continue;
           const left = Math.min(...rects.map((rect) => rect.left));
           const right = Math.max(...rects.map((rect) => rect.right));
@@ -410,7 +475,7 @@ export function Mushaf({
     setBoxes(next);
     setShadeBoxes(nextShadeBoxes);
     setBoxesKey(pageData.map(({ page }) => page).join(":"));
-  }, [pageData, questionDisplays, questionFocusMode]);
+  }, [canonicalCoordinates, compact, pageData, questionDisplays, questionFocusMode]);
 
   useLayoutEffect(() => {
     const frame = requestAnimationFrame(measure);
@@ -766,6 +831,7 @@ export function Mushaf({
   const readyKey = pageData.map(({ page }) => page).join(":");
   const renderPage = (data: MushafPage) => {
     const qcfReady = fontReadyPages.has(data.page);
+    const canonicalReady = compact && canonicalCoordinates.has(data.page);
     const local = (value: number) => value / renderScale;
     const pageSurahs = surahsForPage(data.page);
     const visibleBoxes = boxesKey === readyKey
@@ -777,7 +843,12 @@ export function Mushaf({
     const root = rootForPage(data.page);
     const pageClientLeft = root?.clientLeft ?? 0;
     const pageClientTop = root?.clientTop ?? 0;
-    const lineStyle = (line: number): CSSProperties => ({ gridRow: line });
+    const lineStyle = (line: number): CSSProperties => canonicalReady
+      ? ({
+          "--canonical-line": line,
+          top: `${((line - 0.5) / 15) * 100}%`,
+        } as CSSProperties)
+      : { gridRow: line };
     const qcfLineStyle: CSSProperties = qcfReady
       ? { fontFamily: `"${qcfFontFamily(data.page)}"` }
       : { fontFamily: "var(--quran)" };
@@ -822,7 +893,7 @@ export function Mushaf({
     return (
       <div
         key={data.page}
-        className={`page page-solid-mushaf ${data.page <= 2 ? "page-opening-layout" : data.lines.length < 15 ? "page-short-layout" : ""}`}
+        className={`page page-solid-mushaf ${canonicalReady ? "page-canonical-madani" : ""} ${data.page <= 2 ? "page-opening-layout" : data.lines.length < 15 ? "page-short-layout" : ""}`}
         ref={(node) => {
           if (node) pageRefs.current.set(data.page, node);
           else pageRefs.current.delete(data.page);
@@ -837,6 +908,17 @@ export function Mushaf({
         onPointerCancel={judgingEnabled ? closeAll : undefined}
         onContextMenu={judgingEnabled ? (event) => event.preventDefault() : undefined}
       >
+        {canonicalReady && (
+          <img
+            className="canonical-madani-image"
+            src={canonicalMushafImageUrl(data.page)}
+            width={CANONICAL_MUSHAF_WIDTH}
+            height={CANONICAL_MUSHAF_HEIGHT}
+            alt=""
+            aria-hidden="true"
+            draggable="false"
+          />
+        )}
         <div className="page-marginalia">
           <span className="page-juz">Juz&apos; {juzByPage[data.page]}</span>
           <span className="page-static-number t-num" aria-label={`Page ${data.page}`}>{data.page}</span>

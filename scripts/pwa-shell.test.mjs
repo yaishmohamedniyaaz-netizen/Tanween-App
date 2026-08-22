@@ -161,10 +161,12 @@ test("service-worker updates never reload an active recitation automatically", (
   assert.doesNotMatch(registerSource, /controllerchange[\s\S]{0,240}location\.reload/);
 });
 
-test("the worker precaches only app identity essentials and scopes cache cleanup", () => {
-  assert.match(workerSource, /const APP_CACHE_VERSION = "app-v27"/);
+test("the worker precaches app identity and the initial compact Mushaf page", () => {
+  assert.match(workerSource, /const APP_CACHE_VERSION = "app-v28"/);
   assert.match(workerSource, /"\/manifest\.webmanifest"/);
   assert.match(workerSource, /"\/icons\/tahqeeq-maskable-512\.png"/);
+  assert.match(workerSource, /"\/madani-coordinates\/p604\.json/);
+  assert.match(workerSource, /files\.quran\.app.*page604\.png/);
   assert.match(workerSource, /key\.startsWith\("tahqeeq-"\)/);
   assert.doesNotMatch(workerSource, /for \(const page of .*604/);
 });
