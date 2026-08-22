@@ -5082,64 +5082,6 @@ textarea:focus-visible {
   grid-template-rows: repeat(8, calc(100% / 15));
   align-content: center;
 }
-.page.page-canonical-madani {
-  display: block;
-  max-width: min(
-    760px,
-    calc((100dvh - 96px) * 1260 / 2038)
-  );
-  aspect-ratio: 1260 / 2038;
-  padding: 0;
-  overflow: hidden;
-  border: 0;
-  border-radius: 0;
-  background: #fff;
-  box-shadow: var(--shadow-rest);
-}
-.canonical-madani-image {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  display: block;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-}
-.page-canonical-madani .page-marginalia,
-.page-canonical-madani .juz-label {
-  display: none;
-}
-.page-canonical-madani .mushaf-lines,
-.page-canonical-madani.page-short-layout .mushaf-lines,
-.page-canonical-madani.page-opening-layout .mushaf-lines {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  display: block;
-  padding: 0;
-}
-.page-canonical-madani .m-line,
-.page-canonical-madani .surah-band {
-  position: absolute;
-  margin: 0;
-  opacity: 0;
-  pointer-events: none;
-}
-.page-canonical-madani .m-line-ayah,
-.page-canonical-madani .m-line-center,
-.page-canonical-madani .surah-band {
-  inset-inline: 0;
-}
-.page-canonical-madani .m-line-basmala {
-  left: 22.3%;
-  width: 55.4%;
-  height: 5.2%;
-  transform: translateY(-50%);
-  font-size: clamp(17px, 5cqi, 29px);
-}
-.page-canonical-madani .sajdah-mark {
-  display: none;
-}
 .m-line {
   direction: rtl;
   align-self: center;
