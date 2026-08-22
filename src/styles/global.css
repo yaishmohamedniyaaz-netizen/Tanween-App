@@ -4990,8 +4990,15 @@ textarea:focus-visible {
 }
 .page {
   /* Shared Mushaf geometry: one adjustment updates every page/cartouche. */
+  --mushaf-line-fluid-size: 5.55cqi;
+  --mushaf-basmala-fluid-size: 5cqi;
+  --surah-band-title-fluid-size: 4.2cqi;
   --surah-band-frame-inset: clamp(3px, 0.9cqi, 4px);
-  --surah-band-title-size: clamp(14px, 4.2cqi, 26px);
+  --surah-band-title-size: clamp(
+    14px,
+    var(--surah-band-title-fluid-size),
+    26px
+  );
   --surah-band-title-pad-x: clamp(12px, 3.8cqi, 24px);
   --mark-wash-pad-top: clamp(2px, 0.65cqi, 5px);
   --mark-wash-pad-bottom: clamp(4px, 0.9cqi, 7px);
@@ -5086,7 +5093,7 @@ textarea:focus-visible {
   direction: rtl;
   align-self: center;
   min-width: 0;
-  font-size: clamp(18px, 5.55cqi, 33px);
+  font-size: clamp(18px, var(--mushaf-line-fluid-size), 33px);
   font-weight: 400;
   line-height: 1;
   color: var(--mushaf-ink);
@@ -5110,7 +5117,7 @@ textarea:focus-visible {
   justify-content: center;
   gap: 0.4em;
   font-family: var(--quran);
-  font-size: clamp(17px, 5cqi, 29px);
+  font-size: clamp(17px, var(--mushaf-basmala-fluid-size), 29px);
   color: color-mix(in srgb, var(--mushaf-ink) 82%, var(--page-paper));
 }
 .m-word {
@@ -9729,6 +9736,17 @@ html:has(.dialog-backdrop) {
   }
   .question-note-field {
     grid-column: 1 / -1;
+  }
+}
+
+/* Portrait phones keep the same line-fitting rules; only the shared Arabic
+   density rises moderately so the live page reads closer to the landscape
+   composition without introducing a second spacing system. */
+@media (max-width: 600px) and (orientation: portrait) {
+  .app.view-judge .mushaf-composition .page {
+    --mushaf-line-fluid-size: 5.74cqi;
+    --mushaf-basmala-fluid-size: 5.17cqi;
+    --surah-band-title-fluid-size: 4.34cqi;
   }
 }
 

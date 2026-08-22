@@ -71,6 +71,47 @@ test("shared Mushaf geometry protects Arabic ink and cartouche titles", () => {
   );
 });
 
+test("portrait Mushaf density is one scoped adjustment, not mobile spacing", () => {
+  assert.match(mushafStyleSource, /--mushaf-line-fluid-size: 5\.55cqi/);
+  assert.match(mushafStyleSource, /--mushaf-basmala-fluid-size: 5cqi/);
+  assert.match(mushafStyleSource, /--surah-band-title-fluid-size: 4\.2cqi/);
+  assert.match(
+    mushafStyleSource,
+    /\.m-line[\s\S]*font-size: clamp\(18px, var\(--mushaf-line-fluid-size\), 33px\)/,
+  );
+  assert.match(
+    mushafStyleSource,
+    /\.m-line-basmala[\s\S]*font-size: clamp\(17px, var\(--mushaf-basmala-fluid-size\), 29px\)/,
+  );
+
+  const portraitStart = mushafStyleSource.indexOf(
+    "@media (max-width: 600px) and (orientation: portrait)",
+  );
+  const nextCompactBlock = mushafStyleSource.indexOf(
+    "@media (max-width: 600px) {",
+    portraitStart,
+  );
+  assert.notEqual(portraitStart, -1);
+  assert.notEqual(nextCompactBlock, -1);
+
+  const portraitDensityBlock = mushafStyleSource.slice(
+    portraitStart,
+    nextCompactBlock,
+  );
+  assert.match(
+    portraitDensityBlock,
+    /\.app\.view-judge \.mushaf-composition \.page/,
+  );
+  assert.match(portraitDensityBlock, /--mushaf-line-fluid-size: 5\.74cqi/);
+  assert.match(portraitDensityBlock, /--mushaf-basmala-fluid-size: 5\.17cqi/);
+  assert.match(portraitDensityBlock, /--surah-band-title-fluid-size: 4\.34cqi/);
+  assert.doesNotMatch(portraitDensityBlock, /\.m-word|\.m-line-ayah/);
+  assert.doesNotMatch(
+    portraitDensityBlock,
+    /word-spacing|letter-spacing|justify-content|\bgap\s*:/,
+  );
+});
+
 test("desktop Fit is owned by a measured frame instead of another viewport guess", () => {
   assert.match(appSource, /className=\{`app view-\$\{view\}`\}/);
   assert.match(appSource, /<MushafViewport/);
