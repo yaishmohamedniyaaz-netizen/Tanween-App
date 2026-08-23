@@ -21,6 +21,9 @@ import { FinishDialog } from "./components/FinishDialog";
 import { JudgeRoleStrip } from "./components/JudgeRoleStrip";
 import { PreparedSidebar } from "./components/PreparedSidebar";
 import { PageNav } from "./components/PageNav";
+import { OfflineMushafPrompt } from "./components/OfflineMushafPrompt";
+import { useOfflineMushaf } from "./hooks/useOfflineMushaf";
+import { pauseOfflineMushafDownload } from "./lib/offlineMushaf";
 import { useJudging } from "./state/store";
 import {
   questionIsVisibleOnPages,
@@ -45,6 +48,7 @@ const LS_QUESTION_PAGE_KEY = "tahqeeq:questionOpenedFor";
 
 export function App() {
   const { state, dispatch } = useJudging();
+  const offlineMushaf = useOfflineMushaf();
   const [view, setView] = useState<AppView>("judge");
   const [startOpen, setStartOpen] = useState(false);
   const [startMode, setStartMode] = useState<
@@ -73,6 +77,14 @@ export function App() {
     applyDeviceTheme(preferences.theme);
     writeDevicePreferences(preferences);
   }, [preferences]);
+
+  // Bulk asset work must never compete with a live recitation. A paused
+  // package resumes deliberately from More actions after judging.
+  useEffect(() => {
+    if (state.sessionActive && offlineMushaf.phase === "downloading") {
+      pauseOfflineMushafDownload();
+    }
+  }, [offlineMushaf.phase, state.sessionActive]);
 
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "auto" });
@@ -311,6 +323,15 @@ export function App() {
           }}
         />
       )}
+
+      <OfflineMushafPrompt
+        suppressed={
+          state.sessionActive ||
+          startOpen ||
+          finishOpen ||
+          view !== "judge"
+        }
+      />
 
       <ResultSheet />
     </div>

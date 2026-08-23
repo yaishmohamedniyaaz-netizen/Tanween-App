@@ -7,6 +7,12 @@ import { MushafSizeControl } from "./MushafSizeControl";
 import { useOfflineStatus } from "../hooks/useOfflineStatus";
 import { usePwaInstall } from "../hooks/usePwaInstall";
 import { reloadForServiceWorkerUpdate } from "../lib/sw-register";
+import { useOfflineMushaf } from "../hooks/useOfflineMushaf";
+import {
+  pauseOfflineMushafDownload,
+  removeOfflineMushafDownload,
+  startOfflineMushafDownload,
+} from "../lib/offlineMushaf";
 import type {
   JudgeRailSide,
   MushafLayout,
@@ -46,6 +52,7 @@ export function MoreActionsPopover({
 }: MoreActionsPopoverProps) {
   const { state } = useJudging();
   const serviceWorker = useOfflineStatus();
+  const offlineMushaf = useOfflineMushaf();
   const {
     installAvailable,
     installing,
@@ -108,7 +115,22 @@ export function MoreActionsPopover({
     setOpen(false);
   };
 
-  const hasPwaAction = (installAvailable && !standalone) || serviceWorker.updateReady;
+  const hasOfflineMushafAction =
+    standalone && offlineMushaf.phase !== "unsupported";
+  const hasPwaAction =
+    (installAvailable && !standalone) ||
+    hasOfflineMushafAction ||
+    serviceWorker.updateReady;
+
+  const offlineMushafLabel = offlineMushaf.phase === "downloading"
+    ? "Pause Mushaf download"
+    : offlineMushaf.phase === "paused"
+      ? "Resume Mushaf download"
+      : offlineMushaf.phase === "error"
+        ? "Retry Mushaf download"
+        : offlineMushaf.readyPages > 1
+          ? "Resume Mushaf download"
+          : "Download Mushaf offline";
 
   return (
     <div className="overflow-wrap" ref={wrapRef}>
@@ -267,6 +289,68 @@ export function MoreActionsPopover({
               <Icon name="install" size={16} />
               {installing ? "Opening installer…" : "Install Tahqeeq"}
             </button>
+          )}
+          {hasOfflineMushafAction && offlineMushaf.phase !== "complete" && (
+            <button
+              type="button"
+              className="overflow-item offline-mushaf-action"
+              disabled={
+                offlineMushaf.phase === "checking" ||
+                (state.sessionActive && offlineMushaf.phase !== "downloading")
+              }
+              onClick={() => {
+                if (offlineMushaf.phase === "downloading") {
+                  pauseOfflineMushafDownload();
+                } else {
+                  void startOfflineMushafDownload();
+                }
+              }}
+            >
+              <Icon name="download" size={16} />
+              <span className="overflow-item-copy">
+                <strong>{offlineMushafLabel}</strong>
+                <small>
+                  {state.sessionActive && offlineMushaf.phase !== "downloading"
+                    ? "Available after this recitation."
+                    : offlineMushaf.phase === "checking"
+                      ? "Checking saved pages…"
+                      : offlineMushaf.phase === "error"
+                        ? offlineMushaf.error
+                        : `${offlineMushaf.readyPages} of ${offlineMushaf.totalPages} pages · about 48 MB`}
+                </small>
+                {offlineMushaf.phase === "downloading" && (
+                  <span
+                    className="offline-mushaf-progress"
+                    aria-hidden="true"
+                  >
+                    <span
+                      style={{
+                        width: `${(offlineMushaf.readyPages / offlineMushaf.totalPages) * 100}%`,
+                      }}
+                    />
+                  </span>
+                )}
+              </span>
+            </button>
+          )}
+          {hasOfflineMushafAction && offlineMushaf.phase === "complete" && (
+            <div className="offline-mushaf-complete" role="status">
+              <Icon name="check" size={16} />
+              <span>
+                <strong>Mushaf ready offline</strong>
+                <small>All 604 pages are saved.</small>
+              </span>
+              <button
+                type="button"
+                onClick={() => {
+                  if (window.confirm("Remove the downloaded Mushaf from this device?")) {
+                    void removeOfflineMushafDownload();
+                  }
+                }}
+              >
+                Remove
+              </button>
+            </div>
           )}
           {serviceWorker.updateReady && state.sessionActive && (
             <div className="overflow-system-status" role="status">

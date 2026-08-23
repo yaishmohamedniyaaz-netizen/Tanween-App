@@ -5,6 +5,8 @@ import {
   moveMushafView,
   mushafPageRangeLabel,
 } from "../lib/mushafSpread";
+import { preloadPage } from "../lib/page";
+import { preloadQcfPageFont } from "../lib/qcfFont";
 
 interface PageNavProps {
   page: number;
@@ -27,7 +29,28 @@ export function PageNav({
   const pageBtnRef = useRef<HTMLButtonElement>(null);
   const jumpInputRef = useRef<HTMLInputElement>(null);
   const lastWheelRef = useRef(0);
+  const intentPrefetchTimerRef = useRef<number | null>(null);
   const rangeLabel = mushafPageRangeLabel(visiblePages);
+  const prefetchTarget = useCallback((targetPage: number) => {
+    if (!Number.isInteger(targetPage) || targetPage < 1 || targetPage > 604) return;
+    preloadPage(targetPage);
+    preloadQcfPageFont(targetPage);
+  }, []);
+  const cancelIntentPrefetch = useCallback(() => {
+    if (intentPrefetchTimerRef.current !== null) {
+      window.clearTimeout(intentPrefetchTimerRef.current);
+      intentPrefetchTimerRef.current = null;
+    }
+  }, []);
+  const scheduleIntentPrefetch = useCallback((targetPage: number) => {
+    cancelIntentPrefetch();
+    intentPrefetchTimerRef.current = window.setTimeout(() => {
+      intentPrefetchTimerRef.current = null;
+      prefetchTarget(targetPage);
+    }, 120);
+  }, [cancelIntentPrefetch, prefetchTarget]);
+
+  useEffect(() => cancelIntentPrefetch, [cancelIntentPrefetch]);
 
   useEffect(() => {
     if (!popoverOpen) return;
@@ -39,6 +62,14 @@ export function PageNav({
     document.addEventListener("mousedown", onDoc);
     return () => document.removeEventListener("mousedown", onDoc);
   }, [popoverOpen]);
+
+  useEffect(() => {
+    if (!popoverOpen) return;
+    const targetPage = Number(jumpInput);
+    if (!Number.isInteger(targetPage) || targetPage < 1 || targetPage > 604) return;
+    const timer = window.setTimeout(() => prefetchTarget(targetPage), 180);
+    return () => window.clearTimeout(timer);
+  }, [jumpInput, popoverOpen, prefetchTarget]);
 
   useEffect(() => {
     if (!popoverOpen) return;
@@ -147,6 +178,13 @@ export function PageNav({
                   key={surah.number}
                   type="button"
                   className="page-nav-surah"
+                  onPointerEnter={() => scheduleIntentPrefetch(surah.firstPage)}
+                  onPointerLeave={cancelIntentPrefetch}
+                  onPointerDown={() => {
+                    cancelIntentPrefetch();
+                    prefetchTarget(surah.firstPage);
+                  }}
+                  onFocus={() => prefetchTarget(surah.firstPage)}
                   onClick={() => {
                     onChange(surah.firstPage);
                     setPopoverOpen(false);

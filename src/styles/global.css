@@ -443,6 +443,71 @@ textarea:focus-visible {
 .overflow-item svg {
   color: var(--ink-3);
 }
+.overflow-item-copy {
+  display: grid;
+  flex: 1;
+  gap: 2px;
+  min-width: 0;
+}
+.overflow-item-copy strong {
+  font-size: 13px;
+  font-weight: 560;
+}
+.overflow-item-copy small {
+  overflow: hidden;
+  color: var(--ink-3);
+  font-size: 11.5px;
+  line-height: 1.35;
+  text-overflow: ellipsis;
+}
+.offline-mushaf-progress {
+  width: 100%;
+  height: 3px;
+  margin-top: 4px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--line);
+}
+.offline-mushaf-progress > span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--ink-2);
+}
+.offline-mushaf-complete {
+  display: grid;
+  grid-template-columns: 18px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+}
+.offline-mushaf-complete > svg {
+  color: var(--ink-3);
+}
+.offline-mushaf-complete strong,
+.offline-mushaf-complete small {
+  display: block;
+}
+.offline-mushaf-complete strong {
+  font-size: 13px;
+  font-weight: 560;
+}
+.offline-mushaf-complete small {
+  margin-top: 2px;
+  color: var(--ink-3);
+  font-size: 11.5px;
+}
+.offline-mushaf-complete button {
+  min-height: 32px;
+  padding: 0 6px;
+  border: 0;
+  background: transparent;
+  color: var(--ink-3);
+  font-size: 11.5px;
+}
+.offline-mushaf-complete button:hover {
+  color: var(--ink);
+}
 .overflow-system-status {
   display: grid;
   grid-template-columns: 18px minmax(0, 1fr);
@@ -9756,6 +9821,33 @@ html:has(.dialog-backdrop) {
     --mushaf-basmala-fluid-size: 5.17cqi;
     --surah-band-title-fluid-size: 4.34cqi;
   }
+}
+.offline-mushaf-dialog {
+  margin: auto;
+  color: var(--ink);
+}
+.offline-mushaf-dialog:not([open]) {
+  display: none;
+}
+.offline-mushaf-dialog::backdrop {
+  background: color-mix(in srgb, var(--bg) 55%, transparent);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.offline-mushaf-dialog .dialog-sub {
+  margin-top: 8px;
+  line-height: 1.55;
+}
+.offline-mushaf-note {
+  margin: 14px 0 0;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  color: var(--ink-3);
+  font-size: 12px;
+  line-height: 1.5;
+}
+.offline-mushaf-dialog .dialog-actions {
+  margin-top: 20px;
 }
 
 @media (max-width: 600px) {

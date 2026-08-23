@@ -19,6 +19,10 @@ const mushafContractSource = fs.readFileSync(
   new URL("../src/lib/mushafContract.ts", import.meta.url),
   "utf8",
 );
+const mushafAssetsSource = fs.readFileSync(
+  new URL("../src/lib/mushafAssets.ts", import.meta.url),
+  "utf8",
+);
 const serviceWorkerSource = fs.readFileSync(
   new URL("../public/sw.js", import.meta.url),
   "utf8",
@@ -160,12 +164,13 @@ test("QCF page fonts are loaded before a page is declared ready", () => {
   assert.match(qcfFontSource, /await face\.load\(\)/);
   assert.match(qcfFontSource, /document\.fonts\.add/);
   assert.doesNotMatch(qcfFontSource, /document\.fonts\.check/);
-  assert.match(qcfFontSource, /QCF_FONT_VERSION = "3\.1"/);
-  assert.match(qcfFontSource, /p\$\{page\}\.woff2\?v=\$\{QCF_FONT_VERSION\}/);
+  assert.match(mushafAssetsSource, /QCF_FONT_VERSION = "3\.1"/);
+  assert.match(mushafAssetsSource, /p\$\{page\}\.woff2\?v=\$\{QCF_FONT_VERSION\}/);
 });
 
 test("V1 page data cannot collide with legacy cached V2 assets", () => {
-  assert.match(mushafContractSource, /MUSHAF_DATA_VERSION = "v1-1405-r2"/);
+  assert.match(mushafContractSource, /MUSHAF_DATA_VERSION/);
+  assert.match(mushafAssetsSource, /MUSHAF_DATA_VERSION = "v1-1405-r2"/);
   assert.match(pageSource, /pageAssetUrl\(page\)/);
   assert.match(pageSource, /fetch\(pageAssetUrl\(page\)\)/);
   assert.match(pageSource, /data\.font !== "qcf-v1"/);

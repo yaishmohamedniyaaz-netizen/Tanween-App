@@ -162,9 +162,15 @@ test("service-worker updates never reload an active recitation automatically", (
 });
 
 test("the worker precaches only app identity essentials and scopes cache cleanup", () => {
-  assert.match(workerSource, /const APP_CACHE_VERSION = "app-v27"/);
+  assert.match(workerSource, /const APP_CACHE_VERSION = "app-v28"/);
   assert.match(workerSource, /"\/manifest\.webmanifest"/);
   assert.match(workerSource, /"\/icons\/tahqeeq-maskable-512\.png"/);
-  assert.match(workerSource, /key\.startsWith\("tahqeeq-"\)/);
+  assert.match(workerSource, /key\.startsWith\("tahqeeq-static-"\)/);
+  assert.match(workerSource, /key\.startsWith\("tahqeeq-mushaf-pages-"\)/);
+  assert.match(workerSource, /key\.startsWith\("tahqeeq-mushaf-fonts-"\)/);
+  assert.doesNotMatch(
+    workerSource,
+    /key\.startsWith\("tahqeeq-"\) && key !== STATIC_CACHE/,
+  );
   assert.doesNotMatch(workerSource, /for \(const page of .*604/);
 });
