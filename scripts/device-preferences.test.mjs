@@ -70,9 +70,10 @@ test("device preferences normalize invalid values without losing valid choices",
   );
 });
 
-test("Fit is the fresh-device default and saved zoom choices remain explicit", () => {
+test("Fit and Two pages are fresh-device defaults while saved choices remain explicit", () => {
   const freshStorage = memoryStorage();
   assert.equal(readDevicePreferences(freshStorage).mushafZoom, 100);
+  assert.equal(readDevicePreferences(freshStorage).mushafLayout, "spread");
   const fitStorage = memoryStorage({
     [DEVICE_PREFERENCES_KEY]: JSON.stringify({
       ...DEFAULT_DEVICE_PREFERENCES,

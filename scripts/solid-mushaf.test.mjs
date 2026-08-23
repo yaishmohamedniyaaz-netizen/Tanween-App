@@ -35,6 +35,10 @@ const appSource = fs.readFileSync(
   new URL("../src/App.tsx", import.meta.url),
   "utf8",
 );
+const headerSource = fs.readFileSync(
+  new URL("../src/components/Header.tsx", import.meta.url),
+  "utf8",
+);
 
 test("the source Mushaf selects one whole kalimah before exact rail choice", () => {
   assert.match(mushafSource, /interface WordHitbox/);
@@ -102,6 +106,10 @@ test("portrait Mushaf density is one scoped adjustment, not mobile spacing", () 
     portraitDensityBlock,
     /\.app\.view-judge \.mushaf-composition \.page/,
   );
+  assert.match(
+    portraitDensityBlock,
+    /\.app\.view-judge \.mushaf-composition[\s\S]*-webkit-text-size-adjust: 100%[\s\S]*text-size-adjust: 100%/,
+  );
   assert.match(portraitDensityBlock, /--mushaf-line-fluid-size: 5\.74cqi/);
   assert.match(portraitDensityBlock, /--mushaf-basmala-fluid-size: 5\.17cqi/);
   assert.match(portraitDensityBlock, /--surah-band-title-fluid-size: 4\.34cqi/);
@@ -109,6 +117,19 @@ test("portrait Mushaf density is one scoped adjustment, not mobile spacing", () 
   assert.doesNotMatch(
     portraitDensityBlock,
     /word-spacing|letter-spacing|justify-content|\bgap\s*:/,
+  );
+});
+
+test("compact header reserves stable controls while the reciter name truncates", () => {
+  assert.match(headerSource, /className="header-context"/);
+  assert.match(headerSource, /className="reciter-name"/);
+  assert.match(
+    mushafStyleSource,
+    /grid-template-columns: auto minmax\(0, 1fr\) 34px 34px 34px/,
+  );
+  assert.match(
+    mushafStyleSource,
+    /\.reciter-name[\s\S]*text-overflow: ellipsis/,
   );
 });
 

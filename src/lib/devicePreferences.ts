@@ -29,7 +29,7 @@ export const MUSHAF_ZOOM_STEP = 5;
 export const DEFAULT_DEVICE_PREFERENCES: DevicePreferencesV3 = {
   version: 3,
   theme: "light",
-  mushafLayout: "full",
+  mushafLayout: "spread",
   mushafZoom: MUSHAF_ZOOM_DEFAULT,
   judgeRailSide: "left",
   questionFocusMode: "fade",

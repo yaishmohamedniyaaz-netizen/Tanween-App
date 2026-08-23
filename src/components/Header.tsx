@@ -115,33 +115,35 @@ export function Header({
         <span className="brand-name">Tahqeeq</span>
       </div>
 
-      {!state.sessionActive && !prepared && (
-        <button
-          type="button"
-          className={`competition-header-state is-${state.competition.status}`}
-          onClick={onOpenSetup}
-          aria-label={`Open competition setup. ${competitionTitle}. ${competitionContext}.`}
-        >
-          <span>
-            <strong>{competitionTitle}</strong>
-            <small>{competitionContext}</small>
-          </span>
-        </button>
-      )}
+      <div className="header-context">
+        {!state.sessionActive && !prepared && (
+          <button
+            type="button"
+            className={`competition-header-state is-${state.competition.status}`}
+            onClick={onOpenSetup}
+            aria-label={`Open competition setup. ${competitionTitle}. ${competitionContext}.`}
+          >
+            <span>
+              <strong>{competitionTitle}</strong>
+              <small>{competitionContext}</small>
+            </span>
+          </button>
+        )}
 
-      {view === "judge" && (state.sessionActive || prepared) && (
-        <button
-          type="button"
-          className={`reciter-chip ${prepared ? "is-prepared" : ""}`}
-          onClick={onChangeReciter}
-          title={prepared ? "Change ready reciter" : "Finish or change reciter"}
-        >
-          {participant.name || "Unnamed"}
-          {prepared && <span className="reciter-prepared-state">Ready</span>}
-          {visibleQuestion && <span className="reciter-question-ref">Q · {visibleQuestion.label}</span>}
-          {rosterTotal > 0 && <span className="chip-idx t-num">{rosterDone + 1}/{rosterTotal}</span>}
-        </button>
-      )}
+        {view === "judge" && (state.sessionActive || prepared) && (
+          <button
+            type="button"
+            className={`reciter-chip ${prepared ? "is-prepared" : ""}`}
+            onClick={onChangeReciter}
+            title={prepared ? "Change ready reciter" : "Finish or change reciter"}
+          >
+            <span className="reciter-name">{participant.name || "Unnamed"}</span>
+            {prepared && <span className="reciter-prepared-state">Ready</span>}
+            {visibleQuestion && <span className="reciter-question-ref">Q · {visibleQuestion.label}</span>}
+            {rosterTotal > 0 && <span className="chip-idx t-num">{rosterDone + 1}/{rosterTotal}</span>}
+          </button>
+        )}
+      </div>
 
       <button
         type="button"

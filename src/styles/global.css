@@ -332,6 +332,10 @@ textarea:focus-visible {
   font-weight: 500;
   letter-spacing: -0.02em;
 }
+.header-context {
+  display: flex;
+  min-width: 0;
+}
 
 /* Current reciter control — compact, but not a capsule. */
 .reciter-chip {
@@ -9743,6 +9747,10 @@ html:has(.dialog-backdrop) {
    density rises moderately so the live page reads closer to the landscape
    composition without introducing a second spacing system. */
 @media (max-width: 600px) and (orientation: portrait) {
+  .app.view-judge .mushaf-composition {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
   .app.view-judge .mushaf-composition .page {
     --mushaf-line-fluid-size: 5.74cqi;
     --mushaf-basmala-fluid-size: 5.17cqi;
@@ -9752,12 +9760,16 @@ html:has(.dialog-backdrop) {
 
 @media (max-width: 600px) {
   .app-header {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) 34px 34px 34px;
+    align-items: center;
     gap: 8px;
     padding: 10px 14px;
   }
   .brand {
     min-width: 0;
     gap: 6px;
+    margin-right: 0;
   }
   .brand-mark {
     font-size: 23px;
@@ -9765,18 +9777,30 @@ html:has(.dialog-backdrop) {
   .brand-name {
     display: none;
   }
+  .header-context {
+    width: 100%;
+  }
   .competition-header-state {
-    max-width: 134px;
+    width: 100%;
+    min-width: 0;
+    max-width: none;
     padding: 5px 8px;
   }
   .competition-header-state small {
     display: none;
   }
   .reciter-chip {
+    width: 100%;
     min-width: 0;
-    max-width: 112px;
+    max-width: none;
     padding: 0 10px;
     overflow: hidden;
+    white-space: nowrap;
+  }
+  .reciter-name {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
     white-space: nowrap;
   }
   .reciter-chip .chip-dot,
@@ -9784,6 +9808,7 @@ html:has(.dialog-backdrop) {
     display: none;
   }
   .view-toggle {
+    min-width: 34px;
     width: 34px;
     padding: 0;
     gap: 0;
@@ -9791,6 +9816,12 @@ html:has(.dialog-backdrop) {
   }
   .view-toggle-count {
     display: none;
+  }
+  .app-header > .btn-icon,
+  .app-header > .overflow-wrap,
+  .app-header > .overflow-wrap > .btn-icon {
+    width: 34px;
+    min-width: 34px;
   }
   .workspace,
   .records-main {
