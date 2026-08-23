@@ -152,9 +152,18 @@ export function Header({
         aria-label={resultsActionLabel}
       >
         {view === "judge" ? (
-          <><Icon name="fileCheck" size={15} /> Results {resultsSummary.unresolved > 0 && <span className="view-toggle-count">{resultsSummary.unresolved}</span>}</>
+          <>
+            <Icon name="fileCheck" size={15} />
+            <span className="view-toggle-label">Results</span>
+            {resultsSummary.unresolved > 0 && <span className="view-toggle-count">{resultsSummary.unresolved}</span>}
+          </>
         ) : (
-          <><Icon name="back" size={15} /> {view === "records" ? "Judging" : "Back to Mushaf"}</>
+          <>
+            <Icon name="back" size={15} />
+            <span className="view-toggle-label">
+              {view === "records" ? "Judging" : "Back to Mushaf"}
+            </span>
+          </>
         )}
       </button>
 

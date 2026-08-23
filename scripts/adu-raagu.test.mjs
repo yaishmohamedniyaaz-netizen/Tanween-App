@@ -629,7 +629,7 @@ test("the finish checkpoint focuses its heading and contains keyboard focus", ()
   assert.match(finishDialogSource, /first\.focus\(\)/);
 });
 
-test("Adu and Raagu chips keep readable ink and a neutral uncommitted state", () => {
+test("Adu and Raagu ruler keeps readable ink and a neutral uncommitted state", () => {
   const categoryRule = ruleBody(".cat-adu-raagu");
   const accent = categoryRule.match(/--c:\s*(#[0-9a-f]{6})/i)?.[1];
   assert.equal(accent, "#377b60");
@@ -646,9 +646,9 @@ test("Adu and Raagu chips keep readable ink and a neutral uncommitted state", ()
   const green = luminance(accent.slice(1));
   assert.ok((white + 0.05) / (green + 0.05) >= 4.5, "white must meet AA on the chosen green");
 
-  assert.match(ruleBody('.chip-strip button[aria-checked="true"]'), /var\(--c-on, #ffffff\)/);
-  assert.match(ruleBody(".chip-strip button.is-half .mark-chip-label"), /background-clip: text/);
-  assert.match(pickerSource, /className="mark-chip-label t-num"/);
+  assert.match(ruleBody(".mark-ruler-value"), /var\(--c-on, #ffffff\)/);
+  assert.match(ruleBody(".mark-ruler-fill"), /var\(--c, var\(--ink\)\)/);
+  assert.match(pickerSource, /const hasSelection = marked \|\| preview !== null/);
 
   const openRule = ruleBody(".mark-picker.is-open");
   assert.match(openRule, /border-color: var\(--ink\)/);
@@ -662,23 +662,22 @@ test("the mark bar opens on a press and commits when the press ends", () => {
   assert.match(pickerSource, /if \(drag\?\.moved && previewRef\.current !== null\)/);
   // A press that does not move leaves the bar open to pick from.
   assert.match(pickerSource, /setPinned\(true\);/);
-  assert.match(pickerSource, /className="chip-strip"/);
-  assert.doesNotMatch(pickerSource, /mark-tick|labelEvery|markAt/);
+  assert.match(pickerSource, /className={`mark-ruler/);
+  assert.match(pickerSource, /const markAt = useCallback/);
+  assert.doesNotMatch(pickerSource, /chip-strip|previewChipAt/);
 });
 
-test("the mark bar offers one whole-number chip per mark", () => {
-  assert.match(
-    pickerSource,
-    /Array\.from\(\{ length: wholeMarks \+ 1 \}, \(_, mark\) => mark\)/,
-  );
-  assert.match(pickerSource, /role="radiogroup"/);
-  assert.match(pickerSource, /role="radio"/);
-  assert.match(pickerSource, /data-mark=\{mark\}/);
-  assert.match(ruleBody(".chip-strip"), /flex-wrap: wrap/);
-  assert.match(ruleBody(".chip-strip"), /justify-content: center/);
-  assert.match(ruleBody(".chip-strip"), /row-gap: 8px/);
-  assert.match(ruleBody(".chip-strip button"), /flex: 0 0 38px/);
-  assert.doesNotMatch(pickerSource, /mark-bar-head|mark-bar-hint/);
+test("the mark ruler labels whole marks and exposes half marks as minor ticks", () => {
+  assert.match(pickerSource, /awardableMarks\(max, step\)/);
+  assert.match(pickerSource, /role="slider"/);
+  assert.match(pickerSource, /aria-valuemin=\{0\}/);
+  assert.match(pickerSource, /aria-valuemax=\{max\}/);
+  assert.match(pickerSource, /whole && <i className="mark-ruler-label t-num">\{mark\}<\/i>/);
+  assert.match(pickerSource, /whole \? "is-whole" : "is-half"/);
+  assert.match(ruleBody(".mark-ruler"), /height: 64px/);
+  assert.match(ruleBody(".mark-ruler-tick.is-whole"), /height: 20px/);
+  assert.match(ruleBody(".mark-ruler-tick"), /height: 10px/);
+  assert.doesNotMatch(pickerSource, /role="radio"|data-mark|wholeChips/);
 });
 
 test("the Finish recovery remains available across repeated invalid saves", () => {
@@ -696,40 +695,31 @@ test("the Finish recovery remains available across repeated invalid saves", () =
   );
 });
 
-test("a chip previews halves and commits only when the pointer is released", () => {
+test("the ruler snaps to half marks and commits only when the pointer is released", () => {
   assert.match(
     pickerSource,
-    /clientX - rect\.left < rect\.width \/ 2 \? Math\.max\(0, mark - 0\.5\) : mark/,
+    /clamp\(ratio \* max\)/,
   );
 
   const moveHandler = pickerSource.slice(
     pickerSource.indexOf("onPointerMove={(event) =>"),
-    pickerSource.indexOf("onPointerUp={() =>"),
+    pickerSource.indexOf("onPointerUp={(event) =>"),
   );
-  assert.match(moveHandler, /previewChipAt\(event\.clientX, event\.clientY\)/);
+  assert.match(moveHandler, /previewMarkAt\(event\.clientX\)/);
   assert.doesNotMatch(moveHandler, /commit\(/);
 
   const upHandler = pickerSource.slice(
-    pickerSource.indexOf("onPointerUp={() =>"),
+    pickerSource.indexOf("onPointerUp={(event) =>"),
     pickerSource.indexOf("onPointerCancel={() =>"),
   );
-  assert.match(upHandler, /commit\(previewRef\.current \?\? value\)/);
+  assert.match(upHandler, /commit\(previewRef\.current \?\? markAt\(event\.clientX\)\)/);
 });
 
-test("the quiet chip state shows only the chosen whole or half mark", () => {
+test("the quiet ruler stays neutral until a mark is set or previewed", () => {
   assert.match(pickerSource, /const hasSelection = marked \|\| preview !== null/);
-  assert.match(pickerSource, /const exact = hasSelection && Math\.abs\(mark - shown\) < 0\.001/);
-  assert.match(pickerSource, /const half = hasSelection && Math\.abs\(mark - 0\.5 - shown\) < 0\.001/);
-  assert.match(pickerSource, /aria-checked=\{exact \|\| half\}/);
-  assert.match(pickerSource, /half \? "is-half"/);
-  assert.doesNotMatch(pickerSource, /is-filled/);
-
-  assert.match(
-    ruleBody('.chip-strip button[aria-checked="true"]'),
-    /background: var\(--c, var\(--ink\)\)/,
-  );
-  assert.match(ruleBody(".chip-strip button.is-half"), /linear-gradient\(/);
-  assert.match(ruleBody(".chip-strip button.is-half"), /var\(--surface\) 50%/);
+  assert.match(pickerSource, /\{hasSelection && \(\s*<span className="mark-ruler-fill"/s);
+  assert.match(pickerSource, /\{hasSelection && \(\s*<span className="mark-ruler-thumb"/s);
+  assert.match(ruleBody(".mark-ruler-rail"), /background: var\(--bg\)/);
 });
 
 test("Adu and Raagu defaults to half-mark increments", () => {

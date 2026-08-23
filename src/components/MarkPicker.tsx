@@ -10,16 +10,13 @@ import {
 } from "react";
 import { createPortal } from "react-dom";
 
+import { awardableMarks } from "../lib/scoring";
+
 const round2 = (value: number) => Math.round(value * 100) / 100;
 
 const BAR_MAX_WIDTH = 520;
 const BAR_MIN_WIDTH = 260;
 const BAR_MARGIN = 16;
-const CHIP_SIZE = 38;
-const CHIP_GAP = 6;
-const CHIP_COLUMNS = 11;
-const BAR_PADDING_X = 12;
-const BAR_BORDER = 1;
 
 interface Props {
   value: number;
@@ -71,7 +68,7 @@ export const MarkPicker = forwardRef<MarkPickerHandle, Props>(function MarkPicke
 }: Props, forwardedRef) {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const barRef = useRef<HTMLDivElement>(null);
-  const chipStripRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
   const dragRef = useRef<{ moved: boolean; pointerId: number } | null>(null);
   const previewRef = useRef<number | null>(null);
   const typedRef = useRef({ text: "", at: 0 });
@@ -97,24 +94,7 @@ export const MarkPicker = forwardRef<MarkPickerHandle, Props>(function MarkPicke
   }, [autoFocus]);
 
   const shown = preview ?? value;
-  const wholeMarks = Math.round(max);
-  const wholeChips = useMemo(
-    () => Array.from({ length: wholeMarks + 1 }, (_, mark) => mark),
-    [wholeMarks],
-  );
-  const preferredWidth = useMemo(() => {
-    const columns = Math.min(CHIP_COLUMNS, wholeChips.length);
-    return Math.min(
-      BAR_MAX_WIDTH,
-      Math.max(
-        BAR_MIN_WIDTH,
-        columns * CHIP_SIZE +
-          Math.max(0, columns - 1) * CHIP_GAP +
-          BAR_PADDING_X * 2 +
-          BAR_BORDER * 2,
-      ),
-    );
-  }, [wholeChips.length]);
+  const marks = useMemo(() => [...awardableMarks(max, step)].reverse(), [max, step]);
 
   const clamp = useCallback(
     (next: number) => round2(Math.min(max, Math.max(0, Math.round(next / step) * step))),
@@ -143,7 +123,7 @@ export const MarkPicker = forwardRef<MarkPickerHandle, Props>(function MarkPicke
     if (!rect) return;
     const width = Math.max(
       BAR_MIN_WIDTH,
-      Math.min(preferredWidth, window.innerWidth - BAR_MARGIN * 2),
+      Math.min(BAR_MAX_WIDTH, window.innerWidth - BAR_MARGIN * 2),
     );
     const left = Math.min(
       Math.max(BAR_MARGIN, rect.left + rect.width / 2 - width / 2),
@@ -153,7 +133,7 @@ export const MarkPicker = forwardRef<MarkPickerHandle, Props>(function MarkPicke
     const below = window.innerHeight - rect.bottom - 10;
     const top = below < barHeight ? Math.max(8, rect.top - 10 - barHeight) : rect.bottom + 10;
     setAnchor({ top, left, width });
-  }, [open, preferredWidth, presentation]);
+  }, [open, presentation]);
 
   useEffect(() => {
     if (!open) return;
@@ -201,21 +181,25 @@ export const MarkPicker = forwardRef<MarkPickerHandle, Props>(function MarkPicke
     return () => button.removeEventListener("wheel", onWheel);
   }, [commit, open, step, value]);
 
-  /** The chip value at a pointer position. Its left half is the half mark below it. */
-  const previewChipAt = useCallback(
-    (clientX: number, clientY: number) => {
-      const element = document.elementFromPoint(clientX, clientY);
-      const button = element?.closest<HTMLButtonElement>("[data-mark]");
-      if (!button || !chipStripRef.current?.contains(button)) return false;
-      const mark = Number(button.dataset.mark);
-      const rect = button.getBoundingClientRect();
-      const next = clientX - rect.left < rect.width / 2 ? Math.max(0, mark - 0.5) : mark;
-      const clamped = clamp(next);
-      previewRef.current = clamped;
-      setPreview(clamped);
-      return true;
+  /** The awardable mark nearest a pointer position on the ruler. */
+  const markAt = useCallback(
+    (clientX: number) => {
+      const rect = trackRef.current?.getBoundingClientRect();
+      if (!rect || rect.width === 0) return value;
+      const ratio = Math.min(1, Math.max(0, (clientX - rect.left) / rect.width));
+      return clamp(ratio * max);
     },
-    [clamp],
+    [clamp, max, value],
+  );
+
+  const previewMarkAt = useCallback(
+    (clientX: number) => {
+      const next = markAt(clientX);
+      previewRef.current = next;
+      setPreview(next);
+      return next;
+    },
+    [markAt],
   );
 
   const onPointerDown = (event: React.PointerEvent<HTMLButtonElement>) => {
@@ -237,7 +221,16 @@ export const MarkPicker = forwardRef<MarkPickerHandle, Props>(function MarkPicke
     const onMove = (event: PointerEvent) => {
       const drag = dragRef.current;
       if (!drag) return;
-      if (!previewChipAt(event.clientX, event.clientY)) return;
+      const track = trackRef.current;
+      if (!track) return;
+      const rect = track.getBoundingClientRect();
+      const inside =
+        event.clientX >= rect.left - 12 &&
+        event.clientX <= rect.right + 12 &&
+        event.clientY >= rect.top - 24 &&
+        event.clientY <= rect.bottom + 24;
+      if (!inside) return;
+      previewMarkAt(event.clientX);
       drag.moved = true;
     };
     const onUp = () => {
@@ -259,7 +252,7 @@ export const MarkPicker = forwardRef<MarkPickerHandle, Props>(function MarkPicke
       window.removeEventListener("pointerup", onUp);
       window.removeEventListener("pointercancel", onUp);
     };
-  }, [commit, open, pinned, previewChipAt]);
+  }, [commit, open, pinned, previewMarkAt]);
 
   const onKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>) => {
     const jump = event.shiftKey ? step * 5 : step;
@@ -280,6 +273,8 @@ export const MarkPicker = forwardRef<MarkPickerHandle, Props>(function MarkPicke
   };
 
   const display = Number.isInteger(shown) ? String(shown) : shown.toFixed(1);
+  const hasSelection = marked || preview !== null;
+  const percent = max > 0 ? (shown / max) * 100 : 0;
   const bar = open ? (
     <div
       ref={barRef}
@@ -295,26 +290,32 @@ export const MarkPicker = forwardRef<MarkPickerHandle, Props>(function MarkPicke
       }
     >
       <div
-        ref={chipStripRef}
-        className="chip-strip"
-        role="radiogroup"
+        ref={trackRef}
+        className={`mark-ruler ${hasSelection ? "has-selection" : ""}`}
+        role="slider"
+        tabIndex={0}
         aria-label={`${label} marks`}
+        aria-valuemin={0}
+        aria-valuemax={max}
+        aria-valuenow={shown}
+        aria-valuetext={`${display} of ${max} marks`}
         onPointerDown={(event) => {
           if (!pinned || event.button !== 0) return;
           event.preventDefault();
-          if (!previewChipAt(event.clientX, event.clientY)) return;
+          previewMarkAt(event.clientX);
           dragRef.current = { moved: true, pointerId: event.pointerId };
           (event.currentTarget as HTMLElement).setPointerCapture(event.pointerId);
         }}
         onPointerMove={(event) => {
           if (!pinned || !dragRef.current) return;
-          previewChipAt(event.clientX, event.clientY);
+          previewMarkAt(event.clientX);
         }}
-        onPointerUp={() => {
+        onPointerUp={(event) => {
           if (!pinned) return;
           dragRef.current = null;
-          commit(previewRef.current ?? value);
+          commit(previewRef.current ?? markAt(event.clientX));
           close();
+          buttonRef.current?.focus({ preventScroll: true });
         }}
         onPointerCancel={() => {
           if (!pinned || !dragRef.current) return;
@@ -322,33 +323,39 @@ export const MarkPicker = forwardRef<MarkPickerHandle, Props>(function MarkPicke
           commit(previewRef.current ?? value);
           close();
         }}
+        onKeyDown={(event) => {
+          const jump = event.shiftKey ? step * 5 : step;
+          if (event.key === "ArrowUp" || event.key === "ArrowRight") commit(shown + jump);
+          else if (event.key === "ArrowDown" || event.key === "ArrowLeft") commit(shown - jump);
+          else if (event.key === "Home") commit(max);
+          else if (event.key === "End") commit(0);
+          else return;
+          event.preventDefault();
+        }}
       >
-        {wholeChips.map((mark) => {
-          const hasSelection = marked || preview !== null;
-          const exact = hasSelection && Math.abs(mark - shown) < 0.001;
-          const half = hasSelection && Math.abs(mark - 0.5 - shown) < 0.001;
-          return (
-            <button
-              key={mark}
-              type="button"
-              role="radio"
-              aria-checked={exact || half}
-              aria-label={`${half ? mark - 0.5 : mark} marks`}
-              data-mark={mark}
-              className={half ? "is-half" : ""}
-              onClick={(event) => {
-                // Pointer selection is committed by the shared strip on release.
-                // A synthetic click is keyboard activation and needs the same path.
-                if (event.detail !== 0) return;
-                commit(mark);
-                close();
-                buttonRef.current?.focus();
-              }}
-            >
-              <span className="mark-chip-label t-num">{mark}</span>
-            </button>
-          );
-        })}
+        <span className="mark-ruler-rail" aria-hidden="true">
+          {hasSelection && (
+            <span className="mark-ruler-fill" style={{ width: `${percent}%` }} />
+          )}
+          {marks.map((mark) => {
+            const whole = Number.isInteger(mark);
+            const edge = mark === 0 ? "is-first" : mark === max ? "is-last" : "";
+            return (
+              <span
+                key={mark}
+                className={`mark-ruler-tick ${whole ? "is-whole" : "is-half"} ${edge}`}
+                style={{ left: `${max > 0 ? (mark / max) * 100 : 0}%` }}
+              >
+                {whole && <i className="mark-ruler-label t-num">{mark}</i>}
+              </span>
+            );
+          })}
+          {hasSelection && (
+            <span className="mark-ruler-thumb" style={{ left: `${percent}%` }}>
+              <i className="mark-ruler-value t-num">{display}</i>
+            </span>
+          )}
+        </span>
       </div>
     </div>
   ) : null;

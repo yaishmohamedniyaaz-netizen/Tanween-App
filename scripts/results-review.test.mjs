@@ -320,7 +320,7 @@ test("Results UI retains the reviewed navigation, tabs, audit, and export contra
     "utf8",
   );
   assert.match(header, /name="fileCheck"/);
-  assert.match(header, /> Results /);
+  assert.match(header, /className="view-toggle-label">Results<\/span>/);
   assert.match(header, /Back to Judging/);
   assert.doesNotMatch(header, /name="chart"[^>]*\/> Records/);
   assert.match(records, /<h1>Results<\/h1>/);

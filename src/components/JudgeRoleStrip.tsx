@@ -12,12 +12,16 @@ export function JudgeRoleStrip({ onChange }: { onChange: () => void }) {
     makeAssignmentSnapshot(state.panel, state.deviceJudgeId, state.config);
   if (!assignment) return null;
 
+  const judgeName = judgeDisplayName(assignment);
+  const criteria = categoryListLabel(assignment.categories);
+
   return (
-    <section className="judge-role-strip" aria-label="Current judge assignment">
+    <section
+      className="judge-role-strip"
+      aria-label={`Current judge assignment: ${judgeName}. Criteria: ${criteria}.`}
+    >
       <span className="judge-role-main">
-        <strong>{judgeDisplayName(assignment)}</strong>
-        <span aria-hidden="true">·</span>
-        <span>{categoryListLabel(assignment.categories)}</span>
+        <strong>{judgeName}</strong>
       </span>
       <span className="judge-role-colors" aria-hidden="true">
         {assignment.categories.map((category) => (
