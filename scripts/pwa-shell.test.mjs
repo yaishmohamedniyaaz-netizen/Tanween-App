@@ -1,6 +1,18 @@
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import {
+  mkdirSync,
+  mkdtempSync,
+  readFileSync,
+  rmSync,
+  writeFileSync,
+} from "node:fs";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 import test from "node:test";
+import {
+  BUILD_PRECACHE_MARKER,
+  injectBuildPrecache,
+} from "./pwa-precache.mjs";
 
 const root = new URL("../", import.meta.url);
 const manifest = JSON.parse(readFileSync(new URL("public/manifest.webmanifest", root), "utf8"));
@@ -161,10 +173,15 @@ test("service-worker updates never reload an active recitation automatically", (
   assert.doesNotMatch(registerSource, /controllerchange[\s\S]{0,240}location\.reload/);
 });
 
-test("the worker precaches only app identity essentials and scopes cache cleanup", () => {
-  assert.match(workerSource, /const APP_CACHE_VERSION = "app-v28"/);
+test("the worker precaches a generated application shell and scopes cache cleanup", () => {
+  assert.match(workerSource, /const APP_CACHE_VERSION = "app-v29"/);
+  assert.match(workerSource, /__TAHQEEQ_BUILD_PRECACHE__/);
   assert.match(workerSource, /"\/manifest\.webmanifest"/);
   assert.match(workerSource, /"\/icons\/tahqeeq-maskable-512\.png"/);
+  assert.match(workerSource, /staticCache\.addAll/);
+  assert.match(workerSource, /request\.mode === "navigate"/);
+  assert.match(workerSource, /cache\.match\("\/"\)/);
+  assert.match(workerSource, /cache\.match\(request, \{ ignoreVary: true \}\)/);
   assert.match(workerSource, /key\.startsWith\("tahqeeq-static-"\)/);
   assert.match(workerSource, /key\.startsWith\("tahqeeq-mushaf-pages-"\)/);
   assert.match(workerSource, /key\.startsWith\("tahqeeq-mushaf-fonts-"\)/);
@@ -173,4 +190,32 @@ test("the worker precaches only app identity essentials and scopes cache cleanup
     /key\.startsWith\("tahqeeq-"\) && key !== STATIC_CACHE/,
   );
   assert.doesNotMatch(workerSource, /for \(const page of .*604/);
+});
+
+test("the production worker receives the exact hashed Vite application assets", async () => {
+  const fixture = mkdtempSync(join(tmpdir(), "tahqeeq-pwa-precache-"));
+  try {
+    mkdirSync(join(fixture, "assets", "nested"), { recursive: true });
+    writeFileSync(
+      join(fixture, "sw.js"),
+      `const BUILD_PRECACHE_URLS = ${BUILD_PRECACHE_MARKER};\n`,
+    );
+    writeFileSync(join(fixture, "assets", "index-abc.js"), "export {};\n");
+    writeFileSync(join(fixture, "assets", "index-def.css"), "body {}\n");
+    writeFileSync(join(fixture, "assets", "nested", "lazy-ghi.js"), "export {};\n");
+
+    const urls = await injectBuildPrecache(fixture);
+    assert.deepEqual(urls, [
+      "/",
+      "/assets/index-abc.js",
+      "/assets/index-def.css",
+      "/assets/nested/lazy-ghi.js",
+    ]);
+
+    const emittedWorker = readFileSync(join(fixture, "sw.js"), "utf8");
+    assert.doesNotMatch(emittedWorker, /__TAHQEEQ_BUILD_PRECACHE__/);
+    for (const url of urls) assert.match(emittedWorker, new RegExp(JSON.stringify(url)));
+  } finally {
+    rmSync(fixture, { recursive: true, force: true });
+  }
 });

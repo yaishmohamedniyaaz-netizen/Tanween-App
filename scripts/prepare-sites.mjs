@@ -1,10 +1,15 @@
 import { copyFile, mkdir, readdir, rename } from "node:fs/promises";
 import { resolve } from "node:path";
+import { injectBuildPrecache } from "./pwa-precache.mjs";
 
 const root = resolve(import.meta.dirname, "..");
 const distDir = resolve(root, "dist");
 const clientDir = resolve(distDir, "client");
 const serverDir = resolve(root, "dist", "server");
+
+// Vite knows the final hashed asset names only after it builds. Bind those
+// exact files to the service worker before Sites relocates the client output.
+await injectBuildPrecache(distDir);
 
 // Sites binds static assets from dist/client. Vite emits them at dist/ by
 // default, so place the complete client build where the hosting runtime reads.

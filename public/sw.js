@@ -8,12 +8,18 @@
 
 // App-shell releases and Mushaf source data have separate version contracts.
 // Updating the interface must never relabel or invalidate the 1405H page data.
-const APP_CACHE_VERSION = "app-v28";
+const APP_CACHE_VERSION = "app-v29";
 const MUSHAF_DATA_VERSION = "v1-1405-r2";
 const QCF_FONT_VERSION = "3.1";
 const STATIC_CACHE = "tahqeeq-static-" + APP_CACHE_VERSION;
 const MUSHAF_PAGE_CACHE = "tahqeeq-mushaf-pages-" + MUSHAF_DATA_VERSION;
 const MUSHAF_FONT_CACHE = "tahqeeq-mushaf-fonts-qcf-v1-" + QCF_FONT_VERSION;
+
+// Vite's hashed production assets are injected into the built copy of this
+// worker by scripts/pwa-precache.mjs. Keep the source marker intact: an empty
+// list is valid for local development, while production gets one complete,
+// version-matched application shell.
+const BUILD_PRECACHE_URLS = /* __TAHQEEQ_BUILD_PRECACHE__ */ [];
 
 const QCF_DEFAULT_FONT =
   "https://static-cdn.tarteel.ai/qul/fonts/quran_fonts/v1-optimized/woff2/p604.woff2?v=3.1";
@@ -23,7 +29,7 @@ const FONT_URLS = [
   QCF_DEFAULT_FONT,
 ];
 
-const STATIC_PRECACHE_URLS = FONT_URLS.slice(0, 2).concat([
+const STATIC_PRECACHE_URLS = BUILD_PRECACHE_URLS.concat(FONT_URLS.slice(0, 2), [
   "/manifest.webmanifest",
   "/icons/tahqeeq-192.png",
   "/icons/tahqeeq-512.png",
@@ -37,22 +43,29 @@ const MUSHAF_PRECACHE = [
 ];
 const PRECACHE_TOTAL = STATIC_PRECACHE_URLS.length + MUSHAF_PRECACHE.length;
 
-// Install: precache everything; individual failures are logged, not fatal.
+// Install: the same-origin application shell is one required unit. The core
+// Mushaf page/font remain best-effort so a temporary cross-origin font failure
+// cannot prevent an otherwise usable application update from installing.
 self.addEventListener("install", (event) => {
   event.waitUntil(
     (async () => {
-      const entries = STATIC_PRECACHE_URLS
-        .map((url) => ({ cacheName: STATIC_CACHE, url }))
-        .concat(MUSHAF_PRECACHE);
+      const staticCache = await caches.open(STATIC_CACHE);
+      await staticCache.addAll(
+        STATIC_PRECACHE_URLS.map(
+          (url) => new Request(url, { cache: "reload" }),
+        ),
+      );
       const results = await Promise.allSettled(
-        entries.map(async ({ cacheName, url }) => {
+        MUSHAF_PRECACHE.map(async ({ cacheName, url }) => {
           const cache = await caches.open(cacheName);
           const response = await fetch(url, { cache: "no-store" });
           if (!response.ok) throw new Error("HTTP " + response.status);
           await cache.put(url, response);
         }),
       );
-      const ok = results.filter((r) => r.status === "fulfilled").length;
+      const ok =
+        STATIC_PRECACHE_URLS.length +
+        results.filter((r) => r.status === "fulfilled").length;
       console.log("[SW] Precached " + ok + "/" + PRECACHE_TOTAL + " assets");
       const clients = await self.clients.matchAll({
         type: "window",
@@ -118,8 +131,12 @@ self.addEventListener("fetch", (event) => {
   }
 
   // App shell → network-first with cache fallback
-  if (url.pathname === "/" || url.pathname === "/index.html") {
-    event.respondWith(networkFirst(request));
+  if (
+    request.mode === "navigate" ||
+    url.pathname === "/" ||
+    url.pathname === "/index.html"
+  ) {
+    event.respondWith(networkFirstNavigation(request));
     return;
   }
 
@@ -154,7 +171,11 @@ self.addEventListener("message", (event) => {
 
 async function cacheFirst(request, cacheName = STATIC_CACHE) {
   const cache = await caches.open(cacheName);
-  const cached = await cache.match(request);
+  // Static assets are immutable/versioned by their URL. Hosts commonly add
+  // `Vary: Origin`; install-time requests have no page Origin header, while
+  // later document requests do. Ignoring that response header keeps the exact
+  // same URL usable offline without broadening the cache key.
+  const cached = await cache.match(request, { ignoreVary: true });
   if (cached) return cached;
   try {
     const network = await fetch(request);
@@ -165,14 +186,17 @@ async function cacheFirst(request, cacheName = STATIC_CACHE) {
   }
 }
 
-async function networkFirst(request) {
+async function networkFirstNavigation(request) {
   const cache = await caches.open(STATIC_CACHE);
   try {
     const network = await fetch(request);
-    if (network.ok) cache.put(request, network.clone());
+    if (network.ok) await cache.put("/", network.clone());
     return network;
   } catch (e) {
-    const cached = await cache.match(request);
+    const cached =
+      (await cache.match(request)) ||
+      (await cache.match("/")) ||
+      (await cache.match("/index.html"));
     if (cached) return cached;
     return new Response("Offline", { status: 503, statusText: "Service Unavailable" });
   }
@@ -180,7 +204,7 @@ async function networkFirst(request) {
 
 async function staleWhileRevalidate(request) {
   const cache = await caches.open(STATIC_CACHE);
-  const cached = await cache.match(request);
+  const cached = await cache.match(request, { ignoreVary: true });
   const update = fetch(request)
     .then((network) => {
       if (network.ok) cache.put(request, network.clone());
