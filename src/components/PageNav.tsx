@@ -121,7 +121,7 @@ export function PageNav({
         aria-label={layout === "spread" && !compact ? "next two pages" : "next page"}
         onClick={goForward}
       >
-        ‹
+        <span className="page-nav-ink" aria-hidden="true">‹</span>
       </button>
 
       <div className="page-nav-center" ref={popoverRef}>
@@ -136,7 +136,7 @@ export function PageNav({
             setJumpInput(String(page));
           }}
         >
-          {rangeLabel}
+          <span className="page-nav-ink">{rangeLabel}</span>
         </button>
 
         {popoverOpen && (
@@ -206,7 +206,7 @@ export function PageNav({
         aria-label={layout === "spread" && !compact ? "previous two pages" : "previous page"}
         onClick={goBackward}
       >
-        ›
+        <span className="page-nav-ink" aria-hidden="true">›</span>
       </button>
     </div>
   );

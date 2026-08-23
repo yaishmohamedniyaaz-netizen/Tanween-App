@@ -43,6 +43,10 @@ const headerSource = fs.readFileSync(
   new URL("../src/components/Header.tsx", import.meta.url),
   "utf8",
 );
+const pageNavSource = fs.readFileSync(
+  new URL("../src/components/PageNav.tsx", import.meta.url),
+  "utf8",
+);
 
 test("the source Mushaf selects one whole kalimah before exact rail choice", () => {
   assert.match(mushafSource, /interface WordHitbox/);
@@ -129,12 +133,41 @@ test("compact header reserves stable controls while the reciter name truncates",
   assert.match(headerSource, /className="reciter-name"/);
   assert.match(
     mushafStyleSource,
-    /grid-template-columns: auto minmax\(0, 1fr\) 34px 34px 34px/,
+    /grid-template-columns: auto minmax\(0, 1fr\) 44px 44px 44px/,
+  );
+  assert.match(
+    mushafStyleSource,
+    /@media \(max-width: 600px\) \{[\s\S]*?\.app-header \{[\s\S]*?z-index: 40;/,
   );
   assert.match(
     mushafStyleSource,
     /\.reciter-name[\s\S]*text-overflow: ellipsis/,
   );
+});
+
+test("compact live controls expose 44px targets without enlarging their visual surfaces", () => {
+  assert.match(pageNavSource, /className="page-nav-ink"/);
+  assert.match(
+    mushafStyleSource,
+    /\.view-toggle \{[\s\S]*?min-width: 44px;[\s\S]*?height: 44px;/,
+  );
+  assert.match(
+    mushafStyleSource,
+    /\.app-header > \.btn-icon,[\s\S]*?width: 44px;[\s\S]*?height: 44px;/,
+  );
+  assert.match(
+    mushafStyleSource,
+    /\.view-toggle::before,[\s\S]*?inset: 5px;/,
+  );
+  assert.match(
+    mushafStyleSource,
+    /\.page-nav-btn,[\s\S]*?\.page-nav-page \{[\s\S]*?height: 44px;/,
+  );
+  assert.match(
+    mushafStyleSource,
+    /\.page-nav-btn::before \{[\s\S]*?inset: 8px;/,
+  );
+  assert.match(mushafStyleSource, /\.page-nav-page::before \{[\s\S]*?inset: 8px 0;/);
 });
 
 test("desktop Fit is owned by a measured frame instead of another viewport guess", () => {

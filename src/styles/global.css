@@ -9853,10 +9853,11 @@ html:has(.dialog-backdrop) {
 @media (max-width: 600px) {
   .app-header {
     display: grid;
-    grid-template-columns: auto minmax(0, 1fr) 34px 34px 34px;
+    grid-template-columns: auto minmax(0, 1fr) 44px 44px 44px;
     align-items: center;
-    gap: 8px;
-    padding: 10px 14px;
+    gap: 4px;
+    padding: 5px 10px;
+    z-index: 40;
   }
   .brand {
     min-width: 0;
@@ -9883,11 +9884,36 @@ html:has(.dialog-backdrop) {
   }
   .reciter-chip {
     width: 100%;
+    height: 44px;
     min-width: 0;
     max-width: none;
     padding: 0 10px;
+    position: relative;
+    isolation: isolate;
+    border-color: transparent;
     overflow: hidden;
     white-space: nowrap;
+  }
+  .reciter-chip::before {
+    content: "";
+    position: absolute;
+    inset: 5px 0;
+    z-index: 0;
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-sm);
+    background: transparent;
+    transition: background-color var(--t-fast) var(--ease-out),
+      border-color var(--t-fast) var(--ease-out);
+  }
+  .reciter-chip:hover {
+    border-color: transparent;
+  }
+  .reciter-chip:hover::before {
+    border-color: var(--ink-3);
+  }
+  .reciter-chip > span {
+    position: relative;
+    z-index: 1;
   }
   .reciter-name {
     min-width: 0;
@@ -9900,11 +9926,50 @@ html:has(.dialog-backdrop) {
     display: none;
   }
   .view-toggle {
-    min-width: 34px;
-    width: 34px;
+    min-width: 44px;
+    width: 44px;
+    height: 44px;
     padding: 0;
     gap: 0;
+    position: relative;
+    isolation: isolate;
+    border-color: transparent;
+    background: transparent;
     font-size: 0;
+  }
+  .view-toggle::before,
+  .app-header > .btn-icon::before,
+  .app-header > .overflow-wrap > .btn-icon::before {
+    content: "";
+    position: absolute;
+    inset: 5px;
+    z-index: 0;
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-sm);
+    background: transparent;
+    transition: background-color var(--t-fast) var(--ease-out),
+      border-color var(--t-fast) var(--ease-out);
+  }
+  .view-toggle:hover,
+  .app-header > .btn-icon:hover,
+  .app-header > .overflow-wrap > .btn-icon:hover {
+    border-color: transparent;
+    background: transparent;
+  }
+  .view-toggle:hover::before {
+    background: var(--bg);
+  }
+  .app-header > .btn-icon:hover::before,
+  .app-header > .overflow-wrap > .btn-icon:hover::before {
+    background: var(--surface);
+  }
+  .view-toggle.is-active {
+    border-color: transparent;
+    background: transparent;
+  }
+  .view-toggle.is-active::before {
+    border-color: var(--ink);
+    background: var(--ink);
   }
   .view-toggle-count {
     display: none;
@@ -9912,8 +9977,81 @@ html:has(.dialog-backdrop) {
   .app-header > .btn-icon,
   .app-header > .overflow-wrap,
   .app-header > .overflow-wrap > .btn-icon {
-    width: 34px;
-    min-width: 34px;
+    width: 44px;
+    min-width: 44px;
+    height: 44px;
+  }
+  .app-header > .btn-icon,
+  .app-header > .overflow-wrap > .btn-icon {
+    position: relative;
+    isolation: isolate;
+    border-color: transparent;
+    background: transparent;
+  }
+  .view-toggle > *,
+  .app-header > .btn-icon > *,
+  .app-header > .overflow-wrap > .btn-icon > * {
+    position: relative;
+    z-index: 1;
+  }
+  .overflow-menu {
+    top: calc(100% + 3px);
+  }
+
+  /* Keep the approved compact navigation surfaces while making the actual
+     previous/page/next controls large enough to hit without aiming. */
+  .page-nav {
+    height: 28px;
+    gap: 0;
+  }
+  .page-nav-btn,
+  .page-nav-page {
+    position: relative;
+    isolation: isolate;
+    height: 44px;
+    border-color: transparent;
+    background: transparent;
+  }
+  .page-nav-btn {
+    width: 44px;
+  }
+  .page-nav-btn::before,
+  .page-nav-page::before {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    border: 1px solid var(--line-2);
+    background: color-mix(in srgb, var(--page-paper) 88%, transparent);
+    transition: background-color var(--t-fast) var(--ease-out),
+      border-color var(--t-fast) var(--ease-out);
+  }
+  .page-nav-btn::before {
+    inset: 8px;
+    border-radius: 999px;
+  }
+  .page-nav-page::before {
+    inset: 8px 0;
+    border-radius: var(--r-sm);
+  }
+  .page-nav-ink {
+    position: relative;
+    z-index: 1;
+  }
+  .page-nav-btn:hover,
+  .page-nav-page:hover {
+    border-color: transparent;
+    background: transparent;
+  }
+  .page-nav-btn:hover::before,
+  .page-nav-page:hover::before {
+    border-color: var(--ink-3);
+    background: var(--bg);
+  }
+  .page-nav-center {
+    height: 44px;
+  }
+  .page-nav-popover {
+    top: 36px;
   }
   .workspace,
   .records-main {
