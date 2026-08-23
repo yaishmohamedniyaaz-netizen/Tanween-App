@@ -9811,7 +9811,9 @@ html:has(.dialog-backdrop) {
 /* Portrait phones keep the same line-fitting rules; only the shared Arabic
    density rises moderately so the live page reads closer to the landscape
    composition without introducing a second spacing system. */
-@media (max-width: 600px) and (orientation: portrait) {
+@media (max-width: 600px) and (orientation: portrait),
+  (min-width: 601px) and (max-width: 900px) and (max-device-width: 600px) and
+    (pointer: coarse) and (orientation: portrait) {
   .app.view-judge .mushaf-composition {
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
@@ -9820,6 +9822,22 @@ html:has(.dialog-backdrop) {
     --mushaf-line-fluid-size: 5.74cqi;
     --mushaf-basmala-fluid-size: 5.17cqi;
     --surah-band-title-fluid-size: 4.34cqi;
+  }
+}
+
+/* Safari page zoom can make a phone-sized screen report a 601-900px layout
+   viewport. Keep the same cqi composition instead of letting desktop font
+   caps shrink the printed lines after Safari scales the page back down. */
+@media (min-width: 601px) and (max-width: 900px) and (max-device-width: 600px) and
+  (pointer: coarse) and (orientation: portrait) {
+  .app.view-judge .mushaf-composition .page {
+    --surah-band-title-size: var(--surah-band-title-fluid-size);
+  }
+  .app.view-judge .mushaf-composition .m-line {
+    font-size: var(--mushaf-line-fluid-size);
+  }
+  .app.view-judge .mushaf-composition .m-line-basmala {
+    font-size: var(--mushaf-basmala-fluid-size);
   }
 }
 .offline-mushaf-dialog {
@@ -9850,7 +9868,9 @@ html:has(.dialog-backdrop) {
   margin-top: 20px;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 600px),
+  (min-width: 601px) and (max-width: 900px) and (max-device-width: 600px) and
+    (pointer: coarse) and (orientation: portrait) {
   .app-header {
     display: grid;
     grid-template-columns: auto minmax(0, 1fr) 44px 44px 44px;

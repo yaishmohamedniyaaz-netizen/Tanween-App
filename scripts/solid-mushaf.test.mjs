@@ -97,10 +97,10 @@ test("portrait Mushaf density is one scoped adjustment, not mobile spacing", () 
   );
 
   const portraitStart = mushafStyleSource.indexOf(
-    "@media (max-width: 600px) and (orientation: portrait)",
+    "@media (max-width: 600px) and (orientation: portrait),",
   );
   const nextCompactBlock = mushafStyleSource.indexOf(
-    "@media (max-width: 600px) {",
+    "@media (max-width: 600px),",
     portraitStart,
   );
   assert.notEqual(portraitStart, -1);
@@ -121,6 +121,18 @@ test("portrait Mushaf density is one scoped adjustment, not mobile spacing", () 
   assert.match(portraitDensityBlock, /--mushaf-line-fluid-size: 5\.74cqi/);
   assert.match(portraitDensityBlock, /--mushaf-basmala-fluid-size: 5\.17cqi/);
   assert.match(portraitDensityBlock, /--surah-band-title-fluid-size: 4\.34cqi/);
+  assert.match(
+    portraitDensityBlock,
+    /\(min-width: 601px\) and \(max-width: 900px\) and \(max-device-width: 600px\)[\s\S]*?\(pointer: coarse\) and \(orientation: portrait\)/,
+  );
+  assert.match(
+    portraitDensityBlock,
+    /\.m-line \{[\s\S]*?font-size: var\(--mushaf-line-fluid-size\)/,
+  );
+  assert.match(
+    portraitDensityBlock,
+    /\.m-line-basmala \{[\s\S]*?font-size: var\(--mushaf-basmala-fluid-size\)/,
+  );
   assert.doesNotMatch(portraitDensityBlock, /\.m-word|\.m-line-ayah/);
   assert.doesNotMatch(
     portraitDensityBlock,
@@ -137,7 +149,7 @@ test("compact header reserves stable controls while the reciter name truncates",
   );
   assert.match(
     mushafStyleSource,
-    /@media \(max-width: 600px\) \{[\s\S]*?\.app-header \{[\s\S]*?z-index: 40;/,
+    /@media \(max-width: 600px\),[\s\S]*?\(min-width: 601px\) and \(max-width: 900px\) and \(max-device-width: 600px\)[\s\S]*?\(pointer: coarse\) and \(orientation: portrait\) \{[\s\S]*?\.app-header \{[\s\S]*?z-index: 40;/,
   );
   assert.match(
     mushafStyleSource,
