@@ -35,6 +35,14 @@ const participant = {
   phone: "7771234",
   institution: "School A",
 };
+
+const participantForAge = (id, number, name, ageGroup) => ({
+  ...participant,
+  id,
+  number,
+  name,
+  ageGroup,
+});
 const competition = {
   version: 1,
   id: "competition-test",
@@ -176,23 +184,95 @@ test("final workbook preserves requested participant fields and verified fixed t
   ], JUDGED)[0];
   const result = finalizeParticipantResult(candidate, {});
   assert.ok(result);
-  const buffer = await buildFinalResultsWorkbook([result], competition);
+  const exportedAt = Date.UTC(2026, 7, 19, 10, 15, 0);
+  const buffer = await buildFinalResultsWorkbook([result], competition, { exportedAt });
   await verifyFinalResultsWorkbook(buffer, [result]);
   const { read, utils } = await import("xlsx");
   const workbook = read(buffer, { type: "array" });
-  assert.deepEqual(workbook.SheetNames, ["Results", "Verification"]);
+  assert.deepEqual(workbook.SheetNames, ["Results", "Audit", "Verification"]);
   const rows = utils.sheet_to_json(workbook.Sheets.Results, { header: 1, defval: "" });
   assert.deepEqual(rows[0], finalResultsHeaders([result]));
-  assert.deepEqual(rows[1].slice(1, 8), [
+  assert.deepEqual(rows[1].slice(1, 7), [
     "014",
     "Aishath Latheefa",
     "Under 14",
-    "Baliagen · Tarteel / reading",
-    "Feshey kolhu · Starting side",
-    "7771234",
+    "Balaigen",
+    "Fesheykolhu",
     "School A",
   ]);
-  assert.deepEqual(rows[1].slice(8, 13), [48, 30, 20, 98, 100]);
+  assert.deepEqual(rows[1].slice(7, 11), [48, 30, 20, 98]);
+  assert.doesNotMatch(rows[0].join("|"), /Phone|Maximum|Revision|Manifest|Date/);
+
+  const auditRows = utils.sheet_to_json(workbook.Sheets.Audit, { header: 1, defval: "" });
+  assert.deepEqual(auditRows[0], [
+    "Participant Number",
+    "Name",
+    "Maximum",
+    "Result Revision",
+    "Revision Reason",
+    "Verification Manifest",
+  ]);
+  assert.deepEqual(auditRows[1], ["014", "Aishath Latheefa", 100, 1, "", result.manifest]);
+  const verificationRows = utils.sheet_to_json(workbook.Sheets.Verification, {
+    header: 1,
+    defval: "",
+    blankrows: false,
+  });
+  assert.ok(verificationRows.some((row) =>
+    row[0] === "Export generated (UTC)" && row[1] === "2026-08-19T10:15:00.000Z"
+  ));
+
+  const ExcelJS = (await import("exceljs")).default;
+  const styled = new ExcelJS.Workbook();
+  await styled.xlsx.load(buffer);
+  const resultSheet = styled.getWorksheet("Results");
+  const auditSheet = styled.getWorksheet("Audit");
+  assert.ok(resultSheet);
+  assert.ok(auditSheet);
+  assert.equal(resultSheet.views[0].xSplit, 3);
+  assert.equal(resultSheet.views[0].ySplit, 1);
+  assert.equal(resultSheet.pageSetup.orientation, "landscape");
+  assert.equal(resultSheet.pageSetup.fitToWidth, 1);
+  assert.equal(resultSheet.pageSetup.fitToHeight, 0);
+  assert.ok(resultSheet.autoFilter);
+  assert.equal(resultSheet.getColumn(2).width, 19);
+  assert.equal(resultSheet.getCell("B2").numFmt, "@");
+  assert.equal(resultSheet.getCell("A1").fill.fgColor.argb, "FFFFFFFF");
+  assert.equal(resultSheet.getCell("A1").font.color.argb, "FF242421");
+  assert.equal(resultSheet.getCell("H1").fill.fgColor.argb, "FFFFFFFF");
+  assert.equal(resultSheet.getCell("H1").font.color.argb, "FF242421");
+  assert.equal(resultSheet.getCell("H1").border.bottom.color.argb, "FF9E2820");
+  assert.equal(resultSheet.getCell("I1").border.bottom.color.argb, "FF7C540E");
+  assert.equal(resultSheet.getCell("J1").border.bottom.color.argb, "FF2F3AA3");
+  assert.equal(auditSheet.getCell("A1").fill.fgColor.argb, "FFFFFFFF");
+  assert.equal(auditSheet.getCell("A1").font.color.argb, "FF242421");
+  assert.ok(auditSheet.autoFilter);
+});
+
+test("final workbook orders numeric age groups from youngest to oldest", async () => {
+  const baseCandidate = buildResultCandidates([
+    session("age-base", ["jali", "khafi", "fasaha"]),
+  ], JUDGED)[0];
+  const base = finalizeParticipantResult(baseCandidate, {});
+  assert.ok(base);
+  const results = [
+    { ...base, id: "r-open", participant: participantForAge("p-open", "090", "Open", "Open"), manifest: "m-open" },
+    { ...base, id: "r-16", participant: participantForAge("p-16", "016", "Older", "Under 16"), manifest: "m-16" },
+    { ...base, id: "r-10", participant: participantForAge("p-10", "010", "Youngest", "Under 10"), manifest: "m-10" },
+    { ...base, id: "r-12", participant: participantForAge("p-12", "012", "Younger", "Under 12"), manifest: "m-12" },
+  ];
+  const buffer = await buildFinalResultsWorkbook(results, competition, {
+    exportedAt: Date.UTC(2026, 7, 20),
+  });
+  const { read, utils } = await import("xlsx");
+  const workbook = read(buffer, { type: "array" });
+  const rows = utils.sheet_to_json(workbook.Sheets.Results, { defval: "", raw: false });
+  assert.deepEqual(rows.map((row) => row["Age Group"]), [
+    "Under 10",
+    "Under 12",
+    "Under 16",
+    "Open",
+  ]);
 });
 
 test("judge packages and full backups reject incomplete files", () => {
@@ -200,6 +280,71 @@ test("judge packages and full backups reject incomplete files", () => {
   const resultPackage = buildJudgeResultPackage(source, competition);
   assert.equal(parseJudgeResultPackage(resultPackage).session.id, "jali");
   assert.throws(() => parseJudgeResultPackage({ app: "tahqeeq" }));
+  assert.throws(
+    () => parseJudgeResultPackage({
+      ...resultPackage,
+      session: { ...resultPackage.session, competitionId: "" },
+    }),
+    /conflicting competition identity/,
+  );
+  assert.throws(
+    () => parseJudgeResultPackage({
+      ...resultPackage,
+      session: { ...resultPackage.session, competitionVersionId: "" },
+    }),
+    /conflicting competition identity/,
+  );
+  assert.throws(
+    () => parseJudgeResultPackage({
+      ...resultPackage,
+      competition: { ...resultPackage.competition, isSample: undefined },
+    }),
+    /not a complete Tahqeeq judge-result file/,
+  );
+  assert.throws(
+    () => parseJudgeResultPackage({
+      ...resultPackage,
+      session: { ...resultPackage.session, events: [null] },
+    }),
+    /not a complete Tahqeeq judge-result file/,
+  );
+  assert.throws(
+    () => parseJudgeResultPackage({
+      ...resultPackage,
+      session: {
+        ...resultPackage.session,
+        events: [{ type: "session_finalized" }],
+      },
+    }),
+    /not a complete Tahqeeq judge-result file/,
+  );
+  assert.throws(
+    () => parseJudgeResultPackage({
+      ...resultPackage,
+      session: { ...resultPackage.session, savedAt: Number.MAX_VALUE },
+    }),
+    /not a complete Tahqeeq judge-result file/,
+  );
+  assert.throws(
+    () => parseJudgeResultPackage({
+      ...resultPackage,
+      session: {
+        ...resultPackage.session,
+        mistakes: [{ ...mistake("jali", 2), amount: -2 }],
+      },
+    }),
+    /not a complete Tahqeeq judge-result file/,
+  );
+  assert.throws(
+    () => parseJudgeResultPackage({
+      ...resultPackage,
+      session: {
+        ...resultPackage.session,
+        mistakes: [{ ...mistake("jali", 2), category: "adu-raagu" }],
+      },
+    }),
+    /not a complete Tahqeeq judge-result file/,
+  );
 
   const state = { history: [source], roster: [] };
   const backup = buildStateBackup(state);
@@ -221,4 +366,7 @@ test("the UI retains old final revisions and validates imported competition reco
   assert.match(recordsSource, /not in this competition's participant list/);
   assert.match(recordsSource, /does not match this competition's panel assignments/);
   assert.match(recordsSource, /uses different scoring rules/);
+  assert.match(recordsSource, /normalizeImportedSavedSession/);
+  assert.match(recordsSource, /participant: canonicalParticipant/);
+  assert.match(storeSource, /judging ledger does not agree with its saved score evidence/);
 });

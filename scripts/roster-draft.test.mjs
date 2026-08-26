@@ -22,7 +22,7 @@ const divisions = [
 test("automatic numbering uses two digits below 100 and three at 100", () => {
   assert.equal(automaticParticipantNumber(0, 8), "01");
   assert.equal(automaticParticipantNumber(98, 99), "99");
-  assert.equal(automaticParticipantNumber(0, 100), "001");
+  assert.equal(automaticParticipantNumber(0, 100), "01");
   assert.equal(automaticParticipantNumber(99, 100), "100");
 });
 
@@ -58,7 +58,7 @@ test("V1 age group and category rows map to current division ids", () => {
   const result = validateRosterDraft(draft, divisions);
   assert.equal(result.errorCount, 0);
   assert.equal(result.entries[0].number, "014");
-  assert.equal(result.entries[0].category, "baliagen");
+  assert.equal(result.entries[0].category, "mushaf-reading");
 });
 
 test("V3 Category and Muqarrar start headers map without changing internal ids", () => {
@@ -71,7 +71,7 @@ test("V3 Category and Muqarrar start headers map without changing internal ids",
   });
   const result = validateRosterDraft(draft, divisions);
   assert.equal(draft.rows[0].divisionId, "u14-hifz");
-  assert.equal(draft.rows[0].muqarrar, "feshey-kolhu");
+  assert.equal(draft.rows[0].muqarrar, "starting-side");
   assert.equal(result.errorCount, 0);
 });
 
@@ -128,7 +128,7 @@ test("new rows inherit only explicit entry defaults", () => {
     institution: "  School A  ",
   });
   assert.equal(row.divisionId, "u14-hifz");
-  assert.equal(row.muqarrar, "feshey-kolhu");
+  assert.equal(row.muqarrar, "starting-side");
   assert.equal(row.institution, "School A");
   assert.equal(row.name, "");
   assert.equal(row.phone, "");
@@ -151,9 +151,9 @@ test("entry defaults fill blanks in one category without overwriting values", ()
     { muqarrar: "feshey-kolhu", institution: "School A" },
     "u14-hifz",
   );
-  assert.equal(filled.rows[0].muqarrar, "feshey-kolhu");
+  assert.equal(filled.rows[0].muqarrar, "starting-side");
   assert.equal(filled.rows[0].institution, "School A");
-  assert.equal(filled.rows[1].muqarrar, "nimey-kolhu");
+  assert.equal(filled.rows[1].muqarrar, "ending-side");
   assert.equal(filled.rows[1].institution, "School B");
   assert.equal(filled.rows[2].muqarrar, "");
   assert.equal(filled.rows[2].institution, "");

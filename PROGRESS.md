@@ -1,5 +1,70 @@
 # Tahqeeq — build progress log
 
+## Adu / Raagu contrast and research reconciliation — IMPLEMENTED & VERIFIED (2026-08-16)
+
+- Integrated Claude's final resolved Adu / Raagu direction while retaining the
+  existing whole-number chip picker and half-mark gesture contract. The
+  discarded cell-grid experiment was not reintroduced.
+- The committed accent is now the quieter `#377b60`; selected text uses an
+  explicit white on-accent token in both themes, and half-filled chips split
+  their numeral between white and normal ink at the fill boundary.
+- Opening the picker is now a neutral monochrome border state rather than a
+  green border, green wash, and glow before any mark is committed.
+- Added the mark-bar and mark-picker studies plus the reconciled Results and
+  Analysis plan. The mark-bar plan now distinguishes historical slider findings,
+  implemented corrections, and proposals that remain unapproved.
+- All 262 tests pass, including the new contrast and neutral-open-state
+  contract; the production Sites build and `git diff --check` also pass.
+
+## True two-page Mushaf view — IMPLEMENTED & VERIFIED (2026-08-16)
+
+- Replaced the misleading Split page mode with two independently rendered
+  consecutive KFGQPC V1 1405H pages.
+- The judging pair is the selected page on the right plus the next page on the
+  left. This intentionally supports even anchors such as `200 + 201` so a
+  cross-page question can remain visible; page 604 uses the closing `603 + 604`
+  pair.
+- The update adds atomic pair/font loading, shared pair navigation,
+  exact mistake-jump routing, page-tagged hitboxes, one pair-owned scroll
+  canvas, a compact-layout single-page fallback, and a Full/Two pages control
+  beside live Mushaf size controls.
+- The old one-page split CSS and duplicate Page view field in Settings are gone.
+  Browser QA verified `603 + 604` and `199 + 200` at 1440 x 900, including page
+  order, independent page assets, both QCF fonts ready, and zero console errors.
+  At 390 x 844 the same saved choice renders one page with no horizontal
+  overflow, navigates by one page, and restores a two-page pair on desktop.
+- All 261 tests pass, the production Sites build succeeds, and
+  `git diff --check` is clean. Quran source data, scoring, question rules,
+  Results, exports, and the separate phone plan remain protected.
+- Detailed implementation and verification contract:
+  [`docs/TRUE_TWO_PAGE_MUSHAF_SPREAD_PLAN.md`](docs/TRUE_TWO_PAGE_MUSHAF_SPREAD_PLAN.md).
+
+## Desktop Mushaf stage — IMPLEMENTED & VERIFIED (2026-08-16)
+
+- The two-column judge shell now owns the stable screen height, the header takes
+  its intrinsic row, and the Mushaf fits the frame's measured width and height
+  instead of another guessed viewport subtraction.
+- Full and split pages retain their exact aspect ratios, maximum sizes, QCF
+  glyphs, line composition, source IDs, and measured hitbox contract. An 8px
+  minimum clearance keeps the centred paper and focus geometry off the frame.
+- The Mushaf frame owns future overflow while the rail stretches to the same
+  workspace height. At Fit, the 1280 x 720 document and frame both measure with
+  no horizontal or vertical overflow and opposing gaps match within 1px.
+- Narrow, short-height, and print views restore normal document flow. The idle
+  workspace's stronger selector is explicitly reset below 900px so the phone
+  Mushaf column cannot collapse to zero width.
+- Browser QA covered 1440 x 900, 1280 x 720, 1024 x 768, 768 x 1024, 390 x 844,
+  the 1280 x 600 fallback, idle and active judging, the hint-reduced frame,
+  visible Finish action, word-tray open/close, full/split layouts, both themes
+  and rail sides, pages 1, 2, 199, 300, 601, 602, and 604, and page navigation
+  604 -> 603. No console errors were recorded.
+- All 253 tests pass, the production Sites build succeeds, and `git diff --check`
+  is clean. The implementation contract and acceptance evidence are recorded in
+  [`docs/DESKTOP_MUSHAF_STAGE_IMPLEMENTATION_PLAN.md`](docs/DESKTOP_MUSHAF_STAGE_IMPLEMENTATION_PLAN.md).
+- The zoom toolbar/range and dedicated phone judging layout remain separate
+  later updates.
+- Rollback checkpoint: `checkpoint/pre-desktop-mushaf-stage-20260816`.
+
 ## Adu / Raagu required entry — IMPLEMENTED & VERIFIED (2026-08-16)
 
 - Active and reopened unentered Adu / Raagu now starts at zero and
@@ -446,7 +511,7 @@ How to run: `npm install` → `npm run dev` → http://localhost:5173 (launch co
 Safe, aligned polish that can proceed without product decisions:
 - [x] Touch-safety for the gesture — pointerId tracking (ignore stray multi-touch), touch-action:none on hitboxes, -webkit-touch-callout:none, onContextMenu prevent; also fixed closeAll() to clear startRef (Escape/cancel mid-press no longer freezes the gesture). Verified drag still commits (60→59).
 - [x] Keyboard a11y for the pill menu — tap pins → first pill auto-focused → ArrowUp/Down navigate → Enter/Space commit; :focus-visible ring. Verified (jali→khafi via ArrowDown, commit OK).
-- [x] First-run hint / drag affordance — dismissible coach banner above the mushaf (HintBanner), shows on clean slate only. Verified present + dismissable.
+- [x] First-run marking affordance — non-displacing coach tip in the free Mushaf gutter, retires after the first mark, and remains replayable from More controls.
 - [x] JSON export of a session — Export button → downloads structured JSON (app/schema/participant/config/score/notes/mistakes). Verified payload shape end-to-end.
 
 ALL FOUR SAFE-POLISH ITEMS DONE & VERIFIED.

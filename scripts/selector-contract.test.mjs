@@ -100,7 +100,7 @@ test("one target is centered and category rings inherit their exposed corners", 
 test("tray keyboard input is isolated from page navigation", () => {
   assert.match(mushafSource, /event\.defaultPrevented \|\| active/);
   assert.match(dragMenuSource, /e\.stopPropagation\(\)/);
-  assert.match(mushafSource, /useEffect\(\(\) => closeAll\(\), \[closeAll, currentPage, pageLayout\]\)/);
+  assert.match(mushafSource, /useEffect\(\(\) => closeAll\(\), \[closeAll, currentPage, pageLayout, renderScale\]\)/);
 });
 
 test("legacy browser state receives a non-destructive one-time backup", () => {

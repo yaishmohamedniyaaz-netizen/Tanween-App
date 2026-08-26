@@ -1,7 +1,8 @@
 import type { TokenRole } from "../types";
 import staticPage604 from "../data/page604.json";
 import { isNonRecitationWord } from "./tokenize";
-import { MUSHAF_DATA_VERSION, MUSHAF_LAYOUT } from "./mushafContract";
+import { MUSHAF_LAYOUT } from "./mushafContract";
+import { mushafPageAssetUrl } from "./mushafAssets.ts";
 
 export { MUSHAF_DATA_VERSION, MUSHAF_LAYOUT } from "./mushafContract";
 
@@ -41,7 +42,7 @@ export interface MushafPage {
 const pageCache = new Map<number, MushafPage>();
 
 export function pageAssetUrl(page: number): string {
-  return `/pages/p${page}.json?v=${MUSHAF_DATA_VERSION}`;
+  return mushafPageAssetUrl(page);
 }
 
 function assertPageContract(data: any, expectedPage?: number): void {
@@ -61,6 +62,11 @@ function assertPageContract(data: any, expectedPage?: number): void {
   if (!Array.isArray(data.lines) || data.lines.length === 0) {
     throw new Error("Mushaf page has no layout lines");
   }
+}
+
+/** Validate a delivered page before it is admitted to an offline package. */
+export function validateMushafPageAsset(data: unknown, expectedPage: number): void {
+  assertPageContract(data, expectedPage);
 }
 
 function castPage(data: any, expectedPage?: number): MushafPage {

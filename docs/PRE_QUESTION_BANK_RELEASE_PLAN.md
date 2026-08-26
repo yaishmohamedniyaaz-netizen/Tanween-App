@@ -44,20 +44,20 @@ Implemented competition identity:
 
 ### Participant workbook
 
-Settings contains **Download participant template (.xlsx)**. The import sheet
-has exactly these seven columns, in this order:
+Settings contains **Participant template**. Its dialog produces an `.xlsx`
+workbook from the active competition and numbering mode:
 
 | Column | Requirement | Meaning |
 |---|---|---|
-| Participant Number | required and unique | number used by judges and organizers |
+| Participant Number | included and required only in supplied numbering mode | number used by judges and organizers |
 | Name | required | participant name |
-| Age Group | required | for example, Under 14 or Under 16 |
-| Category | required | `Baliagen` for Tarteel/reading or `Hifz` for memorisation |
-| Muqarrar (Hathim Side) | required | `Feshey kolhu` for starting side or `Nimey kolhu` for ending side |
-| Phone Number | optional | organizer contact number |
-| Institution | optional | class, school, or `Amilla faraathun` for own/personal participation |
+| Category | required | one active competition category, which already carries age group and recitation type |
+| Muqarrar start | required | `Fesheykolhu` for starting side or `Nimeykolhu` for ending side |
+| Institution | optional; included by default | class, school, organisation, or independent entry |
+| Phone Number | optional; off by default | organizer contact number |
 
-The workbook also contains a separate **Read me** sheet. The import sheet has
+The workbook also contains separate **Instructions** and hidden validation and
+metadata sheets. The import sheet has
 no fake participant. `.xlsx`, `.xls`, and UTF-8 `.csv` remain supported.
 
 Import rules:
@@ -71,8 +71,9 @@ Import rules:
 - generate a stable internal participant identity separate from the displayed
   participant number.
 
-Gate: generate the template, read it back, verify both sheet names and all
-seven headers, and prove representative rows survive unchanged.
+Gate: generate each supported column selection, read it back, verify sheet
+names, selected headers, dropdown positions, and metadata, and prove
+representative rows survive unchanged.
 
 ## 4. P2 — collect separate judge results safely
 
@@ -183,7 +184,7 @@ evidence in place.
 
 - all 604 QPC V1 1405H pages retain their source/layout invariants;
 - one-target and multi-target selector geometry remains stable;
-- participant template round-trips with the exact seven headers;
+- participant template round-trips with its selected V7 headers and Categories, native table, starter rows, neutral IDs, and preserved required dropdowns;
 - invalid participant rows cannot silently enter the roster;
 - judge-result conflicts require a choice;
 - final totals reconstruct from selected judge sections;

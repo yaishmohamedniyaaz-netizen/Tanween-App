@@ -1,26 +1,36 @@
 import type { CompetitionDivision, Participant } from "../types";
+import {
+  muqarrarLabel,
+  normalizeMuqarrarSide,
+  normalizeParticipantCategory,
+  participantCategoryLabel,
+} from "./participants.ts";
 
 function categoryLabel(participant: Participant): string {
-  if (participant.category === "nubalaa") return "Hifz";
-  if (participant.category === "baliagen") return "Baliagen";
-  return "";
+  const category = normalizeParticipantCategory(participant.category);
+  return category ? participantCategoryLabel(category) : "";
 }
 
 function sideLabel(participant: Participant): string {
-  if (participant.muqarrar === "feshey-kolhu") return "Starting side";
-  if (participant.muqarrar === "nimey-kolhu") return "Ending side";
-  return "";
+  const side = normalizeMuqarrarSide(participant.muqarrar);
+  return side ? muqarrarLabel(side) : "";
 }
 
 const normalized = (value: string) => value.trim().toLocaleLowerCase();
 
 export function divisionLabel(division: CompetitionDivision): string {
-  const name = division.name.trim();
-  const category = division.category === "nubalaa" ? "Hifz" : "Baliagen";
+  const normalizedCategory = normalizeParticipantCategory(division.category);
+  const category = normalizedCategory
+    ? participantCategoryLabel(normalizedCategory)
+    : "Category";
+  const name = division.name
+    .trim()
+    .replace(/\s*(?:(?:·|—|-)\s*)?(?:hifz|nubalaa|baliagen|balaigen)\s*$/i, "")
+    .trim();
   if (!name) return category;
   return normalized(name).includes(normalized(category))
     ? name
-    : `${name} — ${category}`;
+    : `${name} · ${category}`;
 }
 
 /**
@@ -30,7 +40,7 @@ export function divisionLabel(division: CompetitionDivision): string {
  */
 export function participantNumberLabel(
   value: string,
-  participantCount = 0,
+  _participantCount = 0,
 ): string {
   const raw = value.trim();
   if (!raw) return "—";
@@ -39,11 +49,7 @@ export function participantNumberLabel(
   const number = Number(raw);
   if (!Number.isSafeInteger(number) || number < 1) return raw;
 
-  const width = Math.max(
-    2,
-    String(Math.max(number, Math.floor(participantCount))).length,
-  );
-  return String(number).padStart(width, "0");
+  return String(number).padStart(2, "0");
 }
 
 /** One compact, non-repeating context line shared by every participant card. */

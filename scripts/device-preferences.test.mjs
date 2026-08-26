@@ -3,10 +3,17 @@ import test from "node:test";
 import {
   DEFAULT_DEVICE_PREFERENCES,
   DEVICE_PREFERENCES_KEY,
+  LEGACY_DEVICE_PREFERENCES_KEY,
+  LEGACY_DEVICE_PREFERENCES_V2_KEY,
   LEGACY_JUDGE_RAIL_SIDE_KEY,
   LEGACY_PAGE_LAYOUT_KEY,
   LEGACY_PAGE_ZOOM_KEY,
   LEGACY_THEME_KEY,
+  MUSHAF_ZOOM_DEFAULT,
+  MUSHAF_ZOOM_FIT,
+  MUSHAF_ZOOM_MAX,
+  MUSHAF_ZOOM_MIN,
+  MUSHAF_ZOOM_STEP,
   normalizeDevicePreferences,
   readDevicePreferences,
   writeDevicePreferences,
@@ -27,17 +34,60 @@ function memoryStorage(initial = {}) {
 test("device preferences normalize invalid values without losing valid choices", () => {
   assert.deepEqual(normalizeDevicePreferences({
     theme: "dark",
-    mushafLayout: "split",
+    mushafLayout: "spread",
     mushafZoom: 83,
     judgeRailSide: "right",
+    questionFocusMode: "shade-fade",
   }), {
-    version: 1,
+    version: 3,
     theme: "dark",
-    mushafLayout: "split",
-    mushafZoom: 85,
+    mushafLayout: "spread",
+    mushafZoom: 100,
     judgeRailSide: "right",
+    questionFocusMode: "shade-fade",
   });
-  assert.deepEqual(normalizeDevicePreferences({ mushafZoom: 140 }), DEFAULT_DEVICE_PREFERENCES);
+  assert.equal(normalizeDevicePreferences({ mushafZoom: 140 }).mushafZoom, 140);
+  assert.equal(normalizeDevicePreferences({ mushafZoom: 61 }).mushafZoom, MUSHAF_ZOOM_MIN);
+  assert.equal(normalizeDevicePreferences({ mushafZoom: 190 }).mushafZoom, MUSHAF_ZOOM_MAX);
+  assert.equal(normalizeDevicePreferences({ mushafZoom: "invalid" }).mushafZoom, MUSHAF_ZOOM_DEFAULT);
+  assert.equal(normalizeDevicePreferences({ mushafZoom: null }).mushafZoom, MUSHAF_ZOOM_DEFAULT);
+  assert.equal(normalizeDevicePreferences({}).questionFocusMode, "fade");
+  assert.equal(
+    normalizeDevicePreferences({ version: 3, questionFocusMode: "shade" }).questionFocusMode,
+    "shade",
+  );
+  assert.equal(
+    normalizeDevicePreferences({ questionFocusEnabled: false }).questionFocusMode,
+    "off",
+  );
+  assert.equal(
+    normalizeDevicePreferences({ questionFocusEnabled: true }).questionFocusMode,
+    "fade",
+  );
+  assert.deepEqual(
+    [MUSHAF_ZOOM_MIN, MUSHAF_ZOOM_FIT, MUSHAF_ZOOM_DEFAULT, MUSHAF_ZOOM_MAX, MUSHAF_ZOOM_STEP],
+    [100, 100, 100, 150, 5],
+  );
+});
+
+test("Fit and Two pages are fresh-device defaults while saved choices remain explicit", () => {
+  const freshStorage = memoryStorage();
+  assert.equal(readDevicePreferences(freshStorage).mushafZoom, 100);
+  assert.equal(readDevicePreferences(freshStorage).mushafLayout, "spread");
+  const fitStorage = memoryStorage({
+    [DEVICE_PREFERENCES_KEY]: JSON.stringify({
+      ...DEFAULT_DEVICE_PREFERENCES,
+      mushafZoom: 100,
+    }),
+  });
+  assert.equal(readDevicePreferences(fitStorage).mushafZoom, 100);
+  const enlargedStorage = memoryStorage({
+    [DEVICE_PREFERENCES_KEY]: JSON.stringify({
+      ...DEFAULT_DEVICE_PREFERENCES,
+      mushafZoom: 110,
+    }),
+  });
+  assert.equal(readDevicePreferences(enlargedStorage).mushafZoom, 110);
 });
 
 test("legacy device keys migrate into the versioned settings object", () => {
@@ -48,39 +98,89 @@ test("legacy device keys migrate into the versioned settings object", () => {
     [LEGACY_JUDGE_RAIL_SIDE_KEY]: "right",
   });
   assert.deepEqual(readDevicePreferences(storage), {
-    version: 1,
+    version: 3,
     theme: "dark",
-    mushafLayout: "split",
-    mushafZoom: 75,
+    mushafLayout: "spread",
+    mushafZoom: 100,
     judgeRailSide: "right",
+    questionFocusMode: "fade",
   });
+});
+
+test("the version-one focus boolean migrates without losing other preferences", () => {
+  const storage = memoryStorage({
+    [LEGACY_DEVICE_PREFERENCES_KEY]: JSON.stringify({
+      version: 1,
+      theme: "dark",
+      mushafLayout: "spread",
+      mushafZoom: 115,
+      judgeRailSide: "right",
+      questionFocusEnabled: false,
+    }),
+  });
+  assert.deepEqual(readDevicePreferences(storage), {
+    version: 3,
+    theme: "dark",
+    mushafLayout: "spread",
+    mushafZoom: 115,
+    judgeRailSide: "right",
+    questionFocusMode: "off",
+  });
+});
+
+test("the version-two combined shade migrates to Shade + fade", () => {
+  const storage = memoryStorage({
+    [LEGACY_DEVICE_PREFERENCES_V2_KEY]: JSON.stringify({
+      version: 2,
+      theme: "light",
+      mushafLayout: "full",
+      mushafZoom: 100,
+      judgeRailSide: "left",
+      questionFocusMode: "shade",
+    }),
+  });
+  assert.equal(readDevicePreferences(storage).questionFocusMode, "shade-fade");
 });
 
 test("writing settings keeps the rollback-compatible legacy keys in sync", () => {
   const storage = memoryStorage();
   const written = writeDevicePreferences({
-    version: 1,
+    version: 3,
     theme: "dark",
     mushafLayout: "split",
     mushafZoom: 65,
     judgeRailSide: "right",
+    questionFocusMode: "shade-fade",
   }, storage);
-  assert.equal(JSON.parse(storage.getItem(DEVICE_PREFERENCES_KEY)).mushafZoom, 65);
+  const current = JSON.parse(storage.getItem(DEVICE_PREFERENCES_KEY));
+  const rollbackV2 = JSON.parse(storage.getItem(LEGACY_DEVICE_PREFERENCES_V2_KEY));
+  const rollback = JSON.parse(storage.getItem(LEGACY_DEVICE_PREFERENCES_KEY));
+  assert.equal(current.mushafZoom, 100);
+  assert.equal(current.questionFocusMode, "shade-fade");
+  assert.equal(rollbackV2.questionFocusMode, "shade");
+  assert.equal(rollback.questionFocusEnabled, true);
   assert.equal(storage.getItem(LEGACY_THEME_KEY), "dark");
-  assert.equal(storage.getItem(LEGACY_PAGE_LAYOUT_KEY), "split");
-  assert.equal(storage.getItem(LEGACY_PAGE_ZOOM_KEY), "65");
+  assert.equal(storage.getItem(LEGACY_PAGE_LAYOUT_KEY), "spread");
+  assert.equal(storage.getItem(LEGACY_PAGE_ZOOM_KEY), "100");
   assert.equal(storage.getItem(LEGACY_JUDGE_RAIL_SIDE_KEY), "right");
-  assert.equal(written.version, 1);
+  assert.equal(written.version, 3);
+
+  writeDevicePreferences({ ...written, questionFocusMode: "off" }, storage);
+  assert.equal(
+    JSON.parse(storage.getItem(LEGACY_DEVICE_PREFERENCES_KEY)).questionFocusEnabled,
+    false,
+  );
 });
 
 test("unavailable storage never prevents an in-memory preference change", () => {
   const storage = memoryStorage();
   storage.setItem = () => { throw new Error("quota"); };
   assert.doesNotThrow(() => writeDevicePreferences({
-    version: 1,
+    version: 3,
     theme: "dark",
     mushafLayout: "full",
     mushafZoom: 90,
     judgeRailSide: "left",
+    questionFocusMode: "fade",
   }, storage));
 });

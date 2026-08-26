@@ -11,9 +11,12 @@ import {
   parseRosterFileToDraft,
   recordsFromRosterGrid,
   rosterDraftComparison,
+  readParticipantTemplatePreferences,
   validateRosterDraft,
+  writeParticipantTemplatePreferences,
   type RosterColumnKey,
   type RosterDraftField,
+  type ParticipantTemplateOptions,
 } from "../lib/roster";
 import { divisionLabel } from "../lib/participantPresentation";
 import { normalizeMuqarrarSide } from "../lib/participants";
@@ -101,6 +104,10 @@ export function ParticipantRosterEditor({
   const [pasteText, setPasteText] = useState("");
   const [pasteMapping, setPasteMapping] = useState<RosterColumnKey[]>([]);
   const [firstRowIsHeader, setFirstRowIsHeader] = useState(true);
+  const [templateOpen, setTemplateOpen] = useState(false);
+  const [templateOptions, setTemplateOptions] = useState<ParticipantTemplateOptions>(
+    () => readParticipantTemplatePreferences(),
+  );
   const [reviewOpen, setReviewOpen] = useState(false);
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState("");
@@ -289,16 +296,35 @@ export function ParticipantRosterEditor({
     setBusy(true);
     setError("");
     try {
+      writeParticipantTemplatePreferences(templateOptions);
       await downloadParticipantTemplate({
         ...state.competition,
         participantNumbering: draft.numberingMode,
-      });
-      setMessage("Competition template prepared.");
+      }, templateOptions);
+      setTemplateOpen(false);
+      setMessage("Participant template downloaded.");
     } catch {
       setError("The competition template could not be prepared.");
     } finally {
       setBusy(false);
     }
+  };
+
+  const openTemplate = () => {
+    setTemplateOptions({
+      ...readParticipantTemplatePreferences(),
+      selectedDivisionIds: state.competition.divisions.map((division) => division.id),
+    });
+    setTemplateOpen(true);
+  };
+
+  const toggleTemplateDivision = (divisionId: string, checked: boolean) => {
+    setTemplateOptions((current) => {
+      const selected = new Set(current.selectedDivisionIds ?? []);
+      if (checked) selected.add(divisionId);
+      else selected.delete(divisionId);
+      return { ...current, selectedDivisionIds: [...selected] };
+    });
   };
 
   const applyRoster = () => {
@@ -380,13 +406,13 @@ export function ParticipantRosterEditor({
             <button type="button" role="radio" aria-checked={draft.numberingMode === "automatic"} className={draft.numberingMode === "automatic" ? "is-active" : ""} onClick={() => save({ ...draft, numberingMode: "automatic" })}>Automatic</button>
             <button type="button" role="radio" aria-checked={draft.numberingMode === "supplied"} className={draft.numberingMode === "supplied" ? "is-active" : ""} onClick={() => save({ ...draft, numberingMode: "supplied" })}>Supplied</button>
           </div>
-          <small>{draft.numberingMode === "automatic" ? "Assigned from final row order: 01–99, then 001–999." : "Keep the numbers supplied by the competition."}</small>
+          <small>{draft.numberingMode === "automatic" ? "Assigned from final row order: 01–99, then 100 onward." : "Keep the numbers supplied by the competition."}</small>
         </div>
         <div className="roster-source-actions">
           <button type="button" className="btn-ghost" onClick={() => addRow()}><Icon name="plus" size={14} /> Add participant</button>
           <button type="button" className="btn-ghost" onClick={openPaste}>Paste table</button>
           <button type="button" className="btn-ghost" disabled={busy} onClick={() => fileRef.current?.click()}><Icon name="upload" size={14} /> Upload</button>
-          <button type="button" className="btn-ghost" disabled={busy || !state.competition.divisions.length} onClick={() => void downloadTemplate()}><Icon name="download" size={14} /> Competition template</button>
+          <button type="button" className="btn-ghost" aria-haspopup="dialog" disabled={busy || !state.competition.divisions.length} onClick={openTemplate}><Icon name="download" size={14} /> Participant template</button>
         </div>
       </section>
 
@@ -458,7 +484,7 @@ export function ParticipantRosterEditor({
           <section className="roster-bulk-bar" aria-label="Participant entry defaults">
             <div><strong>Entry defaults</strong><span>New rows inherit these. Applying them only fills empty cells.</span></div>
             <select aria-label="Default category" value={bulkDivision} onChange={(event) => setBulkDivision(event.target.value)}><option value="">Category</option>{state.competition.divisions.map((division) => <option value={division.id} key={division.id}>{divisionLabel(division)}</option>)}</select>
-            <select aria-label="Default Muqarrar start" value={bulkMuqarrar} onChange={(event) => setBulkMuqarrar(event.target.value)}><option value="">Muqarrar start</option><option value="feshey-kolhu">Feshey kolhu</option><option value="nimey-kolhu">Nimey kolhu</option></select>
+            <select aria-label="Default Muqarrar start" value={bulkMuqarrar} onChange={(event) => setBulkMuqarrar(event.target.value)}><option value="">Muqarrar start</option><option value="starting-side">Fesheykolhu</option><option value="ending-side">Nimeykolhu</option></select>
             <input aria-label="Default institution" list="roster-institutions" value={bulkInstitution} placeholder="Institution" onChange={(event) => setBulkInstitution(event.target.value)} />
             <select aria-label="Apply defaults to" value={bulkScope} onChange={(event) => setBulkScope(event.target.value)}>
               <option value="all">All categories</option>
@@ -522,8 +548,8 @@ export function ParticipantRosterEditor({
                     </div>
                     <div className="roster-edit-cell" data-label="Muqarrar start">
                       <div className="roster-side-choice" role="radiogroup" aria-label={`Participant ${index + 1} Muqarrar start`} aria-invalid={Boolean(firstIssueFor(row.id, "muqarrar"))}>
-                        <button type="button" role="radio" aria-checked={row.muqarrar === "feshey-kolhu"} className={row.muqarrar === "feshey-kolhu" ? "is-active" : ""} data-roster-field-error={firstIssueFor(row.id, "muqarrar")?.level === "error" || undefined} onClick={() => patchRow(row.id, { muqarrar: "feshey-kolhu" })}>Feshey kolhu</button>
-                        <button type="button" role="radio" aria-checked={row.muqarrar === "nimey-kolhu"} className={row.muqarrar === "nimey-kolhu" ? "is-active" : ""} onClick={() => patchRow(row.id, { muqarrar: "nimey-kolhu" })}>Nimey kolhu</button>
+                        <button type="button" role="radio" aria-checked={row.muqarrar === "starting-side"} className={row.muqarrar === "starting-side" ? "is-active" : ""} data-roster-field-error={firstIssueFor(row.id, "muqarrar")?.level === "error" || undefined} onClick={() => patchRow(row.id, { muqarrar: "starting-side" })}>Fesheykolhu</button>
+                        <button type="button" role="radio" aria-checked={row.muqarrar === "ending-side"} className={row.muqarrar === "ending-side" ? "is-active" : ""} onClick={() => patchRow(row.id, { muqarrar: "ending-side" })}>Nimeykolhu</button>
                       </div>
                       {invalidMuqarrar && <small>Imported value: {row.muqarrar}</small>}
                       {firstIssueFor(row.id, "muqarrar") && <small>{firstIssueFor(row.id, "muqarrar")?.message}</small>}
@@ -561,6 +587,49 @@ export function ParticipantRosterEditor({
       </footer>
 
       {deleted && <div className="roster-undo-toast" role="status"><span>Participant removed from draft.</span><button type="button" onClick={undoDelete}>Undo</button><button type="button" aria-label="Dismiss" onClick={() => setDeleted(null)}>×</button></div>}
+
+      {templateOpen && (
+        <div className="dialog-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) setTemplateOpen(false); }}>
+          <section className="roster-dialog roster-template-dialog" role="dialog" aria-modal="true" aria-labelledby="roster-template-title">
+            <div className="roster-dialog-head">
+              <div><span>Excel template</span><h2 id="roster-template-title">Build participant list</h2><p>Choose the Categories and optional contact columns needed for this list.</p></div>
+              <button type="button" onClick={() => setTemplateOpen(false)} aria-label="Close">×</button>
+            </div>
+            <div className="roster-template-fields">
+              <div className="roster-template-required">
+                <div><strong>Always included</strong><small>{draft.numberingMode === "supplied" ? "Participant number, Name, Category and Muqarrar start" : "Name, Category and Muqarrar start"}</small></div>
+              </div>
+              <fieldset>
+                <legend>Categories</legend>
+                <div className="roster-template-categories">
+                  {state.competition.divisions.map((division) => {
+                    const checked = templateOptions.selectedDivisionIds?.includes(division.id) ?? false;
+                    return (
+                      <label className="roster-template-category" key={division.id}>
+                        <input type="checkbox" checked={checked} onChange={(event) => toggleTemplateDivision(division.id, event.target.checked)} />
+                        <span><strong>{divisionLabel(division)}</strong><small>4 starter rows</small></span>
+                      </label>
+                    );
+                  })}
+                </div>
+              </fieldset>
+              <fieldset>
+                <legend>Optional columns</legend>
+                <label className="roster-template-option">
+                  <input type="checkbox" checked={templateOptions.includePhone} onChange={(event) => setTemplateOptions((current) => ({ ...current, includePhone: event.target.checked }))} />
+                  <span><strong>Phone number</strong><small>Stored as text so leading zeroes remain</small></span>
+                </label>
+                <label className="roster-template-option">
+                  <input type="checkbox" checked={templateOptions.includeInstitution} onChange={(event) => setTemplateOptions((current) => ({ ...current, includeInstitution: event.target.checked }))} />
+                  <span><strong>Institution</strong><small>School, class or organisation</small></span>
+                </label>
+              </fieldset>
+            </div>
+            {templateOptions.selectedDivisionIds?.length === 0 && <p className="roster-template-error" role="alert">Choose at least one Category.</p>}
+            <div className="roster-dialog-actions"><button type="button" className="btn-ghost" onClick={() => setTemplateOpen(false)}>Cancel</button><button type="button" className="btn-primary" disabled={busy || templateOptions.selectedDivisionIds?.length === 0} onClick={() => void downloadTemplate()}>{busy ? "Preparing…" : "Download Excel"}</button></div>
+          </section>
+        </div>
+      )}
 
       {pasteOpen && (
         <div className="dialog-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) setPasteOpen(false); }}>

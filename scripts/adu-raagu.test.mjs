@@ -243,9 +243,17 @@ test("completion uses the same required-entry rule at every boundary", () => {
     appSource,
     /onConfirm=\{\(\) => \{[\s\S]*missingRequiredImpressionCategories\([\s\S]*return;/,
   );
-  assert.match(finishDialogSource, /disabled=\{missing\.length > 0\}/);
+  assert.doesNotMatch(finishDialogSource, /disabled=\{missing\.length > 0\}/);
+  assert.match(
+    finishDialogSource,
+    /if \(missing\.length > 0\) \{\s*setSaveAttemptCount\(\(attempts\) => attempts \+ 1\);\s*return;/,
+  );
+  assert.match(finishDialogSource, /presentation="inline"/);
+  assert.match(finishDialogSource, /invalid=\{invalid\}/);
+  assert.match(finishDialogSource, /describedBy=\{invalid \? errorId : undefined\}/);
+  assert.match(pickerSource, /focusAndOpen/);
   assert.match(finishDialogSource, /layer="dialog"/);
-  assert.match(finishDialogSource, /autoFocus=\{missing\[0\] === category\}/);
+  assert.doesNotMatch(finishDialogSource, /autoFocus=\{missing\[0\] === category\}/);
   assert.match(scorePanelSource, /missingRequiredImpressionCategories\(/);
   assert.match(
     storeSource,
@@ -438,9 +446,9 @@ test("final results and the workbook only carry the criteria judged", () => {
   assert.equal(result.byCategory["adu-raagu"].score, 7);
   assert.equal(result.total, 95);
   assert.equal(result.totalMax, 100);
-  assert.deepEqual(finalResultsHeaders([result]).slice(8, 11), [
-    "Jali",
-    "Khafi",
+  assert.deepEqual(finalResultsHeaders([result]).slice(7, 10), [
+    "Laḥn Jalī",
+    "Laḥn Khafī",
     "Adu / Raagu",
   ]);
 });
@@ -484,8 +492,15 @@ test("Adu and Raagu has one home in the rail, inside its score row", () => {
   assert.match(scorePanelSource, /<MarkPicker/);
   assert.match(scorePanelSource, /SET_IMPRESSION_NOTE/);
   assert.doesNotMatch(appSource, /ImpressionPanel/);
-  assert.match(ruleBody(".sc-score"), /text-align: center/);
-  assert.match(ruleBody(".sc-score"), /white-space: nowrap/);
+  assert.match(scorePanelSource, /sc-score score-value-layout/);
+  assert.match(pickerSource, /mark-picker score-value-layout/);
+  assert.match(ruleBody(".score-value-layout"), /display: inline-flex/);
+  assert.match(ruleBody(".score-value-layout"), /align-items: center/);
+  assert.match(ruleBody(".score-value-layout"), /justify-content: center/);
+  assert.match(ruleBody(".score-value-layout"), /gap: 2px/);
+  assert.match(ruleBody(".score-value-layout"), /white-space: nowrap/);
+  assert.match(ruleBody(".score-value-layout .sc-of"), /line-height: 1/);
+  assert.match(ruleBody(".mark-picker"), /width: 72px/);
   assert.match(ruleBody(".sc-score .sc-of"), /font-size: 12px/);
   assert.match(ruleBody(".mark-picker-of"), /font-size: 12px/);
   assert.match(ruleBody(".mark-picker-of"), /font-weight: 400/);
@@ -592,6 +607,55 @@ test("the mark bar carries its criterion's colour across the portal", () => {
   assert.match(scorePanelSource, /category=\{category\}/);
 });
 
+test("the finish checkpoint reviews assigned category scores and exact remarks", () => {
+  assert.match(finishDialogSource, /role="table" aria-label="Score by criterion"/);
+  assert.match(finishDialogSource, /reviewCategories\.map/);
+  assert.match(finishDialogSource, /byCategory\[category\]/);
+  assert.match(finishDialogSource, /state\.activeQuestion\.label/);
+  assert.match(finishDialogSource, /label: "Notes", text: state\.notes/);
+  assert.match(finishDialogSource, /finish-remarks/);
+  assert.doesNotMatch(finishDialogSource, /finish-summary/);
+  assert.doesNotMatch(finishDialogSource, /This saves the result and opens the next reciter/);
+});
+
+test("the finish checkpoint focuses its heading and contains keyboard focus", () => {
+  assert.match(finishDialogSource, /<dialog/);
+  assert.match(finishDialogSource, /dialog\.showModal\(\)/);
+  assert.match(finishDialogSource, /headingRef\.current\?\.focus/);
+  assert.match(finishDialogSource, /onCancel=\{\(event\) =>/);
+  assert.match(finishDialogSource, /const containFocus/);
+  assert.match(finishDialogSource, /active === headingRef\.current/);
+  assert.match(finishDialogSource, /last\.focus\(\)/);
+  assert.match(finishDialogSource, /first\.focus\(\)/);
+});
+
+test("Adu and Raagu chips keep readable ink and a neutral uncommitted state", () => {
+  const categoryRule = ruleBody(".cat-adu-raagu");
+  const accent = categoryRule.match(/--c:\s*(#[0-9a-f]{6})/i)?.[1];
+  assert.equal(accent, "#377b60");
+  assert.match(categoryRule, /--c-on:\s*#ffffff/);
+
+  const luminance = (hex) => {
+    const channels = hex.match(/[0-9a-f]{2}/gi).map((channel) => parseInt(channel, 16) / 255);
+    const linear = channels.map((channel) =>
+      channel <= 0.04045 ? channel / 12.92 : ((channel + 0.055) / 1.055) ** 2.4,
+    );
+    return linear[0] * 0.2126 + linear[1] * 0.7152 + linear[2] * 0.0722;
+  };
+  const white = luminance("ffffff");
+  const green = luminance(accent.slice(1));
+  assert.ok((white + 0.05) / (green + 0.05) >= 4.5, "white must meet AA on the chosen green");
+
+  assert.match(ruleBody('.chip-strip button[aria-checked="true"]'), /var\(--c-on, #ffffff\)/);
+  assert.match(ruleBody(".chip-strip button.is-half .mark-chip-label"), /background-clip: text/);
+  assert.match(pickerSource, /className="mark-chip-label t-num"/);
+
+  const openRule = ruleBody(".mark-picker.is-open");
+  assert.match(openRule, /border-color: var\(--ink\)/);
+  assert.doesNotMatch(openRule, /--c(?:-wash)?|background:/);
+  assert.match(ruleBody(".mark-picker:hover"), /border-color: var\(--ink-3\)/);
+});
+
 test("the mark bar opens on a press and commits when the press ends", () => {
   assert.match(pickerSource, /className={`mark-bar/);
   assert.match(pickerSource, /setOpen\(true\);\s*setPinned\(false\);/);
@@ -612,8 +676,24 @@ test("the mark bar offers one whole-number chip per mark", () => {
   assert.match(pickerSource, /data-mark=\{mark\}/);
   assert.match(ruleBody(".chip-strip"), /flex-wrap: wrap/);
   assert.match(ruleBody(".chip-strip"), /justify-content: center/);
+  assert.match(ruleBody(".chip-strip"), /row-gap: 8px/);
   assert.match(ruleBody(".chip-strip button"), /flex: 0 0 38px/);
   assert.doesNotMatch(pickerSource, /mark-bar-head|mark-bar-hint/);
+});
+
+test("the Finish recovery remains available across repeated invalid saves", () => {
+  assert.match(finishDialogSource, /const \[saveAttemptCount, setSaveAttemptCount\] = useState\(0\)/);
+  assert.match(finishDialogSource, /setSaveAttemptCount\(\(attempts\) => attempts \+ 1\)/);
+  assert.match(finishDialogSource, /\[firstMissing, saveAttemptCount\]/);
+  assert.match(finishDialogSource, /dismissOnOutsidePress=\{!invalid\}/);
+  assert.match(pickerSource, /dismissOnOutsidePress\?: boolean/);
+  assert.match(pickerSource, /if \(!dismissOnOutsidePress\) return/);
+  assert.doesNotMatch(ruleBody(".finish-score-row.is-invalid"), /inset 3px/);
+  assert.match(ruleBody(".finish-score-row.is-invalid"), /padding: 8px 10px 12px/);
+  assert.match(
+    ruleBody('[data-theme="dark"] .finish-mark-error'),
+    /color: #e17c73/,
+  );
 });
 
 test("a chip previews halves and commits only when the pointer is released", () => {
@@ -637,8 +717,9 @@ test("a chip previews halves and commits only when the pointer is released", () 
 });
 
 test("the quiet chip state shows only the chosen whole or half mark", () => {
-  assert.match(pickerSource, /const exact = Math\.abs\(mark - shown\) < 0\.001/);
-  assert.match(pickerSource, /const half = Math\.abs\(mark - 0\.5 - shown\) < 0\.001/);
+  assert.match(pickerSource, /const hasSelection = marked \|\| preview !== null/);
+  assert.match(pickerSource, /const exact = hasSelection && Math\.abs\(mark - shown\) < 0\.001/);
+  assert.match(pickerSource, /const half = hasSelection && Math\.abs\(mark - 0\.5 - shown\) < 0\.001/);
   assert.match(pickerSource, /aria-checked=\{exact \|\| half\}/);
   assert.match(pickerSource, /half \? "is-half"/);
   assert.doesNotMatch(pickerSource, /is-filled/);

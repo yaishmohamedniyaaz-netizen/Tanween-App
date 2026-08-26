@@ -1,4 +1,10 @@
-import { Fragment, useMemo, useState } from "react";
+import {
+  Fragment,
+  type ReactNode,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import {
   CATEGORIES,
   DEFAULT_CONFIG,
@@ -14,6 +20,11 @@ import {
   competitionReadiness,
 } from "../lib/competition";
 import {
+  muqarrarLabel,
+  participantCategoryDetailLabel,
+  participantCategoryLabel,
+} from "../lib/participants";
+import {
   MAX_JUDGE_SEATS,
   categoriesInOrder,
   categoryListLabel,
@@ -22,6 +33,11 @@ import {
   shortCategoryLabel,
   validateJudgePanel,
 } from "../lib/judgeAssignments";
+import {
+  createSampleJudgePanel,
+  SAMPLE_COMPETITION_EDITION,
+  SAMPLE_COMPETITION_NAME,
+} from "../lib/sampleCompetition";
 import { useJudging } from "../state/store";
 import type {
   CategoryId,
@@ -33,7 +49,26 @@ import type {
 } from "../types";
 import { Icon } from "./Icon";
 import { ParticipantRosterEditor } from "./ParticipantRosterEditor";
-import { SampleBadge } from "./SampleBadge";
+
+function SetupAccordionPanel({
+  id,
+  open,
+  render,
+}: {
+  id: string;
+  open: boolean;
+  render: () => ReactNode;
+}) {
+  if (!open) return null;
+
+  return (
+    <div id={id} className="setup-checklist-panel-shell">
+      <div className="setup-checklist-panel-clip">
+        <div className="setup-checklist-panel">{render()}</div>
+      </div>
+    </div>
+  );
+}
 
 export type SetupTask =
   | "details"
@@ -58,7 +93,7 @@ const TASKS: Array<{
   { id: "panel", group: "Judging", label: "Judging panel", hint: "Give every criterion an owner" },
   { id: "questions", group: "Questions", label: "Question rules", hint: "Ayah and printed-line policy" },
   { id: "question-bank", group: "Questions", label: "Draft questions", hint: "Build and preview passages" },
-  { id: "review", group: "Launch", label: "Review and start", hint: "Check the official setup" },
+  { id: "review", group: "Launch", label: "Review and start", hint: "Check the competition setup" },
 ];
 
 function presets(judged: CategoryId[]): Array<{ id: JudgePanelPreset; title: string; detail: string }> {
@@ -129,7 +164,7 @@ function cloneDivisions(divisions: CompetitionDivision[]): CompetitionDivision[]
 
 function generatedCategoryName(division: Pick<CompetitionDivision, "ageGroup" | "category">): string {
   const age = division.ageGroup.trim();
-  const recitation = division.category === "nubalaa" ? "Hifz" : "Baliagen";
+  const recitation = participantCategoryLabel(division.category);
   return age ? `${age} · ${recitation}` : recitation;
 }
 
@@ -173,6 +208,9 @@ export function CompetitionSetup({
       ? "review"
       : "details",
   );
+  const taskTriggerRefs = useRef<
+    Partial<Record<SetupTask, HTMLButtonElement | null>>
+  >({});
   const [identity, setIdentity] = useState({
     name: state.competition.name,
     edition: state.competition.edition,
@@ -212,6 +250,21 @@ export function CompetitionSetup({
   const divisionValidation = useMemo(() => categoryErrors(divisionDrafts), [divisionDrafts]);
   const divisionsValid = divisionDrafts.length > 0 && Object.keys(divisionValidation).length === 0;
 
+  const returnToTaskTrigger = (task: SetupTask, focus: boolean) => {
+    window.requestAnimationFrame(() => {
+      const trigger = taskTriggerRefs.current[task];
+      if (!trigger) return;
+      if (focus) trigger.focus({ preventScroll: true });
+      trigger.scrollIntoView({ block: "nearest", inline: "nearest" });
+    });
+  };
+
+  const closeActiveTask = () => {
+    const closingTask = activeTask;
+    setActiveTask(null);
+    if (closingTask) returnToTaskTrigger(closingTask, true);
+  };
+
   const sectionComplete = (task: SetupTask): boolean => {
     if (task === "review") return readiness.ready;
     if (task === "question-bank") return true;
@@ -230,19 +283,19 @@ export function CompetitionSetup({
         edition: identity.edition.trim(),
       },
     });
-    setActiveTask(null);
+    closeActiveTask();
   };
 
   const savePanel = () => {
     if (!editable || !panelValidation.valid || !panelDeviceValid) return;
     dispatch({ type: "SET_PANEL", panel: panelDraft, deviceJudgeId });
-    setActiveTask(null);
+    closeActiveTask();
   };
 
   const saveMarks = () => {
     if (!editable || marksTotal !== TOTAL_MARKS) return;
     dispatch({ type: "SET_SCORE_CONFIG", config: scoreDraft });
-    setActiveTask(null);
+    closeActiveTask();
   };
 
   // Switching a criterion off must never leave its marks in the total.
@@ -262,9 +315,9 @@ export function CompetitionSetup({
     const id = `division-${Date.now().toString(36)}`;
     setDivisionDrafts((current) => [...current, {
       id,
-      name: "Hifz",
+      name: "Nubalaa",
       ageGroup: "",
-      category: "nubalaa",
+      category: "memorisation",
       quranPortion: { kind: "full-quran" },
     }]);
     setEditingDivisionId(id);
@@ -284,7 +337,7 @@ export function CompetitionSetup({
     if (!editable || !divisionsValid) return;
     dispatch({ type: "SET_DIVISIONS", divisions: cloneDivisions(divisionDrafts) });
     setEditingDivisionId(null);
-    setActiveTask(null);
+    closeActiveTask();
   };
 
   const updateParticipantEntrySettings = (
@@ -323,13 +376,13 @@ export function CompetitionSetup({
         },
       },
     });
-    setActiveTask(null);
+    closeActiveTask();
   };
 
   const saveQuestionPolicy = () => {
     if (!editable) return;
     dispatch({ type: "SET_QUESTION_POLICY", policy: questionPolicyDraft });
-    setActiveTask(null);
+    closeActiveTask();
   };
 
   const choosePreset = (preset: JudgePanelPreset) => {
@@ -432,13 +485,14 @@ export function CompetitionSetup({
     if (activeTask === next) {
       if (taskDirty(activeTask) && !window.confirm("Discard the unsaved changes in this setup task?")) return;
       resetTaskDraft(activeTask);
-      setActiveTask(null);
+      closeActiveTask();
       return;
     }
     if (taskDirty(activeTask) && !window.confirm("Discard the unsaved changes in the open setup task?")) return;
     resetTaskDraft(activeTask);
     resetTaskDraft(next);
     setActiveTask(next);
+    returnToTaskTrigger(next, true);
   };
 
   const taskSummary = (task: SetupTask): string => {
@@ -455,9 +509,11 @@ export function CompetitionSetup({
   };
 
   const resetLocalDrafts = (sample: boolean) => {
-    const panel = createPanelPreset("all", enabledCategories(DEFAULT_CONFIG));
+    const panel = sample
+      ? createSampleJudgePanel(DEFAULT_CONFIG)
+      : createPanelPreset("all", enabledCategories(DEFAULT_CONFIG));
     setIdentity(sample
-      ? { name: "Tahqeeq Test Competition", edition: "Sample 2026" }
+      ? { name: SAMPLE_COMPETITION_NAME, edition: SAMPLE_COMPETITION_EDITION }
       : { name: "", edition: "" });
     setPanelDraft(panel);
     setDeviceJudgeId(panel.seats[0]?.id ?? "judge-1");
@@ -478,19 +534,19 @@ export function CompetitionSetup({
     if (
       hasDraftData &&
       !window.confirm(
-        "Replace the current draft with the Tahqeeq sample competition? Official records already saved in Records will remain unchanged.",
+        "Replace the current draft with the Tahqeeq practice competition? Official records already saved in Results will remain unchanged.",
       )
     ) return;
     dispatch({ type: "LOAD_SAMPLE_COMPETITION" });
     resetLocalDrafts(true);
-    setRosterMessage("Sample competition and fictional participant list loaded.");
+    setRosterMessage("Practice competition and fictional participant list loaded.");
     setActiveTask("review");
   };
 
   const removeSampleData = () => {
     if (
       !window.confirm(
-        "Remove the sample competition, its fictional participants, and any sample results from this device? Official records will not be changed.",
+        "Remove the practice competition, its fictional participants, and its practice results from this device? Official records will not be changed.",
       )
     ) return;
     dispatch({ type: "REMOVE_SAMPLE_DATA" });
@@ -499,8 +555,8 @@ export function CompetitionSetup({
     setActiveTask("details");
   };
 
-  const renderTask = () => {
-    if (activeTask === "details") {
+  const renderTask = (task: SetupTask) => {
+    if (task === "details") {
       return (
         <section className="setup-work-card" aria-labelledby="setup-details-title">
           <div className="setup-work-head">
@@ -542,7 +598,7 @@ export function CompetitionSetup({
       );
     }
 
-    if (activeTask === "divisions") {
+    if (task === "divisions") {
       return (
         <section className="setup-work-card" aria-labelledby="setup-divisions-title">
           <div className="setup-work-head">
@@ -555,7 +611,7 @@ export function CompetitionSetup({
               <article className={`division-card category-summary-row ${editingDivisionId === division.id ? "is-editing" : ""} ${(divisionValidation[division.id] ?? []).length ? "has-error" : ""}`} key={division.id}>
                 <div className="division-card-head">
                   <button type="button" className="category-summary-main" aria-expanded={editingDivisionId === division.id} onClick={() => setEditingDivisionId((current) => current === division.id ? null : division.id)}>
-                    <span><strong>{division.name || generatedCategoryName(division)}</strong><small>{division.ageGroup || "Age group missing"} · {division.category === "nubalaa" ? "Hifz" : "Baliagen"} · {portionLabel(division.quranPortion)}</small></span>
+                    <span><strong>{division.name || generatedCategoryName(division)}</strong><small>{division.ageGroup || "Age group missing"} · {participantCategoryLabel(division.category)} · {portionLabel(division.quranPortion)}</small></span>
                     <span className="category-row-state">{(divisionValidation[division.id] ?? []).length ? "Needs attention" : editingDivisionId === division.id ? "Editing" : "Edit"}</span>
                   </button>
                   {editable && (
@@ -576,9 +632,9 @@ export function CompetitionSetup({
                   </label>
                   <label>
                     <span>Recitation type</span>
-                    <select value={division.category} disabled={!editable} onChange={(event) => patchDivision(division.id, { category: event.target.value as "baliagen" | "nubalaa" })}>
-                      <option value="nubalaa">Hifz</option>
-                      <option value="baliagen">Baliagen · Tarteel / reading</option>
+                    <select value={division.category} disabled={!editable} onChange={(event) => patchDivision(division.id, { category: event.target.value as "memorisation" | "mushaf-reading" })}>
+                      <option value="memorisation">{participantCategoryDetailLabel("memorisation")}</option>
+                      <option value="mushaf-reading">{participantCategoryDetailLabel("mushaf-reading")}</option>
                     </select>
                   </label>
                   <label>
@@ -637,7 +693,7 @@ export function CompetitionSetup({
       );
     }
 
-    if (activeTask === "participants") {
+    if (task === "participants") {
       return (
         <section className="setup-work-card" aria-labelledby="setup-participants-title">
           <div className="setup-work-head">
@@ -661,7 +717,7 @@ export function CompetitionSetup({
           </div>
           {editable && (
             <details className="participant-entry-settings participant-entry-disclosure">
-              <summary><span><strong>Entry defaults</strong><small>{participantSettingsDraft.defaultMuqarrar ? `${participantSettingsDraft.defaultMuqarrar === "feshey-kolhu" ? "Feshey kolhu" : "Nimey kolhu"}${participantSettingsDraft.defaultInstitution ? ` · ${participantSettingsDraft.defaultInstitution}` : ""}` : participantSettingsDraft.defaultInstitution || "No defaults"}</small></span><span>Optional</span></summary>
+              <summary><span><strong>Entry defaults</strong><small>{participantSettingsDraft.defaultMuqarrar ? `${muqarrarLabel(participantSettingsDraft.defaultMuqarrar)}${participantSettingsDraft.defaultInstitution ? ` · ${participantSettingsDraft.defaultInstitution}` : ""}` : participantSettingsDraft.defaultInstitution || "No defaults"}</small></span><span>Optional</span></summary>
               <div className="participant-entry-settings-head">
                 <div>
                   <span>Entry helper</span>
@@ -673,8 +729,8 @@ export function CompetitionSetup({
                   <div role="radiogroup" aria-label="Default Muqarrar start">
                     {([
                       ["", "No default"],
-                      ["feshey-kolhu", "Feshey kolhu"],
-                      ["nimey-kolhu", "Nimey kolhu"],
+                      ["starting-side", "Fesheykolhu"],
+                      ["ending-side", "Nimeykolhu"],
                     ] as const).map(([value, label]) => (
                       <button
                         type="button"
@@ -782,7 +838,7 @@ export function CompetitionSetup({
       );
     }
 
-    if (activeTask === "panel") {
+    if (task === "panel") {
       const panelForDevice = state.competition.status === "live"
         ? state.competition.liveSnapshot?.panel ?? state.panel
         : panelDraft;
@@ -834,7 +890,7 @@ export function CompetitionSetup({
       );
     }
 
-    if (activeTask === "marks") {
+    if (task === "marks") {
       return (
         <section className="setup-work-card" aria-labelledby="setup-marks-title">
           <div className="setup-work-head"><span className="setup-step">Judging</span><h2 id="setup-marks-title">Marks and criteria</h2><p>Choose the criteria this competition judges, then divide {TOTAL_MARKS} marks between them. These values become immutable when the competition starts.</p></div>
@@ -877,7 +933,7 @@ export function CompetitionSetup({
       );
     }
 
-    if (activeTask === "questions") {
+    if (task === "questions") {
       const policy = questionPolicyDraft;
       return (
         <section className="setup-work-card" aria-labelledby="setup-questions-title">
@@ -906,7 +962,7 @@ export function CompetitionSetup({
       );
     }
 
-    if (activeTask === "question-bank") {
+    if (task === "question-bank") {
       return (
         <section className="setup-work-card question-builder-launch-card" aria-labelledby="setup-question-builder-title">
           <div className="setup-work-head">
@@ -922,7 +978,7 @@ export function CompetitionSetup({
 
     return (
       <section className="setup-work-card setup-review-card" aria-labelledby="setup-review-title">
-        <div className="setup-work-head"><span className="setup-step">Launch</span><h2 id="setup-review-title">Review and start {state.competition.isSample && <SampleBadge compact />}</h2><p>{state.competition.isSample ? "This is fictional test data. It stays separate from official exports." : "The competition is not official until this screen is confirmed."}</p></div>
+        <div className="setup-work-head"><span className="setup-step">Launch</span><h2 id="setup-review-title">Review and start</h2><p>Confirm the competition, panel and question rules before judging begins.</p></div>
         <div className="review-summary-list">
           <button type="button" onClick={() => requestTask("details")}><span>Competition</span><strong>{state.competition.name || "Not set"}</strong><small>{state.competition.edition || "Edition missing"}</small><em>Change</em></button>
           <button type="button" onClick={() => requestTask("divisions")}><span>Categories</span><strong>{state.competition.divisions.length || "None"}</strong><small>{state.competition.divisions.map((division) => `${division.name || "Unnamed"} · ${portionLabel(division.quranPortion)}`).join("; ") || "Add a Category"}</small><em>Change</em></button>
@@ -943,8 +999,8 @@ export function CompetitionSetup({
         )}
         {state.competition.status === "draft" && (
           <div className="official-start-block">
-            <div><strong>{state.competition.isSample ? "Start test session" : "Start officially"}</strong><span>This freezes the roster, categories, panel, marks, question rules and Mushaf data version.</span></div>
-            <button type="button" className="btn-primary" disabled={!readiness.ready} onClick={() => { dispatch({ type: "START_COMPETITION" }); onBack(); }}>{state.competition.isSample ? "Start sample" : "Start competition"}</button>
+            <div><strong>{state.competition.isSample ? "Start practice competition" : "Start officially"}</strong><span>This freezes the roster, categories, panel, marks, question rules and Mushaf data version.</span></div>
+            <button type="button" className="btn-primary" disabled={!readiness.ready} onClick={() => { dispatch({ type: "START_COMPETITION" }); onBack(); }}>Start competition</button>
           </div>
         )}
         {state.competition.status === "live" && (
@@ -975,42 +1031,103 @@ export function CompetitionSetup({
     );
   }
 
+  const completedTaskCount = TASKS.filter((task) =>
+    sectionComplete(task.id),
+  ).length;
+  const setupHeading =
+    state.competition.status === "draft"
+      ? "Prepare competition"
+      : state.competition.name || "Competition setup";
   let lastGroup = "";
   return (
     <main className="competition-setup-page">
-      <section className={`sample-control-bar ${state.competition.isSample ? "is-active" : ""}`} aria-label="Sample competition controls">
-        <div>
-          {state.competition.isSample && <SampleBadge />}
-          <span>
-            <strong>{state.competition.isSample ? "Safe test competition loaded" : "Need test data?"}</strong>
-            <small>{state.competition.isSample ? "All names and phone numbers are fictional. Sample records stay out of official CSV exports." : "Load a ready-to-run competition with four categories and eight fictional participants."}</small>
-          </span>
-        </div>
-        {state.competition.isSample ? (
-          <button type="button" className="btn-ghost" disabled={state.competition.status === "live" || state.sessionActive} onClick={removeSampleData} title={state.competition.status === "live" ? "Close the sample competition before removing it" : undefined}>Remove sample data</button>
-        ) : (
-          <button type="button" className="btn-ghost" disabled={state.competition.status === "live" || state.sessionActive} onClick={loadSampleCompetition}>Load sample competition</button>
-        )}
-      </section>
       <div className="setup-checklist-shell">
-        <header className="setup-checklist-intro"><span>Competition setup</span><h1>Prepare competition {state.competition.isSample && <SampleBadge compact />}</h1><p>Open one task at a time. A check appears when its saved setup is ready.</p><div className="setup-progress" aria-label={`${TASKS.filter((task) => sectionComplete(task.id)).length} of ${TASKS.length} setup tasks complete`}><span style={{ width: `${(TASKS.filter((task) => sectionComplete(task.id)).length / TASKS.length) * 100}%` }} /><small>{TASKS.filter((task) => sectionComplete(task.id)).length} of {TASKS.length} ready</small></div></header>
+        <header className="setup-checklist-intro">
+          {state.competition.status !== "draft" && <span>Setup</span>}
+          <h1>{setupHeading}</h1>
+          <div
+            className="setup-progress"
+            aria-label={`${completedTaskCount} of ${TASKS.length} setup tasks complete`}
+          >
+            <span
+              style={{
+                width: `${(completedTaskCount / TASKS.length) * 100}%`,
+              }}
+            />
+            <small>{completedTaskCount} of {TASKS.length} ready</small>
+          </div>
+          <div className="setup-sample-utility" aria-label="Practice competition controls">
+            {state.competition.isSample && (
+              <span>Practice data · not official</span>
+            )}
+            {state.competition.isSample ? (
+              <button
+                type="button"
+                className="btn-ghost"
+                disabled={state.competition.status === "live" || state.sessionActive}
+                onClick={removeSampleData}
+                title={state.competition.status === "live" ? "Close the practice competition before removing it" : undefined}
+              >
+                Remove practice data
+              </button>
+            ) : (
+              <button
+                type="button"
+                className="btn-ghost"
+                disabled={state.competition.status === "live" || state.sessionActive}
+                onClick={loadSampleCompetition}
+              >
+                Load practice competition
+              </button>
+            )}
+          </div>
+        </header>
         <div className="setup-checklist" aria-label="Competition setup tasks">
             {TASKS.map((task) => {
               const showGroup = task.group !== lastGroup;
               lastGroup = task.group;
               const locked = state.competition.status !== "draft" && task.id !== "review";
               const complete = sectionComplete(task.id);
+              const summary = taskSummary(task.id);
+              const context =
+                task.id === "details" && state.competition.name
+                  ? state.competition.name
+                  : task.hint;
+              const value = locked
+                ? "Locked"
+                : task.id === "details"
+                  ? state.competition.edition || "Needs setup"
+                  : summary;
+              const stateLabel = statusText(
+                complete,
+                locked,
+                task.id,
+                state.competition.status,
+                competitionDraftCount,
+              );
               return (
                 <Fragment key={task.id}>
                   {showGroup && <span className="setup-task-group">{task.group}</span>}
                   <section className={`setup-checklist-item ${activeTask === task.id ? "is-active" : ""} ${complete ? "is-complete" : "has-attention"} ${locked ? "is-locked" : ""}`}>
-                    <button type="button" className="setup-checklist-trigger" aria-expanded={activeTask === task.id} aria-controls={`setup-task-panel-${task.id}`} onClick={() => requestTask(task.id)}>
+                    <button
+                      ref={(node) => { taskTriggerRefs.current[task.id] = node; }}
+                      type="button"
+                      className="setup-checklist-trigger"
+                      aria-label={`${task.label}, ${stateLabel}, ${value}`}
+                      aria-expanded={activeTask === task.id}
+                      aria-controls={`setup-task-panel-${task.id}`}
+                      onClick={() => requestTask(task.id)}
+                    >
                       <span className="setup-checklist-mark" aria-hidden="true">{complete ? <Icon name="check" size={14} /> : <i />}</span>
-                      <span className="setup-task-copy"><strong>{task.label}</strong><small>{taskSummary(task.id)}</small></span>
-                      <span className="setup-task-status">{statusText(complete, locked, task.id, state.competition.status, competitionDraftCount)}</span>
+                      <span className="setup-task-copy"><strong>{task.label}</strong><small>{context}</small></span>
+                      <span className="setup-task-value">{value}</span>
                       <span className="setup-checklist-chevron" aria-hidden="true"><Icon name="chevron" size={15} /></span>
                     </button>
-                    {activeTask === task.id && <div className="setup-checklist-panel" id={`setup-task-panel-${task.id}`}>{renderTask()}</div>}
+                    <SetupAccordionPanel
+                      id={`setup-task-panel-${task.id}`}
+                      open={activeTask === task.id}
+                      render={() => renderTask(task.id)}
+                    />
                   </section>
                 </Fragment>
               );

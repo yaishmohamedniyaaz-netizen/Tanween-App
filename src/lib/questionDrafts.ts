@@ -13,6 +13,7 @@ import {
   type QuestionIndexLookup,
   type QuestionRange,
 } from "./questionBank.ts";
+import { normalizeMuqarrarSide } from "./participants.ts";
 
 const JUZ_STARTS: Array<AyahRef & { juz: number }> = [
   { juz: 1, surah: 1, ayah: 1 },
@@ -152,6 +153,7 @@ function positiveInteger(value: unknown): value is number {
 export function normalizeQuestionDraft(
   value: Partial<CompetitionQuestionDraft>,
 ): CompetitionQuestionDraft | null {
+  const normalizedMuqarrar = normalizeMuqarrarSide(value.muqarrar);
   if (
     value.version !== 1 ||
     !value.id ||
@@ -189,10 +191,7 @@ export function normalizeQuestionDraft(
     competitionId: String(value.competitionId),
     isSample: Boolean(value.isSample),
     divisionId: String(value.divisionId),
-    muqarrar:
-      value.muqarrar === "feshey-kolhu" || value.muqarrar === "nimey-kolhu"
-        ? value.muqarrar
-        : "both",
+    muqarrar: normalizedMuqarrar || "both",
     createdAt: Number.isFinite(value.createdAt) ? Number(value.createdAt) : Date.now(),
     updatedAt: Number.isFinite(value.updatedAt) ? Number(value.updatedAt) : Date.now(),
     note: String(value.note ?? ""),
@@ -292,8 +291,8 @@ export function buildSampleQuestionDrafts(
     const ranges = rangesFor(division);
     const midpoint = Math.ceil(ranges.length / 2);
     return {
-      "feshey-kolhu": pickEvenly(ranges.slice(0, midpoint), 20),
-      "nimey-kolhu": pickEvenly(ranges.slice(midpoint), 20),
+      "starting-side": pickEvenly(ranges.slice(0, midpoint), 20),
+      "ending-side": pickEvenly(ranges.slice(midpoint), 20),
     };
   };
   const now = 1_786_489_200_000;
@@ -322,7 +321,7 @@ export function sampleQuestionCoverageComplete(
 ): boolean {
   if (!competition.isSample || !competition.divisions.length) return false;
   return competition.divisions.every((division) =>
-    (["feshey-kolhu", "nimey-kolhu"] as const).every(
+    (["starting-side", "ending-side"] as const).every(
       (muqarrar) =>
         drafts.filter(
           (draft) =>

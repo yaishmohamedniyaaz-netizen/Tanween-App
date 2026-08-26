@@ -19,7 +19,13 @@ import {
   TARGET_SCHEMA_VERSION,
   TARGET_SOURCE_VERSION,
 } from "../lib/judgingUnits";
-import { loadPage, locationLabel, preloadPage } from "../lib/page";
+import {
+  loadPage,
+  locationLabel,
+  MUSHAF_DATA_VERSION,
+  MUSHAF_LAYOUT,
+  preloadPage,
+} from "../lib/page";
 import type { MushafPage, PageWord } from "../lib/page";
 import {
   loadQcfPageFont,
@@ -28,8 +34,32 @@ import {
 } from "../lib/qcfFont";
 import { useJudging } from "../state/store";
 import { enabledCategories, isPinpointCategory } from "../config";
-import type { CategoryId, Mistake, TokenRole } from "../types";
+import type {
+  CategoryId,
+  Mistake,
+  RecitationRangeSnapshot,
+  TokenRole,
+} from "../types";
 import { DragMenu, type MenuAnchor } from "./DragMenu";
+import {
+  useMushafRenderScale,
+  useStableMushafStage,
+} from "./MushafViewport";
+import type {
+  MushafLayout,
+  QuestionFocusMode,
+} from "../lib/devicePreferences";
+import {
+  moveMushafView,
+  pageIsVisible,
+  visibleMushafPages,
+} from "../lib/mushafSpread";
+import { QUESTION_INDEX_VERSION } from "../lib/questionBank.ts";
+import {
+  rangeDisplayForPage,
+  type RangeLineState,
+  type RangePageDisplay,
+} from "../lib/recitationRangeLayout.ts";
 
 interface UnitTarget {
   tid: string;
@@ -42,6 +72,7 @@ interface UnitTarget {
 }
 
 interface WordHitbox {
+  page: number;
   wid: string;
   semanticText: string;
   units: UnitTarget[];
@@ -114,12 +145,14 @@ function surahsForPage(page: number) {
 function SurahBand({
   nameAr,
   style,
+  className = "",
 }: {
   nameAr: string;
   style: CSSProperties;
+  className?: string;
 }) {
   return (
-    <div className="surah-band" style={style}>
+    <div className={`surah-band ${className}`.trim()} style={style}>
       <span className="surah-band-title">سُورَةُ {nameAr}</span>
     </div>
   );
@@ -127,18 +160,40 @@ function SurahBand({
 
 interface MushafProps {
   page: number;
-  pageLayout: "full" | "split";
+  pageLayout: MushafLayout;
+  questionFocusMode: QuestionFocusMode;
+  questionRange: RecitationRangeSnapshot | null;
   onPageChange: (page: number) => void;
-  headerControls: ReactNode;
+  headerControls: (visiblePages: readonly number[], compact: boolean) => ReactNode;
+}
+
+interface ContextShadeBox {
+  id: string;
+  page: number;
+  ayahLabel: string;
+  x: number;
+  y: number;
+  w: number;
+  h: number;
 }
 
 export function Mushaf({
   page: currentPage,
   pageLayout,
+  questionFocusMode,
+  questionRange,
   onPageChange,
   headerControls,
 }: MushafProps) {
   const { state, dispatch } = useJudging();
+  const renderScale = useMushafRenderScale();
+  const stableStage = useStableMushafStage();
+  const compact = !stableStage;
+  const requestedPages = useMemo(
+    () => visibleMushafPages(currentPage, pageLayout, compact),
+    [compact, currentPage, pageLayout],
+  );
+  const requestKey = requestedPages.join(":");
   const assignedConfig = state.activeAssignment?.config ?? state.config;
   // Only pinpoint criteria are marked on the page. A judge who owns just a
   // whole-recitation criterion has nothing to press here.
@@ -146,14 +201,34 @@ export function Mushaf({
     state.activeAssignment?.categories ?? enabledCategories(assignedConfig)
   ).filter(isPinpointCategory);
   const judgingEnabled = state.sessionActive && allowedCategories.length > 0;
-  const [pageData, setPageData] = useState<MushafPage | null>(null);
-  const [fontReadyPage, setFontReadyPage] = useState<number | null>(null);
-  const pageRef = useRef<HTMLDivElement>(null);
+  const [pageData, setPageData] = useState<MushafPage[]>([]);
+  const [fontReadyPages, setFontReadyPages] = useState<Set<number>>(() => new Set());
+  const [loadError, setLoadError] = useState(false);
+  const [loadAttempt, setLoadAttempt] = useState(0);
+  const pageRefs = useRef(new Map<number, HTMLDivElement>());
   const [boxes, setBoxes] = useState<WordHitbox[]>([]);
-  const [boxesPage, setBoxesPage] = useState<number | null>(null);
+  const [shadeBoxes, setShadeBoxes] = useState<ContextShadeBox[]>([]);
+  const [boxesKey, setBoxesKey] = useState("");
   const [measureEpoch, setMeasureEpoch] = useState(0);
   const [flashTid, setFlashTid] = useState<string | null>(null);
-  const [pendingFlashTid, setPendingFlashTid] = useState<string | null>(null);
+  const [pendingFlash, setPendingFlash] = useState<{ tid: string; page: number } | null>(null);
+
+  const compatibleQuestionRange = questionFocusMode !== "off" &&
+      questionRange?.mushafLayout === MUSHAF_LAYOUT &&
+      questionRange.sourceVersion === MUSHAF_DATA_VERSION &&
+      questionRange.questionIndexVersion === QUESTION_INDEX_VERSION
+    ? questionRange
+    : null;
+  const questionDisplays = useMemo(() => {
+    if (!compatibleQuestionRange || !pageData.length) return null;
+    const displays = new Map<number, RangePageDisplay>();
+    for (const page of pageData) {
+      const display = rangeDisplayForPage(page, compatibleQuestionRange);
+      if (!display) return null;
+      displays.set(page.page, display);
+    }
+    return displays;
+  }, [compatibleQuestionRange, pageData]);
 
   const [active, setActive] = useState<ActiveDrag | null>(null);
   const [hovered, setHovered] = useState<CategoryId | null>(null);
@@ -176,40 +251,49 @@ export function Mushaf({
     return map;
   }, [state.mistakes]);
 
-  // Page data and its matching QCF font become visible in the same commit.
-  // The previous page remains intact while both are loading.
+  // Every requested page and its page-specific font become visible in one
+  // commit. The previous complete view remains intact during navigation.
   useEffect(() => {
     let cancelled = false;
-    Promise.all([
-      loadPage(currentPage),
-      loadQcfPageFont(currentPage)
-        .then(() => true)
-        .catch(() => false),
-    ]).then(([data, fontLoaded]) => {
-      if (cancelled) return;
-      setFontReadyPage(fontLoaded ? currentPage : null);
-      setPageData(data);
-    });
+    setLoadError(false);
+    Promise.all(
+      requestedPages.map(async (page) => {
+        const [data, fontLoaded] = await Promise.all([
+          loadPage(page),
+          loadQcfPageFont(page).then(() => true),
+        ]);
+        return { data, fontLoaded };
+      }),
+    )
+      .then((readyPages) => {
+        if (cancelled) return;
+        setPageData(readyPages.map(({ data }) => data));
+        setFontReadyPages(new Set(
+          readyPages.filter(({ fontLoaded }) => fontLoaded).map(({ data }) => data.page),
+        ));
+        setLoadError(false);
+      })
+      .catch(() => {
+        if (!cancelled) setLoadError(true);
+      });
     return () => {
       cancelled = true;
     };
-  }, [currentPage]);
+  }, [loadAttempt, requestKey]);
 
-  // Warm both the page JSON and its small page-specific font.
+  // Warm both neighboring views so the next pair swaps atomically from cache.
   useEffect(() => {
-    for (let distance = 1; distance <= 2; distance += 1) {
-      const previous = currentPage - distance;
-      const next = currentPage + distance;
-      if (previous >= 1) {
-        preloadPage(previous);
-        preloadQcfPageFont(previous);
-      }
-      if (next <= 604) {
-        preloadPage(next);
-        preloadQcfPageFont(next);
+    const neighborAnchors = [
+      moveMushafView(currentPage, pageLayout, -1, compact),
+      moveMushafView(currentPage, pageLayout, 1, compact),
+    ];
+    for (const anchor of neighborAnchors) {
+      for (const page of visibleMushafPages(anchor, pageLayout, compact)) {
+        preloadPage(page);
+        preloadQcfPageFont(page);
       }
     }
-  }, [currentPage]);
+  }, [compact, currentPage, pageLayout]);
 
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
@@ -224,143 +308,185 @@ export function Mushaf({
       }
       if (event.key === "ArrowLeft") {
         event.preventDefault();
-        onPageChange(Math.min(604, currentPage + 1));
+        onPageChange(moveMushafView(currentPage, pageLayout, 1, compact));
       } else if (event.key === "ArrowRight") {
         event.preventDefault();
-        onPageChange(Math.max(1, currentPage - 1));
+        onPageChange(moveMushafView(currentPage, pageLayout, -1, compact));
       }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [active, currentPage, onPageChange]);
+  }, [active, compact, currentPage, onPageChange, pageLayout]);
 
   // QCF source words are single calligraphic glyphs. Measure one rectangle for
   // the whole kalimah; semantic letter units live only in the connected rail.
   const measure = useCallback(() => {
-    const root = pageRef.current;
-    if (!root) return;
-    const rootRect = root.getBoundingClientRect();
-    const wordElements = root.querySelectorAll<HTMLElement>(
-      '.m-word[data-role="letter"]',
-    );
     const next: WordHitbox[] = [];
+    const nextShadeBoxes: ContextShadeBox[] = [];
+    const shadeEnabled = questionFocusMode === "shade" ||
+      questionFocusMode === "shade-fade";
+    for (const page of pageData) {
+      const root = pageRefs.current.get(page.page);
+      if (!root) continue;
+      const rootRect = root.getBoundingClientRect();
+      const linesRoot = root.querySelector<HTMLElement>(".mushaf-lines");
+      const wordElements = root.querySelectorAll<HTMLElement>(
+        '.m-word[data-role="letter"]',
+      );
 
-    wordElements.forEach((wordElement) => {
-      const semanticText = wordElement.dataset.semantic ?? "";
-      const wid = wordElement.dataset.wid;
-      if (!wid || !semanticText) return;
-      const role = (wordElement.dataset.role as TokenRole) ?? "letter";
-      const units = judgingTargetsOf(semanticText, role, wid);
-      if (!units.length) return;
+      wordElements.forEach((wordElement) => {
+        const semanticText = wordElement.dataset.semantic ?? "";
+        const wid = wordElement.dataset.wid;
+        if (!wid || !semanticText) return;
+        const role = (wordElement.dataset.role as TokenRole) ?? "letter";
+        const units = judgingTargetsOf(semanticText, role, wid);
+        if (!units.length) return;
 
-      const rect = wordElement.getBoundingClientRect();
-      if (!rect.width || !rect.height) return;
-      const surah = Number(wordElement.dataset.surah);
-      const ayahValue = wordElement.dataset.ayah;
-      const ayah = ayahValue === "b" ? null : Number(ayahValue);
-      const x = rect.left - rootRect.left;
-      const y = rect.top - rootRect.top;
+        const rect = wordElement.getBoundingClientRect();
+        if (!rect.width || !rect.height) return;
+        const surah = Number(wordElement.dataset.surah);
+        const ayahValue = wordElement.dataset.ayah;
+        const ayah = ayahValue === "b" ? null : Number(ayahValue);
+        const x = rect.left - rootRect.left;
+        const y = rect.top - rootRect.top;
 
-      next.push({
-        wid,
-        semanticText,
-        role,
-        surah,
-        ayah,
-        units: units.map((unit, unitIndex) => ({
-          tid: unit.tid,
-          legacyTids: unit.aliases,
-          unitIndex,
-          start: unit.start,
-          end: unit.end,
-          primaryGlyph: unit.primaryGlyph,
-          fullGlyph: unit.fullGlyph,
-        })),
-        x,
-        y,
-        w: rect.width,
-        h: rect.height,
-        hx: x - HIT_PAD_X,
-        hy: y - HIT_PAD_Y,
-        hw: rect.width + HIT_PAD_X * 2,
-        hh: rect.height + HIT_PAD_Y * 2,
+        next.push({
+          page: page.page,
+          wid,
+          semanticText,
+          role,
+          surah,
+          ayah,
+          units: units.map((unit, unitIndex) => ({
+            tid: unit.tid,
+            legacyTids: unit.aliases,
+            unitIndex,
+            start: unit.start,
+            end: unit.end,
+            primaryGlyph: unit.primaryGlyph,
+            fullGlyph: unit.fullGlyph,
+          })),
+          x,
+          y,
+          w: rect.width,
+          h: rect.height,
+          hx: x - HIT_PAD_X,
+          hy: y - HIT_PAD_Y,
+          hw: rect.width + HIT_PAD_X * 2,
+          hh: rect.height + HIT_PAD_Y * 2,
+        });
       });
-    });
+
+      const questionDisplay = questionDisplays?.get(page.page);
+      if (shadeEnabled && linesRoot && questionDisplay) {
+        const linesRect = linesRoot.getBoundingClientRect();
+        const elementsByWordId = new Map(
+          [...root.querySelectorAll<HTMLElement>(".m-word[data-wid]")]
+            .map((element) => [element.dataset.wid, element] as const)
+            .filter((entry): entry is [string, HTMLElement] => Boolean(entry[0])),
+        );
+        for (const segment of questionDisplay.contextAyahSegments) {
+          const rects = segment.wordIds
+            .map((wordId) => elementsByWordId.get(wordId)?.getBoundingClientRect())
+            .filter((rect): rect is DOMRect => Boolean(rect?.width && rect?.height));
+          if (!rects.length) continue;
+          const left = Math.min(...rects.map((rect) => rect.left));
+          const right = Math.max(...rects.map((rect) => rect.right));
+          const top = Math.min(...rects.map((rect) => rect.top));
+          const bottom = Math.max(...rects.map((rect) => rect.bottom));
+          nextShadeBoxes.push({
+            id: segment.id,
+            page: page.page,
+            ayahLabel: `${segment.surah}:${segment.ayah ?? "b"}`,
+            x: left - linesRect.left,
+            y: top - linesRect.top,
+            w: right - left,
+            h: bottom - top,
+          });
+        }
+      }
+    }
 
     setBoxes(next);
-    setBoxesPage(Number(root.dataset.page));
-  }, []);
+    setShadeBoxes(nextShadeBoxes);
+    setBoxesKey(pageData.map(({ page }) => page).join(":"));
+  }, [pageData, questionDisplays, questionFocusMode]);
 
   useLayoutEffect(() => {
     const frame = requestAnimationFrame(measure);
     return () => cancelAnimationFrame(frame);
-  }, [fontReadyPage, measure, measureEpoch, pageData?.page, pageLayout]);
+  }, [fontReadyPages, measure, measureEpoch, requestKey, renderScale]);
 
   useEffect(() => {
-    const root = pageRef.current;
-    if (!root) return;
-    let lastWidth = Math.round(root.getBoundingClientRect().width);
+    const roots = [...pageRefs.current.values()];
+    if (!roots.length) return;
+    let lastWidths = roots.map((root) => Math.round(root.getBoundingClientRect().width));
     const handleResize = () => {
-      const width = Math.round(root.getBoundingClientRect().width);
-      if (Math.abs(width - lastWidth) < 2) return;
-      lastWidth = width;
+      const widths = roots.map((root) => Math.round(root.getBoundingClientRect().width));
+      if (widths.every((width, index) => Math.abs(width - lastWidths[index]) < 2)) return;
+      lastWidths = widths;
       setMeasureEpoch((value) => value + 1);
     };
     const observer =
       "ResizeObserver" in window ? new ResizeObserver(handleResize) : null;
-    observer?.observe(root);
+    roots.forEach((root) => observer?.observe(root));
     window.addEventListener("resize", handleResize);
     return () => {
       observer?.disconnect();
       window.removeEventListener("resize", handleResize);
     };
-  }, [pageData?.page]);
+  }, [requestKey, pageData]);
 
   const wordForTid = useCallback(
-    (tid: string) =>
+    (tid: string, page?: number) =>
       boxes.find((box) =>
-        box.units.some(
+        (page === undefined || box.page === page) && box.units.some(
           (unit) => unit.tid === tid || unit.legacyTids.includes(tid),
         ),
       ),
     [boxes],
   );
 
-  useEffect(() => {
-    if (!pendingFlashTid || !boxes.length) return;
-    const box = wordForTid(pendingFlashTid);
-    if (!box) return;
-    const element = pageRef.current?.querySelector<HTMLElement>(
+  const rootForPage = useCallback(
+    (page: number) => pageRefs.current.get(page) ?? null,
+    [],
+  );
+
+  const revealWord = useCallback((tid: string, page: number) => {
+    const box = wordForTid(tid, page);
+    if (!box) return false;
+    const element = rootForPage(page)?.querySelector<HTMLElement>(
       `[data-word-hit="${CSS.escape(box.wid)}"]`,
     );
-    element?.scrollIntoView({ behavior: "smooth", block: "center" });
+    element?.scrollIntoView({ behavior: "smooth", block: "center", inline: "center" });
     setFlashTid(null);
-    requestAnimationFrame(() => setFlashTid(pendingFlashTid));
-    setPendingFlashTid(null);
-  }, [boxes, pendingFlashTid, wordForTid]);
+    requestAnimationFrame(() => setFlashTid(tid));
+    return true;
+  }, [rootForPage, wordForTid]);
+
+  useEffect(() => {
+    if (!pendingFlash || !boxes.length) return;
+    if (revealWord(pendingFlash.tid, pendingFlash.page)) {
+      setPendingFlash(null);
+    }
+  }, [boxes, pendingFlash, revealWord]);
 
   useEffect(() => {
     const onJump = (event: Event) => {
       const detail = (event as CustomEvent<{ tid: string; page?: number }>).detail;
       if (!detail?.tid) return;
       const targetPage = detail.page ?? 604;
-      if (targetPage !== pageData?.page) {
-        setPendingFlashTid(detail.tid);
+      const readyPages = pageData.map(({ page }) => page);
+      if (!pageIsVisible(targetPage, readyPages)) {
+        setPendingFlash({ tid: detail.tid, page: targetPage });
         onPageChange(targetPage);
         return;
       }
-      const box = wordForTid(detail.tid);
-      if (!box) return;
-      const element = pageRef.current?.querySelector<HTMLElement>(
-        `[data-word-hit="${CSS.escape(box.wid)}"]`,
-      );
-      element?.scrollIntoView({ behavior: "smooth", block: "center" });
-      setFlashTid(null);
-      requestAnimationFrame(() => setFlashTid(detail.tid));
+      revealWord(detail.tid, targetPage);
     };
     window.addEventListener(JUMP_EVENT, onJump);
     return () => window.removeEventListener(JUMP_EVENT, onJump);
-  }, [onPageChange, pageData?.page, wordForTid]);
+  }, [onPageChange, pageData, revealWord]);
 
   useEffect(() => {
     if (!flashTid) return;
@@ -376,7 +502,7 @@ export function Mushaf({
   }, []);
 
   // A tray never survives navigation or a structural page-layout change.
-  useEffect(() => closeAll(), [closeAll, currentPage, pageLayout]);
+  useEffect(() => closeAll(), [closeAll, currentPage, pageLayout, renderScale]);
 
   useEffect(() => {
     if (!active) return;
@@ -392,7 +518,7 @@ export function Mushaf({
     : null;
   const commit = useCallback(
     (category: CategoryId, tidOverride?: string | null) => {
-      if (!active || !pageData) return;
+      if (!active) return;
       if (!allowedCategories.includes(category)) return;
       const selectedTid = tidOverride ?? active.tid;
       if (!selectedTid) return;
@@ -412,7 +538,7 @@ export function Mushaf({
         fullGlyph: unit.fullGlyph,
         surah: active.meta.surah,
         ayah: active.meta.ayah,
-        page: pageData.page,
+        page: active.meta.page,
         glyph: unit.fullGlyph,
         label: locationLabel(
           active.meta.surah,
@@ -426,22 +552,23 @@ export function Mushaf({
       };
       dispatch({ type: "ADD_MISTAKE", mistake });
     },
-    [active, allowedCategories, dispatch, pageData, state.activeAssignment, state.config],
+    [active, allowedCategories, dispatch, state.activeAssignment, state.config],
   );
 
-  const onPointerDown = (event: React.PointerEvent) => {
+  const onPointerDown = (event: React.PointerEvent, page: number) => {
     if (!judgingEnabled) return;
     if (startRef.current) return;
     // Navigation lives inside the page frame. Its pointer events must never
     // fall through to a kalimah underneath the popover.
     if ((event.target as HTMLElement).closest(".page-marginalia")) return;
-    const root = pageRef.current;
+    const root = rootForPage(page);
     if (!root) return;
     const rootRect = root.getBoundingClientRect();
     const pointX = event.clientX - rootRect.left;
     const pointY = event.clientY - rootRect.top;
     const candidates = boxes.filter(
       (box) =>
+        box.page === page &&
         pointX >= box.hx &&
         pointX <= box.hx + box.hw &&
         pointY >= box.hy &&
@@ -591,13 +718,15 @@ export function Mushaf({
   };
 
   const closeTray = () => {
-    const returnFocusWid = pinned ? active?.meta.wid : null;
+    const returnFocus = pinned && active
+      ? { wid: active.meta.wid, page: active.meta.page }
+      : null;
     closeAll();
-    if (returnFocusWid) {
+    if (returnFocus) {
       window.setTimeout(() => {
-        pageRef.current
+        rootForPage(returnFocus.page)
           ?.querySelector<HTMLElement>(
-            `[data-word-hit="${CSS.escape(returnFocusWid)}"]`,
+            `[data-word-hit="${CSS.escape(returnFocus.wid)}"]`,
           )
           ?.focus({ preventScroll: true });
       }, 0);
@@ -610,47 +739,6 @@ export function Mushaf({
     return set;
   }, []);
 
-  const qcfReady = pageData?.page === fontReadyPage;
-  const renderWord = (word: PageWord) => {
-    const isSajdah =
-      word.role === "ayah-end" &&
-      word.ayah !== null &&
-      sajdahSet.has(`${word.surah}:${word.ayah}`);
-    const displayedText = qcfReady && word.glyph ? word.glyph : word.text;
-    return (
-      <span
-        key={word.wid}
-        className={`m-word ${word.role === "ayah-end" ? "ayah-num" : ""} ${word.role === "ornament" ? "m-ornament" : ""} ${isSajdah ? "sajdah" : ""}`}
-        data-wid={word.wid}
-        data-semantic={word.text}
-        data-role={word.role}
-        data-surah={word.surah}
-        data-ayah={word.ayah === null ? "b" : String(word.ayah)}
-        aria-label={word.role === "letter" ? word.text : undefined}
-        aria-hidden={word.role !== "letter" ? true : undefined}
-      >
-        {displayedText}
-        {isSajdah && (
-          <span className="sajdah-mark" aria-label="Sajdah">
-            ۩
-          </span>
-        )}
-      </span>
-    );
-  };
-
-  if (!pageData) {
-    return (
-      <div className="mushaf-scroll">
-        <div className="page mushaf-loading">
-          <div className="loading-spinner" />
-        </div>
-      </div>
-    );
-  }
-
-  const pageSurahs = surahsForPage(pageData.page);
-  const visibleBoxes = boxesPage === pageData.page ? boxes : [];
   const mistakesForUnit = (unit: UnitTarget): Mistake[] => {
     const seen = new Set<string>();
     const matches: Mistake[] = [];
@@ -675,51 +763,114 @@ export function Mushaf({
     }
     return matches;
   };
-  const lineStyle = (line: number): CSSProperties =>
-    pageLayout === "split"
-      ? {
-          gridRow: ((line - 1) % 8) + 1,
-          gridColumn: line <= 8 ? 2 : 1,
-        }
-      : { gridRow: line };
-  const qcfLineStyle: CSSProperties = qcfReady
-    ? { fontFamily: `"${qcfFontFamily(pageData.page)}"` }
-    : { fontFamily: "var(--quran)" };
+  const readyKey = pageData.map(({ page }) => page).join(":");
+  const renderPage = (data: MushafPage) => {
+    const qcfReady = fontReadyPages.has(data.page);
+    const local = (value: number) => value / renderScale;
+    const pageSurahs = surahsForPage(data.page);
+    const visibleBoxes = boxesKey === readyKey
+      ? boxes.filter((box) => box.page === data.page)
+      : [];
+    const visibleShadeBoxes = boxesKey === readyKey
+      ? shadeBoxes.filter((box) => box.page === data.page)
+      : [];
+    const root = rootForPage(data.page);
+    const pageClientLeft = root?.clientLeft ?? 0;
+    const pageClientTop = root?.clientTop ?? 0;
+    const lineStyle = (line: number): CSSProperties => ({ gridRow: line });
+    const qcfLineStyle: CSSProperties = qcfReady
+      ? { fontFamily: `"${qcfFontFamily(data.page)}"` }
+      : { fontFamily: "var(--quran)" };
+    const questionDisplay = questionDisplays?.get(data.page) ?? null;
+    const lineClass = (lineState: RangeLineState | undefined) =>
+      lineState === "context"
+        ? "question-context-line"
+        : lineState === "mixed"
+          ? "question-mixed-line"
+          : "";
+    const renderWord = (word: PageWord, lineState?: RangeLineState) => {
+      const isSajdah =
+        word.role === "ayah-end" &&
+        word.ayah !== null &&
+        sajdahSet.has(`${word.surah}:${word.ayah}`);
+      const displayedText = qcfReady && word.glyph ? word.glyph : word.text;
+      const isContextWord = Boolean(
+        questionDisplay &&
+        lineState === "mixed" &&
+        !questionDisplay.selectedWordIds.has(word.wid),
+      );
+      return (
+        <span
+          key={word.wid}
+          className={`m-word ${word.role === "ayah-end" ? "ayah-num" : ""} ${word.role === "ornament" ? "m-ornament" : ""} ${isSajdah ? "sajdah" : ""} ${isContextWord ? "question-context-word" : ""}`}
+          data-wid={word.wid}
+          data-semantic={word.text}
+          data-role={word.role}
+          data-surah={word.surah}
+          data-ayah={word.ayah === null ? "b" : String(word.ayah)}
+          aria-label={word.role === "letter" ? word.text : undefined}
+          aria-hidden={word.role !== "letter" ? true : undefined}
+        >
+          {displayedText}
+          {isSajdah && (
+            <span className="sajdah-mark" aria-label="Sajdah">۩</span>
+          )}
+        </span>
+      );
+    };
 
-  return (
-    <div className="mushaf-scroll">
+    return (
       <div
-        className={`page page-solid-mushaf ${pageData.page <= 2 ? "page-opening-layout" : pageData.lines.length < 15 ? "page-short-layout" : ""} ${pageLayout === "split" ? "page-split" : ""}`}
-        ref={pageRef}
-        data-page={pageData.page}
+        key={data.page}
+        className={`page page-solid-mushaf ${data.page <= 2 ? "page-opening-layout" : data.lines.length < 15 ? "page-short-layout" : ""}`}
+        ref={(node) => {
+          if (node) pageRefs.current.set(data.page, node);
+          else pageRefs.current.delete(data.page);
+        }}
+        data-page={data.page}
         data-font-ready={qcfReady ? "true" : "false"}
         data-judging-enabled={judgingEnabled ? "true" : "false"}
-        onPointerDown={judgingEnabled ? onPointerDown : undefined}
+        data-question-focus-mode={questionDisplay ? questionFocusMode : "off"}
+        onPointerDown={judgingEnabled ? (event) => onPointerDown(event, data.page) : undefined}
         onPointerMove={judgingEnabled ? onPointerMove : undefined}
         onPointerUp={judgingEnabled ? onPointerUp : undefined}
         onPointerCancel={judgingEnabled ? closeAll : undefined}
         onContextMenu={judgingEnabled ? (event) => event.preventDefault() : undefined}
       >
         <div className="page-marginalia">
-          <span className="page-juz">Juz&apos; {juzByPage[pageData.page]}</span>
-          {headerControls}
+          <span className="page-juz">Juz&apos; {juzByPage[data.page]}</span>
+          <span className="page-static-number t-num" aria-label={`Page ${data.page}`}>{data.page}</span>
           <span className="page-surahs" dir="rtl">
             {pageSurahs.map((surah) => surah.nameAr).join(" - ")}
           </span>
         </div>
-        {juzByPage[pageData.page] > 0 && (
-          <div className="juz-label">
-            الجزء {toArabicNum(juzByPage[pageData.page])}
-          </div>
+        {juzByPage[data.page] > 0 && (
+          <div className="juz-label">الجزء {toArabicNum(juzByPage[data.page])}</div>
         )}
         <div className="mushaf-lines">
-          {pageData.lines.map((line) => {
+          {visibleShadeBoxes.map((box) => (
+            <div
+              key={box.id}
+              className="question-context-band"
+              data-context-ayah={box.ayahLabel}
+              style={{
+                left: local(box.x) - 3,
+                top: local(box.y) - 2,
+                width: local(box.w) + 6,
+                height: local(box.h) + 4,
+              }}
+              aria-hidden="true"
+            />
+          ))}
+          {data.lines.map((line) => {
+            const lineState = questionDisplay?.lineStates.get(line.n);
             if (line.type === "surah-header") {
               return (
                 <SurahBand
                   key={line.n}
                   nameAr={line.nameAr}
                   style={lineStyle(line.n)}
+                  className={lineClass(lineState)}
                 />
               );
             }
@@ -727,10 +878,10 @@ export function Mushaf({
               return (
                 <div
                   key={line.n}
-                  className="m-line m-line-basmala"
+                  className={`m-line m-line-basmala ${lineClass(lineState)}`.trim()}
                   style={lineStyle(line.n)}
                 >
-                  {line.words.map(renderWord)}
+                  {line.words.map((word) => renderWord(word, lineState))}
                 </div>
               );
             }
@@ -738,80 +889,114 @@ export function Mushaf({
               <div
                 key={line.n}
                 data-mline={line.n}
-                className={`m-line ${line.centered ? "m-line-center" : "m-line-ayah"}`}
+                className={`m-line ${line.centered ? "m-line-center" : "m-line-ayah"} ${lineClass(lineState)}`.trim()}
                 style={{ ...lineStyle(line.n), ...qcfLineStyle }}
               >
-                {line.words.map(renderWord)}
+                {line.words.map((word) => renderWord(word, lineState))}
               </div>
             );
           })}
         </div>
 
-        {judgingEnabled && <div className="hit-layer">
-          {visibleBoxes.map((box) => {
-            const mistakes = mistakesForWord(box);
-            const category = mistakes.length ? dominant(mistakes) : null;
-            const isActive = active?.meta.wid === box.wid;
-            const isFlashing = Boolean(
-              flashTid &&
-                box.units.some(
-                  (unit) =>
-                    unit.tid === flashTid || unit.legacyTids.includes(flashTid),
+        {judgingEnabled && (
+          <div className="hit-layer">
+            {visibleBoxes.map((box) => {
+              const localLeft = (value: number) => local(value) - pageClientLeft;
+              const localTop = (value: number) => local(value) - pageClientTop;
+              const mistakes = mistakesForWord(box);
+              const category = mistakes.length ? dominant(mistakes) : null;
+              const isActive = active?.meta.page === box.page && active.meta.wid === box.wid;
+              const isFlashing = Boolean(
+                flashTid && box.units.some(
+                  (unit) => unit.tid === flashTid || unit.legacyTids.includes(flashTid),
                 ),
-            );
-            const inkClasses = [
-              "glyph-ink",
-              category ? `marked cat-${category}` : "",
-              isFlashing ? `flash ${category ? "" : "cat-fasaha"}` : "",
-            ]
-              .filter(Boolean)
-              .join(" ");
-            return (
-              <Fragment key={box.wid}>
-                <div
-                  data-word-hit={box.wid}
-                  className={`hit word-hit ${isActive ? `armed ${hovered ? `cat-${hovered}` : ""}` : ""}`}
-                  style={
-                    {
-                      left: box.hx,
-                      top: box.hy,
-                      width: box.hw,
-                      height: box.hh,
-                      "--ink-left": `${box.x - box.hx}px`,
-                      "--ink-top": `${box.y - box.hy}px`,
-                      "--ink-width": `${box.w}px`,
-                      "--ink-height": `${box.h}px`,
-                    } as CSSProperties
-                  }
-                  role="button"
-                  tabIndex={0}
-                  onKeyDown={(event) => openPinnedForBox(event, box)}
-                  aria-label={
-                    mistakes.length
-                      ? `${box.semanticText}, ${mistakes.length} mark(s)`
-                      : `Select word ${box.semanticText}`
-                  }
-                />
-                {(mistakes.length > 0 || isFlashing) && (
+              );
+              const inkClasses = [
+                "glyph-ink",
+                category ? `marked cat-${category}` : "",
+                isFlashing ? `flash ${category ? "" : "cat-fasaha"}` : "",
+              ].filter(Boolean).join(" ");
+              return (
+                <Fragment key={`${box.page}:${box.wid}`}>
                   <div
-                    className={inkClasses}
-                    style={{
-                      left: box.x,
-                      top: box.y,
-                      width: box.w,
-                      height: box.h,
-                    }}
-                  >
-                    {mistakes.length > 1 && (
-                      <span className="mark-count">{mistakes.length}</span>
-                    )}
-                  </div>
-                )}
-              </Fragment>
-            );
-          })}
-        </div>}
+                    data-word-hit={box.wid}
+                    className={`hit word-hit ${isActive ? `armed ${hovered ? `cat-${hovered}` : ""}` : ""}`}
+                    style={
+                      {
+                        left: localLeft(box.hx),
+                        top: localTop(box.hy),
+                        width: local(box.hw),
+                        height: local(box.hh),
+                        "--ink-left": `${local(box.x - box.hx)}px`,
+                        "--ink-top": `${local(box.y - box.hy)}px`,
+                        "--ink-width": `${local(box.w)}px`,
+                        "--ink-height": `${local(box.h)}px`,
+                      } as CSSProperties
+                    }
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(event) => openPinnedForBox(event, box)}
+                    aria-label={
+                      mistakes.length
+                        ? `${box.semanticText}, ${mistakes.length} mark(s)`
+                        : `Select word ${box.semanticText}`
+                    }
+                  />
+                  {(mistakes.length > 0 || isFlashing) && (
+                    <div
+                      className={inkClasses}
+                      style={{
+                        left: localLeft(box.x),
+                        top: localTop(box.y),
+                        width: local(box.w),
+                        height: local(box.h),
+                      }}
+                    >
+                      {mistakes.length > 1 && (
+                        <span className="mark-count">{mistakes.length}</span>
+                      )}
+                    </div>
+                  )}
+                </Fragment>
+              );
+            })}
+          </div>
+        )}
       </div>
+    );
+  };
+
+  const renderedPages = pageData.length ? pageData : requestedPages;
+  const renderedPageNumbers = pageData.length
+    ? pageData.map(({ page }) => page)
+    : requestedPages;
+
+  return (
+    <div className={`mushaf-scroll ${renderedPages.length > 1 ? "is-spread" : "is-single"}`}>
+      <div className="mushaf-shared-nav">
+        {headerControls(renderedPageNumbers, compact)}
+      </div>
+      <div
+        className={`mushaf-composition ${renderedPages.length > 1 ? "mushaf-spread" : "mushaf-single"}`}
+        data-visible-pages={renderedPageNumbers.join(":")}
+      >
+        {pageData.length
+          ? pageData.map(renderPage)
+          : requestedPages.map((page) => (
+              <div key={page} className="page mushaf-loading" data-page={page}>
+                <div className="loading-spinner" />
+              </div>
+            ))}
+      </div>
+
+      {loadError && (
+        <div className="mushaf-load-error" role="alert">
+          <span>The requested page could not be opened.</span>
+          <button type="button" className="btn-ghost" onClick={() => setLoadAttempt((value) => value + 1)}>
+            Retry
+          </button>
+        </div>
+      )}
 
       {judgingEnabled && active && (
         <DragMenu

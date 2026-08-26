@@ -15,6 +15,16 @@ The recitation is the work; the interface is how a judge touches it. So the
 Mushaf gets the room and the chrome gets out of the way — the rail is narrow,
 the page is wide, and no panel competes with the text for the same region.
 
+In the live workspace, the scorecard stays on the chosen outer edge before and
+after a recitation begins. A two-page spread owns the remaining width, but its
+shared page control also owns a small row between the top bar and the pages;
+Fit accounts for that row instead of laying the control over Quran text, and
+Fit is the smallest live size rather than one stop among smaller scales. A
+temporary return-to-question control shares the same fixed row when the judge
+has navigated outside the selected passage; appearing or disappearing must not
+move the page selector or change the row's height. The spread uses a compact
+4px outer rhythm around that row; the single-page marginalia remains untouched.
+
 **Fails this rule:** a screen where the explanation is larger than the thing
 being explained. The setup review carries 248 words to convey nine facts.
 
@@ -145,3 +155,10 @@ why. A bend needs a reason in one sentence; a rule broken silently is a bug.
 When comparing designs, measure rather than argue: **clicks to complete, words
 on screen, height at 1024×768, count of targets under 44px, and unreachable
 regions.** Those five numbers decided the mark bar, and they were right.
+
+Confidence is a gate, not decoration. Score **practicality, architecture/data
+safety, and visual certainty** separately. A score of 85 or more may proceed
+after its named checks; 70-84 needs a focused prototype or more evidence;
+below 70 must be narrowed, deferred, or rejected transparently. Browser proof
+and explicit visual approval are still required for visible UI work: neither a
+high score nor a passing test suite can substitute for seeing the result.

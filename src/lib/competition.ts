@@ -20,11 +20,17 @@ import type {
 import { validateJudgePanel, judgeSeatFor } from "./judgeAssignments.ts";
 import { MUSHAF_DATA_VERSION, MUSHAF_LAYOUT } from "./mushafContract.ts";
 import { QUESTION_INDEX_VERSION } from "./questionBank.ts";
+import {
+  normalizeMuqarrarSide,
+  normalizeParticipant,
+  normalizeParticipantCategory,
+  participantCategoryLabel,
+} from "./participants.ts";
 
 export const DEFAULT_QUESTION_POLICY: CompetitionQuestionPolicy = {
   version: 1,
   mode: "manual",
-  targetRecitationLines: 7,
+  targetRecitationLines: 10,
   endRule: "first-ayah-end-at-or-after-target",
   firstPrintedLinePolicy: "containing-start-ayah",
   finalPrintedLineScoring: "exclude",
@@ -83,11 +89,9 @@ export function normalizeCompetition(
       return true;
     })
     .slice(0, 200);
-  const defaultMuqarrar =
-    value?.participantEntrySettings?.defaultMuqarrar === "feshey-kolhu" ||
-    value?.participantEntrySettings?.defaultMuqarrar === "nimey-kolhu"
-      ? value.participantEntrySettings.defaultMuqarrar
-      : "";
+  const defaultMuqarrar = normalizeMuqarrarSide(
+    value?.participantEntrySettings?.defaultMuqarrar,
+  ) ?? "";
   const defaultInstitution = String(
     value?.participantEntrySettings?.defaultInstitution ?? "",
   ).trim().slice(0, 120);
@@ -105,7 +109,12 @@ export function normalizeCompetition(
     divisions: Array.isArray(value?.divisions)
       ? value.divisions.map(normalizeDivision).filter(Boolean) as CompetitionDivision[]
       : [],
-    questionPolicy: normalizeQuestionPolicy(value?.questionPolicy),
+    questionPolicy: normalizeQuestionPolicy(
+      value?.questionPolicy,
+      value && !Object.prototype.hasOwnProperty.call(value, "questionPolicy")
+        ? 7
+        : DEFAULT_QUESTION_POLICY.targetRecitationLines,
+    ),
     liveSnapshot:
       value?.liveSnapshot && typeof value.liveSnapshot === "object"
         ? cloneLiveSnapshot(value.liveSnapshot)
@@ -132,9 +141,7 @@ function normalizePortion(value: unknown): QuranPortion {
 export function normalizeDivision(
   value: Partial<CompetitionDivision>,
 ): CompetitionDivision | null {
-  const category = value.category === "baliagen" || value.category === "nubalaa"
-    ? value.category
-    : null;
+  const category = normalizeParticipantCategory(value.category);
   if (!category) return null;
   return {
     id: String(value.id ?? "").trim() || `division-${hash(`${value.name ?? ""}\u241f${value.ageGroup ?? ""}\u241f${category}`)}`,
@@ -147,13 +154,22 @@ export function normalizeDivision(
 
 export function normalizeQuestionPolicy(
   value?: Partial<CompetitionQuestionPolicy>,
+  fallbackTargetLines = DEFAULT_QUESTION_POLICY.targetRecitationLines,
 ): CompetitionQuestionPolicy {
+  const requestedLines = Number(value?.targetRecitationLines);
   return {
     version: 1,
     mode: value?.mode === "tahqeeq" ? "tahqeeq" : "manual",
     targetRecitationLines: Math.min(
       30,
-      Math.max(1, Math.floor(Number(value?.targetRecitationLines) || 7)),
+      Math.max(
+        1,
+        Math.floor(
+          Number.isFinite(requestedLines) && requestedLines >= 1
+            ? requestedLines
+            : fallbackTargetLines,
+        ),
+      ),
     ),
     endRule: "first-ayah-end-at-or-after-target",
     firstPrintedLinePolicy: "containing-start-ayah",
@@ -183,16 +199,7 @@ function clonePanel(panel: JudgePanelConfig): JudgePanelConfig {
 }
 
 function participantForSnapshot(participant: Participant): Participant {
-  return {
-    id: participant.id,
-    name: participant.name,
-    number: participant.number,
-    ageGroup: participant.ageGroup,
-    category: participant.category,
-    muqarrar: participant.muqarrar,
-    phone: participant.phone,
-    institution: participant.institution,
-  };
+  return normalizeParticipant(participant);
 }
 
 function cloneLiveSnapshot(
@@ -200,10 +207,9 @@ function cloneLiveSnapshot(
 ): LiveCompetitionSnapshot {
   return {
     ...snapshot,
-    divisions: snapshot.divisions.map((division) => ({
-      ...division,
-      quranPortion: { ...division.quranPortion },
-    })),
+    divisions: snapshot.divisions
+      .map((division) => normalizeDivision(division))
+      .filter(Boolean) as CompetitionDivision[],
     questionPolicy: { ...snapshot.questionPolicy },
     panel: clonePanel(snapshot.panel),
     scoreConfig: normalizeScoreConfig(snapshot.scoreConfig),
@@ -246,11 +252,12 @@ export function competitionReadiness(input: {
   });
   const divisionKeys = new Set<string>();
   input.competition.divisions.forEach((division) => {
-    const key = `${division.ageGroup.trim().toLocaleLowerCase()}\u241f${division.category}`;
+    const category = normalizeParticipantCategory(division.category);
+    const key = `${division.ageGroup.trim().toLocaleLowerCase()}\u241f${category ?? ""}`;
     if (divisionKeys.has(key)) {
       issues.push({
         section: "divisions",
-        message: `Only one ${division.ageGroup} ${division.category === "nubalaa" ? "Hifz" : "Baliagen"} category can be active.`,
+        message: `Only one ${division.ageGroup} ${category ? participantCategoryLabel(category) : "participant"} category can be active.`,
       });
     }
     divisionKeys.add(key);
@@ -282,6 +289,7 @@ export function competitionReadiness(input: {
   }
   const rosterNumbers = new Set<string>();
   input.roster.forEach((participant) => {
+    const participantCategory = normalizeParticipantCategory(participant.category);
     if (
       !participant.name ||
       !participant.number ||
@@ -291,7 +299,7 @@ export function competitionReadiness(input: {
     ) {
       issues.push({ section: "participants", message: "Every participant needs their required competition details." });
     }
-    const divisionKey = `${participant.ageGroup.trim().toLocaleLowerCase()}\u241f${participant.category}`;
+    const divisionKey = `${participant.ageGroup.trim().toLocaleLowerCase()}\u241f${participantCategory ?? ""}`;
     if (
       participant.ageGroup &&
       participant.category &&

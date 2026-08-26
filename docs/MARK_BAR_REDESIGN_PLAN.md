@@ -1,6 +1,22 @@
 # The Adu & Raagu mark bar: research and plan
 
-The control under review is `MarkPicker.tsx` (317 lines) and the
+> **Reconciled with the current implementation on 16 August 2026.** The live
+> control is no longer the continuous track described in the historical audit
+> below. It is the retained whole-number chip strip: every whole mark is a
+> direct 38px target, the left half of a chip exposes the configured half mark,
+> and pointer release creates one ledger event. Claude's later cell-grid
+> experiment was deliberately resolved away; it is not part of the final
+> branch and should not be reintroduced by reading the prototype as approval.
+>
+> The final implemented portion of this study is narrower: Adu / Raagu now uses
+> the darker `#377b60` committed fill, an explicit white on-accent token in both
+> themes, split-color ink for a half-filled chip, and a neutral monochrome open
+> row without the former green wash. The full ten-step green consolidation,
+> unrelated card proportions, and superellipse work remain proposals rather
+> than shipped requirements. Phone and desktop use the same stylesheet and are
+> verified as part of this integration.
+
+The historical control under review was `MarkPicker.tsx` and the
 `.mark-picker` / `.mark-bar` block in `global.css`. It awards the whole-recitation
 criteria: press the number on the score row, a bar drops carrying every awardable
 mark, drag along it and release.
@@ -15,13 +31,9 @@ be**.
 Every one of those is reproducible in the source, and four of them turn out to
 be the same defect wearing different clothes.
 
-> **One gap in this document.** The deployed build at
-> `tahqeeq-mobile.yaish.chatgpt.site` is blocked by this environment's network
-> egress proxy, and it is not in any repository this session can reach — so the
-> exact mobile rendering has not been seen. Everything below is measured from
-> this repository, which is where the tokens the mobile build inherits are
-> defined. If the mobile build has diverged (its own green, its own card), the
-> palette arithmetic in §2 still holds, but the specific selectors in §1 may not.
+The measurements below remain the research record that led to the palette
+correction. Sections describing a continuous fill track or detached tick-label
+gutter are historical evidence, not a description of the retained chip strip.
 
 ---
 

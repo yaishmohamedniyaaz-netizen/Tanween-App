@@ -253,8 +253,8 @@ export function QuestionBuilder({ editable }: { editable: boolean }) {
           <span>Muqarrar start</span>
           <select value={muqarrar} disabled={!editable} onChange={(event) => setMuqarrar(event.target.value as QuestionMuqarrar)}>
             <option value="both">Either start</option>
-            <option value="feshey-kolhu">Feshey kolhu · Starting side</option>
-            <option value="nimey-kolhu">Nimey kolhu · Ending side</option>
+            <option value="starting-side">Fesheykolhu · Starting side</option>
+            <option value="ending-side">Nimeykolhu · Ending side</option>
           </select>
         </label>
         <label className="question-note-field">
@@ -263,7 +263,7 @@ export function QuestionBuilder({ editable }: { editable: boolean }) {
         </label>
       </div>
 
-      {state.competition.isSample && (
+      {import.meta.env.DEV && state.competition.isSample && (
         <div className="question-sample-tests">
           <SampleBadge compact />
           <span>Test questions are loaded for every category and Muqarrar start.</span>
@@ -307,7 +307,7 @@ export function QuestionBuilder({ editable }: { editable: boolean }) {
               <button type="button" className="question-draft-open" onClick={() => openDraft(draft)}>
                 <span className="question-draft-state">{issues.length ? "Needs checking" : "Ready draft"}</span>
                 <strong>{draftRangeLabel(draft)}</strong>
-                <span>{division?.name ?? "Category removed"} · {draft.muqarrar === "both" ? "Either start" : draft.muqarrar === "feshey-kolhu" ? "Feshey kolhu" : "Nimey kolhu"} · {draft.resolvedLines} lines · pages {draft.startPage}{draft.endPage !== draft.startPage ? `–${draft.endPage}` : ""}</span>
+                <span>{division?.name ?? "Category removed"} · {draft.muqarrar === "both" ? "Either start" : draft.muqarrar === "starting-side" ? "Fesheykolhu" : "Nimeykolhu"} · {draft.resolvedLines} lines · pages {draft.startPage}{draft.endPage !== draft.startPage ? `–${draft.endPage}` : ""}</span>
                 {draft.note && <small>{draft.note}</small>}
                 {issues.length > 0 && <small>{issues[0]}</small>}
               </button>

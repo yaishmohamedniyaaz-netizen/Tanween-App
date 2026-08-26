@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import type { DevicePreferencesV1 } from "../lib/devicePreferences";
+import type { DevicePreferencesV3 } from "../lib/devicePreferences";
 import {
   DEFAULT_DEVICE_PREFERENCES,
 } from "../lib/devicePreferences";
@@ -24,7 +24,7 @@ const SECTIONS: Array<{
   hint: string;
 }> = [
   { id: "appearance", title: "Appearance", hint: "Light or dark theme" },
-  { id: "workspace", title: "Mushaf and judging workspace", hint: "Page view, scale and panel position" },
+  { id: "workspace", title: "Mushaf and judging workspace", hint: "Judge panel position" },
   { id: "data", title: "Data and recovery", hint: "Backup, restore and preference reset" },
 ];
 
@@ -44,8 +44,8 @@ export function SettingsWorkspace({
   onReset,
   onBack,
 }: {
-  preferences: DevicePreferencesV1;
-  onChange: (patch: Partial<DevicePreferencesV1>) => void;
+  preferences: DevicePreferencesV3;
+  onChange: (patch: Partial<DevicePreferencesV3>) => void;
   onReset: () => void;
   onBack: () => void;
 }) {
@@ -171,30 +171,6 @@ export function SettingsWorkspace({
                 <div className="settings-section-head">
                   <h2 id="settings-workspace-title">Mushaf and judging workspace</h2>
                 </div>
-
-                <fieldset className="settings-fieldset">
-                  <legend>Page view</legend>
-                  <div className="settings-segmented" role="radiogroup" aria-label="Mushaf page view">
-                    <button type="button" role="radio" aria-checked={preferences.mushafLayout === "full"} className={preferences.mushafLayout === "full" ? "is-active" : ""} onClick={() => onChange({ mushafLayout: "full" })}>Full page</button>
-                    <button type="button" role="radio" aria-checked={preferences.mushafLayout === "split"} className={preferences.mushafLayout === "split" ? "is-active" : ""} onClick={() => onChange({ mushafLayout: "split" })}>Split page</button>
-                  </div>
-                </fieldset>
-
-                <fieldset className="settings-fieldset">
-                  <legend>Page scale</legend>
-                  <div className="settings-range-head"><span>Smaller overview</span><strong className="t-num">{preferences.mushafZoom}%</strong></div>
-                  <input
-                    type="range"
-                    min={45}
-                    max={100}
-                    step={5}
-                    value={preferences.mushafZoom}
-                    aria-label="Mushaf page scale"
-                    onChange={(event) => onChange({ mushafZoom: Number(event.target.value) })}
-                  />
-                  <div className="settings-range-scale" aria-hidden="true"><span>45%</span><span>100%</span></div>
-                  <button type="button" className="settings-inline-action" disabled={preferences.mushafZoom === 100} onClick={() => onChange({ mushafZoom: 100 })}>Reset to 100%</button>
-                </fieldset>
 
                 <fieldset className="settings-fieldset">
                   <legend>Judge panel position</legend>

@@ -1,6 +1,8 @@
 import {
+  forwardRef,
   useCallback,
   useEffect,
+  useImperativeHandle,
   useLayoutEffect,
   useMemo,
   useRef,
@@ -33,6 +35,15 @@ interface Props {
   onChange: (value: number) => void;
   autoFocus?: boolean;
   layer?: "workspace" | "dialog";
+  presentation?: "floating" | "inline";
+  inlineTarget?: HTMLElement | null;
+  invalid?: boolean;
+  describedBy?: string;
+  dismissOnOutsidePress?: boolean;
+}
+
+export interface MarkPickerHandle {
+  focusAndOpen: () => void;
 }
 
 /** The awarded marks for a whole-recitation criterion.
@@ -42,7 +53,7 @@ interface Props {
  *  along it and release on the one you want, or let go without moving and pick
  *  from the bar that stays open. Nothing is written until the press ends, so a
  *  whole gesture leaves one entry in the history. */
-export function MarkPicker({
+export const MarkPicker = forwardRef<MarkPickerHandle, Props>(function MarkPicker({
   value,
   max,
   step,
@@ -52,7 +63,12 @@ export function MarkPicker({
   onChange,
   autoFocus = false,
   layer = "workspace",
-}: Props) {
+  presentation = "floating",
+  inlineTarget = null,
+  invalid = false,
+  describedBy,
+  dismissOnOutsidePress = true,
+}: Props, forwardedRef) {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const barRef = useRef<HTMLDivElement>(null);
   const chipStripRef = useRef<HTMLDivElement>(null);
@@ -63,6 +79,18 @@ export function MarkPicker({
   const [open, setOpen] = useState(false);
   const [pinned, setPinned] = useState(false);
   const [anchor, setAnchor] = useState({ top: 0, left: 0, width: BAR_MIN_WIDTH });
+
+  useImperativeHandle(
+    forwardedRef,
+    () => ({
+      focusAndOpen: () => {
+        buttonRef.current?.focus({ preventScroll: true });
+        setOpen(true);
+        setPinned(true);
+      },
+    }),
+    [],
+  );
 
   useLayoutEffect(() => {
     if (autoFocus) buttonRef.current?.focus();
@@ -110,7 +138,7 @@ export function MarkPicker({
   }, []);
 
   useLayoutEffect(() => {
-    if (!open) return;
+    if (!open || presentation === "inline") return;
     const rect = buttonRef.current?.getBoundingClientRect();
     if (!rect) return;
     const width = Math.max(
@@ -125,7 +153,7 @@ export function MarkPicker({
     const below = window.innerHeight - rect.bottom - 10;
     const top = below < barHeight ? Math.max(8, rect.top - 10 - barHeight) : rect.bottom + 10;
     setAnchor({ top, left, width });
-  }, [open, preferredWidth]);
+  }, [open, preferredWidth, presentation]);
 
   useEffect(() => {
     if (!open) return;
@@ -136,6 +164,7 @@ export function MarkPicker({
       buttonRef.current?.focus();
     };
     const onDown = (event: PointerEvent) => {
+      if (!dismissOnOutsidePress) return;
       if (
         !barRef.current?.contains(event.target as Node) &&
         !buttonRef.current?.contains(event.target as Node)
@@ -143,18 +172,20 @@ export function MarkPicker({
         close();
       }
     };
-    const onScroll = () => close();
+    const onViewportChange = () => close();
     window.addEventListener("keydown", onKey);
     document.addEventListener("pointerdown", onDown);
-    window.addEventListener("resize", onScroll);
-    window.addEventListener("scroll", onScroll, true);
+    if (presentation === "floating") {
+      window.addEventListener("resize", onViewportChange);
+      window.addEventListener("scroll", onViewportChange, true);
+    }
     return () => {
       window.removeEventListener("keydown", onKey);
       document.removeEventListener("pointerdown", onDown);
-      window.removeEventListener("resize", onScroll);
-      window.removeEventListener("scroll", onScroll, true);
+      window.removeEventListener("resize", onViewportChange);
+      window.removeEventListener("scroll", onViewportChange, true);
     };
-  }, [close, open]);
+  }, [close, dismissOnOutsidePress, open, presentation]);
 
   // The wheel adjusts marks only once this control has been focused on purpose.
   // Acting on hover alone is how people change official numbers by accident.
@@ -249,12 +280,85 @@ export function MarkPicker({
   };
 
   const display = Number.isInteger(shown) ? String(shown) : shown.toFixed(1);
+  const bar = open ? (
+    <div
+      ref={barRef}
+      className={`mark-bar cat-${category} ${
+        pinned ? "is-pinned" : ""
+      } ${layer === "dialog" ? "is-dialog-layer" : ""} ${
+        presentation === "inline" ? "is-inline" : ""
+      }`}
+      style={
+        presentation === "floating"
+          ? { top: anchor.top, left: anchor.left, width: anchor.width }
+          : undefined
+      }
+    >
+      <div
+        ref={chipStripRef}
+        className="chip-strip"
+        role="radiogroup"
+        aria-label={`${label} marks`}
+        onPointerDown={(event) => {
+          if (!pinned || event.button !== 0) return;
+          event.preventDefault();
+          if (!previewChipAt(event.clientX, event.clientY)) return;
+          dragRef.current = { moved: true, pointerId: event.pointerId };
+          (event.currentTarget as HTMLElement).setPointerCapture(event.pointerId);
+        }}
+        onPointerMove={(event) => {
+          if (!pinned || !dragRef.current) return;
+          previewChipAt(event.clientX, event.clientY);
+        }}
+        onPointerUp={() => {
+          if (!pinned) return;
+          dragRef.current = null;
+          commit(previewRef.current ?? value);
+          close();
+        }}
+        onPointerCancel={() => {
+          if (!pinned || !dragRef.current) return;
+          dragRef.current = null;
+          commit(previewRef.current ?? value);
+          close();
+        }}
+      >
+        {wholeChips.map((mark) => {
+          const hasSelection = marked || preview !== null;
+          const exact = hasSelection && Math.abs(mark - shown) < 0.001;
+          const half = hasSelection && Math.abs(mark - 0.5 - shown) < 0.001;
+          return (
+            <button
+              key={mark}
+              type="button"
+              role="radio"
+              aria-checked={exact || half}
+              aria-label={`${half ? mark - 0.5 : mark} marks`}
+              data-mark={mark}
+              className={half ? "is-half" : ""}
+              onClick={(event) => {
+                // Pointer selection is committed by the shared strip on release.
+                // A synthetic click is keyboard activation and needs the same path.
+                if (event.detail !== 0) return;
+                commit(mark);
+                close();
+                buttonRef.current?.focus();
+              }}
+            >
+              <span className="mark-chip-label t-num">{mark}</span>
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  ) : null;
+
   return (
     <>
       <button
         ref={buttonRef}
         type="button"
-        className={`mark-picker ${marked ? "is-marked" : ""} ${open ? "is-open" : ""}`}
+        className={`mark-picker score-value-layout ${marked ? "is-marked" : ""} ${open ? "is-open" : ""}`}
         role="spinbutton"
         aria-label={`${label} marks`}
         aria-valuemin={0}
@@ -262,72 +366,19 @@ export function MarkPicker({
         aria-valuenow={shown}
         aria-valuetext={`${display} of ${max} marks${marked ? "" : ", not marked yet"}`}
         aria-expanded={open}
+        aria-invalid={invalid || undefined}
+        aria-describedby={describedBy}
         title={`Set ${label} marks`}
         onPointerDown={onPointerDown}
         onKeyDown={onKeyDown}
       >
-        <span className="mark-picker-value t-num">{display}</span>
-        <span className="mark-picker-of t-num">/ {max}</span>
+        <span className="mark-picker-value score-value-number t-num">{display}</span>
+        <span className="mark-picker-of sc-of t-num">/ {max}</span>
       </button>
-      {open &&
-        createPortal(
-          <div
-            ref={barRef}
-            className={`mark-bar cat-${category} ${
-              pinned ? "is-pinned" : ""
-            } ${layer === "dialog" ? "is-dialog-layer" : ""}`}
-            style={{ top: anchor.top, left: anchor.left, width: anchor.width }}
-          >
-            <div
-              ref={chipStripRef}
-              className="chip-strip"
-              role="radiogroup"
-              aria-label={`${label} marks`}
-              onPointerDown={(event) => {
-                if (!pinned || event.button !== 0) return;
-                event.preventDefault();
-                if (!previewChipAt(event.clientX, event.clientY)) return;
-                dragRef.current = { moved: true, pointerId: event.pointerId };
-                (event.currentTarget as HTMLElement).setPointerCapture(event.pointerId);
-              }}
-              onPointerMove={(event) => {
-                if (!pinned || !dragRef.current) return;
-                previewChipAt(event.clientX, event.clientY);
-              }}
-              onPointerUp={() => {
-                if (!pinned) return;
-                dragRef.current = null;
-                commit(previewRef.current ?? value);
-                close();
-              }}
-              onPointerCancel={() => {
-                if (!pinned || !dragRef.current) return;
-                dragRef.current = null;
-                commit(previewRef.current ?? value);
-                close();
-              }}
-            >
-              {wholeChips.map((mark) => {
-                const exact = Math.abs(mark - shown) < 0.001;
-                const half = Math.abs(mark - 0.5 - shown) < 0.001;
-                return (
-                  <button
-                    key={mark}
-                    type="button"
-                    role="radio"
-                    aria-checked={exact || half}
-                    aria-label={`${half ? mark - 0.5 : mark} marks`}
-                    data-mark={mark}
-                    className={half ? "is-half" : ""}
-                  >
-                    <span className="t-num">{mark}</span>
-                  </button>
-                );
-              })}
-            </div>
-          </div>,
-          document.body,
-        )}
+      {bar &&
+        (presentation === "inline"
+          ? inlineTarget && createPortal(bar, inlineTarget)
+          : createPortal(bar, document.body))}
     </>
   );
-}
+});

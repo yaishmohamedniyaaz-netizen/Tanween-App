@@ -4,8 +4,11 @@ import type {
   MuqarrarSide,
   Participant,
   QuestionMuqarrar,
+  RecitationRangeSnapshot,
   ReciterQuestionAssignment,
 } from "../types.ts";
+import { MUSHAF_LAYOUT } from "./mushafContract.ts";
+import { normalizeMuqarrarSide } from "./participants.ts";
 
 const eligibleSide = (
   questionSide: QuestionMuqarrar,
@@ -61,7 +64,7 @@ export function assignmentFromDraft(input: {
     return null;
   }
   return {
-    version: 1,
+    version: 2,
     id: `question-assignment:${input.participant.id}:${input.draft.id}`,
     kind: "prepared-draft",
     participantId: input.participant.id,
@@ -79,6 +82,26 @@ export function assignmentFromDraft(input: {
     sourceVersion: input.draft.sourceVersion,
     questionIndexVersion: input.draft.questionIndexVersion,
     layoutHash: input.draft.layoutHash,
+    range: {
+      version: 1,
+      startAyah: { ...input.draft.startAyah },
+      endAyah: { ...input.draft.endAyah },
+      requestedLines: input.draft.requestedLines,
+      resolvedLines: input.draft.resolvedLines,
+      extensionLines: input.draft.extensionLines,
+      startPage: input.draft.startPage,
+      startLine: input.draft.startLine,
+      endPage: input.draft.endPage,
+      endLine: input.draft.endLine,
+      startWordId: input.draft.startWordId,
+      endWordId: input.draft.endWordId,
+      endMarkerId: input.draft.endMarkerId,
+      finalPrintedLineScoring: input.draft.finalPrintedLineScoring,
+      mushafLayout: MUSHAF_LAYOUT,
+      sourceVersion: input.draft.sourceVersion,
+      questionIndexVersion: input.draft.questionIndexVersion,
+      layoutHash: input.draft.layoutHash,
+    },
   };
 }
 
@@ -103,19 +126,24 @@ export function manualQuestionAssignment(input: {
 export function normalizeQuestionAssignment(
   value: Partial<ReciterQuestionAssignment> | null | undefined,
 ): ReciterQuestionAssignment | null {
+  const normalizedMuqarrar = normalizeMuqarrarSide(value?.muqarrar);
   if (
-    value?.version !== 1 ||
+    (value?.version !== 1 && value?.version !== 2) ||
     (value.kind !== "prepared-draft" && value.kind !== "manual") ||
     !value.id ||
     !value.participantId ||
     !value.divisionId ||
-    (value.muqarrar !== "feshey-kolhu" && value.muqarrar !== "nimey-kolhu") ||
+    !normalizedMuqarrar ||
     !Number.isFinite(value.selectedAt) ||
     !value.label
   ) {
     return null;
   }
   if (value.kind === "prepared-draft" && !value.sourceQuestionId) return null;
+  const range = value.version === 2
+    ? normalizeRecitationRangeSnapshot(value.range)
+    : null;
+  if (value.version === 2 && value.kind === "prepared-draft" && !range) return null;
   const replacements = Array.isArray(value.replacements)
     ? value.replacements.flatMap((record) => {
         if (
@@ -144,15 +172,42 @@ export function normalizeQuestionAssignment(
       })
     : [];
   return {
-    ...value,
-    version: 1,
+    version: value.version,
     kind: value.kind,
     id: String(value.id),
     participantId: String(value.participantId),
     divisionId: String(value.divisionId),
-    muqarrar: value.muqarrar,
+    muqarrar: normalizedMuqarrar,
     selectedAt: Number(value.selectedAt),
     label: String(value.label),
+    ...(value.sourceQuestionId
+      ? { sourceQuestionId: String(value.sourceQuestionId) }
+      : {}),
+    ...(ayahRef(value.startAyah)
+      ? { startAyah: { ...value.startAyah } }
+      : {}),
+    ...(ayahRef(value.endAyah)
+      ? { endAyah: { ...value.endAyah } }
+      : {}),
+    ...(positiveInteger(value.requestedLines)
+      ? { requestedLines: Number(value.requestedLines) }
+      : {}),
+    ...(positiveInteger(value.resolvedLines)
+      ? { resolvedLines: Number(value.resolvedLines) }
+      : {}),
+    ...(positiveInteger(value.startPage)
+      ? { startPage: Number(value.startPage) }
+      : {}),
+    ...(positiveInteger(value.endPage)
+      ? { endPage: Number(value.endPage) }
+      : {}),
+    ...(value.sourceVersion
+      ? { sourceVersion: String(value.sourceVersion) }
+      : {}),
+    ...(value.questionIndexVersion
+      ? { questionIndexVersion: String(value.questionIndexVersion) }
+      : {}),
+    ...(value.layoutHash ? { layoutHash: String(value.layoutHash) } : {}),
     ...(value.drawId ? { drawId: String(value.drawId) } : {}),
     ...(Number.isInteger(value.drawPosition) && Number(value.drawPosition) > 0
       ? { drawPosition: Number(value.drawPosition) }
@@ -161,7 +216,92 @@ export function normalizeQuestionAssignment(
       ? { drawCycle: Number(value.drawCycle) }
       : {}),
     ...(replacements.length ? { replacements } : {}),
+    ...(range ? { range } : {}),
   } as ReciterQuestionAssignment;
+}
+
+function positiveInteger(value: unknown): value is number {
+  return Number.isInteger(value) && Number(value) > 0;
+}
+
+function ayahRef(value: unknown): value is { surah: number; ayah: number } {
+  const candidate = value as { surah?: unknown; ayah?: unknown } | null;
+  return Boolean(
+    candidate &&
+    positiveInteger(candidate.surah) &&
+    positiveInteger(candidate.ayah),
+  );
+}
+
+export function normalizeRecitationRangeSnapshot(
+  value: Partial<RecitationRangeSnapshot> | null | undefined,
+): RecitationRangeSnapshot | null {
+  if (
+    value?.version !== 1 ||
+    !ayahRef(value.startAyah) ||
+    !ayahRef(value.endAyah) ||
+    !positiveInteger(value.requestedLines) ||
+    !positiveInteger(value.resolvedLines) ||
+    !Number.isInteger(value.extensionLines) ||
+    Number(value.extensionLines) < 0 ||
+    !positiveInteger(value.startPage) ||
+    !positiveInteger(value.startLine) ||
+    !positiveInteger(value.endPage) ||
+    !positiveInteger(value.endLine) ||
+    Number(value.startPage) > Number(value.endPage) ||
+    (Number(value.startPage) === Number(value.endPage) &&
+      Number(value.startLine) > Number(value.endLine)) ||
+    Number(value.startPage) > 604 ||
+    Number(value.endPage) > 604 ||
+    Number(value.startLine) > 15 ||
+    Number(value.endLine) > 15 ||
+    Number(value.resolvedLines) < Number(value.requestedLines) ||
+    Number(value.extensionLines) !==
+      Number(value.resolvedLines) - Number(value.requestedLines) ||
+    !value.startWordId ||
+    !value.endWordId ||
+    !value.endMarkerId ||
+    (value.finalPrintedLineScoring !== "include" &&
+      value.finalPrintedLineScoring !== "exclude") ||
+    !value.mushafLayout ||
+    !value.sourceVersion ||
+    !value.questionIndexVersion ||
+    !/^sha256:[a-f0-9]{64}$/i.test(String(value.layoutHash ?? ""))
+  ) {
+    return null;
+  }
+  return {
+    version: 1,
+    startAyah: { ...value.startAyah },
+    endAyah: { ...value.endAyah },
+    requestedLines: Number(value.requestedLines),
+    resolvedLines: Number(value.resolvedLines),
+    extensionLines: Number(value.extensionLines),
+    startPage: Number(value.startPage),
+    startLine: Number(value.startLine),
+    endPage: Number(value.endPage),
+    endLine: Number(value.endLine),
+    startWordId: String(value.startWordId),
+    endWordId: String(value.endWordId),
+    endMarkerId: String(value.endMarkerId),
+    finalPrintedLineScoring: value.finalPrintedLineScoring,
+    mushafLayout: String(value.mushafLayout),
+    sourceVersion: String(value.sourceVersion),
+    questionIndexVersion: String(value.questionIndexVersion),
+    layoutHash: String(value.layoutHash),
+  };
+}
+
+export function questionStartPage(
+  question: Pick<
+    ReciterQuestionAssignment,
+    "version" | "range" | "startPage"
+  > | null | undefined,
+): number | null {
+  const page = question?.version === 2
+    ? question.range?.startPage ?? question.startPage
+    : question?.startPage;
+  return positiveInteger(page) && page <= 604 ? Number(page) : null;
 }
 
 export function questionAssignmentIsValid(input: {
@@ -195,10 +335,17 @@ export function questionAssignmentIsValid(input: {
         selectedAt: input.question.selectedAt,
       })
     : null;
+  const rangeMatches = Boolean(
+    expected?.range &&
+      input.question.range &&
+      JSON.stringify(expected.range) === JSON.stringify(input.question.range),
+  );
   return Boolean(
     expected &&
       expected.divisionId === input.question.divisionId &&
       expected.label === input.question.label &&
-      expected.layoutHash === input.question.layoutHash,
+      expected.sourceQuestionId === input.question.sourceQuestionId &&
+      expected.layoutHash === input.question.layoutHash &&
+      (input.question.version === 1 || rangeMatches),
   );
 }

@@ -12,6 +12,8 @@ export interface SWState {
   precacheCount: number;
   /** Total number of assets to precache */
   precacheTotal: number;
+  /** A new worker controls the page and can be applied with a deliberate reload */
+  updateReady: boolean;
 }
 
 let _state: SWState = {
@@ -19,6 +21,7 @@ let _state: SWState = {
   precached: false,
   precacheCount: 0,
   precacheTotal: 0,
+  updateReady: false,
 };
 
 const _listeners = new Set<(s: SWState) => void>();
@@ -66,7 +69,18 @@ export async function registerServiceWorker(): Promise<void> {
   }
 
   try {
-    const registration = await navigator.serviceWorker.register("/sw.js");
+    let controllerSeen = navigator.serviceWorker.controller !== null;
+    navigator.serviceWorker.addEventListener("controllerchange", () => {
+      if (controllerSeen) {
+        _state = { ..._state, active: true, updateReady: true };
+        emit();
+      }
+      controllerSeen = true;
+    });
+
+    const registration = await navigator.serviceWorker.register("/sw.js", {
+      updateViaCache: "none",
+    });
 
     const updateState = () => {
       const sw = registration.active || registration.waiting || registration.installing;
@@ -109,4 +123,9 @@ export async function registerServiceWorker(): Promise<void> {
   } catch (err) {
     console.error("[SW] Registration failed:", err);
   }
+}
+
+export function reloadForServiceWorkerUpdate(): void {
+  if (typeof window === "undefined") return;
+  window.location.reload();
 }

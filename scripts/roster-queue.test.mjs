@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import test from "node:test";
 import {
   SEARCH_THRESHOLD,
@@ -128,10 +129,10 @@ test("search ignores case and stray spacing", () => {
   assert.ok(matchesParticipantSearch(e, "  MARIYAM "));
 });
 
-test("ordinary participant numbers use a clean roster-width label", () => {
+test("ordinary participant numbers keep a two-digit minimum without roster-width padding", () => {
   assert.equal(participantNumberLabel("1", 8), "01");
   assert.equal(participantNumberLabel("01", 8), "01");
-  assert.equal(participantNumberLabel("1", 100), "001");
+  assert.equal(participantNumberLabel("1", 100), "01");
   assert.equal(participantNumberLabel("104", 8), "104");
 });
 
@@ -151,11 +152,11 @@ test("participant context does not repeat a category already in the division nam
       ...divisions[1],
       name: "Under 14 Hifz",
     }),
-    "Hiriya School · Under 14 Hifz · Starting side",
+    "Hiriya School · Under 14 · Nubalaa · Fesheykolhu",
   );
   assert.equal(
     participantContextLabel(hifz, divisions[1]),
-    "Hiriya School · Under 14 — Hifz · Starting side",
+    "Hiriya School · Under 14 · Nubalaa · Fesheykolhu",
   );
 });
 
@@ -181,6 +182,21 @@ test("search appears only once the queue outgrows the screen", () => {
   const small = Array.from({ length: SEARCH_THRESHOLD }, (_, i) => entry(`s${i}`));
   assert.equal(shouldOfferSearch(small), false);
   assert.equal(shouldOfferSearch([...small, entry("extra")]), true);
+});
+
+test("the running-order context stays fixed while only the participant list scrolls", () => {
+  const styles = readFileSync(
+    new URL("../src/styles/global.css", import.meta.url),
+    "utf8",
+  );
+  assert.match(
+    styles,
+    /\.reciter-queue-summary,\s*\.next-reciter-row,\s*\.reciter-selection-screen \.queue-search\s*\{[\s\S]*?flex: 0 0 auto/,
+  );
+  assert.match(
+    styles,
+    /\.reciter-selection-screen \.queue-scroll\s*\{[\s\S]*?flex: 1 1 auto;[\s\S]*?overflow-y: auto/,
+  );
 });
 
 test("somebody marked away is no longer waiting", () => {

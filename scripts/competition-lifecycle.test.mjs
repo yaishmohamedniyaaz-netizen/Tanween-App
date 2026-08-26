@@ -12,7 +12,12 @@ import {
 } from "../src/lib/judgeAssignments.ts";
 import {
   createSampleCompetition,
+  createSampleJudgePanel,
   createSampleRoster,
+  refreshSampleRoster,
+  SAMPLE_COMPETITION_EDITION,
+  SAMPLE_COMPETITION_NAME,
+  SAMPLE_JUDGE_NAME,
 } from "../src/lib/sampleCompetition.ts";
 import { normalizePreparedRecitation } from "../src/lib/preparedRecitation.ts";
 
@@ -77,6 +82,13 @@ test("legacy competition identity becomes a non-live draft", () => {
   assert.equal(competition.questionPolicy.targetRecitationLines, 7);
 });
 
+test("new competitions default to ten lines while explicit seven-line policies stay unchanged", () => {
+  assert.equal(normalizeCompetition().questionPolicy.targetRecitationLines, 10);
+  assert.equal(normalizeCompetition({
+    questionPolicy: { targetRecitationLines: 7 },
+  }).questionPolicy.targetRecitationLines, 7);
+});
+
 test("official start readiness names every incomplete section", () => {
   const empty = competitionReadiness({
     competition: normalizeCompetition(),
@@ -126,7 +138,7 @@ test("participant entry settings normalize duplicate institutions without invent
   });
   assert.deepEqual(competition.participantEntrySettings, {
     institutions: ["School A", "Quran Class"],
-    defaultMuqarrar: "feshey-kolhu",
+    defaultMuqarrar: "starting-side",
     defaultInstitution: "School A",
   });
 });
@@ -188,16 +200,46 @@ test("the live competition snapshot is detached and versioned", () => {
 
 test("the built-in sample is complete, clearly marked, and ready to test", () => {
   const competition = createSampleCompetition();
+  const panel = createSampleJudgePanel(baseConfig);
   const roster = createSampleRoster();
   assert.equal(competition.isSample, true);
+  assert.equal(competition.name, SAMPLE_COMPETITION_NAME);
+  assert.equal(competition.edition, SAMPLE_COMPETITION_EDITION);
+  assert.equal(panel.seats.length, 1);
+  assert.equal(panel.seats[0].name, SAMPLE_JUDGE_NAME);
   assert.equal(competition.divisions.length, 4);
-  assert.equal(roster.length, 8);
+  assert.equal(roster.length, 72);
+  assert.equal(roster.at(-1).number, "72");
+  assert.equal(new Set(roster.map((entry) => entry.id)).size, roster.length);
+  assert.equal(new Set(roster.map((entry) => entry.number)).size, roster.length);
   assert.equal(new Set(roster.map((entry) => entry.name)).size, roster.length);
   assert.ok(roster.every((entry) => !entry.name.startsWith("Sample Participant")));
   assert.equal(roster[0].name, "Ahmed Rasheed");
+  const refreshedRoster = refreshSampleRoster([
+    { ...roster[0], judged: true },
+    ...roster.slice(1, 8),
+  ]);
+  assert.equal(refreshedRoster.length, 72);
+  assert.equal(refreshedRoster[0].judged, true);
+  assert.equal(refreshedRoster[8].judged, false);
+  for (const division of competition.divisions) {
+    const divisionRoster = roster.filter(
+      (entry) =>
+        entry.ageGroup === division.ageGroup && entry.category === division.category,
+    );
+    assert.equal(divisionRoster.length, 18);
+    assert.equal(
+      divisionRoster.filter((entry) => entry.muqarrar === "starting-side").length,
+      9,
+    );
+    assert.equal(
+      divisionRoster.filter((entry) => entry.muqarrar === "ending-side").length,
+      9,
+    );
+  }
   const input = {
     competition,
-    panel: createPanelPreset("all", JUDGED),
+    panel,
     deviceJudgeId: "judge-1",
     config: structuredClone(baseConfig),
     roster,

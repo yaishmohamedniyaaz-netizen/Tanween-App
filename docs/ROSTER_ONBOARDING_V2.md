@@ -1,14 +1,15 @@
-# Roster Onboarding V2 with V4 fast entry
+# Roster Onboarding V2 with V7 template entry
 
 Status: implemented in the August 2026 participant-onboarding release
 Scope: draft competition participant preparation only
 
 The V3 follow-up changed participant-facing language from Division to Category
-and from Muqarrar to Muqarrar start. V4 adds competition presets, faster
-category-level entry, grouped import resolution, and a visually structured
-Excel template with native dropdowns. Internal `divisionId` and `muqarrar`
-properties remain stable so saved competitions, questions, and results do not
-need a destructive migration.
+and from Muqarrar to Muqarrar start. V7 adds competition presets, faster
+category-level entry, grouped import resolution, and a conventional native
+Excel table with selected Categories and dropdowns. Public display terms are
+centralized while legacy values normalize to locale-neutral discipline and
+start-side IDs, so old competitions, questions, and results retain their
+meaning without destructive evidence rewrites.
 
 ## Product outcome
 
@@ -49,7 +50,7 @@ ready status. Validation never relies on colour alone.
 
 `CompetitionConfig.participantNumbering` is either:
 
-- `automatic`: the final row order produces `01–99`, then `001–999`;
+- `automatic`: the final row order produces `01–99`, then continues naturally at `100`;
 - `supplied`: the participant number is editable, required, and unique without
   regard to letter case.
 
@@ -128,35 +129,44 @@ change; every row with the same normalized raw value updates together. There is
 no fuzzy auto-merge, so a plausible-looking label cannot silently move several
 participants into the wrong Category.
 
-## Competition Template V4
+## Competition Template V7
 
-The template is generated from the active competition and numbering mode.
+The template is generated from the active competition, numbering mode, and the
+organizer's column choices.
 
-- Participants: 100 prepared, striped entry rows with a frozen heading row,
-  filtering, practical widths, text-safe number and phone columns, and concise
-  Required/Optional notes;
+- Participants: one contiguous native Excel table with a frozen copper heading,
+  filtering, familiar gridlines, practical widths, text-safe number and phone
+  columns, four starter rows per selected Category, restrained alternating
+  tones, and a stronger boundary where the Category changes. The exact
+  Category is repeated on every row so sorting, filtering, copying, and import
+  remain dependable;
 - Choices: exact Category and Muqarrar start values plus competition-specific
   institution suggestions;
 - Instructions: competition identity, version, numbering rules, and the
   import/review sequence.
 
 Automatic mode omits Participant Number. Supplied mode includes it first.
-Excel data validation supplies dropdowns for Category and Muqarrar start.
-Institution also has a dropdown, but its validation remains non-blocking so a
-new school, class, or independent entry can still be typed. Spreadsheet
-validation helps entry but Tahqeeq's review remains authoritative because
-pasted cells and third-party spreadsheet tools can bypass it.
+Name, Category, and Muqarrar start are always included. The download dialog
+selects active competition Categories and can add Phone Number or Institution;
+both optional columns are off on first use and the last explicit choices are
+remembered on the device. Institution has a non-blocking dropdown when
+selected, so a new school, class, or independent entry can still be typed.
+Spreadsheet validation helps entry but Tahqeeq's review remains authoritative
+because pasted cells and third-party spreadsheet tools can bypass it.
 
 Workbook custom properties and the very-hidden `_Tahqeeq` sheet record the
-competition ID, template version, numbering mode, and category fingerprint.
-The legacy division-fingerprint value is also emitted for older Tahqeeq builds.
-V3, V2, and V1 files remain importable, and the 99 unused styled rows do not
-become empty participants when a completed V4 file is uploaded.
+competition ID, template version, numbering mode, selected columns and
+Categories, the neutral discipline schema, and category fingerprint. The
+legacy division-fingerprint value is also emitted for older Tahqeeq builds.
+V6, V5, V4, V3, V2, and V1 files remain importable. V7 only treats a starter
+row as an entered participant after a Name is present, so its prefilled
+Category cells never become empty roster records.
 
-Feshey kolhu and Nimey kolhu remain explicit enum values, not Boolean
-`true`/`false`. The participant editor presents them as a two-option radio
-control. A blank value must remain distinguishable for validation, and question
-preparation also has an Either start state.
+Fesheykolhu and Nimeykolhu remain explicit display choices, not Boolean
+`true`/`false`. Their stored IDs are `starting-side` and `ending-side`; old
+spaced labels and `feshey-kolhu` / `nimey-kolhu` values normalize at the import
+and persistence boundary. A blank value remains distinguishable for
+validation, and question preparation also has an Either start state.
 
 ## Category accordions
 
@@ -193,8 +203,11 @@ closed competition states.
 - invalid imported rows retained with field issues;
 - quoted/multiline spreadsheet paste;
 - existing participant ID preservation;
-- Template V4 sheet/header/style/dropdown/choice/metadata read-back;
-- completed V4 prepared-row import with blank prepared rows ignored;
+- Template V7 Category selection, optional-column, native-table, starter-row,
+  dropdown, choice, style, and metadata read-back;
+- completed V7 starter-row import with unused prefilled rows ignored;
+- V1-V6 and saved local-state terminology migration without changed scoring or
+  question meaning;
 - stored entry preset normalization and scoped fill-without-overwrite;
 - grouped identical imported-Category resolution;
 - refresh recovery, discard, apply comparison, and official-start blocking;
@@ -209,3 +222,6 @@ closed competition states.
 - fuzzy institution merging;
 - shareable registration forms and backend intake;
 - live competition roster changes.
+
+The implementation contract and confidence gate are recorded in
+[`PARTICIPANT_TEMPLATE_V7_FINAL_PLAN.md`](./PARTICIPANT_TEMPLATE_V7_FINAL_PLAN.md).

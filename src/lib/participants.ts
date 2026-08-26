@@ -9,15 +9,21 @@ export const PARTICIPANT_CATEGORY_LABELS: Record<
   Exclude<ParticipantCategory, "">,
   string
 > = {
-  baliagen: "Baliagen · Tarteel / reading",
-  // Keep the stable `nubalaa` storage key so existing rosters and sessions
-  // continue to load, while presenting the approved competition label.
-  nubalaa: "Hifz · Memorisation",
+  memorisation: "Nubalaa",
+  "mushaf-reading": "Balaigen",
+};
+
+export const PARTICIPANT_CATEGORY_DESCRIPTIONS: Record<
+  Exclude<ParticipantCategory, "">,
+  string
+> = {
+  memorisation: "Memorisation",
+  "mushaf-reading": "Reading / Tarteel",
 };
 
 export const MUQARRAR_LABELS: Record<Exclude<MuqarrarSide, "">, string> = {
-  "feshey-kolhu": "Feshey kolhu · Starting side",
-  "nimey-kolhu": "Nimey kolhu · Ending side",
+  "starting-side": "Fesheykolhu",
+  "ending-side": "Nimeykolhu",
 };
 
 export const EMPTY_PARTICIPANT: Participant = {
@@ -39,8 +45,19 @@ export function normalizeParticipantCategory(
 ): ParticipantCategory | null {
   const normalized = key(String(value ?? ""));
   if (!normalized) return "";
-  if (["baliagen", "bali", "tarteel", "tartil", "reading"].includes(normalized)) {
-    return "baliagen";
+  if (
+    [
+      "mushafreading",
+      "readingfrommushaf",
+      "balaigen",
+      "baliagen",
+      "bali",
+      "tarteel",
+      "tartil",
+      "reading",
+    ].includes(normalized)
+  ) {
+    return "mushaf-reading";
   }
   if (
     [
@@ -54,7 +71,7 @@ export function normalizeParticipantCategory(
       "hifdh",
     ].includes(normalized)
   ) {
-    return "nubalaa";
+    return "memorisation";
   }
   return null;
 }
@@ -72,7 +89,7 @@ export function normalizeMuqarrarSide(value: unknown): MuqarrarSide | null {
       "beginningside",
     ].includes(normalized)
   ) {
-    return "feshey-kolhu";
+    return "starting-side";
   }
   if (
     [
@@ -84,7 +101,7 @@ export function normalizeMuqarrarSide(value: unknown): MuqarrarSide | null {
       "finishingside",
     ].includes(normalized)
   ) {
-    return "nimey-kolhu";
+    return "ending-side";
   }
   return null;
 }
@@ -145,10 +162,20 @@ export function normalizeRosterEntry(
   };
 }
 
-export function participantCategoryLabel(category: ParticipantCategory): string {
-  return category ? PARTICIPANT_CATEGORY_LABELS[category] : "Not set";
+export function participantCategoryLabel(category: ParticipantCategory | string): string {
+  const normalized = normalizeParticipantCategory(category);
+  return normalized ? PARTICIPANT_CATEGORY_LABELS[normalized] : "Not set";
 }
 
-export function muqarrarLabel(muqarrar: MuqarrarSide): string {
-  return muqarrar ? MUQARRAR_LABELS[muqarrar] : "Not set";
+export function participantCategoryDetailLabel(
+  category: ParticipantCategory,
+): string {
+  return category
+    ? `${PARTICIPANT_CATEGORY_LABELS[category]} · ${PARTICIPANT_CATEGORY_DESCRIPTIONS[category]}`
+    : "Not set";
+}
+
+export function muqarrarLabel(muqarrar: MuqarrarSide | string): string {
+  const normalized = normalizeMuqarrarSide(muqarrar);
+  return normalized ? MUQARRAR_LABELS[normalized] : "Not set";
 }

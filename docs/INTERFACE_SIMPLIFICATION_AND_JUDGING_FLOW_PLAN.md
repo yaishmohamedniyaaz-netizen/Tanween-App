@@ -1,6 +1,8 @@
 # Interface simplification and judging-flow plan
 
-Status: easy fixes and Adu / Raagu required entry implemented and verified; visual approval and later slices remain
+Status: easy fixes, Adu / Raagu required entry and alignment, desktop Mushaf
+stage, Fit-default spread geometry, and judge-workspace scale/guidance implemented
+and locally verified
 
 Prepared: 16 August 2026
 
@@ -45,8 +47,8 @@ lifecycle rules.
 | Adu / Raagu input | one whole-recitation criterion, half-step default, one event per committed gesture, and assignment scoping exist | active unentered marks now show zero/pending and require a deliberate selection; historical saved totals retain their legacy fallback | Implemented |
 | Finish workflow | confirmation and next-reciter handoff exist | the shared picker now appears inside Finish, Save remains disabled while pending, and reducer plus App guards prevent bypass | Implemented |
 | Idle judging screen | live/draft/closed states and actions are correct | copy, hierarchy, ruled data rows, and idle-only width are implemented; Mushaf stage geometry remains | In progress |
-| Mushaf source fidelity | one 1405H/QCF renderer, fixed lines, page fonts, IDs, and measured hitboxes exist | viewing frame is height-derived and does not own a stable centred viewport | Planned |
-| Mushaf zoom | `mushafZoom` is persisted and Settings already exposes 45–100% | add direct judge-screen access, a usable enlargement range, fit reset, and contained overflow policy | Planned |
+| Mushaf source fidelity | one 1405H/QCF renderer, fixed lines, page fonts, IDs, and measured hitboxes exist | frame-owned Fit, centred remaining-height stage, print reset, and narrow fallback are verified | Implemented |
+| Mushaf zoom and workspace | `mushafZoom` is persisted; the measured frame and current two-column judge workspace are stable | balanced workbench, non-displacing tip, More controls sizing, uniform magnification, and future-spread-safe geometry are implemented and locally verified | Implemented |
 | Phone judging | complete research plan exists | remains a later, separately approved implementation after desktop geometry is stable | Deferred |
 
 ## 3. Research translated into rules
@@ -126,8 +128,8 @@ Keep the index/detail architecture but flatten the presentation:
   choice cards;
 - theme becomes a compact two-choice control with a restrained swatch;
 - Page view and Judge panel position remain segmented controls;
-- Page scale remains a labelled range control, but shares the same range,
-  value, and Fit action as the judge-screen scrubber;
+- Mushaf size leaves Settings and lives in the judge screen's More controls,
+  where the page responds immediately and Fit remains one action away;
 - Data and recovery retains stronger separation because backup, restore, and
   reset are consequential actions;
 - helper text is retained only where it changes safe use, such as what a backup
@@ -436,6 +438,12 @@ participant action without reading helper copy.
 The first release owns the idle state hook and panel correction. This later
 slice is therefore only the geometry-sensitive stage work:
 
+The researched implementation contract is
+[`DESKTOP_MUSHAF_STAGE_IMPLEMENTATION_PLAN.md`](./DESKTOP_MUSHAF_STAGE_IMPLEMENTATION_PLAN.md).
+It selects a remaining-height app shell, an actual measured document frame, and
+contained overflow while explicitly preserving the internal 1405H/QCF page
+composition. Zoom interaction remains Slice E.
+
 1. Give the judge view a remaining-height stage.
 2. Centre the composed page within the viewing frame.
 3. Remove unnecessary default document scrolling.
@@ -445,17 +453,41 @@ Gate: pages 1, 2, 199, 300, 601, 602, and 604 retain their composed geometry;
 the idle and active desktop views are centred with no accidental horizontal or
 default vertical overflow.
 
-### Slice E — direct zoom scrubber
+Implementation status: verified. The frame now derives Fit from its measured
+inline and block size, the desktop document has no default overflow, and the
+short-height/narrow layouts preserve normal document flow. All 253 tests and
+the production build pass; representative full/split pages were browser-checked
+in both themes and rail positions.
 
-1. Centralize zoom bounds/step/labels.
-2. Extend the normalized supported range.
-3. Add the shared Mushaf toolbar control.
-4. Align the Settings control to the same contract.
-5. Add contained overflow above Fit and Fit reset.
-6. Re-run hitbox, mark-tray, jump, and responsive tests.
+### Slice E — judge workspace scale and guidance
+
+Detailed researched contract:
+[`JUDGE_WORKSPACE_LAYOUT_AND_GUIDANCE_DETAILED_PLAN.md`](./JUDGE_WORKSPACE_LAYOUT_AND_GUIDANCE_DETAILED_PLAN.md).
+The earlier
+[`surface plan`](./JUDGE_WORKSPACE_LAYOUT_AND_GUIDANCE_SURFACE_PLAN.md) records
+the options considered. The detailed contract selects the balanced wide
+workbench, locks a 75–150% range in 5% steps with Fit at 100%, and specifies
+non-displacing guidance plus uniform Mushaf magnification.
+
+1. Replace the normal-flow hint with a non-displacing coach bubble.
+2. Apply the selected balanced wide workbench and confirm its two bounded visual variants.
+3. Centralize and extend the supported zoom contract.
+4. Move live Mushaf sizing from Settings into More actions.
+5. Enlarge the default Mushaf and rail while retaining frame-owned overflow.
+6. Re-run hitbox, mark-tray, jump, guidance, and responsive tests.
 
 Gate: the Mushaf remains faithful at every supported scale; the judge can
 operate zoom by pointer, touch, or keyboard without changing competition data.
+
+Implementation verification: the full and split views were checked at Fit,
+110%, and 150% on the available browser surface; contained scrolling reaches
+every page edge, hit areas remain aligned after scale normalization, guidance
+produces zero workspace movement, and the 390×844 fallback remains separate.
+
+The follow-up spread refinement makes Fit the fresh-device default, places the
+selector above both real pages, and keeps the desktop rail at a stable outer
+edge. Adu / Raagu values such as `12.5 / 20` share the same 72 px score column,
+baseline, and no-wrap numeric treatment as the other criteria.
 
 Phone geometry and the phone judging dock remain separate later approvals from
 the existing mobile plan.
@@ -573,7 +605,32 @@ idle screen has a clear primary action, Results reads as a professional ledger,
 and the Mushaf is centred and directly scalable without changing its printed
 geometry.
 
-As of this update, the durable easy-fixes release is implemented and
-build-verified; browser visual approval remains. Required Adu / Raagu entry,
-remaining Settings/Results composition, the stable Mushaf stage, direct zoom,
-and phone work remain separate planned slices.
+As of this update, the durable easy-fixes and required Adu / Raagu releases are
+implemented and build-verified; browser visual approval remains where noted.
+The remaining Settings/Results composition and phone work remain separate
+slices. The stable desktop Mushaf stage and direct judge-workspace zoom are
+implemented and locally verified.
+
+## 15. Follow-up recorded on 17 August 2026
+
+A later browser review found a score-readout alignment regression and identified
+wide-workspace rhythm, finish-review hierarchy, live rail-side access, and PWA
+installability as bounded follow-ups. The implemented status above remains
+unchanged. See
+[`JUDGE_WORKSPACE_FIT_RAIL_FINISH_FOLLOW_UP_PLAN.md`](./JUDGE_WORKSPACE_FIT_RAIL_FINISH_FOLLOW_UP_PLAN.md).
+
+## 16. Credible practice fixture follow-up — 19 August 2026
+
+The built-in practice dataset now presents a coherent competition identity in
+ordinary judging screens: `Falaah Quran Mubaaraai`, edition `1448`, with one
+judge named `Hassan Yoonus`. Generic test naming, repeated Sample labels and
+technical question-fixture controls are removed from the production-facing
+workspace. Technical question fixtures remain available in development builds.
+
+The underlying `isSample` contract is retained. Practice data remains excluded
+from official exports and is still labelled explicitly at consequential
+boundaries: loading or removing the fixture, starting it, and exporting its
+records. Persisted practice identity, roster and judge display names migrate in
+place; official competition records are not rewritten. This is presentation and
+fixture maintenance, not a Maldivian rules preset and not a Supabase or
+multi-device persistence release.

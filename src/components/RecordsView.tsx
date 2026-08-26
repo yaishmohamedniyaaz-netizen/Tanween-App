@@ -6,19 +6,28 @@ import {
   useState,
 } from "react";
 import {
-  CATEGORIES,
   CATEGORY_BY_ID,
   PINPOINT_CATEGORIES,
   enabledCategories,
 } from "../config";
-import { downloadRecordsCSV } from "../lib/exportSession";
+import { downloadJudgeRecordsWorkbook } from "../lib/judgeRecordsWorkbook";
 import {
   CATEGORY_ORDER,
   categoryListLabel,
   judgeDisplayName,
 } from "../lib/judgeAssignments";
 import { mistakePrimaryGlyph } from "../lib/mistakeDisplay";
+import { participantNumberLabel } from "../lib/participantPresentation";
 import { participantCategoryLabel } from "../lib/participants";
+import {
+  loadQuestionIndex,
+  recitationRangeMatchesQuestionIndex,
+} from "../lib/questionBank.ts";
+import {
+  inspectImportedSessionQuestion,
+  questionEvidenceExactKey,
+} from "../lib/questionEvidence.ts";
+import { participantDivision } from "../lib/reciterQuestions";
 import {
   RESULTS_REVIEW_PAGE_SIZE,
   buildResultsReviewItems,
@@ -36,7 +45,7 @@ import {
   type JudgeResultPackage,
 } from "../lib/resultPackages";
 import { computeRecords } from "../lib/stats";
-import { useJudging } from "../state/store";
+import { normalizeImportedSavedSession, useJudging } from "../state/store";
 import type { ParticipantCategory, SavedSession } from "../types";
 import { FinalResultsPanel } from "./FinalResultsPanel";
 import { Icon } from "./Icon";
@@ -84,18 +93,25 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
   const [reviewParticipantCategory, setReviewParticipantCategory] =
     useState<ParticipantCategory>("");
   const [reviewPage, setReviewPage] = useState(1);
+  const [detailParticipantId, setDetailParticipantId] = useState<string | null>(null);
   const [analysisAgeGroup, setAnalysisAgeGroup] = useState("");
   const [analysisParticipantCategory, setAnalysisParticipantCategory] =
     useState<ParticipantCategory>("");
+  const [selectedAnalysisTid, setSelectedAnalysisTid] = useState<string | null>(null);
   const [judgeSeat, setJudgeSeat] = useState("");
   const [section, setSection] = useState("");
   const [expanded, setExpanded] = useState<string | null>(null);
   const [reopenSession, setReopenSession] = useState<SavedSession | null>(null);
   const [importPreview, setImportPreview] = useState<JudgeResultPackage | null>(null);
+  const [importEvidenceWarning, setImportEvidenceWarning] = useState("");
   const [importError, setImportError] = useState("");
+  const [recordsExporting, setRecordsExporting] = useState(false);
+  const [recordsExportError, setRecordsExportError] = useState("");
   const importRef = useRef<HTMLInputElement>(null);
   const reviewTabRef = useRef<HTMLButtonElement>(null);
   const analysisTabRef = useRef<HTMLButtonElement>(null);
+  const participantButtonRefs = useRef(new Map<string, HTMLButtonElement>());
+  const reviewScrollRef = useRef(0);
 
   const judgedCategories = useMemo(
     () => enabledCategories(
@@ -158,10 +174,23 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
     reviewAgeGroup ||
     reviewParticipantCategory,
   );
+  const reviewAdvancedFilterCount = Number(Boolean(reviewAgeGroup)) +
+    Number(Boolean(reviewParticipantCategory));
 
   useEffect(() => {
     if (reviewPage !== reviewPageData.page) setReviewPage(reviewPageData.page);
   }, [reviewPage, reviewPageData.page]);
+
+  useEffect(() => {
+    if (
+      detailParticipantId &&
+      !reviewItems.some(
+        (item) => item.candidate.participant.id === detailParticipantId,
+      )
+    ) {
+      setDetailParticipantId(null);
+    }
+  }, [detailParticipantId, reviewItems]);
 
   const historyInScope = useMemo(
     () => selectStoredResultsHistory(
@@ -220,11 +249,81 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
       !analysisAgeGroup ||
       (session.participant.ageGroup?.trim() || "") === analysisAgeGroup,
   );
-  const maxCatCount = Math.max(
-    1,
-    ...PINPOINT_CATEGORIES.map((id) => stats.byCategory[id].count),
+  const analysisLocations = useMemo(() => {
+    const locations = new Map<string, {
+      tid: string;
+      word: string;
+      label: string;
+      surah: number;
+      ayah: number | null;
+      page?: number;
+      marks: number;
+      reciters: Set<string>;
+      entries: {
+        id: string;
+        participantName: string;
+        participantNumber: string;
+        isSample: boolean;
+        judgeName: string;
+        category: (typeof PINPOINT_CATEGORIES)[number];
+        amount: number;
+      }[];
+    }>();
+
+    sessions.forEach((session) => {
+      session.mistakes.forEach((mistake) => {
+        if (!PINPOINT_CATEGORIES.includes(mistake.category as (typeof PINPOINT_CATEGORIES)[number])) {
+          return;
+        }
+        const current = locations.get(mistake.tid) ?? {
+          tid: mistake.tid,
+          word: mistake.wordText?.trim() || mistakePrimaryGlyph(mistake),
+          label: mistake.label,
+          surah: mistake.surah,
+          ayah: mistake.ayah,
+          page: mistake.page,
+          marks: 0,
+          reciters: new Set<string>(),
+          entries: [],
+        };
+        current.marks += 1;
+        current.reciters.add(session.participant.id);
+        current.entries.push({
+          id: `${session.id}:${mistake.id}`,
+          participantName: session.participant.name,
+          participantNumber: session.participant.number,
+          isSample: Boolean(session.isSample),
+          judgeName: session.assignment ? judgeDisplayName(session.assignment) : "Judge 1",
+          category: mistake.category as (typeof PINPOINT_CATEGORIES)[number],
+          amount: mistake.amount,
+        });
+        locations.set(mistake.tid, current);
+      });
+    });
+
+    return [...locations.values()]
+      .map((location) => ({
+        ...location,
+        reciterCount: location.reciters.size,
+        entries: location.entries.sort((left, right) =>
+          left.participantNumber.localeCompare(right.participantNumber, undefined, {
+            numeric: true,
+          }),
+        ),
+      }))
+      .sort((left, right) =>
+        right.marks - left.marks ||
+        right.reciterCount - left.reciterCount ||
+        left.label.localeCompare(right.label),
+      );
+  }, [sessions]);
+  const selectedAnalysisLocation = analysisLocations.find(
+    (location) => location.tid === selectedAnalysisTid,
+  ) ?? analysisLocations[0] ?? null;
+  const analysisReciterCount = useMemo(
+    () => new Set(sessions.map((session) => session.participant.id)).size,
+    [sessions],
   );
-  const maxLocCount = Math.max(1, ...stats.topLocations.map((location) => location.count));
 
   useEffect(() => {
     if (analysisAgeGroup && !stats.ageGroups.includes(analysisAgeGroup)) {
@@ -254,6 +353,23 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
     setReviewPage(1);
   };
 
+  const openParticipantDetail = (participantId: string) => {
+    reviewScrollRef.current = window.scrollY;
+    setDetailParticipantId(participantId);
+    window.requestAnimationFrame(() => window.scrollTo({ top: 0 }));
+  };
+
+  const closeParticipantDetail = () => {
+    const participantId = detailParticipantId;
+    setDetailParticipantId(null);
+    window.requestAnimationFrame(() => {
+      window.scrollTo({ top: reviewScrollRef.current });
+      participantButtonRefs.current.get(participantId ?? "")?.focus({
+        preventScroll: true,
+      });
+    });
+  };
+
   const handleTabKeyDown = (
     event: ReactKeyboardEvent<HTMLButtonElement>,
     current: ResultsTab,
@@ -277,6 +393,7 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
     if (!file) return;
     setImportError("");
     setImportPreview(null);
+    setImportEvidenceWarning("");
     try {
       if (state.sessionActive) {
         throw new Error("Finish the active reciter before importing a judge result.");
@@ -289,13 +406,101 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
         throw new Error("That result belongs to a different competition or edition.");
       }
       if (Boolean(payload.competition.isSample) !== state.competition.isSample) {
-        throw new Error("Sample and official judge results cannot be mixed.");
+        throw new Error("Practice and official judge results cannot be mixed.");
+      }
+      if (
+        payload.session.competitionId != null &&
+        payload.session.competitionId !== payload.competition.id
+      ) {
+        throw new Error("That result contains conflicting competition identity.");
+      }
+      if (
+        payload.session.isSample !== undefined &&
+        payload.session.isSample !== payload.competition.isSample
+      ) {
+        throw new Error("That result contains conflicting practice identity.");
+      }
+      const packageVersionId = payload.competition.versionId ??
+        payload.session.competitionVersionId ?? null;
+      const sessionVersionId = payload.session.competitionVersionId ?? null;
+      const liveVersionId = state.competition.liveSnapshot?.versionId ?? null;
+      if (
+        payload.competition.versionId != null &&
+        sessionVersionId != null &&
+        payload.competition.versionId !== sessionVersionId
+      ) {
+        throw new Error("That result contains conflicting competition-version evidence.");
+      }
+      if (
+        packageVersionId != null &&
+        liveVersionId != null &&
+        packageVersionId !== liveVersionId
+      ) {
+        throw new Error("That result belongs to a different frozen competition version.");
       }
       if (!state.roster.length) {
         throw new Error("Upload this competition's participant list before importing judge results.");
       }
-      if (!state.roster.some((entry) => entry.id === payload.session.participant.id)) {
+      const rosterParticipant = state.roster.find(
+        (entry) => entry.id === payload.session.participant.id,
+      );
+      if (!rosterParticipant) {
         throw new Error("That participant is not in this competition's participant list.");
+      }
+      const incomingParticipant = payload.session.participant;
+      if (
+        rosterParticipant.number !== incomingParticipant.number ||
+        rosterParticipant.name !== incomingParticipant.name ||
+        rosterParticipant.ageGroup !== incomingParticipant.ageGroup ||
+        rosterParticipant.category !== incomingParticipant.category ||
+        rosterParticipant.muqarrar !== incomingParticipant.muqarrar ||
+        rosterParticipant.phone !== incomingParticipant.phone ||
+        rosterParticipant.institution !== incomingParticipant.institution
+      ) {
+        throw new Error("That result's participant details do not match the current roster.");
+      }
+      const importQuestionContext = {
+        competitionId: payload.session.competitionId ?? payload.competition.id,
+        competitionVersionId: packageVersionId ?? undefined,
+      };
+      const questionInspection = inspectImportedSessionQuestion(
+        payload.session,
+        importQuestionContext,
+      );
+      if (!questionInspection.ok) {
+        throw new Error(
+           questionInspection.reason === "invalid-events"
+             ? "That result contains invalid judging history."
+             : questionInspection.reason === "question-conflict"
+               ? "That result contains conflicting recorded-question evidence."
+               : questionInspection.reason === "version-missing"
+                 ? "That result's exact Quran evidence is missing its frozen competition version."
+               : "That result contains invalid recorded-question evidence.",
+        );
+      }
+      const normalizedQuestion = questionInspection.question;
+      if (
+        normalizedQuestion &&
+        normalizedQuestion.participantId !== incomingParticipant.id
+      ) {
+        throw new Error("That result's recorded question belongs to another participant.");
+      }
+      const rosterDivision = participantDivision(
+        rosterParticipant,
+        state.competition.liveSnapshot?.divisions ?? state.competition.divisions,
+      );
+      if (
+        normalizedQuestion &&
+        (normalizedQuestion.divisionId !== rosterDivision?.id ||
+          normalizedQuestion.muqarrar !== rosterParticipant.muqarrar)
+      ) {
+        throw new Error("That result's recorded question does not match the participant's division and muqarrar.");
+      }
+      if (normalizedQuestion?.version === 2 && normalizedQuestion.range) {
+        const questionIndex = await loadQuestionIndex();
+        if (!recitationRangeMatchesQuestionIndex(questionIndex, normalizedQuestion.range)) {
+          throw new Error("That result's recorded Quran range does not match the active question index.");
+        }
       }
       const incomingAssignment = payload.session.assignment;
       if (!incomingAssignment) {
@@ -314,7 +519,57 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
       if (JSON.stringify(payload.session.config) !== JSON.stringify(state.config)) {
         throw new Error("That judge result uses different scoring rules.");
       }
-      setImportPreview(payload);
+      if (normalizedQuestion) {
+        const incomingEvidenceKey = questionEvidenceExactKey(
+          importQuestionContext,
+          normalizedQuestion,
+        );
+        const existingEvidenceKeys = state.history.flatMap((session) => {
+          if (
+            session.participant.id !== incomingParticipant.id ||
+            !session.question
+          ) {
+            return [];
+          }
+          const key = questionEvidenceExactKey(session, session.question);
+          return key ? [key] : [];
+        });
+        if (
+          incomingEvidenceKey &&
+          existingEvidenceKeys.some((key) => key !== incomingEvidenceKey)
+        ) {
+          setImportEvidenceWarning(
+            "This source records a different question or Mushaf version. Add it for review; Tahqeeq will not choose one primary recitation area automatically.",
+          );
+        }
+      }
+      const canonicalParticipant = {
+        id: rosterParticipant.id,
+        number: rosterParticipant.number,
+        name: rosterParticipant.name,
+        ageGroup: rosterParticipant.ageGroup,
+        category: rosterParticipant.category,
+        muqarrar: rosterParticipant.muqarrar,
+        phone: rosterParticipant.phone,
+        institution: rosterParticipant.institution,
+      };
+      let normalizedSession: SavedSession;
+      try {
+        normalizedSession = normalizeImportedSavedSession({
+          ...payload.session,
+          competitionId: payload.competition.id,
+          competitionVersionId: packageVersionId ?? undefined,
+          isSample: payload.competition.isSample,
+          participant: canonicalParticipant,
+          ...(normalizedQuestion ? { question: normalizedQuestion } : {}),
+        });
+      } catch {
+        throw new Error("That result contains invalid or inconsistent judging history.");
+      }
+      setImportPreview({
+        ...payload,
+        session: normalizedSession,
+      });
     } catch (error) {
       setImportError(
         error instanceof Error ? error.message : "Could not read that result file.",
@@ -336,15 +591,17 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
           ))}
         </select>
       </label>
-      <label className="records-filter">
-        <span>Section</span>
-        <select value={section} onChange={(event) => setSection(event.target.value)}>
-          <option value="">All sections</option>
-          {sectionOptions.map(([id, label]) => (
-            <option key={id} value={id}>{label}</option>
-          ))}
-        </select>
-      </label>
+      {sectionOptions.length > 1 && (
+        <label className="records-filter">
+          <span>Criteria judged</span>
+          <select value={section} onChange={(event) => setSection(event.target.value)}>
+            <option value="">All criteria sets</option>
+            {sectionOptions.map(([id, label]) => (
+              <option key={id} value={id}>{label}</option>
+            ))}
+          </select>
+        </label>
+      )}
       <label className="records-filter">
         <span>Age group</span>
         <select
@@ -368,8 +625,8 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
           }
         >
           <option value="">All categories</option>
-          <option value="baliagen">Baliagen</option>
-          <option value="nubalaa">Hifz</option>
+          <option value="mushaf-reading">Balaigen</option>
+          <option value="memorisation">Nubalaa</option>
         </select>
       </label>
     </div>
@@ -379,6 +636,30 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
     const currentScopeIsSample = state.competition.isSample;
     const storedOfficial = state.history.some((session) => !session.isSample);
     const storedSample = state.history.some((session) => session.isSample);
+    const exportJudgeRecords = async (
+      history: SavedSession[],
+      scope: "official" | "sample" | "all",
+      currentCompetition = false,
+      allStored = false,
+    ) => {
+      if (!history.length || recordsExporting) return;
+      setRecordsExportError("");
+      setRecordsExporting(true);
+      try {
+        await downloadJudgeRecordsWorkbook(history, scope, {
+          competition: currentCompetition ? state.competition : undefined,
+          allStored,
+        });
+      } catch (error) {
+        setRecordsExportError(
+          error instanceof Error
+            ? error.message
+            : "The judge-record workbook could not be verified.",
+        );
+      } finally {
+        setRecordsExporting(false);
+      }
+    };
     return (
       <section className="panel results-judge-panel">
         <div className="panel-head results-section-head">
@@ -411,37 +692,39 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
               <button
                 type="button"
                 className="btn-ghost"
-                disabled={!historyInScope.length}
-                onClick={() =>
-                  downloadRecordsCSV(
+                disabled={!historyInScope.length || recordsExporting}
+                onClick={() => void exportJudgeRecords(
                     historyInScope,
                     currentScopeIsSample ? "sample" : "official",
-                  )
-                }
-                title="Export the current competition's judge results"
+                    true,
+                  )}
+                title="Export formatted judge records for the current competition"
               >
                 <Icon name="download" size={15} />
-                {currentScopeIsSample
-                  ? "Current sample results (.csv)"
-                  : "Current competition results (.csv)"}
+                {recordsExporting
+                  ? "Checking…"
+                  : currentScopeIsSample
+                    ? "Practice judge records (.xlsx)"
+                    : "Judge records (.xlsx)"}
               </button>
             ) : (
               <>
                 <button
                   type="button"
                   className="btn-ghost"
-                  disabled={!storedOfficial}
-                  onClick={() => downloadRecordsCSV(state.history, "official")}
+                  disabled={!storedOfficial || recordsExporting}
+                  onClick={() => void exportJudgeRecords(state.history, "official", false, true)}
                 >
-                  <Icon name="download" size={15} /> All stored official (.csv)
+                  <Icon name="download" size={15} /> All stored official (.xlsx)
                 </button>
                 {storedSample && (
                   <button
                     type="button"
                     className="btn-ghost"
-                    onClick={() => downloadRecordsCSV(state.history, "sample")}
+                    disabled={recordsExporting}
+                    onClick={() => void exportJudgeRecords(state.history, "sample", false, true)}
                   >
-                    <Icon name="download" size={15} /> All stored sample (.csv)
+                    <Icon name="download" size={15} /> All stored practice (.xlsx)
                   </button>
                 )}
               </>
@@ -450,6 +733,7 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
         </div>
         {renderHistoryFilters()}
         {importError && <p className="import-error">{importError}</p>}
+        {recordsExportError && <p className="import-error">{recordsExportError}</p>}
         {importPreview && (
           <div className="result-import-preview" role="status">
             <span>
@@ -459,11 +743,15 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
                   ? categoryListLabel(importPreview.session.assignment.categories)
                   : "Judge section"}
               </small>
+              {importEvidenceWarning && <small>{importEvidenceWarning}</small>}
             </span>
             <button
               type="button"
               className="btn-ghost"
-              onClick={() => setImportPreview(null)}
+              onClick={() => {
+                setImportPreview(null);
+                setImportEvidenceWarning("");
+              }}
             >
               Cancel
             </button>
@@ -473,9 +761,10 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
               onClick={() => {
                 dispatch({ type: "IMPORT_SESSION", session: importPreview.session });
                 setImportPreview(null);
+                setImportEvidenceWarning("");
               }}
             >
-              Add to records
+              {importEvidenceWarning ? "Add for review" : "Add to records"}
             </button>
           </div>
         )}
@@ -514,7 +803,7 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
                     <span className="session-main">
                       <span className="session-name">
                         {saved.participant.name || "Unnamed reciter"}
-                        {saved.isSample && <SampleBadge compact />}
+                        {historyScope === "all" && saved.isSample && <SampleBadge compact />}
                       </span>
                       <span className="session-meta">
                         {[
@@ -530,14 +819,13 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
                     <bdi className="session-score">
                       {saved.total}<span className="session-max">/{saved.totalMax}</span>
                     </bdi>
-                    <span className="session-status">Section</span>
                   </div>
                   {isOpen && (
                     <div className="session-drill">
                       <div className="session-assignment">
                         <strong>{saved.assignment ? judgeDisplayName(saved.assignment) : "Judge 1"}</strong>
                         <span>{categoryListLabel(saved.assignment?.categories ?? CATEGORY_ORDER)}</span>
-                        <small>Judge-section result · <bdi>{saved.total}/{saved.totalMax}</bdi></small>
+                        <small>Saved result · <bdi>{saved.total}/{saved.totalMax}</bdi></small>
                       </div>
                       {saved.mistakes.length === 0 ? (
                         <p className="empty">No mistakes in this session.</p>
@@ -656,107 +944,163 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
         hidden={activeTab !== "review"}
         className="results-tab-panel"
       >
-        <div className="results-review-bar">
-          <label className="results-search">
-            <span>Find participant</span>
-            <input
-              type="search"
-              value={reviewQuery}
-              placeholder="Name or number"
-              onChange={(event) =>
-                setReviewFilter(() => setReviewQuery(event.target.value))
-              }
-            />
-          </label>
-          <label className="results-filter">
-            <span>Age group</span>
-            <select
-              value={reviewAgeGroup}
-              onChange={(event) =>
-                setReviewFilter(() => setReviewAgeGroup(event.target.value))
-              }
-            >
-              <option value="">All age groups</option>
-              {reviewAgeGroups.map((group) => (
-                <option key={group} value={group}>{group}</option>
-              ))}
-            </select>
-          </label>
-          <label className="results-filter">
-            <span>Participant category</span>
-            <select
-              value={reviewParticipantCategory}
-              onChange={(event) =>
-                setReviewFilter(() => setReviewParticipantCategory(
-                  event.target.value as ParticipantCategory,
-                ))
-              }
-            >
-              <option value="">All categories</option>
-              <option value="baliagen">Baliagen</option>
-              <option value="nubalaa">Hifz</option>
-            </select>
-          </label>
-          <label className="results-filter">
-            <span>State</span>
-            <select
-              value={reviewState}
-              aria-label="Filter participant results by status"
-              onChange={(event) =>
-                setReviewFilter(() => setReviewState(
-                  event.target.value as "all" | ResultsReviewState,
-                ))
-              }
-            >
-              <option value="all">All candidates · {reviewSummary.total}</option>
-              <option value="needs-review">Needs review · {reviewSummary.needsReview}</option>
-              <option value="ready">Ready · {reviewSummary.ready}</option>
-              <option value="finalized">Finalized · {reviewSummary.finalized}</option>
-            </select>
-          </label>
-          {hasReviewFilters && (
-            <button type="button" className="btn-ghost" onClick={clearReviewFilters}>
-              Clear filters
-            </button>
+        <section
+          className={`results-review-section ${detailParticipantId ? "is-detail-open" : ""}`}
+          aria-labelledby={detailParticipantId ? undefined : "results-review-heading"}
+          aria-label={detailParticipantId ? "Participant result detail" : undefined}
+        >
+          {!detailParticipantId && <>
+          <div className="results-review-head">
+            <div>
+              <h2 id="results-review-heading" className="results-section-title">
+                Participant review
+              </h2>
+              <p className="panel-sub">Unresolved participants appear first.</p>
+            </div>
+            <p className="results-visible-count" role="status" aria-live="polite">
+              {filteredReviewItems.length} of {reviewItems.length} result candidates
+              {reviewPageData.pageCount > 1 && ` · Page ${reviewPageData.page} of ${reviewPageData.pageCount}`}
+            </p>
+          </div>
+          <div className="results-ledger-controls">
+            <div className="results-status-filters" role="group" aria-label="Filter participant results by status">
+              <button
+                type="button"
+                className="results-status-filter is-total"
+                aria-pressed={reviewState === "all"}
+                onClick={() => setReviewFilter(() => setReviewState("all"))}
+              >
+                <span>All candidates</span>
+                <strong>{reviewSummary.total}</strong>
+              </button>
+              <button
+                type="button"
+                className="results-status-filter is-needs-review"
+                aria-pressed={reviewState === "needs-review"}
+                onClick={() => setReviewFilter(() => setReviewState("needs-review"))}
+              >
+                <span>Needs review</span>
+                <strong>{reviewSummary.needsReview}</strong>
+              </button>
+              <button
+                type="button"
+                className="results-status-filter is-ready"
+                aria-pressed={reviewState === "ready"}
+                onClick={() => setReviewFilter(() => setReviewState("ready"))}
+              >
+                <span>Ready</span>
+                <strong>{reviewSummary.ready}</strong>
+              </button>
+              <button
+                type="button"
+                className="results-status-filter is-finalized"
+                aria-pressed={reviewState === "finalized"}
+                onClick={() => setReviewFilter(() => setReviewState("finalized"))}
+              >
+                <span>Finalized</span>
+                <strong>{reviewSummary.finalized}</strong>
+              </button>
+            </div>
+            <div className="results-review-filters">
+              <label className="results-search-filter">
+                <span>Find participant</span>
+                <input
+                  type="search"
+                  value={reviewQuery}
+                  placeholder="Name or number"
+                  onChange={(event) =>
+                    setReviewFilter(() => setReviewQuery(event.target.value))
+                  }
+                />
+              </label>
+              <details className="results-filter-disclosure">
+                <summary>
+                  <span>More filters</span>
+                  {reviewAdvancedFilterCount > 0 && (
+                    <strong>{reviewAdvancedFilterCount}</strong>
+                  )}
+                </summary>
+                <div className="results-advanced-filter-grid">
+                  <label className="records-filter">
+                    <span>Age group</span>
+                    <select
+                      value={reviewAgeGroup}
+                      onChange={(event) =>
+                        setReviewFilter(() => setReviewAgeGroup(event.target.value))
+                      }
+                    >
+                      <option value="">All age groups</option>
+                      {reviewAgeGroups.map((group) => (
+                        <option key={group} value={group}>{group}</option>
+                      ))}
+                    </select>
+                  </label>
+                  <label className="records-filter">
+                    <span>Participant category</span>
+                    <select
+                      value={reviewParticipantCategory}
+                      onChange={(event) =>
+                        setReviewFilter(() => setReviewParticipantCategory(
+                          event.target.value as ParticipantCategory,
+                        ))
+                      }
+                    >
+                      <option value="">All categories</option>
+                      <option value="mushaf-reading">Balaigen</option>
+                      <option value="memorisation">Nubalaa</option>
+                    </select>
+                  </label>
+                  {hasReviewFilters && (
+                    <button type="button" className="btn-ghost results-clear-filters" onClick={clearReviewFilters}>
+                      Clear all filters
+                    </button>
+                  )}
+                </div>
+              </details>
+            </div>
+          </div>
+          </>}
+
+          <FinalResultsPanel
+            allItems={reviewItems}
+            visibleItems={reviewPageData.items}
+            filteredEmpty={reviewItems.length > 0 && filteredReviewItems.length === 0}
+            detailParticipantId={detailParticipantId}
+            onOpenParticipant={openParticipantDetail}
+            onCloseParticipant={closeParticipantDetail}
+            registerParticipantButton={(participantId, node) => {
+              if (node) participantButtonRefs.current.set(participantId, node);
+              else participantButtonRefs.current.delete(participantId);
+            }}
+            onClearFilters={clearReviewFilters}
+          />
+
+          {!detailParticipantId && reviewPageData.pageCount > 1 && (
+            <nav className="results-pagination" aria-label="Participant review pages">
+              <button
+                type="button"
+                className="btn-ghost"
+                disabled={reviewPageData.page === 1}
+                aria-label="Previous participant review page"
+                onClick={() => setReviewPage((page) => Math.max(1, page - 1))}
+              >
+                Previous
+              </button>
+              <span>Page <bdi>{reviewPageData.page}</bdi> of <bdi>{reviewPageData.pageCount}</bdi></span>
+              <button
+                type="button"
+                className="btn-ghost"
+                disabled={reviewPageData.page === reviewPageData.pageCount}
+                aria-label="Next participant review page"
+                onClick={() => setReviewPage((page) => Math.min(reviewPageData.pageCount, page + 1))}
+              >
+                Next
+              </button>
+            </nav>
           )}
-          <p className="results-visible-count" role="status" aria-live="polite">
-            {filteredReviewItems.length} of {reviewItems.length} result candidates
-            {reviewPageData.pageCount > 1 && ` · Page ${reviewPageData.page} of ${reviewPageData.pageCount}`}
-          </p>
-        </div>
+        </section>
 
-        <FinalResultsPanel
-          allItems={reviewItems}
-          visibleItems={reviewPageData.items}
-          filteredEmpty={reviewItems.length > 0 && filteredReviewItems.length === 0}
-          onClearFilters={clearReviewFilters}
-        />
-
-        {reviewPageData.pageCount > 1 && (
-          <nav className="results-pagination" aria-label="Participant review pages">
-            <button
-              type="button"
-              className="btn-ghost"
-              disabled={reviewPageData.page === 1}
-              aria-label="Previous participant review page"
-              onClick={() => setReviewPage((page) => Math.max(1, page - 1))}
-            >
-              Previous
-            </button>
-            <span>Page <bdi>{reviewPageData.page}</bdi> of <bdi>{reviewPageData.pageCount}</bdi></span>
-            <button
-              type="button"
-              className="btn-ghost"
-              disabled={reviewPageData.page === reviewPageData.pageCount}
-              aria-label="Next participant review page"
-              onClick={() => setReviewPage((page) => Math.min(reviewPageData.pageCount, page + 1))}
-            >
-              Next
-            </button>
-          </nav>
-        )}
-
-        {renderJudgeResults()}
+        {!detailParticipantId && renderJudgeResults()}
       </section>
 
       <section
@@ -768,8 +1112,12 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
       >
         <div className="results-analysis-intro">
           <div>
-            <h2 className="results-section-title">Analysis</h2>
-            <p>Raw counts and score summaries for the selected stored judge results.</p>
+            <h2 className="results-section-title">Mistake overview</h2>
+            <p>
+              {stats.totalMistakes} mark{stats.totalMistakes === 1 ? "" : "s"}
+              {" · "}{analysisLocations.length} location{analysisLocations.length === 1 ? "" : "s"}
+              {" · "}{analysisReciterCount} reciter{analysisReciterCount === 1 ? "" : "s"}
+            </p>
           </div>
           <details className="results-analysis-filter-disclosure">
             <summary>
@@ -779,105 +1127,101 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
             {renderHistoryFilters()}
           </details>
         </div>
-
-        <div className="metric-cards results-metrics">
-          <div className="metric">
-            <span className="metric-label">Judge results</span>
-            <span className="metric-num">{stats.sessions}</span>
-          </div>
-          <div className="metric">
-            <span className="metric-label">Average score</span>
-            <span className="metric-num">{stats.avgPercent}%</span>
-          </div>
-          <div className="metric">
-            <span className="metric-label">Mistakes logged</span>
-            <span className="metric-num">{stats.totalMistakes}</span>
-          </div>
-        </div>
         <p className="results-analysis-scope-note">
-          Showing descriptive counts from <strong>{sessions.length}</strong> stored judge result{sessions.length === 1 ? "" : "s"}; these are not normalized participant comparisons.
+          Descriptive evidence from <strong>{sessions.length}</strong> stored judge result{sessions.length === 1 ? "" : "s"}; this is not a normalized participant comparison.
         </p>
 
-        <div className="records-grid">
-          <section className="panel">
-            <div className="panel-head">
-              <h3 className="results-panel-title">Mistakes by category</h3>
+        <div className="analysis-ledger">
+          <section className="analysis-ledger-list" aria-labelledby="analysis-ledger-heading">
+            <div className="analysis-ledger-head">
+              <h3 id="analysis-ledger-heading" className="results-panel-title">Marked locations</h3>
+              <span>Sorted by marks, then reciters</span>
             </div>
-            <div className="cat-list">
-              {CATEGORIES.filter((category) => category.kind === "pinpoint").map((category) => {
-                const value = stats.byCategory[category.id];
-                return (
-                  <div className={`cat-row cat-${category.id}`} key={category.id}>
-                    <div className="cat-row-top">
-                      <span className="cat-dot" aria-hidden="true" />
-                      <span className="cat-name">{category.label}</span>
-                      <span className="cat-score">{value.count}</span>
-                    </div>
-                    <div className="cat-bar">
-                      <span
-                        className="cat-bar-fill"
-                        style={{ width: `${(value.count / maxCatCount) * 100}%` }}
-                      />
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </section>
-
-          <section className="panel">
-            <div className="panel-head">
-              <h3 className="results-panel-title">Most marked letters</h3>
-            </div>
-            {stats.topLetters.length === 0 ? (
-              <p className="empty">No marks yet.</p>
+            {analysisLocations.length === 0 ? (
+              <p className="empty">No pinpointed mistakes have been recorded in this view.</p>
             ) : (
-              <div className="letter-chips">
-                {stats.topLetters.map((letter) => (
-                  <span className="letter-chip" key={letter.glyph}>
-                    <span className="letter-chip-glyph">{letter.glyph}</span>
-                    <span className="letter-chip-count">{letter.count}</span>
-                  </span>
-                ))}
+              <div className="analysis-location-table" aria-label="Marked Quran locations">
+                <div className="analysis-location-columns" aria-hidden="true">
+                  <span>Word</span>
+                  <span>Location</span>
+                  <span>Marks</span>
+                  <span>Reciters</span>
+                </div>
+                <ol>
+                  {analysisLocations.map((location) => (
+                    <li key={location.tid}>
+                      <button
+                        type="button"
+                        className="analysis-location-row"
+                        aria-pressed={selectedAnalysisLocation?.tid === location.tid}
+                        aria-label={`${location.word}, ${location.label}, ${location.marks} marks across ${location.reciterCount} reciters`}
+                        onClick={() => setSelectedAnalysisTid(location.tid)}
+                      >
+                        <span className="analysis-location-word" dir="rtl">{location.word}</span>
+                        <span className="analysis-location-label">{location.label}</span>
+                        <strong>{location.marks}</strong>
+                        <strong>{location.reciterCount}</strong>
+                      </button>
+                    </li>
+                  ))}
+                </ol>
               </div>
             )}
           </section>
-        </div>
 
-        <section className="panel">
-          <div className="panel-head">
-            <h3 className="results-panel-title">Most repeated mistakes</h3>
-            <span className="panel-sub">Same letter across reciters</span>
-          </div>
-          {stats.topLocations.length === 0 ? (
-            <p className="empty">No marks yet.</p>
-          ) : (
-            <ol className="repeat-list">
-              {stats.topLocations.map((location, index) => (
-                <li className={`repeat-item cat-${location.topCategory}`} key={location.tid}>
-                  <span className="repeat-rank" aria-hidden="true">{index + 1}</span>
-                  <span className="repeat-glyph">{location.glyph}</span>
-                  <span className="repeat-body">
-                    <span className="repeat-loc">{location.label}</span>
-                    <span className="repeat-chip">
-                      {CATEGORY_BY_ID[location.topCategory].label}
-                    </span>
+          <aside className="analysis-evidence-panel" aria-live="polite">
+            {selectedAnalysisLocation ? (
+              <>
+                <div className="analysis-evidence-head">
+                  <div>
+                    <span>Selected location</span>
+                    <p>
+                      Surah <bdi>{selectedAnalysisLocation.surah}</bdi>
+                      {selectedAnalysisLocation.ayah === null
+                        ? " · Basmala"
+                        : <> · Ayah <bdi>{selectedAnalysisLocation.ayah}</bdi></>}
+                      {selectedAnalysisLocation.page && <> · Page <bdi>{selectedAnalysisLocation.page}</bdi></>}
+                    </p>
+                  </div>
+                  <span className="analysis-evidence-total">
+                    <strong>{selectedAnalysisLocation.marks}</strong>
+                    <small>{selectedAnalysisLocation.marks === 1 ? "mark" : "marks"}</small>
                   </span>
-                  <span className="repeat-bar">
-                    <span
-                      className="repeat-bar-fill"
-                      style={{ width: `${(location.count / maxLocCount) * 100}%` }}
-                    />
-                  </span>
-                  <span className="repeat-count">
-                    <strong>{location.count}</strong>
-                    <small>{location.count === 1 ? "mark" : "marks"}</small>
-                  </span>
-                </li>
-              ))}
-            </ol>
-          )}
-        </section>
+                </div>
+                <div className="analysis-evidence-word" dir="rtl">{selectedAnalysisLocation.word}</div>
+                <p className="analysis-evidence-location">{selectedAnalysisLocation.label}</p>
+                <div className="analysis-evidence-list-head">
+                  <h4>Recorded marks</h4>
+                  <span>{selectedAnalysisLocation.reciterCount} reciter{selectedAnalysisLocation.reciterCount === 1 ? "" : "s"}</span>
+                </div>
+                <ul className="analysis-evidence-list">
+                  {selectedAnalysisLocation.entries.map((entry) => (
+                    <li key={entry.id} className={`cat-${entry.category}`}>
+                      <bdi className="analysis-evidence-number">
+                        {participantNumberLabel(
+                          entry.isSample && /^T\d+$/i.test(entry.participantNumber.trim())
+                            ? entry.participantNumber.trim().slice(1)
+                            : entry.participantNumber,
+                        )}
+                      </bdi>
+                      <span className="analysis-evidence-person">
+                        <strong>{entry.participantName}</strong>
+                        <small>{entry.judgeName}</small>
+                      </span>
+                      <span className="analysis-evidence-category">
+                        <i aria-hidden="true" />
+                        {CATEGORY_BY_ID[entry.category].label}
+                      </span>
+                      <strong className="analysis-evidence-deduction">−{entry.amount}</strong>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            ) : (
+              <p className="empty">Select a marked location to see its evidence.</p>
+            )}
+          </aside>
+        </div>
       </section>
 
       {reopenSession && (

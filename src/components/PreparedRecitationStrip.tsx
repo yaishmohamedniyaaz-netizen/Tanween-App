@@ -1,5 +1,5 @@
 import type { PreparedRecitation } from "../types";
-import { participantNumberLabel } from "../lib/participantPresentation.ts";
+import { ParticipantIdentity } from "./ParticipantIdentity";
 
 function questionChoice(value: PreparedRecitation): string {
   const question = value.question;
@@ -19,17 +19,13 @@ export function PreparedRecitationStrip({
   onChangeQuestion: () => void;
 }) {
   return (
-    <section className="prepared-recitation-strip" aria-label="Prepared recitation">
-      <span className="prepared-state">Prepared</span>
-      <span className="prepared-reciter">
-        <strong>{prepared.participant.name || "Unnamed"}</strong>
-        <small>
-          {participantNumberLabel(prepared.participant.number, participantCount)}
-          {prepared.participant.institution
-            ? ` · ${prepared.participant.institution}`
-            : ""}
-        </small>
-      </span>
+    <section className="prepared-recitation-strip" aria-label="Ready recitation">
+      <span className="prepared-state">Ready</span>
+      <ParticipantIdentity
+        participant={prepared.participant}
+        participantCount={participantCount}
+        density="compact"
+      />
       <span className="prepared-question">
         <strong>{questionChoice(prepared)}</strong>
         <small>{prepared.question.label}</small>

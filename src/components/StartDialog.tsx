@@ -14,11 +14,7 @@ import {
   manualQuestionAssignment,
   participantDivision,
 } from "../lib/reciterQuestions.ts";
-import {
-  categoryListLabel,
-  judgeDisplayName,
-  makeAssignmentSnapshot,
-} from "../lib/judgeAssignments";
+import { makeAssignmentSnapshot } from "../lib/judgeAssignments";
 import {
   activeGroupFor,
   groupRosterByDivision,
@@ -50,7 +46,7 @@ export function StartDialog({
 }: {
   onOpenSetup: () => void;
   onClose: () => void;
-  mode?: "start" | "change-reciter" | "change-question";
+  mode?: "start" | "next-question" | "change-reciter" | "change-question";
 }) {
   const { state, dispatch } = useJudging();
   const roster = state.roster;
@@ -66,7 +62,9 @@ export function StartDialog({
   const [participantId, setParticipantId] = useState(initialParticipant?.id ?? "");
   const [search, setSearch] = useState("");
   const [stage, setStage] = useState<"participant" | "draw">(
-    mode === "change-question" ? "draw" : "participant",
+    mode === "change-question" || mode === "next-question"
+      ? "draw"
+      : "participant",
   );
   const [lookup, setLookup] = useState<QuestionIndexLookup | null>(null);
   const [questionLoadError, setQuestionLoadError] = useState(false);
@@ -152,7 +150,7 @@ export function StartDialog({
   }, [liveSnapshot, lookup, participant, state.competition, state.questionDrafts]);
 
   const chooseParticipant = (entry: RosterEntry) => {
-    if (entry.judged) return;
+    if (entry.judged || !assignment || !liveSnapshot) return;
     if (entry.absent) {
       dispatch({ type: "SET_PARTICIPANT_ABSENT", id: entry.id, absent: false });
     }
@@ -209,7 +207,6 @@ export function StartDialog({
 
   const allowManual = liveSnapshot?.questionPolicy.mode === "manual";
   const waitingCount = roster.filter(isWaiting).length;
-  const finishedCount = roster.filter((entry) => entry.judged).length;
 
   const deckScope =
     division && participant?.muqarrar
@@ -273,7 +270,13 @@ export function StartDialog({
   const spentHere = deck ? spentPositions(state.draws, deck) : new Set<number>();
 
   const drawPosition = (position: number) => {
-    if (!deck || !participant) return;
+    if (
+      !deck ||
+      !participant ||
+      !division ||
+      !assignment ||
+      !liveSnapshot
+    ) return;
     const drawnId = questionAtPosition(deck, position);
     if (!drawnId) return;
     const drawId = uid("draw");
@@ -328,23 +331,16 @@ export function StartDialog({
       }}
     >
       <div
-        className={`dialog reciter-start-dialog stage-${stage}`}
+        className={`dialog reciter-start-dialog stage-${stage} ${assignment ? "has-assignment" : "is-missing-assignment"}`}
         role="dialog"
         aria-modal="true"
         aria-labelledby="reciter-start-title"
       >
         <header className="reciter-start-head">
           <div>
-            <span className="dialog-kicker">
-              {state.competition.name || "Competition"}
-              {state.competition.isSample ? " · Test mode" : ""}
-            </span>
             <h2 id="reciter-start-title">
-              {stage === "participant" ? "Select reciter" : "Choose a question"}
+              {stage === "participant" ? "Running order" : "Choose a question"}
             </h2>
-            {stage === "participant" && (
-              <p>Select the next person in the running order.</p>
-            )}
           </div>
           <button
             type="button"
@@ -356,19 +352,13 @@ export function StartDialog({
           </button>
         </header>
 
-        {stage === "participant" && (
-          <div className={`reciter-start-judge ${assignment ? "" : "is-missing"}`}>
-            <span>This device</span>
-            <strong>
-              {assignment ? judgeDisplayName(assignment) : "No judge assigned"}
-            </strong>
-            <small>
-              {assignment
-                ? categoryListLabel(assignment.categories)
-                : "Choose a judge and criteria before starting."}
-            </small>
+        {stage === "participant" && !assignment && (
+          <div className="reciter-start-judge is-missing">
+            <span>Judging</span>
+            <strong>Judge assignment required</strong>
+            <small>Choose the judge and criteria before drawing a question.</small>
             <button type="button" className="btn-ghost" onClick={onOpenSetup}>
-              Change
+              Open setup
             </button>
           </div>
         )}
@@ -382,9 +372,9 @@ export function StartDialog({
               groups={queueGroups}
               participantCount={roster.length}
               waitingCount={waitingCount}
-              finishedCount={finishedCount}
               offerSearch={offerSearch}
               search={search}
+              selectionDisabled={!assignment}
               onSearch={setSearch}
               onChoose={chooseParticipant}
               onMarkAbsent={markParticipantAbsent}
@@ -404,6 +394,11 @@ export function StartDialog({
               loadFailed={questionLoadError}
               allowManual={Boolean(allowManual)}
               hasEligibleQuestions={eligibleDrafts.length > 0}
+              blockedReason={
+                assignment
+                  ? undefined
+                  : "Judge assignment required before drawing a question."
+              }
               onDraw={drawPosition}
               onUseManual={() => {
                 prepareWithQuestion("manual");

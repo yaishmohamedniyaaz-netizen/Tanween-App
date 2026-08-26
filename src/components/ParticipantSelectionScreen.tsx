@@ -4,12 +4,9 @@ import type {
   RosterEntry,
 } from "../types";
 import type { RosterGroup, VisibleRosterGroup } from "../lib/rosterQueue.ts";
-import {
-  divisionLabel,
-  participantContextLabel,
-  participantNumberLabel,
-} from "../lib/participantPresentation.ts";
+import { divisionLabel } from "../lib/participantPresentation.ts";
 import { Icon } from "./Icon";
+import { ParticipantIdentity } from "./ParticipantIdentity";
 
 export function ParticipantSelectionScreen({
   recommended,
@@ -18,9 +15,9 @@ export function ParticipantSelectionScreen({
   groups,
   participantCount,
   waitingCount,
-  finishedCount,
   offerSearch,
   search,
+  selectionDisabled = false,
   onSearch,
   onChoose,
   onMarkAbsent,
@@ -31,9 +28,9 @@ export function ParticipantSelectionScreen({
   groups: VisibleRosterGroup[];
   participantCount: number;
   waitingCount: number;
-  finishedCount: number;
   offerSearch: boolean;
   search: string;
+  selectionDisabled?: boolean;
   onSearch: (value: string) => void;
   onChoose: (entry: RosterEntry) => void;
   onMarkAbsent: (entry: RosterEntry) => void;
@@ -67,10 +64,7 @@ export function ParticipantSelectionScreen({
 
   const toggleGroup = (groupId: string) => {
     setExpandedGroupIds((current) => {
-      const next = new Set(current);
-      if (next.has(groupId)) next.delete(groupId);
-      else next.add(groupId);
-      return next;
+      return current.has(groupId) ? new Set() : new Set([groupId]);
     });
   };
 
@@ -80,19 +74,8 @@ export function ParticipantSelectionScreen({
       aria-label="Participant running order"
     >
       <div className="reciter-queue-summary">
-        <span>
-          <strong>{waitingCount}</strong> waiting
-        </span>
-        <span>
-          <strong>{finishedCount}</strong> finished
-        </span>
-        {activeGroup && (
-          <span className="reciter-queue-division">
-            {activeGroup.division
-              ? divisionLabel(activeGroup.division)
-              : "Category required"}
-          </span>
-        )}
+        <strong>Next</strong>
+        <span>{waitingCount} waiting</span>
       </div>
 
       {recommended ? (
@@ -100,17 +83,15 @@ export function ParticipantSelectionScreen({
           <button
             type="button"
             className="next-reciter-main"
+            disabled={selectionDisabled}
             onClick={() => onChoose(recommended)}
           >
-            <span className="reciter-row-copy">
-              <strong>{recommended.name || "Unnamed"}</strong>
-              <small>
-                {participantContextLabel(recommended, recommendedDivision)}
-              </small>
-            </span>
-            <span className="participant-number-badge">
-              {participantNumberLabel(recommended.number, participantCount)}
-            </span>
+            <ParticipantIdentity
+              participant={recommended}
+              participantCount={participantCount}
+              division={recommendedDivision}
+              density="lead"
+            />
             <span className="next-reciter-cue">
               Choose question <Icon name="chevron" size={14} />
             </span>
@@ -194,18 +175,16 @@ export function ParticipantSelectionScreen({
                         <button
                           type="button"
                           className="queue-participant-button"
-                          disabled={entry.judged}
+                          disabled={entry.judged || selectionDisabled}
                           onClick={() => onChoose(entry)}
                         >
-                          <span className="queue-participant-copy">
-                            <strong>{entry.name || "Unnamed"}</strong>
-                            <small>
-                              {participantContextLabel(entry, group.division)}
-                            </small>
-                          </span>
-                          <span className="participant-number-badge">
-                            {participantNumberLabel(entry.number, participantCount)}
-                          </span>
+                          <ParticipantIdentity
+                            participant={entry}
+                            participantCount={participantCount}
+                            division={group.division}
+                            density="row"
+                            numberPosition="start"
+                          />
                           <small
                             className={
                               entry.judged

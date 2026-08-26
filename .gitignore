@@ -14,3 +14,6 @@ tmp-*
 
 # Generated single-file preview (npm run preview:artifact)
 docs/tahqeeq-preview.html
+
+# Private transcript attachment for local handoff
+TAHQEEQ_BUILD_TRANSCRIPT.md

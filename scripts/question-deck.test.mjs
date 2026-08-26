@@ -232,6 +232,17 @@ test("the board renders positions and nothing that names a passage", () => {
   assert.match(board, /tile\.position/, "the board renders positions");
 });
 
+test("the draw board keeps large choices, a centred fallback, and a visibly spent state", () => {
+  const styles = readFileSync(
+    new URL("../src/styles/global.css", import.meta.url),
+    "utf8",
+  );
+  assert.match(styles, /\.question-number-screen \.draw-board\s*\{[\s\S]*?max-width: 760px/);
+  assert.match(styles, /\.question-number-screen \.draw-tile\s*\{[\s\S]*?min-height: 68px/);
+  assert.match(styles, /\.draw-tile\.is-spent\s*\{[\s\S]*?opacity: 0\.46/);
+  assert.match(styles, /\.question-number-screen \.draw-external\s*\{[\s\S]*?justify-content: center/);
+});
+
 test("a position is only resolved to a question when one is pressed", () => {
   const source = readFileSync(
     new URL("../src/components/StartDialog.tsx", import.meta.url),
@@ -241,4 +252,30 @@ test("a position is only resolved to a question when one is pressed", () => {
   assert.equal(calls.length, 1, "exactly one call site, inside the press handler");
   const handler = source.slice(source.indexOf("const drawPosition ="));
   assert.match(handler.slice(0, 400), /questionAtPosition\(deck, position\)/);
+});
+
+test("a missing judge assignment cannot reveal or spend a question", () => {
+  const startSource = readFileSync(
+    new URL("../src/components/StartDialog.tsx", import.meta.url),
+    "utf8",
+  );
+  const questionSource = readFileSync(
+    new URL("../src/components/QuestionNumberScreen.tsx", import.meta.url),
+    "utf8",
+  );
+  const handler = startSource.slice(
+    startSource.indexOf("const drawPosition ="),
+    startSource.indexOf("const rosterGroups ="),
+  );
+  const assignmentGuard = handler.indexOf("!assignment");
+  const recordDispatch = handler.indexOf('type: "RECORD_DRAW"');
+
+  assert.ok(assignmentGuard >= 0, "the draw handler checks the assignment");
+  assert.ok(
+    assignmentGuard < recordDispatch,
+    "the assignment is checked before RECORD_DRAW is dispatched",
+  );
+  assert.match(startSource, /selectionDisabled=\{!assignment\}/);
+  assert.match(questionSource, /disabled=\{Boolean\(blockedReason\) \|\| \(spent && !mine\)\}/);
+  assert.match(questionSource, /className="draw-external"\s+disabled=\{Boolean\(blockedReason\)\}/);
 });

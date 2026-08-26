@@ -65,7 +65,7 @@ export function ResultSheet() {
         <div>
           <div className="rs-title">
             {state.competition.isSample
-              ? "Tahqeeq — SAMPLE TEST RESULT — NOT OFFICIAL"
+              ? "Tahqeeq — PRACTICE RESULT — NOT OFFICIAL"
               : "Tahqeeq — judge section result"}
           </div>
           <div className="rs-sub">{date}</div>

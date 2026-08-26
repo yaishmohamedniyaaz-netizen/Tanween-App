@@ -1,17 +1,16 @@
 import {
-  type CSSProperties,
   useCallback,
   useEffect,
-  useRef,
   useState,
 } from "react";
 import { Header, type AppView } from "./components/Header";
 import { Mushaf } from "./components/Mushaf";
+import { MushafViewport } from "./components/MushafViewport";
 import { ScorePanel } from "./components/ScorePanel";
 import { MistakeLog } from "./components/MistakeLog";
 import { NotesBox } from "./components/NotesBox";
 import { ResultSheet } from "./components/ResultSheet";
-import { HintBanner } from "./components/HintBanner";
+import { MarkingCoachTip } from "./components/MarkingCoachTip";
 import { RecordsView } from "./components/RecordsView";
 import { StartDialog } from "./components/StartDialog";
 import { CompetitionSetup } from "./components/CompetitionSetup";
@@ -20,19 +19,26 @@ import { QuestionPreparationWorkspace } from "./components/QuestionPreparationWo
 import { CompetitionIdlePanel } from "./components/CompetitionIdlePanel";
 import { FinishDialog } from "./components/FinishDialog";
 import { JudgeRoleStrip } from "./components/JudgeRoleStrip";
-import { PreparedRecitationStrip } from "./components/PreparedRecitationStrip";
 import { PreparedSidebar } from "./components/PreparedSidebar";
+import { PageNav } from "./components/PageNav";
+import { OfflineMushafPrompt } from "./components/OfflineMushafPrompt";
+import { useOfflineMushaf } from "./hooks/useOfflineMushaf";
+import { pauseOfflineMushafDownload } from "./lib/offlineMushaf";
 import { useJudging } from "./state/store";
-import { questionOpeningKey, questionOpeningPage } from "./lib/questionPage";
+import {
+  questionIsVisibleOnPages,
+  questionOpeningKey,
+  questionOpeningPage,
+} from "./lib/questionPage";
+import { participantDivision } from "./lib/reciterQuestions";
 import { isWaiting } from "./lib/rosterQueue";
 import { missingRequiredImpressionCategories } from "./lib/scoring";
-import surahIndex from "./data/surah-index.json";
 import {
   applyDeviceTheme,
   DEFAULT_DEVICE_PREFERENCES,
   readDevicePreferences,
   writeDevicePreferences,
-  type DevicePreferencesV1,
+  type DevicePreferencesV3,
 } from "./lib/devicePreferences";
 
 const LS_PAGE_KEY = "tahqeeq:lastPage";
@@ -40,179 +46,18 @@ const LS_PAGE_KEY = "tahqeeq:lastPage";
 // opening page is restored once per reciter rather than on every render.
 const LS_QUESTION_PAGE_KEY = "tahqeeq:questionOpenedFor";
 
-function PageNav({
-  page,
-  onChange,
-}: {
-  page: number;
-  onChange: (page: number) => void;
-}) {
-  const [popoverOpen, setPopoverOpen] = useState(false);
-  const [jumpInput, setJumpInput] = useState("");
-  const popoverRef = useRef<HTMLDivElement>(null);
-  const pageBtnRef = useRef<HTMLButtonElement>(null);
-  const jumpInputRef = useRef<HTMLInputElement>(null);
-  const lastWheelRef = useRef(0);
-
-  useEffect(() => {
-    if (!popoverOpen) return;
-    const onDoc = (e: MouseEvent) => {
-      if (!popoverRef.current?.contains(e.target as Node)) {
-        setPopoverOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", onDoc);
-    return () => document.removeEventListener("mousedown", onDoc);
-  }, [popoverOpen]);
-
-  useEffect(() => {
-    if (!popoverOpen) return;
-    const frame = requestAnimationFrame(() => {
-      jumpInputRef.current?.focus();
-      jumpInputRef.current?.select();
-    });
-    return () => cancelAnimationFrame(frame);
-  }, [popoverOpen]);
-
-  const handleJump = () => {
-    const n = Number(jumpInput);
-    if (!Number.isNaN(n) && n >= 1 && n <= 604) {
-      onChange(n);
-      setPopoverOpen(false);
-      setJumpInput("");
-    }
-  };
-
-  // Reading order is right-to-left: the next (higher-numbered) page sits to
-  // the left of the current one, like turning pages forward in a mushaf.
-  const goForward = useCallback(
-    () => onChange(Math.min(604, page + 1)),
-    [page, onChange],
-  );
-  const goBackward = useCallback(
-    () => onChange(Math.max(1, page - 1)),
-    [page, onChange],
-  );
-
-  // Scroll wheel over the page number flips pages — throttled so one wheel
-  // "click" moves one page instead of skipping several.
-  useEffect(() => {
-    const el = pageBtnRef.current;
-    if (!el) return;
-    const onWheel = (e: WheelEvent) => {
-      e.preventDefault();
-      const now = Date.now();
-      if (now - lastWheelRef.current < 180) return;
-      lastWheelRef.current = now;
-      if (e.deltaY > 0) goForward();
-      else if (e.deltaY < 0) goBackward();
-    };
-    el.addEventListener("wheel", onWheel, { passive: false });
-    return () => el.removeEventListener("wheel", onWheel);
-  }, [goForward, goBackward]);
-
-  return (
-    <div className="page-nav">
-      <button
-        type="button"
-        className="page-nav-btn"
-        aria-label="next page"
-        onClick={goForward}
-      >
-        ‹
-      </button>
-
-      <div className="page-nav-center" ref={popoverRef}>
-        <button
-          ref={pageBtnRef}
-          type="button"
-          className="page-nav-page"
-          title="Type a page number"
-          onClick={() => {
-            setPopoverOpen((v) => !v);
-            setJumpInput(String(page));
-          }}
-        >
-          {page}
-        </button>
-
-        {popoverOpen && (
-          <div className="page-nav-popover">
-            <div className="page-nav-popover-head">
-              <span className="t-label">Jump to page</span>
-              <form
-                className="page-nav-jump-row"
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  handleJump();
-                }}
-              >
-                <input
-                  ref={jumpInputRef}
-                  autoFocus
-                  type="number"
-                  inputMode="numeric"
-                  enterKeyHint="go"
-                  min={1}
-                  max={604}
-                  value={jumpInput}
-                  onChange={(e) => setJumpInput(e.target.value)}
-                  onKeyDown={(e) => {
-                    if (e.key === "Escape") {
-                      setPopoverOpen(false);
-                      pageBtnRef.current?.focus();
-                    }
-                  }}
-                  onFocus={(e) => e.currentTarget.select()}
-                  placeholder="1–604"
-                />
-                <button type="submit" className="btn-ghost">
-                  Go
-                </button>
-              </form>
-            </div>
-            <div className="page-nav-surah-list">
-              {surahIndex.map((s) => (
-                <button
-                  key={s.number}
-                  type="button"
-                  className="page-nav-surah"
-                  onClick={() => {
-                    onChange(s.firstPage);
-                    setPopoverOpen(false);
-                  }}
-                >
-                  <span className="page-nav-surah-num">{s.number}</span>
-                  <span className="page-nav-surah-name">{s.nameAr}</span>
-                  <span className="page-nav-surah-page t-num">p. {s.firstPage}</span>
-                </button>
-              ))}
-            </div>
-          </div>
-        )}
-      </div>
-
-      <button
-        type="button"
-        className="page-nav-btn"
-        aria-label="previous page"
-        onClick={goBackward}
-      >
-        ›
-      </button>
-    </div>
-  );
-}
-
 export function App() {
   const { state, dispatch } = useJudging();
+  const offlineMushaf = useOfflineMushaf();
   const [view, setView] = useState<AppView>("judge");
   const [startOpen, setStartOpen] = useState(false);
   const [startMode, setStartMode] = useState<
-    "start" | "change-reciter" | "change-question"
+    "start" | "next-question" | "change-reciter" | "change-question"
   >("start");
   const [finishOpen, setFinishOpen] = useState(false);
-  const [preferences, setPreferences] = useState<DevicePreferencesV1>(() =>
+  const [markingGuideOpen, setMarkingGuideOpen] = useState(false);
+  const [moreControlsOpen, setMoreControlsOpen] = useState(false);
+  const [preferences, setPreferences] = useState<DevicePreferencesV3>(() =>
     readDevicePreferences(),
   );
   const [page, setPage] = useState(() => {
@@ -233,12 +78,20 @@ export function App() {
     writeDevicePreferences(preferences);
   }, [preferences]);
 
+  // Bulk asset work must never compete with a live recitation. A paused
+  // package resumes deliberately from More actions after judging.
+  useEffect(() => {
+    if (state.sessionActive && offlineMushaf.phase === "downloading") {
+      pauseOfflineMushafDownload();
+    }
+  }, [offlineMushaf.phase, state.sessionActive]);
+
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "auto" });
   }, [view]);
 
-  const updatePreferences = (patch: Partial<DevicePreferencesV1>) => {
-    setPreferences((current) => ({ ...current, ...patch, version: 1 }));
+  const updatePreferences = (patch: Partial<DevicePreferencesV3>) => {
+    setPreferences((current) => ({ ...current, ...patch, version: 3 }));
   };
 
   // Open the Mushaf on the page the reciter's question actually starts on.
@@ -250,9 +103,11 @@ export function App() {
     state.activeSessionId ?? state.preparedRecitation?.id,
     state.activeQuestion ?? state.preparedRecitation?.question,
   );
-  const openingPage = questionOpeningPage(
-    state.activeQuestion ?? state.preparedRecitation?.question,
-  );
+  const visibleQuestion = state.activeQuestion ?? state.preparedRecitation?.question;
+  const openingPage = questionOpeningPage(visibleQuestion);
+  const visibleQuestionRange = visibleQuestion?.version === 2
+    ? visibleQuestion.range ?? null
+    : null;
 
   useEffect(() => {
     if (!openedForKey) return;
@@ -270,8 +125,12 @@ export function App() {
     [page],
   );
 
+  const hasNextReciter = state.roster.some(
+    (entry) => entry.id !== state.participant.id && isWaiting(entry),
+  );
+
   return (
-    <div className="app">
+    <div className={`app view-${view}`}>
       <Header
         view={view}
         onToggleView={() => setView((current) => (current === "judge" ? "records" : "judge"))}
@@ -291,49 +150,91 @@ export function App() {
             setFinishOpen(true);
           }
         }}
+        mushafZoom={preferences.mushafZoom}
+        onMushafZoomChange={(mushafZoom) => updatePreferences({ mushafZoom })}
+        mushafLayout={preferences.mushafLayout}
+        onMushafLayoutChange={(mushafLayout) => updatePreferences({ mushafLayout })}
+        judgeRailSide={preferences.judgeRailSide}
+        onJudgeRailSideChange={(judgeRailSide) => updatePreferences({ judgeRailSide })}
+        questionFocusMode={preferences.questionFocusMode}
+        onQuestionFocusModeChange={(questionFocusMode) =>
+          updatePreferences({ questionFocusMode })
+        }
+        onShowMarkingGuide={() => setMarkingGuideOpen(true)}
+        onMoreControlsOpenChange={setMoreControlsOpen}
         theme={preferences.theme}
         onThemeChange={(theme) => updatePreferences({ theme })}
       />
       {view === "judge" ? (
         <main
-          className={`workspace rail-${preferences.judgeRailSide} ${!state.sessionActive && !state.preparedRecitation ? "is-idle" : ""}`}
+          className={`workspace layout-${preferences.mushafLayout} rail-${preferences.judgeRailSide} ${!state.sessionActive && !state.preparedRecitation ? "is-idle" : ""}`}
           key="judge"
         >
           <div className="stage">
-            <HintBanner />
-            {state.preparedRecitation && (
-              <PreparedRecitationStrip
-                prepared={state.preparedRecitation}
-                participantCount={state.roster.length}
-                onChangeReciter={() => {
-                  setStartMode("change-reciter");
-                  setStartOpen(true);
-                }}
-                onChangeQuestion={() => {
-                  setStartMode("change-question");
-                  setStartOpen(true);
-                }}
-              />
-            )}
-            <div
-              className="mushaf-shell"
-              style={{ "--page-zoom": preferences.mushafZoom / 100 } as CSSProperties}
+            <MushafViewport
+              layout={preferences.mushafLayout}
+              zoomPercent={preferences.mushafZoom}
+              contentKey={`${page}:${preferences.mushafLayout}`}
+              overlay={
+                <MarkingCoachTip
+                  forcedOpen={markingGuideOpen}
+                  suppressed={moreControlsOpen}
+                  onForcedOpenChange={setMarkingGuideOpen}
+                />
+              }
             >
               <Mushaf
                 page={page}
                 pageLayout={preferences.mushafLayout}
+                questionFocusMode={preferences.questionFocusMode}
+                questionRange={visibleQuestionRange}
                 onPageChange={handlePageChange}
-                headerControls={
-                  <PageNav page={page} onChange={handlePageChange} />
-                }
+                headerControls={(visiblePages, compact) => (
+                  <>
+                    <PageNav
+                      page={page}
+                      visiblePages={visiblePages}
+                      layout={preferences.mushafLayout}
+                      compact={compact}
+                      onChange={handlePageChange}
+                    />
+                    {openingPage !== null &&
+                      questionIsVisibleOnPages(visibleQuestion, visiblePages) === false && (
+                      <button
+                        type="button"
+                        className="question-return-bubble"
+                        aria-label={`Return to selected question on page ${openingPage}`}
+                        onClick={() => handlePageChange(openingPage)}
+                      >
+                        <span aria-hidden="true">↩</span>
+                        <span>Return to question</span>
+                        <span className="question-return-page t-num">p. {openingPage}</span>
+                      </button>
+                    )}
+                  </>
+                )}
               />
-            </div>
+            </MushafViewport>
           </div>
           <aside className="sidebar">
             {state.preparedRecitation ? (
               <PreparedSidebar
                 prepared={state.preparedRecitation}
+                participantCount={state.roster.length}
+                division={participantDivision(
+                  state.preparedRecitation.participant,
+                  state.competition.liveSnapshot?.divisions ??
+                    state.competition.divisions,
+                )}
                 onReady={() => dispatch({ type: "BEGIN_RECITER" })}
+                onChangeQuestion={() => {
+                  setStartMode("change-question");
+                  setStartOpen(true);
+                }}
+                onChangeReciter={() => {
+                  setStartMode("change-reciter");
+                  setStartOpen(true);
+                }}
               />
             ) : state.sessionActive ? (
               <>
@@ -352,10 +253,15 @@ export function App() {
             ) : (
               <CompetitionIdlePanel
                 onPrepare={() => setView("setup")}
-                onStartReciter={() => {
+                onChooseQuestion={() => {
+                  setStartMode("next-question");
+                  setStartOpen(true);
+                }}
+                onOpenRunningOrder={() => {
                   setStartMode("start");
                   setStartOpen(true);
                 }}
+                onOpenResults={() => setView("records")}
               />
             )}
           </aside>
@@ -396,6 +302,7 @@ export function App() {
       )}
       {finishOpen && state.sessionActive && (
         <FinishDialog
+          hasNextReciter={hasNextReciter}
           onCancel={() => setFinishOpen(false)}
           onConfirm={() => {
             const assignment = state.activeAssignment;
@@ -409,10 +316,6 @@ export function App() {
             ) {
               return;
             }
-            const hasNextReciter = state.roster.some(
-              (entry) =>
-                entry.id !== state.participant.id && isWaiting(entry),
-            );
             dispatch({ type: "FINISH_SESSION" });
             setFinishOpen(false);
             setStartMode("start");
@@ -420,6 +323,15 @@ export function App() {
           }}
         />
       )}
+
+      <OfflineMushafPrompt
+        suppressed={
+          state.sessionActive ||
+          startOpen ||
+          finishOpen ||
+          view !== "judge"
+        }
+      />
 
       <ResultSheet />
     </div>
