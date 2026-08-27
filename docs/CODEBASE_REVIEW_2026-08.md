@@ -398,23 +398,70 @@ inside the interaction budget of a judge pressing a letter while listening.
 path; with IndexedDB (§1.3) it becomes asynchronous anyway. Persist deltas
 rather than the whole document if the ledger allows.
 
-### 2.3 1.8 MB of JavaScript, including two spreadsheet libraries
+### 2.3 The export libraries are code-split correctly, then precached anyway
+
+An earlier draft of this section claimed 1.8 MB of JavaScript and "two
+spreadsheet libraries of duplicated capability." Both halves were wrong, and the
+corrected version is a better finding.
+
+**They are not duplicated.** The two libraries are a deliberate pipeline.
+`xlsx` builds the workbook and then *verifies* it — re-reading every audit row
+against the source `FinalizedResult` and refusing to export if one drifted
+(`finalResultsWorkbook.ts:366`), then walking every cell in every sheet:
+
+```ts
+if (!address.startsWith("!") && cell.f) {
+  throw new Error("The exported workbook unexpectedly contains a formula.");
+}
+```
+
+That is `PRODUCT_FOUNDATION.md` §10.5's *"export value-only sheets"* enforced
+structurally rather than trusted. Only then is the buffer handed to `exceljs`
+(`:377`, a dynamic `await import`) for the styling the same spec requires —
+frozen header and identity columns, repeated print header, fit-to-one-page —
+which SheetJS's free build cannot do. Each library is doing the job the other
+cannot. "Pick one" was the wrong advice.
+
+**And they are not in the bundle.** Measured by loading the production build and
+reading `performance.getEntriesByType("resource")`:
 
 ```
-dist/assets/exceljs.min-*.js   940.37 kB │ gzip: 271.39 kB
-dist/assets/index-*.js         533.87 kB │ gzip: 154.65 kB
-dist/assets/xlsx-*.js          333.02 kB │ gzip: 113.89 kB
-dist/assets/index-*.css        228.39 kB │ gzip:  37.78 kB
+first paint, judging screen : ["index-C34Da4rV.js"]
+after opening Results       : ["index-C34Da4rV.js"]
 ```
 
-`exceljs` **and** `xlsx` are both imported by the same three modules
-(`finalResultsWorkbook.ts`, `judgeRecordsWorkbook.ts`, `roster.ts`). That is
-1.27 MB — 385 kB gzipped — of duplicated capability.
+Neither `exceljs` nor `xlsx` is fetched — not on the judging screen, not even on
+the Results screen. They arrive only when an export actually runs. The initial
+JavaScript payload is **534 kB raw / 155 kB gzipped**, which is unremarkable.
+The code-splitting works.
 
-**Fix:** pick one. `exceljs` if styled output is required; `xlsx` if not. Then
-confirm both are dynamically imported so they never enter the initial bundle
-(they appear to be chunked already — worth verifying they are not eagerly
-pulled by the judging path, which needs neither).
+**The real finding is that the service worker undoes it.** `collectBuildPrecacheUrls()`
+(`scripts/pwa-precache.mjs:20`) globs *every* file under `dist/assets` into the
+install-time precache list, so the built worker contains:
+
+```js
+const BUILD_PRECACHE_URLS = [
+  "/", "/assets/exceljs.min-_FHOiBEn.js", "/assets/index-C34Da4rV.js",
+  "/assets/index-aUjTIWU3.css", "/assets/xlsx-Dl5JjRmw.js"
+];
+```
+
+and `staticCache.addAll()` treats that list as **one required unit** (`sw.js:59`).
+So every user downloads 1.27 MB of spreadsheet libraries at install, on a phone,
+before judging anything — and if either fetch fails, the whole install fails,
+because unlike the Mushaf font these are not wrapped in `Promise.allSettled`.
+
+This may well be the right call: precaching them is what makes exporting work
+offline. The problem is that nobody chose it. It is a side effect of globbing a
+directory, which means the trade-off is invisible and the install is fragile for
+a reason no one wrote down.
+
+**Fix.** Decide it explicitly. Either partition the precache list — the shell as
+the required unit, the export chunks as best-effort like the Mushaf font already
+is — or keep them required and say so in a comment next to the glob, so the next
+person to add a lazy chunk knows it will silently become part of a blocking
+install. The first option is better: a failed export chunk should not stop the
+app installing when the judging path needs neither.
 
 ### 2.4 Prototypes ship to production
 
@@ -638,9 +685,13 @@ surface used under time pressure.
 `placeFinalizedResults()` groups by age group and participant category, sorts by
 ratio and resolves ties. Its entire output reaches the UI as
 `{placed.place}` inside a `<small>` in `ParticipantResultDetail.tsx:302`, plus
-the workbook. There is still no view that ranks a division on screen, though
-winners-by-division is sheet 2 of the export `PRODUCT_FOUNDATION.md` §10.5
-specifies.
+the workbook. There is still no view that ranks a division on screen. To be
+precise about the spec: winners-by-division is sheet 2 of the *expanded official
+workbook target* in `PRODUCT_FOUNDATION.md` §10.5, not of the current pilot
+export, which §10.5 documents as Results / Audit / Verification — and which the
+code implements exactly. So the missing Winners sheet is roadmap, not a
+shortfall. What is a shortfall is that `placeFinalizedResults()` already computes
+the placements and nothing but a `<small>` consumes them.
 
 *Credit where due:* main's current Results table (Participant / Total / State
 with a segmented status filter) is a genuine improvement on what preceded it and
@@ -1070,7 +1121,7 @@ so they want a decision rather than a spare afternoon.
 | 16 | Hoist the reducer guards into shared preconditions (§2.8) | ~40 lines | Correctness that depends on a JSX condition rather than the reducer |
 | 17 | Tests for the reducer guards (§2.8) | ~1 hour | The best-reasoned logic in the codebase is the least covered |
 | 18 | Stylelint guard + one conversion pass (§3.1) | mechanical | Permanent type-scale and radius drift |
-| 19 | Drop one spreadsheet library (§2.3) | dependency work | ~385 kB gzipped |
+| 19 | Partition the SW precache: shell required, export chunks best-effort (§2.3) | ~15 lines | A 1.27 MB blocking install for libraries the judging path never uses |
 | 20 | Split the context, debounce persistence (§2.1, §2.2) | moderate | Frame drops at real roster sizes |
 | 21 | Playwright smoke suite — recipe in §4.4 (§4.2) | moderate | The whole class of §1 defects |
 | 22 | IndexedDB for the live record (§1.3, part 2) | large | The 5 MB ceiling |
