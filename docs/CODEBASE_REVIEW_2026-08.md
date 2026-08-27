@@ -944,6 +944,88 @@ with the CDN blocked as a second matrix entry.
   unusual asset — measured design decisions with their evidence attached.
 - The domain model (judge sections, revisions, `fnv1a` manifests, ledger events,
   question evidence) is serious work.
+- **The core judging loop is keyboard-operable end to end, and it is good.**
+  See §4.4 — this deserves its own section rather than a bullet.
+
+### 4.4 The core loop, driven end to end — and it holds
+
+Everything else in this review examines code. This section reports what happened
+when the application's central action was actually performed, by keyboard, with
+real key and mouse events, and then interrupted.
+
+**The keyboard path exists and is complete.** Each of the 126 words on a rendered
+page carries an overlaid hit target — not the visible `<span>`, which is why a
+first pass looking at `.m-word` wrongly concluded the Mushaf was mouse-only:
+
+```jsx
+<div data-word-hit={box.wid} role="button" tabIndex={0}
+     onKeyDown={(event) => openPinnedForBox(event, box)}
+     aria-label={mistakes.length
+       ? `${box.semanticText}, ${mistakes.length} mark(s)`
+       : `Select word ${box.semanticText}`} />
+```
+
+Driving it: focus a hit box (`aria-label: "Select word إِن"`) → **Enter** opens
+the mark menu *pinned*, and **focus moves into it** (`focusInMenu: true`) →
+the menu offers the word's letter units and the criterion action →
+select the unit ء → activate **Mark Jalī−2**. Result:
+
+```
+events   : ["session_started", "mistake_added"]
+mistake  : { category: "jali", amount: 2, label: "86:4 · letter 1" }
+```
+
+A judge with no mouse can record a letter-exact deduction. In an app whose
+primary interaction is a press-and-slide gesture, that is not a given, and
+`DragMenu.tsx:112` shows it was deliberate: *"When the menu is pinned (tap
+path), move focus into it for keyboard users."*
+
+**The commit is properly gated, not silently dropped.** Activating **Mark**
+before choosing a letter unit does nothing — and the reason is the right one:
+
+```
+Mark button, no unit selected → { disabled: true, ariaDisabled: "true" }
+```
+
+Both the property and the ARIA attribute. `Mushaf.tsx:526` also carries an
+`if (!unit) return;` behind it, so the guard is doubled. This is the opposite of
+the failure-discipline problem in §1 — here an impossible action is prevented
+*and* announced.
+
+**It survives being killed.** With one real mark in the ledger, a hard reload —
+the browser tab dying mid-recitation, the case that actually happens in a
+competition hall:
+
+```
+before reload : { mistakes: 1, events: ["session_started","mistake_added"],
+                  label: "86:4 · letter 1" }
+after  reload : { mistakes: 1, events: ["session_started","mistake_added"],
+                  label: "86:4 · letter 1" }        ← byte-identical
+```
+
+The session stays live, the mark is intact, and it re-renders on the page. The
+event-sourced state plus per-dispatch persistence (§2.2 criticises its *cost*,
+not its correctness) does exactly what it was built to do.
+
+**Two things follow for §4.2's missing end-to-end suite.**
+
+First, the recipe above *is* the test. `focus a .word-hit → Enter → click unit →
+click Mark → assert one mistake_added → reload → assert identical` is a complete
+smoke test of the application's reason to exist, and it needs no new test
+infrastructure beyond a browser driver. The reason there is no end-to-end
+coverage is not that the app is untestable.
+
+Second, one caution learned the hard way while doing this. Synthesised
+`PointerEvent`s — including with `pointerId`, `pointerType: "touch"` and correct
+capture semantics — did **not** commit a mark, across three attempts. The
+keyboard path did, first try. Any end-to-end suite here should drive the
+keyboard route rather than trying to reproduce the slide gesture, which is both
+more robust and tests the accessibility path for free.
+
+*The one thing this section does not establish:* it ran against a dev server
+with §1.1 temporarily patched so the Mushaf would render at all, and that patch
+was reverted immediately afterwards. Without it there are no words to focus and
+the loop cannot start — which is one more measure of how much §1.1 costs.
 
 ---
 
@@ -990,7 +1072,7 @@ so they want a decision rather than a spare afternoon.
 | 18 | Stylelint guard + one conversion pass (§3.1) | mechanical | Permanent type-scale and radius drift |
 | 19 | Drop one spreadsheet library (§2.3) | dependency work | ~385 kB gzipped |
 | 20 | Split the context, debounce persistence (§2.1, §2.2) | moderate | Frame drops at real roster sizes |
-| 21 | Playwright smoke suite (§4.2) | moderate | The whole class of §1 defects |
+| 21 | Playwright smoke suite — recipe in §4.4 (§4.2) | moderate | The whole class of §1 defects |
 | 22 | IndexedDB for the live record (§1.3, part 2) | large | The 5 MB ceiling |
 | 23 | Migrate source-text assertions (§4.1) | large, incremental | A test suite that blocks refactoring |
 
