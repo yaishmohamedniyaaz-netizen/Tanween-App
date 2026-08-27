@@ -17,6 +17,12 @@ const round2 = (value: number) => Math.round(value * 100) / 100;
 const BAR_MAX_WIDTH = 520;
 const BAR_MIN_WIDTH = 260;
 const BAR_MARGIN = 16;
+const RULER_LABEL_INTERVAL = 5;
+
+/** Keep the scale legible without turning a 20-mark ruler into 21 labels. */
+const shouldLabelRulerMark = (mark: number, max: number) =>
+  Number.isInteger(mark) &&
+  (mark === 0 || mark === max || mark % RULER_LABEL_INTERVAL === 0);
 
 interface Props {
   value: number;
@@ -75,6 +81,7 @@ export const MarkPicker = forwardRef<MarkPickerHandle, Props>(function MarkPicke
   const [preview, setPreview] = useState<number | null>(null);
   const [open, setOpen] = useState(false);
   const [pinned, setPinned] = useState(false);
+  const [dragging, setDragging] = useState(false);
   const [anchor, setAnchor] = useState({ top: 0, left: 0, width: BAR_MIN_WIDTH });
 
   useImperativeHandle(
@@ -113,6 +120,7 @@ export const MarkPicker = forwardRef<MarkPickerHandle, Props>(function MarkPicke
   const close = useCallback(() => {
     setOpen(false);
     setPinned(false);
+    setDragging(false);
     previewRef.current = null;
     setPreview(null);
   }, []);
@@ -211,6 +219,7 @@ export const MarkPicker = forwardRef<MarkPickerHandle, Props>(function MarkPicke
     event.preventDefault();
     buttonRef.current?.focus();
     dragRef.current = { moved: false, pointerId: event.pointerId };
+    setDragging(true);
     setOpen(true);
     setPinned(false);
   };
@@ -236,6 +245,7 @@ export const MarkPicker = forwardRef<MarkPickerHandle, Props>(function MarkPicke
     const onUp = () => {
       const drag = dragRef.current;
       dragRef.current = null;
+      setDragging(false);
       if (drag?.moved && previewRef.current !== null) {
         commit(previewRef.current);
         setOpen(false);
@@ -275,6 +285,7 @@ export const MarkPicker = forwardRef<MarkPickerHandle, Props>(function MarkPicke
   const display = Number.isInteger(shown) ? String(shown) : shown.toFixed(1);
   const hasSelection = marked || preview !== null;
   const percent = max > 0 ? (shown / max) * 100 : 0;
+  const thumbEdge = shown === 0 ? "is-first" : shown === max ? "is-last" : "";
   const bar = open ? (
     <div
       ref={barRef}
@@ -291,7 +302,9 @@ export const MarkPicker = forwardRef<MarkPickerHandle, Props>(function MarkPicke
     >
       <div
         ref={trackRef}
-        className={`mark-ruler ${hasSelection ? "has-selection" : ""}`}
+        className={`mark-ruler ${hasSelection ? "has-selection" : ""} ${
+          dragging ? "is-dragging" : ""
+        }`}
         role="slider"
         tabIndex={0}
         aria-label={`${label} marks`}
@@ -304,6 +317,7 @@ export const MarkPicker = forwardRef<MarkPickerHandle, Props>(function MarkPicke
           event.preventDefault();
           previewMarkAt(event.clientX);
           dragRef.current = { moved: true, pointerId: event.pointerId };
+          setDragging(true);
           (event.currentTarget as HTMLElement).setPointerCapture(event.pointerId);
         }}
         onPointerMove={(event) => {
@@ -313,6 +327,7 @@ export const MarkPicker = forwardRef<MarkPickerHandle, Props>(function MarkPicke
         onPointerUp={(event) => {
           if (!pinned) return;
           dragRef.current = null;
+          setDragging(false);
           commit(previewRef.current ?? markAt(event.clientX));
           close();
           buttonRef.current?.focus({ preventScroll: true });
@@ -320,6 +335,7 @@ export const MarkPicker = forwardRef<MarkPickerHandle, Props>(function MarkPicke
         onPointerCancel={() => {
           if (!pinned || !dragRef.current) return;
           dragRef.current = null;
+          setDragging(false);
           commit(previewRef.current ?? value);
           close();
         }}
@@ -346,13 +362,20 @@ export const MarkPicker = forwardRef<MarkPickerHandle, Props>(function MarkPicke
                 className={`mark-ruler-tick ${whole ? "is-whole" : "is-half"} ${edge}`}
                 style={{ left: `${max > 0 ? (mark / max) * 100 : 0}%` }}
               >
-                {whole && <i className="mark-ruler-label t-num">{mark}</i>}
+                {shouldLabelRulerMark(mark, max) && (
+                  <i className="mark-ruler-label t-num">{mark}</i>
+                )}
               </span>
             );
           })}
           {hasSelection && (
-            <span className="mark-ruler-thumb" style={{ left: `${percent}%` }}>
-              <i className="mark-ruler-value t-num">{display}</i>
+            <span
+              className={`mark-ruler-thumb ${thumbEdge}`}
+              style={{ left: `${percent}%` }}
+            >
+              <i key={display} className="mark-ruler-value t-num">
+                {display}
+              </i>
             </span>
           )}
         </span>

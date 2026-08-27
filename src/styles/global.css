@@ -10383,8 +10383,9 @@ html:has(.dialog-backdrop) {
   font-variant-numeric: tabular-nums;
 }
 
-/* The mark bar is a direct ruler: whole marks are labelled, half marks stay
-   visible as minor ticks, and the pointer snaps to the configured step. */
+/* The mark bar is a direct ruler: half marks stay visible as minor ticks,
+   sparse anchor labels keep long scales readable, and the pointer snaps to
+   the configured step. */
 .mark-bar {
   position: fixed;
   z-index: 60;
@@ -10409,7 +10410,7 @@ html:has(.dialog-backdrop) {
 }
 .mark-ruler {
   position: relative;
-  height: 64px;
+  height: 72px;
   touch-action: none;
   user-select: none;
   cursor: ew-resize;
@@ -10421,39 +10422,43 @@ html:has(.dialog-backdrop) {
 }
 .mark-ruler-rail {
   position: absolute;
-  inset: 8px 0 18px;
+  inset: 24px 0 18px;
   border: 1px solid var(--line-2);
-  border-radius: var(--r-sm);
+  border-radius: 14px;
   background: var(--bg);
   overflow: visible;
 }
 .mark-ruler-fill {
   position: absolute;
   inset: 0 auto 0 0;
-  border-radius: calc(var(--r-sm) - 1px) 0 0 calc(var(--r-sm) - 1px);
+  border-radius: 13px 0 0 13px;
   background: color-mix(in srgb, var(--c, var(--ink)) 17%, transparent);
+  transition: width 120ms cubic-bezier(0.2, 0, 0, 1);
   pointer-events: none;
 }
 .mark-ruler-tick {
   position: absolute;
   top: 50%;
   width: 1px;
-  height: 10px;
+  height: 8px;
   transform: translate(-0.5px, -50%);
   background: var(--line-2);
   pointer-events: none;
 }
 .mark-ruler-tick.is-whole {
-  height: 20px;
+  width: 2px;
+  height: 16px;
+  transform: translate(-1px, -50%);
   background: var(--ink-3);
 }
 .mark-ruler-label {
   position: absolute;
-  top: 29px;
+  top: 24px;
   left: 50%;
   transform: translateX(-50%);
   color: var(--ink-3);
-  font-size: 10px;
+  font-size: 11px;
+  font-weight: 600;
   font-style: normal;
   line-height: 1;
   font-variant-numeric: tabular-nums;
@@ -10469,36 +10474,83 @@ html:has(.dialog-backdrop) {
 }
 .mark-ruler-thumb {
   position: absolute;
-  top: -4px;
-  bottom: -4px;
-  width: 3px;
-  margin-left: -1.5px;
-  border-radius: 2px;
-  background: var(--c, var(--ink));
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--c, var(--ink)) 13%, transparent);
+  top: 50%;
+  width: 28px;
+  height: 38px;
+  transform: translate(-50%, -50%);
+  border: 2px solid var(--c, var(--ink));
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--c, var(--ink)) 7%, var(--surface));
+  box-shadow:
+    0 1px 3px color-mix(in srgb, var(--ink) 18%, transparent),
+    0 0 0 4px color-mix(in srgb, var(--c, var(--ink)) 10%, transparent);
+  transition: left 120ms cubic-bezier(0.2, 0, 0, 1);
   pointer-events: none;
+}
+.mark-ruler.is-dragging .mark-ruler-fill,
+.mark-ruler.is-dragging .mark-ruler-thumb {
+  transition: none;
 }
 .mark-ruler-value {
   position: absolute;
-  bottom: calc(100% + 5px);
+  bottom: calc(100% + 7px);
   left: 50%;
-  min-width: 25px;
-  padding: 2px 5px;
+  min-width: 38px;
+  padding: 4px 8px;
   transform: translateX(-50%);
-  border-radius: 999px;
+  border-radius: 9px;
   background: var(--c, var(--ink));
+  box-shadow: 0 2px 7px color-mix(in srgb, var(--ink) 20%, transparent);
   color: var(--c-on, #ffffff);
-  font-size: 10px;
+  font-size: 12px;
+  font-weight: 700;
   font-style: normal;
   line-height: 1.2;
   text-align: center;
   font-variant-numeric: tabular-nums;
+  animation: mark-ruler-value-in 120ms cubic-bezier(0.2, 0, 0, 1);
 }
-.mark-ruler-thumb[style*="left: 0%"] .mark-ruler-value {
-  transform: translateX(0);
+.mark-ruler-value::after {
+  position: absolute;
+  top: calc(100% - 1px);
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  transform: translate(-50%, -50%) rotate(45deg);
+  border-radius: 1px;
+  background: inherit;
+  content: "";
 }
-.mark-ruler-thumb[style*="left: 100%"] .mark-ruler-value {
-  transform: translateX(-100%);
+.mark-ruler-thumb.is-first .mark-ruler-value {
+  transform: translateX(-18%);
+}
+.mark-ruler-thumb.is-first .mark-ruler-value::after {
+  left: 18%;
+}
+.mark-ruler-thumb.is-last .mark-ruler-value {
+  transform: translateX(-82%);
+}
+.mark-ruler-thumb.is-last .mark-ruler-value::after {
+  left: 82%;
+}
+@keyframes mark-ruler-value-in {
+  from {
+    opacity: 0.72;
+    scale: 0.94;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mark-ruler-fill,
+  .mark-ruler-thumb {
+    transition: none;
+  }
+  .mark-ruler-value {
+    animation: none;
+  }
 }
 
 .finish-dialog {

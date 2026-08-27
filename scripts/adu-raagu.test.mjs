@@ -667,17 +667,33 @@ test("the mark bar opens on a press and commits when the press ends", () => {
   assert.doesNotMatch(pickerSource, /chip-strip|previewChipAt/);
 });
 
-test("the mark ruler labels whole marks and exposes half marks as minor ticks", () => {
+test("the mark ruler uses sparse anchors and exposes half marks as minor ticks", () => {
   assert.match(pickerSource, /awardableMarks\(max, step\)/);
   assert.match(pickerSource, /role="slider"/);
   assert.match(pickerSource, /aria-valuemin=\{0\}/);
   assert.match(pickerSource, /aria-valuemax=\{max\}/);
-  assert.match(pickerSource, /whole && <i className="mark-ruler-label t-num">\{mark\}<\/i>/);
+  assert.match(pickerSource, /const RULER_LABEL_INTERVAL = 5/);
+  assert.match(pickerSource, /shouldLabelRulerMark\(mark, max\)/);
+  assert.match(pickerSource, /mark === 0 \|\| mark === max \|\| mark % RULER_LABEL_INTERVAL === 0/);
   assert.match(pickerSource, /whole \? "is-whole" : "is-half"/);
-  assert.match(ruleBody(".mark-ruler"), /height: 64px/);
-  assert.match(ruleBody(".mark-ruler-tick.is-whole"), /height: 20px/);
-  assert.match(ruleBody(".mark-ruler-tick"), /height: 10px/);
+  assert.match(ruleBody(".mark-ruler"), /height: 72px/);
+  assert.match(ruleBody(".mark-ruler-tick.is-whole"), /height: 16px/);
+  assert.match(ruleBody(".mark-ruler-tick"), /height: 8px/);
   assert.doesNotMatch(pickerSource, /role="radio"|data-mark|wholeChips/);
+});
+
+test("the ruler uses a substantial thumb and disables easing while dragging", () => {
+  assert.match(pickerSource, /const \[dragging, setDragging\] = useState\(false\)/);
+  assert.match(pickerSource, /dragging \? "is-dragging" : ""/);
+  assert.match(pickerSource, /key=\{display\} className="mark-ruler-value t-num"/);
+  assert.match(ruleBody(".mark-ruler-thumb"), /width: 28px/);
+  assert.match(ruleBody(".mark-ruler-thumb"), /height: 38px/);
+  assert.match(ruleBody(".mark-ruler-thumb"), /transition: left 120ms/);
+  assert.match(
+    cssSource,
+    /\.mark-ruler\.is-dragging \.mark-ruler-fill,[\s\S]*?\.mark-ruler\.is-dragging \.mark-ruler-thumb\s*\{[\s\S]*?transition: none/,
+  );
+  assert.match(cssSource, /@media \(prefers-reduced-motion: reduce\)/);
 });
 
 test("the Finish recovery remains available across repeated invalid saves", () => {
@@ -718,7 +734,10 @@ test("the ruler snaps to half marks and commits only when the pointer is release
 test("the quiet ruler stays neutral until a mark is set or previewed", () => {
   assert.match(pickerSource, /const hasSelection = marked \|\| preview !== null/);
   assert.match(pickerSource, /\{hasSelection && \(\s*<span className="mark-ruler-fill"/s);
-  assert.match(pickerSource, /\{hasSelection && \(\s*<span className="mark-ruler-thumb"/s);
+  assert.match(
+    pickerSource,
+    /\{hasSelection && \(\s*<span\s+className=\{`mark-ruler-thumb \$\{thumbEdge\}`\}/s,
+  );
   assert.match(ruleBody(".mark-ruler-rail"), /background: var\(--bg\)/);
 });
 

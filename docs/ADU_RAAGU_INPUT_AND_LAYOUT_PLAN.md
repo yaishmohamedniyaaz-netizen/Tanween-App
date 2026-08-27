@@ -48,9 +48,10 @@ Pressing it drops a **horizontal mark bar** carrying every awardable mark:
   corrected without lifting — the same press-drag-release gesture the letter
   tray teaches.
 - **Press without dragging** and the bar stays open to pick from.
-- Every half mark is a tick, whole marks are taller, and every fifth is
-  labelled once an allocation passes twelve marks, so 20 marks reads as a ruler
-  rather than 41 crowded buttons.
+- Every half mark is a tick and whole marks are taller. Only zero, every fifth
+  mark and the allocation maximum are labelled, while the thumb callout shows
+  the exact live value, so both 10 and 20 marks read as rulers rather than rows
+  of crowded numbers.
 - Nothing is committed until the press ends: a whole gesture writes exactly one
   ledger event, so the audit history stays readable.
 - **Keyboard**: arrows by one step, Shift-arrow by five, `Home` for full marks,
@@ -114,3 +115,6 @@ their widths, per-step distances and weaknesses.
 1. Named deductions: a second mode worth building, or is picking the mark enough?
 2. Is 0.5 the real step Maldivian judges use for voice and melody, or whole marks?
    The step is per-competition either way, so this only sets the default.
+3. Should a later refinement add an evaluative colour range? The current ruler
+   deliberately keeps the single Adu / Raagu colour until the meaning and
+   colour-accessibility consequences are agreed.
