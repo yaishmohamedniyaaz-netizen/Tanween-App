@@ -482,9 +482,13 @@ test("the mark list runs from full marks down to zero", () => {
   assert.equal(awardableMarks(20, 0.5).at(-1), 0);
 });
 
-test("only the selected vertical mode accepts wheel input on hover", () => {
-  assert.match(pickerSource, /mode !== "wheel" && \(document\.activeElement !== button \|\| open\)/);
-  assert.match(pickerSource, /commit\(valueRef\.current \+ \(event\.deltaY < 0 \? step : -step\)\)/);
+test("both input styles accept deliberate wheel input without hover activation", () => {
+  assert.match(pickerSource, /const adjustByWheel = useCallback/);
+  assert.match(pickerSource, /MARK_WHEEL_DELTA_THRESHOLD/);
+  assert.match(pickerSource, /wheelMarkByWholeStep\(valueRef\.current, direction, max, step\)/);
+  assert.match(pickerSource, /adjustByWheel\(event\.deltaY, "ruler", true\)/);
+  assert.match(pickerSource, /adjustByWheel\(event\.deltaY, "wheel", true\)/);
+  assert.match(pickerSource, /if \(open \|\| document\.activeElement !== button\) return/);
   assert.doesNotMatch(pickerSource, /onPointerEnter|onMouseEnter|onMouseMove/);
 });
 
@@ -676,11 +680,13 @@ test("the mark ruler labels every whole mark and exposes half marks as minor tic
   assert.match(pickerSource, /shouldLabelRulerMark\(mark, max\)/);
   assert.match(pickerSource, /Number\.isInteger\(mark\) && mark >= 0 && mark <= max/);
   assert.match(pickerSource, /Number\.isInteger\(mark\) \? "is-whole" : "is-half"/);
-  assert.match(ruleBody(".mark-ruler"), /height: 104px/);
-  assert.match(ruleBody(".mark-ruler-rail"), /inset: 50px 12px 27px/);
-  assert.match(ruleBody(".mark-ruler-rail"), /border-radius: 7px/);
+  assert.match(ruleBody(".mark-ruler"), /height: 116px/);
+  assert.match(ruleBody(".mark-ruler"), /border-radius: var\(--r-sm\)/);
+  assert.match(ruleBody(".mark-ruler-rail"), /inset: 58px 32px 30px/);
+  assert.match(ruleBody(".mark-ruler-track"), /height: 4px/);
   assert.match(ruleBody(".mark-ruler-tick.is-whole"), /height: 16px/);
   assert.match(ruleBody(".mark-ruler-tick"), /height: 8px/);
+  assert.match(ruleBody(".mark-ruler-label"), /font-size: 12px/);
   assert.doesNotMatch(pickerSource, /role="radio"|data-mark|wholeChips/);
 });
 
@@ -743,7 +749,8 @@ test("the quiet ruler stays neutral until a mark is set or previewed", () => {
     pickerSource,
     /className=\{`mark-ruler-bubble \$\{hasSelection \? "is-active" : "is-neutral"\}`\}/,
   );
-  assert.match(ruleBody(".mark-ruler-rail"), /background: var\(--bg\)/);
+  assert.match(ruleBody(".mark-ruler"), /background: var\(--surface\)/);
+  assert.match(ruleBody(".mark-ruler-track"), /background: var\(--line-2\)/);
 });
 
 test("the alternative wheel stays attached to the score and follows the gesture", () => {
@@ -757,6 +764,12 @@ test("the alternative wheel stays attached to the score and follows the gesture"
   assert.match(pickerSource, /window\.addEventListener\("pointercancel", onCancel\)/);
   assert.match(pickerSource, /window\.addEventListener\("pagehide", close\)/);
   assert.match(pickerSource, /className="mark-wheel-focus score-value-layout"/);
+  assert.match(pickerSource, /Array\.from\(\{ length: Math\.floor\(max\) \+ 1 \}/);
+  assert.match(pickerSource, /"--wheel-position": `\$\{-selectedWhole \* MARK_WHEEL_ROW_HEIGHT\}px`/);
+  assert.match(pickerSource, /pinned \|\| wheelHalfBranch \? "is-revealed"/);
+  assert.match(ruleBody(".mark-wheel-tray"), /overflow: hidden/);
+  assert.match(ruleBody(".mark-wheel-half.is-left"), /right: calc\(100% - 10px\)/);
+  assert.match(ruleBody(".mark-wheel-half.is-right"), /left: calc\(100% - 10px\)/);
   assert.match(pickerSource, /presentation === "inline" && mode !== "wheel"/);
   assert.doesNotMatch(pickerSource, /Set mark|mark-wheel-output|mark-wheel-actions/);
 });

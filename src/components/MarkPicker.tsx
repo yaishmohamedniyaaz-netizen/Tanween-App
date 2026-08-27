@@ -14,6 +14,7 @@ import { createPortal } from "react-dom";
 import type { AduRaaguInputMode } from "../lib/devicePreferences";
 import {
   clampMark,
+  MARK_WHEEL_DELTA_THRESHOLD,
   MARK_WHEEL_HALF_ENTER,
   MARK_WHEEL_HALF_EXIT,
   MARK_WHEEL_HOLD_MS,
@@ -22,6 +23,7 @@ import {
   markFromHorizontalPoint,
   markSupportsHalf,
   wheelMark,
+  wheelMarkByWholeStep,
   wheelWholeFromDelta,
 } from "../lib/markInput";
 import { awardableMarks } from "../lib/scoring";
@@ -29,9 +31,9 @@ import { awardableMarks } from "../lib/scoring";
 const BAR_MAX_WIDTH = 640;
 const BAR_MIN_WIDTH = 280;
 const BAR_MARGIN = 8;
-const WHEEL_WIDTH = 160;
+const WHEEL_WIDTH = 78;
 const WHEEL_HEIGHT = 190;
-const WHEEL_FOCUS_CENTER_FROM_RIGHT = 39;
+const WHEEL_FOCUS_CENTER = WHEEL_WIDTH / 2;
 
 const shouldLabelRulerMark = (mark: number, max: number) =>
   Number.isInteger(mark) && mark >= 0 && mark <= max;
@@ -66,7 +68,11 @@ type WheelGesture = {
   lastX: number;
   lastY: number;
   startValue: number;
+  startHalf: boolean;
   half: boolean;
+  halfBranch: boolean;
+  fractionInteracted: boolean;
+  changed: boolean;
   side: "left" | "right";
 };
 
@@ -99,9 +105,12 @@ export const MarkPicker = forwardRef<MarkPickerHandle, Props>(function MarkPicke
   const rulerRef = useRef<HTMLDivElement>(null);
   const rulerRailRef = useRef<HTMLSpanElement>(null);
   const wheelRef = useRef<HTMLDivElement>(null);
+  const wheelFocusRef = useRef<HTMLDivElement>(null);
   const rulerDragRef = useRef<{ moved: boolean; pointerId: number } | null>(null);
   const wheelGestureRef = useRef<WheelGesture | null>(null);
   const wheelTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const wheelDeltaRef = useRef(0);
+  const openedAtRef = useRef(0);
   const previewRef = useRef<number | null>(null);
   const valueRef = useRef(value);
   const typedRef = useRef({ text: "", at: 0 });
@@ -111,6 +120,7 @@ export const MarkPicker = forwardRef<MarkPickerHandle, Props>(function MarkPicke
   const [dragging, setDragging] = useState(false);
   const [wheelTracking, setWheelTracking] = useState(false);
   const [wheelSide, setWheelSide] = useState<"left" | "right">("right");
+  const [wheelHalfBranch, setWheelHalfBranch] = useState(false);
   const [wheelOffset, setWheelOffset] = useState(0);
   const [anchor, setAnchor] = useState({ top: 0, left: 0, width: BAR_MIN_WIDTH });
 
@@ -142,7 +152,9 @@ export const MarkPicker = forwardRef<MarkPickerHandle, Props>(function MarkPicke
     setOpen(false);
     setPinned(false);
     setDragging(false);
+    setWheelHalfBranch(false);
     setWheelOffset(0);
+    wheelDeltaRef.current = 0;
     clearPreview();
   }, [clearPreview, clearWheelTimer]);
 
@@ -165,6 +177,7 @@ export const MarkPicker = forwardRef<MarkPickerHandle, Props>(function MarkPicke
     setOpen(true);
     setPinned(true);
     setDragging(false);
+    setWheelHalfBranch(false);
     setWheelOffset(0);
   }, []);
 
@@ -189,6 +202,10 @@ export const MarkPicker = forwardRef<MarkPickerHandle, Props>(function MarkPicke
 
   useEffect(() => close(), [close, mode]);
 
+  useEffect(() => {
+    if (open) openedAtRef.current = Date.now();
+  }, [open]);
+
   const shown = preview ?? value;
   const display = displayMark(shown);
   const marks = useMemo(() => [...awardableMarks(max, step)].reverse(), [max, step]);
@@ -198,11 +215,8 @@ export const MarkPicker = forwardRef<MarkPickerHandle, Props>(function MarkPicke
   const selectedHalf = Math.abs(shown - selectedWhole - 0.5) < 0.001;
   const halfAvailable = markSupportsHalf(selectedWhole, max, step);
   const wheelRows = useMemo(
-    () => [-2, -1, 0, 1, 2].map((offset) => {
-      const mark = selectedWhole + offset;
-      return mark >= 0 && mark <= Math.floor(max) ? mark : null;
-    }),
-    [max, selectedWhole],
+    () => Array.from({ length: Math.floor(max) + 1 }, (_, mark) => mark),
+    [max],
   );
 
   useLayoutEffect(() => {
@@ -216,8 +230,7 @@ export const MarkPicker = forwardRef<MarkPickerHandle, Props>(function MarkPicke
     const viewportHeight = viewport?.height ?? window.innerHeight;
     if (mode === "wheel") {
       const width = Math.min(WHEEL_WIDTH, viewportWidth - BAR_MARGIN * 2);
-      const focusCenter = width - WHEEL_FOCUS_CENTER_FROM_RIGHT;
-      const desiredLeft = rect.left + rect.width / 2 - focusCenter;
+      const desiredLeft = rect.left + rect.width / 2 - WHEEL_FOCUS_CENTER;
       const left = Math.min(
         Math.max(viewportLeft + BAR_MARGIN, desiredLeft),
         viewportLeft + viewportWidth - width - BAR_MARGIN,
@@ -264,54 +277,74 @@ export const MarkPicker = forwardRef<MarkPickerHandle, Props>(function MarkPicke
         close();
       }
     };
-    const onViewportChange = () => close();
+    const onViewportChange = () => {
+      if (Date.now() - openedAtRef.current < 180) return;
+      close();
+    };
     window.addEventListener("keydown", onKey);
     document.addEventListener("pointerdown", onDown);
     if (presentation === "floating" && !dragging) {
       window.addEventListener("resize", onViewportChange);
-      window.addEventListener("scroll", onViewportChange, true);
+      window.addEventListener("scroll", onViewportChange);
     }
     return () => {
       window.removeEventListener("keydown", onKey);
       document.removeEventListener("pointerdown", onDown);
       window.removeEventListener("resize", onViewportChange);
-      window.removeEventListener("scroll", onViewportChange, true);
+      window.removeEventListener("scroll", onViewportChange);
     };
   }, [close, dismissOnOutsidePress, dragging, focusTrigger, open, presentation]);
 
   useEffect(() => {
     if (!open || !pinned) return;
     const frame = requestAnimationFrame(() => {
-      if (mode === "wheel") wheelRef.current?.focus({ preventScroll: true });
+      if (mode === "wheel") wheelFocusRef.current?.focus({ preventScroll: true });
       else rulerRef.current?.focus({ preventScroll: true });
     });
     return () => cancelAnimationFrame(frame);
   }, [mode, open, pinned]);
 
+  const adjustByWheel = useCallback(
+    (deltaY: number, inputMode: AduRaaguInputMode, keepOpen: boolean) => {
+      if (deltaY === 0) return false;
+      if (
+        wheelDeltaRef.current !== 0 &&
+        Math.sign(wheelDeltaRef.current) !== Math.sign(deltaY)
+      ) {
+        wheelDeltaRef.current = 0;
+      }
+      wheelDeltaRef.current += deltaY;
+      if (Math.abs(wheelDeltaRef.current) < MARK_WHEEL_DELTA_THRESHOLD) return false;
+      const direction = wheelDeltaRef.current < 0 ? 1 : -1;
+      wheelDeltaRef.current = 0;
+      const next = inputMode === "wheel"
+        ? wheelMarkByWholeStep(valueRef.current, direction, max, step)
+        : valueRef.current + direction * step;
+      commit(next);
+      if (keepOpen) {
+        setOpen(true);
+        setPinned(true);
+        setWheelHalfBranch(false);
+        setWheelOffset(0);
+      }
+      return true;
+    },
+    [commit, max, step],
+  );
+
   useEffect(() => {
     const button = buttonRef.current;
     if (!button) return;
     const onWheel = (event: WheelEvent) => {
-      if (mode !== "wheel" && (document.activeElement !== button || open)) return;
+      if (open || document.activeElement !== button) return;
       event.preventDefault();
       focusTrigger();
       if (mode === "wheel") openPinned();
-      commit(valueRef.current + (event.deltaY < 0 ? step : -step));
+      adjustByWheel(event.deltaY, mode, mode === "wheel");
     };
     button.addEventListener("wheel", onWheel, { passive: false });
     return () => button.removeEventListener("wheel", onWheel);
-  }, [commit, focusTrigger, mode, open, openPinned, step]);
-
-  const adjustOpenWheel = useCallback(
-    (deltaY: number) => {
-      const next = valueRef.current + (deltaY < 0 ? step : -step);
-      commit(next);
-      setOpen(true);
-      setPinned(true);
-      setWheelOffset(0);
-    },
-    [commit, step],
-  );
+  }, [adjustByWheel, focusTrigger, mode, open, openPinned]);
 
   const markAt = useCallback(
     (clientX: number) => {
@@ -398,15 +431,22 @@ export const MarkPicker = forwardRef<MarkPickerHandle, Props>(function MarkPicke
       const offsetLimit = MARK_WHEEL_ROW_HEIGHT / 2;
       setWheelOffset(Math.max(-offsetLimit, Math.min(offsetLimit, offset)));
       const distanceX = Math.abs(deltaX);
-      const half = gesture.half
+      const halfBranch = gesture.halfBranch
         ? distanceX >= MARK_WHEEL_HALF_EXIT
         : distanceX >= MARK_WHEEL_HALF_ENTER;
-      gesture.half = half && markSupportsHalf(whole, max, step);
+      if (distanceX >= MARK_WHEEL_HALF_ENTER) gesture.fractionInteracted = true;
+      gesture.halfBranch = halfBranch && markSupportsHalf(whole, max, step);
+      gesture.half = gesture.halfBranch || (
+        gesture.startHalf && !gesture.fractionInteracted
+      );
       if (distanceX >= MARK_WHEEL_HALF_EXIT) {
         gesture.side = deltaX < 0 ? "left" : "right";
         setWheelSide(gesture.side);
       }
-      setPreviewValue(wheelMark(whole, gesture.half, max, step));
+      setWheelHalfBranch(gesture.halfBranch);
+      const next = wheelMark(whole, gesture.half, max, step);
+      gesture.changed = Math.abs(next - gesture.startValue) > 0.001;
+      setPreviewValue(next);
     },
     [max, setPreviewValue, step],
   );
@@ -416,6 +456,7 @@ export const MarkPicker = forwardRef<MarkPickerHandle, Props>(function MarkPicke
       if (gesture.phase !== "pending") return;
       gesture.phase = "active";
       setWheelSide(gesture.side);
+      setWheelHalfBranch(false);
       setDragging(true);
       setPinned(false);
       setOpen(true);
@@ -424,7 +465,7 @@ export const MarkPicker = forwardRef<MarkPickerHandle, Props>(function MarkPicke
     [previewWheelGesture],
   );
 
-  const startWheelGesture = (event: React.PointerEvent<HTMLButtonElement>) => {
+  const startWheelGesture = (event: React.PointerEvent<HTMLElement>) => {
     if (event.button !== 0) return;
     event.preventDefault();
     focusTrigger();
@@ -439,7 +480,11 @@ export const MarkPicker = forwardRef<MarkPickerHandle, Props>(function MarkPicke
       lastX: event.clientX,
       lastY: event.clientY,
       startValue,
+      startHalf: half,
       half,
+      halfBranch: false,
+      fractionInteracted: false,
+      changed: false,
       side: "right",
     };
     event.currentTarget.setPointerCapture(event.pointerId);
@@ -447,6 +492,7 @@ export const MarkPicker = forwardRef<MarkPickerHandle, Props>(function MarkPicke
     if (open) {
       setPinned(false);
       setDragging(true);
+      setWheelHalfBranch(false);
       setPreviewValue(startValue);
       return;
     }
@@ -486,9 +532,14 @@ export const MarkPicker = forwardRef<MarkPickerHandle, Props>(function MarkPicke
         clearPreview();
         openPinned();
       } else if (gesture.phase === "active") {
-        commit(previewRef.current ?? gesture.startValue);
-        setOpen(false);
-        focusTrigger();
+        if (gesture.changed) {
+          commit(previewRef.current ?? gesture.startValue);
+          setOpen(false);
+          focusTrigger();
+        } else {
+          clearPreview();
+          openPinned();
+        }
       } else {
         close();
         focusTrigger();
@@ -567,7 +618,7 @@ export const MarkPicker = forwardRef<MarkPickerHandle, Props>(function MarkPicke
   const ruler = (
     <div
       ref={rulerRef}
-      className={`mark-ruler ${hasSelection ? "has-selection" : "is-neutral"} ${dragging ? "is-dragging" : ""}`}
+      className={`mark-ruler ${hasSelection ? "has-selection" : "is-neutral"} ${percent >= 100 ? "reaches-max" : ""} ${dragging ? "is-dragging" : ""}`}
       role="slider"
       tabIndex={0}
       aria-label={`${label} marks`}
@@ -575,6 +626,11 @@ export const MarkPicker = forwardRef<MarkPickerHandle, Props>(function MarkPicke
       aria-valuemax={max}
       aria-valuenow={shown}
       aria-valuetext={`${display} of ${max} marks`}
+      onWheel={(event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        adjustByWheel(event.deltaY, "ruler", true);
+      }}
       onPointerDown={(event) => {
         if (!pinned || event.button !== 0) return;
         event.preventDefault();
@@ -603,6 +659,7 @@ export const MarkPicker = forwardRef<MarkPickerHandle, Props>(function MarkPicke
       onKeyDown={onRulerKeyDown}
     >
       <span ref={rulerRailRef} className="mark-ruler-rail" aria-hidden="true">
+        <span className="mark-ruler-track" />
         {hasSelection && <span className="mark-ruler-fill" style={{ width: `${percent}%` }} />}
         {marks.map((mark) => (
           <span
@@ -628,29 +685,36 @@ export const MarkPicker = forwardRef<MarkPickerHandle, Props>(function MarkPicke
       ref={wheelRef}
       className={`mark-wheel ${pinned ? "is-pinned" : "is-transient"} ${dragging ? "is-dragging" : ""} ${hasSelection ? "has-selection" : "is-neutral"}`}
       role="group"
-      tabIndex={0}
       aria-label={`${label} vertical mark picker`}
       onKeyDown={onWheelKeyDown}
+      onPointerDown={(event) => {
+        if ((event.target as HTMLElement).closest(".mark-wheel-row, .mark-wheel-half")) return;
+        startWheelGesture(event);
+      }}
       onWheel={(event) => {
         event.preventDefault();
         event.stopPropagation();
-        adjustOpenWheel(event.deltaY);
+        adjustByWheel(event.deltaY, "wheel", true);
       }}
     >
       <div className="mark-wheel-scale" aria-label={`Preview ${display} of ${max} marks`}>
-        <div
-          className="mark-wheel-values"
-          style={{ "--wheel-offset": `${wheelOffset}px` } as CSSProperties}
-        >
-          {wheelRows.map((mark, index) => mark === null ? (
-            <span key={`empty-${index}`} className="mark-wheel-row is-empty" aria-hidden="true" />
-          ) : (
+        <div className="mark-wheel-tray">
+          <div
+            className="mark-wheel-values"
+            style={{
+              "--wheel-position": `${-selectedWhole * MARK_WHEEL_ROW_HEIGHT}px`,
+              "--wheel-offset": `${wheelOffset}px`,
+            } as CSSProperties}
+          >
+            {wheelRows.map((mark) => (
             <button
               key={mark}
               type="button"
-              className={`mark-wheel-row t-num ${mark === selectedWhole ? "is-selected" : ""}`}
+              tabIndex={-1}
+              className={`mark-wheel-row t-num ${mark === selectedWhole ? "is-selected" : ""} ${Math.abs(mark - selectedWhole) === 1 ? "is-near" : ""}`}
               aria-label={`${mark} marks`}
               aria-pressed={mark === selectedWhole}
+              onPointerDown={(event) => event.stopPropagation()}
               onClick={() => {
                 commit(mark);
                 close();
@@ -659,28 +723,30 @@ export const MarkPicker = forwardRef<MarkPickerHandle, Props>(function MarkPicke
             >
               {mark}
             </button>
-          ))}
+            ))}
+          </div>
         </div>
-        <button
-          type="button"
+        <div
+          ref={wheelFocusRef}
           className="mark-wheel-focus score-value-layout"
           role="spinbutton"
+          tabIndex={pinned ? 0 : -1}
           aria-label={`${label} marks`}
           aria-valuemin={0}
           aria-valuemax={max}
           aria-valuenow={shown}
           aria-valuetext={`${display} of ${max} marks`}
-          onPointerDown={startWheelGesture}
         >
           <span className="mark-wheel-current-value score-value-number t-num">{display}</span>
           <span className="mark-wheel-current-of sc-of t-num">/ {max}</span>
-        </button>
+        </div>
         <button
           type="button"
-          className={`mark-wheel-half is-${wheelSide} ${selectedHalf ? "is-active" : ""}`}
+          className={`mark-wheel-half is-${wheelSide} ${selectedHalf ? "is-active" : ""} ${pinned || wheelHalfBranch ? "is-revealed" : ""}`}
           disabled={!halfAvailable}
           aria-pressed={selectedHalf}
           aria-label={selectedHalf ? `Remove half mark, use ${selectedWhole}` : `Add half mark, use ${displayMark(selectedWhole + 0.5)}`}
+          onPointerDown={(event) => event.stopPropagation()}
           onClick={() => {
             commit(wheelMark(selectedWhole, !selectedHalf, max, step));
             close();
@@ -710,6 +776,8 @@ export const MarkPicker = forwardRef<MarkPickerHandle, Props>(function MarkPicke
         type="button"
         className={`mark-picker mark-picker-${mode} score-value-layout ${marked ? "is-marked" : ""} ${open ? "is-open" : ""}`}
         role="spinbutton"
+        tabIndex={open && pinned ? -1 : undefined}
+        aria-hidden={open && pinned ? true : undefined}
         aria-label={`${label} marks`}
         aria-valuemin={0}
         aria-valuemax={max}
@@ -720,6 +788,22 @@ export const MarkPicker = forwardRef<MarkPickerHandle, Props>(function MarkPicke
         aria-describedby={describedBy}
         title={`Set ${label} marks with the ${mode === "wheel" ? "vertical wheel" : "horizontal ruler"}`}
         onPointerDown={mode === "wheel" ? startWheelGesture : startRulerGesture}
+        onClick={() => {
+          if (mode === "wheel") {
+            const gesture = wheelGestureRef.current;
+            if (!gesture || gesture.phase !== "pending") return;
+            clearWheelTimer();
+            wheelGestureRef.current = null;
+            setWheelTracking(false);
+            openPinned();
+            return;
+          }
+          const drag = rulerDragRef.current;
+          if (!drag || drag.moved) return;
+          rulerDragRef.current = null;
+          setDragging(false);
+          openPinned();
+        }}
         onKeyDown={onTriggerKeyDown}
       >
         <span className="mark-picker-value score-value-number t-num">{display}</span>

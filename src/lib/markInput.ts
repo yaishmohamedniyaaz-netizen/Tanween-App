@@ -5,6 +5,7 @@ export const MARK_WHEEL_MOVE_TOLERANCE = 10;
 export const MARK_WHEEL_ROW_HEIGHT = 38;
 export const MARK_WHEEL_HALF_ENTER = 30;
 export const MARK_WHEEL_HALF_EXIT = 16;
+export const MARK_WHEEL_DELTA_THRESHOLD = 18;
 
 export function clampMark(value: number, max: number, step: number): number {
   const safeStep = step > 0 ? step : 1;
@@ -51,4 +52,16 @@ export function wheelMark(
     max,
     step,
   );
+}
+
+export function wheelMarkByWholeStep(
+  currentValue: number,
+  direction: -1 | 1,
+  max: number,
+  step: number,
+): number {
+  const whole = Math.floor(Math.max(0, Math.min(max, currentValue)));
+  const keepsHalf = Math.abs(currentValue - whole - 0.5) < 0.001;
+  const nextWhole = Math.min(Math.floor(max), Math.max(0, whole + direction));
+  return wheelMark(nextWhole, keepsHalf, max, step);
 }

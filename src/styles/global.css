@@ -10416,13 +10416,29 @@ html:has(.dialog-backdrop) {
   background: color-mix(in srgb, var(--c, var(--ink)) 3%, var(--surface));
   box-shadow: none;
 }
+.mark-bar-ruler:not(.is-inline) {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
 .mark-ruler {
   position: relative;
-  height: 104px;
+  height: 116px;
+  border: 1px solid var(--line-2);
+  border-radius: var(--r-sm);
+  background: var(--surface);
+  box-shadow: var(--shadow-float);
   touch-action: pan-y;
   user-select: none;
-  cursor: ew-resize;
+  cursor: pointer;
   outline: none;
+}
+.mark-ruler.is-dragging {
+  cursor: ew-resize;
+}
+.mark-ruler * {
+  cursor: inherit;
 }
 .mark-ruler:focus-visible {
   border-radius: var(--r-sm);
@@ -10430,22 +10446,38 @@ html:has(.dialog-backdrop) {
 }
 .mark-ruler-rail {
   position: absolute;
-  inset: 50px 12px 27px;
-  border: 1px solid var(--line-2);
-  border-radius: 7px;
-  background: var(--bg);
+  inset: 58px 32px 30px;
   overflow: visible;
+}
+.mark-ruler-track {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  left: 0;
+  height: 4px;
+  transform: translateY(-50%);
+  border-radius: 2px;
+  background: var(--line-2);
+  pointer-events: none;
 }
 .mark-ruler-fill {
   position: absolute;
-  inset: 0 auto 0 0;
-  border-radius: 6px;
-  background: color-mix(in srgb, var(--c, var(--ink)) 17%, transparent);
+  z-index: 1;
+  top: 50%;
+  left: 0;
+  height: 4px;
+  transform: translateY(-50%);
+  border-radius: 2px 0 0 2px;
+  background: color-mix(in srgb, var(--c, var(--ink)) 46%, var(--line-2));
   transition: width 160ms cubic-bezier(0.2, 0, 0, 1);
   pointer-events: none;
 }
+.mark-ruler.reaches-max .mark-ruler-fill {
+  border-radius: 2px;
+}
 .mark-ruler-tick {
   position: absolute;
+  z-index: 2;
   top: 50%;
   width: 1px;
   height: 8px;
@@ -10461,11 +10493,11 @@ html:has(.dialog-backdrop) {
 }
 .mark-ruler-label {
   position: absolute;
-  top: 34px;
+  top: 25px;
   left: 50%;
   transform: translateX(-50%);
   color: var(--ink-3);
-  font-size: 9.5px;
+  font-size: 12px;
   font-weight: 570;
   font-style: normal;
   line-height: 1;
@@ -10473,7 +10505,7 @@ html:has(.dialog-backdrop) {
 }
 .mark-ruler-bubble {
   position: absolute;
-  bottom: calc(100% + 9px);
+  bottom: calc(100% + 10px);
   display: grid;
   place-items: center;
   width: 60px;
@@ -10535,7 +10567,7 @@ html:has(.dialog-backdrop) {
 }
 .mark-bar-wheel.is-inline {
   position: fixed;
-  width: 160px;
+  width: 78px;
   margin: 0;
   padding: 0;
 }
@@ -10545,11 +10577,13 @@ html:has(.dialog-backdrop) {
   height: 190px;
   outline: none;
   touch-action: none;
+  cursor: ns-resize;
 }
 .mark-wheel:focus-visible {
   box-shadow: none;
 }
-.mark-wheel:focus-visible .mark-wheel-focus {
+.mark-wheel-focus:focus-visible {
+  outline: none;
   box-shadow:
     0 0 0 3px var(--ring),
     0 4px 14px color-mix(in srgb, var(--ink) 18%, transparent);
@@ -10559,23 +10593,32 @@ html:has(.dialog-backdrop) {
   height: 190px;
   overflow: visible;
 }
-.mark-wheel-scale::before,
-.mark-wheel-scale::after {
+.mark-wheel-tray {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border: 1px solid var(--line-2);
+  border-radius: var(--r-sm);
+  background: var(--surface);
+  box-shadow: 0 6px 22px color-mix(in srgb, var(--ink) 18%, transparent);
+}
+.mark-wheel-tray::before,
+.mark-wheel-tray::after {
   position: absolute;
   z-index: 2;
-  right: 0;
-  width: 78px;
-  height: 48px;
+  right: 1px;
+  left: 1px;
+  height: 54px;
   pointer-events: none;
   content: "";
 }
-.mark-wheel-scale::before {
-  top: 0;
-  background: linear-gradient(var(--surface), transparent);
+.mark-wheel-tray::before {
+  top: 1px;
+  background: linear-gradient(var(--surface) 12%, color-mix(in srgb, var(--surface) 84%, transparent) 52%, transparent);
 }
-.mark-wheel-scale::after {
-  bottom: 0;
-  background: linear-gradient(transparent, var(--surface));
+.mark-wheel-tray::after {
+  bottom: 1px;
+  background: linear-gradient(transparent, color-mix(in srgb, var(--surface) 84%, transparent) 48%, var(--surface) 88%);
 }
 .mark-wheel-focus {
   position: absolute;
@@ -10593,6 +10636,7 @@ html:has(.dialog-backdrop) {
   color: var(--ink);
   cursor: ns-resize;
   touch-action: none;
+  pointer-events: none;
 }
 .mark-wheel-focus:hover {
   border-color: var(--c, var(--ink));
@@ -10610,12 +10654,12 @@ html:has(.dialog-backdrop) {
 .mark-wheel-values {
   position: absolute;
   z-index: 1;
-  top: 50%;
-  left: calc(100% - 39px);
+  top: calc(50% - 19px);
+  left: 0;
   display: grid;
-  width: 78px;
-  transform: translate(-50%, calc(-50% + var(--wheel-offset, 0px)));
-  transition: transform 90ms linear;
+  width: 100%;
+  transform: translateY(calc(var(--wheel-position, 0px) + var(--wheel-offset, 0px)));
+  transition: transform 120ms cubic-bezier(0.2, 0, 0, 1);
 }
 .mark-wheel-row {
   display: grid;
@@ -10627,16 +10671,16 @@ html:has(.dialog-backdrop) {
   color: var(--ink-3);
   font-size: 14px;
   font-weight: 560;
-  opacity: .55;
+  opacity: .28;
+  cursor: pointer;
   transition:
     color 130ms var(--ease-out),
     font-size 130ms var(--ease-out),
     opacity 130ms var(--ease-out),
     transform 130ms var(--ease-out);
 }
-.mark-wheel-row:first-child,
-.mark-wheel-row:last-child {
-  opacity: .2;
+.mark-wheel-row.is-near {
+  opacity: .62;
 }
 .mark-wheel-row.is-selected {
   opacity: 0;
@@ -10649,25 +10693,42 @@ html:has(.dialog-backdrop) {
   position: absolute;
   z-index: 4;
   top: 50%;
-  left: 0;
-  min-width: 66px;
+  min-width: 48px;
   min-height: 44px;
-  transform: translateY(-50%);
+  transform: translateY(-50%) scale(.92);
   border: 1px solid var(--line-2);
   border-radius: var(--r-sm);
   background: var(--surface);
   color: var(--ink-2);
   font-size: 14px;
   font-weight: 700;
-  opacity: 1;
+  opacity: 0;
+  pointer-events: none;
   transition:
     opacity 140ms var(--ease-out),
     transform 140ms var(--ease-out),
     background 140ms var(--ease-out),
     color 140ms var(--ease-out);
 }
-.mark-wheel-half.is-left,
-.mark-wheel-half.is-right { left: 0; }
+.mark-wheel-half.is-left {
+  right: calc(100% - 10px);
+  left: auto;
+}
+.mark-wheel-half.is-right {
+  right: auto;
+  left: calc(100% - 10px);
+}
+.mark-wheel-half.is-left:not(.is-revealed) {
+  transform: translate(8px, -50%) scale(.92);
+}
+.mark-wheel-half.is-right:not(.is-revealed) {
+  transform: translate(-8px, -50%) scale(.92);
+}
+.mark-wheel-half.is-revealed {
+  transform: translateY(-50%) scale(1);
+  opacity: 1;
+  pointer-events: auto;
+}
 .mark-wheel-half.is-active {
   border-color: var(--c, var(--ink));
   background: var(--c, var(--ink));
@@ -10675,16 +10736,6 @@ html:has(.dialog-backdrop) {
 }
 .mark-wheel-half:disabled {
   visibility: hidden;
-}
-.mark-wheel.is-transient .mark-wheel-half:not(.is-active) {
-  opacity: 0;
-  pointer-events: none;
-}
-.mark-wheel.is-transient .mark-wheel-half.is-left:not(.is-active) {
-  transform: translate(12px, -50%) scale(.92);
-}
-.mark-wheel.is-transient .mark-wheel-half.is-right:not(.is-active) {
-  transform: translate(12px, -50%) scale(.92);
 }
 .mark-wheel.is-dragging .mark-wheel-values {
   transition: none;
