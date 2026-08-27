@@ -1165,6 +1165,27 @@ the formula injection (§1.4), and the scoring default (§1.8, run against the r
 one-liner took the Mushaf from 1 rendered node to 12. Nothing from this review is
 left in the tree.
 
+**An ambient condition worth naming, because it shapes §1.1.** The review
+environment denies `static-cdn.tarteel.ai` at the network policy level — the
+proxy answers 403 to `CONNECT`, confirmed in its own relay log. That was not
+induced for the test; it is simply how this environment is configured. Two
+consequences, in opposite directions:
+
+- §1.1 was therefore reproduced under *genuine* CDN unavailability rather than a
+  simulation of it, three separate times across the review, including against a
+  production build with the service worker active. That is the strongest form
+  the reproduction could take.
+- But the healthy path — the app with the QCF CDN reachable — was **never
+  observed**. That the Mushaf renders normally when the CDN is up is inferred
+  from the code and from the patched run, where the local Uthmani fallback
+  produced 12 correct lines. It is not measured. Anyone re-running this should
+  confirm the healthy path once from an unrestricted network.
+
+The same policy blocks the deployed Cloudflare preview, so nothing here was
+verified against the live deployment; §2.7's header findings are static readings
+of `worker/index.js` and the absence of a `_headers` file, not observations of
+live response headers.
+
 **Two measurements in this review were wrong before they were right**, and both
 are documented where they occur rather than quietly corrected: a synthetic
 `Escape` event that could never have reached a React handler and so proved
