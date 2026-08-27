@@ -18,7 +18,7 @@ foreseeable failure is caught and discarded, so the app keeps looking correct
 while doing nothing. In a product whose entire purpose is to be the trustworthy
 record of a competition, silent failure is the defect class that matters most.
 
-Fix the six severity-1 items and this is a product you can run an official
+Fix the seven severity-1 items and this is a product you can run an official
 competition on. Everything after that is craft.
 
 ---
@@ -198,6 +198,33 @@ It is the only `window.prompt` left in the application.
 **Fix:** a required textarea in the result detail, with Finalize disabled until
 it carries text. (A worked implementation exists on
 `origin/claude/result-screen-redesign-erk238` at `ec58e5d` if useful.)
+
+### 1.7 The roster import has no bounds of any kind
+
+`roster.ts` (1,270 lines) is where untrusted data enters the product — schools
+send spreadsheets, an organiser imports them. The structural validation is
+decent: `normalizeRosterDraft()` coerces every field through `String()`, and
+`validateRosterDraft()` enforces required fields with errors and warnings.
+
+What is missing is **any bound at all**. Grepping the whole module for
+`file.size`, `MAX`, `maxRows` or a truncating `slice(0, n)` returns nothing.
+`parseRosterFile()` reads the file wholesale (`await file.arrayBuffer()`) and
+parses every row into state. There is no cap on:
+
+- file size
+- row count
+- individual field length
+
+This is not primarily an attack surface — it is an accident surface. A
+spreadsheet with a stray selection extending to row 50,000, or a cell holding a
+pasted document, imports cleanly and lands in state, which lands in
+localStorage, which hits §1.3's ceiling and fails via §1.2 — **silently**, in
+the middle of setting up a competition.
+
+**Fix:** cap the file at a few MB with a clear message, cap rows at something
+defensible (500?), and truncate individual fields to a sane length at the
+`normalizeRosterDraft` boundary where the `String()` coercion already happens.
+Each is one line at a place the code already touches every field.
 
 ---
 
@@ -409,6 +436,7 @@ Sequenced by risk retired per hour spent.
 | 4 | Surface failed saves (§1.2) | ~40 lines | Silent loss of a judge's work |
 | 5 | Prune migration backups (§1.3, part 1) | ~20 lines | 90% of storage pressure |
 | 6 | Replace `window.prompt` (§1.6) | ~40 lines | Unfinalizable revisions in WebViews |
+| 6a | Bound the roster import — size, rows, field length (§1.7) | ~10 lines | Unbounded state from an ordinary bad spreadsheet |
 | 7 | Precache the local Uthmani face; name offline in the error (§1.1) | ~15 lines | Judging 603 of 604 pages offline |
 | 8 | Drop one spreadsheet library (§2.3) | dependency work | ~385 kB gzipped |
 | 9 | Stylelint guard + one conversion pass (§3.1) | mechanical | Permanent grammar drift |
