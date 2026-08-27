@@ -71,10 +71,48 @@ per page by `Mushaf.tsx`). Font requests are served cache-first
 - page 604 → font cached → renders
 - **any of the other 603 pages** → cache miss → network → fails → §1.1 kills the page
 
-So out of the box, offline, the app judges **1 of 604 pages**. The optional full
+So on paper, offline, the app judges **1 of 604 pages**. The optional full
 download (`offlineMushaf.ts`, `offlineMushafAssetPairs()`) closes this — it
 enumerates all 604 page/font pairs — but it is opt-in, and it is 9.3 MB of page
 JSON plus 604 font files.
+
+**Confirmed against a production build, service worker active, network genuinely
+offline** — the check this review's first draft listed as not-yet-done. `npm run
+build` output served over `localhost:8088`, SW allowed to install and activate,
+then `Network.emulateNetworkConditions {offline: true}` and a reload:
+
+```
+SW state   : {registrations:1, controller:true, active:"activated",
+              caches:{ static-app-v29: 13,
+                       mushaf-pages-v1: 1,
+                       mushaf-fonts-qcf-v1-3.1: 0 }}   ← zero
+fonts held : ["/fonts/hafs.18.woff2", "/fonts/InterVariable.woff2"]  ← both local
+offline    : shell loads, title correct, competition and roster intact
+Mushaf     : {lines: 0, words: 0, errorShown: true}
+```
+
+Two things this changes. First, the QCF font cache installed **empty**: the
+cross-origin precache is deliberately best-effort (`Promise.allSettled`,
+`sw.js:65`), so when the CDN is unreachable *at install time* the app ships with
+zero QCF fonts, and the real offline figure is **0 of 604 pages**, not 1. Second,
+`hafs.18.woff2` **was cached and available the whole time** — the fallback font
+was sitting in the cache while the screen said the page could not be opened.
+
+**The deepest form of the finding: the codebase already disagrees with itself.**
+Three separate places treat the QCF font as optional, all of them deliberate:
+
+| Location | Treatment | Evidence of intent |
+| --- | --- | --- |
+| `sw.js:65` | `Promise.allSettled` | comment `:52` — *"so a temporary cross-origin font failure cannot prevent an otherwise usable application update from installing"* |
+| `qcfFont.ts:45` | `preloadQcfPageFont` → `.catch(() => {})` | the preload path swallows it by design |
+| `Mushaf.tsx:796` | `qcfReady && word.glyph ? word.glyph : word.text` | a written, tested fallback render path |
+| **`Mushaf.tsx:259`** | **`Promise.all`, required** | **the one on the critical path** |
+
+The service worker's author wrote down the assumption — *an otherwise usable
+application* — and shipped an 86 KB local Uthmani face to honour it. One
+`Promise.all` on the render path makes that assumption false. The one-line fix
+is not a patch over a missing feature; it is making the render path agree with
+the three decisions already made around it.
 
 Compounding it: `Mushaf.tsx` never consults `navigator.onLine`, so the message a
 judge sees is *"The requested page could not be opened"* whether the device is
@@ -549,11 +587,10 @@ before being reverted; the tree is clean.
 - **Server-side.** There is none — this is a client-only PWA with Cloudflare
   Workers serving static assets. "Backend" here means the state store,
   persistence and export pipeline, which §1 and §2 cover.
-- **Offline behaviour under a real Service Worker.** The interaction in §1.1 was
-  established statically (precache list, per-page font URLs, cache-first
-  strategy) and by blocking the CDN in dev, where no SW runs. It should be
-  confirmed once against a production build with the SW active and the network
-  genuinely offline.
+- ~~**Offline behaviour under a real Service Worker.**~~ **Now covered** — see
+  §1.1. Confirmed against a production build with the SW installed and activated
+  and the network emulated offline; the result was worse than the static
+  reading predicted (0 of 604 pages, not 1).
 - **Cross-browser.** Everything was measured in Chromium. Safari's localStorage
   behaviour under memory pressure is materially different and matters for iPad
   judging.
