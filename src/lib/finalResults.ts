@@ -209,85 +209,37 @@ export interface PlacedResult extends FinalizedResult {
   rankGroup: string;
 }
 
-/** A division: results are only ever ranked against the same age group and
- *  participant category, never across the whole competition. */
-export function divisionRankGroup(participant: Participant): string {
-  return `${participant.ageGroup}\u241f${participant.category}`;
-}
-
-export interface RankedRow<T> {
-  row: T;
-  rankGroup: string;
-  /** null when the row carries no total yet, so nothing can be ranked. */
-  place: number | null;
-}
-
-/** Group rows by division and place them by ratio, ties sharing a place.
- *
- *  The screen needs a place for a proposed total as well as a finalized one,
- *  which is why this takes a reader rather than a FinalizedResult. The reader
- *  always names the participant — a row with `total: null` is kept, unplaced,
- *  at the end of its division rather than dropped. */
-export function rankRowsByDivision<T>(
-  rows: T[],
-  read: (row: T) => { participant: Participant; total: number | null; totalMax: number },
-): RankedRow<T>[] {
-  const ratioOf = (row: T) => {
-    const { total, totalMax } = read(row);
-    return total === null ? null : total / Math.max(1, totalMax);
-  };
-
-  const groups = new Map<string, T[]>();
-  for (const row of rows) {
-    const rankGroup = divisionRankGroup(read(row).participant);
+export function placeFinalizedResults(results: FinalizedResult[]): PlacedResult[] {
+  const groups = new Map<string, FinalizedResult[]>();
+  for (const result of results) {
+    const rankGroup = `${result.participant.ageGroup}\u241f${result.participant.category}`;
     const group = groups.get(rankGroup) ?? [];
-    group.push(row);
+    group.push(result);
     groups.set(rankGroup, group);
   }
 
-  const ranked: RankedRow<T>[] = [];
-  for (const rankGroup of [...groups.keys()].sort((left, right) => left.localeCompare(right))) {
-    const sorted = [...groups.get(rankGroup)!].sort((left, right) => {
-      const leftRatio = ratioOf(left);
-      const rightRatio = ratioOf(right);
-      if (leftRatio === null || rightRatio === null) {
-        if (leftRatio !== rightRatio) return leftRatio === null ? 1 : -1;
-      } else if (Math.abs(rightRatio - leftRatio) > 1e-10) {
-        return rightRatio - leftRatio;
-      }
-      return read(left).participant.number.localeCompare(
-        read(right).participant.number,
-        undefined,
-        { numeric: true },
-      );
-    });
-
+  const placed: PlacedResult[] = [];
+  for (const [rankGroup, group] of groups) {
+    const sorted = [...group].sort(
+      (left, right) =>
+        right.total / Math.max(1, right.totalMax) -
+          left.total / Math.max(1, left.totalMax) ||
+        left.participant.number.localeCompare(right.participant.number, undefined, {
+          numeric: true,
+        }),
+    );
     let previousRatio: number | null = null;
     let place = 0;
-    sorted.forEach((row, index) => {
-      const ratio = ratioOf(row);
-      if (ratio === null) {
-        ranked.push({ row, rankGroup, place: null });
-        return;
-      }
+    sorted.forEach((result, index) => {
+      const ratio = result.total / Math.max(1, result.totalMax);
       if (previousRatio === null || Math.abs(ratio - previousRatio) > 1e-10) {
         place = index + 1;
         previousRatio = ratio;
       }
-      ranked.push({ row, rankGroup, place });
+      placed.push({ ...result, place, rankGroup });
     });
   }
-  return ranked;
-}
-
-export function placeFinalizedResults(results: FinalizedResult[]): PlacedResult[] {
-  return rankRowsByDivision(results, (result) => ({
-    participant: result.participant,
-    total: result.total,
-    totalMax: result.totalMax,
-  })).map(({ row, rankGroup, place }) => ({
-    ...row,
-    rankGroup,
-    place: place ?? 0,
-  }));
+  return placed.sort((left, right) =>
+    left.rankGroup.localeCompare(right.rankGroup) || left.place - right.place,
+  );
 }
