@@ -374,6 +374,88 @@ independently reached a similar conclusion to the redesign work on the side
 branch. Adding Place and division grouping is a small step from here, not a
 rewrite.
 
+### 3.6 Ten dialogs, four different modal implementations
+
+The app has ten modal surfaces. Three are native `<dialog>` driven by
+`showModal()` — `FinishDialog.tsx:207`, `SettingsGuide.tsx:27`,
+`OfflineMushafPrompt.tsx:68`. Those are correct for free: the browser moves
+focus in, traps Tab, closes on Escape and makes everything behind the top layer
+inert. The other seven are hand-rolled `<div role="dialog" aria-modal="true">`,
+and each one re-implements a different subset of that behaviour:
+
+| Surface | Focus moves in | Escape closes | Tab trapped | Focus restored | Backdrop click |
+| --- | --- | --- | --- | --- | --- |
+| `FinishDialog` / `SettingsGuide` / `OfflineMushafPrompt` (native) | yes | yes | yes | yes | — |
+| `DragMenu.tsx:301` | yes `:117` | yes `:121` | yes `:142` | — | — |
+| `MoreActionsPopover.tsx:156` | yes `:99` | yes `:83` | no | yes `:75` | — |
+| `StartDialog.tsx:335` | **no** | handler at `:327`, never fires | no | no | yes `:330` |
+| `ReopenSessionDialog.tsx:24` | yes `:17` | **no handler** | no | no | no |
+| `ParticipantRosterEditor.tsx:593` (template) | **no** | **no handler** | no | no | no |
+| `ParticipantRosterEditor.tsx:636` (paste) | `autoFocus` `:638` | **no handler** | no | no | no |
+| `ParticipantRosterEditor.tsx:654` (review) | **no** | **no handler** | no | no | no |
+
+`DragMenu` is the best of them and is genuinely well built — it traps Tab,
+handles Escape, and adds arrow-key navigation across categories and units. It is
+also proof that the knowledge exists in this codebase; it just was not shared.
+
+**Measured, driving the app with real keyboard events** (`Input.dispatchKeyEvent`
+over CDP, not synthetic `dispatchEvent` — a synthetic event on `document` would
+never reach a React `onKeyDown` regardless, and would have proved nothing).
+Opening the question board from the live judging screen:
+
+```
+open board       : {open:true, activeInModal:false, active:"BODY",
+                    bgInert:false, bgAriaHidden:false,
+                    focusOutsideModal:11, scrollLocked:true}
+real Escape      : {stillOpen:true}
+4 real Tabs      : {active:"BUTTON:More actions and view controls", inModal:false}
+```
+
+Three separate defects, in the order they bite:
+
+1. **Focus never enters the dialog.** `document.activeElement` is still `<body>`
+   after the board opens. A keyboard or screen-reader user is given no
+   indication that anything happened.
+2. **Escape does not close it — but the handler is correct.** `StartDialog.tsx:326`
+   puts `onKeyDown` on `.dialog-backdrop`. React synthetic events propagate from
+   the event target, and the target is `<body>`, which is outside that subtree,
+   so the handler never runs. Focusing any control inside the dialog and
+   pressing Escape closes it immediately:
+
+   ```
+   focus .dialog-close : {inModal:true}
+   real Escape         : {stillOpen:false}
+   ```
+
+   So defect 2 is not a second bug. It is defect 1, and one `.focus()` call on
+   open fixes both.
+3. **Tab walks out of the modal into the page behind it.** Four Tab presses
+   land on *More actions and view controls* — a button behind an 8px-blurred
+   backdrop that the user cannot see. **Eleven** background controls stay
+   focusable while the dialog is open (the dialog itself holds 22). Nothing is
+   `inert`; nothing is `aria-hidden`. To a screen reader the whole page is still
+   there, and `aria-modal="true"` is an assertion the DOM does not honour.
+
+What already works and should be kept: `global.css:7694`
+(`html:has(.dialog-backdrop) { overflow: hidden }`) locks background scroll for
+every backdrop dialog at once — confirmed `scrollLocked:true` above. That is the
+right instinct, applied in the right place; it is the rest of the modal contract
+that never followed it there.
+
+**The fix is one component, not seven.** A `<Modal>` wrapper — or converting the
+seven to native `<dialog>` + `showModal()`, which is strictly less code — makes
+focus entry, focus trap, Escape, focus restore and background inertness
+structural rather than per-site. `DragMenu`'s arrow-key behaviour stays as its
+own layer on top; `MoreActionsPopover`'s focus restore (`:75`) is the pattern
+the wrapper should adopt for all of them. The native route also deletes the
+`z-index: 80` stacking guess at `global.css:6384`, since the top layer has no
+z-index to compete with.
+
+This matters beyond compliance. The question board is on the path of every
+single recitation, and `ReopenSessionDialog` gates an audited correction to a
+finalized result — the two moments where a judge is least able to reach for a
+mouse.
+
 ---
 
 ## 4. Severity 4 — tests and process
@@ -440,6 +522,7 @@ Sequenced by risk retired per hour spent.
 | 7 | Precache the local Uthmani face; name offline in the error (§1.1) | ~15 lines | Judging 603 of 604 pages offline |
 | 8 | Drop one spreadsheet library (§2.3) | dependency work | ~385 kB gzipped |
 | 9 | Stylelint guard + one conversion pass (§3.1) | mechanical | Permanent grammar drift |
+| 9a | One `<Modal>` wrapper for the seven hand-rolled dialogs (§3.6) | ~60 lines, 7 call sites | Keyboard users stranded in every modal on the recitation path |
 | 10 | Split the context, debounce persistence (§2.1, §2.2) | moderate | Frame drops at real roster sizes |
 | 11 | Playwright smoke suite (§4.2) | moderate | The whole class of §1 defects |
 | 12 | IndexedDB for the live record (§1.3, part 2) | large | The 5 MB ceiling |
@@ -456,7 +539,8 @@ app" and "an app you would trust with an official competition."
 build established as the baseline first. Static measurements by script over the
 real source. Runtime measurements by driving the built app in headless Chromium
 over CDP — storage sizes, per-dispatch timing, hit-target geometry, accessibility
-tree, and screenshots at 1400×900. The font-CDN fix (§1.1) and the formula
+tree, keyboard behaviour driven through `Input.dispatchKeyEvent` rather than
+synthetic events, and screenshots at 1400×900. The font-CDN fix (§1.1) and the formula
 injection (§1.4) were each reproduced and, in §1.1's case, the fix verified
 before being reverted; the tree is clean.
 
