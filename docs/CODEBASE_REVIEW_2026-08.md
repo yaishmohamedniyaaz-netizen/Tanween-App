@@ -799,9 +799,8 @@ mechanical guard, not a redesign, because the palette underneath is sound.
 *Caveats, stated so the number is not read as more than it is:* the judging
 figure covers 21 runs rather than 254 because the Mushaf itself failed to render
 during measurement (§1.1), so Quranic glyph contrast is **not** included here and
-remains unmeasured. Non-text contrast — the four criterion colours as graphical
-indicators, which rule 3 makes load-bearing — was also not measured against the
-3:1 threshold.
+remains unmeasured. Non-text contrast is measured separately in §3.9, and unlike
+text it does not come out clean.
 
 *A note on method, because the first run of this measurement was wrong.* The
 initial pass reported 3 failures on judging and 10 on Results, the worst at
@@ -812,6 +811,71 @@ into near-black and manufacturing failures. Anyone re-running a contrast audit
 on this codebase has to handle the `color(srgb …)` form; the corrected pass also
 asserts that no colour string went unparsed, so a zero means measured rather
 than skipped.
+
+### 3.9 One criterion colour misses the standard the codebase itself writes down
+
+§3.8 covers text. This is the other half — rule 3 makes colour a verdict, so the
+criterion and status colours are load-bearing graphical indicators and WCAG
+1.4.11 asks 3:1 of them.
+
+The standard is already stated in the source, at `global.css:154`:
+
+> *"A chosen chip is filled with `--c` and lettered in `--surface`, so `--c` has
+> to carry white. `#2e9e83` sat at OKLCH L 63, where white measures 3.32:1 and
+> fails AA — and there is a dead band around L 56–58 where neither white nor ink
+> clears 4.5:1, so the fix is to go darker rather than to tune the hue. `#377b60`
+> is L 53 on the same hue: white at 5.04:1, and it still clears the 3:1 a filled
+> chip needs against both the light and the dark surface."*
+
+That is exactly the right analysis. Computing the same figure independently gives
+adu-raagu **5.04:1 against white** — matching the comment to the decimal, which
+is a useful check that the numbers below use the same method.
+
+Applying it to all four criterion colours, against the app's *actual* surface
+tokens rather than white:
+
+| | `--bg` `#f2f1ee` | `--page-paper` `#fbfaf7` | `--surface` `#ffffff` |
+| --- | --- | --- | --- |
+| jali `#d8453d` | 3.84 | 4.16 | 4.34 |
+| **khafi `#c0892a`** | **2.71 ✗** | **2.94 ✗** | 3.06 |
+| fasaha `#5566e6` | 4.20 | 4.54 | 4.74 |
+| adu-raagu `#377b60` | 4.46 | 4.83 | 5.04 |
+
+**Khafī fails 3:1 on both surfaces the app actually paints**, and clears it only
+against pure white — which the app uses for `--surface` but not for the page
+behind the Mushaf or the app background. The likely explanation is visible in the
+comment itself: the analysis was done against white, and `--bg` `#f2f1ee` and
+`--page-paper` `#fbfaf7` are darker than the reference it was checked against.
+
+The fix is the move the comment already prescribes for the same problem — go
+darker rather than tune the hue. Khafī needs roughly OKLCH L 3–4 points lower to
+clear 3:1 on `#f2f1ee`.
+
+**A second observation, which is not a defect but constrains future changes.**
+The four criterion colours are near-identical in *luminance*:
+
+```
+jali vs fasaha     1.09:1      needs-review vs ready      1.15:1
+fasaha vs adu      1.06:1      needs-review vs finalized  1.10:1
+jali vs adu        1.16:1      ready vs finalized         1.05:1
+jali vs khafi      1.42:1
+khafi vs fasaha    1.55:1      khafi vs adu               1.65:1
+```
+
+They are separated by hue alone. Desaturated — greyscale printing, or a viewer
+with red-green colour vision deficiency — jali, fasaha and adu-raagu are within
+1.16:1 of each other, which is indistinguishable. This is fine *as long as* every
+verdict is dual-coded, and the status colours are: the ledger renders the words
+*Needs review* / *Ready* / *Finalized* next to the colour. The rule to write down
+is that colour may never be the sole carrier of a verdict, because these
+particular colours cannot survive being the sole carrier.
+
+**Fix:** darken khafī, and add a colour-contract test in the existing
+`scripts/*.test.mjs` style that asserts every criterion and status colour clears
+3:1 against `--bg`, `--page-paper` and `--surface` in both themes. The repo
+already proves it will write and keep tests like this; the reason khafī drifted
+is that the reasoning lived in a comment instead of an assertion. Pair it with
+§3.1's stylelint guard — same category of fix, same reason.
 
 ---
 
@@ -880,6 +944,7 @@ Sequenced by risk retired per hour spent.
 | 7 | Precache the local Uthmani face; name offline in the error (§1.1) | ~15 lines | Judging 603 of 604 pages offline |
 | 8 | Drop one spreadsheet library (§2.3) | dependency work | ~385 kB gzipped |
 | 9 | Stylelint guard + one conversion pass (§3.1) | mechanical | Permanent grammar drift |
+| 9e | Darken khafī; colour-contract test against the real surface tokens (§3.9) | ~1 line + test | A verdict colour below 3:1 on every surface the app paints |
 | 9a | Key touch sizing off `(pointer: coarse)`, not width (§3.7) | ~4 lines, net smaller | 44px targets on every tablet — the likeliest judging device |
 | 9b | One `<Modal>` wrapper for the seven hand-rolled dialogs (§3.6) | ~60 lines, 7 call sites | Keyboard users stranded in every modal on the recitation path |
 | 9c | Derive the SW cache version from the asset hashes (§2.6) | ~10 lines | Dead cache accumulating on judges' devices, and a test that discourages the fix |
