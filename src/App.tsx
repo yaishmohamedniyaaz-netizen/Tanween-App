@@ -38,7 +38,7 @@ import {
   DEFAULT_DEVICE_PREFERENCES,
   readDevicePreferences,
   writeDevicePreferences,
-  type DevicePreferencesV3,
+  type DevicePreferencesV4,
 } from "./lib/devicePreferences";
 
 const LS_PAGE_KEY = "tahqeeq:lastPage";
@@ -57,7 +57,7 @@ export function App() {
   const [finishOpen, setFinishOpen] = useState(false);
   const [markingGuideOpen, setMarkingGuideOpen] = useState(false);
   const [moreControlsOpen, setMoreControlsOpen] = useState(false);
-  const [preferences, setPreferences] = useState<DevicePreferencesV3>(() =>
+  const [preferences, setPreferences] = useState<DevicePreferencesV4>(() =>
     readDevicePreferences(),
   );
   const [page, setPage] = useState(() => {
@@ -90,8 +90,8 @@ export function App() {
     window.scrollTo({ top: 0, left: 0, behavior: "auto" });
   }, [view]);
 
-  const updatePreferences = (patch: Partial<DevicePreferencesV3>) => {
-    setPreferences((current) => ({ ...current, ...patch, version: 3 }));
+  const updatePreferences = (patch: Partial<DevicePreferencesV4>) => {
+    setPreferences((current) => ({ ...current, ...patch, version: 4 }));
   };
 
   // Open the Mushaf on the page the reciter's question actually starts on.
@@ -159,6 +159,10 @@ export function App() {
         questionFocusMode={preferences.questionFocusMode}
         onQuestionFocusModeChange={(questionFocusMode) =>
           updatePreferences({ questionFocusMode })
+        }
+        aduRaaguInputMode={preferences.aduRaaguInputMode}
+        onAduRaaguInputModeChange={(aduRaaguInputMode) =>
+          updatePreferences({ aduRaaguInputMode })
         }
         onShowMarkingGuide={() => setMarkingGuideOpen(true)}
         onMoreControlsOpenChange={setMoreControlsOpen}
@@ -239,7 +243,7 @@ export function App() {
             ) : state.sessionActive ? (
               <>
                 <JudgeRoleStrip onChange={() => setView("setup")} />
-                <ScorePanel />
+                <ScorePanel inputMode={preferences.aduRaaguInputMode} />
                 <MistakeLog />
                 <NotesBox />
                 <button
@@ -303,6 +307,7 @@ export function App() {
       {finishOpen && state.sessionActive && (
         <FinishDialog
           hasNextReciter={hasNextReciter}
+          inputMode={preferences.aduRaaguInputMode}
           onCancel={() => setFinishOpen(false)}
           onConfirm={() => {
             const assignment = state.activeAssignment;

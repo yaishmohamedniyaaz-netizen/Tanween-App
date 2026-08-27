@@ -6,6 +6,7 @@ import {
 } from "../lib/scoring";
 import { useJudging } from "../state/store";
 import { judgeSeatFor } from "../lib/judgeAssignments";
+import type { AduRaaguInputMode } from "../lib/devicePreferences";
 import type { CategoryId } from "../types";
 import { MarkPicker } from "./MarkPicker";
 
@@ -42,9 +43,11 @@ function CategoryRow({
 function ImpressionRow({
   category,
   pending,
+  inputMode,
 }: {
   category: CategoryId;
   pending: boolean;
+  inputMode: AduRaaguInputMode;
 }) {
   const { state, dispatch } = useJudging();
   const config = state.activeAssignment?.config ?? state.config;
@@ -72,6 +75,7 @@ function ImpressionRow({
         marked={marked}
         label={label}
         category={category}
+        mode={inputMode}
         onChange={(value) => dispatch({ type: "SET_IMPRESSION", category, awarded: value })}
       />
       <input
@@ -91,7 +95,7 @@ function ImpressionRow({
   );
 }
 
-export function ScorePanel() {
+export function ScorePanel({ inputMode }: { inputMode: AduRaaguInputMode }) {
   const { state } = useJudging();
   const { byCategory, total, totalMax } = computeScores(state);
   const config = state.activeAssignment?.config ?? state.config;
@@ -121,6 +125,7 @@ export function ScorePanel() {
               key={c.id}
               category={c.id}
               pending={missingImpressions.includes(c.id)}
+              inputMode={inputMode}
             />
           ) : (
             <CategoryRow

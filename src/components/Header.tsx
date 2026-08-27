@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { enabledCategories } from "../config";
 import type {
+  AduRaaguInputMode,
   AppTheme,
   JudgeRailSide,
   MushafLayout,
@@ -31,6 +32,8 @@ interface Props {
   onJudgeRailSideChange: (value: JudgeRailSide) => void;
   questionFocusMode: QuestionFocusMode;
   onQuestionFocusModeChange: (value: QuestionFocusMode) => void;
+  aduRaaguInputMode: AduRaaguInputMode;
+  onAduRaaguInputModeChange: (value: AduRaaguInputMode) => void;
   onShowMarkingGuide: () => void;
   onMoreControlsOpenChange: (open: boolean) => void;
   theme: AppTheme;
@@ -51,6 +54,8 @@ export function Header({
   onJudgeRailSideChange,
   questionFocusMode,
   onQuestionFocusModeChange,
+  aduRaaguInputMode,
+  onAduRaaguInputModeChange,
   onShowMarkingGuide,
   onMoreControlsOpenChange,
   theme,
@@ -179,6 +184,8 @@ export function Header({
         onJudgeRailSideChange={onJudgeRailSideChange}
         questionFocusMode={questionFocusMode}
         onQuestionFocusModeChange={onQuestionFocusModeChange}
+        aduRaaguInputMode={aduRaaguInputMode}
+        onAduRaaguInputModeChange={onAduRaaguInputModeChange}
         onShowMarkingGuide={onShowMarkingGuide}
         onOpenChange={onMoreControlsOpenChange}
         onOpenSettings={onOpenSettings}

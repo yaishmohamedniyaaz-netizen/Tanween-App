@@ -482,9 +482,9 @@ test("the mark list runs from full marks down to zero", () => {
   assert.equal(awardableMarks(20, 0.5).at(-1), 0);
 });
 
-test("the wheel never changes a mark on hover alone", () => {
+test("pointer hover never changes a mark", () => {
   assert.match(pickerSource, /document\.activeElement !== button \|\| open/);
-  assert.match(pickerSource, /Acting on hover alone is how people change official numbers/);
+  assert.doesNotMatch(pickerSource, /onPointerEnter|onMouseEnter|onMouseMove/);
 });
 
 test("Adu and Raagu has one home in the rail, inside its score row", () => {
@@ -493,14 +493,14 @@ test("Adu and Raagu has one home in the rail, inside its score row", () => {
   assert.match(scorePanelSource, /SET_IMPRESSION_NOTE/);
   assert.doesNotMatch(appSource, /ImpressionPanel/);
   assert.match(scorePanelSource, /sc-score score-value-layout/);
-  assert.match(pickerSource, /mark-picker score-value-layout/);
+  assert.match(pickerSource, /mark-picker mark-picker-\$\{mode\} score-value-layout/);
   assert.match(ruleBody(".score-value-layout"), /display: inline-flex/);
   assert.match(ruleBody(".score-value-layout"), /align-items: center/);
   assert.match(ruleBody(".score-value-layout"), /justify-content: center/);
   assert.match(ruleBody(".score-value-layout"), /gap: 2px/);
   assert.match(ruleBody(".score-value-layout"), /white-space: nowrap/);
   assert.match(ruleBody(".score-value-layout .sc-of"), /line-height: 1/);
-  assert.match(ruleBody(".mark-picker"), /width: 72px/);
+  assert.match(ruleBody(".mark-picker"), /width: 78px/);
   assert.match(ruleBody(".sc-score .sc-of"), /font-size: 12px/);
   assert.match(ruleBody(".mark-picker-of"), /font-size: 12px/);
   assert.match(ruleBody(".mark-picker-of"), /font-weight: 400/);
@@ -602,7 +602,7 @@ test("the mark bar carries its criterion's colour across the portal", () => {
   // category travelling with it, --c is unset on the bar and the control
   // falls back to ink while its own row reads as the criterion.
   assert.match(pickerSource, /createPortal/);
-  assert.match(pickerSource, /className={`mark-bar cat-\$\{category\}/);
+  assert.match(pickerSource, /className={`mark-bar mark-bar-\$\{mode\} cat-\$\{category\}/);
   assert.match(pickerSource, /category: string;/);
   assert.match(scorePanelSource, /category=\{category\}/);
 });
@@ -646,7 +646,7 @@ test("Adu and Raagu ruler keeps readable ink and a neutral uncommitted state", (
   const green = luminance(accent.slice(1));
   assert.ok((white + 0.05) / (green + 0.05) >= 4.5, "white must meet AA on the chosen green");
 
-  assert.match(ruleBody(".mark-ruler-value"), /var\(--c-on, #ffffff\)/);
+  assert.match(ruleBody(".mark-ruler-bubble.is-active"), /var\(--c-on, #ffffff\)/);
   assert.match(ruleBody(".mark-ruler-fill"), /var\(--c, var\(--ink\)\)/);
   assert.match(pickerSource, /const hasSelection = marked \|\| preview !== null/);
 
@@ -659,7 +659,7 @@ test("Adu and Raagu ruler keeps readable ink and a neutral uncommitted state", (
 test("the mark bar opens on a press and commits when the press ends", () => {
   assert.match(pickerSource, /className={`mark-bar/);
   assert.match(pickerSource, /setOpen\(true\);\s*setPinned\(false\);/);
-  assert.match(pickerSource, /if \(drag\?\.moved && previewRef\.current !== null\)/);
+  assert.match(pickerSource, /if \(drag\.moved && previewRef\.current !== null\)/);
   // A press that does not move leaves the bar open to pick from.
   assert.match(pickerSource, /setPinned\(true\);/);
   assert.match(pickerSource, /className={`mark-ruler/);
@@ -675,23 +675,23 @@ test("the mark ruler uses sparse anchors and exposes half marks as minor ticks",
   assert.match(pickerSource, /const RULER_LABEL_INTERVAL = 5/);
   assert.match(pickerSource, /shouldLabelRulerMark\(mark, max\)/);
   assert.match(pickerSource, /mark === 0 \|\| mark === max \|\| mark % RULER_LABEL_INTERVAL === 0/);
-  assert.match(pickerSource, /whole \? "is-whole" : "is-half"/);
-  assert.match(ruleBody(".mark-ruler"), /height: 72px/);
+  assert.match(pickerSource, /Number\.isInteger\(mark\) \? "is-whole" : "is-half"/);
+  assert.match(ruleBody(".mark-ruler"), /height: 100px/);
   assert.match(ruleBody(".mark-ruler-tick.is-whole"), /height: 16px/);
   assert.match(ruleBody(".mark-ruler-tick"), /height: 8px/);
   assert.doesNotMatch(pickerSource, /role="radio"|data-mark|wholeChips/);
 });
 
-test("the ruler uses a substantial thumb and disables easing while dragging", () => {
+test("the ruler uses a large numbered bubble and disables easing while dragging", () => {
   assert.match(pickerSource, /const \[dragging, setDragging\] = useState\(false\)/);
   assert.match(pickerSource, /dragging \? "is-dragging" : ""/);
-  assert.match(pickerSource, /key=\{display\} className="mark-ruler-value t-num"/);
-  assert.match(ruleBody(".mark-ruler-thumb"), /width: 28px/);
-  assert.match(ruleBody(".mark-ruler-thumb"), /height: 38px/);
-  assert.match(ruleBody(".mark-ruler-thumb"), /transition: left 120ms/);
+  assert.match(pickerSource, /className={`mark-ruler-bubble/);
+  assert.match(ruleBody(".mark-ruler-bubble"), /width: 60px/);
+  assert.match(ruleBody(".mark-ruler-bubble"), /height: 42px/);
+  assert.match(ruleBody(".mark-ruler-bubble i"), /font-size: 20px/);
   assert.match(
     cssSource,
-    /\.mark-ruler\.is-dragging \.mark-ruler-fill,[\s\S]*?\.mark-ruler\.is-dragging \.mark-ruler-thumb\s*\{[\s\S]*?transition: none/,
+    /\.mark-ruler\.is-dragging \.mark-ruler-fill,[\s\S]*?\.mark-ruler\.is-dragging \.mark-ruler-bubble\s*\{[\s\S]*?transition: none/,
   );
   assert.match(cssSource, /@media \(prefers-reduced-motion: reduce\)/);
 });
@@ -712,10 +712,7 @@ test("the Finish recovery remains available across repeated invalid saves", () =
 });
 
 test("the ruler snaps to half marks and commits only when the pointer is released", () => {
-  assert.match(
-    pickerSource,
-    /clamp\(ratio \* max\)/,
-  );
+  assert.match(pickerSource, /markFromHorizontalPoint\(clientX, rect\.left, rect\.width, max, step\)/);
 
   const moveHandler = pickerSource.slice(
     pickerSource.indexOf("onPointerMove={(event) =>"),
@@ -726,19 +723,37 @@ test("the ruler snaps to half marks and commits only when the pointer is release
 
   const upHandler = pickerSource.slice(
     pickerSource.indexOf("onPointerUp={(event) =>"),
-    pickerSource.indexOf("onPointerCancel={() =>"),
+    pickerSource.indexOf("onPointerCancel={(event) =>"),
   );
   assert.match(upHandler, /commit\(previewRef\.current \?\? markAt\(event\.clientX\)\)/);
+  const cancelHandler = pickerSource.slice(
+    pickerSource.indexOf("onPointerCancel={(event) =>"),
+    pickerSource.indexOf("onKeyDown={onRulerKeyDown}"),
+  );
+  assert.match(cancelHandler, /close\(\)/);
+  assert.doesNotMatch(cancelHandler, /commit\(/);
 });
 
 test("the quiet ruler stays neutral until a mark is set or previewed", () => {
   assert.match(pickerSource, /const hasSelection = marked \|\| preview !== null/);
-  assert.match(pickerSource, /\{hasSelection && \(\s*<span className="mark-ruler-fill"/s);
+  assert.match(pickerSource, /\{hasSelection && <span className="mark-ruler-fill"/);
   assert.match(
     pickerSource,
-    /\{hasSelection && \(\s*<span\s+className=\{`mark-ruler-thumb \$\{thumbEdge\}`\}/s,
+    /className=\{`mark-ruler-bubble \$\{hasSelection \? "is-active" : "is-neutral"\}`\}/,
   );
   assert.match(ruleBody(".mark-ruler-rail"), /background: var\(--bg\)/);
+});
+
+test("the alternative wheel previews first, commits once, and cancels interruptions", () => {
+  assert.match(pickerSource, /mode: AduRaaguInputMode/);
+  assert.match(pickerSource, /MARK_WHEEL_HOLD_MS/);
+  assert.match(pickerSource, /wheelWholeFromDelta\(gesture\.startValue, deltaY, max\)/);
+  assert.match(pickerSource, /MARK_WHEEL_HALF_ENTER/);
+  assert.match(pickerSource, /commit\(previewRef\.current \?\? gesture\.startValue\)/);
+  assert.match(pickerSource, /window\.addEventListener\("pointercancel", onCancel\)/);
+  assert.match(pickerSource, /window\.addEventListener\("pagehide", close\)/);
+  assert.match(pickerSource, /Set mark/);
+  assert.match(pickerSource, /Cancel/);
 });
 
 test("Adu and Raagu defaults to half-mark increments", () => {

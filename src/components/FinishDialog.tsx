@@ -7,6 +7,7 @@ import {
 } from "../lib/scoring";
 import { useJudging } from "../state/store";
 import { judgeDisplayName } from "../lib/judgeAssignments";
+import type { AduRaaguInputMode } from "../lib/devicePreferences";
 import type { CategoryId } from "../types";
 import { MarkPicker, type MarkPickerHandle } from "./MarkPicker";
 
@@ -20,6 +21,7 @@ function FinishImpressionRow({
   deducted,
   pending,
   invalid,
+  inputMode,
   onChange,
   registerPicker,
   registerRow,
@@ -33,6 +35,7 @@ function FinishImpressionRow({
   deducted: string;
   pending: boolean;
   invalid: boolean;
+  inputMode: AduRaaguInputMode;
   onChange: (value: number) => void;
   registerPicker: (picker: MarkPickerHandle | null) => void;
   registerRow: (row: HTMLDivElement | null) => void;
@@ -67,6 +70,7 @@ function FinishImpressionRow({
           marked={marked}
           label={label}
           category={category}
+          mode={inputMode}
           onChange={onChange}
           layer="dialog"
           presentation="inline"
@@ -90,10 +94,12 @@ export function FinishDialog({
   onCancel,
   onConfirm,
   hasNextReciter,
+  inputMode,
 }: {
   onCancel: () => void;
   onConfirm: () => void;
   hasNextReciter: boolean;
+  inputMode: AduRaaguInputMode;
 }) {
   const { state, dispatch } = useJudging();
   const [saveAttemptCount, setSaveAttemptCount] = useState(0);
@@ -273,6 +279,7 @@ export function FinishDialog({
                   deducted={deducted}
                   pending={isMissing}
                   invalid={isInvalid}
+                  inputMode={inputMode}
                   registerPicker={(picker) => {
                     pickerRefs.current[category] = picker;
                   }}

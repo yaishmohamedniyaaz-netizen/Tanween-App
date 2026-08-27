@@ -602,14 +602,16 @@ textarea:focus-visible {
 }
 .mushaf-view-control,
 .judge-rail-control,
-.question-focus-control {
+.question-focus-control,
+.adu-input-control {
   margin: 0;
   padding: 8px;
   border: 0;
 }
 .mushaf-view-control legend,
 .judge-rail-control legend,
-.question-focus-control legend {
+.question-focus-control legend,
+.adu-input-control legend {
   margin-bottom: 8px;
   padding: 0;
   color: var(--ink);
@@ -627,6 +629,13 @@ textarea:focus-visible {
 }
 .question-focus-control .focus-mode-options {
   grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.adu-input-control small {
+  display: block;
+  margin: 6px 2px 0;
+  color: var(--ink-3);
+  font-size: 10.5px;
+  line-height: 1.35;
 }
 .mushaf-view-options button {
   min-height: 36px;
@@ -10348,9 +10357,9 @@ html:has(.dialog-backdrop) {
 /* A full border is the signifier that this number can be changed; the other
    score rows stay plain text because they cannot. */
 .mark-picker {
-  width: 72px;
-  min-height: 30px;
-  padding: 2px 4px;
+  width: 78px;
+  min-height: var(--tap);
+  padding: 6px;
   border: 1px solid var(--line-2);
   border-radius: var(--r-sm);
   background: var(--surface);
@@ -10389,7 +10398,7 @@ html:has(.dialog-backdrop) {
 .mark-bar {
   position: fixed;
   z-index: 60;
-  padding: 12px 16px 14px;
+  padding: 14px 16px;
   border: 1px solid var(--line-2);
   border-radius: var(--r-md);
   background: var(--surface);
@@ -10410,8 +10419,8 @@ html:has(.dialog-backdrop) {
 }
 .mark-ruler {
   position: relative;
-  height: 72px;
-  touch-action: none;
+  height: 100px;
+  touch-action: pan-y;
   user-select: none;
   cursor: ew-resize;
   outline: none;
@@ -10422,7 +10431,7 @@ html:has(.dialog-backdrop) {
 }
 .mark-ruler-rail {
   position: absolute;
-  inset: 24px 0 18px;
+  inset: 50px 30px 24px;
   border: 1px solid var(--line-2);
   border-radius: 14px;
   background: var(--bg);
@@ -10433,7 +10442,7 @@ html:has(.dialog-backdrop) {
   inset: 0 auto 0 0;
   border-radius: 13px 0 0 13px;
   background: color-mix(in srgb, var(--c, var(--ink)) 17%, transparent);
-  transition: width 120ms cubic-bezier(0.2, 0, 0, 1);
+  transition: width 160ms cubic-bezier(0.2, 0, 0, 1);
   pointer-events: none;
 }
 .mark-ruler-tick {
@@ -10453,103 +10462,235 @@ html:has(.dialog-backdrop) {
 }
 .mark-ruler-label {
   position: absolute;
-  top: 24px;
+  top: 31px;
   left: 50%;
   transform: translateX(-50%);
   color: var(--ink-3);
-  font-size: 11px;
+  font-size: 10.5px;
   font-weight: 600;
   font-style: normal;
   line-height: 1;
   font-variant-numeric: tabular-nums;
 }
-.mark-ruler-tick.is-first .mark-ruler-label {
-  left: -1px;
-  transform: none;
-}
-.mark-ruler-tick.is-last .mark-ruler-label {
-  right: -1px;
-  left: auto;
-  transform: none;
-}
-.mark-ruler-thumb {
+.mark-ruler-bubble {
   position: absolute;
-  top: 50%;
-  width: 28px;
-  height: 38px;
-  transform: translate(-50%, -50%);
-  border: 2px solid var(--c, var(--ink));
+  bottom: calc(100% + 9px);
+  display: grid;
+  place-items: center;
+  width: 60px;
+  height: 42px;
+  transform: translateX(-50%);
+  border: 1px solid var(--line-2);
   border-radius: 12px;
-  background: color-mix(in srgb, var(--c, var(--ink)) 7%, var(--surface));
-  box-shadow:
-    0 1px 3px color-mix(in srgb, var(--ink) 18%, transparent),
-    0 0 0 4px color-mix(in srgb, var(--c, var(--ink)) 10%, transparent);
-  transition: left 120ms cubic-bezier(0.2, 0, 0, 1);
+  background: var(--surface);
+  box-shadow: 0 3px 12px color-mix(in srgb, var(--ink) 18%, transparent);
+  color: var(--ink);
+  transition:
+    left 160ms cubic-bezier(0.2, 0, 0, 1),
+    border-color var(--t-fast) var(--ease-out),
+    background var(--t-fast) var(--ease-out);
   pointer-events: none;
 }
-.mark-ruler.is-dragging .mark-ruler-fill,
-.mark-ruler.is-dragging .mark-ruler-thumb {
-  transition: none;
-}
-.mark-ruler-value {
-  position: absolute;
-  bottom: calc(100% + 7px);
-  left: 50%;
-  min-width: 38px;
-  padding: 4px 8px;
-  transform: translateX(-50%);
-  border-radius: 9px;
-  background: var(--c, var(--ink));
-  box-shadow: 0 2px 7px color-mix(in srgb, var(--ink) 20%, transparent);
-  color: var(--c-on, #ffffff);
-  font-size: 12px;
-  font-weight: 700;
-  font-style: normal;
-  line-height: 1.2;
-  text-align: center;
-  font-variant-numeric: tabular-nums;
-  animation: mark-ruler-value-in 120ms cubic-bezier(0.2, 0, 0, 1);
-}
-.mark-ruler-value::after {
+.mark-ruler-bubble::after {
   position: absolute;
   top: calc(100% - 1px);
   left: 50%;
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
   transform: translate(-50%, -50%) rotate(45deg);
+  border-right: 1px solid var(--line-2);
+  border-bottom: 1px solid var(--line-2);
   border-radius: 1px;
   background: inherit;
   content: "";
 }
-.mark-ruler-thumb.is-first .mark-ruler-value {
-  transform: translateX(-18%);
+.mark-ruler-bubble.is-active {
+  border-color: var(--c, var(--ink));
+  background: var(--c, var(--ink));
+  color: var(--c-on, #ffffff);
 }
-.mark-ruler-thumb.is-first .mark-ruler-value::after {
-  left: 18%;
+.mark-ruler-bubble.is-active::after {
+  border-color: var(--c, var(--ink));
 }
-.mark-ruler-thumb.is-last .mark-ruler-value {
-  transform: translateX(-82%);
+.mark-ruler-bubble i {
+  position: relative;
+  z-index: 1;
+  font-size: 20px;
+  font-weight: 700;
+  font-style: normal;
+  line-height: 1;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
 }
-.mark-ruler-thumb.is-last .mark-ruler-value::after {
-  left: 82%;
+.mark-ruler.is-dragging .mark-ruler-fill,
+.mark-ruler.is-dragging .mark-ruler-bubble {
+  transition: none;
 }
-@keyframes mark-ruler-value-in {
-  from {
-    opacity: 0.72;
-    scale: 0.94;
-  }
-  to {
-    opacity: 1;
-    scale: 1;
-  }
+
+.mark-bar-wheel {
+  padding: 12px;
+}
+.mark-bar-wheel.is-inline {
+  width: min(296px, 100%);
+  margin-inline: auto 0;
+}
+.mark-wheel {
+  position: relative;
+  display: grid;
+  gap: 10px;
+  outline: none;
+  touch-action: none;
+}
+.mark-wheel:focus-visible {
+  border-radius: var(--r-sm);
+  box-shadow: 0 0 0 3px var(--ring);
+}
+.mark-wheel-scale {
+  position: relative;
+  height: 190px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--bg);
+}
+.mark-wheel-scale::before,
+.mark-wheel-scale::after {
+  position: absolute;
+  z-index: 3;
+  right: 0;
+  left: 0;
+  height: 42px;
+  pointer-events: none;
+  content: "";
+}
+.mark-wheel-scale::before {
+  top: 0;
+  background: linear-gradient(var(--bg), transparent);
+}
+.mark-wheel-scale::after {
+  bottom: 0;
+  background: linear-gradient(transparent, var(--bg));
+}
+.mark-wheel-focus {
+  position: absolute;
+  z-index: 0;
+  top: 50%;
+  left: 50%;
+  width: 112px;
+  height: 42px;
+  transform: translate(-50%, -50%);
+  border-block: 1px solid color-mix(in srgb, var(--c, var(--ink)) 32%, var(--line));
+  background: color-mix(in srgb, var(--c, var(--ink)) 6%, var(--surface));
+  pointer-events: none;
+}
+.mark-wheel-values {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  left: 50%;
+  display: grid;
+  width: 96px;
+  transform: translate(-50%, -50%);
+}
+.mark-wheel-row {
+  display: grid;
+  place-items: center;
+  height: 36px;
+  border: 0;
+  border-radius: var(--r-sm);
+  background: transparent;
+  color: var(--ink-3);
+  font-size: 15px;
+  font-weight: 560;
+  opacity: .55;
+  transition:
+    color 130ms var(--ease-out),
+    font-size 130ms var(--ease-out),
+    opacity 130ms var(--ease-out),
+    transform 130ms var(--ease-out);
+}
+.mark-wheel-row:first-child,
+.mark-wheel-row:last-child {
+  opacity: .25;
+}
+.mark-wheel-row.is-selected {
+  color: var(--c, var(--ink));
+  font-size: 24px;
+  font-weight: 720;
+  opacity: 1;
+  transform: scale(1.04);
+}
+.mark-wheel-row:focus-visible {
+  box-shadow: 0 0 0 3px var(--ring);
+}
+.mark-wheel-half {
+  position: absolute;
+  z-index: 4;
+  top: 50%;
+  min-width: 64px;
+  min-height: 44px;
+  transform: translateY(-50%);
+  border: 1px solid var(--line-2);
+  border-radius: 12px;
+  background: var(--surface);
+  color: var(--ink-2);
+  font-size: 14px;
+  font-weight: 700;
+  opacity: 1;
+  transition:
+    opacity 140ms var(--ease-out),
+    transform 140ms var(--ease-out),
+    background 140ms var(--ease-out),
+    color 140ms var(--ease-out);
+}
+.mark-wheel-half.is-left { left: 14px; }
+.mark-wheel-half.is-right { right: 14px; }
+.mark-wheel-half.is-active {
+  border-color: var(--c, var(--ink));
+  background: var(--c, var(--ink));
+  color: var(--c-on, #ffffff);
+}
+.mark-wheel-half:disabled {
+  visibility: hidden;
+}
+.mark-wheel.is-transient .mark-wheel-half:not(.is-active) {
+  opacity: 0;
+  pointer-events: none;
+}
+.mark-wheel.is-transient .mark-wheel-half.is-left:not(.is-active) {
+  transform: translate(12px, -50%) scale(.92);
+}
+.mark-wheel.is-transient .mark-wheel-half.is-right:not(.is-active) {
+  transform: translate(-12px, -50%) scale(.92);
+}
+.mark-wheel-output {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 5;
+  min-width: 44px;
+  padding: 5px 8px;
+  border-radius: 9px;
+  background: var(--c, var(--ink));
+  color: var(--c-on, #ffffff);
+  font-size: 15px;
+  font-weight: 720;
+  text-align: center;
+}
+.mark-wheel-actions {
+  display: grid;
+  grid-template-columns: 1fr 1.35fr;
+  gap: 8px;
+}
+.mark-wheel-actions button {
+  min-height: 44px;
 }
 @media (prefers-reduced-motion: reduce) {
   .mark-ruler-fill,
-  .mark-ruler-thumb {
+  .mark-ruler-bubble,
+  .mark-wheel-row,
+  .mark-wheel-half {
     transition: none;
-  }
-  .mark-ruler-value {
-    animation: none;
   }
 }
 

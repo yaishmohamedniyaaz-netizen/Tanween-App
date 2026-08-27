@@ -1,8 +1,9 @@
 # Adu & Raagu input and judging-rail layout — research and plan
 
-Status: **decided and implemented (2026-08-13).** The chosen control is the
-vertical scrub with a click-to-open mark list, described under "Decision" below.
-The research and the rejected candidates are kept as the record of why.
+Status: **two-mode local trial (2026-08-27).** The horizontal ruler remains the
+default. A device-local control in the main More panel can switch to an optional
+vertical wheel. Both presentations use the same mark controller and ledger
+event; neither changes competition rules, scoring, or saved result data.
 Interactive version with live prototypes of every candidate control:
 [`adu-raagu-input-study.html`](./adu-raagu-input-study.html).
 
@@ -33,7 +34,7 @@ second action to refine it, and nothing is ever set by accident.
 
 Sources are listed in the interactive study.
 
-## Decision — a boxed mark, and a bar on the press
+## Current trial — one boxed mark, two selectable input presentations
 
 The mark sits in the score row inside a **box**, centred, in the same column as
 every other criterion's score. Research on input affordances is unambiguous: a
@@ -41,7 +42,8 @@ full border is what tells someone a value can be changed, and plain text is what
 tells them it cannot. The other rows stay plain, so the one editable number in
 the rail identifies itself without a label.
 
-Pressing it drops a **horizontal mark bar** carrying every awardable mark:
+The default presentation drops a **horizontal mark bar** carrying every
+awardable mark:
 
 - **Press and drag along the bar**, release on the mark you want. The reading
   follows the pointer while the press is held, so a mark that lands wrong is
@@ -49,17 +51,27 @@ Pressing it drops a **horizontal mark bar** carrying every awardable mark:
   tray teaches.
 - **Press without dragging** and the bar stays open to pick from.
 - Every half mark is a tick and whole marks are taller. Only zero, every fifth
-  mark and the allocation maximum are labelled, while the thumb callout shows
-  the exact live value, so both 10 and 20 marks read as rulers rather than rows
-  of crowded numbers.
+  mark and the allocation maximum are labelled. A large number bubble is the
+  actual moving knob, so the current value stays readable above the ticks.
 - Nothing is committed until the press ends: a whole gesture writes exactly one
   ledger event, so the audit history stays readable.
-- **Keyboard**: arrows by one step, Shift-arrow by five, `Home` for full marks,
-  `End` for zero, digits to type a mark, `Enter` or `Space` for the bar.
+- **Keyboard**: arrows by one step, Shift-arrow by five, `Home` for zero,
+  `End` for full marks, digits to type a mark, `Enter` or `Space` for the bar.
 - **Wheel** adjusts only when the control is already focused, never on hover.
 - **A whole-recitation criterion is capped at 20 marks**, in the judging control
   and in setup, because that is the most this criterion is given in practice.
   Stored allocations above the cap are trimmed on load.
+
+The optional **vertical wheel** is intended for one-handed judging:
+
+- A tap opens a persistent five-row wheel with tappable whole marks, an explicit
+  `+0.5` control, and Set/Cancel actions.
+- Holding for 320 ms opens the quick gesture. Sliding vertically chooses the
+  whole mark; moving to either side reveals and activates the half mark. Release
+  commits once.
+- Pointer cancellation, page hiding, or interrupted gestures commit nothing.
+- The mode is a local device preference in the main More panel. It does not
+  travel with a competition or a result.
 
 **One home either way.** Adu & Raagu keeps exactly one place in the rail — its
 row in the scorecard, beside Jalī, Khafī and Faṣāḥa, with the reason note under
@@ -89,7 +101,8 @@ default only, and existing choices are untouched.
 | --- | --- | --- |
 | 1 | **Done.** Rail left by default, existing per-device choices untouched. | `App.tsx` |
 | 2 | **Done.** `ImpressionPanel` retired; the scorecard row carries the mark picker and the reason. | `ScorePanel`, `MarkPicker` |
-| 3 | Optional named-deduction mode per competition, reusing the mistake-log rendering so reasons reach the result sheet and statistics. | setup, scoring, result sheet |
+| 3 | **Local trial.** Large-bubble horizontal ruler plus optional tap/hold vertical wheel, backed by one preview/commit controller and a device-local preference. | `MarkPicker`, `markInput`, device preferences, More panel |
+| 4 | Optional named-deduction mode per competition, reusing the mistake-log rendering so reasons reach the result sheet and statistics. | setup, scoring, result sheet |
 
 Pass 2 changes no stored data: `impression_changed` and
 `impression_note_changed` already carry everything, so saved records stay

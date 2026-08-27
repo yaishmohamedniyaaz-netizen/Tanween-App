@@ -85,3 +85,13 @@ test("the live More controls expose the persisted scorecard side preference", ()
   assert.match(appSource, /judgeRailSide=\{preferences\.judgeRailSide\}/);
   assert.match(appSource, /updatePreferences\(\{ judgeRailSide \}\)/);
 });
+
+test("the live More controls select one persisted Adu and Raagu input style", () => {
+  assert.match(moreSource, /Adu \/ Raagu input/);
+  assert.match(moreSource, /aria-label="Adu \/ Raagu input style"/);
+  assert.match(moreSource, /onAduRaaguInputModeChange\("ruler"\)/);
+  assert.match(moreSource, /onAduRaaguInputModeChange\("wheel"\)/);
+  assert.match(appSource, /aduRaaguInputMode=\{preferences\.aduRaaguInputMode\}/);
+  assert.match(appSource, /<ScorePanel inputMode=\{preferences\.aduRaaguInputMode\}/);
+  assert.match(appSource, /<FinishDialog[\s\S]*inputMode=\{preferences\.aduRaaguInputMode\}/);
+});

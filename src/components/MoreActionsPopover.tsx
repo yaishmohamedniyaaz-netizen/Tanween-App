@@ -14,6 +14,7 @@ import {
   startOfflineMushafDownload,
 } from "../lib/offlineMushaf";
 import type {
+  AduRaaguInputMode,
   JudgeRailSide,
   MushafLayout,
   QuestionFocusMode,
@@ -29,6 +30,8 @@ interface MoreActionsPopoverProps {
   onJudgeRailSideChange: (value: JudgeRailSide) => void;
   questionFocusMode: QuestionFocusMode;
   onQuestionFocusModeChange: (value: QuestionFocusMode) => void;
+  aduRaaguInputMode: AduRaaguInputMode;
+  onAduRaaguInputModeChange: (value: AduRaaguInputMode) => void;
   onShowMarkingGuide: () => void;
   onOpenChange: (open: boolean) => void;
   onOpenSettings: () => void;
@@ -45,6 +48,8 @@ export function MoreActionsPopover({
   onJudgeRailSideChange,
   questionFocusMode,
   onQuestionFocusModeChange,
+  aduRaaguInputMode,
+  onAduRaaguInputModeChange,
   onShowMarkingGuide,
   onOpenChange,
   onOpenSettings,
@@ -209,6 +214,34 @@ export function MoreActionsPopover({
                     Right
                   </button>
                 </div>
+              </fieldset>
+              <fieldset className="adu-input-control">
+                <legend>Adu / Raagu input</legend>
+                <div className="mushaf-view-options" role="radiogroup" aria-label="Adu / Raagu input style">
+                  <button
+                    type="button"
+                    role="radio"
+                    aria-checked={aduRaaguInputMode === "ruler"}
+                    className={aduRaaguInputMode === "ruler" ? "is-active" : ""}
+                    onClick={() => onAduRaaguInputModeChange("ruler")}
+                  >
+                    Horizontal
+                  </button>
+                  <button
+                    type="button"
+                    role="radio"
+                    aria-checked={aduRaaguInputMode === "wheel"}
+                    className={aduRaaguInputMode === "wheel" ? "is-active" : ""}
+                    onClick={() => onAduRaaguInputModeChange("wheel")}
+                  >
+                    Vertical
+                  </button>
+                </div>
+                <small>
+                  {aduRaaguInputMode === "wheel"
+                    ? "Tap to open the wheel, or hold and slide for a quick mark."
+                    : "Tap or drag the ruler; minor ticks are half marks."}
+                </small>
               </fieldset>
               <fieldset className="question-focus-control">
                 <legend>Question focus</legend>
