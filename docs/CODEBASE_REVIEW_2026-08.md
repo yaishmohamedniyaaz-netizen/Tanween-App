@@ -18,7 +18,7 @@ foreseeable failure is caught and discarded, so the app keeps looking correct
 while doing nothing. In a product whose entire purpose is to be the trustworthy
 record of a competition, silent failure is the defect class that matters most.
 
-Fix the seven severity-1 items and this is a product you can run an official
+Fix the eight severity-1 items and this is a product you can run an official
 competition on. Everything after that is craft.
 
 ---
@@ -263,6 +263,83 @@ the middle of setting up a competition.
 defensible (500?), and truncate individual fields to a sane length at the
 `normalizeRosterDraft` boundary where the `String()` coercion already happens.
 Each is one line at a place the code already touches every field.
+
+### 1.8 Unmarked impression criteria default to full marks, and the official record cannot say so
+
+`scoring.ts:32`:
+
+```ts
+export function impressionScore(
+  config, impressions, category,
+  unmarkedMode: UnmarkedImpressionMode = "legacy-full",   // ← the lenient one is the default
+) {
+  const mark = impressions.find((item) => item.category === category);
+  if (!mark || !mark.set) {
+    return { awarded: unmarkedMode === "entry-zero" ? 0 : start, marked: false, ... };
+```
+
+An impression criterion (Adu & Raagu) that was never marked scores **full
+marks** unless the caller explicitly opts out. Run against the real
+`DEFAULT_CONFIG` with identical evidence and no impression mark:
+
+```
+rubric: jali=50 khafi=30 fasaha=10 adu-raagu=10
+
+legacy-full   total=95  /100   adu-raagu=10/10   marked=false
+entry-zero    total=85  /100   adu-raagu= 0/10   marked=false
+                    ↑ 10 marks — 10% of the competition scale
+```
+
+**Which callers take which default:**
+
+| Call site | Mode | What it decides |
+| --- | --- | --- |
+| `store.tsx` → `computeScores` `:160` | `entry-zero` | the live judging total |
+| `finalResults.ts:172` | **default** | **the official finalized result** |
+| `ParticipantResultDetail.tsx:70` | **default** | the result shown on screen |
+| `store.tsx:1253` | **default** | reconstructed / imported sessions |
+
+Note `marked: false` in both rows of the output. The data knows the criterion
+was never judged. The lenient path awards ten out of ten anyway.
+
+**In fairness, the live path is well defended.** `missingRequiredImpressionCategories()`
+is wired into five places — `ScorePanel:102`, `FinishDialog:113`, `App:311`, and
+most importantly the reducer itself at `store.tsx:1064`, where `FINISH_SESSION`
+returns the state unchanged if any assigned impression criterion is unmarked. A
+session finalized through the UI cannot reach this state. The comment at `:30`
+also says the leniency is deliberate — *"Saved-session callers keep the
+historical full-mark fallback"* — so this is a compatibility decision, not an
+oversight.
+
+**The problem is the polarity, and one missing field.**
+
+1. **The unsafe behaviour is the default.** Three of four call sites inherit it
+   by saying nothing, and one of those three produces the official result. Any
+   future caller inherits it too. The legacy fallback should be the mode you
+   have to *ask* for — `"legacy-full"` spelled out at the one site that needs
+   it — so that forgetting produces a conservative score rather than a generous
+   one.
+2. **`FinalizedCategoryScore` has no `marked` field** (`types.ts:480–488`:
+   category, score, max, sessionId, sessionRevision, judgeSeatId, judgeName).
+   So once a result is finalized, the artifact carrying a manifest and a
+   revision number — the thing the competition is adjudicated on — is unable to
+   record that a 10/10 was defaulted rather than awarded. `ResultSheet.tsx:127`
+   already renders exactly this distinction (*"Marked"* / *"Not marked"*), which
+   shows the concept exists in the codebase; it simply does not survive
+   finalization.
+
+**A second, smaller edge from the same file:** `computeAssignedScores()` narrows
+`total` to the judge's assigned categories but returns the **unnarrowed**
+`byCategory` alongside it. A judge assigned only Jalī yields `total 46/50` and,
+in the same object, `byCategory["adu-raagu"] = 10/10, marked: false` — a full
+score for a criterion this judge was never given. Consumers that read `total` are
+fine; any that reach into `byCategory` are reading a number that was never
+judged by anyone. Returning `byCategory` narrowed to `ids`, or marking the
+others, removes the trap.
+
+**Fix:** flip the default, add `marked` to `FinalizedCategoryScore` and carry it
+into the result detail and the workbook, and narrow `byCategory` in
+`computeAssignedScores`. None of this changes a single correctly judged score.
 
 ---
 
@@ -692,6 +769,7 @@ Sequenced by risk retired per hour spent.
 | 5 | Prune migration backups (§1.3, part 1) | ~20 lines | 90% of storage pressure |
 | 6 | Replace `window.prompt` (§1.6) | ~40 lines | Unfinalizable revisions in WebViews |
 | 6a | Bound the roster import — size, rows, field length (§1.7) | ~10 lines | Unbounded state from an ordinary bad spreadsheet |
+| 6b | Flip the impression default; add `marked` to the finalized record (§1.8) | ~15 lines + test | A 10-mark swing decided by a default argument, unrecordable after finalization |
 | 7 | Precache the local Uthmani face; name offline in the error (§1.1) | ~15 lines | Judging 603 of 604 pages offline |
 | 8 | Drop one spreadsheet library (§2.3) | dependency work | ~385 kB gzipped |
 | 9 | Stylelint guard + one conversion pass (§3.1) | mechanical | Permanent grammar drift |
