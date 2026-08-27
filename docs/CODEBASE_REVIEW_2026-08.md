@@ -489,6 +489,73 @@ names the QCF CDN makes the coupling visible in a place a reviewer will look.
 `Referrer-Policy: no-referrer` and `nosniff` are two lines and have no cost at
 all.
 
+### 2.8 The reducer is the integrity boundary — for 35 of its 43 cases
+
+This section starts with credit, because the reducer is the best-engineered part
+of the application and the review should say so before it criticises anything.
+
+`ADD_MISTAKE` (`store.tsx:299`) refuses unless a session is active, an assignment
+exists, **and** the criterion is one this judge was actually assigned. It then
+treats a repeat press on an already-marked letter as a correction rather than a
+second deduction, and scopes that to the judge's seat — with a five-line comment
+explaining that picking the wrong criterion is an ordinary slip mid-recitation
+while two judges marking the same letter are two real findings.
+
+`RESTORE_MISTAKE` (`:355`) is stricter still, with five conditions: the source
+event exists and is a `mistake_undone`; the session is active; the criterion is
+assigned; the mistake is not already present; and this undo is the *latest*
+event for that mistake — which is what stops a stale undo being replayed into a
+resurrection. That is genuine event-sourcing discipline, and it is rare.
+
+Add `FINISH_SESSION` refusing to finalize with an unmarked assigned impression
+criterion (§1.8), and `SET_CONFIG` refusing to change the rubric once a
+competition has left draft, and the pattern is clear: someone thought carefully
+about what must not be possible.
+
+**The gap is that the discipline is per-case rather than structural.** Counting
+across all 43 cases, 35 carry an early-return guard and 8 do not:
+
+```
+SET_PARTICIPANT_ABSENT   SET_NOTES        SET_PARTICIPANT   CLEAR_MARKS
+DELETE_SESSION           CLEAR_HISTORY    UPSERT_FINAL_RESULT
+APPLY_TARGET_MIGRATION
+```
+
+Four of those eight are destructive or authoritative: `CLEAR_MARKS` appends a
+`mistake_undone` for every mistake and blanks the notes; `DELETE_SESSION` and
+`CLEAR_HISTORY` remove judging records; `UPSERT_FINAL_RESULT` writes the official
+finalized result. None checks `sessionActive`, seat, or competition status.
+
+There is also a narrower asymmetry inside the mistake family. `ADD_MISTAKE` and
+`RESTORE_MISTAKE` check session and assigned-criterion; `REMOVE_MISTAKE`,
+`SET_MISTAKE_AMOUNT` and `SET_MISTAKE_NOTE` check only that the mistake exists.
+
+**Not currently reachable, and that is the point.** `MistakeLog` — the only
+component that dispatches the three unguarded mistake actions — renders solely
+under `state.sessionActive` (`App.tsx:240`), so the missing checks cannot fire
+today. And `CLEAR_MARKS`, `DELETE_SESSION` and `CLEAR_HISTORY` have **no
+dispatcher anywhere in `src/`**: three destructive, entirely unguarded actions
+sitting in the union and the reducer with nothing calling them.
+
+So this is not a live defect. It is the reason to make guards structural: in an
+event-sourced design the reducer is the integrity boundary precisely so that
+correctness does not depend on which component happens to render where. Today
+three of these actions are safe because of a JSX condition in `App.tsx`, and
+three more are safe because nobody calls them yet.
+
+**Fix, in two cheap parts.** Delete the three destructive dead actions — they are
+§2.5's dead-code pattern with a sharper edge. Then hoist the common
+preconditions into one helper (`requireLiveSession`, `requireAssignedCategory`)
+applied at the top of the mistake and impression families, so a new case
+inherits the guards instead of having to remember them.
+
+**And test them.** `judging-ledger.test.mjs` does not exercise a single reducer
+guard — no test asserts that `ADD_MISTAKE` is refused without a session, or that
+an unassigned criterion is rejected, or that a stale undo cannot be replayed.
+The most carefully reasoned safety logic in the codebase is also the least
+covered, while §4.1 counts hundreds of assertions checking how the source is
+spelled. This is the single best place to spend a test-writing hour.
+
 ---
 
 ## 3. Severity 3 — design system, UI, UX
@@ -818,6 +885,8 @@ Sequenced by risk retired per hour spent.
 | 9c | Derive the SW cache version from the asset hashes (§2.6) | ~10 lines | Dead cache accumulating on judges' devices, and a test that discourages the fix |
 | 9d | Security headers in the Worker; CSP naming the one external origin (§2.7) | ~15 lines | No active hole — defence-in-depth, plus executable documentation of §1.1's dependency |
 | 10 | Split the context, debounce persistence (§2.1, §2.2) | moderate | Frame drops at real roster sizes |
+| 10a | Delete three destructive dead actions; hoist reducer guards (§2.8) | ~40 lines, net negative | Guards that depend on a JSX condition rather than the reducer |
+| 10b | Tests for the reducer guards (§2.8) | ~1 hour | The best-reasoned logic in the codebase is the least covered |
 | 11 | Playwright smoke suite (§4.2) | moderate | The whole class of §1 defects |
 | 12 | IndexedDB for the live record (§1.3, part 2) | large | The 5 MB ceiling |
 | 13 | Migrate source-text assertions (§4.1) | large, incremental | A test suite that blocks refactoring |
