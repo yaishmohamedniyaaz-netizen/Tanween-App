@@ -1,25 +1,45 @@
 # Tahqeeq: a ground-up code review
 
-> Reviewed 18 August 2026 against `main` at `b856944`, on a working tree made
-> byte-identical to it. Baseline: **309 tests pass, build clean.**
+> Reviewed 18–27 August 2026 against `main` at `b856944`, on a working tree made
+> byte-identical to it. Baseline: **309 tests pass, build clean** — re-verified
+> after the review, with the tree still clean.
 >
 > Every claim below was measured or reproduced, not inferred. Where a fix is
-> proposed, the evidence for it is quoted. Where I could not verify something,
-> it says so.
+> proposed, the evidence for it is quoted. Where I could not verify something, it
+> says so — and where a measurement turned out to be wrong, §3.8 says that too.
 
 ## 0. The one-paragraph version
 
 The application is in good shape structurally — no `dangerouslySetInnerHTML`,
 zero TODO/FIXME markers, a real design-token system, 309 passing tests, and a
-domain model (judge sections, revisions, manifests, ledger events) that is more
-carefully thought out than most products this size. What it does not yet have is
-**failure discipline**. The three worst problems all share one shape: a
+domain model (judge sections, revisions, manifests, ledger events) more carefully
+thought out than most products this size. The reducer in particular is genuinely
+well engineered (§2.8), and text contrast passes in both themes across 550
+measured runs (§3.8).
+
+Two patterns account for nearly every finding below.
+
+**The first is failure discipline.** The worst problems share one shape: a
 foreseeable failure is caught and discarded, so the app keeps looking correct
-while doing nothing. In a product whose entire purpose is to be the trustworthy
+while doing nothing. Offline, with the service worker installed and working
+exactly as designed, the Mushaf renders **zero of 604 pages** while the fallback
+font sits cached and unused — because one `Promise.all` treats a third-party font
+as required, in a codebase where three other places deliberately treat it as
+optional (§1.1). In a product whose entire purpose is to be the trustworthy
 record of a competition, silent failure is the defect class that matters most.
 
-Fix the eight severity-1 items and this is a product you can run an official
-competition on. Everything after that is craft.
+**The second is knowledge that lives in prose instead of in an assertion.** The
+44px rule is implemented well and gated behind a query no tablet matches (§3.7).
+The contrast standard is worked out in a CSS comment, and the one colour that
+misses it misses it against the surfaces the app actually paints (§3.9). The
+service worker's cache version must be bumped by hand, and a test pins the
+literal that discourages bumping it (§2.6). The reducer's safety guards are the
+most carefully reasoned code in the repository and the least tested (§2.8). None
+of these are ignorance. They are all the same gap between knowing a rule and
+enforcing it.
+
+Fix the nine phase-1 items and this is a product you can run an official
+competition on. Phase 2 is an afternoon. Everything after that is craft.
 
 ---
 
@@ -929,7 +949,12 @@ with the CDN blocked as a second matrix entry.
 
 ## 5. Suggested order
 
-Sequenced by risk retired per hour spent.
+Sequenced by risk retired per hour spent, and grouped so each phase is a
+decision someone can actually make.
+
+**Phase 1 — before the next competition.** A day's work between them, and the
+difference between "a good app" and "an app you would trust with an official
+competition."
 
 | # | Change | Size | Retires |
 | --- | --- | --- | --- |
@@ -939,38 +964,69 @@ Sequenced by risk retired per hour spent.
 | 4 | Surface failed saves (§1.2) | ~40 lines | Silent loss of a judge's work |
 | 5 | Prune migration backups (§1.3, part 1) | ~20 lines | 90% of storage pressure |
 | 6 | Replace `window.prompt` (§1.6) | ~40 lines | Unfinalizable revisions in WebViews |
-| 6a | Bound the roster import — size, rows, field length (§1.7) | ~10 lines | Unbounded state from an ordinary bad spreadsheet |
-| 6b | Flip the impression default; add `marked` to the finalized record (§1.8) | ~15 lines + test | A 10-mark swing decided by a default argument, unrecordable after finalization |
-| 7 | Precache the local Uthmani face; name offline in the error (§1.1) | ~15 lines | Judging 603 of 604 pages offline |
-| 8 | Drop one spreadsheet library (§2.3) | dependency work | ~385 kB gzipped |
-| 9 | Stylelint guard + one conversion pass (§3.1) | mechanical | Permanent grammar drift |
-| 9e | Darken khafī; colour-contract test against the real surface tokens (§3.9) | ~1 line + test | A verdict colour below 3:1 on every surface the app paints |
-| 9a | Key touch sizing off `(pointer: coarse)`, not width (§3.7) | ~4 lines, net smaller | 44px targets on every tablet — the likeliest judging device |
-| 9b | One `<Modal>` wrapper for the seven hand-rolled dialogs (§3.6) | ~60 lines, 7 call sites | Keyboard users stranded in every modal on the recitation path |
-| 9c | Derive the SW cache version from the asset hashes (§2.6) | ~10 lines | Dead cache accumulating on judges' devices, and a test that discourages the fix |
-| 9d | Security headers in the Worker; CSP naming the one external origin (§2.7) | ~15 lines | No active hole — defence-in-depth, plus executable documentation of §1.1's dependency |
-| 10 | Split the context, debounce persistence (§2.1, §2.2) | moderate | Frame drops at real roster sizes |
-| 10a | Delete three destructive dead actions; hoist reducer guards (§2.8) | ~40 lines, net negative | Guards that depend on a JSX condition rather than the reducer |
-| 10b | Tests for the reducer guards (§2.8) | ~1 hour | The best-reasoned logic in the codebase is the least covered |
-| 11 | Playwright smoke suite (§4.2) | moderate | The whole class of §1 defects |
-| 12 | IndexedDB for the live record (§1.3, part 2) | large | The 5 MB ceiling |
-| 13 | Migrate source-text assertions (§4.1) | large, incremental | A test suite that blocks refactoring |
+| 7 | Bound the roster import — size, rows, field length (§1.7) | ~10 lines | Unbounded state from an ordinary bad spreadsheet |
+| 8 | Flip the impression default; add `marked` to the finalized record (§1.8) | ~15 lines + test | A 10-mark swing decided by a default argument, unrecordable once finalized |
+| 9 | Precache the local Uthmani face; name offline in the error (§1.1) | ~15 lines | Judging 0 of 604 pages offline |
 
-Items 1–7 are a day's work between them and are the difference between "a good
-app" and "an app you would trust with an official competition."
+**Phase 2 — small, high-leverage, mostly mechanical.** Each is under an hour and
+none requires a design decision.
+
+| # | Change | Size | Retires |
+| --- | --- | --- | --- |
+| 10 | Key touch sizing off `(pointer: coarse)`, not width (§3.7) | ~4 lines, net smaller | 44px targets on every tablet — the likeliest judging device |
+| 11 | Darken khafī; colour-contract test against the real surface tokens (§3.9) | ~1 line + test | A verdict colour below 3:1 on every surface the app paints |
+| 12 | Derive the SW cache version from the asset hashes (§2.6) | ~10 lines | Dead cache on judges' devices, and a test that discourages the fix |
+| 13 | Security headers in the Worker; CSP naming the one external origin (§2.7) | ~15 lines | Defence-in-depth, plus executable documentation of §1.1's dependency |
+| 14 | Delete three destructive dead actions (§2.8) | net negative | Unguarded destructive actions waiting for their first caller |
+
+**Phase 3 — structural, worth planning.** These change how the code is shaped,
+so they want a decision rather than a spare afternoon.
+
+| # | Change | Size | Retires |
+| --- | --- | --- | --- |
+| 15 | One `<Modal>` wrapper for the seven hand-rolled dialogs (§3.6) | ~60 lines, 7 call sites | Keyboard users stranded in every modal on the recitation path |
+| 16 | Hoist the reducer guards into shared preconditions (§2.8) | ~40 lines | Correctness that depends on a JSX condition rather than the reducer |
+| 17 | Tests for the reducer guards (§2.8) | ~1 hour | The best-reasoned logic in the codebase is the least covered |
+| 18 | Stylelint guard + one conversion pass (§3.1) | mechanical | Permanent type-scale and radius drift |
+| 19 | Drop one spreadsheet library (§2.3) | dependency work | ~385 kB gzipped |
+| 20 | Split the context, debounce persistence (§2.1, §2.2) | moderate | Frame drops at real roster sizes |
+| 21 | Playwright smoke suite (§4.2) | moderate | The whole class of §1 defects |
+| 22 | IndexedDB for the live record (§1.3, part 2) | large | The 5 MB ceiling |
+| 23 | Migrate source-text assertions (§4.1) | large, incremental | A test suite that blocks refactoring |
+
+**One theme runs through phase 2 and 3.** Items 11, 12, 17 and 18 are the same
+fix wearing four hats: a rule the codebase already knows — written in a comment,
+a design document, or a careful reducer case — that nothing asserts. Every one
+of them drifted for the same reason, and every one is fixed by turning the
+reasoning into a test.
 
 ---
 
 ## 6. Method, and what this review does not cover
 
 **Method.** Working tree pinned byte-identical to `main`; 309 tests and a clean
-build established as the baseline first. Static measurements by script over the
-real source. Runtime measurements by driving the built app in headless Chromium
-over CDP — storage sizes, per-dispatch timing, hit-target geometry, accessibility
-tree, keyboard behaviour driven through `Input.dispatchKeyEvent` rather than
-synthetic events, and screenshots at 1400×900. The font-CDN fix (§1.1) and the formula
-injection (§1.4) were each reproduced and, in §1.1's case, the fix verified
-before being reverted; the tree is clean.
+build established as the baseline first, and re-run at the end. Static
+measurements by script over the real source. Runtime measurements by driving the
+app in headless Chromium over CDP: storage sizes, per-dispatch timing,
+hit-target geometry across four emulated viewports, the accessibility tree,
+composited colour sampled from live `getComputedStyle`, keyboard behaviour driven
+through real `Input.dispatchKeyEvent` presses rather than synthetic events, and
+offline behaviour through `Network.emulateNetworkConditions` against a production
+build with the service worker installed and activated.
+
+Three findings were reproduced with working proofs — the font-CDN failure (§1.1),
+the formula injection (§1.4), and the scoring default (§1.8, run against the real
+`DEFAULT_CONFIG`). One fix was applied and verified before being reverted: §1.1's
+one-liner took the Mushaf from 1 rendered node to 12. Nothing from this review is
+left in the tree.
+
+**Two measurements in this review were wrong before they were right**, and both
+are documented where they occur rather than quietly corrected: a synthetic
+`Escape` event that could never have reached a React handler and so proved
+nothing (§3.6), and a colour parser that read `color(srgb 0.98 …)` floats as
+0–255 channels and manufactured 13 contrast failures including a bogus 1.2:1
+(§3.8). Both were caught by checking a result that looked too dramatic. Any
+re-run of these audits needs to handle both.
 
 **Not covered, and why:**
 
@@ -979,10 +1035,9 @@ before being reverted; the tree is clean.
   `ASSETS` binding, reviewed in §2.7. Everything else that "backend" usually
   means — the state store, persistence, the service worker and the export
   pipeline — lives in the client and is covered by §1, §2.2 and §2.6.
-- ~~**Offline behaviour under a real Service Worker.**~~ **Now covered** — see
-  §1.1. Confirmed against a production build with the SW installed and activated
-  and the network emulated offline; the result was worse than the static
-  reading predicted (0 of 604 pages, not 1).
+- **Quranic glyph contrast.** §3.8 measures 550 text runs, but none of them are
+  Mushaf glyphs — the page failed to render during measurement (§1.1). Worth
+  re-running once §1.1 is fixed.
 - **Cross-browser.** Everything was measured in Chromium. Safari's localStorage
   behaviour under memory pressure is materially different and matters for iPad
   judging.
