@@ -10392,9 +10392,8 @@ html:has(.dialog-backdrop) {
   font-variant-numeric: tabular-nums;
 }
 
-/* The mark bar is a direct ruler: half marks stay visible as minor ticks,
-   sparse anchor labels keep long scales readable, and the pointer snaps to
-   the configured step. */
+/* The mark bar is a direct ruler: every whole mark is labelled, half marks
+   stay visible as minor ticks, and the pointer snaps to the configured step. */
 .mark-bar {
   position: fixed;
   z-index: 60;
@@ -10419,7 +10418,7 @@ html:has(.dialog-backdrop) {
 }
 .mark-ruler {
   position: relative;
-  height: 100px;
+  height: 104px;
   touch-action: pan-y;
   user-select: none;
   cursor: ew-resize;
@@ -10431,16 +10430,16 @@ html:has(.dialog-backdrop) {
 }
 .mark-ruler-rail {
   position: absolute;
-  inset: 50px 30px 24px;
+  inset: 50px 12px 27px;
   border: 1px solid var(--line-2);
-  border-radius: 14px;
+  border-radius: 7px;
   background: var(--bg);
   overflow: visible;
 }
 .mark-ruler-fill {
   position: absolute;
   inset: 0 auto 0 0;
-  border-radius: 13px 0 0 13px;
+  border-radius: 6px;
   background: color-mix(in srgb, var(--c, var(--ink)) 17%, transparent);
   transition: width 160ms cubic-bezier(0.2, 0, 0, 1);
   pointer-events: none;
@@ -10462,12 +10461,12 @@ html:has(.dialog-backdrop) {
 }
 .mark-ruler-label {
   position: absolute;
-  top: 31px;
+  top: 34px;
   left: 50%;
   transform: translateX(-50%);
   color: var(--ink-3);
-  font-size: 10.5px;
-  font-weight: 600;
+  font-size: 9.5px;
+  font-weight: 570;
   font-style: normal;
   line-height: 1;
   font-variant-numeric: tabular-nums;
@@ -10528,79 +10527,105 @@ html:has(.dialog-backdrop) {
 }
 
 .mark-bar-wheel {
-  padding: 12px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
 }
 .mark-bar-wheel.is-inline {
-  width: min(296px, 100%);
-  margin-inline: auto 0;
+  position: fixed;
+  width: 160px;
+  margin: 0;
+  padding: 0;
 }
 .mark-wheel {
   position: relative;
-  display: grid;
-  gap: 10px;
+  width: 100%;
+  height: 190px;
   outline: none;
   touch-action: none;
 }
 .mark-wheel:focus-visible {
-  border-radius: var(--r-sm);
-  box-shadow: 0 0 0 3px var(--ring);
+  box-shadow: none;
+}
+.mark-wheel:focus-visible .mark-wheel-focus {
+  box-shadow:
+    0 0 0 3px var(--ring),
+    0 4px 14px color-mix(in srgb, var(--ink) 18%, transparent);
 }
 .mark-wheel-scale {
   position: relative;
   height: 190px;
-  overflow: hidden;
-  border: 1px solid var(--line);
-  border-radius: var(--r-md);
-  background: var(--bg);
+  overflow: visible;
 }
 .mark-wheel-scale::before,
 .mark-wheel-scale::after {
   position: absolute;
-  z-index: 3;
+  z-index: 2;
   right: 0;
-  left: 0;
-  height: 42px;
+  width: 78px;
+  height: 48px;
   pointer-events: none;
   content: "";
 }
 .mark-wheel-scale::before {
   top: 0;
-  background: linear-gradient(var(--bg), transparent);
+  background: linear-gradient(var(--surface), transparent);
 }
 .mark-wheel-scale::after {
   bottom: 0;
-  background: linear-gradient(transparent, var(--bg));
+  background: linear-gradient(transparent, var(--surface));
 }
 .mark-wheel-focus {
   position: absolute;
-  z-index: 0;
+  z-index: 5;
   top: 50%;
-  left: 50%;
-  width: 112px;
-  height: 42px;
-  transform: translate(-50%, -50%);
-  border-block: 1px solid color-mix(in srgb, var(--c, var(--ink)) 32%, var(--line));
-  background: color-mix(in srgb, var(--c, var(--ink)) 6%, var(--surface));
-  pointer-events: none;
+  right: 0;
+  width: 78px;
+  min-height: var(--tap);
+  padding: 6px;
+  transform: translateY(-50%);
+  border: 1px solid var(--c, var(--line-2));
+  border-radius: var(--r-sm);
+  background: var(--surface);
+  box-shadow: 0 4px 14px color-mix(in srgb, var(--ink) 18%, transparent);
+  color: var(--ink);
+  cursor: ns-resize;
+  touch-action: none;
+}
+.mark-wheel-focus:hover {
+  border-color: var(--c, var(--ink));
+}
+.mark-wheel-current-value {
+  font-size: 15px;
+  font-weight: 720;
+  font-variant-numeric: tabular-nums;
+}
+.mark-wheel-current-of {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--ink-3);
 }
 .mark-wheel-values {
   position: absolute;
   z-index: 1;
   top: 50%;
-  left: 50%;
+  left: calc(100% - 39px);
   display: grid;
-  width: 96px;
-  transform: translate(-50%, -50%);
+  width: 78px;
+  transform: translate(-50%, calc(-50% + var(--wheel-offset, 0px)));
+  transition: transform 90ms linear;
 }
 .mark-wheel-row {
   display: grid;
   place-items: center;
-  height: 36px;
+  height: 38px;
   border: 0;
   border-radius: var(--r-sm);
   background: transparent;
   color: var(--ink-3);
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 560;
   opacity: .55;
   transition:
@@ -10611,14 +10636,11 @@ html:has(.dialog-backdrop) {
 }
 .mark-wheel-row:first-child,
 .mark-wheel-row:last-child {
-  opacity: .25;
+  opacity: .2;
 }
 .mark-wheel-row.is-selected {
-  color: var(--c, var(--ink));
-  font-size: 24px;
-  font-weight: 720;
-  opacity: 1;
-  transform: scale(1.04);
+  opacity: 0;
+  pointer-events: none;
 }
 .mark-wheel-row:focus-visible {
   box-shadow: 0 0 0 3px var(--ring);
@@ -10627,11 +10649,12 @@ html:has(.dialog-backdrop) {
   position: absolute;
   z-index: 4;
   top: 50%;
-  min-width: 64px;
+  left: 0;
+  min-width: 66px;
   min-height: 44px;
   transform: translateY(-50%);
   border: 1px solid var(--line-2);
-  border-radius: 12px;
+  border-radius: var(--r-sm);
   background: var(--surface);
   color: var(--ink-2);
   font-size: 14px;
@@ -10643,8 +10666,8 @@ html:has(.dialog-backdrop) {
     background 140ms var(--ease-out),
     color 140ms var(--ease-out);
 }
-.mark-wheel-half.is-left { left: 14px; }
-.mark-wheel-half.is-right { right: 14px; }
+.mark-wheel-half.is-left,
+.mark-wheel-half.is-right { left: 0; }
 .mark-wheel-half.is-active {
   border-color: var(--c, var(--ink));
   background: var(--c, var(--ink));
@@ -10661,33 +10684,15 @@ html:has(.dialog-backdrop) {
   transform: translate(12px, -50%) scale(.92);
 }
 .mark-wheel.is-transient .mark-wheel-half.is-right:not(.is-active) {
-  transform: translate(-12px, -50%) scale(.92);
+  transform: translate(12px, -50%) scale(.92);
 }
-.mark-wheel-output {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  z-index: 5;
-  min-width: 44px;
-  padding: 5px 8px;
-  border-radius: 9px;
-  background: var(--c, var(--ink));
-  color: var(--c-on, #ffffff);
-  font-size: 15px;
-  font-weight: 720;
-  text-align: center;
-}
-.mark-wheel-actions {
-  display: grid;
-  grid-template-columns: 1fr 1.35fr;
-  gap: 8px;
-}
-.mark-wheel-actions button {
-  min-height: 44px;
+.mark-wheel.is-dragging .mark-wheel-values {
+  transition: none;
 }
 @media (prefers-reduced-motion: reduce) {
   .mark-ruler-fill,
   .mark-ruler-bubble,
+  .mark-wheel-values,
   .mark-wheel-row,
   .mark-wheel-half {
     transition: none;

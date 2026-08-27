@@ -482,8 +482,9 @@ test("the mark list runs from full marks down to zero", () => {
   assert.equal(awardableMarks(20, 0.5).at(-1), 0);
 });
 
-test("pointer hover never changes a mark", () => {
-  assert.match(pickerSource, /document\.activeElement !== button \|\| open/);
+test("only the selected vertical mode accepts wheel input on hover", () => {
+  assert.match(pickerSource, /mode !== "wheel" && \(document\.activeElement !== button \|\| open\)/);
+  assert.match(pickerSource, /commit\(valueRef\.current \+ \(event\.deltaY < 0 \? step : -step\)\)/);
   assert.doesNotMatch(pickerSource, /onPointerEnter|onMouseEnter|onMouseMove/);
 });
 
@@ -667,16 +668,17 @@ test("the mark bar opens on a press and commits when the press ends", () => {
   assert.doesNotMatch(pickerSource, /chip-strip|previewChipAt/);
 });
 
-test("the mark ruler uses sparse anchors and exposes half marks as minor ticks", () => {
+test("the mark ruler labels every whole mark and exposes half marks as minor ticks", () => {
   assert.match(pickerSource, /awardableMarks\(max, step\)/);
   assert.match(pickerSource, /role="slider"/);
   assert.match(pickerSource, /aria-valuemin=\{0\}/);
   assert.match(pickerSource, /aria-valuemax=\{max\}/);
-  assert.match(pickerSource, /const RULER_LABEL_INTERVAL = 5/);
   assert.match(pickerSource, /shouldLabelRulerMark\(mark, max\)/);
-  assert.match(pickerSource, /mark === 0 \|\| mark === max \|\| mark % RULER_LABEL_INTERVAL === 0/);
+  assert.match(pickerSource, /Number\.isInteger\(mark\) && mark >= 0 && mark <= max/);
   assert.match(pickerSource, /Number\.isInteger\(mark\) \? "is-whole" : "is-half"/);
-  assert.match(ruleBody(".mark-ruler"), /height: 100px/);
+  assert.match(ruleBody(".mark-ruler"), /height: 104px/);
+  assert.match(ruleBody(".mark-ruler-rail"), /inset: 50px 12px 27px/);
+  assert.match(ruleBody(".mark-ruler-rail"), /border-radius: 7px/);
   assert.match(ruleBody(".mark-ruler-tick.is-whole"), /height: 16px/);
   assert.match(ruleBody(".mark-ruler-tick"), /height: 8px/);
   assert.doesNotMatch(pickerSource, /role="radio"|data-mark|wholeChips/);
@@ -744,16 +746,19 @@ test("the quiet ruler stays neutral until a mark is set or previewed", () => {
   assert.match(ruleBody(".mark-ruler-rail"), /background: var\(--bg\)/);
 });
 
-test("the alternative wheel previews first, commits once, and cancels interruptions", () => {
+test("the alternative wheel stays attached to the score and follows the gesture", () => {
   assert.match(pickerSource, /mode: AduRaaguInputMode/);
   assert.match(pickerSource, /MARK_WHEEL_HOLD_MS/);
   assert.match(pickerSource, /wheelWholeFromDelta\(gesture\.startValue, deltaY, max\)/);
   assert.match(pickerSource, /MARK_WHEEL_HALF_ENTER/);
+  assert.match(pickerSource, /deltaY \+ travelledRows \* MARK_WHEEL_ROW_HEIGHT/);
+  assert.match(pickerSource, /activateWheelGesture\(gesture\)/);
   assert.match(pickerSource, /commit\(previewRef\.current \?\? gesture\.startValue\)/);
   assert.match(pickerSource, /window\.addEventListener\("pointercancel", onCancel\)/);
   assert.match(pickerSource, /window\.addEventListener\("pagehide", close\)/);
-  assert.match(pickerSource, /Set mark/);
-  assert.match(pickerSource, /Cancel/);
+  assert.match(pickerSource, /className="mark-wheel-focus score-value-layout"/);
+  assert.match(pickerSource, /presentation === "inline" && mode !== "wheel"/);
+  assert.doesNotMatch(pickerSource, /Set mark|mark-wheel-output|mark-wheel-actions/);
 });
 
 test("Adu and Raagu defaults to half-mark increments", () => {
