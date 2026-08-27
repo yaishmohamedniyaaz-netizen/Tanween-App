@@ -342,6 +342,76 @@ number. Main removed it from the UI. Only the corpse remains.
 
 **Fix:** delete both fields and the `pctSum`/`scoreSum` accumulators.
 
+### 2.6 The app-shell cache version is manual, and a test punishes bumping it
+
+`public/sw.js:11`:
+
+```js
+const APP_CACHE_VERSION = "app-v29";
+```
+
+The precache *list* is generated — `scripts/pwa-precache.mjs` injects Vite's
+hashed filenames into the built worker, and it is well built: it refuses to
+inject if the marker is missing or duplicated (`:38`) and if the build emitted
+no JS or no CSS (`:24`, `:27`). But the cache *name* those files land in is
+hand-typed.
+
+The activate handler (`:83–100`) deletes stale cache **names** — `staleStatic`,
+`stalePages`, `staleFonts`, each correctly scoped by prefix so the interface
+version can never invalidate the 1405H page data. What nothing does is prune
+stale **entries inside the current cache**. So on a release where the version is
+not bumped:
+
+- `sw.js` bytes change (new hashes) → browser installs the new worker
+- `addAll` writes the new hashed assets into `tahqeeq-static-app-v29`
+- the *previous* release's hashed assets are still there, still matching no
+  request, never evicted
+
+At ~1.8 MB of JS per build (§2.3), that is roughly 1.8 MB of dead weight per
+unbumped release, on the device of a judge who may be on a phone.
+
+**And the test suite makes the bump costly.** `scripts/pwa-shell.test.mjs:177`:
+
+```js
+assert.match(workerSource, /const APP_CACHE_VERSION = "app-v29"/);
+```
+
+The literal is pinned. Bumping to `app-v30` — the correct action — turns the
+suite red, so the incentive under time pressure runs backwards. This is §4.1's
+source-text-assertion problem with an operational cost attached rather than just
+a refactoring cost, and it is the clearest single argument in the review for
+fixing that test style.
+
+**Fix.** `collectBuildPrecacheUrls()` already has every hashed filename in hand
+at `:31`. Derive the version from a hash of that list and inject it the same way
+the URL list is injected; the bump becomes automatic and unforgettable. The test
+then asserts the behaviour that actually matters — *the cache name changes when
+the shell changes* — instead of a string that has to be edited in two files.
+
+### 2.7 The delivery layer sends no security headers
+
+The entire server side is 21 lines (`worker/index.js`): pass the request to the
+`ASSETS` binding, and on a GET 404 that accepts HTML, serve `/index.html` as the
+SPA shell. That is the right shape and it is correctly guarded on both method
+and `accept`.
+
+What it does not do is set a single response header. There is no CSP, no
+`X-Content-Type-Options`, no `Referrer-Policy`, no `Permissions-Policy`, and no
+`_headers` file supplying them either (checked: none in `public/` or
+`dist/client/`).
+
+No CSP is defence-in-depth rather than an active hole — there is no
+`dangerouslySetInnerHTML` anywhere and no user-supplied HTML path (§0). The
+reason to add one here is that it is unusually cheap: **the application
+references exactly one external origin**, `static-cdn.tarteel.ai`, in the whole
+of `src/`, `public/` and `index.html`. So the policy is close to
+`default-src 'self'` plus one `font-src` entry, and it doubles as executable
+documentation of that dependency — the same dependency §1.1 is about. A CSP that
+names the QCF CDN makes the coupling visible in a place a reviewer will look.
+
+`Referrer-Policy: no-referrer` and `nosniff` are two lines and have no cost at
+all.
+
 ---
 
 ## 3. Severity 3 — design system, UI, UX
@@ -561,6 +631,8 @@ Sequenced by risk retired per hour spent.
 | 8 | Drop one spreadsheet library (§2.3) | dependency work | ~385 kB gzipped |
 | 9 | Stylelint guard + one conversion pass (§3.1) | mechanical | Permanent grammar drift |
 | 9a | One `<Modal>` wrapper for the seven hand-rolled dialogs (§3.6) | ~60 lines, 7 call sites | Keyboard users stranded in every modal on the recitation path |
+| 9b | Derive the SW cache version from the asset hashes (§2.6) | ~10 lines | Dead cache accumulating on judges' devices, and a test that discourages the fix |
+| 9c | Security headers in the Worker; CSP naming the one external origin (§2.7) | ~15 lines | No active hole — defence-in-depth, plus executable documentation of §1.1's dependency |
 | 10 | Split the context, debounce persistence (§2.1, §2.2) | moderate | Frame drops at real roster sizes |
 | 11 | Playwright smoke suite (§4.2) | moderate | The whole class of §1 defects |
 | 12 | IndexedDB for the live record (§1.3, part 2) | large | The 5 MB ceiling |
@@ -584,9 +656,11 @@ before being reverted; the tree is clean.
 
 **Not covered, and why:**
 
-- **Server-side.** There is none — this is a client-only PWA with Cloudflare
-  Workers serving static assets. "Backend" here means the state store,
-  persistence and export pipeline, which §1 and §2 cover.
+- **Server-side.** Nearly none, and now covered rather than skipped: the whole
+  of it is `worker/index.js`, 21 lines of SPA fallback over Cloudflare's
+  `ASSETS` binding, reviewed in §2.7. Everything else that "backend" usually
+  means — the state store, persistence, the service worker and the export
+  pipeline — lives in the client and is covered by §1, §2.2 and §2.6.
 - ~~**Offline behaviour under a real Service Worker.**~~ **Now covered** — see
   §1.1. Confirmed against a production build with the SW installed and activated
   and the network emulated offline; the result was worse than the static
