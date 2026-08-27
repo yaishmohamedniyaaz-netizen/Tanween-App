@@ -706,6 +706,46 @@ box) and the status-filter row (390 in 334) — are both correctly wrapped in
 responsive layout work is sound. It is only the target sizing that is gated
 wrong.
 
+### 3.8 Contrast, by contrast, has not regressed at all
+
+Rule 9 asks for measured contrast. It is the one grammar rule that has held
+completely. Every text run rendered on screen, measured against its actual
+composited background in both themes:
+
+| Screen | Theme | Text runs checked | Worst ratio | Failures |
+| --- | --- | --- | --- | --- |
+| Judging | light | 21 | 5.35 | **0** |
+| Judging | dark | 21 | 5.03 | **0** |
+| Results | light | 254 | 4.74 | **0** |
+| Results | dark | 254 | 5.03 | **0** |
+
+550 text runs, no failure, and the worst case anywhere — 4.74 against a 4.5
+requirement — still clears. Both themes are held to the same standard, which is
+the part most projects get wrong: dark mode is usually where contrast quietly
+degrades, and here it is marginally *better* than light.
+
+This is worth stating plainly next to §3.1. The type scale and the radius scale
+drifted badly; the colour system did not. That is evidence the tokens work when
+they are used, and it strengthens §3.1's argument — the fix there is a
+mechanical guard, not a redesign, because the palette underneath is sound.
+
+*Caveats, stated so the number is not read as more than it is:* the judging
+figure covers 21 runs rather than 254 because the Mushaf itself failed to render
+during measurement (§1.1), so Quranic glyph contrast is **not** included here and
+remains unmeasured. Non-text contrast — the four criterion colours as graphical
+indicators, which rule 3 makes load-bearing — was also not measured against the
+3:1 threshold.
+
+*A note on method, because the first run of this measurement was wrong.* The
+initial pass reported 3 failures on judging and 10 on Results, the worst at
+1.2:1. All of them were artefacts. `color-mix()` resolves through
+`getComputedStyle` as `color(srgb 0.984 0.980 0.969 / 0.88)`, and a naive
+`/[\d.]+/` parse reads those 0–1 floats as 0–255 channels — turning near-white
+into near-black and manufacturing failures. Anyone re-running a contrast audit
+on this codebase has to handle the `color(srgb …)` form; the corrected pass also
+asserts that no colour string went unparsed, so a zero means measured rather
+than skipped.
+
 ---
 
 ## 4. Severity 4 — tests and process
