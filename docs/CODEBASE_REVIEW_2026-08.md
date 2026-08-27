@@ -62,6 +62,33 @@ the local Uthmani face, `data-font-ready="false"` as designed.
 This is the highest-value line of code in the review. A competition hall with
 weak wifi, a corporate firewall, or a CDN incident currently means *no judging*.
 
+**And it is worse than one page.** The service worker precaches exactly **one**
+font — `QCF_DEFAULT_FONT` at `public/sw.js:24`, page 604's — while the app
+requests a **per-page** font (`qcfFontAssetUrl(page)` → `p{page}.woff2`, called
+per page by `Mushaf.tsx`). Font requests are served cache-first
+(`sw.js` fetch handler), so offline:
+
+- page 604 → font cached → renders
+- **any of the other 603 pages** → cache miss → network → fails → §1.1 kills the page
+
+So out of the box, offline, the app judges **1 of 604 pages**. The optional full
+download (`offlineMushaf.ts`, `offlineMushafAssetPairs()`) closes this — it
+enumerates all 604 page/font pairs — but it is opt-in, and it is 9.3 MB of page
+JSON plus 604 font files.
+
+Compounding it: `Mushaf.tsx` never consults `navigator.onLine`, so the message a
+judge sees is *"The requested page could not be opened"* whether the device is
+offline, the CDN is down, or something is genuinely broken.
+
+**Two more fixes follow from this:**
+
+- Precache the **local** Uthmani face (`/fonts/hafs.18.woff2`, 86 KB, already in
+  `STATIC_PRECACHE_URLS`' neighbourhood) as the guaranteed floor, so every page
+  has a renderable font offline without the 9.3 MB download.
+- Distinguish offline from broken in the error, and say which page and what to
+  do — "Page 481 needs the offline Mushaf download" is actionable; the current
+  string is not.
+
 ### 1.2 A failed save is silent
 
 `src/state/store.tsx:1647`:
@@ -382,14 +409,15 @@ Sequenced by risk retired per hour spent.
 | 4 | Surface failed saves (§1.2) | ~40 lines | Silent loss of a judge's work |
 | 5 | Prune migration backups (§1.3, part 1) | ~20 lines | 90% of storage pressure |
 | 6 | Replace `window.prompt` (§1.6) | ~40 lines | Unfinalizable revisions in WebViews |
-| 7 | Drop one spreadsheet library (§2.3) | dependency work | ~385 kB gzipped |
-| 8 | Stylelint guard + one conversion pass (§3.1) | mechanical | Permanent grammar drift |
-| 9 | Split the context, debounce persistence (§2.1, §2.2) | moderate | Frame drops at real roster sizes |
-| 10 | Playwright smoke suite (§4.2) | moderate | The whole class of §1 defects |
-| 11 | IndexedDB for the live record (§1.3, part 2) | large | The 5 MB ceiling |
-| 12 | Migrate source-text assertions (§4.1) | large, incremental | A test suite that blocks refactoring |
+| 7 | Precache the local Uthmani face; name offline in the error (§1.1) | ~15 lines | Judging 603 of 604 pages offline |
+| 8 | Drop one spreadsheet library (§2.3) | dependency work | ~385 kB gzipped |
+| 9 | Stylelint guard + one conversion pass (§3.1) | mechanical | Permanent grammar drift |
+| 10 | Split the context, debounce persistence (§2.1, §2.2) | moderate | Frame drops at real roster sizes |
+| 11 | Playwright smoke suite (§4.2) | moderate | The whole class of §1 defects |
+| 12 | IndexedDB for the live record (§1.3, part 2) | large | The 5 MB ceiling |
+| 13 | Migrate source-text assertions (§4.1) | large, incremental | A test suite that blocks refactoring |
 
-Items 1–6 are a day's work between them and are the difference between "a good
+Items 1–7 are a day's work between them and are the difference between "a good
 app" and "an app you would trust with an official competition."
 
 ---
@@ -409,9 +437,11 @@ before being reverted; the tree is clean.
 - **Server-side.** There is none — this is a client-only PWA with Cloudflare
   Workers serving static assets. "Backend" here means the state store,
   persistence and export pipeline, which §1 and §2 cover.
-- **The service worker and offline caching** (`public/sw.js`,
-  `lib/offlineMushaf.ts`) got only a cursory look. Given §1.1, the offline story
-  deserves its own pass.
+- **Offline behaviour under a real Service Worker.** The interaction in §1.1 was
+  established statically (precache list, per-page font URLs, cache-first
+  strategy) and by blocking the CDN in dev, where no SW runs. It should be
+  confirmed once against a production build with the SW active and the network
+  genuinely offline.
 - **Cross-browser.** Everything was measured in Chromium. Safari's localStorage
   behaviour under memory pressure is materially different and matters for iPad
   judging.
