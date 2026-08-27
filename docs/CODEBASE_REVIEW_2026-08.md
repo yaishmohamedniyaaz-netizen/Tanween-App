@@ -38,6 +38,18 @@ most carefully reasoned code in the repository and the least tested (§2.8). Non
 of these are ignorance. They are all the same gap between knowing a rule and
 enforcing it.
 
+**What the review could not find is as informative as what it found.** The core
+judging loop was driven end to end — focus a word by keyboard, open the mark
+menu, choose the letter, record the deduction — then the tab was killed
+mid-session. The mark came back byte-identical and re-rendered (§4.4). The action
+is gated properly when incomplete, keyboard-operable throughout, and durable
+across a crash. The thing this app exists to do, it does correctly.
+
+Two of this review's own measurements were wrong before they were right, and both
+are documented where they occur rather than quietly fixed (§3.8, §6) — as is a
+whole section, §2.3, whose first draft reached the wrong conclusion about the
+export pipeline.
+
 Fix the nine phase-1 items and this is a product you can run an official
 competition on. Phase 2 is an afternoon. Everything after that is craft.
 
