@@ -455,6 +455,8 @@ none below 32px.
 The rule exists because a judge is listening to a person recite and cannot also
 be aiming. The screen where it matters most is the screen that breaks it.
 
+**§3.7 explains why, and it is not neglect.**
+
 ### 3.3 Document structure
 
 The judging view has **no `<h1>`** — the outline starts at `<h2>Next reciter</h2>`
@@ -563,6 +565,69 @@ This matters beyond compliance. The question board is on the path of every
 single recitation, and `ReopenSessionDialog` gates an audited correction to a
 finalized result — the two moments where a judge is least able to reach for a
 mouse.
+### 3.7 The 44px rule is implemented correctly — behind a query no tablet matches
+
+Measured across four viewports, driving the app at each (device metrics
+emulated, touch emulation on for the first three):
+
+| Device | `pointer: coarse` | Nav button | Controls under 44px |
+| --- | --- | --- | --- |
+| iPhone 13, 390×844 | true | **44×44** | 2 of 10 (both 40px) |
+| iPad portrait, 820×1180 | true | **28×28** | 10 of 10 |
+| iPad landscape, 1180×820 | true | **28×28** | 10 of 10 |
+| Laptop, 1400×900 | false | 28×28 | 9 of 10 |
+
+The phone is the best-behaved screen in the application. Every tablet is the
+worst. That is backwards, and a tablet on a desk is the likeliest judging
+device there is.
+
+The cause is one media condition, `global.css:9871`:
+
+```css
+@media (max-width: 600px),
+  (min-width: 601px) and (max-width: 900px) and (max-device-width: 600px) and
+    (pointer: coarse) and (orientation: portrait) {
+```
+
+and the comment sitting inside it at `:10021` quotes rule 10's own reasoning:
+
+> *"Keep the approved compact navigation surfaces while making the actual
+> previous/page/next controls large enough to hit without aiming."*
+
+The work is done. `.page-nav-btn` becomes 44×44 with a `::before` inset by 8px
+so the *visible* pill stays 28px while the *hit area* is 44px — which is exactly
+the right technique, and better than simply making the button bigger. It is then
+gated behind a width cap that excludes every device it was written for.
+
+Both branches of the query cap device width at 600px. The second branch reads
+like an attempt to catch tablets — it asks for `pointer: coarse` — but
+`(max-device-width: 600px)` vetoes first, and no tablet has a device width at or
+under 600px. So the branch can only fire on a phone the *first* branch has
+already matched, which makes it close to dead code.
+
+**The proof that the condition is asking the wrong question:** `pointer: coarse`
+evaluates to **true** on both iPad cases above. The browser is telling the
+stylesheet that this is a touch device, and the width caps overrule it.
+
+**Fix.** The question rule 10 asks is *"is a finger doing this?"*, and
+`(pointer: coarse)` already answers it. Split the query so touch sizing keys off
+the pointer type alone and layout keys off width:
+
+```css
+@media (pointer: coarse) { /* 44px targets */ }
+@media (max-width: 600px) { /* phone layout */ }
+```
+
+That is a smaller stylesheet than what is there now, and it turns three of the
+four rows above green without touching a single component.
+
+*Worth crediting alongside it:* at every one of those four widths the document
+had **no horizontal overflow**, and the two places where content genuinely
+exceeds a phone's width — the results ledger table (scrollWidth 440 in a 342px
+box) and the status-filter row (390 in 334) — are both correctly wrapped in
+`overflow-x: auto` containers rather than being allowed to push the page. The
+responsive layout work is sound. It is only the target sizing that is gated
+wrong.
 
 ---
 
@@ -630,9 +695,10 @@ Sequenced by risk retired per hour spent.
 | 7 | Precache the local Uthmani face; name offline in the error (§1.1) | ~15 lines | Judging 603 of 604 pages offline |
 | 8 | Drop one spreadsheet library (§2.3) | dependency work | ~385 kB gzipped |
 | 9 | Stylelint guard + one conversion pass (§3.1) | mechanical | Permanent grammar drift |
-| 9a | One `<Modal>` wrapper for the seven hand-rolled dialogs (§3.6) | ~60 lines, 7 call sites | Keyboard users stranded in every modal on the recitation path |
-| 9b | Derive the SW cache version from the asset hashes (§2.6) | ~10 lines | Dead cache accumulating on judges' devices, and a test that discourages the fix |
-| 9c | Security headers in the Worker; CSP naming the one external origin (§2.7) | ~15 lines | No active hole — defence-in-depth, plus executable documentation of §1.1's dependency |
+| 9a | Key touch sizing off `(pointer: coarse)`, not width (§3.7) | ~4 lines, net smaller | 44px targets on every tablet — the likeliest judging device |
+| 9b | One `<Modal>` wrapper for the seven hand-rolled dialogs (§3.6) | ~60 lines, 7 call sites | Keyboard users stranded in every modal on the recitation path |
+| 9c | Derive the SW cache version from the asset hashes (§2.6) | ~10 lines | Dead cache accumulating on judges' devices, and a test that discourages the fix |
+| 9d | Security headers in the Worker; CSP naming the one external origin (§2.7) | ~15 lines | No active hole — defence-in-depth, plus executable documentation of §1.1's dependency |
 | 10 | Split the context, debounce persistence (§2.1, §2.2) | moderate | Frame drops at real roster sizes |
 | 11 | Playwright smoke suite (§4.2) | moderate | The whole class of §1 defects |
 | 12 | IndexedDB for the live record (§1.3, part 2) | large | The 5 MB ceiling |
@@ -668,8 +734,9 @@ before being reverted; the tree is clean.
 - **Cross-browser.** Everything was measured in Chromium. Safari's localStorage
   behaviour under memory pressure is materially different and matters for iPad
   judging.
-- **Real-device touch testing.** Hit targets were measured geometrically, not
-  used with a thumb.
+- **Real-device touch testing.** Hit targets were measured geometrically across
+  four emulated viewports with touch emulation on (§3.7), not used with a thumb.
+  The geometry is conclusive; how 40px feels mid-recitation is not.
 - **The Arabic typography itself.** Whether the QCF fallback preserves correct
   Uthmani orthography at every page is a question for someone qualified to judge
   it; §1.1 only establishes that the fallback renders.
