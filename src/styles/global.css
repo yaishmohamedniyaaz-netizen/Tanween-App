@@ -10357,7 +10357,8 @@ html:has(.dialog-backdrop) {
 /* A full border is the signifier that this number can be changed; the other
    score rows stay plain text because they cannot. */
 .mark-picker {
-  width: 78px;
+  justify-self: end;
+  width: 70px;
   min-height: var(--tap);
   padding: 6px;
   border: 1px solid var(--line-2);
@@ -10558,198 +10559,97 @@ html:has(.dialog-backdrop) {
   transition: none;
 }
 
-.mark-bar-wheel {
-  padding: 0;
-  border: 0;
-  border-radius: 0;
-  background: transparent;
-  box-shadow: none;
-}
-.mark-bar-wheel.is-inline {
-  position: fixed;
-  width: 78px;
-  margin: 0;
-  padding: 0;
-}
-.mark-wheel {
+.mark-stepper-shell {
   position: relative;
-  width: 100%;
-  height: 190px;
-  outline: none;
-  touch-action: none;
-  cursor: ns-resize;
-}
-.mark-wheel:focus-visible {
-  box-shadow: none;
-}
-.mark-wheel-focus:focus-visible {
-  outline: none;
-  box-shadow:
-    0 0 0 3px var(--ring),
-    0 4px 14px color-mix(in srgb, var(--ink) 18%, transparent);
-}
-.mark-wheel-scale {
-  position: relative;
-  height: 190px;
-  overflow: visible;
-}
-.mark-wheel-tray {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  border: 1px solid var(--line-2);
-  border-radius: var(--r-sm);
-  background: var(--surface);
-  box-shadow: 0 6px 22px color-mix(in srgb, var(--ink) 18%, transparent);
-}
-.mark-wheel-tray::before,
-.mark-wheel-tray::after {
-  position: absolute;
-  z-index: 2;
-  right: 1px;
-  left: 1px;
-  height: 54px;
-  pointer-events: none;
-  content: "";
-}
-.mark-wheel-tray::before {
-  top: 1px;
-  background: linear-gradient(var(--surface) 12%, color-mix(in srgb, var(--surface) 84%, transparent) 52%, transparent);
-}
-.mark-wheel-tray::after {
-  bottom: 1px;
-  background: linear-gradient(transparent, color-mix(in srgb, var(--surface) 84%, transparent) 48%, var(--surface) 88%);
-}
-.mark-wheel-focus {
-  position: absolute;
-  z-index: 5;
-  top: 50%;
-  right: 0;
-  width: 78px;
+  display: block;
+  justify-self: end;
+  width: 70px;
   min-height: var(--tap);
-  padding: 6px;
-  transform: translateY(-50%);
-  border: 1px solid var(--c, var(--line-2));
-  border-radius: var(--r-sm);
-  background: var(--surface);
-  box-shadow: 0 4px 14px color-mix(in srgb, var(--ink) 18%, transparent);
-  color: var(--ink);
-  cursor: ns-resize;
-  touch-action: none;
-  pointer-events: none;
+  isolation: isolate;
 }
-.mark-wheel-focus:hover {
-  border-color: var(--c, var(--ink));
+.mark-stepper-shell .mark-picker {
+  position: relative;
+  z-index: 2;
+  width: 70px;
 }
-.mark-wheel-current-value {
-  font-size: 15px;
-  font-weight: 720;
-  font-variant-numeric: tabular-nums;
-}
-.mark-wheel-current-of {
-  font-size: 12px;
-  font-weight: 400;
-  color: var(--ink-3);
-}
-.mark-wheel-values {
+.mark-stepper-adjust {
   position: absolute;
   z-index: 1;
-  top: calc(50% - 19px);
-  left: 0;
-  display: grid;
-  width: 100%;
-  transform: translateY(calc(var(--wheel-position, 0px) + var(--wheel-offset, 0px)));
-  transition: transform 120ms cubic-bezier(0.2, 0, 0, 1);
-}
-.mark-wheel-row {
+  top: 0;
+  width: var(--tap);
+  min-width: var(--tap);
+  min-height: var(--tap);
+  margin: 0;
+  border: 1px solid var(--line-2);
+  border-radius: 9px;
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
   display: grid;
   place-items: center;
-  height: 38px;
-  border: 0;
-  border-radius: var(--r-sm);
-  background: transparent;
-  color: var(--ink-3);
-  font-size: 14px;
-  font-weight: 560;
-  opacity: .28;
+  padding: 0 4px;
+  font-size: 13px;
+  font-weight: 680;
+  font-variant-numeric: tabular-nums;
   cursor: pointer;
-  transition:
-    color 130ms var(--ease-out),
-    font-size 130ms var(--ease-out),
-    opacity 130ms var(--ease-out),
-    transform 130ms var(--ease-out);
-}
-.mark-wheel-row.is-near {
-  opacity: .62;
-}
-.mark-wheel-row.is-selected {
   opacity: 0;
-  pointer-events: none;
-}
-.mark-wheel-row:focus-visible {
-  box-shadow: 0 0 0 3px var(--ring);
-}
-.mark-wheel-half {
-  position: absolute;
-  z-index: 4;
-  top: 50%;
-  min-width: 48px;
-  min-height: 44px;
-  transform: translateY(-50%) scale(.92);
-  border: 1px solid var(--line-2);
-  border-radius: var(--r-sm);
-  background: var(--surface);
-  color: var(--ink-2);
-  font-size: 14px;
-  font-weight: 700;
-  opacity: 0;
-  pointer-events: none;
-  transition:
-    opacity 140ms var(--ease-out),
-    transform 140ms var(--ease-out),
-    background 140ms var(--ease-out),
-    color 140ms var(--ease-out);
-}
-.mark-wheel-half.is-left {
-  right: calc(100% - 10px);
-  left: auto;
-}
-.mark-wheel-half.is-right {
-  right: auto;
-  left: calc(100% - 10px);
-}
-.mark-wheel-half.is-left:not(.is-revealed) {
-  transform: translate(8px, -50%) scale(.92);
-}
-.mark-wheel-half.is-right:not(.is-revealed) {
-  transform: translate(-8px, -50%) scale(.92);
-}
-.mark-wheel-half.is-revealed {
-  transform: translateY(-50%) scale(1);
-  opacity: 1;
-  pointer-events: auto;
-}
-.mark-wheel-half.is-active {
-  border-color: var(--c, var(--ink));
-  background: var(--c, var(--ink));
-  color: var(--c-on, #ffffff);
-}
-.mark-wheel-half:disabled {
   visibility: hidden;
+  transform: scale(.92);
+  pointer-events: none;
+  transition:
+    opacity var(--t-fast) var(--ease-out),
+    transform var(--t-fast) var(--ease-out),
+    visibility 0s linear var(--t-fast),
+    border-color var(--t-fast) var(--ease-out),
+    background var(--t-fast) var(--ease-out);
 }
-.mark-wheel.is-dragging .mark-wheel-values {
-  transition: none;
+.mark-stepper-adjust.is-minus {
+  left: -35px;
+  border-radius: 9px 0 0 9px;
+}
+.mark-stepper-adjust.is-plus {
+  right: -35px;
+  border-radius: 0 9px 9px 0;
+}
+.mark-stepper-adjust.is-minus span {
+  transform: translateX(-2px);
+}
+.mark-stepper-adjust.is-plus span {
+  transform: translateX(2px);
+}
+.mark-stepper-shell.is-open .mark-stepper-adjust {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  pointer-events: auto;
+  transition-delay: 0s;
+}
+.sidebar:has(.mark-stepper-shell.is-open) {
+  z-index: 61;
+  overflow: visible;
+}
+.mark-stepper-adjust:hover:not(:disabled) {
+  border-color: color-mix(in srgb, var(--c, var(--ink)) 52%, var(--line-2));
+  background: color-mix(in srgb, var(--c, var(--ink)) 7%, var(--surface));
+}
+.mark-stepper-adjust:active:not(:disabled) {
+  transform: translateY(1px);
+}
+.mark-stepper-adjust:disabled {
+  opacity: .34;
+  cursor: not-allowed;
+}
+.mark-stepper-adjust:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--ring);
 }
 @media (prefers-reduced-motion: reduce) {
   .mark-ruler-fill,
   .mark-ruler-bubble,
-  .mark-wheel-values,
-  .mark-wheel-row,
-  .mark-wheel-half {
+  .mark-stepper-adjust {
     transition: none;
   }
 }
-
 .finish-dialog {
   display: grid;
   grid-template-rows: auto minmax(0, 1fr) auto;

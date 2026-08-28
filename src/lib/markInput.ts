@@ -1,11 +1,6 @@
 const round2 = (value: number) => Math.round(value * 100) / 100;
 
-export const MARK_WHEEL_HOLD_MS = 320;
-export const MARK_WHEEL_MOVE_TOLERANCE = 10;
-export const MARK_WHEEL_ROW_HEIGHT = 38;
-export const MARK_WHEEL_HALF_ENTER = 30;
-export const MARK_WHEEL_HALF_EXIT = 16;
-export const MARK_WHEEL_DELTA_THRESHOLD = 18;
+export const MARK_INPUT_WHEEL_DELTA_THRESHOLD = 24;
 
 export function clampMark(value: number, max: number, step: number): number {
   const safeStep = step > 0 ? step : 1;
@@ -26,42 +21,18 @@ export function markFromHorizontalPoint(
   return clampMark(ratio * max, max, step);
 }
 
-export function wheelWholeFromDelta(
-  startingValue: number,
-  deltaY: number,
-  max: number,
-): number {
-  const startingWhole = Math.floor(Math.max(0, Math.min(max, startingValue)));
-  const wholeSteps = Math.round(-deltaY / MARK_WHEEL_ROW_HEIGHT);
-  return Math.min(Math.floor(max), Math.max(0, startingWhole + wholeSteps));
-}
-
-export function markSupportsHalf(whole: number, max: number, step: number): boolean {
-  if (whole + 0.5 > max) return false;
-  return clampMark(whole + 0.5, max, step) === round2(whole + 0.5);
-}
-
-export function wheelMark(
-  whole: number,
-  half: boolean,
+/** Resolve one explicit step-button or focused-wheel adjustment.
+ *
+ * An unmarked category starts from its configured maximum in the UI only.
+ * Calling this function represents a deliberate interaction and therefore
+ * returns the first value that may be committed to judging state. */
+export function stepperMark(
+  value: number,
+  marked: boolean,
+  delta: number,
   max: number,
   step: number,
 ): number {
-  return clampMark(
-    whole + (half && markSupportsHalf(whole, max, step) ? 0.5 : 0),
-    max,
-    step,
-  );
-}
-
-export function wheelMarkByWholeStep(
-  currentValue: number,
-  direction: -1 | 1,
-  max: number,
-  step: number,
-): number {
-  const whole = Math.floor(Math.max(0, Math.min(max, currentValue)));
-  const keepsHalf = Math.abs(currentValue - whole - 0.5) < 0.001;
-  const nextWhole = Math.min(Math.floor(max), Math.max(0, whole + direction));
-  return wheelMark(nextWhole, keepsHalf, max, step);
+  const baseline = marked ? value : max;
+  return clampMark(baseline + delta, max, step);
 }

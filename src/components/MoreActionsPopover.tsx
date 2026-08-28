@@ -230,16 +230,16 @@ export function MoreActionsPopover({
                   <button
                     type="button"
                     role="radio"
-                    aria-checked={aduRaaguInputMode === "wheel"}
-                    className={aduRaaguInputMode === "wheel" ? "is-active" : ""}
-                    onClick={() => onAduRaaguInputModeChange("wheel")}
+                    aria-checked={aduRaaguInputMode === "stepper"}
+                    className={aduRaaguInputMode === "stepper" ? "is-active" : ""}
+                    onClick={() => onAduRaaguInputModeChange("stepper")}
                   >
-                    Vertical
+                    Step buttons
                   </button>
                 </div>
                 <small>
-                  {aduRaaguInputMode === "wheel"
-                    ? "Tap to open the wheel, or hold and slide for a quick mark."
+                  {aduRaaguInputMode === "stepper"
+                    ? "Start from the maximum, then use minus or plus for half-mark adjustments."
                     : "Tap or drag the ruler; minor ticks are half marks."}
                 </small>
               </fieldset>

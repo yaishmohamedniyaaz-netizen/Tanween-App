@@ -2,10 +2,10 @@ export type AppTheme = "light" | "dark";
 export type MushafLayout = "full" | "spread";
 export type JudgeRailSide = "left" | "right";
 export type QuestionFocusMode = "off" | "fade" | "shade" | "shade-fade";
-export type AduRaaguInputMode = "ruler" | "wheel";
+export type AduRaaguInputMode = "ruler" | "stepper";
 
-export interface DevicePreferencesV4 {
-  version: 4;
+export interface DevicePreferencesV5 {
+  version: 5;
   theme: AppTheme;
   mushafLayout: MushafLayout;
   mushafZoom: number;
@@ -14,7 +14,8 @@ export interface DevicePreferencesV4 {
   aduRaaguInputMode: AduRaaguInputMode;
 }
 
-export const DEVICE_PREFERENCES_KEY = "tahqeeq:devicePreferences.v4";
+export const DEVICE_PREFERENCES_KEY = "tahqeeq:devicePreferences.v5";
+export const LEGACY_DEVICE_PREFERENCES_V4_KEY = "tahqeeq:devicePreferences.v4";
 export const LEGACY_DEVICE_PREFERENCES_V3_KEY = "tahqeeq:devicePreferences.v3";
 export const LEGACY_DEVICE_PREFERENCES_V2_KEY = "tahqeeq:devicePreferences.v2";
 export const LEGACY_DEVICE_PREFERENCES_KEY = "tahqeeq:devicePreferences.v1";
@@ -29,8 +30,8 @@ export const MUSHAF_ZOOM_DEFAULT = MUSHAF_ZOOM_FIT;
 export const MUSHAF_ZOOM_MAX = 150;
 export const MUSHAF_ZOOM_STEP = 5;
 
-export const DEFAULT_DEVICE_PREFERENCES: DevicePreferencesV4 = {
-  version: 4,
+export const DEFAULT_DEVICE_PREFERENCES: DevicePreferencesV5 = {
+  version: 5,
   theme: "light",
   mushafLayout: "spread",
   mushafZoom: MUSHAF_ZOOM_DEFAULT,
@@ -58,8 +59,8 @@ function storageOrNull(storage?: Storage | null): Storage | null {
 
 export function normalizeDevicePreferences(
   value: unknown,
-  fallback: DevicePreferencesV4 = DEFAULT_DEVICE_PREFERENCES,
-): DevicePreferencesV4 {
+  fallback: DevicePreferencesV5 = DEFAULT_DEVICE_PREFERENCES,
+): DevicePreferencesV5 {
   const candidate = value && typeof value === "object"
     ? value as Record<string, unknown>
     : {};
@@ -78,7 +79,7 @@ export function normalizeDevicePreferences(
       ? candidate.questionFocusEnabled ? "fade" : "off"
       : fallback.questionFocusMode;
   return {
-    version: 4,
+    version: 5,
     theme: candidate.theme === "dark" || candidate.theme === "light"
       ? candidate.theme
       : fallback.theme,
@@ -93,14 +94,16 @@ export function normalizeDevicePreferences(
       ? candidate.judgeRailSide
       : fallback.judgeRailSide,
     questionFocusMode,
-    aduRaaguInputMode: candidate.aduRaaguInputMode === "wheel" ||
-        candidate.aduRaaguInputMode === "ruler"
-      ? candidate.aduRaaguInputMode
-      : fallback.aduRaaguInputMode,
+    aduRaaguInputMode: candidate.aduRaaguInputMode === "stepper" ||
+        candidate.aduRaaguInputMode === "wheel"
+      ? "stepper"
+      : candidate.aduRaaguInputMode === "ruler"
+        ? "ruler"
+        : fallback.aduRaaguInputMode,
   };
 }
 
-function legacyPreferences(storage: Storage): DevicePreferencesV4 {
+function legacyPreferences(storage: Storage): DevicePreferencesV5 {
   const legacyZoom = storage.getItem(LEGACY_PAGE_ZOOM_KEY);
   return normalizeDevicePreferences({
     theme: storage.getItem(LEGACY_THEME_KEY),
@@ -113,8 +116,8 @@ function legacyPreferences(storage: Storage): DevicePreferencesV4 {
 function readStoredPreferences(
   storage: Storage,
   key: string,
-  fallback: DevicePreferencesV4,
-): DevicePreferencesV4 {
+  fallback: DevicePreferencesV5,
+): DevicePreferencesV5 {
   try {
     const raw = storage.getItem(key);
     return raw ? normalizeDevicePreferences(JSON.parse(raw), fallback) : fallback;
@@ -123,7 +126,7 @@ function readStoredPreferences(
   }
 }
 
-export function readDevicePreferences(storage?: Storage | null): DevicePreferencesV4 {
+export function readDevicePreferences(storage?: Storage | null): DevicePreferencesV5 {
   const target = storageOrNull(storage);
   if (!target) return { ...DEFAULT_DEVICE_PREFERENCES };
   const legacy = legacyPreferences(target);
@@ -142,13 +145,18 @@ export function readDevicePreferences(storage?: Storage | null): DevicePreferenc
     LEGACY_DEVICE_PREFERENCES_V3_KEY,
     migratedV2,
   );
-  return readStoredPreferences(target, DEVICE_PREFERENCES_KEY, migratedV3);
+  const migratedV4 = readStoredPreferences(
+    target,
+    LEGACY_DEVICE_PREFERENCES_V4_KEY,
+    migratedV3,
+  );
+  return readStoredPreferences(target, DEVICE_PREFERENCES_KEY, migratedV4);
 }
 
 export function writeDevicePreferences(
-  preferences: DevicePreferencesV4,
+  preferences: DevicePreferencesV5,
   storage?: Storage | null,
-): DevicePreferencesV4 {
+): DevicePreferencesV5 {
   const normalized = normalizeDevicePreferences(preferences);
   const target = storageOrNull(storage);
   if (!target) return normalized;
@@ -156,6 +164,15 @@ export function writeDevicePreferences(
     target.setItem(DEVICE_PREFERENCES_KEY, JSON.stringify(normalized));
     // Keep the previous settings object and individual keys synchronized so a
     // rollback build continues to honor the closest equivalent choices.
+    target.setItem(LEGACY_DEVICE_PREFERENCES_V4_KEY, JSON.stringify({
+      version: 4,
+      theme: normalized.theme,
+      mushafLayout: normalized.mushafLayout,
+      mushafZoom: normalized.mushafZoom,
+      judgeRailSide: normalized.judgeRailSide,
+      questionFocusMode: normalized.questionFocusMode,
+      aduRaaguInputMode: normalized.aduRaaguInputMode === "stepper" ? "wheel" : "ruler",
+    }));
     target.setItem(LEGACY_DEVICE_PREFERENCES_V3_KEY, JSON.stringify({
       version: 3,
       theme: normalized.theme,

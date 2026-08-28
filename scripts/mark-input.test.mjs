@@ -3,12 +3,8 @@ import test from "node:test";
 
 import {
   clampMark,
-  MARK_WHEEL_ROW_HEIGHT,
   markFromHorizontalPoint,
-  markSupportsHalf,
-  wheelMark,
-  wheelMarkByWholeStep,
-  wheelWholeFromDelta,
+  stepperMark,
 } from "../src/lib/markInput.ts";
 
 test("the shared controller clamps and snaps every committed mark", () => {
@@ -26,26 +22,15 @@ test("horizontal position maps to the same shared half-mark values", () => {
   assert.equal(markFromHorizontalPoint(115, 50, 200, 10, 0.5), 3.5);
 });
 
-test("vertical travel changes whole marks and respects both limits", () => {
-  assert.equal(wheelWholeFromDelta(5.5, -MARK_WHEEL_ROW_HEIGHT, 10), 6);
-  assert.equal(wheelWholeFromDelta(5.5, MARK_WHEEL_ROW_HEIGHT * 2, 10), 3);
-  assert.equal(wheelWholeFromDelta(9.5, -MARK_WHEEL_ROW_HEIGHT * 4, 10), 10);
-  assert.equal(wheelWholeFromDelta(0, MARK_WHEEL_ROW_HEIGHT * 3, 10), 0);
+test("an unmarked stepper starts from the maximum only after a deliberate step", () => {
+  assert.equal(stepperMark(0, false, -0.5, 10, 0.5), 9.5);
+  assert.equal(stepperMark(0, false, -1, 10, 0.5), 9);
+  assert.equal(stepperMark(0, false, 0, 10, 0.5), 10);
 });
 
-test("vertical wheel steps one whole point and preserves an existing half", () => {
-  assert.equal(wheelMarkByWholeStep(2, 1, 10, 0.5), 3);
-  assert.equal(wheelMarkByWholeStep(2.5, 1, 10, 0.5), 3.5);
-  assert.equal(wheelMarkByWholeStep(2.5, -1, 10, 0.5), 1.5);
-  assert.equal(wheelMarkByWholeStep(9.5, 1, 10, 0.5), 10);
-  assert.equal(wheelMarkByWholeStep(0.5, -1, 10, 0.5), 0.5);
-});
-
-test("the side branch adds a half only when the competition step allows it", () => {
-  assert.equal(markSupportsHalf(4, 10, 0.5), true);
-  assert.equal(markSupportsHalf(4, 10, 1), false);
-  assert.equal(markSupportsHalf(10, 10, 0.5), false);
-  assert.equal(wheelMark(4, true, 10, 0.5), 4.5);
-  assert.equal(wheelMark(4, true, 10, 1), 4);
-  assert.equal(wheelMark(10, true, 10, 0.5), 10);
+test("subsequent stepper adjustments use the committed value and clamp at limits", () => {
+  assert.equal(stepperMark(9.5, true, 0.5, 10, 0.5), 10);
+  assert.equal(stepperMark(4, true, -1, 10, 0.5), 3);
+  assert.equal(stepperMark(0, true, -0.5, 10, 0.5), 0);
+  assert.equal(stepperMark(10, true, 1, 10, 0.5), 10);
 });

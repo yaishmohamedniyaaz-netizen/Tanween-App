@@ -6,6 +6,7 @@ import {
   LEGACY_DEVICE_PREFERENCES_KEY,
   LEGACY_DEVICE_PREFERENCES_V2_KEY,
   LEGACY_DEVICE_PREFERENCES_V3_KEY,
+  LEGACY_DEVICE_PREFERENCES_V4_KEY,
   LEGACY_JUDGE_RAIL_SIDE_KEY,
   LEGACY_PAGE_LAYOUT_KEY,
   LEGACY_PAGE_ZOOM_KEY,
@@ -39,15 +40,15 @@ test("device preferences normalize invalid values without losing valid choices",
     mushafZoom: 83,
     judgeRailSide: "right",
     questionFocusMode: "shade-fade",
-    aduRaaguInputMode: "wheel",
+    aduRaaguInputMode: "stepper",
   }), {
-    version: 4,
+    version: 5,
     theme: "dark",
     mushafLayout: "spread",
     mushafZoom: 100,
     judgeRailSide: "right",
     questionFocusMode: "shade-fade",
-    aduRaaguInputMode: "wheel",
+    aduRaaguInputMode: "stepper",
   });
   assert.equal(normalizeDevicePreferences({ mushafZoom: 140 }).mushafZoom, 140);
   assert.equal(normalizeDevicePreferences({ mushafZoom: 61 }).mushafZoom, MUSHAF_ZOOM_MIN);
@@ -107,7 +108,7 @@ test("legacy device keys migrate into the versioned settings object", () => {
     [LEGACY_JUDGE_RAIL_SIDE_KEY]: "right",
   });
   assert.deepEqual(readDevicePreferences(storage), {
-    version: 4,
+    version: 5,
     theme: "dark",
     mushafLayout: "spread",
     mushafZoom: 100,
@@ -129,7 +130,7 @@ test("the version-one focus boolean migrates without losing other preferences", 
     }),
   });
   assert.deepEqual(readDevicePreferences(storage), {
-    version: 4,
+    version: 5,
     theme: "dark",
     mushafLayout: "spread",
     mushafZoom: 115,
@@ -165,7 +166,7 @@ test("the version-three settings migrate with the horizontal input default", () 
     }),
   });
   assert.deepEqual(readDevicePreferences(storage), {
-    version: 4,
+    version: 5,
     theme: "dark",
     mushafLayout: "full",
     mushafZoom: 125,
@@ -175,24 +176,44 @@ test("the version-three settings migrate with the horizontal input default", () 
   });
 });
 
+test("the retired vertical preference migrates to explicit step buttons", () => {
+  const storage = memoryStorage({
+    [LEGACY_DEVICE_PREFERENCES_V4_KEY]: JSON.stringify({
+      version: 4,
+      theme: "dark",
+      mushafLayout: "spread",
+      mushafZoom: 110,
+      judgeRailSide: "left",
+      questionFocusMode: "fade",
+      aduRaaguInputMode: "wheel",
+    }),
+  });
+  const migrated = readDevicePreferences(storage);
+  assert.equal(migrated.version, 5);
+  assert.equal(migrated.aduRaaguInputMode, "stepper");
+});
+
 test("writing settings keeps the rollback-compatible legacy keys in sync", () => {
   const storage = memoryStorage();
   const written = writeDevicePreferences({
-    version: 4,
+    version: 5,
     theme: "dark",
     mushafLayout: "split",
     mushafZoom: 65,
     judgeRailSide: "right",
     questionFocusMode: "shade-fade",
-    aduRaaguInputMode: "wheel",
+    aduRaaguInputMode: "stepper",
   }, storage);
   const current = JSON.parse(storage.getItem(DEVICE_PREFERENCES_KEY));
+  const rollbackV4 = JSON.parse(storage.getItem(LEGACY_DEVICE_PREFERENCES_V4_KEY));
   const rollbackV3 = JSON.parse(storage.getItem(LEGACY_DEVICE_PREFERENCES_V3_KEY));
   const rollbackV2 = JSON.parse(storage.getItem(LEGACY_DEVICE_PREFERENCES_V2_KEY));
   const rollback = JSON.parse(storage.getItem(LEGACY_DEVICE_PREFERENCES_KEY));
   assert.equal(current.mushafZoom, 100);
   assert.equal(current.questionFocusMode, "shade-fade");
-  assert.equal(current.aduRaaguInputMode, "wheel");
+  assert.equal(current.aduRaaguInputMode, "stepper");
+  assert.equal(rollbackV4.version, 4);
+  assert.equal(rollbackV4.aduRaaguInputMode, "wheel");
   assert.equal(rollbackV3.version, 3);
   assert.equal(rollbackV3.aduRaaguInputMode, undefined);
   assert.equal(rollbackV2.questionFocusMode, "shade");
@@ -201,7 +222,7 @@ test("writing settings keeps the rollback-compatible legacy keys in sync", () =>
   assert.equal(storage.getItem(LEGACY_PAGE_LAYOUT_KEY), "spread");
   assert.equal(storage.getItem(LEGACY_PAGE_ZOOM_KEY), "100");
   assert.equal(storage.getItem(LEGACY_JUDGE_RAIL_SIDE_KEY), "right");
-  assert.equal(written.version, 4);
+  assert.equal(written.version, 5);
 
   writeDevicePreferences({ ...written, questionFocusMode: "off" }, storage);
   assert.equal(
@@ -214,12 +235,12 @@ test("unavailable storage never prevents an in-memory preference change", () => 
   const storage = memoryStorage();
   storage.setItem = () => { throw new Error("quota"); };
   assert.doesNotThrow(() => writeDevicePreferences({
-    version: 4,
+    version: 5,
     theme: "dark",
     mushafLayout: "full",
     mushafZoom: 90,
     judgeRailSide: "left",
     questionFocusMode: "fade",
-    aduRaaguInputMode: "wheel",
+    aduRaaguInputMode: "stepper",
   }, storage));
 });

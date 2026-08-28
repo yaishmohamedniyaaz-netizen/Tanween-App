@@ -482,12 +482,13 @@ test("the mark list runs from full marks down to zero", () => {
   assert.equal(awardableMarks(20, 0.5).at(-1), 0);
 });
 
-test("both input styles accept deliberate wheel input without hover activation", () => {
-  assert.match(pickerSource, /const adjustByWheel = useCallback/);
-  assert.match(pickerSource, /MARK_WHEEL_DELTA_THRESHOLD/);
-  assert.match(pickerSource, /wheelMarkByWholeStep\(valueRef\.current, direction, max, step\)/);
-  assert.match(pickerSource, /adjustByWheel\(event\.deltaY, "ruler", true\)/);
-  assert.match(pickerSource, /adjustByWheel\(event\.deltaY, "wheel", true\)/);
+test("both input styles accept deliberate focused wheel input without hover activation", () => {
+  assert.match(pickerSource, /const adjustByInputWheel = useCallback/);
+  assert.match(pickerSource, /MARK_INPUT_WHEEL_DELTA_THRESHOLD/);
+  assert.match(pickerSource, /const direction = inputWheelDeltaRef\.current < 0 \? 1 : -1/);
+  assert.match(pickerSource, /stepperMark\(valueRef\.current, marked, direction \* fineStep, max, step\)/);
+  assert.match(pickerSource, /adjustByInputWheel\(event\.deltaY, true\)/);
+  assert.match(pickerSource, /adjustByInputWheel\(event\.deltaY, mode === "stepper"\)/);
   assert.match(pickerSource, /if \(open \|\| document\.activeElement !== button\) return/);
   assert.doesNotMatch(pickerSource, /onPointerEnter|onMouseEnter|onMouseMove/);
 });
@@ -505,7 +506,8 @@ test("Adu and Raagu has one home in the rail, inside its score row", () => {
   assert.match(ruleBody(".score-value-layout"), /gap: 2px/);
   assert.match(ruleBody(".score-value-layout"), /white-space: nowrap/);
   assert.match(ruleBody(".score-value-layout .sc-of"), /line-height: 1/);
-  assert.match(ruleBody(".mark-picker"), /width: 78px/);
+  assert.match(ruleBody(".mark-picker"), /justify-self: end/);
+  assert.match(ruleBody(".mark-picker"), /width: 70px/);
   assert.match(ruleBody(".sc-score .sc-of"), /font-size: 12px/);
   assert.match(ruleBody(".mark-picker-of"), /font-size: 12px/);
   assert.match(ruleBody(".mark-picker-of"), /font-weight: 400/);
@@ -607,7 +609,7 @@ test("the mark bar carries its criterion's colour across the portal", () => {
   // category travelling with it, --c is unset on the bar and the control
   // falls back to ink while its own row reads as the criterion.
   assert.match(pickerSource, /createPortal/);
-  assert.match(pickerSource, /className={`mark-bar mark-bar-\$\{mode\} cat-\$\{category\}/);
+  assert.match(pickerSource, /className={`mark-bar mark-bar-ruler cat-\$\{category\}/);
   assert.match(pickerSource, /category: string;/);
   assert.match(scorePanelSource, /category=\{category\}/);
 });
@@ -652,7 +654,7 @@ test("Adu and Raagu ruler keeps readable ink and a neutral uncommitted state", (
   assert.ok((white + 0.05) / (green + 0.05) >= 4.5, "white must meet AA on the chosen green");
 
   assert.match(ruleBody(".mark-ruler-bubble.is-active"), /var\(--c-on, #ffffff\)/);
-  assert.match(ruleBody(".mark-ruler-fill"), /var\(--c, var\(--ink\)\)/);
+  assert.match(ruleBody(".mark-ruler-fill"), /var\(--c, var\(--ink\)\) 46%/);
   assert.match(pickerSource, /const hasSelection = marked \|\| preview !== null/);
 
   const openRule = ruleBody(".mark-picker.is-open");
@@ -753,25 +755,30 @@ test("the quiet ruler stays neutral until a mark is set or previewed", () => {
   assert.match(ruleBody(".mark-ruler-track"), /background: var\(--line-2\)/);
 });
 
-test("the alternative wheel stays attached to the score and follows the gesture", () => {
+test("the alternate input reveals half-mark buttons without moving or duplicating the score", () => {
   assert.match(pickerSource, /mode: AduRaaguInputMode/);
-  assert.match(pickerSource, /MARK_WHEEL_HOLD_MS/);
-  assert.match(pickerSource, /wheelWholeFromDelta\(gesture\.startValue, deltaY, max\)/);
-  assert.match(pickerSource, /MARK_WHEEL_HALF_ENTER/);
-  assert.match(pickerSource, /deltaY \+ travelledRows \* MARK_WHEEL_ROW_HEIGHT/);
-  assert.match(pickerSource, /activateWheelGesture\(gesture\)/);
-  assert.match(pickerSource, /commit\(previewRef\.current \?\? gesture\.startValue\)/);
-  assert.match(pickerSource, /window\.addEventListener\("pointercancel", onCancel\)/);
-  assert.match(pickerSource, /window\.addEventListener\("pagehide", close\)/);
-  assert.match(pickerSource, /className="mark-wheel-focus score-value-layout"/);
-  assert.match(pickerSource, /Array\.from\(\{ length: Math\.floor\(max\) \+ 1 \}/);
-  assert.match(pickerSource, /"--wheel-position": `\$\{-selectedWhole \* MARK_WHEEL_ROW_HEIGHT\}px`/);
-  assert.match(pickerSource, /pinned \|\| wheelHalfBranch \? "is-revealed"/);
-  assert.match(ruleBody(".mark-wheel-tray"), /overflow: hidden/);
-  assert.match(ruleBody(".mark-wheel-half.is-left"), /right: calc\(100% - 10px\)/);
-  assert.match(ruleBody(".mark-wheel-half.is-right"), /left: calc\(100% - 10px\)/);
-  assert.match(pickerSource, /presentation === "inline" && mode !== "wheel"/);
-  assert.doesNotMatch(pickerSource, /Set mark|mark-wheel-output|mark-wheel-actions/);
+  assert.match(pickerSource, /const fineStep = step > 0 \? step : 1/);
+  assert.match(pickerSource, /const coarseStep = fineStep \* 2/);
+  assert.match(pickerSource, /stepperMark\(valueRef\.current, marked, delta, max, step\)/);
+  assert.match(pickerSource, /Subtract \$\{displayMark\(fineStep\)\} marks/);
+  assert.match(pickerSource, /Add \$\{displayMark\(fineStep\)\} marks/);
+  assert.match(pickerSource, /Set full \$\{displayMark\(max\)\} marks/);
+  assert.match(pickerSource, /const triggerDisplay = mode === "stepper" && !marked \? "—" : display/);
+  assert.match(pickerSource, /presentation === "inline" && mode === "ruler"/);
+  assert.match(pickerSource, /className={`mark-stepper-shell cat-\$\{category\}/);
+  assert.match(pickerSource, /\{trigger\}/);
+  assert.doesNotMatch(pickerSource, /stepperShift|translateX\(\$\{stepperShift\}|mark-stepper-value/);
+  assert.doesNotMatch(pickerSource, /mark-bar-stepper/);
+  assert.match(ruleBody(".mark-stepper-shell"), /position: relative/);
+  assert.match(ruleBody(".mark-stepper-shell"), /width: 70px/);
+  assert.match(ruleBody(".mark-stepper-adjust"), /position: absolute/);
+  assert.match(ruleBody(".mark-stepper-adjust.is-minus"), /left: -35px/);
+  assert.match(ruleBody(".mark-stepper-adjust.is-plus"), /right: -35px/);
+  assert.match(ruleBody(".sidebar:has(.mark-stepper-shell.is-open)"), /overflow: visible/);
+  assert.match(ruleBody(".mark-stepper-adjust"), /min-height: var\(--tap\)/);
+  assert.doesNotMatch(scorePanelSource, /input-\$\{inputMode\}/);
+  assert.doesNotMatch(cssSource, /\.sc-row-impression\.input-stepper/);
+  assert.doesNotMatch(pickerSource, /mark-wheel|vertical wheel|hold gesture/i);
 });
 
 test("Adu and Raagu defaults to half-mark increments", () => {
