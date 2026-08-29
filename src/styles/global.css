@@ -10738,6 +10738,7 @@ html:has(.finish-dialog[open]) {
 .finish-dialog-body {
   min-height: 0;
   padding: 0 24px 20px;
+  overflow-x: hidden;
   overflow-y: auto;
   overscroll-behavior: contain;
 }
@@ -10810,6 +10811,12 @@ html:has(.finish-dialog[open]) {
   justify-content: flex-end;
   color: var(--ink);
   font-size: 13px;
+}
+.finish-score-row:has(.mark-stepper-shell.is-open) {
+  grid-template-columns: minmax(0, 1fr) 82px 140px;
+}
+.finish-score-row:has(.mark-stepper-shell.is-open) .finish-score-value {
+  justify-content: center;
 }
 .finish-score-row.is-pending .finish-criterion strong {
   color: var(--c, var(--ink));
@@ -10918,6 +10925,9 @@ html:has(.finish-dialog[open]) {
   .finish-score-row.is-invalid {
     margin-inline: -7px;
     padding: 8px 7px 12px;
+  }
+  .finish-score-row:has(.mark-stepper-shell.is-open) {
+    grid-template-columns: minmax(0, 1fr) 42px 140px;
   }
   .finish-mark-error {
     margin-left: 15px;
