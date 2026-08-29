@@ -1,9 +1,36 @@
 import { useJudging } from "../state/store";
+import { CompactTextEditor } from "./CompactTextEditor";
 
-export function NotesBox() {
+export function NotesBox({
+  presentation = "rail",
+}: {
+  presentation?: "rail" | "compact";
+}) {
   const { state, dispatch } = useJudging();
+  if (presentation === "compact") {
+    return (
+      <section className="notes-panel is-compact" aria-label="Notes">
+        <CompactTextEditor
+          title="Recitation notes"
+          label="Notes for improvement"
+          value={state.notes}
+          placeholder="Notes for improvement"
+          triggerClassName={`compact-notes-trigger ${state.notes.trim() ? "has-value" : ""}`}
+          triggerLabel="Edit recitation notes"
+          triggerContent={
+            <>
+              <span>Notes</span>
+              {state.notes.trim() && <i aria-hidden="true" />}
+            </>
+          }
+          onChange={(notes) => dispatch({ type: "SET_NOTES", notes })}
+        />
+      </section>
+    );
+  }
+
   return (
-    <section className="panel" aria-label="Notes">
+    <section className="panel notes-panel" aria-label="Notes">
       <div className="panel-head">
         <span className="t-label">Notes</span>
       </div>

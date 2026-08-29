@@ -24,6 +24,8 @@ interface MushafViewportProps {
   zoomPercent: number;
   contentKey: string;
   overlay?: ReactNode;
+  forceStableStage?: boolean;
+  forceCompactPages?: boolean;
 }
 
 type MushafViewportStyle = CSSProperties & {
@@ -37,6 +39,7 @@ type MushafViewportStyle = CSSProperties & {
 const MushafViewportContext = createContext({
   renderScale: 1,
   stableStage: false,
+  compactPages: true,
 });
 
 export function useMushafRenderScale(): number {
@@ -45,6 +48,10 @@ export function useMushafRenderScale(): number {
 
 export function useStableMushafStage(): boolean {
   return useContext(MushafViewportContext).stableStage;
+}
+
+export function useCompactMushafPages(): boolean {
+  return useContext(MushafViewportContext).compactPages;
 }
 
 function stableStageMatches(): boolean {
@@ -58,24 +65,29 @@ export function MushafViewport({
   zoomPercent,
   contentKey,
   overlay,
+  forceStableStage = false,
+  forceCompactPages = false,
 }: MushafViewportProps) {
   const frameRef = useRef<HTMLDivElement>(null);
   const viewportCenterRef = useRef({ inline: 0.5, block: 0.5 });
   const restoringScrollRef = useRef(false);
-  const [stableStage, setStableStage] = useState(stableStageMatches);
+  const [stableStage, setStableStage] = useState(
+    () => forceStableStage || stableStageMatches(),
+  );
   const [fitInlineSize, setFitInlineSize] = useState(0);
   const [frameInlineSize, setFrameInlineSize] = useState(0);
 
   useEffect(() => {
     const media = window.matchMedia(STABLE_MUSHAF_STAGE_QUERY);
     const update = () => {
-      setStableStage(media.matches);
-      if (!media.matches) setFitInlineSize(0);
+      const nextStableStage = forceStableStage || media.matches;
+      setStableStage(nextStableStage);
+      if (!nextStableStage) setFitInlineSize(0);
     };
     update();
     media.addEventListener("change", update);
     return () => media.removeEventListener("change", update);
-  }, []);
+  }, [forceStableStage]);
 
   useLayoutEffect(() => {
     const frame = frameRef.current;
@@ -122,6 +134,7 @@ export function MushafViewport({
     zoomPercent,
   );
   const renderScale = stableStage ? zoomPercent / 100 : 1;
+  const compactPages = forceCompactPages || !stableStage;
   const stageBlockSize = renderedBlockSize + (
     layout === "spread" ? MUSHAF_SPREAD_NAV_BLOCK_SIZE : 0
   );
@@ -198,7 +211,9 @@ export function MushafViewport({
         style={style}
         onScroll={updateViewportCenter}
       >
-        <MushafViewportContext.Provider value={{ renderScale, stableStage }}>
+        <MushafViewportContext.Provider
+          value={{ renderScale, stableStage, compactPages }}
+        >
           {children}
         </MushafViewportContext.Provider>
       </div>

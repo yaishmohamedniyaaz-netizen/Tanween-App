@@ -9,7 +9,11 @@ import { useJudging } from "../state/store";
 import { Icon } from "./Icon";
 import { JudgingHistory } from "./JudgingHistory";
 
-export function MistakeLog() {
+export function MistakeLog({
+  presentation = "rail",
+}: {
+  presentation?: "rail" | "compact";
+}) {
   const { state, dispatch } = useJudging();
   const [openId, setOpenId] = useState<string | null>(null);
   const [expanded, setExpanded] = useState(false);
@@ -89,6 +93,13 @@ export function MistakeLog() {
     setExpanded(true);
   };
 
+  const openCompactMistake = (id: string, tid: string, page?: number) => {
+    setOpenId(id);
+    setMode("current");
+    setExpanded(true);
+    window.dispatchEvent(new CustomEvent(JUMP_EVENT, { detail: { tid, page } }));
+  };
+
   return (
     <>
       {expanded && (
@@ -101,7 +112,7 @@ export function MistakeLog() {
       )}
       <section
         ref={panelRef}
-        className={`panel mistake-panel ${expanded ? "is-expanded" : ""}`}
+        className={`panel mistake-panel ${presentation === "compact" ? "is-compact" : ""} ${expanded ? "is-expanded" : ""}`}
         aria-label="Mistakes"
         aria-labelledby={expanded ? "mistake-panel-title" : undefined}
         aria-modal={expanded || undefined}
@@ -112,14 +123,14 @@ export function MistakeLog() {
             Mistakes{ordered.length > 0 ? ` · ${ordered.length}` : ""}
           </span>
           <span className="log-head-actions">
-            {canViewAll && !expanded && (
+            {(canViewAll || (presentation === "compact" && (ordered.length > 0 || hasReviewHistory))) && !expanded && (
               <button
                 ref={viewAllButtonRef}
                 type="button"
                 className="log-view-all"
                 onClick={openPanel}
               >
-                View all
+                {presentation === "compact" ? "All" : <span>View all</span>}
               </button>
             )}
             {expanded && (
@@ -185,7 +196,9 @@ export function MistakeLog() {
           >
             {expanded
               ? "No current mistakes."
-              : "Press and hold a word, then choose its exact letter."}
+              : presentation === "compact"
+                ? "No mistakes yet."
+                : "Press and hold a word, then choose its exact letter."}
           </p>
         ) : (
           <ul
@@ -215,9 +228,13 @@ export function MistakeLog() {
                     className="log-row"
                     aria-expanded={open}
                     title={`${category.label} · ${reference}`}
-                    onClick={() =>
-                      toggle(mistake.id, mistake.tid, mistake.page)
-                    }
+                    onClick={() => {
+                      if (presentation === "compact" && !expanded) {
+                        openCompactMistake(mistake.id, mistake.tid, mistake.page);
+                      } else {
+                        toggle(mistake.id, mistake.tid, mistake.page);
+                      }
+                    }}
                   >
                     <span className="log-dot" aria-hidden="true" />
                     <span className="log-glyph">

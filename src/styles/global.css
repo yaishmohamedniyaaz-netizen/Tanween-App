@@ -12693,3 +12693,604 @@ html:has(.finish-dialog[open]) {
     grid-template-columns: 1fr;
   }
 }
+
+/* ---- Portrait judge-deck prototype ----
+   One connected ledger replaces the stacked desktop rail. Scoring and evidence
+   remain in their existing components; only their phone presentation changes. */
+.sc-total-heading {
+  display: flex;
+  align-items: baseline;
+  min-width: 0;
+}
+
+.compact-text-dialog {
+  position: fixed;
+  inset: auto 8px max(8px, env(safe-area-inset-bottom));
+  width: min(420px, calc(100vw - 16px));
+  max-width: none;
+  margin: 0 auto;
+  padding: 0;
+  overflow: hidden;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--line-2);
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow-float);
+}
+
+.compact-text-dialog::backdrop {
+  background: color-mix(in srgb, var(--bg) 46%, transparent);
+}
+
+.compact-text-dialog-head {
+  display: flex;
+  min-height: 52px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 4px 6px 4px 16px;
+  border-bottom: 1px solid var(--line);
+}
+
+.compact-text-dialog-head h2 {
+  margin: 0;
+  font-size: var(--t-small);
+  font-weight: 600;
+}
+
+.compact-text-dialog-head button {
+  min-width: 48px;
+  min-height: 44px;
+  padding-inline: 10px;
+  border: 0;
+  border-radius: var(--r-sm);
+  background: transparent;
+  color: var(--ink-2);
+  font-size: var(--t-micro);
+  font-weight: 600;
+}
+
+.compact-text-dialog textarea {
+  display: block;
+  width: calc(100% - 24px);
+  min-height: 112px;
+  max-height: min(34dvh, 220px);
+  margin: 12px;
+  padding: 10px 12px;
+  resize: vertical;
+  border: 1px solid var(--line-2);
+  border-radius: var(--r-sm);
+  background: transparent;
+  font-size: var(--t-small);
+  line-height: 1.5;
+}
+
+@media (max-width: 600px) and (orientation: portrait),
+  (min-width: 601px) and (max-width: 900px) and (max-device-width: 600px) and
+    (pointer: coarse) and (orientation: portrait) {
+  html:has(.workspace.is-compact-judge-deck),
+  body:has(.workspace.is-compact-judge-deck) {
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .app:has(.workspace.is-compact-judge-deck) {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100svh;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .app:has(.workspace.is-compact-judge-deck) .app-header {
+    flex: 0 0 auto;
+    grid-template-columns: auto minmax(0, 1fr) 48px 48px 48px;
+  }
+
+  .app:has(.workspace.is-compact-judge-deck) .reciter-chip,
+  .app:has(.workspace.is-compact-judge-deck) .view-toggle,
+  .app:has(.workspace.is-compact-judge-deck) .app-header > .btn-icon,
+  .app:has(.workspace.is-compact-judge-deck) .app-header > .overflow-wrap,
+  .app:has(.workspace.is-compact-judge-deck) .app-header > .overflow-wrap > .btn-icon {
+    width: 48px;
+    min-width: 48px;
+    height: 48px;
+  }
+
+  .app:has(.workspace.is-compact-judge-deck) .reciter-chip {
+    width: 100%;
+  }
+
+  .app:has(.workspace.is-compact-judge-deck) .page-nav-btn,
+  .app:has(.workspace.is-compact-judge-deck) .page-nav-page,
+  .app:has(.workspace.is-compact-judge-deck) .page-nav-center {
+    height: 48px;
+    min-height: 48px;
+  }
+
+  .app:has(.workspace.is-compact-judge-deck) .page-nav-btn {
+    width: 48px;
+  }
+
+  .workspace.is-compact-judge-deck,
+  .workspace.is-compact-judge-deck.rail-left {
+    flex: 1 1 auto;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr) 252px;
+    grid-template-areas:
+      "stage"
+      "sidebar";
+    width: 100%;
+    height: auto;
+    min-height: 0;
+    margin: 0;
+    padding: 8px 10px max(4px, env(safe-area-inset-bottom));
+    gap: 8px;
+    overflow: hidden;
+  }
+
+  .workspace.is-compact-judge-deck .stage {
+    display: flex;
+    align-self: stretch;
+    height: 100%;
+    min-width: 0;
+    min-height: 0;
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .workspace.is-compact-judge-deck .mushaf-viewport {
+    position: relative;
+    flex: 1 1 auto;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+  }
+
+  .workspace.is-compact-judge-deck .mushaf-shell {
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    overflow: auto;
+    overscroll-behavior: contain;
+  }
+
+  .workspace.is-compact-judge-deck .mushaf-shell[data-stage-fit="ready"][data-fit-mode="true"] {
+    overflow: hidden;
+  }
+
+  .workspace.is-compact-judge-deck .mushaf-scroll {
+    min-width: 100%;
+    min-height: 100%;
+    place-items: center;
+  }
+
+  .workspace.is-compact-judge-deck .mushaf-shell[data-stage-fit="ready"] .mushaf-scroll {
+    width: max(100%, calc(var(--mushaf-render-inline-size) + 12px));
+    height: max(100%, calc(var(--mushaf-stage-block-size) + 12px));
+    padding: 6px;
+    overflow: visible;
+  }
+
+  .workspace.is-compact-judge-deck .mushaf-shell[data-stage-fit="ready"] .mushaf-composition {
+    width: var(--mushaf-render-inline-size);
+  }
+
+  .workspace.is-compact-judge-deck .mushaf-shell[data-stage-fit="ready"] .mushaf-composition .page {
+    max-width: none;
+    height: var(--mushaf-render-block-size);
+  }
+
+  .workspace.is-compact-judge-deck .judge-role-strip {
+    display: none;
+  }
+
+  .workspace.is-compact-judge-deck .sidebar {
+    position: static;
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(104px, 1fr);
+    grid-template-rows: minmax(0, 1fr) 52px;
+    grid-template-areas:
+      "score mistakes"
+      "finish notes";
+    width: 100%;
+    height: 252px;
+    max-height: none;
+    min-height: 0;
+    overflow: hidden;
+    border-radius: var(--r-md);
+  }
+
+  .workspace.is-compact-judge-deck.rail-right .sidebar {
+    grid-template-columns: minmax(104px, 1fr) minmax(0, 2fr);
+    grid-template-areas:
+      "mistakes score"
+      "notes finish";
+  }
+
+  .workspace.is-compact-judge-deck .sidebar .panel {
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+  }
+
+  .workspace.is-compact-judge-deck .sidebar .panel + .panel {
+    border-top: 0;
+  }
+
+  .workspace.is-compact-judge-deck .scorecard {
+    grid-area: score;
+    display: grid;
+    grid-template-rows: 36px minmax(0, 1fr);
+    min-width: 0;
+    min-height: 0;
+    border-inline-end: 1px solid var(--line);
+  }
+
+  .workspace.is-compact-judge-deck.rail-right .scorecard {
+    border-inline-start: 1px solid var(--line);
+    border-inline-end: 0;
+  }
+
+  .workspace.is-compact-judge-deck .sc-total {
+    min-width: 0;
+    min-height: 36px;
+    margin: 0;
+    padding: 0 8px;
+    align-items: center;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .workspace.is-compact-judge-deck .sc-total-heading {
+    overflow: hidden;
+  }
+
+  .workspace.is-compact-judge-deck .sc-compact-judge {
+    overflow: hidden;
+    color: var(--ink-2);
+    font-size: var(--t-micro);
+    font-weight: 600;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .workspace.is-compact-judge-deck .sc-total-label {
+    display: none;
+  }
+
+  .workspace.is-compact-judge-deck .sc-total-num {
+    font-size: var(--t-title);
+    font-weight: 600;
+  }
+
+  .workspace.is-compact-judge-deck .sc-total-of {
+    font-size: var(--t-micro);
+  }
+
+  .workspace.is-compact-judge-deck .sc-rows {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: minmax(62px, 0.84fr) minmax(88px, 1.16fr);
+    min-width: 0;
+    min-height: 0;
+  }
+
+  .workspace.is-compact-judge-deck .sc-rows[data-category-count="1"] {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr);
+  }
+
+  .workspace.is-compact-judge-deck .sc-rows[data-category-count="2"] {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+  }
+
+  .workspace.is-compact-judge-deck .sc-rows[data-category-count="3"] .sc-row:last-child {
+    grid-column: 1 / -1;
+  }
+
+  .workspace.is-compact-judge-deck .sc-row {
+    display: grid;
+    grid-template-columns: 8px minmax(0, 1fr) auto;
+    grid-template-rows: auto minmax(0, 1fr);
+    min-width: 0;
+    min-height: 0;
+    gap: 2px 5px;
+    padding: 6px 7px;
+    border: 0;
+    border-inline-end: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .workspace.is-compact-judge-deck .sc-row:nth-child(even),
+  .workspace.is-compact-judge-deck .sc-row:last-child {
+    border-inline-end: 0;
+  }
+
+  .workspace.is-compact-judge-deck .sc-rows[data-category-count="2"] .sc-row,
+  .workspace.is-compact-judge-deck .sc-rows[data-category-count="3"] .sc-row:last-child {
+    border-inline-end: 0;
+  }
+
+  .workspace.is-compact-judge-deck .sc-dot {
+    grid-column: 1;
+    grid-row: 1;
+    width: 7px;
+    height: 10px;
+    align-self: center;
+  }
+
+  .workspace.is-compact-judge-deck .sc-name {
+    grid-column: 2;
+    grid-row: 1;
+    align-self: center;
+    min-width: 0;
+    overflow: hidden;
+    font-size: var(--t-micro);
+    font-weight: 550;
+    line-height: 1.2;
+    text-overflow: ellipsis;
+  }
+
+  .workspace.is-compact-judge-deck .sc-deducted {
+    grid-column: 3;
+    grid-row: 1;
+    align-self: center;
+    font-size: var(--t-micro);
+  }
+
+  .workspace.is-compact-judge-deck .sc-score {
+    grid-column: 2 / 4;
+    grid-row: 2;
+    align-self: center;
+    justify-self: end;
+    width: auto;
+  }
+
+  .workspace.is-compact-judge-deck .score-value-number {
+    font-size: var(--t-lead);
+    font-weight: 600;
+  }
+
+  .workspace.is-compact-judge-deck .sc-row-impression {
+    grid-template-columns: 8px minmax(0, 1fr) 44px;
+    grid-template-rows: 44px 44px;
+    gap: 0 3px;
+    padding: 0 4px;
+  }
+
+  .workspace.is-compact-judge-deck .sc-row-impression .sc-deducted {
+    display: none;
+  }
+
+  .workspace.is-compact-judge-deck .sc-row-impression .mark-picker,
+  .workspace.is-compact-judge-deck .sc-row-impression .mark-stepper-shell {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    align-self: center;
+    justify-self: center;
+  }
+
+  .workspace.is-compact-judge-deck .sc-reason-trigger {
+    position: relative;
+    grid-column: 3;
+    grid-row: 1;
+    display: inline-flex;
+    width: 44px;
+    min-width: 44px;
+    min-height: 44px;
+    align-items: center;
+    justify-content: center;
+    padding: 0 3px;
+    border: 0;
+    border-radius: var(--r-sm);
+    background: transparent;
+    color: var(--ink-3);
+    font-size: var(--t-micro);
+  }
+
+  .workspace.is-compact-judge-deck .sc-reason-trigger.has-value::after,
+  .workspace.is-compact-judge-deck .compact-notes-trigger.has-value::after {
+    content: "";
+    position: absolute;
+    top: 7px;
+    right: 7px;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--ink);
+  }
+
+  .workspace.is-compact-judge-deck .mistake-panel {
+    grid-area: mistakes;
+    display: grid;
+    grid-template-rows: 36px minmax(0, 1fr);
+    min-width: 0;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .workspace.is-compact-judge-deck .mistake-panel .panel-head {
+    min-width: 0;
+    min-height: 36px;
+    align-items: center;
+    margin: 0;
+    padding: 0 4px 0 8px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .workspace.is-compact-judge-deck .mistake-panel .t-label {
+    overflow: hidden;
+    font-size: var(--t-micro);
+    font-weight: 600;
+    letter-spacing: 0;
+    text-overflow: ellipsis;
+    text-transform: none;
+    white-space: nowrap;
+  }
+
+  .workspace.is-compact-judge-deck .mistake-panel .log-view-all {
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0 4px;
+    font-size: var(--t-micro);
+  }
+
+  .workspace.is-compact-judge-deck .mistake-panel .log {
+    display: flex;
+    min-height: 0;
+    padding: 4px;
+    gap: 4px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+  }
+
+  .workspace.is-compact-judge-deck .mistake-panel .empty {
+    align-self: center;
+    margin: 0;
+    padding: 8px;
+    color: var(--ink-3);
+    font-size: var(--t-micro);
+    line-height: 1.35;
+  }
+
+  .workspace.is-compact-judge-deck .mistake-panel .log-row-wrap {
+    flex: 0 0 auto;
+    border-radius: 6px;
+  }
+
+  .workspace.is-compact-judge-deck .mistake-panel .log-row {
+    grid-template-columns: 6px minmax(0, 1fr) auto;
+    min-height: 48px;
+    gap: 4px;
+    padding: 3px 5px;
+  }
+
+  .workspace.is-compact-judge-deck .mistake-panel .log-dot {
+    width: 6px;
+  }
+
+  .workspace.is-compact-judge-deck .mistake-panel .log-glyph {
+    grid-column: 2;
+    font-size: var(--t-title);
+  }
+
+  .workspace.is-compact-judge-deck .mistake-panel .log-amt {
+    grid-column: 3;
+    font-size: var(--t-micro);
+  }
+
+  .workspace.is-compact-judge-deck .mistake-panel .log-row-spacer,
+  .workspace.is-compact-judge-deck .mistake-panel .log-chevron {
+    display: none;
+  }
+
+  .workspace.is-compact-judge-deck .mistake-panel.is-expanded {
+    display: flex;
+  }
+
+  .workspace.is-compact-judge-deck .mistake-panel.is-expanded .panel-head {
+    padding: 0;
+    border-bottom: 0;
+  }
+
+  .workspace.is-compact-judge-deck .mistake-panel.is-expanded .t-label {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .workspace.is-compact-judge-deck .mistake-panel.is-expanded .log {
+    padding: 0 4px 0 0;
+  }
+
+  .workspace.is-compact-judge-deck .mistake-panel.is-expanded .log-row {
+    grid-template-columns: 8px 34px 46px minmax(0, 1fr) 14px;
+    min-height: 44px;
+    gap: 8px;
+    padding: 4px 9px;
+  }
+
+  .workspace.is-compact-judge-deck .mistake-panel.is-expanded .log-glyph,
+  .workspace.is-compact-judge-deck .mistake-panel.is-expanded .log-amt {
+    grid-column: auto;
+  }
+
+  .workspace.is-compact-judge-deck .mistake-panel.is-expanded .log-row-spacer {
+    display: block;
+  }
+
+  .workspace.is-compact-judge-deck .mistake-panel.is-expanded .log-chevron {
+    display: grid;
+  }
+
+  .workspace.is-compact-judge-deck .notes-panel.is-compact {
+    grid-area: notes;
+    min-width: 0;
+    min-height: 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .workspace.is-compact-judge-deck .compact-notes-trigger {
+    position: relative;
+    display: flex;
+    width: calc(100% - 8px);
+    min-width: 0;
+    height: 44px;
+    min-height: 44px;
+    align-items: center;
+    justify-content: center;
+    margin: 4px;
+    padding: 0 6px;
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-sm);
+    background: transparent;
+    color: var(--ink-2);
+    font-size: var(--t-micro);
+    font-weight: 600;
+  }
+
+  .workspace.is-compact-judge-deck .next-btn {
+    grid-area: finish;
+    width: calc(100% - 8px);
+    height: 44px;
+    min-height: 44px;
+    margin: 4px;
+    border-top: 0;
+    flex: none;
+  }
+
+  .app:has(.workspace.is-compact-judge-deck) .tilawa-tracker-dock,
+  .app:has(.workspace.is-compact-judge-deck) .tilawa-tracker-dock.is-rail-left {
+    inset: 66px 8px auto;
+    width: auto;
+    max-height: calc(100svh - 74px);
+  }
+}
+
+@media (max-width: 600px) and (max-height: 760px) and (orientation: portrait) {
+  .workspace.is-compact-judge-deck,
+  .workspace.is-compact-judge-deck.rail-left {
+    grid-template-rows: minmax(0, 1fr) 236px;
+  }
+
+  .workspace.is-compact-judge-deck .sidebar {
+    height: 236px;
+  }
+}
+
+@media (max-width: 340px) and (orientation: portrait) {
+  .workspace.is-compact-judge-deck .sc-reason-trigger span {
+    font-size: 0;
+  }
+
+  .workspace.is-compact-judge-deck .sc-reason-trigger span::after {
+    content: "…";
+    font-size: var(--t-lead);
+    line-height: 1;
+  }
+}

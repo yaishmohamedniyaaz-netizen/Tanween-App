@@ -40,7 +40,7 @@ import type {
 import { DragMenu, type MenuAnchor } from "./DragMenu";
 import {
   useMushafRenderScale,
-  useStableMushafStage,
+  useCompactMushafPages,
 } from "./MushafViewport";
 import type {
   MushafLayout,
@@ -148,8 +148,7 @@ export function Mushaf({
 }: MushafProps) {
   const { state, dispatch } = useJudging();
   const renderScale = useMushafRenderScale();
-  const stableStage = useStableMushafStage();
-  const compact = !stableStage;
+  const compact = useCompactMushafPages();
   const requestedPages = useMemo(
     () => visibleMushafPages(currentPage, pageLayout, compact),
     [compact, currentPage, pageLayout],

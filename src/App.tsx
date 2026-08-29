@@ -27,6 +27,7 @@ import {
   type TilawaTrackerStatus,
 } from "./components/TilawaPrototypePanel";
 import { useOfflineMushaf } from "./hooks/useOfflineMushaf";
+import { useMediaQuery } from "./hooks/useMediaQuery";
 import { useRecitationRecorder } from "./hooks/useRecitationRecorder";
 import { pauseOfflineMushafDownload } from "./lib/offlineMushaf";
 import { useJudging } from "./state/store";
@@ -70,6 +71,16 @@ export function App() {
   const [tilawaStatus, setTilawaStatus] = useState<TilawaTrackerStatus>("idle");
   const showTilawaPrototype = new URLSearchParams(window.location.search)
     .get("tilawaPrototype") === "1";
+  const showMobileJudgeDeckPrototype = new URLSearchParams(window.location.search)
+    .get("mobileJudgeDeck") === "1";
+  const compactJudgeDeckViewport = useMediaQuery(
+    "(max-width: 600px) and (orientation: portrait), (min-width: 601px) and (max-width: 900px) and (max-device-width: 600px) and (pointer: coarse) and (orientation: portrait)",
+  );
+  const compactJudgeDeck =
+    showMobileJudgeDeckPrototype &&
+    compactJudgeDeckViewport &&
+    view === "judge" &&
+    state.sessionActive;
   const [preferences, setPreferences] = useState<DevicePreferencesV5>(() =>
     readDevicePreferences(),
   );
@@ -240,13 +251,15 @@ export function App() {
       />
       {view === "judge" ? (
         <main
-          className={`workspace layout-${preferences.mushafLayout} rail-${preferences.judgeRailSide} ${!state.sessionActive && !state.preparedRecitation ? "is-idle" : ""}`}
+          className={`workspace layout-${preferences.mushafLayout} rail-${preferences.judgeRailSide} ${compactJudgeDeck ? "is-compact-judge-deck" : ""} ${!state.sessionActive && !state.preparedRecitation ? "is-idle" : ""}`}
           key="judge"
         >
           <div className="stage">
             <MushafViewport
-              layout={preferences.mushafLayout}
+              layout={compactJudgeDeck ? "full" : preferences.mushafLayout}
               zoomPercent={preferences.mushafZoom}
+              forceStableStage={compactJudgeDeck}
+              forceCompactPages={compactJudgeDeck}
               contentKey={`${page}:${preferences.mushafLayout}`}
               overlay={
                 <MarkingCoachTip
@@ -334,9 +347,11 @@ export function App() {
             ) : state.sessionActive ? (
               <>
                 <JudgeRoleStrip onChange={() => setView("setup")} />
-                <ScorePanel inputMode={preferences.aduRaaguInputMode} />
-                <MistakeLog />
-                <NotesBox />
+                <ScorePanel inputMode={preferences.aduRaaguInputMode}
+                  presentation={compactJudgeDeck ? "compact" : "rail"}
+                />
+                <MistakeLog presentation={compactJudgeDeck ? "compact" : "rail"} />
+                <NotesBox presentation={compactJudgeDeck ? "compact" : "rail"} />
                 <button
                   type="button"
                   className="btn-primary next-btn"
