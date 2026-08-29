@@ -9,12 +9,12 @@ import { ParticipantIdentity } from "./ParticipantIdentity";
 export function CompetitionIdlePanel({
   onPrepare,
   onChooseQuestion,
-  onOpenRunningOrder,
+  onOpenReciterQueue,
   onOpenResults,
 }: {
   onPrepare: () => void;
   onChooseQuestion: () => void;
-  onOpenRunningOrder: () => void;
+  onOpenReciterQueue: () => void;
   onOpenResults: () => void;
 }) {
   const { state, dispatch } = useJudging();
@@ -73,9 +73,9 @@ export function CompetitionIdlePanel({
               <button
                 type="button"
                 className="btn-primary"
-                onClick={onOpenRunningOrder}
+                onClick={onOpenReciterQueue}
               >
-                Review running order
+                Review reciter queue
               </button>
               <div className="competition-idle-secondary">
                 <button type="button" className="btn-ghost" onClick={onOpenResults}>
@@ -152,9 +152,9 @@ export function CompetitionIdlePanel({
           <button
             type="button"
             className="btn-ghost"
-            onClick={onOpenRunningOrder}
+            onClick={onOpenReciterQueue}
           >
-            Running order
+            Reciter queue
           </button>
           <button
             type="button"

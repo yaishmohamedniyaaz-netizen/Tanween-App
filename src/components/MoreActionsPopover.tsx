@@ -19,6 +19,7 @@ import type {
   MushafLayout,
   QuestionFocusMode,
 } from "../lib/devicePreferences";
+import type { TilawaTrackerStatus } from "./TilawaPrototypePanel";
 
 interface MoreActionsPopoverProps {
   view: AppView;
@@ -34,6 +35,10 @@ interface MoreActionsPopoverProps {
   onAduRaaguInputModeChange: (value: AduRaaguInputMode) => void;
   onShowMarkingGuide: () => void;
   onOpenChange: (open: boolean) => void;
+  tilawaTracking?: {
+    status: TilawaTrackerStatus;
+    onOpen: () => void;
+  };
   onOpenSettings: () => void;
   onOpenSetup: () => void;
 }
@@ -52,6 +57,7 @@ export function MoreActionsPopover({
   onAduRaaguInputModeChange,
   onShowMarkingGuide,
   onOpenChange,
+  tilawaTracking,
   onOpenSettings,
   onOpenSetup,
 }: MoreActionsPopoverProps) {
@@ -136,6 +142,18 @@ export function MoreActionsPopover({
         : offlineMushaf.readyPages > 1
           ? "Resume Mushaf download"
           : "Download Mushaf offline";
+
+  const tilawaStatusLabel = tilawaTracking?.status === "loading"
+    ? "Preparing on this device"
+    : tilawaTracking?.status === "ready"
+      ? "Ready on this device"
+      : tilawaTracking?.status === "listening"
+        ? "Listening locally"
+        : tilawaTracking?.status === "paused"
+          ? "Tracking paused"
+          : tilawaTracking?.status === "error"
+            ? "Needs attention"
+            : "Download on first use";
 
   return (
     <div className="overflow-wrap" ref={wrapRef}>
@@ -276,6 +294,19 @@ export function MoreActionsPopover({
               onClick={() => runAction(onShowMarkingGuide)}
             >
               <Icon name="pointer" size={16} /> Show marking guide
+            </button>
+          )}
+          {view === "judge" && tilawaTracking && (
+            <button
+              type="button"
+              className="overflow-item tilawa-menu-action"
+              onClick={() => runAction(tilawaTracking.onOpen)}
+            >
+              <Icon name="mic" size={16} />
+              <span className="overflow-item-copy">
+                <strong>Recitation tracking</strong>
+                <small>Experimental · {tilawaStatusLabel}</small>
+              </span>
             </button>
           )}
           <button

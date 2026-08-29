@@ -1,4 +1,4 @@
-import { copyFile, mkdir, readdir, rename } from "node:fs/promises";
+import { copyFile, mkdir, readdir, rename, rm } from "node:fs/promises";
 import { resolve } from "node:path";
 import { injectBuildPrecache } from "./pwa-precache.mjs";
 
@@ -6,6 +6,11 @@ const root = resolve(import.meta.dirname, "..");
 const distDir = resolve(root, "dist");
 const clientDir = resolve(distDir, "client");
 const serverDir = resolve(root, "dist", "server");
+
+// The local prototype keeps large model files under public/tilawa for offline
+// development. Production serves the same pinned files through the Worker, so
+// do not copy the 116 MB local asset set into the Sites archive or precache.
+await rm(resolve(distDir, "tilawa"), { recursive: true, force: true });
 
 // Vite knows the final hashed asset names only after it builds. Bind those
 // exact files to the service worker before Sites relocates the client output.

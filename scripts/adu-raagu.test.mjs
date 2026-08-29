@@ -446,10 +446,13 @@ test("final results and the workbook only carry the criteria judged", () => {
   assert.equal(result.byCategory["adu-raagu"].score, 7);
   assert.equal(result.total, 95);
   assert.equal(result.totalMax, 100);
-  assert.deepEqual(finalResultsHeaders([result]).slice(7, 10), [
-    "Laḥn Jalī",
-    "Laḥn Khafī",
-    "Adu / Raagu",
+  assert.deepEqual(finalResultsHeaders([result]).slice(7), [
+    "Laḥn Jalī (60)",
+    "Laḥn Khafī (30)",
+    "Judge (%)",
+    "Adu / Raagu (10)",
+    "Judge (%)",
+    "Final Marks (%)",
   ]);
 });
 

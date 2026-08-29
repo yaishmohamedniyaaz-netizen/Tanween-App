@@ -95,11 +95,13 @@ export function FinishDialog({
   onConfirm,
   hasNextReciter,
   inputMode,
+  recordingSummary,
 }: {
   onCancel: () => void;
-  onConfirm: () => void;
+  onConfirm: () => void | Promise<void>;
   hasNextReciter: boolean;
   inputMode: AduRaaguInputMode;
+  recordingSummary?: string;
 }) {
   const { state, dispatch } = useJudging();
   const [saveAttemptCount, setSaveAttemptCount] = useState(0);
@@ -183,7 +185,7 @@ export function FinishDialog({
       return;
     }
     closeDialog();
-    onConfirm();
+    void onConfirm();
   };
 
   const containFocus = (event: React.KeyboardEvent<HTMLDialogElement>) => {
@@ -230,6 +232,7 @@ export function FinishDialog({
             {state.activeQuestion && <span>Q · {state.activeQuestion.label}</span>}
             {assignment && <span>{judgeDisplayName(assignment)}</span>}
             <span>{mistakeLabel}</span>
+            {recordingSummary && <span>{recordingSummary}</span>}
           </div>
         </div>
         <div className="finish-total" aria-label={`Score ${total} out of ${totalMax}`}>

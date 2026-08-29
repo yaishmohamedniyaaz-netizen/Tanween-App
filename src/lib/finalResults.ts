@@ -209,6 +209,45 @@ export interface PlacedResult extends FinalizedResult {
   rankGroup: string;
 }
 
+/**
+ * Confirmed pilot tie-break order. A later competition-rule setting may extend
+ * this chain, but an unconfigured criterion must never be invented here.
+ */
+export const PILOT_TIE_BREAK_CATEGORIES = ["jali", "khafi"] as const;
+
+const SCORE_EPSILON = 1e-10;
+
+function normalizedTotal(result: FinalizedResult): number {
+  return result.totalMax > 0 ? result.total / result.totalMax : 0;
+}
+
+function normalizedCategoryScore(
+  result: FinalizedResult,
+  category: (typeof PILOT_TIE_BREAK_CATEGORIES)[number],
+): number {
+  const score = result.byCategory[category];
+  return score && score.max > 0 ? score.score / score.max : 0;
+}
+
+function compareScoreDescending(left: number, right: number): number {
+  return Math.abs(left - right) <= SCORE_EPSILON ? 0 : right - left;
+}
+
+/** Returns zero only when the configured standing values are genuinely tied. */
+function compareResultStanding(
+  left: FinalizedResult,
+  right: FinalizedResult,
+): number {
+  return compareScoreDescending(normalizedTotal(left), normalizedTotal(right)) ||
+    PILOT_TIE_BREAK_CATEGORIES.reduce(
+      (difference, category) => difference || compareScoreDescending(
+        normalizedCategoryScore(left, category),
+        normalizedCategoryScore(right, category),
+      ),
+      0,
+    );
+}
+
 export function placeFinalizedResults(results: FinalizedResult[]): PlacedResult[] {
   const groups = new Map<string, FinalizedResult[]>();
   for (const result of results) {
@@ -222,21 +261,19 @@ export function placeFinalizedResults(results: FinalizedResult[]): PlacedResult[
   for (const [rankGroup, group] of groups) {
     const sorted = [...group].sort(
       (left, right) =>
-        right.total / Math.max(1, right.totalMax) -
-          left.total / Math.max(1, left.totalMax) ||
+        compareResultStanding(left, right) ||
         left.participant.number.localeCompare(right.participant.number, undefined, {
           numeric: true,
         }),
     );
-    let previousRatio: number | null = null;
+    let previousResult: FinalizedResult | null = null;
     let place = 0;
     sorted.forEach((result, index) => {
-      const ratio = result.total / Math.max(1, result.totalMax);
-      if (previousRatio === null || Math.abs(ratio - previousRatio) > 1e-10) {
+      if (previousResult === null || compareResultStanding(previousResult, result) !== 0) {
         place = index + 1;
-        previousRatio = ratio;
       }
       placed.push({ ...result, place, rankGroup });
+      previousResult = result;
     });
   }
   return placed.sort((left, right) =>

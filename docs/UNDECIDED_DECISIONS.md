@@ -109,9 +109,19 @@ product rules belong in `PRODUCT_FOUNDATION.md`, not here.
       Khafi, and the optional Fasaha and Adu & Raagu — so it has at most four
       scoring seats.
     - This must not be confused with a global limit on users or judge devices.
-    - Decision needed: if two judges score the same criterion, are their marks
-      averaged, combined, compared by a chief judge, or resolved another way?
-      Do not add duplicate criterion owners until that rule is confirmed.
+    - Proposed full-panel direction: when every judge scores the same complete
+      rubric, normalize each judge's unrounded total to a percentage and take
+      their arithmetic mean. Two complete judges therefore contribute 50% each;
+      three contribute exactly one third each (displayed as 33.33%, not treated
+      as 30.33%). Round only the final displayed value.
+    - This proposal does not change the current split-responsibility panel. In
+      that model, the final percentage remains the sum of the selected marks
+      divided by the sum of their selected maxima, so the configured criterion
+      allocations determine the weighting.
+    - Decision still needed: how missing or withdrawn judge scores, corrections,
+      different maxima, partially overlapping assignments, high/low exclusions,
+      chief-judge adjudication, precision, and unresolved ties work. Do not add
+      duplicate criterion owners until those rules are versioned and confirmed.
 
 15. **Largest supported event for the first official release**
     - Expected Maldivian use: normally one to six judges.
@@ -256,3 +266,13 @@ product rules belong in `PRODUCT_FOUNDATION.md`, not here.
     - Decision needed: should a competition choose one terminology profile for
       all exports, or may the organizer select a different export language from
       the current interface language?
+
+27. **Tie-break steps after Jali and Khafi**
+    - Confirmed pilot order: rank by final normalized percentage, then
+      normalized Jali, then normalized Khafi. If those are still equal, retain
+      the tie rather than using participant number or an unstated criterion.
+    - Product direction: the complete tie-break chain belongs to the frozen
+      competition rule set and should be chosen or confirmed during setup.
+    - Decision needed: after Khafi, does a specific competition compare Fasaha,
+      Adu & Raagu, another reviewed criterion, a chief-judge decision, or keep
+      a shared placement? The app must not assume one answer for every event.

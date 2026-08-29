@@ -840,8 +840,12 @@ rules.
 - Produce a trace explaining every component total and aggregate.
 - Do not rank across categories with different rubrics unless an explicit
   normalized “overall winner” rule exists.
-- Do not invent a tie-breaker. If the rule set does not resolve a tie, show
-  “committee decision required” and keep the winners list provisional.
+- The confirmed pilot order is final normalized percentage, then normalized
+  Jali, then normalized Khafi. If those values are still equal, retain the tie;
+  do not invent a Fasaha, Adu & Raagu, age, or participant-number tie-breaker.
+- Move this chain into the frozen competition rule set before the official
+  multi-competition release. Any later criterion or committee step must be
+  chosen in competition setup and recorded with the result run.
 
 ### 10.4 Runtime verification before results can be final
 
@@ -883,12 +887,18 @@ results.
 Export value-only sheets:
 
 The current local-first pilot has two value-only spreadsheet exports. The
-finalized-results workbook uses **Results** for the clean ranked table,
-**Audit** for maximums, revisions and verification manifests, and
-**Verification** for competition identity, the UTC export timestamp, criteria
-and calculation notes. The judge-record workbook uses **Judge records** for one
-row per saved judge section, **Mistakes** for pinpoint and whole-recitation
-evidence, and **Verification** for scope and record counts. Both exports place
+finalized-results workbook uses **Final marks** for the clean ranked table with
+judge-grouped criterion blocks, **Score ledger** for one row per participant and
+responsible judge, **Audit** for maximums, percentages, revisions and
+verification manifests, and **Verification** for competition identity, the UTC
+export timestamp, criteria, judge ownership and calculation notes. Its final
+percentage is the verified sum of selected marks divided by the sum of their
+selected maxima; it does not recalculate with spreadsheet formulas. Equal
+averaging of several judges who each score the complete rubric is a proposed,
+unimplemented rule and remains in `UNDECIDED_DECISIONS.md`. The judge-record
+workbook uses **Judge records** for one row per saved judge section, **Mistakes**
+for pinpoint and whole-recitation evidence, and **Verification** for scope and
+record counts. Both exports place
 numeric age groups from youngest to oldest, preserve participant numbers as
 text, use white headers with bold dark text, freeze the header and participant
 identity columns, repeat the header for print, and fit landscape tables to one
@@ -947,7 +957,7 @@ separate external tracks with unbounded calendar time.
 | 3A. Competition structure | implemented | Competition identity, Category-grouped recoverable roster editor, entry presets, grouped import resolution, automatic/supplied numbering, V7 selectable-Category native-table template with four starter rows per Category, professional banding, hidden validation choices and V1–V6 compatibility, locale-neutral discipline/start-side IDs, stable participant identities, and a scroll-stable animated setup accordion | Draft, preset, accordion, paste, legacy/template, identity, validation, migration, and workbook round-trip tests pass |
 | 3B. Judge-section collection | implemented | Offline-friendly result packages, competition mismatch checks, duplicate and conflict preservation | Wrong, missing, or duplicate sections cannot silently enter a final result |
 | 3C. Result finalization | implemented | Evidence-recalculated combined result, source selection, revisions, verification manifest | Every final score reconstructs from selected judge histories |
-| 3D. Placements and XLSX | implemented; rehearsal remains | Tied Age Group + Category rankings and value-only Results, Audit and Verification workbook | Golden edge cases and spreadsheet re-import checks pass |
+| 3D. Placements and XLSX | implemented; rehearsal remains | Tied Age Group + Category rankings and value-only Final marks, Score ledger, Audit and Verification workbook | Golden edge cases and spreadsheet re-import checks pass |
 | 3.7 Exact mistake details | optional before questions; reviewer-gated | Optional reviewed descriptions beneath Jali, Khafi, and Fasaha | Qualified reviewer approves the supported taxonomy and fixtures |
 | 4A. Question preparation foundation | 1–2 coding weeks | Competition task workspace, explicit official start, generated ayah index, deterministic printed-line resolver | App launch creates no official session; all 6,236 ayah boundaries pass |
 | 4B. Manual question bank | 2–4 coding weeks | Ayah-first builder, preview, versioned review and approval | Every usable question has exact anchors, provenance and approval |

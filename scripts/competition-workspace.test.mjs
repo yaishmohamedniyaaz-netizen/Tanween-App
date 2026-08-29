@@ -105,13 +105,13 @@ test("question preparation exposes the ayah rule without pretending drafts are o
 
 test("judging hit targets remain disabled outside an active reciter session", () => {
   assert.match(mushafSource, /judgingEnabled = state\.sessionActive/);
-  assert.match(mushafSource, /judgingEnabled && \(/);
+  assert.match(mushafSource, /afterLines=\{judgingEnabled \? \(/);
   assert.match(mushafSource, /<div className="hit-layer">/);
   assert.match(mushafSource, /onPointerDown=\{judgingEnabled \? \(event\) => onPointerDown\(event, data\.page\) : undefined\}/);
   assert.match(idleSource, /Prepare a competition to begin judging/);
   assert.match(idleSource, /makeAssignmentSnapshot/);
   assert.match(idleSource, /Judge assignment required/);
-  assert.match(idleSource, /Review running order/);
+  assert.match(idleSource, /Review reciter queue/);
   assert.match(idleSource, /Participant roster required/);
 });
 
@@ -123,7 +123,7 @@ test("the live handoff uses quiet status text and two focused screens", () => {
   assert.doesNotMatch(headerSource, /competition-header-state is-sample/);
   assert.doesNotMatch(idleSource, /Test mode|competition-state-label/);
   assert.match(appSource, /\? "is-idle" : ""/);
-  assert.match(participantScreenSource, /Participant running order/);
+  assert.match(participantScreenSource, /Participant queue/);
   assert.match(participantScreenSource, /ParticipantIdentity/);
   assert.match(participantScreenSource, /current\.has\(groupId\) \? new Set\(\) : new Set\(\[groupId\]\)/);
   assert.match(participantIdentitySource, /participantContextLabel/);
@@ -157,7 +157,7 @@ test("a draw opens a locked, recoverable Prepared Mushaf before judging", () => 
   assert.match(appSource, /"next-question"/);
 });
 
-test("finishing a reciter moves directly to the next running-order choice", () => {
+test("finishing a reciter moves directly to the next reciter-queue choice", () => {
   assert.match(appSource, /const hasNextReciter = state\.roster\.some/);
   assert.match(appSource, /setStartOpen\(hasNextReciter\)/);
   assert.match(appSource, /Finish recitation/);

@@ -22,7 +22,12 @@ import { JudgeRoleStrip } from "./components/JudgeRoleStrip";
 import { PreparedSidebar } from "./components/PreparedSidebar";
 import { PageNav } from "./components/PageNav";
 import { OfflineMushafPrompt } from "./components/OfflineMushafPrompt";
+import {
+  TilawaPrototypePanel,
+  type TilawaTrackerStatus,
+} from "./components/TilawaPrototypePanel";
 import { useOfflineMushaf } from "./hooks/useOfflineMushaf";
+import { useRecitationRecorder } from "./hooks/useRecitationRecorder";
 import { pauseOfflineMushafDownload } from "./lib/offlineMushaf";
 import { useJudging } from "./state/store";
 import {
@@ -31,6 +36,8 @@ import {
   questionOpeningPage,
 } from "./lib/questionPage";
 import { participantDivision } from "./lib/reciterQuestions";
+import { loadQuestionIndex } from "./lib/questionBank";
+import { tilawaMushafWordId, type TilawaWordProgress } from "./lib/tilawaWordFocus";
 import { isWaiting } from "./lib/rosterQueue";
 import { missingRequiredImpressionCategories } from "./lib/scoring";
 import {
@@ -57,6 +64,12 @@ export function App() {
   const [finishOpen, setFinishOpen] = useState(false);
   const [markingGuideOpen, setMarkingGuideOpen] = useState(false);
   const [moreControlsOpen, setMoreControlsOpen] = useState(false);
+  const [recordPracticeRecitation, setRecordPracticeRecitation] = useState(false);
+  const [tilawaWordFocus, setTilawaWordFocus] = useState<string | null>(null);
+  const [tilawaPanelOpen, setTilawaPanelOpen] = useState(false);
+  const [tilawaStatus, setTilawaStatus] = useState<TilawaTrackerStatus>("idle");
+  const showTilawaPrototype = new URLSearchParams(window.location.search)
+    .get("tilawaPrototype") === "1";
   const [preferences, setPreferences] = useState<DevicePreferencesV5>(() =>
     readDevicePreferences(),
   );
@@ -68,6 +81,10 @@ export function App() {
     }
     return 604;
   });
+  const recitationAudio = useRecitationRecorder({
+    activeSessionId: state.activeSessionId ?? null,
+    sessionActive: state.sessionActive,
+  });
 
   useEffect(() => {
     localStorage.setItem(LS_PAGE_KEY, String(page));
@@ -77,6 +94,10 @@ export function App() {
     applyDeviceTheme(preferences.theme);
     writeDevicePreferences(preferences);
   }, [preferences]);
+
+  useEffect(() => {
+    setRecordPracticeRecitation(false);
+  }, [state.preparedRecitation?.id]);
 
   // Bulk asset work must never compete with a live recitation. A paused
   // package resumes deliberately from More actions after judging.
@@ -125,9 +146,43 @@ export function App() {
     [page],
   );
 
+  const followDetectedAyah = useCallback(
+    async (match: { surah: number; ayah: number }) => {
+      try {
+        const lookup = await loadQuestionIndex();
+        const detected = lookup.byKey.get(`${match.surah}:${match.ayah}`);
+        if (!detected) return;
+        setPage((current) => current === detected.startPage
+          ? current
+          : detected.startPage);
+      } catch {
+        // Recognition can continue if the local Mushaf index is unavailable.
+      }
+    },
+    [],
+  );
+
+  const followDetectedWord = useCallback((progress: TilawaWordProgress) => {
+    setTilawaWordFocus(tilawaMushafWordId(progress));
+  }, []);
+
+  const clearDetectedWord = useCallback(() => setTilawaWordFocus(null), []);
+
   const hasNextReciter = state.roster.some(
     (entry) => entry.id !== state.participant.id && isWaiting(entry),
   );
+
+  const finishRecitation = async () => {
+    await Promise.race([
+      recitationAudio.finish(),
+      new Promise<void>((resolve) => window.setTimeout(resolve, 2_500)),
+    ]);
+    dispatch({ type: "FINISH_SESSION" });
+    setRecordPracticeRecitation(false);
+    setFinishOpen(false);
+    setStartMode("start");
+    setStartOpen(hasNextReciter);
+  };
 
   return (
     <div className={`app view-${view}`}>
@@ -166,8 +221,22 @@ export function App() {
         }
         onShowMarkingGuide={() => setMarkingGuideOpen(true)}
         onMoreControlsOpenChange={setMoreControlsOpen}
+        tilawaTracking={showTilawaPrototype
+          ? {
+              status: tilawaStatus,
+              onOpen: () => setTilawaPanelOpen(true),
+            }
+          : undefined}
         theme={preferences.theme}
         onThemeChange={(theme) => updatePreferences({ theme })}
+        recording={{
+          status: recitationAudio.status,
+          durationLabel: recitationAudio.durationLabel,
+          inputLevel: recitationAudio.inputLevel,
+          lowInput: recitationAudio.lowInput,
+          onPause: () => void recitationAudio.pause(),
+          onResume: () => void recitationAudio.resume(),
+        }}
       />
       {view === "judge" ? (
         <main
@@ -192,6 +261,7 @@ export function App() {
                 pageLayout={preferences.mushafLayout}
                 questionFocusMode={preferences.questionFocusMode}
                 questionRange={visibleQuestionRange}
+                tilawaWordFocus={tilawaWordFocus}
                 onPageChange={handlePageChange}
                 headerControls={(visiblePages, compact) => (
                   <>
@@ -230,7 +300,13 @@ export function App() {
                   state.competition.liveSnapshot?.divisions ??
                     state.competition.divisions,
                 )}
-                onReady={() => dispatch({ type: "BEGIN_RECITER" })}
+                onReady={async () => {
+                  if (state.competition.isSample && recordPracticeRecitation) {
+                    const ready = await recitationAudio.prepare();
+                    if (!ready) return;
+                  }
+                  dispatch({ type: "BEGIN_RECITER" });
+                }}
                 onChangeQuestion={() => {
                   setStartMode("change-question");
                   setStartOpen(true);
@@ -239,6 +315,21 @@ export function App() {
                   setStartMode("change-reciter");
                   setStartOpen(true);
                 }}
+                recording={state.competition.isSample ? {
+                  supported: recitationAudio.supported,
+                  enabled: recordPracticeRecitation,
+                  status: recitationAudio.status,
+                  error: recitationAudio.error,
+                  onEnabledChange: (enabled) => {
+                    if (!enabled) recitationAudio.cancelPrepared();
+                    setRecordPracticeRecitation(enabled);
+                  },
+                  onBeginWithoutRecording: () => {
+                    recitationAudio.cancelPrepared();
+                    setRecordPracticeRecitation(false);
+                    dispatch({ type: "BEGIN_RECITER" });
+                  },
+                } : undefined}
               />
             ) : state.sessionActive ? (
               <>
@@ -261,7 +352,7 @@ export function App() {
                   setStartMode("next-question");
                   setStartOpen(true);
                 }}
-                onOpenRunningOrder={() => {
+                onOpenReciterQueue={() => {
                   setStartMode("start");
                   setStartOpen(true);
                 }}
@@ -308,6 +399,13 @@ export function App() {
         <FinishDialog
           hasNextReciter={hasNextReciter}
           inputMode={preferences.aduRaaguInputMode}
+          recordingSummary={recitationAudio.status === "recording"
+            ? `Recording ${recitationAudio.durationLabel}`
+            : recitationAudio.status === "paused" || recitationAudio.status === "interrupted"
+              ? `Recording paused ${recitationAudio.durationLabel}`
+              : recitationAudio.status === "error"
+                ? `Recording stopped ${recitationAudio.durationLabel}`
+                : undefined}
           onCancel={() => setFinishOpen(false)}
           onConfirm={() => {
             const assignment = state.activeAssignment;
@@ -321,10 +419,7 @@ export function App() {
             ) {
               return;
             }
-            dispatch({ type: "FINISH_SESSION" });
-            setFinishOpen(false);
-            setStartMode("start");
-            setStartOpen(hasNextReciter);
+            void finishRecitation();
           }}
         />
       )}
@@ -337,6 +432,19 @@ export function App() {
           view !== "judge"
         }
       />
+
+      {showTilawaPrototype && view === "judge" && (
+        <TilawaPrototypePanel
+          open={tilawaPanelOpen}
+          judgeRailSide={preferences.judgeRailSide}
+          expectedPassage={visibleQuestionRange}
+          onOpenChange={setTilawaPanelOpen}
+          onStatusChange={setTilawaStatus}
+          onVerseMatch={(match) => void followDetectedAyah(match)}
+          onWordProgress={followDetectedWord}
+          onTrackingClear={clearDetectedWord}
+        />
+      )}
 
       <ResultSheet />
     </div>
