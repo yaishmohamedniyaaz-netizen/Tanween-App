@@ -1,0 +1,54 @@
+{
+  "artboards": [
+    { "file": "Main.dc.html", "title": "A · Status dock", "x": 0, "y": 0, "w": 393, "h": 852, "is_interactive": true },
+    { "file": "DirectionB.dc.html", "title": "B · Collapsible ledger", "x": 473, "y": 0, "w": 393, "h": 852, "is_interactive": true },
+    { "file": "DirectionC.dc.html", "title": "C · Live / Review", "x": 946, "y": 0, "w": 393, "h": 852, "is_interactive": true },
+    { "file": "DirectionD.dc.html", "title": "D · Bento deck", "x": 1419, "y": 0, "w": 393, "h": 852, "is_interactive": true },
+    { "file": "Parts.dc.html", "title": "Shared parts", "x": 1892, "y": 0, "w": 430, "h": 1540 }
+  ],
+  "annotations": [
+    {
+      "id": "brief",
+      "x": -470,
+      "y": 0,
+      "w": 380,
+      "text": "Four ways to judge a recitation on iPhone 15 Pro portrait, installed as a PWA.\n\nAll four share the same header, page selector, safe areas and scoring data. What differs is how much screen the score chrome claims, and when the judge sees it.\n\nEvery frame is 393×852 with the status bar (59) and home indicator (34) left empty — those bands are the device's, not ours.\n\nTap around: score and mistake sheets open, Undo removes the Faṣāḥa mark, Review opens full screen. The dark switch is on each frame."
+    },
+    {
+      "id": "note-a",
+      "x": 0,
+      "y": -230,
+      "w": 393,
+      "text": "A · MUSHAF-FIRST STATUS DOCK — leading candidate\n\nPage 361×531 (62% of the screen). Dock 92 high, fixed.\n\nThe top dock row morphs: normally four criterion chips, and for a few seconds after a mark it becomes the last-action strip with Undo. Same height either way, so nothing on screen moves.\n\nCosts: the four scores are readouts at 14px, and /max only appears in the sheet."
+    },
+    {
+      "id": "note-b",
+      "x": 473,
+      "y": -230,
+      "w": 393,
+      "text": "B · COLLAPSIBLE LEDGER\n\nPage 377×554 (65%). Peek 76 high; expanded it covers the lower page rather than resizing it.\n\nShown expanded so you can compare — tap the header to collapse. Closest to the desktop rail, and the only one where all four criteria and Adu/Raagu are legible together.\n\nCosts: the score is either tiny or covering the Quran; there is no in-between."
+    },
+    {
+      "id": "note-c",
+      "x": 946,
+      "y": -230,
+      "w": 393,
+      "text": "C · LIVE MODE / REVIEW MODE\n\nPage 377×554 (65%). One 60-high bar, no score at all while listening.\n\nQuietest screen and the largest Undo target. \"Review & finish\" opens a full-screen checkpoint carrying score, mistakes, Adu/Raagu and notes.\n\nOpen question for you, not for me: should the running total be visible during recitation? Hiding it is a competition rule, not a layout choice."
+    },
+    {
+      "id": "note-d",
+      "x": 1419,
+      "y": -230,
+      "w": 393,
+      "text": "D · BENTO DECK — the current prototype, drawn honestly\n\nThe deck's 252 fixed height leaves the page 263×387 — 45% of the screen, and 27% narrower than A.\n\nFour equal cells also read as four equal controls, but only Adu/Raagu is editable.\n\nWorth keeping for the post-recitation results summary, where height is free."
+    },
+    {
+      "id": "note-parts",
+      "x": 1892,
+      "y": -230,
+      "w": 430,
+      "text": "SHARED PARTS · 1:1\n\nEvery value here is lifted from src/styles/global.css — tokens, the .sc-row grid, .log-row anatomy, .mark-ruler geometry, the four category colours.\n\nThe Adu/Raagu ruler is unchanged; only its placement moves.\n\nQuran text is Surah al-Mulk, page 562, verbatim from public/pages/p562.json, set in the app's own HafsUthmanic."
+    }
+  ],
+  "launch": { "view": "canvas" }
+}
