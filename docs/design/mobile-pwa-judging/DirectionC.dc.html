@@ -46,9 +46,8 @@ a{color:#5566e6}a:hover{color:#2f3aa3}
 .num{font-variant-numeric:tabular-nums}
 .lbl{font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
 
-/* ---- Mushaf page: geometry copied from .page / .mushaf-lines / .m-line ---- */
+/* Mushaf page — geometry from .page / .mushaf-lines / .m-line in global.css */
 .page{
-  --fluid:5.55cqi;
   position:relative;display:grid;grid-template-rows:auto minmax(0,1fr);
   container-type:inline-size;aspect-ratio:.68;flex:0 0 auto;
   background:var(--page-paper);border:1px solid var(--line);border-radius:20px;
@@ -65,72 +64,84 @@ a{color:#5566e6}a:hover{color:#2f3aa3}
 }
 .m-line{
   direction:rtl;align-self:center;min-width:0;font-family:var(--quran);
-  font-size:clamp(13px,var(--fluid),33px);font-weight:400;line-height:1;color:var(--mushaf-ink);white-space:nowrap;
+  font-weight:400;line-height:1;color:var(--mushaf-ink);white-space:nowrap;
 }
 .m-line-ayah{display:flex;align-items:center;justify-content:space-between}
 .m-line-basmala{display:flex;align-items:center;justify-content:center;gap:.4em;
-  font-size:clamp(12px,5cqi,29px);color:color-mix(in srgb,var(--mushaf-ink) 82%,var(--page-paper))}
+  color:color-mix(in srgb,var(--mushaf-ink) 82%,var(--page-paper))}
 .m-word{position:relative;display:inline-block;line-height:1}
 .m-word.marked::before{content:"";position:absolute;inset:-3px -1px -5px;border-radius:3px;background:var(--c-wash)}
 .m-word.marked>span{position:relative}
-.mark-count{position:absolute;top:-7px;right:-6px;min-width:14px;height:14px;padding:0 3px;border-radius:999px;
-  background:var(--c);color:#fff;font-family:var(--ui);font-size:9.5px;font-weight:500;display:grid;place-items:center;
-  font-variant-numeric:tabular-nums;line-height:1}
 .surah-band{position:relative;display:flex;align-items:center;justify-content:center;align-self:center;height:100%;color:var(--mushaf-ink)}
 .surah-band::before{content:"";position:absolute;inset:0;border:2px solid currentColor;border-radius:2px;opacity:.9}
 .surah-band::after{content:"";position:absolute;inset:clamp(3px,.9cqi,4px);border:1px solid currentColor;border-radius:1px;opacity:.65}
 .surah-band-title{position:relative;font-family:var(--quran);font-size:clamp(11px,4.2cqi,26px);line-height:1.15;padding:clamp(1px,.25cqi,2px) clamp(12px,3.8cqi,24px)}
 
-/* ---- safe-area guides (tweak) ---- */
-.guide{position:absolute;left:0;right:0;pointer-events:none;display:flex;align-items:center;justify-content:center}
-.guide::before{content:"";position:absolute;inset:0;border:1px dashed rgba(85,102,230,.42)}
-.guide i{font-style:normal;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:#5566e6;opacity:.8;font-family:var(--ui)}
+.hdr{display:grid;grid-template-columns:auto minmax(0,1fr) 44px 44px 44px;align-items:center;gap:4px;
+  padding:5px 10px;background:var(--surface);border-bottom:1px solid var(--line);flex:0 0 auto}
+.hdr.is-tall{padding:10px}
+.brand-mark{font-family:var(--quran);font-size:23px;line-height:1;color:var(--ink)}
+.chip{position:relative;isolation:isolate;display:flex;align-items:center;width:100%;height:44px;min-width:0;
+  padding:0 10px;border:0;background:transparent;color:var(--ink);white-space:nowrap;overflow:hidden}
+.chip::before{content:"";position:absolute;inset:5px 0;z-index:0;border:1px solid var(--line-2);border-radius:8px}
+.chip>span{position:relative;z-index:1;min-width:0;overflow:hidden;text-overflow:ellipsis;font-size:13px;font-weight:500}
+.hbtn{position:relative;isolation:isolate;display:grid;place-items:center;width:44px;height:44px;
+  border:0;background:transparent;color:var(--ink-2);padding:0}
+.hbtn::before{content:"";position:absolute;inset:5px;z-index:0;border:1px solid var(--line-2);border-radius:8px}
+.hbtn>svg{position:relative;z-index:1}
+
+.err{color:#9e2820}
+.f[data-t="dark"] .err{color:#e17c73}
+.pnav{position:absolute;top:4px;left:8px;right:8px;z-index:12;display:grid;
+  grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;height:44px;pointer-events:none}
+.pnav-in{grid-column:2;display:flex;align-items:center;justify-content:center;gap:4px;pointer-events:auto}
+.pbtn,.ppage{height:44px;border:0;background:transparent;padding:0;display:grid;place-items:center}
+.pbtn{width:44px}
+.pbtn i,.ppage i{display:grid;place-items:center;height:28px;font-style:normal;line-height:1;
+  border:1px solid var(--line-2);background:color-mix(in srgb,var(--page-paper) 88%,transparent)}
+.pbtn i{width:28px;border-radius:999px;color:var(--ink-2);font-size:17px}
+.ppage i{min-width:52px;padding:0 9px;border-radius:8px;color:var(--ink);font-size:12px;font-weight:500;font-variant-numeric:tabular-nums}
 </style>
 </helmet>
-<div class="f" data-t="{{ theme }}" style="position: relative; width: 393px; height: 852px; display: flex; flex-direction: column; overflow: hidden; background: var(--bg)">
-    <div style="height: 59px; flex: 0 0 auto; position: relative">
-      <sc-if value="{{ guides }}" hint-placeholder-val="{{ true }}"><span class="guide" style="top: 0; height: 59px"><i>safe area · 59</i></span></sc-if>
-    </div>
-    <header style="display: flex; align-items: center; gap: 4px; padding: 6px 6px; background: var(--surface); border-bottom: 1px solid var(--line); flex: 0 0 auto">
-      <button type="button" aria-label="Back" style="width: 44px; height: 44px; display: grid; place-items: center; border: 0; background: transparent; color: var(--ink-2); border-radius: 8px; flex: 0 0 auto; "><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12.5 4.5 7 10l5.5 5.5"/></svg></button>
-      <div style="flex: 1 1 auto; min-width: 0; padding-left: 2px">
-        <div style="font-size: 15px; font-weight: 550; letter-spacing: -0.02em; line-height: 1.2; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">Hassan Yoonus</div>
-        <div style="font-size: 11px; color: var(--ink-3); line-height: 1.3; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">3 of 18 · Under 14 · Hifz</div>
-      </div>
-      <button type="button" style="display: inline-flex; align-items: center; gap: 6px; height: 44px; padding: 0 10px; border: 1px solid var(--line-2); border-radius: 8px; background: transparent; color: var(--ink); flex: 0 0 auto">
-        <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M7.5 4.5v11M12.5 4.5v11"/></svg>
-        <span class="num" style="font-size: 13px; font-weight: 500">12:04</span>
-      </button>
-      <button type="button" aria-label="More" style="width: 44px; height: 44px; display: grid; place-items: center; border: 0; background: transparent; color: var(--ink-2); border-radius: 8px; flex: 0 0 auto; "><svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><circle cx="4" cy="10" r="1.5"/><circle cx="10" cy="10" r="1.5"/><circle cx="16" cy="10" r="1.5"/></svg></button>
+<div class="f" data-t="{{ theme }}" style="position: relative; width: 100%; max-width: 393px; height: 852px; margin-inline: auto; display: flex; flex-direction: column; overflow: hidden; background: var(--bg)">
+    <div style="height: 59px; flex: 0 0 auto"></div>
+    <header class="hdr">
+      <span class="brand-mark" aria-hidden="true">تَحْقِيق</span>
+      <button type="button" class="chip" title="Finish or change reciter"><span>Hassan Yoonus</span></button>
+      <button type="button" class="hbtn" aria-label="Results"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0 -2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2V8z"></path><path d="M14 2v6h6"></path><path d="M9 15l2 2l4 -4"></path></svg></button>
+      <button type="button" class="hbtn" aria-label="Switch to dark mode"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z"></path></svg></button>
+      <button type="button" class="hbtn" aria-label="More actions and view controls"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path><path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path><path d="M19 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path></svg></button>
     </header>
-    <div style="display: flex; align-items: center; justify-content: center; gap: 4px; height: 44px; flex: 0 0 auto; ">
-      <button type="button" aria-label="Previous page" style="width: 44px; height: 44px; display: grid; place-items: center; border: 0; background: transparent; color: var(--ink-2); border-radius: 8px; flex: 0 0 auto; "><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12.5 4.5 7 10l5.5 5.5"/></svg></button>
-      <span class="num" style="min-width: 76px; text-align: center; font-size: 14px; font-weight: 500; color: var(--ink-2)">562</span>
-      <button type="button" aria-label="Next page" style="width: 44px; height: 44px; display: grid; place-items: center; border: 0; background: transparent; color: var(--ink-2); border-radius: 8px; flex: 0 0 auto; transform: scaleX(-1)"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12.5 4.5 7 10l5.5 5.5"/></svg></button>
-    </div>
-    <div style="flex: 1 1 auto; min-height: 0; display: flex; align-items: flex-start; justify-content: center; padding: 0 8px">
-      <div class="page" style="width: 377px">
+    <div style="flex: 1 1 auto; min-height: 0; display: flex; align-items: center; justify-content: center; padding: 0 8px">
+      <div class="page" style="width: min(377px, 100%)">
       <div class="page-marginalia">
         <span>Juz 29</span>
-        <span style="min-width: 28px; text-align: center; visibility: hidden">562</span>
+        <span style="min-width: 52px"></span>
         <span class="page-surahs">الملك</span>
       </div>
       <div class="mushaf-lines">
-        <div class="m-line"><div class="surah-band"><span class="surah-band-title">الملك</span></div></div>
-        <div class="m-line m-line-basmala"><span class="m-word">بِسۡمِ</span><span class="m-word">ٱللَّهِ</span><span class="m-word">ٱلرَّحۡمَٰنِ</span><span class="m-word">ٱلرَّحِيمِ</span></div>
-        <div class="m-line m-line-ayah"><span class="m-word">تَبَٰرَكَ</span><span class="m-word">ٱلَّذِي</span><span class="m-word">بِيَدِهِ</span><span class="m-word">ٱلۡمُلۡكُ</span><span class="m-word">وَهُوَ</span><span class="m-word">عَلَىٰ</span><span class="m-word">كُلِّ</span><span class="m-word">شَيۡءٖ</span><span class="m-word">قَدِيرٌ</span><span class="m-word">١</span><span class="m-word">ٱلَّذِي</span><span class="m-word">خَلَقَ</span></div>
-        <div class="m-line m-line-ayah"><span class="m-word">ٱلۡمَوۡتَ</span><span class="m-word">وَٱلۡحَيَوٰةَ</span><span class="m-word">لِيَبۡلُوَكُمۡ</span><span class="m-word">أَيُّكُمۡ</span><span class="m-word">أَحۡسَنُ</span><span class="m-word">عَمَلٗاۚ</span><span class="m-word">وَهُوَ</span><span class="m-word">ٱلۡعَزِيزُ</span><span class="m-word">ٱلۡغَفُورُ</span><span class="m-word">٢</span></div>
-        <div class="m-line m-line-ayah"><span class="m-word">ٱلَّذِي</span><span class="m-word">خَلَقَ</span><span class="m-word">سَبۡعَ</span><span class="m-word">سَمَٰوَٰتٖ</span><span class="m-word">طِبَاقٗاۖ</span><span class="m-word">مَّا</span><span class="m-word">تَرَىٰ</span><span class="m-word">فِي</span><span class="m-word">خَلۡقِ</span><span class="m-word">ٱلرَّحۡمَٰنِ</span><span class="m-word">مِن</span></div>
-        <div class="m-line m-line-ayah"><span class="m-word">تَفَٰوُتٖۖ</span><span class="m-word">فَٱرۡجِعِ</span><span class="m-word">ٱلۡبَصَرَ</span><span class="m-word">هَلۡ</span><span class="m-word">تَرَىٰ</span><span class="m-word">مِن</span><span class="m-word">فُطُورٖ</span><span class="m-word">٣</span><span class="m-word">ثُمَّ</span><span class="m-word">ٱرۡجِعِ</span><span class="m-word">ٱلۡبَصَرَ</span><span class="m-word marked cat-jali"><span>كَرَّتَيۡنِ</span><i class="mark-count">1</i></span></div>
-        <div class="m-line m-line-ayah"><span class="m-word">يَنقَلِبۡ</span><span class="m-word">إِلَيۡكَ</span><span class="m-word">ٱلۡبَصَرُ</span><span class="m-word">خَاسِئٗا</span><span class="m-word">وَهُوَ</span><span class="m-word">حَسِيرٞ</span><span class="m-word">٤</span><span class="m-word">وَلَقَدۡ</span><span class="m-word">زَيَّنَّا</span><span class="m-word">ٱلسَّمَآءَ</span></div>
-        <div class="m-line m-line-ayah"><span class="m-word">ٱلدُّنۡيَا</span><span class="m-word">بِمَصَٰبِيحَ</span><span class="m-word">وَجَعَلۡنَٰهَا</span><span class="m-word">رُجُومٗا</span><span class="m-word">لِّلشَّيَٰطِينِۖ</span><span class="m-word">وَأَعۡتَدۡنَا</span><span class="m-word">لَهُمۡ</span><span class="m-word">عَذَابَ</span></div>
-        <div class="m-line m-line-ayah"><span class="m-word">ٱلسَّعِيرِ</span><span class="m-word">٥</span><span class="m-word">وَلِلَّذِينَ</span><span class="m-word">كَفَرُواْ</span><span class="m-word">بِرَبِّهِمۡ</span><span class="m-word">عَذَابُ</span><span class="m-word">جَهَنَّمَۖ</span><span class="m-word">وَبِئۡسَ</span><span class="m-word">ٱلۡمَصِيرُ</span></div>
-        <div class="m-line m-line-ayah"><span class="m-word">٦</span><span class="m-word">إِذَآ</span><span class="m-word">أُلۡقُواْ</span><span class="m-word">فِيهَا</span><span class="m-word">سَمِعُواْ</span><span class="m-word">لَهَا</span><span class="m-word">شَهِيقٗا</span><span class="m-word">وَهِيَ</span><span class="m-word">تَفُورُ</span><span class="m-word">٧</span><span class="m-word">تَكَادُ</span><span class="m-word">تَمَيَّزُ</span></div>
-        <div class="m-line m-line-ayah"><span class="m-word">مِنَ</span><span class="m-word">ٱلۡغَيۡظِۖ</span><span class="m-word">كُلَّمَآ</span><span class="m-word">أُلۡقِيَ</span><span class="m-word">فِيهَا</span><span class="m-word marked cat-khafi"><span>فَوۡجٞ</span><i class="mark-count">1</i></span><span class="m-word">سَأَلَهُمۡ</span><span class="m-word">خَزَنَتُهَآ</span><span class="m-word">أَلَمۡ</span><span class="m-word">يَأۡتِكُمۡ</span><span class="m-word">نَذِيرٞ</span><span class="m-word">٨</span></div>
-        <div class="m-line m-line-ayah"><span class="m-word">قَالُواْ</span><span class="m-word">بَلَىٰ</span><span class="m-word">قَدۡ</span><span class="m-word">جَآءَنَا</span><span class="m-word">نَذِيرٞ</span><span class="m-word">فَكَذَّبۡنَا</span><span class="m-word">وَقُلۡنَا</span><span class="m-word">مَا</span><span class="m-word">نَزَّلَ</span><span class="m-word">ٱللَّهُ</span><span class="m-word">مِن</span><span class="m-word">شَيۡءٍ</span><span class="m-word">إِنۡ</span><span class="m-word">أَنتُمۡ</span></div>
-        <div class="m-line m-line-ayah"><span class="m-word">إِلَّا</span><span class="m-word">فِي</span><span class="m-word">ضَلَٰلٖ</span><span class="m-word">كَبِيرٖ</span><span class="m-word">٩</span><span class="m-word">وَقَالُواْ</span><span class="m-word">لَوۡ</span><span class="m-word">كُنَّا</span><span class="m-word marked cat-fasaha"><span>نَسۡمَعُ</span><i class="mark-count">1</i></span><span class="m-word">أَوۡ</span><span class="m-word">نَعۡقِلُ</span><span class="m-word">مَا</span><span class="m-word">كُنَّا</span><span class="m-word">فِيٓ</span><span class="m-word">أَصۡحَٰبِ</span></div>
-        <div class="m-line m-line-ayah"><span class="m-word">ٱلسَّعِيرِ</span><span class="m-word">١٠</span><span class="m-word">فَٱعۡتَرَفُواْ</span><span class="m-word">بِذَنۢبِهِمۡ</span><span class="m-word">فَسُحۡقٗا</span><span class="m-word">لِّأَصۡحَٰبِ</span><span class="m-word">ٱلسَّعِيرِ</span><span class="m-word">١١</span></div>
-        <div class="m-line m-line-ayah"><span class="m-word">إِنَّ</span><span class="m-word">ٱلَّذِينَ</span><span class="m-word">يَخۡشَوۡنَ</span><span class="m-word">رَبَّهُم</span><span class="m-word">بِٱلۡغَيۡبِ</span><span class="m-word">لَهُم</span><span class="m-word">مَّغۡفِرَةٞ</span><span class="m-word">وَأَجۡرٞ</span><span class="m-word">كَبِيرٞ</span><span class="m-word">١٢</span></div>
+        <div class="m-line" style="font-size:20.9235px"><div class="surah-band"><span class="surah-band-title">الملك</span></div></div>
+        <div class="m-line m-line-basmala" style="font-size:18.85px"><span class="m-word">بِسۡمِ</span><span class="m-word">ٱللَّهِ</span><span class="m-word">ٱلرَّحۡمَٰنِ</span><span class="m-word">ٱلرَّحِيمِ</span></div>
+        <div class="m-line m-line-ayah" style="font-size:20.9235px"><span class="m-word">تَبَٰرَكَ</span><span class="m-word">ٱلَّذِي</span><span class="m-word">بِيَدِهِ</span><span class="m-word">ٱلۡمُلۡكُ</span><span class="m-word">وَهُوَ</span><span class="m-word">عَلَىٰ</span></div>
+        <div class="m-line m-line-ayah" style="font-size:20.9235px"><span class="m-word">كُلِّ</span><span class="m-word">شَيۡءٖ</span><span class="m-word">قَدِيرٌ</span><span class="m-word">١</span><span class="m-word">ٱلَّذِي</span><span class="m-word">خَلَقَ</span></div>
+        <div class="m-line m-line-ayah" style="font-size:20.9235px"><span class="m-word">ٱلۡمَوۡتَ</span><span class="m-word">وَٱلۡحَيَوٰةَ</span><span class="m-word">لِيَبۡلُوَكُمۡ</span></div>
+        <div class="m-line m-line-ayah" style="font-size:20.9235px"><span class="m-word">أَيُّكُمۡ</span><span class="m-word">أَحۡسَنُ</span><span class="m-word">عَمَلٗاۚ</span><span class="m-word">وَهُوَ</span></div>
+        <div class="m-line m-line-ayah" style="font-size:20.9235px"><span class="m-word">ٱلۡعَزِيزُ</span><span class="m-word">ٱلۡغَفُورُ</span><span class="m-word">٢</span><span class="m-word">ٱلَّذِي</span><span class="m-word">خَلَقَ</span><span class="m-word">سَبۡعَ</span></div>
+        <div class="m-line m-line-ayah" style="font-size:20.9235px"><span class="m-word">سَمَٰوَٰتٖ</span><span class="m-word">طِبَاقٗاۖ</span><span class="m-word">مَّا</span><span class="m-word">تَرَىٰ</span><span class="m-word">فِي</span><span class="m-word">خَلۡقِ</span></div>
+        <div class="m-line m-line-ayah" style="font-size:20.9235px"><span class="m-word">ٱلرَّحۡمَٰنِ</span><span class="m-word">مِن</span><span class="m-word marked cat-khafi"><span>تَفَٰوُتٖۖ</span></span><span class="m-word">فَٱرۡجِعِ</span><span class="m-word">ٱلۡبَصَرَ</span></div>
+        <div class="m-line m-line-ayah" style="font-size:20.9235px"><span class="m-word">هَلۡ</span><span class="m-word">تَرَىٰ</span><span class="m-word">مِن</span><span class="m-word">فُطُورٖ</span><span class="m-word">٣</span><span class="m-word">ثُمَّ</span><span class="m-word">ٱرۡجِعِ</span><span class="m-word">ٱلۡبَصَرَ</span></div>
+        <div class="m-line m-line-ayah" style="font-size:20.9235px"><span class="m-word marked cat-jali"><span>كَرَّتَيۡنِ</span></span><span class="m-word">يَنقَلِبۡ</span><span class="m-word">إِلَيۡكَ</span><span class="m-word">ٱلۡبَصَرُ</span><span class="m-word">خَاسِئٗا</span></div>
+        <div class="m-line m-line-ayah" style="font-size:20.9235px"><span class="m-word">وَهُوَ</span><span class="m-word">حَسِيرٞ</span><span class="m-word">٤</span><span class="m-word">وَلَقَدۡ</span><span class="m-word">زَيَّنَّا</span><span class="m-word">ٱلسَّمَآءَ</span></div>
+        <div class="m-line m-line-ayah" style="font-size:20.9235px"><span class="m-word">ٱلدُّنۡيَا</span><span class="m-word marked cat-fasaha"><span>بِمَصَٰبِيحَ</span></span><span class="m-word">وَجَعَلۡنَٰهَا</span><span class="m-word">رُجُومٗا</span></div>
+        <div class="m-line m-line-ayah" style="font-size:20.9235px"><span class="m-word">لِّلشَّيَٰطِينِۖ</span><span class="m-word">وَأَعۡتَدۡنَا</span><span class="m-word">لَهُمۡ</span><span class="m-word">عَذَابَ</span></div>
+        <div class="m-line m-line-ayah" style="font-size:20.9235px"><span class="m-word">ٱلسَّعِيرِ</span><span class="m-word">٥</span><span class="m-word">وَلِلَّذِينَ</span><span class="m-word">كَفَرُواْ</span><span class="m-word">بِرَبِّهِمۡ</span><span class="m-word">عَذَابُ</span></div>
+      </div>
+      <div class="pnav">
+        <div class="pnav-in">
+          <button type="button" class="pbtn" aria-label="next page"><i>‹</i></button>
+          <button type="button" class="ppage" aria-label="Pages 562. Jump to page."><i>562</i></button>
+          <button type="button" class="pbtn" aria-label="previous page"><i>›</i></button>
+        </div>
       </div>
     </div>
     </div>
@@ -138,45 +149,49 @@ a{color:#5566e6}a:hover{color:#2f3aa3}
       <sc-if value="{{ showLast }}" hint-placeholder-val="{{ true }}">
         <div class="cat-fasaha" style="display: flex; align-items: center; gap: 8px; height: 60px; padding: 0 4px 0 12px; border: 1px solid var(--line); border-radius: 12px; background: color-mix(in srgb, var(--c) 8%, var(--surface)); box-shadow: var(--shadow-rest)">
           <span style="width: 8px; height: 12px; border-radius: 3px; background: var(--c); flex: 0 0 auto"></span>
-          <span style="font-family: var(--quran); font-size: 21px; line-height: 1; color: var(--ink)">نَذِيرٞ</span>
+          <span style="font-family: var(--quran); font-size: 20px; line-height: 1.4; color: var(--ink)">بِمَصَٰبِيحَ</span>
           <span style="display: flex; flex-direction: column; min-width: 0">
             <span style="font-size: 13px; font-weight: 500">Faṣāḥa</span>
-            <span class="num" style="font-size: 11px; color: var(--ink-3)">2:14 · 67:8</span>
+            <span class="num" style="font-size: 11px; color: var(--ink-3)">2:14 · 67:5</span>
           </span>
           <span class="num" style="margin-left: auto; font-size: 17px; font-weight: 550">−0.5</span>
-          <button type="button" onClick="{{ undo }}" style="display: inline-flex; align-items: center; gap: 6px; height: 48px; padding: 0 12px; border: 0; background: transparent; color: var(--c-strong); font-size: 14px; font-weight: 550"><svg width="17" height="17" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h8.5a3.5 3.5 0 0 1 0 7H8"/><path d="M6.8 5.6 3.6 9l3.2 3.4"/></svg>Undo</button>
+          <button type="button" onClick="{{ undo }}" style="height: 48px; padding: 0 14px; border: 0; background: transparent; color: var(--c-strong); font-size: 14px; font-weight: 550">Undo</button>
         </div>
       </sc-if>
       <sc-if value="{{ showIdle }}" hint-placeholder-val="{{ false }}">
         <div style="display: flex; align-items: center; gap: 10px; height: 60px; padding: 0 6px 0 14px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); box-shadow: var(--shadow-rest)">
-          <span style="width: 7px; height: 7px; border-radius: 50%; background: var(--ink-3); flex: 0 0 auto"></span>
-          <span style="font-size: 13px; color: var(--ink-3)"><span class="num">{{ markCount }}</span> marks recorded</span>
-          <button type="button" onClick="{{ openReview }}" style="margin-left: auto; display: inline-flex; align-items: center; gap: 8px; height: 48px; padding: 0 16px; border: 0; border-radius: 8px; background: var(--ink); color: var(--bg); font-size: 14px; font-weight: 500">Review &amp; finish<svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7.5 4.5 13 10l-5.5 5.5"/></svg></button>
+          <span style="font-size: 13px; color: var(--ink-3)"><span class="num">{{ markCount }}</span> {{ markWord }} recorded</span>
+          <button type="button" onClick="{{ openReview }}" style="margin-left: auto; display: inline-flex; align-items: center; gap: 8px; height: 48px; padding: 0 16px; border: 0; border-radius: 8px; background: var(--ink); color: var(--bg); font-size: 14px; font-weight: 500">Review &amp; finish<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6l-6 6"></path></svg></button>
         </div>
       </sc-if>
     </div>
-    <div style="height: 34px; flex: 0 0 auto; position: relative">
-      <sc-if value="{{ guides }}" hint-placeholder-val="{{ true }}"><span class="guide" style="top: 0; height: 34px"><i>home indicator · 34</i></span></sc-if>
-    </div>
+    <div style="height: 34px; flex: 0 0 auto"></div>
     <sc-if value="{{ review }}" hint-placeholder-val="{{ false }}"><div style="position: absolute; inset: 0; z-index: 50; display: flex; flex-direction: column; background: var(--bg)">
       <div style="height: 59px; flex: 0 0 auto"></div>
-      <div style="display: flex; align-items: center; gap: 4px; padding: 6px 6px; background: var(--surface); border-bottom: 1px solid var(--line); flex: 0 0 auto">
-        <button type="button" onClick="{{ closeReview }}" aria-label="Back to page" style="width: 44px; height: 44px; display: grid; place-items: center; border: 0; background: transparent; color: var(--ink-2); border-radius: 8px"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M5.5 5.5l9 9M14.5 5.5l-9 9"/></svg></button>
-        <div style="flex: 1 1 auto; min-width: 0">
-          <div style="font-size: 15px; font-weight: 550; letter-spacing: -0.02em">Review recitation</div>
-          <div style="font-size: 11px; color: var(--ink-3)">Hassan Yoonus · 12:04 · Al-Mulk 1–12</div>
+      <header style="display: grid; grid-template-columns: 44px minmax(0, 1fr) auto; align-items: start; gap: 8px; padding: 10px 10px 14px; background: var(--surface); border-bottom: 1px solid var(--line); flex: 0 0 auto">
+        <button type="button" onClick="{{ closeReview }}" class="hbtn" aria-label="Keep judging" style="margin-top: 2px"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l14 0"></path><path d="M5 12l6 6"></path><path d="M5 12l6 -6"></path></svg></button>
+        <div style="min-width: 0; display: grid; gap: 4px">
+          <h2 style="margin: 0; font-size: 21px; font-weight: 570; letter-spacing: -0.02em">Review and save</h2>
+          <p style="margin: 0; font-size: 15px; font-weight: 550">Hassan Yoonus</p>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px; color: var(--ink-3); font-size: 11.5px">
+            <span>Q · 12</span><span>Judge 1</span><span class="num">{{ markCount }} mistakes</span>
+          </div>
         </div>
-      </div>
-      <div style="flex: 1 1 auto; min-height: 0; overflow: auto; padding: 14px 16px 0">
-        <div style="border: 1px solid var(--line); border-radius: 12px; background: var(--surface); box-shadow: var(--shadow-rest); padding: 14px 14px 6px">
-          <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding-bottom: 9px; border-bottom: 1px solid var(--line-2)">
-        <span class="lbl">Score</span>
-        <span style="display: inline-flex; align-items: baseline; white-space: nowrap">
-          <span class="num" style="font-size: 30px; font-weight: 550; letter-spacing: -0.02em; line-height: 1">{{ total }}</span>
-          <span class="num" style="font-size: 13px; color: var(--ink-3)">/100</span>
+        <span style="display: grid; justify-items: end; gap: 2px">
+          <span style="display: inline-flex; align-items: baseline">
+            <span class="num" style="font-size: 30px; font-weight: 550; letter-spacing: -0.02em; line-height: 1">{{ total }}</span>
+            <span class="num" style="font-size: 13px; color: var(--ink-3)">/{{ totalMax }}</span>
+          </span>
+          <small class="lbl">Score</small>
         </span>
-      </div>
-          <div style="display: flex; flex-direction: column">
+      </header>
+      <div style="flex: 1 1 auto; min-height: 0; overflow: auto; padding: 14px 16px 0">
+        <div style="display: grid; grid-template-columns: 9px minmax(0, 1fr) 46px 78px; gap: 8px; padding-bottom: 8px; border-bottom: 1px solid var(--line-2)">
+          <span></span><span class="lbl">Criterion</span>
+          <span class="lbl" style="text-align: right">Deducted</span>
+          <span class="lbl" style="text-align: center">Score</span>
+        </div>
+        <div style="display: flex; flex-direction: column">
         <sc-for list="{{ rows }}" as="row" hint-placeholder-count="4">
           <div class="{{ row.cls }}" style="display: grid; grid-template-columns: 9px minmax(0, 1fr) 46px 78px; align-items: center; gap: 8px; min-height: 44px; padding: 4px 0; border-bottom: 1px solid var(--line)">
             <span style="width: 8px; height: 11px; border-radius: 3px; background: var(--c)"></span>
@@ -191,58 +206,75 @@ a{color:#5566e6}a:hover{color:#2f3aa3}
           </div>
         </sc-for>
       </div>
-          <div class="cat-adu" style="display: flex; align-items: center; gap: 8px; padding-top: 10px">
+        <sc-if value="{{ blocked }}" hint-placeholder-val="{{ false }}">
+          <div class="cat-adu" style="display: grid; grid-template-columns: 9px minmax(0, 1fr) 46px 78px; align-items: center; gap: 8px; row-gap: 8px; margin: 4px -10px 0; padding: 8px 10px 12px; border-radius: 8px; background: color-mix(in srgb, #d8453d 6%, var(--surface))">
+            <span style="width: 8px; height: 11px; border-radius: 3px; background: var(--c)"></span>
+            <span style="min-width: 0">
+              <strong style="display: block; font-size: 14px; font-weight: 400; color: var(--c)">Adu / Raagu</strong>
+              <small class="err" style="font-size: 11px">Not entered</small>
+            </span>
+            <span class="num" style="font-size: 12px; text-align: right; color: var(--ink-3)">—</span>
+            <button type="button" class="num" aria-invalid="true" style="justify-self: end; width: 78px; min-height: 44px; border: 1px solid color-mix(in srgb, #d8453d 72%, var(--line)); box-shadow: 0 0 0 2px color-mix(in srgb, #d8453d 13%, transparent); border-radius: 8px; background: var(--surface); color: var(--ink-3); font-size: 15px; font-weight: 500">—<span style="font-size: 12px">/10</span></button>
+            <p class="err" role="alert" style="grid-column: 2 / -1; margin: 0; font-size: 12px">Choose an Adu / Raagu mark to save.</p>
+          </div>
+        </sc-if>
+        <sc-if value="{{ notBlocked }}" hint-placeholder-val="{{ true }}"><div class="cat-adu" style="display: flex; align-items: center; gap: 8px; padding-top: 10px">
         <span style="width: 8px; height: 11px; border-radius: 3px; background: var(--c); flex: 0 0 auto"></span>
         <input value="Breath control on long ayāt" style="flex: 1 1 auto; min-width: 0; font: inherit; font-size: 12px; color: var(--ink); background: transparent; border: 1px solid var(--line); border-radius: 8px; padding: 6px 8px; min-height: 34px">
-      </div>
-        </div>
-        <div style="padding: 18px 0 8px">
-          <div style="display: flex; align-items: baseline; justify-content: space-between; padding-bottom: 10px">
-        <span class="lbl">Mistakes <span class="num" style="letter-spacing: 0">{{ markCount }}</span></span>
-        <button type="button" style="border: 0; background: transparent; color: var(--ink-3); font-size: 11px; font-weight: 500">History</button>
-      </div>
+      </div></sc-if>
+        <section style="padding: 20px 0 8px">
+          <h3 class="lbl" style="margin: 0 0 10px">Remarks</h3>
+          <dl style="margin: 0; display: grid; gap: 10px">
+            <div><dt class="lbl" style="font-size: 10px">Notes</dt><dd style="margin: 3px 0 0; font-size: 13px; line-height: 1.5; color: var(--ink-2)">Strong opening; tempo drifted after ayah 4. Reminded of madd rules before the second attempt.</dd></div>
+            <div><dt class="lbl" style="font-size: 10px">Adu / Raagu reason</dt><dd style="margin: 3px 0 0; font-size: 13px; line-height: 1.5; color: var(--ink-2)">Breath control on long ayāt.</dd></div>
+          </dl>
+        </section>
+        <section style="padding: 4px 0 16px">
+          <h3 class="lbl" style="margin: 0 0 10px">Mistakes <span class="num" style="letter-spacing: 0">{{ markCount }}</span></h3>
           <div style="display: flex; flex-direction: column; gap: 5px">
         <sc-for list="{{ marks }}" as="m" hint-placeholder-count="3">
-          <button type="button" class="{{ m.cls }}" style="display: grid; grid-template-columns: 8px 36px 52px minmax(0, 1fr) 14px; align-items: center; gap: 8px; width: 100%; min-height: 46px; padding: 4px 9px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); text-align: left">
+          <button type="button" class="{{ m.cls }}" style="display: grid; grid-template-columns: 8px 62px 52px minmax(0, 1fr) 14px; align-items: center; gap: 8px; width: 100%; min-height: 46px; padding: 4px 9px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); text-align: left">
             <span style="width: 8px; height: 10px; border-radius: 3px; background: var(--c)"></span>
-            <span style="font-family: var(--quran); font-size: 21px; line-height: 1; color: var(--ink); text-align: center">{{ m.glyph }}</span>
+            <span style="font-family: var(--quran); font-size: 19px; line-height: 1.4; color: var(--ink); text-align: center; overflow: hidden">{{ m.glyph }}</span>
             <span class="num" style="font-size: 13px; font-weight: 500; color: var(--ink-2)">{{ m.amt }}</span>
             <span style="min-width: 0; font-size: 12px; color: var(--ink-3); overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{ m.detail }}</span>
-            <span style="display: grid; place-items: center; color: var(--ink-3)"><svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7.5 4.5 13 10l-5.5 5.5"/></svg></span>
+            <span style="display: grid; place-items: center; color: var(--ink-3)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6l-6 6"></path></svg></span>
           </button>
         </sc-for>
       </div>
-        </div>
-        <div style="padding: 10px 0 16px">
-          <span class="lbl">Notes</span>
-          <p style="margin: 8px 0 0; font-size: 13px; line-height: 1.5; color: var(--ink-2)">Strong opening; tempo drifted after ayah 7. Reminded of madd rules before the second attempt.</p>
-        </div>
+        </section>
       </div>
-      <div style="flex: 0 0 auto; padding: 10px 16px; background: var(--surface); border-top: 1px solid var(--line)">
-        <div style="display: flex; align-items: center; gap: 8px; padding-top: 12px">
-        <button type="button" style="display: inline-flex; align-items: center; gap: 7px; height: 48px; padding: 0 14px; border: 1px solid var(--line-2); border-radius: 8px; background: transparent; color: var(--ink-2); font-size: 14px; font-weight: 500; flex: 0 0 auto"><svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 3.5h11v13h-11z"/><path d="M7.5 7h5M7.5 10h5M7.5 13h3"/></svg>Notes</button>
-        <button type="button" style="flex: 1 1 auto; min-height: 48px; border: 1px solid transparent; border-radius: 8px; background: var(--ink); color: var(--bg); font-size: 15px; font-weight: 500">Finish recitation</button>
-      </div>
+      <div style="flex: 0 0 auto; display: flex; gap: 8px; padding: 10px 16px; background: var(--surface); border-top: 1px solid var(--line)">
+        <button type="button" onClick="{{ closeReview }}" style="height: 48px; padding: 0 14px; border: 1px solid var(--line-2); border-radius: 8px; background: transparent; color: var(--ink-2); font-size: 14px; font-weight: 500; flex: 0 0 auto">Keep judging</button>
+        <button type="button" style="flex: 1 1 auto; min-height: 48px; border: 0; border-radius: 8px; background: var(--ink); color: var(--bg); font-size: 14px; font-weight: 500">Save and select next reciter</button>
       </div>
       <div style="height: 34px; flex: 0 0 auto"></div>
     </div></sc-if>
   </div>
 </x-dc>
-<script data-dc-script data-props='{"dark":{"editor":"boolean","default":false,"section":"Theme"},"guides":{"editor":"boolean","default":true,"section":"Theme"},"$preview":{"width":393,"height":852}}'>
+<script data-dc-script data-props='{"dark":{"editor":"boolean","default":false,"section":"View"},"$preview":{"width":393,"height":852}}'>
 class Component extends DCLogic {
   constructor(props) {
     super(props);
     this.state = { review: false, undone: false, lastVisible: true };
   }
 
-  criteria(undone) {
-    const fasaha = undone ? 10 : 9.5;
+  all(undone) {
     return [
       { id: "jali", cls: "cat-jali", name: "Laḥn Jalī", short: "Jalī", score: 48, max: 50, ded: "−2" },
       { id: "khafi", cls: "cat-khafi", name: "Laḥn Khafī", short: "Khafī", score: 29, max: 30, ded: "−1" },
-      { id: "fasaha", cls: "cat-fasaha", name: "Faṣāḥa", short: "Faṣ", score: fasaha, max: 10, ded: undone ? "—" : "−0.5" },
-      { id: "adu", cls: "cat-adu", name: "Adu / Raagu", short: "Adu", score: 8.5, max: 10, ded: "−1.5" },
+      { id: "fasaha", cls: "cat-fasaha", name: "Faṣāḥa", short: "Faṣāḥa", score: undone ? 10 : 9.5, max: 10, ded: undone ? "—" : "−0.5" },
+      { id: "adu", cls: "cat-adu", name: "Adu / Raagu", short: "Adu / Raagu", score: 8.5, max: 10, ded: "−1.5" },
     ];
+  }
+  criteria(undone) {
+    const n = Math.min(4, Math.max(1, Math.round(this.props.criteria ?? 4)));
+    const tint = this.props.tint ?? "earned";
+    return this.all(undone).slice(0, n).map((c) => ({
+      ...c,
+      dot: tint === "off",
+      bg: tint === "always" || (tint === "earned" && c.ded !== "—") ? "var(--c-wash)" : "var(--surface)",
+    }));
   }
   rows(undone) {
     return this.criteria(undone).map((c) => ({
@@ -254,26 +286,37 @@ class Component extends DCLogic {
   total(undone) {
     return this.criteria(undone).reduce((s, c) => s + c.score, 0);
   }
+  totalMax(undone) {
+    return this.criteria(undone).reduce((s, c) => s + c.max, 0);
+  }
+  criteriaLabel(undone) {
+    return this.criteria(undone).map((c) => c.name).join(" + ");
+  }
   markList(undone) {
     const all = [
-      { cls: "cat-fasaha", glyph: "نَذِيرٞ", amt: "−0.5", detail: "Faṣāḥa · 67:8 · 2:14" },
-      { cls: "cat-khafi", glyph: "لَهَا", amt: "−1", detail: "Laḥn Khafī · 67:7 · 1:52" },
-      { cls: "cat-jali", glyph: "كَرَّتَيۡنِ", amt: "−2", detail: "Laḥn Jalī · 67:4 · 1:09" },
+      { id: "fasaha", cls: "cat-fasaha", glyph: "بِمَصَٰبِيحَ", amt: "−0.5", detail: "Faṣāḥa · 67:5 · 2:14" },
+      { id: "jali", cls: "cat-jali", glyph: "كَرَّتَيۡنِ", amt: "−2", detail: "Jalī · 67:4 · 1:52" },
+      { id: "khafi", cls: "cat-khafi", glyph: "تَفَٰوُتٖ", amt: "−1", detail: "Khafī · 67:3 · 1:09" },
     ];
-    return undone ? all.slice(1) : all;
+    const owned = new Set(this.criteria(undone).map((c) => c.id));
+    return all.filter((m) => owned.has(m.id) && !(undone && m.id === "fasaha"));
   }
 
   base() {
     const u = this.state.undone;
+    const chip = this.props.chip ?? "deduction";
     return {
       theme: this.props.dark ? "dark" : "light",
-      guides: this.props.guides !== false,
       rows: this.rows(u),
       total: this.total(u),
+      totalMax: this.totalMax(u),
+      criteriaLabel: this.criteriaLabel(u),
       marks: this.markList(u),
       markCount: this.markList(u).length,
-      chips: this.criteria(u),
-      undone: u,
+      markWord: this.markList(u).length === 1 ? "mistake" : "mistakes",
+      chips: this.criteria(u).map((c) => ({ ...c, val: chip === "score" ? c.score : c.ded })),
+      blocked: false,
+      notBlocked: true,
       undo: () => this.setState({ undone: true, lastVisible: false }),
       close: () => this.setState({ sheet: "none" }),
       openScore: () => this.setState({ sheet: "score" }),

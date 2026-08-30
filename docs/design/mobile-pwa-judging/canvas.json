@@ -1,54 +1,66 @@
 {
+  "pages": [
+    { "id": "page-1", "name": "Live" },
+    { "id": "page-2", "name": "Continuation" },
+    { "id": "page-3", "name": "Parts" }
+  ],
   "artboards": [
-    { "file": "Main.dc.html", "title": "A · Status dock", "x": 0, "y": 0, "w": 393, "h": 852, "is_interactive": true },
-    { "file": "DirectionB.dc.html", "title": "B · Collapsible ledger", "x": 473, "y": 0, "w": 393, "h": 852, "is_interactive": true },
-    { "file": "DirectionC.dc.html", "title": "C · Live / Review", "x": 946, "y": 0, "w": 393, "h": 852, "is_interactive": true },
-    { "file": "DirectionD.dc.html", "title": "D · Bento deck", "x": 1419, "y": 0, "w": 393, "h": 852, "is_interactive": true },
-    { "file": "Parts.dc.html", "title": "Shared parts", "x": 1892, "y": 0, "w": 430, "h": 1540 }
+    { "file": "Main.dc.html", "title": "A · Status dock", "page": "page-1", "x": 0, "y": 0, "w": 393, "h": 852, "is_interactive": true },
+    { "file": "DirectionB.dc.html", "title": "B · Collapsible ledger", "page": "page-1", "x": 473, "y": 0, "w": 393, "h": 852, "is_interactive": true },
+    { "file": "DirectionC.dc.html", "title": "C · Live / Review", "page": "page-1", "x": 946, "y": 0, "w": 393, "h": 852, "is_interactive": true },
+    { "file": "Review.dc.html", "title": "Review and save", "page": "page-2", "x": 0, "y": 0, "w": 393, "h": 852, "is_interactive": true },
+    { "file": "NextReciter.dc.html", "title": "Next reciter", "page": "page-2", "x": 473, "y": 0, "w": 393, "h": 852 },
+    { "file": "Parts.dc.html", "title": "Shared parts", "page": "page-3", "x": 0, "y": 0, "w": 430, "h": 1980 }
   ],
   "annotations": [
     {
       "id": "brief",
+      "page": "page-1",
       "x": -470,
       "y": 0,
       "w": 380,
-      "text": "Four ways to judge a recitation on iPhone 15 Pro portrait, installed as a PWA.\n\nAll four share the same header, page selector, safe areas and scoring data. What differs is how much screen the score chrome claims, and when the judge sees it.\n\nEvery frame is 393×852 with the status bar (59) and home indicator (34) left empty — those bands are the device's, not ours.\n\nTap around: score and mistake sheets open, Undo removes the Faṣāḥa mark, Review opens full screen. The dark switch is on each frame."
+      "text": "ITERATION 2 — three ways to judge on iPhone 15 Pro portrait, installed as a PWA.\n\nThe header, reciter chip and page selector are now recreated from Header.tsx and PageNav.tsx rather than invented. The page selector floats in the Mushaf's own centre marginalia slot, exactly as the app does it, which costs no height at all.\n\nThe status bar (59) and home indicator (34) are reserved but the background paints through them, as it will once index.html gets viewport-fit=cover.\n\nTap around: score and mistake sheets open, Undo removes the Faṣāḥa mark, Finish opens Review and save. Every frame has a dark switch; A also has tweaks for the colour treatment, the criterion count, and what number the chips carry."
     },
     {
       "id": "note-a",
+      "page": "page-1",
       "x": 0,
-      "y": -230,
+      "y": -250,
       "w": 393,
-      "text": "A · MUSHAF-FIRST STATUS DOCK — leading candidate\n\nPage 361×531 (62% of the screen). Dock 92 high, fixed.\n\nThe top dock row morphs: normally four criterion chips, and for a few seconds after a mark it becomes the last-action strip with Undo. Same height either way, so nothing on screen moves.\n\nCosts: the four scores are readouts at 14px, and /max only appears in the sheet."
+      "text": "A · STATUS DOCK — the lead\n\nPage 377×554, the largest a 393pt phone allows at 8px margins. Dock 94, fixed.\n\nThe dock's top row morphs: normally one chip per criterion, and for a few seconds after a mark it becomes the last-action strip with Undo. Same height either way, so nothing moves.\n\nChips are stacked, so nothing is ever abbreviated — not Faṣāḥa, not Adu / Raagu — and the strip works at 1, 2, 3 or 4 criteria. Try the criteria tweak."
     },
     {
       "id": "note-b",
+      "page": "page-1",
       "x": 473,
-      "y": -230,
+      "y": -250,
       "w": 393,
-      "text": "B · COLLAPSIBLE LEDGER\n\nPage 377×554 (65%). Peek 76 high; expanded it covers the lower page rather than resizing it.\n\nShown expanded so you can compare — tap the header to collapse. Closest to the desktop rail, and the only one where all four criteria and Adu/Raagu are legible together.\n\nCosts: the score is either tiny or covering the Quran; there is no in-between."
+      "text": "B · COLLAPSIBLE LEDGER\n\nSame page size. Peek 76 high; expanded it rises over the lower page rather than resizing it.\n\nShown expanded — tap the header to collapse. Closest to the desktop rail, and the only one where all four criteria and the Adu / Raagu control are legible together.\n\nCosts: the score is either a 28px number strip or a panel covering the Quran. There is no middle setting."
     },
     {
       "id": "note-c",
+      "page": "page-1",
       "x": 946,
-      "y": -230,
+      "y": -250,
       "w": 393,
-      "text": "C · LIVE MODE / REVIEW MODE\n\nPage 377×554 (65%). One 60-high bar, no score at all while listening.\n\nQuietest screen and the largest Undo target. \"Review & finish\" opens a full-screen checkpoint carrying score, mistakes, Adu/Raagu and notes.\n\nOpen question for you, not for me: should the running total be visible during recitation? Hiding it is a competition rule, not a layout choice."
+      "text": "C · LIVE MODE / REVIEW MODE\n\nSame page size. One 60-high bar, and no score at all while listening.\n\nQuietest screen and the largest Undo target. \"Review & finish\" opens the same Review and save screen on page 2 — so C is the cheapest of the three to build, not the most expensive.\n\nStill your call, not mine: should the running total be visible during recitation? That is a competition rule, not a layout choice."
     },
     {
-      "id": "note-d",
-      "x": 1419,
-      "y": -230,
-      "w": 393,
-      "text": "D · BENTO DECK — the current prototype, drawn honestly\n\nThe deck's 252 fixed height leaves the page 263×387 — 45% of the screen, and 27% narrower than A.\n\nFour equal cells also read as four equal controls, but only Adu/Raagu is editable.\n\nWorth keeping for the post-recitation results summary, where height is free."
+      "id": "note-cont",
+      "page": "page-2",
+      "x": 0,
+      "y": -250,
+      "w": 866,
+      "text": "WHERE ALL THREE END UP — App.tsx:307 → App.tsx:327\n\nFinish recitation opens Review and save, which refuses to save until Adu / Raagu carries a mark; saving then hands over to the next reciter. Both screens are shared by A, B and C, so the only real difference between the three directions is what happens while the judge is listening.\n\nReview and save is the existing FinishDialog composition — head, scrolling body, pinned actions — at phone width. It already behaves as a full-screen sheet at min(620px, 100vw − 32px). The safe-area padding drawn here is a proposal: .finish-dialog uses calc(100dvh − 32px) with no env() term today, so on a real iPhone it would sit under the Dynamic Island.\n\nFlip the blocked tweak on Review to see the \"Adu / Raagu not entered\" state, drawn with the app's own error colours."
     },
     {
       "id": "note-parts",
-      "x": 1892,
-      "y": -230,
-      "w": 430,
-      "text": "SHARED PARTS · 1:1\n\nEvery value here is lifted from src/styles/global.css — tokens, the .sc-row grid, .log-row anatomy, .mark-ruler geometry, the four category colours.\n\nThe Adu/Raagu ruler is unchanged; only its placement moves.\n\nQuran text is Surah al-Mulk, page 562, verbatim from public/pages/p562.json, set in the app's own HafsUthmanic."
+      "page": "page-3",
+      "x": 470,
+      "y": 0,
+      "w": 400,
+      "text": "SHARED PARTS · 1:1\n\n01 — The header at 55 (today) and 64 (proposed). Removing the page-selector band frees 44px, and the Mushaf cannot use it: at 8px margins the page is 377 wide, and 377 ÷ 0.68 = 554, so extra height does nothing. The header is where that space can go.\n\n03 — A judge is assigned 1 to 4 criteria (one-each panels give exactly one; Faṣāḥa and Adu / Raagu are optional), so the strip is drawn at every count.\n\n04 — The colour treatment as a setting: off, earned, always. Shown early in a recitation, when only one criterion has cost anything, which is where the three differ. Primary ink clears 14.4:1 on every wash; secondary text on a tinted chip must be --ink-2, since --ink-3 on the Jalī wash measures 4.43:1 and misses AA.\n\n07 / 08 — Both Adu / Raagu input modes, since aduRaaguInputMode is a saved preference.\n\nThe Quran text is Surah al-Mulk from public/pages/p562.json, unchanged. The app sets it in a per-page QCF font whose glyphs fill each printed line exactly; that font could not be fetched here, so the words are re-packed to fit HafsUthmanic. Words, order and marks are real — only the line breaks differ from the print."
     }
   ],
-  "launch": { "view": "canvas" }
+  "launch": { "view": "canvas", "page": "page-1" }
 }

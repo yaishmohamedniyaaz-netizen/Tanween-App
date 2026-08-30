@@ -1,28 +1,59 @@
 import fs from "node:fs";
 
-export const HAFS = fs.readFileSync(new URL("./hafs.b64", import.meta.url), "utf8").trim();
+const here = (f) => new URL(f, import.meta.url);
+export const HAFS = fs.readFileSync(here("./hafs.b64"), "utf8").trim();
+const WORDS = JSON.parse(fs.readFileSync(here("./words.json"), "utf8"));
+const PAGE = JSON.parse(fs.readFileSync(here("../../../public/pages/p562.json"), "utf8"));
 
-/* Surah al-Mulk, Mushaf page 562 — text lifted verbatim from public/pages/p562.json */
-export const PAGE562 = [
-  { t: "surah", ar: "الملك" },
-  { t: "basmala", w: ["بِسۡمِ", "ٱللَّهِ", "ٱلرَّحۡمَٰنِ", "ٱلرَّحِيمِ"] },
-  { t: "ayah", w: ["تَبَٰرَكَ","ٱلَّذِي","بِيَدِهِ","ٱلۡمُلۡكُ","وَهُوَ","عَلَىٰ","كُلِّ","شَيۡءٖ","قَدِيرٌ","١","ٱلَّذِي","خَلَقَ"] },
-  { t: "ayah", w: ["ٱلۡمَوۡتَ","وَٱلۡحَيَوٰةَ","لِيَبۡلُوَكُمۡ","أَيُّكُمۡ","أَحۡسَنُ","عَمَلٗاۚ","وَهُوَ","ٱلۡعَزِيزُ","ٱلۡغَفُورُ","٢"] },
-  { t: "ayah", w: ["ٱلَّذِي","خَلَقَ","سَبۡعَ","سَمَٰوَٰتٖ","طِبَاقٗاۖ","مَّا","تَرَىٰ","فِي","خَلۡقِ","ٱلرَّحۡمَٰنِ","مِن"] },
-  { t: "ayah", w: ["تَفَٰوُتٖۖ","فَٱرۡجِعِ","ٱلۡبَصَرَ","هَلۡ","تَرَىٰ","مِن","فُطُورٖ","٣","ثُمَّ","ٱرۡجِعِ","ٱلۡبَصَرَ","كَرَّتَيۡنِ"] },
-  { t: "ayah", w: ["يَنقَلِبۡ","إِلَيۡكَ","ٱلۡبَصَرُ","خَاسِئٗا","وَهُوَ","حَسِيرٞ","٤","وَلَقَدۡ","زَيَّنَّا","ٱلسَّمَآءَ"] },
-  { t: "ayah", w: ["ٱلدُّنۡيَا","بِمَصَٰبِيحَ","وَجَعَلۡنَٰهَا","رُجُومٗا","لِّلشَّيَٰطِينِۖ","وَأَعۡتَدۡنَا","لَهُمۡ","عَذَابَ"] },
-  { t: "ayah", w: ["ٱلسَّعِيرِ","٥","وَلِلَّذِينَ","كَفَرُواْ","بِرَبِّهِمۡ","عَذَابُ","جَهَنَّمَۖ","وَبِئۡسَ","ٱلۡمَصِيرُ"] },
-  { t: "ayah", w: ["٦","إِذَآ","أُلۡقُواْ","فِيهَا","سَمِعُواْ","لَهَا","شَهِيقٗا","وَهِيَ","تَفُورُ","٧","تَكَادُ","تَمَيَّزُ"] },
-  { t: "ayah", w: ["مِنَ","ٱلۡغَيۡظِۖ","كُلَّمَآ","أُلۡقِيَ","فِيهَا","فَوۡجٞ","سَأَلَهُمۡ","خَزَنَتُهَآ","أَلَمۡ","يَأۡتِكُمۡ","نَذِيرٞ","٨"] },
-  { t: "ayah", w: ["قَالُواْ","بَلَىٰ","قَدۡ","جَآءَنَا","نَذِيرٞ","فَكَذَّبۡنَا","وَقُلۡنَا","مَا","نَزَّلَ","ٱللَّهُ","مِن","شَيۡءٍ","إِنۡ","أَنتُمۡ"] },
-  { t: "ayah", w: ["إِلَّا","فِي","ضَلَٰلٖ","كَبِيرٖ","٩","وَقَالُواْ","لَوۡ","كُنَّا","نَسۡمَعُ","أَوۡ","نَعۡقِلُ","مَا","كُنَّا","فِيٓ","أَصۡحَٰبِ"] },
-  { t: "ayah", w: ["ٱلسَّعِيرِ","١٠","فَٱعۡتَرَفُواْ","بِذَنۢبِهِمۡ","فَسُحۡقٗا","لِّأَصۡحَٰبِ","ٱلسَّعِيرِ","١١"] },
-  { t: "ayah", w: ["إِنَّ","ٱلَّذِينَ","يَخۡشَوۡنَ","رَبَّهُم","بِٱلۡغَيۡبِ","لَهُم","مَّغۡفِرَةٞ","وَأَجۡرٞ","كَبِيرٞ","١٢"] },
-];
+/* Flat word stream of Surah al-Mulk, Mushaf page 562, verbatim from
+   public/pages/p562.json. The app renders the per-page QCF font, whose glyphs
+   fill each printed line exactly; HafsUthmanic is ~1.7x wider, so the printed
+   line breaks cannot be reproduced. Words, order and text are unchanged —
+   only where the lines break differs. */
+const AYAH_WORDS = PAGE.lines
+  .filter((l) => l.type === "ayah")
+  .flatMap((l) => l.words.map((w) => w.text));
+export const BASMALA = PAGE.lines.find((l) => l.type === "basmala").words.map((w) => w.text);
+export const SURAH_AR = PAGE.lines.find((l) => l.type === "surah-header").nameAr;
 
-/* word index -> mark, keyed "lineIndex:wordIndex" */
-export const MARKS = { "5:11": { cat: "jali", n: 1 }, "10:5": { cat: "khafi", n: 1 }, "12:8": { cat: "fasaha", n: 1 } };
+/* Words carrying a mark, by their position in the stream. */
+const MARKED = new Map();
+{
+  const norm = (t) => t.normalize("NFC");
+  const at = (text, nth = 0) => {
+    const hits = AYAH_WORDS.reduce((f, w, i) => (norm(w) === norm(text) ? (f.push(i), f) : f), []);
+    if (hits[nth] === undefined) throw new Error(`mark target not on page 562: ${text}`);
+    return hits[nth];
+  };
+  MARKED.set(at("تَفَٰوُتٖۖ"), "khafi");
+  MARKED.set(at("كَرَّتَيۡنِ"), "jali");
+  MARKED.set(at("بِمَصَٰبِيحَ"), "fasaha");
+}
+
+/** Greedy line packing: fills each line to the page's own text width. */
+export function packLines(width, rows = 13) {
+  const size = Math.min(33, Math.max(13, 0.0555 * width));
+  const padX = Math.min(44, Math.max(16, 0.065 * width));
+  const box = width - 2 * padX;
+  const gap = 0.2 * size;
+  const lines = [];
+  let line = [], w = 0;
+  for (let i = 0; i < AYAH_WORDS.length && lines.length < rows; i += 1) {
+    const word = AYAH_WORDS[i];
+    const ww = (WORDS[word] ?? 2) * size;
+    const next = line.length ? w + gap + ww : ww;
+    if (line.length && next > box) {
+      lines.push(line);
+      line = [{ text: word, cat: MARKED.get(i) }];
+      w = ww;
+    } else {
+      line.push({ text: word, cat: MARKED.get(i) });
+      w = next;
+    }
+  }
+  if (line.length && lines.length < rows) lines.push(line);
+  return { lines, size };
+}
 
 export const CSS = `
 @font-face{font-family:"HafsUthmanic";src:url(data:font/woff2;base64,${HAFS}) format("woff2");font-display:block}
@@ -62,9 +93,8 @@ a{color:#5566e6}a:hover{color:#2f3aa3}
 .num{font-variant-numeric:tabular-nums}
 .lbl{font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
 
-/* ---- Mushaf page: geometry copied from .page / .mushaf-lines / .m-line ---- */
+/* Mushaf page — geometry from .page / .mushaf-lines / .m-line in global.css */
 .page{
-  --fluid:5.55cqi;
   position:relative;display:grid;grid-template-rows:auto minmax(0,1fr);
   container-type:inline-size;aspect-ratio:.68;flex:0 0 auto;
   background:var(--page-paper);border:1px solid var(--line);border-radius:20px;
@@ -81,74 +111,75 @@ a{color:#5566e6}a:hover{color:#2f3aa3}
 }
 .m-line{
   direction:rtl;align-self:center;min-width:0;font-family:var(--quran);
-  font-size:clamp(13px,var(--fluid),33px);font-weight:400;line-height:1;color:var(--mushaf-ink);white-space:nowrap;
+  font-weight:400;line-height:1;color:var(--mushaf-ink);white-space:nowrap;
 }
 .m-line-ayah{display:flex;align-items:center;justify-content:space-between}
 .m-line-basmala{display:flex;align-items:center;justify-content:center;gap:.4em;
-  font-size:clamp(12px,5cqi,29px);color:color-mix(in srgb,var(--mushaf-ink) 82%,var(--page-paper))}
+  color:color-mix(in srgb,var(--mushaf-ink) 82%,var(--page-paper))}
 .m-word{position:relative;display:inline-block;line-height:1}
 .m-word.marked::before{content:"";position:absolute;inset:-3px -1px -5px;border-radius:3px;background:var(--c-wash)}
 .m-word.marked>span{position:relative}
-.mark-count{position:absolute;top:-7px;right:-6px;min-width:14px;height:14px;padding:0 3px;border-radius:999px;
-  background:var(--c);color:#fff;font-family:var(--ui);font-size:9.5px;font-weight:500;display:grid;place-items:center;
-  font-variant-numeric:tabular-nums;line-height:1}
 .surah-band{position:relative;display:flex;align-items:center;justify-content:center;align-self:center;height:100%;color:var(--mushaf-ink)}
 .surah-band::before{content:"";position:absolute;inset:0;border:2px solid currentColor;border-radius:2px;opacity:.9}
 .surah-band::after{content:"";position:absolute;inset:clamp(3px,.9cqi,4px);border:1px solid currentColor;border-radius:1px;opacity:.65}
 .surah-band-title{position:relative;font-family:var(--quran);font-size:clamp(11px,4.2cqi,26px);line-height:1.15;padding:clamp(1px,.25cqi,2px) clamp(12px,3.8cqi,24px)}
-
-/* ---- safe-area guides (tweak) ---- */
-.guide{position:absolute;left:0;right:0;pointer-events:none;display:flex;align-items:center;justify-content:center}
-.guide::before{content:"";position:absolute;inset:0;border:1px dashed rgba(85,102,230,.42)}
-.guide i{font-style:normal;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:#5566e6;opacity:.8;font-family:var(--ui)}
 `;
 
-export const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+/** Icon paths lifted verbatim from src/components/Icon.tsx (24px, stroke 2). */
+const P = {
+  fileCheck: ["M14 2H6a2 2 0 0 0 -2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2V8z", "M14 2v6h6", "M9 15l2 2l4 -4"],
+  moon: ["M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z"],
+  dots: [
+    "M5 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0",
+    "M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0",
+    "M19 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0",
+  ],
+  chevron: ["M9 6l6 6l-6 6"],
+  back: ["M5 12l14 0", "M5 12l6 6", "M5 12l6 -6"],
+  minus: ["M5 12l14 0"],
+  plus: ["M12 5l0 14", "M5 12l14 0"],
+  refresh: ["M20 12a8 8 0 1 1 -2.34 -5.66", "M20 4v6h-6"],
+  marks: [
+    "M14 6m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0", "M4 6l8 0", "M16 6l4 0",
+    "M8 12m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0", "M4 12l2 0", "M10 12l10 0",
+    "M17 18m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0", "M4 18l11 0", "M19 18l1 0",
+  ],
+  check: ["M5 12l5 5l10 -10"],
+};
+export const icon = (name, size = 17, extra = "") =>
+  `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"${extra ? ` style="${extra}"` : ""}>${P[name].map((d) => `<path d="${d}"></path>`).join("")}</svg>`;
 
-/** Renders the Mushaf page at a fixed CSS width, aspect 0.68, with marks baked in. */
+/** The Mushaf page at a fixed CSS width. Page nav floats in its centre slot. */
 export function mushafPage(width, opts = {}) {
-  const marks = opts.marks === false ? {} : MARKS;
-  const lines = PAGE562.map((ln, li) => {
-    if (ln.t === "surah") {
-      return `<div class="m-line"><div class="surah-band"><span class="surah-band-title">${ln.ar}</span></div></div>`;
-    }
-    const words = ln.w
-      .map((w, wi) => {
-        const m = marks[`${li}:${wi}`];
-        if (!m) return `<span class="m-word">${w}</span>`;
-        return `<span class="m-word marked cat-${m.cat}"><span>${w}</span><i class="mark-count">${m.n}</i></span>`;
-      })
-      .join("");
-    const cls = ln.t === "basmala" ? "m-line m-line-basmala" : "m-line m-line-ayah";
-    return `<div class="${cls}">${words}</div>`;
-  }).join("\n        ");
-  return `<div class="page" style="width: ${width}px">
+  const { lines, size } = packLines(width);
+  const basmalaSize = Math.min(29, Math.max(12, 0.05 * width));
+  const body = [
+    `<div class="m-line" style="font-size:${size}px"><div class="surah-band"><span class="surah-band-title">${SURAH_AR}</span></div></div>`,
+    `<div class="m-line m-line-basmala" style="font-size:${basmalaSize}px">${BASMALA.map((w) => `<span class="m-word">${w}</span>`).join("")}</div>`,
+    ...lines.map(
+      (line) =>
+        `<div class="m-line m-line-ayah" style="font-size:${size}px">${line
+          .map((w) =>
+            w.cat
+              ? `<span class="m-word marked cat-${w.cat}"><span>${w.text}</span></span>`
+              : `<span class="m-word">${w.text}</span>`,
+          )
+          .join("")}</div>`,
+    ),
+  ].join("\n        ");
+  return `<div class="page" style="width: min(${width}px, 100%)">
       <div class="page-marginalia">
         <span>Juz 29</span>
-        <span style="min-width: 28px; text-align: center; visibility: hidden">562</span>
-        <span class="page-surahs">الملك</span>
+        <span style="min-width: 52px"></span>
+        <span class="page-surahs">${SURAH_AR}</span>
       </div>
       <div class="mushaf-lines">
-        ${lines}
+        ${body}
       </div>
+      ${opts.nav ?? ""}
     </div>`;
 }
 
-/** Inline SVG icons — stroke-based, 20px grid. */
-export const icon = {
-  back: `<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12.5 4.5 7 10l5.5 5.5"/></svg>`,
-  chevR: `<svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7.5 4.5 13 10l-5.5 5.5"/></svg>`,
-  chevL: `<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12.5 4.5 7 10l5.5 5.5"/></svg>`,
-  chevUp: `<svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5 10 7l5.5 5.5"/></svg>`,
-  chevDown: `<svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 7.5 10 13l5.5-5.5"/></svg>`,
-  pause: `<svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M7.5 4.5v11M12.5 4.5v11"/></svg>`,
-  more: `<svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><circle cx="4" cy="10" r="1.5"/><circle cx="10" cy="10" r="1.5"/><circle cx="16" cy="10" r="1.5"/></svg>`,
-  undo: `<svg width="17" height="17" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h8.5a3.5 3.5 0 0 1 0 7H8"/><path d="M6.8 5.6 3.6 9l3.2 3.4"/></svg>`,
-  close: `<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M5.5 5.5l9 9M14.5 5.5l-9 9"/></svg>`,
-  note: `<svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 3.5h11v13h-11z"/><path d="M7.5 7h5M7.5 10h5M7.5 13h3"/></svg>`,
-};
-
-/** Wraps a body in the .dc.html envelope. */
 export function dc({ body, props, logic, css = "" }) {
   return `<!doctype html>
 <html>
