@@ -35,6 +35,20 @@ Chips carry **deductions**, not remaining scores, so the dock's total is not
 the sum of the chips. The score sheet keeps the desktop's Deducted + Score
 columns unchanged.
 
+The dock's second zone leads with what the logged mistakes cost — `−3.5` —
+with the count (`3 mistakes`) behind it in secondary type. A bare count was
+too vague to act on, and a bare amount is ambiguous against the total
+deduction, which includes Adu / Raagu. The amount is derived from the mistake
+log, never stored separately, so it cannot disagree with it.
+
+Below about 312px of dock width, both secondary labels (`Score` and
+`3 mistakes`) drop out rather than clip; the numbers and Finish stay.
+
+A marked word paints `var(--c-wash)` with `mix-blend-mode: multiply`
+(`screen` in dark), exactly as `.glyph-ink.marked` does. Without the blend the
+Faṣāḥa indigo washes out to grey on the page paper and stops reading as a
+verdict colour.
+
 ## Prerequisites
 
 1. `index.html:5` — add `viewport-fit=cover` to the viewport meta. Without it
@@ -89,9 +103,20 @@ them in this pass.
   dropped here may be worth reviving there, where vertical space is free and
   four equal readouts are honest.
 
+## Open question on A, deliberately left open
+
+The last-action strip replaces the criterion chips for a few seconds after a
+mark. It is not an overlay and does not resize anything — both rows are 44
+high — but for those seconds the judge cannot see the per-criterion
+breakdown. That is the whole cost, and it buys a one-tap Undo at the moment
+the judge is most likely to want it.
+
+The prototype carries a `lastMark` tweak (`strip` / `off`) so the screen can
+be felt both ways before this is settled. Default is `strip`.
+
 ## Test matrix
 
-- Criterion counts 1, 2, 3, 4 (`one-each` panel preset; Faṣāḥa and Adu / Raagu
+- Criterion counts 1, 2, 3, 4 (and the singular "1 mistake") (`one-each` panel preset; Faṣāḥa and Adu / Raagu
   switched off)
 - `aduRaaguInputMode` — ruler and stepper
 - `judgeRailSide` — left and right

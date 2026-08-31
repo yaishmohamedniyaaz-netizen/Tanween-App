@@ -42,6 +42,8 @@ const holes = (s, ctx) => s
     return v === undefined || typeof v === "function" ? "" : String(v);
   });
 
+const GLYPH = JSON.parse(fs.readFileSync("/tmp/marked.json", "utf8"));
+
 /* mirrors MODEL in chrome.mjs */
 const ALL = (u) => [
   { id: "jali", cls: "cat-jali", name: "Laḥn Jalī", short: "Jalī", score: 48, max: 50, ded: "−2" },
@@ -55,9 +57,9 @@ const crit = (u, n = 4, tint = "earned") => ALL(u).slice(0, n).map((c) => ({
 }));
 const marksOf = (u, n = 4) => {
   const all = [
-    { id: "fasaha", cls: "cat-fasaha", glyph: "بِمَصَٰبِيحَ", amt: "−0.5", detail: "Faṣāḥa · 67:5 · 2:14" },
-    { id: "jali", cls: "cat-jali", glyph: "كَرَّتَيۡنِ", amt: "−2", detail: "Laḥn Jalī · 67:4 · 1:52" },
-    { id: "khafi", cls: "cat-khafi", glyph: "تَفَٰوُتٖ", amt: "−1", detail: "Laḥn Khafī · 67:3 · 1:09" },
+    { id: "fasaha", cls: "cat-fasaha", glyph: GLYPH.fasaha, amt: "−0.5", detail: "Faṣāḥa · 67:5 · 2:14" },
+    { id: "jali", cls: "cat-jali", glyph: GLYPH.jali, amt: "−2", detail: "Laḥn Jalī · 67:4 · 1:52" },
+    { id: "khafi", cls: "cat-khafi", glyph: GLYPH.khafi, amt: "−1", detail: "Laḥn Khafī · 67:3 · 1:09" },
   ];
   const owned = new Set(crit(u, n).map((c) => c.id));
   return all.filter((m) => owned.has(m.id) && !(u && m.id === "fasaha"));
@@ -73,6 +75,8 @@ const base = (d, { u = false, n = 4, tint = "earned", chip = "deduction" } = {})
     criteriaLabel: cs.map((c) => c.name).join(" + "),
     marks: marksOf(u, n), markCount: marksOf(u, n).length,
     markWord: marksOf(u, n).length === 1 ? "mistake" : "mistakes",
+    dedTotal: (() => { const t = marksOf(u, n).reduce((s, m) => s + Number(m.amt.replace("−", "")), 0);
+      return t === 0 ? "—" : "−" + Math.round(t * 10) / 10; })(),
     chips: cs.map((c) => ({ ...c, val: chip === "score" ? c.score : c.ded })),
     blocked: false, notBlocked: true,
   };

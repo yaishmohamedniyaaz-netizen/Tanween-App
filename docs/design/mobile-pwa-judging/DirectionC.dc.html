@@ -70,7 +70,9 @@ a{color:#5566e6}a:hover{color:#2f3aa3}
 .m-line-basmala{display:flex;align-items:center;justify-content:center;gap:.4em;
   color:color-mix(in srgb,var(--mushaf-ink) 82%,var(--page-paper))}
 .m-word{position:relative;display:inline-block;line-height:1}
-.m-word.marked::before{content:"";position:absolute;inset:-3px -1px -5px;border-radius:3px;background:var(--c-wash)}
+.m-word.marked::before{content:"";position:absolute;inset:-3px -1px -5px;border-radius:3px;
+  background:var(--c-wash);mix-blend-mode:multiply}
+.f[data-t="dark"] .m-word.marked::before{mix-blend-mode:screen}
 .m-word.marked>span{position:relative}
 .surah-band{position:relative;display:flex;align-items:center;justify-content:center;align-self:center;height:100%;color:var(--mushaf-ink)}
 .surah-band::before{content:"";position:absolute;inset:0;border:2px solid currentColor;border-radius:2px;opacity:.9}
@@ -90,6 +92,8 @@ a{color:#5566e6}a:hover{color:#2f3aa3}
 .hbtn::before{content:"";position:absolute;inset:5px;z-index:0;border:1px solid var(--line-2);border-radius:8px}
 .hbtn>svg{position:relative;z-index:1}
 
+.dock{container-type:inline-size}
+@container (max-width: 312px){.dock-sub{display:none}}
 .err{color:#9e2820}
 .f[data-t="dark"] .err{color:#e17c73}
 .pnav{position:absolute;top:4px;left:8px;right:8px;z-index:12;display:grid;
@@ -120,21 +124,21 @@ a{color:#5566e6}a:hover{color:#2f3aa3}
         <span class="page-surahs">الملك</span>
       </div>
       <div class="mushaf-lines">
-        <div class="m-line" style="font-size:20.9235px"><div class="surah-band"><span class="surah-band-title">الملك</span></div></div>
-        <div class="m-line m-line-basmala" style="font-size:18.85px"><span class="m-word">بِسۡمِ</span><span class="m-word">ٱللَّهِ</span><span class="m-word">ٱلرَّحۡمَٰنِ</span><span class="m-word">ٱلرَّحِيمِ</span></div>
-        <div class="m-line m-line-ayah" style="font-size:20.9235px"><span class="m-word">تَبَٰرَكَ</span><span class="m-word">ٱلَّذِي</span><span class="m-word">بِيَدِهِ</span><span class="m-word">ٱلۡمُلۡكُ</span><span class="m-word">وَهُوَ</span><span class="m-word">عَلَىٰ</span></div>
-        <div class="m-line m-line-ayah" style="font-size:20.9235px"><span class="m-word">كُلِّ</span><span class="m-word">شَيۡءٖ</span><span class="m-word">قَدِيرٌ</span><span class="m-word">١</span><span class="m-word">ٱلَّذِي</span><span class="m-word">خَلَقَ</span></div>
-        <div class="m-line m-line-ayah" style="font-size:20.9235px"><span class="m-word">ٱلۡمَوۡتَ</span><span class="m-word">وَٱلۡحَيَوٰةَ</span><span class="m-word">لِيَبۡلُوَكُمۡ</span></div>
-        <div class="m-line m-line-ayah" style="font-size:20.9235px"><span class="m-word">أَيُّكُمۡ</span><span class="m-word">أَحۡسَنُ</span><span class="m-word">عَمَلٗاۚ</span><span class="m-word">وَهُوَ</span></div>
-        <div class="m-line m-line-ayah" style="font-size:20.9235px"><span class="m-word">ٱلۡعَزِيزُ</span><span class="m-word">ٱلۡغَفُورُ</span><span class="m-word">٢</span><span class="m-word">ٱلَّذِي</span><span class="m-word">خَلَقَ</span><span class="m-word">سَبۡعَ</span></div>
-        <div class="m-line m-line-ayah" style="font-size:20.9235px"><span class="m-word">سَمَٰوَٰتٖ</span><span class="m-word">طِبَاقٗاۖ</span><span class="m-word">مَّا</span><span class="m-word">تَرَىٰ</span><span class="m-word">فِي</span><span class="m-word">خَلۡقِ</span></div>
-        <div class="m-line m-line-ayah" style="font-size:20.9235px"><span class="m-word">ٱلرَّحۡمَٰنِ</span><span class="m-word">مِن</span><span class="m-word marked cat-khafi"><span>تَفَٰوُتٖۖ</span></span><span class="m-word">فَٱرۡجِعِ</span><span class="m-word">ٱلۡبَصَرَ</span></div>
-        <div class="m-line m-line-ayah" style="font-size:20.9235px"><span class="m-word">هَلۡ</span><span class="m-word">تَرَىٰ</span><span class="m-word">مِن</span><span class="m-word">فُطُورٖ</span><span class="m-word">٣</span><span class="m-word">ثُمَّ</span><span class="m-word">ٱرۡجِعِ</span><span class="m-word">ٱلۡبَصَرَ</span></div>
-        <div class="m-line m-line-ayah" style="font-size:20.9235px"><span class="m-word marked cat-jali"><span>كَرَّتَيۡنِ</span></span><span class="m-word">يَنقَلِبۡ</span><span class="m-word">إِلَيۡكَ</span><span class="m-word">ٱلۡبَصَرُ</span><span class="m-word">خَاسِئٗا</span></div>
-        <div class="m-line m-line-ayah" style="font-size:20.9235px"><span class="m-word">وَهُوَ</span><span class="m-word">حَسِيرٞ</span><span class="m-word">٤</span><span class="m-word">وَلَقَدۡ</span><span class="m-word">زَيَّنَّا</span><span class="m-word">ٱلسَّمَآءَ</span></div>
-        <div class="m-line m-line-ayah" style="font-size:20.9235px"><span class="m-word">ٱلدُّنۡيَا</span><span class="m-word marked cat-fasaha"><span>بِمَصَٰبِيحَ</span></span><span class="m-word">وَجَعَلۡنَٰهَا</span><span class="m-word">رُجُومٗا</span></div>
-        <div class="m-line m-line-ayah" style="font-size:20.9235px"><span class="m-word">لِّلشَّيَٰطِينِۖ</span><span class="m-word">وَأَعۡتَدۡنَا</span><span class="m-word">لَهُمۡ</span><span class="m-word">عَذَابَ</span></div>
-        <div class="m-line m-line-ayah" style="font-size:20.9235px"><span class="m-word">ٱلسَّعِيرِ</span><span class="m-word">٥</span><span class="m-word">وَلِلَّذِينَ</span><span class="m-word">كَفَرُواْ</span><span class="m-word">بِرَبِّهِمۡ</span><span class="m-word">عَذَابُ</span></div>
+        <div class="m-line" style="font-size:clamp(13px, 5.55cqi, 33px)"><div class="surah-band"><span class="surah-band-title">الملك</span></div></div>
+        <div class="m-line m-line-basmala" style="font-size:clamp(12px, 5cqi, 29px)"><span class="m-word">بِسۡمِ</span><span class="m-word">ٱللَّهِ</span><span class="m-word">ٱلرَّحۡمَٰنِ</span><span class="m-word">ٱلرَّحِيمِ</span></div>
+        <div class="m-line m-line-ayah" style="font-size:clamp(13px, 5.55cqi, 33px)"><span class="m-word">تَبَٰرَكَ</span><span class="m-word">ٱلَّذِي</span><span class="m-word">بِيَدِهِ</span><span class="m-word">ٱلۡمُلۡكُ</span><span class="m-word">وَهُوَ</span></div>
+        <div class="m-line m-line-ayah" style="font-size:clamp(13px, 5.55cqi, 33px)"><span class="m-word">عَلَىٰ</span><span class="m-word">كُلِّ</span><span class="m-word">شَيۡءٖ</span><span class="m-word">قَدِيرٌ</span><span class="m-word">١</span><span class="m-word">ٱلَّذِي</span><span class="m-word">خَلَقَ</span></div>
+        <div class="m-line m-line-ayah" style="font-size:clamp(13px, 5.55cqi, 33px)"><span class="m-word">ٱلۡمَوۡتَ</span><span class="m-word">وَٱلۡحَيَوٰةَ</span><span class="m-word">لِيَبۡلُوَكُمۡ</span></div>
+        <div class="m-line m-line-ayah" style="font-size:clamp(13px, 5.55cqi, 33px)"><span class="m-word">أَيُّكُمۡ</span><span class="m-word">أَحۡسَنُ</span><span class="m-word">عَمَلٗاۚ</span><span class="m-word">وَهُوَ</span></div>
+        <div class="m-line m-line-ayah" style="font-size:clamp(13px, 5.55cqi, 33px)"><span class="m-word">ٱلۡعَزِيزُ</span><span class="m-word">ٱلۡغَفُورُ</span><span class="m-word">٢</span><span class="m-word">ٱلَّذِي</span><span class="m-word">خَلَقَ</span><span class="m-word">سَبۡعَ</span></div>
+        <div class="m-line m-line-ayah" style="font-size:clamp(13px, 5.55cqi, 33px)"><span class="m-word">سَمَٰوَٰتٖ</span><span class="m-word">طِبَاقٗاۖ</span><span class="m-word">مَّا</span><span class="m-word">تَرَىٰ</span><span class="m-word">فِي</span><span class="m-word">خَلۡقِ</span></div>
+        <div class="m-line m-line-ayah" style="font-size:clamp(13px, 5.55cqi, 33px)"><span class="m-word">ٱلرَّحۡمَٰنِ</span><span class="m-word">مِن</span><span class="m-word marked cat-khafi"><span>تَفَٰوُتٖۖ</span></span><span class="m-word">فَٱرۡجِعِ</span><span class="m-word">ٱلۡبَصَرَ</span></div>
+        <div class="m-line m-line-ayah" style="font-size:clamp(13px, 5.55cqi, 33px)"><span class="m-word">هَلۡ</span><span class="m-word">تَرَىٰ</span><span class="m-word">مِن</span><span class="m-word">فُطُورٖ</span><span class="m-word">٣</span><span class="m-word">ثُمَّ</span><span class="m-word">ٱرۡجِعِ</span></div>
+        <div class="m-line m-line-ayah" style="font-size:clamp(13px, 5.55cqi, 33px)"><span class="m-word">ٱلۡبَصَرَ</span><span class="m-word marked cat-jali"><span>كَرَّتَيۡنِ</span></span><span class="m-word">يَنقَلِبۡ</span><span class="m-word">إِلَيۡكَ</span><span class="m-word">ٱلۡبَصَرُ</span></div>
+        <div class="m-line m-line-ayah" style="font-size:clamp(13px, 5.55cqi, 33px)"><span class="m-word">خَاسِئٗا</span><span class="m-word">وَهُوَ</span><span class="m-word">حَسِيرٞ</span><span class="m-word">٤</span><span class="m-word">وَلَقَدۡ</span><span class="m-word">زَيَّنَّا</span></div>
+        <div class="m-line m-line-ayah" style="font-size:clamp(13px, 5.55cqi, 33px)"><span class="m-word">ٱلسَّمَآءَ</span><span class="m-word">ٱلدُّنۡيَا</span><span class="m-word marked cat-fasaha"><span>بِمَصَٰبِيحَ</span></span><span class="m-word">وَجَعَلۡنَٰهَا</span></div>
+        <div class="m-line m-line-ayah" style="font-size:clamp(13px, 5.55cqi, 33px)"><span class="m-word">رُجُومٗا</span><span class="m-word">لِّلشَّيَٰطِينِۖ</span><span class="m-word">وَأَعۡتَدۡنَا</span></div>
+        <div class="m-line m-line-ayah" style="font-size:clamp(13px, 5.55cqi, 33px)"><span class="m-word">لَهُمۡ</span><span class="m-word">عَذَابَ</span><span class="m-word">ٱلسَّعِيرِ</span><span class="m-word">٥</span><span class="m-word">وَلِلَّذِينَ</span><span class="m-word">كَفَرُواْ</span></div>
       </div>
       <div class="pnav">
         <div class="pnav-in">
@@ -186,10 +190,9 @@ a{color:#5566e6}a:hover{color:#2f3aa3}
         </span>
       </header>
       <div style="flex: 1 1 auto; min-height: 0; overflow: auto; padding: 14px 16px 0">
-        <div style="display: grid; grid-template-columns: 9px minmax(0, 1fr) 46px 78px; gap: 8px; padding-bottom: 8px; border-bottom: 1px solid var(--line-2)">
+        <div style="display: grid; grid-template-columns: 9px minmax(0, 1fr) auto; gap: 8px; padding-bottom: 8px; border-bottom: 1px solid var(--line-2)">
           <span></span><span class="lbl">Criterion</span>
-          <span class="lbl" style="text-align: right">Deducted</span>
-          <span class="lbl" style="text-align: center">Score</span>
+          <span class="lbl" style="text-align: right">Deducted · Score</span>
         </div>
         <div style="display: flex; flex-direction: column">
         <sc-for list="{{ rows }}" as="row" hint-placeholder-count="4">
@@ -233,9 +236,9 @@ a{color:#5566e6}a:hover{color:#2f3aa3}
           <h3 class="lbl" style="margin: 0 0 10px">Mistakes <span class="num" style="letter-spacing: 0">{{ markCount }}</span></h3>
           <div style="display: flex; flex-direction: column; gap: 5px">
         <sc-for list="{{ marks }}" as="m" hint-placeholder-count="3">
-          <button type="button" class="{{ m.cls }}" style="display: grid; grid-template-columns: 8px 62px 52px minmax(0, 1fr) 14px; align-items: center; gap: 8px; width: 100%; min-height: 46px; padding: 4px 9px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); text-align: left">
+          <button type="button" class="{{ m.cls }}" style="display: grid; grid-template-columns: 8px 76px 52px minmax(0, 1fr) 14px; align-items: center; gap: 8px; width: 100%; min-height: 46px; padding: 4px 9px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); text-align: left">
             <span style="width: 8px; height: 10px; border-radius: 3px; background: var(--c)"></span>
-            <span style="font-family: var(--quran); font-size: 19px; line-height: 1.4; color: var(--ink); text-align: center; overflow: hidden">{{ m.glyph }}</span>
+            <span style="font-family: var(--quran); font-size: 19px; line-height: 1.4; color: var(--ink); text-align: center; overflow: hidden; text-overflow: ellipsis">{{ m.glyph }}</span>
             <span class="num" style="font-size: 13px; font-weight: 500; color: var(--ink-2)">{{ m.amt }}</span>
             <span style="min-width: 0; font-size: 12px; color: var(--ink-3); overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{ m.detail }}</span>
             <span style="display: grid; place-items: center; color: var(--ink-3)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6l-6 6"></path></svg></span>
@@ -292,11 +295,15 @@ class Component extends DCLogic {
   criteriaLabel(undone) {
     return this.criteria(undone).map((c) => c.name).join(" + ");
   }
+  dedTotal(undone) {
+    const sum = this.markList(undone).reduce((s, m) => s + Number(m.amt.replace("−", "")), 0);
+    return sum === 0 ? "—" : "−" + (Math.round(sum * 10) / 10);
+  }
   markList(undone) {
     const all = [
       { id: "fasaha", cls: "cat-fasaha", glyph: "بِمَصَٰبِيحَ", amt: "−0.5", detail: "Faṣāḥa · 67:5 · 2:14" },
-      { id: "jali", cls: "cat-jali", glyph: "كَرَّتَيۡنِ", amt: "−2", detail: "Jalī · 67:4 · 1:52" },
-      { id: "khafi", cls: "cat-khafi", glyph: "تَفَٰوُتٖ", amt: "−1", detail: "Khafī · 67:3 · 1:09" },
+      { id: "jali", cls: "cat-jali", glyph: "كَرَّتَيۡنِ", amt: "−2", detail: "Jalī · 67:4 · 1:52" },
+      { id: "khafi", cls: "cat-khafi", glyph: "تَفَٰوُتٖۖ", amt: "−1", detail: "Khafī · 67:3 · 1:09" },
     ];
     const owned = new Set(this.criteria(undone).map((c) => c.id));
     return all.filter((m) => owned.has(m.id) && !(undone && m.id === "fasaha"));
@@ -314,6 +321,7 @@ class Component extends DCLogic {
       marks: this.markList(u),
       markCount: this.markList(u).length,
       markWord: this.markList(u).length === 1 ? "mistake" : "mistakes",
+      dedTotal: this.dedTotal(u),
       chips: this.criteria(u).map((c) => ({ ...c, val: chip === "score" ? c.score : c.ded })),
       blocked: false,
       notBlocked: true,

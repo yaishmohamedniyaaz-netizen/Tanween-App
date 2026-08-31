@@ -1,4 +1,4 @@
-import { icon } from "./kit.mjs";
+import { icon, markedWords } from "./kit.mjs";
 
 export const SAFE_TOP = 59, SAFE_BOTTOM = 34;
 
@@ -19,6 +19,8 @@ export const CHROME_CSS = `
 .hbtn::before{content:"";position:absolute;inset:5px;z-index:0;border:1px solid var(--line-2);border-radius:8px}
 .hbtn>svg{position:relative;z-index:1}
 
+.dock{container-type:inline-size}
+@container (max-width: 312px){.dock-sub{display:none}}
 .err{color:#9e2820}
 .f[data-t="dark"] .err{color:#e17c73}
 .pnav{position:absolute;top:4px;left:8px;right:8px;z-index:12;display:grid;
@@ -99,9 +101,9 @@ export const actionsRow = (onFinish = "") => `<div style="display: flex; align-i
 /** Mistake rows — anatomy from .log-row / .log-row-wrap. */
 export const mistakeRows = `<div style="display: flex; flex-direction: column; gap: 5px">
         <sc-for list="{{ marks }}" as="m" hint-placeholder-count="3">
-          <button type="button" class="{{ m.cls }}" style="display: grid; grid-template-columns: 8px 62px 52px minmax(0, 1fr) 14px; align-items: center; gap: 8px; width: 100%; min-height: 46px; padding: 4px 9px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); text-align: left">
+          <button type="button" class="{{ m.cls }}" style="display: grid; grid-template-columns: 8px 76px 52px minmax(0, 1fr) 14px; align-items: center; gap: 8px; width: 100%; min-height: 46px; padding: 4px 9px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); text-align: left">
             <span style="width: 8px; height: 10px; border-radius: 3px; background: var(--c)"></span>
-            <span style="font-family: var(--quran); font-size: 19px; line-height: 1.4; color: var(--ink); text-align: center; overflow: hidden">{{ m.glyph }}</span>
+            <span style="font-family: var(--quran); font-size: 19px; line-height: 1.4; color: var(--ink); text-align: center; overflow: hidden; text-overflow: ellipsis">{{ m.glyph }}</span>
             <span class="num" style="font-size: 13px; font-weight: 500; color: var(--ink-2)">{{ m.amt }}</span>
             <span style="min-width: 0; font-size: 12px; color: var(--ink-3); overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{ m.detail }}</span>
             <span style="display: grid; place-items: center; color: var(--ink-3)">${icon("chevron", 14)}</span>
@@ -149,11 +151,15 @@ export const MODEL = `
   criteriaLabel(undone) {
     return this.criteria(undone).map((c) => c.name).join(" + ");
   }
+  dedTotal(undone) {
+    const sum = this.markList(undone).reduce((s, m) => s + Number(m.amt.replace("−", "")), 0);
+    return sum === 0 ? "—" : "−" + (Math.round(sum * 10) / 10);
+  }
   markList(undone) {
     const all = [
-      { id: "fasaha", cls: "cat-fasaha", glyph: "بِمَصَٰبِيحَ", amt: "−0.5", detail: "Faṣāḥa · 67:5 · 2:14" },
-      { id: "jali", cls: "cat-jali", glyph: "كَرَّتَيۡنِ", amt: "−2", detail: "Jalī · 67:4 · 1:52" },
-      { id: "khafi", cls: "cat-khafi", glyph: "تَفَٰوُتٖ", amt: "−1", detail: "Khafī · 67:3 · 1:09" },
+      { id: "fasaha", cls: "cat-fasaha", glyph: "${markedWords.fasaha}", amt: "−0.5", detail: "Faṣāḥa · 67:5 · 2:14" },
+      { id: "jali", cls: "cat-jali", glyph: "${markedWords.jali}", amt: "−2", detail: "Jalī · 67:4 · 1:52" },
+      { id: "khafi", cls: "cat-khafi", glyph: "${markedWords.khafi}", amt: "−1", detail: "Khafī · 67:3 · 1:09" },
     ];
     const owned = new Set(this.criteria(undone).map((c) => c.id));
     return all.filter((m) => owned.has(m.id) && !(undone && m.id === "fasaha"));

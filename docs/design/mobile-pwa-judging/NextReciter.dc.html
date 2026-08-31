@@ -70,7 +70,9 @@ a{color:#5566e6}a:hover{color:#2f3aa3}
 .m-line-basmala{display:flex;align-items:center;justify-content:center;gap:.4em;
   color:color-mix(in srgb,var(--mushaf-ink) 82%,var(--page-paper))}
 .m-word{position:relative;display:inline-block;line-height:1}
-.m-word.marked::before{content:"";position:absolute;inset:-3px -1px -5px;border-radius:3px;background:var(--c-wash)}
+.m-word.marked::before{content:"";position:absolute;inset:-3px -1px -5px;border-radius:3px;
+  background:var(--c-wash);mix-blend-mode:multiply}
+.f[data-t="dark"] .m-word.marked::before{mix-blend-mode:screen}
 .m-word.marked>span{position:relative}
 .surah-band{position:relative;display:flex;align-items:center;justify-content:center;align-self:center;height:100%;color:var(--mushaf-ink)}
 .surah-band::before{content:"";position:absolute;inset:0;border:2px solid currentColor;border-radius:2px;opacity:.9}
@@ -90,6 +92,8 @@ a{color:#5566e6}a:hover{color:#2f3aa3}
 .hbtn::before{content:"";position:absolute;inset:5px;z-index:0;border:1px solid var(--line-2);border-radius:8px}
 .hbtn>svg{position:relative;z-index:1}
 
+.dock{container-type:inline-size}
+@container (max-width: 312px){.dock-sub{display:none}}
 .err{color:#9e2820}
 .f[data-t="dark"] .err{color:#e17c73}
 .pnav{position:absolute;top:4px;left:8px;right:8px;z-index:12;display:grid;
@@ -206,11 +210,15 @@ class Component extends DCLogic {
   criteriaLabel(undone) {
     return this.criteria(undone).map((c) => c.name).join(" + ");
   }
+  dedTotal(undone) {
+    const sum = this.markList(undone).reduce((s, m) => s + Number(m.amt.replace("−", "")), 0);
+    return sum === 0 ? "—" : "−" + (Math.round(sum * 10) / 10);
+  }
   markList(undone) {
     const all = [
       { id: "fasaha", cls: "cat-fasaha", glyph: "بِمَصَٰبِيحَ", amt: "−0.5", detail: "Faṣāḥa · 67:5 · 2:14" },
-      { id: "jali", cls: "cat-jali", glyph: "كَرَّتَيۡنِ", amt: "−2", detail: "Jalī · 67:4 · 1:52" },
-      { id: "khafi", cls: "cat-khafi", glyph: "تَفَٰوُتٖ", amt: "−1", detail: "Khafī · 67:3 · 1:09" },
+      { id: "jali", cls: "cat-jali", glyph: "كَرَّتَيۡنِ", amt: "−2", detail: "Jalī · 67:4 · 1:52" },
+      { id: "khafi", cls: "cat-khafi", glyph: "تَفَٰوُتٖۖ", amt: "−1", detail: "Khafī · 67:3 · 1:09" },
     ];
     const owned = new Set(this.criteria(undone).map((c) => c.id));
     return all.filter((m) => owned.has(m.id) && !(undone && m.id === "fasaha"));
@@ -228,6 +236,7 @@ class Component extends DCLogic {
       marks: this.markList(u),
       markCount: this.markList(u).length,
       markWord: this.markList(u).length === 1 ? "mistake" : "mistakes",
+      dedTotal: this.dedTotal(u),
       chips: this.criteria(u).map((c) => ({ ...c, val: chip === "score" ? c.score : c.ded })),
       blocked: false,
       notBlocked: true,

@@ -1,5 +1,5 @@
 import fs from "node:fs";
-import { dc, mushafPage, icon } from "./kit.mjs";
+import { dc, mushafPage, icon, markedWords } from "./kit.mjs";
 import {
   CHROME_CSS, header, pageNav, scoreRows, scoreTotal, judgeLine,
   aduReason, actionsRow, mistakeRows, scrim, grabber, MODEL,
@@ -56,6 +56,7 @@ ${MODEL}
       marks: this.markList(u),
       markCount: this.markList(u).length,
       markWord: this.markList(u).length === 1 ? "mistake" : "mistakes",
+      dedTotal: this.dedTotal(u),
       chips: this.criteria(u).map((c) => ({ ...c, val: chip === "score" ? c.score : c.ded })),
       blocked: false,
       notBlocked: true,
@@ -88,21 +89,21 @@ const chipStrip = `<div style="display: grid; grid-auto-flow: column; grid-auto-
 
 const lastStrip = `<div class="cat-fasaha" style="display: flex; align-items: center; gap: 8px; height: 44px; padding: 0 4px 0 10px; background: var(--c-wash); border-bottom: 1px solid var(--line)">
           <span style="width: 8px; height: 11px; border-radius: 3px; background: var(--c); flex: 0 0 auto"></span>
-          <span style="font-family: var(--quran); font-size: 18px; line-height: 1.4; color: var(--ink)">بِمَصَٰبِيحَ</span>
+          <span style="font-family: var(--quran); font-size: 18px; line-height: 1.4; color: var(--ink)">${markedWords.fasaha}</span>
           <span style="font-size: 12px; color: var(--ink-2); white-space: nowrap">Faṣāḥa · 2:14</span>
           <span class="num" style="margin-left: auto; font-size: 14px; font-weight: 550">−0.5</span>
           <button type="button" onClick="{{ undo }}" style="height: 44px; padding: 0 12px; border: 0; background: transparent; color: var(--c-strong); font-size: 13px; font-weight: 550">Undo</button>
         </div>`;
 
-const dockRow = `<div style="display: grid; grid-template-columns: 1.05fr 0.95fr 104px; gap: 1px; height: 48px; background: var(--line)">
+const dockRow = `<div style="display: grid; grid-template-columns: 1fr 1.15fr 96px; gap: 1px; height: 48px; background: var(--line)">
           <button type="button" onClick="{{ openScore }}" style="display: flex; align-items: center; justify-content: center; gap: 6px; border: 0; background: var(--surface); color: var(--ink)">
-            <span class="lbl">Score</span>
+            <span class="lbl dock-sub">Score</span>
             <span class="num" style="font-size: 17px; font-weight: 550">{{ total }}</span>
             <span class="num" style="font-size: 12px; color: var(--ink-3)">/{{ totalMax }}</span>
           </button>
           <button type="button" onClick="{{ openMarks }}" style="display: flex; align-items: center; justify-content: center; gap: 5px; border: 0; background: var(--surface); color: var(--ink)">
-            <span class="num" style="font-size: 15px; font-weight: 500">{{ markCount }}</span>
-            <span style="font-size: 13px; color: var(--ink-2)">{{ markWord }}</span>
+            <span class="num" style="font-size: 15px; font-weight: 550">{{ dedTotal }}</span>
+            <span class="num dock-sub" style="font-size: 11.5px; color: var(--ink-3)">{{ markCount }} {{ markWord }}</span>
             <span style="display: grid; place-items: center; color: var(--ink-3)">${icon("chevron", 13, "transform: rotate(-90deg)")}</span>
           </button>
           <button type="button" onClick="{{ openReview }}" style="display: grid; place-items: center; border: 0; background: var(--ink); color: var(--bg); font-size: 14px; font-weight: 500">Finish</button>
@@ -113,10 +114,11 @@ const A = dc({
   props: PROPS(
     `,"tint":{"editor":"enum","options":["off","earned","always"],"default":"earned","section":"View"}` +
     `,"criteria":{"editor":"int","min":1,"max":4,"default":4,"section":"Assignment"}` +
-    `,"chip":{"editor":"enum","options":["deduction","score"],"default":"deduction","section":"View"}`,
+    `,"chip":{"editor":"enum","options":["deduction","score"],"default":"deduction","section":"View"}` +
+    `,"lastMark":{"editor":"enum","options":["strip","off"],"default":"strip","section":"View"}`,
   ),
   logic: LOGIC(`{ sheet: "none", undone: false, lastVisible: true, review: false }`, `
-    b.showLast = this.state.lastVisible && !this.state.undone;
+    b.showLast = this.state.lastVisible && !this.state.undone && (this.props.lastMark ?? "strip") === "strip";
     b.showStrip = !b.showLast;
     b.sheetScore = this.state.sheet === "score";
     b.sheetMarks = this.state.sheet === "marks";
@@ -128,7 +130,7 @@ const A = dc({
     ${header()}
     ${stage}
     <div style="flex: 0 0 auto; padding: 8px 8px 12px">
-      <div style="border: 1px solid var(--line); border-radius: 12px; background: var(--surface); box-shadow: var(--shadow-rest); overflow: hidden">
+      <div class="dock" style="border: 1px solid var(--line); border-radius: 12px; background: var(--surface); box-shadow: var(--shadow-rest); overflow: hidden">
         <sc-if value="{{ showLast }}" hint-placeholder-val="{{ true }}">${lastStrip}</sc-if>
         <sc-if value="{{ showStrip }}" hint-placeholder-val="{{ false }}">${chipStrip}</sc-if>
         ${dockRow}
@@ -150,7 +152,7 @@ const bPeek = `<div style="border: 1px solid var(--line); border-radius: 12px; b
             <span class="num" style="font-size: 21px; font-weight: 550; letter-spacing: -0.02em">{{ total }}</span>
             <span class="num" style="font-size: 12px; color: var(--ink-3)">/{{ totalMax }}</span>
           </span>
-          <span style="font-size: 12px; color: var(--ink-3)"><span class="num">{{ markCount }}</span> {{ markWord }}</span>
+          <span class="num" style="font-size: 12px; color: var(--ink-3)">{{ dedTotal }} · {{ markCount }} {{ markWord }}</span>
           <span style="display: grid; place-items: center; width: 28px; height: 28px; color: var(--ink-3)">${icon("chevron", 16, "transform: rotate(-90deg)")}</span>
         </button>
         <div style="display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 1px; height: 28px; background: var(--line); border-top: 1px solid var(--line)">
@@ -210,7 +212,7 @@ const C = dc({
       <sc-if value="{{ showLast }}" hint-placeholder-val="{{ true }}">
         <div class="cat-fasaha" style="display: flex; align-items: center; gap: 8px; height: 60px; padding: 0 4px 0 12px; border: 1px solid var(--line); border-radius: 12px; background: color-mix(in srgb, var(--c) 8%, var(--surface)); box-shadow: var(--shadow-rest)">
           <span style="width: 8px; height: 12px; border-radius: 3px; background: var(--c); flex: 0 0 auto"></span>
-          <span style="font-family: var(--quran); font-size: 20px; line-height: 1.4; color: var(--ink)">بِمَصَٰبِيحَ</span>
+          <span style="font-family: var(--quran); font-size: 20px; line-height: 1.4; color: var(--ink)">${markedWords.fasaha}</span>
           <span style="display: flex; flex-direction: column; min-width: 0">
             <span style="font-size: 13px; font-weight: 500">Faṣāḥa</span>
             <span class="num" style="font-size: 11px; color: var(--ink-3)">2:14 · 67:5</span>

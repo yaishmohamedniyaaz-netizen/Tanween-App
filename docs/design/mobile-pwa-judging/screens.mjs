@@ -27,10 +27,9 @@ export const reviewScreen = (close = "") => `<div style="${close ? OVERLAY : STA
         </span>
       </header>
       <div style="flex: 1 1 auto; min-height: 0; overflow: auto; padding: 14px 16px 0">
-        <div style="display: grid; grid-template-columns: 9px minmax(0, 1fr) 46px 78px; gap: 8px; padding-bottom: 8px; border-bottom: 1px solid var(--line-2)">
+        <div style="display: grid; grid-template-columns: 9px minmax(0, 1fr) auto; gap: 8px; padding-bottom: 8px; border-bottom: 1px solid var(--line-2)">
           <span></span><span class="lbl">Criterion</span>
-          <span class="lbl" style="text-align: right">Deducted</span>
-          <span class="lbl" style="text-align: center">Score</span>
+          <span class="lbl" style="text-align: right">Deducted · Score</span>
         </div>
         ${scoreRows}
         <sc-if value="{{ blocked }}" hint-placeholder-val="{{ false }}">

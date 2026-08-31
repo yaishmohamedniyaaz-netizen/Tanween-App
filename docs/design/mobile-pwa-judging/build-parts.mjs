@@ -1,5 +1,5 @@
 import fs from "node:fs";
-import { dc, icon } from "./kit.mjs";
+import { dc, icon, markedWords } from "./kit.mjs";
 import { CHROME_CSS, header, pageNav } from "./chrome.mjs";
 
 const W = 430, H = 1980;
@@ -82,24 +82,24 @@ const stepper = `<div class="cat-adu" style="display: flex; align-items: center;
           <button type="button" aria-label="Add 0.5 marks" style="width: 44px; height: 44px; display: grid; place-items: center; border: 1px solid var(--line-2); border-radius: 8px; background: transparent; color: var(--ink-2)">${icon("plus", 17)}</button>
         </div>`;
 
-const closedRow = `<button type="button" class="cat-jali" style="display: grid; grid-template-columns: 8px 62px 52px minmax(0, 1fr) 14px; align-items: center; gap: 8px; width: 100%; min-height: 46px; padding: 4px 9px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); text-align: left">
+const closedRow = `<button type="button" class="cat-jali" style="display: grid; grid-template-columns: 8px 76px 52px minmax(0, 1fr) 14px; align-items: center; gap: 8px; width: 100%; min-height: 46px; padding: 4px 9px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); text-align: left">
             <span style="width: 8px; height: 10px; border-radius: 3px; background: var(--c)"></span>
-            <span style="font-family: var(--quran); font-size: 19px; line-height: 1.4; text-align: center">كَرَّتَيۡنِ</span>
+            <span style="font-family: var(--quran); font-size: 19px; line-height: 1.4; text-align: center">${markedWords.jali}</span>
             <span class="num" style="font-size: 13px; font-weight: 500; color: var(--ink-2)">−2</span>
             <span style="font-size: 12px; color: var(--ink-3)">Laḥn Jalī · 67:4 · 1:52</span>
             <span style="display: grid; place-items: center; color: var(--ink-3)">${icon("chevron", 14)}</span>
           </button>`;
 
 const openRow = `<div class="cat-khafi" style="border: 1px solid var(--line); border-radius: 8px; background: var(--surface); overflow: hidden">
-            <div style="display: grid; grid-template-columns: 8px 62px 52px minmax(0, 1fr) 14px; align-items: center; gap: 8px; min-height: 46px; padding: 4px 9px">
+            <div style="display: grid; grid-template-columns: 8px 76px 52px minmax(0, 1fr) 14px; align-items: center; gap: 8px; min-height: 46px; padding: 4px 9px">
               <span style="width: 8px; height: 10px; border-radius: 3px; background: var(--c)"></span>
-              <span style="font-family: var(--quran); font-size: 19px; line-height: 1.4; text-align: center">تَفَٰوُتٖ</span>
+              <span style="font-family: var(--quran); font-size: 19px; line-height: 1.4; text-align: center">${markedWords.khafi}</span>
               <span class="num" style="font-size: 13px; font-weight: 500; color: var(--ink-2)">−1</span>
               <span style="font-size: 12px; color: var(--ink-3)">Laḥn Khafī · 67:3 · 1:09</span>
               <span style="display: grid; place-items: center; color: var(--ink-3)">${icon("chevron", 14, "transform: rotate(90deg)")}</span>
             </div>
             <div style="display: flex; align-items: center; gap: 8px; padding: 0 9px 10px 25px">
-              <span style="font-family: var(--quran); font-size: 18px; line-height: 1.4; padding-right: 4px">مِن تَفَٰوُتٖ</span>
+              <span style="font-family: var(--quran); font-size: 18px; line-height: 1.4; padding-right: 4px">مِن ${markedWords.khafi}</span>
               <button type="button" aria-label="Less" style="margin-left: auto; width: 44px; height: 44px; border: 1px solid var(--line-2); background: transparent; color: var(--ink-2); border-radius: 8px; display: grid; place-items: center">${icon("minus", 16)}</button>
               <span class="num" style="font-size: 14px; font-weight: 500; min-width: 34px; text-align: center">1.0</span>
               <button type="button" aria-label="More" style="width: 44px; height: 44px; border: 1px solid var(--line-2); background: transparent; color: var(--ink-2); border-radius: 8px; display: grid; place-items: center">${icon("plus", 16)}</button>

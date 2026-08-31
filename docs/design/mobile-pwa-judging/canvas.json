@@ -1,16 +1,77 @@
 {
   "pages": [
-    { "id": "page-1", "name": "Live" },
-    { "id": "page-2", "name": "Continuation" },
-    { "id": "page-3", "name": "Parts" }
+    {
+      "id": "page-1",
+      "name": "Live"
+    },
+    {
+      "id": "page-2",
+      "name": "Continuation"
+    },
+    {
+      "id": "page-3",
+      "name": "Parts"
+    }
   ],
   "artboards": [
-    { "file": "Main.dc.html", "title": "A · Status dock", "page": "page-1", "x": 0, "y": 0, "w": 393, "h": 852, "is_interactive": true },
-    { "file": "DirectionB.dc.html", "title": "B · Collapsible ledger", "page": "page-1", "x": 473, "y": 0, "w": 393, "h": 852, "is_interactive": true },
-    { "file": "DirectionC.dc.html", "title": "C · Live / Review", "page": "page-1", "x": 946, "y": 0, "w": 393, "h": 852, "is_interactive": true },
-    { "file": "Review.dc.html", "title": "Review and save", "page": "page-2", "x": 0, "y": 0, "w": 393, "h": 852, "is_interactive": true },
-    { "file": "NextReciter.dc.html", "title": "Next reciter", "page": "page-2", "x": 473, "y": 0, "w": 393, "h": 852 },
-    { "file": "Parts.dc.html", "title": "Shared parts", "page": "page-3", "x": 0, "y": 0, "w": 430, "h": 1980 }
+    {
+      "file": "Main.dc.html",
+      "title": "A · Status dock",
+      "page": "page-1",
+      "x": 0,
+      "y": 0,
+      "w": 393,
+      "h": 852,
+      "is_interactive": true
+    },
+    {
+      "file": "DirectionB.dc.html",
+      "title": "B · Collapsible ledger",
+      "page": "page-1",
+      "x": 473,
+      "y": 0,
+      "w": 393,
+      "h": 852,
+      "is_interactive": true
+    },
+    {
+      "file": "DirectionC.dc.html",
+      "title": "C · Live / Review",
+      "page": "page-1",
+      "x": 946,
+      "y": 0,
+      "w": 393,
+      "h": 852,
+      "is_interactive": true
+    },
+    {
+      "file": "Review.dc.html",
+      "title": "Review and save",
+      "page": "page-2",
+      "x": 0,
+      "y": 0,
+      "w": 393,
+      "h": 852,
+      "is_interactive": true
+    },
+    {
+      "file": "NextReciter.dc.html",
+      "title": "Next reciter",
+      "page": "page-2",
+      "x": 473,
+      "y": 0,
+      "w": 393,
+      "h": 852
+    },
+    {
+      "file": "Parts.dc.html",
+      "title": "Shared parts",
+      "page": "page-3",
+      "x": 0,
+      "y": 0,
+      "w": 430,
+      "h": 1980
+    }
   ],
   "annotations": [
     {
@@ -19,7 +80,7 @@
       "x": -470,
       "y": 0,
       "w": 380,
-      "text": "ITERATION 2 — three ways to judge on iPhone 15 Pro portrait, installed as a PWA.\n\nThe header, reciter chip and page selector are now recreated from Header.tsx and PageNav.tsx rather than invented. The page selector floats in the Mushaf's own centre marginalia slot, exactly as the app does it, which costs no height at all.\n\nThe status bar (59) and home indicator (34) are reserved but the background paints through them, as it will once index.html gets viewport-fit=cover.\n\nTap around: score and mistake sheets open, Undo removes the Faṣāḥa mark, Finish opens Review and save. Every frame has a dark switch; A also has tweaks for the colour treatment, the criterion count, and what number the chips carry."
+      "text": "ITERATION 2 — three ways to judge on iPhone 15 Pro portrait, installed as a PWA.\n\nThe header, reciter chip and page selector are now recreated from Header.tsx and PageNav.tsx rather than invented. The page selector floats in the Mushaf's own centre marginalia slot, exactly as the app does it, which costs no height at all.\n\nThe status bar (59) and home indicator (34) are reserved but the background paints through them, as it will once index.html gets viewport-fit=cover.\n\nTap around: score and mistake sheets open, Undo removes the Faṣāḥa mark, Finish opens Review and save. Every frame has a dark switch; A also has tweaks for the colour treatment, the criterion count, what number the chips carry, and whether the last-mark strip appears at all."
     },
     {
       "id": "note-a",
@@ -27,7 +88,7 @@
       "x": 0,
       "y": -250,
       "w": 393,
-      "text": "A · STATUS DOCK — the lead\n\nPage 377×554, the largest a 393pt phone allows at 8px margins. Dock 94, fixed.\n\nThe dock's top row morphs: normally one chip per criterion, and for a few seconds after a mark it becomes the last-action strip with Undo. Same height either way, so nothing moves.\n\nChips are stacked, so nothing is ever abbreviated — not Faṣāḥa, not Adu / Raagu — and the strip works at 1, 2, 3 or 4 criteria. Try the criteria tweak."
+      "text": "A · STATUS DOCK — the lead\n\nPage 377×554, the largest a 393pt phone allows at 8px margins. Dock 94, fixed.\n\nThe dock's top row morphs: normally one chip per criterion, and for a few seconds after a mark it becomes the last-action strip with Undo. Both are 44 high, so nothing on screen moves — it replaces the chips rather than popping over them. The lastMark tweak turns it off if you want to feel the screen without it.\n\nThe mistake button leads with what the mistakes cost (−3.5) and carries the count behind it, so it is never just \"3 mistakes\". Below about 312px of dock width it sheds both secondary labels rather than clipping.\n\nChips are stacked, so nothing is abbreviated — not Faṣāḥa, not Adu / Raagu — and the strip renders 1, 2, 3 or 4 cells. Try the criteria tweak."
     },
     {
       "id": "note-b",
@@ -62,5 +123,8 @@
       "text": "SHARED PARTS · 1:1\n\n01 — The header at 55 (today) and 64 (proposed). Removing the page-selector band frees 44px, and the Mushaf cannot use it: at 8px margins the page is 377 wide, and 377 ÷ 0.68 = 554, so extra height does nothing. The header is where that space can go.\n\n03 — A judge is assigned 1 to 4 criteria (one-each panels give exactly one; Faṣāḥa and Adu / Raagu are optional), so the strip is drawn at every count.\n\n04 — The colour treatment as a setting: off, earned, always. Shown early in a recitation, when only one criterion has cost anything, which is where the three differ. Primary ink clears 14.4:1 on every wash; secondary text on a tinted chip must be --ink-2, since --ink-3 on the Jalī wash measures 4.43:1 and misses AA.\n\n07 / 08 — Both Adu / Raagu input modes, since aduRaaguInputMode is a saved preference.\n\nThe Quran text is Surah al-Mulk from public/pages/p562.json, unchanged. The app sets it in a per-page QCF font whose glyphs fill each printed line exactly; that font could not be fetched here, so the words are re-packed to fit HafsUthmanic. Words, order and marks are real — only the line breaks differ from the print."
     }
   ],
-  "launch": { "view": "canvas", "page": "page-1" }
+  "launch": {
+    "view": "canvas",
+    "page": "page-1"
+  }
 }

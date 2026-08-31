@@ -30,11 +30,18 @@ const MARKED = new Map();
   MARKED.set(at("بِمَصَٰبِيحَ"), "fasaha");
 }
 
+/** The three marked words, taken from the page itself. */
+export const markedWords = Object.fromEntries(
+  [...MARKED].map(([index, cat]) => [cat, AYAH_WORDS[index]]),
+);
+
 /** Greedy line packing: fills each line to the page's own text width. */
 export function packLines(width, rows = 13) {
   const size = Math.min(33, Math.max(13, 0.0555 * width));
   const padX = Math.min(44, Math.max(16, 0.065 * width));
-  const box = width - 2 * padX;
+  /* 4% headroom: glyph advances do not scale perfectly linearly as the page
+     narrows, and space-between absorbs the slack as wider word gaps. */
+  const box = (width - 2 * padX) * 0.96;
   const gap = 0.2 * size;
   const lines = [];
   let line = [], w = 0;
@@ -117,7 +124,9 @@ a{color:#5566e6}a:hover{color:#2f3aa3}
 .m-line-basmala{display:flex;align-items:center;justify-content:center;gap:.4em;
   color:color-mix(in srgb,var(--mushaf-ink) 82%,var(--page-paper))}
 .m-word{position:relative;display:inline-block;line-height:1}
-.m-word.marked::before{content:"";position:absolute;inset:-3px -1px -5px;border-radius:3px;background:var(--c-wash)}
+.m-word.marked::before{content:"";position:absolute;inset:-3px -1px -5px;border-radius:3px;
+  background:var(--c-wash);mix-blend-mode:multiply}
+.f[data-t="dark"] .m-word.marked::before{mix-blend-mode:screen}
 .m-word.marked>span{position:relative}
 .surah-band{position:relative;display:flex;align-items:center;justify-content:center;align-self:center;height:100%;color:var(--mushaf-ink)}
 .surah-band::before{content:"";position:absolute;inset:0;border:2px solid currentColor;border-radius:2px;opacity:.9}
@@ -151,14 +160,15 @@ export const icon = (name, size = 17, extra = "") =>
 
 /** The Mushaf page at a fixed CSS width. Page nav floats in its centre slot. */
 export function mushafPage(width, opts = {}) {
-  const { lines, size } = packLines(width);
-  const basmalaSize = Math.min(29, Math.max(12, 0.05 * width));
+  const { lines } = packLines(width);
+  const size = "clamp(13px, 5.55cqi, 33px)";
+  const basmalaSize = "clamp(12px, 5cqi, 29px)";
   const body = [
-    `<div class="m-line" style="font-size:${size}px"><div class="surah-band"><span class="surah-band-title">${SURAH_AR}</span></div></div>`,
-    `<div class="m-line m-line-basmala" style="font-size:${basmalaSize}px">${BASMALA.map((w) => `<span class="m-word">${w}</span>`).join("")}</div>`,
+    `<div class="m-line" style="font-size:${size}"><div class="surah-band"><span class="surah-band-title">${SURAH_AR}</span></div></div>`,
+    `<div class="m-line m-line-basmala" style="font-size:${basmalaSize}">${BASMALA.map((w) => `<span class="m-word">${w}</span>`).join("")}</div>`,
     ...lines.map(
       (line) =>
-        `<div class="m-line m-line-ayah" style="font-size:${size}px">${line
+        `<div class="m-line m-line-ayah" style="font-size:${size}">${line
           .map((w) =>
             w.cat
               ? `<span class="m-word marked cat-${w.cat}"><span>${w.text}</span></span>`
