@@ -5,10 +5,17 @@ import {
   missingRequiredImpressionCategories,
 } from "../lib/scoring";
 import { useJudging } from "../state/store";
-import { judgeSeatFor } from "../lib/judgeAssignments";
+import {
+  judgeDisplayName,
+  judgeSeatFor,
+  makeAssignmentSnapshot,
+} from "../lib/judgeAssignments";
 import type { AduRaaguInputMode } from "../lib/devicePreferences";
 import type { CategoryId } from "../types";
+import { CompactTextEditor } from "./CompactTextEditor";
 import { MarkPicker } from "./MarkPicker";
+
+type ScorePanelPresentation = "rail" | "compact";
 
 function CategoryRow({
   id,
@@ -44,10 +51,12 @@ function ImpressionRow({
   category,
   pending,
   inputMode,
+  presentation,
 }: {
   category: CategoryId;
   pending: boolean;
   inputMode: AduRaaguInputMode;
+  presentation: ScorePanelPresentation;
 }) {
   const { state, dispatch } = useJudging();
   const config = state.activeAssignment?.config ?? state.config;
@@ -80,27 +89,60 @@ function ImpressionRow({
         mode={inputMode}
         onChange={(value) => dispatch({ type: "SET_IMPRESSION", category, awarded: value })}
       />
-      <input
-        className="sc-reason"
-        value={note}
-        placeholder="Reason (optional)"
-        aria-label={`${label} reason`}
-        onChange={(event) =>
-          dispatch({
-            type: "SET_IMPRESSION_NOTE",
-            category,
-            note: event.target.value,
-          })
-        }
-      />
+      {presentation === "compact" ? (
+        <CompactTextEditor
+          title={`${label} reason`}
+          label={`${label} reason`}
+          value={note}
+          placeholder="Reason (optional)"
+          triggerClassName={`sc-reason-trigger ${note.trim() ? "has-value" : ""}`}
+          triggerLabel={`Edit ${label} reason`}
+          triggerContent={
+            <>
+              <span>Reason</span>
+              {note.trim() && <i aria-hidden="true" />}
+            </>
+          }
+          onChange={(nextNote) =>
+            dispatch({
+              type: "SET_IMPRESSION_NOTE",
+              category,
+              note: nextNote,
+            })
+          }
+        />
+      ) : (
+        <input
+          className="sc-reason"
+          value={note}
+          placeholder="Reason (optional)"
+          aria-label={`${label} reason`}
+          onChange={(event) =>
+            dispatch({
+              type: "SET_IMPRESSION_NOTE",
+              category,
+              note: event.target.value,
+            })
+          }
+        />
+      )}
     </div>
   );
 }
 
-export function ScorePanel({ inputMode }: { inputMode: AduRaaguInputMode }) {
+export function ScorePanel({
+  inputMode,
+  presentation = "rail",
+}: {
+  inputMode: AduRaaguInputMode;
+  presentation?: ScorePanelPresentation;
+}) {
   const { state } = useJudging();
   const { byCategory, total, totalMax } = computeScores(state);
   const config = state.activeAssignment?.config ?? state.config;
+  const assignment =
+    state.activeAssignment ??
+    makeAssignmentSnapshot(state.panel, state.deviceJudgeId, state.config);
   const categories =
     state.activeAssignment?.categories ??
     judgeSeatFor(state.panel, state.deviceJudgeId)?.categories ??
@@ -112,15 +154,23 @@ export function ScorePanel({ inputMode }: { inputMode: AduRaaguInputMode }) {
   );
 
   return (
-    <section className="panel scorecard" aria-label="Score">
+    <section
+      className={`panel scorecard ${presentation === "compact" ? "is-compact" : ""}`}
+      aria-label="Score"
+    >
       <div className="sc-total">
-        <span className="sc-total-label">Score</span>
+        <span className="sc-total-heading">
+          {presentation === "compact" && assignment && (
+            <span className="sc-compact-judge">{judgeDisplayName(assignment)}</span>
+          )}
+          <span className="sc-total-label">Score</span>
+        </span>
         <span className="sc-total-value" aria-live="polite" aria-atomic="true">
           <span className="sc-total-num t-num">{total}</span>
           <span className="sc-total-of t-num"> / {totalMax}</span>
         </span>
       </div>
-      <div className="sc-rows">
+      <div className="sc-rows" data-category-count={categories.length}>
         {CATEGORIES.filter((category) => categories.includes(category.id)).map((c) =>
           isImpressionCategory(c.id) ? (
             <ImpressionRow
@@ -128,6 +178,7 @@ export function ScorePanel({ inputMode }: { inputMode: AduRaaguInputMode }) {
               category={c.id}
               pending={missingImpressions.includes(c.id)}
               inputMode={inputMode}
+              presentation={presentation}
             />
           ) : (
             <CategoryRow

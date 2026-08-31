@@ -28,6 +28,7 @@ import type {
 } from "../types.ts";
 import { Icon } from "./Icon.tsx";
 import { RecitationEvidenceSpan } from "./RecitationEvidenceSpan.tsx";
+import { SessionRecordingPlayer } from "./SessionRecordingPlayer.tsx";
 
 const identityLabels = {
   number: "number",
@@ -330,6 +331,13 @@ export function ParticipantResultDetail({
           </dl>
         )}
       </section>
+
+      <SessionRecordingPlayer
+        sources={evidence.selectedSessions.map((session) => ({
+          sessionId: session.id,
+          label: `${sourceJudge(session)} · revision ${session.revision ?? 1}`,
+        }))}
+      />
 
       <div className="result-detail-main">
         <section className="result-quran-evidence" aria-labelledby="result-quran-heading">

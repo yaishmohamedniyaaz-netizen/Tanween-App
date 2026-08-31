@@ -19,7 +19,10 @@ type IconName =
   | "upload"
   | "settings"
   | "install"
-  | "refresh";
+  | "refresh"
+  | "mic"
+  | "pause"
+  | "play";
 
 const PATHS: Record<IconName, string[]> = {
   marks: [
@@ -105,6 +108,14 @@ const PATHS: Record<IconName, string[]> = {
     "M20 12a8 8 0 1 1 -2.34 -5.66",
     "M20 4v6h-6",
   ],
+  mic: [
+    "M12 2a3 3 0 0 0 -3 3v7a3 3 0 0 0 6 0v-7a3 3 0 0 0 -3 -3z",
+    "M5 10v2a7 7 0 0 0 14 0v-2",
+    "M12 19v3",
+    "M8 22h8",
+  ],
+  pause: ["M9 5v14", "M15 5v14"],
+  play: ["M7 4l12 8l-12 8z"],
 };
 
 export function Icon({ name, size = 18 }: { name: IconName; size?: number }) {

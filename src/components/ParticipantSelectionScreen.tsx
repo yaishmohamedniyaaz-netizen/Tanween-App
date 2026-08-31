@@ -71,7 +71,7 @@ export function ParticipantSelectionScreen({
   return (
     <section
       className="reciter-selection-screen"
-      aria-label="Participant running order"
+      aria-label="Participant queue"
     >
       <div className="reciter-queue-summary">
         <strong>Next</strong>

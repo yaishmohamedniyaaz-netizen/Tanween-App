@@ -1,6 +1,7 @@
 node_modules
 dist
 dist-ssr
+public/tilawa/
 *.local
 .claude/settings.local.json
 .vite

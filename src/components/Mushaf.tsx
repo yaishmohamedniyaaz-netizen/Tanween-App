@@ -10,8 +10,6 @@ import {
   useState,
 } from "react";
 import { flushSync } from "react-dom";
-import { juzByPage, sajdahVerses } from "../data/marginalia";
-import surahIndex from "../data/surah-index.json";
 import { uid } from "../lib/id";
 import {
   judgingTargetsOf,
@@ -30,7 +28,6 @@ import type { MushafPage, PageWord } from "../lib/page";
 import {
   loadQcfPageFont,
   preloadQcfPageFont,
-  qcfFontFamily,
 } from "../lib/qcfFont";
 import { useJudging } from "../state/store";
 import { enabledCategories, isPinpointCategory } from "../config";
@@ -43,7 +40,7 @@ import type {
 import { DragMenu, type MenuAnchor } from "./DragMenu";
 import {
   useMushafRenderScale,
-  useStableMushafStage,
+  useCompactMushafPages,
 } from "./MushafViewport";
 import type {
   MushafLayout,
@@ -60,6 +57,7 @@ import {
   type RangeLineState,
   type RangePageDisplay,
 } from "../lib/recitationRangeLayout.ts";
+import { MushafPageSurface, MushafWord } from "./MushafPageSurface.tsx";
 
 interface UnitTarget {
   tid: string;
@@ -108,14 +106,6 @@ const HIT_PAD_X = 3;
 const HIT_PAD_Y = 5;
 const MOVE_THRESHOLD = 6;
 
-const ARABIC_DIGITS = ["٠", "١", "٢", "٣", "٤", "٥", "٦", "٧", "٨", "٩"];
-function toArabicNum(n: number): string {
-  return String(n)
-    .split("")
-    .map((digit) => ARABIC_DIGITS[Number(digit)])
-    .join("");
-}
-
 /** The Mushaf jump event, fired by the mistake log. */
 export const JUMP_EVENT = "tahqeeq:jump";
 
@@ -127,42 +117,12 @@ function dominant(mistakes: Mistake[]): CategoryId {
   ).category;
 }
 
-const SURAH_INDEX = surahIndex as Array<{
-  number: number;
-  nameAr: string;
-  firstPage: number;
-}>;
-
-function surahsForPage(page: number) {
-  const starting = SURAH_INDEX.filter((surah) => surah.firstPage === page);
-  if (starting.length) return starting;
-  const active = [...SURAH_INDEX]
-    .reverse()
-    .find((surah) => surah.firstPage <= page);
-  return active ? [active] : [];
-}
-
-function SurahBand({
-  nameAr,
-  style,
-  className = "",
-}: {
-  nameAr: string;
-  style: CSSProperties;
-  className?: string;
-}) {
-  return (
-    <div className={`surah-band ${className}`.trim()} style={style}>
-      <span className="surah-band-title">سُورَةُ {nameAr}</span>
-    </div>
-  );
-}
-
 interface MushafProps {
   page: number;
   pageLayout: MushafLayout;
   questionFocusMode: QuestionFocusMode;
   questionRange: RecitationRangeSnapshot | null;
+  tilawaWordFocus?: string | null;
   onPageChange: (page: number) => void;
   headerControls: (visiblePages: readonly number[], compact: boolean) => ReactNode;
 }
@@ -182,13 +142,13 @@ export function Mushaf({
   pageLayout,
   questionFocusMode,
   questionRange,
+  tilawaWordFocus = null,
   onPageChange,
   headerControls,
 }: MushafProps) {
   const { state, dispatch } = useJudging();
   const renderScale = useMushafRenderScale();
-  const stableStage = useStableMushafStage();
-  const compact = !stableStage;
+  const compact = useCompactMushafPages();
   const requestedPages = useMemo(
     () => visibleMushafPages(currentPage, pageLayout, compact),
     [compact, currentPage, pageLayout],
@@ -733,12 +693,6 @@ export function Mushaf({
     }
   };
 
-  const sajdahSet = useMemo(() => {
-    const set = new Set<string>();
-    for (const { surah, ayah } of sajdahVerses) set.add(`${surah}:${ayah}`);
-    return set;
-  }, []);
-
   const mistakesForUnit = (unit: UnitTarget): Mistake[] => {
     const seen = new Set<string>();
     const matches: Mistake[] = [];
@@ -767,7 +721,6 @@ export function Mushaf({
   const renderPage = (data: MushafPage) => {
     const qcfReady = fontReadyPages.has(data.page);
     const local = (value: number) => value / renderScale;
-    const pageSurahs = surahsForPage(data.page);
     const visibleBoxes = boxesKey === readyKey
       ? boxes.filter((box) => box.page === data.page)
       : [];
@@ -777,10 +730,6 @@ export function Mushaf({
     const root = rootForPage(data.page);
     const pageClientLeft = root?.clientLeft ?? 0;
     const pageClientTop = root?.clientTop ?? 0;
-    const lineStyle = (line: number): CSSProperties => ({ gridRow: line });
-    const qcfLineStyle: CSSProperties = qcfReady
-      ? { fontFamily: `"${qcfFontFamily(data.page)}"` }
-      : { fontFamily: "var(--quran)" };
     const questionDisplay = questionDisplays?.get(data.page) ?? null;
     const lineClass = (lineState: RangeLineState | undefined) =>
       lineState === "context"
@@ -789,46 +738,32 @@ export function Mushaf({
           ? "question-mixed-line"
           : "";
     const renderWord = (word: PageWord, lineState?: RangeLineState) => {
-      const isSajdah =
-        word.role === "ayah-end" &&
-        word.ayah !== null &&
-        sajdahSet.has(`${word.surah}:${word.ayah}`);
-      const displayedText = qcfReady && word.glyph ? word.glyph : word.text;
       const isContextWord = Boolean(
         questionDisplay &&
         lineState === "mixed" &&
         !questionDisplay.selectedWordIds.has(word.wid),
       );
+      const isTilawaWord = word.role === "letter" && word.wid === tilawaWordFocus;
       return (
-        <span
+        <MushafWord
           key={word.wid}
-          className={`m-word ${word.role === "ayah-end" ? "ayah-num" : ""} ${word.role === "ornament" ? "m-ornament" : ""} ${isSajdah ? "sajdah" : ""} ${isContextWord ? "question-context-word" : ""}`}
-          data-wid={word.wid}
-          data-semantic={word.text}
-          data-role={word.role}
-          data-surah={word.surah}
-          data-ayah={word.ayah === null ? "b" : String(word.ayah)}
-          aria-label={word.role === "letter" ? word.text : undefined}
-          aria-hidden={word.role !== "letter" ? true : undefined}
+          word={word}
+          qcfReady={qcfReady}
+          className={`${isContextWord ? "question-context-word" : ""} ${isTilawaWord ? "tilawa-word-active" : ""}`}
         >
-          {displayedText}
-          {isSajdah && (
-            <span className="sajdah-mark" aria-label="Sajdah">۩</span>
-          )}
-        </span>
+        </MushafWord>
       );
     };
 
     return (
-      <div
+      <MushafPageSurface
         key={data.page}
-        className={`page page-solid-mushaf ${data.page <= 2 ? "page-opening-layout" : data.lines.length < 15 ? "page-short-layout" : ""}`}
-        ref={(node) => {
+        data={data}
+        qcfReady={qcfReady}
+        pageRef={(node) => {
           if (node) pageRefs.current.set(data.page, node);
           else pageRefs.current.delete(data.page);
         }}
-        data-page={data.page}
-        data-font-ready={qcfReady ? "true" : "false"}
         data-judging-enabled={judgingEnabled ? "true" : "false"}
         data-question-focus-mode={questionDisplay ? questionFocusMode : "off"}
         onPointerDown={judgingEnabled ? (event) => onPointerDown(event, data.page) : undefined}
@@ -836,19 +771,12 @@ export function Mushaf({
         onPointerUp={judgingEnabled ? onPointerUp : undefined}
         onPointerCancel={judgingEnabled ? closeAll : undefined}
         onContextMenu={judgingEnabled ? (event) => event.preventDefault() : undefined}
-      >
-        <div className="page-marginalia">
-          <span className="page-juz">Juz&apos; {juzByPage[data.page]}</span>
-          <span className="page-static-number t-num" aria-label={`Page ${data.page}`}>{data.page}</span>
-          <span className="page-surahs" dir="rtl">
-            {pageSurahs.map((surah) => surah.nameAr).join(" - ")}
-          </span>
-        </div>
-        {juzByPage[data.page] > 0 && (
-          <div className="juz-label">الجزء {toArabicNum(juzByPage[data.page])}</div>
+        lineClassName={(line) => lineClass(questionDisplay?.lineStates.get(line.n))}
+        renderWord={(word, line) => renderWord(
+          word,
+          questionDisplay?.lineStates.get(line.n),
         )}
-        <div className="mushaf-lines">
-          {visibleShadeBoxes.map((box) => (
+        beforeLines={visibleShadeBoxes.map((box) => (
             <div
               key={box.id}
               className="question-context-band"
@@ -862,43 +790,7 @@ export function Mushaf({
               aria-hidden="true"
             />
           ))}
-          {data.lines.map((line) => {
-            const lineState = questionDisplay?.lineStates.get(line.n);
-            if (line.type === "surah-header") {
-              return (
-                <SurahBand
-                  key={line.n}
-                  nameAr={line.nameAr}
-                  style={lineStyle(line.n)}
-                  className={lineClass(lineState)}
-                />
-              );
-            }
-            if (line.type === "basmala") {
-              return (
-                <div
-                  key={line.n}
-                  className={`m-line m-line-basmala ${lineClass(lineState)}`.trim()}
-                  style={lineStyle(line.n)}
-                >
-                  {line.words.map((word) => renderWord(word, lineState))}
-                </div>
-              );
-            }
-            return (
-              <div
-                key={line.n}
-                data-mline={line.n}
-                className={`m-line ${line.centered ? "m-line-center" : "m-line-ayah"} ${lineClass(lineState)}`.trim()}
-                style={{ ...lineStyle(line.n), ...qcfLineStyle }}
-              >
-                {line.words.map((word) => renderWord(word, lineState))}
-              </div>
-            );
-          })}
-        </div>
-
-        {judgingEnabled && (
+        afterLines={judgingEnabled ? (
           <div className="hit-layer">
             {visibleBoxes.map((box) => {
               const localLeft = (value: number) => local(value) - pageClientLeft;
@@ -961,8 +853,8 @@ export function Mushaf({
               );
             })}
           </div>
-        )}
-      </div>
+        ) : null}
+      />
     );
   };
 

@@ -95,16 +95,19 @@ export function FinishDialog({
   onConfirm,
   hasNextReciter,
   inputMode,
+  recordingSummary,
 }: {
   onCancel: () => void;
-  onConfirm: () => void;
+  onConfirm: () => void | Promise<void>;
   hasNextReciter: boolean;
   inputMode: AduRaaguInputMode;
+  recordingSummary?: string;
 }) {
   const { state, dispatch } = useJudging();
   const [saveAttemptCount, setSaveAttemptCount] = useState(0);
   const saveAttempted = saveAttemptCount > 0;
   const dialogRef = useRef<HTMLDialogElement>(null);
+  const bodyRef = useRef<HTMLDivElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
   const pickerRefs = useRef<Partial<Record<CategoryId, MarkPickerHandle | null>>>({});
   const rowRefs = useRef<Partial<Record<CategoryId, HTMLDivElement | null>>>({});
@@ -144,6 +147,8 @@ export function FinishDialog({
     const dialog = dialogRef.current;
     if (!dialog) return;
     if (!dialog.open) dialog.showModal();
+    const openingHeight = Math.ceil(dialog.getBoundingClientRect().height);
+    dialog.style.height = `${openingHeight}px`;
     headingRef.current?.focus({ preventScroll: true });
     return () => {
       if (dialog.open) dialog.close();
@@ -156,10 +161,14 @@ export function FinishDialog({
     const focusFrame = requestAnimationFrame(() => {
       pickerRefs.current[firstMissing]?.focusAndOpen();
       scrollFrame = requestAnimationFrame(() => {
-        rowRefs.current[firstMissing]?.scrollIntoView({
-          block: "nearest",
-          inline: "nearest",
-        });
+        const body = bodyRef.current;
+        const row = rowRefs.current[firstMissing];
+        if (!body || !row) return;
+        const bodyRect = body.getBoundingClientRect();
+        const rowRect = row.getBoundingClientRect();
+        if (rowRect.top < bodyRect.top || rowRect.bottom > bodyRect.bottom) {
+          body.scrollTop = Math.max(0, body.scrollTop + rowRect.top - bodyRect.top);
+        }
       });
     });
     return () => {
@@ -183,7 +192,7 @@ export function FinishDialog({
       return;
     }
     closeDialog();
-    onConfirm();
+    void onConfirm();
   };
 
   const containFocus = (event: React.KeyboardEvent<HTMLDialogElement>) => {
@@ -230,6 +239,7 @@ export function FinishDialog({
             {state.activeQuestion && <span>Q · {state.activeQuestion.label}</span>}
             {assignment && <span>{judgeDisplayName(assignment)}</span>}
             <span>{mistakeLabel}</span>
+            {recordingSummary && <span>{recordingSummary}</span>}
           </div>
         </div>
         <div className="finish-total" aria-label={`Score ${total} out of ${totalMax}`}>
@@ -241,7 +251,7 @@ export function FinishDialog({
         </div>
       </header>
 
-      <div className="finish-dialog-body">
+      <div className="finish-dialog-body" ref={bodyRef}>
         <div className="finish-score-table" role="table" aria-label="Score by criterion">
           <div className="finish-score-head" role="row">
             <span role="columnheader">Criterion</span>

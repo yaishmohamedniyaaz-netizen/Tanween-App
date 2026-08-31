@@ -315,6 +315,10 @@ test("Results UI retains the reviewed navigation, tabs, audit, and export contra
     new URL("../src/components/RecitationEvidenceSpan.tsx", import.meta.url),
     "utf8",
   );
+  const pageSurface = readFileSync(
+    new URL("../src/components/MushafPageSurface.tsx", import.meta.url),
+    "utf8",
+  );
   const styles = readFileSync(
     new URL("../src/styles/global.css", import.meta.url),
     "utf8",
@@ -372,7 +376,10 @@ test("Results UI retains the reviewed navigation, tabs, audit, and export contra
   assert.doesNotMatch(participantDetail, /Choose another question|Correct question/);
   assert.match(evidenceSpan, /evidence-context-word/);
   assert.match(evidenceSpan, /evidence-marker-button/);
-  assert.match(evidenceSpan, /evidence-semantic-word/);
+  assert.match(evidenceSpan, /MushafPageSurface/);
+  assert.match(evidenceSpan, /MushafWord/);
+  assert.match(pageSurface, /page page-solid-mushaf/);
+  assert.match(pageSurface, /className="mushaf-lines"/);
   assert.match(participantDetail, /disabled=\{!locatable\}/);
   assert.match(evidenceSpan, /loadQuestionIndex/);
   assert.match(styles, /\.results-workspace \.cat-row-top/);
@@ -380,8 +387,9 @@ test("Results UI retains the reviewed navigation, tabs, audit, and export contra
   assert.match(styles, /\.results-ledger-controls \.results-status-filter\[aria-pressed="true"\]/);
   assert.match(styles, /\.result-ledger-table\s*\{/);
   assert.match(styles, /\.result-participant-detail\s*\{/);
-  assert.match(styles, /\.result-detail-main\s*\{[^}]*grid-template-columns:\s*minmax\(0, 1fr\) minmax\(300px, 320px\)/s);
-  assert.match(styles, /\.evidence-context-word\s*\{[^}]*visibility:\s*hidden/s);
+  assert.match(styles, /\.result-detail-main\s*\{[^}]*grid-template-columns:\s*minmax\(0, 1fr\)/s);
+  assert.doesNotMatch(styles, /\.evidence-context-word\s*\{[^}]*visibility:\s*hidden/s);
+  assert.match(styles, /\.recitation-evidence-pages\.mushaf-single\s*\{[^}]*max-width:\s*760px/s);
   assert.doesNotMatch(styles, /\.results-status-marker\s*\{/);
   assert.match(styles, /\.results-workspace \.metric-cards\.results-metrics\s*\{[^}]*display:\s*grid[^}]*gap:\s*0/s);
   assert.match(styles, /\.results-workspace \.final-source-value strong\s*\{[^}]*background:\s*transparent/s);

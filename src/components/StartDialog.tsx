@@ -339,7 +339,7 @@ export function StartDialog({
         <header className="reciter-start-head">
           <div>
             <h2 id="reciter-start-title">
-              {stage === "participant" ? "Running order" : "Choose a question"}
+              {stage === "participant" ? "Reciter queue" : "Choose a question"}
             </h2>
           </div>
           <button

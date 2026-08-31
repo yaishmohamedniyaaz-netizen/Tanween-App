@@ -6,7 +6,7 @@ import {
   formatRecitationElapsed,
   latestMobileMistakeAction,
   mistakeCountLabel,
-  mobileJudgeDeckFlagEnabled,
+  mobileJudgeDeckEnabled,
 } from "../src/lib/mobileJudgeDeck.ts";
 
 const categories = ["jali", "khafi", "fasaha", "adu-raagu"];
@@ -17,11 +17,11 @@ const scores = {
   "adu-raagu": { start: 10, deducted: 10, score: 0, count: 0, marked: false },
 };
 
-test("the mobile judge deck only opts in through its exact query flag", () => {
-  assert.equal(mobileJudgeDeckFlagEnabled("?mobileJudgeDeck=1"), true);
-  assert.equal(mobileJudgeDeckFlagEnabled("?mobileJudgeDeck=0"), false);
-  assert.equal(mobileJudgeDeckFlagEnabled("?mobilejudgedeck=1"), false);
-  assert.equal(mobileJudgeDeckFlagEnabled(""), false);
+test("the mobile judge deck defaults on and keeps an exact emergency opt-out", () => {
+  assert.equal(mobileJudgeDeckEnabled(""), true);
+  assert.equal(mobileJudgeDeckEnabled("?mobileJudgeDeck=1"), true);
+  assert.equal(mobileJudgeDeckEnabled("?mobileJudgeDeck=0"), false);
+  assert.equal(mobileJudgeDeckEnabled("?mobilejudgedeck=0"), true);
 });
 
 test("one to four assignment criteria render in canonical order without abbreviations", () => {
@@ -106,11 +106,12 @@ test("the portrait deck reuses the existing score, mistake, notes and judge comp
   const app = readFileSync(new URL("../src/App.tsx", import.meta.url), "utf8");
   const deck = readFileSync(new URL("../src/components/MobileJudgeDeck.tsx", import.meta.url), "utf8");
   const css = readFileSync(new URL("../src/styles/global.css", import.meta.url), "utf8");
-  assert.match(app, /mobileJudgeDeckPrototype && view === "judge" && state\.sessionActive/);
+  assert.match(app, /mobileJudgeDeckOn && view === "judge" && state\.sessionActive/);
   assert.match(deck, /<ScorePanel inputMode=\{inputMode\}/);
   assert.match(deck, /<MistakeLog[\s\S]*presentation="mobile-sheet"/);
   assert.match(deck, /<NotesBox \/>/);
   assert.match(deck, /<JudgeRoleStrip onChange=/);
-  assert.match(css, /@media \(max-width: 600px\) and \(orientation: portrait\)/);
+  assert.match(css, /@media \(max-width: 600px\) and \(orientation: portrait\),/);
+  assert.match(css, /\(max-device-width: 600px\) and \(pointer: coarse\) and \(orientation: portrait\)/);
   assert.match(css, /\.app\[data-mobile-judge-deck="true"\] \.sidebar \{[\s\S]*display: none/);
 });

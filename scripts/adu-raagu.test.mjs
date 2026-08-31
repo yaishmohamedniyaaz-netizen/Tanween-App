@@ -446,10 +446,13 @@ test("final results and the workbook only carry the criteria judged", () => {
   assert.equal(result.byCategory["adu-raagu"].score, 7);
   assert.equal(result.total, 95);
   assert.equal(result.totalMax, 100);
-  assert.deepEqual(finalResultsHeaders([result]).slice(7, 10), [
-    "Laḥn Jalī",
-    "Laḥn Khafī",
-    "Adu / Raagu",
+  assert.deepEqual(finalResultsHeaders([result]).slice(7), [
+    "Laḥn Jalī (60)",
+    "Laḥn Khafī (30)",
+    "Judge (%)",
+    "Adu / Raagu (10)",
+    "Judge (%)",
+    "Final Marks (%)",
   ]);
 });
 
@@ -710,6 +713,20 @@ test("the Finish recovery remains available across repeated invalid saves", () =
   assert.match(finishDialogSource, /const \[saveAttemptCount, setSaveAttemptCount\] = useState\(0\)/);
   assert.match(finishDialogSource, /setSaveAttemptCount\(\(attempts\) => attempts \+ 1\)/);
   assert.match(finishDialogSource, /\[firstMissing, saveAttemptCount\]/);
+  assert.match(finishDialogSource, /dialog\.style\.height = `\$\{openingHeight\}px`/);
+  assert.doesNotMatch(ruleBody(".finish-dialog"), /\n\s*height:/);
+  assert.match(finishDialogSource, /className="finish-dialog-body" ref=\{bodyRef\}/);
+  assert.match(finishDialogSource, /body\.scrollTop = Math\.max\(0,/);
+  assert.doesNotMatch(finishDialogSource, /scrollIntoView/);
+  assert.match(ruleBody(".finish-dialog-body"), /overflow-x: hidden/);
+  assert.match(
+    ruleBody(".finish-score-row:has(.mark-stepper-shell.is-open)"),
+    /140px/,
+  );
+  assert.match(
+    ruleBody(".finish-score-row:has(.mark-stepper-shell.is-open) .finish-score-value"),
+    /justify-content: center/,
+  );
   assert.match(finishDialogSource, /dismissOnOutsidePress=\{!invalid\}/);
   assert.match(pickerSource, /dismissOnOutsidePress\?: boolean/);
   assert.match(pickerSource, /if \(!dismissOnOutsidePress\) return/);

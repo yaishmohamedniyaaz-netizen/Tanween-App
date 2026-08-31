@@ -3,16 +3,13 @@ import {
   useMemo,
   useRef,
   useState,
-  type CSSProperties,
 } from "react";
 import { CATEGORY_BY_ID } from "../config.ts";
-import surahIndex from "../data/surah-index.json";
 import {
   MUSHAF_DATA_VERSION,
   MUSHAF_LAYOUT,
   loadPage,
   type MushafPage,
-  type PageLine,
   type PageWord,
 } from "../lib/page.ts";
 import {
@@ -21,18 +18,11 @@ import {
   recitationRangeMatchesQuestionIndex,
 } from "../lib/questionBank.ts";
 import type { EvidenceMistake } from "../lib/questionEvidence.ts";
-import { loadQcfPageFont, qcfFontFamily } from "../lib/qcfFont.ts";
-import {
-  linesForEvidencePage,
-  wordIdsForEvidencePage,
-} from "../lib/recitationEvidenceLayout.ts";
+import { loadQcfPageFont } from "../lib/qcfFont.ts";
+import { wordIdsForEvidencePage } from "../lib/recitationEvidenceLayout.ts";
+import { rangeDisplayForPage } from "../lib/recitationRangeLayout.ts";
 import type { RecitationRangeSnapshot } from "../types.ts";
-
-const SURAH_INDEX = surahIndex as Array<{
-  number: number;
-  nameAr: string;
-  firstPage: number;
-}>;
+import { MushafPageSurface, MushafWord } from "./MushafPageSurface.tsx";
 
 type LoadState =
   | { status: "loading" }
@@ -48,29 +38,6 @@ function pageNumbers(range: RecitationRangeSnapshot): number[] {
   return Array.from(
     { length: range.endPage - range.startPage + 1 },
     (_, index) => range.startPage + index,
-  );
-}
-
-function surahNamesForSegment(lines: PageLine[]): string {
-  const numbers = new Set<number>();
-  lines.forEach((line) => {
-    if (line.type === "surah-header" || line.type === "basmala") {
-      numbers.add(line.surah);
-    } else {
-      line.words.forEach((word) => numbers.add(word.surah));
-    }
-  });
-  return [...numbers]
-    .map((number) => SURAH_INDEX.find((surah) => surah.number === number)?.nameAr)
-    .filter(Boolean)
-    .join(" · ");
-}
-
-function SurahBand({ nameAr }: { nameAr: string }) {
-  return (
-    <div className="surah-band evidence-surah-band">
-      <span className="surah-band-title">سُورَةُ {nameAr}</span>
-    </div>
   );
 }
 
@@ -90,7 +57,10 @@ export function RecitationEvidenceSpan({
   onWordIdsReady?: (wordIds: Set<string> | null) => void;
 }) {
   const [loadState, setLoadState] = useState<LoadState>({ status: "loading" });
+  const [activePageIndex, setActivePageIndex] = useState(0);
   const wordRefs = useRef(new Map<string, HTMLButtonElement>());
+
+  useEffect(() => setActivePageIndex(0), [range]);
 
   useEffect(() => {
     let cancelled = false;
@@ -170,11 +140,32 @@ export function RecitationEvidenceSpan({
   }, [mistakes]);
 
   useEffect(() => {
-    if (!activeMistakeKey || !focusActiveWord) return;
-    const target = wordRefs.current.get(activeMistakeKey);
-    target?.scrollIntoView({ behavior: "smooth", block: "center" });
-    target?.focus({ preventScroll: true });
-  }, [activeMistakeKey, focusActiveWord]);
+    if (
+      !activeMistakeKey ||
+      !focusActiveWord ||
+      loadState.status !== "ready"
+    ) {
+      return;
+    }
+    const activeMistake = mistakes.find((entry) => entry.key === activeMistakeKey);
+    const pageIndex = activeMistake
+      ? loadState.pages.findIndex((page) =>
+          page.page === activeMistake.mistake.page ||
+          page.lines.some((line) =>
+            line.type !== "surah-header" &&
+            line.words.some((word) => word.wid === activeMistake.mistake.wordId)
+          )
+        )
+      : -1;
+    if (pageIndex >= 0 && pageIndex !== activePageIndex) {
+      setActivePageIndex(pageIndex);
+    }
+    requestAnimationFrame(() => {
+      const target = wordRefs.current.get(activeMistakeKey);
+      target?.scrollIntoView({ behavior: "smooth", block: "center" });
+      target?.focus({ preventScroll: true });
+    });
+  }, [activeMistakeKey, activePageIndex, focusActiveWord, loadState, mistakes]);
 
   if (loadState.status === "loading") {
     return (
@@ -194,114 +185,125 @@ export function RecitationEvidenceSpan({
 
   return (
     <div className="recitation-evidence-span" aria-label="Recorded recitation span">
-      {loadState.pages.map((page, pageIndex) => {
-        const lines = linesForEvidencePage(page, range);
-        const selectedIds = wordIdsForEvidencePage(page, range) ?? new Set<string>();
-        const qcfReady = loadState.fontPages.has(page.page);
-        const lineStyle: CSSProperties = qcfReady
-          ? { fontFamily: `"${qcfFontFamily(page.page)}"` }
-          : { fontFamily: "var(--quran)" };
-
-        const renderWord = (word: PageWord) => {
-          const inRange = word.role === "ornament" || selectedIds.has(word.wid);
-          const wordMistakes = mistakesByWord.get(word.wid) ?? [];
-          const firstMistake = wordMistakes[0];
-          const isActive = Boolean(
-            activeMistakeKey &&
-            wordMistakes.some((entry) => entry.key === activeMistakeKey),
-          );
-          const content = qcfReady && word.glyph ? word.glyph : word.text;
-          if (!inRange) {
-            return (
-              <span
-                key={word.wid}
-                className="m-word evidence-context-word"
-                aria-hidden="true"
-              >
-                {content}
-              </span>
-            );
-          }
-          if (!firstMistake) {
-            return (
-              <span key={word.wid} className="m-word">
-                <span aria-hidden="true">{content}</span>
-                <span className="evidence-semantic-word">{word.text}</span>
-              </span>
-            );
-          }
-          const categoryNames = [...new Set(
-            wordMistakes.map(
-              (entry) => CATEGORY_BY_ID[entry.mistake.category].label,
-            ),
-          )].join(", ");
-          return (
-            <span
-              key={word.wid}
-              className={`m-word evidence-marked-word cat-${firstMistake.mistake.category} ${isActive ? "is-active" : ""}`}
-            >
-              <span aria-hidden="true">{content}</span>
-              <button
-                ref={(node) => {
-                  wordMistakes.forEach((entry) => {
-                    if (node) wordRefs.current.set(entry.key, node);
-                    else wordRefs.current.delete(entry.key);
-                  });
-                }}
-                type="button"
-                className="evidence-marker-button"
-                aria-label={`${word.text}. ${wordMistakes.length} recorded mistake${wordMistakes.length === 1 ? "" : "s"}: ${categoryNames}`}
-                aria-pressed={isActive}
-                onClick={() => onMistakeSelect(firstMistake.key)}
-              />
-              {wordMistakes.length > 1 && (
-                <span className="evidence-mark-count" aria-hidden="true">
-                  {wordMistakes.length}
-                </span>
-              )}
-            </span>
-          );
-        };
-
-        return (
-          <section className="recitation-evidence-page" key={page.page}>
-            {pageIndex > 0 && <div className="recitation-page-seam" aria-hidden="true" />}
-            <header className="recitation-evidence-page-head">
-              <span dir="rtl">{surahNamesForSegment(lines)}</span>
-              <strong>Page <bdi>{page.page}</bdi></strong>
-            </header>
-            <div className="recitation-evidence-lines" dir="rtl">
-              {lines.map((line) => {
-                if (line.type === "surah-header") {
-                  return <SurahBand key={line.n} nameAr={line.nameAr} />;
-                }
-                if (line.type === "basmala") {
-                  return (
-                    <div key={line.n} className="m-line m-line-basmala">
-                      {line.words.map(renderWord)}
-                    </div>
-                  );
-                }
-                return (
-                  <div
-                    key={line.n}
-                    data-mline={line.n}
-                    className={`m-line ${line.centered ? "m-line-center" : "m-line-ayah"}`}
-                    style={lineStyle}
-                  >
-                    {line.words.map(renderWord)}
-                  </div>
-                );
-              })}
-            </div>
-            {!qcfReady && (
-              <p className="recitation-font-note">
-                Exact page font unavailable; showing verified Quran text fallback.
-              </p>
+      {loadState.pages.length > 1 && (
+        <nav className="recitation-evidence-pager" aria-label="Recorded Quran pages">
+          <button
+            type="button"
+            disabled={activePageIndex === 0}
+            onClick={() => setActivePageIndex((current) => Math.max(0, current - 1))}
+          >
+            Previous
+          </button>
+          <span>
+            Page <bdi>{loadState.pages[activePageIndex]?.page}</bdi> of {loadState.pages.length}
+          </span>
+          <button
+            type="button"
+            disabled={activePageIndex === loadState.pages.length - 1}
+            onClick={() => setActivePageIndex((current) =>
+              Math.min(loadState.pages.length - 1, current + 1)
             )}
-          </section>
-        );
-      })}
+          >
+            Next
+          </button>
+        </nav>
+      )}
+      <div
+        className={`recitation-evidence-pages mushaf-composition ${
+          loadState.pages.length === 1
+            ? "mushaf-single"
+            : loadState.pages.length === 2
+              ? "mushaf-spread"
+              : "recitation-evidence-multi"
+        }`}
+        data-active-page={loadState.pages[activePageIndex]?.page}
+      >
+        {loadState.pages.map((page, pageIndex) => {
+          const display = rangeDisplayForPage(page, range);
+          if (!display) return null;
+          const selectedIds = display.selectedWordIds;
+          const qcfReady = loadState.fontPages.has(page.page);
+
+          const renderWord = (word: PageWord) => {
+            const inRange = word.role === "ornament" || selectedIds.has(word.wid);
+            const wordMistakes = inRange ? mistakesByWord.get(word.wid) ?? [] : [];
+            const firstMistake = wordMistakes[0];
+            const isActive = Boolean(
+              activeMistakeKey &&
+              wordMistakes.some((entry) => entry.key === activeMistakeKey),
+            );
+            if (!firstMistake) {
+              return (
+                <MushafWord
+                  key={word.wid}
+                  word={word}
+                  qcfReady={qcfReady}
+                  className={inRange ? "" : "question-context-word evidence-context-word"}
+                  aria-hidden={inRange ? undefined : true}
+                />
+              );
+            }
+            const categoryNames = [...new Set(
+              wordMistakes.map(
+                (entry) => CATEGORY_BY_ID[entry.mistake.category].label,
+              ),
+            )].join(", ");
+            return (
+              <MushafWord
+                key={word.wid}
+                word={word}
+                qcfReady={qcfReady}
+                className={`evidence-marked-word cat-${firstMistake.mistake.category} ${isActive ? "is-active" : ""}`}
+              >
+                <button
+                  ref={(node) => {
+                    wordMistakes.forEach((entry) => {
+                      if (node) wordRefs.current.set(entry.key, node);
+                      else wordRefs.current.delete(entry.key);
+                    });
+                  }}
+                  type="button"
+                  className="evidence-marker-button"
+                  aria-label={`${word.text}. ${wordMistakes.length} recorded mistake${wordMistakes.length === 1 ? "" : "s"}: ${categoryNames}`}
+                  aria-pressed={isActive}
+                  onClick={() => onMistakeSelect(firstMistake.key)}
+                />
+                {wordMistakes.length > 1 && (
+                  <span className="evidence-mark-count" aria-hidden="true">
+                    {wordMistakes.length}
+                  </span>
+                )}
+              </MushafWord>
+            );
+          };
+
+          return (
+            <MushafPageSurface
+              key={page.page}
+              data={page}
+              qcfReady={qcfReady}
+              className={`recitation-evidence-page ${pageIndex === activePageIndex ? "is-active" : ""}`}
+              role="group"
+              aria-label={`Recorded Quran page ${page.page}`}
+              data-question-focus-mode="fade"
+              lineClassName={(line) => {
+                const state = display.lineStates.get(line.n);
+                return state === "context"
+                  ? "question-context-line evidence-context-line"
+                  : state === "mixed"
+                    ? "question-mixed-line"
+                    : "";
+              }}
+              renderWord={(word) => renderWord(word)}
+            />
+          );
+        })}
+      </div>
+      {loadState.fontPages.size !== loadState.pages.length && (
+        <p className="recitation-font-note">
+          Exact page font unavailable; showing verified Quran text fallback.
+        </p>
+      )}
     </div>
   );
 }

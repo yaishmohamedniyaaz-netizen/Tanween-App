@@ -86,7 +86,7 @@ If the screen still works, the sentence was decoration.
 ## 7. Nothing is unreachable.
 
 The reciter dialog clipped its own tail with `overflow: hidden` and no
-scroller, so the last row of the running order and the external-question link
+scroller, so the last row of the reciter queue and the external-question link
 did not exist as far as a judge was concerned.
 
 **Test, and it is mechanical:** for every element, if `scrollHeight >

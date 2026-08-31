@@ -9,6 +9,8 @@ import type {
   QuestionFocusMode,
   ScoreChipTint,
 } from "../lib/devicePreferences";
+import type { RecitationRecorderStatus } from "../hooks/useRecitationRecorder";
+import type { TilawaTrackerStatus } from "./TilawaPrototypePanel";
 import {
   buildResultsReviewItems,
   summarizeResultsReview,
@@ -42,8 +44,20 @@ interface Props {
   onScoreChipTintChange: (value: ScoreChipTint) => void;
   onShowMarkingGuide: () => void;
   onMoreControlsOpenChange: (open: boolean) => void;
+  tilawaTracking?: {
+    status: TilawaTrackerStatus;
+    onOpen: () => void;
+  };
   theme: AppTheme;
   onThemeChange: (theme: AppTheme) => void;
+  recording?: {
+    status: RecitationRecorderStatus;
+    durationLabel: string;
+    inputLevel: number;
+    lowInput: boolean;
+    onPause: () => void;
+    onResume: () => void;
+  };
 }
 
 export function Header({
@@ -68,8 +82,10 @@ export function Header({
   onScoreChipTintChange,
   onShowMarkingGuide,
   onMoreControlsOpenChange,
+  tilawaTracking,
   theme,
   onThemeChange,
+  recording,
 }: Props) {
   const { state } = useJudging();
 
@@ -122,6 +138,26 @@ export function Header({
     state.competition.edition.trim(),
     competitionLifecycle,
   ].filter(Boolean).join(" · ");
+  const recordingVisible = Boolean(
+    state.sessionActive &&
+    recording &&
+    !["idle", "requesting", "armed", "ready"].includes(recording.status),
+  );
+  const recordingPaused = recording?.status === "paused" ||
+    recording?.status === "interrupted";
+  const recordingBusy = recording?.status === "pausing" ||
+    recording?.status === "resuming" ||
+    recording?.status === "finalizing" ||
+    recording?.status === "error";
+  const recordingStateLabel = recording?.status === "recording"
+    ? recording.lowInput
+      ? `Mic level is very low ${recording.durationLabel}`
+      : `Recording ${recording.durationLabel}`
+    : recordingPaused
+      ? `Recording paused ${recording?.durationLabel}`
+      : recording?.status === "error"
+        ? "Recording stopped"
+        : "Saving audio";
 
   return (
     <header className="app-header">
@@ -154,6 +190,23 @@ export function Header({
           >
             <span className="reciter-name">{participant.name || "Unnamed"}</span>
             {prepared && <span className="reciter-prepared-state">Ready</span>}
+            {recordingVisible && recording && (
+              <span className={`reciter-recording-state ${recordingPaused ? "is-paused" : ""} ${recording.lowInput ? "is-low-input" : ""}`}>
+                <span className="recording-mini-wave" aria-hidden="true">
+                  {[0.58, 1, 0.72, 0.9, 0.5].map((weight, index) => (
+                    <i
+                      key={index}
+                      style={{
+                        height: recording.status === "recording"
+                          ? `${Math.max(3, Math.round(3 + recording.inputLevel * weight * 13))}px`
+                          : "3px",
+                      }}
+                    />
+                  ))}
+                </span>
+                {recordingStateLabel}
+              </span>
+            )}
             {visibleQuestion && <span className="reciter-question-ref">Q · {visibleQuestion.label}</span>}
             {rosterTotal > 0 && <span className="chip-idx t-num">{rosterDone + 1}/{rosterTotal}</span>}
           </button>
@@ -182,7 +235,27 @@ export function Header({
         )}
       </button>
 
-      <ThemeToggle theme={theme} onChange={onThemeChange} />
+      {recordingVisible && recording ? (
+        <button
+          type="button"
+          className={`btn-icon recording-header-control ${recordingPaused ? "is-paused" : "is-live"}`}
+          aria-label={recordingPaused
+            ? `Resume recording at ${recording.durationLabel}`
+            : recording.status === "recording"
+              ? `Pause recording at ${recording.durationLabel}`
+              : recordingStateLabel}
+          title={recordingPaused ? "Resume recording" : "Pause recording"}
+          disabled={recordingBusy}
+          onClick={recordingPaused ? recording.onResume : recording.onPause}
+        >
+          <Icon
+            name={recordingPaused ? "play" : recording.status === "recording" ? "pause" : "mic"}
+            size={16}
+          />
+        </button>
+      ) : (
+        <ThemeToggle theme={theme} onChange={onThemeChange} />
+      )}
 
       <MoreActionsPopover
         view={view}
@@ -202,6 +275,7 @@ export function Header({
         onScoreChipTintChange={onScoreChipTintChange}
         onShowMarkingGuide={onShowMarkingGuide}
         onOpenChange={onMoreControlsOpenChange}
+        tilawaTracking={tilawaTracking}
         onOpenSettings={onOpenSettings}
         onOpenSetup={onOpenSetup}
       />

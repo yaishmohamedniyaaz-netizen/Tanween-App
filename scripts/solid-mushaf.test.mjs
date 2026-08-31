@@ -7,6 +7,10 @@ const mushafSource = fs.readFileSync(
   new URL("../src/components/Mushaf.tsx", import.meta.url),
   "utf8",
 );
+const mushafPageSurfaceSource = fs.readFileSync(
+  new URL("../src/components/MushafPageSurface.tsx", import.meta.url),
+  "utf8",
+);
 const qcfFontSource = fs.readFileSync(
   new URL("../src/lib/qcfFont.ts", import.meta.url),
   "utf8",
@@ -88,7 +92,9 @@ test("the source Mushaf selects one whole kalimah before exact rail choice", () 
   assert.doesNotMatch(mushafSource, /buildClusterGeometry/);
   assert.doesNotMatch(mushafSource, /document\.createRange/);
   assert.match(mushafSource, /closest\("\.page-marginalia"\)/);
-  assert.match(mushafSource, /page-opening-layout/);
+  assert.match(mushafSource, /MushafPageSurface/);
+  assert.match(mushafPageSurfaceSource, /page-opening-layout/);
+  assert.match(mushafPageSurfaceSource, /page page-solid-mushaf/);
   assert.match(mushafStyleSource, /\.page-opening-layout/);
   assert.doesNotMatch(mushafStyleSource, /\.page-split/);
 });

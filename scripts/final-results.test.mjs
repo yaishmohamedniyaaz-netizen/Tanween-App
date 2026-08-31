@@ -8,7 +8,9 @@ import {
 } from "../src/lib/finalResults.ts";
 import {
   buildFinalResultsWorkbook,
+  finalResultPercentage,
   finalResultsHeaders,
+  finalResultsJudgeGroups,
   verifyFinalResultsWorkbook,
 } from "../src/lib/finalResultsWorkbook.ts";
 import {
@@ -165,6 +167,91 @@ test("equal percentages retain equal places inside the same age and category", (
   assert.deepEqual(placeFinalizedResults([first, second, third]).map((item) => item.place), [1, 1, 3]);
 });
 
+test("placements use final percentage, then Jali, then Khafi, and stop there", () => {
+  const candidate = buildResultCandidates([
+    session("ranking-base", ["jali", "khafi", "fasaha"]),
+  ], JUDGED)[0];
+  const base = finalizeParticipantResult(candidate, {});
+  assert.ok(base);
+
+  const rankedResult = (id, number, scores, includeAduRaagu = false) => {
+    const byCategory = {
+      jali: { ...base.byCategory.jali, score: scores.jali },
+      khafi: { ...base.byCategory.khafi, score: scores.khafi },
+      fasaha: { ...base.byCategory.fasaha, score: scores.fasaha },
+      ...(includeAduRaagu ? {
+        "adu-raagu": {
+          category: "adu-raagu",
+          score: scores["adu-raagu"],
+          max: 10,
+          sessionId: `adu-${id}`,
+          sessionRevision: 1,
+          judgeSeatId: "judge-adu",
+          judgeName: "Judge Adu",
+        },
+      } : {}),
+    };
+    const total = Object.values(byCategory).reduce((sum, score) => sum + score.score, 0);
+    const totalMax = Object.values(byCategory).reduce((sum, score) => sum + score.max, 0);
+    return {
+      ...base,
+      id,
+      participant: { ...base.participant, id: `p-${id}`, number, name: id },
+      byCategory,
+      total,
+      totalMax,
+      manifest: `manifest-${id}`,
+    };
+  };
+
+  const strongerJali = rankedResult("stronger-jali", "002", {
+    jali: 48,
+    khafi: 29,
+    fasaha: 19,
+  });
+  const weakerJali = rankedResult("weaker-jali", "001", {
+    jali: 46,
+    khafi: 30,
+    fasaha: 20,
+  });
+  assert.deepEqual(
+    placeFinalizedResults([weakerJali, strongerJali]).map((item) => [item.id, item.place]),
+    [["stronger-jali", 1], ["weaker-jali", 2]],
+  );
+
+  const strongerKhafi = rankedResult("stronger-khafi", "004", {
+    jali: 48,
+    khafi: 29,
+    fasaha: 19,
+  });
+  const weakerKhafi = rankedResult("weaker-khafi", "003", {
+    jali: 48,
+    khafi: 28,
+    fasaha: 20,
+  });
+  assert.deepEqual(
+    placeFinalizedResults([weakerKhafi, strongerKhafi]).map((item) => [item.id, item.place]),
+    [["stronger-khafi", 1], ["weaker-khafi", 2]],
+  );
+
+  const laterCriteriaLeft = rankedResult("later-left", "006", {
+    jali: 48,
+    khafi: 29,
+    fasaha: 18,
+    "adu-raagu": 10,
+  }, true);
+  const laterCriteriaRight = rankedResult("later-right", "005", {
+    jali: 48,
+    khafi: 29,
+    fasaha: 20,
+    "adu-raagu": 8,
+  }, true);
+  assert.deepEqual(
+    placeFinalizedResults([laterCriteriaLeft, laterCriteriaRight]).map((item) => item.place),
+    [1, 1],
+  );
+});
+
 test("a corrected final records a new revision reason and manifest", () => {
   const candidate = buildResultCandidates([
     session("all-revision", ["jali", "khafi", "fasaha"]),
@@ -189,10 +276,14 @@ test("final workbook preserves requested participant fields and verified fixed t
   await verifyFinalResultsWorkbook(buffer, [result]);
   const { read, utils } = await import("xlsx");
   const workbook = read(buffer, { type: "array" });
-  assert.deepEqual(workbook.SheetNames, ["Results", "Audit", "Verification"]);
-  const rows = utils.sheet_to_json(workbook.Sheets.Results, { header: 1, defval: "" });
-  assert.deepEqual(rows[0], finalResultsHeaders([result]));
-  assert.deepEqual(rows[1].slice(1, 7), [
+  assert.deepEqual(workbook.SheetNames, ["Final marks", "Score ledger", "Audit", "Verification"]);
+  const rows = utils.sheet_to_json(workbook.Sheets["Final marks"], { header: 1, defval: "" });
+  assert.match(rows[0][0], /National Quran Competition — Final marks/);
+  assert.equal(rows[1][0], "Participant");
+  assert.equal(rows[1][7], "Judge all");
+  assert.equal(rows[1].at(-1), "Result");
+  assert.deepEqual(rows[2], finalResultsHeaders([result]));
+  assert.deepEqual(rows[3].slice(1, 7), [
     "014",
     "Aishath Latheefa",
     "Under 14",
@@ -200,19 +291,31 @@ test("final workbook preserves requested participant fields and verified fixed t
     "Fesheykolhu",
     "School A",
   ]);
-  assert.deepEqual(rows[1].slice(7, 11), [48, 30, 20, 98]);
-  assert.doesNotMatch(rows[0].join("|"), /Phone|Maximum|Revision|Manifest|Date/);
+  assert.deepEqual(rows[3].slice(7, 12), [48, 30, 20, 0.98, 0.98]);
+  assert.doesNotMatch(rows[2].join("|"), /Phone|Maximum|Revision|Manifest|Date/);
+
+  const ledgerRows = utils.sheet_to_json(workbook.Sheets["Score ledger"], { header: 1, defval: "" });
+  assert.deepEqual(ledgerRows[1].slice(1, 7), [
+    "014",
+    "Aishath Latheefa",
+    "Under 14",
+    "Balaigen",
+    "Judge all",
+    "Laḥn Jalī + Laḥn Khafī + Faṣāḥa",
+  ]);
+  assert.deepEqual(ledgerRows[1].slice(7, 15), [48, 30, 20, 98, 100, 0.98, 0.98, result.manifest]);
 
   const auditRows = utils.sheet_to_json(workbook.Sheets.Audit, { header: 1, defval: "" });
   assert.deepEqual(auditRows[0], [
     "Participant Number",
     "Name",
     "Maximum",
+    "Final Marks (%)",
     "Result Revision",
     "Revision Reason",
     "Verification Manifest",
   ]);
-  assert.deepEqual(auditRows[1], ["014", "Aishath Latheefa", 100, 1, "", result.manifest]);
+  assert.deepEqual(auditRows[1], ["014", "Aishath Latheefa", 100, 0.98, 1, "", result.manifest]);
   const verificationRows = utils.sheet_to_json(workbook.Sheets.Verification, {
     header: 1,
     defval: "",
@@ -225,28 +328,82 @@ test("final workbook preserves requested participant fields and verified fixed t
   const ExcelJS = (await import("exceljs")).default;
   const styled = new ExcelJS.Workbook();
   await styled.xlsx.load(buffer);
-  const resultSheet = styled.getWorksheet("Results");
+  const resultSheet = styled.getWorksheet("Final marks");
+  const ledgerSheet = styled.getWorksheet("Score ledger");
   const auditSheet = styled.getWorksheet("Audit");
   assert.ok(resultSheet);
+  assert.ok(ledgerSheet);
   assert.ok(auditSheet);
   assert.equal(resultSheet.views[0].xSplit, 3);
-  assert.equal(resultSheet.views[0].ySplit, 1);
+  assert.equal(resultSheet.views[0].ySplit, 3);
   assert.equal(resultSheet.pageSetup.orientation, "landscape");
   assert.equal(resultSheet.pageSetup.fitToWidth, 1);
   assert.equal(resultSheet.pageSetup.fitToHeight, 0);
   assert.ok(resultSheet.autoFilter);
   assert.equal(resultSheet.getColumn(2).width, 19);
-  assert.equal(resultSheet.getCell("B2").numFmt, "@");
+  assert.equal(resultSheet.getCell("B4").numFmt, "@");
   assert.equal(resultSheet.getCell("A1").fill.fgColor.argb, "FFFFFFFF");
   assert.equal(resultSheet.getCell("A1").font.color.argb, "FF242421");
-  assert.equal(resultSheet.getCell("H1").fill.fgColor.argb, "FFFFFFFF");
-  assert.equal(resultSheet.getCell("H1").font.color.argb, "FF242421");
-  assert.equal(resultSheet.getCell("H1").border.bottom.color.argb, "FF9E2820");
-  assert.equal(resultSheet.getCell("I1").border.bottom.color.argb, "FF7C540E");
-  assert.equal(resultSheet.getCell("J1").border.bottom.color.argb, "FF2F3AA3");
+  assert.equal(resultSheet.getCell("A1").font.name, "Arial");
+  assert.equal(resultSheet.getCell("A3").font.name, "Arial");
+  assert.equal(resultSheet.getCell("A4").font.name, "Arial");
+  assert.equal(resultSheet.getCell("B4").border.bottom.style, "hair");
+  assert.equal(resultSheet.getCell("H4").border.left.style, "thin");
+  assert.equal(resultSheet.getCell("H2").font.color.argb, "FF242421");
+  assert.equal(resultSheet.getCell("H3").border.bottom.color.argb, "FF9E2820");
+  assert.equal(resultSheet.getCell("H3").border.bottom.style, "thin");
+  assert.equal(resultSheet.getCell("I3").border.bottom.color.argb, "FF7C540E");
+  assert.equal(resultSheet.getCell("J3").border.bottom.color.argb, "FF2F3AA3");
+  assert.ok(ledgerSheet.autoFilter);
   assert.equal(auditSheet.getCell("A1").fill.fgColor.argb, "FFFFFFFF");
   assert.equal(auditSheet.getCell("A1").font.color.argb, "FF242421");
   assert.ok(auditSheet.autoFilter);
+});
+
+test("final workbook groups split-responsibility marks under their responsible judges", async () => {
+  const candidate = buildResultCandidates([
+    session("jali", ["jali"], [mistake("jali", 2)]),
+    session("khafi", ["khafi"], [mistake("khafi", 1)]),
+    session("fasaha", ["fasaha"], [mistake("fasaha", 1)]),
+  ], JUDGED)[0];
+  const result = finalizeParticipantResult(candidate, {});
+  assert.ok(result);
+  assert.equal(finalResultPercentage(result), 0.96);
+  assert.deepEqual(finalResultsJudgeGroups([result]).map((group) => ({
+    judge: group.judgeName,
+    categories: group.categories,
+  })), [
+    { judge: "Judge jali", categories: ["jali"] },
+    { judge: "Judge khafi", categories: ["khafi"] },
+    { judge: "Judge fasaha", categories: ["fasaha"] },
+  ]);
+
+  const buffer = await buildFinalResultsWorkbook([result], competition, {
+    exportedAt: Date.UTC(2026, 7, 20),
+  });
+  await verifyFinalResultsWorkbook(buffer, [result]);
+  const { read, utils } = await import("xlsx");
+  const workbook = read(buffer, { type: "array" });
+  const markRows = utils.sheet_to_json(workbook.Sheets["Final marks"], { header: 1, defval: "" });
+  assert.deepEqual(markRows[1].filter(Boolean), [
+    "Participant",
+    "Judge jali",
+    "Judge khafi",
+    "Judge fasaha",
+    "Result",
+  ]);
+  assert.deepEqual(markRows[2].slice(7), [
+    "Laḥn Jalī (50)",
+    "Judge (%)",
+    "Laḥn Khafī (30)",
+    "Judge (%)",
+    "Faṣāḥa (20)",
+    "Judge (%)",
+    "Final Marks (%)",
+  ]);
+  assert.deepEqual(markRows[3].slice(7), [48, 0.96, 29, 29 / 30, 19, 0.95, 0.96]);
+  const ledgerRows = utils.sheet_to_json(workbook.Sheets["Score ledger"], { header: 1, defval: "" });
+  assert.equal(ledgerRows.length, 4);
 });
 
 test("final workbook orders numeric age groups from youngest to oldest", async () => {
@@ -266,7 +423,11 @@ test("final workbook orders numeric age groups from youngest to oldest", async (
   });
   const { read, utils } = await import("xlsx");
   const workbook = read(buffer, { type: "array" });
-  const rows = utils.sheet_to_json(workbook.Sheets.Results, { defval: "", raw: false });
+  const rows = utils.sheet_to_json(workbook.Sheets["Final marks"], {
+    defval: "",
+    raw: false,
+    range: 2,
+  });
   assert.deepEqual(rows.map((row) => row["Age Group"]), [
     "Under 10",
     "Under 12",
