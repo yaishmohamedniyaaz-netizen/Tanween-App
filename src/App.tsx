@@ -41,7 +41,7 @@ import { loadQuestionIndex } from "./lib/questionBank";
 import { tilawaMushafWordId, type TilawaWordProgress } from "./lib/tilawaWordFocus";
 import { isWaiting } from "./lib/rosterQueue";
 import { missingRequiredImpressionCategories } from "./lib/scoring";
-import { mobileJudgeDeckFlagEnabled } from "./lib/mobileJudgeDeck";
+import { mobileJudgeDeckEnabled } from "./lib/mobileJudgeDeck";
 import {
   applyDeviceTheme,
   DEFAULT_DEVICE_PREFERENCES,
@@ -75,8 +75,8 @@ export function App() {
   const [preferences, setPreferences] = useState<DevicePreferencesV5>(() =>
     readDevicePreferences(),
   );
-  const [mobileJudgeDeckPrototype] = useState(() =>
-    mobileJudgeDeckFlagEnabled(window.location.search),
+  const [mobileJudgeDeckOn] = useState(() =>
+    mobileJudgeDeckEnabled(window.location.search),
   );
   const [page, setPage] = useState(() => {
     const saved = localStorage.getItem(LS_PAGE_KEY);
@@ -177,7 +177,7 @@ export function App() {
     (entry) => entry.id !== state.participant.id && isWaiting(entry),
   );
   const mobileJudgeDeckActive =
-    mobileJudgeDeckPrototype && view === "judge" && state.sessionActive;
+    mobileJudgeDeckOn && view === "judge" && state.sessionActive;
 
   const finishRecitation = async () => {
     await Promise.race([

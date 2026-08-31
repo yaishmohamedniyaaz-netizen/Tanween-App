@@ -1,11 +1,11 @@
 # Mobile PWA judge deck — Direction A implementation plan
 
-Status: local flagged implementation in review. Production activation is not part of this pass.
+Status: production portrait activation approved after the flagged release was verified.
 
 ## Current slice
 
 - Surface: portrait phone, installed-PWA geometry, active judging session only.
-- Gate: `?mobileJudgeDeck=1`.
+- Gate: active judging session plus phone portrait. `?mobileJudgeDeck=0` is the emergency opt-out.
 - Composition: unchanged compact header, one authoritative Mushaf page, fixed
   44px status/last-action row, fixed 48px action row, and bottom sheets for
   the existing score and mistake components.

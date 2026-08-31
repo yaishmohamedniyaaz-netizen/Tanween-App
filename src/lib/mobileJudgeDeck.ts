@@ -11,8 +11,8 @@ export interface MobileCriterionChip {
   showDot: boolean;
 }
 
-export function mobileJudgeDeckFlagEnabled(search: string): boolean {
-  return new URLSearchParams(search).get("mobileJudgeDeck") === "1";
+export function mobileJudgeDeckEnabled(search: string): boolean {
+  return new URLSearchParams(search).get("mobileJudgeDeck") !== "0";
 }
 
 export function mistakeCountLabel(count: number): string {

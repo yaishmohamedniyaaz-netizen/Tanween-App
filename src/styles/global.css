@@ -13239,7 +13239,8 @@ html:has(.finish-dialog[open]) {
   display: none;
 }
 
-@media (max-width: 600px) and (orientation: portrait) {
+@media (max-width: 600px) and (orientation: portrait),
+  (max-device-width: 600px) and (pointer: coarse) and (orientation: portrait) {
   .app[data-mobile-judge-deck="true"] {
     height: 100dvh;
     min-height: 0;
