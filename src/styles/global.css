@@ -10045,6 +10045,10 @@ html:has(.dialog-backdrop) {
   .page-nav-btn {
     width: 44px;
   }
+  .mushaf-scroll.is-spread .page-nav-btn {
+    width: 44px;
+    height: 44px;
+  }
   .page-nav-btn::before,
   .page-nav-page::before {
     content: "";
@@ -10656,7 +10660,8 @@ html:has(.dialog-backdrop) {
   width: min(620px, calc(100vw - 32px));
   max-height: calc(100dvh - 32px);
   margin: auto;
-  padding: 0;
+  padding: env(safe-area-inset-top, 0px) 0 env(safe-area-inset-bottom, 0px);
+  box-sizing: border-box;
   color: var(--ink);
   overflow: hidden;
 }
