@@ -154,6 +154,7 @@ const P = {
     "M17 18m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0", "M4 18l11 0", "M19 18l1 0",
   ],
   check: ["M5 12l5 5l10 -10"],
+  close: ["M6 6l12 12", "M18 6l-12 12"],
 };
 export const icon = (name, size = 17, extra = "") =>
   `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"${extra ? ` style="${extra}"` : ""}>${P[name].map((d) => `<path d="${d}"></path>`).join("")}</svg>`;

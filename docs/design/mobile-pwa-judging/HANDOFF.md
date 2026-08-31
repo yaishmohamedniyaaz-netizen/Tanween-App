@@ -35,14 +35,14 @@ Chips carry **deductions**, not remaining scores, so the dock's total is not
 the sum of the chips. The score sheet keeps the desktop's Deducted + Score
 columns unchanged.
 
-The dock's second zone leads with what the logged mistakes cost — `−3.5` —
-with the count (`3 mistakes`) behind it in secondary type. A bare count was
-too vague to act on, and a bare amount is ambiguous against the total
-deduction, which includes Adu / Raagu. The amount is derived from the mistake
-log, never stored separately, so it cannot disagree with it.
+The dock's second zone reads `3 mistakes` — the app's own noun for a logged
+error, since `mark` already means a score point here. It was briefly a
+deduction amount instead; that was rejected as ambiguous against the total
+deduction, which includes Adu / Raagu. `History` was considered and rejected
+as vaguer still.
 
-Below about 312px of dock width, both secondary labels (`Score` and
-`3 mistakes`) drop out rather than clip; the numbers and Finish stay.
+Below about 312px of dock width the `Score` label and the strip's timestamp
+drop out rather than clip; the numbers, the criterion name and Finish stay.
 
 A marked word paints `var(--c-wash)` with `mix-blend-mode: multiply`
 (`screen` in dark), exactly as `.glyph-ink.marked` does. Without the blend the
@@ -74,8 +74,12 @@ confirms which criteria are theirs.
 
 ## New settings
 
-`scoreChipTint` — `off` | `earned` | `always`, alongside `judgeRailSide` and
-`aduRaaguInputMode` in `MoreActionsPopover`. Default `earned`: a chip carries
+Two, both in `MoreActionsPopover` beside `judgeRailSide` and
+`aduRaaguInputMode`.
+
+`lastMarkStrip` — `on` | `off`. See "The last-action strip" below.
+
+`scoreChipTint` — `off` | `earned` | `always`. Default `earned`: a chip carries
 its category wash only once that criterion has lost marks, so the strip starts
 monochrome and colours up as the judge works.
 
@@ -103,16 +107,22 @@ them in this pass.
   dropped here may be worth reviving there, where vertical space is free and
   four equal readouts are honest.
 
-## Open question on A, deliberately left open
+## The last-action strip
 
-The last-action strip replaces the criterion chips for a few seconds after a
-mark. It is not an overlay and does not resize anything — both rows are 44
-high — but for those seconds the judge cannot see the per-criterion
-breakdown. That is the whole cost, and it buys a one-tap Undo at the moment
-the judge is most likely to want it.
+It replaces the criterion chips for a few seconds after a mark. It is not an
+overlay and resizes nothing — both rows are 44 high — but for those seconds
+the judge cannot see the per-criterion breakdown. That is its whole cost, and
+it buys a one-tap Undo at the moment the judge is most likely to want it.
 
-The prototype carries a `lastMark` tweak (`strip` / `off`) so the screen can
-be felt both ways before this is settled. Default is `strip`.
+Two escapes, because the mistake is in the log either way and nothing is lost
+by closing it:
+
+- The strip carries its own dismiss (44×44, separated from Undo by a
+  hairline so the two are not confused — an accidental dismiss is cheap, an
+  accidental Undo is not).
+- **`lastMarkStrip`** — a device preference alongside `scoreChipTint`,
+  `judgeRailSide` and `aduRaaguInputMode`, to turn it off for good. The
+  prototype exposes it as the `lastMark` tweak (`on` / `off`), default `on`.
 
 ## Test matrix
 

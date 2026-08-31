@@ -88,7 +88,7 @@
       "x": 0,
       "y": -250,
       "w": 393,
-      "text": "A · STATUS DOCK — the lead\n\nPage 377×554, the largest a 393pt phone allows at 8px margins. Dock 94, fixed.\n\nThe dock's top row morphs: normally one chip per criterion, and for a few seconds after a mark it becomes the last-action strip with Undo. Both are 44 high, so nothing on screen moves — it replaces the chips rather than popping over them. The lastMark tweak turns it off if you want to feel the screen without it.\n\nThe mistake button leads with what the mistakes cost (−3.5) and carries the count behind it, so it is never just \"3 mistakes\". Below about 312px of dock width it sheds both secondary labels rather than clipping.\n\nChips are stacked, so nothing is abbreviated — not Faṣāḥa, not Adu / Raagu — and the strip renders 1, 2, 3 or 4 cells. Try the criteria tweak."
+      "text": "A · STATUS DOCK — the lead\n\nPage 377×554, the largest a 393pt phone allows at 8px margins. Dock 94, fixed.\n\nThe dock's top row morphs: normally one chip per criterion, and for a few seconds after a mark it becomes the last-action strip with Undo. Both are 44 high, so nothing on screen moves — it replaces the chips rather than popping over them.\n\nThe strip carries its own dismiss, and the lastMark tweak turns it off for good. Either way the mistake stays in the log, so nothing is lost by closing it.\n\nChips are stacked, so nothing is abbreviated — not Faṣāḥa, not Adu / Raagu — and the strip renders 1, 2, 3 or 4 cells. Try the criteria tweak.\n\nBelow about 312px of dock width the Score label and the strip's timestamp drop out rather than clip."
     },
     {
       "id": "note-b",
