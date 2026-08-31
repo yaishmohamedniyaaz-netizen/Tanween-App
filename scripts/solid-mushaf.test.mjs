@@ -52,39 +52,6 @@ const pageNavSource = fs.readFileSync(
   "utf8",
 );
 
-function cssRule(selector) {
-  const escaped = selector.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-  const match = mushafStyleSource.match(new RegExp(`${escaped} \\{([\\s\\S]*?)\\}`));
-  assert.ok(match, `${selector} rule exists`);
-  return match[1];
-}
-
-function cssHex(rule, property) {
-  const match = rule.match(new RegExp(`${property}:\\s*(#[0-9a-f]{6})`, "i"));
-  assert.ok(match, `${property} has a six-digit hex value`);
-  return match[1];
-}
-
-function rgb(hex) {
-  return [1, 3, 5].map((offset) => Number.parseInt(hex.slice(offset, offset + 2), 16));
-}
-
-function relativeLuminance(hex) {
-  const channels = rgb(hex).map((value) => {
-    const channel = value / 255;
-    return channel <= 0.04045
-      ? channel / 12.92
-      : ((channel + 0.055) / 1.055) ** 2.4;
-  });
-  return 0.2126 * channels[0] + 0.7152 * channels[1] + 0.0722 * channels[2];
-}
-
-function contrast(first, second) {
-  const a = relativeLuminance(first);
-  const b = relativeLuminance(second);
-  return (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05);
-}
-
 test("the source Mushaf selects one whole kalimah before exact rail choice", () => {
   assert.match(mushafSource, /interface WordHitbox/);
   assert.match(mushafSource, /data-word-hit=/);
@@ -109,8 +76,10 @@ test("shared Mushaf geometry protects Arabic ink and cartouche titles", () => {
   );
   assert.match(
     mushafStyleSource,
-    /\.glyph-ink\.marked::before \{[\s\S]*box-sizing: border-box;[\s\S]*border-block-end: 2px solid var\(--c-strong\);[\s\S]*background: var\(--c-mark-fill\)/,
+    /\.glyph-ink\.marked::before \{[\s\S]*box-sizing: border-box;[\s\S]*background: var\(--c-mark-fill\)/,
   );
+  const markedRule = mushafStyleSource.match(/\.glyph-ink\.marked::before \{([\s\S]*?)\}/)?.[1] ?? "";
+  assert.doesNotMatch(markedRule, /border-block-end|border-bottom|underline/);
   assert.equal(
     (mushafStyleSource.match(/--c-mark-fill:/g) ?? []).length,
     2,
@@ -131,23 +100,11 @@ test("shared Mushaf geometry protects Arabic ink and cartouche titles", () => {
   );
 });
 
-test("every permanent mistake edge clears 3:1 against its light and dark page paper", () => {
-  const themes = [
-    { prefix: "", paper: cssHex(cssRule(":root"), "--page-paper") },
-    {
-      prefix: '[data-theme="dark"] ',
-      paper: cssHex(cssRule('[data-theme="dark"]'), "--page-paper"),
-    },
-  ];
-  for (const { prefix, paper } of themes) {
-    for (const category of ["jali", "khafi", "fasaha", "adu-raagu"]) {
-      const strong = cssHex(cssRule(`${prefix}.cat-${category}`), "--c-strong");
-      assert.ok(
-        contrast(strong, paper) >= 3,
-        `${prefix || "light "}${category} edge must clear 3:1 against page paper`,
-      );
-    }
-  }
+test("permanent mistake washes stay translucent in both themes", () => {
+  assert.equal((mushafStyleSource.match(/--c-mark-fill:/g) ?? []).length, 2);
+  assert.match(mushafStyleSource, /--c-mark-fill: color-mix\(in srgb, var\(--c\) 14%, transparent\)/);
+  assert.match(mushafStyleSource, /--c-mark-fill: color-mix\(in srgb, var\(--c\) 22%, transparent\)/);
+  assert.doesNotMatch(mushafStyleSource, /--c-mark-fill:[^;]*var\(--page-paper\)/);
 });
 
 test("portrait Mushaf density is one scoped adjustment, not mobile spacing", () => {

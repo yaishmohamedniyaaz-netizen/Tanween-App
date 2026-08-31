@@ -5,11 +5,7 @@ import {
   missingRequiredImpressionCategories,
 } from "../lib/scoring";
 import { useJudging } from "../state/store";
-import {
-  judgeDisplayName,
-  judgeSeatFor,
-  makeAssignmentSnapshot,
-} from "../lib/judgeAssignments";
+import { judgeSeatFor } from "../lib/judgeAssignments";
 import type { AduRaaguInputMode } from "../lib/devicePreferences";
 import type { CategoryId } from "../types";
 import { CompactTextEditor } from "./CompactTextEditor";
@@ -31,7 +27,7 @@ function CategoryRow({
   deducted: number;
 }) {
   return (
-    <div className={`sc-row cat-${id} ${deducted > 0 ? "is-earned" : ""}`}>
+    <div className={`sc-row cat-${id}`}>
       <span className="sc-dot" aria-hidden="true" />
       <span className="sc-name">{label}</span>
       <span className={`sc-deducted t-num ${deducted === 0 ? "is-zero" : ""}`}>
@@ -72,7 +68,7 @@ function ImpressionRow({
 
   return (
     <div
-      className={`sc-row sc-row-impression cat-${category} ${pending ? "is-pending" : ""} ${!pending && deducted > 0 ? "is-earned" : ""}`}
+      className={`sc-row sc-row-impression cat-${category} ${pending ? "is-pending" : ""}`}
     >
       <span className="sc-dot" aria-hidden="true" />
       <span className="sc-name">{label}</span>
@@ -87,6 +83,7 @@ function ImpressionRow({
         label={label}
         category={category}
         mode={inputMode}
+        layer={presentation === "compact" ? "dialog" : "workspace"}
         onChange={(value) => dispatch({ type: "SET_IMPRESSION", category, awarded: value })}
       />
       {presentation === "compact" ? (
@@ -140,9 +137,6 @@ export function ScorePanel({
   const { state } = useJudging();
   const { byCategory, total, totalMax } = computeScores(state);
   const config = state.activeAssignment?.config ?? state.config;
-  const assignment =
-    state.activeAssignment ??
-    makeAssignmentSnapshot(state.panel, state.deviceJudgeId, state.config);
   const categories =
     state.activeAssignment?.categories ??
     judgeSeatFor(state.panel, state.deviceJudgeId)?.categories ??
@@ -159,12 +153,7 @@ export function ScorePanel({
       aria-label="Score"
     >
       <div className="sc-total">
-        <span className="sc-total-heading">
-          {presentation === "compact" && assignment && (
-            <span className="sc-compact-judge">{judgeDisplayName(assignment)}</span>
-          )}
-          <span className="sc-total-label">Score</span>
-        </span>
+        <span className="sc-total-label">Score</span>
         <span className="sc-total-value" aria-live="polite" aria-atomic="true">
           <span className="sc-total-num t-num">{total}</span>
           <span className="sc-total-of t-num"> / {totalMax}</span>

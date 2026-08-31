@@ -11,6 +11,37 @@ VoiceOver confirmation remain open and must not be reported as completed.
 existing desktop judging rail. The mobile judge deck remains behind
 `?mobileJudgeDeck=1` until its wider release gate is separately approved.
 
+## 2026-09-01 corrective pass (supersedes conflicting details below)
+
+Device review exposed several presentation problems after the first release.
+The following decisions replace any later references in this document to
+earned-row fills, underline/edge highlights, hidden sheet exits, or deducted
+Adu/Raagu values:
+
+- permanent Mushaf mistake marks use a translucent category wash behind the
+  glyph only; they do not use an underline or opaque overlay;
+- the desktop score rail and Finish results remain neutral, without category
+  row fills;
+- phone portrait keeps the small category-colour blocks in the always-visible
+  criterion strip, beside the criterion label and value;
+- pinpoint criteria show the deducted value, while Adu/Raagu shows the awarded
+  score out of its maximum (for example `8.5 / 10`, or `— / 10` before a mark);
+- the Mistake Log and compact Score sheet have labelled 44px close controls;
+- the compact Adu/Raagu picker opens above the mobile sheet layer so its
+  horizontal ruler cannot be hidden behind the sheet;
+- the prepared-recitation actions are fixed in a compact bottom tray so Begin
+  remains available without page scrolling; and
+- phone-portrait Finish is a bounded bottom sheet rather than a full-screen
+  results panel.
+
+The persisted V5 `scoreChipTint` field is retained for backward-compatible
+preference loading and saving, but its obsolete visible control is retired.
+This correction changes presentation only: scoring, the ledger, notes, Finish
+validation, exports, Quran data, and saved preference formats remain unchanged.
+
+**Corrective-pass status:** implemented locally and covered by focused tests;
+full regression and phone-portrait browser review are the remaining gates.
+
 ## 1. Approved outcome
 
 This pass makes recorded mistakes quicker to confirm and easier to see without

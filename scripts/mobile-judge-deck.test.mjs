@@ -14,7 +14,7 @@ const scores = {
   jali: { start: 50, deducted: 2, score: 48, count: 1, marked: true },
   khafi: { start: 30, deducted: 0, score: 30, count: 0, marked: false },
   fasaha: { start: 10, deducted: 0.5, score: 9.5, count: 1, marked: true },
-  "adu-raagu": { start: 10, deducted: 10, score: 0, count: 0, marked: false },
+  "adu-raagu": { start: 10, deducted: 1.5, score: 8.5, count: 0, marked: true },
 };
 
 test("the mobile judge deck defaults on and keeps an exact emergency opt-out", () => {
@@ -30,30 +30,24 @@ test("one to four assignment criteria render in canonical order without abbrevia
       categories.slice(0, count),
       scores,
       ["adu-raagu"],
-      "earned",
     );
     assert.equal(chips.length, count);
     assert.deepEqual(chips.map((chip) => chip.category), categories.slice(0, count));
   }
   assert.deepEqual(
-    buildMobileCriterionChips(categories, scores, ["adu-raagu"], "earned")
+    buildMobileCriterionChips(categories, scores, ["adu-raagu"])
       .map((chip) => chip.label),
     ["Laḥn Jalī", "Laḥn Khafī", "Faṣāḥa", "Adu / Raagu"],
   );
 });
 
-test("criterion chips show deductions and tint only under the chosen policy", () => {
-  const earned = buildMobileCriterionChips(categories, scores, ["adu-raagu"], "earned");
-  assert.deepEqual(earned.map((chip) => chip.deduction), ["−2", "—", "−0.5", "—"]);
-  assert.deepEqual(earned.map((chip) => chip.tinted), [true, false, true, false]);
-  assert.equal(earned.every((chip) => chip.showDot === false), true);
+test("criterion chips keep colour in blocks while Adu and Raagu shows awarded marks", () => {
+  const pending = buildMobileCriterionChips(categories, scores, ["adu-raagu"]);
+  assert.deepEqual(pending.map((chip) => chip.value), ["−2", "—", "−0.5", "— / 10"]);
+  assert.equal(pending.every((chip) => !("tinted" in chip) && !("showDot" in chip)), true);
 
-  const off = buildMobileCriterionChips(categories, scores, ["adu-raagu"], "off");
-  assert.equal(off.every((chip) => chip.tinted === false), true);
-  assert.equal(off.every((chip) => chip.showDot === true), true);
-
-  const always = buildMobileCriterionChips(categories, scores, ["adu-raagu"], "always");
-  assert.equal(always.every((chip) => chip.tinted === true), true);
+  const marked = buildMobileCriterionChips(categories, scores, []);
+  assert.equal(marked.at(-1)?.value, "8.5 / 10");
 });
 
 test("mistake copy is unambiguous and elapsed timestamps are stable", () => {
@@ -107,11 +101,51 @@ test("the portrait deck reuses the existing score, mistake, notes and judge comp
   const deck = readFileSync(new URL("../src/components/MobileJudgeDeck.tsx", import.meta.url), "utf8");
   const css = readFileSync(new URL("../src/styles/global.css", import.meta.url), "utf8");
   assert.match(app, /mobileJudgeDeckOn && view === "judge" && state\.sessionActive/);
-  assert.match(deck, /<ScorePanel inputMode=\{inputMode\}/);
+  assert.match(deck, /<ScorePanel inputMode=\{inputMode\} presentation="compact"/);
   assert.match(deck, /<MistakeLog[\s\S]*presentation="mobile-sheet"/);
   assert.match(deck, /<NotesBox \/>/);
   assert.match(deck, /<JudgeRoleStrip onChange=/);
   assert.match(css, /@media \(max-width: 600px\) and \(orientation: portrait\),/);
   assert.match(css, /\(max-device-width: 600px\) and \(pointer: coarse\) and \(orientation: portrait\)/);
   assert.match(css, /\.app\[data-mobile-judge-deck="true"\] \.sidebar \{[\s\S]*display: none/);
+});
+
+test("portrait sheets expose explicit close controls and the score ruler clears the sheet layer", () => {
+  const deck = readFileSync(new URL("../src/components/MobileJudgeDeck.tsx", import.meta.url), "utf8");
+  const log = readFileSync(new URL("../src/components/MistakeLog.tsx", import.meta.url), "utf8");
+  const score = readFileSync(new URL("../src/components/ScorePanel.tsx", import.meta.url), "utf8");
+  const css = readFileSync(new URL("../src/styles/global.css", import.meta.url), "utf8");
+  assert.match(deck, /className="mobile-sheet-close"[\s\S]*aria-label="Close score"/);
+  assert.match(log, /className="mobile-sheet-close"[\s\S]*aria-label="Close mistakes"/);
+  assert.doesNotMatch(deck, /mobile-sheet-handle/);
+  assert.doesNotMatch(log, /mobile-sheet-handle/);
+  assert.doesNotMatch(score, /sc-compact-judge/);
+  assert.match(score, /layer=\{presentation === "compact" \? "dialog" : "workspace"\}/);
+  assert.match(css, /\.mark-bar\.is-dialog-layer \{[\s\S]*z-index: 90/);
+  assert.match(css, /\.mobile-sheet-close \{[\s\S]*min-height: 44px/);
+});
+
+test("prepared portrait mode keeps the Begin actions in a fixed tray", () => {
+  const app = readFileSync(new URL("../src/App.tsx", import.meta.url), "utf8");
+  const prepared = readFileSync(new URL("../src/components/PreparedSidebar.tsx", import.meta.url), "utf8");
+  const css = readFileSync(new URL("../src/styles/global.css", import.meta.url), "utf8");
+  assert.match(app, /mobilePreparedActive[\s\S]*Boolean\(state\.preparedRecitation\)/);
+  assert.match(app, /data-mobile-prepared=\{mobilePreparedActive \? "true" : undefined\}/);
+  assert.match(prepared, /className="prepared-sidebar-details"/);
+  assert.match(prepared, /className="prepared-sidebar-actions"/);
+  assert.match(css, /\.app\[data-mobile-prepared="true"\] \.workspace \{[\s\S]*overflow: hidden/);
+  assert.match(css, /\.app\[data-mobile-prepared="true"\] \.prepared-sidebar-details \{[\s\S]*overflow-y: auto/);
+  assert.match(css, /\.app\[data-mobile-prepared="true"\] \.prepared-sidebar-actions \{[\s\S]*flex: 0 0 auto/);
+});
+
+test("phone portrait Finish is a bounded sheet rather than a full-screen panel", () => {
+  const css = readFileSync(new URL("../src/styles/global.css", import.meta.url), "utf8");
+  const mobileFinish = css.match(
+    /\.app\[data-mobile-judge-deck="true"\] \.finish-dialog \{([\s\S]*?)\n  \}/,
+  );
+  assert.ok(mobileFinish, "expected the mobile Finish dialog override");
+  assert.match(mobileFinish[1], /width: calc\(100vw - 16px\)/);
+  assert.match(mobileFinish[1], /max-height: min\(78dvh, 680px\)/);
+  assert.match(mobileFinish[1], /margin: auto 8px max\(8px, env\(safe-area-inset-bottom, 0px\)\)/);
+  assert.doesNotMatch(mobileFinish[1], /height: 100dvh/);
 });

@@ -141,17 +141,6 @@ export function MistakeLog({
         aria-modal={expanded || undefined}
         role={expanded ? "dialog" : undefined}
       >
-        {mobileSheet && (
-          <button
-            ref={closeButtonRef}
-            type="button"
-            className="mobile-sheet-handle"
-            aria-label="Close mistakes"
-            onClick={closePanel}
-          >
-            <span aria-hidden="true" />
-          </button>
-        )}
         <div className="panel-head">
           <span className="t-label" id="mistake-panel-title">
             Mistakes{ordered.length > 0 ? ` · ${ordered.length}` : ""}
@@ -178,13 +167,24 @@ export function MistakeLog({
               </button>
             )}
             {mobileSheet && (
-              <button
-                type="button"
-                className="log-view-all"
-                onClick={() => setMode((current) => current === "current" ? "history" : "current")}
-              >
-                {mode === "current" ? "History" : "Current mistakes"}
-              </button>
+              <>
+                <button
+                  type="button"
+                  className="log-view-all"
+                  onClick={() => setMode((current) => current === "current" ? "history" : "current")}
+                >
+                  {mode === "current" ? "History" : "Current mistakes"}
+                </button>
+                <button
+                  ref={closeButtonRef}
+                  type="button"
+                  className="mobile-sheet-close"
+                  aria-label="Close mistakes"
+                  onClick={closePanel}
+                >
+                  <span aria-hidden="true">×</span>
+                </button>
+              </>
             )}
           </span>
         </div>

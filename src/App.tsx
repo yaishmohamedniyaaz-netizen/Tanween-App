@@ -178,6 +178,8 @@ export function App() {
   );
   const mobileJudgeDeckActive =
     mobileJudgeDeckOn && view === "judge" && state.sessionActive;
+  const mobilePreparedActive =
+    mobileJudgeDeckOn && view === "judge" && Boolean(state.preparedRecitation);
 
   const finishRecitation = async () => {
     await Promise.race([
@@ -195,6 +197,7 @@ export function App() {
     <div
       className={`app view-${view}`}
       data-mobile-judge-deck={mobileJudgeDeckActive ? "true" : undefined}
+      data-mobile-prepared={mobilePreparedActive ? "true" : undefined}
     >
       <Header
         view={view}
@@ -232,10 +235,6 @@ export function App() {
         lastMarkStrip={preferences.lastMarkStrip}
         onLastMarkStripChange={(lastMarkStrip) =>
           updatePreferences({ lastMarkStrip })
-        }
-        scoreChipTint={preferences.scoreChipTint}
-        onScoreChipTintChange={(scoreChipTint) =>
-          updatePreferences({ scoreChipTint })
         }
         onShowMarkingGuide={() => setMarkingGuideOpen(true)}
         onMoreControlsOpenChange={setMoreControlsOpen}
@@ -382,7 +381,6 @@ export function App() {
             <MobileJudgeDeck
               inputMode={preferences.aduRaaguInputMode}
               lastMarkStrip={preferences.lastMarkStrip}
-              scoreChipTint={preferences.scoreChipTint}
               onFinish={() => setFinishOpen(true)}
             />
           )}

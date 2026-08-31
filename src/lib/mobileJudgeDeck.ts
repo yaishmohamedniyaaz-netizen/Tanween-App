@@ -1,14 +1,11 @@
-import { CATEGORY_BY_ID } from "../config.ts";
+import { CATEGORY_BY_ID, isImpressionCategory } from "../config.ts";
 import type { CategoryId, JudgingEvent, Mistake } from "../types";
-import type { ScoreChipTint } from "./devicePreferences";
 import type { Scores } from "./scoring";
 
 export interface MobileCriterionChip {
   category: CategoryId;
   label: string;
-  deduction: string;
-  tinted: boolean;
-  showDot: boolean;
+  value: string;
 }
 
 export function mobileJudgeDeckEnabled(search: string): boolean {
@@ -29,7 +26,6 @@ export function buildMobileCriterionChips(
   categories: readonly CategoryId[],
   scores: Scores,
   missingImpressions: readonly CategoryId[],
-  tint: ScoreChipTint,
 ): MobileCriterionChip[] {
   const missing = new Set(missingImpressions);
   return categories.map((category) => {
@@ -38,9 +34,9 @@ export function buildMobileCriterionChips(
     return {
       category,
       label: CATEGORY_BY_ID[category].label,
-      deduction: deducted === 0 ? "—" : `−${deducted}`,
-      tinted: tint === "always" || (tint === "earned" && deducted > 0),
-      showDot: tint === "off",
+      value: isImpressionCategory(category)
+        ? `${missing.has(category) ? "—" : score.score} / ${score.start}`
+        : deducted === 0 ? "—" : `−${deducted}`,
     };
   });
 }

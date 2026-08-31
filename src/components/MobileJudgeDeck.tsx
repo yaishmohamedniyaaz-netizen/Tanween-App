@@ -14,7 +14,6 @@ import {
 import type {
   AduRaaguInputMode,
   LastMarkStrip,
-  ScoreChipTint,
 } from "../lib/devicePreferences";
 import { useJudging } from "../state/store";
 import { Icon } from "./Icon";
@@ -30,12 +29,10 @@ const LAST_ACTION_VISIBLE_MS = 5_000;
 export function MobileJudgeDeck({
   inputMode,
   lastMarkStrip,
-  scoreChipTint,
   onFinish,
 }: {
   inputMode: AduRaaguInputMode;
   lastMarkStrip: LastMarkStrip;
-  scoreChipTint: ScoreChipTint;
   onFinish: () => void;
 }) {
   const { state, dispatch } = useJudging();
@@ -60,7 +57,6 @@ export function MobileJudgeDeck({
     categories,
     byCategory,
     missingImpressions,
-    scoreChipTint,
   );
   const latestAction = latestMobileMistakeAction(state.events, state.mistakes);
   const actionKey = latestAction
@@ -201,13 +197,13 @@ export function MobileJudgeDeck({
               {chips.map((chip) => (
                 <div
                   key={chip.category}
-                  className={`mobile-criterion-chip cat-${chip.category} ${chip.tinted ? "is-tinted" : ""}`}
+                  className={`mobile-criterion-chip cat-${chip.category}`}
                 >
                   <span className="mobile-criterion-label">
-                    {chip.showDot && <i aria-hidden="true" />}
+                    <i aria-hidden="true" />
                     {chip.label}
                   </span>
-                  <span className="mobile-criterion-value t-num">{chip.deduction}</span>
+                  <span className="mobile-criterion-value t-num">{chip.value}</span>
                 </div>
               ))}
             </div>
@@ -263,17 +259,20 @@ export function MobileJudgeDeck({
           aria-modal="true"
           aria-label="Score"
         >
-          <button
-            ref={scoreHandleRef}
-            type="button"
-            className="mobile-sheet-handle"
-            aria-label="Close score"
-            onClick={closeSheet}
-          >
-            <span aria-hidden="true" />
-          </button>
+          <div className="mobile-sheet-head">
+            <span className="t-label">Score</span>
+            <button
+              ref={scoreHandleRef}
+              type="button"
+              className="mobile-sheet-close"
+              aria-label="Close score"
+              onClick={closeSheet}
+            >
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
           <JudgeRoleStrip onChange={() => undefined} />
-          <ScorePanel inputMode={inputMode} />
+          <ScorePanel inputMode={inputMode} presentation="compact" />
           {notesOpen && <NotesBox />}
           <div className="mobile-score-sheet-actions">
             <button

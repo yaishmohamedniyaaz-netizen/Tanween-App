@@ -24,7 +24,7 @@ test("the compact Results control centers its icon without hidden text layout", 
   assert.match(cssSource, /\.view-toggle svg \{\s*display: block;\s*flex: 0 0 auto;\s*margin: 0;/);
 });
 
-test("category swatches are square and earned score rows tint without changing scoring", () => {
+test("category swatches are square while score rows stay neutral", () => {
   for (const selector of [
     ".sc-dot",
     ".log-dot",
@@ -38,16 +38,9 @@ test("category swatches are square and earned score rows tint without changing s
     assert.match(match[1], /height: 8px/);
     assert.match(match[1], /border-radius: 2px/);
   }
-  assert.match(scorePanelSource, /deducted > 0 \? "is-earned" : ""/);
-  assert.match(scorePanelSource, /!pending && deducted > 0 \? "is-earned" : ""/);
-  assert.match(
-    cssSource,
-    /\.sc-row\.is-earned \{[\s\S]*background: var\(--c-score-fill\)/,
-  );
-  assert.match(
-    cssSource,
-    /\.mobile-criterion-chip\.is-tinted \{[\s\S]*background: var\(--c-feedback-fill\)/,
-  );
+  assert.doesNotMatch(scorePanelSource, /is-earned/);
+  assert.doesNotMatch(cssSource, /\.sc-row\.is-earned|--c-score-fill/);
+  assert.doesNotMatch(cssSource, /\.mobile-criterion-chip\.is-tinted/);
   assert.match(
     cssSource,
     /\.mobile-last-action \{[\s\S]*background: var\(--c-feedback-fill\)/,
@@ -56,10 +49,5 @@ test("category swatches are square and earned score rows tint without changing s
     (cssSource.match(/--c-feedback-fill:/g) ?? []).length,
     2,
     "the category group has separate light and dark feedback fills",
-  );
-  assert.equal(
-    (cssSource.match(/--c-score-fill:/g) ?? []).length,
-    2,
-    "earned score rows have separate light and dark fills",
   );
 });

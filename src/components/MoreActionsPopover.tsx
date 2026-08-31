@@ -19,7 +19,6 @@ import type {
   LastMarkStrip,
   MushafLayout,
   QuestionFocusMode,
-  ScoreChipTint,
 } from "../lib/devicePreferences";
 import type { TilawaTrackerStatus } from "./TilawaPrototypePanel";
 
@@ -37,8 +36,6 @@ interface MoreActionsPopoverProps {
   onAduRaaguInputModeChange: (value: AduRaaguInputMode) => void;
   lastMarkStrip: LastMarkStrip;
   onLastMarkStripChange: (value: LastMarkStrip) => void;
-  scoreChipTint: ScoreChipTint;
-  onScoreChipTintChange: (value: ScoreChipTint) => void;
   onShowMarkingGuide: () => void;
   onOpenChange: (open: boolean) => void;
   tilawaTracking?: {
@@ -63,8 +60,6 @@ export function MoreActionsPopover({
   onAduRaaguInputModeChange,
   lastMarkStrip,
   onLastMarkStripChange,
-  scoreChipTint,
-  onScoreChipTintChange,
   onShowMarkingGuide,
   onOpenChange,
   tilawaTracking,
@@ -293,21 +288,6 @@ export function MoreActionsPopover({
                   >
                     Off
                   </button>
-                </div>
-                <span className="mobile-deck-control-label">Score chip tint</span>
-                <div className="mushaf-view-options mobile-deck-tint-options" role="radiogroup" aria-label="Score chip tint">
-                  {(["off", "earned", "always"] as const).map((mode) => (
-                    <button
-                      key={mode}
-                      type="button"
-                      role="radio"
-                      aria-checked={scoreChipTint === mode}
-                      className={scoreChipTint === mode ? "is-active" : ""}
-                      onClick={() => onScoreChipTintChange(mode)}
-                    >
-                      {mode === "off" ? "Off" : mode === "earned" ? "As earned" : "Always"}
-                    </button>
-                  ))}
                 </div>
               </fieldset>
               <fieldset className="question-focus-control">
