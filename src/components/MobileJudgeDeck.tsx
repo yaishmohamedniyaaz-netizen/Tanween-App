@@ -25,7 +25,7 @@ import { ScorePanel } from "./ScorePanel";
 
 type MobileSheet = "score" | "mistakes" | null;
 
-const LAST_ACTION_VISIBLE_MS = 12000;
+const LAST_ACTION_VISIBLE_MS = 5_000;
 
 export function MobileJudgeDeck({
   inputMode,
@@ -72,6 +72,13 @@ export function MobileJudgeDeck({
       actionKey !== dismissedActionKey &&
       Date.now() - latestAction.at < LAST_ACTION_VISIBLE_MS,
   );
+  const latestActionAnnouncement = showLastAction && latestAction
+    ? [
+        `Latest mistake: ${CATEGORY_BY_ID[latestAction.mistake.category].label}`,
+        latestAction.mistake.wordText || mistakeFullGlyph(latestAction.mistake),
+        `minus ${latestAction.mistake.amount}`,
+      ].filter(Boolean).join(", ") + "."
+    : "";
   const startedAt = sessionStartedAt(state.events);
 
   useEffect(() => {
@@ -134,11 +141,17 @@ export function MobileJudgeDeck({
   return (
     <>
       <div className="mobile-judge-deck" aria-label="Mobile judging controls">
+        <span
+          className="mobile-judge-status"
+          role="status"
+          aria-atomic="true"
+        >
+          {latestActionAnnouncement}
+        </span>
         <div className="mobile-judge-dock">
           {showLastAction && latestAction ? (
             <div
               className={`mobile-last-action cat-${latestAction.mistake.category}`}
-              aria-live="polite"
             >
               <button
                 type="button"

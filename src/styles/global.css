@@ -181,11 +181,41 @@
   --c-tint: rgba(55, 123, 96, 0.22);
   --c-strong: #a5cfbc;
 }
+.cat-jali,
+.cat-khafi,
+.cat-fasaha,
+.cat-adu-raagu {
+  --c-score-fill: color-mix(in srgb, var(--c) 7%, var(--surface));
+  --c-feedback-fill: color-mix(in srgb, var(--c) 14%, var(--surface));
+  --c-mark-fill: color-mix(in srgb, var(--c) 18%, var(--page-paper));
+}
+[data-theme="dark"] .cat-jali,
+[data-theme="dark"] .cat-khafi,
+[data-theme="dark"] .cat-fasaha,
+[data-theme="dark"] .cat-adu-raagu {
+  --c-score-fill: color-mix(in srgb, var(--c) 13%, var(--surface));
+  --c-feedback-fill: color-mix(in srgb, var(--c) 24%, var(--surface));
+  --c-mark-fill: color-mix(in srgb, var(--c) 28%, var(--page-paper));
+}
 
 /* ---- Base ---- */
 * {
   box-sizing: border-box;
 }
+
+.mobile-judge-status {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  border: 0;
+  white-space: nowrap;
+}
+
 html,
 body {
   margin: 0;
@@ -5635,14 +5665,17 @@ textarea:focus-visible {
 }
 .glyph-ink.marked {
   background: transparent;
+  mix-blend-mode: normal;
 }
 .glyph-ink.marked::before {
   content: "";
   position: absolute;
   inset: calc(-1 * var(--mark-wash-pad-top)) 0
     calc(-1 * var(--mark-wash-pad-bottom));
+  box-sizing: border-box;
+  border-block-end: 2px solid var(--c-strong);
   border-radius: 3px;
-  background: var(--c-wash);
+  background: var(--c-mark-fill);
 }
 .glyph-ink.flash {
   animation: flash-pulse 1.2s var(--ease-in-out);
@@ -5966,13 +5999,16 @@ textarea:focus-visible {
   padding: 4px 0;
   border-bottom: 1px solid var(--line);
 }
+.sc-row.is-earned {
+  background: var(--c-score-fill);
+}
 .sc-row:last-child {
   border-bottom: 0;
 }
 .sc-dot {
   width: 8px;
-  height: 11px;
-  border-radius: 3px;
+  height: 8px;
+  border-radius: 2px;
   background: var(--c);
 }
 .sc-name {
@@ -6255,8 +6291,8 @@ textarea:focus-visible {
 }
 .log-dot {
   width: 8px;
-  height: 10px;
-  border-radius: 3px;
+  height: 8px;
+  border-radius: 2px;
   background: var(--c);
 }
 .log-glyph {
@@ -12287,7 +12323,7 @@ html:has(.finish-dialog[open]) {
   }
 
   .mobile-criterion-chip.is-tinted {
-    background: var(--c-wash);
+    background: var(--c-feedback-fill);
   }
 
   .mobile-criterion-label {
@@ -12308,8 +12344,8 @@ html:has(.finish-dialog[open]) {
   }
 
   .mobile-criterion-label i {
-    width: 6px;
-    height: 9px;
+    width: 8px;
+    height: 8px;
     flex: 0 0 auto;
     border-radius: 2px;
     background: var(--c);
@@ -12327,7 +12363,7 @@ html:has(.finish-dialog[open]) {
     height: 44px;
     align-items: center;
     padding-left: 6px;
-    background: var(--c-wash);
+    background: var(--c-feedback-fill);
     border-bottom: 1px solid var(--line);
   }
 
@@ -12348,9 +12384,9 @@ html:has(.finish-dialog[open]) {
 
   .mobile-category-mark {
     width: 8px;
-    height: 11px;
+    height: 8px;
     flex: 0 0 auto;
-    border-radius: 3px;
+    border-radius: 2px;
     background: var(--c);
   }
 

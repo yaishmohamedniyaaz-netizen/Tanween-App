@@ -24,7 +24,7 @@ function CategoryRow({
   deducted: number;
 }) {
   return (
-    <div className={`sc-row cat-${id}`}>
+    <div className={`sc-row cat-${id} ${deducted > 0 ? "is-earned" : ""}`}>
       <span className="sc-dot" aria-hidden="true" />
       <span className="sc-name">{label}</span>
       <span className={`sc-deducted t-num ${deducted === 0 ? "is-zero" : ""}`}>
@@ -62,7 +62,9 @@ function ImpressionRow({
   const deducted = Math.round((start - awarded) * 100) / 100;
 
   return (
-    <div className={`sc-row sc-row-impression cat-${category} ${pending ? "is-pending" : ""}`}>
+    <div
+      className={`sc-row sc-row-impression cat-${category} ${pending ? "is-pending" : ""} ${!pending && deducted > 0 ? "is-earned" : ""}`}
+    >
       <span className="sc-dot" aria-hidden="true" />
       <span className="sc-name">{label}</span>
       <span className={`sc-deducted t-num ${deducted === 0 ? "is-zero" : ""}`}>

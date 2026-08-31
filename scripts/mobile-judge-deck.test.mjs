@@ -85,6 +85,23 @@ test("the last-action strip follows the latest live ledger action and retires on
   assert.equal(latestMobileMistakeAction([started, added, undone], []), null);
 });
 
+test("last-action feedback uses the five-second window and a pre-mounted atomic status", () => {
+  const deck = readFileSync(new URL("../src/components/MobileJudgeDeck.tsx", import.meta.url), "utf8");
+  const css = readFileSync(new URL("../src/styles/global.css", import.meta.url), "utf8");
+  assert.match(deck, /LAST_ACTION_VISIBLE_MS = 5_000/);
+  assert.doesNotMatch(deck, /LAST_ACTION_VISIBLE_MS = 12000/);
+  assert.match(
+    deck,
+    /className="mobile-judge-status"[\s\S]*role="status"[\s\S]*aria-atomic="true"/,
+  );
+  assert.ok(
+    deck.indexOf('className="mobile-judge-status"') <
+      deck.indexOf('className="mobile-judge-dock"'),
+  );
+  assert.doesNotMatch(deck, /mobile-last-action cat-\$\{[\s\S]{0,120}aria-live=/);
+  assert.match(css, /\.mobile-judge-status \{[\s\S]*clip-path: inset\(50%\)/);
+});
+
 test("the portrait deck reuses the existing score, mistake, notes and judge components", () => {
   const app = readFileSync(new URL("../src/App.tsx", import.meta.url), "utf8");
   const deck = readFileSync(new URL("../src/components/MobileJudgeDeck.tsx", import.meta.url), "utf8");
