@@ -8,6 +8,7 @@ import { Mushaf } from "./components/Mushaf";
 import { MushafViewport } from "./components/MushafViewport";
 import { ScorePanel } from "./components/ScorePanel";
 import { MistakeLog } from "./components/MistakeLog";
+import { MobileJudgeDeck } from "./components/MobileJudgeDeck";
 import { NotesBox } from "./components/NotesBox";
 import { ResultSheet } from "./components/ResultSheet";
 import { MarkingCoachTip } from "./components/MarkingCoachTip";
@@ -27,7 +28,6 @@ import {
   type TilawaTrackerStatus,
 } from "./components/TilawaPrototypePanel";
 import { useOfflineMushaf } from "./hooks/useOfflineMushaf";
-import { useMediaQuery } from "./hooks/useMediaQuery";
 import { useRecitationRecorder } from "./hooks/useRecitationRecorder";
 import { pauseOfflineMushafDownload } from "./lib/offlineMushaf";
 import { useJudging } from "./state/store";
@@ -41,6 +41,7 @@ import { loadQuestionIndex } from "./lib/questionBank";
 import { tilawaMushafWordId, type TilawaWordProgress } from "./lib/tilawaWordFocus";
 import { isWaiting } from "./lib/rosterQueue";
 import { missingRequiredImpressionCategories } from "./lib/scoring";
+import { mobileJudgeDeckFlagEnabled } from "./lib/mobileJudgeDeck";
 import {
   applyDeviceTheme,
   DEFAULT_DEVICE_PREFERENCES,
@@ -71,18 +72,11 @@ export function App() {
   const [tilawaStatus, setTilawaStatus] = useState<TilawaTrackerStatus>("idle");
   const showTilawaPrototype = new URLSearchParams(window.location.search)
     .get("tilawaPrototype") === "1";
-  const showMobileJudgeDeckPrototype = new URLSearchParams(window.location.search)
-    .get("mobileJudgeDeck") === "1";
-  const compactJudgeDeckViewport = useMediaQuery(
-    "(max-width: 600px) and (orientation: portrait), (min-width: 601px) and (max-width: 900px) and (max-device-width: 600px) and (pointer: coarse) and (orientation: portrait)",
-  );
-  const compactJudgeDeck =
-    showMobileJudgeDeckPrototype &&
-    compactJudgeDeckViewport &&
-    view === "judge" &&
-    state.sessionActive;
   const [preferences, setPreferences] = useState<DevicePreferencesV5>(() =>
     readDevicePreferences(),
+  );
+  const [mobileJudgeDeckPrototype] = useState(() =>
+    mobileJudgeDeckFlagEnabled(window.location.search),
   );
   const [page, setPage] = useState(() => {
     const saved = localStorage.getItem(LS_PAGE_KEY);
@@ -182,6 +176,8 @@ export function App() {
   const hasNextReciter = state.roster.some(
     (entry) => entry.id !== state.participant.id && isWaiting(entry),
   );
+  const mobileJudgeDeckActive =
+    mobileJudgeDeckPrototype && view === "judge" && state.sessionActive;
 
   const finishRecitation = async () => {
     await Promise.race([
@@ -196,7 +192,10 @@ export function App() {
   };
 
   return (
-    <div className={`app view-${view}`}>
+    <div
+      className={`app view-${view}`}
+      data-mobile-judge-deck={mobileJudgeDeckActive ? "true" : undefined}
+    >
       <Header
         view={view}
         onToggleView={() => setView((current) => (current === "judge" ? "records" : "judge"))}
@@ -230,6 +229,14 @@ export function App() {
         onAduRaaguInputModeChange={(aduRaaguInputMode) =>
           updatePreferences({ aduRaaguInputMode })
         }
+        lastMarkStrip={preferences.lastMarkStrip}
+        onLastMarkStripChange={(lastMarkStrip) =>
+          updatePreferences({ lastMarkStrip })
+        }
+        scoreChipTint={preferences.scoreChipTint}
+        onScoreChipTintChange={(scoreChipTint) =>
+          updatePreferences({ scoreChipTint })
+        }
         onShowMarkingGuide={() => setMarkingGuideOpen(true)}
         onMoreControlsOpenChange={setMoreControlsOpen}
         tilawaTracking={showTilawaPrototype
@@ -251,15 +258,13 @@ export function App() {
       />
       {view === "judge" ? (
         <main
-          className={`workspace layout-${preferences.mushafLayout} rail-${preferences.judgeRailSide} ${compactJudgeDeck ? "is-compact-judge-deck" : ""} ${!state.sessionActive && !state.preparedRecitation ? "is-idle" : ""}`}
+          className={`workspace layout-${preferences.mushafLayout} rail-${preferences.judgeRailSide} ${!state.sessionActive && !state.preparedRecitation ? "is-idle" : ""}`}
           key="judge"
         >
           <div className="stage">
             <MushafViewport
-              layout={compactJudgeDeck ? "full" : preferences.mushafLayout}
+              layout={preferences.mushafLayout}
               zoomPercent={preferences.mushafZoom}
-              forceStableStage={compactJudgeDeck}
-              forceCompactPages={compactJudgeDeck}
               contentKey={`${page}:${preferences.mushafLayout}`}
               overlay={
                 <MarkingCoachTip
@@ -347,11 +352,9 @@ export function App() {
             ) : state.sessionActive ? (
               <>
                 <JudgeRoleStrip onChange={() => setView("setup")} />
-                <ScorePanel inputMode={preferences.aduRaaguInputMode}
-                  presentation={compactJudgeDeck ? "compact" : "rail"}
-                />
-                <MistakeLog presentation={compactJudgeDeck ? "compact" : "rail"} />
-                <NotesBox presentation={compactJudgeDeck ? "compact" : "rail"} />
+                <ScorePanel inputMode={preferences.aduRaaguInputMode} />
+                <MistakeLog />
+                <NotesBox />
                 <button
                   type="button"
                   className="btn-primary next-btn"
@@ -375,6 +378,14 @@ export function App() {
               />
             )}
           </aside>
+          {mobileJudgeDeckActive && (
+            <MobileJudgeDeck
+              inputMode={preferences.aduRaaguInputMode}
+              lastMarkStrip={preferences.lastMarkStrip}
+              scoreChipTint={preferences.scoreChipTint}
+              onFinish={() => setFinishOpen(true)}
+            />
+          )}
         </main>
       ) : view === "records" ? (
         <main className="records-main" key="records">

@@ -1,91 +1,99 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import test from "node:test";
+import {
+  buildMobileCriterionChips,
+  formatRecitationElapsed,
+  latestMobileMistakeAction,
+  mistakeCountLabel,
+  mobileJudgeDeckFlagEnabled,
+} from "../src/lib/mobileJudgeDeck.ts";
 
-const readSource = (path) => readFileSync(new URL(path, import.meta.url), "utf8");
+const categories = ["jali", "khafi", "fasaha", "adu-raagu"];
+const scores = {
+  jali: { start: 50, deducted: 2, score: 48, count: 1, marked: true },
+  khafi: { start: 30, deducted: 0, score: 30, count: 0, marked: false },
+  fasaha: { start: 10, deducted: 0.5, score: 9.5, count: 1, marked: true },
+  "adu-raagu": { start: 10, deducted: 10, score: 0, count: 0, marked: false },
+};
 
-const appSource = readSource("../src/App.tsx");
-const viewportSource = readSource("../src/components/MushafViewport.tsx");
-const mushafSource = readSource("../src/components/Mushaf.tsx");
-const scoreSource = readSource("../src/components/ScorePanel.tsx");
-const mistakesSource = readSource("../src/components/MistakeLog.tsx");
-const notesSource = readSource("../src/components/NotesBox.tsx");
-const editorSource = readSource("../src/components/CompactTextEditor.tsx");
-const mediaSource = readSource("../src/hooks/useMediaQuery.ts");
-const styleSource = readSource("../src/styles/global.css");
-
-test("the portrait deck is an explicit active-session prototype", () => {
-  assert.match(appSource, /get\("mobileJudgeDeck"\) === "1"/);
-  assert.match(appSource, /showMobileJudgeDeckPrototype[\s\S]*compactJudgeDeckViewport[\s\S]*view === "judge"[\s\S]*state\.sessionActive/);
-  assert.match(appSource, /is-compact-judge-deck/);
-  assert.match(mediaSource, /matchMedia\(query\)/);
-  assert.match(mediaSource, /addEventListener\("change", update\)/);
+test("the mobile judge deck only opts in through its exact query flag", () => {
+  assert.equal(mobileJudgeDeckFlagEnabled("?mobileJudgeDeck=1"), true);
+  assert.equal(mobileJudgeDeckFlagEnabled("?mobileJudgeDeck=0"), false);
+  assert.equal(mobileJudgeDeckFlagEnabled("?mobilejudgedeck=1"), false);
+  assert.equal(mobileJudgeDeckFlagEnabled(""), false);
 });
 
-test("the measured phone stage stays independent from one-page rendering", () => {
-  assert.match(appSource, /forceStableStage=\{compactJudgeDeck\}/);
-  assert.match(appSource, /forceCompactPages=\{compactJudgeDeck\}/);
-  assert.match(appSource, /layout=\{compactJudgeDeck \? "full" : preferences\.mushafLayout\}/);
-  assert.match(viewportSource, /forceStableStage \|\| stableStageMatches\(\)/);
-  assert.match(viewportSource, /const compactPages = forceCompactPages \|\| !stableStage/);
-  assert.match(viewportSource, /value=\{\{ renderScale, stableStage, compactPages \}\}/);
-  assert.match(mushafSource, /const compact = useCompactMushafPages\(\)/);
+test("one to four assignment criteria render in canonical order without abbreviations", () => {
+  for (let count = 1; count <= 4; count += 1) {
+    const chips = buildMobileCriterionChips(
+      categories.slice(0, count),
+      scores,
+      ["adu-raagu"],
+      "earned",
+    );
+    assert.equal(chips.length, count);
+    assert.deepEqual(chips.map((chip) => chip.category), categories.slice(0, count));
+  }
+  assert.deepEqual(
+    buildMobileCriterionChips(categories, scores, ["adu-raagu"], "earned")
+      .map((chip) => chip.label),
+    ["Laḥn Jalī", "Laḥn Khafī", "Faṣāḥa", "Adu / Raagu"],
+  );
 });
 
-test("compact scoring reuses the assignment and scoring contracts", () => {
-  assert.match(scoreSource, /computeScores\(state\)/);
-  assert.match(scoreSource, /state\.activeAssignment \?\?\s*makeAssignmentSnapshot/);
-  assert.match(scoreSource, /data-category-count=\{categories\.length\}/);
-  assert.match(scoreSource, /presentation\?: ScorePanelPresentation/);
-  assert.match(scoreSource, /SET_IMPRESSION/);
-  assert.match(scoreSource, /SET_IMPRESSION_NOTE/);
-  assert.match(appSource, /inputMode=\{preferences\.aduRaaguInputMode\}/);
+test("criterion chips show deductions and tint only under the chosen policy", () => {
+  const earned = buildMobileCriterionChips(categories, scores, ["adu-raagu"], "earned");
+  assert.deepEqual(earned.map((chip) => chip.deduction), ["−2", "—", "−0.5", "—"]);
+  assert.deepEqual(earned.map((chip) => chip.tinted), [true, false, true, false]);
+  assert.equal(earned.every((chip) => chip.showDot === false), true);
+
+  const off = buildMobileCriterionChips(categories, scores, ["adu-raagu"], "off");
+  assert.equal(off.every((chip) => chip.tinted === false), true);
+  assert.equal(off.every((chip) => chip.showDot === true), true);
+
+  const always = buildMobileCriterionChips(categories, scores, ["adu-raagu"], "always");
+  assert.equal(always.every((chip) => chip.tinted === true), true);
 });
 
-test("compact notes and mistakes are alternate views of the existing evidence", () => {
-  assert.match(notesSource, /presentation\?: "rail" \| "compact"/);
-  assert.match(notesSource, /dispatch\(\{ type: "SET_NOTES", notes \}\)/);
-  assert.match(mistakesSource, /presentation\?: "rail" \| "compact"/);
-  assert.match(mistakesSource, /openCompactMistake/);
-  assert.match(mistakesSource, /setExpanded\(true\)/);
-  assert.match(mistakesSource, /new CustomEvent\(JUMP_EVENT/);
-  assert.doesNotMatch(mistakesSource, /localStorage|sessionStorage|indexedDB/);
+test("mistake copy is unambiguous and elapsed timestamps are stable", () => {
+  assert.equal(mistakeCountLabel(0), "0 mistakes");
+  assert.equal(mistakeCountLabel(1), "1 mistake");
+  assert.equal(mistakeCountLabel(3), "3 mistakes");
+  assert.equal(formatRecitationElapsed(134_999), "2:14");
 });
 
-test("compact text editing uses a labelled modal and returns focus", () => {
-  assert.match(editorSource, /<dialog/);
-  assert.match(editorSource, /aria-labelledby=\{titleId\}/);
-  assert.match(editorSource, /aria-haspopup="dialog"/);
-  assert.match(editorSource, /aria-expanded=\{open\}/);
-  assert.match(editorSource, /onCancel=/);
-  assert.match(editorSource, /triggerRef\.current\?\.focus\(\)/);
+test("the last-action strip follows the latest live ledger action and retires on Undo", () => {
+  const mistake = {
+    id: "m1",
+    tid: "1:1:1",
+    surah: 1,
+    ayah: 1,
+    glyph: "ب",
+    label: "1:1 · letter 1",
+    category: "jali",
+    amount: 2,
+    ts: 120,
+  };
+  const started = { id: "e1", at: 100, type: "session_started" };
+  const added = { id: "e2", at: 120, type: "mistake_added", mistake };
+  assert.deepEqual(latestMobileMistakeAction([started, added], [mistake]), {
+    mistake,
+    at: 120,
+  });
+  const undone = { id: "e3", at: 130, type: "mistake_undone", mistake };
+  assert.equal(latestMobileMistakeAction([started, added, undone], []), null);
 });
 
-test("the judge deck is portrait-scoped, connected, and target-sized", () => {
-  const prototypeStart = styleSource.indexOf("/* ---- Portrait judge-deck prototype ----");
-  assert.notEqual(prototypeStart, -1);
-  const prototype = styleSource.slice(prototypeStart);
-
-  assert.match(prototype, /@media \(max-width: 600px\) and \(orientation: portrait\)/);
-  assert.match(prototype, /\.workspace\.is-compact-judge-deck[\s\S]*grid-template-rows: minmax\(0, 1fr\) 252px/);
-  assert.match(prototype, /padding: 8px 10px max\(4px, env\(safe-area-inset-bottom\)\)/);
-  assert.match(prototype, /grid-template-areas:[\s\S]*"score mistakes"[\s\S]*"finish notes"/);
-  assert.match(prototype, /\.sc-rows[\s\S]*repeat\(2, minmax\(0, 1fr\)\)/);
-  assert.match(prototype, /\.app:has\(\.workspace\.is-compact-judge-deck\) \.app-header[\s\S]*48px 48px 48px/);
-  assert.match(prototype, /\.page-nav-btn,[\s\S]*height: 48px/);
-  assert.match(prototype, /\.log-row[\s\S]*min-height: 48px/);
-  assert.match(prototype, /\.next-btn[\s\S]*min-height: 44px/);
-  assert.match(prototype, /max-height: 760px[\s\S]*236px/);
-});
-
-test("rail-side preference mirrors the compact deck without affecting landscape", () => {
-  const prototypeStart = styleSource.indexOf("/* ---- Portrait judge-deck prototype ----");
-  const prototype = styleSource.slice(prototypeStart);
-  assert.match(prototype, /\.workspace\.is-compact-judge-deck\.rail-right \.sidebar[\s\S]*"mistakes score"[\s\S]*"notes finish"/);
-  assert.match(prototype, /\.workspace\.is-compact-judge-deck\.rail-right \.scorecard/);
-  assert.doesNotMatch(prototype, /@media[^\{]*orientation: landscape/);
-});
-
-test("the listening prototype moves above the fixed judge deck", () => {
-  assert.match(styleSource, /\.app:has\(\.workspace\.is-compact-judge-deck\) \.tilawa-tracker-dock[\s\S]*inset: 66px 8px auto/);
+test("the portrait deck reuses the existing score, mistake, notes and judge components", () => {
+  const app = readFileSync(new URL("../src/App.tsx", import.meta.url), "utf8");
+  const deck = readFileSync(new URL("../src/components/MobileJudgeDeck.tsx", import.meta.url), "utf8");
+  const css = readFileSync(new URL("../src/styles/global.css", import.meta.url), "utf8");
+  assert.match(app, /mobileJudgeDeckPrototype && view === "judge" && state\.sessionActive/);
+  assert.match(deck, /<ScorePanel inputMode=\{inputMode\}/);
+  assert.match(deck, /<MistakeLog[\s\S]*presentation="mobile-sheet"/);
+  assert.match(deck, /<NotesBox \/>/);
+  assert.match(deck, /<JudgeRoleStrip onChange=/);
+  assert.match(css, /@media \(max-width: 600px\) and \(orientation: portrait\)/);
+  assert.match(css, /\.app\[data-mobile-judge-deck="true"\] \.sidebar \{[\s\S]*display: none/);
 });

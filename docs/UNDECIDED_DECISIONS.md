@@ -276,3 +276,14 @@ product rules belong in `PRODUCT_FOUNDATION.md`, not here.
     - Decision needed: after Khafi, does a specific competition compare Fasaha,
       Adu & Raagu, another reviewed criterion, a chief-judge decision, or keep
       a shared placement? The app must not assume one answer for every event.
+
+28. **Post-Direction-A score presentation and Results work**
+    - The portrait mobile judge deck keeps the existing Deducted and Score
+      information. Decision needed later: is that pair redundant, and which
+      value should a future compact summary lead with?
+    - Adu / Raagu press-and-hold from a score chip is deferred. If reconsidered,
+      it needs a visible, dedicated handle so the whole chip never becomes an
+      accidental scoring gesture.
+    - The Results screen remains outside the mobile judging pass. Decision
+      needed later: whether a four-card bento summary is useful there, where it
+      does not compete with the live Mushaf for vertical space.

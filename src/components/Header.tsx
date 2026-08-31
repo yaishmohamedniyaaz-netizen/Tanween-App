@@ -4,8 +4,10 @@ import type {
   AduRaaguInputMode,
   AppTheme,
   JudgeRailSide,
+  LastMarkStrip,
   MushafLayout,
   QuestionFocusMode,
+  ScoreChipTint,
 } from "../lib/devicePreferences";
 import type { RecitationRecorderStatus } from "../hooks/useRecitationRecorder";
 import type { TilawaTrackerStatus } from "./TilawaPrototypePanel";
@@ -36,6 +38,10 @@ interface Props {
   onQuestionFocusModeChange: (value: QuestionFocusMode) => void;
   aduRaaguInputMode: AduRaaguInputMode;
   onAduRaaguInputModeChange: (value: AduRaaguInputMode) => void;
+  lastMarkStrip: LastMarkStrip;
+  onLastMarkStripChange: (value: LastMarkStrip) => void;
+  scoreChipTint: ScoreChipTint;
+  onScoreChipTintChange: (value: ScoreChipTint) => void;
   onShowMarkingGuide: () => void;
   onMoreControlsOpenChange: (open: boolean) => void;
   tilawaTracking?: {
@@ -70,6 +76,10 @@ export function Header({
   onQuestionFocusModeChange,
   aduRaaguInputMode,
   onAduRaaguInputModeChange,
+  lastMarkStrip,
+  onLastMarkStripChange,
+  scoreChipTint,
+  onScoreChipTintChange,
   onShowMarkingGuide,
   onMoreControlsOpenChange,
   tilawaTracking,
@@ -259,6 +269,10 @@ export function Header({
         onQuestionFocusModeChange={onQuestionFocusModeChange}
         aduRaaguInputMode={aduRaaguInputMode}
         onAduRaaguInputModeChange={onAduRaaguInputModeChange}
+        lastMarkStrip={lastMarkStrip}
+        onLastMarkStripChange={onLastMarkStripChange}
+        scoreChipTint={scoreChipTint}
+        onScoreChipTintChange={onScoreChipTintChange}
         onShowMarkingGuide={onShowMarkingGuide}
         onOpenChange={onMoreControlsOpenChange}
         tilawaTracking={tilawaTracking}
