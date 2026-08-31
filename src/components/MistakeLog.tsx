@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { CATEGORY_BY_ID } from "../config";
 import {
   mistakeFullGlyph,
@@ -9,10 +9,21 @@ import { useJudging } from "../state/store";
 import { Icon } from "./Icon";
 import { JudgingHistory } from "./JudgingHistory";
 
-export function MistakeLog() {
+interface MistakeLogProps {
+  presentation?: "rail" | "mobile-sheet";
+  initialOpenId?: string | null;
+  onRequestClose?: () => void;
+}
+
+export function MistakeLog({
+  presentation = "rail",
+  initialOpenId = null,
+  onRequestClose,
+}: MistakeLogProps = {}) {
   const { state, dispatch } = useJudging();
   const [openId, setOpenId] = useState<string | null>(null);
-  const [expanded, setExpanded] = useState(false);
+  const mobileSheet = presentation === "mobile-sheet";
+  const [expanded, setExpanded] = useState(mobileSheet);
   const [mode, setMode] = useState<"current" | "history">("current");
   const panelRef = useRef<HTMLElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
@@ -24,6 +35,11 @@ export function MistakeLog() {
   );
   const canViewAll = ordered.length > 5 || hasReviewHistory;
 
+  const closePanel = useCallback(() => {
+    if (mobileSheet) onRequestClose?.();
+    else setExpanded(false);
+  }, [mobileSheet, onRequestClose]);
+
   useEffect(() => {
     if (!expanded) return;
     closeButtonRef.current?.focus();
@@ -31,7 +47,7 @@ export function MistakeLog() {
     const onKey = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         event.preventDefault();
-        setExpanded(false);
+        closePanel();
         return;
       }
       if (event.key !== "Tab") return;
@@ -57,7 +73,18 @@ export function MistakeLog() {
       window.removeEventListener("keydown", onKey);
       window.requestAnimationFrame(() => viewAllButtonRef.current?.focus());
     };
-  }, [expanded]);
+  }, [closePanel, expanded]);
+
+  useEffect(() => {
+    if (!mobileSheet || !initialOpenId) return;
+    const mistake = state.mistakes.find((item) => item.id === initialOpenId);
+    if (!mistake) return;
+    setMode("current");
+    setOpenId(mistake.id);
+    window.dispatchEvent(new CustomEvent(JUMP_EVENT, {
+      detail: { tid: mistake.tid, page: mistake.page },
+    }));
+  }, [initialOpenId, mobileSheet, state.mistakes]);
 
   useEffect(() => {
     if (openId && !state.mistakes.some((mistake) => mistake.id === openId)) {
@@ -91,22 +118,33 @@ export function MistakeLog() {
 
   return (
     <>
-      {expanded && (
+      {expanded && !mobileSheet && (
         <button
           type="button"
           className="mistake-panel-backdrop"
           aria-label="Close mistake panel"
-          onClick={() => setExpanded(false)}
+          onClick={closePanel}
         />
       )}
       <section
         ref={panelRef}
-        className={`panel mistake-panel ${expanded ? "is-expanded" : ""}`}
+        className={`panel mistake-panel ${expanded ? "is-expanded" : ""} ${mobileSheet ? "is-mobile-sheet" : ""}`}
         aria-label="Mistakes"
         aria-labelledby={expanded ? "mistake-panel-title" : undefined}
         aria-modal={expanded || undefined}
         role={expanded ? "dialog" : undefined}
       >
+        {mobileSheet && (
+          <button
+            ref={closeButtonRef}
+            type="button"
+            className="mobile-sheet-handle"
+            aria-label="Close mistakes"
+            onClick={closePanel}
+          >
+            <span aria-hidden="true" />
+          </button>
+        )}
         <div className="panel-head">
           <span className="t-label" id="mistake-panel-title">
             Mistakes{ordered.length > 0 ? ` · ${ordered.length}` : ""}
@@ -122,20 +160,29 @@ export function MistakeLog() {
                 View all
               </button>
             )}
-            {expanded && (
+            {expanded && !mobileSheet && (
               <button
                 type="button"
                 className="log-view-all"
                 ref={closeButtonRef}
-                onClick={() => setExpanded(false)}
+                onClick={closePanel}
               >
                 Close
+              </button>
+            )}
+            {mobileSheet && (
+              <button
+                type="button"
+                className="log-view-all"
+                onClick={() => setMode((current) => current === "current" ? "history" : "current")}
+              >
+                {mode === "current" ? "History" : "Current mistakes"}
               </button>
             )}
           </span>
         </div>
 
-        {expanded && (
+        {expanded && !mobileSheet && (
           <div className="log-tabs" role="tablist" aria-label="Mistake panel view">
             <button
               type="button"
@@ -167,7 +214,7 @@ export function MistakeLog() {
             className="history-scroll"
             id="mistake-history-panel"
             role="tabpanel"
-            aria-labelledby="mistake-history-tab"
+            aria-labelledby={!mobileSheet ? "mistake-history-tab" : undefined}
           >
             <JudgingHistory
               events={state.events}
@@ -181,7 +228,7 @@ export function MistakeLog() {
             className="empty"
             id={expanded ? "mistake-current-panel" : undefined}
             role={expanded ? "tabpanel" : undefined}
-            aria-labelledby={expanded ? "mistake-current-tab" : undefined}
+            aria-labelledby={expanded && !mobileSheet ? "mistake-current-tab" : undefined}
           >
             {expanded
               ? "No current mistakes."
@@ -192,7 +239,7 @@ export function MistakeLog() {
             className="log"
             id={expanded ? "mistake-current-panel" : undefined}
             role={expanded ? "tabpanel" : undefined}
-            aria-labelledby={expanded ? "mistake-current-tab" : undefined}
+            aria-labelledby={expanded && !mobileSheet ? "mistake-current-tab" : undefined}
           >
             {ordered.map((mistake) => {
               const category = CATEGORY_BY_ID[mistake.category];
@@ -224,6 +271,9 @@ export function MistakeLog() {
                       {mistakePrimaryGlyph(mistake)}
                     </span>
                     <span className="log-amt t-num">−{mistake.amount}</span>
+                    <span className="mobile-log-detail">
+                      {category.label} · {reference}
+                    </span>
                     <span className="log-row-spacer" aria-hidden="true" />
                     <span className="log-chevron" aria-hidden="true">
                       <Icon name="chevron" size={13} />

@@ -16,8 +16,10 @@ import {
 import type {
   AduRaaguInputMode,
   JudgeRailSide,
+  LastMarkStrip,
   MushafLayout,
   QuestionFocusMode,
+  ScoreChipTint,
 } from "../lib/devicePreferences";
 
 interface MoreActionsPopoverProps {
@@ -32,6 +34,10 @@ interface MoreActionsPopoverProps {
   onQuestionFocusModeChange: (value: QuestionFocusMode) => void;
   aduRaaguInputMode: AduRaaguInputMode;
   onAduRaaguInputModeChange: (value: AduRaaguInputMode) => void;
+  lastMarkStrip: LastMarkStrip;
+  onLastMarkStripChange: (value: LastMarkStrip) => void;
+  scoreChipTint: ScoreChipTint;
+  onScoreChipTintChange: (value: ScoreChipTint) => void;
   onShowMarkingGuide: () => void;
   onOpenChange: (open: boolean) => void;
   onOpenSettings: () => void;
@@ -50,6 +56,10 @@ export function MoreActionsPopover({
   onQuestionFocusModeChange,
   aduRaaguInputMode,
   onAduRaaguInputModeChange,
+  lastMarkStrip,
+  onLastMarkStripChange,
+  scoreChipTint,
+  onScoreChipTintChange,
   onShowMarkingGuide,
   onOpenChange,
   onOpenSettings,
@@ -242,6 +252,45 @@ export function MoreActionsPopover({
                     ? "Start from the maximum, then use minus or plus for half-mark adjustments."
                     : "Tap or drag the ruler; minor ticks are half marks."}
                 </small>
+              </fieldset>
+              <fieldset className="mobile-deck-control">
+                <legend>Mobile judge deck</legend>
+                <span className="mobile-deck-control-label">Last mistake strip</span>
+                <div className="mushaf-view-options" role="radiogroup" aria-label="Last mistake strip">
+                  <button
+                    type="button"
+                    role="radio"
+                    aria-checked={lastMarkStrip === "on"}
+                    className={lastMarkStrip === "on" ? "is-active" : ""}
+                    onClick={() => onLastMarkStripChange("on")}
+                  >
+                    On
+                  </button>
+                  <button
+                    type="button"
+                    role="radio"
+                    aria-checked={lastMarkStrip === "off"}
+                    className={lastMarkStrip === "off" ? "is-active" : ""}
+                    onClick={() => onLastMarkStripChange("off")}
+                  >
+                    Off
+                  </button>
+                </div>
+                <span className="mobile-deck-control-label">Score chip tint</span>
+                <div className="mushaf-view-options mobile-deck-tint-options" role="radiogroup" aria-label="Score chip tint">
+                  {(["off", "earned", "always"] as const).map((mode) => (
+                    <button
+                      key={mode}
+                      type="button"
+                      role="radio"
+                      aria-checked={scoreChipTint === mode}
+                      className={scoreChipTint === mode ? "is-active" : ""}
+                      onClick={() => onScoreChipTintChange(mode)}
+                    >
+                      {mode === "off" ? "Off" : mode === "earned" ? "As earned" : "Always"}
+                    </button>
+                  ))}
+                </div>
               </fieldset>
               <fieldset className="question-focus-control">
                 <legend>Question focus</legend>

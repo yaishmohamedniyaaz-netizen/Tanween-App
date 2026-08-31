@@ -8,6 +8,7 @@ import { Mushaf } from "./components/Mushaf";
 import { MushafViewport } from "./components/MushafViewport";
 import { ScorePanel } from "./components/ScorePanel";
 import { MistakeLog } from "./components/MistakeLog";
+import { MobileJudgeDeck } from "./components/MobileJudgeDeck";
 import { NotesBox } from "./components/NotesBox";
 import { ResultSheet } from "./components/ResultSheet";
 import { MarkingCoachTip } from "./components/MarkingCoachTip";
@@ -33,6 +34,7 @@ import {
 import { participantDivision } from "./lib/reciterQuestions";
 import { isWaiting } from "./lib/rosterQueue";
 import { missingRequiredImpressionCategories } from "./lib/scoring";
+import { mobileJudgeDeckFlagEnabled } from "./lib/mobileJudgeDeck";
 import {
   applyDeviceTheme,
   DEFAULT_DEVICE_PREFERENCES,
@@ -59,6 +61,9 @@ export function App() {
   const [moreControlsOpen, setMoreControlsOpen] = useState(false);
   const [preferences, setPreferences] = useState<DevicePreferencesV5>(() =>
     readDevicePreferences(),
+  );
+  const [mobileJudgeDeckPrototype] = useState(() =>
+    mobileJudgeDeckFlagEnabled(window.location.search),
   );
   const [page, setPage] = useState(() => {
     const saved = localStorage.getItem(LS_PAGE_KEY);
@@ -128,9 +133,14 @@ export function App() {
   const hasNextReciter = state.roster.some(
     (entry) => entry.id !== state.participant.id && isWaiting(entry),
   );
+  const mobileJudgeDeckActive =
+    mobileJudgeDeckPrototype && view === "judge" && state.sessionActive;
 
   return (
-    <div className={`app view-${view}`}>
+    <div
+      className={`app view-${view}`}
+      data-mobile-judge-deck={mobileJudgeDeckActive ? "true" : undefined}
+    >
       <Header
         view={view}
         onToggleView={() => setView((current) => (current === "judge" ? "records" : "judge"))}
@@ -163,6 +173,14 @@ export function App() {
         aduRaaguInputMode={preferences.aduRaaguInputMode}
         onAduRaaguInputModeChange={(aduRaaguInputMode) =>
           updatePreferences({ aduRaaguInputMode })
+        }
+        lastMarkStrip={preferences.lastMarkStrip}
+        onLastMarkStripChange={(lastMarkStrip) =>
+          updatePreferences({ lastMarkStrip })
+        }
+        scoreChipTint={preferences.scoreChipTint}
+        onScoreChipTintChange={(scoreChipTint) =>
+          updatePreferences({ scoreChipTint })
         }
         onShowMarkingGuide={() => setMarkingGuideOpen(true)}
         onMoreControlsOpenChange={setMoreControlsOpen}
@@ -269,6 +287,14 @@ export function App() {
               />
             )}
           </aside>
+          {mobileJudgeDeckActive && (
+            <MobileJudgeDeck
+              inputMode={preferences.aduRaaguInputMode}
+              lastMarkStrip={preferences.lastMarkStrip}
+              scoreChipTint={preferences.scoreChipTint}
+              onFinish={() => setFinishOpen(true)}
+            />
+          )}
         </main>
       ) : view === "records" ? (
         <main className="records-main" key="records">

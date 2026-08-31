@@ -256,3 +256,14 @@ product rules belong in `PRODUCT_FOUNDATION.md`, not here.
     - Decision needed: should a competition choose one terminology profile for
       all exports, or may the organizer select a different export language from
       the current interface language?
+
+27. **Post-Direction-A score presentation and Results work**
+    - The portrait mobile judge deck keeps the existing Deducted and Score
+      information. Decision needed later: is that pair redundant, and which
+      value should a future compact summary lead with?
+    - Adu / Raagu press-and-hold from a score chip is deferred. If reconsidered,
+      it needs a visible, dedicated handle so the whole chip never becomes an
+      accidental scoring gesture.
+    - The Results screen remains outside the mobile judging pass. Decision
+      needed later: whether a four-card bento summary is useful there, where it
+      does not compete with the live Mushaf for vertical space.

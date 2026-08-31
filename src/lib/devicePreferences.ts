@@ -3,6 +3,8 @@ export type MushafLayout = "full" | "spread";
 export type JudgeRailSide = "left" | "right";
 export type QuestionFocusMode = "off" | "fade" | "shade" | "shade-fade";
 export type AduRaaguInputMode = "ruler" | "stepper";
+export type LastMarkStrip = "on" | "off";
+export type ScoreChipTint = "off" | "earned" | "always";
 
 export interface DevicePreferencesV5 {
   version: 5;
@@ -12,6 +14,8 @@ export interface DevicePreferencesV5 {
   judgeRailSide: JudgeRailSide;
   questionFocusMode: QuestionFocusMode;
   aduRaaguInputMode: AduRaaguInputMode;
+  lastMarkStrip: LastMarkStrip;
+  scoreChipTint: ScoreChipTint;
 }
 
 export const DEVICE_PREFERENCES_KEY = "tahqeeq:devicePreferences.v5";
@@ -38,6 +42,8 @@ export const DEFAULT_DEVICE_PREFERENCES: DevicePreferencesV5 = {
   judgeRailSide: "left",
   questionFocusMode: "fade",
   aduRaaguInputMode: "ruler",
+  lastMarkStrip: "on",
+  scoreChipTint: "earned",
 };
 
 export function normalizeMushafZoom(
@@ -100,6 +106,14 @@ export function normalizeDevicePreferences(
       : candidate.aduRaaguInputMode === "ruler"
         ? "ruler"
         : fallback.aduRaaguInputMode,
+    lastMarkStrip: candidate.lastMarkStrip === "off" || candidate.lastMarkStrip === "on"
+      ? candidate.lastMarkStrip
+      : fallback.lastMarkStrip,
+    scoreChipTint: candidate.scoreChipTint === "off" ||
+        candidate.scoreChipTint === "earned" ||
+        candidate.scoreChipTint === "always"
+      ? candidate.scoreChipTint
+      : fallback.scoreChipTint,
   };
 }
 

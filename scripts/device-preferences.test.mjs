@@ -41,6 +41,8 @@ test("device preferences normalize invalid values without losing valid choices",
     judgeRailSide: "right",
     questionFocusMode: "shade-fade",
     aduRaaguInputMode: "stepper",
+    lastMarkStrip: "on",
+    scoreChipTint: "earned",
   }), {
     version: 5,
     theme: "dark",
@@ -49,6 +51,8 @@ test("device preferences normalize invalid values without losing valid choices",
     judgeRailSide: "right",
     questionFocusMode: "shade-fade",
     aduRaaguInputMode: "stepper",
+    lastMarkStrip: "on",
+    scoreChipTint: "earned",
   });
   assert.equal(normalizeDevicePreferences({ mushafZoom: 140 }).mushafZoom, 140);
   assert.equal(normalizeDevicePreferences({ mushafZoom: 61 }).mushafZoom, MUSHAF_ZOOM_MIN);
@@ -57,6 +61,8 @@ test("device preferences normalize invalid values without losing valid choices",
   assert.equal(normalizeDevicePreferences({ mushafZoom: null }).mushafZoom, MUSHAF_ZOOM_DEFAULT);
   assert.equal(normalizeDevicePreferences({}).questionFocusMode, "fade");
   assert.equal(normalizeDevicePreferences({}).aduRaaguInputMode, "ruler");
+  assert.equal(normalizeDevicePreferences({}).lastMarkStrip, "on");
+  assert.equal(normalizeDevicePreferences({}).scoreChipTint, "earned");
   assert.equal(
     normalizeDevicePreferences({ aduRaaguInputMode: "invalid" }).aduRaaguInputMode,
     "ruler",
@@ -115,6 +121,8 @@ test("legacy device keys migrate into the versioned settings object", () => {
     judgeRailSide: "right",
     questionFocusMode: "fade",
     aduRaaguInputMode: "ruler",
+    lastMarkStrip: "on",
+    scoreChipTint: "earned",
   });
 });
 
@@ -137,6 +145,8 @@ test("the version-one focus boolean migrates without losing other preferences", 
     judgeRailSide: "right",
     questionFocusMode: "off",
     aduRaaguInputMode: "ruler",
+    lastMarkStrip: "on",
+    scoreChipTint: "earned",
   });
 });
 
@@ -173,6 +183,8 @@ test("the version-three settings migrate with the horizontal input default", () 
     judgeRailSide: "right",
     questionFocusMode: "shade",
     aduRaaguInputMode: "ruler",
+    lastMarkStrip: "on",
+    scoreChipTint: "earned",
   });
 });
 
@@ -212,6 +224,8 @@ test("writing settings keeps the rollback-compatible legacy keys in sync", () =>
   assert.equal(current.mushafZoom, 100);
   assert.equal(current.questionFocusMode, "shade-fade");
   assert.equal(current.aduRaaguInputMode, "stepper");
+  assert.equal(current.lastMarkStrip, "on");
+  assert.equal(current.scoreChipTint, "earned");
   assert.equal(rollbackV4.version, 4);
   assert.equal(rollbackV4.aduRaaguInputMode, "wheel");
   assert.equal(rollbackV3.version, 3);

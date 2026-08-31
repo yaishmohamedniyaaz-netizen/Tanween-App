@@ -603,7 +603,8 @@ textarea:focus-visible {
 .mushaf-view-control,
 .judge-rail-control,
 .question-focus-control,
-.adu-input-control {
+.adu-input-control,
+.mobile-deck-control {
   margin: 0;
   padding: 8px;
   border: 0;
@@ -611,7 +612,8 @@ textarea:focus-visible {
 .mushaf-view-control legend,
 .judge-rail-control legend,
 .question-focus-control legend,
-.adu-input-control legend {
+.adu-input-control legend,
+.mobile-deck-control legend {
   margin-bottom: 8px;
   padding: 0;
   color: var(--ink);
@@ -636,6 +638,19 @@ textarea:focus-visible {
   color: var(--ink-3);
   font-size: 10.5px;
   line-height: 1.35;
+}
+.mobile-deck-control-label {
+  display: block;
+  margin: 7px 2px 5px;
+  color: var(--ink-3);
+  font-size: 10.5px;
+  line-height: 1.3;
+}
+.mobile-deck-control-label:first-of-type {
+  margin-top: 0;
+}
+.mobile-deck-tint-options {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 .mushaf-view-options button {
   min-height: 36px;
@@ -6260,6 +6275,9 @@ textarea:focus-visible {
 }
 .log-row-spacer {
   min-width: 0;
+}
+.mobile-log-detail {
+  display: none;
 }
 .log-chevron {
   display: grid;
@@ -12134,5 +12152,523 @@ html:has(.finish-dialog[open]) {
   .result-detail-finalize {
     align-items: stretch;
     flex-direction: column;
+  }
+}
+
+/* ---- Flagged portrait PWA judge deck ----
+   This layer only recomposes the active-session rail. The scoring, evidence,
+   notes, Finish checkpoint, Mushaf geometry, and saved session remain shared. */
+.mobile-judge-deck,
+.mobile-judge-sheet,
+.mobile-judge-sheet-backdrop {
+  display: none;
+}
+
+@media (max-width: 600px) and (orientation: portrait) {
+  .app[data-mobile-judge-deck="true"] {
+    height: 100dvh;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .app[data-mobile-judge-deck="true"] .app-header {
+    position: relative;
+    top: auto;
+    min-height: calc(55px + env(safe-area-inset-top, 0px));
+    padding-top: calc(5px + env(safe-area-inset-top, 0px));
+    flex: 0 0 auto;
+  }
+
+  .app[data-mobile-judge-deck="true"] .workspace {
+    display: block;
+    width: 100%;
+    height: calc(100dvh - 55px - env(safe-area-inset-top, 0px));
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    animation: none;
+  }
+
+  .app[data-mobile-judge-deck="true"] .sidebar {
+    display: none;
+  }
+
+  .app[data-mobile-judge-deck="true"] .stage {
+    display: flex;
+    width: 100%;
+    height: calc(100% - 114px - env(safe-area-inset-bottom, 0px));
+    min-height: 0;
+    align-items: center;
+    justify-content: center;
+    padding: 0 8px;
+    overflow: hidden;
+  }
+
+  .app[data-mobile-judge-deck="true"] .mushaf-viewport,
+  .app[data-mobile-judge-deck="true"] .mushaf-shell {
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+  }
+
+  .app[data-mobile-judge-deck="true"] .mushaf-shell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .app[data-mobile-judge-deck="true"] .mushaf-scroll {
+    display: block;
+    width: min(377px, calc(100vw - 16px), calc(68dvh - 115px));
+    height: auto;
+    flex: 0 0 auto;
+    overflow: visible;
+  }
+
+  .app[data-mobile-judge-deck="true"] .mushaf-composition {
+    flex: 0 0 auto;
+    width: 100%;
+    max-width: none;
+    margin: 0;
+  }
+
+  .app[data-mobile-judge-deck="true"] .mushaf-composition > .page {
+    width: 100%;
+    max-width: none;
+    border-radius: var(--r-lg);
+  }
+
+  .app[data-mobile-judge-deck="true"] .mushaf-scroll.is-single .mushaf-shared-nav {
+    top: 4px;
+    left: 8px;
+    right: 8px;
+    min-height: 44px;
+  }
+
+  .app[data-mobile-judge-deck="true"] .mobile-judge-deck {
+    position: fixed;
+    z-index: 35;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: block;
+    padding: 8px 8px calc(12px + env(safe-area-inset-bottom, 0px));
+    container-type: inline-size;
+    background: var(--bg);
+  }
+
+  .mobile-judge-dock {
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--surface);
+    box-shadow: var(--shadow-rest);
+  }
+
+  .mobile-criterion-strip {
+    display: grid;
+    height: 44px;
+    gap: 1px;
+    background: var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .mobile-criterion-chip {
+    display: flex;
+    min-width: 0;
+    padding: 0 4px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    background: var(--surface);
+  }
+
+  .mobile-criterion-chip.is-tinted {
+    background: var(--c-wash);
+  }
+
+  .mobile-criterion-label {
+    display: inline-flex;
+    max-width: 100%;
+    align-items: center;
+    gap: 4px;
+    overflow: hidden;
+    color: var(--ink-3);
+    font-size: 11px;
+    line-height: 1.1;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .mobile-criterion-chip.is-tinted .mobile-criterion-label {
+    color: var(--ink-2);
+  }
+
+  .mobile-criterion-label i {
+    width: 6px;
+    height: 9px;
+    flex: 0 0 auto;
+    border-radius: 2px;
+    background: var(--c);
+  }
+
+  .mobile-criterion-value {
+    color: var(--ink);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.1;
+  }
+
+  .mobile-last-action {
+    display: flex;
+    height: 44px;
+    align-items: center;
+    padding-left: 6px;
+    background: var(--c-wash);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .mobile-last-action-main {
+    display: flex;
+    min-width: 0;
+    height: 44px;
+    flex: 1 1 auto;
+    align-items: center;
+    gap: 7px;
+    padding: 0 4px;
+    overflow: hidden;
+    border: 0;
+    background: transparent;
+    color: var(--ink);
+    text-align: left;
+  }
+
+  .mobile-category-mark {
+    width: 8px;
+    height: 11px;
+    flex: 0 0 auto;
+    border-radius: 3px;
+    background: var(--c);
+  }
+
+  .mobile-last-glyph {
+    max-width: 86px;
+    overflow: hidden;
+    font-family: var(--quran);
+    font-size: 18px;
+    line-height: 1.4;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .mobile-last-detail {
+    min-width: 0;
+    overflow: hidden;
+    color: var(--ink-2);
+    font-size: 12px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .mobile-last-amount {
+    margin-left: auto;
+    padding-inline: 5px;
+    font-size: 14px;
+    font-weight: 550;
+    white-space: nowrap;
+  }
+
+  .mobile-last-undo,
+  .mobile-last-dismiss {
+    height: 44px;
+    flex: 0 0 auto;
+    border: 0;
+    background: transparent;
+  }
+
+  .mobile-last-undo {
+    padding: 0 10px;
+    color: var(--c-strong);
+    font-size: 13px;
+    font-weight: 550;
+  }
+
+  .mobile-last-divider {
+    width: 1px;
+    height: 20px;
+    flex: 0 0 auto;
+    background: var(--line-2);
+  }
+
+  .mobile-last-dismiss {
+    display: grid;
+    width: 44px;
+    padding: 0;
+    place-items: center;
+    color: var(--ink-3);
+    font-size: 21px;
+    font-weight: 300;
+  }
+
+  .mobile-dock-actions {
+    display: grid;
+    height: 48px;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr) 96px;
+    gap: 1px;
+    background: var(--line);
+  }
+
+  .mobile-dock-actions > button {
+    min-width: 0;
+    min-height: 48px;
+    border: 0;
+    background: var(--surface);
+    color: var(--ink);
+  }
+
+  .mobile-score-action,
+  .mobile-mistakes-action {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+  }
+
+  .mobile-score-action .mobile-dock-score-label {
+    color: var(--ink-3);
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+  }
+
+  .mobile-score-action strong {
+    font-size: 17px;
+    font-weight: 550;
+  }
+
+  .mobile-score-action > span:last-child {
+    color: var(--ink-3);
+    font-size: 12px;
+  }
+
+  .mobile-mistakes-action {
+    color: var(--ink-2);
+    font-size: 13px;
+  }
+
+  .mobile-mistakes-action > .t-num {
+    color: var(--ink);
+    font-size: 15px;
+    font-weight: 500;
+  }
+
+  .mobile-mistakes-action svg {
+    color: var(--ink-3);
+    transform: rotate(-90deg);
+  }
+
+  .mobile-dock-actions > .mobile-finish-action {
+    background: var(--ink);
+    color: var(--bg);
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .mobile-judge-sheet-backdrop {
+    position: fixed;
+    z-index: 68;
+    inset: 0;
+    display: block;
+    border: 0;
+    background: var(--scrim);
+  }
+
+  .mobile-judge-sheet {
+    position: fixed;
+    z-index: 69;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    max-height: calc(100dvh - env(safe-area-inset-top, 0px));
+    padding: 12px 16px calc(12px + env(safe-area-inset-bottom, 0px));
+    overflow-y: auto;
+    flex-direction: column;
+    border: 1px solid var(--line);
+    border-bottom: 0;
+    border-radius: 20px 20px 0 0;
+    background: var(--surface);
+    box-shadow: var(--shadow-float);
+    color: var(--ink);
+  }
+
+  .mobile-sheet-handle {
+    display: grid;
+    width: 44px;
+    min-height: 32px;
+    margin: -8px auto 2px;
+    padding: 0;
+    flex: 0 0 auto;
+    place-items: center;
+    border: 0;
+    background: transparent;
+  }
+
+  .mobile-sheet-handle > span {
+    width: 36px;
+    height: 4px;
+    border-radius: 2px;
+    background: var(--line-2);
+  }
+
+  .mobile-score-sheet .judge-role-strip {
+    min-height: 24px;
+    padding: 0 0 10px;
+    border: 0;
+  }
+
+  .mobile-score-sheet .scorecard {
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .mobile-score-sheet .sc-row,
+  .mobile-score-sheet .sc-row-impression {
+    grid-template-columns: 9px minmax(0, 1fr) 46px 78px;
+    min-height: 44px;
+    gap: 8px;
+    padding: 4px 0;
+  }
+
+  .mobile-score-sheet .sc-name {
+    font-size: 14px;
+  }
+
+  .mobile-score-sheet .sc-deducted {
+    font-size: 12px;
+  }
+
+  .mobile-score-sheet .mark-picker,
+  .mobile-score-sheet .mark-stepper-shell,
+  .mobile-score-sheet .mark-stepper-shell .mark-picker {
+    width: 78px;
+  }
+
+  .mobile-score-sheet .sc-row-impression .sc-reason {
+    min-height: 34px;
+  }
+
+  .mobile-score-sheet > .panel[aria-label="Notes"] {
+    margin-top: 10px;
+    padding: 10px 0 0;
+    border: 0;
+    border-top: 1px solid var(--line);
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .mobile-score-sheet-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-top: 12px;
+  }
+
+  .mobile-score-sheet-actions .btn-ghost,
+  .mobile-score-sheet-actions .btn-primary {
+    min-height: 48px;
+  }
+
+  .mobile-score-sheet-actions .btn-ghost {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    gap: 7px;
+  }
+
+  .mobile-score-sheet-actions .btn-primary {
+    flex: 1 1 auto;
+  }
+
+  .app[data-mobile-judge-deck="true"] .mistake-panel.is-expanded.is-mobile-sheet,
+  .app[data-mobile-judge-deck="true"] .workspace.rail-left .mistake-panel.is-expanded.is-mobile-sheet {
+    position: fixed;
+    z-index: 69;
+    inset: auto 0 0;
+    display: flex;
+    width: 100%;
+    max-height: calc(100dvh - env(safe-area-inset-top, 0px));
+    margin: 0;
+    padding: 12px 16px calc(12px + env(safe-area-inset-bottom, 0px));
+    border: 1px solid var(--line);
+    border-bottom: 0;
+    border-radius: 20px 20px 0 0;
+    background: var(--surface);
+    box-shadow: var(--shadow-float);
+  }
+
+  .mistake-panel.is-mobile-sheet .panel-head {
+    min-height: 28px;
+    margin-bottom: 10px;
+  }
+
+  .mistake-panel.is-mobile-sheet .log {
+    gap: 5px;
+    padding-right: 0;
+  }
+
+  .mistake-panel.is-mobile-sheet .log-row {
+    grid-template-columns: 8px 76px 52px minmax(0, 1fr) 14px;
+    min-height: 46px;
+  }
+
+  .mistake-panel.is-mobile-sheet .log-glyph {
+    overflow: hidden;
+    font-size: 19px;
+    line-height: 1.4;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .mistake-panel.is-mobile-sheet .mobile-log-detail {
+    display: block;
+    min-width: 0;
+    overflow: hidden;
+    color: var(--ink-3);
+    font-size: 12px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .mistake-panel.is-mobile-sheet .log-row-spacer {
+    display: none;
+  }
+
+  .mistake-panel.is-mobile-sheet .empty {
+    padding-bottom: 8px;
+  }
+
+  .app[data-mobile-judge-deck="true"] .finish-dialog {
+    width: 100vw;
+    height: 100dvh;
+    max-height: 100dvh;
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+  }
+}
+
+@container (max-width: 312px) {
+  .mobile-judge-deck .mobile-dock-score-label,
+  .mobile-judge-deck .mobile-last-time {
+    display: none;
   }
 }
