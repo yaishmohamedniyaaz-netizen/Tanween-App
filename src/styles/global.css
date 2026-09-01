@@ -5049,8 +5049,8 @@ textarea:focus-visible {
   gap: 3px;
 }
 .judge-role-colors i {
-  width: 7px;
-  height: 9px;
+  width: 8px;
+  height: 8px;
   border-radius: 2px;
   background: var(--c);
 }
@@ -13461,6 +13461,13 @@ html:has(.finish-dialog[open]) {
     overflow: visible;
   }
 
+  .app[data-mobile-judge-deck="true"] .mushaf-scroll.is-single {
+    display: grid;
+    width: min(377px, calc(100vw - 16px), calc(68dvh - 152px));
+    grid-template-rows: 44px auto;
+    row-gap: 4px;
+  }
+
   .app[data-mobile-judge-deck="true"] .mushaf-composition {
     flex: 0 0 auto;
     width: 100%;
@@ -13475,10 +13482,28 @@ html:has(.finish-dialog[open]) {
   }
 
   .app[data-mobile-judge-deck="true"] .mushaf-scroll.is-single .mushaf-shared-nav {
-    top: 4px;
-    left: 8px;
-    right: 8px;
+    position: relative;
+    top: auto;
+    left: auto;
+    right: auto;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    grid-row: 1;
+    width: 100%;
     min-height: 44px;
+  }
+
+  .app[data-mobile-judge-deck="true"] .mushaf-scroll.is-single .mushaf-shared-nav > .page-nav {
+    grid-column: 2;
+    transform: translateY(48px);
+  }
+
+  .app[data-mobile-judge-deck="true"] .mushaf-scroll.is-single .question-return-bubble {
+    grid-column: 1;
+    justify-self: start;
+  }
+
+  .app[data-mobile-judge-deck="true"] .mushaf-scroll.is-single .mushaf-composition {
+    grid-row: 2;
   }
 
   .app[data-mobile-judge-deck="true"] .mobile-judge-deck {
@@ -13762,9 +13787,16 @@ html:has(.finish-dialog[open]) {
     box-shadow: 0 0 0 3px var(--ring);
   }
 
-  .mobile-score-sheet .judge-role-strip {
-    min-height: 24px;
-    padding: 0 0 10px;
+  .mobile-score-sheet-context {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 44px;
+    min-height: 44px;
+    align-items: center;
+  }
+
+  .mobile-score-sheet-context .judge-role-strip {
+    min-height: 44px;
+    padding: 0 8px 0 0;
     border: 0;
   }
 
@@ -13798,8 +13830,74 @@ html:has(.finish-dialog[open]) {
     width: 78px;
   }
 
-  .mobile-score-sheet .sc-row-impression .sc-reason {
-    min-height: 34px;
+  .mobile-score-sheet .compact-text-inline {
+    display: grid;
+    grid-column: 2 / -1;
+    width: 100%;
+  }
+
+  .mobile-score-sheet .sc-reason-trigger {
+    display: flex;
+    min-height: 44px;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 10px;
+    border: 1px solid var(--line);
+    border-radius: var(--r-sm);
+    background: transparent;
+    color: var(--ink-2);
+    font: inherit;
+    font-size: var(--t-micro);
+    text-align: left;
+  }
+
+  .mobile-score-sheet .sc-reason-trigger i {
+    width: 8px;
+    height: 8px;
+    border-radius: 2px;
+    background: var(--c);
+  }
+
+  .mobile-score-sheet .compact-text-inline-editor {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 8px;
+    padding-top: 8px;
+  }
+
+  .mobile-score-sheet .compact-text-inline-editor textarea {
+    grid-column: 1 / -1;
+    width: 100%;
+    min-height: 76px;
+    resize: vertical;
+    padding: 9px 10px;
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-sm);
+    background: var(--surface);
+    color: var(--ink);
+    font: inherit;
+    font-size: 16px;
+    line-height: 1.4;
+  }
+
+  .mobile-score-sheet .compact-text-inline-editor textarea:focus {
+    outline: none;
+    border-color: var(--ink-3);
+    box-shadow: 0 0 0 3px var(--ring);
+  }
+
+  .mobile-score-sheet .compact-text-inline-done {
+    grid-column: 2;
+    min-width: 72px;
+    min-height: 44px;
+    padding: 0 12px;
+    border: 1px solid var(--line-2);
+    border-radius: var(--r-sm);
+    background: var(--surface);
+    color: var(--ink);
+    font: inherit;
+    font-size: var(--t-small);
   }
 
   .mobile-score-sheet > .panel[aria-label="Notes"] {
@@ -13905,7 +14003,9 @@ html:has(.finish-dialog[open]) {
   .app[data-mobile-judge-deck="true"] .finish-dialog {
     width: calc(100vw - 16px);
     max-height: min(78dvh, 680px);
-    margin: auto 8px max(8px, env(safe-area-inset-bottom, 0px));
+    inset: max(8px, env(safe-area-inset-top, 0px)) 8px
+      max(8px, env(safe-area-inset-bottom, 0px));
+    margin: auto;
     padding: 0 0 env(safe-area-inset-bottom, 0px);
     border: 1px solid var(--line);
     border-radius: 20px 20px 12px 12px;
@@ -13940,6 +14040,21 @@ html:has(.finish-dialog[open]) {
   .app[data-mobile-judge-deck="true"] .finish-dialog-actions {
     min-height: 64px;
     padding: 10px 16px 12px;
+  }
+}
+
+@media (max-width: 350px) and (orientation: portrait) {
+  .app[data-mobile-judge-deck="true"] .question-return-label {
+    font-size: 0;
+  }
+
+  .app[data-mobile-judge-deck="true"] .question-return-label::after {
+    content: "Return";
+    font-size: var(--t-micro);
+  }
+
+  .app[data-mobile-judge-deck="true"] .question-return-page {
+    display: none;
   }
 }
 

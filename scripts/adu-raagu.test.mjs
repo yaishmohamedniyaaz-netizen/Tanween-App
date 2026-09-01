@@ -713,7 +713,7 @@ test("the Finish recovery remains available across repeated invalid saves", () =
   assert.match(finishDialogSource, /const \[saveAttemptCount, setSaveAttemptCount\] = useState\(0\)/);
   assert.match(finishDialogSource, /setSaveAttemptCount\(\(attempts\) => attempts \+ 1\)/);
   assert.match(finishDialogSource, /\[firstMissing, saveAttemptCount\]/);
-  assert.match(finishDialogSource, /dialog\.style\.height = `\$\{openingHeight\}px`/);
+  assert.doesNotMatch(finishDialogSource, /openingHeight|dialog\.style\.height/);
   assert.doesNotMatch(ruleBody(".finish-dialog"), /\n\s*height:/);
   assert.match(finishDialogSource, /className="finish-dialog-body" ref=\{bodyRef\}/);
   assert.match(finishDialogSource, /body\.scrollTop = Math\.max\(0,/);

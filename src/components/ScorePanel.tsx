@@ -94,6 +94,7 @@ function ImpressionRow({
           placeholder="Reason (optional)"
           triggerClassName={`sc-reason-trigger ${note.trim() ? "has-value" : ""}`}
           triggerLabel={`Edit ${label} reason`}
+          presentation="inline"
           triggerContent={
             <>
               <span>Reason</span>

@@ -147,8 +147,6 @@ export function FinishDialog({
     const dialog = dialogRef.current;
     if (!dialog) return;
     if (!dialog.open) dialog.showModal();
-    const openingHeight = Math.ceil(dialog.getBoundingClientRect().height);
-    dialog.style.height = `${openingHeight}px`;
     headingRef.current?.focus({ preventScroll: true });
     return () => {
       if (dialog.open) dialog.close();

@@ -298,7 +298,7 @@ export function App() {
                         onClick={() => handlePageChange(openingPage)}
                       >
                         <span aria-hidden="true">↩</span>
-                        <span>Return to question</span>
+                        <span className="question-return-label">Return to question</span>
                         <span className="question-return-page t-num">p. {openingPage}</span>
                       </button>
                     )}

@@ -259,8 +259,8 @@ export function MobileJudgeDeck({
           aria-modal="true"
           aria-label="Score"
         >
-          <div className="mobile-sheet-head">
-            <span className="t-label">Score</span>
+          <div className="mobile-score-sheet-context">
+            <JudgeRoleStrip onChange={() => undefined} />
             <button
               ref={scoreHandleRef}
               type="button"
@@ -271,7 +271,6 @@ export function MobileJudgeDeck({
               <span aria-hidden="true">×</span>
             </button>
           </div>
-          <JudgeRoleStrip onChange={() => undefined} />
           <ScorePanel inputMode={inputMode} presentation="compact" />
           {notesOpen && <NotesBox />}
           <div className="mobile-score-sheet-actions">

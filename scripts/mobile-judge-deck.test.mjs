@@ -114,6 +114,7 @@ test("portrait sheets expose explicit close controls and the score ruler clears 
   const deck = readFileSync(new URL("../src/components/MobileJudgeDeck.tsx", import.meta.url), "utf8");
   const log = readFileSync(new URL("../src/components/MistakeLog.tsx", import.meta.url), "utf8");
   const score = readFileSync(new URL("../src/components/ScorePanel.tsx", import.meta.url), "utf8");
+  const editor = readFileSync(new URL("../src/components/CompactTextEditor.tsx", import.meta.url), "utf8");
   const css = readFileSync(new URL("../src/styles/global.css", import.meta.url), "utf8");
   assert.match(deck, /className="mobile-sheet-close"[\s\S]*aria-label="Close score"/);
   assert.match(log, /className="mobile-sheet-close"[\s\S]*aria-label="Close mistakes"/);
@@ -123,6 +124,12 @@ test("portrait sheets expose explicit close controls and the score ruler clears 
   assert.match(score, /layer=\{presentation === "compact" \? "dialog" : "workspace"\}/);
   assert.match(css, /\.mark-bar\.is-dialog-layer \{[\s\S]*z-index: 90/);
   assert.match(css, /\.mobile-sheet-close \{[\s\S]*min-height: 44px/);
+  assert.doesNotMatch(deck, /<span className="t-label">Score<\/span>/);
+  assert.match(deck, /className="mobile-score-sheet-context"[\s\S]*<JudgeRoleStrip/);
+  assert.match(score, /presentation="inline"/);
+  assert.doesNotMatch(editor, /<label/);
+  assert.match(editor, /aria-label=\{label\}/);
+  assert.match(css, /\.judge-role-colors i \{[\s\S]*width: 8px;[\s\S]*height: 8px/);
 });
 
 test("prepared portrait mode keeps the Begin actions in a fixed tray", () => {
@@ -146,6 +153,24 @@ test("phone portrait Finish is a bounded sheet rather than a full-screen panel",
   assert.ok(mobileFinish, "expected the mobile Finish dialog override");
   assert.match(mobileFinish[1], /width: calc\(100vw - 16px\)/);
   assert.match(mobileFinish[1], /max-height: min\(78dvh, 680px\)/);
-  assert.match(mobileFinish[1], /margin: auto 8px max\(8px, env\(safe-area-inset-bottom, 0px\)\)/);
+  assert.match(mobileFinish[1], /inset: max\(8px, env\(safe-area-inset-top, 0px\)\) 8px\s+max\(8px, env\(safe-area-inset-bottom, 0px\)\)/);
+  assert.match(mobileFinish[1], /margin: auto/);
   assert.doesNotMatch(mobileFinish[1], /height: 100dvh/);
+});
+
+test("phone portrait reserves a navigation row above the Mushaf", () => {
+  const css = readFileSync(new URL("../src/styles/global.css", import.meta.url), "utf8");
+  assert.match(
+    css,
+    /\.app\[data-mobile-judge-deck="true"\] \.mushaf-scroll\.is-single \{[\s\S]*width: min\(377px, calc\(100vw - 16px\), calc\(68dvh - 152px\)\);[\s\S]*grid-template-rows: 44px auto;[\s\S]*row-gap: 4px/,
+  );
+  assert.match(
+    css,
+    /\.app\[data-mobile-judge-deck="true"\] \.mushaf-scroll\.is-single \.mushaf-shared-nav \{[\s\S]*position: relative;[\s\S]*grid-template-columns: minmax\(0, 1fr\) auto minmax\(0, 1fr\);[\s\S]*grid-row: 1/,
+  );
+  assert.match(css, /\.mushaf-scroll\.is-single \.question-return-bubble \{[\s\S]*grid-column: 1/);
+  assert.match(
+    css,
+    /\.mushaf-scroll\.is-single \.mushaf-shared-nav > \.page-nav \{[\s\S]*transform: translateY\(48px\)/,
+  );
 });
