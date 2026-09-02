@@ -322,7 +322,7 @@ export function StartDialog({
 
   return (
     <div
-      className="dialog-backdrop"
+      className={`dialog-backdrop reciter-start-backdrop stage-${stage}`}
       onKeyDown={(event) => {
         if (event.key === "Escape") onClose();
       }}
