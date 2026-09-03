@@ -44,7 +44,11 @@ export function PreparedSidebar({
   const retryingMicrophone = recording?.enabled && recording.status === "error";
 
   return (
-    <section className="prepared-sidebar" aria-label="Ready to begin judging">
+    <section
+      className="prepared-sidebar"
+      aria-label="Ready to begin judging"
+      data-recording-error={recording?.error ? "true" : undefined}
+    >
       <div className="prepared-sidebar-details">
         <ParticipantIdentity
           participant={prepared.participant}
@@ -64,12 +68,20 @@ export function PreparedSidebar({
                 type="checkbox"
                 checked={recording.enabled}
                 disabled={!recording.supported || requestingMicrophone}
+                aria-label="Record this practice recitation"
                 aria-describedby="prepared-recording-note"
                 onChange={(event) => recording.onEnabledChange(event.target.checked)}
               />
               <span aria-hidden="true" className="prepared-recording-check" />
               <span>
-                <strong>Record this practice recitation</strong>
+                <strong>
+                  <span className="prepared-recording-label-full">
+                    Record this practice recitation
+                  </span>
+                  <span className="prepared-recording-label-compact" aria-hidden="true">
+                    Record
+                  </span>
+                </strong>
                 <small id="prepared-recording-note">
                   Saved only on this device for later replay.
                 </small>

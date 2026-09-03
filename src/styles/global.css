@@ -12811,6 +12811,10 @@ html:has(.finish-dialog[open]) {
   font-weight: 620;
 }
 
+.prepared-recording-label-compact {
+  display: none;
+}
+
 .prepared-recording-choice small,
 .prepared-recording-message {
   color: var(--ink-3);
@@ -13302,7 +13306,7 @@ html:has(.finish-dialog[open]) {
   .app[data-mobile-prepared="true"] .stage {
     display: flex;
     width: 100%;
-    height: 100%;
+    height: calc(100% - 114px - env(safe-area-inset-bottom, 0px));
     min-height: 0;
     align-items: center;
     justify-content: center;
@@ -13340,80 +13344,232 @@ html:has(.finish-dialog[open]) {
 
   .app[data-mobile-prepared="true"] .sidebar {
     position: fixed;
-    z-index: 40;
+    z-index: 35;
     top: auto;
-    right: 8px;
-    bottom: max(8px, env(safe-area-inset-bottom, 0px));
-    left: 8px;
+    right: 0;
+    bottom: 0;
+    left: 0;
     display: block;
-    width: auto;
-    height: auto;
-    max-height: min(50dvh, 360px);
+    width: 100%;
+    height: calc(114px + env(safe-area-inset-bottom, 0px));
+    max-height: none;
     min-height: 0;
     margin: 0;
+    padding: 8px 8px calc(12px + env(safe-area-inset-bottom, 0px));
     overflow: hidden;
-    border: 1px solid var(--line);
-    border-radius: 16px;
-    background: var(--surface);
-    box-shadow: var(--shadow-float);
+    border: 0;
+    border-radius: 0;
+    background: var(--bg);
+    box-shadow: none;
   }
 
   .app[data-mobile-prepared="true"] .prepared-sidebar {
-    display: flex;
-    max-height: min(50dvh, 360px);
+    display: grid;
+    height: 94px;
+    max-height: none;
     min-height: 0;
-    padding: 10px 14px;
-    justify-content: flex-start;
+    padding: 0;
+    grid-template-rows: 44px 48px;
+    justify-content: stretch;
     overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--surface);
+    box-shadow: var(--shadow-rest);
   }
 
   .app[data-mobile-prepared="true"] .prepared-sidebar-details {
-    display: block;
-    flex: 1 1 auto;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    gap: 7px;
+    align-items: center;
     min-height: 0;
-    overflow-x: hidden;
-    overflow-y: auto;
-    overscroll-behavior: contain;
+    padding: 0 6px 0 10px;
+    overflow: hidden;
+    border-bottom: 1px solid var(--line);
   }
 
   .app[data-mobile-prepared="true"] .prepared-sidebar-actions {
-    display: block;
-    flex: 0 0 auto;
-    padding-top: 8px;
-    border-top: 1px solid var(--line);
-    background: var(--surface);
+    display: grid;
+    grid-template-columns: 84px 84px minmax(0, 1fr);
+    gap: 1px;
+    min-height: 48px;
+    padding: 0;
+    background: var(--line);
   }
 
   .app[data-mobile-prepared="true"] .prepared-sidebar-participant {
-    padding-bottom: 8px;
+    gap: 6px;
+    min-width: 0;
+    padding: 0;
+    border: 0;
   }
 
   .app[data-mobile-prepared="true"] .participant-identity.is-lead .participant-identity-copy strong {
-    font-size: var(--t-small);
+    font-size: 13px;
+    letter-spacing: 0;
   }
 
   .app[data-mobile-prepared="true"] .participant-identity.is-lead .participant-identity-copy small {
+    display: none;
+  }
+
+  .app[data-mobile-prepared="true"] .prepared-sidebar-participant .participant-reference {
+    min-width: 30px;
+    min-height: 30px;
+    padding-inline: 6px;
+    font-size: 10px;
+  }
+
+  .app[data-mobile-prepared="true"] .prepared-sidebar-question {
+    display: block;
+    max-width: 104px;
+    min-width: 0;
+    margin: 0;
+    padding-left: 7px;
     overflow: hidden;
-    font-size: var(--t-micro);
+    border-left: 1px solid var(--line);
+  }
+
+  .app[data-mobile-prepared="true"] .prepared-sidebar-question span {
+    display: none;
+  }
+
+  .app[data-mobile-prepared="true"] .prepared-sidebar-question strong {
+    display: block;
+    overflow: hidden;
+    font-size: 11px;
+    font-weight: 560;
+    letter-spacing: 0;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
 
-  .app[data-mobile-prepared="true"] .prepared-sidebar-question {
-    margin: 8px 0 10px;
-  }
-
-  .app[data-mobile-prepared="true"] .prepared-sidebar-question strong {
-    font-size: var(--t-small);
-  }
-
   .app[data-mobile-prepared="true"] .prepared-recording {
-    margin-bottom: 8px;
-    padding: 9px;
+    min-width: 72px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+  }
+
+  .app[data-mobile-prepared="true"] .prepared-recording-choice {
+    min-height: 44px;
+    grid-template-columns: 16px minmax(0, 1fr);
+    gap: 5px;
+    align-items: center;
+    padding: 0 4px;
+  }
+
+  .app[data-mobile-prepared="true"] .prepared-recording-check {
+    width: 16px;
+    height: 16px;
+    margin: 0;
+  }
+
+  .app[data-mobile-prepared="true"] .prepared-recording-choice > span:last-child {
+    display: block;
+  }
+
+  .app[data-mobile-prepared="true"] .prepared-recording-choice strong {
+    display: block;
+    max-width: 42px;
+    overflow: hidden;
+    font-size: 10.5px;
+    font-weight: 570;
+    white-space: nowrap;
+  }
+
+  .app[data-mobile-prepared="true"] .prepared-recording-label-full {
+    display: none;
+  }
+
+  .app[data-mobile-prepared="true"] .prepared-recording-label-compact {
+    display: inline;
+  }
+
+  .app[data-mobile-prepared="true"] .prepared-recording-choice small,
+  .app[data-mobile-prepared="true"] .prepared-recording-message {
+    display: none;
+  }
+
+  .app[data-mobile-prepared="true"] .prepared-sidebar-actions > .btn-primary,
+  .app[data-mobile-prepared="true"] .prepared-sidebar-actions > .prepared-begin-without-recording,
+  .app[data-mobile-prepared="true"] .prepared-sidebar-secondary .btn-ghost {
+    min-width: 0;
+    min-height: 48px;
+    margin: 0;
+    padding: 0 7px;
+    border: 0;
+    border-radius: 0;
+    font-size: 11px;
+    line-height: 1.15;
+  }
+
+  .app[data-mobile-prepared="true"] .prepared-sidebar-actions > .btn-primary {
+    grid-column: 3;
+    grid-row: 1;
+    font-size: 12px;
+  }
+
+  .app[data-mobile-prepared="true"] .prepared-sidebar-secondary {
+    display: contents;
+    margin: 0;
   }
 
   .app[data-mobile-prepared="true"] .prepared-sidebar-secondary .btn-ghost {
-    min-height: var(--tap);
+    background: var(--surface);
+  }
+
+  .app[data-mobile-prepared="true"] .prepared-sidebar-secondary .btn-ghost:first-child {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .app[data-mobile-prepared="true"] .prepared-sidebar-secondary .btn-ghost:last-child {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .app[data-mobile-prepared="true"] .prepared-sidebar[data-recording-error="true"] .prepared-sidebar-details {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .app[data-mobile-prepared="true"] .prepared-sidebar[data-recording-error="true"] .prepared-sidebar-participant,
+  .app[data-mobile-prepared="true"] .prepared-sidebar[data-recording-error="true"] .prepared-sidebar-question,
+  .app[data-mobile-prepared="true"] .prepared-sidebar[data-recording-error="true"] .prepared-recording-choice {
+    display: none;
+  }
+
+  .app[data-mobile-prepared="true"] .prepared-sidebar[data-recording-error="true"] .prepared-recording {
+    width: 100%;
+  }
+
+  .app[data-mobile-prepared="true"] .prepared-sidebar[data-recording-error="true"] .prepared-recording-message.is-error {
+    display: -webkit-box;
+    margin: 0;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    font-size: 10px;
+    line-height: 1.25;
+  }
+
+  .app[data-mobile-prepared="true"] .prepared-sidebar[data-recording-error="true"] .prepared-sidebar-actions {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+
+  .app[data-mobile-prepared="true"] .prepared-sidebar[data-recording-error="true"] .prepared-sidebar-actions > .btn-primary {
+    grid-column: 1;
+  }
+
+  .app[data-mobile-prepared="true"] .prepared-sidebar[data-recording-error="true"] .prepared-begin-without-recording {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .app[data-mobile-prepared="true"] .prepared-sidebar[data-recording-error="true"] .prepared-sidebar-secondary {
+    display: none;
   }
 
   .reciter-start-backdrop.stage-participant {
@@ -13430,8 +13586,8 @@ html:has(.finish-dialog[open]) {
   }
 
   .reciter-start-backdrop.stage-participant .reciter-start-head {
-    min-height: 60px;
-    padding: 15px 54px 13px 16px;
+    min-height: 56px;
+    padding: 12px 54px 10px 14px;
   }
 
   .reciter-start-backdrop.stage-participant .dialog-close {
@@ -13439,6 +13595,52 @@ html:has(.finish-dialog[open]) {
     right: 8px;
     width: 44px;
     height: 44px;
+  }
+
+  .reciter-start-backdrop.stage-participant .reciter-selection-screen {
+    padding: 8px 12px 12px;
+  }
+
+  .reciter-start-backdrop.stage-participant .reciter-queue-summary {
+    min-height: 24px;
+    margin-bottom: 4px;
+  }
+
+  .reciter-start-backdrop.stage-participant .next-reciter-main {
+    min-height: 56px;
+    padding: 6px 10px;
+  }
+
+  .reciter-start-backdrop.stage-participant .participant-identity.is-lead .participant-identity-copy strong {
+    font-size: 14px;
+    letter-spacing: 0;
+  }
+
+  .reciter-start-backdrop.stage-participant .participant-identity.is-lead .participant-identity-copy small {
+    overflow: hidden;
+    font-size: 10px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .reciter-start-backdrop.stage-participant .next-reciter-absent {
+    min-width: 64px;
+    min-height: 56px;
+  }
+
+  .reciter-start-backdrop.stage-participant .reciter-selection-screen .queue-search {
+    min-height: 44px;
+    margin-top: 6px;
+  }
+
+  .reciter-start-backdrop.stage-participant .reciter-selection-screen .queue-scroll {
+    margin-top: 6px;
+    padding-bottom: 0;
+  }
+
+  .reciter-start-backdrop.stage-participant .reciter-selection-screen .queue-participant-button {
+    min-height: 48px;
+    padding-block: 4px;
   }
 
   .app[data-mobile-judge-deck="true"] .workspace {
@@ -13489,9 +13691,12 @@ html:has(.finish-dialog[open]) {
     overflow: visible;
   }
 
-  .app[data-mobile-judge-deck="true"] .mushaf-scroll.is-single {
-    display: block;
-    width: min(377px, calc(100vw - 16px), calc(68dvh - 115px));
+  .app[data-mobile-judge-deck="true"] .mushaf-scroll.is-single,
+  .app[data-mobile-prepared="true"] .mushaf-scroll.is-single {
+    display: grid;
+    width: min(377px, calc(100vw - 16px), calc(68dvh - 152px));
+    grid-template-rows: 44px auto;
+    row-gap: 4px;
   }
 
   .app[data-mobile-judge-deck="true"] .mushaf-composition {
@@ -13507,34 +13712,39 @@ html:has(.finish-dialog[open]) {
     border-radius: var(--r-lg);
   }
 
-  .app[data-mobile-judge-deck="true"] .mushaf-scroll.is-single .mushaf-shared-nav {
-    position: absolute;
-    top: 8px;
-    left: 8px;
-    right: 8px;
+  .app[data-mobile-judge-deck="true"] .mushaf-scroll.is-single .mushaf-shared-nav,
+  .app[data-mobile-prepared="true"] .mushaf-scroll.is-single .mushaf-shared-nav {
+    position: relative;
+    top: auto;
+    left: auto;
+    right: auto;
     grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
-    width: auto;
-    min-height: 36px;
+    grid-row: 1;
+    width: 100%;
+    min-height: 44px;
   }
 
-  .app[data-mobile-judge-deck="true"] .mushaf-scroll.is-single .mushaf-shared-nav > .page-nav {
+  .app[data-mobile-judge-deck="true"] .mushaf-scroll.is-single .mushaf-shared-nav > .page-nav,
+  .app[data-mobile-prepared="true"] .mushaf-scroll.is-single .mushaf-shared-nav > .page-nav {
     grid-column: 2;
-    transform: none;
+    transform: translateY(48px);
   }
 
-  .app[data-mobile-judge-deck="true"] .mushaf-scroll.is-single .question-return-bubble {
+  .app[data-mobile-judge-deck="true"] .mushaf-scroll.is-single .question-return-bubble,
+  .app[data-mobile-prepared="true"] .mushaf-scroll.is-single .question-return-bubble {
     grid-column: 1;
     justify-self: start;
     min-height: 44px;
     padding: 0 9px;
-    transform: translateY(-48px);
+    transform: none;
     border: 0;
     background: transparent;
     box-shadow: none;
     isolation: isolate;
   }
 
-  .app[data-mobile-judge-deck="true"] .mushaf-scroll.is-single .question-return-bubble::before {
+  .app[data-mobile-judge-deck="true"] .mushaf-scroll.is-single .question-return-bubble::before,
+  .app[data-mobile-prepared="true"] .mushaf-scroll.is-single .question-return-bubble::before {
     position: absolute;
     z-index: -1;
     inset: 6px 0;
@@ -13545,13 +13755,20 @@ html:has(.finish-dialog[open]) {
     box-shadow: var(--shadow-rest);
   }
 
-  .app[data-mobile-judge-deck="true"] .mushaf-scroll.is-single .question-return-bubble:hover {
+  .app[data-mobile-judge-deck="true"] .mushaf-scroll.is-single .question-return-bubble:hover,
+  .app[data-mobile-prepared="true"] .mushaf-scroll.is-single .question-return-bubble:hover {
     background: transparent;
   }
 
-  .app[data-mobile-judge-deck="true"] .mushaf-scroll.is-single .question-return-bubble:hover::before {
+  .app[data-mobile-judge-deck="true"] .mushaf-scroll.is-single .question-return-bubble:hover::before,
+  .app[data-mobile-prepared="true"] .mushaf-scroll.is-single .question-return-bubble:hover::before {
     border-color: var(--line-2);
     background: var(--surface);
+  }
+
+  .app[data-mobile-judge-deck="true"] .mushaf-scroll.is-single .mushaf-composition,
+  .app[data-mobile-prepared="true"] .mushaf-scroll.is-single .mushaf-composition {
+    grid-row: 2;
   }
 
   .app[data-mobile-judge-deck="true"] .mobile-judge-deck {

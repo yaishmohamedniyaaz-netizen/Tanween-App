@@ -132,7 +132,7 @@ test("portrait sheets expose explicit close controls and the score ruler clears 
   assert.match(css, /\.judge-role-colors i \{[\s\S]*width: 8px;[\s\S]*height: 8px/);
 });
 
-test("prepared portrait mode overlays a bounded sheet without resizing the Mushaf", () => {
+test("prepared portrait mode shares the live dock footprint without covering the Mushaf", () => {
   const app = readFileSync(new URL("../src/App.tsx", import.meta.url), "utf8");
   const prepared = readFileSync(new URL("../src/components/PreparedSidebar.tsx", import.meta.url), "utf8");
   const css = readFileSync(new URL("../src/styles/global.css", import.meta.url), "utf8");
@@ -141,11 +141,12 @@ test("prepared portrait mode overlays a bounded sheet without resizing the Musha
   assert.match(prepared, /className="prepared-sidebar-details"/);
   assert.match(prepared, /className="prepared-sidebar-actions"/);
   assert.match(css, /\.app\[data-mobile-prepared="true"\] \.workspace \{[\s\S]*display: block;[\s\S]*overflow: hidden/);
-  assert.match(css, /\.app\[data-mobile-prepared="true"\] \.stage \{[\s\S]*height: 100%/);
+  assert.match(css, /\.app\[data-mobile-prepared="true"\] \.stage \{[\s\S]*height: calc\(100% - 114px - env\(safe-area-inset-bottom, 0px\)\)/);
   assert.match(css, /\.app\[data-mobile-prepared="true"\] \.mushaf-scroll \{[\s\S]*calc\(68dvh - 115px\)/);
-  assert.match(css, /\.app\[data-mobile-prepared="true"\] \.sidebar \{[\s\S]*position: fixed;[\s\S]*top: auto;[\s\S]*bottom: max\(8px, env\(safe-area-inset-bottom, 0px\)\)[\s\S]*max-height: min\(50dvh, 360px\)/);
-  assert.match(css, /\.app\[data-mobile-prepared="true"\] \.prepared-sidebar-details \{[\s\S]*overflow-y: auto/);
-  assert.match(css, /\.app\[data-mobile-prepared="true"\] \.prepared-sidebar-actions \{[\s\S]*flex: 0 0 auto/);
+  assert.match(css, /\.app\[data-mobile-prepared="true"\] \.sidebar \{[\s\S]*position: fixed;[\s\S]*bottom: 0;[\s\S]*height: calc\(114px \+ env\(safe-area-inset-bottom, 0px\)\)[\s\S]*padding: 8px 8px calc\(12px \+ env\(safe-area-inset-bottom, 0px\)\)/);
+  assert.match(css, /\.app\[data-mobile-prepared="true"\] \.prepared-sidebar \{[\s\S]*grid-template-rows: 44px 48px/);
+  assert.match(css, /\.app\[data-mobile-prepared="true"\] \.prepared-sidebar-details \{[\s\S]*overflow: hidden/);
+  assert.match(css, /\.app\[data-mobile-prepared="true"\] \.prepared-sidebar-actions \{[\s\S]*grid-template-columns: 84px 84px minmax\(0, 1fr\)/);
 });
 
 test("phone portrait reciter queue stays inside the PWA safe area", () => {
@@ -155,6 +156,9 @@ test("phone portrait reciter queue stays inside the PWA safe area", () => {
   assert.match(css, /\.reciter-start-backdrop\.stage-participant \{[\s\S]*padding: max\(8px, env\(safe-area-inset-top, 0px\)\) 8px\s+max\(8px, env\(safe-area-inset-bottom, 0px\)\)/);
   assert.match(css, /\.reciter-start-backdrop\.stage-participant \.reciter-start-dialog \{[\s\S]*height: 100%;[\s\S]*max-height: none/);
   assert.match(css, /\.reciter-start-backdrop\.stage-participant \.dialog-close \{[\s\S]*width: 44px;[\s\S]*height: 44px/);
+  assert.match(css, /\.reciter-start-backdrop\.stage-participant \.next-reciter-main \{[\s\S]*min-height: 56px/);
+  assert.match(css, /\.reciter-start-backdrop\.stage-participant \.reciter-selection-screen \.queue-scroll \{[\s\S]*margin-top: 6px/);
+  assert.match(css, /\.reciter-start-backdrop\.stage-participant \.reciter-selection-screen \.queue-participant-button \{[\s\S]*min-height: 48px/);
 });
 
 test("phone portrait Finish is a bounded sheet rather than a full-screen panel", () => {
@@ -170,23 +174,20 @@ test("phone portrait Finish is a bounded sheet rather than a full-screen panel",
   assert.doesNotMatch(mobileFinish[1], /height: 100dvh/);
 });
 
-test("phone portrait keeps page navigation on the Mushaf and floats a compact return control", () => {
+test("phone portrait reserves a stable return row while page navigation stays on the Mushaf", () => {
   const css = readFileSync(new URL("../src/styles/global.css", import.meta.url), "utf8");
   assert.match(
     css,
-    /\.app\[data-mobile-judge-deck="true"\] \.mushaf-scroll\.is-single \{[\s\S]*display: block;[\s\S]*width: min\(377px, calc\(100vw - 16px\), calc\(68dvh - 115px\)\)/,
+    /\.app\[data-mobile-judge-deck="true"\] \.mushaf-scroll\.is-single,[\s\S]*display: grid;[\s\S]*width: min\(377px, calc\(100vw - 16px\), calc\(68dvh - 152px\)\)[\s\S]*grid-template-rows: 44px auto/,
   );
   assert.match(
     css,
-    /\.app\[data-mobile-judge-deck="true"\] \.mushaf-scroll\.is-single \.mushaf-shared-nav \{[\s\S]*position: absolute;[\s\S]*top: 8px;[\s\S]*grid-template-columns: minmax\(0, 1fr\) auto minmax\(0, 1fr\)/,
+    /\.app\[data-mobile-judge-deck="true"\] \.mushaf-scroll\.is-single \.mushaf-shared-nav,[\s\S]*position: relative;[\s\S]*grid-template-columns: minmax\(0, 1fr\) auto minmax\(0, 1fr\)[\s\S]*grid-row: 1/,
   );
-  assert.match(css, /\.mushaf-scroll\.is-single \.question-return-bubble \{[\s\S]*min-height: 44px;[\s\S]*transform: translateY\(-48px\)/);
+  assert.match(css, /\.mushaf-scroll\.is-single \.question-return-bubble,[\s\S]*min-height: 44px;[\s\S]*transform: none/);
   assert.match(
     css,
-    /\.mushaf-scroll\.is-single \.mushaf-shared-nav > \.page-nav \{[\s\S]*transform: none/,
+    /\.mushaf-scroll\.is-single \.mushaf-shared-nav > \.page-nav,[\s\S]*transform: translateY\(48px\)/,
   );
-  assert.doesNotMatch(css, /calc\(68dvh - 152px\)/);
-  assert.doesNotMatch(css, /grid-template-rows: 44px auto/);
-  assert.match(css, /@media \(max-width: 600px\) and \(max-height: 650px\) and \(orientation: portrait\) \{[\s\S]*\.question-return-bubble \{[\s\S]*transform: none/);
-  assert.match(css, /@media \(max-width: 600px\) and \(max-height: 650px\) and \(orientation: portrait\) \{[\s\S]*data-mobile-prepared="true"[\s\S]*max-height: min\(58dvh, 330px\)/);
+  assert.match(css, /\.mushaf-scroll\.is-single \.mushaf-composition,[\s\S]*grid-row: 2/);
 });
