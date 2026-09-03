@@ -8959,6 +8959,9 @@ html:has(.dialog-backdrop) {
   padding-left: 12px;
   border-left: 1px solid var(--line);
 }
+.prepared-sidebar-question-summary-mobile {
+  display: none;
+}
 .prepared-actions {
   display: flex;
   gap: 6px;
@@ -13423,7 +13426,7 @@ html:has(.finish-dialog[open]) {
 
   .app[data-mobile-prepared="true"] .prepared-sidebar-question {
     display: block;
-    max-width: 104px;
+    max-width: none;
     min-width: 0;
     margin: 0;
     padding-left: 7px;
@@ -13438,11 +13441,28 @@ html:has(.finish-dialog[open]) {
   .app[data-mobile-prepared="true"] .prepared-sidebar-question strong {
     display: block;
     overflow: hidden;
-    font-size: 11px;
+    font-size: var(--t-micro);
     font-weight: 560;
     letter-spacing: 0;
-    text-overflow: ellipsis;
     white-space: nowrap;
+  }
+
+  .app[data-mobile-prepared="true"] .prepared-sidebar-question strong.prepared-sidebar-question-summary-full {
+    display: none;
+  }
+
+  .app[data-mobile-prepared="true"] .prepared-sidebar-question strong.prepared-sidebar-question-summary-mobile {
+    display: block;
+  }
+
+  .app[data-mobile-prepared="true"] .app-header .reciter-prepared-state,
+  .app[data-mobile-judge-deck="true"] .app-header .reciter-prepared-state {
+    min-height: auto;
+    margin-left: 2px;
+    padding-inline: 3px;
+    border: 0;
+    background: transparent;
+    color: var(--ink-3);
   }
 
   .app[data-mobile-prepared="true"] .prepared-recording {
@@ -14278,19 +14298,35 @@ html:has(.finish-dialog[open]) {
   }
 
   .app[data-mobile-judge-deck="true"] .finish-dialog-head {
-    gap: 10px;
-    padding: 14px 16px 12px;
+    grid-template-areas:
+      "title total"
+      "participant participant"
+      "context context";
+    gap: 3px 10px;
+    padding: 14px 16px 11px;
+  }
+
+  .app[data-mobile-judge-deck="true"] .finish-heading-copy {
+    display: contents;
   }
 
   .app[data-mobile-judge-deck="true"] .finish-dialog .dialog-title {
+    grid-area: title;
     font-size: var(--t-lead);
   }
 
   .app[data-mobile-judge-deck="true"] .finish-participant {
+    grid-area: participant;
     font-size: var(--t-small);
   }
 
+  .app[data-mobile-judge-deck="true"] .finish-context {
+    grid-area: context;
+  }
+
   .app[data-mobile-judge-deck="true"] .finish-total {
+    grid-area: total;
+    align-self: start;
     min-width: 78px;
   }
 
@@ -14298,13 +14334,52 @@ html:has(.finish-dialog[open]) {
     font-size: var(--t-display);
   }
 
+  .app[data-mobile-judge-deck="true"] .finish-total small {
+    display: none;
+  }
+
   .app[data-mobile-judge-deck="true"] .finish-dialog-body {
     padding: 0 16px 12px;
+  }
+
+  .app[data-mobile-judge-deck="true"] .finish-score-head {
+    letter-spacing: 0.035em;
+  }
+
+  .app[data-mobile-judge-deck="true"] .finish-score-head span:nth-child(2),
+  .app[data-mobile-judge-deck="true"] .finish-deducted {
+    box-sizing: border-box;
+    padding-right: 4px;
+  }
+
+  .app[data-mobile-judge-deck="true"] .finish-score-head span:last-child {
+    box-sizing: border-box;
+    padding-right: 8px;
+  }
+
+  .app[data-mobile-judge-deck="true"] .finish-score-value > .score-value-layout:not(.mark-picker) {
+    box-sizing: border-box;
+    width: 70px;
+    padding-right: 8px;
+    justify-content: flex-end;
+  }
+
+  .app[data-mobile-judge-deck="true"] .finish-score-value .mark-picker {
+    padding-right: 8px;
+    justify-content: flex-end;
   }
 
   .app[data-mobile-judge-deck="true"] .finish-dialog-actions {
     min-height: 64px;
     padding: 10px 16px 12px;
+  }
+}
+
+@media (max-width: 600px) and (orientation: portrait),
+  (max-device-width: 600px) and (pointer: coarse) and (orientation: portrait) {
+  .app[data-mobile-judge-layout="raised"][data-mobile-prepared="true"] .mushaf-scroll.is-single,
+  .app[data-mobile-judge-layout="raised"][data-mobile-judge-deck="true"] .mushaf-scroll.is-single {
+    transform: translateY(-12px);
   }
 }
 

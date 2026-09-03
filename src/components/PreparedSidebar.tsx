@@ -15,6 +15,18 @@ function questionSummary(prepared: PreparedRecitation): string {
   return startPage ? `${choice} · page ${startPage}` : choice;
 }
 
+function compactQuestionSummary(prepared: PreparedRecitation): string {
+  const { question } = prepared;
+  const startPage = questionStartPage(question);
+  const choice =
+    question.kind === "manual"
+      ? "External"
+      : question.drawPosition
+        ? `Q ${question.drawPosition}`
+        : "Question";
+  return startPage ? `${choice} · p. ${startPage}` : choice;
+}
+
 export function PreparedSidebar({
   prepared,
   participantCount,
@@ -59,7 +71,12 @@ export function PreparedSidebar({
         />
         <div className="prepared-sidebar-question">
           <span>Suvaalu</span>
-          <strong>{questionSummary(prepared)}</strong>
+          <strong className="prepared-sidebar-question-summary-full">
+            {questionSummary(prepared)}
+          </strong>
+          <strong className="prepared-sidebar-question-summary-mobile">
+            {compactQuestionSummary(prepared)}
+          </strong>
         </div>
         {recording && (
           <div className="prepared-recording" data-enabled={recording.enabled || undefined}>

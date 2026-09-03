@@ -78,6 +78,11 @@ export function App() {
   const [mobileJudgeDeckOn] = useState(() =>
     mobileJudgeDeckEnabled(window.location.search),
   );
+  const [mobileJudgeLayout] = useState<"centered" | "raised">(() =>
+    new URLSearchParams(window.location.search).get("mobileJudgeLayout") === "raised"
+      ? "raised"
+      : "centered",
+  );
   const [page, setPage] = useState(() => {
     const saved = localStorage.getItem(LS_PAGE_KEY);
     if (saved) {
@@ -198,6 +203,11 @@ export function App() {
       className={`app view-${view}`}
       data-mobile-judge-deck={mobileJudgeDeckActive ? "true" : undefined}
       data-mobile-prepared={mobilePreparedActive ? "true" : undefined}
+      data-mobile-judge-layout={
+        (mobileJudgeDeckActive || mobilePreparedActive) && mobileJudgeLayout === "raised"
+          ? "raised"
+          : undefined
+      }
     >
       <Header
         view={view}

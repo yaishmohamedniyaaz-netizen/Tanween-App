@@ -140,6 +140,9 @@ test("prepared portrait mode shares the live dock footprint without covering the
   assert.match(app, /data-mobile-prepared=\{mobilePreparedActive \? "true" : undefined\}/);
   assert.match(prepared, /className="prepared-sidebar-details"/);
   assert.match(prepared, /className="prepared-sidebar-actions"/);
+  assert.match(prepared, /prepared-sidebar-question-summary-full/);
+  assert.match(prepared, /prepared-sidebar-question-summary-mobile/);
+  assert.match(prepared, /`Q \$\{question\.drawPosition\}`/);
   assert.match(css, /\.app\[data-mobile-prepared="true"\] \.workspace \{[\s\S]*display: block;[\s\S]*overflow: hidden/);
   assert.match(css, /\.app\[data-mobile-prepared="true"\] \.stage \{[\s\S]*height: calc\(100% - 114px - env\(safe-area-inset-bottom, 0px\)\)/);
   assert.match(css, /\.app\[data-mobile-prepared="true"\] \.mushaf-scroll \{[\s\S]*calc\(68dvh - 115px\)/);
@@ -147,6 +150,27 @@ test("prepared portrait mode shares the live dock footprint without covering the
   assert.match(css, /\.app\[data-mobile-prepared="true"\] \.prepared-sidebar \{[\s\S]*grid-template-rows: 44px 48px/);
   assert.match(css, /\.app\[data-mobile-prepared="true"\] \.prepared-sidebar-details \{[\s\S]*overflow: hidden/);
   assert.match(css, /\.app\[data-mobile-prepared="true"\] \.prepared-sidebar-actions \{[\s\S]*grid-template-columns: 84px 84px minmax\(0, 1fr\)/);
+});
+
+test("the optional raised comparison moves only the complete single-page group", () => {
+  const app = readFileSync(new URL("../src/App.tsx", import.meta.url), "utf8");
+  const css = readFileSync(new URL("../src/styles/global.css", import.meta.url), "utf8");
+  assert.match(app, /get\("mobileJudgeLayout"\) === "raised"/);
+  assert.match(app, /data-mobile-judge-layout=/);
+  const raisedRule = css.match(
+    /\.app\[data-mobile-judge-layout="raised"\][\s\S]*?\.mushaf-scroll\.is-single \{([\s\S]*?)\n  \}/,
+  );
+  assert.ok(raisedRule, "expected a raised mobile comparison rule");
+  assert.match(raisedRule[1], /transform: translateY\(-12px\)/);
+  assert.doesNotMatch(raisedRule[1], /(?:width|height):/);
+});
+
+test("mobile Finish removes duplicate score copy and aligns numeric content inside the existing grid", () => {
+  const css = readFileSync(new URL("../src/styles/global.css", import.meta.url), "utf8");
+  assert.match(css, /data-mobile-judge-deck="true"\] \.finish-heading-copy \{[\s\S]*display: contents/);
+  assert.match(css, /data-mobile-judge-deck="true"\] \.finish-total small \{[\s\S]*display: none/);
+  assert.match(css, /finish-score-value > \.score-value-layout:not\(\.mark-picker\)[\s\S]*width: 70px/);
+  assert.match(css, /finish-score-value \.mark-picker \{[\s\S]*justify-content: flex-end/);
 });
 
 test("phone portrait reciter queue stays inside the PWA safe area", () => {
