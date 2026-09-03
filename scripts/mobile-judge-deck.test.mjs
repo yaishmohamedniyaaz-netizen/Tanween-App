@@ -147,19 +147,6 @@ test("prepared portrait mode shares the live dock footprint without covering the
   assert.match(css, /\.app\[data-mobile-prepared="true"\] \.prepared-sidebar \{[\s\S]*grid-template-rows: 44px 48px/);
   assert.match(css, /\.app\[data-mobile-prepared="true"\] \.prepared-sidebar-details \{[\s\S]*overflow: hidden/);
   assert.match(css, /\.app\[data-mobile-prepared="true"\] \.prepared-sidebar-actions \{[\s\S]*grid-template-columns: 84px 84px minmax\(0, 1fr\)/);
-  assert.match(css, /\.app\[data-mobile-prepared="true"\] \.prepared-sidebar-participant \{[\s\S]*grid-template-areas: "reference copy"/);
-  assert.match(css, /\.app\[data-mobile-prepared="true"\] \.prepared-sidebar-question \{[\s\S]*width: 112px/);
-  assert.match(css, /\.app\[data-mobile-prepared="true"\] \.prepared-sidebar-question strong \{[\s\S]*-webkit-line-clamp: 2/);
-});
-
-test("tall portrait phones share a roomier ready and active dock without enlarging the Mushaf", () => {
-  const css = readFileSync(new URL("../src/styles/global.css", import.meta.url), "utf8");
-  assert.match(css, /@media \(max-width: 600px\) and \(min-height: 700px\) and \(orientation: portrait\)/);
-  assert.match(css, /\.app\[data-mobile-prepared="true"\] \.stage,[\s\S]*\.app\[data-mobile-judge-deck="true"\] \.stage \{[\s\S]*height: calc\(100% - 130px - env\(safe-area-inset-bottom, 0px\)\)/);
-  assert.match(css, /\.app\[data-mobile-prepared="true"\] \.mushaf-shell,[\s\S]*\.app\[data-mobile-judge-deck="true"\] \.mushaf-shell \{[\s\S]*align-items: flex-start;[\s\S]*padding-top: 4px/);
-  assert.match(css, /\.app\[data-mobile-prepared="true"\] \.prepared-sidebar \{[\s\S]*height: 110px;[\s\S]*grid-template-rows: 52px 56px/);
-  assert.match(css, /\.mobile-criterion-strip,[\s\S]*\.mobile-last-dismiss \{[\s\S]*height: 52px/);
-  assert.match(css, /\.mobile-dock-actions \{[\s\S]*height: 56px/);
 });
 
 test("phone portrait reciter queue stays inside the PWA safe area", () => {
@@ -185,9 +172,6 @@ test("phone portrait Finish is a bounded sheet rather than a full-screen panel",
   assert.match(mobileFinish[1], /inset: max\(8px, env\(safe-area-inset-top, 0px\)\) 8px\s+max\(8px, env\(safe-area-inset-bottom, 0px\)\)/);
   assert.match(mobileFinish[1], /margin: auto/);
   assert.doesNotMatch(mobileFinish[1], /height: 100dvh/);
-  assert.match(css, /\.app\[data-mobile-judge-deck="true"\] \.finish-score-table \{[\s\S]*width: calc\(100% - 8px\)/);
-  assert.match(css, /\.app\[data-mobile-judge-deck="true"\] \.finish-score-head,[\s\S]*grid-template-columns: minmax\(0, 1fr\) 62px 72px/);
-  assert.match(css, /\.app\[data-mobile-judge-deck="true"\] \.finish-total small \{[\s\S]*display: none/);
 });
 
 test("phone portrait reserves a stable return row while page navigation stays on the Mushaf", () => {

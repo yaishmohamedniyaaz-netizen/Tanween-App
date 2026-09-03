@@ -13380,11 +13380,11 @@ html:has(.finish-dialog[open]) {
 
   .app[data-mobile-prepared="true"] .prepared-sidebar-details {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 112px 64px;
-    gap: 6px;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    gap: 7px;
     align-items: center;
     min-height: 0;
-    padding: 0 6px 0 8px;
+    padding: 0 6px 0 10px;
     overflow: hidden;
     border-bottom: 1px solid var(--line);
   }
@@ -13399,8 +13399,6 @@ html:has(.finish-dialog[open]) {
   }
 
   .app[data-mobile-prepared="true"] .prepared-sidebar-participant {
-    grid-template-areas: "reference copy";
-    grid-template-columns: 30px minmax(0, 1fr);
     gap: 6px;
     min-width: 0;
     padding: 0;
@@ -13425,11 +13423,10 @@ html:has(.finish-dialog[open]) {
 
   .app[data-mobile-prepared="true"] .prepared-sidebar-question {
     display: block;
-    width: 112px;
-    max-width: none;
+    max-width: 104px;
     min-width: 0;
     margin: 0;
-    padding-left: 6px;
+    padding-left: 7px;
     overflow: hidden;
     border-left: 1px solid var(--line);
   }
@@ -13439,19 +13436,17 @@ html:has(.finish-dialog[open]) {
   }
 
   .app[data-mobile-prepared="true"] .prepared-sidebar-question strong {
-    display: -webkit-box;
+    display: block;
     overflow: hidden;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
-    font-size: var(--t-micro);
+    font-size: 11px;
     font-weight: 560;
-    line-height: 1.1;
     letter-spacing: 0;
-    white-space: normal;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .app[data-mobile-prepared="true"] .prepared-recording {
-    min-width: 64px;
+    min-width: 72px;
     margin: 0;
     padding: 0;
     border: 0;
@@ -13461,9 +13456,9 @@ html:has(.finish-dialog[open]) {
   .app[data-mobile-prepared="true"] .prepared-recording-choice {
     min-height: 44px;
     grid-template-columns: 16px minmax(0, 1fr);
-    gap: 4px;
+    gap: 5px;
     align-items: center;
-    padding: 0 2px;
+    padding: 0 4px;
   }
 
   .app[data-mobile-prepared="true"] .prepared-recording-check {
@@ -13478,17 +13473,11 @@ html:has(.finish-dialog[open]) {
 
   .app[data-mobile-prepared="true"] .prepared-recording-choice strong {
     display: block;
-    max-width: 36px;
+    max-width: 42px;
     overflow: hidden;
-    font-size: var(--t-micro);
+    font-size: 10.5px;
     font-weight: 570;
     white-space: nowrap;
-  }
-
-  .app[data-mobile-prepared="true"] .app-header .reciter-chip,
-  .app[data-mobile-judge-deck="true"] .app-header .reciter-chip {
-    border-color: transparent;
-    box-shadow: none;
   }
 
   .app[data-mobile-prepared="true"] .prepared-recording-label-full {
@@ -14289,12 +14278,8 @@ html:has(.finish-dialog[open]) {
   }
 
   .app[data-mobile-judge-deck="true"] .finish-dialog-head {
-    gap: 8px;
-    padding: 12px 16px 10px;
-  }
-
-  .app[data-mobile-judge-deck="true"] .finish-heading-copy {
-    gap: 2px;
+    gap: 10px;
+    padding: 14px 16px 12px;
   }
 
   .app[data-mobile-judge-deck="true"] .finish-dialog .dialog-title {
@@ -14306,104 +14291,20 @@ html:has(.finish-dialog[open]) {
   }
 
   .app[data-mobile-judge-deck="true"] .finish-total {
-    min-width: 70px;
+    min-width: 78px;
   }
 
   .app[data-mobile-judge-deck="true"] .finish-total strong {
     font-size: var(--t-display);
   }
 
-  .app[data-mobile-judge-deck="true"] .finish-total small {
-    display: none;
-  }
-
-  .app[data-mobile-judge-deck="true"] .finish-context {
-    overflow: hidden;
-    flex-wrap: nowrap;
-    gap: 0 4px;
-    font-size: var(--t-micro);
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-  .app[data-mobile-judge-deck="true"] .finish-context span + span::before {
-    margin-right: 4px;
-  }
-
   .app[data-mobile-judge-deck="true"] .finish-dialog-body {
-    padding: 0 16px 10px;
-  }
-
-  .app[data-mobile-judge-deck="true"] .finish-score-table {
-    width: calc(100% - 8px);
-    margin-top: 10px;
-  }
-
-  .app[data-mobile-judge-deck="true"] .finish-score-head,
-  .app[data-mobile-judge-deck="true"] .finish-score-row {
-    grid-template-columns: minmax(0, 1fr) 62px 72px;
-  }
-
-  .app[data-mobile-judge-deck="true"] .finish-score-row:has(.mark-stepper-shell.is-open) {
-    grid-template-columns: minmax(0, 1fr) 42px 140px;
+    padding: 0 16px 12px;
   }
 
   .app[data-mobile-judge-deck="true"] .finish-dialog-actions {
     min-height: 64px;
     padding: 10px 16px 12px;
-  }
-}
-
-/* A tall phone has room for a calmer dock without making the printed page
-   smaller. Keep ready and active states on the same footprint so Begin never
-   shifts the Mushaf. Short phones retain the compact 94px dock above. */
-@media (max-width: 600px) and (min-height: 700px) and (orientation: portrait) {
-  .app[data-mobile-prepared="true"] .stage,
-  .app[data-mobile-judge-deck="true"] .stage {
-    height: calc(100% - 130px - env(safe-area-inset-bottom, 0px));
-  }
-
-  .app[data-mobile-prepared="true"] .mushaf-shell,
-  .app[data-mobile-judge-deck="true"] .mushaf-shell {
-    align-items: flex-start;
-    padding-top: 4px;
-  }
-
-  .app[data-mobile-prepared="true"] .mushaf-scroll.is-single,
-  .app[data-mobile-judge-deck="true"] .mushaf-scroll.is-single {
-    width: min(377px, calc(100vw - 16px), calc(68dvh - 168px));
-  }
-
-  .app[data-mobile-prepared="true"] .sidebar {
-    height: calc(130px + env(safe-area-inset-bottom, 0px));
-  }
-
-  .app[data-mobile-prepared="true"] .prepared-sidebar {
-    height: 110px;
-    grid-template-rows: 52px 56px;
-  }
-
-  .app[data-mobile-prepared="true"] .prepared-sidebar-actions,
-  .app[data-mobile-prepared="true"] .prepared-sidebar-actions > .btn-primary,
-  .app[data-mobile-prepared="true"] .prepared-sidebar-actions > .prepared-begin-without-recording,
-  .app[data-mobile-prepared="true"] .prepared-sidebar-secondary .btn-ghost {
-    min-height: 56px;
-  }
-
-  .mobile-criterion-strip,
-  .mobile-last-action,
-  .mobile-last-action-main,
-  .mobile-last-undo,
-  .mobile-last-dismiss {
-    height: 52px;
-  }
-
-  .mobile-dock-actions {
-    height: 56px;
-  }
-
-  .mobile-dock-actions > button {
-    min-height: 56px;
   }
 }
 
