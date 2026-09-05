@@ -1,4 +1,4 @@
-export const SELECTOR_MAX_WIDTH = 360;
+export const SELECTOR_MAX_WIDTH = 512;
 export const SELECTOR_CATEGORY_WIDTH = 164;
 export const SELECTOR_PICKER_MIN_WIDTH = 104;
 export const SELECTOR_SINGLE_PICKER_WIDTH = 52;

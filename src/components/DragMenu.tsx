@@ -1,6 +1,7 @@
 import { createPortal } from "react-dom";
 import {
   useEffect,
+  useLayoutEffect,
   useRef,
   useState,
   type CSSProperties,
@@ -11,6 +12,7 @@ import {
   getSelectorPlacement,
   getSelectorVerticalPlacement,
   getSelectorWidths,
+  SELECTOR_ESTIMATED_HEIGHT,
 } from "../lib/selectorLayout";
 import type { CategoryId, ScoreConfig } from "../types";
 
@@ -62,14 +64,14 @@ export function DragMenu({
   onClose,
 }: Props) {
   const menuRef = useRef<HTMLDivElement>(null);
-  const [, setViewportEpoch] = useState(0);
+  const [menuHeight, setMenuHeight] = useState(SELECTOR_ESTIMATED_HEIGHT);
   const visualViewport = window.visualViewport;
   const viewportWidth =
     visualViewport?.width ?? document.documentElement.clientWidth;
   const viewportHeight =
     visualViewport?.height ?? document.documentElement.clientHeight;
-  const viewportLeft = 0;
-  const viewportTop = 0;
+  const viewportLeft = visualViewport?.offsetLeft ?? 0;
+  const viewportTop = visualViewport?.offsetTop ?? 0;
   const { pickerWidth, categoryWidth, menuWidth } = getSelectorWidths(
     units.length,
     viewportWidth,
@@ -86,7 +88,7 @@ export function DragMenu({
     anchor.top,
     anchor.bottom,
     viewportHeight,
-    undefined,
+    menuHeight,
     viewportTop,
   );
   // Only pinpoint criteria can be tied to a letter; Adu & Raagu is marked once
@@ -97,24 +99,43 @@ export function DragMenu({
   );
   const fixedCategory = categoryDefs.length === 1 ? categoryDefs[0] : null;
 
+  // Measure the actual layout before paint: a one-criterion tray is much
+  // shorter than the three-criterion tray. Do not guess from category count.
+  useLayoutEffect(() => {
+    const menu = menuRef.current;
+    if (!menu) return;
+    const measure = () => setMenuHeight(menu.getBoundingClientRect().height);
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(menu);
+    return () => observer.disconnect();
+  }, [pickerWidth, categoryDefs.length, units.length, pinned]);
+
   useEffect(() => {
-    const updateViewport = () => setViewportEpoch((value) => value + 1);
-    window.addEventListener("resize", updateViewport);
-    visualViewport?.addEventListener("resize", updateViewport);
-    visualViewport?.addEventListener("scroll", updateViewport);
-    return () => {
-      window.removeEventListener("resize", updateViewport);
-      visualViewport?.removeEventListener("resize", updateViewport);
-      visualViewport?.removeEventListener("scroll", updateViewport);
+    // The source anchor is a snapshot. Dismiss when the page moves, but let
+    // the judge scroll within the tray without losing their selection.
+    const onScroll = (event: Event) => {
+      if (event.target instanceof Node && menuRef.current?.contains(event.target)) return;
+      onClose();
     };
-  }, [visualViewport]);
+    window.addEventListener("resize", onClose);
+    window.addEventListener("scroll", onScroll, true);
+    visualViewport?.addEventListener("resize", onClose);
+    visualViewport?.addEventListener("scroll", onClose);
+    return () => {
+      window.removeEventListener("resize", onClose);
+      window.removeEventListener("scroll", onScroll, true);
+      visualViewport?.removeEventListener("resize", onClose);
+      visualViewport?.removeEventListener("scroll", onClose);
+    };
+  }, [onClose, visualViewport]);
 
   // When the menu is pinned (tap path), move focus into it for keyboard users.
   useEffect(() => {
     if (!pinned) return;
     menuRef.current
       ?.querySelector<HTMLButtonElement>("[data-unit-tid]")
-      ?.focus();
+      ?.focus({ preventScroll: true });
   }, [pinned]);
 
   const onKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
@@ -146,11 +167,11 @@ export function DragMenu({
       if (e.shiftKey && focusIndex <= 0) {
         e.preventDefault();
         e.stopPropagation();
-        focusableButtons[focusableButtons.length - 1]?.focus();
+        focusableButtons[focusableButtons.length - 1]?.focus({ preventScroll: true });
       } else if (!e.shiftKey && focusIndex === focusableButtons.length - 1) {
         e.preventDefault();
         e.stopPropagation();
-        focusableButtons[0]?.focus();
+        focusableButtons[0]?.focus({ preventScroll: true });
       }
       return;
     }
@@ -166,7 +187,7 @@ export function DragMenu({
       const nextButton = unitButtons[
         (unitIndex + direction + unitButtons.length) % unitButtons.length
       ];
-      nextButton.focus();
+      nextButton.focus({ preventScroll: true });
       nextButton.scrollIntoView({ block: "nearest", inline: "nearest" });
       const nextTid = nextButton.dataset.unitTid;
       if (nextTid) onUnitPick(nextTid);
@@ -180,7 +201,7 @@ export function DragMenu({
     if (unitIndex >= 0 && e.key === outwardKey) {
       e.preventDefault();
       e.stopPropagation();
-      categoryButtons[0]?.focus();
+      categoryButtons[0]?.focus({ preventScroll: true });
       return;
     }
 
@@ -189,16 +210,16 @@ export function DragMenu({
     e.stopPropagation();
     if (e.key === outwardKey) {
       categoryButtons[Math.min(categoryIndex + 1, categoryButtons.length - 1)]
-        ?.focus();
+        ?.focus({ preventScroll: true });
       return;
     }
     if (categoryIndex > 0) {
-      categoryButtons[categoryIndex - 1]?.focus();
+      categoryButtons[categoryIndex - 1]?.focus({ preventScroll: true });
       return;
     }
     (menuRef.current?.querySelector<HTMLButtonElement>(
       "[data-unit-tid][aria-checked='true']",
-    ) ?? unitButtons[0])?.focus();
+    ) ?? unitButtons[0])?.focus({ preventScroll: true });
   };
 
   const posStyle: SelectorStyle = {

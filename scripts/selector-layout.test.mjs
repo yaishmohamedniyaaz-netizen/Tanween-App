@@ -9,7 +9,7 @@ import {
 
 test("short words keep a compact picker without squeezing categories", () => {
   assert.deepEqual(getSelectorWidths(2, 390), {
-    availableWidth: 360,
+    availableWidth: 366,
     pickerWidth: 104,
     categoryWidth: 164,
     menuWidth: 164,
@@ -18,7 +18,7 @@ test("short words keep a compact picker without squeezing categories", () => {
 
 test("one target gets one centered compact surface", () => {
   assert.deepEqual(getSelectorWidths(1, 390), {
-    availableWidth: 360,
+    availableWidth: 366,
     pickerWidth: 52,
     categoryWidth: 164,
     menuWidth: 164,
@@ -36,9 +36,14 @@ test("every typical unit keeps its full 44px target", () => {
   assert.equal(getSelectorWidths(7, 390).pickerWidth, 328);
 });
 
-test("only genuinely long words become a 360px scrolling rail", () => {
-  assert.equal(getSelectorWidths(8, 390).pickerWidth, 360);
-  assert.equal(getSelectorWidths(11, 390).pickerWidth, 360);
+test("desktop rails fit every target in the longest source words", () => {
+  for (let count = 1; count <= 11; count++) {
+    const { pickerWidth } = getSelectorWidths(count, 1400);
+    assert.ok(pickerWidth >= count * 44 + (count - 1) * 2 + 8);
+  }
+  assert.equal(getSelectorWidths(8, 1400).pickerWidth, 374);
+  assert.equal(getSelectorWidths(11, 1400).pickerWidth, 512);
+  assert.equal(getSelectorWidths(11, 390).pickerWidth, 366);
 });
 
 test("every selector surface stays inside a narrow viewport", () => {
@@ -96,4 +101,30 @@ test("vertical placement chooses room and clamps the entire runway", () => {
     openUp: false,
     top: 62,
   });
+});
+
+test("measured tray heights stay attached for every judge assignment", () => {
+  for (const height of [97.2, 139.2, 183.2, 229.2]) {
+    const above = getSelectorVerticalPlacement(500, 530, 844, height);
+    assert.equal(above.openUp, true);
+    assert.ok(Math.abs(500 - (above.top + height) - 9) <= 0.5);
+    const below = getSelectorVerticalPlacement(30, 60, 844, height);
+    assert.equal(below.openUp, false);
+    assert.equal(below.top - 60, 9);
+  }
+});
+
+test("panned visual viewports contain the entire tray and preserve its pointer", () => {
+  const left = 120, top = 200, width = 320, height = 568;
+  const sizes = getSelectorWidths(11, width);
+  for (const anchor of [left + 4, left + width / 2, left + width - 4]) {
+    const position = getSelectorPlacement(anchor, width, sizes.menuWidth, sizes.pickerWidth, left);
+    assert.ok(position.centerX - sizes.menuWidth / 2 >= left + 12);
+    assert.ok(position.centerX + sizes.menuWidth / 2 <= left + width - 12);
+  }
+  for (const anchor of [top + 4, top + height / 2, top + height - 40]) {
+    const position = getSelectorVerticalPlacement(anchor, anchor + 30, height, 183.2, top);
+    assert.ok(position.top >= top + 12);
+    assert.ok(position.top + 183.2 <= top + height - 12.0 + 0.5);
+  }
 });
