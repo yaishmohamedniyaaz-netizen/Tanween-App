@@ -34,6 +34,10 @@ interface MoreActionsPopoverProps {
   onQuestionFocusModeChange: (value: QuestionFocusMode) => void;
   aduRaaguInputMode: AduRaaguInputMode;
   onAduRaaguInputModeChange: (value: AduRaaguInputMode) => void;
+  slimScorePanel: boolean;
+  onSlimScorePanelChange: (value: boolean) => void;
+  selectorTashkeel: boolean;
+  onSelectorTashkeelChange: (value: boolean) => void;
   lastMarkStrip: LastMarkStrip;
   onLastMarkStripChange: (value: LastMarkStrip) => void;
   onShowMarkingGuide: () => void;
@@ -58,6 +62,10 @@ export function MoreActionsPopover({
   onQuestionFocusModeChange,
   aduRaaguInputMode,
   onAduRaaguInputModeChange,
+  slimScorePanel,
+  onSlimScorePanelChange,
+  selectorTashkeel,
+  onSelectorTashkeelChange,
   lastMarkStrip,
   onLastMarkStripChange,
   onShowMarkingGuide,
@@ -265,6 +273,26 @@ export function MoreActionsPopover({
                     ? "Start from the maximum, then use minus or plus for half-mark adjustments."
                     : "Tap or drag the ruler; minor ticks are half marks."}
                 </small>
+              </fieldset>
+              <fieldset className="selector-display-control">
+                <legend>Score panel</legend>
+                <div className="mushaf-view-options" role="radiogroup" aria-label="Score panel density">
+                  {[false, true].map(value => <button key={String(value)} type="button" role="radio" aria-checked={slimScorePanel === value} className={slimScorePanel === value ? "is-active" : ""} onClick={() => onSlimScorePanelChange(value)}>{value ? "Slim" : "Standard"}</button>)}
+                </div>
+              </fieldset>
+              <fieldset className="selector-display-control">
+                <legend>Letter selector tashkeel</legend>
+                <div className="mushaf-view-options" role="radiogroup" aria-label="Letter selector tashkeel">
+                  {[false, true].map(value => (
+                    <button key={String(value)} type="button" role="radio"
+                      aria-checked={selectorTashkeel === value}
+                      className={selectorTashkeel === value ? "is-active" : ""}
+                      onClick={() => onSelectorTashkeelChange(value)}>
+                      {value ? "On" : "Off"}
+                    </button>
+                  ))}
+                </div>
+                <small>Show vowel marks in the letter selector.</small>
               </fieldset>
               <fieldset className="mobile-deck-control">
                 <legend>Mobile judge deck</legend>

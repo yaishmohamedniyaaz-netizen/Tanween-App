@@ -48,11 +48,13 @@ function ImpressionRow({
   pending,
   inputMode,
   presentation,
+  slim = false,
 }: {
   category: CategoryId;
   pending: boolean;
   inputMode: AduRaaguInputMode;
   presentation: ScorePanelPresentation;
+  slim?: boolean;
 }) {
   const { state, dispatch } = useJudging();
   const config = state.activeAssignment?.config ?? state.config;
@@ -86,7 +88,7 @@ function ImpressionRow({
         layer={presentation === "compact" ? "dialog" : "workspace"}
         onChange={(value) => dispatch({ type: "SET_IMPRESSION", category, awarded: value })}
       />
-      {presentation === "compact" ? (
+      {presentation === "compact" || slim ? (
         <CompactTextEditor
           title={`${label} reason`}
           label={`${label} reason`}
@@ -94,10 +96,10 @@ function ImpressionRow({
           placeholder="Reason (optional)"
           triggerClassName={`sc-reason-trigger ${note.trim() ? "has-value" : ""}`}
           triggerLabel={`Edit ${label} reason`}
-          presentation="inline"
+          presentation={presentation === "compact" ? "inline" : "dialog"}
           triggerContent={
             <>
-              <span>Reason</span>
+              <span>{note.trim() ? "Reason saved" : "Add reason"}</span>
               {note.trim() && <i aria-hidden="true" />}
             </>
           }
@@ -131,9 +133,11 @@ function ImpressionRow({
 export function ScorePanel({
   inputMode,
   presentation = "rail",
+  slim = false,
 }: {
   inputMode: AduRaaguInputMode;
   presentation?: ScorePanelPresentation;
+  slim?: boolean;
 }) {
   const { state } = useJudging();
   const { byCategory, total, totalMax } = computeScores(state);
@@ -169,6 +173,7 @@ export function ScorePanel({
               pending={missingImpressions.includes(c.id)}
               inputMode={inputMode}
               presentation={presentation}
+              slim={slim}
             />
           ) : (
             <CategoryRow

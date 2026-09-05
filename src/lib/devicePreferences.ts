@@ -16,6 +16,8 @@ export interface DevicePreferencesV5 {
   aduRaaguInputMode: AduRaaguInputMode;
   lastMarkStrip: LastMarkStrip;
   scoreChipTint: ScoreChipTint;
+  selectorTashkeel: boolean;
+  slimScorePanel: boolean;
 }
 
 export const DEVICE_PREFERENCES_KEY = "tahqeeq:devicePreferences.v5";
@@ -44,6 +46,8 @@ export const DEFAULT_DEVICE_PREFERENCES: DevicePreferencesV5 = {
   aduRaaguInputMode: "ruler",
   lastMarkStrip: "on",
   scoreChipTint: "earned",
+  selectorTashkeel: false,
+  slimScorePanel: false,
 };
 
 export function normalizeMushafZoom(
@@ -114,6 +118,10 @@ export function normalizeDevicePreferences(
         candidate.scoreChipTint === "always"
       ? candidate.scoreChipTint
       : fallback.scoreChipTint,
+    slimScorePanel: typeof candidate.slimScorePanel === "boolean" ? candidate.slimScorePanel : fallback.slimScorePanel,
+    selectorTashkeel: typeof candidate.selectorTashkeel === "boolean"
+      ? candidate.selectorTashkeel
+      : fallback.selectorTashkeel,
   };
 }
 

@@ -632,6 +632,7 @@ textarea:focus-visible {
 .judge-rail-control,
 .question-focus-control,
 .adu-input-control,
+.selector-display-control,
 .mobile-deck-control {
   margin: 0;
   padding: 8px;
@@ -641,6 +642,7 @@ textarea:focus-visible {
 .judge-rail-control legend,
 .question-focus-control legend,
 .adu-input-control legend,
+.selector-display-control legend,
 .mobile-deck-control legend {
   margin-bottom: 8px;
   padding: 0;
@@ -660,6 +662,7 @@ textarea:focus-visible {
 .question-focus-control .focus-mode-options {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
+.selector-display-control small,
 .adu-input-control small {
   display: block;
   margin: 6px 2px 0;
@@ -5674,24 +5677,6 @@ textarea:focus-visible {
 .glyph-ink.flash {
   animation: flash-pulse 1.2s var(--ease-in-out);
 }
-.mark-count {
-  position: absolute;
-  top: -6px;
-  right: -6px;
-  min-width: 14px;
-  height: 14px;
-  padding: 0 3px;
-  border-radius: 999px;
-  background: var(--c);
-  color: #fff;
-  font-family: var(--ui);
-  font-size: 9.5px;
-  font-weight: 500;
-  display: grid;
-  place-items: center;
-  font-variant-numeric: tabular-nums;
-}
-
 /* ---- Drag menu ---- */
 .menu-backdrop {
   position: fixed;
@@ -5810,6 +5795,83 @@ textarea:focus-visible {
   z-index: 2;
   outline: 2px solid var(--ink-2);
   outline-offset: 1px;
+}
+.drag-menu.pinned .unit-picker-row {
+  flex-wrap: wrap;
+  justify-content: center;
+  overflow: visible;
+  touch-action: manipulation;
+}
+.unit-choice.marked,
+.unit-picker[class*="cat-"] .unit-choice.marked.selected {
+  background: color-mix(in srgb, var(--c) 14%, var(--surface));
+}
+.unit-choice.marked.selected {
+  box-shadow: inset 0 0 0 2px var(--ink-2);
+}
+.unit-picker.with-tashkeel .unit-choice {
+  height: 56px;
+  padding: 6px 2px;
+  font-size: 22px;
+}
+.unit-glyph { white-space: nowrap; }
+.drag-menu.up .unit-picker {
+  flex-direction: column-reverse;
+}
+.selector-correction {
+  width: var(--category-width, 164px);
+  margin-block: 8px;
+  padding: 8px;
+  border: 1px solid var(--line-2);
+  border-radius: 12px;
+  background: var(--surface);
+}
+.selector-current {
+  display: block;
+  padding-bottom: 8px;
+  font-size: var(--t-small);
+  text-align: center;
+  color: var(--ink-2);
+}
+.selector-undo {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 44px;
+  overflow: hidden;
+  border: 1px solid var(--line-2);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--ink);
+  font-size: var(--t-small);
+  touch-action: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+.selector-undo:focus-visible {
+  outline: 2px solid var(--ink-2);
+  outline-offset: 2px;
+}
+.selector-undo-progress {
+  position: absolute;
+  inset: auto 0 0;
+  height: 4px;
+  background: var(--c);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+.selector-undo.holding .selector-undo-progress {
+  transform: scaleX(1);
+  transition: transform 700ms linear;
+}
+.selector-undo.ready .selector-undo-progress {
+  transform: scaleX(1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .selector-undo.holding .selector-undo-progress { transition: none; transform: scaleX(0); }
 }
 .category-stack {
   display: flex;
@@ -14507,3 +14569,84 @@ html:has(.finish-dialog[open]) {
     display: none;
   }
 }
+/* Desktop judging rail: density changes spacing, never scoring or touch targets. */
+@media (min-width: 901px) {
+  .app.view-judge .workspace:not(.is-idle) { grid-template-columns: minmax(0, 1fr) 300px; }
+  .app.view-judge .workspace:not(.is-idle).rail-left { grid-template-columns: 300px minmax(0, 1fr); }
+  .app.view-judge .workspace:not(.is-idle).score-slim { grid-template-columns: minmax(0, 1fr) 280px; }
+  .app.view-judge .workspace:not(.is-idle).score-slim.rail-left { grid-template-columns: 280px minmax(0, 1fr); }
+  .sidebar .scorecard { padding: 10px 14px; flex: 0 0 auto; }
+  .sidebar .sc-total { padding-bottom: 6px; }
+  .sidebar .sc-total-num { font-size: 26px; }
+  .sidebar .sc-row { min-height: 32px; gap: 6px; grid-template-columns: 8px minmax(0, 1fr) 36px 64px; }
+  .sidebar .sc-row-impression { row-gap: 4px; padding-bottom: 2px; }
+  .sidebar .mark-picker { width: 64px; }
+  .score-slim .sidebar .scorecard { padding: 8px 12px; }
+  .score-slim .sidebar .sc-total-num { font-size: 23px; }
+  .score-slim .sidebar .sc-row { min-height: 30px; }
+  .score-slim .sidebar .sc-name { font-size: 13px; }
+  .sidebar .sc-reason-trigger {
+    grid-column: 2 / -1; min-height: 44px; padding: 0 8px; text-align: left;
+    border: 0; background: transparent; color: var(--ink-3); font-size: 12px;
+    border-radius: var(--r-sm);
+  }
+  .sidebar .sc-reason-trigger.has-value { color: var(--ink); }
+  .sidebar .sc-reason-trigger:hover { background: var(--bg); }
+  .sidebar .sc-reason-trigger:focus-visible { outline: 2px solid var(--ink); outline-offset: -2px; }
+}
+/* Native scrolling with quiet edge shadows and a stable, discoverable grip. */
+.mistake-panel .log, .mistake-panel .history-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: var(--line-2) transparent;
+  scrollbar-gutter: stable;
+  padding-right: 6px;
+  background:
+    linear-gradient(var(--surface) 30%, transparent) center top / 100% 24px local,
+    linear-gradient(transparent, var(--surface) 70%) center bottom / 100% 24px local,
+    radial-gradient(farthest-side at 50% 0, color-mix(in srgb, var(--ink) 12%, transparent), transparent) center top / 100% 7px scroll,
+    radial-gradient(farthest-side at 50% 100%, color-mix(in srgb, var(--ink) 12%, transparent), transparent) center bottom / 100% 7px scroll;
+  background-repeat: no-repeat;
+}
+.mistake-panel .log:hover, .mistake-panel .log:focus-within,
+.mistake-panel .history-scroll:hover { scrollbar-color: var(--ink-3) transparent; }
+.mistake-panel .log::-webkit-scrollbar, .mistake-panel .history-scroll::-webkit-scrollbar { width: 8px; }
+.mistake-panel .log::-webkit-scrollbar-thumb, .mistake-panel .history-scroll::-webkit-scrollbar-thumb {
+  background: var(--line-2); border: 2px solid var(--surface); border-radius: 8px;
+}
+.mistake-panel .log:hover::-webkit-scrollbar-thumb { background: var(--ink-3); }
+.mistake-panel .panel-head { flex-shrink: 0; }
+.compact-text-dialog {
+  width: min(420px, calc(100vw - 32px)); max-height: calc(100dvh - 32px);
+  overflow: auto; padding: 20px; border: 1px solid var(--line-2);
+  border-radius: var(--r-md); background: var(--surface); color: var(--ink);
+  box-shadow: var(--shadow-float);
+}
+.compact-text-dialog::backdrop { background: rgb(0 0 0 / 35%); }
+.compact-text-dialog-head { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 12px; }
+.compact-text-dialog-head h2 { margin: 0; font-size: 16px; font-weight: 550; }
+.compact-text-dialog-head button { min-height: 44px; padding: 0 14px; border: 1px solid var(--line-2); border-radius: var(--r-sm); color: var(--ink); background: var(--surface); }
+.compact-text-dialog textarea { box-sizing: border-box; width: 100%; min-height: 120px; padding: 12px; border: 1px solid var(--line-2); border-radius: var(--r-sm); background: var(--bg); color: var(--ink); font: inherit; resize: vertical; }
+.compact-text-dialog :focus-visible { outline: 2px solid var(--ink-2); outline-offset: 2px; }
+/* Keep the scoring hit target generous while making its visible box discreet. */
+.sidebar .mark-picker {
+  position: relative; width: 56px; min-height: 44px;
+  padding: 0 4px; border: 0; background: transparent; box-shadow: none;
+}
+.sidebar .mark-picker::before {
+  content: ''; position: absolute; inset: 9px 0; pointer-events: none;
+  border: 1px solid var(--line-2); border-radius: 5px;
+}
+.sidebar .mark-picker:hover::before,
+.sidebar .mark-picker.is-open::before { border-color: var(--ink-2); }
+.sidebar .mark-picker.is-open { background: transparent; box-shadow: none; }
+/* Share score-column centering and first-row rhythm with the read-only criteria. */
+@media (min-width: 901px) {
+  .sidebar .sc-row-impression { grid-template-rows: 23px auto; }
+  .score-slim .sidebar .sc-row-impression { grid-template-rows: 21px auto; }
+  .sidebar .sc-row-impression .mark-picker {
+    width: 100%; height: 44px; min-height: 44px; align-self: center;
+    justify-self: stretch; padding: 0; gap: 2px;
+  }
+  .sidebar .sc-row-impression .mark-picker::before { inset: 9px 4px; }
+}
+.drag-menu .pill::before { width: 8px; height: 8px; border-radius: 2px; }

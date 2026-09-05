@@ -33,6 +33,17 @@ function memoryStorage(initial = {}) {
   };
 }
 
+test("tashkeel is opt-in and survives a device preference round trip", () => {
+  assert.equal(normalizeDevicePreferences({}).selectorTashkeel, false);
+  assert.equal(normalizeDevicePreferences({ selectorTashkeel: "true" }).selectorTashkeel, false);
+  const storage = memoryStorage();
+  writeDevicePreferences({ ...DEFAULT_DEVICE_PREFERENCES, selectorTashkeel: true, theme: "dark" }, storage);
+  assert.equal(readDevicePreferences(storage).selectorTashkeel, true);
+  assert.equal(readDevicePreferences(storage).theme, "dark");
+  writeDevicePreferences({ ...readDevicePreferences(storage), selectorTashkeel: false }, storage);
+  assert.equal(readDevicePreferences(storage).selectorTashkeel, false);
+});
+
 test("device preferences normalize invalid values without losing valid choices", () => {
   assert.deepEqual(normalizeDevicePreferences({
     theme: "dark",
@@ -53,6 +64,8 @@ test("device preferences normalize invalid values without losing valid choices",
     aduRaaguInputMode: "stepper",
     lastMarkStrip: "on",
     scoreChipTint: "earned",
+    selectorTashkeel: false,
+    slimScorePanel: false,
   });
   assert.equal(normalizeDevicePreferences({ mushafZoom: 140 }).mushafZoom, 140);
   assert.equal(normalizeDevicePreferences({ mushafZoom: 61 }).mushafZoom, MUSHAF_ZOOM_MIN);
@@ -123,6 +136,8 @@ test("legacy device keys migrate into the versioned settings object", () => {
     aduRaaguInputMode: "ruler",
     lastMarkStrip: "on",
     scoreChipTint: "earned",
+    selectorTashkeel: false,
+    slimScorePanel: false,
   });
 });
 
@@ -147,6 +162,8 @@ test("the version-one focus boolean migrates without losing other preferences", 
     aduRaaguInputMode: "ruler",
     lastMarkStrip: "on",
     scoreChipTint: "earned",
+    selectorTashkeel: false,
+    slimScorePanel: false,
   });
 });
 
@@ -185,6 +202,8 @@ test("the version-three settings migrate with the horizontal input default", () 
     aduRaaguInputMode: "ruler",
     lastMarkStrip: "on",
     scoreChipTint: "earned",
+    selectorTashkeel: false,
+    slimScorePanel: false,
   });
 });
 
@@ -257,4 +276,14 @@ test("unavailable storage never prevents an in-memory preference change", () => 
     questionFocusMode: "fade",
     aduRaaguInputMode: "stepper",
   }, storage));
+});
+test("slim score preference defaults off and preserves other device settings", () => {
+  assert.equal(normalizeDevicePreferences({}).slimScorePanel, false);
+  assert.equal(normalizeDevicePreferences({ slimScorePanel: "true" }).slimScorePanel, false);
+  const storage = memoryStorage();
+  writeDevicePreferences({ ...DEFAULT_DEVICE_PREFERENCES, slimScorePanel: true, selectorTashkeel: true, theme: "dark" }, storage);
+  const restored = readDevicePreferences(storage);
+  assert.equal(restored.slimScorePanel, true);
+  assert.equal(restored.selectorTashkeel, true);
+  assert.equal(restored.theme, "dark");
 });

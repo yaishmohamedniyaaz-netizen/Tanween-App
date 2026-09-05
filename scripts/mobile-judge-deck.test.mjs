@@ -126,7 +126,7 @@ test("portrait sheets expose explicit close controls and the score ruler clears 
   assert.match(css, /\.mobile-sheet-close \{[\s\S]*min-height: 44px/);
   assert.doesNotMatch(deck, /<span className="t-label">Score<\/span>/);
   assert.match(deck, /className="mobile-score-sheet-context"[\s\S]*<JudgeRoleStrip/);
-  assert.match(score, /presentation="inline"/);
+  assert.match(score, /presentation=\{presentation === "compact" \? "inline" : "dialog"\}/);
   assert.doesNotMatch(editor, /<label/);
   assert.match(editor, /aria-label=\{label\}/);
   assert.match(css, /\.judge-role-colors i \{[\s\S]*width: 8px;[\s\S]*height: 8px/);

@@ -38,6 +38,10 @@ interface Props {
   onQuestionFocusModeChange: (value: QuestionFocusMode) => void;
   aduRaaguInputMode: AduRaaguInputMode;
   onAduRaaguInputModeChange: (value: AduRaaguInputMode) => void;
+  slimScorePanel: boolean;
+  onSlimScorePanelChange: (value: boolean) => void;
+  selectorTashkeel: boolean;
+  onSelectorTashkeelChange: (value: boolean) => void;
   lastMarkStrip: LastMarkStrip;
   onLastMarkStripChange: (value: LastMarkStrip) => void;
   onShowMarkingGuide: () => void;
@@ -75,6 +79,10 @@ export function Header({
   onQuestionFocusModeChange,
   aduRaaguInputMode,
   onAduRaaguInputModeChange,
+  slimScorePanel,
+  onSlimScorePanelChange,
+  selectorTashkeel,
+  onSelectorTashkeelChange,
   lastMarkStrip,
   onLastMarkStripChange,
   onShowMarkingGuide,
@@ -267,6 +275,10 @@ export function Header({
         onQuestionFocusModeChange={onQuestionFocusModeChange}
         aduRaaguInputMode={aduRaaguInputMode}
         onAduRaaguInputModeChange={onAduRaaguInputModeChange}
+        slimScorePanel={slimScorePanel}
+        onSlimScorePanelChange={onSlimScorePanelChange}
+        selectorTashkeel={selectorTashkeel}
+        onSelectorTashkeelChange={onSelectorTashkeelChange}
         lastMarkStrip={lastMarkStrip}
         onLastMarkStripChange={onLastMarkStripChange}
         onShowMarkingGuide={onShowMarkingGuide}

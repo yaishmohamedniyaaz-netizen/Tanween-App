@@ -245,6 +245,10 @@ export function App() {
         onAduRaaguInputModeChange={(aduRaaguInputMode) =>
           updatePreferences({ aduRaaguInputMode })
         }
+        slimScorePanel={preferences.slimScorePanel}
+        onSlimScorePanelChange={(slimScorePanel) => updatePreferences({ slimScorePanel })}
+        selectorTashkeel={preferences.selectorTashkeel}
+        onSelectorTashkeelChange={(selectorTashkeel) => updatePreferences({ selectorTashkeel })}
         lastMarkStrip={preferences.lastMarkStrip}
         onLastMarkStripChange={(lastMarkStrip) =>
           updatePreferences({ lastMarkStrip })
@@ -270,7 +274,7 @@ export function App() {
       />
       {view === "judge" ? (
         <main
-          className={`workspace layout-${preferences.mushafLayout} rail-${preferences.judgeRailSide} ${!state.sessionActive && !state.preparedRecitation ? "is-idle" : ""}`}
+          className={`workspace ${preferences.slimScorePanel ? "score-slim" : ""} layout-${preferences.mushafLayout} rail-${preferences.judgeRailSide} ${!state.sessionActive && !state.preparedRecitation ? "is-idle" : ""}`}
           key="judge"
         >
           <div className="stage">
@@ -287,6 +291,7 @@ export function App() {
               }
             >
               <Mushaf
+                selectorTashkeel={preferences.selectorTashkeel}
                 page={page}
                 pageLayout={preferences.mushafLayout}
                 questionFocusMode={preferences.questionFocusMode}
@@ -381,7 +386,7 @@ export function App() {
             ) : state.sessionActive ? (
               <>
                 <JudgeRoleStrip onChange={() => setView("setup")} />
-                <ScorePanel inputMode={preferences.aduRaaguInputMode} />
+                <ScorePanel inputMode={preferences.aduRaaguInputMode} slim={preferences.slimScorePanel} />
                 <MistakeLog />
                 <NotesBox />
                 <button

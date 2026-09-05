@@ -8,6 +8,7 @@ import {
   type KeyboardEvent,
 } from "react";
 import { CATEGORIES } from "../config";
+import { HoldToUndo } from "./HoldToUndo";
 import {
   getSelectorPlacement,
   getSelectorVerticalPlacement,
@@ -33,6 +34,7 @@ interface Props {
     primaryGlyph: string;
     fullGlyph: string;
     selected: boolean;
+    mistake?: { id: string; category: CategoryId; amount: number };
   }>;
   targetSelected: boolean;
   hovered: CategoryId | null;
@@ -42,6 +44,8 @@ interface Props {
   onPick: (id: CategoryId) => void;
   onUnitPick: (tid: string) => void;
   onClose: () => void;
+  onUndo: (id: string) => void;
+  showTashkeel?: boolean;
 }
 
 type SelectorStyle = CSSProperties & {
@@ -62,7 +66,10 @@ export function DragMenu({
   onPick,
   onUnitPick,
   onClose,
+  onUndo,
+  showTashkeel,
 }: Props) {
+  const tashkeel = showTashkeel ?? false;
   const menuRef = useRef<HTMLDivElement>(null);
   const [menuHeight, setMenuHeight] = useState(SELECTOR_ESTIMATED_HEIGHT);
   const visualViewport = window.visualViewport;
@@ -98,6 +105,8 @@ export function DragMenu({
       category.kind === "pinpoint" && allowedCategories.includes(category.id),
   );
   const fixedCategory = categoryDefs.length === 1 ? categoryDefs[0] : null;
+  const selectedMistake = units.find((unit) => unit.selected)?.mistake;
+  const selectedCategory = CATEGORIES.find((category) => category.id === selectedMistake?.category);
 
   // Measure the actual layout before paint: a one-criterion tray is much
   // shorter than the three-criterion tray. Do not guess from category count.
@@ -153,7 +162,7 @@ export function DragMenu({
         "[data-pill]:not(:disabled)",
       ) ?? [],
     );
-    const focusableButtons = [...unitButtons, ...categoryButtons];
+    const focusableButtons = Array.from(menuRef.current?.querySelectorAll<HTMLButtonElement>("button:not(:disabled)[tabindex='0'], button:not(:disabled):not([tabindex])") ?? []);
     const activeElement = document.activeElement;
     const unitIndex = unitButtons.findIndex((button) => button === activeElement);
     const categoryIndex = categoryButtons.findIndex(
@@ -233,7 +242,7 @@ export function DragMenu({
 
   const unitPicker = (
     <div
-      className={`unit-picker ${hovered ? `cat-${hovered}` : fixedCategory ? `cat-${fixedCategory.id}` : ""}`}
+      className={`unit-picker ${tashkeel ? "with-tashkeel" : ""} ${hovered ? `cat-${hovered}` : fixedCategory ? `cat-${fixedCategory.id}` : ""}`}
       dir="rtl"
     >
       <div
@@ -247,18 +256,18 @@ export function DragMenu({
             type="button"
             role="radio"
             data-unit-tid={unit.tid}
-            className={`unit-choice ${unit.selected ? "selected" : ""}`}
-            aria-label={`Letter ${index + 1} of ${units.length}: ${unit.primaryGlyph}. Exact source ${unit.fullGlyph}`}
+            className={`unit-choice ${unit.selected ? "selected" : ""} ${unit.mistake ? `marked cat-${unit.mistake.category}` : ""}`}
+            aria-label={`Letter ${index + 1} of ${units.length}: ${unit.primaryGlyph}. Exact source ${unit.fullGlyph}${unit.mistake ? `. Marked: ${CATEGORIES.find((category) => category.id === unit.mistake?.category)?.label}` : ""}`}
             aria-checked={unit.selected}
             tabIndex={
               pinned && (unit.selected || (!targetSelected && index === 0))
                 ? 0
                 : -1
             }
-            onPointerEnter={() => onUnitPick(unit.tid)}
+            onPointerEnter={() => { if (!pinned) onUnitPick(unit.tid); }}
             onClick={() => onUnitPick(unit.tid)}
           >
-            <span aria-hidden="true">{unit.primaryGlyph}</span>
+            <span aria-hidden="true" className="unit-glyph">{tashkeel ? unit.fullGlyph || unit.primaryGlyph : unit.primaryGlyph}</span>
           </button>
         ))}
       </div>
@@ -327,6 +336,15 @@ export function DragMenu({
         <div className="selector-runway">
           {unitPicker}
           {categoryStack}
+          {pinned && selectedMistake && selectedCategory && (
+            <div className={`selector-correction cat-${selectedMistake.category}`}>
+              <span className="selector-current">{selectedCategory.label.replace("Laḥn ", "")} · −{selectedMistake.amount}</span>
+              <HoldToUndo
+                key={`${selectedMistake.id}:${selectedMistake.category}:${selectedMistake.amount}:${tashkeel}`}
+                onUndo={() => onUndo(selectedMistake.id)}
+              />
+            </div>
+          )}
         </div>
       </div>
     </>,

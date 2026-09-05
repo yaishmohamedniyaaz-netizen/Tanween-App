@@ -118,6 +118,7 @@ function dominant(mistakes: Mistake[]): CategoryId {
 }
 
 interface MushafProps {
+  selectorTashkeel?: boolean;
   page: number;
   pageLayout: MushafLayout;
   questionFocusMode: QuestionFocusMode;
@@ -138,6 +139,7 @@ interface ContextShadeBox {
 }
 
 export function Mushaf({
+  selectorTashkeel = false,
   page: currentPage,
   pageLayout,
   questionFocusMode,
@@ -843,11 +845,7 @@ export function Mushaf({
                         width: local(box.w),
                         height: local(box.h),
                       }}
-                    >
-                      {mistakes.length > 1 && (
-                        <span className="mark-count">{mistakes.length}</span>
-                      )}
-                    </div>
+                    />
                   )}
                 </Fragment>
               );
@@ -892,6 +890,7 @@ export function Mushaf({
 
       {judgingEnabled && active && (
         <DragMenu
+          showTashkeel={selectorTashkeel}
           anchor={active.anchor}
           glyph={active.meta.semanticText}
           units={active.meta.units.map((unit) => ({
@@ -899,6 +898,9 @@ export function Mushaf({
             primaryGlyph: unit.primaryGlyph,
             fullGlyph: unit.fullGlyph,
             selected: unit.tid === active.tid,
+            mistake: mistakesForUnit(unit).find((mistake) =>
+              (mistake.judgeSeatId ?? state.activeAssignment?.judgeSeatId) === state.activeAssignment?.judgeSeatId &&
+              allowedCategories.includes(mistake.category)),
           }))}
           targetSelected={Boolean(activeUnit)}
           hovered={hovered}
@@ -914,6 +916,14 @@ export function Mushaf({
             setActive((current) => (current ? { ...current, tid } : current));
           }}
           onClose={closeTray}
+          onUndo={(id) => {
+            const mistake = activeUnit && mistakesForUnit(activeUnit).find((item) => item.id === id);
+            if (!state.sessionActive || !mistake ||
+                (mistake.judgeSeatId ?? state.activeAssignment?.judgeSeatId) !== state.activeAssignment?.judgeSeatId ||
+                !allowedCategories.includes(mistake.category)) return;
+            dispatch({ type: "REMOVE_MISTAKE", id });
+            closeTray();
+          }}
         />
       )}
     </div>

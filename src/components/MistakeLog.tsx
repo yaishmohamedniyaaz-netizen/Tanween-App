@@ -246,6 +246,8 @@ export function MistakeLog({
         ) : (
           <ul
             className="log"
+            tabIndex={0}
+            aria-label="Current mistakes"
             id={expanded ? "mistake-current-panel" : undefined}
             role={expanded ? "tabpanel" : undefined}
             aria-labelledby={expanded && !mobileSheet ? "mistake-current-tab" : undefined}
