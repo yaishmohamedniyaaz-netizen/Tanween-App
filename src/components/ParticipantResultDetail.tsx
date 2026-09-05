@@ -29,6 +29,7 @@ import type {
 import { Icon } from "./Icon.tsx";
 import { RecitationEvidenceSpan } from "./RecitationEvidenceSpan.tsx";
 import { SessionRecordingPlayer } from "./SessionRecordingPlayer.tsx";
+import type { ReplayWord } from "../lib/recitationReplay.ts";
 
 const identityLabels = {
   number: "number",
@@ -214,6 +215,10 @@ export function ParticipantResultDetail({
   const [activeMistakeKey, setActiveMistakeKey] = useState<string | null>(null);
   const [focusActiveWord, setFocusActiveWord] = useState(false);
   const [locatableWordIds, setLocatableWordIds] = useState<Set<string> | null>(null);
+  const [replayWords, setReplayWords] = useState<ReplayWord[]>([]);
+  const [replaySelectedWord, setReplaySelectedWord] = useState<string | null>(null);
+  const [replaySourceId, setReplaySourceId] = useState<string | null>(null);
+  const [playbackWord, setPlaybackWord] = useState<string | null>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
   const mistakeRefs = useRef(new Map<string, HTMLButtonElement>());
 
@@ -229,6 +234,7 @@ export function ParticipantResultDetail({
     setActiveMistakeKey(null);
     setFocusActiveWord(false);
     setLocatableWordIds(null);
+    setReplayWords([]); setReplaySelectedWord(null); setReplaySourceId(null); setPlaybackWord(null);
   }, [evidenceKey]);
 
   useEffect(() => {
@@ -242,11 +248,21 @@ export function ParticipantResultDetail({
   const activateFromLog = (key: string) => {
     setFocusActiveWord(true);
     setActiveMistakeKey(key);
+    const entry = evidence.mistakes.find((mistake) => mistake.key === key);
+    if (entry?.mistake.wordId) {
+      setReplaySelectedWord(entry.mistake.wordId);
+      setReplaySourceId(entry.sessionId);
+    }
   };
 
   const activateFromQuran = (key: string) => {
     setFocusActiveWord(false);
     setActiveMistakeKey(key);
+    const entry = evidence.mistakes.find((mistake) => mistake.key === key);
+    if (entry?.mistake.wordId) {
+      setReplaySelectedWord(entry.mistake.wordId);
+      setReplaySourceId(entry.sessionId);
+    }
     window.requestAnimationFrame(() => {
       const target = mistakeRefs.current.get(key);
       target?.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -333,10 +349,19 @@ export function ParticipantResultDetail({
       </section>
 
       <SessionRecordingPlayer
+        key={`recording:${evidenceKey}`}
         sources={evidence.selectedSessions.map((session) => ({
           sessionId: session.id,
           label: `${sourceJudge(session)} · revision ${session.revision ?? 1}`,
         }))}
+        replay={isSample && evidence.status === "ready" && evidence.fingerprint ? {
+          questionFingerprint: evidence.fingerprint,
+          words: replayWords,
+          selectedWordId: replaySelectedWord,
+          requestedSessionId: replaySourceId,
+          onWordSelect: setReplaySelectedWord,
+          onPlaybackWord: setPlaybackWord,
+        } : undefined}
       />
 
       <div className="result-detail-main">
@@ -359,6 +384,9 @@ export function ParticipantResultDetail({
               focusActiveWord={focusActiveWord}
               onMistakeSelect={activateFromQuran}
               onWordIdsReady={recordLocatableWordIds}
+              onReplayWordsReady={isSample ? setReplayWords : undefined}
+              onReplayWordSelect={isSample ? setReplaySelectedWord : undefined}
+              replayWordId={isSample ? playbackWord : null}
             />
           ) : (
             <div className="result-evidence-unavailable" role="status">

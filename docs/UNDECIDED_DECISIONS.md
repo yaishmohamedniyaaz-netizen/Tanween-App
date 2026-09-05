@@ -192,8 +192,28 @@ product rules belong in `PRODUCT_FOUNDATION.md`, not here.
       are required before this leaves research mode?
 
 21. **Audio and automatic recitation following**
-    - Still a later research track. It is not required for the question bank or
-      the first scalable judging release.
+    - Current source checkpoint (2026-09-05): opt-in Practice recording, local
+      segmented replay, and an experimental Tilawa visual follower exist.
+      Exact ayah/word audio alignment and official-competition recording are
+      not established by that implementation.
+    - Resume plan: [recitation following and word replay](RECITATION_FOLLOWING_AND_WORD_REPLAY_PLAN.md).
+      First prove timing on saved Practice audio, then integrate Results replay,
+      then connect live following to a shared capture timeline. Automatic
+      recognition must never create official marks or deductions.
+    - Local prototype checkpoint (2026-09-05): Practice has manually reviewed
+      ayah/word intervals, occurrence selection, correction history, and
+      experimental CTC position suggestions. See the
+      [validation report](RECITATION_REPLAY_PROTOTYPE_CHECKPOINT.md). This does
+      not approve automatic exact-word timing or expansion to official events.
+    - Decision needed: what timing error and coverage justify an automatic word
+      seek, and how should unreviewed versus manually verified intervals appear?
+      The plan's numerical gates are provisional engineering targets.
+    - Decision needed: when a word/ayah is repeated, should replay ask for an
+      occurrence or default to a reviewer-linked occurrence? What context window
+      and timing-correction permissions should reviewers have?
+    - Decision needed before expanding beyond Practice: consent, retention,
+      deletion, authorized recording/review devices, and whether audio can ever
+      leave the device. No cloud upload or training use is implied by this plan.
 
 22. **Structured mistake detail and likely suggestions**
     - Confirmed boundary: a suggestion may help the judge describe an observed

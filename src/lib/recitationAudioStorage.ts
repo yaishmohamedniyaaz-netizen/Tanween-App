@@ -1,8 +1,11 @@
+import { sameReplayMedia, validateReplayRevision, type ReplayRevision } from "./recitationReplay.ts";
+
 export const RECITATION_AUDIO_DB_NAME = "tahqeeq-recitation-audio";
-export const RECITATION_AUDIO_DB_VERSION = 1;
+export const RECITATION_AUDIO_DB_VERSION = 2;
 
 const RECORDINGS_STORE = "recordings";
 const CHUNKS_STORE = "chunks";
+const REPLAY_STORE = "replay-revisions";
 
 export type LocalRecordingState =
   | "recording"
@@ -101,28 +104,41 @@ export function formatRecordingDuration(durationMs: number): string {
   return `${minutes}:${String(seconds).padStart(2, "0")}`;
 }
 
+export function upgradeRecitationAudioDatabase(database: IDBDatabase): void {
+  if (!database.objectStoreNames.contains(RECORDINGS_STORE)) {
+    database.createObjectStore(RECORDINGS_STORE, { keyPath: "sessionId" });
+  }
+  if (!database.objectStoreNames.contains(CHUNKS_STORE)) {
+    const chunks = database.createObjectStore(CHUNKS_STORE, { keyPath: "id" });
+    chunks.createIndex("by-session", "sessionId", { unique: false });
+  }
+  if (!database.objectStoreNames.contains(REPLAY_STORE)) {
+    const replay = database.createObjectStore(REPLAY_STORE, { keyPath: "id" });
+    replay.createIndex("by-session", "media.sessionId", { unique: false });
+  }
+}
+
 function openDatabase(): Promise<IDBDatabase> {
   if (typeof indexedDB === "undefined") {
     return Promise.reject(new Error("On-device audio storage is unavailable."));
   }
   return new Promise((resolve, reject) => {
+    let blocked = false;
     const request = indexedDB.open(
       RECITATION_AUDIO_DB_NAME,
       RECITATION_AUDIO_DB_VERSION,
     );
-    request.onupgradeneeded = () => {
-      const database = request.result;
-      if (!database.objectStoreNames.contains(RECORDINGS_STORE)) {
-        database.createObjectStore(RECORDINGS_STORE, { keyPath: "sessionId" });
-      }
-      if (!database.objectStoreNames.contains(CHUNKS_STORE)) {
-        const chunks = database.createObjectStore(CHUNKS_STORE, { keyPath: "id" });
-        chunks.createIndex("by-session", "sessionId", { unique: false });
-      }
+    request.onupgradeneeded = () => upgradeRecitationAudioDatabase(request.result);
+    request.onsuccess = () => {
+      if (blocked) { request.result.close(); return; }
+      request.result.onversionchange = () => request.result.close();
+      resolve(request.result);
     };
-    request.onsuccess = () => resolve(request.result);
     request.onerror = () => reject(request.error ?? new Error("Audio storage could not be opened."));
-    request.onblocked = () => reject(new Error("Audio storage is blocked by another Tahqeeq tab."));
+    request.onblocked = () => {
+      blocked = true;
+      reject(new Error("Audio storage is blocked by another Tahqeeq tab."));
+    };
   });
 }
 
@@ -451,10 +467,18 @@ export async function loadLocalRecordingPlayback(
 export async function deleteLocalRecording(sessionId: string): Promise<void> {
   await withDatabase(async (database) => {
     const transaction = database.transaction(
-      [RECORDINGS_STORE, CHUNKS_STORE],
+      [RECORDINGS_STORE, CHUNKS_STORE, REPLAY_STORE],
       "readwrite",
     );
     transaction.objectStore(RECORDINGS_STORE).delete(sessionId);
+    const replay = transaction.objectStore(REPLAY_STORE);
+    const revisions = replay.index("by-session").openKeyCursor(IDBKeyRange.only(sessionId));
+    revisions.onsuccess = () => {
+      const cursor = revisions.result;
+      if (!cursor) return;
+      replay.delete(cursor.primaryKey);
+      cursor.continue();
+    };
     const chunks = transaction.objectStore(CHUNKS_STORE);
     const range = IDBKeyRange.only(sessionId);
     const request = chunks.index("by-session").openKeyCursor(range);
@@ -467,4 +491,47 @@ export async function deleteLocalRecording(sessionId: string): Promise<void> {
     await transactionComplete(transaction);
   });
   notify(sessionId);
+}
+
+export async function loadReplayRevisions(sessionId: string): Promise<ReplayRevision[]> {
+  return withDatabase(async (database) => {
+    const transaction = database.transaction(REPLAY_STORE, "readonly");
+    const result = await requestResult(transaction.objectStore(REPLAY_STORE).index("by-session").getAll(sessionId));
+    await transactionComplete(transaction);
+    return (result as ReplayRevision[]).filter((entry) => {
+      try { validateReplayRevision(entry); return true; } catch { return false; }
+    });
+  });
+}
+
+/** Append with optimistic concurrency in the same transaction as the source check. */
+export async function appendReplayRevision(entry: ReplayRevision): Promise<void> {
+  validateReplayRevision(entry);
+  await withDatabase(async (database) => {
+    const transaction = database.transaction([RECORDINGS_STORE, REPLAY_STORE], "readwrite");
+    const completed = transactionComplete(transaction);
+    // Observe aborts even when a precondition fails before awaiting completion.
+    void completed.catch(() => undefined);
+    try {
+      const manifest = await requestResult(transaction.objectStore(RECORDINGS_STORE).get(entry.media.sessionId)) as LocalRecordingManifest | undefined;
+      if (!manifest || manifest.createdAt !== entry.media.recordingCreatedAt ||
+          !["ready", "paused", "interrupted"].includes(manifest.state) ||
+          !manifest.segments.some((segment) => segment.index === entry.media.segmentIndex && segment.chunkCount > 0 && segment.endedAt)) {
+        throw new Error("The saved recording changed or is still recording. Reopen it before saving timing.");
+      }
+      const store = transaction.objectStore(REPLAY_STORE);
+      const revisions = await requestResult(store.index("by-session").getAll(entry.media.sessionId)) as ReplayRevision[];
+      const previous = revisions.filter((item) => item.occurrenceId === entry.occurrenceId)
+        .sort((a, b) => b.revision - a.revision)[0];
+      if (entry.revision !== (previous?.revision ?? 0) + 1 ||
+          (previous && !sameReplayMedia(previous.media, entry.media))) {
+        throw new Error("This timing was changed in another view. Reload the recording before saving again.");
+      }
+      store.add(entry);
+      await completed;
+    } catch (error) {
+      try { transaction.abort(); } catch { /* Already completed/aborted. */ }
+      throw error;
+    }
+  });
 }

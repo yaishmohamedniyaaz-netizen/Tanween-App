@@ -9,6 +9,7 @@ import {
   type LocalRecordingPlayback,
 } from "../lib/recitationAudioStorage";
 import { Icon } from "./Icon";
+import { RecitationReplayPlayer, type RecitationReplayContext } from "./RecitationReplayPlayer.tsx";
 
 export interface SessionRecordingSource {
   sessionId: string;
@@ -21,7 +22,16 @@ interface AvailableSource extends SessionRecordingSource {
 
 export function SessionRecordingPlayer({
   sources,
+  replay,
 }: {
+  sources: SessionRecordingSource[];
+  replay?: RecitationReplayContext;
+}) {
+  const basic = <BasicSessionRecordingPlayer sources={sources} />;
+  return replay ? <RecitationReplayPlayer sources={sources} context={replay} fallback={basic} /> : basic;
+}
+
+function BasicSessionRecordingPlayer({ sources }: {
   sources: SessionRecordingSource[];
 }) {
   const uniqueSources = useMemo(() => {

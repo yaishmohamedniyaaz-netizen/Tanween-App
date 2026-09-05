@@ -5,6 +5,9 @@ import {
   type TilawaSession,
   type WorkerOutbound,
 } from "@tilawa/core";
+import { greedyWordWindows, matchReplayAnchors, type ReplaySuggestion } from "../lib/recitationReplayAnalysis.ts";
+import { tilawaMushafWordId } from "../lib/tilawaWordFocus.ts";
+import { sha256Audio } from "../lib/recitationReplay.ts";
 
 const MODEL_URL = "/tilawa/fastconformer_full_mixed.onnx";
 const VOCAB_URL = "/tilawa/vocab.json";
@@ -19,16 +22,23 @@ type PrototypeInbound =
   | { type: "audio"; samples: Float32Array }
   | { type: "reset" };
 
+interface ReplayAnalysisRequest {
+  type: "analyze_replay";
+  samples: Float32Array;
+  allowedWordIds: string[];
+}
+
 type PrototypeOutbound =
   | { type: "loading"; percent: number }
   | { type: "loading_status"; message: string }
   | { type: "performance"; processingMs: number; queuedMs: number }
   | { type: "ready" }
   | { type: "error"; message: string }
+  | { type: "replay_analysis"; suggestions: ReplaySuggestion[]; modelHash: string; vocabHash: string }
   | WorkerOutbound;
 
 const scope = globalThis as unknown as {
-  onmessage: ((event: MessageEvent<PrototypeInbound>) => void) | null;
+  onmessage: ((event: MessageEvent<PrototypeInbound | ReplayAnalysisRequest>) => void) | null;
   postMessage: (message: PrototypeOutbound) => void;
 };
 
@@ -36,6 +46,9 @@ let tilawaSession: TilawaSession | null = null;
 let initialization: Promise<void> | null = null;
 let pendingAudio: Float32Array[] = [];
 let feedActive = false;
+let modelHash = "";
+let vocabHash = "";
+let replayAnalysisActive = false;
 
 function post(message: PrototypeOutbound) {
   scope.postMessage(message);
@@ -173,6 +186,9 @@ async function initialize() {
       fetchJson<unknown[]>(QURAN_URL),
       loadModel(),
     ]);
+    [modelHash, vocabHash] = await Promise.all([
+      sha256Audio(model), sha256Audio(new TextEncoder().encode(JSON.stringify(vocab)).buffer),
+    ]);
 
     post({ type: "loading_status", message: "Starting the on-device model" });
     ort.env.wasm.numThreads = 1;
@@ -217,8 +233,49 @@ async function initialize() {
   }
 }
 
+async function analyzeReplay(message: ReplayAnalysisRequest) {
+  if (replayAnalysisActive) return;
+  replayAnalysisActive = true;
+  try {
+    await initialization;
+    if (!tilawaSession) throw new Error("The recognition model is unavailable.");
+    if (message.samples.length < 16000 || message.samples.length > 30 * 16000 || message.allowedWordIds.length > 5000) {
+      throw new Error("Choose a recording window between one and thirty seconds.");
+    }
+    const raw = await tilawaSession.transcribeRaw(message.samples);
+    const acoustic = raw.acoustic;
+    if (!acoustic) throw new Error("No acoustic evidence was returned.");
+    const vocab: Record<string, string> = {};
+    for (let id = 0; id < acoustic.vocabSize; id++) {
+      vocab[String(id)] = tilawaSession.decoder.tokenIdsToRawTokens([id])[0] ?? "<unk>";
+    }
+    const allowed = new Set(message.allowedWordIds);
+    const references = tilawaSession.db.verses.map((verse) => verse.phoneme_words.map((text, index) => {
+      const id = tilawaMushafWordId({ surah: verse.surah, ayah: verse.ayah,
+        word_index: index + 1, total_words: verse.phoneme_words.length });
+      let ids = id ? [id] : [];
+      // Joined model tokens have one interval for both printed words.
+      const split = ({ "2:181": 2, "8:6": 3, "13:37": 7 } as Record<string, number>)[`${verse.surah}:${verse.ayah}`];
+      if (split === index && id) ids = [`${verse.surah}.${verse.ayah}.${index}`, id];
+      return { text, wordIds: ids.every((value) => allowed.has(value)) ? ids : [] };
+    })).filter((verse) => verse.some((word) => word.wordIds.length));
+    const words = greedyWordWindows(acoustic.logprobs, acoustic.timeSteps, acoustic.vocabSize, vocab, acoustic.blankId);
+    post({ type: "replay_analysis", modelHash, vocabHash,
+      suggestions: matchReplayAnchors(words, references, acoustic.timeSteps, message.samples.length / 16000) });
+  } catch (error) {
+    post({ type: "error", message: error instanceof Error ? error.message : "Recording analysis failed." });
+  } finally {
+    replayAnalysisActive = false;
+  }
+}
+
 scope.onmessage = (event) => {
   const message = event.data;
+  if (message.type === "analyze_replay") {
+    initialization ??= initialize();
+    void analyzeReplay(message);
+    return;
+  }
   if (message.type === "init") {
     initialization ??= initialize();
     return;

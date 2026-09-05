@@ -23,6 +23,7 @@ import { wordIdsForEvidencePage } from "../lib/recitationEvidenceLayout.ts";
 import { rangeDisplayForPage } from "../lib/recitationRangeLayout.ts";
 import type { RecitationRangeSnapshot } from "../types.ts";
 import { MushafPageSurface, MushafWord } from "./MushafPageSurface.tsx";
+import type { ReplayWord } from "../lib/recitationReplay.ts";
 
 type LoadState =
   | { status: "loading" }
@@ -48,6 +49,9 @@ export function RecitationEvidenceSpan({
   focusActiveWord = false,
   onMistakeSelect,
   onWordIdsReady,
+  onReplayWordsReady,
+  onReplayWordSelect,
+  replayWordId = null,
 }: {
   range: RecitationRangeSnapshot;
   mistakes: EvidenceMistake[];
@@ -55,6 +59,9 @@ export function RecitationEvidenceSpan({
   focusActiveWord?: boolean;
   onMistakeSelect: (key: string) => void;
   onWordIdsReady?: (wordIds: Set<string> | null) => void;
+  onReplayWordsReady?: (words: ReplayWord[]) => void;
+  onReplayWordSelect?: (wordId: string) => void;
+  replayWordId?: string | null;
 }) {
   const [loadState, setLoadState] = useState<LoadState>({ status: "loading" });
   const [activePageIndex, setActivePageIndex] = useState(0);
@@ -66,6 +73,7 @@ export function RecitationEvidenceSpan({
     let cancelled = false;
     setLoadState({ status: "loading" });
     onWordIdsReady?.(null);
+    onReplayWordsReady?.([]);
     const pages = pageNumbers(range);
     Promise.all([
       loadQuestionIndex(),
@@ -115,6 +123,11 @@ export function RecitationEvidenceSpan({
           selectedWordIds,
         });
         onWordIdsReady?.(selectedWordIds);
+        onReplayWordsReady?.(loadedPages.flatMap((page) => page.lines.flatMap((line) =>
+          line.type === "surah-header" ? [] : line.words.filter((word) =>
+            word.role === "letter" && selectedWordIds.has(word.wid)).map((word) => ({
+              wordId: word.wid, text: word.text, surah: word.surah, ayah: word.ayah,
+            })))));
       })
       .catch(() => {
         if (!cancelled) {
@@ -127,7 +140,14 @@ export function RecitationEvidenceSpan({
     return () => {
       cancelled = true;
     };
-  }, [onWordIdsReady, range]);
+  }, [onWordIdsReady, onReplayWordsReady, range]);
+
+  useEffect(() => {
+    if (!replayWordId || loadState.status !== "ready") return;
+    const index = loadState.pages.findIndex((page) => page.lines.some((line) =>
+      line.type !== "surah-header" && line.words.some((word) => word.wid === replayWordId)));
+    if (index >= 0) setActivePageIndex(index);
+  }, [replayWordId, loadState]);
 
   const mistakesByWord = useMemo(() => {
     const values = new Map<string, EvidenceMistake[]>();
@@ -233,14 +253,18 @@ export function RecitationEvidenceSpan({
               wordMistakes.some((entry) => entry.key === activeMistakeKey),
             );
             if (!firstMistake) {
+              const replayable = Boolean(onReplayWordSelect && inRange && word.role === "letter");
               return (
                 <MushafWord
                   key={word.wid}
                   word={word}
                   qcfReady={qcfReady}
-                  className={inRange ? "" : "question-context-word evidence-context-word"}
+                  className={`${inRange ? "" : "question-context-word evidence-context-word"} ${replayable ? "evidence-replay-word" : ""} ${replayWordId === word.wid ? "is-replay-focus" : ""}`}
                   aria-hidden={inRange ? undefined : true}
-                />
+                >
+                  {replayable && <button type="button" className="evidence-replay-button"
+                    aria-label={`Review recording for ${word.text}`} onClick={() => onReplayWordSelect?.(word.wid)} />}
+                </MushafWord>
               );
             }
             const categoryNames = [...new Set(
@@ -253,7 +277,7 @@ export function RecitationEvidenceSpan({
                 key={word.wid}
                 word={word}
                 qcfReady={qcfReady}
-                className={`evidence-marked-word cat-${firstMistake.mistake.category} ${isActive ? "is-active" : ""}`}
+                className={`evidence-marked-word cat-${firstMistake.mistake.category} ${isActive ? "is-active" : ""} ${replayWordId === word.wid ? "is-replay-focus" : ""}`}
               >
                 <button
                   ref={(node) => {
@@ -266,7 +290,7 @@ export function RecitationEvidenceSpan({
                   className="evidence-marker-button"
                   aria-label={`${word.text}. ${wordMistakes.length} recorded mistake${wordMistakes.length === 1 ? "" : "s"}: ${categoryNames}`}
                   aria-pressed={isActive}
-                  onClick={() => onMistakeSelect(firstMistake.key)}
+                  onClick={() => { onMistakeSelect(firstMistake.key); onReplayWordSelect?.(word.wid); }}
                 />
                 {wordMistakes.length > 1 && (
                   <span className="evidence-mark-count" aria-hidden="true">

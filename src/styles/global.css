@@ -12899,6 +12899,80 @@ html:has(.finish-dialog[open]) {
   opacity: 0.55;
 }
 
+.replay-review {
+  padding: var(--sp-4) var(--sp-5);
+  border-block-end: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--ink);
+  font-size: var(--t-small);
+  min-width: 0;
+}
+.replay-review-heading, .replay-interval-heading {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: var(--sp-3); flex-wrap: wrap;
+}
+.replay-review-heading h3 { margin: 4px 0 0; font-size: var(--t-lead); }
+.replay-review-heading > div > span, .replay-interval-heading > span { color: var(--ink-3); }
+.replay-review button, .replay-review select, .replay-review input[type="number"] {
+  min-height: 44px; max-width: 100%; font: inherit;
+}
+.replay-review .btn-secondary {
+  padding: 8px 16px; border: 1px solid var(--line-2); border-radius: var(--r-sm);
+  background: var(--surface); color: var(--ink); font-weight: 600;
+}
+.replay-review .btn-secondary:hover { background: var(--bg); }
+.replay-review select, .replay-review input[type="number"] {
+  display: block; width: 100%; min-width: 0; margin-top: 4px;
+  padding: 8px; border: 1px solid var(--line-2); border-radius: var(--r-sm);
+  color: var(--ink); background: var(--surface);
+}
+.replay-source-row, .replay-choice-row, .replay-boundaries {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--sp-3);
+}
+.replay-source-row { margin-block: var(--sp-4); }
+.replay-review label { min-width: 0; color: var(--ink-2); }
+.replay-segment { display: grid; gap: var(--sp-4); min-width: 0; }
+.replay-segment > audio { display: none; }
+.replay-transport {
+  display: grid; grid-template-columns: 44px minmax(0, 1fr) auto;
+  align-items: center; gap: var(--sp-3);
+}
+.replay-transport input { width: 100%; min-width: 0; accent-color: var(--ink); height: 44px; }
+.replay-transport output { color: var(--ink-2); font-size: var(--t-small); white-space: nowrap; }
+.replay-interval-heading strong[dir="rtl"] { font-family: var(--quran); font-size: var(--t-title); }
+.replay-boundaries button {
+  width: 100%; margin-top: 4px; border: 1px solid var(--line-2);
+  border-radius: var(--r-sm); background: var(--bg); color: var(--ink);
+}
+.replay-actions { display: flex; align-items: center; flex-wrap: wrap; gap: var(--sp-3); }
+.replay-actions label { display: flex; align-items: center; gap: 8px; min-height: 44px; }
+.replay-actions input[type="checkbox"] { accent-color: var(--ink); width: 18px; height: 18px; }
+.replay-help, .replay-notice, .replay-error { margin: 0; line-height: 1.6; overflow-wrap: anywhere; }
+.replay-help { color: var(--ink-3); }
+.replay-notice, .replay-error { border-inline-start: 2px solid var(--ink-3); padding-inline-start: var(--sp-3); }
+.replay-analysis { border-top: 1px solid var(--line); padding-top: var(--sp-3); }
+.replay-analysis summary { cursor: pointer; min-height: 44px; display: list-item; align-content: center; }
+.replay-analysis p { line-height: 1.6; color: var(--ink-2); }
+.replay-analysis > span { display: block; margin-top: var(--sp-3); color: var(--ink-3); }
+.replay-remove { justify-self: start; border: 0; background: transparent; color: var(--ink-3); text-decoration: underline; }
+.replay-review button:disabled { opacity: 0.5; cursor: not-allowed; }
+.replay-review :is(button, input, select, summary):focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+.evidence-replay-word { position: relative; }
+.evidence-replay-button {
+  position: absolute; inset: 0; border: 0; padding: 0; background: transparent;
+  border-radius: 4px; cursor: pointer;
+}
+.evidence-replay-button:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.recitation-evidence-span .is-replay-focus { outline: 2px solid var(--ink); outline-offset: 2px; border-radius: 4px; }
+@media (max-width: 760px) {
+  .replay-review { padding: var(--sp-4); }
+  .replay-source-row, .replay-choice-row { grid-template-columns: minmax(0, 1fr); }
+  .replay-transport { grid-template-columns: 44px minmax(0, 1fr); gap: 8px; }
+  .replay-transport output { grid-column: 1 / -1; justify-self: end; }
+  .replay-review-heading > button { width: 100%; }
+  .replay-actions > button { flex: 1 1 140px; }
+}
+
 .session-recording {
   display: grid;
   gap: 14px;
