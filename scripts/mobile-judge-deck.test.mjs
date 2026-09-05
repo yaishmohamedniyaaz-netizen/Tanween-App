@@ -143,10 +143,10 @@ test("prepared portrait mode shares the live dock footprint without covering the
   assert.match(prepared, /prepared-sidebar-question-summary-full/);
   assert.match(prepared, /prepared-sidebar-question-summary-mobile/);
   assert.match(prepared, /`Q \$\{question\.drawPosition\}`/);
-  assert.match(css, /\.app\[data-mobile-prepared="true"\] \.workspace \{[\s\S]*display: block;[\s\S]*overflow: hidden/);
-  assert.match(css, /\.app\[data-mobile-prepared="true"\] \.stage \{[\s\S]*height: calc\(100% - 114px - env\(safe-area-inset-bottom, 0px\)\)/);
-  assert.match(css, /\.app\[data-mobile-prepared="true"\] \.mushaf-scroll \{[\s\S]*calc\(68dvh - 115px\)/);
-  assert.match(css, /\.app\[data-mobile-prepared="true"\] \.sidebar \{[\s\S]*position: fixed;[\s\S]*bottom: 0;[\s\S]*height: calc\(114px \+ env\(safe-area-inset-bottom, 0px\)\)[\s\S]*padding: 8px 8px calc\(12px \+ env\(safe-area-inset-bottom, 0px\)\)/);
+  // Geometry is verified in the browser matrix; these guards only retain the
+  // shared frame and fixed dock contracts rather than the old viewport estimate.
+  assert.match(css, /\.app\[data-mobile-prepared="true"\] \.stage,\s*\.app\[data-mobile-judge-deck="true"\] \.stage \{/);
+  assert.match(css, /\.app\[data-mobile-prepared="true"\] \.sidebar \{[\s\S]*position: fixed;[\s\S]*bottom: 0;[\s\S]*height: var\(--mobile-judge-dock-space\)/);
   assert.match(css, /\.app\[data-mobile-prepared="true"\] \.prepared-sidebar \{[\s\S]*grid-template-rows: 44px 48px/);
   assert.match(css, /\.app\[data-mobile-prepared="true"\] \.prepared-sidebar-details \{[\s\S]*overflow: hidden/);
   assert.match(css, /\.app\[data-mobile-prepared="true"\] \.prepared-sidebar-actions \{[\s\S]*grid-template-columns: 84px 84px minmax\(0, 1fr\)/);
@@ -161,7 +161,7 @@ test("the optional raised comparison moves only the complete single-page group",
     /\.app\[data-mobile-judge-layout="raised"\][\s\S]*?\.mushaf-scroll\.is-single \{([\s\S]*?)\n  \}/,
   );
   assert.ok(raisedRule, "expected a raised mobile comparison rule");
-  assert.match(raisedRule[1], /transform: translateY\(-12px\)/);
+  assert.match(raisedRule[1], /transform: translateY\(calc\(-1 \* clamp\(0px,/);
   assert.doesNotMatch(raisedRule[1], /(?:width|height):/);
 });
 
@@ -202,7 +202,7 @@ test("phone portrait reserves a stable return row while page navigation stays on
   const css = readFileSync(new URL("../src/styles/global.css", import.meta.url), "utf8");
   assert.match(
     css,
-    /\.app\[data-mobile-judge-deck="true"\] \.mushaf-scroll\.is-single,[\s\S]*display: grid;[\s\S]*width: min\(377px, calc\(100vw - 16px\), calc\(68dvh - 152px\)\)[\s\S]*grid-template-rows: 44px auto/,
+    /\.app\[data-mobile-judge-deck="true"\] \.mushaf-scroll\.is-single,[\s\S]*display: grid;[\s\S]*width: var\(--mobile-page-inline-size\)[\s\S]*grid-template-rows: 44px auto/,
   );
   assert.match(
     css,

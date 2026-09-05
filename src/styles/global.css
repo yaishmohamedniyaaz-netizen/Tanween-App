@@ -13281,7 +13281,12 @@ html:has(.finish-dialog[open]) {
   (max-device-width: 600px) and (pointer: coarse) and (orientation: portrait) {
   .app[data-mobile-judge-deck="true"],
   .app[data-mobile-prepared="true"] {
-    height: 100dvh;
+    --mobile-judge-safe-top: env(safe-area-inset-top, 0px);
+    --mobile-judge-safe-bottom: env(safe-area-inset-bottom, 0px);
+    --mobile-judge-dock-space: calc(114px + var(--mobile-judge-safe-bottom));
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr);
+    height: 100svh;
     min-height: 0;
     overflow: hidden;
   }
@@ -13290,15 +13295,16 @@ html:has(.finish-dialog[open]) {
   .app[data-mobile-prepared="true"] .app-header {
     position: relative;
     top: auto;
-    min-height: calc(55px + env(safe-area-inset-top, 0px));
-    padding-top: calc(5px + env(safe-area-inset-top, 0px));
+    min-height: calc(55px + var(--mobile-judge-safe-top));
+    padding-top: calc(5px + var(--mobile-judge-safe-top));
     flex: 0 0 auto;
   }
 
-  .app[data-mobile-prepared="true"] .workspace {
+  .app[data-mobile-prepared="true"] .workspace,
+  .app[data-mobile-judge-deck="true"] .workspace {
     display: block;
     width: 100%;
-    height: calc(100dvh - 55px - env(safe-area-inset-top, 0px));
+    height: 100%;
     min-height: 0;
     margin: 0;
     padding: 0;
@@ -13306,10 +13312,11 @@ html:has(.finish-dialog[open]) {
     animation: none;
   }
 
-  .app[data-mobile-prepared="true"] .stage {
+  .app[data-mobile-prepared="true"] .stage,
+  .app[data-mobile-judge-deck="true"] .stage {
     display: flex;
     width: 100%;
-    height: calc(100% - 114px - env(safe-area-inset-bottom, 0px));
+    height: calc(100% - var(--mobile-judge-dock-space));
     min-height: 0;
     align-items: center;
     justify-content: center;
@@ -13318,22 +13325,29 @@ html:has(.finish-dialog[open]) {
   }
 
   .app[data-mobile-prepared="true"] .mushaf-viewport,
-  .app[data-mobile-prepared="true"] .mushaf-shell {
+  .app[data-mobile-prepared="true"] .mushaf-shell,
+  .app[data-mobile-judge-deck="true"] .mushaf-viewport,
+  .app[data-mobile-judge-deck="true"] .mushaf-shell {
     width: 100%;
     height: 100%;
     min-height: 0;
   }
 
-  .app[data-mobile-prepared="true"] .mushaf-shell {
+  .app[data-mobile-prepared="true"] .mushaf-shell,
+  .app[data-mobile-judge-deck="true"] .mushaf-shell {
+    /* The explicitly sized parent owns fit; the Quran never sizes its frame.
+       Container units include the space remaining after header/dock/safe areas. */
+    container-type: size;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
   }
 
-  .app[data-mobile-prepared="true"] .mushaf-scroll {
+  .app[data-mobile-prepared="true"] .mushaf-scroll,
+  .app[data-mobile-judge-deck="true"] .mushaf-scroll {
     display: block;
-    width: min(377px, calc(100vw - 16px), calc(68dvh - 115px));
+    width: min(100cqw, calc((100cqh - 8px) * 0.68));
     height: auto;
     flex: 0 0 auto;
     overflow: visible;
@@ -13354,11 +13368,11 @@ html:has(.finish-dialog[open]) {
     left: 0;
     display: block;
     width: 100%;
-    height: calc(114px + env(safe-area-inset-bottom, 0px));
+    height: var(--mobile-judge-dock-space);
     max-height: none;
     min-height: 0;
     margin: 0;
-    padding: 8px 8px calc(12px + env(safe-area-inset-bottom, 0px));
+    padding: 8px 8px calc(12px + var(--mobile-judge-safe-bottom));
     overflow: hidden;
     border: 0;
     border-radius: 0;
@@ -13402,6 +13416,8 @@ html:has(.finish-dialog[open]) {
   }
 
   .app[data-mobile-prepared="true"] .prepared-sidebar-participant {
+    grid-template-areas: "reference copy";
+    grid-template-columns: auto minmax(0, 1fr);
     gap: 6px;
     min-width: 0;
     padding: 0;
@@ -13421,7 +13437,7 @@ html:has(.finish-dialog[open]) {
     min-width: 30px;
     min-height: 30px;
     padding-inline: 6px;
-    font-size: 10px;
+    font-size: var(--t-micro);
   }
 
   .app[data-mobile-prepared="true"] .prepared-sidebar-question {
@@ -13463,6 +13479,13 @@ html:has(.finish-dialog[open]) {
     border: 0;
     background: transparent;
     color: var(--ink-3);
+    font-size: var(--t-micro);
+  }
+
+  /* Prepared's desktop border otherwise paints around the mobile ::before
+     surface as well. Preserve the inner surface and the keyboard focus ring. */
+  .app[data-mobile-prepared="true"] .app-header .reciter-chip.is-prepared {
+    border-color: transparent;
   }
 
   .app[data-mobile-prepared="true"] .prepared-recording {
@@ -13522,7 +13545,7 @@ html:has(.finish-dialog[open]) {
     padding: 0 7px;
     border: 0;
     border-radius: 0;
-    font-size: 11px;
+    font-size: var(--t-micro);
     line-height: 1.15;
   }
 
@@ -13663,60 +13686,35 @@ html:has(.finish-dialog[open]) {
     padding-block: 4px;
   }
 
-  .app[data-mobile-judge-deck="true"] .workspace {
-    display: block;
-    width: 100%;
-    height: calc(100dvh - 55px - env(safe-area-inset-top, 0px));
-    min-height: 0;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    animation: none;
-  }
-
   .app[data-mobile-judge-deck="true"] .sidebar {
     display: none;
   }
 
-  .app[data-mobile-judge-deck="true"] .stage {
-    display: flex;
-    width: 100%;
-    height: calc(100% - 114px - env(safe-area-inset-bottom, 0px));
-    min-height: 0;
-    align-items: center;
-    justify-content: center;
-    padding: 0 8px;
-    overflow: hidden;
-  }
-
-  .app[data-mobile-judge-deck="true"] .mushaf-viewport,
-  .app[data-mobile-judge-deck="true"] .mushaf-shell {
-    width: 100%;
-    height: 100%;
-    min-height: 0;
-  }
-
-  .app[data-mobile-judge-deck="true"] .mushaf-shell {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-  }
-
-  .app[data-mobile-judge-deck="true"] .mushaf-scroll {
-    display: block;
-    width: min(377px, calc(100vw - 16px), calc(68dvh - 115px));
-    height: auto;
-    flex: 0 0 auto;
-    overflow: visible;
-  }
-
   .app[data-mobile-judge-deck="true"] .mushaf-scroll.is-single,
   .app[data-mobile-prepared="true"] .mushaf-scroll.is-single {
+    --mobile-page-inline-size: min(100cqw, calc((100cqh - 56px) * 0.68));
     display: grid;
-    width: min(377px, calc(100vw - 16px), calc(68dvh - 152px));
+    /* 44px return target + 4px gap + 4px clearance at both frame edges. */
+    width: var(--mobile-page-inline-size);
     grid-template-rows: 44px auto;
     row-gap: 4px;
+  }
+
+  /* Height-limited phones must scale the ink with the paper, not retain
+     desktop minimum font sizes inside a smaller fixed-line page. */
+  .app[data-mobile-judge-deck="true"] .mushaf-composition .m-line,
+  .app[data-mobile-prepared="true"] .mushaf-composition .m-line {
+    font-size: var(--mushaf-line-fluid-size);
+  }
+
+  .app[data-mobile-judge-deck="true"] .mushaf-composition .m-line-basmala,
+  .app[data-mobile-prepared="true"] .mushaf-composition .m-line-basmala {
+    font-size: var(--mushaf-basmala-fluid-size);
+  }
+
+  .app[data-mobile-judge-deck="true"] .mushaf-composition .page,
+  .app[data-mobile-prepared="true"] .mushaf-composition .page {
+    --surah-band-title-size: var(--surah-band-title-fluid-size);
   }
 
   .app[data-mobile-judge-deck="true"] .mushaf-composition {
@@ -13752,8 +13750,11 @@ html:has(.finish-dialog[open]) {
 
   .app[data-mobile-judge-deck="true"] .mushaf-scroll.is-single .question-return-bubble,
   .app[data-mobile-prepared="true"] .mushaf-scroll.is-single .question-return-bubble {
+    position: relative;
     grid-column: 1;
     justify-self: start;
+    width: max-content;
+    max-width: 100cqw;
     min-height: 44px;
     padding: 0 9px;
     transform: none;
@@ -13798,7 +13799,7 @@ html:has(.finish-dialog[open]) {
     bottom: 0;
     left: 0;
     display: block;
-    padding: 8px 8px calc(12px + env(safe-area-inset-bottom, 0px));
+    padding: 8px 8px calc(12px + var(--mobile-judge-safe-bottom));
     container-type: inline-size;
     background: var(--bg);
   }
@@ -13820,33 +13821,32 @@ html:has(.finish-dialog[open]) {
   }
 
   .mobile-criterion-chip {
-    display: flex;
+    display: grid;
+    grid-template-rows: minmax(0, 1fr) auto;
     min-width: 0;
-    padding: 0 4px;
-    flex-direction: column;
+    padding: 1px 4px;
     align-items: center;
-    justify-content: center;
-    gap: 2px;
+    justify-items: center;
     background: var(--surface);
   }
 
   .mobile-criterion-label {
-    display: inline-flex;
+    display: block;
     max-width: 100%;
-    align-items: center;
-    gap: 4px;
     overflow: hidden;
     color: var(--ink-3);
-    font-size: 11px;
+    font-size: var(--t-micro);
     line-height: 1.1;
     text-overflow: ellipsis;
-    white-space: nowrap;
+    white-space: normal;
+    text-align: center;
   }
 
   .mobile-criterion-label i {
+    display: inline-block;
+    margin-inline-end: 4px;
     width: 8px;
     height: 8px;
-    flex: 0 0 auto;
     border-radius: 2px;
     background: var(--c);
   }
@@ -14379,7 +14379,17 @@ html:has(.finish-dialog[open]) {
   (max-device-width: 600px) and (pointer: coarse) and (orientation: portrait) {
   .app[data-mobile-judge-layout="raised"][data-mobile-prepared="true"] .mushaf-scroll.is-single,
   .app[data-mobile-judge-layout="raised"][data-mobile-judge-deck="true"] .mushaf-scroll.is-single {
-    transform: translateY(-12px);
+    /* The optional comparison must never push the return target out of frame. */
+    transform: translateY(calc(-1 * clamp(0px,
+      (100cqh - var(--mobile-page-inline-size) / 0.68 - 48px) / 2 - 4px,
+      12px)));
+  }
+}
+
+@media (display-mode: standalone) and (orientation: portrait) and (max-width: 600px) {
+  .app[data-mobile-judge-deck="true"],
+  .app[data-mobile-prepared="true"] {
+    height: 100dvh;
   }
 }
 
