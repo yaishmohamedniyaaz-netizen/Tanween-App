@@ -123,3 +123,37 @@ capture. Screenshot conversion/cropping was only for QA comparison.
 Confidence: practicality94/100; architecture/data safety98/100; visual certainty
 85/100 for the browser-tested slice. Real-device and user acceptance remain gates,
 not assumptions. Do not call the entire original test matrix complete.
+
+## Follow-up: balance the active-recitation whitespace
+
+After version 109, the user reported that the normal active page still sat too
+low. The previous fit centred the entire group, including the 48px return row.
+That left 48px more whitespace above the paper than below it.
+
+The portrait Ready/active group now rises by half that row (24px), capped by the
+actual available clearance above its return target. Paper dimensions, fonts,
+navigation, and dock dimensions are unchanged. The optional raised comparison
+remains a further 12px beyond the balanced default, subject to the same clearance.
+
+Browser measurements against version 109, with loaded fonts:
+
+| Viewport | Top gap before → after | Bottom gap before → after |
+| --- | --- | --- |
+| 393x852 | 87.95 → 63.95px | 40.85 → 64.85px |
+| 430x932 | 100.78 → 76.78px | 53.67 → 77.67px |
+
+At 320x568 the height-limited page retains its existing position so the return
+target stays below the header. This deliberately does not promise equal gaps on
+every short screen. In the isolated practice session, Ready and active paper
+rectangles were identical (x8/y118.8625/w377.5875/h555.2750). The active screen
+with no return control was visually reviewed, and return navigation was checked
+in the separate existing session without altering its marks.
+
+Protected desktop/landscape geometry remains the same within 0.01px across the
+four original viewports. This follow-up's rapid resize screenshots had transient
+compositor differences at 1024/1280, so they are not claimed as pixel-identical;
+1400x900 and 852x393 captures matched exactly. The CSS change is confined to the
+existing portrait selectors. The 19 scoped mobile-deck/fit tests pass.
+
+Confidence for this correction: practicality 97/100; data safety 99/100;
+visual certainty 86/100. Physical iPhone acceptance remains outstanding.

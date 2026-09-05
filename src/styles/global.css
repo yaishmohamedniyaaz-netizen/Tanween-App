@@ -13698,6 +13698,11 @@ html:has(.finish-dialog[open]) {
     width: var(--mobile-page-inline-size);
     grid-template-rows: 44px auto;
     row-gap: 4px;
+    /* Centre the paper, not the paper plus its 48px return-control row.
+       Short frames retain the clearance needed by that touch target. */
+    transform: translateY(calc(-1 * clamp(0px,
+      (100cqh - var(--mobile-page-inline-size) / 0.68 - 48px) / 2 - 4px,
+      24px)));
   }
 
   /* Height-limited phones must scale the ink with the paper, not retain
@@ -14379,10 +14384,10 @@ html:has(.finish-dialog[open]) {
   (max-device-width: 600px) and (pointer: coarse) and (orientation: portrait) {
   .app[data-mobile-judge-layout="raised"][data-mobile-prepared="true"] .mushaf-scroll.is-single,
   .app[data-mobile-judge-layout="raised"][data-mobile-judge-deck="true"] .mushaf-scroll.is-single {
-    /* The optional comparison must never push the return target out of frame. */
+    /* Optional 12px rise beyond the paper-centred default, within clearance. */
     transform: translateY(calc(-1 * clamp(0px,
       (100cqh - var(--mobile-page-inline-size) / 0.68 - 48px) / 2 - 4px,
-      12px)));
+      36px)));
   }
 }
 
