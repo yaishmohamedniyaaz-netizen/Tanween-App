@@ -5678,6 +5678,22 @@ textarea:focus-visible {
   animation: flash-pulse 1.2s var(--ease-in-out);
 }
 /* ---- Drag menu ---- */
+.word-total-marker {
+  position: absolute;
+  display: block;
+  pointer-events: none;
+  user-select: none;
+  box-sizing: border-box;
+  font-family: var(--font-ui, system-ui, sans-serif);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+  direction: ltr;
+  color: var(--ink);
+  background: var(--surface);
+  outline: 1px solid var(--line-2);
+  outline-offset: -1px;
+}
 .menu-backdrop {
   position: fixed;
   inset: 0;

@@ -38,6 +38,7 @@ interface Props {
   }>;
   targetSelected: boolean;
   hovered: CategoryId | null;
+  onPreview: (category: CategoryId | null) => void;
   pinned: boolean;
   config: ScoreConfig;
   allowedCategories: CategoryId[];
@@ -60,6 +61,7 @@ export function DragMenu({
   units,
   targetSelected,
   hovered,
+  onPreview,
   pinned,
   config,
   allowedCategories,
@@ -256,7 +258,7 @@ export function DragMenu({
             type="button"
             role="radio"
             data-unit-tid={unit.tid}
-            className={`unit-choice ${unit.selected ? "selected" : ""} ${unit.mistake ? `marked cat-${unit.mistake.category}` : ""}`}
+            className={`unit-choice ${unit.selected ? "selected" : ""} ${unit.mistake ? `marked cat-${unit.selected && hovered ? hovered : unit.mistake.category}` : ""}`}
             aria-label={`Letter ${index + 1} of ${units.length}: ${unit.primaryGlyph}. Exact source ${unit.fullGlyph}${unit.mistake ? `. Marked: ${CATEGORIES.find((category) => category.id === unit.mistake?.category)?.label}` : ""}`}
             aria-checked={unit.selected}
             tabIndex={
@@ -264,7 +266,14 @@ export function DragMenu({
                 ? 0
                 : -1
             }
-            onPointerEnter={() => { if (!pinned) onUnitPick(unit.tid); }}
+            onPointerEnter={(event) => {
+              // A mouse can explore the pinned tray without extra clicks.
+              // Touch still chooses deliberately by tapping or dragging.
+              if (!pinned || event.pointerType === "mouse") {
+                onPreview(null);
+                onUnitPick(unit.tid);
+              }
+            }}
             onClick={() => onUnitPick(unit.tid)}
           >
             <span aria-hidden="true" className="unit-glyph">{tashkeel ? unit.fullGlyph || unit.primaryGlyph : unit.primaryGlyph}</span>
@@ -298,6 +307,10 @@ export function DragMenu({
           aria-posinset={index + 1}
           aria-setsize={categoryDefs.length}
           onClick={() => onPick(c.id)}
+          onPointerEnter={() => { if (pinned && targetSelected) onPreview(c.id); }}
+          onPointerLeave={() => { if (pinned) onPreview(null); }}
+          onFocus={() => { if (pinned && targetSelected) onPreview(c.id); }}
+          onBlur={() => { if (pinned) onPreview(null); }}
           tabIndex={pinned ? 0 : -1}
         >
           <span className="pill-text">

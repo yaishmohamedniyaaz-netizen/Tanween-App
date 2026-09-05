@@ -58,6 +58,7 @@ import {
   type RangePageDisplay,
 } from "../lib/recitationRangeLayout.ts";
 import { MushafPageSurface, MushafWord } from "./MushafPageSurface.tsx";
+import { wordTotalCircle, wordFindingCounts, type MarkerRect } from "../lib/wordFindingSummary";
 
 interface UnitTarget {
   tid: string;
@@ -528,6 +529,14 @@ export function Mushaf({
     const rootRect = root.getBoundingClientRect();
     const pointX = event.clientX - rootRect.left;
     const pointY = event.clientY - rootRect.top;
+    // The decoration extends the word's existing target. A tap on its top
+    // edge must never select the Quran word on the preceding line.
+    const numberedWord = boxes.find(box => {
+      if (box.page !== page) return false;
+      const marker = wordSummaries.get(`${box.page}:${box.wid}`)?.marker;
+      return marker && pointX >= marker.x && pointX <= marker.x + marker.w &&
+        pointY >= marker.y && pointY <= marker.y + marker.h;
+    });
     const candidates = boxes.filter(
       (box) =>
         box.page === page &&
@@ -536,7 +545,7 @@ export function Mushaf({
         pointY >= box.hy &&
         pointY <= box.hy + box.hh,
     );
-    const box = candidates.reduce<WordHitbox | null>((closest, candidate) => {
+    const box = numberedWord ?? candidates.reduce<WordHitbox | null>((closest, candidate) => {
       const score =
         ((pointX - (candidate.hx + candidate.hw / 2)) /
           Math.max(candidate.hw, 4)) **
@@ -719,6 +728,18 @@ export function Mushaf({
     }
     return matches;
   };
+  const allowedCountKey = allowedCategories.join(":");
+  const wordSummaries = useMemo(() => {
+    const result = new Map<string, { counts: ReturnType<typeof wordFindingCounts>; total: number; marker: MarkerRect | null }>();
+    for (const box of boxes) {
+      const matches = box.units.flatMap(unit => [unit.tid, ...unit.legacyTids].flatMap(tid => byTid.get(tid) ?? []));
+      const counts = wordFindingCounts(matches, state.activeAssignment?.judgeSeatId, allowedCountKey.split(":") as CategoryId[]);
+      const total = counts.reduce((sum, item) => sum + item.count, 0);
+      const marker = wordTotalCircle(box, total);
+      result.set(`${box.page}:${box.wid}`, { counts, total, marker });
+    }
+    return result;
+  }, [boxes, byTid, state.activeAssignment?.judgeSeatId, allowedCountKey]);
   const readyKey = pageData.map(({ page }) => page).join(":");
   const renderPage = (data: MushafPage) => {
     const qcfReady = fontReadyPages.has(data.page);
@@ -798,6 +819,7 @@ export function Mushaf({
               const localLeft = (value: number) => local(value) - pageClientLeft;
               const localTop = (value: number) => local(value) - pageClientTop;
               const mistakes = mistakesForWord(box);
+              const summary = wordSummaries.get(`${box.page}:${box.wid}`);
               const category = mistakes.length ? dominant(mistakes) : null;
               const isActive = active?.meta.page === box.page && active.meta.wid === box.wid;
               const isFlashing = Boolean(
@@ -831,8 +853,8 @@ export function Mushaf({
                     tabIndex={0}
                     onKeyDown={(event) => openPinnedForBox(event, box)}
                     aria-label={
-                      mistakes.length
-                        ? `${box.semanticText}, ${mistakes.length} mark(s)`
+                      summary?.total
+                        ? `${box.semanticText}, ${summary.total} of your mistakes. Open to review or mark another letter.`
                         : `Select word ${box.semanticText}`
                     }
                   />
@@ -846,6 +868,18 @@ export function Mushaf({
                         height: local(box.h),
                       }}
                     />
+                  )}
+                  {summary?.marker && (
+                    <span
+                      className="word-total-marker"
+                      data-word-total={box.wid}
+                      aria-hidden="true"
+                      style={{
+                        left: localLeft(summary.marker.x), top: localTop(summary.marker.y),
+                        width: local(summary.marker.w), height: local(summary.marker.h),
+                        fontSize: local(9), lineHeight: `${local(summary.marker.h)}px`, borderRadius: "50%",
+                      }}
+                    >{summary.total}</span>
                   )}
                 </Fragment>
               );
@@ -904,6 +938,7 @@ export function Mushaf({
           }))}
           targetSelected={Boolean(activeUnit)}
           hovered={hovered}
+          onPreview={setHovered}
           pinned={pinned}
           config={state.activeAssignment?.config ?? state.config}
           allowedCategories={allowedCategories}
