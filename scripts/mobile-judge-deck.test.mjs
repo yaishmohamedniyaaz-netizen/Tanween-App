@@ -198,20 +198,25 @@ test("phone portrait Finish is a bounded sheet rather than a full-screen panel",
   assert.doesNotMatch(mobileFinish[1], /height: 100dvh/);
 });
 
-test("phone portrait reserves a stable return row while page navigation stays on the Mushaf", () => {
+test("phone portrait shares Return with the header without reserving a paper row", () => {
   const css = readFileSync(new URL("../src/styles/global.css", import.meta.url), "utf8");
+  const app = readFileSync(new URL("../src/App.tsx", import.meta.url), "utf8");
+  const header = readFileSync(new URL("../src/components/Header.tsx", import.meta.url), "utf8");
   assert.match(
     css,
-    /\.app\[data-mobile-judge-deck="true"\] \.mushaf-scroll\.is-single,[\s\S]*display: grid;[\s\S]*width: var\(--mobile-page-inline-size\)[\s\S]*grid-template-rows: 44px auto/,
+    /\.app\[data-mobile-judge-deck="true"\] \.mushaf-scroll\.is-single,[\s\S]*display: block;[\s\S]*width: var\(--mobile-page-inline-size\);\s*transform: none/,
   );
   assert.match(
     css,
-    /\.app\[data-mobile-judge-deck="true"\] \.mushaf-scroll\.is-single \.mushaf-shared-nav,[\s\S]*position: relative;[\s\S]*grid-template-columns: minmax\(0, 1fr\) auto minmax\(0, 1fr\)[\s\S]*grid-row: 1/,
+    /\.app\[data-mobile-judge-deck="true"\] \.mushaf-scroll\.is-single \.mushaf-shared-nav,[\s\S]*position: absolute;\s*top: 0/,
   );
-  assert.match(css, /\.mushaf-scroll\.is-single \.question-return-bubble,[\s\S]*min-height: 44px;[\s\S]*transform: none/);
   assert.match(
     css,
-    /\.mushaf-scroll\.is-single \.mushaf-shared-nav > \.page-nav,[\s\S]*transform: translateY\(48px\)/,
+    /\.mushaf-scroll\.is-single \.mushaf-shared-nav > \.page-nav,[\s\S]*transform: none/,
   );
-  assert.match(css, /\.mushaf-scroll\.is-single \.mushaf-composition,[\s\S]*grid-row: 2/);
+  assert.match(css, /\.mobile-question-return \{[\s\S]*min-height: 44px/);
+  assert.match(css, /\.mobile-mushaf-header-controls,\s*\.mobile-judge-sheet-backdrop \{\s*display: none/);
+  assert.match(header, /className="mobile-mushaf-header-controls" ref=\{mobileMushafControlsRef\}/);
+  assert.match(app, /mobileMushafControls && visiblePages.length === 1 &&[\s\S]*createPortal/);
+  assert.match(app, /questionIsVisibleOnPages\(visibleQuestion, visiblePages\) === false/);
 });

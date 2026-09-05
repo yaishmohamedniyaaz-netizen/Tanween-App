@@ -13273,6 +13273,7 @@ html:has(.finish-dialog[open]) {
    notes, Finish checkpoint, Mushaf geometry, and saved session remain shared. */
 .mobile-judge-deck,
 .mobile-judge-sheet,
+.mobile-mushaf-header-controls,
 .mobile-judge-sheet-backdrop {
   display: none;
 }
@@ -13692,17 +13693,12 @@ html:has(.finish-dialog[open]) {
 
   .app[data-mobile-judge-deck="true"] .mushaf-scroll.is-single,
   .app[data-mobile-prepared="true"] .mushaf-scroll.is-single {
+    /* Retain the approved paper dimensions: 28px clearance at either end.
+       Return now shares the header, so it no longer owns an empty grid row. */
     --mobile-page-inline-size: min(100cqw, calc((100cqh - 56px) * 0.68));
-    display: grid;
-    /* 44px return target + 4px gap + 4px clearance at both frame edges. */
+    display: block;
     width: var(--mobile-page-inline-size);
-    grid-template-rows: 44px auto;
-    row-gap: 4px;
-    /* Centre the paper, not the paper plus its 48px return-control row.
-       Short frames retain the clearance needed by that touch target. */
-    transform: translateY(calc(-1 * clamp(0px,
-      (100cqh - var(--mobile-page-inline-size) / 0.68 - 48px) / 2 - 4px,
-      24px)));
+    transform: none;
   }
 
   /* Height-limited phones must scale the ink with the paper, not retain
@@ -13737,9 +13733,9 @@ html:has(.finish-dialog[open]) {
 
   .app[data-mobile-judge-deck="true"] .mushaf-scroll.is-single .mushaf-shared-nav,
   .app[data-mobile-prepared="true"] .mushaf-scroll.is-single .mushaf-shared-nav {
-    position: relative;
-    top: auto;
-    left: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
     right: auto;
     grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
     grid-row: 1;
@@ -13750,46 +13746,53 @@ html:has(.finish-dialog[open]) {
   .app[data-mobile-judge-deck="true"] .mushaf-scroll.is-single .mushaf-shared-nav > .page-nav,
   .app[data-mobile-prepared="true"] .mushaf-scroll.is-single .mushaf-shared-nav > .page-nav {
     grid-column: 2;
-    transform: translateY(48px);
+    transform: none;
   }
 
   .app[data-mobile-judge-deck="true"] .mushaf-scroll.is-single .question-return-bubble,
   .app[data-mobile-prepared="true"] .mushaf-scroll.is-single .question-return-bubble {
-    position: relative;
-    grid-column: 1;
-    justify-self: start;
-    width: max-content;
-    max-width: 100cqw;
+    display: none;
+  }
+
+  .app:is([data-mobile-prepared="true"], [data-mobile-judge-deck="true"]) .mobile-mushaf-header-controls:not(:empty) {
+    display: block;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .app:is([data-mobile-prepared="true"], [data-mobile-judge-deck="true"]) .header-context:has(.mobile-question-return) > .reciter-chip {
+    display: none;
+  }
+
+  .mobile-question-return {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+    min-width: 0;
     min-height: 44px;
-    padding: 0 9px;
-    transform: none;
-    border: 0;
-    background: transparent;
-    box-shadow: none;
-    isolation: isolate;
-  }
-
-  .app[data-mobile-judge-deck="true"] .mushaf-scroll.is-single .question-return-bubble::before,
-  .app[data-mobile-prepared="true"] .mushaf-scroll.is-single .question-return-bubble::before {
-    position: absolute;
-    z-index: -1;
-    inset: 6px 0;
-    content: "";
+    padding: 2px 8px;
     border: 1px solid var(--line);
-    border-radius: 999px;
-    background: color-mix(in srgb, var(--surface) 94%, transparent);
-    box-shadow: var(--shadow-rest);
-  }
-
-  .app[data-mobile-judge-deck="true"] .mushaf-scroll.is-single .question-return-bubble:hover,
-  .app[data-mobile-prepared="true"] .mushaf-scroll.is-single .question-return-bubble:hover {
-    background: transparent;
-  }
-
-  .app[data-mobile-judge-deck="true"] .mushaf-scroll.is-single .question-return-bubble:hover::before,
-  .app[data-mobile-prepared="true"] .mushaf-scroll.is-single .question-return-bubble:hover::before {
-    border-color: var(--line-2);
+    border-radius: 8px;
     background: var(--surface);
+    color: var(--ink);
+    font-size: var(--t-small);
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .mobile-question-return > span,
+  .mobile-question-return > small {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .mobile-question-return > small {
+    color: var(--ink-2);
+    font-size: var(--t-micro);
   }
 
   .app[data-mobile-judge-deck="true"] .mushaf-scroll.is-single .mushaf-composition,
@@ -14384,10 +14387,10 @@ html:has(.finish-dialog[open]) {
   (max-device-width: 600px) and (pointer: coarse) and (orientation: portrait) {
   .app[data-mobile-judge-layout="raised"][data-mobile-prepared="true"] .mushaf-scroll.is-single,
   .app[data-mobile-judge-layout="raised"][data-mobile-judge-deck="true"] .mushaf-scroll.is-single {
-    /* Optional 12px rise beyond the paper-centred default, within clearance. */
+    /* Keep the existing optional comparison relative to the centred paper. */
     transform: translateY(calc(-1 * clamp(0px,
-      (100cqh - var(--mobile-page-inline-size) / 0.68 - 48px) / 2 - 4px,
-      36px)));
+      (100cqh - var(--mobile-page-inline-size) / 0.68) / 2 - 4px,
+      12px)));
   }
 }
 

@@ -22,6 +22,7 @@ import { ThemeToggle } from "./ThemeToggle";
 export type AppView = "judge" | "records" | "setup" | "settings" | "questions";
 
 interface Props {
+  mobileMushafControlsRef?: (element: HTMLDivElement | null) => void;
   view: AppView;
   onToggleView: () => void;
   onOpenSetup: () => void;
@@ -58,6 +59,7 @@ interface Props {
 }
 
 export function Header({
+  mobileMushafControlsRef,
   view,
   onToggleView,
   onOpenSetup,
@@ -162,6 +164,7 @@ export function Header({
       </div>
 
       <div className="header-context">
+        <div className="mobile-mushaf-header-controls" ref={mobileMushafControlsRef} />
         {!state.sessionActive && !prepared && (
           <button
             type="button"

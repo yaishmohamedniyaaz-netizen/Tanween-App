@@ -3,6 +3,7 @@ import {
   useEffect,
   useState,
 } from "react";
+import { createPortal } from "react-dom";
 import { Header, type AppView } from "./components/Header";
 import { Mushaf } from "./components/Mushaf";
 import { MushafViewport } from "./components/MushafViewport";
@@ -59,6 +60,7 @@ export function App() {
   const { state, dispatch } = useJudging();
   const offlineMushaf = useOfflineMushaf();
   const [view, setView] = useState<AppView>("judge");
+  const [mobileMushafControls, setMobileMushafControls] = useState<HTMLDivElement | null>(null);
   const [startOpen, setStartOpen] = useState(false);
   const [startMode, setStartMode] = useState<
     "start" | "next-question" | "change-reciter" | "change-question"
@@ -210,6 +212,7 @@ export function App() {
       }
     >
       <Header
+        mobileMushafControlsRef={setMobileMushafControls}
         view={view}
         onToggleView={() => setView((current) => (current === "judge" ? "records" : "judge"))}
         onOpenSetup={() => {
@@ -301,16 +304,33 @@ export function App() {
                     />
                     {openingPage !== null &&
                       questionIsVisibleOnPages(visibleQuestion, visiblePages) === false && (
-                      <button
-                        type="button"
-                        className="question-return-bubble"
-                        aria-label={`Return to selected question on page ${openingPage}`}
-                        onClick={() => handlePageChange(openingPage)}
-                      >
-                        <span aria-hidden="true">↩</span>
-                        <span className="question-return-label">Return to question</span>
-                        <span className="question-return-page t-num">p. {openingPage}</span>
-                      </button>
+                      <>
+                        <button
+                          type="button"
+                          className="question-return-bubble"
+                          aria-label={`Return to selected question on page ${openingPage}`}
+                          onClick={() => handlePageChange(openingPage)}
+                        >
+                          <span aria-hidden="true">↩</span>
+                          <span className="question-return-label">Return to question</span>
+                          <span className="question-return-page t-num">p. {openingPage}</span>
+                        </button>
+                        {/* Both presentations use the rendered pages and the same
+                            navigation action; CSS exposes only one at a time. */}
+                        {mobileMushafControls && visiblePages.length === 1 &&
+                          (mobileJudgeDeckActive || mobilePreparedActive) && createPortal(
+                            <button
+                              type="button"
+                              className="mobile-question-return"
+                              aria-label={`Return to selected question on page ${openingPage}`}
+                              onClick={() => handlePageChange(openingPage)}
+                            >
+                              <span>↩ Return {openingPage}</span>
+                              <small>{(state.preparedRecitation?.participant ?? state.participant).name || "Unnamed"}</small>
+                            </button>,
+                            mobileMushafControls,
+                          )}
+                      </>
                     )}
                   </>
                 )}
