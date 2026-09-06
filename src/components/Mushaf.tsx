@@ -59,6 +59,7 @@ import {
 } from "../lib/recitationRangeLayout.ts";
 import { MushafPageSurface, MushafWord } from "./MushafPageSurface.tsx";
 import { wordTotalCircle, wordFindingCounts, type MarkerRect } from "../lib/wordFindingSummary";
+import { invalidateMushafMetrics, measureMushafGlyph, mushafPageScale, pickMushafWord } from "../lib/mushafGeometry.ts";
 
 interface UnitTarget {
   tid: string;
@@ -292,6 +293,7 @@ export function Mushaf({
       const root = pageRefs.current.get(page.page);
       if (!root) continue;
       const rootRect = root.getBoundingClientRect();
+      const scale = mushafPageScale(root);
       const linesRoot = root.querySelector<HTMLElement>(".mushaf-lines");
       const wordElements = root.querySelectorAll<HTMLElement>(
         '.m-word[data-role="letter"]',
@@ -310,8 +312,17 @@ export function Mushaf({
         const surah = Number(wordElement.dataset.surah);
         const ayahValue = wordElement.dataset.ayah;
         const ayah = ayahValue === "b" ? null : Number(ayahValue);
-        const x = rect.left - rootRect.left;
-        const y = rect.top - rootRect.top;
+        const style = getComputedStyle(wordElement);
+        const fontSize = parseFloat(style.fontSize);
+        const metric = measureMushafGlyph(wordElement.firstChild?.textContent ?? "", style.fontFamily, fontSize);
+        const baseline = wordElement.querySelector(".m-word-baseline")?.getBoundingClientRect().top;
+        const ink = metric && baseline !== undefined ? {
+          // One reference pixel also covers antialiasing beyond font metrics.
+          x: rect.left - rootRect.left + (metric.left * fontSize - 1) * scale,
+          y: baseline - rootRect.top - (metric.ascent * fontSize + 1.25) * scale,
+          w: ((metric.right - metric.left) * fontSize + 2) * scale,
+          h: ((metric.ascent + metric.descent) * fontSize + 2.5) * scale,
+        } : { x: rect.left - rootRect.left, y: rect.top - rootRect.top, w: rect.width, h: rect.height };
 
         next.push({
           page: page.page,
@@ -329,14 +340,11 @@ export function Mushaf({
             primaryGlyph: unit.primaryGlyph,
             fullGlyph: unit.fullGlyph,
           })),
-          x,
-          y,
-          w: rect.width,
-          h: rect.height,
-          hx: x - HIT_PAD_X,
-          hy: y - HIT_PAD_Y,
-          hw: rect.width + HIT_PAD_X * 2,
-          hh: rect.height + HIT_PAD_Y * 2,
+          ...ink,
+          hx: ink.x - HIT_PAD_X,
+          hy: ink.y - HIT_PAD_Y,
+          hw: ink.w + HIT_PAD_X * 2,
+          hh: ink.h + HIT_PAD_Y * 2,
         });
       });
 
@@ -375,6 +383,22 @@ export function Mushaf({
     setBoxesKey(pageData.map(({ page }) => page).join(":"));
   }, [pageData, questionDisplays, questionFocusMode]);
 
+  // Wait until every page in the spread has applied its layout before reading
+  // the shared stage. Otherwise the first page can retain pre-fit coordinates.
+  const geometryChanged = useCallback(() => setMeasureEpoch(value => value + 1), []);
+
+  useEffect(() => {
+    let mounted = true;
+    const fontsChanged = () => {
+      if (!mounted) return;
+      invalidateMushafMetrics();
+      geometryChanged();
+    };
+    document.fonts.addEventListener("loadingdone", fontsChanged);
+    void document.fonts.ready.then(fontsChanged);
+    return () => { mounted = false; document.fonts.removeEventListener("loadingdone", fontsChanged); };
+  }, [geometryChanged]);
+
   useLayoutEffect(() => {
     const frame = requestAnimationFrame(measure);
     return () => cancelAnimationFrame(frame);
@@ -383,11 +407,14 @@ export function Mushaf({
   useEffect(() => {
     const roots = [...pageRefs.current.values()];
     if (!roots.length) return;
-    let lastWidths = roots.map((root) => Math.round(root.getBoundingClientRect().width));
+    let lastSizes = roots.map(root => {
+      const r = root.getBoundingClientRect();
+      return [r.width, r.height];
+    });
     const handleResize = () => {
-      const widths = roots.map((root) => Math.round(root.getBoundingClientRect().width));
-      if (widths.every((width, index) => Math.abs(width - lastWidths[index]) < 2)) return;
-      lastWidths = widths;
+      const sizes = roots.map(root => { const r = root.getBoundingClientRect(); return [r.width, r.height]; });
+      if (sizes.every((size, i) => size.every((value, j) => Math.abs(value - lastSizes[i][j]) < 0.05))) return;
+      lastSizes = sizes;
       setMeasureEpoch((value) => value + 1);
     };
     const observer =
@@ -537,32 +564,7 @@ export function Mushaf({
       return marker && pointX >= marker.x && pointX <= marker.x + marker.w &&
         pointY >= marker.y && pointY <= marker.y + marker.h;
     });
-    const candidates = boxes.filter(
-      (box) =>
-        box.page === page &&
-        pointX >= box.hx &&
-        pointX <= box.hx + box.hw &&
-        pointY >= box.hy &&
-        pointY <= box.hy + box.hh,
-    );
-    const box = numberedWord ?? candidates.reduce<WordHitbox | null>((closest, candidate) => {
-      const score =
-        ((pointX - (candidate.hx + candidate.hw / 2)) /
-          Math.max(candidate.hw, 4)) **
-          2 +
-        ((pointY - (candidate.hy + candidate.hh / 2)) /
-          Math.max(candidate.hh, 4)) **
-          2;
-      if (!closest) return candidate;
-      const closestScore =
-        ((pointX - (closest.hx + closest.hw / 2)) /
-          Math.max(closest.hw, 4)) **
-          2 +
-        ((pointY - (closest.hy + closest.hh / 2)) /
-          Math.max(closest.hh, 4)) **
-          2;
-      return score < closestScore ? candidate : closest;
-    }, null);
+    const box = numberedWord ?? pickMushafWord(boxes.filter(box => box.page === page), pointX, pointY);
 
     if (!box) {
       if (pinned) closeAll();
@@ -743,16 +745,19 @@ export function Mushaf({
   const readyKey = pageData.map(({ page }) => page).join(":");
   const renderPage = (data: MushafPage) => {
     const qcfReady = fontReadyPages.has(data.page);
-    const local = (value: number) => value / renderScale;
+    const root = rootForPage(data.page);
+    const pageScale = root ? mushafPageScale(root) : 1;
+    const local = (value: number) => value / pageScale;
     const visibleBoxes = boxesKey === readyKey
       ? boxes.filter((box) => box.page === data.page)
       : [];
     const visibleShadeBoxes = boxesKey === readyKey
       ? shadeBoxes.filter((box) => box.page === data.page)
       : [];
-    const root = rootForPage(data.page);
-    const pageClientLeft = root?.clientLeft ?? 0;
-    const pageClientTop = root?.clientTop ?? 0;
+    const pageRect = root?.getBoundingClientRect();
+    const layerRect = root?.querySelector(".hit-layer")?.getBoundingClientRect();
+    const pageClientLeft = pageRect && layerRect ? local(layerRect.left - pageRect.left) : 1;
+    const pageClientTop = pageRect && layerRect ? local(layerRect.top - pageRect.top) : 1;
     const questionDisplay = questionDisplays?.get(data.page) ?? null;
     const lineClass = (lineState: RangeLineState | undefined) =>
       lineState === "context"
@@ -783,6 +788,7 @@ export function Mushaf({
         key={data.page}
         data={data}
         qcfReady={qcfReady}
+        onGeometryChange={geometryChanged}
         pageRef={(node) => {
           if (node) pageRefs.current.set(data.page, node);
           else pageRefs.current.delete(data.page);
@@ -839,12 +845,12 @@ export function Mushaf({
                     className={`hit word-hit ${isActive ? `armed ${hovered ? `cat-${hovered}` : ""}` : ""}`}
                     style={
                       {
-                        left: localLeft(box.hx),
-                        top: localTop(box.hy),
-                        width: local(box.hw),
-                        height: local(box.hh),
-                        "--ink-left": `${local(box.x - box.hx)}px`,
-                        "--ink-top": `${local(box.y - box.hy)}px`,
+                        left: localLeft(box.x),
+                        top: localTop(box.y),
+                        width: local(box.w),
+                        height: local(box.h),
+                        "--ink-left": "0px",
+                        "--ink-top": "0px",
                         "--ink-width": `${local(box.w)}px`,
                         "--ink-height": `${local(box.h)}px`,
                       } as CSSProperties
