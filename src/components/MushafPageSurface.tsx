@@ -4,10 +4,12 @@ import type {
   ReactNode,
   Ref,
 } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import { juzByPage, sajdahVerses } from "../data/marginalia.ts";
 import surahIndex from "../data/surah-index.json";
 import type { MushafPage, PageLine, PageWord } from "../lib/page.ts";
 import { qcfFontFamily } from "../lib/qcfFont.ts";
+import { fitMushafLine, measureMushafGlyph, MUSHAF_REFERENCE_WIDTH, MUSHAF_REFERENCE_HEIGHT } from "../lib/mushafGeometry.ts";
 
 const SURAH_INDEX = surahIndex as Array<{
   number: number;
@@ -85,6 +87,7 @@ export function MushafWord({
       aria-hidden={ariaHidden}
     >
       {displayedText}
+      <i className="m-word-baseline" aria-hidden="true" />
       {isSajdah && (
         <span className="sajdah-mark" aria-label="Sajdah">۩</span>
       )}
@@ -105,6 +108,7 @@ interface MushafPageSurfaceProps extends Omit<
   afterLines?: ReactNode;
   lineClassName?: (line: PageLine) => string;
   renderWord: (word: PageWord, line: PageLine) => ReactNode;
+  onGeometryChange?: () => void;
 }
 
 /**
@@ -120,8 +124,55 @@ export function MushafPageSurface({
   afterLines,
   lineClassName,
   renderWord,
+  onGeometryChange,
   ...pageProps
 }: MushafPageSurfaceProps) {
+  const frameRef = useRef<HTMLDivElement>(null);
+  const surfaceRef = useRef<HTMLDivElement | null>(null);
+  const [scale, setScale] = useState(0);
+  useLayoutEffect(() => {
+    const frame = frameRef.current;
+    if (!frame) return;
+    const update = () => setScale(frame.clientWidth / MUSHAF_REFERENCE_WIDTH);
+    update();
+    const observer = new ResizeObserver(entries => {
+      setScale(entries[0].contentRect.width / MUSHAF_REFERENCE_WIDTH);
+    });
+    observer.observe(frame);
+    return () => observer.disconnect();
+  }, []);
+
+  useLayoutEffect(() => {
+    const root = surfaceRef.current;
+    if (!root || !qcfReady) return;
+    const sizes: number[] = [];
+    for (const line of root.querySelectorAll<HTMLElement>(".m-line-ayah")) {
+      const words = [...line.querySelectorAll<HTMLElement>(".m-word")];
+      const family = getComputedStyle(line).fontFamily;
+      const metrics = words.map(word => measureMushafGlyph(word.firstChild?.textContent ?? "", family));
+      if (metrics.some(metric => !metric)) continue;
+      const fit = fitMushafLine(line.clientWidth, metrics as NonNullable<typeof metrics[number]>[]);
+      if (!fit) continue;
+      sizes.push(fit.fontSize);
+      line.style.fontSize = `${fit.fontSize}px`;
+      line.style.gap = `${fit.gap}px`;
+      words.forEach((word, index) => {
+        const metric = metrics[index]!;
+        word.style.marginLeft = `${-metric.left * fit.fontSize}px`;
+        word.style.marginRight = `${(metric.right - metric.advance) * fit.fontSize}px`;
+      });
+    }
+    // Short centered lines retain natural word spacing at the page's text size.
+    sizes.sort((a, b) => a - b);
+    const centeredSize = sizes.length ? sizes[Math.floor(sizes.length / 2)] : 33;
+    for (const line of root.querySelectorAll<HTMLElement>(".m-line-center")) {
+      const family = getComputedStyle(line).fontFamily;
+      const advance = [...line.querySelectorAll<HTMLElement>(".m-word")].reduce((sum, word) =>
+        sum + (measureMushafGlyph(word.firstChild?.textContent ?? "", family)?.advance ?? 0), 0);
+      line.style.fontSize = `${advance > 0 ? Math.min(centeredSize, line.clientWidth / advance) : centeredSize}px`;
+    }
+    onGeometryChange?.();
+  }, [data, qcfReady, onGeometryChange, scale]);
   const pageSurahs = surahsForPage(data.page);
   const qcfLineStyle: CSSProperties = qcfReady
     ? { fontFamily: `"${qcfFontFamily(data.page)}"` }
@@ -133,14 +184,25 @@ export function MushafPageSurface({
       : "";
 
   return (
+    <div ref={frameRef} className={`mushaf-page-frame ${className}`.trim()} style={{ aspectRatio: "0.68" }}>
     <div
       {...pageProps}
-      ref={pageRef}
+      ref={node => {
+        surfaceRef.current = node;
+        if (typeof pageRef === "function") pageRef(node);
+        else if (pageRef) (pageRef as { current: HTMLDivElement | null }).current = node;
+      }}
+      style={{ ...pageProps.style, width: MUSHAF_REFERENCE_WIDTH, height: MUSHAF_REFERENCE_HEIGHT,
+        maxWidth: "none", padding: "12px 0 8px", transform: `scale(${scale || 1})`,
+        transformOrigin: "top left", visibility: scale ? undefined : "hidden",
+        "--surah-band-frame-inset": "4px", "--surah-band-title-size": "22px",
+        "--surah-band-title-pad-x": "20px", "--mark-wash-pad-top": "0px", "--mark-wash-pad-bottom": "0px",
+      } as CSSProperties}
       className={`page page-solid-mushaf ${layoutClass} ${className}`.trim()}
       data-page={data.page}
       data-font-ready={qcfReady ? "true" : "false"}
     >
-      <div className="page-marginalia">
+      <div className="page-marginalia" style={{ minHeight: 28, paddingInline: 35, fontSize: 14 }}>
         <span className="page-juz">Juz&apos; {juzByPage[data.page]}</span>
         <span className="page-static-number t-num" aria-label={`Page ${data.page}`}>
           {data.page}
@@ -152,7 +214,7 @@ export function MushafPageSurface({
       {juzByPage[data.page] > 0 && (
         <div className="juz-label">الجزء {toArabicNum(juzByPage[data.page])}</div>
       )}
-      <div className="mushaf-lines">
+      <div className="mushaf-lines" style={{ padding: "7px 35px 5px" }}>
         {beforeLines}
         {data.lines.map((line) => {
           const lineClass = lineClassName?.(line) ?? "";
@@ -172,7 +234,7 @@ export function MushafPageSurface({
               <div
                 key={line.n}
                 className={`m-line m-line-basmala ${lineClass}`.trim()}
-                style={gridStyle}
+                style={{ ...gridStyle, fontSize: 26.5 }}
               >
                 {line.words.map((word) => renderWord(word, line))}
               </div>
@@ -191,6 +253,7 @@ export function MushafPageSurface({
         })}
       </div>
       {afterLines}
+    </div>
     </div>
   );
 }
