@@ -1,0 +1,67 @@
+/* This stylesheet is imported only by the isolated proof route. */
+html, body, #root { width: 100%; height: 100%; margin: 0; }
+body { overflow: hidden; }
+.scale-proof { height: 100dvh; display: grid; grid-template-rows: auto minmax(0, 1fr) auto; background: var(--bg); color: var(--ink); }
+.proof-header { background: var(--surface); border-bottom: 1px solid var(--line); padding: 14px 24px; }
+.proof-title { display: flex; align-items: baseline; gap: 12px; margin-bottom: 12px; }
+.proof-title > span { font-weight: 650; font-size: 14px; }
+.proof-title h1 { font-size: 17px; font-weight: 550; margin: 0; }
+.proof-title small { margin-left: auto; font-size: 12px; color: var(--ink-3); }
+.proof-title small a { color: inherit; text-underline-offset: 3px; white-space: nowrap; }
+.proof-controls { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; }
+.proof-header button, .proof-header select { min-height: 36px; border-radius: 8px; border: 1px solid var(--line); padding: 0 12px; font: inherit; font-size: 14px; background: var(--surface); color: var(--ink); cursor: pointer; }
+.proof-header button[aria-pressed="true"] { background: var(--ink); color: var(--surface); border-color: var(--ink); }
+.proof-switch { display: flex; align-items: center; gap: 4px; }
+.page-choice { display: flex; gap: 8px; align-items: center; font-size: 14px; }
+.proof-size { margin-left: auto; display: flex; align-items: center; gap: 12px; }
+.proof-size input { width: 160px; accent-color: var(--ink); cursor: pointer; min-height: 36px; }
+.proof-size output { font-size: 14px; font-variant-numeric: tabular-nums; width: 54px; text-align: right; }
+.proof-size output span { font-size: 12px; margin-left: 3px; color: var(--ink-3); }
+.proof-stage { min-height: 0; min-width: 0; overflow: auto; padding: 12px; scrollbar-width: thin; scrollbar-color: var(--line-2) transparent; }
+.proof-paper-host { position: relative; margin: 0 auto; flex: none; }
+.proof-paper-canvas { position: relative; transform-origin: top left; }
+.proof-paper-canvas .mushaf-composition { width: 100%; max-width: none; }
+.proof-paper-canvas .page { margin: 0; width: 100%; max-width: none; }
+.proof-paper-canvas .page { touch-action: pan-x pan-y pinch-zoom; }
+/* Freeze every internal value at the inspected 532px composition. Screen media
+   queries and viewport-relative marginalia must not recalculate this canvas. */
+.proof-fixed .page { height: 782.3529411765px; padding: 12px 0 8px; border-radius: var(--r-lg); --mushaf-line-fluid-size: 5.55cqi; --mushaf-basmala-fluid-size: 5cqi; --surah-band-title-fluid-size: 4.2cqi; }
+.proof-fixed .page-marginalia { font-size: 14px; }
+.proof-fixed .m-line { font-size: clamp(18px, 5.55cqi, 33px); }
+.proof-fixed .m-line-basmala { font-size: clamp(17px, 5cqi, 29px); }
+.proof-paper-canvas .m-word[role="button"] { cursor: pointer; border-radius: 3px; }
+.proof-paper-canvas .m-word[role="button"]:hover { background: color-mix(in srgb, var(--ink) 7%, transparent); }
+.proof-paper-canvas .m-word.proof-selected { background: color-mix(in srgb, var(--ink) 13%, transparent); outline: 1px solid color-mix(in srgb, var(--ink) 25%, transparent); }
+.proof-paper-canvas .m-word:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.proof-footer { padding: 8px 24px 12px; background: var(--surface); border-top: 1px solid var(--line); display: flex; gap: 16px; align-items: center; justify-content: space-between; }
+.proof-selection { height: 36px; min-width: 0; display: flex; align-items: center; gap: 12px; font-size: 14px; color: var(--ink-2); }
+.proof-selection > span { white-space: nowrap; }
+.proof-selection .selected-word { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.selected-word { font-family: var(--quran); font-size: 22px; line-height: 1.6; }
+.proof-selection button { height: 32px; width: 32px; font-size: 22px; border: 0; border-radius: 8px; background: var(--bg); color: var(--ink); }
+.proof-footer p { font-size: 12px; color: var(--ink-3); margin: 0; }
+.proof-footer p span { display: block; margin-top: 4px; }
+/* Match the current renderer's portrait density only in the comparison side. */
+@media (max-width: 600px) and (orientation: portrait) {
+  .proof-current .page { --mushaf-line-fluid-size: 5.74cqi; --mushaf-basmala-fluid-size: 5.17cqi; --surah-band-title-fluid-size: 4.34cqi; --surah-band-title-size: var(--surah-band-title-fluid-size); }
+  .proof-current .m-line { font-size: var(--mushaf-line-fluid-size); }
+  .proof-current .m-line-basmala { font-size: var(--mushaf-basmala-fluid-size); }
+}
+@media (max-width: 700px) {
+  .proof-header { padding: 12px; }
+  .proof-controls { gap: 8px; }
+  .proof-size { width: 100%; margin-left: 0; }
+  .proof-size input { flex: 1; width: 80px; }
+  .proof-header button, .proof-header select { min-height: 40px; padding: 0 10px; }
+  .proof-title { gap: 8px; }
+  .proof-title > span { font-size: 12px; }
+  .proof-title h1 { font-size: 15px; }
+  .proof-footer { padding: 8px 12px; display: block; }
+  .proof-footer p { margin-top: 4px; }
+  .proof-footer p span { display: inline; margin-left: 4px; }
+}
+/* Internal verification route: visible measurable layout, independent of UI. */
+body:has(.audit-heading) { overflow: auto; }
+.audit-heading { padding: 16px; font: 14px system-ui; }
+.audit-pages { display: grid; width: max-content; grid-template-columns: repeat(2, max-content); gap: 24px; align-items: start; }
+#audit-report { max-height: 160px; overflow: auto; white-space: pre-wrap; font: 11px monospace; }

@@ -1,0 +1,19 @@
+{
+  "sourcePages": [
+    1,
+    2,
+    3,
+    255,
+    589,
+    590,
+    604
+  ],
+  "sourceTokens": 698,
+  "scaleCases": 84,
+  "geometryComparisons": 8376,
+  "maxScaleDriftCanonicalPx": 0.0051302083333443224,
+  "maxCrossViewportDriftCanonicalPx": 0,
+  "selectableWordCenters": 604,
+  "clickAndKeyboardPairs": 7,
+  "note": "Browser viewport and CSS scale checks. Native browser zoom and production overlay interactions are not covered."
+}

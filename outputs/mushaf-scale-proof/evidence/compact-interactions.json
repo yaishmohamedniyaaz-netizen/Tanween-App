@@ -1,0 +1,121 @@
+[
+  {
+    "page": 1,
+    "before": {
+      "height": 538.2332763671875,
+      "missedCenters": [],
+      "overflowX": 0,
+      "targets": 29,
+      "width": 366
+    },
+    "first": "بِسۡمِ\n1:1\n×",
+    "after": {
+      "height": 538.2332763671875,
+      "last": "1.7.8",
+      "selected": "1.7.8",
+      "width": 366
+    }
+  },
+  {
+    "page": 2,
+    "before": {
+      "height": 538.2332763671875,
+      "missedCenters": [],
+      "overflowX": 0,
+      "targets": 40,
+      "width": 366
+    },
+    "first": "بِسۡمِ\n2:basmala\n×",
+    "after": {
+      "height": 538.2332763671875,
+      "last": "2.5.7",
+      "selected": "2.5.7",
+      "width": 366
+    }
+  },
+  {
+    "page": 3,
+    "before": {
+      "height": 538.2332763671875,
+      "missedCenters": [],
+      "overflowX": 0,
+      "targets": 127,
+      "width": 366
+    },
+    "first": "إِنَّ\n2:6\n×",
+    "after": {
+      "height": 538.2332763671875,
+      "last": "2.16.10",
+      "selected": "2.16.10",
+      "width": 366
+    }
+  },
+  {
+    "page": 255,
+    "before": {
+      "height": 538.2332763671875,
+      "missedCenters": [],
+      "overflowX": 0,
+      "targets": 105,
+      "width": 366
+    },
+    "first": "وَيَقُولُ\n13:43\n×",
+    "after": {
+      "height": 538.2332763671875,
+      "last": "14.5.20",
+      "selected": "14.5.20",
+      "width": 366
+    }
+  },
+  {
+    "page": 589,
+    "before": {
+      "height": 538.2332763671875,
+      "missedCenters": [],
+      "overflowX": 0,
+      "targets": 120,
+      "width": 366
+    },
+    "first": "عَلَى\n83:35\n×",
+    "after": {
+      "height": 538.2332763671875,
+      "last": "84.25.8",
+      "selected": "84.25.8",
+      "width": 366
+    }
+  },
+  {
+    "page": 590,
+    "before": {
+      "height": 538.2332763671875,
+      "missedCenters": [],
+      "overflowX": 0,
+      "targets": 113,
+      "width": 366
+    },
+    "first": "بِسۡمِ\n85:basmala\n×",
+    "after": {
+      "height": 538.2332763671875,
+      "last": "85.22.2",
+      "selected": "85.22.2",
+      "width": 366
+    }
+  },
+  {
+    "page": 604,
+    "before": {
+      "height": 538.2332763671875,
+      "missedCenters": [],
+      "overflowX": 0,
+      "targets": 70,
+      "width": 366
+    },
+    "first": "بِسۡمِ\n112:basmala\n×",
+    "after": {
+      "height": 538.2332763671875,
+      "last": "114.6.2",
+      "selected": "114.6.2",
+      "width": 366
+    }
+  }
+]
