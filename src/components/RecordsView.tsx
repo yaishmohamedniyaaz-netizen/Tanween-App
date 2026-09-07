@@ -48,6 +48,7 @@ import { computeRecords } from "../lib/stats";
 import { normalizeImportedSavedSession, useJudging } from "../state/store";
 import type { ParticipantCategory, SavedSession } from "../types";
 import { FinalResultsPanel } from "./FinalResultsPanel";
+import { ResultsOverview } from "./ResultsOverview";
 import { Icon } from "./Icon";
 import { JudgingHistory } from "./JudgingHistory";
 import { ReopenSessionDialog } from "./ReopenSessionDialog";
@@ -85,6 +86,8 @@ function DataScopeControl({
 
 export function RecordsView({ onResumeSession }: { onResumeSession: () => void }) {
   const { state, dispatch } = useJudging();
+  // Default Results experience; explicit escape hatch for the legacy interface.
+  const overviewEnabled = new URLSearchParams(window.location.search).get("resultsOverview") !== "0";
   const [activeTab, setActiveTab] = useState<ResultsTab>("review");
   const [historyScope, setHistoryScope] = useState<StoredResultsScope>("current");
   const [reviewQuery, setReviewQuery] = useState("");
@@ -112,6 +115,19 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
   const analysisTabRef = useRef<HTMLButtonElement>(null);
   const participantButtonRefs = useRef(new Map<string, HTMLButtonElement>());
   const reviewScrollRef = useRef(0);
+  const tabScroll = useRef<Record<ResultsTab, number>>({ review: 0, analysis: 0 });
+  useEffect(() => {
+    if (!overviewEnabled) return;
+    const previous = document.documentElement.style.scrollbarGutter;
+    document.documentElement.style.scrollbarGutter = "stable";
+    return () => { document.documentElement.style.scrollbarGutter = previous; };
+  }, [overviewEnabled]);
+  const changeTab = (next: ResultsTab) => {
+    if (next === activeTab) return;
+    if (overviewEnabled) tabScroll.current[activeTab] = window.scrollY;
+    setActiveTab(next);
+    if (overviewEnabled) requestAnimationFrame(() => window.scrollTo({ top: tabScroll.current[next] }));
+  };
 
   const judgedCategories = useMemo(
     () => enabledCategories(
@@ -385,7 +401,7 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
     if (targetIndex === null) return;
     event.preventDefault();
     const nextTab = resultTabs[targetIndex];
-    setActiveTab(nextTab);
+    changeTab(nextTab);
     (nextTab === "review" ? reviewTabRef : analysisTabRef).current?.focus();
   };
 
@@ -866,11 +882,13 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
                         <button
                           type="button"
                           className="btn-ghost"
-                          disabled={state.sessionActive}
+                          disabled={state.sessionActive || (overviewEnabled && saved.assignment?.judgeSeatId !== state.deviceJudgeId)}
                           title={
                             state.sessionActive
                               ? "Finish the current reciter before reopening another result"
-                              : "Reopen this result to make a recorded correction"
+                              : overviewEnabled && saved.assignment?.judgeSeatId !== state.deviceJudgeId
+                                ? "Only this result's judge can make corrections"
+                                : "Reopen this result to make a recorded correction"
                           }
                           onClick={() => setReopenSession(saved)}
                         >
@@ -893,7 +911,7 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
   const competitionEdition = state.competition.edition.trim();
 
   return (
-    <div className="records results-workspace">
+    <div className={`records results-workspace${overviewEnabled && activeTab === "review" ? " results-overview-shell" : ""}`}>
       <header className="results-page-head">
         <h1>Results</h1>
         <div className="results-competition-context" aria-label="Competition context">
@@ -914,11 +932,11 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
           aria-selected={activeTab === "review"}
           aria-controls="results-panel-review"
           tabIndex={activeTab === "review" ? 0 : -1}
-          onClick={() => setActiveTab("review")}
+          onClick={() => changeTab("review")}
           onKeyDown={(event) => handleTabKeyDown(event, "review")}
         >
           Review
-          {reviewSummary.unresolved > 0 && (
+          {!overviewEnabled && reviewSummary.unresolved > 0 && (
             <span className="results-tab-count">{reviewSummary.unresolved}</span>
           )}
         </button>
@@ -930,7 +948,7 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
           aria-selected={activeTab === "analysis"}
           aria-controls="results-panel-analysis"
           tabIndex={activeTab === "analysis" ? 0 : -1}
-          onClick={() => setActiveTab("analysis")}
+          onClick={() => changeTab("analysis")}
           onKeyDown={(event) => handleTabKeyDown(event, "analysis")}
         >
           Analysis
@@ -944,6 +962,10 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
         hidden={activeTab !== "review"}
         className="results-tab-panel"
       >
+        {overviewEnabled ? <>
+          <ResultsOverview key={`${state.competition.id}:${state.competition.liveSnapshot?.versionId ?? "draft"}`} active={activeTab === "review"} />
+          <details className="ro-source-tools"><summary>Judge records &amp; import</summary>{renderJudgeResults()}</details>
+        </> : <>
         <section
           className={`results-review-section ${detailParticipantId ? "is-detail-open" : ""}`}
           aria-labelledby={detailParticipantId ? undefined : "results-review-heading"}
@@ -1101,6 +1123,7 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
         </section>
 
         {!detailParticipantId && renderJudgeResults()}
+        </>}
       </section>
 
       <section

@@ -52,6 +52,9 @@ export function RecitationEvidenceSpan({
   onReplayWordsReady,
   onReplayWordSelect,
   replayWordId = null,
+  selectedWordId = null,
+  paginated = false,
+  locationRequest = 0,
 }: {
   range: RecitationRangeSnapshot;
   mistakes: EvidenceMistake[];
@@ -62,10 +65,14 @@ export function RecitationEvidenceSpan({
   onReplayWordsReady?: (words: ReplayWord[]) => void;
   onReplayWordSelect?: (wordId: string) => void;
   replayWordId?: string | null;
+  selectedWordId?: string | null;
+  paginated?: boolean;
+  locationRequest?: number;
 }) {
   const [loadState, setLoadState] = useState<LoadState>({ status: "loading" });
   const [activePageIndex, setActivePageIndex] = useState(0);
   const wordRefs = useRef(new Map<string, HTMLButtonElement>());
+  const locatedRequest = useRef<string | null>(null);
 
   useEffect(() => setActivePageIndex(0), [range]);
 
@@ -168,6 +175,10 @@ export function RecitationEvidenceSpan({
       return;
     }
     const activeMistake = mistakes.find((entry) => entry.key === activeMistakeKey);
+    const requestKey = `${activeMistakeKey}:${locationRequest}`;
+    // A finding selection locates once. Manual page navigation must remain free.
+    if (paginated && locatedRequest.current === requestKey) return;
+    locatedRequest.current = requestKey;
     const pageIndex = activeMistake
       ? loadState.pages.findIndex((page) =>
           page.page === activeMistake.mistake.page ||
@@ -185,7 +196,7 @@ export function RecitationEvidenceSpan({
       target?.scrollIntoView({ behavior: "smooth", block: "center" });
       target?.focus({ preventScroll: true });
     });
-  }, [activeMistakeKey, activePageIndex, focusActiveWord, loadState, mistakes]);
+  }, [activeMistakeKey, activePageIndex, focusActiveWord, loadState, mistakes, paginated, locationRequest]);
 
   if (loadState.status === "loading") {
     return (
@@ -204,7 +215,7 @@ export function RecitationEvidenceSpan({
   }
 
   return (
-    <div className="recitation-evidence-span" aria-label="Recorded recitation span">
+    <div className={`recitation-evidence-span${paginated ? " is-paginated" : ""}`} aria-label="Recorded recitation span">
       {loadState.pages.length > 1 && (
         <nav className="recitation-evidence-pager" aria-label="Recorded Quran pages">
           <button
@@ -215,7 +226,7 @@ export function RecitationEvidenceSpan({
             Previous
           </button>
           <span>
-            Page <bdi>{loadState.pages[activePageIndex]?.page}</bdi> of {loadState.pages.length}
+            Page <bdi>{loadState.pages[activePageIndex]?.page}</bdi>{paginated ? ` · ${activePageIndex + 1}` : ""} of {loadState.pages.length}
           </span>
           <button
             type="button"
@@ -259,11 +270,11 @@ export function RecitationEvidenceSpan({
                   key={word.wid}
                   word={word}
                   qcfReady={qcfReady}
-                  className={`${inRange ? "" : "question-context-word evidence-context-word"} ${replayable ? "evidence-replay-word" : ""} ${replayWordId === word.wid ? "is-replay-focus" : ""}`}
+                  className={`${inRange ? "" : "question-context-word evidence-context-word"} ${replayable ? "evidence-replay-word" : ""} ${replayWordId === word.wid || selectedWordId === word.wid ? "is-replay-focus" : ""}`}
                   aria-hidden={inRange ? undefined : true}
                 >
                   {replayable && <button type="button" className="evidence-replay-button"
-                    aria-label={`Review recording for ${word.text}`} onClick={() => onReplayWordSelect?.(word.wid)} />}
+                    aria-label={`${paginated ? "Inspect word" : "Review recording for"} ${word.text}`} onClick={() => onReplayWordSelect?.(word.wid)} />}
                 </MushafWord>
               );
             }
@@ -277,7 +288,7 @@ export function RecitationEvidenceSpan({
                 key={word.wid}
                 word={word}
                 qcfReady={qcfReady}
-                className={`evidence-marked-word cat-${firstMistake.mistake.category} ${isActive ? "is-active" : ""} ${replayWordId === word.wid ? "is-replay-focus" : ""}`}
+                className={`evidence-marked-word cat-${firstMistake.mistake.category} ${isActive ? "is-active" : ""} ${replayWordId === word.wid || selectedWordId === word.wid ? "is-replay-focus" : ""}`}
               >
                 <button
                   ref={(node) => {
@@ -290,7 +301,7 @@ export function RecitationEvidenceSpan({
                   className="evidence-marker-button"
                   aria-label={`${word.text}. ${wordMistakes.length} recorded mistake${wordMistakes.length === 1 ? "" : "s"}: ${categoryNames}`}
                   aria-pressed={isActive}
-                  onClick={() => { onMistakeSelect(firstMistake.key); onReplayWordSelect?.(word.wid); }}
+                  onClick={() => { onMistakeSelect(firstMistake.key); if (!paginated) onReplayWordSelect?.(word.wid); }}
                 />
                 {wordMistakes.length > 1 && (
                   <span className="evidence-mark-count" aria-hidden="true">

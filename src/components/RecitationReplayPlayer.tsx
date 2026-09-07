@@ -9,6 +9,7 @@ import { currentReplayOccurrences, formatReplayTime, replayTargetMatches, replay
 import type { ReplaySuggestion } from "../lib/recitationReplayAnalysis.ts";
 import { replaySaveFailure } from "../lib/recitationReplayRecovery.ts";
 import { Icon } from "./Icon.tsx";
+import { wordReplayChoices, replayChoiceLabel } from "../lib/wordReplayChoices.ts";
 
 export interface RecitationReplayContext {
   questionFingerprint: string;
@@ -19,12 +20,13 @@ export interface RecitationReplayContext {
   onPlaybackWord: (wordId: string | null) => void;
 }
 
-export function RecitationReplayPlayer({ sources, context, fallback }: {
+export function RecitationReplayPlayer({ sources, context, fallback, embedded = false }: {
   sources: SessionRecordingSource[];
   context: RecitationReplayContext;
   fallback: ReactNode;
+  embedded?: boolean;
 }) {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(embedded);
   const [sourceId, setSourceId] = useState(sources[0]?.sessionId ?? "");
   const [playback, setPlayback] = useState<LocalRecordingPlayback | null>(null);
   const [part, setPart] = useState(0);
@@ -53,33 +55,34 @@ export function RecitationReplayPlayer({ sources, context, fallback }: {
   return <>
     {!open && fallback}
     <section className="replay-review" aria-label="Word replay review">
-      <div className="replay-review-heading">
+      {!embedded && <div className="replay-review-heading">
         <div><span>Practice · on this device</span><h3>Ayah & word replay</h3></div>
         <button type="button" className="btn-secondary" aria-expanded={open}
           onClick={() => setOpen((value) => !value)}>{open ? "Close word review" : "Review words"}</button>
-      </div>
+      </div>}
       {open && <>
         <div className="replay-source-row">
-          <label>Recording source<select aria-label="Word replay recording source" value={sourceId}
+          {embedded && sources.length === 1 ? <small>{sources[0].label}</small> : <label>Recording source<select aria-label="Word replay recording source" value={sourceId}
             onChange={(event) => setSourceId(event.target.value)}>
             {sources.map((source) => <option key={source.sessionId} value={source.sessionId}>{source.label}</option>)}
-          </select></label>
+          </select></label>}
           {playback && playback.segments.length > 1 && <label>Recording part<select aria-label="Recording part"
             value={part} onChange={(event) => setPart(Number(event.target.value))}>
             {playback.segments.map((item, index) => <option key={item.index} value={index}>Part {item.index + 1}</option>)}
           </select></label>}
         </div>
-        {unavailable ? <p role="status">{error ?? "No finished recording part is available for this source on this device. Record a Practice recitation first."}</p>
+        {unavailable ? <p role="status">{error ?? (embedded ? "Recording not on this device, or no finished part is available. Score imports do not include audio." : "No finished recording part is available for this source on this device. Record a Practice recitation first.")}</p>
           : segment.integrityError ? <p role="alert">{segment.integrityError} Other complete parts can still be reviewed.</p>
           : <ReviewSegment key={`${sourceId}:${currentPlayback.manifest.createdAt}:${segment.index}:${context.questionFingerprint}`}
-            playback={currentPlayback} part={part} context={context} />}
+            playback={currentPlayback} part={part} context={context} embedded={embedded} />}
       </>}
     </section>
   </>;
 }
 
-function ReviewSegment({ playback, part, context }: {
+function ReviewSegment({ playback, part, context, embedded = false }: {
   playback: LocalRecordingPlayback; part: number; context: RecitationReplayContext;
+  embedded?: boolean;
 }) {
   const segment = playback.segments[part];
   const [decoded, setDecoded] = useState<DecodedReplayAudio | null>(null);
@@ -94,6 +97,7 @@ function ReviewSegment({ playback, part, context }: {
   const [ready, setReady] = useState(false);
   const [kind, setKind] = useState<"word" | "ayah">("word");
   const [occurrenceId, setOccurrenceId] = useState("");
+  const [directSelection, setDirectSelection] = useState<{ wordId: string | null; id: string }>({ wordId: null, id: "" });
   const [start, setStart] = useState("0.00");
   const [end, setEnd] = useState("1.00");
   const [repeat, setRepeat] = useState(false);
@@ -115,7 +119,7 @@ function ReviewSegment({ playback, part, context }: {
     segmentIndex: segment.index, sha256: decoded.sha256, sampleRate: decoded.sampleRate,
     sampleCount: decoded.samples.length, questionFingerprint: context.questionFingerprint,
   } : null, [decoded, playback.manifest.sessionId, playback.manifest.createdAt, segment.index, context.questionFingerprint]);
-  const selectedWord = context.words.find((word) => word.wordId === context.selectedWordId) ?? context.words[0];
+  const selectedWord = context.words.find((word) => word.wordId === context.selectedWordId) ?? (embedded ? undefined : context.words[0]);
   const target = useMemo<ReplayTarget | null>(() => selectedWord ? {
     kind,
     wordIds: kind === "word" ? [selectedWord.wordId] : context.words.filter((word) =>
@@ -127,6 +131,15 @@ function ReviewSegment({ playback, part, context }: {
   const occurrences = useMemo(() => currentReplayOccurrences(matchingRevisions).filter((entry) =>
     target && replayTargetMatches(entry.target, target)), [matchingRevisions, target]);
   const selectedOccurrence = occurrences.find((entry) => entry.occurrenceId === occurrenceId);
+  const directChoices = useMemo(() => wordReplayChoices(revisions, media, context.words, context.selectedWordId),
+    [revisions, media, context.words, context.selectedWordId]);
+  const directChoice = directChoices.entries.length === 1 ? directChoices.entries[0]
+    : directChoices.entries.find(entry => directSelection.wordId === context.selectedWordId && entry.id === directSelection.id);
+  const directKey = `${context.selectedWordId}:${directChoice?.id ?? "none"}`;
+  useEffect(() => {
+    if (!embedded) return;
+    audioRef.current?.pause(); pendingPlayRef.current = false; stopAtRef.current = null;
+  }, [directKey, embedded]);
 
   useEffect(() => {
     aliveRef.current = true;
@@ -236,7 +249,7 @@ function ReviewSegment({ playback, part, context }: {
     }
   };
   useEffect(() => {
-    if (ready && occurrences.length === 1 && occurrences[0].status === "reviewed") {
+    if (!embedded && ready && occurrences.length === 1 && occurrences[0].status === "reviewed") {
       selectOccurrence(occurrences[0].occurrenceId);
     }
     // Selection changes may seek a single reviewed occurrence; saving/reanalysis
@@ -364,10 +377,30 @@ function ReviewSegment({ playback, part, context }: {
   };
 
   if (!decoded) return <p role={error ? "alert" : "status"}>{error ?? "Preparing recording timing…"}</p>;
+  const TimingTools = embedded ? "details" : "div";
   return <div className="replay-segment">
+    {embedded && context.selectedWordId && <div className="replay-direct" aria-label="Selected word replay">
+      {directChoices.entries.length > 1 && <label>Choose an occurrence<select aria-label="Word playback occurrence"
+        value={directChoice?.id ?? ""} onChange={event => setDirectSelection({ wordId: context.selectedWordId, id: event.target.value })}>
+        <option value="">Choose before playing</option>{directChoices.entries.map((entry, i) => <option key={entry.id} value={entry.id}>
+          {i + 1} · {formatReplayTime(entry.startSample / entry.media.sampleRate)} · {entry.status === "reviewed" ? "Reviewed" : "Approximate"}
+        </option>)}</select></label>}
+      {directChoices.entries.length ? <>
+        <button type="button" className="btn-primary" disabled={!ready || !directChoice || busy}
+          onClick={() => {
+            if (!directChoice || !media) return;
+            loopStartRef.current = Math.max(0, directChoice.startSample / media.sampleRate - 0.4);
+            stopAtRef.current = Math.min(duration, directChoice.endSample / media.sampleRate + 0.4);
+            seek(loopStartRef.current, true);
+          }}>{directChoice ? replayChoiceLabel(directChoice) : "Choose occurrence"}</button>
+        <p>{directChoices.kind === "ayah" ? "Reviewed ayah interval in the recorded span—not individual word timing."
+          : directChoice?.status === "suggested" ? "Approximate position. Listen before relying on it."
+            : "Saved timing · includes 0.4 seconds of context."}</p>
+      </> : <p>No saved timing for this word in this recording part. Use the recording below or locate it in Timing tools.</p>}
+    </div>}
     <div className="replay-transport">
       <button type="button" className="session-recording-play" disabled={!ready}
-        aria-label={playing ? "Pause word replay" : "Play word replay"}
+        aria-label={embedded ? (playing ? "Pause recording" : "Play recording") : (playing ? "Pause word replay" : "Play word replay")}
         onClick={() => { stopAtRef.current = null; pendingPlayRef.current = false; if (playing) audioRef.current?.pause(); else play(); }}>
         <Icon name={playing ? "pause" : "play"} size={18} />
       </button>
@@ -390,9 +423,13 @@ function ReviewSegment({ playback, part, context }: {
         if (repeat && stopAtRef.current !== null) seek(loopStartRef.current, true);
         else setPlaying(false);
       }} />
+    {embedded && <p className="replay-help">{context.selectedWordId ? "Selected word · open Timing tools for saved intervals." : "Select a word to inspect its timing."}</p>}
+    <TimingTools className="replay-timing-tools">
+    {embedded && <summary>Timing tools</summary>}
     <div className="replay-choice-row">
       <label>Word<select aria-label="Replay word" value={selectedWord?.wordId ?? ""} disabled={busy}
         onChange={(event) => context.onWordSelect(event.target.value)}>
+        {embedded && <option value="">Select a word in the passage</option>}
         {context.words.map((word) => <option key={word.wordId} value={word.wordId}>
           {word.surah}:{word.ayah ?? "b"} · {Number(word.wordId.split(".")[2]) + 1} · {word.text}
         </option>)}
@@ -438,11 +475,12 @@ function ReviewSegment({ playback, part, context }: {
           onClick={() => void analyze()}>Suggest word positions</button>}
       <span>{currentReplayOccurrences(matchingRevisions).filter((entry) => entry.status === "suggested").length} positions need review in this part</span>
     </details>
+    <p className="replay-help">Times belong to part {segment.index + 1} of this recording. Original audio and judging records are preserved. Review history stays on this device.</p>
+    </TimingTools>
     {notice && <p className="replay-notice" role="status">{notice}</p>}
     {error && <p role="alert" className="replay-error">{error}</p>}
     {transportError && <p role="alert" className="replay-error">{transportError}</p>}
     {conflict && <button type="button" className="btn-secondary" disabled={busy}
       onClick={() => void reloadTimings()}>Load latest timing · keep my draft</button>}
-    <p className="replay-help">Times belong to part {segment.index + 1} of this recording. Original audio and judging records are preserved. Review history stays on this device.</p>
   </div>;
 }

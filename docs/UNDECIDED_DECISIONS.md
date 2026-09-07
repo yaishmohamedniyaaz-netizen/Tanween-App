@@ -7,6 +7,22 @@ product rules belong in `PRODUCT_FOUNDATION.md`, not here.
 
 ## Questions and scoring
 
+### Results overview follow-up — 7 September 2026
+
+- Head/Normal judge roles are the proposed setup direction. Authentication,
+  reassignment/recovery and the head judge's precise finalization authority still
+  need decisions before enforcement; device-local seat selection is not identity
+  verification. No automatic first-judge promotion.
+- Absent participants remain visible and retained. Their proposed exclusion from
+  Excel is not enabled until the export policy is confirmed. Saved results for
+  someone marked absent require attention, not deletion or conversion to zero.
+- Cross-judge correction is not permitted by the requested direction; how this
+  is enforced across actual accounts/devices remains an architecture decision.
+  The experimental overview's disabled button is not a security boundary.
+- Analysis redesign is deferred and requires a separate approved scope.
+
+See `RESULTS_OVERVIEW_CHECKPOINT_2026-09-07.md` for the implemented first slice.
+
 1. **Final printed line**
    - Current proposal: a target such as seven lines continues to the first ayah
      ending on or after the seventh printed recitation line.
