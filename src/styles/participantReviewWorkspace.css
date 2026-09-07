@@ -24,6 +24,14 @@
 }
 .rw-passage .recitation-evidence-pages > .recitation-evidence-page { display: none; }
 .rw-passage .recitation-evidence-pages > .recitation-evidence-page.is-active { display: block; }
+.rw-dual .rw-layout { grid-template-columns: minmax(0,1fr); }
+.rw-dual .rw-passage .recitation-evidence-pages { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; max-width: calc(2 * var(--rw-page-width) + 12px); }
+.rw-dual .rw-passage .recitation-evidence-pages.mushaf-single { grid-template-columns: minmax(0,1fr); max-width: var(--rw-page-width); }
+.rw-dual .rw-passage .recitation-evidence-pages > .recitation-evidence-page { grid-column: auto; grid-row: auto; }
+.rw-dual .rw-passage .recitation-evidence-pager { max-width: calc(2 * var(--rw-page-width) + 12px); }
+@media (min-width: 1280px) {
+ .rw-dual .rw-layout { grid-template-columns: minmax(0,1fr) 280px; }
+}
 .rw-passage .recitation-evidence-pager { display: grid; max-width: var(--rw-page-width); width: 100%; margin-inline: auto; }
 .rw-passage .evidence-marked-word::after { display: none; }
 .rw-passage .evidence-marked-word { background: color-mix(in srgb, var(--c) 16%, transparent); }

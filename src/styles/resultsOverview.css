@@ -3,7 +3,10 @@
 .ro-summary { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; align-items: baseline; margin: 0 0 16px; }
 .ro-summary p { margin: 0; font-size: 15px; }
 .ro-summary > span, .ro-footer { color: var(--ink-3); font-size: 12px; }
-.ro-tools { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; align-items: center; }
+.ro-tools { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; align-items: stretch; }
+.ro-tools > label { display: flex; align-items: center; margin: 0; }
+.ro-tools input, .ro-tools select { height: 48px; margin: 0; box-sizing: border-box; }
+.ro-tools .ro-filter { height: 48px; box-sizing: border-box; }
 .ro-tools input, .ro-tools select { border: 1px solid var(--line); border-radius: 8px; background: var(--surface); color: var(--ink); padding: 8px 12px; font: inherit; max-width: 100%; }
 .ro-search { flex: 1 1 240px; }
 .ro-search input { width: 100%; }
@@ -31,7 +34,10 @@
 .ro-reason strong { display: block; }
 .ro-absent { color: var(--ink-3); background: var(--bg); }
 .ro-footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-top: 8px; }
-.ro-footer nav { display: flex; gap: 8px; }
+.ro-footer { flex-wrap: wrap; }
+.ro-footer nav { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; }
+.ro-footer nav button { min-width: 44px; }
+.ro-footer nav button[aria-current="page"] { color: var(--surface); background: var(--ink); }
 .ro-footer button { border: 1px solid var(--line); border-radius: 8px; }
 .ro-footer button:disabled { opacity: .5; cursor: default; }
 .ro-notice, .ro-empty p, .ro-pending p { color: var(--ink-3); font-size: 14px; }

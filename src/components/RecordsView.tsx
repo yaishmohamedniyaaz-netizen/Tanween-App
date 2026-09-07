@@ -84,7 +84,7 @@ function DataScopeControl({
   );
 }
 
-export function RecordsView({ onResumeSession }: { onResumeSession: () => void }) {
+export function RecordsView({ onResumeSession, pageLayout = "full" }: { onResumeSession: () => void; pageLayout?: import("../lib/devicePreferences").MushafLayout }) {
   const { state, dispatch } = useJudging();
   // Default Results experience; explicit escape hatch for the legacy interface.
   const overviewEnabled = new URLSearchParams(window.location.search).get("resultsOverview") !== "0";
@@ -963,7 +963,7 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
         className="results-tab-panel"
       >
         {overviewEnabled ? <>
-          <ResultsOverview key={`${state.competition.id}:${state.competition.liveSnapshot?.versionId ?? "draft"}`} active={activeTab === "review"} />
+          <ResultsOverview key={`${state.competition.id}:${state.competition.liveSnapshot?.versionId ?? "draft"}`} active={activeTab === "review"} pageLayout={pageLayout} />
           <details className="ro-source-tools"><summary>Judge records &amp; import</summary>{renderJudgeResults()}</details>
         </> : <>
         <section

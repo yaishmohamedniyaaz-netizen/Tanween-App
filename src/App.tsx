@@ -422,7 +422,7 @@ export function App() {
         </main>
       ) : view === "records" ? (
         <main className="records-main" key="records">
-          <RecordsView onResumeSession={() => setView("judge")} />
+          <RecordsView pageLayout={preferences.mushafLayout} onResumeSession={() => setView("judge")} />
         </main>
       ) : view === "settings" ? (
         <SettingsWorkspace

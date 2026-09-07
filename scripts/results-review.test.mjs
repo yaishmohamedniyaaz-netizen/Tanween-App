@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import test from "node:test";
+import './review-navigation.test.mjs';
 import "./competition-results.test.mjs";
 import "./participant-workspace.test.mjs";
 import "./word-replay-choices.test.mjs";

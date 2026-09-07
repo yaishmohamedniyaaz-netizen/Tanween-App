@@ -24,6 +24,7 @@ import { rangeDisplayForPage } from "../lib/recitationRangeLayout.ts";
 import type { RecitationRangeSnapshot } from "../types.ts";
 import { MushafPageSurface, MushafWord } from "./MushafPageSurface.tsx";
 import type { ReplayWord } from "../lib/recitationReplay.ts";
+import { evidencePageWindow } from "../lib/reviewNavigation";
 
 type LoadState =
   | { status: "loading" }
@@ -54,6 +55,7 @@ export function RecitationEvidenceSpan({
   replayWordId = null,
   selectedWordId = null,
   paginated = false,
+  spread = false,
   locationRequest = 0,
 }: {
   range: RecitationRangeSnapshot;
@@ -67,6 +69,7 @@ export function RecitationEvidenceSpan({
   replayWordId?: string | null;
   selectedWordId?: string | null;
   paginated?: boolean;
+  spread?: boolean;
   locationRequest?: number;
 }) {
   const [loadState, setLoadState] = useState<LoadState>({ status: "loading" });
@@ -214,26 +217,25 @@ export function RecitationEvidenceSpan({
     );
   }
 
+  const window = evidencePageWindow(activePageIndex, loadState.pages.length, paginated && spread);
   return (
     <div className={`recitation-evidence-span${paginated ? " is-paginated" : ""}`} aria-label="Recorded recitation span">
-      {loadState.pages.length > 1 && (
+      {loadState.pages.length > window.size && (
         <nav className="recitation-evidence-pager" aria-label="Recorded Quran pages">
           <button
             type="button"
-            disabled={activePageIndex === 0}
-            onClick={() => setActivePageIndex((current) => Math.max(0, current - 1))}
+            disabled={window.start === 0}
+            onClick={() => setActivePageIndex(Math.max(0, window.start - window.size))}
           >
             Previous
           </button>
           <span>
-            Page <bdi>{loadState.pages[activePageIndex]?.page}</bdi>{paginated ? ` · ${activePageIndex + 1}` : ""} of {loadState.pages.length}
+            Page <bdi>{loadState.pages[window.start]?.page}{window.end - window.start > 1 ? `–${loadState.pages[window.end - 1]?.page}` : ""}</bdi>{paginated ? ` · ${window.start + 1}${window.size > 1 ? `–${window.end}` : ""}` : ""} of {loadState.pages.length}
           </span>
           <button
             type="button"
-            disabled={activePageIndex === loadState.pages.length - 1}
-            onClick={() => setActivePageIndex((current) =>
-              Math.min(loadState.pages.length - 1, current + 1)
-            )}
+            disabled={window.end === loadState.pages.length}
+            onClick={() => setActivePageIndex(Math.min(loadState.pages.length - 1, window.start + window.size))}
           >
             Next
           </button>
@@ -317,7 +319,7 @@ export function RecitationEvidenceSpan({
               key={page.page}
               data={page}
               qcfReady={qcfReady}
-              className={`recitation-evidence-page ${pageIndex === activePageIndex ? "is-active" : ""}`}
+              className={`recitation-evidence-page ${pageIndex >= window.start && pageIndex < window.end ? "is-active" : ""}`}
               role="group"
               aria-label={`Recorded Quran page ${page.page}`}
               data-question-focus-mode="fade"

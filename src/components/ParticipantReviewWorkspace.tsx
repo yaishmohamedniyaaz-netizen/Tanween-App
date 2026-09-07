@@ -9,12 +9,15 @@ import type { CategoryId } from "../types";
 import { RecitationEvidenceSpan } from "./RecitationEvidenceSpan";
 import { SessionRecordingPlayer } from "./SessionRecordingPlayer";
 import "../styles/participantReviewWorkspace.css";
+import { useMediaQuery } from "../hooks/useMediaQuery";
+import type { MushafLayout } from "../lib/devicePreferences";
 
 interface Props {
   item: ResultsReviewItem;
   selected: Record<CategoryId, string>;
   isSample: boolean;
   active: boolean;
+  pageLayout?: MushafLayout;
   reasons: string[];
   onSelectSource: (category: CategoryId, id: string) => void;
   onBack: () => void;
@@ -40,7 +43,7 @@ export function ParticipantReviewWorkspace(props: Props) {
   return <WorkspaceEvidence key={identity} {...props} evidence={evidence} />;
 }
 
-function WorkspaceEvidence({ item, selected, evidence, active, reasons, onSelectSource,
+function WorkspaceEvidence({ item, selected, evidence, active, reasons, onSelectSource, pageLayout = "full",
   onBack, onPrevious, onNext }: Props & { evidence: ParticipantQuestionEvidence }) {
   const [words, setWords] = useState<ReplayWord[]>([]);
   const [locatable, setLocatable] = useState<Set<string> | null>(null);
@@ -54,6 +57,26 @@ function WorkspaceEvidence({ item, selected, evidence, active, reasons, onSelect
   const heading = useRef<HTMLHeadingElement>(null);
   const inspector = useRef<HTMLElement>(null);
   const origin = useRef<HTMLElement | null>(null);
+  const scoreDetails = useRef<HTMLDetailsElement>(null);
+  const compact = useMediaQuery("(max-width: 760px)");
+  const narrowDesktop = useMediaQuery("(min-width: 761px) and (max-width: 1279px)");
+  const spread = pageLayout === "spread" && !compact;
+  useEffect(() => {
+    const dismiss = (event: PointerEvent) => {
+      const card = scoreDetails.current;
+      if (card?.open && event.target instanceof Node && !card.contains(event.target)) card.open = false;
+    };
+    const escape = (event: KeyboardEvent) => {
+      const card = scoreDetails.current;
+      if (event.key === "Escape" && !event.defaultPrevented && card?.open) {
+        card.open = false; card.querySelector("summary")?.focus();
+      }
+    };
+    document.addEventListener("pointerdown", dismiss);
+    document.addEventListener("keydown", escape);
+    return () => { document.removeEventListener("pointerdown", dismiss); document.removeEventListener("keydown", escape); };
+  }, []);
+  useEffect(() => { if (!active && scoreDetails.current) scoreDetails.current.open = false; }, [active]);
   const participant = item.candidate.participant;
   const view = selectedResultView(item, selected);
   const word = words.find(w => w.wordId === wordId);
@@ -63,7 +86,10 @@ function WorkspaceEvidence({ item, selected, evidence, active, reasons, onSelect
   const revealInspector = () => {
     origin.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     setInspectorOpen(true);
-    requestAnimationFrame(() => inspector.current?.focus({ preventScroll: true }));
+    requestAnimationFrame(() => {
+      inspector.current?.focus({ preventScroll: true });
+      if (spread && narrowDesktop) inspector.current?.scrollIntoView({block:"nearest",behavior:"smooth"});
+    });
   };
   const closeInspector = () => {
     setInspectorOpen(false);
@@ -83,13 +109,13 @@ function WorkspaceEvidence({ item, selected, evidence, active, reasons, onSelect
   const sources = useMemo(() => evidence.selectedSessions.map(s => ({sessionId:s.id,
     label:`${s.assignment?.judgeName || s.assignment?.judgeLabel || "Judge"} · revision ${s.revision ?? 1}`})), [evidence.selectedSessions]);
 
-  return <article className="participant-review-workspace" aria-labelledby="rw-participant">
+  return <article className={`participant-review-workspace${spread ? " rw-dual" : ""}`} aria-labelledby="rw-participant">
     <header className="rw-header">
       <button onClick={onBack} className="btn-ghost">Back to results</button>
       <div className="rw-identity"><h2 id="rw-participant" ref={heading} tabIndex={-1}>
         <bdi>{participant.number}</bdi> {participant.name || "Unnamed participant"}</h2>
         <p>{evidence.question?.label || "Recorded passage unavailable"}</p></div>
-      <details className="rw-score"><summary aria-label="Score breakdown and judge sources">
+      <details ref={scoreDetails} className="rw-score"><summary aria-label="Score breakdown and judge sources">
         Score <strong>{view.preview?.total ?? "—"}</strong>{view.preview && <span> / {view.preview.totalMax}</span>}
       </summary><div className="rw-score-content">
         <button className="btn-ghost" onClick={event => {
@@ -125,7 +151,7 @@ function WorkspaceEvidence({ item, selected, evidence, active, reasons, onSelect
           range={evidence.range} mistakes={evidence.mistakes} activeMistakeKey={findingKey}
           focusActiveWord={focusWord} onMistakeSelect={key => selectFinding(key, true)}
           onWordIdsReady={setLocatable} onReplayWordsReady={setWords} onReplayWordSelect={selectWord}
-          selectedWordId={wordId} replayWordId={playbackWord} paginated locationRequest={locationRequest}
+          selectedWordId={wordId} replayWordId={playbackWord} paginated spread={spread} locationRequest={locationRequest}
         /> : <p className="rw-unavailable" role="status">{unavailable[evidence.status] || "The saved Quran range is unavailable."} Judge findings remain readable.</p>}
       </section>
       <aside className="rw-sidebar" aria-label="Findings and recording">

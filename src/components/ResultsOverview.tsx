@@ -4,8 +4,10 @@ import { participantCategoryLabel } from "../lib/participants.ts";
 import { useJudging } from "../state/store.tsx";
 import { ParticipantReviewWorkspace } from "./ParticipantReviewWorkspace.tsx";
 import "../styles/resultsOverview.css";
+import { resultPageItems } from "../lib/reviewNavigation";
+import type { MushafLayout } from "../lib/devicePreferences";
 
-export function ResultsOverview({ active = true }: { active?: boolean }) {
+export function ResultsOverview({ active = true, pageLayout = "full" }: { active?: boolean; pageLayout?: MushafLayout }) {
   const { state } = useJudging();
   const [query, setQuery] = useState("");
   const [attention, setAttention] = useState(false);
@@ -46,7 +48,7 @@ export function ResultsOverview({ active = true }: { active?: boolean }) {
   if (selected) return <section className="results-overview" aria-label="Participant result">
     {selected.item && selected.view ? <ParticipantReviewWorkspace
       key={selected.participant.id} item={selected.item} selected={selected.view.selected}
-      isSample={state.competition.isSample} active={active} reasons={selected.reasons} onBack={close}
+      isSample={state.competition.isSample} active={active} pageLayout={pageLayout} reasons={selected.reasons} onBack={close}
       onPrevious={selectedIndex > 0 ? () => setSelectedId(filtered[selectedIndex - 1].participant.id) : undefined}
       onNext={selectedIndex >= 0 && selectedIndex < filtered.length - 1 ? () => setSelectedId(filtered[selectedIndex + 1].participant.id) : undefined}
       onSelectSource={(category, id) => setSelections(current => ({ ...current,
@@ -107,7 +109,11 @@ export function ResultsOverview({ active = true }: { active?: boolean }) {
       {model.total > 0 && <button className="btn-ghost" onClick={() => {setQuery("");setAttention(false);setDivision("");setPage(1);}}>Clear filters</button>}
     </div>}
     <footer className="ro-footer"><span aria-live="polite">{filtered.length} participant{filtered.length === 1 ? "" : "s"}{pageCount > 1 && ` · Page ${currentPage} of ${pageCount}`}</span>
-      {pageCount > 1 && <nav aria-label="Participant pages"><button disabled={currentPage === 1} onClick={() => setPage(currentPage - 1)}>Previous</button><button disabled={currentPage === pageCount} onClick={() => setPage(currentPage + 1)}>Next</button></nav>}
+      {pageCount > 1 && <nav aria-label="Participant pages"><button disabled={currentPage === 1} onClick={() => setPage(currentPage - 1)}>Previous</button>
+        {resultPageItems(currentPage, pageCount).map((item,index) => item === "gap"
+          ? <span key={`gap-${index}`} aria-hidden="true">…</span>
+          : <button key={item} aria-label={`Page ${item}`} aria-current={item === currentPage ? "page" : undefined} onClick={() => setPage(item)}>{item}</button>)}
+        <button disabled={currentPage === pageCount} onClick={() => setPage(currentPage + 1)}>Next</button></nav>}
     </footer>
   </section>;
 }
