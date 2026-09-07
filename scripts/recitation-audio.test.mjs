@@ -5,7 +5,10 @@ import {
   chooseRecordingMimeType,
   formatRecordingDuration,
   RECITATION_AUDIO_DB_NAME,
+  recordingPartIntegrity,
+  recordingStateAfterWrites,
 } from "../src/lib/recitationAudioStorage.ts";
+import { replaySaveFailure } from "../src/lib/recitationReplayRecovery.ts";
 
 const root = new URL("../", import.meta.url);
 const storageSource = readFileSync(
@@ -89,4 +92,43 @@ test("replay explicitly restores audible element volume", () => {
   assert.match(playerSource, /audio\.muted = false/);
   assert.match(playerSource, /audio\.volume = 1/);
   assert.match(playerSource, /Mic level stayed very low during capture/);
+});
+
+test("review requires every saved chunk in order, without changing part numbering", () => {
+  const segment = { index: 2, endedAt: "2026-09-06T12:00:00Z", chunkCount: 3, bytes: 6 };
+  const chunks = [0, 1, 2].map((chunkIndex) => ({ segmentIndex: 2, chunkIndex, blob: new Blob(["ab"]) }));
+  assert.equal(recordingPartIntegrity(segment, chunks), null);
+  assert.equal(recordingPartIntegrity(segment, [...chunks].reverse()), null);
+  for (const missing of [0, 1, 2]) {
+    assert.match(recordingPartIntegrity(segment, chunks.filter((chunk) => chunk.chunkIndex !== missing)), /missing/);
+  }
+  assert.match(recordingPartIntegrity(segment, [chunks[0], chunks[0], chunks[2]]), /missing/);
+  assert.match(recordingPartIntegrity(segment, [...chunks, { ...chunks[0], chunkIndex: 3 }]), /missing/);
+  assert.match(recordingPartIntegrity({ ...segment, bytes: 5 }, chunks), /saved size/);
+  assert.match(recordingPartIntegrity({ ...segment, endedAt: null }, chunks), /not finished/);
+  assert.match(recordingPartIntegrity({ ...segment, captureFailed: true }, chunks), /stopped before/);
+  assert.match(recordingPartIntegrity({ ...segment, bytes: 0, chunkCount: 0 }, []), /no complete/);
+  assert.match(recordingPartIntegrity({ ...segment, chunkCount: NaN }, chunks), /no complete/);
+  assert.match(recordingPartIntegrity(segment, chunks.map((chunk) => ({ ...chunk, blob: new Blob([]) }))), /missing/);
+});
+
+test("a final write that fails after Stop cannot label a truncated recording ready", async () => {
+  for (const intended of ["paused", "ready", "interrupted"]) {
+    let rejectWrite;
+    let failed = false;
+    const queued = new Promise((_, reject) => { rejectWrite = reject; }).catch(() => { failed = true; });
+    const stopping = recordingStateAfterWrites(queued, intended, () => failed);
+    rejectWrite(new DOMException("disk full", "QuotaExceededError"));
+    assert.equal(await stopping, "failed");
+    assert.equal(await recordingStateAfterWrites(Promise.resolve(), intended, () => false), intended);
+  }
+});
+
+test("failed timing writes describe unsaved drafts and partially persisted suggestions accurately", () => {
+  const quota = new DOMException("quota detail", "QuotaExceededError");
+  assert.match(replaySaveFailure(quota), /no space.*not saved; its boundaries are still here/);
+  assert.doesNotMatch(replaySaveFailure(quota), /quota detail/);
+  assert.match(replaySaveFailure(quota, 2), /^2 suggestions saved.*Remaining suggestions were not saved/);
+  assert.match(replaySaveFailure(new Error("Storage unavailable"), 0), /^0 suggestions saved.*Storage unavailable/);
+  assert.match(replaySaveFailure(null), /Timing could not be saved/);
 });

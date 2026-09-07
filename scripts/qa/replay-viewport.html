@@ -1,0 +1,6 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><title>Replay viewport review</title>
+<style>body{margin:0;background:#ddd;font:14px system-ui}header{padding:8px;display:flex;gap:8px;align-items:center}button{min-height:36px}iframe{display:block;border:0;margin:0 auto;background:white}</style></head>
+<body><header><button data-size="393,852">393 × 852 portrait</button><button data-size="1024,768">1024 × 768</button><button data-size="1400,900">1400 × 900</button><span id="size">393 × 852 CSS pixels · browser frame, not physical iOS</span></header>
+<iframe title="Replay test viewport" src="./replay-lifecycle.html" width="393" height="852"></iframe>
+<script>document.querySelectorAll('button[data-size]').forEach(button=>button.addEventListener('click',()=>{const [width,height]=button.dataset.size.split(','); const frame=document.querySelector('iframe'); frame.width=width;frame.height=height;document.getElementById('size').textContent=width+' × '+height+' CSS pixels · browser frame, not physical iOS';}));</script></body></html>

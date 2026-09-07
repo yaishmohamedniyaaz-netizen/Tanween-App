@@ -5,6 +5,7 @@ import {
   chooseRecordingMimeType,
   createLocalRecording,
   finalizeLocalRecordingSegment,
+  recordingStateAfterWrites,
   formatRecordingDuration,
   getLocalRecording,
   markOpenLocalRecordingsInterrupted,
@@ -278,6 +279,7 @@ export function useRecitationRecorder({
     setLiveElapsedMs(0);
     setError(null);
 
+    let captureFailed = false;
     recorder.ondataavailable = (event) => {
       if (event.data.size === 0) return;
       const chunkIndex = chunkIndexRef.current;
@@ -290,6 +292,7 @@ export function useRecitationRecorder({
           event.data,
         ))
         .catch(async () => {
+          captureFailed = true;
           setError("Audio could not be saved on this device. Judging can continue safely.");
           setStatus("error");
           if (recorder.state !== "inactive") {
@@ -299,6 +302,7 @@ export function useRecitationRecorder({
         });
     };
     recorder.onerror = () => {
+      captureFailed = true;
       setError("Recording stopped unexpectedly. The audio saved so far remains on this device.");
       setStatus("error");
       if (recorder.state !== "inactive") {
@@ -313,20 +317,20 @@ export function useRecitationRecorder({
       stopStream(streamRef.current);
       streamRef.current = null;
       recorderRef.current = null;
-      void writeQueueRef.current
-        .then(() => finalizeLocalRecordingSegment(
+      void recordingStateAfterWrites(writeQueueRef.current, target, () => captureFailed)
+        .then((settledTarget) => finalizeLocalRecordingSegment(
           sessionId,
           segmentIndex,
           durationMs,
-          target,
-          target === "failed"
+          settledTarget,
+          settledTarget === "failed"
             ? "Recording stopped unexpectedly. The audio saved so far remains on this device."
             : null,
         ))
         .then((next) => {
           updateFromManifest(next);
-          if (target === "paused") setStatus("paused");
-          else if (target === "ready") setStatus("ready");
+          if (next.state === "paused") setStatus("paused");
+          else if (next.state === "ready") setStatus("ready");
           else setStatus("error");
         })
         .catch(() => {

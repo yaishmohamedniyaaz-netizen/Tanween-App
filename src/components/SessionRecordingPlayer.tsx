@@ -55,8 +55,11 @@ function BasicSessionRecordingPlayer({ sources }: {
   const [segmentUrls, setSegmentUrls] = useState<string[]>([]);
   const pendingSeekRef = useRef<number | null>(null);
   const continueAfterLoadRef = useRef(false);
+  const playbackEpoch = useRef(0);
+  const refreshEpoch = useRef(0);
 
   const refreshAvailable = useCallback(async () => {
+    const epoch = ++refreshEpoch.current;
     try {
       const manifests = await Promise.all(
         uniqueSources.map(async (source) => ({
@@ -64,6 +67,7 @@ function BasicSessionRecordingPlayer({ sources }: {
           manifest: await getLocalRecording(source.sessionId),
         })),
       );
+      if (epoch !== refreshEpoch.current) return;
       const next = manifests
         .filter((entry): entry is { source: SessionRecordingSource; manifest: LocalRecordingManifest } =>
           Boolean(entry.manifest?.segments.some((segment) => segment.chunkCount > 0))
@@ -76,24 +80,29 @@ function BasicSessionRecordingPlayer({ sources }: {
           : next[0]?.sessionId ?? ""
       );
     } catch {
-      setError("Saved audio could not be opened on this device.");
+      if (epoch === refreshEpoch.current) setError("Saved audio could not be opened on this device.");
     } finally {
-      setLoading(false);
+      if (epoch === refreshEpoch.current) setLoading(false);
     }
   }, [sourceKey]);
 
   useEffect(() => {
     setLoading(true);
     void refreshAvailable();
-    return subscribeLocalRecordings((sessionId) => {
+    const unsubscribe = subscribeLocalRecordings((sessionId) => {
       if (uniqueSources.some((source) => source.sessionId === sessionId)) {
         void refreshAvailable();
       }
     });
+    return () => { refreshEpoch.current++; unsubscribe(); };
   }, [refreshAvailable, sourceKey]);
 
   useEffect(() => {
     let cancelled = false;
+    playbackEpoch.current++;
+    pendingSeekRef.current = null;
+    continueAfterLoadRef.current = false;
+    audioRef.current?.pause();
     setPlayback(null);
     setSegmentPosition(0);
     setPositionMs(0);
@@ -109,6 +118,10 @@ function BasicSessionRecordingPlayer({ sources }: {
           setError("This local recording has no playable audio.");
           return;
         }
+        if (next.segments.some((segment) => segment.integrityError)) {
+          setError("This recording contains an incomplete part. Full replay is unavailable; word review can open its complete parts.");
+          return;
+        }
         setPlayback(next);
       })
       .catch(() => {
@@ -116,6 +129,9 @@ function BasicSessionRecordingPlayer({ sources }: {
       });
     return () => {
       cancelled = true;
+      playbackEpoch.current++;
+      pendingSeekRef.current = null;
+      continueAfterLoadRef.current = false;
     };
   }, [selectedSessionId]);
 
@@ -141,13 +157,36 @@ function BasicSessionRecordingPlayer({ sources }: {
   const durationMs = playback?.manifest.durationMs ?? 0;
   const currentUrl = segmentUrls[segmentPosition] ?? "";
 
+  useEffect(() => {
+    const audio = audioRef.current;
+    const stopWhenHidden = () => {
+      if (document.hidden) {
+        playbackEpoch.current++;
+        continueAfterLoadRef.current = false;
+        audio?.pause(); setPlaying(false);
+      }
+    };
+    document.addEventListener("visibilitychange", stopWhenHidden);
+    return () => {
+      document.removeEventListener("visibilitychange", stopWhenHidden);
+      playbackEpoch.current++;
+      audio?.pause();
+      audio?.removeAttribute("src");
+      audio?.load();
+    };
+  }, [currentUrl]);
+
   const playAudio = useCallback(() => {
     const audio = audioRef.current;
     if (!audio) return;
     audio.defaultMuted = false;
     audio.muted = false;
     audio.volume = 1;
-    void audio.play().then(() => setPlaying(true)).catch(() => {
+    const epoch = ++playbackEpoch.current;
+    void audio.play().then(() => {
+      if (epoch === playbackEpoch.current) setPlaying(true);
+    }).catch(() => {
+      if (epoch !== playbackEpoch.current) return;
       setPlaying(false);
       setError("Playback could not start. Try the play button again.");
     });
@@ -157,6 +196,7 @@ function BasicSessionRecordingPlayer({ sources }: {
     const audio = audioRef.current;
     if (!audio || !playback) return;
     if (playing) {
+      playbackEpoch.current++;
       continueAfterLoadRef.current = false;
       audio.pause();
       setPlaying(false);
@@ -191,7 +231,7 @@ function BasicSessionRecordingPlayer({ sources }: {
     });
     const withinSegmentMs = Math.max(0, bounded - (offsets[nextSegment] ?? 0));
     pendingSeekRef.current = withinSegmentMs;
-    continueAfterLoadRef.current = playing;
+    continueAfterLoadRef.current = Boolean(audioRef.current && !audioRef.current.paused);
     setPositionMs(bounded);
     if (nextSegment === segmentPosition && audioRef.current) {
       audioRef.current.currentTime = withinSegmentMs / 1_000;
@@ -280,13 +320,14 @@ function BasicSessionRecordingPlayer({ sources }: {
             <Icon name="trash" size={15} />
           </button>
           <audio
+            key={currentUrl}
             ref={audioRef}
             src={currentUrl}
             preload="metadata"
             playsInline
             onLoadedMetadata={() => {
               const audio = audioRef.current;
-              if (!audio) return;
+              if (!audio || audio.getAttribute("src") !== currentUrl) return;
               if (pendingSeekRef.current !== null) {
                 audio.currentTime = pendingSeekRef.current / 1_000;
                 pendingSeekRef.current = null;
@@ -295,6 +336,10 @@ function BasicSessionRecordingPlayer({ sources }: {
                 continueAfterLoadRef.current = false;
                 playAudio();
               }
+            }}
+            onError={() => {
+              playbackEpoch.current++; continueAfterLoadRef.current = false; pendingSeekRef.current = null;
+              setPlaying(false); setError("This browser could not play the saved audio. Other complete parts may still work in word review.");
             }}
             onTimeUpdate={(event) => {
               setPositionMs(
