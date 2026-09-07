@@ -1,4 +1,4 @@
-import { sameReplayMedia, validateReplayRevision, type ReplayRevision } from "./recitationReplay.ts";
+import { sameReplayMedia, sha256Audio, validateReplayRevision, type ReplayRevision } from "./recitationReplay.ts";
 
 export const RECITATION_AUDIO_DB_NAME = "tahqeeq-recitation-audio";
 export const RECITATION_AUDIO_DB_VERSION = 2;
@@ -22,6 +22,7 @@ export interface LocalRecordingSegment {
   bytes: number;
   chunkCount: number;
   mimeType: string;
+  captureFailed?: boolean;
 }
 
 export interface LocalRecordingManifest {
@@ -39,7 +40,7 @@ export interface LocalRecordingManifest {
   error: string | null;
 }
 
-interface LocalRecordingChunk {
+export interface LocalRecordingChunk {
   id: string;
   sessionId: string;
   segmentIndex: number;
@@ -52,6 +53,45 @@ export interface LocalRecordingPlaybackSegment {
   index: number;
   durationMs: number;
   blob: Blob;
+  /** Preserve the part's place even when its bytes are incomplete. */
+  integrityError: string | null;
+  sourceSnapshot: string;
+}
+
+export class ReplayRevisionConflict extends Error {
+  constructor() {
+    super("This timing changed in another view. Load the latest timing before saving again.");
+    this.name = "ReplayRevisionConflict";
+  }
+}
+
+export function recordingPartIntegrity(segment: LocalRecordingSegment, chunks: LocalRecordingChunk[]): string | null {
+  if (segment.captureFailed) return "This recording part stopped before all audio could be saved. Word timing is unavailable.";
+  if (!segment.endedAt) return "This recording part has not finished saving.";
+  if (!Number.isSafeInteger(segment.chunkCount) || segment.chunkCount < 1 ||
+      !Number.isSafeInteger(segment.bytes) || segment.bytes < 1) return "This recording part has no complete saved audio.";
+  const ordered = [...chunks].sort((a, b) => a.chunkIndex - b.chunkIndex);
+  if (ordered.length !== segment.chunkCount || ordered.some((chunk, index) =>
+    chunk.segmentIndex !== segment.index || chunk.chunkIndex !== index || !(chunk.blob instanceof Blob) || chunk.blob.size === 0)) {
+    return "Some audio is missing from this recording part. Word timing is unavailable.";
+  }
+  if (ordered.reduce((total, chunk) => total + chunk.blob.size, 0) !== segment.bytes) {
+    return "This recording part does not match its saved size. Word timing is unavailable.";
+  }
+  return null;
+}
+
+export async function recordingStateAfterWrites(
+  writes: Promise<void>, requested: Extract<LocalRecordingState, "paused" | "ready" | "interrupted" | "failed">,
+  hasFailed: () => boolean,
+): Promise<typeof requested> {
+  await writes;
+  return hasFailed() ? "failed" : requested;
+}
+
+function partSnapshot(segment: LocalRecordingSegment, chunks: LocalRecordingChunk[]): string {
+  return JSON.stringify([segment, [...chunks].sort((a, b) => a.chunkIndex - b.chunkIndex)
+    .map((chunk) => [chunk.id, chunk.sessionId, chunk.segmentIndex, chunk.chunkIndex, chunk.capturedAt, chunk.blob.size, chunk.blob.type])]);
 }
 
 export interface LocalRecordingPlayback {
@@ -214,7 +254,8 @@ export async function createLocalRecording(
   };
   await withDatabase(async (database) => {
     const transaction = database.transaction(RECORDINGS_STORE, "readwrite");
-    transaction.objectStore(RECORDINGS_STORE).put(manifest);
+    // Replacing original audio requires explicit deletion first.
+    transaction.objectStore(RECORDINGS_STORE).add(manifest);
     await transactionComplete(transaction);
   });
   notify(sessionId);
@@ -304,6 +345,11 @@ export async function appendLocalRecordingChunk(
       transaction.abort();
       throw new Error("This recording could not be found on this device.");
     }
+    const target = current.segments.find((segment) => segment.index === segmentIndex);
+    if (!target || target.endedAt || !Number.isSafeInteger(chunkIndex) || chunkIndex !== target.chunkCount) {
+      transaction.abort();
+      throw new Error("Audio chunks must be saved in order to an open recording part.");
+    }
     const segments = current.segments.map((segment) =>
       segment.index === segmentIndex
         ? {
@@ -321,7 +367,7 @@ export async function appendLocalRecordingChunk(
       capturedAt,
       blob,
     };
-    transaction.objectStore(CHUNKS_STORE).put(chunk);
+    transaction.objectStore(CHUNKS_STORE).add(chunk);
     recordings.put({
       ...current,
       updatedAt: capturedAt,
@@ -345,7 +391,7 @@ export async function finalizeLocalRecordingSegment(
     const safeDuration = Math.max(0, Math.round(durationMs));
     const segments = current.segments.map((segment) =>
       segment.index === segmentIndex
-        ? { ...segment, endedAt, durationMs: safeDuration }
+        ? { ...segment, endedAt, durationMs: safeDuration, ...(state === "failed" ? { captureFailed: true } : {}) }
         : segment,
     );
     return {
@@ -451,15 +497,15 @@ export async function loadLocalRecordingPlayback(
       .map((segment) => {
         const parts = chunks
           .filter((chunk) => chunk.segmentIndex === segment.index)
-          .sort((a, b) => a.chunkIndex - b.chunkIndex)
-          .map((chunk) => chunk.blob);
+          .sort((a, b) => a.chunkIndex - b.chunkIndex);
         return {
           index: segment.index,
           durationMs: segment.durationMs,
-          blob: new Blob(parts, { type: segment.mimeType || manifest.mimeType }),
+          blob: new Blob(parts.map((chunk) => chunk.blob), { type: segment.mimeType || manifest.mimeType }),
+          integrityError: recordingPartIntegrity(segment, parts),
+          sourceSnapshot: partSnapshot(segment, parts),
         };
-      })
-      .filter((segment) => segment.blob.size > 0);
+      });
     return { manifest, segments };
   });
 }
@@ -507,8 +553,15 @@ export async function loadReplayRevisions(sessionId: string): Promise<ReplayRevi
 /** Append with optimistic concurrency in the same transaction as the source check. */
 export async function appendReplayRevision(entry: ReplayRevision): Promise<void> {
   validateReplayRevision(entry);
+  // Web Crypto runs outside IDB; recheck the immutable part's snapshot in the write.
+  const source = await loadLocalRecordingPlayback(entry.media.sessionId);
+  const checkedPart = source?.segments.find((part) => part.index === entry.media.segmentIndex);
+  if (!source || source.manifest.createdAt !== entry.media.recordingCreatedAt || !checkedPart || checkedPart.integrityError ||
+      checkedPart.blob.size > 12 * 1024 * 1024 || await sha256Audio(await checkedPart.blob.arrayBuffer()) !== entry.media.sha256) {
+    throw new Error("The saved audio is incomplete or changed. Reopen the recording before saving timing.");
+  }
   await withDatabase(async (database) => {
-    const transaction = database.transaction([RECORDINGS_STORE, REPLAY_STORE], "readwrite");
+    const transaction = database.transaction([RECORDINGS_STORE, CHUNKS_STORE, REPLAY_STORE], "readwrite");
     const completed = transactionComplete(transaction);
     // Observe aborts even when a precondition fails before awaiting completion.
     void completed.catch(() => undefined);
@@ -519,13 +572,19 @@ export async function appendReplayRevision(entry: ReplayRevision): Promise<void>
           !manifest.segments.some((segment) => segment.index === entry.media.segmentIndex && segment.chunkCount > 0 && segment.endedAt)) {
         throw new Error("The saved recording changed or is still recording. Reopen it before saving timing.");
       }
+      const segment = manifest.segments.find((part) => part.index === entry.media.segmentIndex)!;
+      const chunks = (await requestResult(transaction.objectStore(CHUNKS_STORE).index("by-session")
+        .getAll(entry.media.sessionId)) as LocalRecordingChunk[]).filter((chunk) => chunk.segmentIndex === segment.index);
+      if (recordingPartIntegrity(segment, chunks) || partSnapshot(segment, chunks) !== checkedPart.sourceSnapshot) {
+        throw new Error("The saved audio changed while saving timing. Reopen the recording.");
+      }
       const store = transaction.objectStore(REPLAY_STORE);
       const revisions = await requestResult(store.index("by-session").getAll(entry.media.sessionId)) as ReplayRevision[];
       const previous = revisions.filter((item) => item.occurrenceId === entry.occurrenceId)
         .sort((a, b) => b.revision - a.revision)[0];
       if (entry.revision !== (previous?.revision ?? 0) + 1 ||
           (previous && !sameReplayMedia(previous.media, entry.media))) {
-        throw new Error("This timing was changed in another view. Reload the recording before saving again.");
+        throw new ReplayRevisionConflict();
       }
       store.add(entry);
       await completed;

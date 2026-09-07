@@ -1,4 +1,5 @@
 /** Dev-only validation page. Not imported by the production app/build. */
+import { runReplayReliabilityChecks } from "./replay-reliability-checks.ts";
 import React, { useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 import "../../src/styles/global.css";
@@ -117,10 +118,11 @@ function App() {
         "MediaRecorder compressed-audio duration stays within 150 ms");
       const manifest = await createLocalRecording(testId, "audio/wav");
       const index = await beginLocalRecordingSegment(testId, "audio/wav");
-      await appendLocalRecordingChunk(testId, index, 0, new Blob([encodeReplayWav(new Float32Array(48000 * 3), 48000)], { type: "audio/wav" }));
+      const savedAudio = new Blob([encodeReplayWav(new Float32Array(48000 * 3), 48000)], { type: "audio/wav" });
+      await appendLocalRecordingChunk(testId, index, 0, savedAudio);
       await finalizeLocalRecordingSegment(testId, index, 3000, "ready");
       const first: ReplayRevision = { version: 1, id: crypto.randomUUID(), occurrenceId: crypto.randomUUID(), revision: 1,
-        media: { sessionId: testId, recordingCreatedAt: manifest.createdAt, segmentIndex: index, sha256: "a".repeat(64),
+        media: { sessionId: testId, recordingCreatedAt: manifest.createdAt, segmentIndex: index, sha256: await sha256Audio(await savedAudio.arrayBuffer()),
           sampleRate: 48000, sampleCount: 144000, questionFingerprint: fingerprint },
         target: { kind: "word", wordIds: ["112.1.0"], label: "قُلْ" }, startSample: 48000, endSample: 96000,
         status: "reviewed", method: "manual", createdAt: new Date().toISOString(), reviewer: "qa-reviewer" };
@@ -133,6 +135,7 @@ function App() {
       assert((await getLocalRecording(testId)) === null, "test recording deleted");
       const late = await Promise.allSettled([appendReplayRevision({ ...first, id: crypto.randomUUID(), revision: 3 })]);
       assert(late[0].status === "rejected", "late analysis cannot resurrect deleted recording evidence");
+      await runReplayReliabilityChecks(assert);
       setChecks(results.join("\n"));
     } catch (error) { setChecks([...results, `FAIL ${String(error)}`].join("\n")); }
   }
