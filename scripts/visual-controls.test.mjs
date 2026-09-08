@@ -9,6 +9,24 @@ const headerSource = read("../src/components/Header.tsx");
 const scorePanelSource = read("../src/components/ScorePanel.tsx");
 const cssSource = read("../src/styles/global.css");
 
+test("recording spacing is not disabled by a stray patch marker", () => {
+  assert.doesNotMatch(cssSource, /^\+\/\* Phase 1 local practice audio/m);
+  assert.match(cssSource, /\.prepared-recording \{\s*margin-block: 0 12px;\s*padding: 12px;/);
+});
+
+test("score borders resize independently of their touch targets and numbers", () => {
+  assert.match(cssSource, /\.sidebar \.sc-row-impression \.mark-picker::before \{ inset: 7px 0; \}/);
+  assert.match(cssSource, /\.finish-score-value \.mark-picker::before \{[^}]*inset: 8px 0;[^}]*pointer-events: none;/);
+  assert.match(cssSource, /\.finish-score-value > \.score-value-layout:not\(\.mark-picker\) \{[^}]*padding-right: 8px;[^}]*justify-content: flex-end;/);
+});
+
+test("Finish ruler overlays its row without changing dialog height", () => {
+  assert.match(cssSource, /\.finish-inline-picker \{\s*position: absolute;/);
+  assert.match(cssSource, /\.finish-score-value \.mark-picker \{[^}]*width: max-content;[^}]*min-width: 44px;/);
+  assert.match(cssSource, /\.finish-inline-picker \.mark-bar.is-inline \{[^}]*padding: 0;[^}]*border: 0;/);
+  assert.match(cssSource, /\.finish-inline-picker \.mark-bar.is-inline \{ animation: none; \}/);
+});
+
 test("the judge strip keeps criteria semantic while showing only the judge name", () => {
   assert.match(judgeRoleSource, /const criteria = categoryListLabel/);
   assert.match(judgeRoleSource, /aria-label={`Current judge assignment: \$\{judgeName\}\. Criteria: \$\{criteria\}\.`}/);

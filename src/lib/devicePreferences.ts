@@ -47,7 +47,7 @@ export const DEFAULT_DEVICE_PREFERENCES: DevicePreferencesV5 = {
   lastMarkStrip: "on",
   scoreChipTint: "earned",
   selectorTashkeel: false,
-  slimScorePanel: false,
+  slimScorePanel: true,
 };
 
 export function normalizeMushafZoom(

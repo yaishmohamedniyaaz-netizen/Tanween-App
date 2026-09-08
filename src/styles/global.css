@@ -10949,6 +10949,39 @@ html:has(.finish-dialog[open]) {
   color: var(--ink);
   font-size: 13px;
 }
+/* Give editable and read-only scores the same right edge. The border is
+   smaller than the hit target, not the other way around. */
+.finish-score-head span:last-child { padding-right: 8px; }
+.finish-score-value > .score-value-layout:not(.mark-picker) {
+  box-sizing: border-box;
+  width: 70px;
+  padding-right: 8px;
+  justify-content: flex-end;
+}
+.finish-score-value .mark-picker {
+  position: relative;
+  width: max-content;
+  min-width: 44px;
+  border: 0;
+  padding: 0 8px;
+  justify-content: flex-end;
+  background: transparent;
+  box-shadow: none;
+}
+.finish-score-value .mark-picker .mark-picker-of { font-size: 13px; }
+.finish-score-value .mark-picker::before {
+  content: "";
+  position: absolute;
+  inset: 8px 0;
+  border: 1px solid var(--line-2);
+  border-radius: var(--r-sm);
+  pointer-events: none;
+}
+.finish-score-value .mark-picker:hover::before { border-color: var(--ink-3); }
+.finish-score-value .mark-picker.is-open::before { border-color: var(--ink); }
+.finish-score-row.is-invalid .mark-picker[aria-invalid="true"]::before {
+  border-color: var(--c);
+}
 .finish-score-row:has(.mark-stepper-shell.is-open) {
   grid-template-columns: minmax(0, 1fr) 82px 140px;
 }
@@ -10988,8 +11021,39 @@ html:has(.finish-dialog[open]) {
   line-height: 1.4;
 }
 .finish-inline-picker {
+  position: absolute;
+  bottom: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  z-index: 4;
   min-width: 0;
-  margin-top: 2px;
+  margin: 0;
+}
+.finish-score-row:has(.finish-inline-picker) { position: relative; }
+.finish-inline-picker .mark-bar.is-inline {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  animation: finish-ruler-reveal 120ms ease-out;
+}
+@keyframes finish-ruler-reveal {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .finish-inline-picker .mark-bar.is-inline { animation: none; }
+}
+/* Short landscape dialogs scroll their rows. Keep the active ruler above
+   that scroller instead of clipping it behind the persistent actions. */
+@media (max-height: 500px) {
+  .finish-score-row:has(.finish-inline-picker) { position: static; }
+  .finish-inline-picker {
+    top: 50%;
+    bottom: auto;
+    left: 24px;
+    right: 24px;
+    transform: translateY(-50%);
+  }
 }
 .finish-inline-picker:empty {
   display: none;
@@ -12818,7 +12882,7 @@ html:has(.finish-dialog[open]) {
   }
 }
 
-+/* Phase 1 local practice audio. Audio remains a device-only companion to a
+/* Phase 1 local practice audio. Audio remains a device-only companion to a
    saved session; these controls do not change the judging record itself. */
 .prepared-recording {
   margin-block: 0 12px;
@@ -14596,15 +14660,16 @@ html:has(.finish-dialog[open]) {
   .sidebar .scorecard { padding: 10px 14px; flex: 0 0 auto; }
   .sidebar .sc-total { padding-bottom: 6px; }
   .sidebar .sc-total-num { font-size: 26px; }
-  .sidebar .sc-row { min-height: 32px; gap: 6px; grid-template-columns: 8px minmax(0, 1fr) 36px 64px; }
-  .sidebar .sc-row-impression { row-gap: 4px; padding-bottom: 2px; }
+  .sidebar .sc-row { min-height: 32px; gap: 8px; grid-template-columns: 8px minmax(0, 1fr) 40px 64px; }
+  .sidebar .sc-row-impression { row-gap: 12px; padding-bottom: 2px; }
+  .sidebar .sc-row-impression .sc-reason { grid-column: 1 / -1; }
   .sidebar .mark-picker { width: 64px; }
   .score-slim .sidebar .scorecard { padding: 8px 12px; }
   .score-slim .sidebar .sc-total-num { font-size: 23px; }
   .score-slim .sidebar .sc-row { min-height: 30px; }
   .score-slim .sidebar .sc-name { font-size: 13px; }
   .sidebar .sc-reason-trigger {
-    grid-column: 2 / -1; min-height: 44px; padding: 0 8px; text-align: left;
+    grid-column: 1 / -1; min-height: 44px; padding: 0 8px; text-align: left;
     border: 0; background: transparent; color: var(--ink-3); font-size: 12px;
     border-radius: var(--r-sm);
   }
@@ -14651,7 +14716,7 @@ html:has(.finish-dialog[open]) {
   padding: 0 4px; border: 0; background: transparent; box-shadow: none;
 }
 .sidebar .mark-picker::before {
-  content: ''; position: absolute; inset: 9px 0; pointer-events: none;
+  content: ''; position: absolute; inset: 7px -4px; pointer-events: none;
   border: 1px solid var(--line-2); border-radius: 5px;
 }
 .sidebar .mark-picker:hover::before,
@@ -14662,10 +14727,10 @@ html:has(.finish-dialog[open]) {
   .sidebar .sc-row-impression { grid-template-rows: 23px auto; }
   .score-slim .sidebar .sc-row-impression { grid-template-rows: 21px auto; }
   .sidebar .sc-row-impression .mark-picker {
-    width: 100%; height: 44px; min-height: 44px; align-self: center;
-    justify-self: stretch; padding: 0; gap: 2px;
+    width: max-content; min-width: 44px; height: 44px; min-height: 44px; align-self: center;
+    justify-self: center; padding: 0 4px; gap: 2px;
   }
-  .sidebar .sc-row-impression .mark-picker::before { inset: 9px 4px; }
+  .sidebar .sc-row-impression .mark-picker::before { inset: 7px 0; }
 }
 .drag-menu .pill::before { width: 8px; height: 8px; border-radius: 2px; }
 
