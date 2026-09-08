@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+import "./word-replay-navigation.test.mjs";
 import { currentReplayOccurrences, encodeReplayWav, replayWordAt, sameReplayMedia,
   validateReplayRevision } from "../src/lib/recitationReplay.ts";
 import { greedyWordWindows, matchReplayAnchors } from "../src/lib/recitationReplayAnalysis.ts";

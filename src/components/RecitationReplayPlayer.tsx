@@ -10,6 +10,10 @@ import type { ReplaySuggestion } from "../lib/recitationReplayAnalysis.ts";
 import { replaySaveFailure } from "../lib/recitationReplayRecovery.ts";
 import { Icon } from "./Icon.tsx";
 import { wordReplayChoices, replayChoiceLabel } from "../lib/wordReplayChoices.ts";
+import { resolveWordReplay, type ReplayPartEvidence } from "../lib/wordReplayNavigation.ts";
+import { indexReplayParts, prepareSavedReplay, prepareReplayContinuation } from "../lib/replayRecordingIndex.ts";
+
+type PreparedNavigation = Omit<Awaited<ReturnType<typeof prepareSavedReplay>>, "audio"> & { id: number; wordId: string | null };
 
 export interface RecitationReplayContext {
   questionFingerprint: string;
@@ -31,6 +35,76 @@ export function RecitationReplayPlayer({ sources, context, fallback, embedded = 
   const [playback, setPlayback] = useState<LocalRecordingPlayback | null>(null);
   const [part, setPart] = useState(0);
   const [error, setError] = useState<string | null>(null);
+  const [indexedParts, setIndexedParts] = useState<ReplayPartEvidence[]>([]);
+  const [navigation, setNavigation] = useState<PreparedNavigation | null>(null);
+  const [locating, setLocating] = useState(false);
+  const [continuationNotice, setContinuationNotice] = useState("");
+  const navigationEpoch = useRef(0);
+  const navigationAbort = useRef<AbortController | null>(null);
+  const cancelNavigation = () => {
+    navigationEpoch.current++; navigationAbort.current?.abort();
+    setLocating(false); setNavigation(null);
+  };
+  useEffect(() => {
+    cancelNavigation();
+    setContinuationNotice("");
+    return () => { navigationEpoch.current++; navigationAbort.current?.abort(); };
+  }, [sourceId, open, context.selectedWordId, context.questionFingerprint]);
+  useEffect(() => {
+    const hidden = () => { if (document.hidden) cancelNavigation(); };
+    document.addEventListener("visibilitychange", hidden);
+    return () => document.removeEventListener("visibilitychange", hidden);
+  }, []);
+  const continueRecording = async (media: ReplayMediaIdentity) => {
+    cancelNavigation();
+    const epoch = navigationEpoch.current;
+    const abort = new AbortController(); navigationAbort.current = abort;
+    setLocating(true); setError(null);
+    try {
+      const next = await prepareReplayContinuation(media, abort.signal, loadLocalRecordingPlayback);
+      if (abort.signal.aborted || epoch !== navigationEpoch.current) return;
+      if (next.kind === "gap") { setContinuationNotice("Playback stopped: the next recording part is unavailable. Later parts can be selected manually."); return; }
+      if (next.kind === "end") { setContinuationNotice("End of recording."); return; }
+      setContinuationNotice(`Continuing in part ${next.media.segmentIndex + 1}. Time between recording parts is not included.`);
+      setPart(next.part);
+      setNavigation({ id: epoch, wordId: context.selectedWordId, part: next.part,
+        request: {media: next.media, occurrenceId: "continuation", revisionId: "continuation", startSeconds: 0, stopSeconds: null} });
+    } catch (failure) {
+      if (!abort.signal.aborted && epoch === navigationEpoch.current) setError(failure instanceof Error ? failure.message : "Continuation stopped.");
+    } finally { if (epoch === navigationEpoch.current) setLocating(false); }
+  };
+  useEffect(() => {
+    setIndexedParts([]);
+    if (!playback || playback.manifest.sessionId !== sourceId) return;
+    const abort = new AbortController();
+    const source = { sessionId: sourceId, recordingCreatedAt: playback.manifest.createdAt,
+      questionFingerprint: context.questionFingerprint };
+    void loadReplayRevisions(sourceId).then(revisions =>
+      indexReplayParts(playback, source, revisions, abort.signal)).then(result => {
+        if (!abort.signal.aborted) setIndexedParts(result.parts);
+      }).catch(() => { /* Current-part playback remains available if indexing fails. */ });
+    return () => abort.abort();
+  }, [playback, sourceId, context.questionFingerprint]);
+  const navigate = async (entry: ReplayRevision) => {
+    cancelNavigation();
+    if (!playback) return;
+    const epoch = navigationEpoch.current;
+    const abort = new AbortController(); navigationAbort.current = abort;
+    setLocating(true); setError(null);
+    setContinuationNotice("");
+    try {
+      const prepared = await prepareSavedReplay(entry, { sessionId: sourceId,
+        recordingCreatedAt: playback.manifest.createdAt, questionFingerprint: context.questionFingerprint }, abort.signal,
+        { loadRecording: loadLocalRecordingPlayback, loadRevisions: loadReplayRevisions });
+      if (abort.signal.aborted || epoch !== navigationEpoch.current) return;
+      setPart(prepared.part);
+      setNavigation({ request: prepared.request, part: prepared.part, id: epoch, wordId: context.selectedWordId });
+    } catch (failure) {
+      if (!abort.signal.aborted && epoch === navigationEpoch.current) setError(failure instanceof Error ? failure.message : "Replay could not be prepared.");
+    } finally {
+      if (epoch === navigationEpoch.current) setLocating(false);
+    }
+  };
   const sourceKey = sources.map((source) => source.sessionId).join("|");
   useEffect(() => {
     setSourceId((current) => sources.some((source) => source.sessionId === current)
@@ -63,26 +137,37 @@ export function RecitationReplayPlayer({ sources, context, fallback, embedded = 
       {open && <>
         <div className="replay-source-row">
           {embedded && sources.length === 1 ? <small>{sources[0].label}</small> : <label>Recording source<select aria-label="Word replay recording source" value={sourceId}
-            onChange={(event) => setSourceId(event.target.value)}>
+            onChange={(event) => { cancelNavigation(); setSourceId(event.target.value); }}>
             {sources.map((source) => <option key={source.sessionId} value={source.sessionId}>{source.label}</option>)}
           </select></label>}
           {playback && playback.segments.length > 1 && <label>Recording part<select aria-label="Recording part"
-            value={part} onChange={(event) => setPart(Number(event.target.value))}>
+            value={part} onChange={(event) => { cancelNavigation(); setPart(Number(event.target.value)); }}>
             {playback.segments.map((item, index) => <option key={item.index} value={index}>Part {item.index + 1}</option>)}
           </select></label>}
         </div>
+        {locating && <p role="status">Preparing replay… <button type="button" onClick={cancelNavigation}>Cancel playback</button></p>}
+        {continuationNotice && <p role="status">{continuationNotice}</p>}
+        {!unavailable && error && <p role="alert">{error}</p>}
         {unavailable ? <p role="status">{error ?? (embedded ? "Recording not on this device, or no finished part is available. Score imports do not include audio." : "No finished recording part is available for this source on this device. Record a Practice recitation first.")}</p>
           : segment.integrityError ? <p role="alert">{segment.integrityError} Other complete parts can still be reviewed.</p>
           : <ReviewSegment key={`${sourceId}:${currentPlayback.manifest.createdAt}:${segment.index}:${context.questionFingerprint}`}
-            playback={currentPlayback} part={part} context={context} embedded={embedded} />}
+            playback={currentPlayback} part={part} context={context} embedded={embedded}
+            indexedParts={indexedParts} navigation={navigation} onNavigate={navigate} onCancelNavigation={cancelNavigation}
+            locating={locating} onContinue={continueRecording} />}
       </>}
     </section>
   </>;
 }
 
-function ReviewSegment({ playback, part, context, embedded = false }: {
+function ReviewSegment({ playback, part, context, embedded = false, indexedParts, navigation, onNavigate, onCancelNavigation, locating, onContinue }: {
   playback: LocalRecordingPlayback; part: number; context: RecitationReplayContext;
   embedded?: boolean;
+  indexedParts: ReplayPartEvidence[];
+  navigation: PreparedNavigation | null;
+  onNavigate: (entry: ReplayRevision) => Promise<void>;
+  onCancelNavigation: () => void;
+  locating: boolean;
+  onContinue: (media: ReplayMediaIdentity) => Promise<void>;
 }) {
   const segment = playback.segments[part];
   const [decoded, setDecoded] = useState<DecodedReplayAudio | null>(null);
@@ -111,6 +196,7 @@ function ReviewSegment({ playback, part, context, embedded = false }: {
   const stopAtRef = useRef<number | null>(null);
   const loopStartRef = useRef(0);
   const pendingPlayRef = useRef(false);
+  const continuousRef = useRef(false);
   const focusRef = useRef(context.onPlaybackWord);
   focusRef.current = context.onPlaybackWord;
   const duration = decoded ? decoded.samples.length / decoded.sampleRate : 0;
@@ -131,8 +217,14 @@ function ReviewSegment({ playback, part, context, embedded = false }: {
   const occurrences = useMemo(() => currentReplayOccurrences(matchingRevisions).filter((entry) =>
     target && replayTargetMatches(entry.target, target)), [matchingRevisions, target]);
   const selectedOccurrence = occurrences.find((entry) => entry.occurrenceId === occurrenceId);
-  const directChoices = useMemo(() => wordReplayChoices(revisions, media, context.words, context.selectedWordId),
-    [revisions, media, context.words, context.selectedWordId]);
+  const directChoices = useMemo(() => {
+    if (!media) return wordReplayChoices(revisions, media, context.words, context.selectedWordId);
+    const all = resolveWordReplay(revisions, media,
+      [...indexedParts.filter(item => item.index !== media.segmentIndex), { index: media.segmentIndex, media }],
+      context.words, context.selectedWordId ?? "");
+    const entries = [...all.reviewedWords, ...all.approximateWords].sort((a,b) => a.media.segmentIndex-b.media.segmentIndex || a.startSample-b.startSample);
+    return entries.length ? {kind:"word" as const,entries} : {kind:all.reviewedAyahSpans.length ? "ayah" as const : "none" as const,entries:all.reviewedAyahSpans};
+  }, [revisions, media, indexedParts, context.words, context.selectedWordId]);
   const directChoice = directChoices.entries.length === 1 ? directChoices.entries[0]
     : directChoices.entries.find(entry => directSelection.wordId === context.selectedWordId && entry.id === directSelection.id);
   const directKey = `${context.selectedWordId}:${directChoice?.id ?? "none"}`;
@@ -182,6 +274,7 @@ function ReviewSegment({ playback, part, context, embedded = false }: {
   selectionRef.current = targetKey;
   useEffect(() => {
     setOccurrenceId(""); setNotice(""); setConflict(false); setError(null);
+    continuousRef.current = false;
     audioRef.current?.pause(); pendingPlayRef.current = false; stopAtRef.current = null;
     const at = audioRef.current?.currentTime ?? 0;
     setStart(at.toFixed(2)); setEnd(Math.min(duration, at + 1).toFixed(2));
@@ -208,6 +301,15 @@ function ReviewSegment({ playback, part, context, embedded = false }: {
     }
     setPosition(bounded);
   };
+  const consumedNavigation = useRef<number | null>(null);
+  useEffect(() => {
+    if (!ready || !media || !navigation || navigation.wordId !== context.selectedWordId ||
+      consumedNavigation.current === navigation.id || !sameReplayMedia(media, navigation.request.media)) return;
+    consumedNavigation.current = navigation.id;
+    continuousRef.current = true;
+    stopAtRef.current = null;
+    seek(navigation.request.startSeconds, true);
+  }, [ready, media, navigation, context.selectedWordId]);
   const startNumber = Number(start);
   const endNumber = Number(end);
   const validInterval = start.trim() !== "" && end.trim() !== "" &&
@@ -215,6 +317,7 @@ function ReviewSegment({ playback, part, context, embedded = false }: {
     startNumber >= 0 && endNumber > startNumber && endNumber <= duration;
   const preview = () => {
     if (!validInterval) return;
+    onCancelNavigation(); continuousRef.current = false;
     loopStartRef.current = Math.max(0, startNumber - 0.4);
     stopAtRef.current = Math.min(duration, endNumber + 0.4);
     seek(loopStartRef.current, true);
@@ -383,29 +486,28 @@ function ReviewSegment({ playback, part, context, embedded = false }: {
       {directChoices.entries.length > 1 && <label>Choose an occurrence<select aria-label="Word playback occurrence"
         value={directChoice?.id ?? ""} onChange={event => setDirectSelection({ wordId: context.selectedWordId, id: event.target.value })}>
         <option value="">Choose before playing</option>{directChoices.entries.map((entry, i) => <option key={entry.id} value={entry.id}>
-          {i + 1} · {formatReplayTime(entry.startSample / entry.media.sampleRate)} · {entry.status === "reviewed" ? "Reviewed" : "Approximate"}
+          {i + 1} · Part {entry.media.segmentIndex + 1} · {formatReplayTime(entry.startSample / entry.media.sampleRate)} · {entry.status === "reviewed" ? "Reviewed" : "Approximate"}
         </option>)}</select></label>}
       {directChoices.entries.length ? <>
         <button type="button" className="btn-primary" disabled={!ready || !directChoice || busy}
           onClick={() => {
             if (!directChoice || !media) return;
-            loopStartRef.current = Math.max(0, directChoice.startSample / media.sampleRate - 0.4);
-            stopAtRef.current = Math.min(duration, directChoice.endSample / media.sampleRate + 0.4);
-            seek(loopStartRef.current, true);
+            audioRef.current?.pause(); pendingPlayRef.current = false; stopAtRef.current = null;
+            void onNavigate(directChoice);
           }}>{directChoice ? replayChoiceLabel(directChoice) : "Choose occurrence"}</button>
         <p>{directChoices.kind === "ayah" ? "Reviewed ayah interval in the recorded span—not individual word timing."
           : directChoice?.status === "suggested" ? "Approximate position. Listen before relying on it."
-            : "Saved timing · includes 0.4 seconds of context."}</p>
-      </> : <p>No saved timing for this word in this recording part. Use the recording below or locate it in Timing tools.</p>}
+            : "Saved timing · starts 0.5 seconds earlier and continues playing."}</p>
+      </> : <p>No available saved timing for this word. Use the recording below or locate it in Timing tools.</p>}
     </div>}
     <div className="replay-transport">
       <button type="button" className="session-recording-play" disabled={!ready}
-        aria-label={embedded ? (playing ? "Pause recording" : "Play recording") : (playing ? "Pause word replay" : "Play word replay")}
-        onClick={() => { stopAtRef.current = null; pendingPlayRef.current = false; if (playing) audioRef.current?.pause(); else play(); }}>
-        <Icon name={playing ? "pause" : "play"} size={18} />
+        aria-label={embedded ? (playing || locating ? "Pause recording" : "Play recording") : (playing || locating ? "Pause word replay" : "Play word replay")}
+        onClick={() => { onCancelNavigation(); stopAtRef.current = null; pendingPlayRef.current = false; if (playing || locating) audioRef.current?.pause(); else play(); }}>
+        <Icon name={playing || locating ? "pause" : "play"} size={18} />
       </button>
       <input type="range" min="0" max={duration} step="0.01" value={position} disabled={!ready}
-        aria-label="Word replay position" onChange={(event) => { stopAtRef.current = null; seek(Number(event.target.value)); }} />
+        aria-label="Word replay position" onChange={(event) => { onCancelNavigation(); stopAtRef.current = null; seek(Number(event.target.value)); }} />
       <output className="t-num">{formatReplayTime(position)} / {formatReplayTime(duration)}</output>
     </div>
     <audio ref={audioRef} src={url} preload="auto" playsInline
@@ -421,7 +523,10 @@ function ReviewSegment({ playback, part, context, embedded = false }: {
       onTimeUpdate={(event) => setPosition(event.currentTarget.currentTime)}
       onEnded={() => {
         if (repeat && stopAtRef.current !== null) seek(loopStartRef.current, true);
-        else setPlaying(false);
+        else {
+          setPlaying(false);
+          if (continuousRef.current && media) { continuousRef.current = false; void onContinue(media); }
+        }
       }} />
     {embedded && <p className="replay-help">{context.selectedWordId ? "Selected word · open Timing tools for saved intervals." : "Select a word to inspect its timing."}</p>}
     <TimingTools className="replay-timing-tools">
