@@ -1,4 +1,6 @@
 /** Immutable delivery versions shared by runtime loading and offline storage. */
+// The font-package helpers below describe the retained legacy renderer.
+// Current artwork installation size/readiness is owned by offlineMushaf.ts.
 export const MUSHAF_DATA_VERSION = "v1-1405-r2";
 export const QCF_FONT_VERSION = "3.1";
 export const QCF_FONT_BASE =

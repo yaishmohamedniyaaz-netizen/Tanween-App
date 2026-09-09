@@ -12818,9 +12818,10 @@ html:has(.finish-dialog[open]) {
   }
 }
 
-+/* Phase 1 local practice audio. Audio remains a device-only companion to a
+/* Phase 1 local practice audio. Audio remains a device-only companion to a
    saved session; these controls do not change the judging record itself. */
 .prepared-recording {
+  flex-shrink: 0;
   margin-block: 0 12px;
   padding: 12px;
   border: 1px solid var(--line);
@@ -14633,6 +14634,16 @@ html:has(.finish-dialog[open]) {
 }
 .mistake-panel .log:hover::-webkit-scrollbar-thumb { background: var(--ink-3); }
 .mistake-panel .panel-head { flex-shrink: 0; }
+@media (min-width: 901px) {
+  .workspace.rail-left .mistake-panel :is(.log, .history-scroll) {
+    direction: rtl;
+    padding-right: 0;
+    padding-left: 6px;
+  }
+  .workspace.rail-left .mistake-panel :is(.log, .history-scroll) > * {
+    direction: ltr;
+  }
+}
 .compact-text-dialog {
   width: min(420px, calc(100vw - 32px)); max-height: calc(100dvh - 32px);
   overflow: auto; padding: 20px; border: 1px solid var(--line-2);

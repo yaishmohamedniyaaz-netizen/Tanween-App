@@ -1,0 +1,71 @@
+.fixed-page-frame { position: relative; }
+.fixed-mushaf-loading { min-height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 16px; }
+.fixed-mushaf-loading nav { display: flex; align-items: center; gap: 8px; }
+.fixed-mushaf-loading button, .fixed-evidence-span .recitation-evidence-state button { margin-inline: 8px; }
+.fixed-evidence-span .recitation-evidence-pager { display: flex; }
+.fixed-evidence-span .recitation-evidence-multi { display: block; max-width: 532px; margin-inline: auto; }
+.page-fixed-mushaf .evidence-marker-button,
+.page-fixed-mushaf .evidence-replay-button {
+  pointer-events: auto; inset: 0; width: 100%; height: 100%;
+  transform: none; border-radius: 0;
+}
+.page-fixed-mushaf .evidence-mark-count { font-size: 12px; line-height: 1; }
+.fixed-page-frame > .page-fixed-mushaf {
+  position: absolute; inset: 0 auto auto 0; margin: 0; padding: 0;
+  max-width: none; border: 0; border-radius: 9px; background: var(--page-paper);
+  transform-origin: top left; overflow: hidden;
+  /* Paper, image ink and context washes must switch theme in the same frame. */
+  transition: none;
+}
+.page-fixed-mushaf > img { position: absolute; pointer-events: none; user-select: none; }
+[data-theme="dark"] .page-fixed-mushaf > img { filter: invert(1) brightness(0.9); }
+.page-fixed-mushaf > .mushaf-lines { position: absolute; inset: 0; display: block; padding: 0; isolation: auto; }
+.page-fixed-mushaf .fixed-word { position: absolute; pointer-events: none; }
+.page-fixed-mushaf .fixed-word > .m-word {
+  display: block; width: 100%; height: 100%; margin: 0; padding: 0;
+  font-size: 0; color: transparent; line-height: 0;
+}
+.page-fixed-mushaf .m-word-baseline, .page-fixed-mushaf .sajdah-mark { display: none; }
+.page-fixed-mushaf .question-context-band { border-radius: 3px; mix-blend-mode: multiply; }
+[data-theme="dark"] .page-fixed-mushaf .question-context-band { mix-blend-mode: screen; }
+.page-fixed-mushaf .fixed-artwork-context { display: none; position: absolute; pointer-events: none; }
+.page-fixed-mushaf:is([data-question-focus-mode="fade"], [data-question-focus-mode="shade-fade"]) .fixed-artwork-context {
+  display: block; background: var(--page-paper); opacity: 0.65;
+}
+.page-fixed-mushaf[data-question-focus-mode="fade"] .fixed-word.question-context-line::before,
+.page-fixed-mushaf[data-question-focus-mode="shade-fade"] .fixed-word.question-context-line::before,
+.page-fixed-mushaf[data-question-focus-mode="fade"] .fixed-word:has(.question-context-word)::before,
+.page-fixed-mushaf[data-question-focus-mode="shade-fade"] .fixed-word:has(.question-context-word)::before {
+  content: ""; position: absolute; inset: 0;
+  background: var(--page-paper); opacity: 0.65; pointer-events: none;
+}
+.page-fixed-mushaf .hit::before {
+  left: calc(var(--ink-left) + 1.5px); width: max(0px, calc(var(--ink-width) - 3px)); border-radius: 3px;
+}
+.fixed-page-frame .page-fixed-mushaf .glyph-ink.marked::before { inset-inline: 1.5px; border-radius: 3px; }
+.page-fixed-mushaf, .page-fixed-mushaf .hit { touch-action: pan-y; }
+.app.view-judge .mushaf-shell .mushaf-scroll.has-fixed-pages {
+  display: flex; flex-direction: column; justify-content: flex-end; align-items: center; gap: 8px;
+}
+.app.view-judge .mushaf-shell[data-stage-fit="ready"]:has(.has-fixed-pages) { overflow: auto; }
+.app.view-judge .mushaf-shell[data-stage-fit="ready"] .mushaf-scroll.has-fixed-pages {
+  width: max(100%, calc(var(--mushaf-render-inline-size) + 12px));
+  height: max(100%, calc(var(--mushaf-stage-block-size) + 12px));
+  padding: 6px; overflow: visible;
+}
+.app.view-judge .mushaf-shell[data-stage-fit="ready"] .has-fixed-pages .mushaf-composition {
+  width: var(--mushaf-fit-inline-size); max-width: none; zoom: var(--page-zoom); flex-shrink: 0;
+}
+.app.view-judge .mushaf-shell[data-stage-fit="ready"] .mushaf-scroll.has-fixed-pages:is(.is-single,.is-spread) > .mushaf-shared-nav {
+  position: relative; inset: auto; order: -1; width: 100%; min-height: 36px;
+}
+@media (min-width: 901px) {
+  .app.view-judge .has-fixed-pages .page-nav-btn { width: 30px; height: 30px; }
+  .app.view-judge .has-fixed-pages .page-nav-page {
+    height: 30px; min-width: 54px; padding-inline: 7px; font-size: 12px;
+  }
+}
+@media (max-width: 900px) {
+  .app.view-judge .has-fixed-pages .page-nav-btn::before { inset: 10px; }
+  .app.view-judge .has-fixed-pages .page-nav-page::before { inset: 10px 2px; }
+}

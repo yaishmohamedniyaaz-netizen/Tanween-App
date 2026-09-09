@@ -1,0 +1,3630 @@
+{
+  "revision": "422ece54cee15d474654dc11466f8e2f0e39c3e6",
+  "pages": [
+    {
+      "page": 1,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page001.png",
+      "bytes": 67640,
+      "sha256": "89b0aee291bc934fd77b9d9112048d003a22679636171cecd45ab9811d741352"
+    },
+    {
+      "page": 2,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page002.png",
+      "bytes": 74329,
+      "sha256": "d4cd2a80166a70baab7dcb542e7a8dea6889b746e371d7d569ded9629e845fea"
+    },
+    {
+      "page": 3,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page003.png",
+      "bytes": 189077,
+      "sha256": "473ce155e8af40d9478ba66cbf1afc0bb5759928f897f290ffafefd317a62678"
+    },
+    {
+      "page": 4,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page004.png",
+      "bytes": 193012,
+      "sha256": "529e516ce75ee609992553a7d7cb990e888be5520f734bf37d167304e9add714"
+    },
+    {
+      "page": 5,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page005.png",
+      "bytes": 178044,
+      "sha256": "7c9cc0dbfc8cb61c9062a7bf817403d15cc5bc8acf71959cbf820717492fbe4e"
+    },
+    {
+      "page": 6,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page006.png",
+      "bytes": 200844,
+      "sha256": "c12387c3ad70dfa68972c4edbeb1af9ad7d57ea2df070bc850dfa137d5997e1d"
+    },
+    {
+      "page": 7,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page007.png",
+      "bytes": 204539,
+      "sha256": "c9b08dd072b873f915bc7e1797f6bc78441e444379d9f611c8a34027d2d22279"
+    },
+    {
+      "page": 8,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page008.png",
+      "bytes": 193212,
+      "sha256": "adbca3c8d9d59fab844fb6f34d50fc8bc6e696201bb69d38262a9e3655064e22"
+    },
+    {
+      "page": 9,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page009.png",
+      "bytes": 169917,
+      "sha256": "9875c4933b69e5384794813338152b9798c9618eb87b6fdbdc122d9f8f619c66"
+    },
+    {
+      "page": 10,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page010.png",
+      "bytes": 192581,
+      "sha256": "e1be55f41169d9ddffd2df8c0d4a34703b469fe2ac66a0ab328f639944435f27"
+    },
+    {
+      "page": 11,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page011.png",
+      "bytes": 193126,
+      "sha256": "a341d8d0264f05478eb52b1b33602d2373a36eb78a1620e78575383bc0225640"
+    },
+    {
+      "page": 12,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page012.png",
+      "bytes": 183127,
+      "sha256": "0020294755d83e6ca902f8f71636c5a0b27c819a949c3b82765470c5cec6fed3"
+    },
+    {
+      "page": 13,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page013.png",
+      "bytes": 186211,
+      "sha256": "57c523e574139e435b8aa1b0b7040e8b905d75ba7db4ed1ac50d3736926211b3"
+    },
+    {
+      "page": 14,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page014.png",
+      "bytes": 174926,
+      "sha256": "9b94ffbfd07d0b70ff5de659b613546fc7dd507f43992902598406c3fd23fa1b"
+    },
+    {
+      "page": 15,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page015.png",
+      "bytes": 180858,
+      "sha256": "b26829073b51925b87cd65a443869d3012dc12ed16090fc24642d202942da6cf"
+    },
+    {
+      "page": 16,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page016.png",
+      "bytes": 173852,
+      "sha256": "1b78dfccc261825ce1fb29efe2698cb3428c0a673751a23376b3e205232e6aca"
+    },
+    {
+      "page": 17,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page017.png",
+      "bytes": 184591,
+      "sha256": "5d35237994401da07de0230790626eb92b73657e26d51947f0acfa3c0c11796b"
+    },
+    {
+      "page": 18,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page018.png",
+      "bytes": 192223,
+      "sha256": "f0062e088040488246a29de27d1a8707d81e637b617334319565b7d370a0ecf7"
+    },
+    {
+      "page": 19,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page019.png",
+      "bytes": 198356,
+      "sha256": "229450b43d51226263135bef18925772839e79e92b1a22923dde1f27094653a5"
+    },
+    {
+      "page": 20,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page020.png",
+      "bytes": 189538,
+      "sha256": "ac2a75e4adfa572bcc1ef12d970c41183f69e35a366fe011811736c19b6158bc"
+    },
+    {
+      "page": 21,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page021.png",
+      "bytes": 184204,
+      "sha256": "5ddbb742e11a12241df04705fec5a30309a15969255d0d512e4fc8925bfd9c11"
+    },
+    {
+      "page": 22,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page022.png",
+      "bytes": 181664,
+      "sha256": "ff9b32282d4397be9a5864fecf22f006e7baeca66b29959f58abbcc34a0dc921"
+    },
+    {
+      "page": 23,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page023.png",
+      "bytes": 188099,
+      "sha256": "6c04a7262ddc1c7d99f71eab7f8a8bd1fdc803556f0599a3827bb86937e96958"
+    },
+    {
+      "page": 24,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page024.png",
+      "bytes": 199603,
+      "sha256": "a4dc2b148d4b7a23a3b5d1dc0be9c1fb9de0dad48fbe5fcce0bcd81e68212212"
+    },
+    {
+      "page": 25,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page025.png",
+      "bytes": 182929,
+      "sha256": "3faf57faea7e540d98beb3d2e2e067e2ff6074302735526e59065efed11f9fb3"
+    },
+    {
+      "page": 26,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page026.png",
+      "bytes": 184973,
+      "sha256": "1abe16ae9b7d07444f632f17735f8a4f28e0a2f2b0658e07fc8fc183ca1e3148"
+    },
+    {
+      "page": 27,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page027.png",
+      "bytes": 194796,
+      "sha256": "5b7189239092086d0996092d93af54a9e864793ecd2f0ca0d3dbf36387a126ed"
+    },
+    {
+      "page": 28,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page028.png",
+      "bytes": 175290,
+      "sha256": "462aa51c638953629085cf78d80bc0b9003c86cb64c575740f8281bc6fe80b6a"
+    },
+    {
+      "page": 29,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page029.png",
+      "bytes": 185138,
+      "sha256": "beddf1f999917db98d079fea6faca5beb35c72fd39e792d51fa55e7e4a740f3b"
+    },
+    {
+      "page": 30,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page030.png",
+      "bytes": 204196,
+      "sha256": "39770a2f6bdefee442a7ab594bee9766c7a55c8f2ee73855ba9cb018c95afe34"
+    },
+    {
+      "page": 31,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page031.png",
+      "bytes": 168734,
+      "sha256": "101aec973f69f470467b9133a105c94bb6e20ef49557202c532485e359fa55cd"
+    },
+    {
+      "page": 32,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page032.png",
+      "bytes": 183677,
+      "sha256": "b49b345820e29a4502165ffbaa00ab0de2a09a1b32acfe184204645da809a81e"
+    },
+    {
+      "page": 33,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page033.png",
+      "bytes": 191715,
+      "sha256": "f6c072b87cb40c1db6a6f794bac932438749875941d980ae32c8ece2b1dcfacb"
+    },
+    {
+      "page": 34,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page034.png",
+      "bytes": 182087,
+      "sha256": "16b34b95ac0d8ce501e0c4ee1bef08a01f0e3111472bb8a72581348a98c1dad7"
+    },
+    {
+      "page": 35,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page035.png",
+      "bytes": 195023,
+      "sha256": "574acc98047cb79d0d9a846643ebb7a0a5c421e1da7776480530185860381268"
+    },
+    {
+      "page": 36,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page036.png",
+      "bytes": 202247,
+      "sha256": "14cdb82989a2e6639a35cce3d31852aff0cc3d43b36d3439b753a16f8d3e71d5"
+    },
+    {
+      "page": 37,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page037.png",
+      "bytes": 200773,
+      "sha256": "f86faa90aaba2c254e489bef655eafc4e7785db9ecd9f8a3b683245f206e9ae5"
+    },
+    {
+      "page": 38,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page038.png",
+      "bytes": 188530,
+      "sha256": "306737c9974c6171b6dbb85bdfe330dab73a128edf761f759a283417c1a27c2e"
+    },
+    {
+      "page": 39,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page039.png",
+      "bytes": 182673,
+      "sha256": "cac7a1f54f407c8200f4c5c44a2cf8411b0ba5fedbd266fe292a0a52e3d220d6"
+    },
+    {
+      "page": 40,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page040.png",
+      "bytes": 171021,
+      "sha256": "bc1ed330f0ea5a5e20e1b98f5cf5828bfaf69ca9c4187e26446a7550c4e12de8"
+    },
+    {
+      "page": 41,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page041.png",
+      "bytes": 169256,
+      "sha256": "47e0ce106c56e824634d1e1e262b35cebf66b4f706cf6483d998d738f8e3c5f1"
+    },
+    {
+      "page": 42,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page042.png",
+      "bytes": 190786,
+      "sha256": "4e9547b0472c228d6bc7a5518db6c56896e65923fef87c6f1634a31444ce4c05"
+    },
+    {
+      "page": 43,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page043.png",
+      "bytes": 180075,
+      "sha256": "9c3181c20ce8c241cbc7ac86c64391bf65db83cca4da9f512746d8e82585d85a"
+    },
+    {
+      "page": 44,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page044.png",
+      "bytes": 187393,
+      "sha256": "979df4e0b1ef4cf2c796801b706787b581046c069c6a3fa756d13305a95b6a11"
+    },
+    {
+      "page": 45,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page045.png",
+      "bytes": 182625,
+      "sha256": "84bed176e45627eae4516a0655ee2738f4ec183c4d1bd7234fe8c383f53e51e6"
+    },
+    {
+      "page": 46,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page046.png",
+      "bytes": 168513,
+      "sha256": "9a12a0325f719ee918b56d73ac11e8dfd9a3c5a497819bc6a1a16361cdd578ad"
+    },
+    {
+      "page": 47,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page047.png",
+      "bytes": 189921,
+      "sha256": "49bc452c95f5030119cfbda7b4811fb215c714cf50db5e4895472fd747317045"
+    },
+    {
+      "page": 48,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page048.png",
+      "bytes": 179585,
+      "sha256": "365d746206207d95b9d6658a3ea3684a8bcf23ae49eb8cff8ba25290d9ccfa12"
+    },
+    {
+      "page": 49,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page049.png",
+      "bytes": 180925,
+      "sha256": "6407c365fcf6669fa4de59d313b4fd2c615ac9bdd6137a40758387b5094bf0a3"
+    },
+    {
+      "page": 50,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page050.png",
+      "bytes": 197592,
+      "sha256": "9c4ae127a0f8118355f4e1c0ec6fabcf3472040f9e8c15e2f04b97fc0b697a6b"
+    },
+    {
+      "page": 51,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page051.png",
+      "bytes": 176624,
+      "sha256": "2e18cbc45a3dc77ca784833260342e0604c218f5a55cd57fbd9f43def8370421"
+    },
+    {
+      "page": 52,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page052.png",
+      "bytes": 176817,
+      "sha256": "9167c98f78bde22eb8075d2206d26fbe9cc9560bdc3fa5590428f1c497128c45"
+    },
+    {
+      "page": 53,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page053.png",
+      "bytes": 183717,
+      "sha256": "30fd2907ad2787756af4b4809118ffd1109f12fb3cf998af0cdeb0340c70ba7c"
+    },
+    {
+      "page": 54,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page054.png",
+      "bytes": 192187,
+      "sha256": "2f9ad58e273390213dd30985a56e29893298e25ac963b6993b8e5fbba0a0892e"
+    },
+    {
+      "page": 55,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page055.png",
+      "bytes": 187778,
+      "sha256": "da1776fa121b5b2c56b9f5f234c86d29ee06d7b8e6c71c54dc408aedebf0f509"
+    },
+    {
+      "page": 56,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page056.png",
+      "bytes": 185583,
+      "sha256": "3d0840dc55fc42cd22de2f7a9a4f1a8c2986367149600fb48758e4843ab492ca"
+    },
+    {
+      "page": 57,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page057.png",
+      "bytes": 186667,
+      "sha256": "f6195e764729541ff128c3a88f3d4d81d1de6540bc7540541d542988bcc99653"
+    },
+    {
+      "page": 58,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page058.png",
+      "bytes": 191915,
+      "sha256": "0c3454e63088f191684dcd3c67ef6cc9fcb3d0167d57fe983335a71963758e61"
+    },
+    {
+      "page": 59,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page059.png",
+      "bytes": 192535,
+      "sha256": "6784054574a70f89be5c9be080d666867c389f391df6da3be17f08b55939f102"
+    },
+    {
+      "page": 60,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page060.png",
+      "bytes": 179895,
+      "sha256": "5814cb02b0d544c5d711998b9927ecaca5c1859ff71517ae5099d3954dbdf463"
+    },
+    {
+      "page": 61,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page061.png",
+      "bytes": 187820,
+      "sha256": "02d50f9e26f0ce9779f687d2d28fcc5325e1d10188c2c30dc48690ba0249d4e1"
+    },
+    {
+      "page": 62,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page062.png",
+      "bytes": 199587,
+      "sha256": "eb4fd9a6878151b0459436f1fa49d9e607d8f66a3b44607bd8ba9105039b5fda"
+    },
+    {
+      "page": 63,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page063.png",
+      "bytes": 200078,
+      "sha256": "78fbdf970f86f77e004656eb880f3e398b9e775035781e5b25d573219227e904"
+    },
+    {
+      "page": 64,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page064.png",
+      "bytes": 187658,
+      "sha256": "392abcac86e6671480d7fcd8e1aa8b7c684d1d367d385aa761da8de003da0492"
+    },
+    {
+      "page": 65,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page065.png",
+      "bytes": 193344,
+      "sha256": "df4d9348ced25e286d1de2e904ba1c5cebf2d83eb2e7fca8e424003c827c7b34"
+    },
+    {
+      "page": 66,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page066.png",
+      "bytes": 202587,
+      "sha256": "48cc0d1b5d7f0b2b47f0d47e70cf9c6ab56f00b7646b286e8f304a349432f2f9"
+    },
+    {
+      "page": 67,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page067.png",
+      "bytes": 189579,
+      "sha256": "f6332d35ba3889931e4c889648ddb1c38467a5551e8765e58efaf74d8da80d79"
+    },
+    {
+      "page": 68,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page068.png",
+      "bytes": 189362,
+      "sha256": "bc3efb0f9de17d1453ea9027573be90b749109466df58c2da901cc8595f844da"
+    },
+    {
+      "page": 69,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page069.png",
+      "bytes": 167767,
+      "sha256": "8c79dcdd561e8ef09e9c3657524119e2c757eb85e94a7c014b0bc5c338f59af8"
+    },
+    {
+      "page": 70,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page070.png",
+      "bytes": 195552,
+      "sha256": "5049349b9c039e30ee97856feb7c44399c87ac761618dbc24d688de116f7b351"
+    },
+    {
+      "page": 71,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page071.png",
+      "bytes": 196088,
+      "sha256": "62c096b3d322e965e11806540b11a3d4a6b67ab62ace5a4e6421efcd6794daf1"
+    },
+    {
+      "page": 72,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page072.png",
+      "bytes": 201398,
+      "sha256": "efc21233171e78aeafa7497d68a5bc2f209a0fdb84f478701b2f7c46f77acf24"
+    },
+    {
+      "page": 73,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page073.png",
+      "bytes": 203850,
+      "sha256": "c2c515796b2d7570e09852120e7c223d747df74cc1e90738e45e662f3d43dd59"
+    },
+    {
+      "page": 74,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page074.png",
+      "bytes": 184489,
+      "sha256": "278eff8bf9cdfaa4e71513cf13744c35d340d30536f457606e14d0a14fe54c1b"
+    },
+    {
+      "page": 75,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page075.png",
+      "bytes": 192258,
+      "sha256": "888fa785e665179092b326608b911b77d2030f7e88fa4bd964bb41050f9425ee"
+    },
+    {
+      "page": 76,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page076.png",
+      "bytes": 195858,
+      "sha256": "6974d5f1d5082f7e2dc79e3b066e17903833da11e9d4f167e77629e7261467a4"
+    },
+    {
+      "page": 77,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page077.png",
+      "bytes": 201805,
+      "sha256": "c9d4e66e498760bf11cc2d465a93a4ea73edf0a53cc1cb7cc6b855f5a4a52036"
+    },
+    {
+      "page": 78,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page078.png",
+      "bytes": 190703,
+      "sha256": "de934f1968d79ce70a4d53ef7d19a84bbd92c21a70b3b85fe11482a21cc60dc1"
+    },
+    {
+      "page": 79,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page079.png",
+      "bytes": 165148,
+      "sha256": "725d6943aa99defce5655d8e36f3c5500869c291629abb53bd99b3dc55a67a64"
+    },
+    {
+      "page": 80,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page080.png",
+      "bytes": 180038,
+      "sha256": "097101112dce343a3db7a2e9b6ff28ef4cbf1c08a739752d10bdb2e64ae0aab4"
+    },
+    {
+      "page": 81,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page081.png",
+      "bytes": 165440,
+      "sha256": "83a2e55e49a5486411ec06b143c8fe07609d7098832ada63db92f17bad7cf59b"
+    },
+    {
+      "page": 82,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page082.png",
+      "bytes": 175182,
+      "sha256": "560c57f6ca3899093eccd56f5f7bcd6b301b1928708a281b051899e6767f087a"
+    },
+    {
+      "page": 83,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page083.png",
+      "bytes": 177057,
+      "sha256": "6347815538da1a761c4784099d3faa6f7679b57364f1d15e4b29774d8453f23b"
+    },
+    {
+      "page": 84,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page084.png",
+      "bytes": 175807,
+      "sha256": "87460887b09485135849d6ddfd4aa482d355935e0402a1130eb83c4ddbd6fd25"
+    },
+    {
+      "page": 85,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page085.png",
+      "bytes": 189699,
+      "sha256": "9474b8064807c1f3d5f88bf90e3c646bf70bd76e71a3f14eee06004a3f529a09"
+    },
+    {
+      "page": 86,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page086.png",
+      "bytes": 195532,
+      "sha256": "64139778a74b87489cf67ca8fa9f9aee5d53da0a7506d96ad62491b36de62487"
+    },
+    {
+      "page": 87,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page087.png",
+      "bytes": 202440,
+      "sha256": "0a4595787b42c53b8236b9a093d276f6c6714c7afec79b43fdccc88effcd2dcb"
+    },
+    {
+      "page": 88,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page088.png",
+      "bytes": 178823,
+      "sha256": "087e17cb74fc38a861f39caf825d52f56b222912689eb7307057c3bd35a3fcbe"
+    },
+    {
+      "page": 89,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page089.png",
+      "bytes": 191594,
+      "sha256": "702cf82cab85e3d2e43b256b29247456eb383d66dcb8da6045b429258a2604c5"
+    },
+    {
+      "page": 90,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page090.png",
+      "bytes": 203390,
+      "sha256": "a159c93f72d9cb9c6c4cdf6ced3891e7cbb0f338408de9b209d026d8a0be62b9"
+    },
+    {
+      "page": 91,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page091.png",
+      "bytes": 194793,
+      "sha256": "b4b1c55315660b142fbfa4084762b4f89c7a768ff7f56c42605642cfb5fabe28"
+    },
+    {
+      "page": 92,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page092.png",
+      "bytes": 199642,
+      "sha256": "0378ed21c18b91ae66630872032f78318bd683edb57c118503f1d89e9503ff7e"
+    },
+    {
+      "page": 93,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page093.png",
+      "bytes": 169836,
+      "sha256": "e79e05c2923305740ffee228f1fc80cac4e5b4ba20d6838b34760baeb7d3a4c5"
+    },
+    {
+      "page": 94,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page094.png",
+      "bytes": 203655,
+      "sha256": "5d9d21575788a3eb721f3a026e84e53c7fd1468d9c8b06a2dd46724e7ab75d5a"
+    },
+    {
+      "page": 95,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page095.png",
+      "bytes": 186175,
+      "sha256": "01ac4e421a683e0047f167878346cca78d2785784d35a7b69fadbd36d16d5aae"
+    },
+    {
+      "page": 96,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page096.png",
+      "bytes": 181635,
+      "sha256": "9aa4f92eeed59984b974bf4b678c480d4e6e6a210fef127481f73d99c3d74053"
+    },
+    {
+      "page": 97,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page097.png",
+      "bytes": 179516,
+      "sha256": "60f46976f95a6c1707837eead8fad7f39c310ed8c4f27e86d28994b91c981cdb"
+    },
+    {
+      "page": 98,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page098.png",
+      "bytes": 178319,
+      "sha256": "413fdea56602e90d950e23601c715c167bbc8a607969387edabc2f335706c925"
+    },
+    {
+      "page": 99,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page099.png",
+      "bytes": 187135,
+      "sha256": "bc3f8cd3216cadb2f9fb1ce705070f4a571d403d5c9ed5c225f70d78846b475e"
+    },
+    {
+      "page": 100,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page100.png",
+      "bytes": 196931,
+      "sha256": "dc29ba3c9c79e044de26b31823ccde950763bf9aa57ac9b9bba088ce2afe1542"
+    },
+    {
+      "page": 101,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page101.png",
+      "bytes": 195179,
+      "sha256": "202379c1a99e50911a2eb253589b8037778ae9900c11a15ed359d37538d77924"
+    },
+    {
+      "page": 102,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page102.png",
+      "bytes": 194219,
+      "sha256": "e6e7d351fe1dbb4cce0a4b5337223d3d994fb9870dcd1ea62d506524a237bcb5"
+    },
+    {
+      "page": 103,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page103.png",
+      "bytes": 202220,
+      "sha256": "024810bcff278a57bd13c8c1576347fe8021933f2155aaff9fd1bd50857aecd5"
+    },
+    {
+      "page": 104,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page104.png",
+      "bytes": 194086,
+      "sha256": "d652facea635bd9acf1e71512c5fd2e4236d84c631741b8637327bb00436c769"
+    },
+    {
+      "page": 105,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page105.png",
+      "bytes": 186610,
+      "sha256": "c4e74c28fae4943b15c750ef66e003087cdc7ab0147719acabda58f257813075"
+    },
+    {
+      "page": 106,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page106.png",
+      "bytes": 198588,
+      "sha256": "6863a398622d6d569a100d36a9a098894aad3756d4b6af01a3cc01275c72139a"
+    },
+    {
+      "page": 107,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page107.png",
+      "bytes": 194856,
+      "sha256": "c3b3dae34fad643ab386853d7ca52e538cb34fe00dd50732e97e4d6068a3450e"
+    },
+    {
+      "page": 108,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page108.png",
+      "bytes": 179905,
+      "sha256": "756cd5ce2f62fc2974a1fd76762b6ddf7e2b96813212a5f267fdf0c1bddfc360"
+    },
+    {
+      "page": 109,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page109.png",
+      "bytes": 170810,
+      "sha256": "0ea82db0bd50ee631381e7f410a53cf86cc07f379b51a07e59d5f5b000a8cd93"
+    },
+    {
+      "page": 110,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page110.png",
+      "bytes": 160471,
+      "sha256": "36c2082c184d0448209aaed06df3d033d6bc3c9f93d2bada89cfdf1bf4d63eac"
+    },
+    {
+      "page": 111,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page111.png",
+      "bytes": 191488,
+      "sha256": "e1eef1e34720157161893002b015dda564c9efb59d5058c66e9ae32db92851e3"
+    },
+    {
+      "page": 112,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page112.png",
+      "bytes": 188704,
+      "sha256": "6e8d1faf86c7a8330398c3f226b588cf985e8363695d256aa59759c4528e0ed9"
+    },
+    {
+      "page": 113,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page113.png",
+      "bytes": 175861,
+      "sha256": "6542ce737f62c7fda5282d5da354785062b9a43ab6d679a4821284e92f0eb806"
+    },
+    {
+      "page": 114,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page114.png",
+      "bytes": 183050,
+      "sha256": "d2cd65f2c327080f232d75703eba204da28ef4a2fefa1285959fe1440c595aef"
+    },
+    {
+      "page": 115,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page115.png",
+      "bytes": 179404,
+      "sha256": "93ae7a964671d8f55b01554ac0915c863d64ec956f0b62c5a6d3d0c1dfa36ade"
+    },
+    {
+      "page": 116,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page116.png",
+      "bytes": 184784,
+      "sha256": "e5e8f5487700b06fbca42210958e3f01542a2461af5b57f7bf148d0bac56088d"
+    },
+    {
+      "page": 117,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page117.png",
+      "bytes": 203256,
+      "sha256": "21648eacb8c7d2d6fb519d31900842adc2579990a59672770fbed9593491cdbc"
+    },
+    {
+      "page": 118,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page118.png",
+      "bytes": 202592,
+      "sha256": "5c48b66990405119d92011efdfc38b00fdfe9e1bb03e32e824662f1ccd12b1b6"
+    },
+    {
+      "page": 119,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page119.png",
+      "bytes": 189221,
+      "sha256": "8fe9a96d22d1e394f8bbd35ca2722f592b571ced35421827ccceaa13a1c91de9"
+    },
+    {
+      "page": 120,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page120.png",
+      "bytes": 174567,
+      "sha256": "6549777cb482738fbec166c78ce5f72275254df82649b0cc336c4f49433323cd"
+    },
+    {
+      "page": 121,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page121.png",
+      "bytes": 169762,
+      "sha256": "6a829e4d1895dba534eb96c176f6ee321c34df887a87758d1c9e63e5e95900ce"
+    },
+    {
+      "page": 122,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page122.png",
+      "bytes": 192283,
+      "sha256": "32456553f7db4d8ae1125ff98d68bfb2dab770ea8ecd426263a387bb0587fa0f"
+    },
+    {
+      "page": 123,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page123.png",
+      "bytes": 199479,
+      "sha256": "13a1c7e76b9be681bf5aa2d4b842264f36632c3a90b6e0e5bf8289d74869eec0"
+    },
+    {
+      "page": 124,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page124.png",
+      "bytes": 193667,
+      "sha256": "75a376fca5b945f48301ef18ec2461e355488328e815729c316fd0c29e94a192"
+    },
+    {
+      "page": 125,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page125.png",
+      "bytes": 193567,
+      "sha256": "4b0f6b1f762346dddcfa2f7bfc2b1da4e76a2b29db0bcf2fed12a7d87e5b7ba9"
+    },
+    {
+      "page": 126,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page126.png",
+      "bytes": 181055,
+      "sha256": "08686d2157a7d839d9a71ba8a017df0913df3e328e589fbfa248ff346d311428"
+    },
+    {
+      "page": 127,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page127.png",
+      "bytes": 199145,
+      "sha256": "a68d3d0b81ca028ee88f993acf0e6c5f8b59d9d03ec72cb5dbee4fe332825a66"
+    },
+    {
+      "page": 128,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page128.png",
+      "bytes": 195814,
+      "sha256": "101a901fc7986edf5bb69732eb1146c8ed53c99467bf342f25bff71726153561"
+    },
+    {
+      "page": 129,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page129.png",
+      "bytes": 184695,
+      "sha256": "aa837e4372c3f3165dc84e8fd6a93f4ccecbeb76d85f72b1e33332ab92135586"
+    },
+    {
+      "page": 130,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page130.png",
+      "bytes": 210082,
+      "sha256": "2c5dcfdb6051da52eab590300249b63200495a52839bbca60535e5ff6ad73967"
+    },
+    {
+      "page": 131,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page131.png",
+      "bytes": 201938,
+      "sha256": "337bd1d30481ee98a6c79eac5a68516e2dfab2b71e92ab43166fdd17cdbe0cdf"
+    },
+    {
+      "page": 132,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page132.png",
+      "bytes": 197514,
+      "sha256": "e6bf1ab2415c15647c260663d0303c643cc1973dbc600c2dc9000bff073f0aa1"
+    },
+    {
+      "page": 133,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page133.png",
+      "bytes": 195357,
+      "sha256": "5855c92f89421fc69dc6a35e6edbaf85b21104b572e13efe4b84ac1bd6724a24"
+    },
+    {
+      "page": 134,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page134.png",
+      "bytes": 188572,
+      "sha256": "4a58f1ce735d1b73e287271aaaecc4d1745b342d67245172a7894f40ff1ed720"
+    },
+    {
+      "page": 135,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page135.png",
+      "bytes": 201864,
+      "sha256": "28410702a63fbf6b3376d9f2537b046615a8c0fcfe8f0ac9cb34afb07eafeabb"
+    },
+    {
+      "page": 136,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page136.png",
+      "bytes": 180557,
+      "sha256": "b22476c4e14eb409795386cb0d62ef719a231e3fd29ec56eb43bb205f7d045b3"
+    },
+    {
+      "page": 137,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page137.png",
+      "bytes": 189841,
+      "sha256": "77dfcf2dc917a648278c31b3cfd48c81d33e488bcf62cc04258bceef0b762144"
+    },
+    {
+      "page": 138,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page138.png",
+      "bytes": 190656,
+      "sha256": "4987ce613cffdc7ea28b6320aecec317e2f9d4246a00de95988f150e9fd9cd22"
+    },
+    {
+      "page": 139,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page139.png",
+      "bytes": 196505,
+      "sha256": "a0ab832395adf85622070d964095cb52fd24546637bdc383df5dac326e5140c6"
+    },
+    {
+      "page": 140,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page140.png",
+      "bytes": 198436,
+      "sha256": "164e535bae5d1f252ea3cd43cc7eeee937a96e82560464e620c6348a852774a9"
+    },
+    {
+      "page": 141,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page141.png",
+      "bytes": 197825,
+      "sha256": "ba0bb4d829711c8476fc9362a69a061b50127c258b89b87fd0926eb4c7131d09"
+    },
+    {
+      "page": 142,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page142.png",
+      "bytes": 198477,
+      "sha256": "d609a5e041c154569ba3434215ecebf372634bc785a48ed4a108904467321ab3"
+    },
+    {
+      "page": 143,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page143.png",
+      "bytes": 189387,
+      "sha256": "43902a76dddf147c48b4f0469cb6b890572825dff81842a6e9ab72dd00cf41dd"
+    },
+    {
+      "page": 144,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page144.png",
+      "bytes": 193450,
+      "sha256": "eeb678d941c4526637b0507d810f727376f9a8b6f3688bbc7f57ece1a297097c"
+    },
+    {
+      "page": 145,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page145.png",
+      "bytes": 162423,
+      "sha256": "e7f9150c6f9a6287a4f794975d57214b64bd6a7e75324be3423d6a2baaa0b2dc"
+    },
+    {
+      "page": 146,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page146.png",
+      "bytes": 179874,
+      "sha256": "131902389ac045cb8f3954f31c4e5ba6fedbbd8488734e5052f24adc4d7787e6"
+    },
+    {
+      "page": 147,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page147.png",
+      "bytes": 178025,
+      "sha256": "4df358cc1e473b09bb421d5c65c592c39f7513a5e84cb90fc339904e5f20cffe"
+    },
+    {
+      "page": 148,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page148.png",
+      "bytes": 183688,
+      "sha256": "358bae4c9e9bd93bf738749ab5af9303f14dff55f05f469b6a2a9fce3ccf32cf"
+    },
+    {
+      "page": 149,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page149.png",
+      "bytes": 187393,
+      "sha256": "f1c4e90e708cbe9aa286cbde6687e37d51fa376933f47e990eac404da6135086"
+    },
+    {
+      "page": 150,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page150.png",
+      "bytes": 201824,
+      "sha256": "17ffc47a410f4968ee05daaaa013a6d7b70f839e753a715e8fbb7f6c74eb9fef"
+    },
+    {
+      "page": 151,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page151.png",
+      "bytes": 199031,
+      "sha256": "b8beb17fb4ff6070eabbef435e6c753812dd7eed1de8103831517ec1ad35a3c7"
+    },
+    {
+      "page": 152,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page152.png",
+      "bytes": 199666,
+      "sha256": "5cd4a5cd579ac17b32acd2b8de926bd3a0c16fb8d6b8b6ab6d6f2fc094d16edc"
+    },
+    {
+      "page": 153,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page153.png",
+      "bytes": 197220,
+      "sha256": "35cea6d7e0378306e87d5a85b8f270f964838e79e279ef7c80b1be150341c0f2"
+    },
+    {
+      "page": 154,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page154.png",
+      "bytes": 203424,
+      "sha256": "e4bdef51a04da8180323a2e791244349f6230c78a103eab0a906bd8439cfacda"
+    },
+    {
+      "page": 155,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page155.png",
+      "bytes": 189570,
+      "sha256": "ac0422baa773fee091522e5f8043b3b77f3d5826913a1b0e2be48ff215e07522"
+    },
+    {
+      "page": 156,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page156.png",
+      "bytes": 194757,
+      "sha256": "c5cefb6b444405ffff21e612c85a3a5bbfef98130b5d396af1f8fb5b357aa555"
+    },
+    {
+      "page": 157,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page157.png",
+      "bytes": 188064,
+      "sha256": "23b6f48233e97ff4193e7b90c5e39bb99af84e053043c5b5796657a8973c4ec3"
+    },
+    {
+      "page": 158,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page158.png",
+      "bytes": 197082,
+      "sha256": "d3a7b8f2182473b23e046db140d3b2c35148517068a9809bb09246ac977251a5"
+    },
+    {
+      "page": 159,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page159.png",
+      "bytes": 181662,
+      "sha256": "47c7ffd200ca53bcdf2d91129535878c78f563f91b35c67c251a374b2e52ecca"
+    },
+    {
+      "page": 160,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page160.png",
+      "bytes": 180393,
+      "sha256": "385537b93dbb97c58a86d59b8d8647437f3d8948d20d5dcdd5a8a8935c133674"
+    },
+    {
+      "page": 161,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page161.png",
+      "bytes": 176197,
+      "sha256": "4cde9721c7bc77ac6d70e3ddb89aa069d045d92e2bab8214901f003ecb683c3e"
+    },
+    {
+      "page": 162,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page162.png",
+      "bytes": 198250,
+      "sha256": "e4adc5ea43b3a442d08bf2baee04e5ca198bf598838331258cae6c356081be5c"
+    },
+    {
+      "page": 163,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page163.png",
+      "bytes": 188818,
+      "sha256": "e5a58a05bb99678da79bea3ba649fa479b483c24a104d5fd10b9850589a9c961"
+    },
+    {
+      "page": 164,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page164.png",
+      "bytes": 203765,
+      "sha256": "0c3027db49053340297e09dd3ecc20a935b2cb0a79513d9819e93d66e8795ea8"
+    },
+    {
+      "page": 165,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page165.png",
+      "bytes": 193900,
+      "sha256": "0a2c20976cf5a02ec7974dd47fb6871ef2a8e5a6512aa8cb35e47381d2ce51b6"
+    },
+    {
+      "page": 166,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page166.png",
+      "bytes": 185687,
+      "sha256": "2023bfe853065968469d5dc1291b5d62c8d2b41105ea614e08ce0ae0245bf768"
+    },
+    {
+      "page": 167,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page167.png",
+      "bytes": 184009,
+      "sha256": "514c7bd90b889c98f16b5ed9a9150f603bd9d2e3cd57359f3e20f3a3f98336f1"
+    },
+    {
+      "page": 168,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page168.png",
+      "bytes": 181690,
+      "sha256": "b6b08f7f5b85d846a88ec8af60da3c2e58fd35f042961c570d38e84c381b8614"
+    },
+    {
+      "page": 169,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page169.png",
+      "bytes": 193865,
+      "sha256": "90637742c8402df21d8bc0e69042b0465eb3dcb4408039080ac2b852c15dce00"
+    },
+    {
+      "page": 170,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page170.png",
+      "bytes": 181363,
+      "sha256": "312ab57ea55faa039c4432926e599d14e4d64f6c2560744570b5fc1ea08f8875"
+    },
+    {
+      "page": 171,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page171.png",
+      "bytes": 170179,
+      "sha256": "2d4f00922d6057646dd25988fbc99dc0836f77d8876bc49d1fe9e16efc168da8"
+    },
+    {
+      "page": 172,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page172.png",
+      "bytes": 194879,
+      "sha256": "37c4ab2c524f0f2cff6e60d84795d0b82564585d532e5583bc2a094a6205356d"
+    },
+    {
+      "page": 173,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page173.png",
+      "bytes": 199075,
+      "sha256": "60b91f1d13772dc451ea06e45e3c3fbd999b2471320a733e286d5f1d88c361a3"
+    },
+    {
+      "page": 174,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page174.png",
+      "bytes": 208011,
+      "sha256": "4d34a0f55e16f6af80cc6f2a9b176aa04750f1cb80040682ac2573e2bc23fcd0"
+    },
+    {
+      "page": 175,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page175.png",
+      "bytes": 193753,
+      "sha256": "1856241ba097be0a84a52f7d9eb2ccfba9f44ea17364a0beccfb9a3201d25e49"
+    },
+    {
+      "page": 176,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page176.png",
+      "bytes": 199252,
+      "sha256": "ce3cca9b205abcae769623f989701b18f4fbae74e7ce63f04f3a5e911b9111b0"
+    },
+    {
+      "page": 177,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page177.png",
+      "bytes": 198354,
+      "sha256": "b101f808844808ae8fda0e8a8154d8769315445f4c83d6590d8739d71203e8ca"
+    },
+    {
+      "page": 178,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page178.png",
+      "bytes": 193711,
+      "sha256": "a494523c3921b4b705720693854732567fdc5087caada2c9869f262b13a34f12"
+    },
+    {
+      "page": 179,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page179.png",
+      "bytes": 193627,
+      "sha256": "edcd3da852762640693713a3072f34fe05eafe1c3eb41e7ffb611690f98f282f"
+    },
+    {
+      "page": 180,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page180.png",
+      "bytes": 192802,
+      "sha256": "999f72f0f1266bdfef8e92a6a76b9d39bca000f0d3f8aad758781172b112f7ec"
+    },
+    {
+      "page": 181,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page181.png",
+      "bytes": 181068,
+      "sha256": "e003c233778579c584b6592d2ae1e20468f9ea54a3f379928854a8eb6212acc3"
+    },
+    {
+      "page": 182,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page182.png",
+      "bytes": 184038,
+      "sha256": "9c071093cf6b95b31def3a900f9f57f90ebda131b6cefd05551b52501c1ede67"
+    },
+    {
+      "page": 183,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page183.png",
+      "bytes": 187537,
+      "sha256": "eb186014f303c71bf40fb1593c433b9dc73b154071fbdba86c43edaebd73685e"
+    },
+    {
+      "page": 184,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page184.png",
+      "bytes": 194607,
+      "sha256": "b47a1dcee20a70c8696285048b9625a62fd1c6be45c81c539adb2d282c28c5b6"
+    },
+    {
+      "page": 185,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page185.png",
+      "bytes": 194528,
+      "sha256": "a16875e512aaeac71821a97d5f7debbbd79df8cd180c535ab78ccd9bf144131d"
+    },
+    {
+      "page": 186,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page186.png",
+      "bytes": 198221,
+      "sha256": "6eb96cd4bd108f33a60f9e1b71df8b1b70eaa072b241ab33ef05e461fd783a29"
+    },
+    {
+      "page": 187,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page187.png",
+      "bytes": 207711,
+      "sha256": "52502de3c332e18aae1f80be12570456232672550f73ad6d7c20aaf92694bb71"
+    },
+    {
+      "page": 188,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page188.png",
+      "bytes": 184111,
+      "sha256": "dce65ec700c1ccda22a1e3879c03b24d7ee21e8a16ce33e94a74e2af301951ef"
+    },
+    {
+      "page": 189,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page189.png",
+      "bytes": 195025,
+      "sha256": "63af5a8c9695591266b43b944fe40be72445edd66fe4e1b0f6aa244d1a7e8a0d"
+    },
+    {
+      "page": 190,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page190.png",
+      "bytes": 184528,
+      "sha256": "a0a3b6e0464a457314f1d1465aee581f031aab3251fe1961dc7a98760a2f1a11"
+    },
+    {
+      "page": 191,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page191.png",
+      "bytes": 175222,
+      "sha256": "e3608c78430fbecbd20b51ec09647b880793325510c777a76ec27d7b47fd5f2e"
+    },
+    {
+      "page": 192,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page192.png",
+      "bytes": 182411,
+      "sha256": "00bc6d92b1c5cb29dd7868bb1e7175cb5376b829a57a59b4bb2150a32ad76089"
+    },
+    {
+      "page": 193,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page193.png",
+      "bytes": 175325,
+      "sha256": "c23cbb27bb1667343f98f1985dc65ca958eff2c8802c5e8dad09245cbe693270"
+    },
+    {
+      "page": 194,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page194.png",
+      "bytes": 188926,
+      "sha256": "2817040b0d45bc18016bda9b534c310d8c8cf91b188c834aeffc9525435fa262"
+    },
+    {
+      "page": 195,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page195.png",
+      "bytes": 180114,
+      "sha256": "13e5dd3a3179c709aa20ff177fe159f29b6514d2fc39a3b9966f37c0bec6d169"
+    },
+    {
+      "page": 196,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page196.png",
+      "bytes": 193350,
+      "sha256": "2bfafd96e4ecd04857d2189d44f6ca1af8ceb07c1c8b8e92e81840a806149564"
+    },
+    {
+      "page": 197,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page197.png",
+      "bytes": 182889,
+      "sha256": "e4b95d081881720f99bb6b5d7bec474756d4c3c6e5f353add289ce776b7c904d"
+    },
+    {
+      "page": 198,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page198.png",
+      "bytes": 184695,
+      "sha256": "78cdbc70e590bd5ea646214ecefed92e2adcca045d241a1ba4475ff03710aff8"
+    },
+    {
+      "page": 199,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page199.png",
+      "bytes": 189518,
+      "sha256": "73d2daeb7c2194ac5a64fe3eb21dc9198a646748f0f8e2662bde7eb3acf8f3eb"
+    },
+    {
+      "page": 200,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page200.png",
+      "bytes": 198677,
+      "sha256": "bf5da1aef0bffb35510474545ce57080a277748557c62122197d7a2580967e04"
+    },
+    {
+      "page": 201,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page201.png",
+      "bytes": 191663,
+      "sha256": "01ca9c8aee30e0af691d5c1bc95e8cf70b883126f4d1ea4378834cb0d5a764e6"
+    },
+    {
+      "page": 202,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page202.png",
+      "bytes": 187214,
+      "sha256": "8dab97ad5a1012a5569626065fd755daf323810e631d0c872e4088efb1bffb6f"
+    },
+    {
+      "page": 203,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page203.png",
+      "bytes": 193446,
+      "sha256": "e045ab0ab1ecb71a5235cde088b299b80d24b90af5ad4195ddd852d3f657341c"
+    },
+    {
+      "page": 204,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page204.png",
+      "bytes": 184299,
+      "sha256": "6ad3be1d963e89897b47cc081eea78053b263be737122676cde608677267607d"
+    },
+    {
+      "page": 205,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page205.png",
+      "bytes": 174062,
+      "sha256": "790a19e6af5cc878252e8c546346581c4f217c55544b9243755449995d785cdd"
+    },
+    {
+      "page": 206,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page206.png",
+      "bytes": 185423,
+      "sha256": "22ff6992dbaec7f41406638f1cd66ef25caf53ee70f13607d4c017322247aa5e"
+    },
+    {
+      "page": 207,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page207.png",
+      "bytes": 188315,
+      "sha256": "a7e61381a958bfaf603a9348f633f28524cd0f33e4e0862cff1b3a8cdce937cd"
+    },
+    {
+      "page": 208,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page208.png",
+      "bytes": 179145,
+      "sha256": "69429cae3b96b984ff58bd6d1172292500d9d607a66125bfb659aa8266b3d12b"
+    },
+    {
+      "page": 209,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page209.png",
+      "bytes": 188861,
+      "sha256": "698ae7db478906651b5001e374da9978a169b5261305322951679ef18e1f4a7d"
+    },
+    {
+      "page": 210,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page210.png",
+      "bytes": 183448,
+      "sha256": "eb04625e6e07d8a9d8f3a63f83b5e6d74a93af70b34ba8b52a9e5e3aea0aa8c8"
+    },
+    {
+      "page": 211,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page211.png",
+      "bytes": 193493,
+      "sha256": "f76177981516fce70cfffa0f79be8b91e4dc3dfc91713b6d38576d99b14b7f55"
+    },
+    {
+      "page": 212,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page212.png",
+      "bytes": 205809,
+      "sha256": "d8eaffb74c0dd7496edbedba2466db03e7f82d8fe9cecd4dc977cde711ecb25a"
+    },
+    {
+      "page": 213,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page213.png",
+      "bytes": 212711,
+      "sha256": "1ebfc51aaa79a0fc494e27160fb12a7a71cc89312ec76579520a0fef0e67e0d8"
+    },
+    {
+      "page": 214,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page214.png",
+      "bytes": 204402,
+      "sha256": "e1aacd0d922b861f2efa88616de7b9466768a6124e721ffc92545f0c11e87093"
+    },
+    {
+      "page": 215,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page215.png",
+      "bytes": 194372,
+      "sha256": "a21229fc26f8688d3d9216103ba353dea22caf6f0b1f7887267e4bfb43018db3"
+    },
+    {
+      "page": 216,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page216.png",
+      "bytes": 183737,
+      "sha256": "8cfa103397351c70fb35433c81d9e940145ea86e246068e15297e1ee8c12c1c8"
+    },
+    {
+      "page": 217,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page217.png",
+      "bytes": 199180,
+      "sha256": "465727d0961c311b14233861cbb8395a916e10abbc192ec512e38d6ab50a157a"
+    },
+    {
+      "page": 218,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page218.png",
+      "bytes": 196237,
+      "sha256": "c1fb4a5e99b3bba32446fbae49badbd269347f26e1c955e423bd5d53c2a90868"
+    },
+    {
+      "page": 219,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page219.png",
+      "bytes": 189256,
+      "sha256": "290f4eb530d990f3e5e2fdac26948807dfd711787ed7dddb77eec8e92ff10bc3"
+    },
+    {
+      "page": 220,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page220.png",
+      "bytes": 195650,
+      "sha256": "5098b95f8e0c86381f426bf83b5a6fdcd2ff5ae123b8eb296ed087c7e97c7e18"
+    },
+    {
+      "page": 221,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page221.png",
+      "bytes": 197501,
+      "sha256": "7853e3ebdeb8a6eb7c6c078474b2b718aafb3d50c2f514c54b23820aa939b702"
+    },
+    {
+      "page": 222,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page222.png",
+      "bytes": 187372,
+      "sha256": "754ddb07df39712e149df807f51e36ddcea8a7edcd3384894bffc0f2ff2ec99d"
+    },
+    {
+      "page": 223,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page223.png",
+      "bytes": 194534,
+      "sha256": "b8d1ea73634471d6bea0efc526a6f973b3b65ca35ee1a242f02302c62188fff2"
+    },
+    {
+      "page": 224,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page224.png",
+      "bytes": 197881,
+      "sha256": "87cf4c67ab818ed7339cbde477088995a9c61d8645b6ee4a97a74538b9dfc466"
+    },
+    {
+      "page": 225,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page225.png",
+      "bytes": 200072,
+      "sha256": "0168e93a55dfc9e5af682f17e6dee88ce8cd901867b2061104f76c752fe86380"
+    },
+    {
+      "page": 226,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page226.png",
+      "bytes": 191025,
+      "sha256": "c8e928f9a13c397b7919c981a1c4a4b83459d0c2e40e7a91e15177566a146864"
+    },
+    {
+      "page": 227,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page227.png",
+      "bytes": 190571,
+      "sha256": "b039e329e74736f5aea9ad7365a2a98edd398fa4c51155dc09f608153a244912"
+    },
+    {
+      "page": 228,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page228.png",
+      "bytes": 206141,
+      "sha256": "a8552b43a02a19e90bb9d6eec125cb26f3d10f0ca3ffbbc5866046925b354e7f"
+    },
+    {
+      "page": 229,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page229.png",
+      "bytes": 186226,
+      "sha256": "9f0eb82b0bbacb0a0eecf66cc6a986f5bec5dcbd692c0e89d68bb557e6f01fde"
+    },
+    {
+      "page": 230,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page230.png",
+      "bytes": 204252,
+      "sha256": "a18c486d782fbf72656d0582e1b291503a7029c84393dd9450a480743161ec44"
+    },
+    {
+      "page": 231,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page231.png",
+      "bytes": 180750,
+      "sha256": "b46124b5ab214b4c5d57aae605bfcc64831800d6184cf0495a497d9c745a3a9b"
+    },
+    {
+      "page": 232,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page232.png",
+      "bytes": 187376,
+      "sha256": "c44a0ece63b7ed24ef9f44900d635451132518a8d68b3e67f850971d6bebfd86"
+    },
+    {
+      "page": 233,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page233.png",
+      "bytes": 200227,
+      "sha256": "56050ca97b39cc66066dbf94b5c85cdda98a966a15164a18df3d3c5877dbc4a6"
+    },
+    {
+      "page": 234,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page234.png",
+      "bytes": 193508,
+      "sha256": "a6d276bf28f56c9eb1d92ee7b497b8d505aea299e3d7ae9b039f66a18d8a5004"
+    },
+    {
+      "page": 235,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page235.png",
+      "bytes": 198210,
+      "sha256": "27db0bc36d21840357a43997f63abe5eff13254ca23b992e2a8fb3dfed1908dd"
+    },
+    {
+      "page": 236,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page236.png",
+      "bytes": 195130,
+      "sha256": "58d71f93de555705d484641d18a6acaf33a656a62a646f34ce57cd07990f7c62"
+    },
+    {
+      "page": 237,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page237.png",
+      "bytes": 188094,
+      "sha256": "c87cadd0353918d03294b831911c873ff934c9cba7bf7bacc1e485712239fff3"
+    },
+    {
+      "page": 238,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page238.png",
+      "bytes": 184353,
+      "sha256": "4b2cced4201d117e320a927efedb5a67ec3cf0a29926c49d46affd7a537bb1e3"
+    },
+    {
+      "page": 239,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page239.png",
+      "bytes": 201514,
+      "sha256": "77d2c7116e1b3509f784991e1cd54ad36715d38d73045b96bca180bb8b34556c"
+    },
+    {
+      "page": 240,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page240.png",
+      "bytes": 183706,
+      "sha256": "7bf08580bd873295a585db347daccabc9602d3ecf0d30930e98217988c841eb7"
+    },
+    {
+      "page": 241,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page241.png",
+      "bytes": 200506,
+      "sha256": "0115b69472f180fcc2412c8826eb15e6158d06950ac1c17171d64aef6cf64db1"
+    },
+    {
+      "page": 242,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page242.png",
+      "bytes": 202773,
+      "sha256": "650a32ea82b1bda2ed93748022f1a0b537b5c6ffcd8584400d17be8e8ae0e8e2"
+    },
+    {
+      "page": 243,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page243.png",
+      "bytes": 187401,
+      "sha256": "27a0153bbd5f625da4dc8dd2a95860220a7095bee4378088d1cbaddf703ea9b5"
+    },
+    {
+      "page": 244,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page244.png",
+      "bytes": 189458,
+      "sha256": "fe66827ce60520a1f1bdef30713bc98cc9ab17690e3f2dbf71f773c8929977c9"
+    },
+    {
+      "page": 245,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page245.png",
+      "bytes": 185323,
+      "sha256": "28c239a486d5a87557b61abc6f130b6358656e7c9b754a1f24a441df22315e2f"
+    },
+    {
+      "page": 246,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page246.png",
+      "bytes": 186829,
+      "sha256": "704075c71840af37764d7b891ce8d2ecd53db73bb14541819bf7be7ac5c11382"
+    },
+    {
+      "page": 247,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page247.png",
+      "bytes": 191591,
+      "sha256": "959b03905cb4929c5bb8e7bf68e4dc02e771a9738230aa0ee94007d4bf8e0235"
+    },
+    {
+      "page": 248,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page248.png",
+      "bytes": 192204,
+      "sha256": "7c35ccbd8426fe534e49fb725c1bd2aebb08b8dba329a9b0fb1223b8ffa3bb06"
+    },
+    {
+      "page": 249,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page249.png",
+      "bytes": 199492,
+      "sha256": "622b45d405a24c1192c2d9c5df56b730b73b7ed39e689cb3a4497aa882b7d5a8"
+    },
+    {
+      "page": 250,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page250.png",
+      "bytes": 190535,
+      "sha256": "6a5fda3907565640f91f815457432bf4e1918a73860505778259eec00b6de334"
+    },
+    {
+      "page": 251,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page251.png",
+      "bytes": 201391,
+      "sha256": "d6ae2e56aa9e0c8ccb2b13559afdd6b269eb5ac886458e5fddad87423a679005"
+    },
+    {
+      "page": 252,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page252.png",
+      "bytes": 211501,
+      "sha256": "8de6912ac9c15c27e681f3e7dbbf5348ddb940c2d8f9a81b1a5748c3dcf5ac52"
+    },
+    {
+      "page": 253,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page253.png",
+      "bytes": 202149,
+      "sha256": "7ab0d5ef354fcf773d265621b4b3c8561ba3924bb7b9e4610b0218f1cd911780"
+    },
+    {
+      "page": 254,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page254.png",
+      "bytes": 202788,
+      "sha256": "c1840bb2c96d6763a9e07355c5adca845306571a8e369949a42f78e31fe382e6"
+    },
+    {
+      "page": 255,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page255.png",
+      "bytes": 181833,
+      "sha256": "8399172f1fee79255067c6e2248fbb17af92d76e52e169d339b908a78812bd64"
+    },
+    {
+      "page": 256,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page256.png",
+      "bytes": 185166,
+      "sha256": "d64b2e243a91124db262088aad6f4df25963b8f614b59ff4e059550a714c3d54"
+    },
+    {
+      "page": 257,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page257.png",
+      "bytes": 185871,
+      "sha256": "49533fd7b623d8fce9eff7822e88ff92d500736331a69f1014094ae1658f705e"
+    },
+    {
+      "page": 258,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page258.png",
+      "bytes": 186424,
+      "sha256": "e7b701295dd515caf2d5688e8ddfee38252e38c1fafe4decb056d60abcfd3dc9"
+    },
+    {
+      "page": 259,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page259.png",
+      "bytes": 195324,
+      "sha256": "e08763ab8767bce253c71796a948a270e67f90910dad1c32f685db89bada5629"
+    },
+    {
+      "page": 260,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page260.png",
+      "bytes": 191940,
+      "sha256": "dbed354586c6f665a5e33fa79d2dbbcc2b45a2ab25286e4aa5731cc43fd1c8a8"
+    },
+    {
+      "page": 261,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page261.png",
+      "bytes": 193222,
+      "sha256": "1964469ad61186ba5edaeaf8736fb51f53f73eebc2030638173e1b95a5ba3499"
+    },
+    {
+      "page": 262,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page262.png",
+      "bytes": 207135,
+      "sha256": "91413f16d115e2922e2df6b3c9205ca7e5ec74ad794263ad26e9d298ace593e9"
+    },
+    {
+      "page": 263,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page263.png",
+      "bytes": 203604,
+      "sha256": "f10affc288148e148f182abefd151d32e9d3aac52b586bbc2b1deeb6581bbacd"
+    },
+    {
+      "page": 264,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page264.png",
+      "bytes": 201863,
+      "sha256": "1fc0846f5c1b4cb698c785fb969f725d564f47eb03496fba835d3404f9ed85e8"
+    },
+    {
+      "page": 265,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page265.png",
+      "bytes": 206835,
+      "sha256": "725e7e62803277d51e5b4adff1272d895c3ea9d79536cafb74190ead14b6d68b"
+    },
+    {
+      "page": 266,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page266.png",
+      "bytes": 211238,
+      "sha256": "babf83767493185e3951c48e1ab05cbe56a7fdebb516310e8801828f1aa7c7c2"
+    },
+    {
+      "page": 267,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page267.png",
+      "bytes": 199112,
+      "sha256": "d57881eaa64a5bd1b87dcb6cdb7f6a13120e7063719348ecd7a3b91be8f6bfa5"
+    },
+    {
+      "page": 268,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page268.png",
+      "bytes": 182198,
+      "sha256": "0faab0a5e769c7e77af0d8e9fb0ce42cca8dd38d90c13e4e6a25ae211b529a04"
+    },
+    {
+      "page": 269,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page269.png",
+      "bytes": 195163,
+      "sha256": "eaed8c89ea31b268600b094fde1759a8d92041e438290fe00a91af51adda4afb"
+    },
+    {
+      "page": 270,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page270.png",
+      "bytes": 188396,
+      "sha256": "43a3eb59ada666d2f1e321f7108fada98f9412ca86b09e928539041eb0abc082"
+    },
+    {
+      "page": 271,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page271.png",
+      "bytes": 191175,
+      "sha256": "a2da3e3b85ccd309f0275050dfd0ae4fc4e4ee90c49c5f9352ecdb1383bf1191"
+    },
+    {
+      "page": 272,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page272.png",
+      "bytes": 209913,
+      "sha256": "5a7590d684a294b0067b4fa58757fae3d17596b91c91823d834138da805c2b8b"
+    },
+    {
+      "page": 273,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page273.png",
+      "bytes": 202165,
+      "sha256": "0188453a80f8e6b4d535d7f7e63e49aca8b70ab07313dcbb5fa153a564150ed5"
+    },
+    {
+      "page": 274,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page274.png",
+      "bytes": 200531,
+      "sha256": "4ac13f01b7452aec01eaba9fb8c70f574cdbc422617b7429b10b860820366822"
+    },
+    {
+      "page": 275,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page275.png",
+      "bytes": 188396,
+      "sha256": "ae41adfe62d7f6b1fa75da1563a6c88adf822cf66506e5465d047b225669643a"
+    },
+    {
+      "page": 276,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page276.png",
+      "bytes": 191920,
+      "sha256": "5054dd6582ea69193f9a18f10e963ff39b79afbee7935544365b0f6fbd441d85"
+    },
+    {
+      "page": 277,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page277.png",
+      "bytes": 185254,
+      "sha256": "4e0644b1078231e1633407a851a54e1f931f0d50307a418bb6c228e7ee39a1b3"
+    },
+    {
+      "page": 278,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page278.png",
+      "bytes": 187331,
+      "sha256": "45657b5e3e830aec0c8245c30ceb955376fdc0b89616e290b21a904d8102d2d9"
+    },
+    {
+      "page": 279,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page279.png",
+      "bytes": 178344,
+      "sha256": "9fdc7e7018b419f866819b01d94cfce4aa241e9f0db323abd94db0543fffb970"
+    },
+    {
+      "page": 280,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page280.png",
+      "bytes": 189761,
+      "sha256": "bccadde3bf3e2016f77490421783ea3e9dfdab838571cdafeeb78d18f21eb51a"
+    },
+    {
+      "page": 281,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page281.png",
+      "bytes": 192861,
+      "sha256": "9defda143a61c6a782f5c5d781ca48725d16d27150758d4445aed0ddce2636b6"
+    },
+    {
+      "page": 282,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page282.png",
+      "bytes": 187742,
+      "sha256": "4e833ce650389a4ca120610358b9d9e6873e9761fa46c56a16e9d88f2c1dde0a"
+    },
+    {
+      "page": 283,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page283.png",
+      "bytes": 201176,
+      "sha256": "cfe8f1faed91c50d1771f2f9453a0f9d7e6720d5af54bc19999464d2cbd3a69e"
+    },
+    {
+      "page": 284,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page284.png",
+      "bytes": 195925,
+      "sha256": "cf02f896f35b7ce734dde298db0005912ec46707fec50e3327683ffb6878406a"
+    },
+    {
+      "page": 285,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page285.png",
+      "bytes": 208499,
+      "sha256": "d81e8c4b2f612fe9fddafd06f13a2636e6c1885635c7810a42e0c6331b194e0f"
+    },
+    {
+      "page": 286,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page286.png",
+      "bytes": 209875,
+      "sha256": "f43441dfcec62d5d0efba27cd97c6f41432c99479c9fd979b5cbbe1d35966190"
+    },
+    {
+      "page": 287,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page287.png",
+      "bytes": 198768,
+      "sha256": "2281ccdb8fbdeeccb9ad89f6fcdf31169d6f1465754f28f7c4b54a883c666f6f"
+    },
+    {
+      "page": 288,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page288.png",
+      "bytes": 187610,
+      "sha256": "9558927679c05fc7470548862c1fee588c4e07904307ce046dd83703bdf33499"
+    },
+    {
+      "page": 289,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page289.png",
+      "bytes": 188748,
+      "sha256": "3547de33691e30ecfecf93c227319e16ebae98b80dfbb49c6e6f066d0985cc0d"
+    },
+    {
+      "page": 290,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page290.png",
+      "bytes": 194737,
+      "sha256": "b41dd0d63e0a72877e64eb17f4ec4d7fbd1201ddb4a27c023f1c323245c66b64"
+    },
+    {
+      "page": 291,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page291.png",
+      "bytes": 190224,
+      "sha256": "fc87d2b1b88cd2a4076ce5effdd90053c234e6973cee45ca6948df9141027561"
+    },
+    {
+      "page": 292,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page292.png",
+      "bytes": 197821,
+      "sha256": "06bf66dc882bd6a52c14f3f1e77d3994902575b8c3e2426918c625f2ecd5402c"
+    },
+    {
+      "page": 293,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page293.png",
+      "bytes": 206276,
+      "sha256": "7388a7a81c360920e75defa8545102b5c3b07fc3c03fbaf58ea78717c4982a05"
+    },
+    {
+      "page": 294,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page294.png",
+      "bytes": 191299,
+      "sha256": "47fd31bfcfe717805efe024086b1fe482fd7516ead4b22760bc1c2f757a8b621"
+    },
+    {
+      "page": 295,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page295.png",
+      "bytes": 185318,
+      "sha256": "6caf7ebd3dbbbc42b7383c7d87a351e160cebc3e537c7bf2cf831aa543e17150"
+    },
+    {
+      "page": 296,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page296.png",
+      "bytes": 189855,
+      "sha256": "a7345111b8901022bd06706dd5cf9ba40d52ef5e2febd5e5d8253a0426401473"
+    },
+    {
+      "page": 297,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page297.png",
+      "bytes": 195062,
+      "sha256": "5ed894a69f860a8c36db1d26c44ab2fdba4cd54e6ecabe0fe7aea073519cca90"
+    },
+    {
+      "page": 298,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page298.png",
+      "bytes": 202336,
+      "sha256": "e3daad2bcfbad663fe4a38d232a90deb32f4eb30075563c0ce54954f801cc99d"
+    },
+    {
+      "page": 299,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page299.png",
+      "bytes": 194883,
+      "sha256": "22d48efa4a781b5a219e3c554f2ff681c5b7325d378cddf37cbc783694a7827b"
+    },
+    {
+      "page": 300,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page300.png",
+      "bytes": 192342,
+      "sha256": "abb999625f09d84c341063b0a8e59316299e169d2592d311c2b7cfc817d8832e"
+    },
+    {
+      "page": 301,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page301.png",
+      "bytes": 195279,
+      "sha256": "31f85f75a17381f00b0be31f96462624c354d1ff1adf421fe75b2da58791cfbf"
+    },
+    {
+      "page": 302,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page302.png",
+      "bytes": 193706,
+      "sha256": "4a44e4f74f5b3a1492c91f8104e4850675bf0931e27a3a800f4c65b7f84d43e5"
+    },
+    {
+      "page": 303,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page303.png",
+      "bytes": 201870,
+      "sha256": "ac6a01ecf3090d78173a8b80ca237e2e0032c45d10cd3bdebe7a44150c37d132"
+    },
+    {
+      "page": 304,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page304.png",
+      "bytes": 206191,
+      "sha256": "1123d5c088e59e2ba3c6cc8091e811053672f2cffcdc3ed13fc7a50357ed5280"
+    },
+    {
+      "page": 305,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page305.png",
+      "bytes": 181887,
+      "sha256": "a9499ff8edb8b8cbbc3351f7aaa2dee1f07ccb796344ed50b8561b7197b61373"
+    },
+    {
+      "page": 306,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page306.png",
+      "bytes": 187171,
+      "sha256": "ded76111726ceadf3a748f08057d95d8a79c27793c1763d97587ba37d6ae36a0"
+    },
+    {
+      "page": 307,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page307.png",
+      "bytes": 194743,
+      "sha256": "0e594cd7b577c84e2bccede65fff62c5c047502984334102f4168121ae419f88"
+    },
+    {
+      "page": 308,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page308.png",
+      "bytes": 197971,
+      "sha256": "bbe8ccdb682796fe3b099494fd3c45891ba8cfdc921e210850ddc17bfd6205a2"
+    },
+    {
+      "page": 309,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page309.png",
+      "bytes": 203070,
+      "sha256": "352a29488a383da3a6e60edd3924203eabaa92715004c4538f05acce67c9f05a"
+    },
+    {
+      "page": 310,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page310.png",
+      "bytes": 196036,
+      "sha256": "b9a77be01313c1619970954a6172869e224d5c91c3b6a710ef9f83fc74763fd8"
+    },
+    {
+      "page": 311,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page311.png",
+      "bytes": 204476,
+      "sha256": "7ba1bc1ef4646988e16d16ed54dc0d50d9b745f676c1d372dd0720b648289697"
+    },
+    {
+      "page": 312,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page312.png",
+      "bytes": 195105,
+      "sha256": "218f24381ceca2b4f4aeddf4abe53b4e7e4e0b44eb5472acc53dd3cd4aae319a"
+    },
+    {
+      "page": 313,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page313.png",
+      "bytes": 198915,
+      "sha256": "631354d51944d98b012c28a166576328ae593e37569f657024dd057e720085d6"
+    },
+    {
+      "page": 314,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page314.png",
+      "bytes": 204937,
+      "sha256": "e6302f192370f213b6d212e9ae8d3a5929ef2dabfb53254325d4fd96373cc2d8"
+    },
+    {
+      "page": 315,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page315.png",
+      "bytes": 199053,
+      "sha256": "ded150d4ee24a04263398e93d57486191282591a121e2e86a21b508a733b5e14"
+    },
+    {
+      "page": 316,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page316.png",
+      "bytes": 199517,
+      "sha256": "52dd0ea001e94ab5fdebc1ac9fd450323942f318c70329ff9733122ab13bc28a"
+    },
+    {
+      "page": 317,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page317.png",
+      "bytes": 200756,
+      "sha256": "bfbb3ea444b67bd69734b749769b70bec7424d7f8997068c1b2d7747428ad5e8"
+    },
+    {
+      "page": 318,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page318.png",
+      "bytes": 192847,
+      "sha256": "ddf76f32192d8ab2aab600742b2190212d53fdbb130bbd7e93accbc7b7e27e44"
+    },
+    {
+      "page": 319,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page319.png",
+      "bytes": 203807,
+      "sha256": "d91e9e41dbaed90345a8bb694bd9eb9dd16a0c4cbef6c630fcf96d6e2c8dfaff"
+    },
+    {
+      "page": 320,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page320.png",
+      "bytes": 197788,
+      "sha256": "dfa646747fe5bb466794b2f3ab4009d21a620cb8db2ce6fd87635df6e561185c"
+    },
+    {
+      "page": 321,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page321.png",
+      "bytes": 208939,
+      "sha256": "d177fba75be6ded7ebb538297c05dafb4a4ca88c70b15203a715382d577cad4c"
+    },
+    {
+      "page": 322,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page322.png",
+      "bytes": 198748,
+      "sha256": "c1bc706800b55e44096892d3878f5cf5fc4e7286e1eb18c0d39ae5433defbceb"
+    },
+    {
+      "page": 323,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page323.png",
+      "bytes": 208262,
+      "sha256": "f9fef94978b655068c7fdeb850915a219f3140ed3fdeb90d1b0f0412ad2857f9"
+    },
+    {
+      "page": 324,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page324.png",
+      "bytes": 200015,
+      "sha256": "086625630d085dc545ed27e5e62d39d2ed3769758abd605c13982af378d16cd2"
+    },
+    {
+      "page": 325,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page325.png",
+      "bytes": 184970,
+      "sha256": "690921deac5f6faf533166f4d65f80afcaf2fb0d8fe387bdbcf8a06e04761279"
+    },
+    {
+      "page": 326,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page326.png",
+      "bytes": 200547,
+      "sha256": "da58a4ef10190b56af79507d95e248626717022e3207b64bc864c470f9bae57b"
+    },
+    {
+      "page": 327,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page327.png",
+      "bytes": 202366,
+      "sha256": "0420ed029c79b5596777c22fc2b17da5169000bbc124c2215634266f6b4421d1"
+    },
+    {
+      "page": 328,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page328.png",
+      "bytes": 193781,
+      "sha256": "0688c5b169cf32fc9b9aac37d07f7b741cda0d5e912ce7629f0fbb4432755fd1"
+    },
+    {
+      "page": 329,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page329.png",
+      "bytes": 179375,
+      "sha256": "2b9578c117c39144b1d85c830de6ada6cf3fd5eda5c9ea2eccf48b0bc455f88e"
+    },
+    {
+      "page": 330,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page330.png",
+      "bytes": 183120,
+      "sha256": "a37f4fd6a34eab728963635cbda531ee8e134f2e67a49ae15e5197081803b4bf"
+    },
+    {
+      "page": 331,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page331.png",
+      "bytes": 199446,
+      "sha256": "5046b1776b61b166488d9a69388e1eba5a7ccdb52b585371bf13d5cf4e6119f9"
+    },
+    {
+      "page": 332,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page332.png",
+      "bytes": 179905,
+      "sha256": "1a6be2f4134e5fc1364d606881eae40fbfe2b64d514e3d227758075b6a05de5d"
+    },
+    {
+      "page": 333,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page333.png",
+      "bytes": 203767,
+      "sha256": "e7123175c5e0e782a3f0886e3f82c4130c005fdba6af1508a4a047e92db9baff"
+    },
+    {
+      "page": 334,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page334.png",
+      "bytes": 198097,
+      "sha256": "28f68f86c8997576dd428c8ae378bd1357eb0aa6cae30dba059782daf6ac0f5f"
+    },
+    {
+      "page": 335,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page335.png",
+      "bytes": 188508,
+      "sha256": "088ef2fd3a2380fd9d4f273afb6eb602f788fb3fae41413c992a8fa38ee2d064"
+    },
+    {
+      "page": 336,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page336.png",
+      "bytes": 210334,
+      "sha256": "3b8b6b3070496b7414fbcffc01232bc249193cfc479a4d9668ef5c8b1286e77b"
+    },
+    {
+      "page": 337,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page337.png",
+      "bytes": 198240,
+      "sha256": "a3d9e3b82be683509269d85c7604147739dea738098ac741c4cc107ccb406f51"
+    },
+    {
+      "page": 338,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page338.png",
+      "bytes": 204249,
+      "sha256": "fd4546e099334110bee7354d232dfe4bfbfa63fde1f2625fc51763540b86d299"
+    },
+    {
+      "page": 339,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page339.png",
+      "bytes": 192668,
+      "sha256": "75d5f1389ee9f8025cfbdbfe8b58932121e6dcab1af6f6b2a658599774c44363"
+    },
+    {
+      "page": 340,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page340.png",
+      "bytes": 198063,
+      "sha256": "55b9cac3f5bfad1fdfe3159694bf3cc31bfe35c1d1921645a5db6aa482778086"
+    },
+    {
+      "page": 341,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page341.png",
+      "bytes": 204609,
+      "sha256": "b22e332ca044c65f36763787fd421398fca853c3c98f2821a80f70ef7e7363ee"
+    },
+    {
+      "page": 342,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page342.png",
+      "bytes": 196684,
+      "sha256": "7d7842ddfc9418fe56c3027cd8a338cc124ffd791658893fa1a6b84e57820bc6"
+    },
+    {
+      "page": 343,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page343.png",
+      "bytes": 207929,
+      "sha256": "6ac8b104b95aeb02b3f454c3559c686e2c79b2d4887b33a7db8da86c027d84b1"
+    },
+    {
+      "page": 344,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page344.png",
+      "bytes": 213838,
+      "sha256": "0eabbbc73258edd4e7c2d02c92afedfa3f808e2ebab48bbc8a67cf2d9b395734"
+    },
+    {
+      "page": 345,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page345.png",
+      "bytes": 213841,
+      "sha256": "d0f74a582896e75b786d75c3432a2a739e765782986a685068edaf740695031a"
+    },
+    {
+      "page": 346,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page346.png",
+      "bytes": 218749,
+      "sha256": "cae512d165abde0d3b79fe304f8bfbba062d27e3cbdeec63e5d6c8cb0efa272b"
+    },
+    {
+      "page": 347,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page347.png",
+      "bytes": 207854,
+      "sha256": "13cb89d9b54a28b10fb31bc99f0ac63f3a2f98d4c36f071bdc370ce7008b0e0d"
+    },
+    {
+      "page": 348,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page348.png",
+      "bytes": 204323,
+      "sha256": "065015e7e753c8b39d48368aea3ec213511095008a9f294517a7ce28136e2646"
+    },
+    {
+      "page": 349,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page349.png",
+      "bytes": 217777,
+      "sha256": "6dcb1e376c2e3ad63dcf102271bf6263a938a2a826a13babd7ff5d2b53991bbf"
+    },
+    {
+      "page": 350,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page350.png",
+      "bytes": 205235,
+      "sha256": "d6e6e3c92e3653e34cf0ca9d8b7108e3b6ca254f22757fc919ae7f33f5ae2a68"
+    },
+    {
+      "page": 351,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page351.png",
+      "bytes": 210333,
+      "sha256": "da1afc271f8af56a31d09a8b8993c98c008b17add7efc8bd4559a48bec26c597"
+    },
+    {
+      "page": 352,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page352.png",
+      "bytes": 204422,
+      "sha256": "2c15afb629f661cf09e07c61ace124cdbcabc4fe2833b21f1d0b804fed76832f"
+    },
+    {
+      "page": 353,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page353.png",
+      "bytes": 193985,
+      "sha256": "157a3f7f08533c6b6eeba45562dfbab83ea487cf9cfa2a57ec0426ac6c41af14"
+    },
+    {
+      "page": 354,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page354.png",
+      "bytes": 205112,
+      "sha256": "1e923c5becfff64f5d177019eef4e1461dac920f6d97acefb8e6dfeb6f75f33f"
+    },
+    {
+      "page": 355,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page355.png",
+      "bytes": 204393,
+      "sha256": "b269858c81d57bcfdffa9d20526bb8c3f54f67d5a10db13394999f94e294be33"
+    },
+    {
+      "page": 356,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page356.png",
+      "bytes": 214530,
+      "sha256": "8d771be70d704808704373f79687e7015ff9f5634ee3a4beca01d6aa2fe08c73"
+    },
+    {
+      "page": 357,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page357.png",
+      "bytes": 200098,
+      "sha256": "bf931fcc542e99e73d7053cddc1c07e486ba4604ca0c109f360b6b2a67d51777"
+    },
+    {
+      "page": 358,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page358.png",
+      "bytes": 170956,
+      "sha256": "07af0d00b4f52b616eac8209babbb778631f0e701d19d4a4c72df41cf996cfba"
+    },
+    {
+      "page": 359,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page359.png",
+      "bytes": 196965,
+      "sha256": "7585e5eb757f523261af9141b503caee82b9533a5960fe422c3165ee6434117b"
+    },
+    {
+      "page": 360,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page360.png",
+      "bytes": 191229,
+      "sha256": "7aae8d2354e24ad7cab7804f41bf49c6a6690fc450c3d6f12082fc640e657b3a"
+    },
+    {
+      "page": 361,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page361.png",
+      "bytes": 187675,
+      "sha256": "acab92e36ff087abd7f6596857d3336a93142b5d733c54af367e30852b1e375d"
+    },
+    {
+      "page": 362,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page362.png",
+      "bytes": 202802,
+      "sha256": "9b30310197b996d2335480bb8d2c982907ba74f9c299ce5a2f81bc179dac9432"
+    },
+    {
+      "page": 363,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page363.png",
+      "bytes": 192889,
+      "sha256": "5f0e32797a2b5f85caf93aaed48efb382553f5a5896cd6d17150ffac58c59391"
+    },
+    {
+      "page": 364,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page364.png",
+      "bytes": 201090,
+      "sha256": "e8e14e9170962278fea94ec5e692baf68f2fc039a535e529a242bde71a102116"
+    },
+    {
+      "page": 365,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page365.png",
+      "bytes": 192575,
+      "sha256": "9920c7a98eea745de2bb8bfb17d8059a60e3abf7ddf8963cce2b98613e8a833f"
+    },
+    {
+      "page": 366,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page366.png",
+      "bytes": 194116,
+      "sha256": "3c322ac8b327d9f92f845768c3f536ac3ccca0646e2fbd76c492976ff4d8a411"
+    },
+    {
+      "page": 367,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page367.png",
+      "bytes": 201372,
+      "sha256": "59b1febb4e53104ffbbda811abcb06f25ddc6492e6a848ecad18bcfb386f7eed"
+    },
+    {
+      "page": 368,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page368.png",
+      "bytes": 208419,
+      "sha256": "8fb7ded58373940461945adf85f4a4c398ea3a5242957a78f7e7ee3526d580df"
+    },
+    {
+      "page": 369,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page369.png",
+      "bytes": 216973,
+      "sha256": "be76609b7153d5b1ec08a47ce732f36551b29c62ac1963b0c8b2eb0a4fe29b8f"
+    },
+    {
+      "page": 370,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page370.png",
+      "bytes": 202427,
+      "sha256": "1881cc669b25bc66d9c120adbca9026ea7eec199d08639250179fbcf3d33681e"
+    },
+    {
+      "page": 371,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page371.png",
+      "bytes": 222837,
+      "sha256": "fb9c5d33ae1023effe23b72f72553c54569437e53170e084ea25b07effad05d3"
+    },
+    {
+      "page": 372,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page372.png",
+      "bytes": 215067,
+      "sha256": "4577aedf4de8ad4fc4f02932ba3d8c11586ca9b7bc179c796b9171a901e48cf2"
+    },
+    {
+      "page": 373,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page373.png",
+      "bytes": 216440,
+      "sha256": "f1d884bc48870e8692a1450156b398556f6e76de82208e501f5b846209759c37"
+    },
+    {
+      "page": 374,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page374.png",
+      "bytes": 222585,
+      "sha256": "b6d80a6d62a151f275ae1b7dd4c6b4367e85df45bac30e11e122efcaa2c93522"
+    },
+    {
+      "page": 375,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page375.png",
+      "bytes": 215941,
+      "sha256": "9e9e30b681b56473d0e5158ec8ddd1aafd925448863c7c679e0cd109588a6582"
+    },
+    {
+      "page": 376,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page376.png",
+      "bytes": 214876,
+      "sha256": "4054436829440a52876e48c6f708a0f7246e45222e22d404ee31b0142a13150a"
+    },
+    {
+      "page": 377,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page377.png",
+      "bytes": 202236,
+      "sha256": "3ced4763090b67bb31fc9c53d82671e982bfb06e7025403c30cc432655d1b3a3"
+    },
+    {
+      "page": 378,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page378.png",
+      "bytes": 191367,
+      "sha256": "1ad633be200a09d60a5f94b9354a5da3714d9d7afcdf78d2c3bf658d2a470082"
+    },
+    {
+      "page": 379,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page379.png",
+      "bytes": 204882,
+      "sha256": "ba75c2d0f7721009ff687e27193691b206d541b3b4841e16cdd0467f28aa900c"
+    },
+    {
+      "page": 380,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page380.png",
+      "bytes": 204511,
+      "sha256": "4f16180549c426862fe5da22bcd1594f58e08d58ff114547a65a639f140584b9"
+    },
+    {
+      "page": 381,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page381.png",
+      "bytes": 188021,
+      "sha256": "0f627f5e256fd5f3631c8041d3fff994752a1c814a77d83fa22ff136a5c84d01"
+    },
+    {
+      "page": 382,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page382.png",
+      "bytes": 187669,
+      "sha256": "447e893c5cc87cb7b54b504d6c0092eac6dbe1ff10f118aa3e0221426cd38fa9"
+    },
+    {
+      "page": 383,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page383.png",
+      "bytes": 202446,
+      "sha256": "f002fd245c4e59de71b3704c363eae44c0fe5c5fddf6b0325fa7df05ff2d1603"
+    },
+    {
+      "page": 384,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page384.png",
+      "bytes": 205785,
+      "sha256": "b5417eae7cb0a51b83e2e6e7b7db7d7e9503aeaa57c21b84c4cbdd9802edbfae"
+    },
+    {
+      "page": 385,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page385.png",
+      "bytes": 196267,
+      "sha256": "802aaea488866b31c082650a236f21fa7f23d7e8b9ec126cbbdee0cdb5cbbac1"
+    },
+    {
+      "page": 386,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page386.png",
+      "bytes": 184012,
+      "sha256": "5b3a74dd2dcf41e9a5f517b9b0b476507d1bf2e6f50dca1da874ac2daae10340"
+    },
+    {
+      "page": 387,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page387.png",
+      "bytes": 195428,
+      "sha256": "4f3ab9448ad01bcc902db9466b51386bc4fb6d06a3fa3ce0ea3f6a3ec9d1dfba"
+    },
+    {
+      "page": 388,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page388.png",
+      "bytes": 183440,
+      "sha256": "65128efe8079460f2a768fcad5ef5b18ba2dbb67b8b1e8583f29cd4c9e0e4340"
+    },
+    {
+      "page": 389,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page389.png",
+      "bytes": 186409,
+      "sha256": "4ebc55c3ad30d7fc73898c06c9fae9c68f2ea1ced6e7ec6236c58f00213d6bd0"
+    },
+    {
+      "page": 390,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page390.png",
+      "bytes": 184431,
+      "sha256": "95ce3b72911072d416a967584b872e25d398058dc6218ce5b679a56863512cb4"
+    },
+    {
+      "page": 391,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page391.png",
+      "bytes": 187066,
+      "sha256": "e9d8f9ceb5af52caf02211569ec46050084d5120577ce47ffae1f92ab0930ae4"
+    },
+    {
+      "page": 392,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page392.png",
+      "bytes": 192636,
+      "sha256": "60edd54e9b5459391fd0f96261b4a0f48a292613a43a8f9cd89466873e06d649"
+    },
+    {
+      "page": 393,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page393.png",
+      "bytes": 198282,
+      "sha256": "7da01446f3d32eebe76d990e5475f247da525dc0d5a0bfc0e885b1b01888d5b3"
+    },
+    {
+      "page": 394,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page394.png",
+      "bytes": 187809,
+      "sha256": "fec30d9a7b43d9fde8e3bff637fdaadc8082dbc5812b3655313fd809b7c40837"
+    },
+    {
+      "page": 395,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page395.png",
+      "bytes": 189793,
+      "sha256": "8a83749d081a62b7657004f01e3fa48b0a988238c9f51174fe60bbd8da28df87"
+    },
+    {
+      "page": 396,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page396.png",
+      "bytes": 197862,
+      "sha256": "2fe53facbe0a8f7ccc7508db35aac6b947534a2fb5022e88447f41869fa6f209"
+    },
+    {
+      "page": 397,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page397.png",
+      "bytes": 190638,
+      "sha256": "0612e01008cbdc6ceb24c5113fc146b68bb4e8604b66cbde7b588f69b4c72807"
+    },
+    {
+      "page": 398,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page398.png",
+      "bytes": 188228,
+      "sha256": "0eb854873d25a4ecad0e41af24406564c8d2ed3f9f099503b03a5ceff7f70aaa"
+    },
+    {
+      "page": 399,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page399.png",
+      "bytes": 179553,
+      "sha256": "2276e0496d9ad603ec31ce19682bcf3548365b93576266db0503088f2d21d190"
+    },
+    {
+      "page": 400,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page400.png",
+      "bytes": 176846,
+      "sha256": "44d80fc55c8555c84abb91c75351761b61ef29f1c4aca4a420561d23c52942b7"
+    },
+    {
+      "page": 401,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page401.png",
+      "bytes": 177037,
+      "sha256": "5beef64d0587e78fc10c5a33af7c925ab8851c575cad3af1a8e7009cea863c72"
+    },
+    {
+      "page": 402,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page402.png",
+      "bytes": 182208,
+      "sha256": "c1b11680c5badb115877cec14cb4f738782e171da60c68cf2612b12d7cb812db"
+    },
+    {
+      "page": 403,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page403.png",
+      "bytes": 203646,
+      "sha256": "179c8820e21a32842f5c519f77c1f95b2e71eef3a6c017cec52615c32042b73c"
+    },
+    {
+      "page": 404,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page404.png",
+      "bytes": 195580,
+      "sha256": "92d1f8655e6a37bcbda29061a9e38395f19c45fa3768ab0fc6767bc3f517403b"
+    },
+    {
+      "page": 405,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page405.png",
+      "bytes": 196231,
+      "sha256": "fa0ebb67a64d99f0696a3466997af676b42733ceba0d8c70ade3a7e23e792d60"
+    },
+    {
+      "page": 406,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page406.png",
+      "bytes": 182504,
+      "sha256": "1f1f3541b75aea92baa1d1d8d6b51031d0c0346cb0ad9106af761f1ac17a87e9"
+    },
+    {
+      "page": 407,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page407.png",
+      "bytes": 191776,
+      "sha256": "b2b4424a8b540570123843ed64b244eb67260aaa3ab6ba5b13dd7bda810c65ef"
+    },
+    {
+      "page": 408,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page408.png",
+      "bytes": 203057,
+      "sha256": "eaa93606de1f202dea5f769fad15b56754bb5b0c3ab58b8f7cde3bfd08583ead"
+    },
+    {
+      "page": 409,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page409.png",
+      "bytes": 195848,
+      "sha256": "0f43a849ef87fd6416c1a3f81f5a60ca749181a35924575b063ba0cc568631a3"
+    },
+    {
+      "page": 410,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page410.png",
+      "bytes": 193720,
+      "sha256": "e8a9c25762e1568067dbc56aab2fdd2a26c95dd9a9eb82322ecadebf1943ca23"
+    },
+    {
+      "page": 411,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page411.png",
+      "bytes": 199597,
+      "sha256": "e7fe996d4c8c8d2486444fe4c1cfbe85bc9a6dc4909277825505df49c77f47e0"
+    },
+    {
+      "page": 412,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page412.png",
+      "bytes": 196408,
+      "sha256": "513a933a56f285376897d29fde9341493d541a5f9b373218f7049c7d68d508e5"
+    },
+    {
+      "page": 413,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page413.png",
+      "bytes": 201301,
+      "sha256": "fd95de6ff71b77d271e3a2c95f62e674934bd8d67b2bb49e03d028742eb7bbd8"
+    },
+    {
+      "page": 414,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page414.png",
+      "bytes": 206976,
+      "sha256": "22f9d0c0af45cae12bc46ce0791980d9add69ab48fc45436cc04aaa53657061a"
+    },
+    {
+      "page": 415,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page415.png",
+      "bytes": 193682,
+      "sha256": "d6b6d6246fc14f173bb088a320a506e8fd531a9dfe5e664eab5804ebce8aab67"
+    },
+    {
+      "page": 416,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page416.png",
+      "bytes": 194898,
+      "sha256": "603ac1a9471aef3493f069576ed637742f36e252a40d67379de8d09a17c3707b"
+    },
+    {
+      "page": 417,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page417.png",
+      "bytes": 203512,
+      "sha256": "00f776fdb2f7fa9dda2677f2327834feb4bc45d5dd400b74d42919ec2b3ec9c8"
+    },
+    {
+      "page": 418,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page418.png",
+      "bytes": 188580,
+      "sha256": "3ab434b8cecef3e804945583e97ea9b02b6b7fbf815672ef0b86ba766f45de9f"
+    },
+    {
+      "page": 419,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page419.png",
+      "bytes": 206706,
+      "sha256": "c853e3dc85055ca6b3e26329e5ed657751196e8ef566e01c511915bd113d24cb"
+    },
+    {
+      "page": 420,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page420.png",
+      "bytes": 208112,
+      "sha256": "24a2916022ae6ffdde6b863243946f7f7b2f45e42540404819356ed7bd0f42b8"
+    },
+    {
+      "page": 421,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page421.png",
+      "bytes": 196745,
+      "sha256": "f005365754981dd12043de7a3a27e9063cd04c3606d6a1d300bb267d9ef99fe6"
+    },
+    {
+      "page": 422,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page422.png",
+      "bytes": 183704,
+      "sha256": "9a0712458539c6f8aba6dc98e1faff2815731c10adfdcd31b0b701b194be939d"
+    },
+    {
+      "page": 423,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page423.png",
+      "bytes": 206737,
+      "sha256": "da2ee076ba814d0cca1aeb3917a11dd41d3aea710a6da8bdff4ebd751b0b1a41"
+    },
+    {
+      "page": 424,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page424.png",
+      "bytes": 192745,
+      "sha256": "c986a725cddaeb6ff14a5153e6d2255d217a65a9eca14424dce6e15d328c7ef8"
+    },
+    {
+      "page": 425,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page425.png",
+      "bytes": 188798,
+      "sha256": "45f12e17efb1215df6b9a76cda5c19f2ab23a22900526b3c24437d692fe33a97"
+    },
+    {
+      "page": 426,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page426.png",
+      "bytes": 201744,
+      "sha256": "e61ab83f54c14db0957ed285c477e1890f8ed34e367798ec2359f510ef1bab4c"
+    },
+    {
+      "page": 427,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page427.png",
+      "bytes": 208362,
+      "sha256": "bc939aebd8a05c92746d39a0821f6bc3566c312314c07b64881c2c81c85c5526"
+    },
+    {
+      "page": 428,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page428.png",
+      "bytes": 195342,
+      "sha256": "14684a311a86eefc8cf82705b8168a4563585188d17c616951151bd83c2a6b8e"
+    },
+    {
+      "page": 429,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page429.png",
+      "bytes": 198025,
+      "sha256": "40c9ecddf2db277fe61626f6e75481d2aaca4635b8ea405633a464e02b9e4a60"
+    },
+    {
+      "page": 430,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page430.png",
+      "bytes": 195907,
+      "sha256": "5b1175a039c62d39cc7d8962dd9aed2f936c94af9a519ad8403309d210dd6ded"
+    },
+    {
+      "page": 431,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page431.png",
+      "bytes": 194824,
+      "sha256": "105b908fb36310f64d19fc35c646c0aeda5f728b552ff6dca721053a09509061"
+    },
+    {
+      "page": 432,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page432.png",
+      "bytes": 201571,
+      "sha256": "b20713a256afbf7aae61660fe2d216a59f9f076234ec6109744fbef8e6f3b47f"
+    },
+    {
+      "page": 433,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page433.png",
+      "bytes": 209718,
+      "sha256": "755dfa520ab465d9b752aa38995e03f4a000d72d9e142672ad1e8477d3cb60bb"
+    },
+    {
+      "page": 434,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page434.png",
+      "bytes": 203749,
+      "sha256": "6d131d423f909ff17a298d148a42bf50d787272a7c7908b315bd71f87c4e2113"
+    },
+    {
+      "page": 435,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page435.png",
+      "bytes": 211262,
+      "sha256": "89d346dfc6fd57e9d1e1f96c46123c70d3598610931243cae53bf68c8308a9a8"
+    },
+    {
+      "page": 436,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page436.png",
+      "bytes": 194857,
+      "sha256": "e9ce5ff3186bda1ff2c26efa274aafe836ab627e0413ac59bbc1d8eaef4b81ff"
+    },
+    {
+      "page": 437,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page437.png",
+      "bytes": 203045,
+      "sha256": "58421bd92386cf3bd8478b910a2c2aac2d178b85d5250c3143b778cd4de5db63"
+    },
+    {
+      "page": 438,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page438.png",
+      "bytes": 191730,
+      "sha256": "188ff4a9faee9614c09a5617088d80502acf24b38828988dcfdeb9a04bf13658"
+    },
+    {
+      "page": 439,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page439.png",
+      "bytes": 201602,
+      "sha256": "a4efc752cdaed326b320eda0af28373f631f1140fb2157df68350aea3b22639f"
+    },
+    {
+      "page": 440,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page440.png",
+      "bytes": 194807,
+      "sha256": "c8c14d71adfd5a5a4b3f5cd868853e552e6a18f274ac0656faea1ffca6ad451d"
+    },
+    {
+      "page": 441,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page441.png",
+      "bytes": 205696,
+      "sha256": "1a15ee3340b4789d19a97f9304860350a0b93f0a37afad3fc66773055f11bf48"
+    },
+    {
+      "page": 442,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page442.png",
+      "bytes": 201093,
+      "sha256": "570aa5d4ee6466a5253983334d7060d167c32966941fad4485ca14c5d73cda5e"
+    },
+    {
+      "page": 443,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page443.png",
+      "bytes": 203168,
+      "sha256": "74bbca42cc17d87427f5bcbe44951a84f26fd91c0f8a157383b12e919b6e9b43"
+    },
+    {
+      "page": 444,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page444.png",
+      "bytes": 201728,
+      "sha256": "4f31a38f1e056ad7e6c125837c5846787e5320968a7b3c071d8d1eb21d0b9ece"
+    },
+    {
+      "page": 445,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page445.png",
+      "bytes": 206128,
+      "sha256": "94276c7cfbe5a7cf94acd4d272f9f71fa168a7c186ab2a2fc8965b9fbb7ec80b"
+    },
+    {
+      "page": 446,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page446.png",
+      "bytes": 205455,
+      "sha256": "1eaf1f38dfb45b053540eaa94373b20a9a9d57392647446dc32779e825be2a32"
+    },
+    {
+      "page": 447,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page447.png",
+      "bytes": 220840,
+      "sha256": "6775c72ec3b7f76e239f5824aad6d2a5f7195a109a51c0e9f2fb0cf7a95eb81b"
+    },
+    {
+      "page": 448,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page448.png",
+      "bytes": 213744,
+      "sha256": "2e4ca8703404f68b87e5d6596497108ef5033f932a43a02c1706d3a5695585a4"
+    },
+    {
+      "page": 449,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page449.png",
+      "bytes": 215933,
+      "sha256": "9c6a4d828f849c8f118aea0e1ef6123b9da0edd4cdcc99d6312cdac8475e433a"
+    },
+    {
+      "page": 450,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page450.png",
+      "bytes": 199318,
+      "sha256": "3d0ab8ff3be9836b8bdd00f3dacfe296425a8abccfbf236e28c7b9c1426c37ad"
+    },
+    {
+      "page": 451,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page451.png",
+      "bytes": 215117,
+      "sha256": "1831e8fea3eeabdfa284c02ae7834aac952c4e645c9ee91586b16649f40c7fa8"
+    },
+    {
+      "page": 452,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page452.png",
+      "bytes": 227336,
+      "sha256": "30ecb0a1b722f88ceef70ad2b7b9f0ef35161195a3a43db58b73a1b67c9ad080"
+    },
+    {
+      "page": 453,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page453.png",
+      "bytes": 200673,
+      "sha256": "96d8cabb1ce95fe904a58ea45afab93107eea6677c612298b1f3b710241bead6"
+    },
+    {
+      "page": 454,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page454.png",
+      "bytes": 203461,
+      "sha256": "cee12142a6b6c50ec0966c24a1e69673ddc22b5ed0fb8069808aace656b4b9dc"
+    },
+    {
+      "page": 455,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page455.png",
+      "bytes": 209959,
+      "sha256": "17bc54bbfdc398b9b940bf8fb9a1b7d33641083f3040ee0b664a867d3f4cfcea"
+    },
+    {
+      "page": 456,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page456.png",
+      "bytes": 203350,
+      "sha256": "1a2db040c7bc24cbe480c16b33dc79851aa51a7c3c8c890d176dd61043916fe5"
+    },
+    {
+      "page": 457,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page457.png",
+      "bytes": 215226,
+      "sha256": "6933df82021d9e8b98c9ec7818cc88bf18b7ca79f873f86290c2bda1e9666776"
+    },
+    {
+      "page": 458,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page458.png",
+      "bytes": 197716,
+      "sha256": "bd0724204f66df3b85c1a23adc2438988204c6d67894b9430614d0e81628ce99"
+    },
+    {
+      "page": 459,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page459.png",
+      "bytes": 198628,
+      "sha256": "3420fa219b47c4d0a3c8c614bff564f0c8b6b90e8fc80e7ab3f667230725723a"
+    },
+    {
+      "page": 460,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page460.png",
+      "bytes": 206810,
+      "sha256": "4857c9e8a736927790dacbebdda3936010fb18ec541f0b1fa7fc88792c5ba98a"
+    },
+    {
+      "page": 461,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page461.png",
+      "bytes": 199636,
+      "sha256": "14b00a4bb03b9b00bb659b30f04903ee910a14158eea5813a0d0f3c83b8478e1"
+    },
+    {
+      "page": 462,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page462.png",
+      "bytes": 190125,
+      "sha256": "f0079685184987a4ed505fc7754b50694f0849afb53eeb6cbf94a5e2aa870954"
+    },
+    {
+      "page": 463,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page463.png",
+      "bytes": 189179,
+      "sha256": "8a8d35b2da60d5c406672ef2d2bbe1e745ce775e40ceda67ef63ff51bb784607"
+    },
+    {
+      "page": 464,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page464.png",
+      "bytes": 195107,
+      "sha256": "c0d95a08855e9d77d46d2e84fbd1d0991184cea64858d5ff929f8eace232d806"
+    },
+    {
+      "page": 465,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page465.png",
+      "bytes": 192941,
+      "sha256": "6f209c542f52bd27cf63442fb318d7ccb95c0ed2584fef0a1c61dd5d70c34317"
+    },
+    {
+      "page": 466,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page466.png",
+      "bytes": 192619,
+      "sha256": "d589d445cef842e1451b2693c2bf56dfb19e9a798383ffdab7eef8a83c9d6f13"
+    },
+    {
+      "page": 467,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page467.png",
+      "bytes": 196426,
+      "sha256": "e299410d910b95decf0f3b2018f95a9a0562e19a0a75b0e8ffc6b4fb39c168b3"
+    },
+    {
+      "page": 468,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page468.png",
+      "bytes": 195382,
+      "sha256": "435bca4c31d2f54586c2c2384654d96ec99a92ca85e5bc1fbfe34001e5f036f2"
+    },
+    {
+      "page": 469,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page469.png",
+      "bytes": 194915,
+      "sha256": "6e4f6cd9e047c693b18cf58ede0b4807efa57ae4fcb1fb615c8244ecd4ef473e"
+    },
+    {
+      "page": 470,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page470.png",
+      "bytes": 196332,
+      "sha256": "3a838da8943e10ec3508eeae9c246046cde54b7dbe1fdaaff56e29aa0dc09d5e"
+    },
+    {
+      "page": 471,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page471.png",
+      "bytes": 183779,
+      "sha256": "3b8a56540911e058d40592180aa45dce03b6ccbdb53776d4122072c64f66e8dd"
+    },
+    {
+      "page": 472,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page472.png",
+      "bytes": 188730,
+      "sha256": "d6e5a782169390c6a7091cbcf5fc2093f18baa9ffb1da0634fdfc3cee1f2e97b"
+    },
+    {
+      "page": 473,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page473.png",
+      "bytes": 182863,
+      "sha256": "ab8907b8f7a662cb0cc8bcfce2709efce627889a569266652ccd89863015c4df"
+    },
+    {
+      "page": 474,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page474.png",
+      "bytes": 184682,
+      "sha256": "a946b06f6ebd65961a2e08df7f7eacc7c27977ff7391174d02b4d8b65fbcab28"
+    },
+    {
+      "page": 475,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page475.png",
+      "bytes": 198588,
+      "sha256": "f99d98300f1e5daf5fe885e5c32a3bc18cf6a2aeb89d5be2a86bac8e01f6c5b8"
+    },
+    {
+      "page": 476,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page476.png",
+      "bytes": 190540,
+      "sha256": "53ddec15f65aee72130b6a4b6e72aa41282432bd1b333268906b2f56628bda5c"
+    },
+    {
+      "page": 477,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page477.png",
+      "bytes": 204532,
+      "sha256": "b9730e112d7d3dbb79ef9a1ae643319ffdce834bb3351bbc2fa4f879fb7896ec"
+    },
+    {
+      "page": 478,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page478.png",
+      "bytes": 201509,
+      "sha256": "ee57a93ca6569b63d7f1404cb8fdb17a964a9277fc74aaa017978267c5ae9ac7"
+    },
+    {
+      "page": 479,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page479.png",
+      "bytes": 204480,
+      "sha256": "2a9c50a841b5dfe67e278153a58704a36bbeba465acbfefa504a3a6fdbe2ed3a"
+    },
+    {
+      "page": 480,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page480.png",
+      "bytes": 195000,
+      "sha256": "9b364903d5d73665ed77dc5c84672b2e11b095d6cfafa6ffa4173394beb521d7"
+    },
+    {
+      "page": 481,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page481.png",
+      "bytes": 197130,
+      "sha256": "8ae17b0af8cd2a34d376be6e8a810df3d442e6236a3143e10a020f1a41dccb06"
+    },
+    {
+      "page": 482,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page482.png",
+      "bytes": 191610,
+      "sha256": "f73458e2ba550f0ac92c1c9e2ec71896891c85540e5efa876d5824f545d2fd78"
+    },
+    {
+      "page": 483,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page483.png",
+      "bytes": 203249,
+      "sha256": "095078888806c4099982724fe1970d7c532d6f419945a590b5cfb0b8d9a62e35"
+    },
+    {
+      "page": 484,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page484.png",
+      "bytes": 194046,
+      "sha256": "dd5555c130bfa6657b24e0636a478636f0bfa5f2a3ae4664f5119348af00b5b8"
+    },
+    {
+      "page": 485,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page485.png",
+      "bytes": 184839,
+      "sha256": "65ea44bd2638f790dc51950e138141dfee33b9b520304adc8de5615099506900"
+    },
+    {
+      "page": 486,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page486.png",
+      "bytes": 196898,
+      "sha256": "eb3ea2adc2c287ca1b7fa0b028f45e2b3aba028ecf599f3bd5baa52058b78707"
+    },
+    {
+      "page": 487,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page487.png",
+      "bytes": 210538,
+      "sha256": "161247f5f813acc9f8f2e5b95ef770035174a13f7cf2b9a109b9ee5eb8384516"
+    },
+    {
+      "page": 488,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page488.png",
+      "bytes": 198512,
+      "sha256": "d0782a38608f5ef48343b0ff7e1ca858838691e3699d0cce02c0c88f4435eda5"
+    },
+    {
+      "page": 489,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page489.png",
+      "bytes": 194971,
+      "sha256": "e9967abc98f7e4762a669c97fbad86397a8365f43c1014f315bffd4249605ff3"
+    },
+    {
+      "page": 490,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page490.png",
+      "bytes": 199382,
+      "sha256": "e91b4bc3ffeb92bf1187807fb1f10f29a999ebdf514acd429bfa2014197af082"
+    },
+    {
+      "page": 491,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page491.png",
+      "bytes": 201945,
+      "sha256": "5b06022bc3d9be048c09db7802112e734adf1feb25de6b3e846e5cc54948d645"
+    },
+    {
+      "page": 492,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page492.png",
+      "bytes": 203938,
+      "sha256": "464559cd5dd103d94e91b0dcd859c79853c1a62ff790095f089c6c5965ec14aa"
+    },
+    {
+      "page": 493,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page493.png",
+      "bytes": 194812,
+      "sha256": "5e4223480009c9b09ed7e636c81134f8c3e18742187825e76bf34398591bd508"
+    },
+    {
+      "page": 494,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page494.png",
+      "bytes": 196012,
+      "sha256": "683da946f1a6502ac51b40107fee7721d41559079f96f883b5b73c0791f93d6b"
+    },
+    {
+      "page": 495,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page495.png",
+      "bytes": 203229,
+      "sha256": "d50f52392feefc68ec8d62b6bcf7e5f7f32cb934ce4c140f1bc718070627b32f"
+    },
+    {
+      "page": 496,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page496.png",
+      "bytes": 204793,
+      "sha256": "0e84177dcee9bfd016c681f77761ae7b9352b12706e38816a6998cf63c5fd7c6"
+    },
+    {
+      "page": 497,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page497.png",
+      "bytes": 212740,
+      "sha256": "ec82f17fce4d35354c30ebcd3074eac6a53db120263c9749f98c1198a9c999c6"
+    },
+    {
+      "page": 498,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page498.png",
+      "bytes": 197800,
+      "sha256": "3e692267bc5b21202f123638a741f9c45799ef577697dde0a3c911326f324d32"
+    },
+    {
+      "page": 499,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page499.png",
+      "bytes": 200126,
+      "sha256": "99550ad6ad321708cfa871e004a5adfb6726be2030e0922a538b7bf2c8570770"
+    },
+    {
+      "page": 500,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page500.png",
+      "bytes": 193901,
+      "sha256": "62240ddc2cfcc9795302b3800dfb735cf82ad22945668850a84fea19adf3ec87"
+    },
+    {
+      "page": 501,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page501.png",
+      "bytes": 208267,
+      "sha256": "f6672cef63b34c83ea2714de7892d9bc4793b2ceed521e1f11bc5ccd42f9f814"
+    },
+    {
+      "page": 502,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page502.png",
+      "bytes": 196416,
+      "sha256": "064f6aabfe2ccdfb30f1c57d4f5793413b3b6cc78846b1d99a7a88c79ac134a5"
+    },
+    {
+      "page": 503,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page503.png",
+      "bytes": 201988,
+      "sha256": "86d2ce7a7e870d84ed61f8cb02aa577b41ad9294d520412941dbddcf76adacdb"
+    },
+    {
+      "page": 504,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page504.png",
+      "bytes": 203282,
+      "sha256": "141885e69298b6bca1de1ef7df14db519f8251548bbe0e4b1614b730181a474b"
+    },
+    {
+      "page": 505,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page505.png",
+      "bytes": 200370,
+      "sha256": "54a81be648f16d27fa4afbb71adc098394103f10bbf965dbb15475ceee06bc2a"
+    },
+    {
+      "page": 506,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page506.png",
+      "bytes": 204772,
+      "sha256": "d75584fc8eb0487e06f007fc630fb06a8420f72be941485d2b0fc332907f5998"
+    },
+    {
+      "page": 507,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page507.png",
+      "bytes": 206132,
+      "sha256": "630e56700e5169498f0e20f99fa1bdaaebd2e34b1dd87c8d00e307666d69f773"
+    },
+    {
+      "page": 508,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page508.png",
+      "bytes": 211034,
+      "sha256": "0e41a34de78a6a311c6cb688962af3d5f1ebca8ecce5dd786c5e8c126eba8912"
+    },
+    {
+      "page": 509,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page509.png",
+      "bytes": 196624,
+      "sha256": "ddf969736fab17926d8a25e31cd9f46ff75395ff88da66222190d5346f318e9b"
+    },
+    {
+      "page": 510,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page510.png",
+      "bytes": 201122,
+      "sha256": "ae726addbf2d57029737a56528b8c2d4d911e30d2758ca7400f8a858a229105d"
+    },
+    {
+      "page": 511,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page511.png",
+      "bytes": 192128,
+      "sha256": "2cd3f5c2a18d5c380662137155a3692ff0cf919c3e404172a1ff0603bdb7b947"
+    },
+    {
+      "page": 512,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page512.png",
+      "bytes": 188676,
+      "sha256": "51e21cd165e70b9d6ce431b80f3e661c44602664afd5ae91d33d0b7f2b98cc67"
+    },
+    {
+      "page": 513,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page513.png",
+      "bytes": 195828,
+      "sha256": "e06bdd2a892ed3bbcd7dd21dda2fc071532f881a6fa0f110e7cbb30b8d6c8aeb"
+    },
+    {
+      "page": 514,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page514.png",
+      "bytes": 187984,
+      "sha256": "27944ac0804d7f183847e2d927cadeaab86c5514c71cd1edde4c7e99bebee6d7"
+    },
+    {
+      "page": 515,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page515.png",
+      "bytes": 197534,
+      "sha256": "dc110daa59feb242ad58fb59a35eabc84a81326d41ee9adbb1b3bd87342ee33f"
+    },
+    {
+      "page": 516,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page516.png",
+      "bytes": 205138,
+      "sha256": "fffb7a5095eb53dbb1039f436de6f167000c04cdf72492f2e66c0f4149224f2c"
+    },
+    {
+      "page": 517,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page517.png",
+      "bytes": 199667,
+      "sha256": "d92042ef1e27520bddaf4169044edbffe741adb1f866423e14d915d2cb19c46e"
+    },
+    {
+      "page": 518,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page518.png",
+      "bytes": 204776,
+      "sha256": "c4f0db1b5510e8d849ae81488dd19212cbd9ca7eec660ad4e87276e147299419"
+    },
+    {
+      "page": 519,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page519.png",
+      "bytes": 210616,
+      "sha256": "bb2e1efdee1348c9224ced2a5665b75a38c7f4ed1b530394dc07eb986ddc4fc6"
+    },
+    {
+      "page": 520,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page520.png",
+      "bytes": 198039,
+      "sha256": "809baa66465bcdfb9e35fcb9c172aa89f22df50bcd320eab2859ebe3fdbc0314"
+    },
+    {
+      "page": 521,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page521.png",
+      "bytes": 216033,
+      "sha256": "f128cd47c8143cf57610cabced7afbb1c086ecce278f24bbfafdc8326e6763b1"
+    },
+    {
+      "page": 522,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page522.png",
+      "bytes": 216465,
+      "sha256": "0002827f588f26559332dd5255c37f5b96a9c29ef5a9bda1fd37011ad2bea303"
+    },
+    {
+      "page": 523,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page523.png",
+      "bytes": 207404,
+      "sha256": "eccd8d415766c35385eae81851dba343bb4dce6dcbf692954b2749b7b4e3d709"
+    },
+    {
+      "page": 524,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page524.png",
+      "bytes": 204594,
+      "sha256": "cca85ba67e89906db915f3301748f7ed6332dc568c5a7c80112ece62c2e527c8"
+    },
+    {
+      "page": 525,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page525.png",
+      "bytes": 220109,
+      "sha256": "77618a2fc55e2716b10c6c0f2edcb31250b7a21af1d71816c90de5bbf26f6c88"
+    },
+    {
+      "page": 526,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page526.png",
+      "bytes": 203840,
+      "sha256": "b8505d35845455a53ca9c16e7c031d976c6c21a7f9c43e9b83daf0a9a23e65e7"
+    },
+    {
+      "page": 527,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page527.png",
+      "bytes": 211779,
+      "sha256": "d572cf03b75fefcf3fb804f553eb78e8527f297e315f911dc8306d8cb4d01746"
+    },
+    {
+      "page": 528,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page528.png",
+      "bytes": 212544,
+      "sha256": "cd06ab2ac8eb48fd595603b82d50404be011d03eeb30aad0f08d2e8be88bdf67"
+    },
+    {
+      "page": 529,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page529.png",
+      "bytes": 210340,
+      "sha256": "1a2054c245a41623c5a9615da284480eedc5437a10676f97b58967deeb1dbf39"
+    },
+    {
+      "page": 530,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page530.png",
+      "bytes": 211440,
+      "sha256": "cbc5df7b558480bdb3f1a514ca7e51805820c370bed8517146567f7069c2a9c7"
+    },
+    {
+      "page": 531,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page531.png",
+      "bytes": 203165,
+      "sha256": "cc2a3479903452d062d2ec2bbbbcd7a8ae6126ee3e5866e35e0d762ad95121de"
+    },
+    {
+      "page": 532,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page532.png",
+      "bytes": 214434,
+      "sha256": "b7785518039a6bd28c5c575d0b80822d43886f5e8fdeef00b090e2a9771c4aa7"
+    },
+    {
+      "page": 533,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page533.png",
+      "bytes": 210321,
+      "sha256": "527ed7e444a1a1431cee7edee9d8e2e092d2feb9176a11164ac37f0122295cb6"
+    },
+    {
+      "page": 534,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page534.png",
+      "bytes": 211194,
+      "sha256": "4fa3e868401960813571edcea8926228fe638eddff274131140fda81a1d928cb"
+    },
+    {
+      "page": 535,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page535.png",
+      "bytes": 211851,
+      "sha256": "98ccda3fdb6220ea797e8b6fbcc5e1d9a5d08dc68d6550adc2cf7e494d7f168e"
+    },
+    {
+      "page": 536,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page536.png",
+      "bytes": 216920,
+      "sha256": "70165a6f209bad9624d02041af7504c8bb78d951f3e3416091d6d6689cf77f57"
+    },
+    {
+      "page": 537,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page537.png",
+      "bytes": 213010,
+      "sha256": "4a39c563d22a7bdec6c79e32c12f1e9e976b863da105411dd8c81881d70b1d78"
+    },
+    {
+      "page": 538,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page538.png",
+      "bytes": 202360,
+      "sha256": "38b7b49facced35e1ab25b23698502455f6329e44aa8969c28a8bfb5a38cfd7d"
+    },
+    {
+      "page": 539,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page539.png",
+      "bytes": 199282,
+      "sha256": "c16fc92b0e01d067cd57d1f4df44f3304b4680d60c65f8372e78470dffed8a91"
+    },
+    {
+      "page": 540,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page540.png",
+      "bytes": 195622,
+      "sha256": "f4fcddebc3d9963b95926a2e0aa4328dd49a6d5eabadf85d122bc6beefe03aec"
+    },
+    {
+      "page": 541,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page541.png",
+      "bytes": 186353,
+      "sha256": "8a6b121ad26fa8cbc12a2e0ac6327e0904c0df342dd41c307b381a0735b0b865"
+    },
+    {
+      "page": 542,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page542.png",
+      "bytes": 196110,
+      "sha256": "c725f7450c07c912c9f4ca2427e01bed8d858c2e96c2937c37da83a37062dfe6"
+    },
+    {
+      "page": 543,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page543.png",
+      "bytes": 196867,
+      "sha256": "b2bb7dd829701eb027be113ced9342c3f1c827fae29365b11ec98d5001841ef4"
+    },
+    {
+      "page": 544,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page544.png",
+      "bytes": 209299,
+      "sha256": "cc122a0355366fb8d28e90b14dbce4b0bbab83f2d02111962ba0595a4e14d7a0"
+    },
+    {
+      "page": 545,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page545.png",
+      "bytes": 188401,
+      "sha256": "6d1b67b9e60fa97b848cb405e941db01f7926ef0dff011f19786dcf5d01e6c15"
+    },
+    {
+      "page": 546,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page546.png",
+      "bytes": 196759,
+      "sha256": "e4e303add3008def03a8080b9fa4d59ea2cd09e9a4c3f4495369dea28777dc60"
+    },
+    {
+      "page": 547,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page547.png",
+      "bytes": 191223,
+      "sha256": "efce8e0d3bbdfb62e3674f8516afad35858b7f98fa2658fb36bc8a2d3a35d013"
+    },
+    {
+      "page": 548,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page548.png",
+      "bytes": 196607,
+      "sha256": "f9202e1d73815028c23380a8e60f61cfb02f89ebdde3fe667dfd7bf59e832e32"
+    },
+    {
+      "page": 549,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page549.png",
+      "bytes": 196220,
+      "sha256": "ae54a43616fd915a71c4750c7b0da4bc4644de6c6f0f4369e289853d3f29a734"
+    },
+    {
+      "page": 550,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page550.png",
+      "bytes": 210297,
+      "sha256": "6096b23dcc5a59fb6d3affe0cfafee9b1e1efef438225635ee63bf50fa8e1838"
+    },
+    {
+      "page": 551,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page551.png",
+      "bytes": 194979,
+      "sha256": "b444adcd562df13087d32d3be86b026974f9e9d6f58a2785ccf2e0f4f9115d63"
+    },
+    {
+      "page": 552,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page552.png",
+      "bytes": 219737,
+      "sha256": "6fb656dae99ead5a0a955c45c3b29e9f89484d4f91c045d5f9d2ab795cdc78b0"
+    },
+    {
+      "page": 553,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page553.png",
+      "bytes": 201528,
+      "sha256": "19a17aecfd3182d9f9b61f84f8e71a99135e94d54216074273d949949abff3d6"
+    },
+    {
+      "page": 554,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page554.png",
+      "bytes": 212319,
+      "sha256": "773da4bdca3ac2750a580cb9d3ff43f20986cef919971ceeb08754ba44df5830"
+    },
+    {
+      "page": 555,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page555.png",
+      "bytes": 204171,
+      "sha256": "0ac32d70cc7464535fcb0384397aafe2552f370e7fe050fdba32577a038b11e9"
+    },
+    {
+      "page": 556,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page556.png",
+      "bytes": 204760,
+      "sha256": "6948da6acf691163d8188d372069877b06c63a3e7929399963586445ceea158b"
+    },
+    {
+      "page": 557,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page557.png",
+      "bytes": 200447,
+      "sha256": "ebd11931b85202b6dfcc322060b05a320bfc9ec2e976ca0045ac512a2c848596"
+    },
+    {
+      "page": 558,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page558.png",
+      "bytes": 193397,
+      "sha256": "085308b5c0d7cc563bae4b01a1c6ee8572737ef514800920dfa916594db9f5cb"
+    },
+    {
+      "page": 559,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page559.png",
+      "bytes": 207609,
+      "sha256": "877b2a58e5d4df1d805a2b3f6c007b2d0aeaedf4e0cca4588d8d05c38724c07f"
+    },
+    {
+      "page": 560,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page560.png",
+      "bytes": 203692,
+      "sha256": "eab9a4fb7c66e6f944f87acbd7c0a05273d7a0ddfd96d1ae136e74a1b1af0b4e"
+    },
+    {
+      "page": 561,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page561.png",
+      "bytes": 179022,
+      "sha256": "d4ae0076d05712caf1ef4cbfe50da4ce3bebadc325cb810bd3a59bc10fc0158d"
+    },
+    {
+      "page": 562,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page562.png",
+      "bytes": 210422,
+      "sha256": "52347a16db78a3f3ab37dc9d03b0448872d3c62b188b3940c35c0c5d4f8eb017"
+    },
+    {
+      "page": 563,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page563.png",
+      "bytes": 206047,
+      "sha256": "8834890a5d2d45bf175c7bccfe750c1a32a4cba65c0f72a99b74f97e44a71211"
+    },
+    {
+      "page": 564,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page564.png",
+      "bytes": 199111,
+      "sha256": "6c9acb716c1d2096fc92f9a0ba183c9b172968cbbbce99194e5d86e4ed53a0a1"
+    },
+    {
+      "page": 565,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page565.png",
+      "bytes": 212239,
+      "sha256": "aaa2d3f9c6f5f52bcbe905244e3cccf169d6a9b605a898c04ebb4d398ee2c5a9"
+    },
+    {
+      "page": 566,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page566.png",
+      "bytes": 205664,
+      "sha256": "c3aebdab51f4bde3f9e5f1f5696291d10ffb1570af7b92dbddaaf3a9411debd5"
+    },
+    {
+      "page": 567,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page567.png",
+      "bytes": 210488,
+      "sha256": "a04349a0822e10df1713bffe4244bceb11e81b9ef886e27dc46061df791607ac"
+    },
+    {
+      "page": 568,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page568.png",
+      "bytes": 211894,
+      "sha256": "5cdbb38f2758b8578d5d7465c56f440d712922d5970747dfcc8dc784c7815d2f"
+    },
+    {
+      "page": 569,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page569.png",
+      "bytes": 219594,
+      "sha256": "a155a20854ed7abf14fea8c90ce6892195e52f63f5ac5ff9846e4e0d262fcdb7"
+    },
+    {
+      "page": 570,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page570.png",
+      "bytes": 204917,
+      "sha256": "739eecd6e4af57de3eaa0e353a251648ae80204105d772e86aa0fba963376f18"
+    },
+    {
+      "page": 571,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page571.png",
+      "bytes": 209039,
+      "sha256": "eca45647bc16499af5b524bbd8ad4c771ef796664f4de802f127bb6d651a717f"
+    },
+    {
+      "page": 572,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page572.png",
+      "bytes": 203484,
+      "sha256": "615ce6984f49a771063fab90d8790393bda06c01dcd91c03173b9d7344990273"
+    },
+    {
+      "page": 573,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page573.png",
+      "bytes": 207827,
+      "sha256": "c28165e23874a7c6e4b3fdb06d1409fa0412f823bac112ee6b9ad2a79b1d5df9"
+    },
+    {
+      "page": 574,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page574.png",
+      "bytes": 211297,
+      "sha256": "2702f66f6443f93d954ba9d6efa9402f7059cb87be60bf6e2eee35aa7f3511b4"
+    },
+    {
+      "page": 575,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page575.png",
+      "bytes": 202671,
+      "sha256": "73899e430dede9219f64cb7356890d2294a56fd621d0f3bc2df952625e059676"
+    },
+    {
+      "page": 576,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page576.png",
+      "bytes": 217632,
+      "sha256": "1aa37e1427e57646622ef615046983e02173b52a0681c81d404b0d7be65f7054"
+    },
+    {
+      "page": 577,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page577.png",
+      "bytes": 205032,
+      "sha256": "55e11074b4dabc8460707170cf74c5c5cdaf0192338c76f2bc37f17547390e30"
+    },
+    {
+      "page": 578,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page578.png",
+      "bytes": 215471,
+      "sha256": "2741def2784fdcc826a19120eb953cd46bdd9a6c5f606648eee48c740988cdf5"
+    },
+    {
+      "page": 579,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page579.png",
+      "bytes": 210834,
+      "sha256": "44ac390d4a022d5db4b82ca24d375b55a9defea9c6b5f1a8b1fe43594abb0c19"
+    },
+    {
+      "page": 580,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page580.png",
+      "bytes": 205660,
+      "sha256": "7efae3622177d2c77564ab7ed6d60da217695329f5a05cc7b2d1f6ea6eb579c6"
+    },
+    {
+      "page": 581,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page581.png",
+      "bytes": 214074,
+      "sha256": "eb082fd30162e83f2bcd2d7d918fd3ba6538237190fd6df920c45855acf6af58"
+    },
+    {
+      "page": 582,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page582.png",
+      "bytes": 200654,
+      "sha256": "793a34ee496409eaa0a621499f8cd07fd856573510898ca92f2a56f9f85955db"
+    },
+    {
+      "page": 583,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page583.png",
+      "bytes": 208334,
+      "sha256": "62dc6b44e4ffe67c1e144033586156aeee9837f2ad12fbe36b0c326109d96296"
+    },
+    {
+      "page": 584,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page584.png",
+      "bytes": 229272,
+      "sha256": "5258751268c9d289ee9f59a36155f2cf3951e7eaf19ec57d743c5d41b1ee0dfc"
+    },
+    {
+      "page": 585,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page585.png",
+      "bytes": 210805,
+      "sha256": "c1be68a9a3871a1acd5886593a34ec77ccffcc09b5af0f56553c8a1a6b97571c"
+    },
+    {
+      "page": 586,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page586.png",
+      "bytes": 216230,
+      "sha256": "df7c8f8e1652aba8a96ab46fa21cb3463daa20be7092361bc90c1515dc9d0cdc"
+    },
+    {
+      "page": 587,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page587.png",
+      "bytes": 205056,
+      "sha256": "7e180cb1319e93a0343de134f4d5bcf59664e09372d09aa0a5159e667013883d"
+    },
+    {
+      "page": 588,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page588.png",
+      "bytes": 219323,
+      "sha256": "d915a161a635752332a04931360e4ce5777aaa3fb05067954ddc4235df082933"
+    },
+    {
+      "page": 589,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page589.png",
+      "bytes": 211185,
+      "sha256": "7e4923134fe4d00e7acdbb0e0f76d42efaa08fad41d3117e51512e3e4b838f47"
+    },
+    {
+      "page": 590,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page590.png",
+      "bytes": 212788,
+      "sha256": "303a03fbcba883144613528897099c84ed34937e298ccafbcdc9e8d4eab09a90"
+    },
+    {
+      "page": 591,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page591.png",
+      "bytes": 210258,
+      "sha256": "db28bca57c70146b2f5b5775a0affae26cbb635edecfb79c6a50c84fb5aead0f"
+    },
+    {
+      "page": 592,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page592.png",
+      "bytes": 213662,
+      "sha256": "f4f7326295afd644f16d222fd56d16a7b55379e2708afb742f7410a041859204"
+    },
+    {
+      "page": 593,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page593.png",
+      "bytes": 205193,
+      "sha256": "fd61728bbb9e87e4c1c090cc44954ce4d5254628b6325b1a6e9c9c0cfb04858e"
+    },
+    {
+      "page": 594,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page594.png",
+      "bytes": 217678,
+      "sha256": "9199388f4e3240cfcbfcf0055931a93a50beaa7812dde45817765eefaefdd7e9"
+    },
+    {
+      "page": 595,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page595.png",
+      "bytes": 207386,
+      "sha256": "7aaa9f59182f706160a496ce601742827dae4124f49f350ecbddf7af760e52f4"
+    },
+    {
+      "page": 596,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page596.png",
+      "bytes": 208376,
+      "sha256": "ef880e85bec98805a87a9b109a9491f1cc9081893fbd74826b2a196516387fb0"
+    },
+    {
+      "page": 597,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page597.png",
+      "bytes": 320894,
+      "sha256": "f8fc8e911819eb433ebb14078ea110dccb13e101f605ac668317c574c7d234eb"
+    },
+    {
+      "page": 598,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page598.png",
+      "bytes": 299055,
+      "sha256": "3515191db21f536f38e2a2b7f37a6440adbcaede48cade332ac9a89cc742c284"
+    },
+    {
+      "page": 599,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page599.png",
+      "bytes": 196903,
+      "sha256": "c081160ed64a642cb41e3306e8ad6d9f688edfe095033bd2afa4a669cc8618e1"
+    },
+    {
+      "page": 600,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page600.png",
+      "bytes": 190997,
+      "sha256": "3cdbb5399e09647f3fd70d7e1abe270ba3aa1d374188a4e7b12ed3448eb42ff2"
+    },
+    {
+      "page": 601,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page601.png",
+      "bytes": 201273,
+      "sha256": "8e395c41cd3b10578371581b59990fc1f0b4aeecad42dfb4b167bdbc3411241f"
+    },
+    {
+      "page": 602,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page602.png",
+      "bytes": 179899,
+      "sha256": "5d3df85b9fcbc977980c833f8dfb43306d89eb0df184a4f32ce17c27aff39cea"
+    },
+    {
+      "page": 603,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page603.png",
+      "bytes": 188707,
+      "sha256": "88d68a253088f6a677484c64a12c7f5412e271db252a85994d651cd43013057c"
+    },
+    {
+      "page": 604,
+      "url": "https://raw.githubusercontent.com/quran/quran-ios/422ece54cee15d474654dc11466f8e2f0e39c3e6/Example/QuranEngineApp/Resources/hafs_1405/images_1920/width_1920/page604.png",
+      "bytes": 175034,
+      "sha256": "c51ec580262f36462739dcf9413c74038321bb10864bc044014326c5b82a2b98"
+    }
+  ],
+  "imageBytes": 118203707
+}

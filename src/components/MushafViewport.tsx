@@ -18,7 +18,7 @@ import {
 } from "../lib/mushafFit";
 import { MUSHAF_ZOOM_FIT } from "../lib/devicePreferences";
 
-interface MushafViewportProps {
+export interface MushafViewportProps {
   children: ReactNode;
   layout: MushafPageLayout;
   zoomPercent: number;
@@ -26,6 +26,8 @@ interface MushafViewportProps {
   overlay?: ReactNode;
   forceStableStage?: boolean;
   forceCompactPages?: boolean;
+  pageAspectRatio?: number;
+  navigationBlockSize?: number;
 }
 
 type MushafViewportStyle = CSSProperties & {
@@ -67,6 +69,8 @@ export function MushafViewport({
   overlay,
   forceStableStage = false,
   forceCompactPages = false,
+  pageAspectRatio,
+  navigationBlockSize,
 }: MushafViewportProps) {
   const frameRef = useRef<HTMLDivElement>(null);
   const viewportCenterRef = useRef({ inline: 0.5, block: 0.5 });
@@ -101,6 +105,8 @@ export function MushafViewport({
           frameInlineSize: frame.clientWidth,
           frameBlockSize: frame.clientHeight,
           layout,
+          pageAspectRatio,
+          navigationBlockSize,
         });
         setFrameInlineSize(frame.clientWidth);
         setFitInlineSize((current) => (current === next ? current : next));
@@ -122,7 +128,7 @@ export function MushafViewport({
       window.cancelAnimationFrame(animationFrame);
       observer.disconnect();
     };
-  }, [layout, stableStage]);
+  }, [layout, stableStage, pageAspectRatio, navigationBlockSize]);
 
   const renderedInlineSize = computeMushafRenderedInlineSize(
     fitInlineSize,
@@ -132,12 +138,13 @@ export function MushafViewport({
     fitInlineSize,
     layout,
     zoomPercent,
+    pageAspectRatio,
   );
   const renderScale = stableStage ? zoomPercent / 100 : 1;
   const compactPages = forceCompactPages || !stableStage;
-  const stageBlockSize = renderedBlockSize + (
+  const stageBlockSize = renderedBlockSize + (navigationBlockSize ?? (
     layout === "spread" ? MUSHAF_SPREAD_NAV_BLOCK_SIZE : 0
-  );
+  ));
   const coachGutter = Math.max(0, (frameInlineSize - renderedInlineSize) / 2);
   const style: MushafViewportStyle = {
     "--page-zoom": zoomPercent / 100,

@@ -14,6 +14,8 @@ export interface SWState {
   precacheTotal: number;
   /** A new worker controls the page and can be applied with a deliberate reload */
   updateReady: boolean;
+  /** A verified update waits until all old app windows are closed. */
+  waitingForClose: boolean;
 }
 
 let _state: SWState = {
@@ -22,6 +24,7 @@ let _state: SWState = {
   precacheCount: 0,
   precacheTotal: 0,
   updateReady: false,
+  waitingForClose: false,
 };
 
 const _listeners = new Set<(s: SWState) => void>();
@@ -84,7 +87,7 @@ export async function registerServiceWorker(): Promise<void> {
 
     const updateState = () => {
       const sw = registration.active || registration.waiting || registration.installing;
-      _state = { ..._state, active: !!sw };
+      _state = { ..._state, active: !!sw, waitingForClose: Boolean(registration.waiting) };
       emit();
     };
 
@@ -92,6 +95,10 @@ export async function registerServiceWorker(): Promise<void> {
       const newWorker = registration.installing;
       if (!newWorker) return;
       newWorker.addEventListener("statechange", () => {
+        if (newWorker.state === "installed" && registration.active) {
+          _state = { ..._state, waitingForClose: true };
+          emit();
+        }
         if (newWorker.state === "activated") {
           _state = { ..._state, active: true };
           emit();

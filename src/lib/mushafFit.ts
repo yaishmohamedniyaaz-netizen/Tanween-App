@@ -14,13 +14,14 @@ export const MUSHAF_SPREAD_NAV_BLOCK_SIZE = 40;
 export function computeMushafComposedBlockSize(
   inlineSize: number,
   layout: MushafPageLayout,
+  pageAspectRatio = MUSHAF_PAGE_ASPECT_RATIO,
 ): number {
   if (!Number.isFinite(inlineSize) || inlineSize <= 0) return 0;
   const pageInlineSize = layout === "spread"
     ? (inlineSize - MUSHAF_SPREAD_GAP) / 2
     : inlineSize;
   if (pageInlineSize <= 0) return 0;
-  return pageInlineSize / MUSHAF_PAGE_ASPECT_RATIO;
+  return pageInlineSize / pageAspectRatio;
 }
 
 export interface MushafFitInput {
@@ -28,6 +29,8 @@ export interface MushafFitInput {
   frameBlockSize: number;
   layout: MushafPageLayout;
   inset?: number;
+  pageAspectRatio?: number;
+  navigationBlockSize?: number;
 }
 
 export function computeMushafFitInlineSize({
@@ -35,6 +38,8 @@ export function computeMushafFitInlineSize({
   frameBlockSize,
   layout,
   inset,
+  pageAspectRatio = MUSHAF_PAGE_ASPECT_RATIO,
+  navigationBlockSize,
 }: MushafFitInput): number {
   const resolvedInset = inset ?? (
     layout === "spread" ? MUSHAF_SPREAD_FRAME_INSET : MUSHAF_FRAME_INSET
@@ -45,15 +50,16 @@ export function computeMushafFitInlineSize({
     !Number.isFinite(resolvedInset) ||
     frameInlineSize <= 0 ||
     frameBlockSize <= 0 ||
-    resolvedInset < 0
+    resolvedInset < 0 || !Number.isFinite(pageAspectRatio) || pageAspectRatio <= 0 ||
+    (navigationBlockSize !== undefined && (!Number.isFinite(navigationBlockSize) || navigationBlockSize < 0))
   ) {
     return 0;
   }
 
   const availableInlineSize = frameInlineSize - resolvedInset * 2;
-  const reservedBlockSize = layout === "spread"
+  const reservedBlockSize = navigationBlockSize ?? (layout === "spread"
     ? MUSHAF_SPREAD_NAV_BLOCK_SIZE
-    : 0;
+    : 0);
   const availableBlockSize = frameBlockSize - resolvedInset * 2 - reservedBlockSize;
   if (availableInlineSize <= 0 || availableBlockSize <= 0) return 0;
 
@@ -61,8 +67,8 @@ export function computeMushafFitInlineSize({
     ? MUSHAF_PAGE_MAX_INLINE_SIZE * 2 + MUSHAF_SPREAD_GAP
     : MUSHAF_PAGE_MAX_INLINE_SIZE;
   const heightLimitedInlineSize = layout === "spread"
-    ? availableBlockSize * MUSHAF_PAGE_ASPECT_RATIO * 2 + MUSHAF_SPREAD_GAP
-    : availableBlockSize * MUSHAF_PAGE_ASPECT_RATIO;
+    ? availableBlockSize * pageAspectRatio * 2 + MUSHAF_SPREAD_GAP
+    : availableBlockSize * pageAspectRatio;
   return Math.max(
     0,
     Math.floor(
@@ -91,11 +97,13 @@ export function computeMushafRenderedBlockSize(
   fitInlineSize: number,
   layout: MushafPageLayout,
   zoomPercent: number,
+  pageAspectRatio = MUSHAF_PAGE_ASPECT_RATIO,
 ): number {
   if (!Number.isFinite(fitInlineSize) || fitInlineSize <= 0) return 0;
   const composedBlockSize = computeMushafComposedBlockSize(
     fitInlineSize,
     layout,
+    pageAspectRatio,
   );
   const normalizedZoom = normalizeMushafZoom(
     zoomPercent,

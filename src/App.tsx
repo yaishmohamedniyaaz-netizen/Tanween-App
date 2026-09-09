@@ -7,6 +7,8 @@ import { createPortal } from "react-dom";
 import { Header, type AppView } from "./components/Header";
 import { Mushaf } from "./components/Mushaf";
 import { MushafViewport } from "./components/MushafViewport";
+import { ConnectedFixedMushaf, FixedMushafViewport } from "./components/ConnectedFixedMushaf";
+import { fixedMushafReviewEnabled } from "./lib/fixedMushafReview";
 import { ScorePanel } from "./components/ScorePanel";
 import { MistakeLog } from "./components/MistakeLog";
 import { MobileJudgeDeck } from "./components/MobileJudgeDeck";
@@ -57,6 +59,9 @@ const LS_PAGE_KEY = "tahqeeq:lastPage";
 const LS_QUESTION_PAGE_KEY = "tahqeeq:questionOpenedFor";
 
 export function App() {
+  const [fixedReview] = useState(fixedMushafReviewEnabled);
+  const PageViewport = fixedReview ? FixedMushafViewport : MushafViewport;
+  const PageRenderer = fixedReview ? ConnectedFixedMushaf : Mushaf;
   const { state, dispatch } = useJudging();
   const offlineMushaf = useOfflineMushaf();
   const [view, setView] = useState<AppView>("judge");
@@ -278,7 +283,7 @@ export function App() {
           key="judge"
         >
           <div className="stage">
-            <MushafViewport
+            <PageViewport
               layout={preferences.mushafLayout}
               zoomPercent={preferences.mushafZoom}
               contentKey={`${page}:${preferences.mushafLayout}`}
@@ -290,7 +295,7 @@ export function App() {
                 />
               }
             >
-              <Mushaf
+              <PageRenderer
                 selectorTashkeel={preferences.selectorTashkeel}
                 page={page}
                 pageLayout={preferences.mushafLayout}
@@ -301,6 +306,7 @@ export function App() {
                 headerControls={(visiblePages, compact) => (
                   <>
                     <PageNav
+                      prefetchFonts={!fixedReview}
                       page={page}
                       visiblePages={visiblePages}
                       layout={preferences.mushafLayout}
@@ -340,7 +346,7 @@ export function App() {
                   </>
                 )}
               />
-            </MushafViewport>
+            </PageViewport>
           </div>
           <aside className="sidebar">
             {state.preparedRecitation ? (

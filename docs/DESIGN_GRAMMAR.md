@@ -25,6 +25,15 @@ has navigated outside the selected passage; appearing or disappearing must not
 move the page selector or change the row's height. The spread uses a compact
 4px outer rhythm around that row; the single-page marginalia remains untouched.
 
+For the fixed-artwork integration (now the local app default), the accepted
+replacement places that one compact selector separately above the pages, with
+minimal spacing and no repeated page labels. Fit reserves its top row. This
+supersedes the earlier bottom placement at the owner's request on September 10.
+The score rail keeps its existing home; mobile return-to-question retains its
+existing mobile control location. This replaces the historical top-row arrangement
+above. The legacy renderer remains available through `fixedMushaf=0` for rollback
+checks. Public release is separate from local default activation.
+
 **Fails this rule:** a screen where the explanation is larger than the thing
 being explained. The setup review carries 248 words to convey nine facts.
 

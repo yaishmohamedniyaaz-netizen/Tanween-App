@@ -1,5 +1,6 @@
 import { readdir, readFile, writeFile } from "node:fs/promises";
 import { relative, resolve, sep } from "node:path";
+import { createHash } from "node:crypto";
 
 export const BUILD_PRECACHE_MARKER =
   "/* __TAHQEEQ_BUILD_PRECACHE__ */ []";
@@ -40,10 +41,27 @@ export async function injectBuildPrecache(distDir) {
   }
 
   const urls = await collectBuildPrecacheUrls(distDir);
-  const injected = source.replace(
+  let injected = source.replace(
     BUILD_PRECACHE_MARKER,
     JSON.stringify(urls, null, 2),
   );
+  if (source.includes("/* __TAHQEEQ_FIXED_PACKAGE__ */ null")) {
+    const descriptor = JSON.parse(await readFile(new URL('../src/data/fixedMushafPackage.json', import.meta.url), 'utf8'));
+    const manifest = JSON.parse(await readFile(resolve(distDir, descriptor.manifest.url.slice(1)), 'utf8'));
+    const core = manifest.pages.find(page => page.page === 604);
+    if (!core) throw new Error('Missing core artwork page');
+    const shellHashes = {};
+    for (const url of urls) {
+      const bytes = await readFile(resolve(distDir, url === '/' ? 'index.html' : url.slice(1)));
+      shellHashes[url] = createHash('sha256').update(bytes).digest('hex');
+    }
+    injected = injected.replace("/* __TAHQEEQ_FIXED_PACKAGE__ */ null", JSON.stringify({
+      version: descriptor.version, shellHashes, core: [descriptor.manifest, core.image, core.geometry, core.semantic],
+    }));
+    const buildId = createHash('sha256').update(source).update(JSON.stringify(urls)).update(descriptor.version)
+      .update(await readFile(resolve(distDir, 'index.html'))).digest('hex').slice(0, 12);
+    injected = injected.replace('const APP_CACHE_VERSION = "app-v30";', `const APP_CACHE_VERSION = "app-v30-${buildId}";`);
+  }
   await writeFile(workerPath, injected);
   return urls;
 }

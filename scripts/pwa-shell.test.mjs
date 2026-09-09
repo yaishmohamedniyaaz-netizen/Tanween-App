@@ -174,7 +174,7 @@ test("service-worker updates never reload an active recitation automatically", (
 });
 
 test("the worker precaches a generated application shell and scopes cache cleanup", () => {
-  assert.match(workerSource, /const APP_CACHE_VERSION = "app-v29"/);
+  assert.match(workerSource, /const APP_CACHE_VERSION = "app-v30"/);
   assert.match(workerSource, /__TAHQEEQ_BUILD_PRECACHE__/);
   assert.match(workerSource, /"\/manifest\.webmanifest"/);
   assert.match(workerSource, /"\/icons\/tahqeeq-maskable-512\.png"/);
@@ -183,8 +183,9 @@ test("the worker precaches a generated application shell and scopes cache cleanu
   assert.match(workerSource, /cache\.match\("\/"\)/);
   assert.match(workerSource, /cache\.match\(request, \{ ignoreVary: true \}\)/);
   assert.match(workerSource, /key\.startsWith\("tahqeeq-static-"\)/);
-  assert.match(workerSource, /key\.startsWith\("tahqeeq-mushaf-pages-"\)/);
-  assert.match(workerSource, /key\.startsWith\("tahqeeq-mushaf-fonts-"\)/);
+  assert.match(workerSource, /priorShells\.slice\(0, -1\)/);
+  assert.doesNotMatch(workerSource, /self\.skipWaiting\(/);
+  assert.match(workerSource, /VERIFY_OFFLINE_SHELL/);
   assert.doesNotMatch(
     workerSource,
     /key\.startsWith\("tahqeeq-"\) && key !== STATIC_CACHE/,

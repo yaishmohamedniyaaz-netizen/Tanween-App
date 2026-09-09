@@ -96,7 +96,7 @@ export function MushafWord({
   );
 }
 
-interface MushafPageSurfaceProps extends Omit<
+export interface MushafPageSurfaceProps extends Omit<
   HTMLAttributes<HTMLDivElement>,
   "children" | "className"
 > {

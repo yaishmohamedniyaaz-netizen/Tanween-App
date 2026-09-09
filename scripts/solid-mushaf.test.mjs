@@ -208,7 +208,8 @@ test("compact live controls expose 44px targets without enlarging their visual s
 
 test("desktop Fit is owned by a measured frame instead of another viewport guess", () => {
   assert.match(appSource, /className=\{`app view-\$\{view\}`\}/);
-  assert.match(appSource, /<MushafViewport/);
+  assert.match(appSource, /const PageViewport = fixedReview \? FixedMushafViewport : MushafViewport/);
+  assert.match(appSource, /<PageViewport/);
   assert.match(mushafViewportSource, /new ResizeObserver\(measure\)/);
   assert.match(mushafViewportSource, /frame\.clientWidth/);
   assert.match(mushafViewportSource, /frame\.clientHeight/);

@@ -67,8 +67,8 @@ test("ordinary shell releases retain current Mushaf data and font caches", () =>
   );
   assert.match(workerSource, /cacheFirst\(request, MUSHAF_PAGE_CACHE\)/);
   assert.match(workerSource, /cacheFirst\(request, MUSHAF_FONT_CACHE\)/);
-  assert.match(workerSource, /stalePages[\s\S]*key !== MUSHAF_PAGE_CACHE/);
-  assert.match(workerSource, /staleFonts[\s\S]*key !== MUSHAF_FONT_CACHE/);
+  assert.doesNotMatch(workerSource, /caches\.delete\(MUSHAF_(PAGE|FONT)_CACHE\)/);
+  assert.doesNotMatch(workerSource, /self\.skipWaiting\(/);
 });
 
 test("intent prefetch and judging protection stay attached to existing navigation", () => {
@@ -80,10 +80,8 @@ test("intent prefetch and judging protection stay attached to existing navigatio
   assert.match(appSource, /pauseOfflineMushafDownload\(\)/);
 });
 
-test("an accepted installed-app package resumes only from real saved progress", () => {
-  assert.match(promptSource, /handled === "downloaded"/);
-  assert.match(promptSource, /offline\.phase === "available"/);
-  assert.match(promptSource, /offline\.readyPages > 1/);
+test("installed-app download is explicit and displays the measured artwork size", () => {
+  assert.doesNotMatch(promptSource, /handled === "downloaded"/);
   assert.match(promptSource, /void startOfflineMushafDownload\(\)/);
-  assert.match(promptSource, /The download is about 48 MB/);
+  assert.match(promptSource, /OFFLINE_MUSHAF_SIZE_LABEL/);
 });

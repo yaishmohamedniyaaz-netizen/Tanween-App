@@ -58,6 +58,8 @@ import {
   type RangePageDisplay,
 } from "../lib/recitationRangeLayout.ts";
 import { MushafPageSurface, MushafWord } from "./MushafPageSurface.tsx";
+import { FixedMushafPageSurface } from "./FixedMushafPageSurface.tsx";
+import { assertFixedPageMatches, type FixedPageGeometry } from "../lib/fixedMushafGeometry.ts";
 import { wordTotalCircle, wordFindingCounts, type MarkerRect } from "../lib/wordFindingSummary";
 import { invalidateMushafMetrics, measureMushafGlyph, mushafPageScale, pickMushafWord } from "../lib/mushafGeometry.ts";
 
@@ -119,7 +121,10 @@ function dominant(mistakes: Mistake[]): CategoryId {
   ).category;
 }
 
-interface MushafProps {
+export interface MushafProps {
+  /** Explicit integration preview; absence retains the existing renderer. */
+  fixedPages?: ReadonlyMap<number, FixedPageGeometry>;
+  fixedSemanticPages?: ReadonlyMap<number, MushafPage>;
   selectorTashkeel?: boolean;
   page: number;
   pageLayout: MushafLayout;
@@ -141,6 +146,8 @@ interface ContextShadeBox {
 }
 
 export function Mushaf({
+  fixedPages,
+  fixedSemanticPages,
   selectorTashkeel = false,
   page: currentPage,
   pageLayout,
@@ -223,9 +230,14 @@ export function Mushaf({
     Promise.all(
       requestedPages.map(async (page) => {
         const [data, fontLoaded] = await Promise.all([
-          loadPage(page),
-          loadQcfPageFont(page).then(() => true),
+          fixedSemanticPages ? Promise.resolve(fixedSemanticPages.get(page)!) : loadPage(page),
+          fixedPages ? Promise.resolve(true) : loadQcfPageFont(page).then(() => true),
         ]);
+        if (fixedPages) {
+          const fixed = fixedPages.get(page);
+          if (!fixed) throw new Error("Fixed page is not included in this preview");
+          assertFixedPageMatches(fixed, data);
+        }
         return { data, fontLoaded };
       }),
     )
@@ -243,10 +255,11 @@ export function Mushaf({
     return () => {
       cancelled = true;
     };
-  }, [loadAttempt, requestKey]);
+  }, [loadAttempt, requestKey, fixedPages, fixedSemanticPages]);
 
   // Warm both neighboring views so the next pair swaps atomically from cache.
   useEffect(() => {
+    if (fixedPages) return;
     const neighborAnchors = [
       moveMushafView(currentPage, pageLayout, -1, compact),
       moveMushafView(currentPage, pageLayout, 1, compact),
@@ -254,10 +267,10 @@ export function Mushaf({
     for (const anchor of neighborAnchors) {
       for (const page of visibleMushafPages(anchor, pageLayout, compact)) {
         preloadPage(page);
-        preloadQcfPageFont(page);
+        if (!fixedPages) preloadQcfPageFont(page);
       }
     }
-  }, [compact, currentPage, pageLayout]);
+  }, [compact, currentPage, pageLayout, fixedPages]);
 
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
@@ -314,7 +327,7 @@ export function Mushaf({
         const ayah = ayahValue === "b" ? null : Number(ayahValue);
         const style = getComputedStyle(wordElement);
         const fontSize = parseFloat(style.fontSize);
-        const metric = measureMushafGlyph(wordElement.firstChild?.textContent ?? "", style.fontFamily, fontSize);
+        const metric = fixedPages ? null : measureMushafGlyph(wordElement.firstChild?.textContent ?? "", style.fontFamily, fontSize);
         const baseline = wordElement.querySelector(".m-word-baseline")?.getBoundingClientRect().top;
         const ink = metric && baseline !== undefined ? {
           // One reference pixel also covers antialiasing beyond font metrics.
@@ -341,10 +354,10 @@ export function Mushaf({
             fullGlyph: unit.fullGlyph,
           })),
           ...ink,
-          hx: ink.x - HIT_PAD_X,
-          hy: ink.y - HIT_PAD_Y,
-          hw: ink.w + HIT_PAD_X * 2,
-          hh: ink.h + HIT_PAD_Y * 2,
+          hx: ink.x - (fixedPages ? 0 : HIT_PAD_X),
+          hy: ink.y - (fixedPages ? 0 : HIT_PAD_Y),
+          hw: ink.w + (fixedPages ? 0 : HIT_PAD_X * 2),
+          hh: ink.h + (fixedPages ? 0 : HIT_PAD_Y * 2),
         });
       });
 
@@ -361,6 +374,16 @@ export function Mushaf({
             .map((wordId) => elementsByWordId.get(wordId)?.getBoundingClientRect())
             .filter((rect): rect is DOMRect => Boolean(rect?.width && rect?.height));
           if (!rects.length) continue;
+          if (fixedPages) {
+            rects.forEach((rect, index) => nextShadeBoxes.push({
+              id: `${segment.id}:${index}`, page: page.page,
+              ayahLabel: `${segment.surah}:${segment.ayah ?? "b"}`,
+              x: rect.left - linesRect.left + 1.5 * scale,
+              y: rect.top - linesRect.top,
+              w: Math.max(0, rect.width - 3 * scale), h: rect.height,
+            }));
+            continue;
+          }
           const left = Math.min(...rects.map((rect) => rect.left));
           const right = Math.max(...rects.map((rect) => rect.right));
           const top = Math.min(...rects.map((rect) => rect.top));
@@ -381,7 +404,7 @@ export function Mushaf({
     setBoxes(next);
     setShadeBoxes(nextShadeBoxes);
     setBoxesKey(pageData.map(({ page }) => page).join(":"));
-  }, [pageData, questionDisplays, questionFocusMode]);
+  }, [pageData, questionDisplays, questionFocusMode, fixedPages]);
 
   // Wait until every page in the spread has applied its layout before reading
   // the shared stage. Otherwise the first page can retain pre-fit coordinates.
@@ -495,6 +518,17 @@ export function Mushaf({
   useEffect(() => closeAll(), [closeAll, currentPage, pageLayout, renderScale]);
 
   useEffect(() => {
+    if (!fixedPages || !active) return;
+    const onScroll = (event: Event) => {
+      // Scrolling inside the letter tray is its own interaction.
+      if (event.target instanceof Element && event.target.closest("[role='dialog']")) return;
+      closeAll();
+    };
+    window.addEventListener("scroll", onScroll, true);
+    return () => window.removeEventListener("scroll", onScroll, true);
+  }, [fixedPages, active, closeAll]);
+
+  useEffect(() => {
     if (!active) return;
     const onKey = (event: KeyboardEvent) => {
       if (!event.defaultPrevented && event.key === "Escape") closeAll();
@@ -547,6 +581,8 @@ export function Mushaf({
 
   const onPointerDown = (event: React.PointerEvent, page: number) => {
     if (!judgingEnabled) return;
+    if (fixedPages && requestKey !== pageData.map(data => data.page).join(":")) return;
+    if (fixedPages && (!event.isPrimary || startRef.current)) { closeAll(); return; }
     if (startRef.current) return;
     // Navigation lives inside the page frame. Its pointer events must never
     // fall through to a kalimah underneath the popover.
@@ -564,7 +600,10 @@ export function Mushaf({
       return marker && pointX >= marker.x && pointX <= marker.x + marker.w &&
         pointY >= marker.y && pointY <= marker.y + marker.h;
     });
-    const box = numberedWord ?? pickMushafWord(boxes.filter(box => box.page === page), pointX, pointY);
+    const pageBoxes = boxes.filter(box => box.page === page);
+    const box = numberedWord ?? (fixedPages
+      ? pageBoxes.find(box => pointX >= box.x && pointX < box.x + box.w && pointY >= box.y && pointY < box.y + box.h)
+      : pickMushafWord(pageBoxes, pointX, pointY));
 
     if (!box) {
       if (pinned) closeAll();
@@ -572,7 +611,7 @@ export function Mushaf({
     }
     if (!box.units.length) return;
 
-    event.preventDefault();
+    if (!fixedPages || event.pointerType !== "touch") event.preventDefault();
     const target = root.querySelector<HTMLElement>(
       `.hit[data-word-hit="${CSS.escape(box.wid)}"]`,
     );
@@ -670,6 +709,7 @@ export function Mushaf({
     box: WordHitbox,
   ) => {
     if (!judgingEnabled) return;
+    if (fixedPages && requestKey !== pageData.map(data => data.page).join(":")) return;
     if (event.key !== "Enter" && event.key !== " ") return;
     event.preventDefault();
     event.stopPropagation();
@@ -744,6 +784,9 @@ export function Mushaf({
   }, [boxes, byTid, state.activeAssignment?.judgeSeatId, allowedCountKey]);
   const readyKey = pageData.map(({ page }) => page).join(":");
   const renderPage = (data: MushafPage) => {
+    const fixed = fixedPages?.get(data.page);
+    if (fixedPages && !fixed) return <div key={data.page} role="status">Loading matching page…</div>;
+    const Surface = fixed ? FixedMushafPageSurface : MushafPageSurface;
     const qcfReady = fontReadyPages.has(data.page);
     const root = rootForPage(data.page);
     const pageScale = root ? mushafPageScale(root) : 1;
@@ -776,7 +819,7 @@ export function Mushaf({
         <MushafWord
           key={word.wid}
           word={word}
-          qcfReady={qcfReady}
+          qcfReady={fixed ? false : qcfReady}
           className={`${isContextWord ? "question-context-word" : ""} ${isTilawaWord ? "tilawa-word-active" : ""}`}
         >
         </MushafWord>
@@ -784,7 +827,8 @@ export function Mushaf({
     };
 
     return (
-      <MushafPageSurface
+      <Surface
+        fixed={fixed!}
         key={data.page}
         data={data}
         qcfReady={qcfReady}
@@ -811,10 +855,10 @@ export function Mushaf({
               className="question-context-band"
               data-context-ayah={box.ayahLabel}
               style={{
-                left: local(box.x) - 3,
-                top: local(box.y) - 2,
-                width: local(box.w) + 6,
-                height: local(box.h) + 4,
+                left: local(box.x) - (fixed ? 0 : 3),
+                top: local(box.y) - (fixed ? 0 : 2),
+                width: local(box.w) + (fixed ? 0 : 6),
+                height: local(box.h) + (fixed ? 0 : 4),
               }}
               aria-hidden="true"
             />
@@ -902,7 +946,7 @@ export function Mushaf({
     : requestedPages;
 
   return (
-    <div className={`mushaf-scroll ${renderedPages.length > 1 ? "is-spread" : "is-single"}`}>
+    <div className={`mushaf-scroll ${fixedPages ? "has-fixed-pages" : ""} ${renderedPages.length > 1 ? "is-spread" : "is-single"}`}>
       <div className="mushaf-shared-nav">
         {headerControls(renderedPageNumbers, compact)}
       </div>

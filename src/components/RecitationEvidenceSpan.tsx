@@ -24,6 +24,10 @@ import { rangeDisplayForPage } from "../lib/recitationRangeLayout.ts";
 import type { RecitationRangeSnapshot } from "../types.ts";
 import { MushafPageSurface, MushafWord } from "./MushafPageSurface.tsx";
 import type { ReplayWord } from "../lib/recitationReplay.ts";
+import { fixedMushafReviewEnabled } from "../lib/fixedMushafReview";
+import { fixedMushafLoader, useFixedMushafPages } from "../hooks/useFixedMushafPages";
+import { FixedMushafPageSurface } from "./FixedMushafPageSurface";
+import { useFixedCompactPages } from "./ConnectedFixedMushaf";
 
 type LoadState =
   | { status: "loading" }
@@ -65,22 +69,30 @@ export function RecitationEvidenceSpan({
 }) {
   const [loadState, setLoadState] = useState<LoadState>({ status: "loading" });
   const [activePageIndex, setActivePageIndex] = useState(0);
+  const [fixedReview] = useState(fixedMushafReviewEnabled);
+  const compact = useFixedCompactPages();
+  const rangePages = pageNumbers(range);
+  const visibleFixedPages = fixedReview && loadState.status === "ready"
+    ? (!compact && rangePages.length === 2 ? rangePages : [rangePages[Math.min(activePageIndex, rangePages.length - 1)]])
+    : [];
+  const fixed = useFixedMushafPages(visibleFixedPages);
   const wordRefs = useRef(new Map<string, HTMLButtonElement>());
 
   useEffect(() => setActivePageIndex(0), [range]);
 
   useEffect(() => {
     let cancelled = false;
+    const abort = new AbortController();
     setLoadState({ status: "loading" });
     onWordIdsReady?.(null);
     onReplayWordsReady?.([]);
     const pages = pageNumbers(range);
     Promise.all([
       loadQuestionIndex(),
-      Promise.all(pages.map((page) => loadPage(page))),
+      Promise.all(pages.map((page) => fixedReview ? fixedMushafLoader.text(page, abort.signal) : loadPage(page))),
       Promise.all(
         pages.map((page) =>
-          loadQcfPageFont(page)
+          (fixedReview ? Promise.resolve() : loadQcfPageFont(page))
             .then(() => page)
             .catch(() => null),
         ),
@@ -139,8 +151,9 @@ export function RecitationEvidenceSpan({
       });
     return () => {
       cancelled = true;
+      abort.abort();
     };
-  }, [onWordIdsReady, onReplayWordsReady, range]);
+  }, [onWordIdsReady, onReplayWordsReady, range, fixedReview]);
 
   useEffect(() => {
     if (!replayWordId || loadState.status !== "ready") return;
@@ -177,15 +190,21 @@ export function RecitationEvidenceSpan({
           )
         )
       : -1;
-    if (pageIndex >= 0 && pageIndex !== activePageIndex) {
+    if (pageIndex >= 0) {
       setActivePageIndex(pageIndex);
     }
-    requestAnimationFrame(() => {
+  }, [activeMistakeKey, focusActiveWord, loadState, mistakes]);
+
+  useEffect(() => {
+    if (!activeMistakeKey || !focusActiveWord || loadState.status !== "ready") return;
+    const frame = requestAnimationFrame(() => {
       const target = wordRefs.current.get(activeMistakeKey);
+      if (!target || !target.getClientRects().length) return;
       target?.scrollIntoView({ behavior: "smooth", block: "center" });
       target?.focus({ preventScroll: true });
     });
-  }, [activeMistakeKey, activePageIndex, focusActiveWord, loadState, mistakes]);
+    return () => cancelAnimationFrame(frame);
+  }, [activeMistakeKey, activePageIndex, focusActiveWord, loadState, mistakes, fixed.pages]);
 
   if (loadState.status === "loading") {
     return (
@@ -204,7 +223,7 @@ export function RecitationEvidenceSpan({
   }
 
   return (
-    <div className="recitation-evidence-span" aria-label="Recorded recitation span">
+    <div className={`recitation-evidence-span ${fixedReview ? "fixed-evidence-span" : ""}`} aria-label="Recorded recitation span">
       {loadState.pages.length > 1 && (
         <nav className="recitation-evidence-pager" aria-label="Recorded Quran pages">
           <button
@@ -228,6 +247,10 @@ export function RecitationEvidenceSpan({
           </button>
         </nav>
       )}
+      {fixedReview && !fixed.pages && <div className="recitation-evidence-state" role={fixed.error ? "alert" : "status"}>
+        {fixed.error || "Loading recorded Mushaf…"}
+        {fixed.error && <button type="button" onClick={fixed.retry}>Retry</button>}
+      </div>}
       <div
         className={`recitation-evidence-pages mushaf-composition ${
           loadState.pages.length === 1
@@ -239,10 +262,12 @@ export function RecitationEvidenceSpan({
         data-active-page={loadState.pages[activePageIndex]?.page}
       >
         {loadState.pages.map((page, pageIndex) => {
+          const geometry = fixedReview ? fixed.pages?.get(page.page) : undefined;
+          if (fixedReview && !geometry) return null;
           const display = rangeDisplayForPage(page, range);
           if (!display) return null;
           const selectedIds = display.selectedWordIds;
-          const qcfReady = loadState.fontPages.has(page.page);
+          const qcfReady = !fixedReview && loadState.fontPages.has(page.page);
 
           const renderWord = (word: PageWord) => {
             const inRange = word.role === "ornament" || selectedIds.has(word.wid);
@@ -301,29 +326,26 @@ export function RecitationEvidenceSpan({
             );
           };
 
-          return (
-            <MushafPageSurface
-              key={page.page}
-              data={page}
-              qcfReady={qcfReady}
-              className={`recitation-evidence-page ${pageIndex === activePageIndex ? "is-active" : ""}`}
-              role="group"
-              aria-label={`Recorded Quran page ${page.page}`}
-              data-question-focus-mode="fade"
-              lineClassName={(line) => {
+          const surfaceProps = {
+              data: page,
+              qcfReady,
+              className: `recitation-evidence-page ${pageIndex === activePageIndex ? "is-active" : ""}`,
+              role: "group" as const,
+              "aria-label": `Recorded Quran page ${page.page}`,
+              "data-question-focus-mode": "fade",
+              lineClassName: (line: MushafPage["lines"][number]) => {
                 const state = display.lineStates.get(line.n);
-                return state === "context"
-                  ? "question-context-line evidence-context-line"
-                  : state === "mixed"
-                    ? "question-mixed-line"
-                    : "";
-              }}
-              renderWord={(word) => renderWord(word)}
-            />
-          );
+                return state === "context" ? "question-context-line evidence-context-line"
+                  : state === "mixed" ? "question-mixed-line" : "";
+              },
+              renderWord: (word: PageWord) => renderWord(word),
+          };
+          return geometry
+            ? <FixedMushafPageSurface key={page.page} {...surfaceProps} fixed={geometry} />
+            : <MushafPageSurface key={page.page} {...surfaceProps} />;
         })}
       </div>
-      {loadState.fontPages.size !== loadState.pages.length && (
+      {!fixedReview && loadState.fontPages.size !== loadState.pages.length && (
         <p className="recitation-font-note">
           Exact page font unavailable; showing verified Quran text fallback.
         </p>

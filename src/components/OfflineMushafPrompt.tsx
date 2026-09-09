@@ -3,6 +3,7 @@ import { useOfflineMushaf } from "../hooks/useOfflineMushaf";
 import { usePwaInstall } from "../hooks/usePwaInstall";
 import {
   OFFLINE_MUSHAF_PACKAGE_VERSION,
+  OFFLINE_MUSHAF_SIZE_LABEL,
   startOfflineMushafDownload,
 } from "../lib/offlineMushaf";
 
@@ -17,16 +18,6 @@ export function OfflineMushafPrompt({ suppressed }: { suppressed: boolean }) {
 
   useEffect(() => {
     const handled = localStorage.getItem(promptKey);
-    if (
-      !suppressed &&
-      standalone &&
-      handled === "downloaded" &&
-      offline.phase === "available" &&
-      offline.readyPages > 1
-    ) {
-      void startOfflineMushafDownload();
-      return;
-    }
     if (
       suppressed ||
       !standalone ||
@@ -86,7 +77,7 @@ export function OfflineMushafPrompt({ suppressed }: { suppressed: boolean }) {
       </h2>
       <p className="dialog-sub" id="offline-mushaf-description">
         Download all 604 pages for faster page and surah jumps, even offline.
-        The download is about 48 MB.
+        The page download is about {OFFLINE_MUSHAF_SIZE_LABEL}, plus the app files.
       </p>
       <p className="offline-mushaf-note">Keep Tahqeeq open while it prepares. If interrupted, it resumes from the pages already saved.</p>
       <div className="dialog-actions">

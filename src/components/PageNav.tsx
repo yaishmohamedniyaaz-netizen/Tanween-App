@@ -14,6 +14,7 @@ interface PageNavProps {
   layout: MushafLayout;
   compact: boolean;
   onChange: (page: number) => void;
+  prefetchFonts?: boolean;
 }
 
 export function PageNav({
@@ -22,6 +23,7 @@ export function PageNav({
   layout,
   compact,
   onChange,
+  prefetchFonts = true,
 }: PageNavProps) {
   const [popoverOpen, setPopoverOpen] = useState(false);
   const [jumpInput, setJumpInput] = useState("");
@@ -32,10 +34,11 @@ export function PageNav({
   const intentPrefetchTimerRef = useRef<number | null>(null);
   const rangeLabel = mushafPageRangeLabel(visiblePages);
   const prefetchTarget = useCallback((targetPage: number) => {
+    if (!prefetchFonts) return;
     if (!Number.isInteger(targetPage) || targetPage < 1 || targetPage > 604) return;
     preloadPage(targetPage);
     preloadQcfPageFont(targetPage);
-  }, []);
+  }, [prefetchFonts]);
   const cancelIntentPrefetch = useCallback(() => {
     if (intentPrefetchTimerRef.current !== null) {
       window.clearTimeout(intentPrefetchTimerRef.current);

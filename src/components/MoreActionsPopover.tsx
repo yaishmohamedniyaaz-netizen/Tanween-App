@@ -12,6 +12,7 @@ import {
   pauseOfflineMushafDownload,
   removeOfflineMushafDownload,
   startOfflineMushafDownload,
+  OFFLINE_MUSHAF_SIZE_LABEL,
 } from "../lib/offlineMushaf";
 import type {
   AduRaaguInputMode,
@@ -437,7 +438,7 @@ export function MoreActionsPopover({
                       ? "Checking saved pages…"
                       : offlineMushaf.phase === "error"
                         ? offlineMushaf.error
-                        : `${offlineMushaf.readyPages} of ${offlineMushaf.totalPages} pages · about 48 MB`}
+                        : `${offlineMushaf.readyPages} of ${offlineMushaf.totalPages} pages · about ${OFFLINE_MUSHAF_SIZE_LABEL}`}
                 </small>
                 {offlineMushaf.phase === "downloading" && (
                   <span
@@ -463,6 +464,7 @@ export function MoreActionsPopover({
               </span>
               <button
                 type="button"
+                disabled={state.sessionActive}
                 onClick={() => {
                   if (window.confirm("Remove the downloaded Mushaf from this device?")) {
                     void removeOfflineMushafDownload();
@@ -473,7 +475,13 @@ export function MoreActionsPopover({
               </button>
             </div>
           )}
-          {serviceWorker.updateReady && state.sessionActive && (
+          {serviceWorker.waitingForClose && (
+            <div className="overflow-system-status" role="status">
+              <Icon name="refresh" size={16} />
+              <span><strong>Update ready</strong><small>After judging, close all Tahqeeq windows and reopen.</small></span>
+            </div>
+          )}
+          {!serviceWorker.waitingForClose && serviceWorker.updateReady && state.sessionActive && (
             <div className="overflow-system-status" role="status">
               <Icon name="refresh" size={16} />
               <span>
@@ -482,7 +490,7 @@ export function MoreActionsPopover({
               </span>
             </div>
           )}
-          {serviceWorker.updateReady && !state.sessionActive && (
+          {!serviceWorker.waitingForClose && serviceWorker.updateReady && !state.sessionActive && (
             <button
               type="button"
               className="overflow-item"
