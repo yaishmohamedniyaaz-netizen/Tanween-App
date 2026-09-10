@@ -162,6 +162,9 @@ Mobile fixed-Mushaf exception: in portrait prepared/live judging, the shared
 page selector sits below the paper with a 44px hit area. Desktop and landscape
 retain navigation above it. Compact only added paper margins, never the
 religious artwork; fit the entire page and label constrained zoom honestly.
+In that portrait scope, 100% Fit means the largest complete page after reserving
+the deliberate top gap and navigation touch row, not the old layout's base size.
+Retain the phone's safe area when removing decorative dock padding.
 
 When proposing a screen, state which rules it keeps and which it bends, and
 why. A bend needs a reason in one sentence; a rule broken silently is a bug.
