@@ -44,6 +44,10 @@
 }
 .fixed-page-frame .page-fixed-mushaf .glyph-ink.marked::before { inset-inline: 1.5px; border-radius: 3px; }
 .page-fixed-mushaf, .page-fixed-mushaf .hit { touch-action: pan-y; }
+/* Declare ownership before pointerdown. Changing touch-action after a hold is too late.
+   Non-word margins can still pan in landscape; a second touch cancels selection. */
+.app.view-judge .page-fixed-mushaf .hit { touch-action: pinch-zoom; }
+.app.view-judge .page-fixed-mushaf { touch-action: pan-y pinch-zoom; }
 .app.view-judge .mushaf-shell .mushaf-scroll.has-fixed-pages {
   display: flex; flex-direction: column; justify-content: flex-end; align-items: center; gap: 8px;
 }
@@ -68,4 +72,29 @@
 @media (max-width: 900px) {
   .app.view-judge .has-fixed-pages .page-nav-btn::before { inset: 10px; }
   .app.view-judge .has-fixed-pages .page-nav-page::before { inset: 10px 2px; }
+}
+
+@media (max-width: 600px) and (orientation: portrait) {
+  .app:is([data-mobile-judge-deck="true"], [data-mobile-prepared="true"]):has([data-mobile-paper="true"]) {
+    --mobile-judge-dock-space: calc(106px + var(--mobile-judge-safe-bottom));
+  }
+  .app:is([data-mobile-judge-deck="true"], [data-mobile-prepared="true"]):has([data-mobile-paper="true"]) .stage {
+    padding-inline: 4px;
+  }
+  .app[data-mobile-judge-deck="true"]:has([data-mobile-paper="true"]) .mobile-judge-deck {
+    padding-bottom: calc(4px + var(--mobile-judge-safe-bottom));
+  }
+  .app[data-mobile-prepared="true"]:has([data-mobile-paper="true"]) .sidebar {
+    padding-bottom: calc(4px + var(--mobile-judge-safe-bottom));
+  }
+  .app.view-judge .mushaf-shell[data-stage-fit="ready"][data-mobile-paper="true"] {
+    overflow: hidden;
+  }
+  .app.view-judge .mushaf-shell[data-stage-fit="ready"][data-mobile-paper="true"] .mushaf-scroll.has-fixed-pages {
+    width: 100%; height: 100%; padding: 4px 0; gap: 4px;
+    justify-content: center;
+  }
+  .app.view-judge .mushaf-shell[data-stage-fit="ready"][data-mobile-paper="true"] .mushaf-scroll.has-fixed-pages:is(.is-single,.is-spread) > .mushaf-shared-nav {
+    order: 1; min-height: 44px; height: 44px; flex-shrink: 0;
+  }
 }

@@ -516,6 +516,10 @@ export function Mushaf({
 
   // A tray never survives navigation or a structural page-layout change.
   useEffect(() => closeAll(), [closeAll, currentPage, pageLayout, renderScale]);
+  useEffect(() => {
+    window.addEventListener('resize', closeAll);
+    return () => window.removeEventListener('resize', closeAll);
+  }, [closeAll]);
 
   useEffect(() => {
     if (!fixedPages || !active) return;
@@ -611,7 +615,8 @@ export function Mushaf({
     }
     if (!box.units.length) return;
 
-    if (!fixedPages || event.pointerType !== "touch") event.preventDefault();
+    // The word owns a one-finger gesture; pinch remains browser-controlled.
+    if (event.cancelable) event.preventDefault();
     const target = root.querySelector<HTMLElement>(
       `.hit[data-word-hit="${CSS.escape(box.wid)}"]`,
     );

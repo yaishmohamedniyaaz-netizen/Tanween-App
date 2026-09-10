@@ -11,15 +11,17 @@ interface MushafSizeControlProps {
   value: number;
   onChange: (value: number) => void;
   inputRef?: RefObject<HTMLInputElement>;
+  constrained?: boolean;
 }
 
 export function MushafSizeControl({
   value,
   onChange,
   inputRef,
+  constrained = false,
 }: MushafSizeControlProps) {
   const atFit = value === MUSHAF_ZOOM_FIT;
-  const valueText = atFit ? "Fit, 100 percent" : `${value} percent`;
+  const valueText = constrained ? `Fit to screen, ${value} percent requested` : atFit ? "Fit, 100 percent" : `${value} percent`;
   const setBoundedValue = (next: number) => {
     onChange(Math.min(MUSHAF_ZOOM_MAX, Math.max(MUSHAF_ZOOM_MIN, next)));
   };
@@ -28,7 +30,7 @@ export function MushafSizeControl({
     <section className="more-view-controls" aria-labelledby="mushaf-size-label">
       <div className="more-view-controls-head">
         <span id="mushaf-size-label">Mushaf size</span>
-        <strong className="t-num">{atFit ? "100% · Fit" : `${value}%`}</strong>
+        <strong className="t-num">{constrained ? `${value}% · Fitted` : atFit ? "100% · Fit" : `${value}%`}</strong>
       </div>
       <div className="mushaf-size-row">
         <button

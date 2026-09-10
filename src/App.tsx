@@ -54,6 +54,7 @@ import {
 } from "./lib/devicePreferences";
 
 const LS_PAGE_KEY = "tahqeeq:lastPage";
+import { MOBILE_MUSHAF_QUERY, MOBILE_MUSHAF_DEFAULT_ZOOM } from './lib/mobileMushafPresentation';
 // Records the session and question the Mushaf was last opened for, so the
 // opening page is restored once per reciter rather than on every render.
 const LS_QUESTION_PAGE_KEY = "tahqeeq:questionOpenedFor";
@@ -80,8 +81,16 @@ export function App() {
   const showTilawaPrototype = new URLSearchParams(window.location.search)
     .get("tilawaPrototype") === "1";
   const [preferences, setPreferences] = useState<DevicePreferencesV5>(() =>
-    readDevicePreferences(),
+    readDevicePreferences(undefined, fixedReview && window.matchMedia(MOBILE_MUSHAF_QUERY).matches ? MOBILE_MUSHAF_DEFAULT_ZOOM : 100),
   );
+  const [mobilePortrait, setMobilePortrait] = useState(() => window.matchMedia(MOBILE_MUSHAF_QUERY).matches);
+  const [zoomConstrained, setZoomConstrained] = useState(false);
+  useEffect(() => {
+    const media = window.matchMedia(MOBILE_MUSHAF_QUERY);
+    const update = () => setMobilePortrait(media.matches);
+    media.addEventListener('change', update);
+    return () => media.removeEventListener('change', update);
+  }, []);
   const [mobileJudgeDeckOn] = useState(() =>
     mobileJudgeDeckEnabled(window.location.search),
   );
@@ -192,6 +201,7 @@ export function App() {
     mobileJudgeDeckOn && view === "judge" && state.sessionActive;
   const mobilePreparedActive =
     mobileJudgeDeckOn && view === "judge" && Boolean(state.preparedRecitation);
+  const mobilePaper = fixedReview && mobilePortrait && (mobileJudgeDeckActive || mobilePreparedActive);
 
   const finishRecitation = async () => {
     await Promise.race([
@@ -237,6 +247,7 @@ export function App() {
           }
         }}
         mushafZoom={preferences.mushafZoom}
+        mushafZoomConstrained={mobilePaper && zoomConstrained}
         onMushafZoomChange={(mushafZoom) => updatePreferences({ mushafZoom })}
         mushafLayout={preferences.mushafLayout}
         onMushafLayoutChange={(mushafLayout) => updatePreferences({ mushafLayout })}
@@ -286,6 +297,8 @@ export function App() {
             <PageViewport
               layout={preferences.mushafLayout}
               zoomPercent={preferences.mushafZoom}
+              mobilePresentation={mobilePaper}
+              onZoomConstrained={setZoomConstrained}
               contentKey={`${page}:${preferences.mushafLayout}`}
               overlay={
                 <MarkingCoachTip

@@ -125,14 +125,14 @@ export function normalizeDevicePreferences(
   };
 }
 
-function legacyPreferences(storage: Storage): DevicePreferencesV5 {
+function legacyPreferences(storage: Storage, fallback = DEFAULT_DEVICE_PREFERENCES): DevicePreferencesV5 {
   const legacyZoom = storage.getItem(LEGACY_PAGE_ZOOM_KEY);
   return normalizeDevicePreferences({
     theme: storage.getItem(LEGACY_THEME_KEY),
     mushafLayout: storage.getItem(LEGACY_PAGE_LAYOUT_KEY),
     mushafZoom: legacyZoom === null ? undefined : Number(legacyZoom),
     judgeRailSide: storage.getItem(LEGACY_JUDGE_RAIL_SIDE_KEY),
-  });
+  }, fallback);
 }
 
 function readStoredPreferences(
@@ -148,10 +148,11 @@ function readStoredPreferences(
   }
 }
 
-export function readDevicePreferences(storage?: Storage | null): DevicePreferencesV5 {
+export function readDevicePreferences(storage?: Storage | null, defaultZoom = MUSHAF_ZOOM_DEFAULT): DevicePreferencesV5 {
   const target = storageOrNull(storage);
-  if (!target) return { ...DEFAULT_DEVICE_PREFERENCES };
-  const legacy = legacyPreferences(target);
+  const fallback = { ...DEFAULT_DEVICE_PREFERENCES, mushafZoom: normalizeMushafZoom(defaultZoom) };
+  if (!target) return fallback;
+  const legacy = legacyPreferences(target, fallback);
   const migratedV1 = readStoredPreferences(
     target,
     LEGACY_DEVICE_PREFERENCES_KEY,

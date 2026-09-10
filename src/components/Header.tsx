@@ -29,6 +29,7 @@ interface Props {
   onOpenSettings: () => void;
   onChangeReciter: () => void;
   mushafZoom: number;
+  mushafZoomConstrained?: boolean;
   onMushafZoomChange: (value: number) => void;
   mushafLayout: MushafLayout;
   onMushafLayoutChange: (value: MushafLayout) => void;
@@ -70,6 +71,7 @@ export function Header({
   onOpenSettings,
   onChangeReciter,
   mushafZoom,
+  mushafZoomConstrained,
   onMushafZoomChange,
   mushafLayout,
   onMushafLayoutChange,
@@ -266,6 +268,7 @@ export function Header({
       <MoreActionsPopover
         view={view}
         mushafZoom={mushafZoom}
+        mushafZoomConstrained={mushafZoomConstrained}
         onMushafZoomChange={onMushafZoomChange}
         mushafLayout={mushafLayout}
         onMushafLayoutChange={onMushafLayoutChange}

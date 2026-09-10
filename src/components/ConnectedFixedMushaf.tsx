@@ -4,6 +4,7 @@ import { MushafViewport, useCompactMushafPages, type MushafViewportProps } from 
 import { FIXED_PAGE_ASPECT_RATIO } from './FixedMushafPageSurface';
 import { visibleMushafPages } from '../lib/mushafSpread';
 import { useFixedMushafPages } from '../hooks/useFixedMushafPages';
+import { fixedPaperPresentation } from '../lib/mobileMushafPresentation';
 
 export function useFixedCompactPages() {
   const [compact, setCompact] = useState(() => window.matchMedia('(max-width: 900px)').matches);
@@ -20,7 +21,8 @@ export function FixedMushafViewport(props: MushafViewportProps) {
   const compact = useFixedCompactPages();
   return <MushafViewport {...props} layout={compact ? 'full' : props.layout}
     forceStableStage forceCompactPages={compact}
-    pageAspectRatio={FIXED_PAGE_ASPECT_RATIO} navigationBlockSize={44} />;
+    pageAspectRatio={props.mobilePresentation ? fixedPaperPresentation(true).aspectRatio : FIXED_PAGE_ASPECT_RATIO}
+    navigationBlockSize={props.mobilePresentation ? 48 : 44} />;
 }
 
 export function ConnectedFixedMushaf(props: MushafProps) {

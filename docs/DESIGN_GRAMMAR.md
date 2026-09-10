@@ -158,6 +158,11 @@ target is: **the whole setup flow fits 1024×768 with no page scroll.**
 
 ## How to use this
 
+Mobile fixed-Mushaf exception: in portrait prepared/live judging, the shared
+page selector sits below the paper with a 44px hit area. Desktop and landscape
+retain navigation above it. Compact only added paper margins, never the
+religious artwork; fit the entire page and label constrained zoom honestly.
+
 When proposing a screen, state which rules it keeps and which it bends, and
 why. A bend needs a reason in one sentence; a rule broken silently is a bug.
 

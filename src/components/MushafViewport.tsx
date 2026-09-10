@@ -17,6 +17,7 @@ import {
   type MushafPageLayout,
 } from "../lib/mushafFit";
 import { MUSHAF_ZOOM_FIT } from "../lib/devicePreferences";
+import { mobileMushafFit, boundedMobileZoom } from '../lib/mobileMushafPresentation';
 
 export interface MushafViewportProps {
   children: ReactNode;
@@ -28,6 +29,8 @@ export interface MushafViewportProps {
   forceCompactPages?: boolean;
   pageAspectRatio?: number;
   navigationBlockSize?: number;
+  mobilePresentation?: boolean;
+  onZoomConstrained?: (constrained: boolean) => void;
 }
 
 type MushafViewportStyle = CSSProperties & {
@@ -42,7 +45,12 @@ const MushafViewportContext = createContext({
   renderScale: 1,
   stableStage: false,
   compactPages: true,
+  compactPaper: false,
 });
+
+export function useCompactMushafPaper(): boolean {
+  return useContext(MushafViewportContext).compactPaper;
+}
 
 export function useMushafRenderScale(): number {
   return useContext(MushafViewportContext).renderScale;
@@ -71,6 +79,8 @@ export function MushafViewport({
   forceCompactPages = false,
   pageAspectRatio,
   navigationBlockSize,
+  mobilePresentation = false,
+  onZoomConstrained,
 }: MushafViewportProps) {
   const frameRef = useRef<HTMLDivElement>(null);
   const viewportCenterRef = useRef({ inline: 0.5, block: 0.5 });
@@ -80,6 +90,7 @@ export function MushafViewport({
   );
   const [fitInlineSize, setFitInlineSize] = useState(0);
   const [frameInlineSize, setFrameInlineSize] = useState(0);
+  const [mobileMaximum, setMobileMaximum] = useState(0);
 
   useEffect(() => {
     const media = window.matchMedia(STABLE_MUSHAF_STAGE_QUERY);
@@ -101,7 +112,8 @@ export function MushafViewport({
     const measure = () => {
       window.cancelAnimationFrame(animationFrame);
       animationFrame = window.requestAnimationFrame(() => {
-        const next = computeMushafFitInlineSize({
+        const mobileFit = mobilePresentation ? mobileMushafFit(frame.clientWidth, frame.clientHeight) : null;
+        const next = mobileFit?.base ?? computeMushafFitInlineSize({
           frameInlineSize: frame.clientWidth,
           frameBlockSize: frame.clientHeight,
           layout,
@@ -109,6 +121,7 @@ export function MushafViewport({
           navigationBlockSize,
         });
         setFrameInlineSize(frame.clientWidth);
+        setMobileMaximum(mobileFit?.maximum ?? 0);
         setFitInlineSize((current) => (current === next ? current : next));
       });
     };
@@ -128,26 +141,30 @@ export function MushafViewport({
       window.cancelAnimationFrame(animationFrame);
       observer.disconnect();
     };
-  }, [layout, stableStage, pageAspectRatio, navigationBlockSize]);
+  }, [layout, stableStage, pageAspectRatio, navigationBlockSize, mobilePresentation]);
 
-  const renderedInlineSize = computeMushafRenderedInlineSize(
+  const mobileZoom = boundedMobileZoom(fitInlineSize, mobileMaximum, zoomPercent);
+  const renderedInlineSize = mobilePresentation ? mobileZoom.width : computeMushafRenderedInlineSize(
     fitInlineSize,
     zoomPercent,
   );
-  const renderedBlockSize = computeMushafRenderedBlockSize(
+  const renderedBlockSize = mobilePresentation && pageAspectRatio ? Math.ceil(renderedInlineSize / pageAspectRatio) : computeMushafRenderedBlockSize(
     fitInlineSize,
     layout,
     zoomPercent,
     pageAspectRatio,
   );
-  const renderScale = stableStage ? zoomPercent / 100 : 1;
+  const renderScale = mobilePresentation ? mobileZoom.scale : stableStage ? zoomPercent / 100 : 1;
+  useEffect(() => {
+    onZoomConstrained?.(mobilePresentation && mobileZoom.constrained);
+  }, [mobilePresentation, mobileZoom.constrained, onZoomConstrained]);
   const compactPages = forceCompactPages || !stableStage;
   const stageBlockSize = renderedBlockSize + (navigationBlockSize ?? (
     layout === "spread" ? MUSHAF_SPREAD_NAV_BLOCK_SIZE : 0
   ));
   const coachGutter = Math.max(0, (frameInlineSize - renderedInlineSize) / 2);
   const style: MushafViewportStyle = {
-    "--page-zoom": zoomPercent / 100,
+    "--page-zoom": mobilePresentation ? renderScale : zoomPercent / 100,
     ...(fitInlineSize > 0 && renderedInlineSize > 0 && renderedBlockSize > 0
       ? {
           "--mushaf-fit-inline-size": `${fitInlineSize}px`,
@@ -214,12 +231,13 @@ export function MushafViewport({
         className="mushaf-shell"
         data-stage-fit={stableStage && renderedInlineSize > 0 ? "ready" : "fallback"}
         data-fit-mode={zoomPercent === MUSHAF_ZOOM_FIT ? "true" : "false"}
+        data-mobile-paper={mobilePresentation ? "true" : undefined}
         ref={frameRef}
         style={style}
         onScroll={updateViewportCenter}
       >
         <MushafViewportContext.Provider
-          value={{ renderScale, stableStage, compactPages }}
+          value={{ renderScale, stableStage, compactPages, compactPaper: mobilePresentation }}
         >
           {children}
         </MushafViewportContext.Provider>

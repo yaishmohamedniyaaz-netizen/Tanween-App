@@ -518,7 +518,7 @@ test("Adu and Raagu has one home in the rail, inside its score row", () => {
 
 test("the judging rail sits on the left unless the judge chose otherwise", () => {
   assert.match(appSource, /rail-\$\{preferences\.judgeRailSide\}/);
-  assert.match(appSource, /readDevicePreferences\(\)/);
+  assert.match(appSource, /readDevicePreferences\(undefined, .*MOBILE_MUSHAF_DEFAULT_ZOOM : 100\)/);
   assert.match(appSource, /writeDevicePreferences\(preferences\)/);
 });
 

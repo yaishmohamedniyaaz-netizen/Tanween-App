@@ -26,6 +26,7 @@ import type { TilawaTrackerStatus } from "./TilawaPrototypePanel";
 interface MoreActionsPopoverProps {
   view: AppView;
   mushafZoom: number;
+  mushafZoomConstrained?: boolean;
   onMushafZoomChange: (value: number) => void;
   mushafLayout: MushafLayout;
   onMushafLayoutChange: (value: MushafLayout) => void;
@@ -54,6 +55,7 @@ interface MoreActionsPopoverProps {
 export function MoreActionsPopover({
   view,
   mushafZoom,
+  mushafZoomConstrained,
   onMushafZoomChange,
   mushafLayout,
   onMushafLayoutChange,
@@ -220,6 +222,7 @@ export function MoreActionsPopover({
                 </div>
               </fieldset>
               <MushafSizeControl
+                constrained={mushafZoomConstrained}
                 value={mushafZoom}
                 onChange={onMushafZoomChange}
                 inputRef={rangeRef}

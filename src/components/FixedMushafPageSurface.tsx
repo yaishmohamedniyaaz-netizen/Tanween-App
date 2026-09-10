@@ -3,6 +3,8 @@ import type { MushafPageSurfaceProps } from "./MushafPageSurface.tsx";
 import type { FixedPageGeometry } from "../lib/fixedMushafGeometry.ts";
 import { MUSHAF_REFERENCE_WIDTH } from "../lib/mushafGeometry.ts";
 import "./fixedMushaf.css";
+import { useCompactMushafPaper } from './MushafViewport';
+import { fixedPaperPresentation } from '../lib/mobileMushafPresentation';
 
 const INSET = 12, TOP = 16, BOTTOM = 12;
 const ART_SCALE = (MUSHAF_REFERENCE_WIDTH - INSET * 2) / 1920;
@@ -14,17 +16,20 @@ export function FixedMushafPageSurface({
   fixed, data, pageRef, beforeLines, afterLines, renderWord, lineClassName,
   onGeometryChange, qcfReady: _qcfReady, className = "", ...props
 }: MushafPageSurfaceProps & { fixed: FixedPageGeometry }) {
+  const compact = useCompactMushafPaper();
+  const paper = fixedPaperPresentation(compact);
+  const { inset: INSET, top: TOP, artScale: ART_SCALE } = paper;
   const frame = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(0);
   useLayoutEffect(() => {
     const element = frame.current;
     if (!element) return;
-    const update = () => setScale(element.clientWidth / MUSHAF_REFERENCE_WIDTH);
+    const update = () => setScale(element.clientWidth / paper.width);
     update();
     const observer = new ResizeObserver(update);
     observer.observe(element);
     return () => observer.disconnect();
-  }, []);
+  }, [paper.width]);
   useLayoutEffect(() => { if (scale) onGeometryChange?.(); }, [scale, data, onGeometryChange]);
   const lines = new Map(data.lines.map(line => [line.n, line]));
   const openingOffset = data.page <= 2 && fixed.contentBounds
@@ -48,10 +53,10 @@ export function FixedMushafPageSurface({
   }
   if (rowBottom < fixed.height) contextGaps.push([rowBottom, fixed.height]);
   return <div ref={frame} className={`mushaf-page-frame fixed-page-frame ${className}`}
-    style={{ aspectRatio: FIXED_PAGE_ASPECT_RATIO }}>
+    style={{ aspectRatio: paper.aspectRatio }}>
     <div {...props} ref={pageRef} className={`page page-fixed-mushaf ${className}`}
       data-page={data.page} data-font-ready="true" data-fixed-page="true"
-      style={{ ...props.style, width: MUSHAF_REFERENCE_WIDTH, height: FIXED_PAGE_HEIGHT,
+      style={{ ...props.style, width: paper.width, height: paper.height,
         transform: `scale(${scale || 1})`, visibility: scale ? undefined : "hidden",
         "--mark-wash-pad-top": "0px", "--mark-wash-pad-bottom": "0px" } as CSSProperties}>
       <img src={fixed.image} alt={`Mushaf page ${data.page}`} draggable={false}
