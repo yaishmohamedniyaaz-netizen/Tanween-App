@@ -53,10 +53,13 @@ self.addEventListener("install", (event) => {
     (async () => {
       const staticCache = await caches.open(STATIC_CACHE);
       await staticCache.addAll(
-        STATIC_PRECACHE_URLS.map(
+        STATIC_PRECACHE_URLS.filter(url => url !== '/').map(
           (url) => new Request(url, { cache: "reload" }),
         ),
       );
+      const documentResponse = await fetchShellFile('/', { cache: 'reload' });
+      if (!await shellFileValid('/', documentResponse)) throw new Error("App shell does not match this build");
+      await staticCache.put('/', documentResponse);
       for (const url of STATIC_PRECACHE_URLS) {
         if (!await shellFileValid(url, await staticCache.match(url, { ignoreVary: true }))) throw new Error("App shell does not match this build");
       }
@@ -186,7 +189,7 @@ self.addEventListener("message", (event) => {
         for (const url of STATIC_PRECACHE_URLS) {
           if (await shellFileValid(url, await cache.match(url, { ignoreVary: true }))) continue;
           try {
-            const response = await fetch(url, { cache: "reload" });
+            const response = await fetchShellFile(url, { cache: "reload" });
             if (await shellFileValid(url, response)) await cache.put(url, response);
           } catch { /* The readiness response remains false until files return. */ }
         }
@@ -237,6 +240,15 @@ async function cacheFirst(request, cacheName = STATIC_CACHE) {
   }
 }
 
+async function fetchShellFile(url, options) {
+  if (url !== '/' || !FIXED_PACKAGE?.shellUrl) return fetch(url, options);
+  const response = await fetch(FIXED_PACKAGE.shellUrl, options);
+  if (!response.ok) return response;
+  return new Response(await response.arrayBuffer(), {
+    status: 200, headers: { 'Content-Type': 'text/html; charset=utf-8' },
+  });
+}
+
 async function shellFileValid(url, response) {
   if (!response || !response.ok) return false;
   const expected = FIXED_PACKAGE?.shellHashes?.[url];
@@ -253,8 +265,9 @@ async function networkFirstNavigation(request) {
   const installed = await cache.match("/", { ignoreVary: true });
   if (installed) return installed;
   try {
-    const network = await fetch(request);
-    if (network.ok) await cache.put("/", network.clone());
+    const network = await fetchShellFile('/', { cache: 'reload' });
+    if (!await shellFileValid('/', network)) throw new Error('App shell does not match this build');
+    await cache.put("/", network.clone());
     return network;
   } catch (e) {
     const cached =

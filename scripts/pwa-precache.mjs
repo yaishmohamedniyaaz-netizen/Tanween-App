@@ -55,8 +55,12 @@ export async function injectBuildPrecache(distDir) {
       const bytes = await readFile(resolve(distDir, url === '/' ? 'index.html' : url.slice(1)));
       shellHashes[url] = createHash('sha256').update(bytes).digest('hex');
     }
+    // Static delivery may transform HTML even when the Worker sets no-transform.
+    // The SW verifies this pinned opaque copy before serving it as local HTML.
+    const shellUrl = `/app-shell-${shellHashes['/'].slice(0, 20)}.bin`;
+    await writeFile(resolve(distDir, shellUrl.slice(1)), await readFile(resolve(distDir, 'index.html')));
     injected = injected.replace("/* __TAHQEEQ_FIXED_PACKAGE__ */ null", JSON.stringify({
-      version: descriptor.version, shellHashes, core: [descriptor.manifest, core.image, core.geometry, core.semantic],
+      version: descriptor.version, shellUrl, shellHashes, core: [descriptor.manifest, core.image, core.geometry, core.semantic],
     }));
     const buildId = createHash('sha256').update(source).update(JSON.stringify(urls)).update(descriptor.version)
       .update(await readFile(resolve(distDir, 'index.html'))).digest('hex').slice(0, 12);
