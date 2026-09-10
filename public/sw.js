@@ -8,6 +8,7 @@
 
 // App-shell releases and Mushaf source data have separate version contracts.
 // Updating the interface must never relabel or invalidate the 1405H page data.
+// HTML delivery now uses no-transform; retry the previously rejected update.
 const APP_CACHE_VERSION = "app-v30";
 const FIXED_PACKAGE = /* __TAHQEEQ_FIXED_PACKAGE__ */ null;
 const MUSHAF_DATA_VERSION = "v1-1405-r2";

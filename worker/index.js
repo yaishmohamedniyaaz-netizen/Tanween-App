@@ -42,6 +42,19 @@ async function fetchTilawaAsset(request) {
   });
 }
 
+// The PWA verifies its HTML against the build hash. Cloudflare's automatic
+// HTML script injection would invalidate that hash and silently fail install.
+// Preserve cache policy while opting this document out of transformations.
+function preserveAppDocument(response) {
+  if (!response.headers.get("Content-Type")?.toLowerCase().includes("text/html")) return response;
+  const headers = new Headers(response.headers);
+  const policy = headers.get("Cache-Control");
+  if (!policy?.split(",").some(part => part.trim().toLowerCase() === "no-transform")) {
+    headers.set("Cache-Control", policy ? `${policy}, no-transform` : "no-transform");
+  }
+  return new Response(response.body, { status: response.status, statusText: response.statusText, headers });
+}
+
 const worker = {
   async fetch(request, env) {
     const tilawaAsset = await fetchTilawaAsset(request);
@@ -52,7 +65,7 @@ const worker = {
     }
 
     const response = await env.ASSETS.fetch(request);
-    if (response.status !== 404 || request.method !== "GET") return response;
+    if (response.status !== 404 || request.method !== "GET") return preserveAppDocument(response);
 
     // Vite is a client-side app. Unknown document routes should receive the
     // app shell; asset and page-data 404s remain real 404s.
@@ -60,7 +73,7 @@ const worker = {
     if (!acceptsHtml) return response;
 
     const indexUrl = new URL("/index.html", request.url);
-    return env.ASSETS.fetch(new Request(indexUrl, request));
+    return preserveAppDocument(await env.ASSETS.fetch(new Request(indexUrl, request)));
   },
 };
 
