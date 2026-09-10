@@ -2,9 +2,9 @@ import { computeMushafFitInlineSize } from './mushafFit.ts';
 
 export const MOBILE_MUSHAF_QUERY = '(max-width: 600px) and (orientation: portrait)';
 export const MOBILE_MUSHAF_DEFAULT_ZOOM = 100;
-// These match the compact CSS: top breathing room + gap + 44px touch row.
-export const MOBILE_MUSHAF_TOP_GAP = 16;
-export const MOBILE_MUSHAF_NAV_SPACE = 48;
+// These match the compact CSS: accepted top breathing room + 44px touch row.
+export const MOBILE_MUSHAF_TOP_GAP = 14;
+export const MOBILE_MUSHAF_NAV_SPACE = 44;
 
 /** Only the added paper margin changes. Artwork pixels keep their scale. */
 export function fixedPaperPresentation(compact = false) {

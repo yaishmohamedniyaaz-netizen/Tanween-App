@@ -39,7 +39,7 @@ test('100 percent is maximal Fit and the default without overwriting saved zoom'
     assert.equal(base,maximum);
     assert.equal(boundedMobileZoom(base,maximum,100).width,maximum);
     assert.equal(boundedMobileZoom(base,maximum,100).constrained,false);
-    assert.ok(maximum+1>w || (maximum+1)/fixedPaperPresentation(true).aspectRatio+64>h);
+    assert.ok(maximum+1>w || (maximum+1)/fixedPaperPresentation(true).aspectRatio+MOBILE_MUSHAF_TOP_GAP+MOBILE_MUSHAF_NAV_SPACE>h);
   }
   const storage = entries => ({getItem:key => entries[key] ?? null});
   assert.equal(readDevicePreferences(storage({}),110).mushafZoom,110);
@@ -50,6 +50,12 @@ test('100 percent is maximal Fit and the default without overwriting saved zoom'
 
 test('touch ownership, rotation cancellation and fitted disclosure are explicit', () => {
   const css = readFileSync('src/components/fixedMushaf.css','utf8');
+  assert.equal(MOBILE_MUSHAF_TOP_GAP, 14, 'retain the accepted pre-release top-gap baseline');
+  assert.equal(MOBILE_MUSHAF_NAV_SPACE, 44, 'reserve touch targets, not extra gray padding');
+  assert.match(css, /\[data-mobile-paper="true"\] \.page-nav-btn::before \{\s*inset: 4px;/);
+  assert.match(css, /\[data-mobile-paper="true"\] \.page-nav-page::before \{\s*inset: 4px 2px;/);
+  assert.match(css, /padding: 14px 0 0; gap: 0/);
+  assert.match(css, /--mobile-judge-dock-space: calc\(94px \+ var\(--mobile-judge-safe-bottom\)\)/);
   const mushaf = readFileSync('src/components/Mushaf.tsx','utf8');
   assert.match(css,/\.app\.view-judge \.page-fixed-mushaf \.hit \{ touch-action: pinch-zoom; \}/);
   assert.match(mushaf,/window\.addEventListener\('resize', closeAll\)/);

@@ -1,6 +1,21 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { fitMushafLine, pickMushafWord, MUSHAF_WORD_GAP_EM } from '../src/lib/mushafGeometry.ts';
+import { fitMushafLine, pickMushafWord, mushafPageScale, MUSHAF_WORD_GAP_EM } from '../src/lib/mushafGeometry.ts';
+
+test('page scale uses compact surface reference without changing desktop geometry', () => {
+  for (const reference of [512, 516, 532]) {
+    for (const scale of [.5, .65, 1, 1.1]) {
+      const page = {dataset:{referenceWidth:String(reference)}, getBoundingClientRect:()=>({width:reference*scale})};
+      assert.ok(Math.abs(mushafPageScale(page)-scale)<1e-10);
+      for (const point of [0, 40, 500, 820]) {
+        assert.ok(Math.abs(point*scale/mushafPageScale(page)-point)<1e-9);
+      }
+    }
+  }
+  for (const value of [undefined, '', 'invalid', '-1']) {
+    assert.equal(mushafPageScale({dataset:{referenceWidth:value},getBoundingClientRect:()=>({width:266})}),.5);
+  }
+});
 
 test('line fitting accounts for ink beyond both sides of advance boxes', () => {
   const words = [

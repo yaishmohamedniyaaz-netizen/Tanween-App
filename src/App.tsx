@@ -12,6 +12,8 @@ import { fixedMushafReviewEnabled } from "./lib/fixedMushafReview";
 import { ScorePanel } from "./components/ScorePanel";
 import { MistakeLog } from "./components/MistakeLog";
 import { MobileJudgeDeck } from "./components/MobileJudgeDeck";
+import { mobileCalibrationEnabled } from './lib/mobileCalibration';
+import './components/mobileCalibration.css';
 import { NotesBox } from "./components/NotesBox";
 import { ResultSheet } from "./components/ResultSheet";
 import { MarkingCoachTip } from "./components/MarkingCoachTip";
@@ -202,6 +204,7 @@ export function App() {
   const mobilePreparedActive =
     mobileJudgeDeckOn && view === "judge" && Boolean(state.preparedRecitation);
   const mobilePaper = fixedReview && mobilePortrait && (mobileJudgeDeckActive || mobilePreparedActive);
+  const mobileCalibration = mobilePaper && mobileCalibrationEnabled(window.location.search);
 
   const finishRecitation = async () => {
     await Promise.race([
@@ -219,6 +222,7 @@ export function App() {
     <div
       className={`app view-${view}`}
       data-mobile-judge-deck={mobileJudgeDeckActive ? "true" : undefined}
+      data-mobile-calibration={mobileCalibration ? 'true' : undefined}
       data-mobile-prepared={mobilePreparedActive ? "true" : undefined}
       data-mobile-judge-layout={
         (mobileJudgeDeckActive || mobilePreparedActive) && mobileJudgeLayout === "raised"
@@ -298,6 +302,7 @@ export function App() {
               layout={preferences.mushafLayout}
               zoomPercent={preferences.mushafZoom}
               mobilePresentation={mobilePaper}
+              mobileCalibrationPage={mobileCalibration ? page : undefined}
               onZoomConstrained={setZoomConstrained}
               contentKey={`${page}:${preferences.mushafLayout}`}
               overlay={

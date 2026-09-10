@@ -3,8 +3,9 @@ import type { MushafPageSurfaceProps } from "./MushafPageSurface.tsx";
 import type { FixedPageGeometry } from "../lib/fixedMushafGeometry.ts";
 import { MUSHAF_REFERENCE_WIDTH } from "../lib/mushafGeometry.ts";
 import "./fixedMushaf.css";
-import { useCompactMushafPaper } from './MushafViewport';
+import { useCompactMushafPaper, useCalibratedPaperWidth } from './MushafViewport';
 import { fixedPaperPresentation } from '../lib/mobileMushafPresentation';
+import { calibratedMobilePaper } from '../lib/mobileCalibration';
 
 const INSET = 12, TOP = 16, BOTTOM = 12;
 const ART_SCALE = (MUSHAF_REFERENCE_WIDTH - INSET * 2) / 1920;
@@ -17,7 +18,8 @@ export function FixedMushafPageSurface({
   onGeometryChange, qcfReady: _qcfReady, className = "", ...props
 }: MushafPageSurfaceProps & { fixed: FixedPageGeometry }) {
   const compact = useCompactMushafPaper();
-  const paper = fixedPaperPresentation(compact);
+  const calibratedWidth = useCalibratedPaperWidth();
+  const paper = calibratedWidth ? calibratedMobilePaper(calibratedWidth, data.page) : fixedPaperPresentation(compact);
   const { inset: INSET, top: TOP, artScale: ART_SCALE } = paper;
   const frame = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(0);
@@ -56,6 +58,7 @@ export function FixedMushafPageSurface({
     style={{ aspectRatio: paper.aspectRatio }}>
     <div {...props} ref={pageRef} className={`page page-fixed-mushaf ${className}`}
       data-page={data.page} data-font-ready="true" data-fixed-page="true"
+      data-reference-width={paper.width}
       style={{ ...props.style, width: paper.width, height: paper.height,
         transform: `scale(${scale || 1})`, visibility: scale ? undefined : "hidden",
         "--mark-wash-pad-top": "0px", "--mark-wash-pad-bottom": "0px" } as CSSProperties}>

@@ -18,6 +18,7 @@ import {
 } from "../lib/mushafFit";
 import { MUSHAF_ZOOM_FIT } from "../lib/devicePreferences";
 import { mobileMushafFit, boundedMobileZoom } from '../lib/mobileMushafPresentation';
+import { calibratedMobileFit } from '../lib/mobileCalibration';
 
 export interface MushafViewportProps {
   children: ReactNode;
@@ -30,6 +31,7 @@ export interface MushafViewportProps {
   pageAspectRatio?: number;
   navigationBlockSize?: number;
   mobilePresentation?: boolean;
+  mobileCalibrationPage?: number;
   onZoomConstrained?: (constrained: boolean) => void;
 }
 
@@ -46,7 +48,12 @@ const MushafViewportContext = createContext({
   stableStage: false,
   compactPages: true,
   compactPaper: false,
+  calibratedWidth: 0,
 });
+
+export function useCalibratedPaperWidth(): number {
+  return useContext(MushafViewportContext).calibratedWidth;
+}
 
 export function useCompactMushafPaper(): boolean {
   return useContext(MushafViewportContext).compactPaper;
@@ -80,6 +87,7 @@ export function MushafViewport({
   pageAspectRatio,
   navigationBlockSize,
   mobilePresentation = false,
+  mobileCalibrationPage,
   onZoomConstrained,
 }: MushafViewportProps) {
   const frameRef = useRef<HTMLDivElement>(null);
@@ -112,7 +120,9 @@ export function MushafViewport({
     const measure = () => {
       window.cancelAnimationFrame(animationFrame);
       animationFrame = window.requestAnimationFrame(() => {
-        const mobileFit = mobilePresentation ? mobileMushafFit(frame.clientWidth, frame.clientHeight) : null;
+        const mobileFit = mobilePresentation ? (mobileCalibrationPage !== undefined
+          ? calibratedMobileFit(frame.clientWidth, frame.clientHeight, mobileCalibrationPage)
+          : mobileMushafFit(frame.clientWidth, frame.clientHeight)) : null;
         const next = mobileFit?.base ?? computeMushafFitInlineSize({
           frameInlineSize: frame.clientWidth,
           frameBlockSize: frame.clientHeight,
@@ -141,7 +151,7 @@ export function MushafViewport({
       window.cancelAnimationFrame(animationFrame);
       observer.disconnect();
     };
-  }, [layout, stableStage, pageAspectRatio, navigationBlockSize, mobilePresentation]);
+  }, [layout, stableStage, pageAspectRatio, navigationBlockSize, mobilePresentation, mobileCalibrationPage]);
 
   const mobileZoom = boundedMobileZoom(fitInlineSize, mobileMaximum, zoomPercent);
   const renderedInlineSize = mobilePresentation ? mobileZoom.width : computeMushafRenderedInlineSize(
@@ -237,7 +247,8 @@ export function MushafViewport({
         onScroll={updateViewportCenter}
       >
         <MushafViewportContext.Provider
-          value={{ renderScale, stableStage, compactPages, compactPaper: mobilePresentation }}
+          value={{ renderScale, stableStage, compactPages, compactPaper: mobilePresentation,
+            calibratedWidth: mobileCalibrationPage !== undefined ? renderedInlineSize : 0 }}
         >
           {children}
         </MushafViewportContext.Provider>

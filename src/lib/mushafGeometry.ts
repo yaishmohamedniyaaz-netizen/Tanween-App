@@ -61,5 +61,10 @@ export function measureMushafGlyph(text: string, family: string, fontSize = 1000
 
 /** DOM rectangles include transforms and CSS zoom; offsetWidth does not. */
 export function mushafPageScale(page: HTMLElement): number {
-  return page.getBoundingClientRect().width / MUSHAF_REFERENCE_WIDTH || 1;
+  // Compact artwork pages have a different paper width, but the same source
+  // coordinates. Use the rendered surface's reference, not the desktop width.
+  const declaredWidth = Number(page.dataset.referenceWidth);
+  const referenceWidth = Number.isFinite(declaredWidth) && declaredWidth > 0
+    ? declaredWidth : MUSHAF_REFERENCE_WIDTH;
+  return page.getBoundingClientRect().width / referenceWidth || 1;
 }

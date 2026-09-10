@@ -16,9 +16,20 @@ import '../../src/styles/competition-setup-v2.css';
 
 function Fixture() {
   const {state, dispatch} = useJudging();
-  const [loaded,setLoaded] = useState(false);
-  if (loaded) return <App/>;
-  const safe = import.meta.env.DEV && location.hostname === '127.0.0.1' && location.port === '5296'
+  const [loaded,setLoaded] = useState(() => state.preparedRecitation?.id === 'qa-mobile-prepared'
+    || state.activeQuestion?.id === 'qa-mobile-paper-question');
+  if (loaded) return <>
+    {new URLSearchParams(location.search).get('simulateSafeAreas') === '1' && <style>{`
+      @media(max-width:600px) and (orientation:portrait) {
+        .app { --mobile-judge-safe-top:47px !important; --mobile-judge-safe-bottom:34px !important; }
+      }
+      @media(min-width:393px) and (max-width:600px) and (orientation:portrait) {
+        .app { --mobile-judge-safe-top:59px !important; }
+      }
+    `}</style>}
+    <App/>
+  </>;
+  const safe = import.meta.env.DEV && location.hostname === '127.0.0.1' && ['5296', '5320'].includes(location.port)
     && state.competition.isSample && !state.sessionActive && state.history.length === 0;
   return <button disabled={!safe} onClick={async()=>{
     const result = resolveQuestionRange(await loadQuestionIndex(),{surah:112,ayah:1},3);

@@ -307,3 +307,19 @@ product rules belong in `PRODUCT_FOUNDATION.md`, not here.
     - The Results screen remains outside the mobile judging pass. Decision
       needed later: whether a four-card bento summary is useful there, where it
       does not compete with the live Mushaf for vertical space.
+
+29. **Owner-calibrated mobile portrait layout: touch and accessibility acceptance**
+    - The owner selected an 84px-wide joined selector, 28px visible height,
+      37px touch row, 44px criterion strip and 42px bottom action row.
+      `?mobileCalibration=1` is a visual comparison, not a new default.
+    - Three independent 44px-wide targets cannot fit inside 84px. Do not
+      pretend overlapping invisible targets solve this. Compare a touch-safe
+      variant before making a production exception to DESIGN_GRAMMAR rule 10.
+    - The chosen 12px labels and 11px score metadata differ from the grammar's
+      live-reading scale. User approval of appearance is not accessibility proof.
+    - Very short viewports and enlarged text need an explicit reading fallback;
+      fitting a complete page can make it unreadably small. No scrolling or
+      alternate reading behavior has been introduced by this comparison.
+    - Physical iOS installed-PWA acceptance, enlarged-text layout, recording
+      error state, and complete desktop/landscape visual-diff clearance remain
+      release gates. No scoring, preference format, or authority changes.
