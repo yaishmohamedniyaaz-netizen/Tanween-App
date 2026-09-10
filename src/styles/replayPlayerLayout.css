@@ -1,0 +1,82 @@
+/* Experimental participant replay only; never alters the live judging shell. */
+.rw-player-dock[hidden] { display: none; }
+.rw-passage .evidence-replay-word.is-active { outline: 2px solid var(--ink); outline-offset: 2px; }
+.rw-feedback-slot:empty { display: none; }
+.rw-feedback-slot:not(:empty) {
+  position: absolute; bottom: calc(100% + 8px); left: 0; right: 0;
+  max-height: min(40dvh, 280px); overflow-y: auto;
+  padding: 12px; border: 1px solid var(--line); border-radius: 12px;
+  background: var(--surface); color: var(--ink);
+  box-shadow: 0 4px 16px #0002;
+}
+.rw-player-layout .replay-feedback-heading { display: flex; gap: 8px; justify-content: space-between; align-items: center; }
+.rw-player-layout .replay-feedback-heading bdi { font-size: 21px; }
+.rw-player-layout .replay-direct p { margin: 4px 0; font-size: 14px; }
+.rw-player-layout .replay-occurrence-choices { display: grid; gap: 8px; }
+.rw-player-layout .replay-direct button { min-height: 44px; white-space: normal; }
+.rw-player-layout .rw-replay-panel {
+  height: auto;
+  overflow: visible;
+  scrollbar-gutter: auto;
+}
+.rw-player-layout .rw-replay-panel > .rw-inspector-head { position: static; }
+.rw-docked {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  height: calc(100dvh - var(--rw-shell-top, 100px) - 12px);
+  min-height: 280px;
+}
+.rw-docked > .rw-layout {
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+  scroll-padding-block: 12px;
+  align-content: start;
+}
+.rw-docked .rw-findings ol { max-height: none; }
+.rw-docked .rw-sidebar { padding-bottom: 12px; }
+.rw-player-dock {
+  position: relative;
+  z-index: 1;
+  min-width: 0;
+  padding: 8px 12px max(8px, env(safe-area-inset-bottom, 0px));
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+  color: var(--ink);
+}
+.rw-dock-context { display: flex; gap: 8px; align-items: center; min-height: 44px; }
+.rw-dock-context > div { flex: 1; min-width: 0; overflow-wrap: anywhere; }
+.rw-dock-context strong { font-size: 14px; font-weight: 500; }
+.rw-dock-context bdi { font-size: 21px; }
+.rw-player-dock button { min-width: 44px; min-height: 44px; font-size: 14px; }
+.rw-dock-context > button { padding: 8px; flex-shrink: 0; }
+.rw-dock-context > button[aria-pressed="false"] { background: var(--surface); color: var(--ink); border: 1px solid var(--line); }
+.rw-dock-context > button[aria-pressed="true"] { background: var(--ink); color: var(--surface); }
+.rw-transport-slot { min-height: 68px; }
+.rw-player-dock .replay-transport {
+  display: grid;
+  grid-template-columns: 44px 44px minmax(0, 1fr);
+  align-items: center;
+  gap: 4px 8px;
+}
+.rw-player-dock .replay-transport input { min-width: 0; width: 100%; min-height: 44px; margin: 0; }
+.rw-player-dock .replay-transport output { grid-column: 1 / -1; text-align: end; font-size: 12px; line-height: 20px; }
+.rw-player-dock :focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.rw-transport-empty { display: none; color: var(--ink-3); font-size: 14px; margin: 4px 0; }
+.rw-transport-slot:empty { display: none; }
+.rw-transport-slot:empty + .rw-transport-empty { display: flex; align-items: center; min-height: 68px; margin: 0; }
+@media (max-width: 760px) {
+  /* An extra classic scrollbar must not steal width from the fixed Quran page. */
+  .rw-docked > .rw-layout { scrollbar-width: none; }
+  .rw-docked > .rw-layout::-webkit-scrollbar { display: none; }
+  .rw-docked .rw-inspector.is-open {
+    bottom: calc(var(--rw-dock-height, 130px) + 12px);
+    max-height: min(44dvh, calc(100dvh - var(--rw-dock-height, 130px) - 120px));
+  }
+}
+@media (min-width: 761px) {
+  .rw-docked > .rw-layout { grid-template-columns: minmax(0, 1fr); }
+  .rw-docked .rw-dock-context { max-width: 720px; margin-inline: auto; }
+  .rw-docked .rw-transport-slot { max-width: 720px; margin-inline: auto; }
+}

@@ -10,6 +10,7 @@ import type { AduRaaguInputMode } from "../lib/devicePreferences";
 import type { CategoryId } from "../types";
 import { CompactTextEditor } from "./CompactTextEditor";
 import { MarkPicker } from "./MarkPicker";
+import "../styles/scorePanelReason.css";
 
 type ScorePanelPresentation = "rail" | "compact";
 
@@ -96,7 +97,7 @@ function ImpressionRow({
           placeholder="Reason (optional)"
           triggerClassName={`sc-reason-trigger ${note.trim() ? "has-value" : ""}`}
           triggerLabel={`Edit ${label} reason`}
-          presentation={presentation === "compact" ? "inline" : "dialog"}
+          presentation="inline"
           triggerContent={
             <>
               <span>{note.trim() ? "Reason saved" : "Add reason"}</span>

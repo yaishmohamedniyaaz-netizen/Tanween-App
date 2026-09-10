@@ -1,0 +1,41 @@
+/* Keep the slim rail's reason editor in the existing score row. */
+.sidebar .scorecard .compact-text-inline {
+  grid-column: 2 / -1;
+  min-width: 0;
+  width: 100%;
+}
+.sidebar .scorecard .compact-text-inline > .sc-reason-trigger { width: 100%; }
+.sidebar .scorecard .compact-text-inline-editor {
+  display: grid;
+  justify-items: end;
+  gap: 8px;
+  padding-top: 8px;
+}
+.sidebar .scorecard .compact-text-inline-editor textarea {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 88px;
+  resize: vertical;
+  padding: 9px 10px;
+  border: 1px solid var(--line-2);
+  border-radius: var(--r-sm);
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+  font-size: 14px;
+  line-height: 1.4;
+}
+.sidebar .scorecard .compact-text-inline-done {
+  min-width: 72px;
+  min-height: 44px;
+  padding: 0 12px;
+  border: 1px solid var(--line-2);
+  border-radius: var(--r-sm);
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+}
+.sidebar .scorecard .compact-text-inline-editor :focus-visible {
+  outline: 2px solid var(--ink-3);
+  outline-offset: 2px;
+}

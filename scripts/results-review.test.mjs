@@ -330,14 +330,14 @@ test("Results UI retains the reviewed navigation, tabs, audit, and export contra
   assert.match(records, /<h1>Results<\/h1>/);
   assert.doesNotMatch(records, /Results &amp; review|results-eyebrow|sample-records-notice|Test mode/);
   assert.match(records, /lifecycleLabel\(state\.competition\.status\)/);
-  assert.match(records, /role="tablist"/);
-  assert.match(records, /role="tabpanel"/);
+  assert.doesNotMatch(records, /role="tablist"|role="tabpanel"|results-panel-analysis/);
+  assert.match(records, /aria-label="Participant results"/);
   assert.match(records, /Filter participant results by status/);
   assert.match(records, /results-status-filter is-needs-review/);
   assert.doesNotMatch(records, /results-status-marker/);
   assert.doesNotMatch(records, /Resolve first|Can finalize|Current result|Complete queue/);
   assert.match(records, /results-filter-disclosure/);
-  assert.match(records, /ArrowLeft/);
+  assert.doesNotMatch(records, /handleTabKeyDown|setActiveTab/);
   assert.match(records, /Current competition/);
   assert.match(records, /All stored competitions/);
   assert.match(records, /Judge results/);

@@ -1,5 +1,4 @@
 import {
-  type KeyboardEvent as ReactKeyboardEvent,
   useEffect,
   useMemo,
   useRef,
@@ -7,7 +6,6 @@ import {
 } from "react";
 import {
   CATEGORY_BY_ID,
-  PINPOINT_CATEGORIES,
   enabledCategories,
 } from "../config";
 import { downloadJudgeRecordsWorkbook } from "../lib/judgeRecordsWorkbook";
@@ -17,7 +15,6 @@ import {
   judgeDisplayName,
 } from "../lib/judgeAssignments";
 import { mistakePrimaryGlyph } from "../lib/mistakeDisplay";
-import { participantNumberLabel } from "../lib/participantPresentation";
 import { participantCategoryLabel } from "../lib/participants";
 import {
   loadQuestionIndex,
@@ -48,14 +45,12 @@ import { computeRecords } from "../lib/stats";
 import { normalizeImportedSavedSession, useJudging } from "../state/store";
 import type { ParticipantCategory, SavedSession } from "../types";
 import { FinalResultsPanel } from "./FinalResultsPanel";
+import { ResultsOverview } from "./ResultsOverview";
 import { Icon } from "./Icon";
 import { JudgingHistory } from "./JudgingHistory";
 import { ReopenSessionDialog } from "./ReopenSessionDialog";
 import { SampleBadge } from "./SampleBadge";
 
-type ResultsTab = "review" | "analysis";
-
-const resultTabs: ResultsTab[] = ["review", "analysis"];
 function lifecycleLabel(status: "draft" | "live" | "closed") {
   if (status === "live") return "Live";
   if (status === "closed") return "Closed";
@@ -83,9 +78,10 @@ function DataScopeControl({
   );
 }
 
-export function RecordsView({ onResumeSession }: { onResumeSession: () => void }) {
+export function RecordsView({ onResumeSession, pageLayout = "full" }: { onResumeSession: () => void; pageLayout?: import("../lib/devicePreferences").MushafLayout }) {
   const { state, dispatch } = useJudging();
-  const [activeTab, setActiveTab] = useState<ResultsTab>("review");
+  // Default Results experience; explicit escape hatch for the legacy interface.
+  const overviewEnabled = new URLSearchParams(window.location.search).get("resultsOverview") !== "0";
   const [historyScope, setHistoryScope] = useState<StoredResultsScope>("current");
   const [reviewQuery, setReviewQuery] = useState("");
   const [reviewState, setReviewState] = useState<"all" | ResultsReviewState>("all");
@@ -94,10 +90,9 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
     useState<ParticipantCategory>("");
   const [reviewPage, setReviewPage] = useState(1);
   const [detailParticipantId, setDetailParticipantId] = useState<string | null>(null);
-  const [analysisAgeGroup, setAnalysisAgeGroup] = useState("");
-  const [analysisParticipantCategory, setAnalysisParticipantCategory] =
+  const [historyAgeGroup, setHistoryAgeGroup] = useState("");
+  const [historyParticipantCategory, setHistoryParticipantCategory] =
     useState<ParticipantCategory>("");
-  const [selectedAnalysisTid, setSelectedAnalysisTid] = useState<string | null>(null);
   const [judgeSeat, setJudgeSeat] = useState("");
   const [section, setSection] = useState("");
   const [expanded, setExpanded] = useState<string | null>(null);
@@ -108,11 +103,14 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
   const [recordsExporting, setRecordsExporting] = useState(false);
   const [recordsExportError, setRecordsExportError] = useState("");
   const importRef = useRef<HTMLInputElement>(null);
-  const reviewTabRef = useRef<HTMLButtonElement>(null);
-  const analysisTabRef = useRef<HTMLButtonElement>(null);
   const participantButtonRefs = useRef(new Map<string, HTMLButtonElement>());
   const reviewScrollRef = useRef(0);
-
+  useEffect(() => {
+    if (!overviewEnabled) return;
+    const previous = document.documentElement.style.scrollbarGutter;
+    document.documentElement.style.scrollbarGutter = "stable";
+    return () => { document.documentElement.style.scrollbarGutter = previous; };
+  }, [overviewEnabled]);
   const judgedCategories = useMemo(
     () => enabledCategories(
       state.competition.liveSnapshot?.scoreConfig ?? state.config,
@@ -211,17 +209,17 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
     [historyInScope, judgeSeat, section],
   );
   const categoryHistory = useMemo(
-    () => analysisParticipantCategory
+    () => historyParticipantCategory
       ? scopedHistory.filter(
           (session) =>
-            session.participant.category === analysisParticipantCategory,
+            session.participant.category === historyParticipantCategory,
         )
       : scopedHistory,
-    [analysisParticipantCategory, scopedHistory],
+    [historyParticipantCategory, scopedHistory],
   );
   const stats = useMemo(
-    () => computeRecords(categoryHistory, analysisAgeGroup || null),
-    [analysisAgeGroup, categoryHistory],
+    () => computeRecords(categoryHistory, historyAgeGroup || null),
+    [historyAgeGroup, categoryHistory],
   );
   const judgeOptions = useMemo(() => {
     const values = new Map<string, string>();
@@ -246,90 +244,14 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
   }, [historyInScope]);
   const sessions = categoryHistory.filter(
     (session) =>
-      !analysisAgeGroup ||
-      (session.participant.ageGroup?.trim() || "") === analysisAgeGroup,
+      !historyAgeGroup ||
+      (session.participant.ageGroup?.trim() || "") === historyAgeGroup,
   );
-  const analysisLocations = useMemo(() => {
-    const locations = new Map<string, {
-      tid: string;
-      word: string;
-      label: string;
-      surah: number;
-      ayah: number | null;
-      page?: number;
-      marks: number;
-      reciters: Set<string>;
-      entries: {
-        id: string;
-        participantName: string;
-        participantNumber: string;
-        isSample: boolean;
-        judgeName: string;
-        category: (typeof PINPOINT_CATEGORIES)[number];
-        amount: number;
-      }[];
-    }>();
-
-    sessions.forEach((session) => {
-      session.mistakes.forEach((mistake) => {
-        if (!PINPOINT_CATEGORIES.includes(mistake.category as (typeof PINPOINT_CATEGORIES)[number])) {
-          return;
-        }
-        const current = locations.get(mistake.tid) ?? {
-          tid: mistake.tid,
-          word: mistake.wordText?.trim() || mistakePrimaryGlyph(mistake),
-          label: mistake.label,
-          surah: mistake.surah,
-          ayah: mistake.ayah,
-          page: mistake.page,
-          marks: 0,
-          reciters: new Set<string>(),
-          entries: [],
-        };
-        current.marks += 1;
-        current.reciters.add(session.participant.id);
-        current.entries.push({
-          id: `${session.id}:${mistake.id}`,
-          participantName: session.participant.name,
-          participantNumber: session.participant.number,
-          isSample: Boolean(session.isSample),
-          judgeName: session.assignment ? judgeDisplayName(session.assignment) : "Judge 1",
-          category: mistake.category as (typeof PINPOINT_CATEGORIES)[number],
-          amount: mistake.amount,
-        });
-        locations.set(mistake.tid, current);
-      });
-    });
-
-    return [...locations.values()]
-      .map((location) => ({
-        ...location,
-        reciterCount: location.reciters.size,
-        entries: location.entries.sort((left, right) =>
-          left.participantNumber.localeCompare(right.participantNumber, undefined, {
-            numeric: true,
-          }),
-        ),
-      }))
-      .sort((left, right) =>
-        right.marks - left.marks ||
-        right.reciterCount - left.reciterCount ||
-        left.label.localeCompare(right.label),
-      );
-  }, [sessions]);
-  const selectedAnalysisLocation = analysisLocations.find(
-    (location) => location.tid === selectedAnalysisTid,
-  ) ?? analysisLocations[0] ?? null;
-  const analysisReciterCount = useMemo(
-    () => new Set(sessions.map((session) => session.participant.id)).size,
-    [sessions],
-  );
-
   useEffect(() => {
-    if (analysisAgeGroup && !stats.ageGroups.includes(analysisAgeGroup)) {
-      setAnalysisAgeGroup("");
+    if (historyAgeGroup && !stats.ageGroups.includes(historyAgeGroup)) {
+      setHistoryAgeGroup("");
     }
-  }, [analysisAgeGroup, stats.ageGroups]);
+  }, [historyAgeGroup, stats.ageGroups]);
 
   useEffect(() => {
     if (judgeSeat && !judgeOptions.some(([id]) => id === judgeSeat)) {
@@ -368,25 +290,6 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
         preventScroll: true,
       });
     });
-  };
-
-  const handleTabKeyDown = (
-    event: ReactKeyboardEvent<HTMLButtonElement>,
-    current: ResultsTab,
-  ) => {
-    const currentIndex = resultTabs.indexOf(current);
-    let targetIndex: number | null = null;
-    if (event.key === "ArrowRight") targetIndex = (currentIndex + 1) % resultTabs.length;
-    if (event.key === "ArrowLeft") {
-      targetIndex = (currentIndex - 1 + resultTabs.length) % resultTabs.length;
-    }
-    if (event.key === "Home") targetIndex = 0;
-    if (event.key === "End") targetIndex = resultTabs.length - 1;
-    if (targetIndex === null) return;
-    event.preventDefault();
-    const nextTab = resultTabs[targetIndex];
-    setActiveTab(nextTab);
-    (nextTab === "review" ? reviewTabRef : analysisTabRef).current?.focus();
   };
 
   const readImport = async (file: File | undefined) => {
@@ -605,8 +508,8 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
       <label className="records-filter">
         <span>Age group</span>
         <select
-          value={analysisAgeGroup}
-          onChange={(event) => setAnalysisAgeGroup(event.target.value)}
+          value={historyAgeGroup}
+          onChange={(event) => setHistoryAgeGroup(event.target.value)}
         >
           <option value="">All age groups</option>
           {stats.ageGroups.map((group) => (
@@ -617,9 +520,9 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
       <label className="records-filter">
         <span>Participant category</span>
         <select
-          value={analysisParticipantCategory}
+          value={historyParticipantCategory}
           onChange={(event) =>
-            setAnalysisParticipantCategory(
+            setHistoryParticipantCategory(
               event.target.value as ParticipantCategory,
             )
           }
@@ -866,11 +769,13 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
                         <button
                           type="button"
                           className="btn-ghost"
-                          disabled={state.sessionActive}
+                          disabled={state.sessionActive || (overviewEnabled && saved.assignment?.judgeSeatId !== state.deviceJudgeId)}
                           title={
                             state.sessionActive
                               ? "Finish the current reciter before reopening another result"
-                              : "Reopen this result to make a recorded correction"
+                              : overviewEnabled && saved.assignment?.judgeSeatId !== state.deviceJudgeId
+                                ? "Only this result's judge can make corrections"
+                                : "Reopen this result to make a recorded correction"
                           }
                           onClick={() => setReopenSession(saved)}
                         >
@@ -893,7 +798,7 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
   const competitionEdition = state.competition.edition.trim();
 
   return (
-    <div className="records results-workspace">
+    <div className={`records results-workspace${overviewEnabled ? " results-overview-shell" : ""}`}>
       <header className="results-page-head">
         <h1>Results</h1>
         <div className="results-competition-context" aria-label="Competition context">
@@ -905,45 +810,15 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
         </div>
       </header>
 
-      <div className="results-tabs" role="tablist" aria-label="Results sections">
-        <button
-          ref={reviewTabRef}
-          id="results-tab-review"
-          type="button"
-          role="tab"
-          aria-selected={activeTab === "review"}
-          aria-controls="results-panel-review"
-          tabIndex={activeTab === "review" ? 0 : -1}
-          onClick={() => setActiveTab("review")}
-          onKeyDown={(event) => handleTabKeyDown(event, "review")}
-        >
-          Review
-          {reviewSummary.unresolved > 0 && (
-            <span className="results-tab-count">{reviewSummary.unresolved}</span>
-          )}
-        </button>
-        <button
-          ref={analysisTabRef}
-          id="results-tab-analysis"
-          type="button"
-          role="tab"
-          aria-selected={activeTab === "analysis"}
-          aria-controls="results-panel-analysis"
-          tabIndex={activeTab === "analysis" ? 0 : -1}
-          onClick={() => setActiveTab("analysis")}
-          onKeyDown={(event) => handleTabKeyDown(event, "analysis")}
-        >
-          Analysis
-        </button>
-      </div>
-
       <section
         id="results-panel-review"
-        role="tabpanel"
-        aria-labelledby="results-tab-review"
-        hidden={activeTab !== "review"}
+        aria-label="Participant results"
         className="results-tab-panel"
       >
+        {overviewEnabled ? <>
+          <ResultsOverview key={`${state.competition.id}:${state.competition.liveSnapshot?.versionId ?? "draft"}`} active={true} pageLayout={pageLayout} />
+          <details className="ro-source-tools"><summary>Judge records &amp; import</summary>{renderJudgeResults()}</details>
+        </> : <>
         <section
           className={`results-review-section ${detailParticipantId ? "is-detail-open" : ""}`}
           aria-labelledby={detailParticipantId ? undefined : "results-review-heading"}
@@ -1101,127 +976,7 @@ export function RecordsView({ onResumeSession }: { onResumeSession: () => void }
         </section>
 
         {!detailParticipantId && renderJudgeResults()}
-      </section>
-
-      <section
-        id="results-panel-analysis"
-        role="tabpanel"
-        aria-labelledby="results-tab-analysis"
-        hidden={activeTab !== "analysis"}
-        className="results-tab-panel"
-      >
-        <div className="results-analysis-intro">
-          <div>
-            <h2 className="results-section-title">Mistake overview</h2>
-            <p>
-              {stats.totalMistakes} mark{stats.totalMistakes === 1 ? "" : "s"}
-              {" · "}{analysisLocations.length} location{analysisLocations.length === 1 ? "" : "s"}
-              {" · "}{analysisReciterCount} reciter{analysisReciterCount === 1 ? "" : "s"}
-            </p>
-          </div>
-          <details className="results-analysis-filter-disclosure">
-            <summary>
-              <span>Analysis filters</span>
-              <small>{historyScope === "current" ? "Current competition" : "All stored competitions"}</small>
-            </summary>
-            {renderHistoryFilters()}
-          </details>
-        </div>
-        <p className="results-analysis-scope-note">
-          Descriptive evidence from <strong>{sessions.length}</strong> stored judge result{sessions.length === 1 ? "" : "s"}; this is not a normalized participant comparison.
-        </p>
-
-        <div className="analysis-ledger">
-          <section className="analysis-ledger-list" aria-labelledby="analysis-ledger-heading">
-            <div className="analysis-ledger-head">
-              <h3 id="analysis-ledger-heading" className="results-panel-title">Marked locations</h3>
-              <span>Sorted by marks, then reciters</span>
-            </div>
-            {analysisLocations.length === 0 ? (
-              <p className="empty">No pinpointed mistakes have been recorded in this view.</p>
-            ) : (
-              <div className="analysis-location-table" aria-label="Marked Quran locations">
-                <div className="analysis-location-columns" aria-hidden="true">
-                  <span>Word</span>
-                  <span>Location</span>
-                  <span>Marks</span>
-                  <span>Reciters</span>
-                </div>
-                <ol>
-                  {analysisLocations.map((location) => (
-                    <li key={location.tid}>
-                      <button
-                        type="button"
-                        className="analysis-location-row"
-                        aria-pressed={selectedAnalysisLocation?.tid === location.tid}
-                        aria-label={`${location.word}, ${location.label}, ${location.marks} marks across ${location.reciterCount} reciters`}
-                        onClick={() => setSelectedAnalysisTid(location.tid)}
-                      >
-                        <span className="analysis-location-word" dir="rtl">{location.word}</span>
-                        <span className="analysis-location-label">{location.label}</span>
-                        <strong>{location.marks}</strong>
-                        <strong>{location.reciterCount}</strong>
-                      </button>
-                    </li>
-                  ))}
-                </ol>
-              </div>
-            )}
-          </section>
-
-          <aside className="analysis-evidence-panel" aria-live="polite">
-            {selectedAnalysisLocation ? (
-              <>
-                <div className="analysis-evidence-head">
-                  <div>
-                    <span>Selected location</span>
-                    <p>
-                      Surah <bdi>{selectedAnalysisLocation.surah}</bdi>
-                      {selectedAnalysisLocation.ayah === null
-                        ? " · Basmala"
-                        : <> · Ayah <bdi>{selectedAnalysisLocation.ayah}</bdi></>}
-                      {selectedAnalysisLocation.page && <> · Page <bdi>{selectedAnalysisLocation.page}</bdi></>}
-                    </p>
-                  </div>
-                  <span className="analysis-evidence-total">
-                    <strong>{selectedAnalysisLocation.marks}</strong>
-                    <small>{selectedAnalysisLocation.marks === 1 ? "mark" : "marks"}</small>
-                  </span>
-                </div>
-                <div className="analysis-evidence-word" dir="rtl">{selectedAnalysisLocation.word}</div>
-                <p className="analysis-evidence-location">{selectedAnalysisLocation.label}</p>
-                <div className="analysis-evidence-list-head">
-                  <h4>Recorded marks</h4>
-                  <span>{selectedAnalysisLocation.reciterCount} reciter{selectedAnalysisLocation.reciterCount === 1 ? "" : "s"}</span>
-                </div>
-                <ul className="analysis-evidence-list">
-                  {selectedAnalysisLocation.entries.map((entry) => (
-                    <li key={entry.id} className={`cat-${entry.category}`}>
-                      <bdi className="analysis-evidence-number">
-                        {participantNumberLabel(
-                          entry.isSample && /^T\d+$/i.test(entry.participantNumber.trim())
-                            ? entry.participantNumber.trim().slice(1)
-                            : entry.participantNumber,
-                        )}
-                      </bdi>
-                      <span className="analysis-evidence-person">
-                        <strong>{entry.participantName}</strong>
-                        <small>{entry.judgeName}</small>
-                      </span>
-                      <span className="analysis-evidence-category">
-                        <i aria-hidden="true" />
-                        {CATEGORY_BY_ID[entry.category].label}
-                      </span>
-                      <strong className="analysis-evidence-deduction">−{entry.amount}</strong>
-                    </li>
-                  ))}
-                </ul>
-              </>
-            ) : (
-              <p className="empty">Select a marked location to see its evidence.</p>
-            )}
-          </aside>
-        </div>
+        </>}
       </section>
 
       {reopenSession && (

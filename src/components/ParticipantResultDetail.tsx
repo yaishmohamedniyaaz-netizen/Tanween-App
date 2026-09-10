@@ -11,6 +11,7 @@ import {
   participantCategoryLabel,
 } from "../lib/participants.ts";
 import { participantNumberLabel } from "../lib/participantPresentation.ts";
+import { selectedResultView } from "../lib/competitionResults.ts";
 import {
   buildParticipantQuestionEvidence,
   type EvidenceMistake,
@@ -197,6 +198,7 @@ export function ParticipantResultDetail({
   onSelectSource,
   onFinalize,
   onBack,
+  readOnlyReview = false,
 }: {
   item: ResultsReviewItem;
   placed?: PlacedResult;
@@ -205,6 +207,7 @@ export function ParticipantResultDetail({
   onSelectSource: (category: CategoryId, sessionId: string) => void;
   onFinalize: () => void;
   onBack: () => void;
+  readOnlyReview?: boolean;
 }) {
   const candidate = item.candidate;
   const preview = buildParticipantResultPreview(candidate, selected);
@@ -272,8 +275,9 @@ export function ParticipantResultDetail({
 
   const participant = candidate.participant;
   const participantNumber = resultParticipantNumber(participant.number, isSample);
-  const total = placed?.total ?? preview?.total;
-  const totalMax = placed?.totalMax ?? preview?.totalMax;
+  const viewed = readOnlyReview ? selectedResultView(item, selected) : null;
+  const total = readOnlyReview ? viewed?.preview?.total : placed?.total ?? preview?.total;
+  const totalMax = readOnlyReview ? viewed?.preview?.totalMax : placed?.totalMax ?? preview?.totalMax;
   const unresolved = candidate.categories.some((category) => !selected[category]);
   const participantReady = hasCompleteFinalizationIdentity(participant);
   const question = evidence.question;
@@ -310,13 +314,16 @@ export function ParticipantResultDetail({
         </div>
         <div className="result-detail-score">
           <span className={`result-ledger-state is-${item.state}`}>
-            {stateLabel(item)}
+            {readOnlyReview ? "Selected sources" : stateLabel(item)}
           </span>
           <strong>
             <bdi>{total ?? "—"}</bdi>
             {totalMax !== undefined && <small>/<bdi>{totalMax}</bdi></small>}
           </strong>
           {placed && <small>Place <bdi>{placed.place}</bdi></small>}
+          {readOnlyReview && viewed?.official && !viewed.matchesOfficial && <small>
+            Official: {viewed.official.total} / {viewed.official.totalMax} · revision {viewed.official.revision}
+          </small>}
         </div>
       </header>
 
@@ -490,7 +497,7 @@ export function ParticipantResultDetail({
             );
           })}
         </div>
-        <div className="result-detail-finalize">
+        {!readOnlyReview && <div className="result-detail-finalize">
           <p>
             {item.state === "finalized"
               ? `Current final result · revision ${item.activeFinal?.revision ?? 1}`
@@ -506,7 +513,7 @@ export function ParticipantResultDetail({
           >
             {item.activeFinal ? "Finalize revision" : "Finalize result"}
           </button>
-        </div>
+        </div>}
       </section>
 
       {replacementRecords.length > 0 && (

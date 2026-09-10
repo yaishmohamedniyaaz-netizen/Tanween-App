@@ -28,6 +28,7 @@ import { fixedMushafReviewEnabled } from "../lib/fixedMushafReview";
 import { fixedMushafLoader, useFixedMushafPages } from "../hooks/useFixedMushafPages";
 import { FixedMushafPageSurface } from "./FixedMushafPageSurface";
 import { useFixedCompactPages } from "./ConnectedFixedMushaf";
+import { evidencePageWindow } from "../lib/reviewNavigation";
 
 type LoadState =
   | { status: "loading" }
@@ -56,6 +57,11 @@ export function RecitationEvidenceSpan({
   onReplayWordsReady,
   onReplayWordSelect,
   replayWordId = null,
+  selectedWordId = null,
+  wordReplayMode = false,
+  paginated = false,
+  spread = false,
+  locationRequest = 0,
 }: {
   range: RecitationRangeSnapshot;
   mistakes: EvidenceMistake[];
@@ -66,17 +72,25 @@ export function RecitationEvidenceSpan({
   onReplayWordsReady?: (words: ReplayWord[]) => void;
   onReplayWordSelect?: (wordId: string) => void;
   replayWordId?: string | null;
+  selectedWordId?: string | null;
+  wordReplayMode?: boolean;
+  paginated?: boolean;
+  spread?: boolean;
+  locationRequest?: number;
 }) {
   const [loadState, setLoadState] = useState<LoadState>({ status: "loading" });
   const [activePageIndex, setActivePageIndex] = useState(0);
   const [fixedReview] = useState(fixedMushafReviewEnabled);
   const compact = useFixedCompactPages();
   const rangePages = pageNumbers(range);
+  const pageWindow = evidencePageWindow(activePageIndex, rangePages.length,
+    paginated ? spread && (!fixedReview || !compact) : !compact && rangePages.length === 2);
   const visibleFixedPages = fixedReview && loadState.status === "ready"
-    ? (!compact && rangePages.length === 2 ? rangePages : [rangePages[Math.min(activePageIndex, rangePages.length - 1)]])
+    ? rangePages.slice(pageWindow.start, pageWindow.end)
     : [];
   const fixed = useFixedMushafPages(visibleFixedPages);
   const wordRefs = useRef(new Map<string, HTMLButtonElement>());
+  const focusedRequest = useRef<string | null>(null);
 
   useEffect(() => setActivePageIndex(0), [range]);
 
@@ -193,18 +207,21 @@ export function RecitationEvidenceSpan({
     if (pageIndex >= 0) {
       setActivePageIndex(pageIndex);
     }
-  }, [activeMistakeKey, focusActiveWord, loadState, mistakes]);
+  }, [activeMistakeKey, focusActiveWord, loadState, mistakes, locationRequest]);
 
   useEffect(() => {
     if (!activeMistakeKey || !focusActiveWord || loadState.status !== "ready") return;
+    const requestKey = `${activeMistakeKey}:${locationRequest}`;
+    if (focusedRequest.current === requestKey) return;
     const frame = requestAnimationFrame(() => {
       const target = wordRefs.current.get(activeMistakeKey);
       if (!target || !target.getClientRects().length) return;
+      focusedRequest.current = requestKey;
       target?.scrollIntoView({ behavior: "smooth", block: "center" });
       target?.focus({ preventScroll: true });
     });
     return () => cancelAnimationFrame(frame);
-  }, [activeMistakeKey, activePageIndex, focusActiveWord, loadState, mistakes, fixed.pages]);
+  }, [activeMistakeKey, activePageIndex, focusActiveWord, loadState, mistakes, fixed.pages, locationRequest]);
 
   if (loadState.status === "loading") {
     return (
@@ -223,25 +240,23 @@ export function RecitationEvidenceSpan({
   }
 
   return (
-    <div className={`recitation-evidence-span ${fixedReview ? "fixed-evidence-span" : ""}`} aria-label="Recorded recitation span">
-      {loadState.pages.length > 1 && (
+    <div className={`recitation-evidence-span ${fixedReview ? "fixed-evidence-span" : ""}${paginated ? " is-paginated" : ""}`} aria-label="Recorded recitation span">
+      {loadState.pages.length > pageWindow.size && (
         <nav className="recitation-evidence-pager" aria-label="Recorded Quran pages">
           <button
             type="button"
-            disabled={activePageIndex === 0}
-            onClick={() => setActivePageIndex((current) => Math.max(0, current - 1))}
+            disabled={pageWindow.start === 0}
+            onClick={() => setActivePageIndex(Math.max(0, pageWindow.start - pageWindow.size))}
           >
             Previous
           </button>
           <span>
-            Page <bdi>{loadState.pages[activePageIndex]?.page}</bdi> of {loadState.pages.length}
+            Page <bdi>{loadState.pages[pageWindow.start]?.page}{pageWindow.end - pageWindow.start > 1 ? `–${loadState.pages[pageWindow.end - 1]?.page}` : ""}</bdi> · {pageWindow.start + 1} of {loadState.pages.length}
           </span>
           <button
             type="button"
-            disabled={activePageIndex === loadState.pages.length - 1}
-            onClick={() => setActivePageIndex((current) =>
-              Math.min(loadState.pages.length - 1, current + 1)
-            )}
+            disabled={pageWindow.end === loadState.pages.length}
+            onClick={() => setActivePageIndex(Math.min(loadState.pages.length - 1, pageWindow.end))}
           >
             Next
           </button>
@@ -262,6 +277,7 @@ export function RecitationEvidenceSpan({
         data-active-page={loadState.pages[activePageIndex]?.page}
       >
         {loadState.pages.map((page, pageIndex) => {
+          if (paginated && (pageIndex < pageWindow.start || pageIndex >= pageWindow.end)) return null;
           const geometry = fixedReview ? fixed.pages?.get(page.page) : undefined;
           if (fixedReview && !geometry) return null;
           const display = rangeDisplayForPage(page, range);
@@ -274,8 +290,8 @@ export function RecitationEvidenceSpan({
             const wordMistakes = inRange ? mistakesByWord.get(word.wid) ?? [] : [];
             const firstMistake = wordMistakes[0];
             const isActive = Boolean(
-              activeMistakeKey &&
-              wordMistakes.some((entry) => entry.key === activeMistakeKey),
+              selectedWordId === word.wid || (activeMistakeKey &&
+              wordMistakes.some((entry) => entry.key === activeMistakeKey)),
             );
             if (!firstMistake) {
               const replayable = Boolean(onReplayWordSelect && inRange && word.role === "letter");
@@ -284,11 +300,11 @@ export function RecitationEvidenceSpan({
                   key={word.wid}
                   word={word}
                   qcfReady={qcfReady}
-                  className={`${inRange ? "" : "question-context-word evidence-context-word"} ${replayable ? "evidence-replay-word" : ""} ${replayWordId === word.wid ? "is-replay-focus" : ""}`}
+                  className={`${inRange ? "" : "question-context-word evidence-context-word"} ${replayable ? "evidence-replay-word" : ""} ${replayable && isActive ? "is-active" : ""} ${replayWordId === word.wid ? "is-replay-focus" : ""}`}
                   aria-hidden={inRange ? undefined : true}
                 >
                   {replayable && <button type="button" className="evidence-replay-button"
-                    aria-label={`Review recording for ${word.text}`} onClick={() => onReplayWordSelect?.(word.wid)} />}
+                    aria-label={`${wordReplayMode ? "Replay from" : "Inspect word"} ${word.text}`} aria-pressed={selectedWordId === word.wid} onClick={() => onReplayWordSelect?.(word.wid)} />}
                 </MushafWord>
               );
             }
@@ -313,9 +329,9 @@ export function RecitationEvidenceSpan({
                   }}
                   type="button"
                   className="evidence-marker-button"
-                  aria-label={`${word.text}. ${wordMistakes.length} recorded mistake${wordMistakes.length === 1 ? "" : "s"}: ${categoryNames}`}
+                  aria-label={`${wordReplayMode ? "Replay from " : ""}${word.text}. ${wordMistakes.length} recorded mistake${wordMistakes.length === 1 ? "" : "s"}: ${categoryNames}`}
                   aria-pressed={isActive}
-                  onClick={() => { onMistakeSelect(firstMistake.key); onReplayWordSelect?.(word.wid); }}
+                  onClick={() => onMistakeSelect(firstMistake.key)}
                 />
                 {wordMistakes.length > 1 && (
                   <span className="evidence-mark-count" aria-hidden="true">
@@ -329,7 +345,7 @@ export function RecitationEvidenceSpan({
           const surfaceProps = {
               data: page,
               qcfReady,
-              className: `recitation-evidence-page ${pageIndex === activePageIndex ? "is-active" : ""}`,
+              className: `recitation-evidence-page ${paginated || pageIndex === activePageIndex ? "is-active" : ""}`,
               role: "group" as const,
               "aria-label": `Recorded Quran page ${page.page}`,
               "data-question-focus-mode": "fade",

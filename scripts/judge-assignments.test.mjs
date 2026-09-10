@@ -189,7 +189,7 @@ test("scores stay scoped without the unwanted live wording", () => {
   assert.match(scoreSource, />Score</);
   assert.doesNotMatch(scoreSource, /Your section/);
   assert.match(scoreSource, /categories\.includes\(category\.id\)/);
-  assert.match(recordsSource, /Mistake overview/);
+  assert.doesNotMatch(recordsSource, /Mistake overview/);
   assert.doesNotMatch(recordsSource, /Average score/);
   assert.match(recordsSource, /Saved result/);
   assert.doesNotMatch(recordsSource, /Judge-section result/);

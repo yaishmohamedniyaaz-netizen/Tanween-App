@@ -1,0 +1,27 @@
+.replay-tools-dialog {
+  width: min(560px, calc(100vw - 24px)); max-width: none;
+  max-height: calc(100dvh - 24px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px)); margin: auto;
+  padding: 16px; box-sizing: border-box; border: 1px solid var(--line);
+  border-radius: 12px; background: var(--surface); color: var(--ink);
+}
+.replay-tools-dialog[open] { display: flex; flex-direction: column; gap: 12px; }
+.replay-tools-dialog::backdrop { background: #0006; }
+.replay-tools-dialog header { display: flex; flex-shrink: 0; align-items: center; justify-content: space-between; gap: 12px; }
+.replay-tools-dialog h2 { margin: 0; font-size: 21px; }
+.replay-tools-dialog button, .replay-tools-dialog select, .replay-tools-dialog input:not([type=checkbox]) { min-height: 44px; }
+.replay-tools-dialog .replay-tools-content { min-width: 0; min-height: 0; margin: 0; border: 0; overflow-y: auto; overscroll-behavior: contain; padding: 4px; }
+.replay-tools-dialog .replay-tools-content > * { margin-bottom: 12px; }
+.replay-tools-dialog .replay-tools-transport { flex-shrink: 0; }
+.replay-tools-dialog .replay-transport { display: grid; grid-template-columns: 44px 44px minmax(0, 1fr); gap: 8px; }
+.replay-tools-dialog .replay-transport input { width: 100%; min-width: 0; }
+.replay-tools-dialog .replay-transport output { grid-column: 1 / -1; text-align: end; }
+.replay-tools-dialog .replay-choice-row, .replay-tools-dialog .replay-boundaries { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; }
+.replay-tools-dialog select, .replay-tools-dialog input[type=number] { width: 100%; box-sizing: border-box; }
+.replay-tools-dialog label { font-size: 14px; }
+.replay-tools-dialog :focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.replay-draft-confirm { padding: 12px; border: 1px solid var(--line); border-radius: 8px; }
+.replay-draft-confirm p { margin: 0 0 8px; }
+@media (max-width: 600px) {
+  .replay-tools-dialog { padding: 12px 12px max(12px, env(safe-area-inset-bottom)); }
+  .replay-tools-dialog header { align-items: flex-start; }
+}

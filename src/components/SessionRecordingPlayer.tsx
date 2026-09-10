@@ -23,16 +23,19 @@ interface AvailableSource extends SessionRecordingSource {
 export function SessionRecordingPlayer({
   sources,
   replay,
+  presentation = "default",
 }: {
   sources: SessionRecordingSource[];
   replay?: RecitationReplayContext;
+  presentation?: "default" | "workspace";
 }) {
-  const basic = <BasicSessionRecordingPlayer sources={sources} />;
-  return replay ? <RecitationReplayPlayer sources={sources} context={replay} fallback={basic} /> : basic;
+  const basic = <BasicSessionRecordingPlayer sources={sources} compact={presentation === "workspace"} />;
+  return replay ? <RecitationReplayPlayer sources={sources} context={replay} fallback={basic} embedded={presentation === "workspace"} /> : basic;
 }
 
-function BasicSessionRecordingPlayer({ sources }: {
+function BasicSessionRecordingPlayer({ sources, compact = false }: {
   sources: SessionRecordingSource[];
+  compact?: boolean;
 }) {
   const uniqueSources = useMemo(() => {
     const seen = new Set<string>();
@@ -259,14 +262,15 @@ function BasicSessionRecordingPlayer({ sources }: {
     }
   };
 
-  if (loading || (available.length === 0 && !error)) return null;
+  if (loading || (available.length === 0 && !error)) return compact
+    ? <p role="status">{loading ? "Checking local recording…" : "Recording not on this device. Score imports do not include audio."}</p> : null;
 
   return (
     <section className="session-recording" aria-labelledby="session-recording-heading">
       <div className="session-recording-heading">
         <div>
-          <span>On-device audio</span>
-          <h3 id="session-recording-heading">Practice recitation replay</h3>
+          {!compact && <span>On-device audio</span>}
+          <h3 id="session-recording-heading">{compact ? "Recording" : "Practice recitation replay"}</h3>
         </div>
         {available.length > 1 && (
           <label>
@@ -310,7 +314,7 @@ function BasicSessionRecordingPlayer({ sources }: {
           <span className="session-recording-time t-num">
             {formatRecordingDuration(durationMs)}
           </span>
-          <button
+          {!compact && <button
             type="button"
             className="session-recording-delete"
             aria-label="Delete this local recording"
@@ -318,7 +322,7 @@ function BasicSessionRecordingPlayer({ sources }: {
             onClick={() => void handleDelete()}
           >
             <Icon name="trash" size={15} />
-          </button>
+          </button>}
           <audio
             key={currentUrl}
             ref={audioRef}
