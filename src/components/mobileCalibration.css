@@ -14,23 +14,25 @@
     min-height: 37px; height: 37px; margin-top: auto; padding: 0;
   }
   .app[data-mobile-calibration="true"].view-judge .mushaf-scroll.has-fixed-pages .mushaf-shared-nav > .page-nav {
-    position: relative; display: grid; grid-template-columns: 28.9px 26.2px 28.9px;
-    width: 84px; height: 37px; min-height: 37px; gap: 0;
+    position: relative; display: grid; grid-template-columns: 36px 52px 36px;
+    width: 136px; height: 37px; min-height: 37px; gap: 6px;
     isolation: isolate;
   }
   .app[data-mobile-calibration="true"] .page-nav::before {
-    content: ''; position: absolute; inset: 4.5px 0; z-index: -1;
-    border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+    display: none;
   }
   .app[data-mobile-calibration="true"].view-judge .mushaf-shell .page-nav :is(.page-nav-btn,.page-nav-page) {
     width: 100%; min-width: 0; height: 37px; min-height: 37px;
     margin: 0; padding: 0; border: 0; border-radius: 10px;
     background: transparent; box-shadow: none; font-size: 15px;
+    position: relative; isolation: isolate;
   }
-  .app[data-mobile-calibration="true"].view-judge .mushaf-shell :is(.page-nav-btn,.page-nav-page)::before { display: none; }
+  .app[data-mobile-calibration="true"].view-judge .mushaf-shell .page-nav :is(.page-nav-btn,.page-nav-page)::before {
+    content: ''; display: block; position: absolute; inset: 4.5px 0; z-index: -1;
+    border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+  }
   .app[data-mobile-calibration="true"] .page-nav-btn .page-nav-ink { font-size: 20px; }
-  .app[data-mobile-calibration="true"] .page-nav > .page-nav-btn:first-child .page-nav-ink { transform: translateX(1.35px); }
-  .app[data-mobile-calibration="true"] .page-nav > .page-nav-btn:last-child .page-nav-ink { transform: translateX(-1.35px); }
+  .app[data-mobile-calibration="true"] .page-nav > .page-nav-btn .page-nav-ink { transform: none; }
   .app[data-mobile-calibration="true"] .page-nav-popover {
     top: auto; bottom: calc(100% + 6px); left: 50%; right: auto;
     transform: translateX(-50%); width: min(320px, calc(100vw - 24px));
@@ -58,7 +60,7 @@
   .app[data-mobile-calibration="true"] .mobile-last-action { position: relative; height: auto; min-height: 44px; border-bottom: 0; z-index: 1; }
   .mobile-mistake-expiry {
     position: absolute; bottom: 0; inset-inline: 0; height: 2px;
-    background: var(--ink-3); opacity: .4; transform-origin: left; pointer-events: none;
+    background: var(--c, var(--ink-3)); opacity: .4; transform-origin: left; pointer-events: none;
   }
   .app[data-mobile-calibration="true"] .mobile-criterion-chip {
     padding: 4px 2px 8px; grid-template-rows: auto auto; gap: 0;

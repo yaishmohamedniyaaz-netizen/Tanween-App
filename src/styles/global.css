@@ -10888,7 +10888,7 @@ html:has(.finish-dialog[open]) {
 .finish-score-head,
 .finish-score-row {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 82px 94px;
+  grid-template-columns: minmax(0, 1fr) minmax(72px, .45fr) minmax(78px, .55fr);
   align-items: center;
   gap: 12px;
 }
@@ -10901,7 +10901,7 @@ html:has(.finish-dialog[open]) {
   text-transform: uppercase;
 }
 .finish-score-head span:nth-child(n + 2) {
-  text-align: right;
+  text-align: center;
 }
 .finish-score-row {
   min-height: 50px;
@@ -10941,15 +10941,25 @@ html:has(.finish-dialog[open]) {
 .finish-deducted {
   color: var(--ink-2);
   font-size: 12.5px;
-  text-align: right;
+  text-align: center;
 }
 .finish-score-value {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   color: var(--ink);
   font-size: 13px;
 }
-.finish-score-row:has(.mark-stepper-shell.is-open) {
+.finish-score-value > .score-value-layout {
+  box-sizing: border-box;
+  width: 78px;
+  justify-content: center;
+}
+.finish-score-value .score-value-layout .sc-of {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--ink-3);
+}
+.finish-score-table:has(.mark-stepper-shell.is-open) :is(.finish-score-head, .finish-score-row) {
   grid-template-columns: minmax(0, 1fr) 82px 140px;
 }
 .finish-score-row:has(.mark-stepper-shell.is-open) .finish-score-value {
@@ -11063,7 +11073,7 @@ html:has(.finish-dialog[open]) {
     margin-inline: -7px;
     padding: 8px 7px 12px;
   }
-  .finish-score-row:has(.mark-stepper-shell.is-open) {
+  .finish-score-table:has(.mark-stepper-shell.is-open) :is(.finish-score-head, .finish-score-row) {
     grid-template-columns: minmax(0, 1fr) 42px 140px;
   }
   .finish-mark-error {
@@ -14513,24 +14523,25 @@ html:has(.finish-dialog[open]) {
   .app[data-mobile-judge-deck="true"] .finish-score-head span:nth-child(2),
   .app[data-mobile-judge-deck="true"] .finish-deducted {
     box-sizing: border-box;
-    padding-right: 4px;
+    padding-right: 0;
   }
 
   .app[data-mobile-judge-deck="true"] .finish-score-head span:last-child {
     box-sizing: border-box;
-    padding-right: 8px;
+    padding-right: 0;
   }
 
   .app[data-mobile-judge-deck="true"] .finish-score-value > .score-value-layout:not(.mark-picker) {
     box-sizing: border-box;
     width: 70px;
-    padding-right: 8px;
-    justify-content: flex-end;
+    padding-right: 0;
+    justify-content: center;
   }
 
   .app[data-mobile-judge-deck="true"] .finish-score-value .mark-picker {
-    padding-right: 8px;
-    justify-content: flex-end;
+    width: 70px;
+    padding-inline: 6px;
+    justify-content: center;
   }
 
   .app[data-mobile-judge-deck="true"] .finish-dialog-actions {

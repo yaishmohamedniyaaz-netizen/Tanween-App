@@ -34,7 +34,7 @@ test('reference devices reproduce the selected page-601 fit to rounding toleranc
 test('calibration stylesheet is portrait-only and does not edit saved state',()=>{
   const css=readFileSync('src/components/mobileCalibration.css','utf8');
   assert.match(css,/@media \(max-width: 600px\) and \(orientation: portrait\)/);
-  assert.match(css,/grid-template-columns: 28.9px 26.2px 28.9px/);
+  assert.match(css,/grid-template-columns: 36px 52px 36px/);
   assert.match(css,/padding: 6px 0 0/);
   assert.doesNotMatch(readFileSync('src/lib/mobileCalibration.ts','utf8'),/localStorage|dispatch\(/);
 });

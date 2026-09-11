@@ -720,7 +720,7 @@ test("the Finish recovery remains available across repeated invalid saves", () =
   assert.doesNotMatch(finishDialogSource, /scrollIntoView/);
   assert.match(ruleBody(".finish-dialog-body"), /overflow-x: hidden/);
   assert.match(
-    ruleBody(".finish-score-row:has(.mark-stepper-shell.is-open)"),
+    ruleBody(".finish-score-table:has(.mark-stepper-shell.is-open) :is(.finish-score-head, .finish-score-row)"),
     /140px/,
   );
   assert.match(

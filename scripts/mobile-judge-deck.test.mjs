@@ -170,7 +170,7 @@ test("mobile Finish removes duplicate score copy and aligns numeric content insi
   assert.match(css, /data-mobile-judge-deck="true"\] \.finish-heading-copy \{[\s\S]*display: contents/);
   assert.match(css, /data-mobile-judge-deck="true"\] \.finish-total small \{[\s\S]*display: none/);
   assert.match(css, /finish-score-value > \.score-value-layout:not\(\.mark-picker\)[\s\S]*width: 70px/);
-  assert.match(css, /finish-score-value \.mark-picker \{[\s\S]*justify-content: flex-end/);
+  assert.match(css, /finish-score-value \.mark-picker \{[^}]*justify-content: center/);
 });
 
 test("phone portrait reciter queue stays inside the PWA safe area", () => {
