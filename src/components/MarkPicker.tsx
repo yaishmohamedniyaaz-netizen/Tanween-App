@@ -37,8 +37,6 @@ interface Props {
   onChange: (value: number) => void;
   autoFocus?: boolean;
   layer?: "workspace" | "dialog";
-  presentation?: "floating" | "inline";
-  inlineTarget?: HTMLElement | null;
   invalid?: boolean;
   describedBy?: string;
   dismissOnOutsidePress?: boolean;
@@ -67,8 +65,6 @@ export const MarkPicker = forwardRef<MarkPickerHandle, Props>(function MarkPicke
   onChange,
   autoFocus = false,
   layer = "workspace",
-  presentation = "floating",
-  inlineTarget = null,
   invalid = false,
   describedBy,
   dismissOnOutsidePress = true,
@@ -77,7 +73,6 @@ export const MarkPicker = forwardRef<MarkPickerHandle, Props>(function MarkPicke
   const barRef = useRef<HTMLDivElement>(null);
   const rulerRef = useRef<HTMLDivElement>(null);
   const rulerRailRef = useRef<HTMLSpanElement>(null);
-  const stepperShellRef = useRef<HTMLSpanElement>(null);
   const rulerDragRef = useRef<{ moved: boolean; pointerId: number } | null>(null);
   const inputWheelDeltaRef = useRef(0);
   const openedAtRef = useRef(0);
@@ -158,8 +153,8 @@ export const MarkPicker = forwardRef<MarkPickerHandle, Props>(function MarkPicke
   const coarseStep = fineStep * 2;
   const stepperShown = marked ? value : max;
 
-  useLayoutEffect(() => {
-    if (!open || mode !== "ruler" || presentation === "inline") return;
+  const positionBar = useCallback(() => {
+    if (!open) return;
     const rect = buttonRef.current?.getBoundingClientRect();
     if (!rect) return;
     const viewport = window.visualViewport;
@@ -167,17 +162,44 @@ export const MarkPicker = forwardRef<MarkPickerHandle, Props>(function MarkPicke
     const viewportTop = viewport?.offsetTop ?? 0;
     const viewportWidth = viewport?.width ?? window.innerWidth;
     const viewportHeight = viewport?.height ?? window.innerHeight;
-    const width = Math.max(BAR_MIN_WIDTH, Math.min(BAR_MAX_WIDTH, viewportWidth - BAR_MARGIN * 2));
+    const dialog = buttonRef.current?.closest("dialog");
+    const dialogRect = dialog?.getBoundingClientRect();
+    const availableWidth = Math.min(viewportWidth, dialog?.clientWidth ?? viewportWidth);
+    const width = Math.max(0, Math.min(mode === "stepper" ? 228 : BAR_MAX_WIDTH, availableWidth - BAR_MARGIN * 2));
+    const leftEdge = Math.max(viewportLeft, dialogRect?.left ?? viewportLeft) + BAR_MARGIN;
+    const rightEdge = Math.min(viewportLeft + viewportWidth, dialogRect?.right ?? viewportLeft + viewportWidth) - BAR_MARGIN;
     const left = Math.min(
-      Math.max(viewportLeft + BAR_MARGIN, rect.left + rect.width / 2 - width / 2),
-      viewportLeft + viewportWidth - width - BAR_MARGIN,
+      Math.max(leftEdge, mode === "stepper" ? rect.right - width : rect.left + rect.width / 2 - width / 2),
+      rightEdge - width,
     );
     const barHeight = barRef.current?.offsetHeight ?? 72;
     const top = viewportTop + viewportHeight - rect.bottom - 10 < barHeight
       ? Math.max(viewportTop + 8, rect.top - 10 - barHeight)
       : rect.bottom + 10;
-    setAnchor({ top, left, width });
-  }, [mode, open, presentation]);
+    setAnchor((previous) => previous.top === top && previous.left === left && previous.width === width
+      ? previous : { top, left, width });
+  }, [mode, open]);
+
+  useLayoutEffect(() => {
+    positionBar();
+    if (!open) return;
+    const observer = new ResizeObserver(positionBar);
+    if (barRef.current) observer.observe(barRef.current);
+    const dialog = buttonRef.current?.closest("dialog");
+    if (dialog) observer.observe(dialog);
+    dialog?.addEventListener("animationend", positionBar);
+    // Review recovery can scroll its body after opening the picker.
+    document.addEventListener("scroll", positionBar, true);
+    window.visualViewport?.addEventListener("resize", positionBar);
+    window.visualViewport?.addEventListener("scroll", positionBar);
+    return () => {
+      observer.disconnect();
+      dialog?.removeEventListener("animationend", positionBar);
+      document.removeEventListener("scroll", positionBar, true);
+      window.visualViewport?.removeEventListener("resize", positionBar);
+      window.visualViewport?.removeEventListener("scroll", positionBar);
+    };
+  }, [open, positionBar]);
 
   useEffect(() => {
     if (!open) return;
@@ -191,7 +213,6 @@ export const MarkPicker = forwardRef<MarkPickerHandle, Props>(function MarkPicke
       if (!dismissOnOutsidePress) return;
       if (
         !barRef.current?.contains(event.target as Node) &&
-        !stepperShellRef.current?.contains(event.target as Node) &&
         !buttonRef.current?.contains(event.target as Node)
       ) close();
     };
@@ -200,7 +221,7 @@ export const MarkPicker = forwardRef<MarkPickerHandle, Props>(function MarkPicke
     };
     window.addEventListener("keydown", onKey);
     document.addEventListener("pointerdown", onDown);
-    if (presentation === "floating" && !dragging) {
+    if (!dragging) {
       window.addEventListener("resize", onViewportChange);
       window.addEventListener("scroll", onViewportChange);
     }
@@ -210,7 +231,7 @@ export const MarkPicker = forwardRef<MarkPickerHandle, Props>(function MarkPicke
       window.removeEventListener("resize", onViewportChange);
       window.removeEventListener("scroll", onViewportChange);
     };
-  }, [close, dismissOnOutsidePress, dragging, focusTrigger, open, presentation]);
+  }, [close, dismissOnOutsidePress, dragging, focusTrigger, open]);
 
   useEffect(() => {
     if (!open || !pinned) return;
@@ -411,8 +432,8 @@ export const MarkPicker = forwardRef<MarkPickerHandle, Props>(function MarkPicke
   const bar = open && mode === "ruler" ? (
     <div
       ref={barRef}
-      className={`mark-bar mark-bar-ruler cat-${category} ${pinned ? "is-pinned" : "is-transient"} ${layer === "dialog" ? "is-dialog-layer" : ""} ${presentation === "inline" ? "is-inline" : ""}`}
-      style={presentation === "floating" ? anchor : undefined}
+      className={`mark-bar mark-bar-ruler cat-${category} ${pinned ? "is-pinned" : "is-transient"} ${layer === "dialog" ? "is-dialog-layer" : ""}`}
+      style={anchor}
     >
       {ruler}
     </div>
@@ -453,42 +474,46 @@ export const MarkPicker = forwardRef<MarkPickerHandle, Props>(function MarkPicke
       </button>
   );
 
-  if (mode === "stepper") {
-    return (
-      <span ref={stepperShellRef} className={`mark-stepper-shell cat-${category} ${open ? "is-open" : ""}`}>
+  const stepper = open && mode === "stepper" ? (
+    <div ref={barRef} className={`mark-bar mark-stepper-tray cat-${category} ${layer === "dialog" ? "is-dialog-layer" : ""}`} style={anchor}
+      role="group" aria-label={`${label} step buttons`}>
+      <div className="mark-stepper-controls">
         <button
           type="button"
           className="mark-stepper-adjust is-minus"
-          disabled={!open || stepperShown <= 0}
-          tabIndex={open ? 0 : -1}
-          aria-hidden={!open}
+          disabled={stepperShown <= 0}
           aria-label={`Subtract ${displayMark(fineStep)} marks`}
           onClick={() => adjustStepper(-fineStep)}
         >
           <span aria-hidden="true">−</span>
         </button>
-        {trigger}
+        <output className="mark-stepper-readout t-num" aria-live="polite">
+          {marked ? displayMark(value) : "—"}<span className="sc-of"> / {max}</span>
+        </output>
         <button
           type="button"
           className="mark-stepper-adjust is-plus"
-          disabled={!open || (marked && stepperShown >= max)}
-          tabIndex={open ? 0 : -1}
-          aria-hidden={!open}
+          disabled={marked && stepperShown >= max}
           aria-label={marked ? `Add ${displayMark(fineStep)} marks` : `Set full ${displayMark(max)} marks`}
           onClick={() => adjustStepper(fineStep)}
         >
           <span aria-hidden="true">+</span>
         </button>
-      </span>
-    );
-  }
+      </div>
+      <div className="mark-stepper-footer">
+        <span>{displayMark(fineStep)} per step</span>
+        <button type="button" onClick={() => { close(); focusTrigger(); }}>Done</button>
+      </div>
+    </div>
+  ) : null;
+
+  // Native modal descendants stay in the dialog's top layer and focus boundary.
+  const portalTarget = buttonRef.current?.closest("dialog") ?? document.body;
 
   return (
     <>
       {trigger}
-      {bar && (presentation === "inline" && mode === "ruler"
-        ? inlineTarget && createPortal(bar, inlineTarget)
-        : createPortal(bar, document.body))}
+      {(bar || stepper) && createPortal(bar || stepper, portalTarget)}
     </>
   );
 });

@@ -248,7 +248,7 @@ test("completion uses the same required-entry rule at every boundary", () => {
     finishDialogSource,
     /if \(missing\.length > 0\) \{\s*setSaveAttemptCount\(\(attempts\) => attempts \+ 1\);\s*return;/,
   );
-  assert.match(finishDialogSource, /presentation="inline"/);
+  assert.doesNotMatch(finishDialogSource, /presentation="inline"|finish-inline-picker/);
   assert.match(finishDialogSource, /invalid=\{invalid\}/);
   assert.match(finishDialogSource, /describedBy=\{invalid \? errorId : undefined\}/);
   assert.match(pickerSource, /focusAndOpen/);
@@ -719,14 +719,8 @@ test("the Finish recovery remains available across repeated invalid saves", () =
   assert.match(finishDialogSource, /body\.scrollTop = Math\.max\(0,/);
   assert.doesNotMatch(finishDialogSource, /scrollIntoView/);
   assert.match(ruleBody(".finish-dialog-body"), /overflow-x: hidden/);
-  assert.match(
-    ruleBody(".finish-score-table:has(.mark-stepper-shell.is-open) :is(.finish-score-head, .finish-score-row)"),
-    /140px/,
-  );
-  assert.match(
-    ruleBody(".finish-score-row:has(.mark-stepper-shell.is-open) .finish-score-value"),
-    /justify-content: center/,
-  );
+  assert.doesNotMatch(cssSource, /finish-score-table:has\(\.mark-stepper/);
+  assert.match(pickerSource, /closest\("dialog"\) \?\? document.body/);
   assert.match(finishDialogSource, /dismissOnOutsidePress=\{!invalid\}/);
   assert.match(pickerSource, /dismissOnOutsidePress\?: boolean/);
   assert.match(pickerSource, /if \(!dismissOnOutsidePress\) return/);
@@ -772,7 +766,7 @@ test("the quiet ruler stays neutral until a mark is set or previewed", () => {
   assert.match(ruleBody(".mark-ruler-track"), /background: var\(--line-2\)/);
 });
 
-test("the alternate input reveals half-mark buttons without moving or duplicating the score", () => {
+test("the alternate input uses a floating tray without moving the score columns", () => {
   assert.match(pickerSource, /mode: AduRaaguInputMode/);
   assert.match(pickerSource, /const fineStep = step > 0 \? step : 1/);
   assert.match(pickerSource, /const coarseStep = fineStep \* 2/);
@@ -781,17 +775,12 @@ test("the alternate input reveals half-mark buttons without moving or duplicatin
   assert.match(pickerSource, /Add \$\{displayMark\(fineStep\)\} marks/);
   assert.match(pickerSource, /Set full \$\{displayMark\(max\)\} marks/);
   assert.match(pickerSource, /const triggerDisplay = mode === "stepper" && !marked \? "—" : display/);
-  assert.match(pickerSource, /presentation === "inline" && mode === "ruler"/);
-  assert.match(pickerSource, /className={`mark-stepper-shell cat-\$\{category\}/);
+  assert.match(pickerSource, /mark-stepper-tray cat-\$\{category\}/);
   assert.match(pickerSource, /\{trigger\}/);
   assert.doesNotMatch(pickerSource, /stepperShift|translateX\(\$\{stepperShift\}|mark-stepper-value/);
   assert.doesNotMatch(pickerSource, /mark-bar-stepper/);
-  assert.match(ruleBody(".mark-stepper-shell"), /position: relative/);
-  assert.match(ruleBody(".mark-stepper-shell"), /width: 70px/);
-  assert.match(ruleBody(".mark-stepper-adjust"), /position: absolute/);
-  assert.match(ruleBody(".mark-stepper-adjust.is-minus"), /left: -35px/);
-  assert.match(ruleBody(".mark-stepper-adjust.is-plus"), /right: -35px/);
-  assert.match(ruleBody(".sidebar:has(.mark-stepper-shell.is-open)"), /overflow: visible/);
+  assert.doesNotMatch(cssSource, /mark-stepper-shell|left: -35px|right: -35px/);
+  assert.match(ruleBody(".mark-stepper-controls"), /grid-template-columns: var\(--tap\) minmax\(0, 1fr\) var\(--tap\)/);
   assert.match(ruleBody(".mark-stepper-adjust"), /min-height: var\(--tap\)/);
   assert.doesNotMatch(scorePanelSource, /input-\$\{inputMode\}/);
   assert.doesNotMatch(cssSource, /\.sc-row-impression\.input-stepper/);

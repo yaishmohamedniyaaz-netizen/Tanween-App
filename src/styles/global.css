@@ -6089,7 +6089,7 @@ textarea:focus-visible {
 .sc-deducted {
   font-size: 11.5px;
   font-weight: 500;
-  text-align: right;
+  text-align: center;
   color: var(--ink-2);
   font-variant-numeric: tabular-nums;
 }
@@ -10545,15 +10545,7 @@ html:has(.dialog-backdrop) {
 .mark-bar.is-dialog-layer {
   z-index: 90;
 }
-.mark-bar.is-inline {
-  position: static;
-  width: 100%;
-  padding: 12px 14px 14px;
-  border-color: color-mix(in srgb, var(--c, var(--ink)) 24%, var(--line));
-  background: color-mix(in srgb, var(--c, var(--ink)) 3%, var(--surface));
-  box-shadow: none;
-}
-.mark-bar-ruler:not(.is-inline) {
+.mark-bar-ruler {
   padding: 0;
   border: 0;
   background: transparent;
@@ -10695,97 +10687,34 @@ html:has(.dialog-backdrop) {
   transition: none;
 }
 
-.mark-stepper-shell {
-  position: relative;
-  display: block;
-  justify-self: end;
-  width: 70px;
-  min-height: var(--tap);
-  isolation: isolate;
-}
-.mark-stepper-shell .mark-picker {
-  position: relative;
-  z-index: 2;
-  width: 70px;
+.mark-stepper-tray { padding: 12px; touch-action: auto; }
+.mark-stepper-controls {
+  display: grid;
+  grid-template-columns: var(--tap) minmax(0, 1fr) var(--tap);
+  align-items: center;
+  border: 1px solid var(--line-2);
+  border-radius: 7px;
+  overflow: hidden;
 }
 .mark-stepper-adjust {
-  position: absolute;
-  z-index: 1;
-  top: 0;
-  width: var(--tap);
   min-width: var(--tap);
   min-height: var(--tap);
-  margin: 0;
-  border: 1px solid var(--line-2);
-  border-radius: 9px;
-  background: var(--surface);
+  padding: 0;
+  border: 0;
+  background: var(--bg);
   color: var(--ink);
   font: inherit;
-  display: grid;
-  place-items: center;
-  padding: 0 4px;
-  font-size: 13px;
-  font-weight: 680;
-  font-variant-numeric: tabular-nums;
+  font-size: 24px;
   cursor: pointer;
-  opacity: 0;
-  visibility: hidden;
-  transform: scale(.92);
-  pointer-events: none;
-  transition:
-    opacity var(--t-fast) var(--ease-out),
-    transform var(--t-fast) var(--ease-out),
-    visibility 0s linear var(--t-fast),
-    border-color var(--t-fast) var(--ease-out),
-    background var(--t-fast) var(--ease-out);
 }
-.mark-stepper-adjust.is-minus {
-  left: -35px;
-  border-radius: 9px 0 0 9px;
-}
-.mark-stepper-adjust.is-plus {
-  right: -35px;
-  border-radius: 0 9px 9px 0;
-}
-.mark-stepper-adjust.is-minus span {
-  transform: translateX(-2px);
-}
-.mark-stepper-adjust.is-plus span {
-  transform: translateX(2px);
-}
-.mark-stepper-shell.is-open .mark-stepper-adjust {
-  opacity: 1;
-  visibility: visible;
-  transform: none;
-  pointer-events: auto;
-  transition-delay: 0s;
-}
-.sidebar:has(.mark-stepper-shell.is-open) {
-  z-index: 61;
-  overflow: visible;
-}
-.mark-stepper-adjust:hover:not(:disabled) {
-  border-color: color-mix(in srgb, var(--c, var(--ink)) 52%, var(--line-2));
-  background: color-mix(in srgb, var(--c, var(--ink)) 7%, var(--surface));
-}
-.mark-stepper-adjust:active:not(:disabled) {
-  transform: translateY(1px);
-}
-.mark-stepper-adjust:disabled {
-  opacity: .34;
-  cursor: not-allowed;
-}
-.mark-stepper-adjust:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 3px var(--ring);
-}
-@media (prefers-reduced-motion: reduce) {
-  .mark-ruler-fill,
-  .mark-ruler-bubble,
-  .mark-stepper-adjust {
-    transition: none;
-  }
-}
+.mark-stepper-adjust:hover:not(:disabled) { background: var(--line); }
+.mark-stepper-adjust:disabled { color: var(--ink-3); opacity: .5; cursor: default; }
+.mark-stepper-adjust:focus-visible { outline: 2px solid var(--ink-2); outline-offset: -3px; }
+.mark-stepper-readout { text-align: center; font-size: 14px; white-space: nowrap; }
+.mark-stepper-readout .sc-of { font-size: 12px; color: var(--ink-3); }
+.mark-stepper-footer { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 8px; font-size: 12px; color: var(--ink-3); }
+.mark-stepper-footer button { min-height: var(--tap); padding: 0 12px; border: 0; border-radius: 5px; color: var(--ink-2); background: transparent; font: inherit; cursor: pointer; }
+.mark-stepper-footer button:focus-visible { outline: 2px solid var(--ink-2); }
 .finish-dialog {
   display: grid;
   grid-template-rows: auto minmax(0, 1fr) auto;
@@ -10959,12 +10888,6 @@ html:has(.finish-dialog[open]) {
   font-weight: 400;
   color: var(--ink-3);
 }
-.finish-score-table:has(.mark-stepper-shell.is-open) :is(.finish-score-head, .finish-score-row) {
-  grid-template-columns: minmax(0, 1fr) 82px 140px;
-}
-.finish-score-row:has(.mark-stepper-shell.is-open) .finish-score-value {
-  justify-content: center;
-}
 .finish-score-row.is-pending .finish-criterion strong {
   color: var(--c, var(--ink));
 }
@@ -10987,8 +10910,7 @@ html:has(.finish-dialog[open]) {
   border-color: color-mix(in srgb, #d8453d 72%, var(--line));
   box-shadow: 0 0 0 2px color-mix(in srgb, #d8453d 13%, transparent);
 }
-.finish-mark-error,
-.finish-inline-picker {
+.finish-mark-error {
   grid-column: 1 / -1;
 }
 .finish-mark-error {
@@ -10996,13 +10918,6 @@ html:has(.finish-dialog[open]) {
   font-size: 11.5px;
   font-weight: 570;
   line-height: 1.4;
-}
-.finish-inline-picker {
-  min-width: 0;
-  margin-top: 2px;
-}
-.finish-inline-picker:empty {
-  display: none;
 }
 .finish-remarks {
   margin-top: 18px;
@@ -11072,9 +10987,6 @@ html:has(.finish-dialog[open]) {
   .finish-score-row.is-invalid {
     margin-inline: -7px;
     padding: 8px 7px 12px;
-  }
-  .finish-score-table:has(.mark-stepper-shell.is-open) :is(.finish-score-head, .finish-score-row) {
-    grid-template-columns: minmax(0, 1fr) 42px 140px;
   }
   .finish-mark-error {
     margin-left: 15px;
@@ -14283,9 +14195,7 @@ html:has(.finish-dialog[open]) {
     font-size: 12px;
   }
 
-  .mobile-score-sheet .mark-picker,
-  .mobile-score-sheet .mark-stepper-shell,
-  .mobile-score-sheet .mark-stepper-shell .mark-picker {
+  .mobile-score-sheet .mark-picker {
     width: 78px;
   }
 
@@ -14539,7 +14449,7 @@ html:has(.finish-dialog[open]) {
   }
 
   .app[data-mobile-judge-deck="true"] .finish-score-value .mark-picker {
-    width: 70px;
+    width: 78px;
     padding-inline: 6px;
     justify-content: center;
   }
@@ -14669,19 +14579,39 @@ html:has(.finish-dialog[open]) {
 .compact-text-dialog textarea { box-sizing: border-box; width: 100%; min-height: 120px; padding: 12px; border: 1px solid var(--line-2); border-radius: var(--r-sm); background: var(--bg); color: var(--ink); font: inherit; resize: vertical; }
 .compact-text-dialog :focus-visible { outline: 2px solid var(--ink-2); outline-offset: 2px; }
 /* Keep the scoring hit target generous while making its visible box discreet. */
-.sidebar .mark-picker {
+.sidebar .mark-picker,
+.finish-score-value .mark-picker {
   position: relative; width: 56px; min-height: 44px;
   padding: 0 4px; border: 0; background: transparent; box-shadow: none;
 }
-.sidebar .mark-picker::before {
+.sidebar .mark-picker::before,
+.finish-score-value .mark-picker::before {
   content: ''; position: absolute; inset: 9px 0; pointer-events: none;
   border: 1px solid var(--line-2); border-radius: 5px;
 }
 .sidebar .mark-picker:hover::before,
-.sidebar .mark-picker.is-open::before { border-color: var(--ink-2); }
-.sidebar .mark-picker.is-open { background: transparent; box-shadow: none; }
+.sidebar .mark-picker.is-open::before,
+.finish-score-value .mark-picker:hover::before,
+.finish-score-value .mark-picker.is-open::before { border-color: var(--ink-2); }
+.sidebar .mark-picker.is-open,
+.finish-score-value .mark-picker.is-open { background: transparent; box-shadow: none; }
+.finish-score-value .mark-picker { width: 56px; flex-shrink: 0; }
+@media (max-width: 600px) and (orientation: portrait) {
+  .finish-score-value .mark-picker {
+    width: 78px; padding: 6px; border: 1px solid var(--line-2);
+    background: var(--surface);
+  }
+  .finish-score-value .mark-picker::before { content: none; }
+  .finish-score-value .mark-picker:hover { border-color: var(--ink-3); }
+  .finish-score-value .mark-picker.is-open {
+    border-color: var(--ink); background: var(--surface);
+    box-shadow: inset 0 0 0 1px var(--ink);
+  }
+}
 /* Share score-column centering and first-row rhythm with the read-only criteria. */
 @media (min-width: 901px) {
+  .finish-score-value .mark-picker { width: 64px; }
+  .finish-score-value .mark-picker::before { inset: 9px 4px; }
   .sidebar .sc-row-impression { grid-template-rows: 23px auto; }
   .score-slim .sidebar .sc-row-impression { grid-template-rows: 21px auto; }
   .sidebar .sc-row-impression .mark-picker {

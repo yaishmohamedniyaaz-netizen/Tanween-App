@@ -40,7 +40,6 @@ function FinishImpressionRow({
   registerPicker: (picker: MarkPickerHandle | null) => void;
   registerRow: (row: HTMLDivElement | null) => void;
 }) {
-  const [inlineTarget, setInlineTarget] = useState<HTMLDivElement | null>(null);
   const errorId = `finish-${category}-error`;
 
   return (
@@ -73,8 +72,6 @@ function FinishImpressionRow({
           mode={inputMode}
           onChange={onChange}
           layer="dialog"
-          presentation="inline"
-          inlineTarget={inlineTarget}
           invalid={invalid}
           describedBy={invalid ? errorId : undefined}
           dismissOnOutsidePress={!invalid}
@@ -85,7 +82,6 @@ function FinishImpressionRow({
           Choose an Adu / Raagu mark to save.
         </p>
       )}
-      <div className="finish-inline-picker" ref={setInlineTarget} />
     </div>
   );
 }
