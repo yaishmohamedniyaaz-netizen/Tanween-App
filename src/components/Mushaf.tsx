@@ -10,6 +10,7 @@ import {
   useState,
 } from "react";
 import { flushSync } from "react-dom";
+import type { ReadyFixedPage } from '../lib/readyFixedPages';
 import { uid } from "../lib/id";
 import {
   judgingTargetsOf,
@@ -122,6 +123,10 @@ function dominant(mistakes: Mistake[]): CategoryId {
 }
 
 export interface MushafProps {
+  preparedFixedPage?: ReadyFixedPage | null;
+  navigationPending?: boolean;
+  navigationError?: string | null;
+  retryNavigation?: () => void;
   /** Explicit integration preview; absence retains the existing renderer. */
   fixedPages?: ReadonlyMap<number, FixedPageGeometry>;
   fixedSemanticPages?: ReadonlyMap<number, MushafPage>;
@@ -146,6 +151,8 @@ interface ContextShadeBox {
 }
 
 export function Mushaf({
+  preparedFixedPage,
+  navigationPending = false,
   fixedPages,
   fixedSemanticPages,
   selectorTashkeel = false,
@@ -171,9 +178,13 @@ export function Mushaf({
   const allowedCategories = (
     state.activeAssignment?.categories ?? enabledCategories(assignedConfig)
   ).filter(isPinpointCategory);
-  const judgingEnabled = state.sessionActive && allowedCategories.length > 0;
-  const [pageData, setPageData] = useState<MushafPage[]>([]);
-  const [fontReadyPages, setFontReadyPages] = useState<Set<number>>(() => new Set());
+  const judgingEnabled = state.sessionActive && allowedCategories.length > 0 && !navigationPending;
+  const [loadedPageData, setPageData] = useState<MushafPage[]>([]);
+  const [loadedFontReadyPages, setFontReadyPages] = useState<Set<number>>(() => new Set());
+  const pageData = useMemo(() => preparedFixedPage
+    ? [...preparedFixedPage.semantic.values()] : loadedPageData, [preparedFixedPage, loadedPageData]);
+  const fontReadyPages = useMemo(() => preparedFixedPage
+    ? new Set(preparedFixedPage.semantic.keys()) : loadedFontReadyPages, [preparedFixedPage, loadedFontReadyPages]);
   const [loadError, setLoadError] = useState(false);
   const [loadAttempt, setLoadAttempt] = useState(0);
   const pageRefs = useRef(new Map<number, HTMLDivElement>());
@@ -226,6 +237,7 @@ export function Mushaf({
   // commit. The previous complete view remains intact during navigation.
   useEffect(() => {
     let cancelled = false;
+    if (preparedFixedPage) return;
     setLoadError(false);
     Promise.all(
       requestedPages.map(async (page) => {
@@ -255,7 +267,7 @@ export function Mushaf({
     return () => {
       cancelled = true;
     };
-  }, [loadAttempt, requestKey, fixedPages, fixedSemanticPages]);
+  }, [loadAttempt, requestKey, fixedPages, fixedSemanticPages, preparedFixedPage]);
 
   // Warm both neighboring views so the next pair swaps atomically from cache.
   useEffect(() => {
@@ -423,9 +435,10 @@ export function Mushaf({
   }, [geometryChanged]);
 
   useLayoutEffect(() => {
+    if (preparedFixedPage) { measure(); return; }
     const frame = requestAnimationFrame(measure);
     return () => cancelAnimationFrame(frame);
-  }, [fontReadyPages, measure, measureEpoch, requestKey, renderScale]);
+  }, [fontReadyPages, measure, measureEpoch, requestKey, renderScale, preparedFixedPage]);
 
   useEffect(() => {
     const roots = [...pageRefs.current.values()];
@@ -516,6 +529,7 @@ export function Mushaf({
 
   // A tray never survives navigation or a structural page-layout change.
   useEffect(() => closeAll(), [closeAll, currentPage, pageLayout, renderScale]);
+  useLayoutEffect(() => { if (navigationPending) closeAll(); }, [navigationPending, closeAll]);
   useEffect(() => {
     window.addEventListener('resize', closeAll);
     return () => window.removeEventListener('resize', closeAll);
@@ -546,7 +560,8 @@ export function Mushaf({
     : null;
   const commit = useCallback(
     (category: CategoryId, tidOverride?: string | null) => {
-      if (!active) return;
+      if (!active || !judgingEnabled) return;
+      if (preparedFixedPage && (active.meta.page !== currentPage || boxesKey !== requestKey)) return;
       if (!allowedCategories.includes(category)) return;
       const selectedTid = tidOverride ?? active.tid;
       if (!selectedTid) return;
@@ -580,11 +595,12 @@ export function Mushaf({
       };
       dispatch({ type: "ADD_MISTAKE", mistake });
     },
-    [active, allowedCategories, dispatch, state.activeAssignment, state.config],
+    [active, allowedCategories, dispatch, state.activeAssignment, state.config, judgingEnabled, preparedFixedPage, currentPage, boxesKey, requestKey],
   );
 
   const onPointerDown = (event: React.PointerEvent, page: number) => {
     if (!judgingEnabled) return;
+    if (preparedFixedPage && boxesKey !== requestKey) return;
     if (fixedPages && requestKey !== pageData.map(data => data.page).join(":")) return;
     if (fixedPages && (!event.isPrimary || startRef.current)) { closeAll(); return; }
     if (startRef.current) return;
@@ -714,6 +730,7 @@ export function Mushaf({
     box: WordHitbox,
   ) => {
     if (!judgingEnabled) return;
+    if (preparedFixedPage && boxesKey !== requestKey) return;
     if (fixedPages && requestKey !== pageData.map(data => data.page).join(":")) return;
     if (event.key !== "Enter" && event.key !== " ") return;
     event.preventDefault();

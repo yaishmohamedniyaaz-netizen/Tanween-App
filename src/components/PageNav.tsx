@@ -1,4 +1,5 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
+import { createPortal } from 'react-dom';
 import surahIndex from "../data/surah-index.json";
 import type { MushafLayout } from "../lib/devicePreferences";
 import {
@@ -15,6 +16,7 @@ interface PageNavProps {
   compact: boolean;
   onChange: (page: number) => void;
   prefetchFonts?: boolean;
+  calibrated?: boolean;
 }
 
 export function PageNav({
@@ -24,10 +26,13 @@ export function PageNav({
   compact,
   onChange,
   prefetchFonts = true,
+  calibrated = false,
 }: PageNavProps) {
   const [popoverOpen, setPopoverOpen] = useState(false);
   const [jumpInput, setJumpInput] = useState("");
   const popoverRef = useRef<HTMLDivElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
+  const [popupStyle, setPopupStyle] = useState<CSSProperties>({ visibility: 'hidden' });
   const pageBtnRef = useRef<HTMLButtonElement>(null);
   const jumpInputRef = useRef<HTMLInputElement>(null);
   const lastWheelRef = useRef(0);
@@ -58,7 +63,7 @@ export function PageNav({
   useEffect(() => {
     if (!popoverOpen) return;
     const onDoc = (event: MouseEvent) => {
-      if (!popoverRef.current?.contains(event.target as Node)) {
+      if (!popoverRef.current?.contains(event.target as Node) && !menuRef.current?.contains(event.target as Node)) {
         setPopoverOpen(false);
       }
     };
@@ -77,11 +82,46 @@ export function PageNav({
   useEffect(() => {
     if (!popoverOpen) return;
     const frame = requestAnimationFrame(() => {
-      jumpInputRef.current?.focus();
+      jumpInputRef.current?.focus({ preventScroll: calibrated });
       jumpInputRef.current?.select();
     });
     return () => cancelAnimationFrame(frame);
-  }, [popoverOpen]);
+  }, [popoverOpen, calibrated]);
+
+  useLayoutEffect(() => {
+    if (!popoverOpen || !calibrated) return;
+    const viewport = window.visualViewport;
+    let frame = 0;
+    const place = () => {
+      const anchor = pageBtnRef.current?.getBoundingClientRect();
+      if (!anchor) return;
+      const left = viewport?.offsetLeft ?? 0;
+      const top = viewport?.offsetTop ?? 0;
+      const width = viewport?.width ?? window.innerWidth;
+      const height = viewport?.height ?? window.innerHeight;
+      const menuWidth = Math.max(0, Math.min(320, width - 24));
+      const menuHeight = Math.max(0, Math.min(360, height - 24));
+      setPopupStyle({ position: 'fixed', visibility: 'visible', transform: 'none', bottom: 'auto',
+        width: menuWidth, maxHeight: menuHeight,
+        left: Math.max(left + 12, Math.min(anchor.x + anchor.width / 2 - menuWidth / 2, left + width - menuWidth - 12)),
+        top: Math.max(top + 12, Math.min(anchor.y - menuHeight - 6, top + height - menuHeight - 12)) });
+    };
+    const schedule = () => { cancelAnimationFrame(frame); frame = requestAnimationFrame(place); };
+    place();
+    viewport?.addEventListener('resize', schedule);
+    viewport?.addEventListener('scroll', schedule);
+    window.addEventListener('resize', schedule);
+    return () => {
+      cancelAnimationFrame(frame);
+      viewport?.removeEventListener('resize', schedule);
+      viewport?.removeEventListener('scroll', schedule);
+      window.removeEventListener('resize', schedule);
+    };
+  }, [popoverOpen, calibrated]);
+  // Rotation closes portrait entry rather than moving a focused input into
+  // a different navigation surface underneath the native keyboard.
+  useEffect(() => { setPopoverOpen(false); }, [calibrated]);
+  const renderPopover = (node: ReactNode) => calibrated ? createPortal(node, document.body) : node;
 
   const handleJump = () => {
     const nextPage = Number(jumpInput);
@@ -134,6 +174,8 @@ export function PageNav({
           className="page-nav-page"
           title="Type a page number"
           aria-label={`Pages ${rangeLabel}. Jump to page.`}
+          aria-expanded={popoverOpen}
+          aria-haspopup="dialog"
           onClick={() => {
             setPopoverOpen((current) => !current);
             setJumpInput(String(page));
@@ -142,8 +184,9 @@ export function PageNav({
           <span className="page-nav-ink">{rangeLabel}</span>
         </button>
 
-        {popoverOpen && (
-          <div className="page-nav-popover">
+        {popoverOpen && renderPopover(
+          <div ref={menuRef} className={`page-nav-popover${calibrated ? ' page-nav-popover-calibrated' : ''}`}
+            role="dialog" aria-label="Jump to page" style={calibrated ? popupStyle : undefined}>
             <div className="page-nav-popover-head">
               <span className="t-label">Jump to page</span>
               <form
@@ -155,7 +198,7 @@ export function PageNav({
               >
                 <input
                   ref={jumpInputRef}
-                  autoFocus
+                  autoFocus={!calibrated}
                   type="number"
                   inputMode="numeric"
                   enterKeyHint="go"

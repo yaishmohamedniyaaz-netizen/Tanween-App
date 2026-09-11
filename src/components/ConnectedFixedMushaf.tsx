@@ -26,6 +26,29 @@ export function FixedMushafViewport(props: MushafViewportProps) {
 }
 
 export function ConnectedFixedMushaf(props: MushafProps) {
+  return props.preparedFixedPage !== undefined
+    ? <PreparedFixedMushaf {...props} /> : <UnpreparedFixedMushaf {...props} />;
+}
+
+function PreparedFixedMushaf(props: MushafProps) {
+  const ready = props.preparedFixedPage;
+  if (!ready) return <div className="fixed-mushaf-loading">
+    <div role={props.navigationError ? 'alert' : 'status'}>
+      {props.navigationError || 'Loading Mushaf…'}
+      {props.navigationError && <button type="button" onClick={props.retryNavigation}>Retry</button>}
+    </div>
+    <nav aria-label="Mushaf pages">{props.headerControls([props.page], true)}</nav>
+  </div>;
+  return <>
+    <Mushaf {...props} fixedPages={ready.pages} fixedSemanticPages={ready.semantic} />
+    {props.navigationPending && <div className="fixed-navigation-status" role={props.navigationError ? 'alert' : 'status'}>
+      {props.navigationError || 'Opening page…'}
+      {props.navigationError && <button type="button" onClick={props.retryNavigation}>Retry</button>}
+    </div>}
+  </>;
+}
+
+function UnpreparedFixedMushaf(props: MushafProps) {
   const compact = useCompactMushafPages();
   const visible = visibleMushafPages(props.page, props.pageLayout, compact);
   const fixed = useFixedMushafPages(visible);

@@ -119,7 +119,7 @@ export function MushafViewport({
     let animationFrame = 0;
     const measure = () => {
       window.cancelAnimationFrame(animationFrame);
-      animationFrame = window.requestAnimationFrame(() => {
+      const readFrame = () => {
         const mobileFit = mobilePresentation ? (mobileCalibrationPage !== undefined
           ? calibratedMobileFit(frame.clientWidth, frame.clientHeight, mobileCalibrationPage)
           : mobileMushafFit(frame.clientWidth, frame.clientHeight)) : null;
@@ -133,7 +133,10 @@ export function MushafViewport({
         setFrameInlineSize(frame.clientWidth);
         setMobileMaximum(mobileFit?.maximum ?? 0);
         setFitInlineSize((current) => (current === next ? current : next));
-      });
+      };
+      // A prepared page and its page-specific fit must reach the same paint.
+      if (mobileCalibrationPage !== undefined) readFrame();
+      else animationFrame = window.requestAnimationFrame(readFrame);
     };
 
     measure();

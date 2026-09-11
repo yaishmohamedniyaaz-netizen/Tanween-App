@@ -21,6 +21,7 @@ import { JudgeRoleStrip } from "./JudgeRoleStrip";
 import { MistakeLog } from "./MistakeLog";
 import { NotesBox } from "./NotesBox";
 import { ScorePanel } from "./ScorePanel";
+import { MistakeExpiryLine } from './MistakeExpiryLine';
 
 type MobileSheet = "score" | "mistakes" | null;
 
@@ -30,10 +31,12 @@ export function MobileJudgeDeck({
   inputMode,
   lastMarkStrip,
   onFinish,
+  calibrated = false,
 }: {
   inputMode: AduRaaguInputMode;
   lastMarkStrip: LastMarkStrip;
   onFinish: () => void;
+  calibrated?: boolean;
 }) {
   const { state, dispatch } = useJudging();
   const [sheet, setSheet] = useState<MobileSheet>(null);
@@ -145,10 +148,12 @@ export function MobileJudgeDeck({
           {latestActionAnnouncement}
         </span>
         <div className="mobile-judge-dock">
+          <div className="mobile-feedback-row">
           {showLastAction && latestAction ? (
             <div
               className={`mobile-last-action cat-${latestAction.mistake.category}`}
             >
+              {calibrated && <MistakeExpiryLine key={actionKey} at={latestAction.at} duration={LAST_ACTION_VISIBLE_MS} />}
               <button
                 type="button"
                 className="mobile-last-action-main"
@@ -189,9 +194,11 @@ export function MobileJudgeDeck({
                 ×
               </button>
             </div>
-          ) : (
+          ) : null}
             <div
               className="mobile-criterion-strip"
+              data-feedback-covered={showLastAction ? 'true' : undefined}
+              aria-hidden={showLastAction || undefined}
               style={{ gridTemplateColumns: `repeat(${Math.max(1, chips.length)}, minmax(0, 1fr))` }}
             >
               {chips.map((chip) => (
@@ -207,7 +214,7 @@ export function MobileJudgeDeck({
                 </div>
               ))}
             </div>
-          )}
+          </div>
 
           <div className="mobile-dock-actions">
             <button

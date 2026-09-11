@@ -101,7 +101,8 @@ export function createFixedMushafLoader(descriptor: FixedPackageDescriptor, read
       if (image.naturalWidth !== entry.width || image.naturalHeight !== entry.height) throw new Error('Incorrect Mushaf image size');
       let disposed = false;
       return { geometry: { ...source, image: url, imageSha256: entry.image.sha256 }, semantic,
-        dispose() { if (!disposed) { disposed = true; URL.revokeObjectURL(url); } } };
+        // Retain the decoded image while its owner holds this page.
+        dispose() { if (!disposed) { disposed = true; image.src = ''; URL.revokeObjectURL(url); } } };
     } catch (error) { URL.revokeObjectURL(url); throw error; }
   }
   async function text(page: number, signal?: AbortSignal): Promise<MushafPage> {

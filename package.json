@@ -5,6 +5,7 @@
   "type": "module",
   "description": "Pinpoint judging tool for Quran recitation competitions",
   "scripts": {
+    "test:mobile-calibration": "node --experimental-strip-types --test scripts/ready-fixed-pages.test.mjs scripts/mobile-calibration.test.mjs scripts/mobile-mushaf-presentation.test.mjs scripts/fixed-mushaf-package.test.mjs",
     "test:fixed-mushaf": "node --experimental-strip-types --test scripts/fixed-mushaf.test.mjs scripts/fixed-mushaf-package.test.mjs",
     "data:fixed-mushaf": "node --experimental-strip-types scripts/build-fixed-mushaf.mjs",
     "dev": "vite",

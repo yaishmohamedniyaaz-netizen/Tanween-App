@@ -13426,6 +13426,7 @@ html:has(.finish-dialog[open]) {
 /* ---- Flagged portrait PWA judge deck ----
    This layer only recomposes the active-session rail. The scoring, evidence,
    notes, Finish checkpoint, Mushaf geometry, and saved session remain shared. */
+.mobile-criterion-strip[data-feedback-covered="true"] { display: none; }
 .mobile-judge-deck,
 .mobile-judge-sheet,
 .mobile-mushaf-header-controls,

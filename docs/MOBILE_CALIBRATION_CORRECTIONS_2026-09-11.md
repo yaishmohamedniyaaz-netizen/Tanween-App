@@ -1,0 +1,33 @@
+# Mobile calibration corrections — local review, 11 September 2026
+
+Baseline: `codex/fixed-mushaf-replay-integration`, GitHub/local HEAD `363702d42085e7440bf2a6753123d91da224d212`. Published mobile version 125 remains unchanged, sourced from `d2b372a58d6ceadeb3b594730cee465921946a90`; the intervening baseline changes are documentation. See [research and diagnosis](design/MOBILE_CALIBRATION_DIAGNOSIS_2026-09-11.md). This is an implementation checkpoint, not release or physical-device acceptance.
+
+## Implemented
+
+- Portrait calibration now owns a bounded, decoded current/neighbor page set. Geometry and semantic data enter together; hot pages display without remounting the loading screen. Cold/error navigation retains the old, correctly labelled artwork, disables marking during the transition, and offers retry on failure. Latest request wins; old resources are released after the replacement commits. Initial loading remains honest. Image/hash validation is unchanged.
+- The calibrated jump popup is portalled outside the clipped reader, constrained to the visual viewport, and updated on viewport resize/scroll. Its input uses one focus path, `preventScroll`, and 16px type. Keyboard entry, Escape/focus return, and outside dismissal remain. Keyboard movement does not resize Quran artwork.
+- Equal criterion widths remain. Internal padding raises values slightly: normal 390/430px clearance increases from about 6.8px to 8.2px. Wrapped/enlarged labels grow the dock, whose measured height is reserved by the stage. The notification retains this height instead of making the artwork jump. Normal Ready/Live paper geometry remains equal at 390/430px.
+- A quiet two-pixel depletion line represents the existing five-second notification deadline. It adds no scoring or persistence timer, synchronizes after visibility changes, and hides for reduced motion. Undo and evidence behavior remain.
+
+Retained: Quran image bytes and proportions, semantic word associations, equal columns, upper spacing, score calculations, saved-data formats, preferences, recordings, and the existing desktop/landscape path. Recomposition is limited to ready-page ownership, popup placement, and lower dock spacing. Removed: redundant ready-page loading placeholders and duplicate calibrated input autofocus. No feature was removed.
+
+## Checks and evidence
+
+- Full `npm.cmd test`: 381 passed, one optional local Tilawa-assets test skipped.
+- `npm.cmd run test:mobile-calibration`: 19 passed, including five new ready-page ownership tests. Covers synchronous hot admission, bounded ownership, cold pinning until commit, late cancellation, latest-request safety, retry, cleanup/restart, and page bounds.
+- `npm.cmd run build`: passed, including TypeScript and generated-index validation. Existing large-bundle warning remains. The Sites build wrapper could not locate its npm CLI in this portable checkout; the ordinary project build completed successfully. No dependencies changed.
+- `scripts/qa/ready-fixed-pages-browser.mjs`: passed at 320×568, 390×844 and 430×932. Hot navigation had no loading placeholder or mismatched visible label; delayed cold navigation kept the old page and blocked marking; marking/Undo after admission, offline hot navigation, offline error/retry, and rotation passed. Owned object URLs peaked at three. This is a resource-count bound, not physical-phone memory certification.
+- `scripts/qa/mobile-corrections-browser.mjs`: final combined run passed with `errors: []`. Equal columns, at least 7px value clearance, 200% label/value stress, half-mark typography, stable notification geometry, expiry, reduced motion, and popup placement/focus passed. Visual-viewport keyboard events were synthetic. Three desktop viewports (1024×768, 1280×800, 1400×900) and 844×390 landscape were pixel-identical with calibration enabled/disabled in the final run. Earlier repeat runs differed only by 2–5 pixels at one channel unit; the comparison script records exact differences and allows at most ten such edge pixels.
+- Logs: `outputs/mobile-corrections-full-tests.log`, `mobile-corrections-focused.log`, `mobile-corrections-build.log`. Browser evidence: `outputs/mobile-ready-pages/report.json` and `outputs/mobile-corrections/report.json`; corresponding screenshots are beside each report. Browser contexts were disposable; personal browser storage was not reset.
+
+The browser QA scripts currently reference the local bundled Playwright runtime and Python/Pillow for raster comparison. They are reproducible on this machine, not yet portable CI commands.
+
+## Still open
+
+1. Physical-phone portrait movement and native keypad behavior: no document or nested scrolling was reproduced in Chromium. No speculative global scroll lock was added. Need the affected phone/browser, tab versus installed mode, and whether movement begins before keypad use. Synthetic viewport checks do not certify Safari, native keyboards, PWA behavior, or overscroll bounce.
+2. Compact navigation: the current 84px face and 37px row remain. Its three touch targets already fall below the design grammar's 44px rule; shrinking further needs an explicit product decision (undecided item 29). `touch-width-comparison.png` is only a browser-injected 132px width comparison, still 37px high, and is NOT a compliant 44×44 implementation. Hold-and-drag remains deferred (item 30).
+3. Visual acceptance: normal/enlarged text and actual-device reading feel still require owner review. At 320×568 with large simulated safe areas, allowing wrapped labels reduces paper width to 176px; forced enlarged text reduces it to 147px. Content no longer overlaps, but that does not establish comfortable reading on such a constrained screen.
+
+Confidence (engineering judgment, not certification): practicality **94/100**; architecture/data safety **93/100**; visual certainty **82/100**. Browser evidence supports this local implementation; native-device checks and owner visual acceptance remain release gates. The unconfirmed scrolling cause remains below implementation-ready confidence.
+
+The owner authorized committing and pushing this reviewed pass on 11 September 2026. Publication remains unauthorized; physical-device acceptance remains open. Pre-existing changes, including `scripts/qa/offline-app.ts`, were preserved outside this commit. Generated browser evidence remains local in the paths above. Review the local fixture at `http://127.0.0.1:5296/scripts/qa/mobile-paper.html?mobileCalibration=1&simulateSafeAreas=1`, using “Load prepared mobile sample”, then “Begin judging”. The fixture is for disposable sample review; it must not overwrite real judging records.

@@ -1,6 +1,7 @@
 import {
   useCallback,
   useEffect,
+  useRef,
   useState,
 } from "react";
 import { createPortal } from "react-dom";
@@ -33,6 +34,8 @@ import {
   type TilawaTrackerStatus,
 } from "./components/TilawaPrototypePanel";
 import { useOfflineMushaf } from "./hooks/useOfflineMushaf";
+import { useReadyFixedPage } from './hooks/useReadyFixedPage';
+import { useMobileDockSpace } from './hooks/useMobileDockSpace';
 import { useRecitationRecorder } from "./hooks/useRecitationRecorder";
 import { pauseOfflineMushafDownload } from "./lib/offlineMushaf";
 import { useJudging } from "./state/store";
@@ -62,6 +65,7 @@ import { MOBILE_MUSHAF_QUERY, MOBILE_MUSHAF_DEFAULT_ZOOM } from './lib/mobileMus
 const LS_QUESTION_PAGE_KEY = "tahqeeq:questionOpenedFor";
 
 export function App() {
+  const appRef = useRef<HTMLDivElement>(null);
   const [fixedReview] = useState(fixedMushafReviewEnabled);
   const PageViewport = fixedReview ? FixedMushafViewport : MushafViewport;
   const PageRenderer = fixedReview ? ConnectedFixedMushaf : Mushaf;
@@ -205,6 +209,9 @@ export function App() {
     mobileJudgeDeckOn && view === "judge" && Boolean(state.preparedRecitation);
   const mobilePaper = fixedReview && mobilePortrait && (mobileJudgeDeckActive || mobilePreparedActive);
   const mobileCalibration = mobilePaper && mobileCalibrationEnabled(window.location.search);
+  const readyNavigation = useReadyFixedPage(page, mobileCalibration);
+  const displayedPage = readyNavigation.ready?.page ?? page;
+  useMobileDockSpace(appRef, mobileCalibration, mobileJudgeDeckActive);
 
   const finishRecitation = async () => {
     await Promise.race([
@@ -220,6 +227,7 @@ export function App() {
 
   return (
     <div
+      ref={appRef}
       className={`app view-${view}`}
       data-mobile-judge-deck={mobileJudgeDeckActive ? "true" : undefined}
       data-mobile-calibration={mobileCalibration ? 'true' : undefined}
@@ -302,9 +310,9 @@ export function App() {
               layout={preferences.mushafLayout}
               zoomPercent={preferences.mushafZoom}
               mobilePresentation={mobilePaper}
-              mobileCalibrationPage={mobileCalibration ? page : undefined}
+              mobileCalibrationPage={mobileCalibration ? displayedPage : undefined}
               onZoomConstrained={setZoomConstrained}
-              contentKey={`${page}:${preferences.mushafLayout}`}
+              contentKey={`${displayedPage}:${preferences.mushafLayout}`}
               overlay={
                 <MarkingCoachTip
                   forcedOpen={markingGuideOpen}
@@ -314,8 +322,12 @@ export function App() {
               }
             >
               <PageRenderer
+                preparedFixedPage={mobileCalibration ? readyNavigation.ready : undefined}
+                navigationPending={readyNavigation.pending}
+                navigationError={readyNavigation.error}
+                retryNavigation={readyNavigation.retry}
                 selectorTashkeel={preferences.selectorTashkeel}
-                page={page}
+                page={displayedPage}
                 pageLayout={preferences.mushafLayout}
                 questionFocusMode={preferences.questionFocusMode}
                 questionRange={visibleQuestionRange}
@@ -324,6 +336,7 @@ export function App() {
                 headerControls={(visiblePages, compact) => (
                   <>
                     <PageNav
+                      calibrated={mobileCalibration}
                       prefetchFonts={!fixedReview}
                       page={page}
                       visiblePages={visiblePages}
@@ -438,6 +451,7 @@ export function App() {
           </aside>
           {mobileJudgeDeckActive && (
             <MobileJudgeDeck
+              calibrated={mobileCalibration}
               inputMode={preferences.aduRaaguInputMode}
               lastMarkStrip={preferences.lastMarkStrip}
               onFinish={() => setFinishOpen(true)}
