@@ -5,9 +5,11 @@ import artworkPackage from '../data/fixedMushafPackage.json' with { type: 'json'
 // A future package must be remeasured; otherwise retain the entire image.
 export const CALIBRATED_ARTWORK_VERSION = '1405-artwork-5a5f9f3846158475';
 
-/** Opt-in visual comparison only. No preference or judging-state writes. */
+/** Default portrait presentation, including the PWA's query-free start URL.
+ * App retains the portrait/prepared-or-live gates; 0 allows comparison rollback.
+ * No preference or judging-state writes. */
 export function mobileCalibrationEnabled(search: string) {
-  return new URLSearchParams(search).get('mobileCalibration') === '1';
+  return new URLSearchParams(search).get('mobileCalibration') !== '0';
 }
 export const MOBILE_CALIBRATION = {
   top: 6, navigation: 38, insideTop: 8, insideBottom: 8,

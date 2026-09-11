@@ -3,8 +3,9 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { calibratedMobileFit, calibratedMobilePaper, mobileInkBounds, mobileCalibrationEnabled } from '../src/lib/mobileCalibration.ts';
 
-test('calibration is explicit and does not replace existing presentation',()=>{
-  assert.equal(mobileCalibrationEnabled(''),false);
+test('normal PWA launch enables calibration with an explicit comparison opt-out',()=>{
+  assert.equal(mobileCalibrationEnabled(''),true);
+  assert.equal(mobileCalibrationEnabled('?unrelated=1'),true);
   assert.equal(mobileCalibrationEnabled('?mobileCalibration=0'),false);
   assert.equal(mobileCalibrationEnabled('?mobileCalibration=1'),true);
 });
