@@ -323,3 +323,12 @@ product rules belong in `PRODUCT_FOUNDATION.md`, not here.
     - Physical iOS installed-PWA acceptance, enlarged-text layout, recording
       error state, and complete desktop/landscape visual-diff clearance remain
       release gates. No scoring, preference format, or authority changes.
+
+30. **Deferred mobile page-number scrubbing**
+    - Owner requested a future hold-and-drag gesture on the page number to move
+      through Mushaf pages, analogous to desktop navigation. Explicitly later,
+      not part of the current compact-layout correction pass.
+    - Decide direction, sensitivity, preview/commit behavior, cancellation,
+      accessible alternatives and coexistence with tap-to-open page entry.
+    - Resolve page-loading interruptions first. Never show mismatched page
+      labels, artwork or judging targets while scrubbing or awaiting a page.
