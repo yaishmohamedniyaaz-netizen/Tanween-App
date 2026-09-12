@@ -1,0 +1,20 @@
+Source for the brand pack.
+
+mark.py        The mark's geometry. The single source of truth: angle, offset,
+               stroke weight, letter-line, viewBox. Every asset and every
+               drawing in the manual is emitted from here.
+spec.py        The manual's page template — 1600x820, on the app's 4px module.
+               Reads fonts.css (KFGQPC HafsUthmanic, base64) and
+               InterVariable.woff2, neither of which is copied here; take them
+               from public/fonts/.
+pages_a.py     Shared page helpers: lockup, Arabic setting, tally, swatches.
+mkassets.py    Emits assets/*.svg.
+mkpng.py       Emits the raster sources and the proof sheet.
+raster.mjs     Rasterises them through Chromium (playwright-core).
+manualpdf.mjs  Prints manual.html to Tanween-Brand-Standards.pdf.
+
+manual.html    The manual, self-contained with its fonts embedded. Open it in
+               a browser; it is the document the PDF is printed from.
+
+To change the mark, change mark.py and re-run mkassets.py, mkpng.py,
+raster.mjs, manualpdf.mjs in that order. Do not edit an SVG by hand.
