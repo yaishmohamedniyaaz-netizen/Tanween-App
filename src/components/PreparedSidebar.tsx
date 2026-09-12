@@ -2,6 +2,7 @@ import type { CompetitionDivision, PreparedRecitation } from "../types";
 import type { RecitationRecorderStatus } from "../hooks/useRecitationRecorder";
 import { questionStartPage } from "../lib/reciterQuestions.ts";
 import { ParticipantIdentity } from "./ParticipantIdentity";
+import './PreparedRecordingRecovery.css';
 
 function questionSummary(prepared: PreparedRecitation): string {
   const { question } = prepared;
@@ -47,6 +48,7 @@ export function PreparedSidebar({
     enabled: boolean;
     status: RecitationRecorderStatus;
     error: string | null;
+    onCancel: () => void;
     onEnabledChange: (enabled: boolean) => void;
     onBeginWithoutRecording: () => void;
   };
@@ -54,12 +56,14 @@ export function PreparedSidebar({
   const requestingMicrophone = recording?.status === "requesting" ||
     recording?.status === "armed";
   const retryingMicrophone = recording?.enabled && recording.status === "error";
+  const canSkipRecording = recording?.enabled && (retryingMicrophone || requestingMicrophone);
 
   return (
     <section
       className="prepared-sidebar"
       aria-label="Ready to begin judging"
       data-recording-error={recording?.error ? "true" : undefined}
+      data-recording-waiting={requestingMicrophone ? 'true' : undefined}
     >
       <div className="prepared-sidebar-details">
         <ParticipantIdentity
@@ -111,7 +115,7 @@ export function PreparedSidebar({
             )}
             {recording.error && (
               <p className="prepared-recording-message is-error" role="alert">
-                {recording.error}
+                Recording couldn’t start.
               </p>
             )}
           </div>
@@ -125,12 +129,12 @@ export function PreparedSidebar({
           onClick={() => void onReady()}
         >
           {requestingMicrophone
-            ? "Waiting for microphone…"
+            ? 'Starting microphone…'
             : retryingMicrophone
-              ? "Try microphone and begin"
+              ? "Try again"
               : "Begin judging"}
         </button>
-        {retryingMicrophone && (
+        {canSkipRecording && (
           <button
             type="button"
             className="btn-ghost prepared-begin-without-recording"
@@ -140,6 +144,9 @@ export function PreparedSidebar({
           </button>
         )}
         <div className="prepared-sidebar-secondary">
+          {canSkipRecording ? <>
+            {requestingMicrophone && <button type="button" className="btn-ghost" onClick={recording.onCancel}>Cancel</button>}
+          </> : <>
           <button
             type="button"
             className="btn-ghost"
@@ -154,6 +161,7 @@ export function PreparedSidebar({
           >
             Change reciter
           </button>
+          </>}
         </div>
       </div>
     </section>

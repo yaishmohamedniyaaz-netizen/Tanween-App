@@ -65,7 +65,8 @@ test("phase one recording is opt-in and restricted to Practice", () => {
 
 test("pause recording closes a segment and resume acquires a fresh microphone stream", () => {
   assert.match(recorderSource, /stopCurrentSegment\("paused"\)/);
-  assert.match(recorderSource, /const stream = await acquireMicrophone\(\)/);
+  assert.match(recorderSource, /const result = await capture.request\(\)/);
+  assert.match(recorderSource, /const stream = capture.take\(result.attempt\)/);
   assert.match(recorderSource, /beginLocalRecordingSegment/);
   assert.match(recorderSource, /recorder\.start\(1_000\)/);
   assert.match(headerSource, /Pause recording at/);

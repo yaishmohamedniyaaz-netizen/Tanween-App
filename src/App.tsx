@@ -117,6 +117,12 @@ export function App() {
     activeSessionId: state.activeSessionId ?? null,
     sessionActive: state.sessionActive,
   });
+  const recordingStartContext = `${state.preparedRecitation?.id ?? ''}:${view}:${startOpen}:${recordPracticeRecitation}`;
+  const recordingStartContextRef = useRef(recordingStartContext);
+  recordingStartContextRef.current = recordingStartContext;
+  useEffect(() => {
+    if (!state.sessionActive) recitationAudio.cancelPrepared();
+  }, [recordingStartContext]);
 
   useEffect(() => {
     localStorage.setItem(LS_PAGE_KEY, String(page));
@@ -390,9 +396,10 @@ export function App() {
                     state.competition.divisions,
                 )}
                 onReady={async () => {
+                  const context = recordingStartContextRef.current;
                   if (state.competition.isSample && recordPracticeRecitation) {
                     const ready = await recitationAudio.prepare();
-                    if (!ready) return;
+                    if (!ready || context !== recordingStartContextRef.current) return;
                   }
                   dispatch({ type: "BEGIN_RECITER" });
                 }}
@@ -409,6 +416,7 @@ export function App() {
                   enabled: recordPracticeRecitation,
                   status: recitationAudio.status,
                   error: recitationAudio.error,
+                  onCancel: recitationAudio.cancelPrepared,
                   onEnabledChange: (enabled) => {
                     if (!enabled) recitationAudio.cancelPrepared();
                     setRecordPracticeRecitation(enabled);

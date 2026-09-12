@@ -4,6 +4,7 @@ import { MushafViewport, useCompactMushafPages, type MushafViewportProps } from 
 import { FIXED_PAGE_ASPECT_RATIO } from './FixedMushafPageSurface';
 import { visibleMushafPages } from '../lib/mushafSpread';
 import { useFixedMushafPages } from '../hooks/useFixedMushafPages';
+import { useReadyFixedSpread } from '../hooks/useReadyFixedSpread';
 import { fixedPaperPresentation } from '../lib/mobileMushafPresentation';
 
 export function useFixedCompactPages() {
@@ -31,13 +32,14 @@ export function ConnectedFixedMushaf(props: MushafProps) {
 }
 
 function PreparedFixedMushaf(props: MushafProps) {
+  const compact = useCompactMushafPages();
   const ready = props.preparedFixedPage;
   if (!ready) return <div className="fixed-mushaf-loading">
     <div role={props.navigationError ? 'alert' : 'status'}>
       {props.navigationError || 'Loading Mushaf…'}
       {props.navigationError && <button type="button" onClick={props.retryNavigation}>Retry</button>}
     </div>
-    <nav aria-label="Mushaf pages">{props.headerControls([props.page], true)}</nav>
+    <nav aria-label="Mushaf pages">{props.headerControls(visibleMushafPages(props.page, props.pageLayout, compact), compact)}</nav>
   </div>;
   return <>
     <Mushaf {...props} fixedPages={ready.pages} fixedSemanticPages={ready.semantic} />
@@ -49,6 +51,22 @@ function PreparedFixedMushaf(props: MushafProps) {
 }
 
 function UnpreparedFixedMushaf(props: MushafProps) {
+  const compact = useCompactMushafPages();
+  const legacy = new URLSearchParams(window.location.search).get('desktopReadyPages') === '0';
+  return compact || legacy ? <LegacyFixedMushaf {...props} /> : <ReadyDesktopMushaf {...props} />;
+}
+
+function ReadyDesktopMushaf(props: MushafProps) {
+  const visible = visibleMushafPages(props.page, props.pageLayout, false);
+  const fixed = useReadyFixedSpread(visible);
+  return <PreparedFixedMushaf {...props}
+    page={fixed.ready?.page ?? props.page}
+    pageLayout={fixed.ready ? fixed.ready.pages.size === 2 ? 'spread' : 'full' : props.pageLayout}
+    preparedFixedPage={fixed.ready} navigationPending={fixed.pending}
+    navigationError={fixed.error} retryNavigation={fixed.retry} />;
+}
+
+function LegacyFixedMushaf(props: MushafProps) {
   const compact = useCompactMushafPages();
   const visible = visibleMushafPages(props.page, props.pageLayout, compact);
   const fixed = useFixedMushafPages(visible);

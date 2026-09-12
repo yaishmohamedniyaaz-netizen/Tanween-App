@@ -1,4 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import { createMicrophoneAttempt } from '../lib/microphoneAttempt';
+import { watchRecordingInterruption } from '../lib/recordingInterruption';
+import { createRecordingDiagnostics, RecordingStartupError, waitForRecordingStage } from '../lib/recordingStartupStage';
 import {
   appendLocalRecordingChunk,
   beginLocalRecordingSegment,
@@ -21,6 +24,7 @@ export type RecitationRecorderStatus =
   | "idle"
   | "requesting"
   | "armed"
+  | "starting"
   | "recording"
   | "pausing"
   | "paused"
@@ -30,7 +34,7 @@ export type RecitationRecorderStatus =
   | "interrupted"
   | "error";
 
-type StopTarget = Extract<LocalRecordingState, "paused" | "ready" | "failed">;
+type StopTarget = Extract<LocalRecordingState, "paused" | "ready" | "failed" | "interrupted">;
 
 export interface RecitationRecorderController {
   supported: boolean;
@@ -41,6 +45,7 @@ export interface RecitationRecorderController {
   lowInput: boolean;
   error: string | null;
   manifest: LocalRecordingManifest | null;
+  getDiagnostics: () => string;
   prepare: () => Promise<boolean>;
   cancelPrepared: () => void;
   pause: () => Promise<void>;
@@ -53,6 +58,7 @@ function stopStream(stream: MediaStream | null) {
 }
 
 function microphoneError(error: unknown): string {
+  if (error instanceof RecordingStartupError) return error.message;
   if (error instanceof DOMException) {
     if (error.name === "NotAllowedError" || error.name === "SecurityError") {
       return "Microphone access was not allowed. You can try again or begin without recording.";
@@ -95,6 +101,15 @@ export function useRecitationRecorder({
   sessionActive: boolean;
 }): RecitationRecorderController {
   const supported = supportsLocalRecitationAudio();
+  const [capture] = useState(() => createMicrophoneAttempt({ acquire: acquireMicrophone }));
+  const operationRef = useRef(0);
+  const currentSession = useRef({ activeSessionId, sessionActive });
+  currentSession.current = { activeSessionId, sessionActive };
+  const storagePendingRef = useRef(0);
+  const startingSegmentRef = useRef(false);
+  const [diagnostics] = useState(() => createRecordingDiagnostics(
+    new URLSearchParams(window.location.search).get('recordingDiagnostics') === '1',
+  ));
   const [status, setStatus] = useState<RecitationRecorderStatus>("idle");
   const [manifest, setManifest] = useState<LocalRecordingManifest | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -108,7 +123,6 @@ export function useRecitationRecorder({
   const sessionIdRef = useRef<string | null>(null);
   const segmentIndexRef = useRef<number | null>(null);
   const segmentStartedAtRef = useRef(0);
-  const chunkIndexRef = useRef(0);
   const writeQueueRef = useRef(Promise.resolve());
   const stopTargetRef = useRef<StopTarget>("paused");
   const stopPromiseRef = useRef<Promise<void> | null>(null);
@@ -126,6 +140,7 @@ export function useRecitationRecorder({
   }, [status]);
 
   const updateFromManifest = useCallback((next: LocalRecordingManifest) => {
+    if (!currentSession.current.sessionActive || currentSession.current.activeSessionId !== next.sessionId) return;
     setManifest(next);
     setError(next.error);
   }, []);
@@ -213,7 +228,9 @@ export function useRecitationRecorder({
   }, [sessionActive, status]);
 
   useEffect(() => {
-    void markOpenLocalRecordingsInterrupted()
+    storagePendingRef.current++;
+    const recovery = markOpenLocalRecordingsInterrupted().finally(() => { storagePendingRef.current--; });
+    void waitForRecordingStage(recovery, 'checking saved audio')
       .catch(() => {
         // IndexedDB failures are surfaced if the judge opts into recording.
       })
@@ -248,17 +265,39 @@ export function useRecitationRecorder({
     sessionId: string,
     stream: MediaStream,
   ) => {
+    if (startingSegmentRef.current) return;
+    startingSegmentRef.current = true;
+    setStatus('starting');
+    statusRef.current = 'starting';
+    try {
+    const operation = operationRef.current;
+    const assertCurrent = () => {
+      if (operation !== operationRef.current) {
+        stopStream(stream);
+        throw new DOMException('Recording start cancelled', 'AbortError');
+      }
+    };
     const mimeType = chooseRecordingMimeType((candidate) =>
       MediaRecorder.isTypeSupported(candidate)
     );
-    let current = await getLocalRecording(sessionId);
+    const storageStage = <T,>(task: Promise<T>, label: string) => {
+      storagePendingRef.current++;
+      return waitForRecordingStage(task.finally(() => { storagePendingRef.current--; }), label);
+    };
+    diagnostics.record('storage-read');
+    let current = await storageStage(getLocalRecording(sessionId), 'opening audio storage');
+    assertCurrent();
     if (!current) {
-      current = await createLocalRecording(sessionId, mimeType);
+      diagnostics.record('storage-create');
+      current = await storageStage(createLocalRecording(sessionId, mimeType), 'creating the recording');
+      assertCurrent();
     }
-    const segmentIndex = await beginLocalRecordingSegment(
+    diagnostics.record('segment-create');
+    const segmentIndex = await storageStage(beginLocalRecordingSegment(
       sessionId,
       mimeType || current.mimeType,
-    );
+    ), 'preparing the recording segment');
+    assertCurrent();
     let recorder: MediaRecorder;
     try {
       recorder = new MediaRecorder(
@@ -274,96 +313,153 @@ export function useRecitationRecorder({
     recorderRef.current = recorder;
     segmentIndexRef.current = segmentIndex;
     segmentStartedAtRef.current = Date.now();
-    chunkIndexRef.current = 0;
+    const segmentStartedAt = segmentStartedAtRef.current;
+    stopTargetRef.current = 'interrupted'; // A native stop without our explicit target is unexpected.
     writeQueueRef.current = Promise.resolve();
     setLiveElapsedMs(0);
     setError(null);
 
     let captureFailed = false;
+    let startupFailure: string | null = null;
+    let firstChunk = true;
+    let chunkIndex = 0;
+    let segmentWrites = Promise.resolve();
+    const ownsUI = () => recorderRef.current === recorder &&
+      currentSession.current.sessionActive && currentSession.current.activeSessionId === sessionId;
+    const interruption = watchRecordingInterruption(stream.getAudioTracks(), document, () => {
+      if (recorderRef.current !== recorder) return;
+      stopTargetRef.current = 'interrupted';
+      if (ownsUI()) { setStatus('finalizing'); statusRef.current = 'finalizing'; }
+      if (recorder.state !== 'inactive') recorder.stop();
+    });
     recorder.ondataavailable = (event) => {
       if (event.data.size === 0) return;
-      const chunkIndex = chunkIndexRef.current;
-      chunkIndexRef.current += 1;
-      writeQueueRef.current = writeQueueRef.current
-        .then(() => appendLocalRecordingChunk(
+      const isFirstChunk = firstChunk;
+      firstChunk = false;
+      if (isFirstChunk) diagnostics.record('first-chunk');
+      const nextChunkIndex = chunkIndex++;
+      segmentWrites = segmentWrites
+        .then(() => storageStage(appendLocalRecordingChunk(
           sessionId,
           segmentIndex,
-          chunkIndex,
+          nextChunkIndex,
           event.data,
-        ))
+        ), 'saving audio'))
+        .then(() => { if (isFirstChunk) diagnostics.record('first-chunk-saved'); })
         .catch(async () => {
           captureFailed = true;
-          setError("Audio could not be saved on this device. Judging can continue safely.");
-          setStatus("error");
+          if (ownsUI()) {
+            setError("Audio could not be saved on this device. Judging can continue safely.");
+            setStatus("error");
+          }
           if (recorder.state !== "inactive") {
             stopTargetRef.current = "failed";
             recorder.stop();
           }
         });
+      writeQueueRef.current = segmentWrites;
     };
     recorder.onerror = () => {
       captureFailed = true;
-      setError("Recording stopped unexpectedly. The audio saved so far remains on this device.");
-      setStatus("error");
+      if (ownsUI()) {
+        setError("Recording stopped unexpectedly. The audio saved so far remains on this device.");
+        setStatus("error");
+      }
       if (recorder.state !== "inactive") {
         stopTargetRef.current = "failed";
         recorder.stop();
       }
     };
     recorder.onstop = () => {
+      interruption.dispose();
       const target = stopTargetRef.current;
-      const durationMs = Math.max(0, Date.now() - segmentStartedAtRef.current);
+      const durationMs = Math.max(0, Date.now() - segmentStartedAt);
+      const ownedRecorder = recorderRef.current === recorder;
+      const resolveStop = stopResolveRef.current;
       stopAudioMeter();
-      stopStream(streamRef.current);
-      streamRef.current = null;
-      recorderRef.current = null;
-      void recordingStateAfterWrites(writeQueueRef.current, target, () => captureFailed)
-        .then((settledTarget) => finalizeLocalRecordingSegment(
+      stopStream(stream);
+      if (streamRef.current === stream) streamRef.current = null;
+      void recordingStateAfterWrites(segmentWrites, target, () => captureFailed)
+        .then((settledTarget) => storageStage(finalizeLocalRecordingSegment(
           sessionId,
           segmentIndex,
           durationMs,
           settledTarget,
           settledTarget === "failed"
-            ? "Recording stopped unexpectedly. The audio saved so far remains on this device."
+            ? startupFailure ?? "Recording stopped unexpectedly. The audio saved so far remains on this device."
             : null,
-        ))
+        ), 'finalizing saved audio'))
         .then((next) => {
+          if (!ownsUI()) return;
           updateFromManifest(next);
           if (next.state === "paused") setStatus("paused");
+          else if (next.state === "interrupted") setStatus("interrupted");
           else if (next.state === "ready") setStatus("ready");
           else setStatus("error");
         })
         .catch(() => {
+          if (!ownsUI()) return;
           setError("Audio could not be finalized, but judging data is still safe.");
           setStatus("error");
         })
         .finally(() => {
-          stopResolveRef.current?.();
-          stopResolveRef.current = null;
-          stopPromiseRef.current = null;
+          resolveStop?.();
+          if (ownedRecorder && recorderRef.current === recorder) {
+            recorderRef.current = null;
+            stopResolveRef.current = null;
+            stopPromiseRef.current = null;
+          }
         });
     };
 
-    recorder.start(1_000);
+    diagnostics.record('recorder-start');
+    const started = new Promise<void>((resolve) => {
+      recorder.onstart = () => resolve();
+    });
+    try {
+      recorder.start(1_000);
+      await waitForRecordingStage(started, 'starting the audio recorder', 10_000);
+      assertCurrent();
+      if (recorder.state === 'inactive') return;
+    } catch (startError) {
+      captureFailed = true;
+      startupFailure = startError instanceof RecordingStartupError ? startError.message : 'Recording could not start. Judging data is unchanged.';
+      // Finish may already have stopped this recorder while its start event was pending.
+      if (operation !== operationRef.current && recorder.state === 'inactive') throw startError;
+      stopTargetRef.current = 'failed';
+      if (recorder.state !== 'inactive') recorder.stop();
+      else interruption.dispose();
+      stopStream(stream);
+      throw startError;
+    }
+    diagnostics.record('recorder-started');
     startAudioMeter(stream, sessionId);
-    setManifest(await getLocalRecording(sessionId));
+    setManifest(current);
     setStatus("recording");
-  }, [startAudioMeter, stopAudioMeter, updateFromManifest]);
+    statusRef.current = 'recording';
+    interruption.check();
+    } finally { startingSegmentRef.current = false; }
+  }, [startAudioMeter, stopAudioMeter, updateFromManifest, diagnostics]);
 
   useEffect(() => {
     if (!recoveryChecked) return;
     if (!sessionActive || !activeSessionId) return;
     if (statusRef.current === "armed" && streamRef.current) {
+      const operation = operationRef.current;
       void startSegment(activeSessionId, streamRef.current).catch((startError) => {
+        if (operation !== operationRef.current) return;
+        diagnostics.record('failed');
         stopStream(streamRef.current);
         streamRef.current = null;
-        setError(microphoneError(startError));
+        setError(startError instanceof RecordingStartupError ? startError.message :
+          'The microphone was connected, but recording could not start. Saved judging data is unchanged.');
         setStatus("error");
       });
       return;
     }
     void getLocalRecording(activeSessionId).then((existing) => {
-      if (!existing || statusRef.current !== "idle") return;
+      if (!existing || statusRef.current !== "idle" || !currentSession.current.sessionActive ||
+          currentSession.current.activeSessionId !== activeSessionId) return;
       updateFromManifest(existing);
       if (existing.state === "paused") setStatus("paused");
       else if (existing.state === "interrupted") setStatus("interrupted");
@@ -372,46 +468,95 @@ export function useRecitationRecorder({
     }).catch(() => {
       // A fresh non-recorded session should remain unaffected by storage errors.
     });
-  }, [activeSessionId, recoveryChecked, sessionActive, startSegment, updateFromManifest]);
+  }, [activeSessionId, recoveryChecked, sessionActive, startSegment, updateFromManifest, diagnostics]);
 
   const prepare = useCallback(async () => {
+    if (storagePendingRef.current || startingSegmentRef.current || recorderRef.current) {
+      setError('Audio storage is still busy. Wait before retrying, or begin without recording.');
+      setStatus('error');
+      return false;
+    }
+    if (['requesting', 'armed', 'starting', 'recording', 'resuming'].includes(statusRef.current)) return false;
     if (!supported) {
       setError("Local recording is not supported in this browser. You can still begin judging.");
       setStatus("error");
       return false;
     }
     setStatus("requesting");
+    statusRef.current = 'requesting';
+    const operation = ++operationRef.current;
     setError(null);
     try {
       void requestPersistentAudioStorage();
-      const stream = await acquireMicrophone();
+      diagnostics.record('microphone-request');
+      const result = await capture.request();
+      if (operation !== operationRef.current || result.kind === 'cancelled') return false;
+      if (result.kind === 'error') throw result.error;
+      if (result.kind !== 'ready') {
+        setError('The microphone is still not available. You can begin without recording. If the browser keeps waiting, reopen the app before retrying; do not clear its data.');
+        setStatus('error');
+        statusRef.current = 'error';
+        return false;
+      }
+      const stream = capture.take(result.attempt);
+      if (!stream) return false;
+      diagnostics.record('stream-received');
       streamRef.current = stream;
       setStatus("armed");
+      statusRef.current = 'armed';
       return true;
     } catch (prepareError) {
       stopStream(streamRef.current);
       streamRef.current = null;
       setError(microphoneError(prepareError));
       setStatus("error");
+      statusRef.current = 'error';
       return false;
     }
-  }, [supported]);
+  }, [supported, capture, diagnostics]);
 
   const cancelPrepared = useCallback(() => {
+    operationRef.current++;
+    capture.cancel();
     stopAudioMeter();
     stopStream(streamRef.current);
     streamRef.current = null;
     if (!sessionActive) {
       setStatus("idle");
+      statusRef.current = 'idle';
       setError(null);
       setManifest(null);
     }
-  }, [sessionActive, stopAudioMeter]);
+  }, [sessionActive, stopAudioMeter, capture]);
+
+  useEffect(() => {
+    const check = () => capture.checkDeadline();
+    document.addEventListener('visibilitychange', check);
+    return () => document.removeEventListener('visibilitychange', check);
+  }, [capture]);
 
   useEffect(() => () => {
+    operationRef.current++;
+    capture.cancel();
     stopAudioMeter();
+    if (recorderRef.current?.state === 'recording') {
+      stopTargetRef.current = 'interrupted';
+      recorderRef.current.stop();
+    }
     stopStream(streamRef.current);
-  }, [stopAudioMeter]);
+  }, [stopAudioMeter, capture]);
+
+  useEffect(() => {
+    const recorder = recorderRef.current;
+    if (!recorder || (sessionActive && sessionIdRef.current === activeSessionId)) return;
+    operationRef.current++;
+    capture.cancel();
+    if (recorder.state !== 'inactive') {
+      stopTargetRef.current = 'interrupted';
+      recorder.stop();
+    }
+    stopStream(streamRef.current);
+  }, [activeSessionId, sessionActive, capture]);
 
   const stopCurrentSegment = useCallback(async (target: StopTarget) => {
     const recorder = recorderRef.current;
@@ -437,23 +582,51 @@ export function useRecitationRecorder({
   }, [stopCurrentSegment]);
 
   const resume = useCallback(async () => {
+    if (storagePendingRef.current || startingSegmentRef.current || recorderRef.current) {
+      setError('The previous audio operation is still finishing. Wait before retrying.');
+      return;
+    }
     const sessionId = activeSessionId ?? sessionIdRef.current;
     if (!sessionId || !["paused", "interrupted"].includes(statusRef.current)) return;
     const previousStatus = statusRef.current;
     setStatus("resuming");
+    statusRef.current = 'resuming';
+    const operation = ++operationRef.current;
     setError(null);
     try {
-      const stream = await acquireMicrophone();
+      const result = await capture.request();
+      if (operation !== operationRef.current || result.kind === 'cancelled') return;
+      if (result.kind === 'error') throw result.error;
+      if (result.kind !== 'ready') throw new Error('Microphone startup timed out');
+      const stream = capture.take(result.attempt);
+      if (!stream) return;
+      streamRef.current = stream;
       await startSegment(sessionId, stream);
     } catch (resumeError) {
+      if (operation !== operationRef.current) return;
       stopStream(streamRef.current);
       streamRef.current = null;
       setError(microphoneError(resumeError));
       setStatus(previousStatus === "interrupted" ? "interrupted" : "paused");
+      statusRef.current = previousStatus === 'interrupted' ? 'interrupted' : 'paused';
     }
-  }, [activeSessionId, startSegment]);
+  }, [activeSessionId, startSegment, capture]);
 
   const finish = useCallback(async () => {
+    operationRef.current++;
+    capture.cancel();
+    if (statusRef.current === 'starting' || statusRef.current === 'armed') {
+      stopStream(streamRef.current);
+      streamRef.current = null;
+      if (recorderRef.current) await stopCurrentSegment('failed');
+      else { setStatus('error'); setError('Recording was stopped before startup completed. Judging data is unchanged.'); }
+      return;
+    }
+    if (statusRef.current === 'resuming') {
+      stopStream(streamRef.current);
+      streamRef.current = null;
+      statusRef.current = 'paused';
+    }
     const sessionId = activeSessionId ?? sessionIdRef.current;
     if (!sessionId) return;
     if (statusRef.current === "recording") {
@@ -470,7 +643,7 @@ export function useRecitationRecorder({
         setStatus("error");
       }
     }
-  }, [activeSessionId, stopCurrentSegment, updateFromManifest]);
+  }, [activeSessionId, stopCurrentSegment, updateFromManifest, capture]);
 
   const durationMs = (manifest?.durationMs ?? 0) +
     (status === "recording" ? liveElapsedMs : 0);
@@ -487,6 +660,15 @@ export function useRecitationRecorder({
     lowInput,
     error,
     manifest,
+    getDiagnostics: () => JSON.stringify({
+      enabled: new URLSearchParams(window.location.search).get('recordingDiagnostics') === '1',
+      build: [...document.scripts].map(script => new URL(script.src || location.href).pathname).find(path => /\/assets\/index-[^/]+\.js$/.test(path)) ?? 'local-development',
+      visibility: document.visibilityState,
+      stages: diagnostics.snapshot(),
+      status: statusRef.current,
+      browserPending: capture.isBrowserPending(),
+      storagePending: storagePendingRef.current > 0,
+    }),
     prepare,
     cancelPrepared,
     pause,

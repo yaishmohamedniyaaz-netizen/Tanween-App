@@ -43,8 +43,11 @@ export function buildFixedPageGeometry(source: FixedSourcePage): FixedPageGeomet
       const rc = (right.body[0] + right.body[2]) / 2;
       const lc = (left.body[0] + left.body[2]) / 2;
       if (rc <= lc) throw new Error(`Reversed body centers ${right.wid}/${left.wid}`);
-      const edge = right.body[0] >= left.body[2]
-        ? (right.body[0] + left.body[2]) / 2 : (rc + lc) / 2;
+      // Partition at the facing ink bounds even when their envelopes overlap.
+      // Switching to centers for a one-pixel overlap can move the boundary deep
+      // inside a wide word beside a narrow ayah marker. Clamp exceptional nested
+      // envelopes between centers so every word retains a usable target.
+      const edge = Math.max(lc, Math.min(rc, (right.body[0] + left.body[2]) / 2));
       right.region[0] = edge; left.region[2] = edge;
     }
     for (const word of row) {

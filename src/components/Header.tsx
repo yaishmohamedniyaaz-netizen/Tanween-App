@@ -153,6 +153,7 @@ export function Header({
   const recordingPaused = recording?.status === "paused" ||
     recording?.status === "interrupted";
   const recordingBusy = recording?.status === "pausing" ||
+    recording?.status === "starting" ||
     recording?.status === "resuming" ||
     recording?.status === "finalizing" ||
     recording?.status === "error";
@@ -160,11 +161,15 @@ export function Header({
     ? recording.lowInput
       ? `Mic level is very low ${recording.durationLabel}`
       : `Recording ${recording.durationLabel}`
+    : recording?.status === 'interrupted'
+      ? 'Recording interrupted'
     : recordingPaused
       ? `Recording paused ${recording?.durationLabel}`
       : recording?.status === "error"
         ? "Recording stopped"
-        : "Saving audio";
+        : recording?.status === 'starting' || recording?.status === 'resuming'
+          ? 'Starting recording'
+          : "Saving audio";
 
   return (
     <header className="app-header">
@@ -252,7 +257,7 @@ export function Header({
             : recording.status === "recording"
               ? `Pause recording at ${recording.durationLabel}`
               : recordingStateLabel}
-          title={recordingPaused ? "Resume recording" : "Pause recording"}
+          title={recordingBusy ? recordingStateLabel : recordingPaused ? "Resume recording" : "Pause recording"}
           disabled={recordingBusy}
           onClick={recordingPaused ? recording.onResume : recording.onPause}
         >

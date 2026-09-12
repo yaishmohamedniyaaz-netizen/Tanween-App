@@ -1,0 +1,21 @@
+<!doctype html><html><meta charset="utf-8"><title>Fade boundary diagnosis — page 257</title>
+<style>body{font:16px system-ui;background:#f2f1ed;margin:24px;color:#222}main{display:flex;gap:24px}section{width:min(46vw,640px)}.paper{position:relative;background:white;aspect-ratio:1920/3106}.paper img{width:100%;display:block}.mask{position:absolute;background:white;opacity:.65}h2{font-size:18px}p{max-width:850px}</style>
+<h1>Page 257 — Ibrāhīm 14:14 selected</h1><p>Read-only diagnostic comparison using the existing page image and the existing word-region calculation. No question, scoring or rendering source is modified.</p>
+<main><section><h2>Original artwork</h2><div class="paper" id="original"></div></section><section><h2>Current Fade rectangles</h2><div class="paper" id="faded"></div></section></main>
+<script type="module">
+import {buildFixedPageGeometry} from '/src/lib/fixedMushafGeometry.ts';
+const base='/mushaf/1405-artwork-5a5f9f3846158475/';
+const params=new URLSearchParams(location.search);
+const page=Number(params.get('page')||257),surah=Number(params.get('surah')||14),ayah=Number(params.get('ayah')||14);
+document.querySelector('h1').textContent=`Page ${page} — ${surah}:${ayah} selected`;
+document.querySelector('p').textContent='Read-only comparison of original artwork and corrected shared word boundaries. No session data is modified.';
+const source=await fetch(base+`p${page}.json`).then(r=>r.json());
+const g=buildFixedPageGeometry(source);
+for(const id of ['original','faded']){
+ const root=document.getElementById(id),image=document.createElement('img');image.src=base+`p${page}.png`;root.append(image);
+ if(id==='faded') for(const w of g.words){if(w.surah===surah&&w.ayah===ayah)continue;
+  const [x,y,x1,y1]=w.region,mask=document.createElement('div');mask.className='mask';mask.title=w.wid;
+  Object.assign(mask.style,{left:x/1920*100+'%',top:y/3106*100+'%',width:(x1-x)/1920*100+'%',height:(y1-y)/3106*100+'%'});root.append(mask);
+ }
+}
+</script></html>
