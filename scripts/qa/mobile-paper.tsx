@@ -32,7 +32,10 @@ function Fixture() {
   const safe = import.meta.env.DEV && location.hostname === '127.0.0.1' && ['5296', '5320'].includes(location.port)
     && state.competition.isSample && !state.sessionActive && state.history.length === 0;
   return <button disabled={!safe} onClick={async()=>{
-    const result = resolveQuestionRange(await loadQuestionIndex(),{surah:112,ayah:1},3);
+    const params = new URLSearchParams(location.search);
+    const result = resolveQuestionRange(await loadQuestionIndex(),{
+      surah:Number(params.get('qaSurah') || 112),ayah:Number(params.get('qaAyah') || 1),
+    },Number(params.get('qaLines') || 3));
     if (!result.ok) throw new Error('Fixture range unavailable');
     const range: RecitationRangeSnapshot = {version:1,...result.range,mushafLayout:MUSHAF_LAYOUT,questionIndexVersion:QUESTION_INDEX_VERSION};
     const participant = state.roster[0];

@@ -70,13 +70,17 @@ export function FixedMushafPageSurface({
           style={{ left: INSET, top: TOP + openingOffset + top * ART_SCALE,
             width: fixed.width * ART_SCALE, height: (bottom - top) * ART_SCALE }} />)}
         {beforeLines}
-        {fixed.words.map(word => {
+        {fixed.words.map((word, index) => {
           const line = lines.get(word.line)!;
           const [x0, y0, x1, y1] = word.region;
           return <div key={word.wid} className={`fixed-word ${lineClassName?.(line) ?? ""}`}
             data-fixed-line={word.line}
             style={{ left: INSET + x0 * ART_SCALE, top: TOP + openingOffset + y0 * ART_SCALE,
-              width: (x1 - x0) * ART_SCALE, height: (y1 - y0) * ART_SCALE }}>
+              width: (x1 - x0) * ART_SCALE, height: (y1 - y0) * ART_SCALE,
+              // Fade reaches the artwork edges; selection/hit regions do not.
+              '--context-right': fixed.words[index - 1]?.line !== word.line ? `${-(fixed.width - x1) * ART_SCALE}px` : '0px',
+              '--context-left': fixed.words[index + 1]?.line !== word.line ? `${-x0 * ART_SCALE}px` : '0px',
+            } as CSSProperties}>
             {renderWord(word, line)}
           </div>;
         })}

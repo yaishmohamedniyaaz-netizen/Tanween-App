@@ -1,5 +1,5 @@
 import type { FixedPageGeometry } from './fixedMushafGeometry.ts';
-import { assertFixedPageMatches } from './fixedMushafGeometry.ts';
+import { assertFixedPageMatches, buildFixedPageGeometry } from './fixedMushafGeometry.ts';
 import type { MushafPage } from './page.ts';
 import { MUSHAF_DATA_VERSION } from './mushafAssets.ts';
 
@@ -93,6 +93,9 @@ export function createFixedMushafLoader(descriptor: FixedPackageDescriptor, read
       throw new Error('Page image and word regions do not match');
     }
     assertFixedPageMatches(source, semantic);
+    // Cached package bytes are immutable and verified above. Derive current
+    // runtime partitions from their original bounds, not baked-in old regions.
+    const geometry = buildFixedPageGeometry(source);
     const url = URL.createObjectURL(new Blob([imageBytes], { type: 'image/png' }));
     try {
       const image = new Image(); image.src = url;
@@ -100,7 +103,7 @@ export function createFixedMushafLoader(descriptor: FixedPackageDescriptor, read
       signal?.throwIfAborted();
       if (image.naturalWidth !== entry.width || image.naturalHeight !== entry.height) throw new Error('Incorrect Mushaf image size');
       let disposed = false;
-      return { geometry: { ...source, image: url, imageSha256: entry.image.sha256 }, semantic,
+      return { geometry: { ...geometry, image: url, imageSha256: entry.image.sha256 }, semantic,
         // Retain the decoded image while its owner holds this page.
         dispose() { if (!disposed) { disposed = true; image.src = ''; URL.revokeObjectURL(url); } } };
     } catch (error) { URL.revokeObjectURL(url); throw error; }

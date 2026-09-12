@@ -34,3 +34,37 @@ No claim of immediate uncached loading: the change removes the blank-screen
 interruption, not the underlying network/decode cost.
 
 Confidence: practicality 92, architecture/data safety 88, visual certainty 88.
+
+## Follow-up: bounded desktop preparation (local, not released)
+
+Owner reopened speed work after trying release 130. The desktop controller now
+prepares the neighbouring spreads in the background, prioritising the last
+travel direction. At most three spreads/six page resources are admitted,
+including the active load. This is not a browser-wide memory guarantee; six
+1920x3106 RGBA images alone are roughly 137 MiB before browser overhead.
+Mobile's existing controller is unchanged. Only one preparation job runs at a
+time, so cancellation cannot start an unbounded pile of decoders.
+
+Already-ready neighbouring spreads are admitted together, with matching text
+and geometry. The mounted spread remains pinned until React commits its
+replacement. Background failures stay silent; requesting a missing spread
+retries it, and a visible failure retains the current page with Retry.
+No scoring, Fade, artwork or layout policy changes in this slice.
+
+Controlled Chromium comparison at 1280x800, 80ms injected asset-request delay,
+1.2-second reading pause between turns (same harness/settings):
+- Baseline: 398, 419, 369ms click-to-visible.
+- Prepared candidate: 151, 146, 139ms.
+These include automation and rendering overhead; they are not physical device
+or universal network performance claims. Distant jumps and rapid flipping
+which outruns preparation still incur loading time. The tradeoff is bounded
+extra memory and background reads for faster nearby turns.
+
+Safety: controller tests cover atomic pairs, warm reuse, late cancelled loads,
+failed second page, explicit retry, book ends, single pages and disposal.
+Browser regression checks passed: identical settled workspace screenshots at
+1024x768, 1280x800, 1400x900; slow/rapid navigation; stale marking disabled;
+failed load retention/retry; next-page mark targets page400; owned image URLs
+remain bounded at six. No commit/publication or physical iOS claim.
+
+Confidence: practicality 93, architecture/data safety 92, visual certainty 90.

@@ -55,3 +55,32 @@ No scoring or assignment data modified; no commit or publication.
 
 Confidence: practicality 95; architecture/data safety 95; visual certainty 82
 pending those remaining checks and user review.
+
+## Runtime correction after release 130 — supersedes prior effectiveness claim
+
+Release 130 included the new partition calculation, but the actual loader used
+precomputed package regions. The comparison fixture invoked the calculator
+directly and therefore did not prove runtime integration. Live p257 JSON still
+contained 1135.75. This was a validation gap, not a user cache problem.
+
+The loader now derives runtime regions after verifying immutable package bytes
+and semantic correspondence. Existing downloaded artwork remains valid; no
+604-page repack or forced re-download is needed. A loader-level regression
+specifically checks the old packaged 1135.75 boundary becomes 1243.5.
+
+Separately, Fade masks now extend the first and last context word of every row
+to the artwork edges using paint-only CSS insets. Hit targets, page fitting,
+text, selection membership and Fade opacity are unchanged. This closes the
+uncovered outer strips without page-specific corrections or wider hit boxes.
+
+Validation: 14 fixed-package/geometry tests passed (including all-page geometry
+checks), full suite 381 passed/1 existing skip, build passed. Real React reader
+fixture with 81:3 starting question: desktop 1280x900 and mobile 390x844, light
+and dark, 44 desktop/20 mobile context edges checked per theme. Screenshots
+inspected; no exposed right-edge text seen. QA fixture is isolated from user
+data. General overlapping detached ink remains a limitation of rectangular
+word regions; this is not a claim of pixel-perfect ownership of every glyph.
+
+Local only. No commit/publication. Physical iOS and user visual acceptance
+remain open. Confidence: practicality 95, data safety 95, visual certainty 88.
+Desktop preloading is a separate next slice, not included in this correction.

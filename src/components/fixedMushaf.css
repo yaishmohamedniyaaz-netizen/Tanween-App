@@ -36,7 +36,7 @@
 .page-fixed-mushaf[data-question-focus-mode="shade-fade"] .fixed-word.question-context-line::before,
 .page-fixed-mushaf[data-question-focus-mode="fade"] .fixed-word:has(.question-context-word)::before,
 .page-fixed-mushaf[data-question-focus-mode="shade-fade"] .fixed-word:has(.question-context-word)::before {
-  content: ""; position: absolute; inset: 0;
+  content: ""; position: absolute; inset: 0 var(--context-right, 0px) 0 var(--context-left, 0px);
   background: var(--page-paper); opacity: 0.65; pointer-events: none;
 }
 .page-fixed-mushaf .hit::before {

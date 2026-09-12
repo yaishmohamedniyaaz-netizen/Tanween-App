@@ -65,6 +65,17 @@ test('corrupt manifest fails closed and retry uses a fresh response', async () =
   const page = await loader.load(1); page.dispose();
 }));
 
+test('real loader replaces stale packaged regions without changing cached assets', async () => withBrowser(async () => {
+  const entry=manifest.pages[256];
+  const original=file(entry.geometry);
+  const baked=JSON.parse(original);
+  assert.equal(baked.words.find(w=>w.wid==='14.14.0').region[2],1135.75);
+  const page=await createFixedMushafLoader(descriptor).load(257);
+  assert.equal(page.geometry.words.find(w=>w.wid==='14.14.0').region[2],1243.5);
+  assert.deepEqual(file(entry.geometry),original);
+  page.dispose();
+}));
+
 test('same-size corrupt artwork is rejected before a blob is allocated', async () => withBrowser(async ({ live }) => {
   const original = fetch;
   globalThis.fetch = url => url.endsWith('/p4.png')
