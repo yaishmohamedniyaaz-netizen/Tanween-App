@@ -1,115 +1,135 @@
 TANWEEN — BRAND ASSET PACK
-تَنْوِين · tanween.app
+تَنْوِين · tanween.app · edition one, September 2026
 ==========================================================================
 
-Tanween-Brand-Standards.pdf is the document. This file is the index and the
-numbers you need when you open a layout without it.
+Tanween-Brand-Standards.pdf is the document. This file is the index, plus
+the numbers you need when you are laying something out without it open.
 
-Everything in /assets is generated from one source of truth — the geometry
-in the standards, section 1.2. No file here was drawn by hand, and no file
-here should be redrawn by hand.
+Everything in assets/ is generated from one file of geometry. No artwork
+here was drawn by hand and none of it should be redrawn by hand.
 
 
 1 · FILES
 --------------------------------------------------------------------------
 assets/tanween-mark-ink.svg            The mark. #1a1a1c. The default.
 assets/tanween-mark-paper.svg          The mark. #f2f1ee. For ink grounds.
-assets/tanween-mark-currentcolor.svg   Inherits colour from CSS. Use this
+assets/tanween-mark-currentcolor.svg   Takes its colour from CSS. Use this
                                        one inside the app.
 assets/tanween-icon-dark.svg           App icon, ink ground. 512, r=114.
 assets/tanween-icon-light.svg          App icon, paper ground.
-assets/tanween-icon-square.svg         Square, unmasked. For stores that
+assets/tanween-icon-square.svg         Square, unmasked, for stores that
                                        apply their own corner.
 assets/tanween-favicon.svg             64, r=8 (the app's --r-sm).
 assets/tanween-icon-1024/512/192.png   Raster icons, ink ground.
 assets/tanween-icon-apple-180.png      apple-touch-icon.
 assets/tanween-favicon-32/16.png       Legacy favicon sizes.
-assets/tanween-lockup-ink.png          Mark + name, 4x, transparent.
-assets/tanween-lockup-paper.png        Same, reversed.
+assets/tanween-lockup-ink.png          Mark and name, 4x, transparent.
+assets/tanween-lockup-paper.png        The same, reversed.
 assetproof.png                         Every file above, rendered.
 
-The SVGs are trimmed to the artwork: viewBox 12 25.29 58 44.71, zero slack
-on all four sides. Clear space is added in layout, never inside the file.
+The SVGs are trimmed to the artwork: viewBox 12 25.29 58 44.71, no slack on
+any side. Clear space is added in layout, never baked into the file.
 
 
 2 · THE MARK
 --------------------------------------------------------------------------
-The fatḥatān set on its letter-line. Two nib-cut pen-strokes at 40°, the
-second offset 14 right and 8 down; the letter-line squared off, flush left
-with the lower stroke, 14 units tall against the strokes' 13.5.
+The fatḥatān and the letter line it sits on.
 
-Clear space   One a on all four sides, where a = the height of the
-              letter-line = 14 units = 31.3% of the mark's height.
-Minimum       16 px for the mark alone. 120 px wide for the lockup.
-Lockup        Mark and name at a 30 : 29 ratio (mark height : type size),
-              13 px apart at that size. Name in InterVar 600, -0.032em.
+  Strokes      26 long, 13.5 thick, both cut at 40°, both ends sheared 0.80
+               of the stroke thickness so every edge belongs to one pen.
+  Offset       the second stroke sits 14 across and 8 down from the first.
+  Line         58 by 14, squared off, the same weight as the strokes.
+  Fusion       the lower stroke runs 4.3 into the line. It is one shape.
+  Position     the line reaches 1.9 past the strokes on the left and 20.1
+               on the right.
+  Whole mark   58 by 44.71.
 
-Never: recolour it to a category colour, put it in a container, add a
-rosette or a seal, outline it, rotate it, or redraw the strokes by eye.
+  Clear space  one a on all four sides, where a is the height of the letter
+               line: 14 units, 31.3% of the mark's height.
+  Minimum      16 px for the mark alone, 120 px wide for the lockup. At
+               12 px the two strokes close up.
+  Lockup       name set at the mark's height, InterVar 600, tracking
+               -0.032em, one and a quarter a between line and name.
+
+Never recolour it to a criteria colour, put it in a container, outline it,
+rotate it, stretch it, or set the name in another face.
 
 
 3 · COLOUR
 --------------------------------------------------------------------------
-The brand is ink on paper. There is no brand gold — #b3892f in the app is
-the sajdah mark, and it belongs to the mushaf page, not to the logo.
+Ink on paper. There is no brand gold; #b3892f draws the sajdah mark on the
+mushaf page and belongs to the page.
 
-  ink            #1a1a1c     --ink
   paper          #f2f1ee     --bg
   surface        #ffffff     --surface
   page paper     #fbfaf7     --page-paper
-  secondary ink  #62626a     --ink-2   (5.35:1 on surface)
-  tertiary ink   #6a6a73     --ink-3
-  hairline       rgba(26,26,28,.08) / .16
+  ink            #1a1a1c     --ink       17.4:1 on surface
+  ink 2          #62626a     --ink-2      6.0:1 on surface, 5.4:1 on paper
+  ink 3          #6a6a73     --ink-3      5.4:1 on surface, 4.7:1 on paper
+  hairline       rgba(26,26,28,.08) inside a card, .16 for its edge
 
-Dark theme (the app ships a real one, 44 rules):
-  bg #131316 · surface #1c1c20 · ink #ebebed · ink-2 #a4a4ac · ink-3 #8b8b95
+Dark theme (44 real rules, not a filter):
+  bg #131316 · surface #1c1c20 · page paper #211f1c
+  ink #ebebed · ink 2 #a4a4ac · ink 3 #8b8b95
 
-The four judging colours are the app's criteria, not a brand palette:
-  Jalī        #d8453d       Khafī       #c0892a
-  Faṣāḥa      #5566e6       Adu raagu   #377b60
-Each ships five values (--c, --c-strong, --c-tint, --c-wash,
---c-wash-strong). Faṣāḥa blue is also the focus ring, --ring, in 13 places.
+The four judging criteria. These are the app's meaning, not a palette:
+  Laḥn Jalī    #d8453d   strong #9e2820   dark text #f0a8a2
+  Laḥn Khafī   #c0892a   strong #7c540e   dark text #e6c07a
+  Faṣāḥa       #5566e6   strong #2f3aa3   dark text #aeb8f6
+  Adu / Raagu  #377b60   strong #26624b   dark text #a5cfbc
+Each also ships --c-tint, --c-wash and --c-wash-strong. Faṣāḥa blue is the
+focus ring, --ring, in thirteen places.
+
+They appear on the dot and the name in the score panel, the dot and the
+name in the mistake log, the wash on a marked letter, and the three chips
+in the mark picker. Not in the results table, not in the logo.
 
 
 4 · TYPE
 --------------------------------------------------------------------------
-InterVar for everything in Latin — the app's own UI face, shipped at
-public/fonts/InterVariable.woff2. The standards document is set in it too.
-There is no second brand face and no display face; adding one would put a
-typeface on screen that the product does not have.
+InterVar for everything in Latin. It is the app's own face, shipped at
+public/fonts/InterVariable.woff2. There is no second brand face.
 
-Qur'anic text is KFGQPC HafsUthmanic (public/fonts/hafs.18.woff2) and is
-never substituted, never restyled, never set in a UI face.
+Qur'anic text is KFGQPC HafsUthmanic (public/fonts/hafs.18.woff2) in the
+1405 layout. On the mushaf page the app loads the King Fahd page fonts, one
+file per page, so the line breaks match the printed copy.
 
-Scale, whole pixels only: 12 · 14 · 15 · 17 · 21 · 27.
-Spacing on a 4px module: 4 · 8 · 12 · 16 · 24 · 32 · 48. Tap target 44.
+Scale, whole pixels: 12 · 14 · 15 · 17 · 21 · 27.
+Spacing on a 4 px module: 4 · 8 · 12 · 16 · 24 · 32 · 48. Tap target 44.
 Radii: 8 · 12 · 20.
+
+Atkinson Hyperlegible was tested and not adopted. It has no ḥ and no ṣ, in
+either family and in every subset, so "Laḥn Jalī", "Laḥn Khafī" and
+"Faṣāḥa" would each be set in two typefaces at once. Inter's ss02, which
+the font itself names Disambiguation, gives the slashed zero and the tailed
+l that Atkinson is usually wanted for.
 
 
 5 · THE TALLY
 --------------------------------------------------------------------------
-The one place the four colours may appear together.
+The one place the four colours appear together, and the one part of the
+identity that is not in the app yet.
 
-  52 px of width per mark, 30 px tall, 5 px gap, radius 4.
-  Fixed order: Jalī · Khafī · Faṣāḥa · Adu raagu.
-  Bars are drawn from a real sheet's counts, at real proportion.
+  One bar per criterion, showing marks deducted.
+  One mark is one unit of width. The bar is 3.5 units tall. The gap is
+  half a unit. Fixed order: Jalī, Khafī, Faṣāḥa, Adu / Raagu.
+  The four bars add up to the deduction, so the total is checkable.
 
-Four equal squares with no score behind them is decoration, and decoration
-with these colours is a lie about a recitation. If there is no sheet, there
-is no tally.
+Draw it only from a real sheet. Four equal blocks with no recitation behind
+them is decoration, and decoration in these colours is a claim about
+somebody's recitation that nobody made.
 
 
 6 · IF YOU ARE RENAMING THE APP
 --------------------------------------------------------------------------
-The codebase still says Tahqeeq everywhere — the header brand-mark
-(تَحْقِيق), the brand-name string, the manifest, the page titles, the CSS
-comment at the top of global.css.
+The code still says Tahqeeq: the header mark (تَحْقِيق), the brand name
+string, the manifest, the page titles, the comment at the top of
+global.css.
 
-One thing will break quietly: device preferences are stored under the
-localStorage key "tahqeeq.theme" (src/lib/devicePreferences.ts, exported as
-LEGACY_THEME_KEY). Rename the key without a migration and every judge's
-theme choice silently resets on the first load after the deploy. Read the
-old key, write the new one, then stop reading the old one a release later.
+One thing breaks quietly. Device preferences live under the localStorage
+key "tahqeeq.theme" (src/lib/devicePreferences.ts, exported as
+LEGACY_THEME_KEY). Rename it without a migration and every judge's theme
+resets on the first load after the deploy. Read the old key, write the new
+one, and stop reading the old one a release later.
 
-tanween.app was unregistered when this pack was built. Register it before
-anything here is printed.
+tanween.app was unregistered when this pack was built.

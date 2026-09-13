@@ -1,20 +1,26 @@
 Source for the brand pack.
 
-mark.py        The mark's geometry. The single source of truth: angle, offset,
-               stroke weight, letter-line, viewBox. Every asset and every
-               drawing in the manual is emitted from here.
-spec.py        The manual's page template — 1600x820, on the app's 4px module.
-               Reads fonts.css (KFGQPC HafsUthmanic, base64) and
-               InterVariable.woff2, neither of which is copied here; take them
-               from public/fonts/.
-pages_a.py     Shared page helpers: lockup, Arabic setting, tally, swatches.
+mark.py        The mark's geometry: angle, offset, stroke weight, letter
+               line, viewBox. Every asset and every drawing in the manual
+               comes out of this file.
+spec2.py       The manual's page template: 1280x800, the type scale, the
+               divider, the lockup at its published ratio. Reads fonts.css
+               (HafsUthmanic, base64) and InterVariable.woff2, neither of
+               which is copied here; take them from public/fonts/.
+build_a..g.py  The pages, in order. Each writes one m_*.html.
+assemble.py    Joins them into manual.html.
+pdf2.mjs       Prints manual.html to the PDF through Chromium.
 mkassets.py    Emits assets/*.svg.
-mkpng.py       Emits the raster sources and the proof sheet.
-raster.mjs     Rasterises them through Chromium (playwright-core).
-manualpdf.mjs  Prints manual.html to Tanween-Brand-Standards.pdf.
+mkpng.py       Writes the raster sources and the proof sheet.
+raster.mjs     Rasterises them.
 
-manual.html    The manual, self-contained with its fonts embedded. Open it in
-               a browser; it is the document the PDF is printed from.
+manual.html    The manual, self contained with its fonts embedded. Open it
+               in a browser; the PDF is printed from it.
 
-To change the mark, change mark.py and re-run mkassets.py, mkpng.py,
-raster.mjs, manualpdf.mjs in that order. Do not edit an SVG by hand.
+The app screens in section 3 were drawn from the running app with its
+practice competition loaded, not from memory. To check one, run the dev
+server, load the sample competition and judge a reciter.
+
+To change the mark: edit mark.py, then run mkassets.py, mkpng.py,
+raster.mjs, the build_*.py files, assemble.py and pdf2.mjs, in that order.
+Do not edit an SVG by hand.
