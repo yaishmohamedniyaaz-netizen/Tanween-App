@@ -133,3 +133,28 @@ resets on the first load after the deploy. Read the old key, write the new
 one, and stop reading the old one a release later.
 
 tanween.app was unregistered when this pack was built.
+
+
+7 · APP ICONS
+--------------------------------------------------------------------------
+appicons/ holds drop-in replacements for public/icons/, at the sizes the
+manifest already declares.
+
+  tanween-512.png / .svg              purpose "any", corners baked in
+  tanween-192.png / .svg              purpose "any"
+  tanween-maskable-512.png / .svg     purpose "maskable", full bleed
+  tanween-apple-touch-180.png / .svg  apple-touch-icon
+
+The maskable one is the one that needs care. Android may crop the icon to a
+circle of 80% of its width, so the artwork has to sit inside that circle.
+The mark is 58 by 44.71, so its diagonal at width w is w x 1.2635, which
+caps the mark at 63% of the canvas; it is set to 52% and tested against a
+circle, a squircle and a full circle mask.
+
+The apple-touch icon is supplied square on purpose. iOS applies its own
+corner, and today's file has a corner baked in as well, so it is rounded
+twice.
+
+Renaming these in the app touches three places: the icons block in
+public/manifest.webmanifest, the PRECACHE list in public/sw.js, and the
+apple-touch-icon link in index.html. Nothing else reads them.
