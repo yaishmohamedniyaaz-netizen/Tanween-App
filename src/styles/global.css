@@ -346,19 +346,30 @@ textarea:focus-visible {
 .brand {
   display: flex;
   align-items: center;
-  gap: 12px;
   margin-right: auto;
+  flex-shrink: 0;
+  color: #1a1a1c;
+  /* e1 clear space: 14/44.71 of 21px, rounded up to the spacing grid. */
+  padding: 8px;
+}
+.brand-lockup {
+  display: block;
 }
 .brand-mark {
-  font-family: var(--quran);
-  font-size: 26px;
-  line-height: 1;
-  color: var(--ink);
+  display: none;
 }
-.brand-name {
-  font-size: 15px;
-  font-weight: 500;
-  letter-spacing: -0.02em;
+.brand svg {
+  display: block;
+  height: 21px;
+}
+.brand-mark svg {
+  width: calc(21px * 58 / 44.71);
+}
+.brand-lockup svg {
+  width: calc(21px * 285.89 / 44.71);
+}
+[data-theme="dark"] .brand {
+  color: #f2f1ee;
 }
 .header-context {
   display: flex;
@@ -10017,14 +10028,13 @@ html:has(.dialog-backdrop) {
   }
   .brand {
     min-width: 0;
-    gap: 6px;
     margin-right: 0;
   }
-  .brand-mark {
-    font-size: 23px;
-  }
-  .brand-name {
+  .brand-lockup {
     display: none;
+  }
+  .brand-mark {
+    display: block;
   }
   .header-context {
     width: 100%;

@@ -76,7 +76,8 @@ test("competition preparation is a dedicated task workspace", () => {
 });
 
 test("general settings remain separate from competition setup", () => {
-  assert.match(headerSource, /تَحْقِيق/);
+  assert.match(headerSource, /<Brand\s*\/>/);
+  assert.match(read("../src/components/Brand.tsx"), /aria-label="Tanween"/);
   assert.doesNotMatch(headerSource, /Øª|Ù‚/);
   assert.match(moreActionsSource, /Settings/);
   assert.match(settingsSource, /Appearance/);

@@ -18,6 +18,7 @@ import { useJudging } from "../state/store";
 import { Icon } from "./Icon";
 import { MoreActionsPopover } from "./MoreActionsPopover";
 import { ThemeToggle } from "./ThemeToggle";
+import { Brand } from "./Brand";
 
 export type AppView = "judge" | "records" | "setup" | "settings" | "questions";
 
@@ -173,10 +174,7 @@ export function Header({
 
   return (
     <header className="app-header">
-      <div className="brand">
-        <span className="brand-mark" aria-hidden="true">تَحْقِيق</span>
-        <span className="brand-name">Tahqeeq</span>
-      </div>
+      <Brand />
 
       <div className="header-context">
         <div className="mobile-mushaf-header-controls" ref={mobileMushafControlsRef} />
