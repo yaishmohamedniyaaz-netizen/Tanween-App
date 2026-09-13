@@ -8,7 +8,7 @@
 
 // App-shell releases and Mushaf source data have separate version contracts.
 // Updating the interface must never relabel or invalidate the 1405H page data.
-// HTML delivery now uses no-transform; retry the previously rejected update.
+// Tanween installation identity; preserve all Mushaf cache namespaces.
 const APP_CACHE_VERSION = "app-v30";
 const FIXED_PACKAGE = /* __TAHQEEQ_FIXED_PACKAGE__ */ null;
 const MUSHAF_DATA_VERSION = "v1-1405-r2";
@@ -33,10 +33,13 @@ const FONT_URLS = [
 
 const STATIC_PRECACHE_URLS = BUILD_PRECACHE_URLS.concat(FONT_URLS.slice(0, 2), [
   "/manifest.webmanifest",
-  "/icons/tahqeeq-192.png",
-  "/icons/tahqeeq-512.png",
-  "/icons/tahqeeq-maskable-512.png",
-  "/icons/tahqeeq-apple-touch-180.png",
+  "/icons/tanween-favicon.svg",
+  "/icons/tanween-favicon-32.png",
+  "/icons/tanween-favicon-16.png",
+  "/icons/tanween-192.png",
+  "/icons/tanween-512.png",
+  "/icons/tanween-maskable-512.png",
+  "/icons/tanween-apple-touch-180.png",
   "/question-index.json?v=qpc-v1-1405h-question-index-v1",
 ]);
 const MUSHAF_PRECACHE = [

@@ -1,7 +1,7 @@
 {
   "id": "/",
-  "name": "Tahqeeq — Quran Recitation Judging",
-  "short_name": "Tahqeeq",
+  "name": "Tanween — Quran Recitation Judging",
+  "short_name": "Tanween",
   "description": "Pinpoint judging for Quran recitation competitions",
   "lang": "en",
   "dir": "ltr",
@@ -14,19 +14,19 @@
   "prefer_related_applications": false,
   "icons": [
     {
-      "src": "/icons/tahqeeq-192.png",
+      "src": "/icons/tanween-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/icons/tahqeeq-512.png",
+      "src": "/icons/tanween-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/icons/tahqeeq-maskable-512.png",
+      "src": "/icons/tanween-maskable-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"

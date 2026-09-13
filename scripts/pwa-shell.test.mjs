@@ -40,12 +40,12 @@ function pngDimensions(path) {
   };
 }
 
-test("the production manifest supplies a complete standalone Tahqeeq identity", () => {
+test("the production manifest supplies a complete standalone Tanween identity", () => {
   assert.equal(manifest.id, "/");
   assert.equal(manifest.start_url, "/");
   assert.equal(manifest.scope, "/");
   assert.equal(manifest.display, "standalone");
-  assert.equal(manifest.short_name, "Tahqeeq");
+  assert.equal(manifest.short_name, "Tanween");
   assert.equal(manifest.prefer_related_applications, false);
 
   const iconByPurpose = new Map(manifest.icons.map((icon) => [icon.purpose, icon]));
@@ -55,29 +55,32 @@ test("the production manifest supplies a complete standalone Tahqeeq identity", 
 });
 
 test("the app icons are real PNGs at every declared platform size", () => {
-  assert.deepEqual(pngDimensions("public/icons/tahqeeq-192.png"), {
+  assert.deepEqual(pngDimensions("public/icons/tanween-192.png"), {
     width: 192,
     height: 192,
   });
-  assert.deepEqual(pngDimensions("public/icons/tahqeeq-512.png"), {
+  assert.deepEqual(pngDimensions("public/icons/tanween-512.png"), {
     width: 512,
     height: 512,
   });
-  assert.deepEqual(pngDimensions("public/icons/tahqeeq-maskable-512.png"), {
+  assert.deepEqual(pngDimensions("public/icons/tanween-maskable-512.png"), {
     width: 512,
     height: 512,
   });
-  assert.deepEqual(pngDimensions("public/icons/tahqeeq-apple-touch-180.png"), {
+  assert.deepEqual(pngDimensions("public/icons/tanween-apple-touch-180.png"), {
     width: 180,
     height: 180,
   });
 });
 
 test("the document exposes manifest, theme and platform icon metadata", () => {
+  assert.equal(manifest.short_name, "Tanween");
+  assert.match(indexSource, /<title>Tanween/);
+  assert.match(indexSource, /tanween-favicon\.svg/);
   assert.match(indexSource, /rel="manifest" href="\/manifest\.webmanifest"/);
   assert.match(indexSource, /id="theme-color-meta" name="theme-color"/);
   assert.match(indexSource, /rel="apple-touch-icon"/);
-  assert.match(indexSource, /rel="icon" href="\/icons\/tahqeeq-192\.png"/);
+  assert.match(indexSource, /rel="icon" href="\/icons\/tanween-192\.png"/);
 });
 
 test("install capture is one-shot, actionable, and hidden in standalone display", () => {
@@ -88,7 +91,7 @@ test("install capture is one-shot, actionable, and hidden in standalone display"
   assert.match(installSource, /await promptEvent\.prompt\(\)/);
   assert.match(installSource, /await promptEvent\.userChoice/);
   assert.match(moreSource, /installAvailable && !standalone/);
-  assert.match(moreSource, /Install Tahqeeq/);
+  assert.match(moreSource, /Install Tanween/);
   assert.match(moreSource, /requestInstall\(\)/);
   assert.match(
     globalStyles,
@@ -177,7 +180,7 @@ test("the worker precaches a generated application shell and scopes cache cleanu
   assert.match(workerSource, /const APP_CACHE_VERSION = "app-v30"/);
   assert.match(workerSource, /__TAHQEEQ_BUILD_PRECACHE__/);
   assert.match(workerSource, /"\/manifest\.webmanifest"/);
-  assert.match(workerSource, /"\/icons\/tahqeeq-maskable-512\.png"/);
+  assert.match(workerSource, /"\/icons\/tanween-maskable-512\.png"/);
   assert.match(workerSource, /staticCache\.addAll/);
   assert.match(workerSource, /request\.mode === "navigate"/);
   assert.match(workerSource, /cache\.match\("\/"\)/);

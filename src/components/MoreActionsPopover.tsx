@@ -412,7 +412,7 @@ export function MoreActionsPopover({
               onClick={installTahqeeq}
             >
               <Icon name="install" size={16} />
-              {installing ? "Opening installer…" : "Install Tahqeeq"}
+              {installing ? "Opening installer…" : "Install Tanween"}
             </button>
           )}
           {hasOfflineMushafAction && offlineMushaf.phase !== "complete" && (
@@ -481,7 +481,7 @@ export function MoreActionsPopover({
           {serviceWorker.waitingForClose && (
             <div className="overflow-system-status" role="status">
               <Icon name="refresh" size={16} />
-              <span><strong>Update ready</strong><small>After judging, close all Tahqeeq windows and reopen.</small></span>
+              <span><strong>Update ready</strong><small>After judging, close all Tanween windows and reopen.</small></span>
             </div>
           )}
           {!serviceWorker.waitingForClose && serviceWorker.updateReady && state.sessionActive && (
