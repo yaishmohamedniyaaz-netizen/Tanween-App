@@ -11,8 +11,8 @@ from mark import counter_inner, view_box
 
 WORD   = "Tanween"
 WEIGHT = 600
-TRACK  = -0.006          # em
-KERN   = {"Ta": -14}     # optical, in font units at upm 1000
+TRACK  = -0.030          # em, matching the density the name had in Inter
+KERN   = {}              # tracking already closes Ta; no pair needs help
 
 f    = TTFont('f_platypi-latin.woff2')
 inst = instancer.instantiateVariableFont(f, {'wght': WEIGHT}, inplace=False)
@@ -44,7 +44,11 @@ def lockup(fill='#1a1a1c', gap_a=1.25, name='tanween-lockup'):
     MW, MH = vb[2], vb[3]
     a   = MH * 14.0/MH * (14.0/44.71) if False else MH * (14.0/MH)   # a = 14 units
     a   = 14.0
-    gap = a*gap_a
+    # gap is specified ink to ink: the T carries a left sidebearing, so the pen
+    # sits back by that much. Measuring to the pen origin made the logo read loose.
+    s_pre = (0.7275*MH)/CAP
+    lsb_T = hmtx[cmap[ord(WORD[0])]][1] * s_pre
+    gap   = a*gap_a - lsb_T
     # scale the word so its cap height equals 0.7275 x MH  (the Inter rule, kept)
     target_cap = 0.7275 * MH
     s   = target_cap / CAP

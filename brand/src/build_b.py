@@ -44,7 +44,8 @@ P.append(page('1.3','Clear space','Measured from the letter line, so it scales w
 LH=64
 rows=[('Face','Platypi 600. It is drawn once and supplied as outlines, so nothing that uses the logo needs the font.'),
       ('Size','the name&#39;s cap height is 72.8&#37; of the mark&#39;s height, which is where it sat when the name was set in Inter.'),
-      ('Gap','1&#188;&#8202;a, from the right end of the letter line to the T.'),
+      ('Tracking','&#8722;0.030&#8202;em, which is the density the name had when it was set in Inter.'),
+      ('Gap','1&#188;&#8202;a, measured ink to ink: from the end of the letter line to the edge of the T, not to its origin.'),
       ('Baseline','the name sits on the letter line.'),
       ('Minimum','120 px wide. Below that use the mark on its own.')]
 tbl=''.join(f"""<div style="display:flex;gap:18px;padding:12px 0;border-bottom:1px solid rgba(26,26,28,.08)">

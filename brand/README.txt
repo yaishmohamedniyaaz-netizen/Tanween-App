@@ -52,9 +52,11 @@ The fatḥatān and the letter line it sits on.
                line: 14 units, 31.3% of the mark's height.
   Minimum      16 px for the mark alone, 120 px wide for the lockup. At
                12 px the two strokes close up.
-  Lockup       the name is Platypi 600, drawn once and supplied as outlines.
-               Its cap height is 72.8% of the mark's height and it sits on
-               the letter line, one and a quarter a to the right of it.
+  Lockup       the name is Platypi 600 tracked -0.030 em, drawn once and
+               supplied as outlines. Its cap height is 72.8% of the mark's
+               height, it sits on the letter line, and the gap is one and a
+               quarter a measured ink to ink, from the end of the line to
+               the edge of the T rather than to its origin.
                The logo is artwork. Do not set it as text.
 
 Never recolour it to a criteria colour, put it in a container, outline it,
