@@ -7,7 +7,7 @@ try {
  for(const [width,height] of [[1024,768],[1280,800],[1400,900],[390,844]]) {
   const context=await browser.newContext({viewport:{width,height}});
   const page=await context.newPage();
-  await page.goto('http://127.0.0.1:5296/scripts/qa/mobile-paper.html');
+  await page.goto(`${process.env.QA_BASE_URL || 'http://127.0.0.1:5296'}/scripts/qa/mobile-paper.html`);
   await page.getByRole('button',{name:'Load prepared mobile sample'}).click();
   await page.getByRole('button',{name:'Begin judging',exact:true}).click();
   await page.locator('[data-word-hit]').first().waitFor();

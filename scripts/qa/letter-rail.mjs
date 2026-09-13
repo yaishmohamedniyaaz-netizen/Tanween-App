@@ -9,7 +9,7 @@ try {
     const page = await context.newPage();
     const errors=[];
     page.on('pageerror', error=>errors.push(String(error)));
-    await page.goto('http://127.0.0.1:5296/scripts/qa/mobile-paper.html?qaSurah=83&qaAyah=1&qaLines=15');
+    await page.goto(`${process.env.QA_BASE_URL || 'http://127.0.0.1:5296'}/scripts/qa/mobile-paper.html?qaSurah=83&qaAyah=1&qaLines=15`);
     await page.getByRole('button',{name:'Load prepared mobile sample'}).click();
     await page.getByRole('button',{name:'Begin judging',exact:true}).click();
     await page.locator('[data-word-hit]').first().waitFor();

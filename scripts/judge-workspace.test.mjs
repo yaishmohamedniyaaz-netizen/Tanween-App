@@ -61,7 +61,7 @@ test("the wide judge workspace spends recovered chrome height on a larger Fit ca
   );
   assert.match(
     styleSource,
-    /\.app\.view-judge \.app-header \{\s*padding-block: 4px;/,
+    /\.app\.view-judge \.app-header,\s*\.app\.view-records \.app-header \{\s*padding-block: 4px;/,
   );
   assert.match(
     styleSource,
