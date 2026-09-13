@@ -783,7 +783,7 @@ function templateHeaders(
 ): string[] {
   const resolved = resolvedTemplateOptions(options);
   return [
-    ...(mode === "supplied" ? ["Participant Number"] : []),
+    ...(mode === "supplied" ? ["No."] : []),
     "Name",
     "Category",
     "Muqarrar start",
@@ -855,7 +855,7 @@ async function buildParticipantWorkbook(
   workbook.description = `Template version ${PARTICIPANT_TEMPLATE_VERSION}`;
 
   const participants = workbook.addWorksheet("Participants", {
-    views: [{ state: "frozen", ySplit: 1, activeCell: "A2", showGridLines: true }],
+    views: [{ state: "frozen", ySplit: 1, activeCell: "A2", showGridLines: false }],
     properties: { defaultRowHeight: 24, tabColor: { argb: "FFAAC7D1" } },
     pageSetup: {
       orientation: "landscape",
@@ -933,20 +933,22 @@ async function buildParticipantWorkbook(
     const header = headers[index];
     column.width = header === "Participant Number"
       ? 22
+      : header === "No."
+      ? 7
       : header === "Name" || header === "Institution"
-      ? header === "Name" ? 30 : 28
+      ? header === "Name" ? 40 : 30
       : header === "Category"
-        ? 30
+        ? 28
         : header === "Muqarrar start"
-          ? 19
+          ? 18
           : 17;
   });
   const headerRow = participants.getRow(1);
-  headerRow.height = 30;
+  headerRow.height = 32;
   headerRow.eachCell((cell) => {
-    cell.font = { name: "Aptos", size: 11, bold: true, color: { argb: "FF1D2327" } };
-    cell.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FFC87838" } };
-    cell.alignment = { vertical: "middle", horizontal: "left" };
+    cell.font = { name: "Arial", size: 11, bold: true, color: { argb: "FFFFFFFF" } };
+    cell.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FF242421" } };
+    cell.alignment = { vertical: "middle", horizontal: cell.value === "No." || cell.value === "Participant Number" ? "center" : "left" };
     cell.border = {
       top: { style: "medium", color: { argb: "FF59636A" } },
       left: { style: "thin", color: { argb: "FF59636A" } },
@@ -982,49 +984,30 @@ async function buildParticipantWorkbook(
   const categoryColumn = headers.indexOf("Category") + 1;
   const muqarrarColumn = headers.indexOf("Muqarrar start") + 1;
   const institutionColumn = headers.indexOf("Institution") + 1;
-  const numberColumn = headers.indexOf("Participant Number") + 1;
+  const numberColumn = headers.findIndex(header => header === "Participant Number" || header === "No.") + 1;
   const phoneColumn = headers.indexOf("Phone Number") + 1;
-  const blockPalette = [
-    { first: "FFCEDCE6", even: "FFDDE7EE", odd: "FFE8EFF3", edge: "FF758A96" },
-    { first: "FFD4DFC7", even: "FFE2E9D8", odd: "FFECF0E7", edge: "FF7E8D71" },
-    { first: "FFE5D8BE", even: "FFF0E5CF", odd: "FFF6EEDF", edge: "FF9D8866" },
-    { first: "FFDBD1DE", even: "FFE8E1EA", odd: "FFF0EBF1", edge: "FF8B788F" },
-    { first: "FFCEE0DE", even: "FFDCEAE9", odd: "FFE8F1F0", edge: "FF748D8A" },
-  ];
   for (const preparedRow of preparedRows) {
-    const { row, division, divisionIndex, startsBlock, endsBlock } = preparedRow;
-    const palette = blockPalette[Math.max(0, divisionIndex) % blockPalette.length];
+    const { row, division, startsBlock } = preparedRow;
     const worksheetRow = participants.getRow(row);
-    worksheetRow.height = 24;
-    const rowFill = division
-      ? startsBlock
-        ? palette.first
-        : (row - 2) % 2 === 0
-          ? palette.even
-          : palette.odd
-      : (row - 2) % 2 === 0
-        ? "FFF7F7F5"
-        : "FFFFFFFF";
+    worksheetRow.height = 26;
+    const rowFill = row % 2 === 0 ? "FFFFFFFF" : "FFF4F4F2";
     for (let column = 1; column <= headers.length; column += 1) {
       const cell = participants.getCell(row, column);
-      cell.font = { name: "Aptos", size: 11, color: { argb: "FF1D2327" } };
-      cell.alignment = { vertical: "middle" };
+      cell.font = { name: "Arial", size: 11, color: { argb: "FF242421" } };
+      cell.alignment = { vertical: "middle", horizontal: column === numberColumn ? "center" : "left" };
       cell.fill = {
         type: "pattern",
         pattern: "solid",
         fgColor: { argb: rowFill },
       };
       cell.border = {
-        top: { style: startsBlock ? "medium" : "thin", color: { argb: startsBlock ? palette.edge : "FF90989D" } },
-        left: { style: "thin", color: { argb: "FF90989D" } },
-        bottom: { style: endsBlock ? "medium" : "thin", color: { argb: endsBlock ? palette.edge : "FF90989D" } },
-        right: { style: "thin", color: { argb: "FF90989D" } },
+        ...(startsBlock && row > 2 ? { top: { style: "thin" as const, color: { argb: "FFAFAFAC" } } } : {}),
       };
     }
     if (division && !sample) {
       const categoryCell = participants.getCell(row, categoryColumn);
       categoryCell.value = divisionLabel(division);
-      categoryCell.font = { name: "Aptos", size: 10.5, bold: startsBlock, color: { argb: "FF1D2327" } };
+      categoryCell.font = { name: "Arial", size: 11, color: { argb: "FF242421" } };
       categoryCell.alignment = { vertical: "middle", horizontal: "left" };
     }
     if (numberColumn > 0) participants.getCell(row, numberColumn).numFmt = "@";

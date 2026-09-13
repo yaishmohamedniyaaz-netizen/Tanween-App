@@ -6,8 +6,12 @@ import { ParticipantReviewWorkspace } from "./ParticipantReviewWorkspace.tsx";
 import "../styles/resultsOverview.css";
 import { resultPageItems } from "../lib/reviewNavigation";
 import type { MushafLayout } from "../lib/devicePreferences";
+import { CATEGORY_BY_ID } from "../config";
 
-export function ResultsOverview({ active = true, pageLayout = "full" }: { active?: boolean; pageLayout?: MushafLayout }) {
+const requiresCheck = (row: ReturnType<typeof buildCompetitionResults>["rows"][number]) =>
+  row.needsAttention && row.reasons.some(reason => !reason.startsWith("Awaiting ") && !reason.endsWith("mark has not been entered"));
+
+export function ResultsOverview({ active = true, pageLayout = "full", onImport }: { active?: boolean; pageLayout?: MushafLayout; onImport?: () => void }) {
   const { state } = useJudging();
   const [query, setQuery] = useState("");
   const [attention, setAttention] = useState(false);
@@ -26,7 +30,7 @@ export function ResultsOverview({ active = true, pageLayout = "full" }: { active
   ])).entries()];
   const filtered = model.rows.filter(r =>
     (!query.trim() || `${r.participant.number} ${r.participant.name}`.toLocaleLowerCase().includes(query.trim().toLocaleLowerCase())) &&
-    (!attention || r.needsAttention) &&
+    (!attention || requiresCheck(r)) &&
     (!division || divisionKey(r.participant.ageGroup, r.participant.category) === division));
   const pageCount = Math.max(1, Math.ceil(filtered.length / 10));
   const currentPage = Math.min(page, pageCount);
@@ -67,18 +71,19 @@ export function ResultsOverview({ active = true, pageLayout = "full" }: { active
 
   return <section className="results-overview" aria-label="Competition participant results">
     <div className="ro-summary">
-      <p><strong>{model.complete} of {model.total - model.absent}</strong> with complete sources
-        {model.attention > 0 && <> · {model.attention} need attention</>}
+      <p>Results ready: <strong>{model.complete} / {model.total - model.absent}</strong>
+        {model.rows.some(requiresCheck) && <> · {model.rows.filter(requiresCheck).length} check required</>}
         {model.absent > 0 && <> · {model.absent} absent</>}</p>
       <span>On this device{!model.rosterFrozen && " · Setup roster"}</span>
     </div>
     <div className="ro-tools">
+      {onImport && <button type="button" className="btn-ghost" disabled={state.sessionActive} onClick={onImport}>Import judge records</button>}
       <label className="ro-search"><span className="ro-sr-only">Find participant</span>
         <input type="search" placeholder="Find name or number" value={query} onChange={e => {setQuery(e.target.value);setPage(1);}} />
       </label>
       <div className="ro-filter" role="group" aria-label="Result filter">
         <button aria-pressed={!attention} onClick={() => {setAttention(false);setPage(1);}}>All</button>
-        <button aria-pressed={attention} onClick={() => {setAttention(true);setPage(1);}}>Needs attention</button>
+        <button aria-pressed={attention} onClick={() => {setAttention(true);setPage(1);}}>Check required</button>
       </div>
       {divisions.length > 1 && <label><span className="ro-sr-only">Division</span><select aria-label="Division" value={division} onChange={e => {setDivision(e.target.value);setPage(1);}}>
         <option value="">All divisions</option>{divisions.map(([id, label]) => <option key={id} value={id}>{label}</option>)}
@@ -87,7 +92,7 @@ export function ResultsOverview({ active = true, pageLayout = "full" }: { active
     {model.excluded.length > 0 && <p className="ro-notice">{model.excluded.length} source record{model.excluded.length === 1 ? "" : "s"} could not be matched to this roster and competition version. Available in Judge records below.</p>}
     {visible.length ? <table className="ro-table">
       <caption className="ro-sr-only">Participant scores from the displayed judge sources. Complete sources does not mean an approved result.</caption>
-      <thead><tr><th scope="col">Participant</th><th scope="col">Score</th><th scope="col">Criteria received</th><th scope="col">Result details</th></tr></thead>
+      <thead><tr><th scope="col">Participant</th><th scope="col">Score</th><th scope="col">Marks received</th><th scope="col">Result details</th></tr></thead>
       <tbody>{visible.map((row) => {
         const p = row.participant;
         const score = row.absent ? null : row.view?.preview;
@@ -98,9 +103,9 @@ export function ResultsOverview({ active = true, pageLayout = "full" }: { active
               <small>{p.ageGroup}{p.ageGroup && p.category && " · "}{participantCategoryLabel(p.category)}</small></span>
           </button></td>
           <td className="ro-score"><span className="ro-sr-only">{row.view?.matchesOfficial ? "Official score: " : "Source score: "}</span><strong>{score?.total ?? "—"}</strong>{score && <small> / {score.totalMax}</small>}</td>
-          <td className="ro-contributions">{row.received} / {row.required}<span className="ro-sr-only"> criteria received</span></td>
+          <td className="ro-contributions">{row.absent ? "—" : !row.received ? "Awaiting marks" : row.complete ? "All marks" : row.item?.candidate.categories.filter(category => row.item!.candidate.byCategory[category].length).map(category => CATEGORY_BY_ID[category].label).join(", ")}</td>
           <td className={`ro-reason${!row.absent && !row.reasons.length && !row.view?.official ? " ro-reason-empty" : ""}`}>{row.absent && <strong>Absent</strong>}
-            {row.absent && !row.needsAttention ? <span>Retained in roster</span> : <span>{row.reasons[0] || (row.view?.matchesOfficial ? "Official result" : "")}</span>}
+            {row.absent && !row.needsAttention ? <span>Retained in roster</span> : <span>{row.reasons[0] === "Awaiting judge results" ? "Awaiting marks" : row.reasons[0] || (row.view?.matchesOfficial ? "Official result" : "")}</span>}
             {row.view?.official && !row.view.matchesOfficial && <small>Official: {row.view.official.total} / {row.view.official.totalMax}</small>}
           </td>
         </tr>;

@@ -6,7 +6,7 @@ import { placeFinalizedResults } from "./finalResults.ts";
 
 const RESULTS_LEADING_HEADERS = [
   "Place",
-  "Participant Number",
+  "No.",
   "Name",
   "Age Group",
   "Category",
@@ -47,18 +47,14 @@ const CATEGORY_COLORS: Record<CategoryId, {
   body: string;
   strong: string;
 }> = {
-  jali: { tint: "FFFCECEA", body: "FFFFF7F6", strong: "FF9E2820" },
-  khafi: { tint: "FFFAF2DC", body: "FFFFFBF1", strong: "FF7C540E" },
-  fasaha: { tint: "FFECEEFB", body: "FFF8F8FD", strong: "FF2F3AA3" },
-  "adu-raagu": { tint: "FFEEF8F3", body: "FFF7FBF9", strong: "FF26624B" },
+  // Match global.css --c-tint and --c-strong. Body fills mix tint 50% with white.
+  jali: { tint: "FFFCECEA", body: "FFFEF6F5", strong: "FF9E2820" },
+  khafi: { tint: "FFFAF2DC", body: "FFFDF9EE", strong: "FF7C540E" },
+  fasaha: { tint: "FFECEEFB", body: "FFF6F7FD", strong: "FF2F3AA3" },
+  "adu-raagu": { tint: "FFEEF8F3", body: "FFF7FCF9", strong: "FF26624B" },
 };
 
-const JUDGE_COLORS = [
-  { tint: "FFE8EEF5", body: "FFF8FAFC" },
-  { tint: "FFF1EBDD", body: "FFFCFAF6" },
-  { tint: "FFE7EFEA", body: "FFF8FBF9" },
-  { tint: "FFEDE8F1", body: "FFFAF8FB" },
-] as const;
+const GROUP_FILL = "FFF0EFEA";
 
 const TABLE_LINE = "FFD8D7D1";
 const GROUP_LINE = "FFAAA9A3";
@@ -119,6 +115,7 @@ export function finalResultsCategories(results: FinalizedResult[]): CategoryId[]
  */
 export function finalResultsJudgeGroups(
   results: FinalizedResult[],
+  competition?: CompetitionConfig,
 ): FinalResultsJudgeGroup[] {
   const groups = new Map<string, FinalResultsJudgeGroup>();
   for (const result of results) {
@@ -138,6 +135,22 @@ export function finalResultsJudgeGroups(
       groups.set(judgeSeatId, current);
     }
   }
+  // Use the frozen competition setup, never today's editable device settings.
+  // Keep historical sources above even if an assignment subsequently differs.
+  const snapshot = competition?.liveSnapshot;
+  snapshot?.panel.seats.forEach((seat) => {
+    const categories = seat.categories.filter((category) => snapshot.scoreConfig[category].enabled);
+    if (!categories.length) return;
+    const group = groups.get(seat.id) ?? {
+      judgeSeatId: seat.id,
+      judgeName: seat.name.trim() || seat.label || seat.id,
+      categories: [],
+    };
+    categories.forEach((category) => {
+      if (!group.categories.includes(category)) group.categories.push(category);
+    });
+    groups.set(seat.id, group);
+  });
   const categoryOrder = Object.keys(CATEGORY_BY_ID) as CategoryId[];
   return [...groups.values()]
     .map((group) => ({
@@ -185,26 +198,29 @@ function stableCategoryMaximum(
   results: FinalizedResult[],
   group: FinalResultsJudgeGroup,
   category: CategoryId,
+  competition?: CompetitionConfig,
 ): number | null {
   const values = new Set<number>();
   results.forEach((result) => {
     const score = result.byCategory[category];
     if (score?.judgeSeatId === group.judgeSeatId) values.add(score.max);
   });
-  return values.size === 1 ? [...values][0] : null;
+  return values.size === 1 ? [...values][0] : values.size === 0
+    ? competition?.liveSnapshot?.scoreConfig[category].start ?? null
+    : null;
 }
 
 function displayMark(value: number): string {
   return Number.isInteger(value) ? String(value) : String(Math.round(value * 100) / 100);
 }
 
-function resultsColumns(results: FinalizedResult[]): ResultsColumn[] {
-  const groups = finalResultsJudgeGroups(results);
+function resultsColumns(results: FinalizedResult[], competition?: CompetitionConfig): ResultsColumn[] {
+  const groups = finalResultsJudgeGroups(results, competition);
   return [
     ...RESULTS_LEADING_HEADERS.map((label) => ({ kind: "leading", label }) as const),
     ...groups.flatMap((judge, judgeIndex) => [
       ...judge.categories.map((category) => {
-        const maximum = stableCategoryMaximum(results, judge, category);
+        const maximum = stableCategoryMaximum(results, judge, category, competition);
         return {
           kind: "category" as const,
           label: `${CATEGORY_BY_ID[category].label}${maximum === null ? "" : ` (${displayMark(maximum)})`}`,
@@ -247,6 +263,23 @@ function plainCellBorder(isGroupStart = false) {
   };
 }
 
+// Excel does not reliably auto-fit wrapped merged headings. Reserve enough
+// lines using a conservative character budget, including long unbroken names.
+function wrappedLineCount(value: string, width: number): number {
+  const capacity = Math.max(1, Math.floor(width * 0.85));
+  return value.split(/\r?\n/).reduce((total, paragraph) => {
+    let lines = 1;
+    let used = 0;
+    for (const word of paragraph.split(/\s+/)) {
+      if (used && used + 1 + word.length > capacity) { lines++; used = 0; }
+      const length = word.length;
+      lines += Math.max(0, Math.ceil(length / capacity) - 1);
+      used = used ? used + 1 + length : length % capacity || capacity;
+    }
+    return total + lines;
+  }, 0);
+}
+
 export async function buildFinalResultsWorkbook(
   results: FinalizedResult[],
   competition: CompetitionConfig,
@@ -264,8 +297,8 @@ export async function buildFinalResultsWorkbook(
     }),
   );
   const categories = finalResultsCategories(results);
-  const judgeGroups = finalResultsJudgeGroups(results);
-  const columns = resultsColumns(results);
+  const judgeGroups = finalResultsJudgeGroups(results, competition);
+  const columns = resultsColumns(results, competition);
   const headers = columns.map((column) => column.label);
   const exportedAt = safeExportDate(options.exportedAt);
   const workbook = new ExcelJS.Workbook();
@@ -283,14 +316,16 @@ export async function buildFinalResultsWorkbook(
     views: [{ state: "frozen", xSplit: 3, ySplit: 3, activeCell: "D4", showGridLines: false }],
     pageSetup: {
       orientation: "landscape",
-      fitToPage: true,
-      fitToWidth: 1,
+      fitToPage: false,
+      scale: 100,
+      fitToWidth: 0,
       fitToHeight: 0,
       paperSize: 9,
       margins: { left: 0.25, right: 0.25, top: 0.5, bottom: 0.5, header: 0.2, footer: 0.2 },
     },
   });
   resultSheet.pageSetup.printTitlesRow = "1:3";
+  resultSheet.pageSetup.printTitlesColumn = "A:C";
   resultSheet.addRow([`${competition.name || "Tahqeeq"} — Final marks${competition.edition ? ` · ${competition.edition}` : ""}`]);
   resultSheet.mergeCells(1, 1, 1, Math.max(1, headers.length));
   resultSheet.addRow(Array(headers.length).fill(""));
@@ -299,7 +334,7 @@ export async function buildFinalResultsWorkbook(
   resultSheet.mergeCells(2, 1, 2, RESULTS_LEADING_HEADERS.length);
   resultSheet.getCell(2, 1).value = "Participant";
   let judgeColumn = RESULTS_LEADING_HEADERS.length + 1;
-  judgeGroups.forEach((group, judgeIndex) => {
+  judgeGroups.forEach((group) => {
     const span = group.categories.length + 1;
     resultSheet.mergeCells(2, judgeColumn, 2, judgeColumn + span - 1);
     const cell = resultSheet.getCell(2, judgeColumn);
@@ -307,7 +342,7 @@ export async function buildFinalResultsWorkbook(
     cell.fill = {
       type: "pattern",
       pattern: "solid",
-      fgColor: { argb: JUDGE_COLORS[judgeIndex % JUDGE_COLORS.length].tint },
+      fgColor: { argb: GROUP_FILL },
     };
     judgeColumn += span;
   });
@@ -337,7 +372,7 @@ export async function buildFinalResultsWorkbook(
     to: { row: Math.max(3, resultSheet.rowCount), column: headers.length },
   };
 
-  const widths = [8, 19, 30, 18, 27, 29, 28];
+  const widths = [8, 7, 40, 12, 18, 18, 30];
   columns.slice(RESULTS_LEADING_HEADERS.length).forEach((column) => {
     widths.push(column.kind === "category" ? 17 : column.kind === "judge-percentage" ? 13 : 15);
   });
@@ -346,9 +381,9 @@ export async function buildFinalResultsWorkbook(
   });
 
   const titleRow = resultSheet.getRow(1);
-  titleRow.height = 38;
+  titleRow.height = 32;
   const titleCell = resultSheet.getCell(1, 1);
-  titleCell.font = { name: "Arial", size: 17, bold: true, color: { argb: INK } };
+  titleCell.font = { name: "Arial", size: 14, bold: true, color: { argb: INK } };
   titleCell.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FFFFFFFF" } };
   titleCell.alignment = { vertical: "middle", horizontal: "left" };
   titleCell.border = { bottom: { style: "medium", color: { argb: INK } } };
@@ -356,46 +391,43 @@ export async function buildFinalResultsWorkbook(
   const groupRow = resultSheet.getRow(2);
   groupRow.height = 27;
   groupRow.eachCell({ includeEmpty: true }, (cell, columnNumber) => {
-    const metadata = columns[columnNumber - 1];
-    const judgeIndex = metadata && "judgeIndex" in metadata ? metadata.judgeIndex : -1;
     cell.font = { name: "Arial", size: 10, bold: true, color: { argb: INK } };
     cell.fill = {
       type: "pattern",
       pattern: "solid",
       fgColor: {
-        argb: judgeIndex >= 0
-          ? JUDGE_COLORS[judgeIndex % JUDGE_COLORS.length].tint
-          : columnNumber === headers.length
-            ? "FFE7EFEA"
-            : "FFF0EFEA",
+        argb: GROUP_FILL,
       },
     };
-    cell.alignment = { vertical: "middle", horizontal: "center" };
+    cell.alignment = { vertical: "middle", horizontal: "center", wrapText: true };
     cell.border = plainCellBorder(columnNumber === 1 || columnNumber === RESULTS_LEADING_HEADERS.length + 1 || columnNumber === headers.length);
   });
 
+  let groupStart = RESULTS_LEADING_HEADERS.length;
+  judgeGroups.forEach((group) => {
+    const span = group.categories.length + 1;
+    const width = widths.slice(groupStart, groupStart + span).reduce((sum, value) => sum + value, 0);
+    groupRow.height = Math.max(groupRow.height ?? 27, wrappedLineCount(group.judgeName, width) * 14 + 10);
+    groupStart += span;
+  });
+
   const headerRow = resultSheet.getRow(3);
-  headerRow.height = 42;
+  headerRow.height = 36;
   headerRow.eachCell({ includeEmpty: true }, (cell, columnNumber) => {
     const metadata = columns[columnNumber - 1];
     const category = metadata?.kind === "category" ? metadata.category : null;
-    const judgeIndex = metadata && "judgeIndex" in metadata ? metadata.judgeIndex : -1;
     const isGroupStart = columnNumber === 1 ||
       columnNumber === RESULTS_LEADING_HEADERS.length + 1 ||
       (metadata?.kind === "category" && metadata.judge.categories[0] === metadata.category) ||
       metadata?.kind === "final-percentage";
-    cell.font = { name: "Arial", size: 10, bold: true, color: { argb: INK } };
+    cell.font = { name: "Arial", size: 11, bold: true, color: { argb: category ? INK : "FFFFFFFF" } };
     cell.fill = {
       type: "pattern",
       pattern: "solid",
       fgColor: {
         argb: category
           ? CATEGORY_COLORS[category].tint
-          : metadata?.kind === "judge-percentage" && judgeIndex >= 0
-            ? JUDGE_COLORS[judgeIndex % JUDGE_COLORS.length].tint
-            : metadata?.kind === "final-percentage"
-              ? "FFE7EFEA"
-              : "FFFFFFFF",
+          : INK,
       },
     };
     cell.alignment = {
@@ -415,29 +447,25 @@ export async function buildFinalResultsWorkbook(
     const ageGroup = String(resultSheet.getCell(rowNumber, 4).value ?? "");
     const isNewAgeGroup = ageGroup !== previousAgeGroup;
     previousAgeGroup = ageGroup;
-    row.height = 24;
+    row.height = 26;
+    for (let column = 3; column <= RESULTS_LEADING_HEADERS.length; column++) {
+      row.height = Math.max(row.height, wrappedLineCount(String(row.getCell(column).value ?? ""), widths[column - 1]) * 15 + 10);
+    }
     row.eachCell({ includeEmpty: true }, (cell, columnNumber) => {
       const metadata = columns[columnNumber - 1];
       const category = metadata?.kind === "category" ? metadata.category : null;
-      const judgeIndex = metadata && "judgeIndex" in metadata ? metadata.judgeIndex : -1;
       const isGroupStart = columnNumber === 1 ||
         columnNumber === RESULTS_LEADING_HEADERS.length + 1 ||
         (metadata?.kind === "category" && metadata.judge.categories[0] === metadata.category) ||
         metadata?.kind === "final-percentage";
-      cell.font = { name: "Arial", size: 10.5, color: { argb: INK } };
+      cell.font = { name: "Arial", size: 11, color: { argb: INK } };
       cell.fill = {
         type: "pattern",
         pattern: "solid",
         fgColor: {
           argb: category
             ? CATEGORY_COLORS[category].body
-            : metadata?.kind === "judge-percentage" && judgeIndex >= 0
-              ? JUDGE_COLORS[judgeIndex % JUDGE_COLORS.length].body
-              : metadata?.kind === "final-percentage"
-                ? "FFF2F7F4"
-                : rowNumber % 2 === 0
-                  ? "FFF7F6F2"
-                  : "FFFFFFFF",
+            : rowNumber % 2 === 0 ? "FFFFFFFF" : "FFF4F4F2",
         },
       };
       cell.alignment = {
@@ -445,19 +473,20 @@ export async function buildFinalResultsWorkbook(
         horizontal: columnNumber === 3 || (columnNumber >= 4 && columnNumber <= RESULTS_LEADING_HEADERS.length)
           ? "left"
           : "center",
+        wrapText: columnNumber >= 3 && columnNumber <= RESULTS_LEADING_HEADERS.length,
       };
       cell.border = plainCellBorder(isGroupStart);
       if (isNewAgeGroup) {
         cell.border.top = { style: "thin", color: { argb: GROUP_LINE } };
       }
       if (metadata?.kind === "final-percentage") {
-        cell.font = { name: "Arial", size: 10.5, bold: true, color: { argb: INK } };
+        cell.font = { name: "Arial", size: 11, bold: true, color: { argb: INK } };
       }
     });
     resultSheet.getCell(rowNumber, 2).numFmt = "@";
     columns.forEach((metadata, index) => {
       const cell = resultSheet.getCell(rowNumber, index + 1);
-      if (metadata.kind === "category") cell.numFmt = "0.##";
+      if (metadata.kind === "category") cell.numFmt = "0.0#";
       if (metadata.kind === "judge-percentage" || metadata.kind === "final-percentage") {
         cell.numFmt = "0.00%";
       }
@@ -679,6 +708,7 @@ export async function buildFinalResultsWorkbook(
 export async function verifyFinalResultsWorkbook(
   buffer: ArrayBuffer,
   results: FinalizedResult[],
+  competition?: CompetitionConfig,
 ): Promise<void> {
   const { read, utils } = await import("xlsx");
   const workbook = read(buffer, { type: "array" });
@@ -693,6 +723,10 @@ export async function verifyFinalResultsWorkbook(
   });
   const headers = resultRows[2] ?? [];
   const visibleRows = resultRows.slice(3);
+  const expectedColumns = resultsColumns(results, competition);
+  if (competition && JSON.stringify(headers) !== JSON.stringify(expectedColumns.map(column => column.label))) {
+    throw new Error("The exported judge and criterion columns do not match the competition.");
+  }
   const auditRows = utils.sheet_to_json<Record<string, unknown>>(workbook.Sheets.Audit, {
     defval: "",
     raw: true,
@@ -715,6 +749,18 @@ export async function verifyFinalResultsWorkbook(
       Math.abs(percentage - finalResultPercentage(result)) > 1e-12
     ) {
       throw new Error("A visible result changed during workbook export.");
+    }
+    if (competition) {
+      expectedColumns.forEach((column, index) => {
+        if (column.kind !== "category" && column.kind !== "judge-percentage") return;
+        const contribution = judgeContribution(result, column.judge);
+        const expected = column.kind === "category"
+          ? contribution.categories[column.category]?.score ?? ""
+          : contribution.maximum > 0 ? contribution.percentage : "";
+        if (row[index] !== expected) {
+          throw new Error("A judge mark changed or moved during workbook export.");
+        }
+      });
     }
   }
   const expectedByManifest = new Map(results.map((result) => [result.manifest, result]));
@@ -770,7 +816,7 @@ export async function downloadFinalResultsWorkbook(
   competition: CompetitionConfig,
 ): Promise<void> {
   const buffer = await buildFinalResultsWorkbook(results, competition);
-  await verifyFinalResultsWorkbook(buffer, results);
+  await verifyFinalResultsWorkbook(buffer, results, competition);
   const blob = new Blob([buffer], {
     type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
   });

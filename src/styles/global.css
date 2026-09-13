@@ -5826,10 +5826,11 @@ textarea:focus-visible {
   outline-offset: 1px;
 }
 .drag-menu.pinned .unit-picker-row {
-  flex-wrap: wrap;
-  justify-content: center;
-  overflow: visible;
-  touch-action: manipulation;
+  /* Keep tap-open letters on the same RTL rail as the hold gesture. */
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  overflow-x: auto;
+  touch-action: pan-x;
 }
 .unit-choice.marked,
 .unit-picker[class*="cat-"] .unit-choice.marked.selected {
@@ -9660,7 +9661,8 @@ html:has(.dialog-backdrop) {
     align-items: stretch;
     overflow: hidden;
   }
-  .app.view-judge .app-header {
+  .app.view-judge .app-header,
+  .app.view-records .app-header {
     padding-block: 4px;
   }
   .app.view-judge .workspace.layout-spread {

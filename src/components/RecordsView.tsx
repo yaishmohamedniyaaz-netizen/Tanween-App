@@ -580,7 +580,13 @@ export function RecordsView({ onResumeSession, pageLayout = "full" }: { onResume
               type="file"
               accept=".json,application/json"
               hidden
-              onChange={(event) => readImport(event.target.files?.[0])}
+              onChange={(event) => {
+                const file = event.target.files?.[0];
+                if (!file) return;
+                void readImport(file).then(() => {
+                  importRef.current?.closest(".results-judge-panel")?.scrollIntoView({ block: "start" });
+                });
+              }}
             />
             <button
               type="button"
@@ -589,7 +595,7 @@ export function RecordsView({ onResumeSession, pageLayout = "full" }: { onResume
               onClick={() => importRef.current?.click()}
               title="Import a result exported by another judge into the current competition"
             >
-              <Icon name="download" size={15} /> Import judge result
+              <Icon name="download" size={15} /> Import judge records
             </button>
             {historyScope === "current" ? (
               <button
@@ -816,7 +822,11 @@ export function RecordsView({ onResumeSession, pageLayout = "full" }: { onResume
         className="results-tab-panel"
       >
         {overviewEnabled ? <>
-          <ResultsOverview key={`${state.competition.id}:${state.competition.liveSnapshot?.versionId ?? "draft"}`} active={true} pageLayout={pageLayout} />
+          <ResultsOverview key={`${state.competition.id}:${state.competition.liveSnapshot?.versionId ?? "draft"}`} active={true} pageLayout={pageLayout} onImport={() => {
+            const disclosure = importRef.current?.closest("details");
+            if (disclosure) disclosure.open = true;
+            importRef.current?.click();
+          }} />
           <details className="ro-source-tools"><summary>Judge records &amp; import</summary>{renderJudgeResults()}</details>
         </> : <>
         <section

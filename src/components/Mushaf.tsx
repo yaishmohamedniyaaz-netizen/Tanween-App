@@ -561,7 +561,10 @@ export function Mushaf({
   const commit = useCallback(
     (category: CategoryId, tidOverride?: string | null) => {
       if (!active || !judgingEnabled) return;
-      if (preparedFixedPage && (active.meta.page !== currentPage || boxesKey !== requestKey)) return;
+      // A prepared desktop spread contains two markable pages. Reject stale
+      // geometry, not the second page of the currently displayed spread.
+      if (preparedFixedPage && (!requestedPages.includes(active.meta.page) ||
+        !preparedFixedPage.semantic.has(active.meta.page) || boxesKey !== requestKey)) return;
       if (!allowedCategories.includes(category)) return;
       const selectedTid = tidOverride ?? active.tid;
       if (!selectedTid) return;
@@ -595,7 +598,7 @@ export function Mushaf({
       };
       dispatch({ type: "ADD_MISTAKE", mistake });
     },
-    [active, allowedCategories, dispatch, state.activeAssignment, state.config, judgingEnabled, preparedFixedPage, currentPage, boxesKey, requestKey],
+    [active, allowedCategories, dispatch, state.activeAssignment, state.config, judgingEnabled, preparedFixedPage, requestedPages, boxesKey, requestKey],
   );
 
   const onPointerDown = (event: React.PointerEvent, page: number) => {

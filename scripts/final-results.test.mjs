@@ -337,10 +337,21 @@ test("final workbook preserves requested participant fields and verified fixed t
   assert.equal(resultSheet.views[0].xSplit, 3);
   assert.equal(resultSheet.views[0].ySplit, 3);
   assert.equal(resultSheet.pageSetup.orientation, "landscape");
-  assert.equal(resultSheet.pageSetup.fitToWidth, 1);
+  assert.equal(resultSheet.pageSetup.fitToWidth, 0);
+  assert.equal(resultSheet.pageSetup.fitToPage, false);
+  assert.equal(resultSheet.pageSetup.scale, 100);
+  assert.equal(resultSheet.pageSetup.printTitlesColumn, "A:C");
   assert.equal(resultSheet.pageSetup.fitToHeight, 0);
   assert.ok(resultSheet.autoFilter);
-  assert.equal(resultSheet.getColumn(2).width, 19);
+  assert.equal(resultSheet.getColumn(2).width, 7);
+  assert.equal(resultSheet.getCell("B3").value, "No.");
+  assert.equal(resultSheet.getCell("H3").alignment.horizontal, "center");
+  assert.equal(resultSheet.getCell("H4").alignment.horizontal, "center");
+  assert.equal(resultSheet.getColumn(4).width, 12);
+  assert.equal(resultSheet.getColumn(5).width, 18);
+  assert.equal(resultSheet.getCell("H2").fill.fgColor.argb, "FFF0EFEA");
+  assert.equal(resultSheet.getCell("H3").fill.fgColor.argb, "FFFCECEA");
+  assert.equal(resultSheet.getCell("H4").fill.fgColor.argb, "FFFEF6F5");
   assert.equal(resultSheet.getCell("B4").numFmt, "@");
   assert.equal(resultSheet.getCell("A1").fill.fgColor.argb, "FFFFFFFF");
   assert.equal(resultSheet.getCell("A1").font.color.argb, "FF242421");
@@ -404,6 +415,78 @@ test("final workbook groups split-responsibility marks under their responsible j
   assert.deepEqual(markRows[3].slice(7), [48, 0.96, 29, 29 / 30, 19, 0.95, 0.96]);
   const ledgerRows = utils.sheet_to_json(workbook.Sheets["Score ledger"], { header: 1, defval: "" });
   assert.equal(ledgerRows.length, 4);
+});
+
+test("frozen setup creates one to four judge groups with enabled criteria only", async () => {
+  const all = ["jali", "khafi", "fasaha", "adu-raagu"];
+  const { read, utils } = await import("xlsx");
+  for (const count of [1, 2, 3, 4]) {
+    const seats = Array.from({ length: count }, (_, index) => ({
+      id: `seat-${index}`, label: `Judge ${index + 1}`, name: "Same name",
+      categories: all.filter((_, categoryIndex) => categoryIndex % count === index),
+    }));
+    const configured = { ...competition, liveSnapshot: {
+      panel: { seats },
+      scoreConfig: Object.fromEntries(all.map((category, index) => [category, {
+        enabled: true, start: 10 + index, step: 0.5,
+      }])),
+    } };
+    const groups = finalResultsJudgeGroups([], configured);
+    assert.equal(groups.length, count);
+    assert.equal(new Set(groups.map(group => group.judgeSeatId)).size, count);
+    const buffer = await buildFinalResultsWorkbook([], configured);
+    await verifyFinalResultsWorkbook(buffer, [], configured);
+    const workbook = read(buffer, { type: "array" });
+    const rows = utils.sheet_to_json(workbook.Sheets["Final marks"], { header: 1 });
+    assert.equal(rows[2].length, 7 + 4 + count + 1);
+    assert.equal(rows[1].filter(value => value === "Same name").length, count);
+    configured.liveSnapshot.scoreConfig.fasaha.enabled = false;
+    const reduced = await buildFinalResultsWorkbook([], configured);
+    const reducedRows = utils.sheet_to_json(read(reduced, { type: "array" }).Sheets["Final marks"], { header: 1 });
+    assert.ok(!reducedRows[2].some(value => String(value).includes("Faṣāḥa")));
+    assert.ok(reducedRows[2].includes("Adu / Raagu (13)"));
+  }
+});
+
+test("setup additions leave missing marks blank and preserve frozen judge attribution", async () => {
+  const result = finalizeParticipantResult(buildResultCandidates([
+    session("original", JUDGED),
+  ], JUDGED)[0], {});
+  const configured = { ...competition, liveSnapshot: {
+    panel: { seats: [{ id: "new-seat", label: "New judge", name: "", categories: ["jali"] }] },
+    scoreConfig: { ...config, fasaha: { ...config.fasaha, enabled: false } },
+  } };
+  const buffer = await buildFinalResultsWorkbook([result], configured);
+  await verifyFinalResultsWorkbook(buffer, [result], configured);
+  const { read, utils } = await import("xlsx");
+  const rows = utils.sheet_to_json(read(buffer, { type: "array" }).Sheets["Final marks"], { header: 1, defval: "" });
+  const newColumn = rows[1].indexOf("New judge");
+  assert.ok(newColumn >= 7);
+  assert.equal(rows[3][newColumn], "");
+  assert.equal(rows[3][newColumn + 1], "");
+  assert.ok(rows[1].includes("Judge original"));
+  assert.ok(rows[2].includes("Faṣāḥa (20)"));
+  assert.equal(rows[3].at(-1), 1);
+});
+
+test("long institution and judge names wrap without enlarging ordinary rows", async () => {
+  const source = session("long-name", JUDGED);
+  source.assignment.judgeName = "Example Judge Mohamed Abdul Rahman Ibrahim Hassan Ali";
+  const result = finalizeParticipantResult(buildResultCandidates([source], JUDGED)[0], {});
+  const long = { ...result, participant: { ...result.participant, number: "015", institution: "Example International Quran Education and Learning Centre" }, manifest: "long-name-example" };
+  const buffer = await buildFinalResultsWorkbook([result, long], competition);
+  const ExcelJS = (await import("exceljs")).default;
+  const workbook = new ExcelJS.Workbook();
+  await workbook.xlsx.load(buffer);
+  const sheet = workbook.getWorksheet("Final marks");
+  assert.equal(sheet.getCell("H2").alignment.wrapText, true);
+  const rows = [sheet.getRow(4), sheet.getRow(5)];
+  const longRow = rows.find(row => row.getCell(2).value === "015");
+  const normalRow = rows.find(row => row.getCell(2).value === "014");
+  assert.ok(longRow.height > normalRow.height);
+  assert.equal(normalRow.height, 26);
+  assert.equal(longRow.getCell(7).alignment.wrapText, true);
+  assert.equal(longRow.getCell(8).alignment.horizontal, "center");
 });
 
 test("final workbook orders numeric age groups from youngest to oldest", async () => {

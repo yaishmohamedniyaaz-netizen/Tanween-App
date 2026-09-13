@@ -81,6 +81,12 @@ test("the rail shows clean primary ink while retaining exact source evidence", (
   assert.match(mushafSource, /fullGlyph:\s*unit\.fullGlyph/);
 });
 
+test("tap-open letters retain a single-row scrollable rail", () => {
+  assert.match(selectorStyles, /\.drag-menu\.pinned \.unit-picker-row\s*\{[^}]*flex-wrap:\s*nowrap;/s);
+  assert.match(selectorStyles, /\.drag-menu\.pinned \.unit-picker-row\s*\{[^}]*justify-content:\s*flex-start;/s);
+  assert.match(selectorStyles, /\.drag-menu\.pinned \.unit-picker-row\s*\{[^}]*overflow-x:\s*auto;/s);
+});
+
 test("touch targets cannot flex-shrink below 44px", () => {
   assert.match(selectorStyles, /\.unit-choice\s*\{[^}]*flex:\s*0 0 44px;/s);
   assert.match(selectorStyles, /\.unit-choice\s*\{[^}]*min-width:\s*44px;/s);

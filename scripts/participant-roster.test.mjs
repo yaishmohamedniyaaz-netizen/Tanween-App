@@ -163,7 +163,7 @@ test("the competition workbook round-trips with a V7 native table and supplied n
     raw: false,
     blankrows: false,
   });
-  assert.deepEqual(rows[0], ["Participant Number", "Name", "Category", "Muqarrar start"]);
+  assert.deepEqual(rows[0], ["No.", "Name", "Category", "Muqarrar start"]);
   assert.equal(rows.length, 17);
   assert.equal(rows[1][2], "Under 14 · Nubalaa");
   assert.equal(rows[5][2], "Under 14 · Balaigen");
@@ -186,17 +186,17 @@ test("the competition workbook round-trips with a V7 native table and supplied n
   assert.equal(participantSheet.getCell("D2").dataValidation.type, "list");
   assert.equal(participantSheet.getCell("A2").numFmt, "@");
   assert.equal(participantSheet.views[0].ySplit, 1);
-  assert.equal(participantSheet.views[0].showGridLines, true);
+  assert.equal(participantSheet.views[0].showGridLines, false);
   assert.equal(participantSheet.pageSetup.orientation, "landscape");
   assert.equal(participantSheet.pageSetup.fitToWidth, 1);
-  assert.equal(participantSheet.getColumn(1).width, 22);
-  assert.equal(participantSheet.getColumn(2).width, 30);
-  assert.equal(participantSheet.getColumn(4).width, 19);
-  assert.equal(participantSheet.getCell("A1").font.color.argb, "FF1D2327");
-  assert.equal(participantSheet.getCell("A1").fill.fgColor.argb, "FFC87838");
-  assert.equal(participantSheet.getCell("A2").border.top.style, "medium");
-  assert.equal(participantSheet.getCell("D5").border.bottom.style, "medium");
-  assert.equal(participantSheet.getCell("A6").border.top.style, "medium");
+  assert.equal(participantSheet.getColumn(1).width, 7);
+  assert.equal(participantSheet.getColumn(2).width, 40);
+  assert.equal(participantSheet.getColumn(4).width, 18);
+  assert.equal(participantSheet.getCell("A1").font.color.argb, "FFFFFFFF");
+  assert.equal(participantSheet.getCell("A1").fill.fgColor.argb, "FF242421");
+  assert.equal(participantSheet.getCell("A2").alignment.horizontal, "center");
+  assert.equal(participantSheet.getCell("B2").alignment.horizontal, "left");
+  assert.equal(participantSheet.getCell("A6").border.top.style, "thin");
   assert.notEqual(participantSheet.getCell("A2").fill.fgColor.argb, participantSheet.getCell("A3").fill.fgColor.argb);
   assert.ok(participantSheet.getTable("TahqeeqParticipants"));
   assert.equal(styled.getWorksheet("Choices").state, "hidden");
@@ -378,7 +378,7 @@ test("participant templates can omit Institution and include Phone without shift
     defval: "",
     raw: false,
   });
-  assert.deepEqual(rows[0], ["Participant Number", "Name", "Category", "Muqarrar start", "Phone Number"]);
+  assert.deepEqual(rows[0], ["No.", "Name", "Category", "Muqarrar start", "Phone Number"]);
   const metadataRows = utils.sheet_to_json(workbook.Sheets._Tahqeeq, { defval: "", raw: false });
   const metadata = Object.fromEntries(metadataRows.map((row) => [row.Key, row.Value]));
   assert.equal(metadata.TahqeeqTemplateColumns, rows[0].join("|"));
