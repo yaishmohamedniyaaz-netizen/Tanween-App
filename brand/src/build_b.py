@@ -41,26 +41,24 @@ art=f"""<div style="display:flex;gap:20px;height:100%">
 P.append(page('1.3','Clear space','Measured from the letter line, so it scales with the mark and needs no table.',art,'The mark','07'))
 
 # ---------------------------------------------------------------- 1.4 lockup
-LH=64; ga=LH*A_OF_H*1.25
-lock=f"""<div style="display:inline-flex;align-items:center;gap:{ga:.1f}px;position:relative">
-  {M(LH)}<span style="font-size:{LH}px;font-weight:600;letter-spacing:-.032em;line-height:1">Tanween</span>
-  <div style="position:absolute;left:{LH*1.297:.0f}px;top:-26px;width:{ga:.1f}px;height:18px;
-       border-left:1px solid #b9b7bc;border-right:1px solid #b9b7bc"></div>
-  <div style="position:absolute;left:{LH*1.297+ga+8:.0f}px;top:-34px;font-size:11px;color:#8b8b95">1¼&#8202;a</div>
-</div>"""
-rows=[('Name','set at the mark&#39;s height, InterVar 600, tracking &#8722;0.032em'),
-      ('Gap','1¼ a, measured from the line&#39;s right end to the T'),
-      ('Baseline','the name sits on the letter line, not on the strokes'),
-      ('Minimum','120 px wide; below that use the mark alone')]
+LH=64
+rows=[('Face','Platypi 600. It is drawn once and supplied as outlines, so nothing that uses the logo needs the font.'),
+      ('Size','the name&#39;s cap height is 72.8&#37; of the mark&#39;s height, which is where it sat when the name was set in Inter.'),
+      ('Gap','1&#188;&#8202;a, from the right end of the letter line to the T.'),
+      ('Baseline','the name sits on the letter line.'),
+      ('Minimum','120 px wide. Below that use the mark on its own.')]
 tbl=''.join(f"""<div style="display:flex;gap:18px;padding:12px 0;border-bottom:1px solid rgba(26,26,28,.08)">
-  <div class="mic" style="width:78px;flex:none;padding-top:3px">{k}</div>
+  <div class="mic" style="width:70px;flex:none;padding-top:3px">{k}</div>
   <div style="font-size:13.5px;line-height:1.5;color:#3a3a40">{v}</div></div>""" for k,v in rows)
-art=f"""<div style="display:flex;gap:26px;height:100%">
- <div style="flex:1;{FIELD};display:flex;align-items:center;justify-content:center">{lock}</div>
+art=f"""<div style="display:flex;gap:26px;height:100%%">
+ <div style="flex:1;{FIELD};display:flex;flex-direction:column;align-items:center;justify-content:center;gap:38px">
+   {LK(LH)}
+   <div style="display:flex;align-items:flex-end;gap:34px">{LK(30)}{LK(20)}</div>
+ </div>
  <div style="width:320px">{tbl}
-  {cap('There is one lockup. The mark never sits above the name, and the name is never set in anything but InterVar.','margin-top:18px')}</div>
+  {cap('One arrangement. The name never sits under the mark, and it is never reset in another face &mdash; the outlines are the logo, not a typographic style.','margin-top:18px')}</div>
 </div>"""
-P.append(page('1.4','The lockup','Mark and name, at one ratio, in one arrangement.',art,'The mark','08'))
+P.append(page('1.4','The lockup','The mark and the name in Platypi, supplied as one piece of artwork.',art,'The mark','08'))
 
 # ---------------------------------------------------------------- 1.5 backgrounds
 def tile(bg,fg,label,border='none',note=''):

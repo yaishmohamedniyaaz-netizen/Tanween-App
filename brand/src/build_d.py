@@ -47,6 +47,10 @@ art=f"""{atkface}<div style="display:flex;gap:28px;height:100%">
    {cap('KFGQPC HafsUthmanic, 1405 layout. Qur’anic text is never set in a UI face, never restyled, never retyped by hand. On the mushaf page the app loads the King Fahd page fonts, one file per page, so the line breaks match the printed copy.','margin-top:12px')}
   </div>
   <div style="{FIELD};padding:20px 24px;margin-top:20px">
+   {mic('The logo is not set in Inter')}
+   {cap('The wordmark is Platypi 600, drawn once and kept as outlines. It is artwork, not a text style, and it is the only place Platypi appears. Everything else on this page and in the app is InterVar.','margin-top:10px')}
+  </div>
+  <div style="{FIELD};padding:20px 24px;margin-top:20px">
    {mic('We tested Atkinson Hyperlegible')}
    <div style="font-family:ATKX,serif;font-size:25px;font-weight:600;margin-top:12px;letter-spacing:-.01em">Laḥn Jalī · Faṣāḥa</div>
    {cap('It has no ḥ and no ṣ. Both families, every subset. The browser quietly borrows those two letters from another typeface, and three of the four criteria names end up set in two faces at once. Inter&#39;s ss02, which it calls Disambiguation, gives the slashed zero and the tailed l that Atkinson is wanted for, in a font that has the letters.','margin-top:12px')}

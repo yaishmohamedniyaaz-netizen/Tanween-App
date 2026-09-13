@@ -23,8 +23,12 @@ assets/tanween-favicon.svg             64, r=8 (the app's --r-sm).
 assets/tanween-icon-1024/512/192.png   Raster icons, ink ground.
 assets/tanween-icon-apple-180.png      apple-touch-icon.
 assets/tanween-favicon-32/16.png       Legacy favicon sizes.
-assets/tanween-lockup-ink.png          Mark and name, 4x, transparent.
-assets/tanween-lockup-paper.png        The same, reversed.
+assets/tanween-lockup-ink.svg          Mark and name. Outlined artwork.
+assets/tanween-lockup-paper.svg        The same, reversed.
+assets/tanween-lockup-currentcolor.svg The same, taking colour from CSS.
+assets/tanween-lockup-ink/paper.png    Raster, 240 px mark height.
+assets/tanween-wordmark-*.svg/.png     The name on its own, outlined. Set
+                                       height and you get that cap height.
 assetproof.png                         Every file above, rendered.
 
 The SVGs are trimmed to the artwork: viewBox 12 25.29 58 44.71, no slack on
@@ -48,8 +52,10 @@ The fatḥatān and the letter line it sits on.
                line: 14 units, 31.3% of the mark's height.
   Minimum      16 px for the mark alone, 120 px wide for the lockup. At
                12 px the two strokes close up.
-  Lockup       name set at the mark's height, InterVar 600, tracking
-               -0.032em, one and a quarter a between line and name.
+  Lockup       the name is Platypi 600, drawn once and supplied as outlines.
+               Its cap height is 72.8% of the mark's height and it sits on
+               the letter line, one and a quarter a to the right of it.
+               The logo is artwork. Do not set it as text.
 
 Never recolour it to a criteria colour, put it in a container, outline it,
 rotate it, stretch it, or set the name in another face.
@@ -88,7 +94,12 @@ in the mark picker. Not in the results table, not in the logo.
 4 · TYPE
 --------------------------------------------------------------------------
 InterVar for everything in Latin. It is the app's own face, shipped at
-public/fonts/InterVariable.woff2. There is no second brand face.
+public/fonts/InterVariable.woff2. There is no second brand text face.
+
+The logo is the exception. The wordmark is Platypi 600, outlined, and that
+is the only place Platypi appears. Nothing needs the font installed: the
+letters are paths. Platypi has no ḥ or ṣ, which is fine for a word that
+contains neither, and is the reason it is not used for anything else.
 
 Qur'anic text is KFGQPC HafsUthmanic (public/fonts/hafs.18.woff2) in the
 1405 layout. On the mushaf page the app loads the King Fahd page fonts, one

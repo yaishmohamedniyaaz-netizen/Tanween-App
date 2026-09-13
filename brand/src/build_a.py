@@ -20,8 +20,7 @@ P.append(f"""<div class="pg" style="background:#1a1a1c">
  <div style="position:absolute;left:60px;top:56px">{M(40, PAPER)}</div>
  <div style="position:absolute;right:60px;top:60px;font-family:HafsUthmanic,serif;direction:rtl;
       font-size:34px;color:rgba(242,241,238,.55)">تَنْوِين</div>
- <div style="position:absolute;left:56px;top:300px;color:#f2f1ee;font-size:132px;font-weight:600;
-      letter-spacing:-.042em;line-height:.92">Tanween</div>
+ <div style="position:absolute;left:58px;top:300px">{WORD(96, PAPER)}</div>
  <div style="position:absolute;left:62px;top:448px;color:rgba(242,241,238,.52);font-size:21px;
       letter-spacing:-.01em">Brand standards</div>
  <div style="position:absolute;left:60px;right:60px;bottom:126px;height:1px;background:rgba(242,241,238,.15)"></div>
