@@ -4,6 +4,8 @@ export interface ReplayWord {
   text: string;
   surah: number;
   ayah: number | null;
+  /** Display-only source metadata; never stored in timing targets or audio identity. */
+  presentation?: { page: number; glyph: string };
 }
 
 export interface ReplayTarget {
@@ -35,7 +37,9 @@ export interface ReplayRevision {
   method: "manual" | "ctc-greedy-anchor-v1";
   createdAt: string;
   reviewer: string | null;
-  model?: { modelHash: string; vocabHash: string; frameMapping: string };
+  model?: { modelHash: string; vocabHash: string; frameMapping: string;
+    /** Optional provenance; older records remain valid without it. */
+    referenceStrategy?: "tilawa-contiguous-v1" };
 }
 
 export function sameReplayMedia(a: ReplayMediaIdentity, b: ReplayMediaIdentity): boolean {
@@ -52,6 +56,7 @@ export function validateReplayRevision(value: ReplayRevision): void {
       !["suggested", "reviewed", "removed"].includes(value.status) ||
       !["manual", "ctc-greedy-anchor-v1"].includes(value.method) ||
       !Number.isFinite(Date.parse(value.createdAt)) ||
+      (value.model?.referenceStrategy !== undefined && value.model.referenceStrategy !== "tilawa-contiguous-v1") ||
       !media.sessionId || !Number.isFinite(Date.parse(media.recordingCreatedAt)) ||
       !Number.isInteger(media.segmentIndex) || media.segmentIndex < 0 ||
       !/^[a-f0-9]{64}$/.test(media.sha256) || !media.questionFingerprint ||

@@ -5,7 +5,7 @@ import {
   type TilawaSession,
   type WorkerOutbound,
 } from "@tilawa/core";
-import { greedyWordWindows, matchReplayAnchors, type ReplaySuggestion } from "../lib/recitationReplayAnalysis.ts";
+import { greedyWordWindows, matchReplayContext, type ReplaySuggestion } from "../lib/recitationReplayAnalysis.ts";
 import { tilawaMushafWordId } from "../lib/tilawaWordFocus.ts";
 import { sha256Audio } from "../lib/recitationReplay.ts";
 
@@ -34,7 +34,7 @@ type PrototypeOutbound =
   | { type: "performance"; processingMs: number; queuedMs: number }
   | { type: "ready" }
   | { type: "error"; message: string }
-  | { type: "replay_analysis"; suggestions: ReplaySuggestion[]; modelHash: string; vocabHash: string }
+  | { type: "replay_analysis"; suggestions: ReplaySuggestion[]; modelHash: string; vocabHash: string; referenceStrategy: "tilawa-contiguous-v1" }
   | WorkerOutbound;
 
 const scope = globalThis as unknown as {
@@ -250,7 +250,8 @@ async function analyzeReplay(message: ReplayAnalysisRequest) {
       vocab[String(id)] = tilawaSession.decoder.tokenIdsToRawTokens([id])[0] ?? "<unk>";
     }
     const allowed = new Set(message.allowedWordIds);
-    const references = tilawaSession.db.verses.map((verse) => verse.phoneme_words.map((text, index) => {
+    const references = tilawaSession.db.verses.map((verse) => ({ surah: verse.surah, ayah: verse.ayah,
+      words: verse.phoneme_words.map((text, index) => {
       const id = tilawaMushafWordId({ surah: verse.surah, ayah: verse.ayah,
         word_index: index + 1, total_words: verse.phoneme_words.length });
       let ids = id ? [id] : [];
@@ -258,10 +259,10 @@ async function analyzeReplay(message: ReplayAnalysisRequest) {
       const split = ({ "2:181": 2, "8:6": 3, "13:37": 7 } as Record<string, number>)[`${verse.surah}:${verse.ayah}`];
       if (split === index && id) ids = [`${verse.surah}.${verse.ayah}.${index}`, id];
       return { text, wordIds: ids.every((value) => allowed.has(value)) ? ids : [] };
-    })).filter((verse) => verse.some((word) => word.wordIds.length));
+    }) }));
     const words = greedyWordWindows(acoustic.logprobs, acoustic.timeSteps, acoustic.vocabSize, vocab, acoustic.blankId);
-    post({ type: "replay_analysis", modelHash, vocabHash,
-      suggestions: matchReplayAnchors(words, references, acoustic.timeSteps, message.samples.length / 16000) });
+    post({ type: "replay_analysis", modelHash, vocabHash, referenceStrategy: "tilawa-contiguous-v1",
+      suggestions: matchReplayContext(words, references, acoustic.timeSteps, message.samples.length / 16000) });
   } catch (error) {
     post({ type: "error", message: error instanceof Error ? error.message : "Recording analysis failed." });
   } finally {

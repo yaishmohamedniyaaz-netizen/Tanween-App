@@ -153,6 +153,7 @@ export function RecitationEvidenceSpan({
           line.type === "surah-header" ? [] : line.words.filter((word) =>
             word.role === "letter" && selectedWordIds.has(word.wid)).map((word) => ({
               wordId: word.wid, text: word.text, surah: word.surah, ayah: word.ayah,
+              ...(word.glyph ? { presentation: { page: page.page, glyph: word.glyph } } : {}),
             })))));
       })
       .catch(() => {

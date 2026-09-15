@@ -8,6 +8,31 @@ export interface ReferenceWord {
   text: string;
   wordIds: string[];
 }
+export interface ReplayReferenceAyah { surah: number; ayah: number; words: ReferenceWord[] }
+
+/** Preserve excluded words and missing ayahs as context barriers. */
+export function contiguousReplayReferences(verses: readonly ReplayReferenceAyah[]): ReferenceWord[][] {
+  const spans: ReferenceWord[][] = [];
+  let current: ReferenceWord[] = [];
+  let previous: ReplayReferenceAyah | undefined;
+  const flush = () => { if (current.length) spans.push(current); current = []; };
+  for (const verse of verses) {
+    if (previous && (verse.surah !== previous.surah || verse.ayah !== previous.ayah + 1)) flush();
+    if (!verse.words.length) flush();
+    for (const word of verse.words) {
+      if (!word.wordIds.length || !word.text.trim()) flush();
+      else current.push(word);
+    }
+    previous = verse;
+  }
+  flush();
+  return spans;
+}
+
+/** Exact-context suggestions only, not verified audible onsets. */
+export function matchReplayContext(heard: HeardWord[], references: readonly ReplayReferenceAyah[], frames: number, duration: number) {
+  return matchReplayAnchors(heard, contiguousReplayReferences(references), frames, duration);
+}
 export interface ReplaySuggestion {
   wordIds: string[];
   startSeconds: number;

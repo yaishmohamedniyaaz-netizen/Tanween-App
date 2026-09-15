@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { currentReplayOccurrences, encodeReplayWav, replayWordAt, sameReplayMedia,
   validateReplayRevision } from "../src/lib/recitationReplay.ts";
-import { greedyWordWindows, matchReplayAnchors } from "../src/lib/recitationReplayAnalysis.ts";
+import { greedyWordWindows, matchReplayAnchors, matchReplayContext } from "../src/lib/recitationReplayAnalysis.ts";
 
 const media = { sessionId: "session-a", recordingCreatedAt: "2026-09-05T12:00:00Z", segmentIndex: 0,
   sha256: "a".repeat(64), sampleRate: 48000, sampleCount: 480000, questionFingerprint: "range-a" };
@@ -25,6 +25,25 @@ test("media identity binds source, bytes, segment, decoded clock and frozen ques
   for (const key of Object.keys(media)) {
     assert.equal(sameReplayMedia(media, { ...media, [key]: typeof media[key] === "number" ? media[key] + 1 : `${media[key]}x` }), false, key);
   }
+});
+
+test('context matching crosses only adjacent eligible ayahs',()=>{
+  const heard=['a','b','c'].map((text,i)=>({text,startFrame:i*3,endFrame:i*3+1}));
+  const references=[{surah:50,ayah:18,words:[{text:'a',wordIds:['50.18.0']},{text:'b',wordIds:['50.18.1']}]},
+    {surah:50,ayah:19,words:[{text:'c',wordIds:['50.19.0']}]}];
+  assert.equal(matchReplayContext(heard,references,10,1).length,1);
+  assert.equal(matchReplayContext(heard,[references[0],{...references[1],ayah:20}],10,1).length,0);
+  references[0].words[1].wordIds=[];
+  assert.equal(matchReplayContext(heard,references,10,1).length,0);
+});
+
+test('optional context provenance preserves legacy records and suggested status',()=>{
+  const model={modelHash:'a'.repeat(64),vocabHash:'b'.repeat(64),frameMapping:'window-scaled-ctc-frames-v1-unverified'};
+  const old=entry({method:'ctc-greedy-anchor-v1',model,status:'suggested',reviewer:null});
+  const next={...old,model:{...model,referenceStrategy:'tilawa-contiguous-v1'}};
+  validateReplayRevision(old);validateReplayRevision(next);
+  assert.equal(next.status,'suggested');assert.equal(replayWordAt([next],60000),null);
+  assert.throws(()=>validateReplayRevision({...next,model:{...model,referenceStrategy:'unknown'}}));
 });
 test("review revisions supersede timings without losing repeated occurrences or history", () => {
   const original = entry();

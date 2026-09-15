@@ -8,6 +8,7 @@ import type { ReplayWord } from "../lib/recitationReplay";
 import type { CategoryId } from "../types";
 import { RecitationEvidenceSpan } from "./RecitationEvidenceSpan";
 import { SessionRecordingPlayer } from "./SessionRecordingPlayer";
+import { ReplayKalima } from "./ReplayKalima";
 import "../styles/participantReviewWorkspace.css";
 import "../styles/replayPlayerLayout.css";
 import { useMediaQuery } from "../hooks/useMediaQuery";
@@ -241,7 +242,7 @@ function WorkspaceEvidence({ item, selected, evidence, active, reasons, onSelect
         </section>
         {(!replayPrototype || inspectorOpen) && <section ref={inspector} tabIndex={-1} className={`rw-inspector${inspectorOpen ? " is-open" : ""}`}
           aria-label="Selected word or finding" onKeyDown={e => {if(e.key === "Escape") closeInspector();}}>
-          <div className="rw-inspector-head"><h3>{word ? <bdi dir="rtl">{word.text}</bdi> : finding ? "Selected finding" : "Word & recording"}</h3>
+          <div className="rw-inspector-head"><h3>{word ? <ReplayKalima word={word}/> : finding ? "Selected finding" : "Word & recording"}</h3>
             {inspectorOpen && <button className="btn-ghost" onClick={closeInspector}>Close</button>}</div>
           {active && !replayPrototype && <SessionRecordingPlayer sources={sources} presentation="workspace"
             replay={evidence.status === "ready" && evidence.fingerprint ? {
@@ -270,7 +271,7 @@ function WorkspaceEvidence({ item, selected, evidence, active, reasons, onSelect
     {replayPrototype && <footer className="rw-player-dock" aria-label="Recording playback controls" hidden={!docked}>
       <div ref={setFeedbackTarget} className="rw-feedback-slot" />
       <div className="rw-dock-context">
-        <div>{word ? <bdi dir="rtl">{word.text}</bdi> : <strong>Recording</strong>}</div>
+        <div>{word ? <ReplayKalima word={word}/> : <strong>Recording</strong>}</div>
         {docked && replayToggle}
         <button className="btn-ghost" onClick={() => {
           recordingPanel.current?.scrollIntoView({ block: "nearest" });

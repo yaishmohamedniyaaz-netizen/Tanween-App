@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { ReplayToolsPanel } from "./ReplayToolsPanel";
+import { ReplayKalima } from "./ReplayKalima";
 import type { SessionRecordingSource } from "./SessionRecordingPlayer.tsx";
 import { appendReplayRevision, loadLocalRecordingPlayback, loadReplayRevisions, ReplayRevisionConflict,
   type LocalRecordingPlayback } from "../lib/recitationAudioStorage.ts";
@@ -549,7 +550,8 @@ function ReviewSegment({ playback, part, context, embedded = false, indexedParts
             const entry: ReplayRevision = { version: 1, id: crypto.randomUUID(), occurrenceId: crypto.randomUUID(), revision: 1,
               media, target: { kind: "word", wordIds: [word.wordId], label: word.text }, startSample, endSample,
               status: "suggested", method: "ctc-greedy-anchor-v1", reviewer: null, createdAt: new Date().toISOString(),
-              model: { modelHash: message.modelHash, vocabHash: message.vocabHash, frameMapping: "window-scaled-ctc-frames-v1-unverified" } };
+              model: { modelHash: message.modelHash, vocabHash: message.vocabHash, frameMapping: "window-scaled-ctc-frames-v1-unverified",
+                ...(message.referenceStrategy ? { referenceStrategy: message.referenceStrategy } : {}) } };
             await appendReplayRevision(entry);
             savedCount++;
             if (current()) setRevisions((items) => [...items, entry]);
@@ -600,7 +602,7 @@ function ReviewSegment({ playback, part, context, embedded = false, indexedParts
     {embedded && !toolsOpen && context.selectedWordId && context.playbackRequest !== null && !locating && <ReplayTransportSlot target={tappedReviewedWord || answeredRequest === context.playbackRequest?.id ? null : context.feedbackTarget}>
       <section className="replay-direct" aria-label="Selected word replay"
         onKeyDown={event => { if (event.key === "Escape") { event.stopPropagation(); onCancelNavigation(); context.onCloseWordFeedback?.(); } }}>
-        <div className="replay-feedback-heading"><bdi dir="rtl">{selectedWord?.text}</bdi>
+        <div className="replay-feedback-heading"><ReplayKalima word={selectedWord} />
           {context.onCloseWordFeedback && <button type="button" className="btn-ghost" aria-label="Close word replay choices"
             onClick={() => { onCancelNavigation(); context.onCloseWordFeedback?.(); }}>Close</button>}</div>
         {directChoices.entries.length > 1 ? <>
