@@ -1,5 +1,9 @@
 # Task: typographic fidelity + optimization backlog for Tahqeeq
 
+> **Archived handoff.** This backlog describes an earlier Tahqeeq architecture.
+> It does not override Tanween's current working agreement or renderer. Start
+> with [current status](docs/CURRENT_STATUS.md) and [AGENTS.md](AGENTS.md).
+
 You are working in the **Tahqeeq** repo — a working judging app for Quran recitation
 competitions. All 604 mushaf pages render in the real KFGQPC Hafs font with letter-level
 press targets; judges mark mistakes via press-hold-drag-release. Read `PROGRESS.md`,

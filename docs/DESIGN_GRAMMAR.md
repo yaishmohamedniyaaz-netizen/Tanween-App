@@ -1,4 +1,8 @@
-# The Tahqeeq design grammar
+# The Tanween design grammar
+
+Tanween was formerly Tahqeeq. The rules below remain the product's design
+guidance; dated examples describe their own checkpoints. For current source and
+release boundaries, see [current status](CURRENT_STATUS.md).
 
 The Mushaf view works. The setup screens do not, and the difference is not
 taste — the Mushaf obeys rules, and the screens around it were each decided on

@@ -1,5 +1,9 @@
 # Task: extend Tahqeeq from 1 mushaf page to all 604 pages
 
+> **Archived handoff.** This describes an early Tahqeeq prototype. Tanween now
+> includes all 604 pages and defaults to fixed artwork. Do not execute this as a
+> current task; follow [current status](docs/CURRENT_STATUS.md) and [AGENTS.md](AGENTS.md).
+
 You are working in the **Tahqeeq** repo — a working web app for judging Quran recitation
 competitions. A judge sees a mushaf page rendered in the real KFGQPC Uthmanic Hafs font,
 presses and holds any letter, drags onto a category pill (Laḥn Jalī / Laḥn Khafī / Faṣāḥa),

@@ -1,4 +1,18 @@
-# Tahqeeq — build progress log
+# Tanween — build progress log
+
+## Documentation refresh — 16 September 2026
+
+The product and GitHub repository are now Tanween / Tanween-App. The README,
+[documentation index](docs/README.md), [development guide](docs/DEVELOPMENT.md),
+and [current status](docs/CURRENT_STATUS.md) now cover fixed artwork, mobile
+judging, Template V7, participant Results, local recording/replay, and compatibility.
+
+The inspected default branch is `db95f8f`; the newer Tanween release source is
+`ca19494` on `codex/tanween-results-release`. Runtime branch integration and
+deployment are separate from this documentation-only refresh.
+
+Entries below are historical checkpoints. Their test counts, UI descriptions,
+and pending work describe those dates; they are not current release certification.
 
 ## Adu / Raagu contrast and research reconciliation — IMPLEMENTED & VERIFIED (2026-08-16)
 

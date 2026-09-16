@@ -1,4 +1,8 @@
-# Tahqeeq working agreement
+# Tanween working agreement
+
+Tanween was formerly named Tahqeeq. Start with `docs/CURRENT_STATUS.md` and
+`docs/README.md` for current source context. Preserve legacy storage keys, cache
+names, and import/export identifiers unless a tested migration is in scope.
 
 This repository is a Quran-judging product. Preserve its religious text,
 scoring, competition, evidence, and device-preference contracts. Do not turn a

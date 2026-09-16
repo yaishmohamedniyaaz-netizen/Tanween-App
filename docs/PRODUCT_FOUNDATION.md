@@ -1,5 +1,10 @@
 # Tahqeeq product foundation and delivery roadmap
 
+> **Historical decision record (11 August 2026).** The product is now Tanween.
+> Human-judging and evidence principles remain relevant, but the roadmap and
+> descriptions of implementation gaps below are dated. See
+> [current status](CURRENT_STATUS.md) for source available today.
+
 Status: research decision record  
 Date: 2026-08-11  
 Scope: Hafs, KFGQPC/QPC V1, 1405H Madani Mushaf, 604 pages  
