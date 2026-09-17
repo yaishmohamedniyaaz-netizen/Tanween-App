@@ -11,7 +11,7 @@ import {
   completeSettingsGuide,
   hasCompletedSettingsGuide,
 } from "../lib/settingsGuide";
-import { useJudging } from "../state/store";
+import { normalizeLedgerState, useJudging } from "../state/store";
 import type { JudgingState } from "../types";
 import { Icon } from "./Icon";
 import { SettingsGuide } from "./SettingsGuide";
@@ -76,7 +76,14 @@ export function SettingsWorkspace({
     setRestoreError("");
     setConfirmRestore(false);
     try {
-      setRestorePreview(await readStateBackupFile(file));
+      // Run migrations inside this catchable boundary, before offering restore.
+      // Nested malformed data must never first reach normalization in a reducer.
+      const imported = await readStateBackupFile(file);
+      try {
+        setRestorePreview(normalizeLedgerState(imported));
+      } catch {
+        throw new Error("This is not a complete Tahqeeq backup file.");
+      }
     } catch (error) {
       setRestorePreview(null);
       setRestoreError(error instanceof Error ? error.message : "Could not read that backup file.");
