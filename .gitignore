@@ -18,3 +18,11 @@ docs/tahqeeq-preview.html
 
 # Private transcript attachment for local handoff
 TAHQEEQ_BUILD_TRANSCRIPT.md
+
+# Local private data and scratch work; never include these in a release.
+/.private/
+/output/
+/tmp/
+
+# outputs/ contains tracked Mushaf source inputs. Keep it available and stage
+# only explicitly reviewed files from that directory.
