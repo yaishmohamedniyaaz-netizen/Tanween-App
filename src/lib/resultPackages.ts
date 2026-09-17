@@ -55,6 +55,7 @@ function isMistakeSnapshot(value: unknown): boolean {
     isFiniteNumber(value.amount) &&
     value.amount >= 0 &&
     isTimestamp(value.ts) &&
+    (value.note === undefined || typeof value.note === "string") &&
     (value.page === undefined || Number.isInteger(value.page))
   );
 }
@@ -310,13 +311,55 @@ export function parseStateBackup(value: unknown): JudgingState {
     !payload ||
     payload.app !== "tahqeeq" ||
     payload.schema !== "state-backup-v1" ||
-    !payload.state ||
+    !isRecord(payload.state) ||
     !Array.isArray(payload.state.history) ||
-    !Array.isArray(payload.state.roster)
+    !Array.isArray(payload.state.roster) ||
+    !isBackupStateShape(payload.state)
   ) {
     throw new Error("This is not a complete Tahqeeq backup file.");
   }
   return payload.state;
+}
+
+// Older backups can omit fields added later. Present fields must have the
+// expected container/scalar types before any migration or preview runs.
+function isBackupStateShape(state: Record<string, unknown>): boolean {
+  const optional = (key: string, check: (value: unknown) => boolean) =>
+    state[key] === undefined || check(state[key]);
+  const nullableRecord = (value: unknown) => value === null || isRecord(value);
+  const records = (value: unknown) => Array.isArray(value) && value.every(isRecord);
+  const snapshots = (value: unknown, check: (item: unknown) => boolean) =>
+    Array.isArray(value) && value.every(check);
+  const participant = (value: unknown) => isRecord(value) &&
+    ["id", "name", "number", "ageGroup", "category", "muqarrar", "phone", "institution"]
+      .every((key) => value[key] === undefined || typeof value[key] === "string");
+  return (
+    optional("notes", (value) => typeof value === "string") &&
+    ["competition", "config", "panel"].every((key) => optional(key, isRecord)) &&
+    optional("participant", participant) &&
+    ["rosterDraft", "preparedRecitation", "activeAssignment", "activeQuestion"]
+      .every((key) => optional(key, nullableRecord)) &&
+    ["decks", "draws", "questionDrafts", "finalizedResults"].every((key) => optional(key, records)) &&
+    ["sessionActive", "sampleQuestionsInitialized"].every((key) =>
+      optional(key, (value) => typeof value === "boolean")) &&
+    ["activeSessionId", "deviceJudgeId"].every((key) =>
+      optional(key, (value) => value === null || typeof value === "string")) &&
+    optional("activeStartedAt", (value) => value === null || isTimestamp(value)) &&
+    optional("activeRevision", (value) => Number.isInteger(value) && Number(value) >= 1) &&
+    optional("events", (value) => snapshots(value, isValidJudgingEvent)) &&
+    optional("mistakes", (value) => snapshots(value, isMistakeSnapshot)) &&
+    optional("impressions", (value) => snapshots(value, isImpressionSnapshot)) &&
+    snapshots(state.roster, participant) &&
+    snapshots(state.history, (value) => {
+      if (!isRecord(value)) return false;
+      return isNonEmptyString(value.id) && isTimestamp(value.savedAt) &&
+        participant(value.participant) && isRecord(value.config) &&
+        typeof value.notes === "string" &&
+        snapshots(value.mistakes, isMistakeSnapshot) &&
+        (value.events === undefined || snapshots(value.events, isValidJudgingEvent)) &&
+        (value.impressions === undefined || snapshots(value.impressions, isImpressionSnapshot));
+    })
+  );
 }
 
 export async function readStateBackupFile(file: File): Promise<JudgingState> {
