@@ -219,9 +219,7 @@ export function StartingEndingPanel({ config, categories, showTashkeel, request,
             </div>)}
           </section>)}
       </div>}
-      {selection && !help && <DragMenu anchor={anchor} portalHost={surface.current} preserveSourceContext
-        reservedHeaderInlineSize={96}
-        reservedHeaderBlockSize={surface.current?.querySelector(".phrase-panel-heading")?.getBoundingClientRect().height ?? 60}
+      {selection && !help && <DragMenu anchor={anchor} portalHost={surface.current}
         glyph={glyph} units={units}
         targetSelected={!!selection.tid} hovered={hovered} onPreview={setHovered} pinned={pinned}
         config={config} allowedCategories={categories} onPick={pick}

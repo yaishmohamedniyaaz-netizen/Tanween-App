@@ -49,11 +49,6 @@ interface Props {
   showTashkeel?: boolean;
   /** Floating tray within a parent surface; that surface owns dismissal and focus. */
   portalHost?: HTMLElement | null;
-  /** Keep the source Arabic visible when a constrained phrase tray covers it. */
-  preserveSourceContext?: boolean;
-  /** Leave the parent's help/close controls reachable in a very short viewport. */
-  reservedHeaderInlineSize?: number;
-  reservedHeaderBlockSize?: number;
 }
 
 type SelectorStyle = CSSProperties & {
@@ -78,9 +73,6 @@ export function DragMenu({
   onUndo,
   showTashkeel,
   portalHost,
-  preserveSourceContext = false,
-  reservedHeaderInlineSize = 0,
-  reservedHeaderBlockSize = 0,
 }: Props) {
   const tashkeel = showTashkeel ?? false;
   const menuRef = useRef<HTMLDivElement>(null);
@@ -92,42 +84,28 @@ export function DragMenu({
     visualViewport?.height ?? document.documentElement.clientHeight;
   const viewportLeft = visualViewport?.offsetLeft ?? 0;
   const viewportTop = visualViewport?.offsetTop ?? 0;
-  // A tray inside a navigation panel must not cover its navigation controls.
-  const panelBounds = portalHost?.getBoundingClientRect();
-  const shareHeaderRow = Boolean(panelBounds && panelBounds.height - reservedHeaderBlockSize < 220);
-  const placementTop = panelBounds
-    ? Math.max(viewportTop, panelBounds.top + (shareHeaderRow ? 0 : reservedHeaderBlockSize))
-    : viewportTop;
-  const placementHeight = panelBounds
-    ? Math.max(0, Math.min(viewportTop + viewportHeight, panelBounds.bottom) - placementTop)
-    : viewportHeight;
-  const compactParent = Boolean(panelBounds && placementHeight < 260);
-  const placementWidth = panelBounds
-    ? panelBounds.width - (shareHeaderRow ? reservedHeaderInlineSize : 0)
-    : viewportWidth;
-  const placementLeft = panelBounds?.left ?? viewportLeft;
+  // The parent owns focus and dismissal, not the tray's available space.
+  // Use the same viewport placement for phrase and Quran words so every
+  // criterion and the correction controls retain their full height.
   const { pickerWidth, categoryWidth, menuWidth } = getSelectorWidths(
     units.length,
-    placementWidth,
+    viewportWidth,
   );
   const anchorCenter = anchor.left + anchor.width / 2;
   const { centerX, pointerX } = getSelectorPlacement(
     anchorCenter,
-    placementWidth,
+    viewportWidth,
     menuWidth,
     pickerWidth,
-    placementLeft,
+    viewportLeft,
   );
   const { openUp, top } = getSelectorVerticalPlacement(
     anchor.top,
     anchor.bottom,
-    placementHeight,
+    viewportHeight,
     menuHeight,
-    placementTop,
+    viewportTop,
   );
-  const sourceCovered = preserveSourceContext && (compactParent ||
-    (top < anchor.bottom && top + menuHeight > anchor.top &&
-    centerX - menuWidth / 2 < anchor.right && centerX + menuWidth / 2 > anchor.left));
   // Only pinpoint criteria can be tied to a letter; Adu & Raagu is marked once
   // for the whole recitation in its own panel.
   const categoryDefs = CATEGORIES.filter(
@@ -367,15 +345,14 @@ export function DragMenu({
       )}
       <div
         ref={menuRef}
-        className={`drag-menu ${openUp ? "up" : "down"} ${pinned ? "pinned" : ""} ${portalHost ? "in-navigation-panel" : ""} ${preserveSourceContext && placementHeight < 260 ? "phrase-selector-compact" : ""}`}
+        className={`drag-menu ${openUp ? "up" : "down"} ${pinned ? "pinned" : ""}`}
         style={posStyle}
         role={portalHost ? "group" : "dialog"}
         aria-modal={!portalHost && pinned || undefined}
         aria-label={`Choose exact letter and mistake type for ${glyph}`}
         onKeyDown={onKeyDown}
       >
-        <div className="selector-runway" style={panelBounds ? { maxHeight: Math.max(0, placementHeight - 24) } : undefined}>
-          {sourceCovered && <div className="phrase-selector-source" lang="ar" dir="rtl">{glyph}</div>}
+        <div className="selector-runway">
           {unitPicker}
           {categoryStack}
           {pinned && selectedMistake && selectedCategory && (
