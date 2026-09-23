@@ -5,6 +5,7 @@ import {
   useState,
 } from "react";
 import { CATEGORY_BY_ID } from "../config.ts";
+import { isPhraseMistake } from "../lib/phraseEvidence";
 import {
   MUSHAF_DATA_VERSION,
   MUSHAF_LAYOUT,
@@ -180,6 +181,7 @@ export function RecitationEvidenceSpan({
   const mistakesByWord = useMemo(() => {
     const values = new Map<string, EvidenceMistake[]>();
     mistakes.forEach((entry) => {
+      if (isPhraseMistake(entry.mistake)) return;
       const wordId = entry.mistake.wordId;
       if (!wordId || entry.mistake.migrationStatus === "unresolved") return;
       values.set(wordId, [...(values.get(wordId) ?? []), entry]);
@@ -196,6 +198,7 @@ export function RecitationEvidenceSpan({
       return;
     }
     const activeMistake = mistakes.find((entry) => entry.key === activeMistakeKey);
+    if (activeMistake && isPhraseMistake(activeMistake.mistake)) return;
     const pageIndex = activeMistake
       ? loadState.pages.findIndex((page) =>
           page.page === activeMistake.mistake.page ||

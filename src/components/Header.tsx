@@ -19,10 +19,13 @@ import { Icon } from "./Icon";
 import { MoreActionsPopover } from "./MoreActionsPopover";
 import { ThemeToggle } from "./ThemeToggle";
 import { Brand } from "./Brand";
+import { PhraseHeaderControl, phraseHeaderProofEnabled } from "./PhraseHeaderControl";
+import { isPinpointCategory } from "../config";
 
 export type AppView = "judge" | "records" | "setup" | "settings" | "questions";
 
 interface Props {
+  onPhrasesOpenChange: (open: boolean) => void;
   mobileMushafControlsRef?: (element: HTMLDivElement | null) => void;
   view: AppView;
   onToggleView: () => void;
@@ -65,6 +68,7 @@ interface Props {
 }
 
 export function Header({
+  onPhrasesOpenChange,
   mobileMushafControlsRef,
   view,
   onToggleView,
@@ -96,6 +100,9 @@ export function Header({
   recording,
 }: Props) {
   const { state } = useJudging();
+  const phrasesAvailable = phraseHeaderProofEnabled() &&
+    view === "judge" && state.sessionActive &&
+    Boolean(state.activeAssignment?.categories.some(isPinpointCategory));
 
   const prepared = state.preparedRecitation;
   const participant = prepared?.participant ?? state.participant;
@@ -173,8 +180,11 @@ export function Header({
           : "Saving audio";
 
   return (
-    <header className="app-header">
+    <header className={`app-header ${phrasesAvailable ? "has-phrases" : ""} ${recordingVisible ? "has-recording" : ""}`}>
       <Brand />
+
+      {phrasesAvailable && <PhraseHeaderControl key={state.activeSessionId}
+        showTashkeel={selectorTashkeel} onOpenChange={onPhrasesOpenChange} />}
 
       <div className="header-context">
         <div className="mobile-mushaf-header-controls" ref={mobileMushafControlsRef} />
@@ -263,12 +273,20 @@ export function Header({
             name={recordingPaused ? "play" : recording.status === "recording" ? "pause" : "mic"}
             size={16}
           />
+          {phrasesAvailable && <span className="recording-control-state" aria-hidden="true">
+            {recording.status === "error" ? "Error" : recordingPaused ? "Paused"
+              : recording.status === "recording" ? recording.lowInput ? "Low" : "Live" : "Wait"}
+          </span>}
         </button>
       ) : (
         <ThemeToggle theme={theme} onChange={onThemeChange} />
       )}
 
       <MoreActionsPopover
+        compactJudgingActions={phrasesAvailable ? {
+          resultsLabel: resultsActionLabel, unresolved: resultsSummary.unresolved,
+          onResults: onToggleView, theme, onThemeChange,
+        } : undefined}
         view={view}
         mushafZoom={mushafZoom}
         mushafZoomConstrained={mushafZoomConstrained}

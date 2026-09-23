@@ -217,7 +217,7 @@ function selectedMistakes(
   return [...mistakes.values()].sort((left, right) =>
     (left.mistake.page ?? Number.MAX_SAFE_INTEGER) -
       (right.mistake.page ?? Number.MAX_SAFE_INTEGER) ||
-    left.mistake.surah - right.mistake.surah ||
+    (left.mistake.surah ?? Number.MAX_SAFE_INTEGER) - (right.mistake.surah ?? Number.MAX_SAFE_INTEGER) ||
     (left.mistake.ayah ?? 0) - (right.mistake.ayah ?? 0) ||
     (left.mistake.sourceStart ?? Number.MAX_SAFE_INTEGER) -
       (right.mistake.sourceStart ?? Number.MAX_SAFE_INTEGER) ||

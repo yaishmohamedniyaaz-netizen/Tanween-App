@@ -14,6 +14,10 @@ import type {
  */
 export const LEDGER_VERSION = 2 as const;
 
+function copyMistake(mistake: Mistake): Mistake {
+  return mistake.evidenceKind === "phrase" ? { ...mistake, phrase: { ...mistake.phrase } } : { ...mistake };
+}
+
 /** Rebuild the current mistake list from the recorded judge actions. */
 export function projectMistakes(events: JudgingEvent[]): Mistake[] {
   const active = new Map<string, Mistake>();
@@ -22,7 +26,7 @@ export function projectMistakes(events: JudgingEvent[]): Mistake[] {
     switch (event.type) {
       case "mistake_added":
       case "mistake_restored":
-        active.set(event.mistake.id, { ...event.mistake });
+        active.set(event.mistake.id, copyMistake(event.mistake));
         break;
       case "mistake_amount_changed": {
         const mistake = active.get(event.mistakeId);
@@ -121,7 +125,7 @@ export function seedLedgerEvents({
         at: mistake.ts,
         type: "mistake_added",
         mistake: {
-          ...mistake,
+          ...copyMistake(mistake),
           ...(mistake.judgeSeatId || assignment?.judgeSeatId
             ? { judgeSeatId: mistake.judgeSeatId ?? assignment?.judgeSeatId }
             : {}),

@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { createPortal } from 'react-dom';
 import surahIndex from "../data/surah-index.json";
+import { MUSHAF_SURFACE_EVENT, openMushafSurface } from "../lib/mushafSurface";
 import type { MushafLayout } from "../lib/devicePreferences";
 import {
   moveMushafView,
@@ -29,6 +30,13 @@ export function PageNav({
   calibrated = false,
 }: PageNavProps) {
   const [popoverOpen, setPopoverOpen] = useState(false);
+  useEffect(() => {
+    const switchSurface = (event: Event) => {
+      if ((event as CustomEvent).detail !== "pages") setPopoverOpen(false);
+    };
+    window.addEventListener(MUSHAF_SURFACE_EVENT, switchSurface);
+    return () => window.removeEventListener(MUSHAF_SURFACE_EVENT, switchSurface);
+  }, []);
   const [jumpInput, setJumpInput] = useState("");
   const popoverRef = useRef<HTMLDivElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -177,6 +185,7 @@ export function PageNav({
           aria-expanded={popoverOpen}
           aria-haspopup="dialog"
           onClick={() => {
+            if (!popoverOpen) openMushafSurface("pages");
             setPopoverOpen((current) => !current);
             setJumpInput(String(page));
           }}

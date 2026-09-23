@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { StrictMode, useState } from 'react';
+import { SessionProviderProbe } from './session-provider-probe';
 import { createRoot } from 'react-dom/client';
 import { App } from '../../src/App';
 import { JudgingProvider, useJudging } from '../../src/state/store';
@@ -17,7 +18,7 @@ import '../../src/styles/competition-setup-v2.css';
 function Fixture() {
   const {state, dispatch} = useJudging();
   const [loaded,setLoaded] = useState(() => state.preparedRecitation?.id === 'qa-mobile-prepared'
-    || state.activeQuestion?.id === 'qa-mobile-paper-question');
+    || state.activeQuestion?.id === 'qa-mobile-paper-question' || state.history.length > 0);
   if (loaded) return <>
     {new URLSearchParams(location.search).get('simulateSafeAreas') === '1' && <style>{`
       @media(max-width:600px) and (orientation:portrait) {
@@ -59,4 +60,6 @@ function Fixture() {
     setLoaded(true);
   }}>Load prepared mobile sample</button>;
 }
-createRoot(document.getElementById('root')!).render(<JudgingProvider><Fixture/></JudgingProvider>);
+const storageReview=new URLSearchParams(location.search).get('sessionStorage')==='3';
+const content=<JudgingProvider>{storageReview && <SessionProviderProbe/>}<Fixture/></JudgingProvider>;
+createRoot(document.getElementById('root')!).render(storageReview?<StrictMode>{content}</StrictMode>:content);

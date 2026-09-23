@@ -7,16 +7,24 @@ import {
 import { computeScores } from "../lib/scoring";
 import surahData from "../data/surahs.json";
 import { useJudging } from "../state/store";
-import type { Mistake } from "../types";
+import type { JudgingState, Mistake } from "../types";
 import { categoryListLabel, judgeDisplayName } from "../lib/judgeAssignments";
 import { mistakePrimaryGlyph } from "../lib/mistakeDisplay";
 import { muqarrarLabel, participantCategoryLabel } from "../lib/participants";
+import { isPhraseMistake } from "../lib/phraseEvidence";
+import { RECITATION_PHRASES } from "../lib/recitationPhrases";
+import { mistakeLocationReference } from "../lib/mistakeDisplay";
 
 /** Print-only summary — the transparent record of a reciter's session.
  *  Marks are grouped under the āyah they fall on, with the āyah text for context
  *  (avoids overlay misalignment that a reflowed printed page would cause). */
 export function ResultSheet() {
   const { state } = useJudging();
+  return <ResultSheetView state={state} />;
+}
+
+/** Read-only rendering also used to verify versioned evidence before enabling writers. */
+export function ResultSheetView({ state }: { state: JudgingState }) {
   const { byCategory, total, totalMax } = computeScores(state);
   const p = state.participant;
   const assignment = state.activeAssignment;
@@ -38,12 +46,15 @@ export function ResultSheet() {
   }, []);
 
   const groups = useMemo(() => {
-    const g = new Map<string, { surah: number; ayah: number | null; marks: Mistake[] }>();
+    const g = new Map<string, { key: string; reference: string; text?: string; surah: number; ayah: number | null; marks: Mistake[] }>();
     for (const m of state.mistakes) {
-      const key = `${m.surah}:${m.ayah === null ? "b" : m.ayah}`;
+      const phrase = isPhraseMistake(m);
+      const key = phrase ? `phrase:${m.phrase.occurrenceId}:${m.phrase.phraseId}` : `${m.surah}:${m.ayah === null ? "b" : m.ayah}`;
       let entry = g.get(key);
       if (!entry) {
-        entry = { surah: m.surah, ayah: m.ayah, marks: [] };
+        entry = { key, reference: phrase ? mistakeLocationReference(m) : m.ayah === null ? "Basmala" : `${m.surah}:${m.ayah}`,
+          text: phrase ? RECITATION_PHRASES.find(item => item.id === m.phrase.phraseId)?.words.join(" ") : ayahText.get(key),
+          surah: m.surah ?? Number.MAX_SAFE_INTEGER, ayah: m.ayah ?? null, marks: [] };
         g.set(key, entry);
       }
       entry.marks.push(m);
@@ -51,7 +62,7 @@ export function ResultSheet() {
     return [...g.values()].sort((a, b) =>
       a.surah !== b.surah ? a.surah - b.surah : (a.ayah ?? 0) - (b.ayah ?? 0),
     );
-  }, [state.mistakes]);
+  }, [state.mistakes, ayahText]);
 
   const date = new Date().toLocaleDateString(undefined, {
     year: "numeric",
@@ -139,10 +150,10 @@ export function ResultSheet() {
       ) : (
         <div className="rs-ayahs">
           {groups.map((g) => {
-            const ref = g.ayah === null ? "Basmala" : `${g.surah}:${g.ayah}`;
-            const text = ayahText.get(`${g.surah}:${g.ayah === null ? "b" : g.ayah}`);
+            const ref = g.reference;
+            const text = g.text;
             return (
-              <div className="rs-ayah" key={ref}>
+              <div className="rs-ayah" key={g.key}>
                 <div className="rs-ayah-head">
                   <span className="rs-ayah-ref">{ref}</span>
                   {text && (

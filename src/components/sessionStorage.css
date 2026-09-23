@@ -1,0 +1,14 @@
+.session-storage-screen { min-height:100dvh; display:grid; place-items:center; padding:24px; background:var(--bg); color:var(--ink); }
+.session-storage-card { width:min(100%,520px); padding:24px; border:1px solid var(--line); border-radius:12px; background:var(--surface); }
+.session-storage-card h1 { font-size:21px; line-height:1.4; margin:0 0 16px; outline:none; }
+.session-storage-card p,.session-save-notice p { font-size:15px; line-height:1.6; margin:8px 0 16px; color:var(--ink-2); }
+.session-storage-card dl { display:grid; grid-template-columns:1fr 1fr; gap:8px 16px; font-size:14px; margin:20px 0; }
+.session-storage-card dd { margin:0; text-align:end; overflow-wrap:anywhere; }
+.session-recovery-confirm { display:flex; align-items:center; gap:12px; font-size:14px; line-height:1.5; min-height:44px; margin:16px 0; cursor:pointer; }
+.session-recovery-confirm input { width:20px; height:20px; flex-shrink:0; accent-color:var(--ink); }
+.session-storage-actions { display:flex; flex-wrap:wrap; gap:8px; }
+.session-storage-actions button { min-height:44px; font-size:14px; white-space:normal; }
+.session-save-notice { position:fixed; z-index:110; top:76px; right:16px; width:min(440px,calc(100vw - 32px)); max-height:calc(100dvh - 92px); overflow:auto; padding:16px; border:1px solid var(--ink-3); border-radius:12px; background:var(--surface); color:var(--ink); box-shadow:0 8px 28px #0002; }
+.session-save-notice strong { font-size:17px; }
+.session-save-summary { padding:12px 16px; margin:0; font-size:14px; line-height:1.5; color:var(--ink-2); border-bottom:1px solid var(--line); }
+@media(max-width:480px) { .session-storage-screen { padding:16px; } .session-storage-card { padding:20px; } .session-storage-actions button { flex:1 1 140px; } }

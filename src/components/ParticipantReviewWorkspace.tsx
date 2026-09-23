@@ -1,5 +1,7 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { CATEGORY_BY_ID } from "../config";
+import { isPhraseMistake } from "../lib/phraseEvidence";
+import { mistakeLocationReference } from "../lib/mistakeDisplay";
 import { selectedResultView } from "../lib/competitionResults";
 import { buildParticipantQuestionEvidence, type ParticipantQuestionEvidence } from "../lib/questionEvidence";
 import { computeCategoryScores, missingRequiredImpressionCategories } from "../lib/scoring";
@@ -150,8 +152,8 @@ function WorkspaceEvidence({ item, selected, evidence, active, reasons, onSelect
       selectWord(entry.mistake.wordId); return;
     }
     setPlaybackRequest(null);
-    setFindingKey(key); setWordId(entry.mistake.wordId ?? null);
-    setFocusWord(!fromPage); setRequestedSource(entry.sessionId); revealInspector();
+    setFindingKey(key); setWordId(isPhraseMistake(entry.mistake) ? null : entry.mistake.wordId ?? null);
+    setFocusWord(!fromPage && !isPhraseMistake(entry.mistake)); setRequestedSource(entry.sessionId); revealInspector();
     setLocationRequest(n => n + 1);
   };
   const sources = useMemo(() => evidence.selectedSessions.map(s => ({sessionId:s.id,
@@ -236,7 +238,7 @@ function WorkspaceEvidence({ item, selected, evidence, active, reasons, onSelect
             <button className={`rw-finding cat-${entry.mistake.category}`} aria-pressed={findingKey === entry.key}
               onClick={() => selectFinding(entry.key)}><i aria-hidden="true"/>
               <span><strong>{entry.mistake.label || CATEGORY_BY_ID[entry.mistake.category].label}</strong>
-                <small>{entry.mistake.surah}:{entry.mistake.ayah} · {entry.judgeName}</small></span>
+                <small>{mistakeLocationReference(entry.mistake)} · {entry.judgeName}</small></span>
               <bdi>−{entry.mistake.amount}</bdi></button>
           </li>)}</ol> : <p>No judge-recorded findings.</p>}
         </section>
@@ -255,7 +257,8 @@ function WorkspaceEvidence({ item, selected, evidence, active, reasons, onSelect
               <strong><i aria-hidden="true"/>{CATEGORY_BY_ID[entry.mistake.category].label} · −{entry.mistake.amount}</strong>
               <p>{entry.mistake.label}</p>{entry.mistake.note && <p>{entry.mistake.note}</p>}
               <small>{entry.judgeName} · revision {entry.sessionRevision}</small>
-              {!locatable?.has(entry.mistake.wordId ?? "") && <p>Location not verified in this recorded passage.</p>}
+              {isPhraseMistake(entry.mistake) ? <p className="rw-phrase-word" lang="ar" dir="rtl">{entry.mistake.wordText}</p>
+                : !locatable?.has(entry.mistake.wordId ?? "") && <p>Location not verified in this recorded passage.</p>}
             </div>)}
             {word && !related.length && <p>No judge finding on this word. This is not an automatic assessment.</p>}
           </> : <p>Select a word or finding to inspect it.</p>}

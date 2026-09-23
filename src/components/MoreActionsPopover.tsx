@@ -2,6 +2,7 @@ import { useEffect, useId, useRef, useState } from "react";
 import type { AppView } from "./Header";
 import { downloadSessionJSON } from "../lib/exportSession";
 import { useJudging } from "../state/store";
+import { useSessionSaveStatus } from "./SessionStorageBoundary";
 import { Icon } from "./Icon";
 import { MushafSizeControl } from "./MushafSizeControl";
 import { useOfflineStatus } from "../hooks/useOfflineStatus";
@@ -22,8 +23,14 @@ import type {
   QuestionFocusMode,
 } from "../lib/devicePreferences";
 import type { TilawaTrackerStatus } from "./TilawaPrototypePanel";
+import { MUSHAF_SURFACE_EVENT, openMushafSurface } from "../lib/mushafSurface";
+import type { AppTheme } from "../lib/devicePreferences";
 
 interface MoreActionsPopoverProps {
+  compactJudgingActions?: {
+    resultsLabel: string; unresolved: number; onResults: () => void;
+    theme: AppTheme; onThemeChange: (theme: AppTheme) => void;
+  };
   view: AppView;
   mushafZoom: number;
   mushafZoomConstrained?: boolean;
@@ -53,6 +60,7 @@ interface MoreActionsPopoverProps {
 }
 
 export function MoreActionsPopover({
+  compactJudgingActions,
   view,
   mushafZoom,
   mushafZoomConstrained,
@@ -78,6 +86,7 @@ export function MoreActionsPopover({
   onOpenSetup,
 }: MoreActionsPopoverProps) {
   const { state } = useJudging();
+  const saveStatus = useSessionSaveStatus();
   const serviceWorker = useOfflineStatus();
   const offlineMushaf = useOfflineMushaf();
   const {
@@ -103,9 +112,17 @@ export function MoreActionsPopover({
   };
 
   useEffect(() => {
+    const switchSurface = (event: Event) => {
+      if ((event as CustomEvent).detail !== "more") setOpen(false);
+    };
+    window.addEventListener(MUSHAF_SURFACE_EVENT, switchSurface);
+    return () => window.removeEventListener(MUSHAF_SURFACE_EVENT, switchSurface);
+  }, []);
+
+  useEffect(() => {
     if (!open) return;
-    const closeOnOutsidePointer = (event: PointerEvent) => {
-      if (!wrapRef.current?.contains(event.target as Node)) close();
+    const closeOnOutsidePointer = (event: Event) => {
+      if (!wrapRef.current?.contains(event.target as Node)) close(false);
     };
     const closeOnEscape = (event: KeyboardEvent) => {
       if (event.key !== "Escape") return;
@@ -113,9 +130,11 @@ export function MoreActionsPopover({
       close();
     };
     window.addEventListener("pointerdown", closeOnOutsidePointer);
+    window.addEventListener("focusin", closeOnOutsidePointer);
     window.addEventListener("keydown", closeOnEscape);
     return () => {
       window.removeEventListener("pointerdown", closeOnOutsidePointer);
+      window.removeEventListener("focusin", closeOnOutsidePointer);
       window.removeEventListener("keydown", closeOnEscape);
     };
   }, [open]);
@@ -123,7 +142,9 @@ export function MoreActionsPopover({
   useEffect(() => {
     if (!open || !openedByKeyboardRef.current) return;
     const frame = requestAnimationFrame(() => {
-      if (view === "judge") rangeRef.current?.focus();
+      const compactAction = wrapRef.current?.querySelector<HTMLButtonElement>(".compact-judging-actions button");
+      if (compactAction?.getClientRects().length) compactAction.focus();
+      else if (view === "judge") rangeRef.current?.focus();
       else wrapRef.current?.querySelector<HTMLButtonElement>(".overflow-item")?.focus();
     });
     return () => cancelAnimationFrame(frame);
@@ -183,6 +204,7 @@ export function MoreActionsPopover({
         aria-controls={open ? dialogId : undefined}
         onClick={(event) => {
           openedByKeyboardRef.current = event.detail === 0;
+          if (!open) openMushafSurface("more");
           setOpen((current) => !current);
         }}
       >
@@ -196,6 +218,22 @@ export function MoreActionsPopover({
           aria-modal="false"
           aria-label="More actions and view controls"
         >
+          {saveStatus && <p className="session-save-summary" role="status">
+            {saveStatus.phase === "saved" ? "Saved on this device" : saveStatus.phase === "saving" ? "Saving…" : "Changes need attention"}
+          </p>}
+          {compactJudgingActions && <div className="compact-judging-actions">
+            <button type="button" className="overflow-item" aria-label={compactJudgingActions.resultsLabel}
+              onClick={() => runAction(compactJudgingActions.onResults)}>
+              <Icon name="fileCheck" size={16} /> Results
+              {compactJudgingActions.unresolved > 0 && <span className="view-toggle-count">{compactJudgingActions.unresolved}</span>}
+            </button>
+            <button type="button" className="overflow-item"
+              onClick={() => compactJudgingActions.onThemeChange(compactJudgingActions.theme === "dark" ? "light" : "dark")}>
+              <Icon name={compactJudgingActions.theme === "dark" ? "sun" : "moon"} size={16} />
+              Switch to {compactJudgingActions.theme === "dark" ? "light" : "dark"} mode
+            </button>
+            <div className="overflow-sep" />
+          </div>}
           {view === "judge" && (
             <>
               <fieldset className="mushaf-view-control">

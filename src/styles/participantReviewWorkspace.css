@@ -69,6 +69,7 @@
 .rw-selected-finding { padding: 8px 0; border-bottom: 1px solid var(--line); font-size: 14px; }
 .rw-selected-finding i { margin-right: 8px; }
 .rw-selected-finding p { margin: 4px 0; }
+.rw-selected-finding .rw-phrase-word { font-family: HafsUthmanic, serif; font-size: 27px; line-height: 1.8; color: var(--ink); }
 .rw-selected-finding small { font-size: 12px; color: var(--ink-3); }
 .rw-notes summary { cursor: pointer; font-size: 14px; padding: 12px 0; }
 .rw-notes > div { font-size: 12px; padding: 8px; border-top: 1px solid var(--line); }

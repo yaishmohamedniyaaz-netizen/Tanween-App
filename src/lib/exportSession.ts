@@ -3,6 +3,7 @@ import type { CategoryId, JudgingState, SavedSession } from "../types";
 import { computeScores } from "./scoring";
 import { assignmentLabel, judgeDisplayName } from "./judgeAssignments";
 import { muqarrarLabel, participantCategoryLabel } from "./participants";
+import { hasPhraseEvidence, isPhraseMistake } from "./phraseEvidence";
 
 function downloadBlob(content: string, type: string, filename: string) {
   const blob = new Blob([content], { type });
@@ -38,7 +39,7 @@ export function buildSessionPayload(state: JudgingState) {
   );
   return {
     app: "tahqeeq",
-    schema: 3,
+    schema: hasPhraseEvidence(state) ? 4 : 3,
     exportedAt: new Date().toISOString(),
     competition: {
       id: state.competition.id,
@@ -78,8 +79,12 @@ export function buildSessionPayload(state: JudgingState) {
       at: new Date(event.at).toISOString(),
     })),
     mistakes: state.mistakes.map((m) => ({
-      surah: m.surah,
-      ayah: m.ayah,
+      ...(isPhraseMistake(m) ? {
+        evidenceKind: "phrase", phrase: m.phrase, targetId: m.tid,
+        targetVersion: m.targetVersion, sourceVersion: m.sourceVersion, ruleVersion: m.ruleVersion,
+        wordId: m.wordId, wordText: m.wordText, sourceStart: m.sourceStart, sourceEnd: m.sourceEnd,
+        primaryGlyph: m.primaryGlyph, fullGlyph: m.fullGlyph,
+      } : { surah: m.surah, ayah: m.ayah }),
       glyph: m.glyph,
       location: m.label,
       category: m.category,
@@ -192,7 +197,7 @@ export function downloadRecordsCSV(
         rows.push(
           [
             ...base,
-            m.surah,
+            m.surah ?? "",
             m.ayah ?? "",
             m.glyph,
             m.label,

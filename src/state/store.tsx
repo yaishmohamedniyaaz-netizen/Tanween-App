@@ -2,11 +2,17 @@ import {
   createContext,
   useContext,
   useEffect,
+  useLayoutEffect,
   useMemo,
   useReducer,
   useRef,
   type ReactNode,
 } from "react";
+import { isPhraseMistake, isPhraseMistakeSnapshot, hasPhraseEvidence, hasNonQuranEvidence, stateHasNonQuranEvidence } from "../lib/phraseEvidence";
+import { phrasePracticeEnabled, phraseRecitationId } from "../lib/phrasePractice";
+import { buildStateBackup, validateSavedPhraseSession } from "../lib/resultPackages";
+import { SessionStorageBoundary, sessionStorageReviewEnabled } from "../components/SessionStorageBoundary";
+import type { SessionSaveController } from "./sessionSaveController";
 import {
   DEFAULT_CONFIG,
   STORAGE_KEY,
@@ -285,7 +291,7 @@ function patchEvent(
   ) {
     return {
       ...event,
-      mistake: {
+      mistake: isPhraseMistake(event.mistake) ? event.mistake : {
         ...event.mistake,
         ...(patches[event.mistake.id] ?? {}),
       },
@@ -298,6 +304,11 @@ function reducer(state: JudgingState, action: Action): JudgingState {
   switch (action.type) {
     case "ADD_MISTAKE": {
       if (
+        (hasNonQuranEvidence({ mistakes: [action.mistake] }) && !(
+          phrasePracticeEnabled(state) && isPhraseMistakeSnapshot(action.mistake) &&
+          action.mistake.phrase.occurrenceId === phraseRecitationId(state) &&
+          action.mistake.judgeSeatId === state.activeAssignment?.judgeSeatId
+        )) ||
         !state.sessionActive ||
         !state.activeAssignment ||
         !state.activeAssignment.categories.includes(action.mistake.category)
@@ -365,6 +376,11 @@ function reducer(state: JudgingState, action: Action): JudgingState {
         return state;
       }
       if (state.mistakes.some((item) => item.id === source.mistake.id)) return state;
+      if (isPhraseMistake(source.mistake) && (
+        !phrasePracticeEnabled(state) || source.mistake.phrase.occurrenceId !== phraseRecitationId(state) ||
+        source.mistake.judgeSeatId !== state.activeAssignment?.judgeSeatId ||
+        state.mistakes.some(item => item.tid === source.mistake.tid && item.judgeSeatId === source.mistake.judgeSeatId)
+      )) return state;
       const latest = latestMistakeEventIds(state.events).get(source.mistake.id);
       if (latest !== source.id) return state;
       return withEvent(state, {
@@ -816,6 +832,7 @@ function reducer(state: JudgingState, action: Action): JudgingState {
         rosterDraft: null,
       };
     case "IMPORT_SESSION": {
+      try { validateSavedPhraseSession(action.session); } catch { return state; }
       if (state.sessionActive || state.preparedRecitation) return state;
       const incoming = normalizeSavedSession({
         ...action.session,
@@ -1091,7 +1108,9 @@ function reducer(state: JudgingState, action: Action): JudgingState {
         savedAt,
         startedAt: state.activeStartedAt ?? savedAt,
         revision: state.activeRevision,
-        ledgerVersion: LEDGER_VERSION,
+        ledgerVersion: hasPhraseEvidence({mistakes, events}) ? 3 : LEDGER_VERSION,
+        ...(hasPhraseEvidence({mistakes, events}) && phraseRecitationId(state) !== state.activeSessionId
+          ? {sourceSessionId: phraseRecitationId(state)!} : {}),
         participant: state.participant,
         config: state.activeAssignment?.config ?? state.config,
         total,
@@ -1198,7 +1217,7 @@ function reducer(state: JudgingState, action: Action): JudgingState {
             events: sessionEvents,
             mistakes: sessionEvents.length
               ? projectMistakes(sessionEvents)
-              : session.mistakes.map((mistake) => ({
+              : session.mistakes.map((mistake) => isPhraseMistake(mistake) ? mistake : ({
                   ...mistake,
                   ...(action.patches[mistake.id] ?? {}),
                 })),
@@ -1210,6 +1229,9 @@ function reducer(state: JudgingState, action: Action): JudgingState {
       };
     }
     case "LOAD":
+      if (stateHasNonQuranEvidence(action.state)) {
+        try { buildStateBackup(action.state); } catch { return state; }
+      }
       return normalizeLedgerState(action.state);
     default:
       return state;
@@ -1290,7 +1312,7 @@ export function normalizeSavedSession(session: SavedSession): SavedSession {
     participant,
     startedAt,
     revision: session.revision ?? 1,
-    ledgerVersion: LEDGER_VERSION,
+    ledgerVersion: hasPhraseEvidence({ mistakes, events }) ? 3 : LEDGER_VERSION,
     total: score.total,
     totalMax: score.totalMax,
     scoreKind: "judge-section",
@@ -1621,7 +1643,16 @@ interface Ctx {
 const JudgingContext = createContext<Ctx | null>(null);
 
 export function JudgingProvider({ children }: { children: ReactNode }) {
-  const [state, dispatch] = useReducer(reducer, undefined, loadInitial);
+  if (sessionStorageReviewEnabled()) return <SessionStorageBoundary normalize={normalizeLedgerState} emptyState={initialState}>
+    {(bootState,persistence)=><JudgingStateProvider bootState={bootState} persistence={persistence}>{children}</JudgingStateProvider>}
+  </SessionStorageBoundary>;
+  return <JudgingStateProvider>{children}</JudgingStateProvider>;
+}
+
+function JudgingStateProvider({children,bootState,persistence}: {
+  children: ReactNode; bootState?: JudgingState; persistence?: SessionSaveController;
+}) {
+  const [state, dispatch] = useReducer(reducer, bootState, snapshot=>snapshot ?? loadInitial());
   const targetMigrationStarted = useRef(false);
 
   useEffect(() => {
@@ -1644,13 +1675,18 @@ export function JudgingProvider({ children }: { children: ReactNode }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useLayoutEffect(() => {
+    persistence?.stage(state);
+  }, [state,persistence]);
+
   useEffect(() => {
+    if (persistence) return;
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
     } catch {
       /* ignore quota errors */
     }
-  }, [state]);
+  }, [state,persistence]);
 
   const value = useMemo(() => ({ state, dispatch }), [state]);
   return (

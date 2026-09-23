@@ -6,6 +6,7 @@ import {
 } from "react";
 import { createPortal } from "react-dom";
 import { Header, type AppView } from "./components/Header";
+import { openMushafSurface } from "./lib/mushafSurface";
 import { Mushaf } from "./components/Mushaf";
 import { MushafViewport } from "./components/MushafViewport";
 import { ConnectedFixedMushaf, FixedMushafViewport } from "./components/ConnectedFixedMushaf";
@@ -80,6 +81,12 @@ export function App() {
   const [finishOpen, setFinishOpen] = useState(false);
   const [markingGuideOpen, setMarkingGuideOpen] = useState(false);
   const [moreControlsOpen, setMoreControlsOpen] = useState(false);
+  const [phrasesOpen, setPhrasesOpen] = useState(false);
+  useEffect(() => {
+    if (startOpen || finishOpen || markingGuideOpen) {
+      openMushafSurface(markingGuideOpen ? "guide" : "sheet");
+    }
+  }, [startOpen, finishOpen, markingGuideOpen]);
   const [recordPracticeRecitation, setRecordPracticeRecitation] = useState(false);
   const [tilawaWordFocus, setTilawaWordFocus] = useState<string | null>(null);
   const [tilawaPanelOpen, setTilawaPanelOpen] = useState(false);
@@ -163,6 +170,7 @@ export function App() {
     state.activeQuestion ?? state.preparedRecitation?.question,
   );
   const visibleQuestion = state.activeQuestion ?? state.preparedRecitation?.question;
+  useEffect(() => { openMushafSurface("navigation"); }, [page, view, state.activeSessionId]);
   const openingPage = questionOpeningPage(visibleQuestion);
   const visibleQuestionRange = visibleQuestion?.version === 2
     ? visibleQuestion.range ?? null
@@ -245,6 +253,7 @@ export function App() {
       }
     >
       <Header
+        onPhrasesOpenChange={setPhrasesOpen}
         mobileMushafControlsRef={setMobileMushafControls}
         view={view}
         onToggleView={() => setView((current) => (current === "judge" ? "records" : "judge"))}
@@ -322,7 +331,7 @@ export function App() {
               overlay={
                 <MarkingCoachTip
                   forcedOpen={markingGuideOpen}
-                  suppressed={moreControlsOpen}
+                  suppressed={moreControlsOpen || phrasesOpen}
                   onForcedOpenChange={setMarkingGuideOpen}
                 />
               }
@@ -373,7 +382,7 @@ export function App() {
                               aria-label={`Return to selected question on page ${openingPage}`}
                               onClick={() => handlePageChange(openingPage)}
                             >
-                              <span>↩ Return {openingPage}</span>
+                              <span><span className="question-return-arrow" aria-hidden="true">↩ </span>Return {openingPage}</span>
                               <small>{(state.preparedRecitation?.participant ?? state.participant).name || "Unnamed"}</small>
                             </button>,
                             mobileMushafControls,

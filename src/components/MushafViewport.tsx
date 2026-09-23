@@ -238,6 +238,7 @@ export function MushafViewport({
   return (
     <div
       className="mushaf-viewport"
+      data-fixed-stage={forceStableStage ? "true" : undefined}
       data-coach-space={coachGutter >= 202 ? "wide" : "compact"}
     >
       <div

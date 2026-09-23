@@ -61,7 +61,7 @@ export interface JudgeAssignmentSnapshot {
 export type TokenRole = "letter" | "ayah-end" | "ornament";
 
 /** One pinpointed deduction tied to an exact semantic judging unit. */
-export interface Mistake {
+export interface MistakeBase {
   id: string;
   tid: string; // stable judging-unit id; legacy grapheme ids remain readable
   /** Target schema used when this evidence item was created. */
@@ -78,9 +78,6 @@ export interface Mistake {
   /** Retained when a legacy id is later resolved to a V2 target. */
   originalTid?: string;
   migrationStatus?: "exact" | "auto-merged" | "unresolved";
-  surah: number;
-  ayah: number | null; // null === basmala line
-  page?: number; // page number for cross-page navigation
   glyph: string; // immutable historical display snapshot
   label: string; // human location, e.g. "112:1 · letter 3"
   category: CategoryId;
@@ -90,6 +87,44 @@ export interface Mistake {
   note?: string;
   ts: number;
 }
+
+/** Missing discriminator is the existing Quran evidence format, kept readable. */
+export interface QuranMistake extends MistakeBase {
+  evidenceKind?: "quran";
+  surah: number;
+  ayah: number | null; // null === printed basmala line
+  page?: number;
+  phrase?: never;
+}
+
+export interface PhraseTarget {
+  catalogueVersion: "tanween-phrases-v1";
+  phraseId: "istiadhah" | "bismillah" | "closing";
+  /** Explicit identity within a recitation; reopening never implies a repeat. */
+  occurrenceId: string;
+  wordIndex: number;
+}
+
+/** Phrase evidence outside the selected passage never invents a Quran coordinate. */
+export interface PhraseMistake extends MistakeBase {
+  evidenceKind: "phrase";
+  phrase: PhraseTarget;
+  judgeSeatId: string;
+  targetVersion: 2;
+  sourceVersion: "tanween-phrases-v1";
+  ruleVersion: string;
+  wordId: string;
+  wordText: string;
+  sourceStart: number;
+  sourceEnd: number;
+  primaryGlyph: string;
+  fullGlyph: string;
+  surah?: never;
+  ayah?: never;
+  page?: never;
+}
+
+export type Mistake = QuranMistake | PhraseMistake;
 
 /** One whole-recitation mark for a criterion that cannot be pinpointed on a
  *  letter, such as Adu & Raagu (voice and melody). */
@@ -526,8 +561,8 @@ export interface SavedSession {
   savedAt: number;
   startedAt?: number;
   revision?: number;
-  /** 1 = original event set; 2 adds `mistake_recategorized`. */
-  ledgerVersion?: 1 | 2;
+  /** 1 = original events; 2 adds recategorization; 3 adds typed phrase evidence. */
+  ledgerVersion?: 1 | 2 | 3;
   participant: Participant;
   config: ScoreConfig;
   total: number;

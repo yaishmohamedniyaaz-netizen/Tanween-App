@@ -47,6 +47,13 @@ interface Props {
   onClose: () => void;
   onUndo: (id: string) => void;
   showTashkeel?: boolean;
+  /** Floating tray within a parent surface; that surface owns dismissal and focus. */
+  portalHost?: HTMLElement | null;
+  /** Keep the source Arabic visible when a constrained phrase tray covers it. */
+  preserveSourceContext?: boolean;
+  /** Leave the parent's help/close controls reachable in a very short viewport. */
+  reservedHeaderInlineSize?: number;
+  reservedHeaderBlockSize?: number;
 }
 
 type SelectorStyle = CSSProperties & {
@@ -70,6 +77,10 @@ export function DragMenu({
   onClose,
   onUndo,
   showTashkeel,
+  portalHost,
+  preserveSourceContext = false,
+  reservedHeaderInlineSize = 0,
+  reservedHeaderBlockSize = 0,
 }: Props) {
   const tashkeel = showTashkeel ?? false;
   const menuRef = useRef<HTMLDivElement>(null);
@@ -81,25 +92,42 @@ export function DragMenu({
     visualViewport?.height ?? document.documentElement.clientHeight;
   const viewportLeft = visualViewport?.offsetLeft ?? 0;
   const viewportTop = visualViewport?.offsetTop ?? 0;
+  // A tray inside a navigation panel must not cover its navigation controls.
+  const panelBounds = portalHost?.getBoundingClientRect();
+  const shareHeaderRow = Boolean(panelBounds && panelBounds.height - reservedHeaderBlockSize < 220);
+  const placementTop = panelBounds
+    ? Math.max(viewportTop, panelBounds.top + (shareHeaderRow ? 0 : reservedHeaderBlockSize))
+    : viewportTop;
+  const placementHeight = panelBounds
+    ? Math.max(0, Math.min(viewportTop + viewportHeight, panelBounds.bottom) - placementTop)
+    : viewportHeight;
+  const compactParent = Boolean(panelBounds && placementHeight < 260);
+  const placementWidth = panelBounds
+    ? panelBounds.width - (shareHeaderRow ? reservedHeaderInlineSize : 0)
+    : viewportWidth;
+  const placementLeft = panelBounds?.left ?? viewportLeft;
   const { pickerWidth, categoryWidth, menuWidth } = getSelectorWidths(
     units.length,
-    viewportWidth,
+    placementWidth,
   );
   const anchorCenter = anchor.left + anchor.width / 2;
   const { centerX, pointerX } = getSelectorPlacement(
     anchorCenter,
-    viewportWidth,
+    placementWidth,
     menuWidth,
     pickerWidth,
-    viewportLeft,
+    placementLeft,
   );
   const { openUp, top } = getSelectorVerticalPlacement(
     anchor.top,
     anchor.bottom,
-    viewportHeight,
+    placementHeight,
     menuHeight,
-    viewportTop,
+    placementTop,
   );
+  const sourceCovered = preserveSourceContext && (compactParent ||
+    (top < anchor.bottom && top + menuHeight > anchor.top &&
+    centerX - menuWidth / 2 < anchor.right && centerX + menuWidth / 2 > anchor.left));
   // Only pinpoint criteria can be tied to a letter; Adu & Raagu is marked once
   // for the whole recitation in its own panel.
   const categoryDefs = CATEGORIES.filter(
@@ -171,7 +199,7 @@ export function DragMenu({
       (button) => button === activeElement,
     );
 
-    if (pinned && e.key === "Tab" && focusableButtons.length) {
+    if (pinned && !portalHost && e.key === "Tab" && focusableButtons.length) {
       const focusIndex = focusableButtons.findIndex(
         (button) => button === activeElement,
       );
@@ -326,9 +354,9 @@ export function DragMenu({
     </div>
   );
 
-  return createPortal(
+  const content = (
     <>
-      {pinned && (
+      {pinned && !portalHost && (
         <div
           className="menu-backdrop"
           onPointerDown={(e) => {
@@ -339,14 +367,15 @@ export function DragMenu({
       )}
       <div
         ref={menuRef}
-        className={`drag-menu ${openUp ? "up" : "down"} ${pinned ? "pinned" : ""}`}
+        className={`drag-menu ${openUp ? "up" : "down"} ${pinned ? "pinned" : ""} ${portalHost ? "in-navigation-panel" : ""} ${preserveSourceContext && placementHeight < 260 ? "phrase-selector-compact" : ""}`}
         style={posStyle}
-        role="dialog"
-        aria-modal={pinned || undefined}
+        role={portalHost ? "group" : "dialog"}
+        aria-modal={!portalHost && pinned || undefined}
         aria-label={`Choose exact letter and mistake type for ${glyph}`}
         onKeyDown={onKeyDown}
       >
-        <div className="selector-runway">
+        <div className="selector-runway" style={panelBounds ? { maxHeight: Math.max(0, placementHeight - 24) } : undefined}>
+          {sourceCovered && <div className="phrase-selector-source" lang="ar" dir="rtl">{glyph}</div>}
           {unitPicker}
           {categoryStack}
           {pinned && selectedMistake && selectedCategory && (
@@ -360,7 +389,7 @@ export function DragMenu({
           )}
         </div>
       </div>
-    </>,
-    document.body,
+    </>
   );
+  return createPortal(content, portalHost ?? document.body);
 }

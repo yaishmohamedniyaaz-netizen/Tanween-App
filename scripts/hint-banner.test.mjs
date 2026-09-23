@@ -43,6 +43,6 @@ test("dismissal and a new reciter safely re-read the existing retirement key", (
 test("the guide remains replayable from More controls", () => {
   assert.match(moreActionsSource, /Show marking guide/);
   assert.match(moreActionsSource, /runAction\(onShowMarkingGuide\)/);
-  assert.match(appSource, /suppressed=\{moreControlsOpen\}/);
+  assert.match(appSource, /suppressed=\{moreControlsOpen \|\| phrasesOpen\}/);
   assert.match(coachSource, /const visible = !suppressed/);
 });

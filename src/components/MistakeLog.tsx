@@ -3,7 +3,10 @@ import { CATEGORY_BY_ID } from "../config";
 import {
   mistakeFullGlyph,
   mistakePrimaryGlyph,
+  mistakeLocationReference,
 } from "../lib/mistakeDisplay";
+import { isPhraseMistake } from "../lib/phraseEvidence";
+import type { Mistake } from "../types";
 import { JUMP_EVENT } from "./Mushaf";
 import { useJudging } from "../state/store";
 import { Icon } from "./Icon";
@@ -81,7 +84,7 @@ export function MistakeLog({
     if (!mistake) return;
     setMode("current");
     setOpenId(mistake.id);
-    window.dispatchEvent(new CustomEvent(JUMP_EVENT, {
+    if (!isPhraseMistake(mistake)) window.dispatchEvent(new CustomEvent(JUMP_EVENT, {
       detail: { tid: mistake.tid, page: mistake.page },
     }));
   }, [initialOpenId, mobileSheet, state.mistakes]);
@@ -103,10 +106,11 @@ export function MistakeLog({
     return () => window.cancelAnimationFrame(frame);
   }, [openId]);
 
-  const toggle = (id: string, tid: string, page?: number) => {
+  const toggle = (mistake: Mistake) => {
+    const { id, tid, page } = mistake;
     const opening = openId !== id;
     setOpenId(opening ? id : null);
-    if (opening) {
+    if (opening && !isPhraseMistake(mistake)) {
       window.dispatchEvent(new CustomEvent(JUMP_EVENT, { detail: { tid, page } }));
     }
   };
@@ -116,11 +120,12 @@ export function MistakeLog({
     setExpanded(true);
   };
 
-  const openCompactMistake = (id: string, tid: string, page?: number) => {
+  const openCompactMistake = (mistake: Mistake) => {
+    const { id, tid, page } = mistake;
     setOpenId(id);
     setMode("current");
     setExpanded(true);
-    window.dispatchEvent(new CustomEvent(JUMP_EVENT, { detail: { tid, page } }));
+    if (!isPhraseMistake(mistake)) window.dispatchEvent(new CustomEvent(JUMP_EVENT, { detail: { tid, page } }));
   };
 
   return (
@@ -255,10 +260,7 @@ export function MistakeLog({
             {ordered.map((mistake) => {
               const category = CATEGORY_BY_ID[mistake.category];
               const open = openId === mistake.id;
-              const reference =
-                mistake.ayah === null
-                  ? `${mistake.surah}:Basmala`
-                  : `${mistake.surah}:${mistake.ayah}`;
+              const reference = mistakeLocationReference(mistake);
               return (
                 <li
                   className={`log-row-wrap cat-${mistake.category} ${open ? "open" : ""}`}
@@ -275,9 +277,9 @@ export function MistakeLog({
                     title={`${category.label} · ${reference}`}
                     onClick={() => {
                       if (presentation === "compact" && !expanded) {
-                        openCompactMistake(mistake.id, mistake.tid, mistake.page);
+                        openCompactMistake(mistake);
                       } else {
-                        toggle(mistake.id, mistake.tid, mistake.page);
+                        toggle(mistake);
                       }
                     }}
                   >

@@ -1117,3 +1117,21 @@ Implement it in this order:
 Do not combine phase 4A with participant display effects, automatic question
 generation, tile drawing, AI, cloud synchronization, or the final immersive
 visual treatment. Those have separate validation boundaries.
+
+## Starting and ending phrases — approved 23 September 2026
+
+The owner approved manual phrase marking in the regular app and publication to
+the main Tanween site. One labelled header button sits immediately left of the
+participant card. The reviewed Arabic catalogue, shared letter controls,
+first-use help and category feedback remain the interaction contract.
+
+There is one active finding per phrase letter, judge and recitation. Re-marking
+the same category leaves the deduction unchanged, including manual adjustments;
+changing category corrects it using the configured step. Active judge assignments
+govern the available criteria. Closing is optional: the app never penalizes
+omission or requires an explanation merely to finish. No automated listening,
+popup timing, restart detection or equivalence with printed Bismillah is implied.
+
+Typed phrase evidence, audit history, scores, result files and backups must stay
+consistent. The production save path retains old storage bytes and must stop
+on a competing old-tab update rather than merge or overwrite silently.

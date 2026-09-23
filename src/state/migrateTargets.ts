@@ -7,6 +7,7 @@ import {
 } from "../lib/judgingUnits.ts";
 import type { MushafPage, PageWord } from "../lib/page.ts";
 import type { JudgingState, Mistake } from "../types.ts";
+import { isPhraseMistake } from "../lib/phraseEvidence.ts";
 
 export type TargetMigrationPatch = Pick<
   Mistake,
@@ -108,14 +109,14 @@ export async function buildTargetMigrationPatches(
 ): Promise<TargetMigrationPatches> {
   const legacy = allMistakes(state).filter(
     (mistake) =>
-      mistake.targetVersion !== 2 ||
+      !isPhraseMistake(mistake) && (mistake.targetVersion !== 2 ||
       mistake.sourceStart === undefined ||
       mistake.sourceEnd === undefined ||
       !mistake.wordId ||
       !mistake.primaryGlyph?.trim() ||
       !mistake.fullGlyph?.trim() ||
       mistake.sourceVersion !== TARGET_SOURCE_VERSION ||
-      mistake.ruleVersion !== TARGET_RULE_VERSION,
+      mistake.ruleVersion !== TARGET_RULE_VERSION),
   );
   if (!legacy.length) return {};
 
