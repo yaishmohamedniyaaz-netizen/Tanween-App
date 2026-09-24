@@ -149,6 +149,16 @@ export function rangeDisplayForPage(
   const lineStates = new Map<number, RangeLineState>();
 
   for (const line of page.lines) {
+    if (line.type === "surah-header") {
+      // An opening ornament may be printed on the preceding page. Its
+      // emphasis follows ayah 1, without adding a recitation line or target.
+      const openingInRange =
+        (line.surah > range.startAyah.surah ||
+          (line.surah === range.startAyah.surah && range.startAyah.ayah === 1)) &&
+        line.surah <= range.endAyah.surah;
+      lineStates.set(line.n, openingInRange ? "question" : "context");
+      continue;
+    }
     if (!rangeLineNumbers.has(line.n)) {
       lineStates.set(line.n, "context");
       continue;

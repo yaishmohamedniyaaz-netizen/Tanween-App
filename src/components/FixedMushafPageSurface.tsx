@@ -6,6 +6,7 @@ import "./fixedMushaf.css";
 import { useCompactMushafPaper, useCalibratedPaperWidth } from './MushafViewport';
 import { fixedPaperPresentation } from '../lib/mobileMushafPresentation';
 import { calibratedMobilePaper } from '../lib/mobileCalibration';
+import { printedBasmalaWords } from '../lib/printedBasmala';
 
 const INSET = 12, TOP = 16, BOTTOM = 12;
 const ART_SCALE = (MUSHAF_REFERENCE_WIDTH - INSET * 2) / 1920;
@@ -34,26 +35,27 @@ export function FixedMushafPageSurface({
   }, [paper.width]);
   useLayoutEffect(() => { if (scale) onGeometryChange?.(); }, [scale, data, onGeometryChange]);
   const lines = new Map(data.lines.map(line => [line.n, line]));
+  const words = [...fixed.words, ...printedBasmalaWords(data)].sort((a, b) => a.line - b.line || b.region[0] - a.region[0]);
   const openingOffset = data.page <= 2 && fixed.contentBounds
     ? (fixed.height - fixed.contentBounds[1] - fixed.contentBounds[3]) / 2 * ART_SCALE : 0;
-  // Artwork outside the word rows includes surah ornaments and unnumbered
-  // bismillahs. Fade it with context, without covering any selectable word.
+  // Ornament emphasis follows its surah's opening, including ornaments on
+  // the preceding page. Printed Basmalas now have ordinary selectable rows.
   const contextGaps: Array<[number, number]> = [];
   let rowBottom = 0;
-  for (const word of [...fixed.words].sort((a, b) => a.region[1] - b.region[1])) {
+  const hasQuestionOpening = (after: number, before: number) => data.lines.some(line =>
+    line.type === "surah-header" && line.n > after && line.n < before &&
+    !lineClassName?.(line)?.includes("question-context-line"));
+  for (const word of [...words].sort((a, b) => a.region[1] - b.region[1])) {
     const [, top, , bottom] = word.region;
     if (top > rowBottom) {
-      const previousLine = Math.max(0, ...fixed.words.filter(w => w.region[3] <= rowBottom).map(w => w.line));
-      const includesQuestionBasmala = data.lines.some(line =>
-        line.type === "basmala" && line.n > previousLine && line.n < word.line &&
-        !lineClassName?.(line)?.includes("question-context-line"));
-      // The opening artwork and bismillah share this gap. Preserve the whole
-      // opening when its bismillah is included by the existing range resolver.
-      if (!includesQuestionBasmala) contextGaps.push([rowBottom, top]);
+      const previousLine = Math.max(0, ...words.filter(w => w.region[3] <= rowBottom).map(w => w.line));
+      if (!hasQuestionOpening(previousLine, word.line)) contextGaps.push([rowBottom, top]);
     }
     rowBottom = Math.max(rowBottom, bottom);
   }
-  if (rowBottom < fixed.height) contextGaps.push([rowBottom, fixed.height]);
+  if (rowBottom < fixed.height && !hasQuestionOpening(Math.max(0, ...words.map(w => w.line)), Infinity)) {
+    contextGaps.push([rowBottom, fixed.height]);
+  }
   return <div ref={frame} className={`mushaf-page-frame fixed-page-frame ${className}`}
     style={{ aspectRatio: paper.aspectRatio }}>
     <div {...props} ref={pageRef} className={`page page-fixed-mushaf ${className}`}
@@ -70,7 +72,7 @@ export function FixedMushafPageSurface({
           style={{ left: INSET, top: TOP + openingOffset + top * ART_SCALE,
             width: fixed.width * ART_SCALE, height: (bottom - top) * ART_SCALE }} />)}
         {beforeLines}
-        {fixed.words.map((word, index) => {
+        {words.map((word, index) => {
           const line = lines.get(word.line)!;
           const [x0, y0, x1, y1] = word.region;
           return <div key={word.wid} className={`fixed-word ${lineClassName?.(line) ?? ""}`}
@@ -78,8 +80,8 @@ export function FixedMushafPageSurface({
             style={{ left: INSET + x0 * ART_SCALE, top: TOP + openingOffset + y0 * ART_SCALE,
               width: (x1 - x0) * ART_SCALE, height: (y1 - y0) * ART_SCALE,
               // Fade reaches the artwork edges; selection/hit regions do not.
-              '--context-right': fixed.words[index - 1]?.line !== word.line ? `${-(fixed.width - x1) * ART_SCALE}px` : '0px',
-              '--context-left': fixed.words[index + 1]?.line !== word.line ? `${-x0 * ART_SCALE}px` : '0px',
+              '--context-right': words[index - 1]?.line !== word.line ? `${-(fixed.width - x1) * ART_SCALE}px` : '0px',
+              '--context-left': words[index + 1]?.line !== word.line ? `${-x0 * ART_SCALE}px` : '0px',
             } as CSSProperties}>
             {renderWord(word, line)}
           </div>;
