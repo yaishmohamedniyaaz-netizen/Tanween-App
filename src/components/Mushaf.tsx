@@ -10,6 +10,7 @@ import {
   useState,
 } from "react";
 import { flushSync } from "react-dom";
+import { useMushafPageGesture } from '../hooks/useMushafPageGesture';
 import type { ReadyFixedPage } from '../lib/readyFixedPages';
 import { uid } from "../lib/id";
 import {
@@ -42,6 +43,7 @@ import { DragMenu, type MenuAnchor } from "./DragMenu";
 import {
   useMushafRenderScale,
   useCompactMushafPages,
+  useMushafStageRef,
 } from "./MushafViewport";
 import type {
   MushafLayout,
@@ -153,6 +155,7 @@ interface ContextShadeBox {
 export function Mushaf({
   preparedFixedPage,
   navigationPending = false,
+  navigationError,
   fixedPages,
   fixedSemanticPages,
   selectorTashkeel = false,
@@ -167,6 +170,9 @@ export function Mushaf({
   const { state, dispatch } = useJudging();
   const renderScale = useMushafRenderScale();
   const compact = useCompactMushafPages();
+  const stageRef = useMushafStageRef();
+  const compositionRef = useRef<HTMLDivElement>(null);
+  const swipeLocked = useRef<() => boolean>(() => false);
   const requestedPages = useMemo(
     () => visibleMushafPages(currentPage, pageLayout, compact),
     [compact, currentPage, pageLayout],
@@ -286,7 +292,7 @@ export function Mushaf({
 
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
-      if (event.defaultPrevented || active) return;
+      if (event.defaultPrevented || active || swipeLocked.current()) return;
       const target = event.target as HTMLElement | null;
       if (
         target?.closest(
@@ -560,7 +566,7 @@ export function Mushaf({
     : null;
   const commit = useCallback(
     (category: CategoryId, tidOverride?: string | null) => {
-      if (!active || !judgingEnabled) return;
+      if (!active || !judgingEnabled || swipeLocked.current()) return;
       // A prepared desktop spread contains two markable pages. Reject stale
       // geometry, not the second page of the currently displayed spread.
       if (preparedFixedPage && (!requestedPages.includes(active.meta.page) ||
@@ -602,7 +608,7 @@ export function Mushaf({
   );
 
   const onPointerDown = (event: React.PointerEvent, page: number) => {
-    if (!judgingEnabled) return;
+    if (!judgingEnabled || swipeLocked.current()) return;
     if (preparedFixedPage && boxesKey !== requestKey) return;
     if (fixedPages && requestKey !== pageData.map(data => data.page).join(":")) return;
     if (fixedPages && (!event.isPrimary || startRef.current)) { closeAll(); return; }
@@ -612,21 +618,7 @@ export function Mushaf({
     if ((event.target as HTMLElement).closest(".page-marginalia")) return;
     const root = rootForPage(page);
     if (!root) return;
-    const rootRect = root.getBoundingClientRect();
-    const pointX = event.clientX - rootRect.left;
-    const pointY = event.clientY - rootRect.top;
-    // The decoration extends the word's existing target. A tap on its top
-    // edge must never select the Quran word on the preceding line.
-    const numberedWord = boxes.find(box => {
-      if (box.page !== page) return false;
-      const marker = wordSummaries.get(`${box.page}:${box.wid}`)?.marker;
-      return marker && pointX >= marker.x && pointX <= marker.x + marker.w &&
-        pointY >= marker.y && pointY <= marker.y + marker.h;
-    });
-    const pageBoxes = boxes.filter(box => box.page === page);
-    const box = numberedWord ?? (fixedPages
-      ? pageBoxes.find(box => pointX >= box.x && pointX < box.x + box.w && pointY >= box.y && pointY < box.y + box.h)
-      : pickMushafWord(pageBoxes, pointX, pointY));
+    const box = wordAtPoint(page, event.clientX, event.clientY);
 
     if (!box) {
       if (pinned) closeAll();
@@ -732,7 +724,7 @@ export function Mushaf({
     event: React.KeyboardEvent<HTMLElement>,
     box: WordHitbox,
   ) => {
-    if (!judgingEnabled) return;
+    if (!judgingEnabled || swipeLocked.current()) return;
     if (preparedFixedPage && boxesKey !== requestKey) return;
     if (fixedPages && requestKey !== pageData.map(data => data.page).join(":")) return;
     if (event.key !== "Enter" && event.key !== " ") return;
@@ -808,6 +800,47 @@ export function Mushaf({
     return result;
   }, [boxes, byTid, state.activeAssignment?.judgeSeatId, allowedCountKey]);
   const readyKey = pageData.map(({ page }) => page).join(":");
+
+  // Shared by marking and page navigation, including the marker's extra area.
+  function wordAtPoint(page: number, clientX: number, clientY: number) {
+    const root = rootForPage(page);
+    if (!root) return undefined;
+    const rect = root.getBoundingClientRect();
+    const x = clientX - rect.left, y = clientY - rect.top;
+    const pageBoxes = boxes.filter(box => box.page === page);
+    const numberedWord = pageBoxes.find(box => {
+      const marker = wordSummaries.get(`${page}:${box.wid}`)?.marker;
+      return marker && x >= marker.x && x <= marker.x + marker.w &&
+        y >= marker.y && y <= marker.y + marker.h;
+    });
+    return numberedWord ?? (fixedPages
+      ? pageBoxes.find(box => x >= box.x && x < box.x + box.w && y >= box.y && y < box.y + box.h)
+      : pickMushafWord(pageBoxes, x, y));
+  }
+
+  const pageSwipe = useMushafPageGesture({
+    host: stageRef, composition: compositionRef, enabled: Boolean(fixedPages),
+    ready: !navigationPending && readyKey === requestKey && boxesKey === requestKey,
+    viewKey: requestKey,
+    generation: `${requestKey}|${pageLayout}|${compact}|${renderScale}|${state.activeSessionId}|${state.preparedRecitation?.id}`,
+    error: navigationError,
+    classify(event) {
+      // Preserve the complete geometric target, even if DOM hit-testing sees paper.
+      if (requestedPages.some(page => wordAtPoint(page, event.clientX, event.clientY))) return 'word';
+      if (active || startRef.current) return 'dismiss';
+      return 'background';
+    },
+    cancelMarking: closeAll,
+    target(direction) {
+      const page = moveMushafView(currentPage, pageLayout, direction, compact);
+      const key = visibleMushafPages(page, pageLayout, compact).join(':');
+      return key === requestKey ? null : { page, key };
+    },
+    navigate: onPageChange,
+    settled: geometryChanged,
+  });
+  useLayoutEffect(() => { swipeLocked.current = pageSwipe.isLocked; });
+
   const renderPage = (data: MushafPage) => {
     const fixed = fixedPages?.get(data.page);
     if (fixedPages && !fixed) return <div key={data.page} role="status">Loading matching page…</div>;
@@ -976,6 +1009,7 @@ export function Mushaf({
         {headerControls(renderedPageNumbers, compact)}
       </div>
       <div
+        ref={compositionRef}
         className={`mushaf-composition ${renderedPages.length > 1 ? "mushaf-spread" : "mushaf-single"}`}
         data-visible-pages={renderedPageNumbers.join(":")}
       >

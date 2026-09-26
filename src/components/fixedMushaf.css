@@ -1,4 +1,11 @@
 .fixed-page-frame { position: relative; }
+/* Background gestures only. Word touch policy remains owned by marking. */
+.mushaf-shell[data-page-swipe-mode="swipe"] { touch-action: pan-y pinch-zoom; }
+.app.view-judge .mushaf-shell[data-page-swipe-mode="swipe"] { overflow-x: hidden; }
+.mushaf-shell[data-page-swipe-mode="pan"] { touch-action: pan-x pan-y pinch-zoom; }
+.app.view-judge .mushaf-shell[data-page-swipe-mode="pan"] .page-fixed-mushaf {
+  touch-action: pan-x pan-y pinch-zoom;
+}
 /* Fit needs an external frame size at breakpoints without the desktop or phone
    shell. Measuring the rendered page itself feeds its size back into Fit. */
 @media (min-width: 601px) and (max-width: 900px),

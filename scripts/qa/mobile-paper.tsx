@@ -30,7 +30,7 @@ function Fixture() {
     `}</style>}
     <App/>
   </>;
-  const safe = import.meta.env.DEV && location.hostname === '127.0.0.1' && ['5296', '5320'].includes(location.port)
+  const safe = import.meta.env.DEV && location.hostname === '127.0.0.1' && ['5296', '5320', '5346'].includes(location.port)
     && state.competition.isSample && !state.sessionActive && state.history.length === 0;
   return <button disabled={!safe} onClick={async()=>{
     const params = new URLSearchParams(location.search);

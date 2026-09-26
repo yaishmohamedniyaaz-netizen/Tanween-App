@@ -46,18 +46,20 @@ function PreparedFixedMushaf(props: MushafProps) {
     {props.navigationPending && <div className="fixed-navigation-status" role={props.navigationError ? 'alert' : 'status'}>
       {props.navigationError || 'Opening page…'}
       {props.navigationError && <button type="button" onClick={props.retryNavigation}>Retry</button>}
+      <button type="button" onClick={() => props.onPageChange(ready.page)}>Stay on this page</button>
     </div>}
   </>;
 }
 
 function UnpreparedFixedMushaf(props: MushafProps) {
-  const compact = useCompactMushafPages();
   const legacy = new URLSearchParams(window.location.search).get('desktopReadyPages') === '0';
-  return compact || legacy ? <LegacyFixedMushaf {...props} /> : <ReadyDesktopMushaf {...props} />;
+  return legacy ? <LegacyFixedMushaf {...props} /> : <ReadyViewMushaf {...props} />;
 }
 
-function ReadyDesktopMushaf(props: MushafProps) {
-  const visible = visibleMushafPages(props.page, props.pageLayout, false);
+function ReadyViewMushaf(props: MushafProps) {
+  // Tablets use the same bounded ready-view owner; compact views contain one page.
+  const compact = useCompactMushafPages();
+  const visible = visibleMushafPages(props.page, props.pageLayout, compact);
   const fixed = useReadyFixedSpread(visible);
   return <PreparedFixedMushaf {...props}
     page={fixed.ready?.page ?? props.page}

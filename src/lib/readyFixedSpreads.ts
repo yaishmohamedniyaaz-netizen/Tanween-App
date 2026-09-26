@@ -3,7 +3,7 @@ import type { ReadyFixedPage } from './readyFixedPages.ts';
 import { moveMushafView, visibleMushafPages } from './mushafSpread.ts';
 
 interface Snapshot { requested: string | null; displayed: ReadyFixedPage | null; error: string | null }
-/** Desktop-only: at most three spreads (six page resources), including work in
+/** At most three views (six page resources), including work in
  * progress. The mounted spread stays pinned until React commits its successor. */
 export function createReadyFixedSpreads(load: (page: number, signal: AbortSignal) => Promise<LoadedFixedPage>) {
   const entries = new Map<string, { value: ReadyFixedPage; release(): void }>();

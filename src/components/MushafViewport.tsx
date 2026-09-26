@@ -2,6 +2,7 @@ import {
   createContext,
   type CSSProperties,
   type ReactNode,
+  type RefObject,
   useContext,
   useEffect,
   useLayoutEffect,
@@ -49,7 +50,12 @@ const MushafViewportContext = createContext({
   compactPages: true,
   compactPaper: false,
   calibratedWidth: 0,
+  stageRef: { current: null } as RefObject<HTMLDivElement>,
 });
+
+export function useMushafStageRef() {
+  return useContext(MushafViewportContext).stageRef;
+}
 
 export function useCalibratedPaperWidth(): number {
   return useContext(MushafViewportContext).calibratedWidth;
@@ -252,6 +258,7 @@ export function MushafViewport({
       >
         <MushafViewportContext.Provider
           value={{ renderScale, stableStage, compactPages, compactPaper: mobilePresentation,
+            stageRef: frameRef,
             calibratedWidth: mobileCalibrationPage !== undefined ? renderedInlineSize : 0 }}
         >
           {children}

@@ -364,3 +364,21 @@ product rules belong in `PRODUCT_FOUNDATION.md`, not here.
       Choosing/merging divergent copies is still
       manual; the app never silently resolves that conflict.
     - No automatic popup timing or new microphone/recognition work is included.
+
+32. **Touch and pen page swiping: physical acceptance and later word starts**
+    - Owner requested finger and pen navigation across phone, tablet, and desktop
+      layouts. Eligibility follows each pointer type, not a tablet breakpoint.
+    - The first implementation starts outside existing word/marker targets and
+      preserves their immediate marking interaction. See
+      `TOUCH_AND_PEN_PAGE_SWIPE_IMPLEMENTATION.md` for verified behavior and scope.
+    - Thresholds and 160/200 ms motion are initial review values, not competition
+      rules. Physical phone/Pencil comfort, palm contact, Safari/PWA behavior,
+      remain unverified. The owner explicitly approved commit and publication
+      on 26 September 2026 after the local review was presented.
+    - A second reported contact cancels the gesture, including mixed pen/touch.
+      Revisit only if actual resting-palm use blocks ordinary Pencil swiping.
+    - Delay before opening a word's marking tray, and allowing a swipe to begin
+      on a word, remain a separate future slice. No timing or delay preference
+      has been adopted here.
+    - No scoring, evidence, or device-preference schema change is authorized by
+      this interaction. Release approval does not claim physical-device acceptance.
