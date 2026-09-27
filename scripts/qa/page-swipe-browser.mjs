@@ -45,7 +45,7 @@ async function idle(p) {
  // Prepared reading has semantic regions but no enabled judging buttons.
  await p.locator('.page-fixed-mushaf [data-wid]').first().waitFor();
 }
-async function pages(p) {return p.locator('.mushaf-composition').getAttribute('data-visible-pages');}
+async function pages(p) {return p.locator('.mushaf-composition').first().getAttribute('data-visible-pages');}
 async function jump(p,page) {
  await p.locator('.page-nav-page').click();
  await p.getByRole('dialog',{name:'Jump to page',exact:true}).getByRole('spinbutton').fill(String(page));
@@ -75,6 +75,42 @@ async function stroke(cdp,p,type,start,dx,dy=0,{cancel=false,backtrack=false}={}
  await idle(p);
 }
 
+// Verify the actual held gesture: outgoing and adjacent views travel together,
+// reverse with the contact, then hand over without a second entrance animation.
+async function heldTurn(cdp,p,type,start,key,width,direction=1,expectedMarkedWords=0) {
+ const input=async(phase,dx)=>type==='touch'
+  ? cdp.send('Input.dispatchTouchEvent',{type:phase==='down'?'touchStart':phase==='up'?'touchEnd':'touchMove',
+    touchPoints:phase==='up'?[]:[{x:start.x+dx,y:start.y,id:1}]})
+  : cdp.send('Input.dispatchMouseEvent',{type:phase==='down'?'mousePressed':phase==='up'?'mouseReleased':'mouseMoved',
+    x:start.x+dx,y:start.y,button:phase==='move'?'none':'left',buttons:phase==='up'?0:1,pointerType:type});
+ const original=await pages(p);
+ await input('down',0);
+ for(const dx of [30,80,130,75,130].map(dx=>dx*direction)) {
+  await input('move',dx);
+  await p.waitForFunction(dx=>{
+   const track=document.querySelector('.mushaf-swipe-track');
+   return track && Math.abs(new DOMMatrix(getComputedStyle(track).transform).m41-dx)<1;
+  },dx,{timeout:5000});
+  assert.equal(await p.locator('.mushaf-composition').first().getAttribute('data-visible-pages'),original);
+ }
+ const projected=await p.locator(`[data-swipe-view="${key}"] .fixed-page-frame`).evaluateAll((frames,direction)=>{
+  const travel=document.querySelector('.mushaf-swipe-layer').clientWidth;
+  return frames.map(frame=>{const r=frame.getBoundingClientRect();return {x:r.x+direction*(travel-130),y:r.y,w:r.width,h:r.height};});
+ },direction);
+ assert.equal(await p.locator('.mushaf-swipe-layer').getAttribute('inert'),'');
+ assert.ok(await p.locator('.mobile-question-return').count()<=1,'previews must not mount external header controls');
+ assert.equal(await p.locator('[data-swipe-view] [data-word-hit]').count(),0,'adjacent pages cannot accept marks');
+ if(expectedMarkedWords) assert.equal(await p.locator(`[data-swipe-view="${key}"] .glyph-ink.marked`).count(),expectedMarkedWords);
+ if(type==='touch') await p.screenshot({path:`${out}/continuous-held-${width}-${direction}.png`});
+ await input('up',130*direction);await idle(p);
+ assert.equal(await pages(p),key);
+ const settled=await p.locator('.fixed-page-frame:not(.mushaf-swipe-layer *)').evaluateAll(frames=>frames.map(frame=>{
+  const r=frame.getBoundingClientRect();return {x:r.x,y:r.y,w:r.width,h:r.height};
+ }));
+ for(let i=0;i<settled.length;i++) for(const axis of ['x','y','w','h'])
+  assert.ok(Math.abs(settled[i][axis]-projected[i][axis])<1.1,`${width} ${type} ${axis} handover: ${JSON.stringify({settled,projected})}`);
+}
+
 try {
  for(const [width,height] of [[320,568],[390,844],[430,932],[768,1024],[1024,768],[1180,820],[1400,900]]) {
   const f=await fixture(width,height),{p,cdp}=f;
@@ -82,10 +118,11 @@ try {
   for(const type of ['touch','pen']) {
    const anchor=Number((await pages(p)).split(':')[0]);
    const start=await paperStart(p);
-   const time=Date.now();await stroke(cdp,p,type,start,130);
+   const target=step===2?`${anchor+step}:${anchor+step+1}`:String(anchor+step);
+   const time=Date.now();await heldTurn(cdp,p,type,start,target,width);
    assert.equal(Number((await pages(p)).split(':')[0]),anchor+step,`${width} ${type} forward`);
    const elapsed=Date.now()-time;
-   await stroke(cdp,p,type,await paperStart(p,'right'),-130);
+   await heldTurn(cdp,p,type,await paperStart(p,'right'),initial,width,-1);
    assert.equal(await pages(p),initial,`${width} ${type} reverse`);
    assert.deepEqual(await state(p),before,'navigation must not write judging evidence');
    results.push({width,height,type,step,forwardAndBack:true,observedTestElapsedMs:elapsed});
@@ -120,7 +157,7 @@ try {
  await p.waitForFunction(()=>window.providerQA.state.mistakes.length===1);
  const marked=await state(p);
  await stroke(cdp,p,'touch',await paperStart(p),130);
- await stroke(cdp,p,'pen',await paperStart(p,'right'),-130);
+ await heldTurn(cdp,p,'pen',await paperStart(p,'right'),initial,390,-1,1);
  assert.deepEqual(await state(p),marked);
  await p.locator('[data-word-hit="80.b.0"]').click();
  await p.locator('[data-unit-tid]').first().click();await p.locator('[data-pill="khafi"]').click();
@@ -133,7 +170,7 @@ try {
  const reduced=await fixture(1024,768,'reduce');
  await stroke(reduced.cdp,reduced.p,'pen',await paperStart(reduced.p),130);
  assert.equal(await pages(reduced.p),'587:588');
- assert.equal(await reduced.p.locator('.mushaf-composition').evaluate(e=>e.getAnimations().length),0);
+ assert.equal(await reduced.p.locator('.mushaf-composition').first().evaluate(e=>e.getAnimations().length),0);
  await reduced.context.close();results.push({reducedMotion:true});
 
  // Boundaries and dark-mode controls, on the opposite rail side.
@@ -153,11 +190,11 @@ try {
  const zoomBefore=await pages(zoom.p);
  const panPolicy=await zoom.p.locator('.page-fixed-mushaf').first().evaluate(e=>getComputedStyle(e).touchAction);
  assert.ok(panPolicy.includes('pan-x') || panPolicy.includes('manipulation'));
- const zrect=await zoom.p.locator('.mushaf-shell').boundingBox();
- const scrollBefore=await zoom.p.locator('.mushaf-shell').evaluate(e=>e.scrollLeft);
+ const zrect=await zoom.p.locator('.mushaf-shell').first().boundingBox();
+ const scrollBefore=await zoom.p.locator('.mushaf-shell').first().evaluate(e=>e.scrollLeft);
  await stroke(zoom.cdp,zoom.p,'touch',{x:zrect.x+zrect.width*.55,y:zrect.y+12},-100);
  assert.equal(await pages(zoom.p),zoomBefore);
- assert.ok(Math.abs(await zoom.p.locator('.mushaf-shell').evaluate(e=>e.scrollLeft)-scrollBefore)>10,'native horizontal pan moves enlarged page');
+ assert.ok(Math.abs(await zoom.p.locator('.mushaf-shell').first().evaluate(e=>e.scrollLeft)-scrollBefore)>10,'native horizontal pan moves enlarged page');
  await zoom.context.close();results.push({zoomPanPriority:true});
 
  // Failed navigation holds coherent artwork and has an explicit escape route.
@@ -166,9 +203,9 @@ try {
  await jump(fp,300);
  await fp.getByRole('button',{name:'Retry',exact:true}).waitFor();
  assert.equal(await pages(fp),'585');
- assert.equal(await fp.locator('.page-fixed-mushaf').getAttribute('data-judging-enabled'),'false');
+ assert.equal(await fp.locator('.page-fixed-mushaf').first().getAttribute('data-judging-enabled'),'false');
  await fp.getByRole('button',{name:'Stay on this page',exact:true}).click();await idle(fp);
- assert.equal(await fp.locator('.page-fixed-mushaf').getAttribute('data-judging-enabled'),'true');
+ assert.equal(await fp.locator('.page-fixed-mushaf').first().getAttribute('data-judging-enabled'),'true');
  await fp.unroute('**/mushaf/**');
  await jump(fp,300);await idle(fp);assert.equal(await pages(fp),'300');
  await failure.context.close();results.push({failureAndReturnRecovery:true});
@@ -200,17 +237,17 @@ try {
   assert.equal(await pages(rp),'587:588',`forward repeat ${i}`);
   await stroke(rc,rp,i%2?'touch':'pen',await paperStart(rp,'right'),-130);
   assert.equal(await pages(rp),'585:586');
-  assert.equal(await rp.locator('.page-fixed-mushaf').count(),2);
-  assert.equal(await rp.locator('.mushaf-composition').evaluate(e=>e.getAnimations().length),0);
+  assert.equal(await rp.locator('.page-fixed-mushaf:not(.mushaf-swipe-layer *)').count(),2);
+  assert.equal(await rp.locator('.mushaf-composition').first().evaluate(e=>e.getAnimations().length),0);
  }
  assert.deepEqual(await state(rp),rotationBefore);assert.deepEqual(rotation.errors,[]);
  await rotation.context.close();results.push({rotationCancellation:true,repeatedTurns:12});
 
  // Prepared recital navigation shares the interaction without starting judging.
  const prepared=await fixture(390,844,'no-preference',{},false);
- await stroke(prepared.cdp,prepared.p,'touch',await paperStart(prepared.p),130);
+ await heldTurn(prepared.cdp,prepared.p,'touch',await paperStart(prepared.p),'586',390);
  assert.equal(await pages(prepared.p),'586');
- await stroke(prepared.cdp,prepared.p,'pen',await paperStart(prepared.p,'right'),-130);
+ await heldTurn(prepared.cdp,prepared.p,'pen',await paperStart(prepared.p,'right'),'585',390,-1);
  assert.equal(await pages(prepared.p),'585');
  assert.equal(await prepared.p.getByRole('button',{name:'Begin judging',exact:true}).count(),1);
  assert.equal((await state(prepared.p)).mistakes.length,0);assert.deepEqual(prepared.errors,[]);
@@ -220,7 +257,7 @@ try {
 } catch(error) {
  for(const context of browser.contexts()) for(const p of context.pages()) {
   await p.screenshot({path:`${out}/failure.png`}).catch(()=>{});
-  console.error(await p.locator('.mushaf-shell').evaluate(e=>({state:e.dataset,rect:{w:e.clientWidth,h:e.clientHeight},scroll:[e.scrollWidth,e.scrollHeight]})).catch(()=>null));
+  console.error(await p.locator('.mushaf-shell').first().evaluate(e=>({state:e.dataset,rect:{w:e.clientWidth,h:e.clientHeight},scroll:[e.scrollWidth,e.scrollHeight]})).catch(()=>null));
   console.error(await p.evaluate(()=>window.swipeTrace).catch(()=>null));
  }
  throw error;

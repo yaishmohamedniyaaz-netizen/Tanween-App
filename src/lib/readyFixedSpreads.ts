@@ -48,6 +48,7 @@ export function createReadyFixedSpreads(load: (page: number, signal: AbortSignal
           semantic:new Map(resources.map((p,i)=>[pages[i],p.semantic]))},
           release:()=>resources.forEach(p=>p.dispose())});
         admit(next);
+        if (snapshot.requested !== next) emit({...snapshot});
       } catch(error) {
         if(epoch!==generation||job.abort.signal.aborted) return;
         failed.add(next);
@@ -62,6 +63,7 @@ export function createReadyFixedSpreads(load: (page: number, signal: AbortSignal
   return {
     subscribe(fn:()=>void){listeners.add(fn);return()=>{listeners.delete(fn);};},
     getSnapshot:()=>snapshot,
+    readyViews:()=>[...entries.values()].map(entry=>entry.value),
     request(pages:readonly number[]) {
       if(!pages.length||pages.length>2||pages.some(p=>!Number.isInteger(p)||p<1||p>604)||
         (pages.length===2&&pages[1]!==pages[0]+1)) return;

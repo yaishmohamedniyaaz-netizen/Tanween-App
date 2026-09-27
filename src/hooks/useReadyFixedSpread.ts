@@ -10,6 +10,7 @@ export function useReadyFixedSpread(numbers: readonly number[]) {
   useLayoutEffect(() => { if (snapshot.displayed) owner.committed(snapshot.displayed); }, [owner, snapshot.displayed]);
   useEffect(() => () => owner.clear(), [owner]);
   return { ready: snapshot.displayed,
+    previews: owner.readyViews(),
     pending: !snapshot.displayed || [...snapshot.displayed.pages.keys()].join(':') !== key,
     error: snapshot.requested === key ? snapshot.error : null, retry: owner.retry };
 }

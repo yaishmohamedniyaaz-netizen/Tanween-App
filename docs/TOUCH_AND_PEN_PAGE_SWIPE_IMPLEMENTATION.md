@@ -2,6 +2,47 @@
 
 Date: 26 September 2026.
 
+## Continuous-motion revision (approved for release)
+
+The owner rejected the released motion because it waited for release to change
+pages. The local revision replaces the 40px nudge and separate entrance with a
+continuous strip: the outgoing view and decoded adjacent view follow touch or
+pen at 1:1 displacement, including reversal while held. Release settles from
+that exact position; the live judging view takes over at the same geometry.
+
+Retained: Quran artwork, page sizing, shading, annotations, scoring, word-start
+ownership, navigation controls and input exclusions. Recomposed: page motion.
+Removed: capped movement and the second entrance animation.
+
+Adjacent presentations reuse the bounded decoded resource owners and are warmed
+before contact. They are inert and omit marking targets, navigation listeners,
+and header-control rendering (including external portals). One live view owns
+all judging. No extra artwork cache or persistence schema was introduced.
+Resize clears retained overlay dimensions. Mobile Fit centers the rendered
+width, not the unscaled artwork reference box's scroll extent.
+
+Validation: 30 focused tests; full suite 428 passed, one optional skip; production
+build; held touch/pen movement, reversal and handover within 1.1px at seven widths
+from 320 to 1400; prepared-screen handover; cancellation, rotation, repeated
+turns, mouse exclusion, zoom/pan, load recovery, marking and persistence.
+Five settled light/dark screenshot comparisons match the baseline exactly.
+Four printed-Bismillah browser cases pass correction, reload and backup checks.
+
+Motion review: <http://127.0.0.1:5320/outputs/swipe-qa/review.html>.
+Evidence: `outputs/swipe-qa/continuous-*`, `browser-results.json`, and
+`visual-regression.json`. The recordings show held contact with an orange dot,
+reversal, touch forward, pen backward and a cancelled short drag.
+
+On 27 September 2026 the owner approved the preview and requested publication
+after committing. The deployment record identifies the final commit and version.
+Physical iPad/Pencil, Safari,
+palm handling and installed-PWA feel remain unverified. Unavailable neighbors
+retain the coherent loading fallback; no blank page is exposed. Word-start
+delay remains deferred. Confidence: practicality 90/100, architecture/data
+safety 94/100, visual certainty 85/100; owner motion approval is recorded above.
+
+## Version 139 history (superseded motion)
+
 Status: implemented and browser-verified. On 26 September 2026, after reviewing
 the local preview, the owner explicitly requested "commit publish". Release is
 authorized with physical-device acceptance still unverified. The deployment

@@ -1,4 +1,15 @@
 .fixed-page-frame { position: relative; }
+.mushaf-swipe-layer {
+  position: absolute; inset: 0; overflow: clip; contain: strict;
+  pointer-events: none; visibility: hidden; z-index: 4;
+}
+.mushaf-swipe-track { position: relative; width: 100%; height: 100%; will-change: transform; }
+.mushaf-swipe-view { position: absolute; inset: 0; width: 100%; height: 100%; }
+.mushaf-swipe-layer .mushaf-shared-nav { visibility: hidden !important; }
+.app.view-judge .mushaf-swipe-layer .mushaf-viewport,
+.app.view-judge .mushaf-swipe-layer .mushaf-viewport > .mushaf-shell {
+  width: 100% !important; height: 100% !important; min-height: 0 !important;
+}
 /* Background gestures only. Word touch policy remains owned by marking. */
 .mushaf-shell[data-page-swipe-mode="swipe"] { touch-action: pan-y pinch-zoom; }
 .app.view-judge .mushaf-shell[data-page-swipe-mode="swipe"] { overflow-x: hidden; }

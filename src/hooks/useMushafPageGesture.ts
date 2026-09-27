@@ -1,9 +1,12 @@
 import { useLayoutEffect, useRef, type RefObject } from 'react';
+import { flushSync } from 'react-dom';
 import { createMushafPageGesture, type SwipeDirection } from '../lib/mushafPageGesture';
 
 interface Options {
   host: RefObject<HTMLDivElement>;
   composition: RefObject<HTMLDivElement>;
+  preview: RefObject<HTMLDivElement>;
+  showPreviews(show: boolean): void;
   enabled: boolean;
   ready: boolean;
   viewKey: string;
@@ -15,87 +18,118 @@ interface Options {
   navigate(page: number): void;
   settled(): void;
 }
-
 const CONTROL = 'button, input, textarea, select, a, [role="button"], [role="dialog"], [role="menu"], [contenteditable="true"], .mushaf-shared-nav';
 
-/** One stage owner. Motion is composited without a React render on every move. */
+/** One live judging surface; inert presentations follow the physical contact. */
 export function useMushafPageGesture(options: Options) {
-  const latest = useRef(options);
-  const gesture = useRef(createMushafPageGesture());
-  const contacts = useRef(new Set<number>());
-  const animation = useRef<Animation | null>(null);
-  const pending = useRef<{ key: string; direction: SwipeDirection } | null>(null);
-  const frame = useRef(0);
-  const offset = useRef(0);
+  const latest = useRef(options), gesture = useRef(createMushafPageGesture());
+  const contacts = useRef(new Set<number>()), animation = useRef<Animation | null>(null);
+  const pending = useRef<{ key: string; from: string; generation: string } | null>(null);
+  const frame = useRef(0), offset = useRef(0), rawOffset = useRef(0);
   const captured = useRef<number | null>(null);
   const clickGuard = useRef<{ id: number; until: number } | null>(null);
-  const cancelRef = useRef<() => void>(() => {});
-  const animateRef = useRef<(from: number, duration: number) => void>(() => {});
-  const updatePanModeRef = useRef<() => void>(() => {});
-
+  const cancelRef = useRef<() => void>(() => {}), refreshRef = useRef<() => void>(() => {});
   useLayoutEffect(() => { latest.current = options; });
 
   useLayoutEffect(() => {
     const host = options.host.current ?? options.composition.current?.closest<HTMLDivElement>('.mushaf-shell');
     if (!host || !options.enabled) return;
-    const controller = gesture.current;
-    const motion = matchMedia('(prefers-reduced-motion: reduce)');
+    const controller = gesture.current, motion = matchMedia('(prefers-reduced-motion: reduce)');
+    const track = () => latest.current.preview.current?.querySelector<HTMLElement>('.mushaf-swipe-track');
     const setState = (state: string) => { host.dataset.pageSwipeState = state; };
-    const resetMotion = () => {
-      cancelAnimationFrame(frame.current); frame.current = 0;
-      animation.current?.cancel(); animation.current = null;
-      const layer = latest.current.composition.current;
-      if (layer) { layer.style.removeProperty('transform'); layer.style.removeProperty('will-change'); }
-      offset.current = 0;
-    };
     const releaseCapture = () => {
       const id = captured.current; captured.current = null;
       if (id !== null && host.hasPointerCapture(id)) host.releasePointerCapture(id);
     };
-    const animate = (from: number, duration: number) => {
-      resetMotion();
-      const layer = latest.current.composition.current;
-      if (!layer || motion.matches || !from) { setState('idle'); return; }
-      setState('settling');
-      layer.style.willChange = 'transform';
-      const effect = layer.animate([
-        { transform: `translate3d(${from}px,0,0)` },
-        { transform: 'translate3d(0,0,0)' },
-      ], { duration, easing: 'cubic-bezier(0.25,1,0.5,1)' });
-      animation.current = effect;
-      void effect.finished.then(() => {
-        if (animation.current !== effect) return;
-        resetMotion(); setState('idle'); latest.current.settled();
-      }, () => {});
+    const resetMotion = () => {
+      cancelAnimationFrame(frame.current); frame.current = 0;
+      animation.current?.cancel(); animation.current = null;
+      const layer = latest.current.preview.current;
+      if (layer) {
+        layer.style.visibility = 'hidden';
+        for (const property of ['top', 'left', 'width', 'height']) layer.style.removeProperty(property);
+      }
+      layer?.querySelector('[data-swipe-current]')?.replaceChildren();
+      latest.current.composition.current?.style.removeProperty('visibility');
+      offset.current = rawOffset.current = 0;
     };
-    animateRef.current = animate;
     const cancel = () => {
       controller.cancel(); releaseCapture(); pending.current = null;
       resetMotion(); setState('idle');
     };
     cancelRef.current = cancel;
     const updatePanMode = () => {
-      // A temporary slide may extend scrollWidth. It is not user zoom/overflow.
-      // Resize and view changes cancel motion before asking for a new policy.
-      if (controller.active() || animation.current) return;
-      const pan = host.scrollWidth > host.clientWidth + 2 || (window.visualViewport?.scale ?? 1) > 1.01;
+      if (controller.active() || animation.current || pending.current) return;
+      const width = host.dataset.mobilePaper === 'true'
+        ? latest.current.composition.current?.getBoundingClientRect().width ?? host.scrollWidth
+        : host.scrollWidth;
+      const pan = width > host.clientWidth + 2 || (window.visualViewport?.scale ?? 1) > 1.01;
       host.dataset.pageSwipeMode = pan ? 'pan' : 'swipe';
       if (pan) cancel();
     };
-    updatePanModeRef.current = updatePanMode;
+    const readyPreview = (key: string) => {
+      const view = latest.current.preview.current?.querySelector<HTMLElement>(`[data-swipe-view="${key}"]`);
+      return view?.querySelector('[data-presentation-ready="true"]') ? view : null;
+    };
+    const draw = () => {
+      const layer = latest.current.preview.current, strip = track();
+      if (!layer || !strip || motion.matches) return;
+      const dx = rawOffset.current, direction = dx >= 0 ? 1 : -1;
+      const target = latest.current.target(direction), distance = host.clientWidth;
+      const available = target && readyPreview(target.key);
+      offset.current = available ? Math.max(-distance, Math.min(distance, dx))
+        : Math.sign(dx) * Math.min(target ? 28 : 12, Math.abs(dx) * 0.18);
+      for (const view of layer.querySelectorAll<HTMLElement>('[data-swipe-view]')) {
+        const forward = latest.current.target(1)?.key === view.dataset.swipeView;
+        view.style.transform = `translate3d(${forward ? -distance : distance}px,0,0)`;
+      }
+      strip.style.transform = `translate3d(${offset.current}px,0,0)`;
+      if (host.dataset.pageSwipeState === 'dragging') {
+        layer.style.visibility = 'visible';
+        latest.current.composition.current?.style.setProperty('visibility', 'hidden');
+      }
+    };
+    refreshRef.current = () => { updatePanMode(); if (controller.active()) draw(); };
+    const animate = (to: number, done: () => void) => {
+      cancelAnimationFrame(frame.current); frame.current = 0;
+      const strip = track();
+      if (!strip || motion.matches || Math.abs(to - offset.current) < 1) { done(); return; }
+      setState('settling');
+      const duration = Math.max(140, Math.min(280, 140 + Math.abs(to - offset.current) / host.clientWidth * 140));
+      const effect = strip.animate([
+        { transform: `translate3d(${offset.current}px,0,0)` },
+        { transform: `translate3d(${to}px,0,0)` },
+      ], { duration, easing: 'cubic-bezier(0.22,0.8,0.3,1)', fill: 'forwards' });
+      animation.current = effect;
+      void effect.finished.then(() => {
+        if (animation.current !== effect) return;
+        strip.style.transform = `translate3d(${to}px,0,0)`;
+        offset.current = to; animation.current = null; effect.cancel(); done();
+      }, () => {});
+    };
+    const prepare = () => {
+      if (motion.matches) return;
+      if (!latest.current.preview.current) flushSync(() => latest.current.showPreviews(true));
+      const layer = latest.current.preview.current;
+      const original = latest.current.composition.current?.closest('.mushaf-scroll');
+      const slot = layer?.querySelector('[data-swipe-current]');
+      if (!layer || !original || !slot) return;
+      // Cloning copies appearance, not React handlers. The entire layer is inert.
+      const copy = original.cloneNode(true) as HTMLElement;
+      copy.querySelectorAll('[id]').forEach(node => node.removeAttribute('id'));
+      slot.replaceChildren(copy);
+      layer.style.top = `${host.scrollTop}px`; layer.style.left = `${host.scrollLeft}px`;
+      layer.style.width = `${host.clientWidth}px`; layer.style.height = `${host.clientHeight}px`;
+      draw();
+    };
     const onDown = (event: PointerEvent) => {
-      // Keep a new physical gesture independent of a previous compatibility click.
-      clickGuard.current = null;
-      contacts.current.add(event.pointerId);
+      clickGuard.current = null; contacts.current.add(event.pointerId);
       const target = event.target instanceof Element ? event.target : null;
       const inside = target && host.contains(target);
       if (contacts.current.size > 1) {
-        cancel(); latest.current.cancelMarking();
-        if (inside) event.stopPropagation();
-        return;
+        cancel(); latest.current.cancelMarking(); if (inside) event.stopPropagation(); return;
       }
       if (!inside) { cancel(); return; }
-      // Do not hijack controls or any part of their larger touch target.
       if (target.closest(CONTROL) && !target.closest('[data-word-hit]')) { cancel(); return; }
       if (!['touch', 'pen'].includes(event.pointerType)) return;
       if (animation.current || pending.current || !latest.current.ready) { event.stopPropagation(); return; }
@@ -103,14 +137,11 @@ export function useMushafPageGesture(options: Options) {
       if (kind === 'dismiss') { latest.current.cancelMarking(); event.stopPropagation(); return; }
       if (document.querySelector('[aria-modal="true"], dialog[open], [role="menu"]')) return;
       if (kind === 'control' || kind === 'word') return;
-      updatePanMode();
-      if (host.dataset.pageSwipeMode === 'pan') return;
+      updatePanMode(); if (host.dataset.pageSwipeMode === 'pan') return;
       if (!controller.begin({ pointerId: event.pointerId, pointerType: event.pointerType,
         button: event.button, isPrimary: event.isPrimary, clientX: event.clientX, clientY: event.clientY,
         width: host.clientWidth, generation: latest.current.generation })) return;
-      setState('candidate');
-      // A background start never reaches the marking handler, even under capture.
-      event.stopPropagation();
+      setState('candidate'); event.stopPropagation(); prepare();
     };
     const onMove = (event: PointerEvent) => {
       if (!controller.owns(event.pointerId)) return;
@@ -123,43 +154,34 @@ export function useMushafPageGesture(options: Options) {
         catch { cancel(); return; }
       }
       if (event.cancelable) event.preventDefault();
-      setState('dragging');
-      const direction = result.dx > 0 ? 1 : -1;
-      const available = latest.current.target(direction);
-      // Gentle resistance supplies feedback without exposing an empty next page.
-      offset.current = motion.matches ? 0 : Math.sign(result.dx) *
-        Math.min(available ? 40 : 12, Math.abs(result.dx) * (available ? 0.28 : 0.1));
-      if (!frame.current) frame.current = requestAnimationFrame(() => {
-        frame.current = 0;
-        const layer = latest.current.composition.current;
-        if (layer) {
-          layer.style.willChange = 'transform';
-          layer.style.transform = `translate3d(${offset.current}px,0,0)`;
-        }
-      });
+      setState('dragging'); rawOffset.current = result.dx;
+      if (!frame.current) frame.current = requestAnimationFrame(() => { frame.current = 0; draw(); });
     };
     const onUp = (event: PointerEvent) => {
       contacts.current.delete(event.pointerId);
       if (!controller.owns(event.pointerId)) return;
       event.stopPropagation();
       const direction = controller.end(event, latest.current.generation);
-      releaseCapture();
-      clickGuard.current = { id: event.pointerId, until: performance.now() + 600 };
+      releaseCapture(); clickGuard.current = { id: event.pointerId, until: performance.now() + 600 };
+      draw();
       const target = direction && latest.current.ready ? latest.current.target(direction) : null;
-      animate(offset.current, 160);
-      if (target && direction) {
-        pending.current = { key: target.key, direction };
-        latest.current.cancelMarking();
-        latest.current.navigate(target.page);
-      }
+      if (!target || !direction) { animate(0, cancel); return; }
+      pending.current = { key: target.key, from: latest.current.viewKey, generation: latest.current.generation };
+      latest.current.cancelMarking();
+      const preview = readyPreview(target.key);
+      // Settle the already-visible destination, then hand over at the same place.
+      animate(preview ? direction * host.clientWidth : 0, () => {
+        if (!preview) {
+          latest.current.preview.current?.style.setProperty('visibility', 'hidden');
+          latest.current.composition.current?.style.removeProperty('visibility');
+        }
+        setState('waiting'); latest.current.navigate(target.page);
+      });
     };
     const onCancel = (event: PointerEvent) => {
-      contacts.current.delete(event.pointerId);
-      if (controller.owns(event.pointerId)) cancel();
+      contacts.current.delete(event.pointerId); if (controller.owns(event.pointerId)) cancel();
     };
     const onLostCapture = (event: PointerEvent) => {
-      // Touch implicitly captures its initial target. Its bubbled loss when we
-      // transfer ownership to the stage is expected, not a cancelled swipe.
       if (event.target === host && controller.owns(event.pointerId) && captured.current === event.pointerId) cancel();
     };
     const onClick = (event: MouseEvent) => {
@@ -171,7 +193,10 @@ export function useMushafPageGesture(options: Options) {
     const onBlur = () => { contacts.current.clear(); cancel(); latest.current.cancelMarking(); };
     const onVisibility = () => { if (document.hidden) onBlur(); };
     const onResize = () => { cancel(); updatePanMode(); };
-    const onScroll = () => { if (controller.active()) cancel(); };
+    const onScroll = (event: Event) => {
+      if (event.target instanceof Node && latest.current.preview.current?.contains(event.target)) return;
+      if (controller.active()) cancel();
+    };
     const onKey = (event: KeyboardEvent) => { if (event.key === 'Escape') cancel(); };
     const observer = new ResizeObserver(updatePanMode);
     observer.observe(host);
@@ -205,28 +230,21 @@ export function useMushafPageGesture(options: Options) {
       window.removeEventListener('keydown', onKey, true);
       window.visualViewport?.removeEventListener('resize', onResize);
       motion.removeEventListener('change', cancel);
-      cancelRef.current = () => {};
-      animateRef.current = () => {};
-      updatePanModeRef.current = () => {};
+      cancelRef.current = refreshRef.current = () => {};
       delete host.dataset.pageSwipeMode; delete host.dataset.pageSwipeState;
     };
   }, [options.enabled, options.host, options.composition]);
-
   useLayoutEffect(() => {
     const turn = pending.current;
-    // A coherent destination is now mounted. Other navigation never borrows its motion.
-    if (turn?.key === options.viewKey) {
-      gesture.current.cancel(); pending.current = null;
-      animateRef.current(-turn.direction * 32, 200);
-    } else {
+    if (turn && options.viewKey === turn.key) {
+      if (options.ready) { cancelRef.current(); options.settled(); }
+    } else if (!turn || options.viewKey !== turn.from || options.generation !== turn.generation) {
       cancelRef.current();
     }
-  }, [options.viewKey, options.generation]);
-  // Fit/rotation can change overflow before ResizeObserver delivers its callback.
-  // Publish the native policy in the same layout commit, before new contact.
-  useLayoutEffect(() => { updatePanModeRef.current(); });
+  }, [options.viewKey, options.generation, options.ready]);
+  useLayoutEffect(() => { refreshRef.current(); });
   useLayoutEffect(() => { if (options.error) cancelRef.current(); }, [options.error]);
-
-  return { isLocked: () => gesture.current.active() || animation.current !== null ||
+  return { refreshPreview: () => refreshRef.current(),
+    isLocked: () => gesture.current.active() || animation.current !== null ||
     pending.current !== null || contacts.current.size > 1 };
 }

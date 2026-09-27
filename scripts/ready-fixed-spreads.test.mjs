@@ -2,6 +2,18 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createReadyFixedSpreads} from '../src/lib/readyFixedSpreads.ts';
 const tick=()=>new Promise(r=>setImmediate(r));
+
+test('spread previews are complete pairs and do not navigate while decoding',async()=>{
+ const f=fixture();f.owner.request([100,101]);await f.finish();await f.finish();
+ const shown=f.owner.getSnapshot().displayed;f.owner.committed(shown);
+ await f.finish();
+ assert.deepEqual(f.owner.readyViews().map(v=>[...v.pages.keys()]),[[100,101]]);
+ const before=f.owner.getSnapshot();await f.finish();
+ assert.notEqual(f.owner.getSnapshot(),before);assert.equal(f.owner.getSnapshot().displayed,shown);
+ assert.deepEqual(f.owner.readyViews().map(v=>[...v.pages.keys()]),[[100,101],[102,103]]);
+ assert.ok(f.owner.ownedPages()<=6);f.owner.clear();await f.finish();
+ assert.deepEqual(f.owner.readyViews(),[]);
+});
 function fixture(){
  const jobs=[],disposed=[];
  const owner=createReadyFixedSpreads((page,signal)=>new Promise((resolve,reject)=>jobs.push({page,signal,reject,resolve:()=>resolve({geometry:{page},semantic:{page},dispose:()=>disposed.push(page)})})));

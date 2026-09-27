@@ -338,6 +338,7 @@ export function App() {
             >
               <PageRenderer
                 preparedFixedPage={mobileCalibration ? readyNavigation.ready : undefined}
+                swipePreviews={mobileCalibration ? readyNavigation.previews : undefined}
                 navigationPending={readyNavigation.pending}
                 navigationError={readyNavigation.error}
                 retryNavigation={readyNavigation.retry}

@@ -34,8 +34,9 @@ test("whole-recitation criteria never enter the letter tray", () => {
   assert.match(mushafSource, /\.filter\(isPinpointCategory\)/);
   assert.match(
     mushafSource,
-    /judgingEnabled = state\.sessionActive && allowedCategories\.length > 0/,
+    /showAnnotations = state\.sessionActive && allowedCategories\.length > 0 && !navigationPending/,
   );
+  assert.match(mushafSource, /judgingEnabled = showAnnotations && !presentationOnly/);
 });
 
 test("the selector is one connected, letter-only runway", () => {

@@ -105,8 +105,10 @@ test("question preparation exposes the ayah rule without pretending drafts are o
 });
 
 test("judging hit targets remain disabled outside an active reciter session", () => {
-  assert.match(mushafSource, /judgingEnabled = state\.sessionActive/);
-  assert.match(mushafSource, /afterLines=\{judgingEnabled \? \(/);
+  assert.match(mushafSource, /showAnnotations = state\.sessionActive/);
+  assert.match(mushafSource, /judgingEnabled = showAnnotations && !presentationOnly/);
+  assert.match(mushafSource, /afterLines=\{showAnnotations \? \(/);
+  assert.match(mushafSource, /!presentationOnly && <div[\s\S]*?data-word-hit=/);
   assert.match(mushafSource, /<div className="hit-layer">/);
   assert.match(mushafSource, /onPointerDown=\{judgingEnabled \? \(event\) => onPointerDown\(event, data\.page\) : undefined\}/);
   assert.match(idleSource, /Prepare a competition to begin judging/);

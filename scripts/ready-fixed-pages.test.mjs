@@ -2,6 +2,20 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createReadyFixedPages } from '../src/lib/readyFixedPages.ts';
 const tick = () => new Promise(resolve => setImmediate(resolve));
+
+test('decoded previews notify readers without changing the displayed page or loading twice', async () => {
+  const f = fixture(); f.owner.request(100); await f.finish(); f.owner.committed(100);
+  const shown = f.owner.getSnapshot().displayed, before = f.owner.getSnapshot();
+  await f.finish();
+  assert.notEqual(f.owner.getSnapshot(), before);
+  assert.equal(f.owner.getSnapshot().displayed, shown);
+  assert.equal(f.owner.getSnapshot().requested, 100);
+  assert.deepEqual(f.owner.readyViews().map(view => view.page), [100, 99]);
+  await f.finish();
+  assert.deepEqual(f.owner.readyViews().map(view => view.page), [100, 99, 101]);
+  assert.equal(f.jobs.length, 3); assert.ok(f.owner.ownedPages() <= 3);
+  f.owner.clear(); assert.deepEqual(f.owner.readyViews(), []);
+});
 function fixture() {
   const jobs = [], disposed = [];
   const owner = createReadyFixedPages((page, signal) => new Promise((resolve, reject) => {

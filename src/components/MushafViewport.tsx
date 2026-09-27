@@ -51,7 +51,12 @@ const MushafViewportContext = createContext({
   compactPaper: false,
   calibratedWidth: 0,
   stageRef: { current: null } as RefObject<HTMLDivElement>,
+  previewViewport: {} as Omit<MushafViewportProps, 'children' | 'contentKey' | 'overlay' | 'onZoomConstrained'>,
 });
+
+export function useMushafPreviewViewport() {
+  return useContext(MushafViewportContext).previewViewport;
+}
 
 export function useMushafStageRef() {
   return useContext(MushafViewportContext).stageRef;
@@ -198,7 +203,9 @@ export function MushafViewport({
     const frame = frameRef.current;
     if (!frame) return;
     restoringScrollRef.current = true;
-    const maxInline = Math.max(0, frame.scrollWidth - frame.clientWidth);
+    // Transforms retain the unscaled reference box in scrollWidth. A fitted
+    // mobile page has no horizontal pan range, regardless of that hidden box.
+    const maxInline = Math.max(0, (mobilePresentation ? renderedInlineSize : frame.scrollWidth) - frame.clientWidth);
     const maxBlock = Math.max(0, frame.scrollHeight - frame.clientHeight);
     frame.scrollLeft = maxInline * viewportCenterRef.current.inline;
     frame.scrollTop = maxBlock * viewportCenterRef.current.block;
@@ -220,7 +227,7 @@ export function MushafViewport({
       const shell = frameRef.current;
       if (!shell) return;
       restoringScrollRef.current = true;
-      shell.scrollLeft = Math.max(0, shell.scrollWidth - shell.clientWidth) / 2;
+      shell.scrollLeft = Math.max(0, (mobilePresentation ? renderedInlineSize : shell.scrollWidth) - shell.clientWidth) / 2;
       shell.scrollTop = 0;
       requestAnimationFrame(() => {
         restoringScrollRef.current = false;
@@ -259,6 +266,8 @@ export function MushafViewport({
         <MushafViewportContext.Provider
           value={{ renderScale, stableStage, compactPages, compactPaper: mobilePresentation,
             stageRef: frameRef,
+            previewViewport: { layout, zoomPercent, forceStableStage, forceCompactPages,
+              pageAspectRatio, navigationBlockSize, mobilePresentation, mobileCalibrationPage },
             calibratedWidth: mobileCalibrationPage !== undefined ? renderedInlineSize : 0 }}
         >
           {children}

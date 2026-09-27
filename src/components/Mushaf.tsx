@@ -9,7 +9,7 @@ import {
   useRef,
   useState,
 } from "react";
-import { flushSync } from "react-dom";
+import { createPortal, flushSync } from "react-dom";
 import { useMushafPageGesture } from '../hooks/useMushafPageGesture';
 import type { ReadyFixedPage } from '../lib/readyFixedPages';
 import { uid } from "../lib/id";
@@ -44,6 +44,8 @@ import {
   useMushafRenderScale,
   useCompactMushafPages,
   useMushafStageRef,
+  useMushafPreviewViewport,
+  MushafViewport,
 } from "./MushafViewport";
 import type {
   MushafLayout,
@@ -125,6 +127,10 @@ function dominant(mistakes: Mistake[]): CategoryId {
 }
 
 export interface MushafProps {
+  /** Inert page artwork/annotations only: no input, navigation or evidence writes. */
+  presentationOnly?: boolean;
+  onPresentationReady?: () => void;
+  swipePreviews?: readonly ReadyFixedPage[];
   preparedFixedPage?: ReadyFixedPage | null;
   navigationPending?: boolean;
   navigationError?: string | null;
@@ -152,7 +158,10 @@ interface ContextShadeBox {
   h: number;
 }
 
-export function Mushaf({
+export function Mushaf(props: MushafProps) {
+  const {
+  presentationOnly = false,
+  swipePreviews = [],
   preparedFixedPage,
   navigationPending = false,
   navigationError,
@@ -166,12 +175,20 @@ export function Mushaf({
   tilawaWordFocus = null,
   onPageChange,
   headerControls,
-}: MushafProps) {
+  } = props;
   const { state, dispatch } = useJudging();
   const renderScale = useMushafRenderScale();
   const compact = useCompactMushafPages();
   const stageRef = useMushafStageRef();
   const compositionRef = useRef<HTMLDivElement>(null);
+  const previewRef = useRef<HTMLDivElement>(null);
+  const [showPreviews, setShowPreviews] = useState(false);
+  const previewViewport = useMushafPreviewViewport();
+  // Prepare the inert neighbours when their decoded resources arrive, not in
+  // the input handler. The layer remains clipped and invisible until dragging.
+  useEffect(() => {
+    if (!presentationOnly && swipePreviews.length > 1) setShowPreviews(true);
+  }, [presentationOnly, swipePreviews.length]);
   const swipeLocked = useRef<() => boolean>(() => false);
   const requestedPages = useMemo(
     () => visibleMushafPages(currentPage, pageLayout, compact),
@@ -184,7 +201,8 @@ export function Mushaf({
   const allowedCategories = (
     state.activeAssignment?.categories ?? enabledCategories(assignedConfig)
   ).filter(isPinpointCategory);
-  const judgingEnabled = state.sessionActive && allowedCategories.length > 0 && !navigationPending;
+  const showAnnotations = state.sessionActive && allowedCategories.length > 0 && !navigationPending;
+  const judgingEnabled = showAnnotations && !presentationOnly;
   const [loadedPageData, setPageData] = useState<MushafPage[]>([]);
   const [loadedFontReadyPages, setFontReadyPages] = useState<Set<number>>(() => new Set());
   const pageData = useMemo(() => preparedFixedPage
@@ -291,6 +309,7 @@ export function Mushaf({
   }, [compact, currentPage, pageLayout, fixedPages]);
 
   useEffect(() => {
+    if (presentationOnly) return;
     const onKey = (event: KeyboardEvent) => {
       if (event.defaultPrevented || active || swipeLocked.current()) return;
       const target = event.target as HTMLElement | null;
@@ -311,7 +330,7 @@ export function Mushaf({
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [active, compact, currentPage, onPageChange, pageLayout]);
+  }, [active, compact, currentPage, onPageChange, pageLayout, presentationOnly]);
 
   // QCF source words are single calligraphic glyphs. Measure one rectangle for
   // the whole kalimah; semantic letter units live only in the connected rail.
@@ -504,6 +523,7 @@ export function Mushaf({
   }, [boxes, pendingFlash, revealWord]);
 
   useEffect(() => {
+    if (presentationOnly) return;
     const onJump = (event: Event) => {
       const detail = (event as CustomEvent<{ tid: string; page?: number }>).detail;
       if (!detail?.tid) return;
@@ -518,7 +538,7 @@ export function Mushaf({
     };
     window.addEventListener(JUMP_EVENT, onJump);
     return () => window.removeEventListener(JUMP_EVENT, onJump);
-  }, [onPageChange, pageData, revealWord]);
+  }, [onPageChange, pageData, revealWord, presentationOnly]);
 
   useEffect(() => {
     if (!flashTid) return;
@@ -800,6 +820,9 @@ export function Mushaf({
     return result;
   }, [boxes, byTid, state.activeAssignment?.judgeSeatId, allowedCountKey]);
   const readyKey = pageData.map(({ page }) => page).join(":");
+  useLayoutEffect(() => {
+    if (presentationOnly && boxesKey === requestKey) props.onPresentationReady?.();
+  }, [presentationOnly, boxes, boxesKey, requestKey, props.onPresentationReady]);
 
   // Shared by marking and page navigation, including the marker's extra area.
   function wordAtPoint(page: number, clientX: number, clientY: number) {
@@ -819,7 +842,8 @@ export function Mushaf({
   }
 
   const pageSwipe = useMushafPageGesture({
-    host: stageRef, composition: compositionRef, enabled: Boolean(fixedPages),
+    host: stageRef, composition: compositionRef, preview: previewRef,
+    showPreviews: setShowPreviews, enabled: Boolean(fixedPages) && !presentationOnly,
     ready: !navigationPending && readyKey === requestKey && boxesKey === requestKey,
     viewKey: requestKey,
     generation: `${requestKey}|${pageLayout}|${compact}|${renderScale}|${state.activeSessionId}|${state.preparedRecitation?.id}`,
@@ -921,7 +945,7 @@ export function Mushaf({
               aria-hidden="true"
             />
           ))}
-        afterLines={judgingEnabled ? (
+        afterLines={showAnnotations ? (
           <div className="hit-layer">
             {visibleBoxes.map((box) => {
               const localLeft = (value: number) => local(value) - pageClientLeft;
@@ -942,7 +966,7 @@ export function Mushaf({
               ].filter(Boolean).join(" ");
               return (
                 <Fragment key={`${box.page}:${box.wid}`}>
-                  <div
+                  {!presentationOnly && <div
                     data-word-hit={box.wid}
                     className={`hit word-hit ${isActive ? `armed ${hovered ? `cat-${hovered}` : ""}` : ""}`}
                     style={
@@ -965,7 +989,7 @@ export function Mushaf({
                         ? `${box.semanticText}, ${summary.total} of your mistakes. Open to review or mark another letter.`
                         : `Select word ${box.semanticText}`
                     }
-                  />
+                  />}
                   {(mistakes.length > 0 || isFlashing) && (
                     <div
                       className={inkClasses}
@@ -1004,9 +1028,10 @@ export function Mushaf({
     : requestedPages;
 
   return (
-    <div className={`mushaf-scroll ${fixedPages ? "has-fixed-pages" : ""} ${renderedPages.length > 1 ? "is-spread" : "is-single"}`}>
+    <div data-presentation-ready={boxesKey === requestKey ? 'true' : 'false'}
+      className={`mushaf-scroll ${fixedPages ? "has-fixed-pages" : ""} ${renderedPages.length > 1 ? "is-spread" : "is-single"}`}>
       <div className="mushaf-shared-nav">
-        {headerControls(renderedPageNumbers, compact)}
+        {!presentationOnly && headerControls(renderedPageNumbers, compact)}
       </div>
       <div
         ref={compositionRef}
@@ -1021,6 +1046,30 @@ export function Mushaf({
               </div>
             ))}
       </div>
+
+      {showPreviews && !presentationOnly && stageRef.current && createPortal(
+        <div ref={previewRef} className="mushaf-swipe-layer" aria-hidden="true"
+          {...{ inert: '' }}>
+          <div className="mushaf-swipe-track">
+          <div className="mushaf-swipe-view" data-swipe-current="true" />
+          {swipePreviews.filter(view => {
+            const key = [...view.pages.keys()].join(':');
+            return [-1, 1].some(direction => visibleMushafPages(
+              moveMushafView(currentPage, pageLayout, direction as -1 | 1, compact),
+              pageLayout, compact).join(':') === key && key !== requestKey);
+          }).map(view => <div className="mushaf-swipe-view"
+            data-swipe-view={[...view.pages.keys()].join(':')} key={[...view.pages.keys()].join(':')}>
+            <MushafViewport {...previewViewport} contentKey={`preview:${view.page}`}
+              mobileCalibrationPage={previewViewport.mobileCalibrationPage !== undefined ? view.page : undefined}>
+              <Mushaf {...props} presentationOnly swipePreviews={undefined}
+                onPresentationReady={pageSwipe.refreshPreview}
+                page={view.page} preparedFixedPage={view} fixedPages={view.pages}
+                fixedSemanticPages={view.semantic} navigationPending={false} navigationError={null}
+                onPageChange={() => {}} />
+            </MushafViewport>
+          </div>)}
+          </div>
+        </div>, stageRef.current)}
 
       {loadError && (
         <div className="mushaf-load-error" role="alert">

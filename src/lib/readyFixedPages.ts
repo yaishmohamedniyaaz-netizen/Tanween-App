@@ -60,6 +60,7 @@ export function createReadyFixedPages(load: (page: number, signal: AbortSignal) 
         pages: new Map([[next, result.geometry]]), semantic: new Map([[next, result.semantic]]) },
         release: () => result.dispose() });
       if (snapshot.requested === next) admit(next);
+      else publish({ ...snapshot }); // Make decoded neighbours available to the drag presentation.
     }).catch(error => {
       if (epoch !== generation || job.abort.signal.aborted) return;
       failed.add(next);
@@ -73,6 +74,7 @@ export function createReadyFixedPages(load: (page: number, signal: AbortSignal) 
   return {
     subscribe(fn: () => void) { listeners.add(fn); return () => { listeners.delete(fn); }; },
     getSnapshot: () => snapshot,
+    readyViews: () => [...entries.values()].map(entry => entry.value),
     request(page: number) {
       if (!Number.isInteger(page) || page < 1 || page > 604) return;
       if (snapshot.requested === page) { pump(); return; }

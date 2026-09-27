@@ -14,6 +14,7 @@ export function useReadyFixedPage(page: number, enabled: boolean) {
     if (enabled && snapshot.displayed) owner.committed(snapshot.displayed.page);
   }, [owner, enabled, snapshot.displayed]);
   return { ready: enabled ? snapshot.displayed : null,
+    previews: enabled ? owner.readyViews() : [],
     pending: enabled && (snapshot.requested !== page || snapshot.displayed?.page !== page),
     error: enabled ? snapshot.error : null, retry: owner.retry };
 }

@@ -65,6 +65,7 @@ function ReadyViewMushaf(props: MushafProps) {
     page={fixed.ready?.page ?? props.page}
     pageLayout={fixed.ready ? fixed.ready.pages.size === 2 ? 'spread' : 'full' : props.pageLayout}
     preparedFixedPage={fixed.ready} navigationPending={fixed.pending}
+    swipePreviews={fixed.previews}
     navigationError={fixed.error} retryNavigation={fixed.retry} />;
 }
 
