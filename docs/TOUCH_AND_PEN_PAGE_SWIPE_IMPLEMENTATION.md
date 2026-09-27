@@ -2,6 +2,31 @@
 
 Date: 26 September 2026.
 
+## Intermittent text-scale correction (27 September, approved for release)
+
+Reported after version 140. A frame-by-frame reproduction at 4x CPU slowdown
+confirmed that the newly visible portrait page could reuse the previous page's
+artwork scale for one frame. ResizeObserver corrected it afterward. The older
+checks compared settled page frames, which missed this transient artwork change.
+It occurs when the page-specific Fit width changes; equal-width pages conceal it.
+
+FixedMushafPageSurface now derives its scale directly from the calibrated width
+already supplied by the viewport. The new page, artwork and semantic regions
+therefore use the same width in the same render. Other viewport modes retain
+their measured scaling. No artwork, settled sizing, scoring or input rules change.
+
+`npm run test:page-swipe:scale` samples every visible handover frame with 4x CPU
+slowdown across 320x568, 390x700 and 430x760. It fails on the published revision
+(page 586 changes by 9.63px at 320px) and passes all nine revised turns with zero
+geometry change. Full tests: 428 passed, one optional skip. Build, full gesture
+regression and all four printed-Bismillah correction/persistence cases pass.
+Evidence: `outputs/swipe-qa/scale-*` and `handover-before.log` / `handover-after.log`.
+
+On 27 September the owner reviewed the local correction and requested
+"commit publish". The deployment record identifies the final commit and version.
+The user's exact device/browser and physical-device feel remain unverified. Confidence:
+practicality 95/100, architecture/data safety 96/100, visual certainty 90/100.
+
 ## Continuous-motion revision (approved for release)
 
 The owner rejected the released motion because it waited for release to change

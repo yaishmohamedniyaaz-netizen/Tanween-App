@@ -24,7 +24,11 @@ export function FixedMushafPageSurface({
   const { inset: INSET, top: TOP, artScale: ART_SCALE } = paper;
   const frame = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(0);
+  // Portrait Fit already supplies the exact frame width. Use it in this render;
+  // waiting for ResizeObserver would paint a new page at the previous scale.
+  const renderedScale = calibratedWidth ? calibratedWidth / paper.width : scale;
   useLayoutEffect(() => {
+    if (calibratedWidth) return;
     const element = frame.current;
     if (!element) return;
     const update = () => setScale(element.clientWidth / paper.width);
@@ -32,8 +36,8 @@ export function FixedMushafPageSurface({
     const observer = new ResizeObserver(update);
     observer.observe(element);
     return () => observer.disconnect();
-  }, [paper.width]);
-  useLayoutEffect(() => { if (scale) onGeometryChange?.(); }, [scale, data, onGeometryChange]);
+  }, [paper.width, calibratedWidth]);
+  useLayoutEffect(() => { if (renderedScale) onGeometryChange?.(); }, [renderedScale, data, onGeometryChange]);
   const lines = new Map(data.lines.map(line => [line.n, line]));
   const words = [...fixed.words, ...printedBasmalaWords(data)].sort((a, b) => a.line - b.line || b.region[0] - a.region[0]);
   const openingOffset = data.page <= 2 && fixed.contentBounds
@@ -62,7 +66,7 @@ export function FixedMushafPageSurface({
       data-page={data.page} data-font-ready="true" data-fixed-page="true"
       data-reference-width={paper.width}
       style={{ ...props.style, width: paper.width, height: paper.height,
-        transform: `scale(${scale || 1})`, visibility: scale ? undefined : "hidden",
+        transform: `scale(${renderedScale || 1})`, visibility: renderedScale ? undefined : "hidden",
         "--mark-wash-pad-top": "0px", "--mark-wash-pad-bottom": "0px" } as CSSProperties}>
       <img src={fixed.image} alt={`Mushaf page ${data.page}`} draggable={false}
         style={{ left: INSET, top: TOP + openingOffset, width: 1920 * ART_SCALE, height: 3106 * ART_SCALE }} />

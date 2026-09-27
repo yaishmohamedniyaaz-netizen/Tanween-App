@@ -20,7 +20,8 @@
     "test:phrase-practice": "node scripts/qa/phrase-practice-browser.mjs",
     "test:printed-basmala": "node scripts/qa/printed-basmala-browser.mjs",
     "test:page-swipe": "node --experimental-strip-types --test scripts/mushaf-page-gesture.test.mjs scripts/ready-fixed-pages.test.mjs scripts/ready-fixed-spreads.test.mjs",
-    "test:page-swipe:browser": "node scripts/qa/page-swipe-browser.mjs"
+    "test:page-swipe:browser": "node scripts/qa/page-swipe-browser.mjs",
+    "test:page-swipe:scale": "node scripts/qa/page-swipe-scale-browser.mjs"
   },
   "dependencies": {
     "@tilawa/core": "0.1.0",
