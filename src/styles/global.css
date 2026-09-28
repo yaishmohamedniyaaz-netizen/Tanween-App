@@ -14673,3 +14673,65 @@ html:has(.finish-dialog[open]) {
     font-size: 13px;
   }
 }
+/* Letter-first mistake cards: shared evidence inset and one action row. */
+.mistake-panel .log { gap: 8px; padding-inline: 0; scrollbar-width: auto; scrollbar-color: auto; }
+.mistake-panel .log:hover, .mistake-panel .log:focus-within { scrollbar-color: auto; }
+.mistake-panel .log::-webkit-scrollbar-button { display: none; width: 0; height: 0; }
+.mistake-panel .log::-webkit-scrollbar-track { background: transparent; }
+@media (min-width: 901px) {
+  .workspace.rail-left .mistake-panel .log { margin-left: -12px; padding-left: 4px; padding-right: 0; }
+  .workspace:not(.rail-left) .mistake-panel .log { margin-right: -12px; padding-right: 4px; }
+}
+.mistake-panel .log-row-wrap {
+  container-type: inline-size;
+  background: color-mix(in srgb, var(--c) 8%, var(--surface));
+  border-color: color-mix(in srgb, var(--c-strong) 70%, var(--surface));
+}
+[data-theme="dark"] .mistake-panel .log-row-wrap { background: color-mix(in srgb, var(--c) 12%, var(--surface)); }
+.mistake-panel .log-row, .mistake-panel.is-mobile-sheet .log-row {
+  grid-template-columns: minmax(0, 1fr) 44px 24px;
+  gap: 4px; min-height: 44px; padding: 6px 16px 2px;
+}
+.mistake-panel .log-row:hover { background: color-mix(in srgb, var(--c) 5%, transparent); }
+.mistake-panel .log-glyph, .mistake-panel.is-mobile-sheet .log-glyph {
+  justify-self: start; text-align: left; font-size: 27px; line-height: 1.3;
+  overflow: visible; white-space: normal; overflow-wrap: anywhere;
+}
+.mistake-panel .log-amt { text-align: center; font-size: 14px; }
+.mistake-panel .open .log-amt { visibility: hidden; }
+.mistake-panel .log-chevron { grid-column: 3; grid-row: 1; }
+.mistake-panel .mobile-log-detail { display: none; }
+.mistake-panel.is-mobile-sheet .mobile-log-detail[hidden] { display: none; }
+.mistake-panel.is-expanded .mobile-log-detail:not([hidden]) {
+  display: block; grid-column: 1 / -1; grid-row: 2; color: var(--ink-3); font-size: 12px;
+  white-space: normal; overflow: visible;
+}
+.mistake-panel .log-expand[hidden] { display: none; }
+.mistake-panel .log-expand-inner { padding-left: 0; }
+.mistake-panel .log-detail-line {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 8px;
+  padding: 2px 16px 12px;
+}
+.mistake-panel .log-detail-line .log-kalimah {
+  flex: 1 1 auto; min-width: min-content; padding: 0; border-radius: 0; background: transparent;
+}
+.mistake-panel .log-detail-line .log-kalimah-word {
+  font-size: 21px; line-height: 1.6; padding: 0; white-space: normal; overflow-wrap: normal;
+}
+.mistake-panel .log-detail-actions { display: flex; flex: 0 0 auto; align-items: center; gap: 8px; margin-left: auto; }
+.mistake-panel .log-detail-line .log-adjust {
+  grid-template-columns: 44px 28px 44px; height: 44px; overflow: visible;
+  background: transparent; border-color: color-mix(in srgb, var(--c-strong) 24%, var(--surface)); border-radius: 8px;
+}
+.mistake-panel .log-detail-line .log-adjust .step-btn { width: 44px; height: 44px; border: 0; border-radius: 8px; margin-top: -1px; }
+.mistake-panel .log-detail-line .step-val { min-width: 0; font-size: 14px; }
+.mistake-panel .log-detail-line .log-undo { width: 44px; min-height: 44px; padding: 0; font-size: 12px; color: var(--ink-2); }
+@container (max-width: 275px) {
+  .mistake-panel .log-row, .mistake-panel.is-mobile-sheet .log-row { padding-inline: 12px; }
+  .mistake-panel .log-detail-line { padding-inline: 12px; gap: 6px; }
+  .mistake-panel .log-detail-actions { gap: 6px; }
+}
+@media (forced-colors: active) {
+  .mistake-panel .log-row-wrap { border-color: CanvasText; }
+  .mistake-panel .mobile-log-detail[hidden] { display: block; grid-column: 1 / -1; }
+}

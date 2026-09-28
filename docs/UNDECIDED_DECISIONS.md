@@ -382,3 +382,41 @@ product rules belong in `PRODUCT_FOUNDATION.md`, not here.
       has been adopted here.
     - No scoring, evidence, or device-preference schema change is authorized by
       this interaction. Release approval does not claim physical-device acceptance.
+
+33. **Mistake tray hierarchy and compact location display**
+    - Planning request, 29 September 2026: rework the expanded mistake tray,
+      awkward tinted kalimah/reference capsule, scrollbar arrows and content
+      displacement. Current plan: `LETTER_FIRST_MISTAKE_TRAY_PLAN.md`.
+    - Owner selected letter-first cards on 29 September: subtle whole-card
+      category fill with a same-category border, no criterion names or category
+      squares in ordinary compact cards, related kalimah below the letter,
+      adjustment at the right toward the Mushaf in the current left rail.
+      The previous word-first recommendation is superseded.
+    - Owner clarified the alignment: letter and kalimah stay on the left;
+      the picker is in the middle of the kalimah row, with Undo at the far right.
+      Evidence uses a comfortable shared left inset (16px, 12px compact). This replaces
+      the assistant's incorrect Mushaf-facing evidence alignment. That question
+      is resolved; the proposed automatic mirroring is withdrawn.
+    - Remaining geometry check: long kalimahs and narrow viewports must keep
+      complete Arabic ink and usable picker targets without overlap. Do not
+      infer permission to right-align evidence or move the picker underneath
+      an ordinary-length kalimah from that fallback requirement.
+    - Recommended proposal: remove numeric coordinates from the compact live
+      tray, retaining readable locations in View all, History, accessible row descriptions and stored evidence. Distinguishing phrase
+      context and unresolved evidence must remain understandable.
+    - Owner approved implementation, commit and publication of the refined
+      preview. Implemented compact coordinate removal and the shared action row.
+      Desktop/tablet/phone browser checks passed; physical-device and Safari
+      acceptance remain separate. Colour-only category recognition remains a
+      future accessibility decision; accessible labels retain category names.
+    - Colour-only category identification has an accessibility trade-off.
+      Keep category names in accessible descriptions/full review; show text
+      when forced colours remove hues. Decide a discoverable non-colour
+      alternative for colour-vision differences before claiming colour-accessible
+      live judging. A coloured border alone is not that fallback.
+    - Native scrolling and the user's chosen rail side remain. Simple scrollbar
+      styling and row alignment need browser proof; physical-device comfort
+      is not established by the isolated layout comparison.
+    - This is presentation planning only. It does not approve grouping (item 24),
+      rewrite Quran text, change target identity or deduction rules, or authorize
+      committing or publishing the proposed application changes.
