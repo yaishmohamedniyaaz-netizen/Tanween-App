@@ -98,16 +98,10 @@ export function MistakeLog({
   useLayoutEffect(() => {
     if (!openId) return;
     const frame = window.requestAnimationFrame(() => {
-      const row = rowRefs.current.get(openId);
-      const list = row?.parentElement;
-      if (!row || !list) return;
-      const bounds = row.getBoundingClientRect();
-      const viewport = list.getBoundingClientRect();
-      // Reveal within the tray without moving the page or Mushaf.
-      if (bounds.top < viewport.top) list.scrollTop += bounds.top - viewport.top;
-      else if (bounds.bottom > viewport.bottom) {
-        list.scrollTop += Math.min(bounds.bottom - viewport.bottom, bounds.top - viewport.top);
-      }
+      rowRefs.current.get(openId)?.scrollIntoView({
+        block: "nearest",
+        inline: "nearest",
+      });
     });
     return () => window.cancelAnimationFrame(frame);
   }, [openId]);
@@ -281,7 +275,6 @@ export function MistakeLog({
                     className="log-row"
                     aria-expanded={open}
                     title={`${category.label} · ${reference}`}
-                    aria-label={`${mistakePrimaryGlyph(mistake)}, ${category.label}, ${reference}, deduction ${mistake.amount}`}
                     onClick={() => {
                       if (presentation === "compact" && !expanded) {
                         openCompactMistake(mistake);
@@ -290,20 +283,29 @@ export function MistakeLog({
                       }
                     }}
                   >
-                    <span className="log-glyph" lang="ar" dir="rtl">
+                    <span className="log-dot" aria-hidden="true" />
+                    <span className="log-glyph">
                       {mistakePrimaryGlyph(mistake)}
                     </span>
                     <span className="log-amt t-num">−{mistake.amount}</span>
-                    <span className="mobile-log-detail" hidden={!expanded || mobileSheet}>
+                    <span className="mobile-log-detail">
                       {category.label} · {reference}
                     </span>
+                    <span className="log-row-spacer" aria-hidden="true" />
                     <span className="log-chevron" aria-hidden="true">
                       <Icon name="chevron" size={13} />
                     </span>
                   </button>
                   <div
                     className="log-expand"
-                    hidden={!open}
+                    onTransitionEnd={(event) => {
+                      if (open && event.propertyName === "grid-template-rows") {
+                        rowRefs.current.get(mistake.id)?.scrollIntoView({
+                          block: "nearest",
+                          inline: "nearest",
+                        });
+                      }
+                    }}
                   >
                     <div className="log-expand-inner">
                       <div className="log-detail-line">
@@ -311,54 +313,53 @@ export function MistakeLog({
                           <span className="log-kalimah-word" dir="rtl" lang="ar">
                             {mistake.wordText || mistakeFullGlyph(mistake)}
                           </span>
+                          <bdi className="log-kalimah-ref t-num">{reference}</bdi>
                         </span>
-                        <span className="log-detail-actions">
-                          <span
-                            className="log-adjust"
-                            role="group"
-                            aria-label="Deduction amount"
-                          >
-                            <button
-                              type="button"
-                              className="step-btn"
-                              aria-label="decrease deduction"
-                              onClick={() =>
-                                dispatch({
-                                  type: "SET_MISTAKE_AMOUNT",
-                                  id: mistake.id,
-                                  amount: mistake.amount - 0.5,
-                                })
-                              }
-                            >
-                              <Icon name="minus" size={10} />
-                            </button>
-                            <span className="step-val t-num">−{mistake.amount}</span>
-                            <button
-                              type="button"
-                              className="step-btn"
-                              aria-label="increase deduction"
-                              onClick={() =>
-                                dispatch({
-                                  type: "SET_MISTAKE_AMOUNT",
-                                  id: mistake.id,
-                                  amount: mistake.amount + 0.5,
-                                })
-                              }
-                            >
-                              <Icon name="plus" size={10} />
-                            </button>
-                          </span>
+                        <span
+                          className="log-adjust"
+                          role="group"
+                          aria-label="Deduction amount"
+                        >
                           <button
                             type="button"
-                            className="log-undo"
-                            onClick={() => {
-                              setOpenId(null);
-                              dispatch({ type: "REMOVE_MISTAKE", id: mistake.id });
-                            }}
+                            className="step-btn"
+                            aria-label="decrease deduction"
+                            onClick={() =>
+                              dispatch({
+                                type: "SET_MISTAKE_AMOUNT",
+                                id: mistake.id,
+                                amount: mistake.amount - 0.5,
+                              })
+                            }
                           >
-                            Undo
+                            <Icon name="minus" size={10} />
+                          </button>
+                          <span className="step-val t-num">−{mistake.amount}</span>
+                          <button
+                            type="button"
+                            className="step-btn"
+                            aria-label="increase deduction"
+                            onClick={() =>
+                              dispatch({
+                                type: "SET_MISTAKE_AMOUNT",
+                                id: mistake.id,
+                                amount: mistake.amount + 0.5,
+                              })
+                            }
+                          >
+                            <Icon name="plus" size={10} />
                           </button>
                         </span>
+                        <button
+                          type="button"
+                          className="log-undo"
+                          onClick={() => {
+                            setOpenId(null);
+                            dispatch({ type: "REMOVE_MISTAKE", id: mistake.id });
+                          }}
+                        >
+                          Undo
+                        </button>
                       </div>
                     </div>
                   </div>
