@@ -6222,7 +6222,6 @@ textarea:focus-visible {
 .mistake-panel.is-expanded .log {
   min-height: 0;
   overflow-y: auto;
-  padding-right: 4px;
 }
 .log-view-all {
   border: 0;
@@ -6358,12 +6357,12 @@ textarea:focus-visible {
 }
 .log-row {
   display: grid;
-  grid-template-columns: 8px 34px 46px minmax(0, 1fr) 14px;
+  grid-template-columns: 40px 44px minmax(0, 1fr) 24px;
   align-items: center;
   gap: 8px;
   width: 100%;
-  min-height: 38px;
-  padding: 4px 9px;
+  min-height: 56px;
+  padding: 8px 12px 8px 8px;
   border: none;
   background: transparent;
   text-align: left;
@@ -6372,28 +6371,41 @@ textarea:focus-visible {
 .log-row:hover {
   background: var(--bg);
 }
-.log-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 2px;
-  background: var(--c);
+.log-tile {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background: var(--c-tint);
+}
+.mistake-panel[data-letter-tile="hairline"] .log-tile {
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--c-strong) 40%, transparent);
+}
+.mistake-panel[data-letter-tile="hairline"] .log-glyph {
+  color: var(--ink);
+}
+.log-forced-category { display: none; }
+@media (forced-colors: active) {
+  .log-tile { outline: 1px solid CanvasText; outline-offset: -1px; }
+  .log-forced-category { display: inline; }
+  .mistake-panel .log-row .log-kalimah-ref { white-space: normal; overflow: visible; }
 }
 .log-glyph {
   font-family: var(--quran);
-  font-size: 21px;
-  line-height: 1;
-  color: var(--ink);
+  font-size: 27px;
+  line-height: 1.3;
+  color: var(--c-strong);
   text-align: center;
+  white-space: nowrap;
 }
 .log-amt {
-  font-size: 12px;
+  font-size: 15px;
   font-weight: 500;
   text-align: left;
   color: var(--ink-2);
   font-variant-numeric: tabular-nums;
-}
-.log-row-spacer {
-  min-width: 0;
 }
 .mobile-log-detail {
   display: none;
@@ -6415,11 +6427,10 @@ textarea:focus-visible {
 .log-row-wrap.open .log-expand {
   grid-template-rows: 1fr;
 }
-/* The tray hangs off the glyph column of the row above (9px padding + 8px dot
-   + 8px gap), so the kalimah sits directly under the letter it came from. */
+/* The tray shares the row's 12px inset, so the kalimah starts exactly where
+   the letter above it starts. */
 .log-expand-inner {
   overflow: hidden;
-  padding-left: 25px;
 }
 .log-detail {
   display: flex;
@@ -8135,56 +8146,65 @@ html:has(.dialog-backdrop) {
   margin: 14px auto 0;
 }
 
-/* A mark opens into one compact evidence line: kalimah, Quran reference,
-   amount adjustment, and the reversible Undo action. */
-.log-expand-inner {
-  padding-left: 25px;
-}
+/* A mark opens into one evidence line: kalimah (left, under its letter),
+   amount adjustment (middle), reversible Undo (far right). When the kalimah
+   needs the room, the controls wrap below it rather than squeezing the
+   Arabic. */
 .log-detail-line {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto auto;
+  display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 7px;
+  justify-content: space-between;
+  gap: 6px 12px;
   min-width: 0;
-  padding: 3px 8px 8px 0;
+  padding: 0 12px 10px;
 }
 .log-detail-line .log-kalimah {
   display: inline-flex;
-  align-items: center;
-  justify-self: start;
-  gap: 7px;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0 8px;
   min-width: 0;
   max-width: 100%;
-  padding: 3px 8px 4px;
-  border-radius: 8px;
-  background: var(--c-tint);
+  padding: 0;
 }
 .log-detail-line .log-kalimah-word {
   overflow: visible;
   min-width: 0;
-  padding-block: 1px;
-  font-size: 18px;
-  line-height: 1.55;
+  font-size: 21px;
+  line-height: 1.75;
   white-space: nowrap;
 }
-.log-detail-line .log-kalimah-ref {
-  flex: 0 0 auto;
-  color: var(--c-strong);
-  font-size: 10px;
+.log-detail-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+/* Where the mark sits reads quietly at the row's end, so the opened line
+   belongs to the kalimah and its controls. */
+.log-row .log-kalimah-ref {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--ink-3);
+  font-size: 12px;
+  text-align: right;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .log-detail-line .log-adjust {
   display: grid;
-  grid-template-columns: 24px minmax(30px, auto) 24px;
+  grid-template-columns: 44px minmax(28px, auto) 44px;
   align-items: center;
-  height: 24px;
+  height: 46px;
   overflow: hidden;
   border: 1px solid var(--line-2);
-  border-radius: 7px;
+  border-radius: var(--r-sm);
   background: var(--surface);
 }
 .log-detail-line .log-adjust .step-btn {
-  width: 24px;
-  height: 24px;
+  width: 44px;
+  height: 44px;
   border: 0;
   border-radius: 0;
 }
@@ -8195,13 +8215,16 @@ html:has(.dialog-backdrop) {
   border-left: 1px solid var(--line);
 }
 .log-detail-line .step-val {
-  min-width: 30px;
-  font-size: 11.5px;
+  min-width: 28px;
+  font-size: 14px;
 }
 .log-detail-line .log-undo {
-  min-height: 24px;
+  min-height: 44px;
+  min-width: 44px;
   margin-left: 0;
-  padding-inline: 6px;
+  margin-right: 0;
+  padding-inline: 8px;
+  font-size: 12px;
 }
 
 @media (max-width: 760px) {
@@ -8282,10 +8305,6 @@ html:has(.dialog-backdrop) {
     min-height: 30px;
     padding-inline: 7px;
     font-size: 10px;
-  }
-  .log-detail-line {
-    grid-template-columns: minmax(0, 1fr) auto auto;
-    gap: 5px;
   }
 }
 
@@ -14347,20 +14366,11 @@ html:has(.finish-dialog[open]) {
 
   .mistake-panel.is-mobile-sheet .log {
     gap: 5px;
-    padding-right: 0;
   }
 
   .mistake-panel.is-mobile-sheet .log-row {
-    grid-template-columns: 8px 76px 52px minmax(0, 1fr) 14px;
-    min-height: 46px;
-  }
-
-  .mistake-panel.is-mobile-sheet .log-glyph {
-    overflow: hidden;
-    font-size: 19px;
-    line-height: 1.4;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    grid-template-columns: 40px 44px minmax(0, 1fr) 24px;
+    min-height: 56px;
   }
 
   .mistake-panel.is-mobile-sheet .mobile-log-detail {
@@ -14373,7 +14383,7 @@ html:has(.finish-dialog[open]) {
     white-space: nowrap;
   }
 
-  .mistake-panel.is-mobile-sheet .log-row-spacer {
+  .mistake-panel.is-mobile-sheet .log-row .log-kalimah-ref {
     display: none;
   }
 
@@ -14551,8 +14561,8 @@ html:has(.finish-dialog[open]) {
 .mistake-panel .log, .mistake-panel .history-scroll {
   scrollbar-width: thin;
   scrollbar-color: var(--line-2) transparent;
-  scrollbar-gutter: stable;
-  padding-right: 6px;
+  scrollbar-gutter: stable both-edges;
+  padding-inline: 2px;
   background:
     linear-gradient(var(--surface) 30%, transparent) center top / 100% 24px local,
     linear-gradient(transparent, var(--surface) 70%) center bottom / 100% 24px local,
@@ -14562,17 +14572,45 @@ html:has(.finish-dialog[open]) {
 }
 .mistake-panel .log:hover, .mistake-panel .log:focus-within,
 .mistake-panel .history-scroll:hover { scrollbar-color: var(--ink-3) transparent; }
+/* Standard scrollbar styling takes precedence over the pseudo-elements.
+   Use the latter together on supporting engines so the grip has no buttons. */
+@supports selector(::-webkit-scrollbar) {
+  .mistake-panel .log, .mistake-panel .history-scroll,
+  .mistake-panel .log:hover, .mistake-panel .log:focus-within,
+  .mistake-panel .history-scroll:hover {
+    scrollbar-width: auto;
+    scrollbar-color: auto;
+  }
+}
 .mistake-panel .log::-webkit-scrollbar, .mistake-panel .history-scroll::-webkit-scrollbar { width: 8px; }
+.mistake-panel .log::-webkit-scrollbar-button, .mistake-panel .history-scroll::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
+}
 .mistake-panel .log::-webkit-scrollbar-thumb, .mistake-panel .history-scroll::-webkit-scrollbar-thumb {
   background: var(--line-2); border: 2px solid var(--surface); border-radius: 8px;
 }
 .mistake-panel .log:hover::-webkit-scrollbar-thumb { background: var(--ink-3); }
 .mistake-panel .panel-head { flex-shrink: 0; }
+/* Balanced gutters keep rows centred and stable as the list starts scrolling.
+   The rail preference still places the grip on the outside edge. */
 @media (min-width: 901px) {
+  /* Slim live rail: four closed findings at the reviewed 1191 x 668 size.
+     Expanded review and the phone sheet keep their roomier rows. */
+  .sidebar .notes-panel > .panel-head { display: none; }
+  .sidebar .notes-panel { padding-block: 8px; }
+  .sidebar .notes { height: 44px; min-height: 44px; display: block; }
+  .sidebar .mistake-panel:not(.is-expanded) { padding-block: 8px; }
+  .sidebar .mistake-panel:not(.is-expanded) > .panel-head { margin-bottom: 4px; }
+  .sidebar .mistake-panel:not(.is-expanded) .log-row {
+    grid-template-columns: 36px 44px minmax(0, 1fr) 24px;
+    min-height: 44px;
+    padding-block: 4px;
+  }
+  .sidebar .mistake-panel:not(.is-expanded) .log-tile { width: 36px; height: 36px; }
   .workspace.rail-left .mistake-panel :is(.log, .history-scroll) {
     direction: rtl;
-    padding-right: 0;
-    padding-left: 6px;
   }
   .workspace.rail-left .mistake-panel :is(.log, .history-scroll) > * {
     direction: ltr;

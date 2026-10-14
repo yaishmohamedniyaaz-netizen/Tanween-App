@@ -563,15 +563,19 @@ test("the opened mark fits one evidence line and never spells out its category",
   assert.doesNotMatch(cssSource, /\.log-loc\s*\{/);
   assert.match(mistakeLogSource, /category\.label\} · \$\{reference\}/, "kept for the row title");
 
-  // Word then reference, read as one phrase — not flung to opposite edges.
+  // Kalimah left, adjuster beside Undo on the right; the controls wrap as one
+  // group below a long kalimah instead of squeezing the Arabic.
   assert.match(mistakeLogSource, /className="log-detail-line"/);
   assert.match(mistakeLogSource, /className="log-kalimah"/);
+  assert.match(mistakeLogSource, /className="log-detail-actions"/);
   assert.match(mistakeLogSource, /className="log-adjust"/);
-  assert.match(cssSource, /\.log-detail-line\s*\{[^}]*display: grid/s);
-  assert.match(ruleBody(".log-detail-line .log-kalimah"), /background: var\(--c-tint\)/);
-  assert.match(ruleBody(".log-detail-line .log-adjust"), /height: 24px/);
-  // The tray hangs off the glyph column, so the kalimah sits under its letter.
-  assert.match(ruleBody(".log-expand-inner"), /padding-left: 25px/);
+  assert.match(cssSource, /\.log-detail-line\s*\{[^}]*display: flex[^}]*flex-wrap: wrap/s);
+  assert.doesNotMatch(ruleBody(".log-detail-line .log-kalimah"), /background/);
+  assert.match(ruleBody(".log-detail-line .log-adjust"), /height: 46px/);
+  // The letter leads its row, and the kalimah shares the row's inset.
+  assert.match(mistakeLogSource, /className="log-tile"/);
+  assert.doesNotMatch(mistakeLogSource, /className="log-dot"/);
+  assert.doesNotMatch(ruleBody(".log-expand-inner"), /padding-left/);
   assert.match(mistakeLogSource, />\s*Undo\s*</);
 });
 

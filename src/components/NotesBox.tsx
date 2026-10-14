@@ -36,6 +36,7 @@ export function NotesBox({
       </div>
       <textarea
         className="notes"
+        aria-label="Notes for improvement"
         value={state.notes}
         placeholder="Notes for improvement"
         onChange={(e) => dispatch({ type: "SET_NOTES", notes: e.target.value })}

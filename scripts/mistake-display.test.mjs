@@ -148,7 +148,8 @@ test("CSS locks scrolling, Arabic ink, and shared score alignment", () => {
   const wordRule = ruleBody(".log-detail-line .log-kalimah-word");
   assert.doesNotMatch(wordRule, /overflow:\s*hidden/);
   assert.doesNotMatch(wordRule, /text-overflow:\s*ellipsis/);
-  assert.match(wordRule, /line-height:\s*1\.55/);
+  // Room for marks above and below the kalimah: never tighter than 1.55.
+  assert.ok(Number(wordRule.match(/line-height:\s*([\d.]+)/)?.[1]) >= 1.55);
 
   assert.match(ruleBody(".sc-score"), /text-align:\s*center/);
   assert.match(ruleBody(".sc-score"), /white-space:\s*nowrap/);

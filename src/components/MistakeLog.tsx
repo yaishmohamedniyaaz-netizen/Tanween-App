@@ -11,6 +11,7 @@ import { JUMP_EVENT } from "./Mushaf";
 import { useJudging } from "../state/store";
 import { Icon } from "./Icon";
 import { JudgingHistory } from "./JudgingHistory";
+import { LETTER_TILE_STYLE, letterTileGlyphStyle } from "../lib/letterFit";
 
 interface MistakeLogProps {
   presentation?: "rail" | "compact" | "mobile-sheet";
@@ -59,7 +60,7 @@ export function MistakeLog({
         ...(panelRef.current?.querySelectorAll<HTMLElement>(
           'button:not([disabled]), [href], input:not([disabled]), textarea:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])',
         ) ?? []),
-      ].filter((item) => item.getClientRects().length > 0);
+      ].filter((item) => !item.closest("[inert]") && item.getClientRects().length > 0);
       if (!focusable.length) return;
       const first = focusable[0];
       const last = focusable[focusable.length - 1];
@@ -97,14 +98,27 @@ export function MistakeLog({
 
   useLayoutEffect(() => {
     if (!openId) return;
-    const frame = window.requestAnimationFrame(() => {
-      rowRefs.current.get(openId)?.scrollIntoView({
-        block: "nearest",
-        inline: "nearest",
-      });
-    });
-    return () => window.cancelAnimationFrame(frame);
-  }, [openId]);
+    const row = rowRefs.current.get(openId);
+    const list = row?.parentElement;
+    if (!row || !list) return;
+    const reveal = () => {
+      const bounds = row.getBoundingClientRect();
+      const viewport = list.getBoundingClientRect();
+      // An oversized row stays manually scrollable; do not chase its bottom.
+      if (bounds.height > list.clientHeight) return;
+      if (bounds.bottom > viewport.bottom) list.scrollTop += bounds.bottom - viewport.bottom;
+      else if (bounds.top < viewport.top) list.scrollTop += bounds.top - viewport.top;
+    };
+    // Follow the disclosure animation, and scroll only this list, not the page.
+    const observer = new ResizeObserver(reveal);
+    observer.observe(row);
+    observer.observe(list);
+    const frame = window.requestAnimationFrame(reveal);
+    return () => {
+      observer.disconnect();
+      window.cancelAnimationFrame(frame);
+    };
+  }, [openId, expanded]);
 
   const toggle = (mistake: Mistake) => {
     const { id, tid, page } = mistake;
@@ -142,6 +156,7 @@ export function MistakeLog({
         ref={panelRef}
         className={`panel mistake-panel ${presentation === "compact" ? "is-compact" : ""} ${expanded ? "is-expanded" : ""} ${mobileSheet ? "is-mobile-sheet" : ""}`}
         aria-label="Mistakes"
+        data-letter-tile={LETTER_TILE_STYLE}
         aria-labelledby={expanded ? "mistake-panel-title" : undefined}
         aria-modal={expanded || undefined}
         role={expanded ? "dialog" : undefined}
@@ -274,6 +289,7 @@ export function MistakeLog({
                     type="button"
                     className="log-row"
                     aria-expanded={open}
+                    aria-label={`${mistakePrimaryGlyph(mistake)}, ${category.label}, ${reference}, deduction ${mistake.amount}`}
                     title={`${category.label} · ${reference}`}
                     onClick={() => {
                       if (presentation === "compact" && !expanded) {
@@ -283,29 +299,24 @@ export function MistakeLog({
                       }
                     }}
                   >
-                    <span className="log-dot" aria-hidden="true" />
-                    <span className="log-glyph">
-                      {mistakePrimaryGlyph(mistake)}
+                    <span className="log-tile" aria-hidden="true">
+                      <span className="log-glyph" lang="ar" dir="rtl" style={letterTileGlyphStyle(mistakePrimaryGlyph(mistake))}>
+                        {mistakePrimaryGlyph(mistake)}
+                      </span>
                     </span>
                     <span className="log-amt t-num">−{mistake.amount}</span>
                     <span className="mobile-log-detail">
                       {category.label} · {reference}
                     </span>
-                    <span className="log-row-spacer" aria-hidden="true" />
+                    <span className="log-kalimah-ref t-num"><span className="log-forced-category">{category.label} · </span><bdi>{reference}</bdi></span>
                     <span className="log-chevron" aria-hidden="true">
                       <Icon name="chevron" size={13} />
                     </span>
                   </button>
                   <div
                     className="log-expand"
-                    onTransitionEnd={(event) => {
-                      if (open && event.propertyName === "grid-template-rows") {
-                        rowRefs.current.get(mistake.id)?.scrollIntoView({
-                          block: "nearest",
-                          inline: "nearest",
-                        });
-                      }
-                    }}
+                    ref={(node) => node?.toggleAttribute("inert", !open)}
+                    aria-hidden={!open}
                   >
                     <div className="log-expand-inner">
                       <div className="log-detail-line">
@@ -313,8 +324,8 @@ export function MistakeLog({
                           <span className="log-kalimah-word" dir="rtl" lang="ar">
                             {mistake.wordText || mistakeFullGlyph(mistake)}
                           </span>
-                          <bdi className="log-kalimah-ref t-num">{reference}</bdi>
                         </span>
+                        <span className="log-detail-actions">
                         <span
                           className="log-adjust"
                           role="group"
@@ -360,6 +371,7 @@ export function MistakeLog({
                         >
                           Undo
                         </button>
+                        </span>
                       </div>
                     </div>
                   </div>

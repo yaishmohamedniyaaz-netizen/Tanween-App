@@ -27,7 +27,6 @@ test("the compact Results control centers its icon without hidden text layout", 
 test("category swatches are square while score rows stay neutral", () => {
   for (const selector of [
     ".sc-dot",
-    ".log-dot",
     ".mobile-criterion-label i",
     ".mobile-category-mark",
   ]) {

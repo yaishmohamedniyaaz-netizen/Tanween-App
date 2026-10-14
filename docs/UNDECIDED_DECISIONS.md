@@ -417,6 +417,20 @@ product rules belong in `PRODUCT_FOUNDATION.md`, not here.
     - Native scrolling and the user's chosen rail side remain. Simple scrollbar
       styling and row alignment need browser proof; physical-device comfort
       is not established by the isolated layout comparison.
+    - 13 October 2026: selective local integration of Claude's letter-tile
+      proposal is authorised. Tonal tiles and measured glyph placement are the
+      preview default; hairline remains a code-only comparison. This does not
+      authorise commit or publication. The restored baseline is e37b269 and
+      pre-existing working-tree tray edits are retained where compatible.
+    - Compact-rail location visibility remains open. This integration preserves
+      the current working-tree reference while comparing it with the earlier
+      preference to hide coordinates. No device preference or migration is added.
     - This is presentation planning only. It does not approve grouping (item 24),
       rewrite Quran text, change target identity or deduction rules, or authorize
       committing or publishing the proposed application changes.
+
+- 13 October 2026 follow-up to item 33: owner selected the slim (B) mistake
+  tray preview and authorised implementation through a finished local preview.
+  The selected visible coordinate treatment is retained for this slice. Desktop
+  Notes heading removal, compact letter tiles, balanced scroll gutters and
+  disclosure visibility fixes are integrated. Commit/publication are separate.
