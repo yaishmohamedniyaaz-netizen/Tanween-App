@@ -11,6 +11,7 @@ import { JUMP_EVENT } from "./Mushaf";
 import { useJudging } from "../state/store";
 import { Icon } from "./Icon";
 import { JudgingHistory } from "./JudgingHistory";
+import { MistakeAmount } from "./MistakeAmount";
 import { LETTER_TILE_STYLE, letterTileGlyphStyle } from "../lib/letterFit";
 
 interface MistakeLogProps {
@@ -39,6 +40,30 @@ export function MistakeLog({
   );
   const canViewAll = ordered.length > 5 || hasReviewHistory;
 
+  useEffect(() => {
+    const panel = panelRef.current;
+    if (!panel) return;
+    const timers = new Map<HTMLElement, number>();
+    const showScrollGrip = (event: Event) => {
+      const list = event.target;
+      if (!(list instanceof HTMLElement) || !list.matches(".log, .history-scroll")) return;
+      window.clearTimeout(timers.get(list));
+      list.classList.add("is-scrolling");
+      timers.set(list, window.setTimeout(() => {
+        list.classList.remove("is-scrolling");
+        timers.delete(list);
+      }, 900));
+    };
+    panel.addEventListener("scroll", showScrollGrip, true);
+    return () => {
+      panel.removeEventListener("scroll", showScrollGrip, true);
+      timers.forEach((timer, list) => {
+        window.clearTimeout(timer);
+        list.classList.remove("is-scrolling");
+      });
+    };
+  }, []);
+
   const closePanel = useCallback(() => {
     if (mobileSheet) onRequestClose?.();
     else setExpanded(false);
@@ -47,7 +72,13 @@ export function MistakeLog({
   useEffect(() => {
     if (!expanded) return;
     closeButtonRef.current?.focus();
+    return () => {
+      window.requestAnimationFrame(() => viewAllButtonRef.current?.focus());
+    };
+  }, [expanded]);
 
+  useEffect(() => {
+    if (!expanded) return;
     const onKey = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         event.preventDefault();
@@ -75,7 +106,6 @@ export function MistakeLog({
     window.addEventListener("keydown", onKey);
     return () => {
       window.removeEventListener("keydown", onKey);
-      window.requestAnimationFrame(() => viewAllButtonRef.current?.focus());
     };
   }, [closePanel, expanded]);
 
@@ -239,6 +269,7 @@ export function MistakeLog({
         {expanded && mode === "history" ? (
           <div
             className="history-scroll"
+            tabIndex={0}
             id="mistake-history-panel"
             role="tabpanel"
             aria-labelledby={!mobileSheet ? "mistake-history-tab" : undefined}
@@ -285,6 +316,7 @@ export function MistakeLog({
                     else rowRefs.current.delete(mistake.id);
                   }}
                 >
+                  <div className="log-head-row">
                   <button
                     type="button"
                     className="log-row"
@@ -304,6 +336,9 @@ export function MistakeLog({
                         {mistakePrimaryGlyph(mistake)}
                       </span>
                     </span>
+                    {open && <span className="log-kalimah-word" dir="rtl" lang="ar">
+                      {mistake.wordText || mistakeFullGlyph(mistake)}
+                    </span>}
                     <span className="log-amt t-num">−{mistake.amount}</span>
                     <span className="mobile-log-detail">
                       {category.label} · {reference}
@@ -313,6 +348,7 @@ export function MistakeLog({
                       <Icon name="chevron" size={13} />
                     </span>
                   </button>
+                  </div>
                   <div
                     className="log-expand"
                     ref={(node) => node?.toggleAttribute("inert", !open)}
@@ -320,47 +356,11 @@ export function MistakeLog({
                   >
                     <div className="log-expand-inner">
                       <div className="log-detail-line">
-                        <span className="log-kalimah">
-                          <span className="log-kalimah-word" dir="rtl" lang="ar">
-                            {mistake.wordText || mistakeFullGlyph(mistake)}
-                          </span>
-                        </span>
+                        <MistakeAmount
+                          amount={mistake.amount}
+                          onChange={(amount) => dispatch({ type: "SET_MISTAKE_AMOUNT", id: mistake.id, amount })}
+                        />
                         <span className="log-detail-actions">
-                        <span
-                          className="log-adjust"
-                          role="group"
-                          aria-label="Deduction amount"
-                        >
-                          <button
-                            type="button"
-                            className="step-btn"
-                            aria-label="decrease deduction"
-                            onClick={() =>
-                              dispatch({
-                                type: "SET_MISTAKE_AMOUNT",
-                                id: mistake.id,
-                                amount: mistake.amount - 0.5,
-                              })
-                            }
-                          >
-                            <Icon name="minus" size={10} />
-                          </button>
-                          <span className="step-val t-num">−{mistake.amount}</span>
-                          <button
-                            type="button"
-                            className="step-btn"
-                            aria-label="increase deduction"
-                            onClick={() =>
-                              dispatch({
-                                type: "SET_MISTAKE_AMOUNT",
-                                id: mistake.id,
-                                amount: mistake.amount + 0.5,
-                              })
-                            }
-                          >
-                            <Icon name="plus" size={10} />
-                          </button>
-                        </span>
                         <button
                           type="button"
                           className="log-undo"

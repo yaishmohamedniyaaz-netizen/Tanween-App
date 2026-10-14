@@ -103,7 +103,8 @@ test("the portrait deck reuses the existing score, mistake, notes and judge comp
   assert.match(app, /mobileJudgeDeckOn && view === "judge" && state\.sessionActive/);
   assert.match(deck, /<ScorePanel inputMode=\{inputMode\} presentation="compact"/);
   assert.match(deck, /<MistakeLog[\s\S]*presentation="mobile-sheet"/);
-  assert.match(deck, /<NotesBox \/>/);
+  assert.match(deck, /<NotesBox showReasons=\{false\} \/>/);
+  assert.doesNotMatch(deck, /<ImpressionReasons \/>/);
   assert.match(deck, /<JudgeRoleStrip onChange=/);
   assert.match(css, /@media \(max-width: 600px\) and \(orientation: portrait\),/);
   assert.match(css, /\(max-device-width: 600px\) and \(pointer: coarse\) and \(orientation: portrait\)/);
@@ -126,7 +127,8 @@ test("portrait sheets expose explicit close controls and the score ruler clears 
   assert.match(css, /\.mobile-sheet-close \{[\s\S]*min-height: 44px/);
   assert.doesNotMatch(deck, /<span className="t-label">Score<\/span>/);
   assert.match(deck, /className="mobile-score-sheet-context"[\s\S]*<JudgeRoleStrip/);
-  assert.match(score, /presentation="inline"/);
+  assert.match(score, /export function ImpressionReasons/);
+  assert.match(score, /SET_IMPRESSION_NOTE/);
   assert.doesNotMatch(editor, /<label/);
   assert.match(editor, /aria-label=\{label\}/);
   assert.match(css, /\.judge-role-colors i \{[\s\S]*width: 8px;[\s\S]*height: 8px/);

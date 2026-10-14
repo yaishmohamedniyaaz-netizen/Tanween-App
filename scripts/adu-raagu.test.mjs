@@ -563,15 +563,15 @@ test("the opened mark fits one evidence line and never spells out its category",
   assert.doesNotMatch(cssSource, /\.log-loc\s*\{/);
   assert.match(mistakeLogSource, /category\.label\} · \$\{reference\}/, "kept for the row title");
 
-  // Kalimah left, adjuster beside Undo on the right; the controls wrap as one
-  // group below a long kalimah instead of squeezing the Arabic.
+  // Kalimah beside the letter, with inline correction and Undo below.
+  // Long kalimahs never acquire a third row when a decimal is selected.
   assert.match(mistakeLogSource, /className="log-detail-line"/);
-  assert.match(mistakeLogSource, /className="log-kalimah"/);
+  assert.match(mistakeLogSource, /className="log-kalimah-word"/);
   assert.match(mistakeLogSource, /className="log-detail-actions"/);
-  assert.match(mistakeLogSource, /className="log-adjust"/);
-  assert.match(cssSource, /\.log-detail-line\s*\{[^}]*display: flex[^}]*flex-wrap: wrap/s);
+  assert.match(mistakeLogSource, /<MistakeAmount/);
+  assert.match(cssSource, /\.log-detail-line\s*\{[^}]*flex-wrap: nowrap/s);
   assert.doesNotMatch(ruleBody(".log-detail-line .log-kalimah"), /background/);
-  assert.match(ruleBody(".log-detail-line .log-adjust"), /height: 46px/);
+  assert.match(ruleBody(".log-detail-line .log-adjust"), /height: 44px/);
   // The letter leads its row, and the kalimah shares the row's inset.
   assert.match(mistakeLogSource, /className="log-tile"/);
   assert.doesNotMatch(mistakeLogSource, /className="log-dot"/);

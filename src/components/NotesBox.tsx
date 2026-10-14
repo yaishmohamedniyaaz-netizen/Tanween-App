@@ -1,15 +1,19 @@
 import { useJudging } from "../state/store";
 import { CompactTextEditor } from "./CompactTextEditor";
+import { ImpressionReasons } from "./ScorePanel";
 
 export function NotesBox({
   presentation = "rail",
+  showReasons = true,
 }: {
   presentation?: "rail" | "compact";
+  showReasons?: boolean;
 }) {
   const { state, dispatch } = useJudging();
   if (presentation === "compact") {
     return (
       <section className="notes-panel is-compact" aria-label="Notes">
+        {showReasons && <ImpressionReasons />}
         <CompactTextEditor
           title="Recitation notes"
           label="Notes for improvement"

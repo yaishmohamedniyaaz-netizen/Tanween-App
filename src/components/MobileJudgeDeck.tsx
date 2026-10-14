@@ -279,7 +279,7 @@ export function MobileJudgeDeck({
             </button>
           </div>
           <ScorePanel inputMode={inputMode} presentation="compact" />
-          {notesOpen && <NotesBox />}
+          {notesOpen && <NotesBox showReasons={false} />}
           <div className="mobile-score-sheet-actions">
             <button
               type="button"

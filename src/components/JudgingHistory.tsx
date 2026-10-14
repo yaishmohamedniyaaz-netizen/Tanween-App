@@ -1,6 +1,7 @@
 import { CATEGORY_BY_ID } from "../config";
 import { latestMistakeEventIds } from "../lib/judgingLedger";
 import { mistakePrimaryGlyph } from "../lib/mistakeDisplay";
+import { letterTileGlyphStyle } from "../lib/letterFit";
 import type { CategoryId, JudgingEvent, Mistake } from "../types";
 import { categoryListLabel, judgeDisplayName } from "../lib/judgeAssignments";
 
@@ -101,9 +102,19 @@ export function JudgingHistory({
 }) {
   const latest = latestMistakeEventIds(events);
   const categories = new Map<string, CategoryId>();
+  const mistakes = new Map<string, Mistake>();
+  const eventEvidence = new Map<string, Mistake>();
+  const eventCategories = new Map<string, CategoryId | null>();
   for (const event of events) {
     const mistake = eventMistake(event);
-    if (mistake) categories.set(mistake.id, mistake.category);
+    if (mistake) {
+      categories.set(mistake.id, mistake.category);
+      mistakes.set(mistake.id, mistake);
+    }
+    if (event.type === "mistake_recategorized") categories.set(event.mistakeId, event.to);
+    const evidence = mistake ?? ("mistakeId" in event ? mistakes.get(event.mistakeId) : undefined);
+    if (evidence) eventEvidence.set(event.id, evidence);
+    eventCategories.set(event.id, categoryForEvent(event, categories));
   }
 
   if (events.length === 0) {
@@ -114,8 +125,8 @@ export function JudgingHistory({
     <ol className="history-list">
       {[...events].reverse().map((event) => {
         const copy = historyCopy(event);
-        const mistake = eventMistake(event);
-        const category = categoryForEvent(event, categories);
+        const mistake = eventEvidence.get(event.id);
+        const category = eventCategories.get(event.id);
         const canRestore =
           onRestore &&
           event.type === "mistake_undone" &&
@@ -125,14 +136,17 @@ export function JudgingHistory({
             className={`history-item ${category ? `cat-${category}` : ""}`}
             key={event.id}
           >
-            <span className="history-mark" aria-hidden="true" />
+            {mistake && (
+              <span className="history-glyph log-tile">
+                <span className="log-glyph" lang="ar" dir="rtl" style={letterTileGlyphStyle(mistakePrimaryGlyph(mistake))}>
+                  {mistakePrimaryGlyph(mistake)}
+                </span>
+              </span>
+            )}
             <span className="history-body">
               <span className="history-title">{copy.title}</span>
               <span className="history-detail">{copy.detail}</span>
             </span>
-            {mistake && (
-              <span className="history-glyph">{mistakePrimaryGlyph(mistake)}</span>
-            )}
             {canRestore && (
               <button
                 type="button"

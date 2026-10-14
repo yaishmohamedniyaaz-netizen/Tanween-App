@@ -8,11 +8,30 @@ import { useJudging } from "../state/store";
 import { judgeSeatFor } from "../lib/judgeAssignments";
 import type { AduRaaguInputMode } from "../lib/devicePreferences";
 import type { CategoryId } from "../types";
-import { CompactTextEditor } from "./CompactTextEditor";
 import { MarkPicker } from "./MarkPicker";
 import "../styles/scorePanelReason.css";
 
 type ScorePanelPresentation = "rail" | "compact";
+
+/** Same ledger field as before; its editor now lives with the recitation notes. */
+export function ImpressionReasons() {
+  const { state, dispatch } = useJudging();
+  const config = state.activeAssignment?.config ?? state.config;
+  const categories = state.activeAssignment?.categories
+    ?? judgeSeatFor(state.panel, state.deviceJudgeId)?.categories
+    ?? enabledCategories(config);
+  return <div className="impression-reasons">
+    {CATEGORIES.filter(c => categories.includes(c.id) && isImpressionCategory(c.id)).map(c => (
+      <label className="impression-reason" key={c.id}>
+        <input
+          value={impressionScore(config, state.impressions, c.id, "entry-zero").note}
+          aria-label={`${c.label} reason (optional)`}
+          onChange={event => dispatch({ type: "SET_IMPRESSION_NOTE", category: c.id, note: event.target.value })}
+        />
+      </label>
+    ))}
+  </div>;
+}
 
 function CategoryRow({
   id,
@@ -49,7 +68,6 @@ function ImpressionRow({
   pending,
   inputMode,
   presentation,
-  slim = false,
 }: {
   category: CategoryId;
   pending: boolean;
@@ -60,7 +78,7 @@ function ImpressionRow({
   const { state, dispatch } = useJudging();
   const config = state.activeAssignment?.config ?? state.config;
   const { start, step } = config[category];
-  const { awarded, marked, note } = impressionScore(
+  const { awarded, marked } = impressionScore(
     config,
     state.impressions,
     category,
@@ -89,44 +107,6 @@ function ImpressionRow({
         layer={presentation === "compact" ? "dialog" : "workspace"}
         onChange={(value) => dispatch({ type: "SET_IMPRESSION", category, awarded: value })}
       />
-      {presentation === "compact" || slim ? (
-        <CompactTextEditor
-          title={`${label} reason`}
-          label={`${label} reason`}
-          value={note}
-          placeholder="Reason (optional)"
-          triggerClassName={`sc-reason-trigger ${note.trim() ? "has-value" : ""}`}
-          triggerLabel={`Edit ${label} reason`}
-          presentation="inline"
-          triggerContent={
-            <>
-              <span>{note.trim() ? "Reason saved" : "Add reason"}</span>
-              {note.trim() && <i aria-hidden="true" />}
-            </>
-          }
-          onChange={(nextNote) =>
-            dispatch({
-              type: "SET_IMPRESSION_NOTE",
-              category,
-              note: nextNote,
-            })
-          }
-        />
-      ) : (
-        <input
-          className="sc-reason"
-          value={note}
-          placeholder="Reason (optional)"
-          aria-label={`${label} reason`}
-          onChange={(event) =>
-            dispatch({
-              type: "SET_IMPRESSION_NOTE",
-              category,
-              note: event.target.value,
-            })
-          }
-        />
-      )}
     </div>
   );
 }
