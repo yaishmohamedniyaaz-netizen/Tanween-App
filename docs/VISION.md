@@ -1,8 +1,9 @@
 # Recitation Judging Tool — Raw Vision and Notes
 
 > Historical note: this is the original raw vision, not the current product
-> contract. The research-backed decisions, current architecture gaps, and phased
-> delivery plan are in [`PRODUCT_FOUNDATION.md`](./PRODUCT_FOUNDATION.md).
+> contract. The product is now Tanween; see [current status](CURRENT_STATUS.md).
+> The August research decisions and roadmap are preserved in
+> [`PRODUCT_FOUNDATION.md`](./PRODUCT_FOUNDATION.md).
 
 ## The basic idea
 A web app for judging Quran recitation competitions. Web, not local. Today the process is
