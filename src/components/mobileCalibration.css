@@ -99,6 +99,16 @@
   .app[data-mobile-calibration="true"][data-mobile-prepared="true"] .prepared-sidebar-secondary .btn-ghost { min-height: 42px; }
 }
 @keyframes mobile-calibration-popover-in { from { opacity: 0; } to { opacity: 1; } }
+/* Narrow phones need two label lines even before the UI font finishes loading.
+   The prepared dock reserves the same room as its live replacement. */
+@media (max-width: 360px) and (orientation: portrait) {
+  .app[data-mobile-calibration="true"] .mobile-criterion-label {
+    min-height: 2.4em;
+  }
+  .app[data-mobile-calibration="true"][data-mobile-prepared="true"] .prepared-sidebar {
+    grid-template-rows: minmax(58px, auto) minmax(42px, auto);
+  }
+}
 .page-nav-popover.page-nav-popover-calibrated {
   z-index: 80; overflow: hidden;
   animation: mobile-calibration-popover-in 120ms ease-out;

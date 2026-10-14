@@ -532,7 +532,7 @@ textarea:focus-visible {
   font-weight: 560;
 }
 .offline-mushaf-complete small {
-  margin-top: 2px;
+  margin-top: 0;
   color: var(--ink-3);
   font-size: 11.5px;
 }
@@ -569,7 +569,7 @@ textarea:focus-visible {
   font-weight: 560;
 }
 .overflow-system-status small {
-  margin-top: 2px;
+  margin-top: 0;
   color: var(--ink-3);
   font-size: 11.5px;
   line-height: 1.35;
@@ -4470,7 +4470,7 @@ textarea:focus-visible {
 .question-mode-check {
   width: 13px;
   height: 13px;
-  margin-top: 2px;
+  margin-top: 0;
   border: 1px solid var(--ink-3);
   border-radius: 4px;
 }
@@ -8134,7 +8134,7 @@ html:has(.dialog-backdrop) {
   margin: 14px auto 0;
 }
 
-/* The opened finding keeps its word and Undo together below the controls. */
+/* Correction targets live in the disclosure below the fixed header. */
 .log-detail-line {
   display: flex;
   flex-wrap: nowrap;
@@ -9807,7 +9807,7 @@ html:has(.dialog-backdrop) {
   .rs-sub {
     font-size: 12px;
     color: #555;
-    margin-top: 2px;
+    margin-top: 0;
   }
   .rs-total {
     font-size: 30px;
@@ -14718,24 +14718,68 @@ html:has(.finish-dialog[open]) {
 }
 
 
-/* Stable letter column; the whole header toggles, actions stay below. */
-.mistake-panel .log-row { padding-inline: 12px; }
+/* Card disclosure changes details, never the letter's header geometry. */
+.mistake-panel .log-row,
+.mistake-panel.is-mobile-sheet .log-row,
 .mistake-panel .log-row-wrap.open .log-row {
   grid-template-columns: 40px minmax(0, 1fr) 24px;
-  min-height: 44px;
-  padding-block: 8px 0;
+  padding: 8px 12px;
+  min-height: 56px;
 }
-.sidebar .mistake-panel:not(.is-expanded) .log-row-wrap.open .log-row {
-  grid-template-columns: 36px minmax(0, 1fr) 24px;
+@media (min-width: 901px) {
+  .sidebar .mistake-panel:not(.is-expanded) .log-row,
+  .sidebar .mistake-panel:not(.is-expanded) .log-row-wrap.open .log-row {
+    grid-template-columns: 36px minmax(0, 1fr) 24px;
+    padding-block: 8px 4px;
+    min-height: 48px;
+  }
+  .sidebar .mistake-panel:not(.is-expanded) .log-row .log-tile {
+    align-self: start;
+    margin-top: 0;
+  }
 }
-.mistake-panel .log-row-wrap.open .log-row > :is(.log-amt, .mobile-log-detail, .log-kalimah-ref) { display: none; }
+.mistake-panel .log-row .log-tile { grid-column: 1; grid-row: 1; }
+.mistake-panel .log-row .log-chevron {
+  grid-column: 3; grid-row: 1;
+  transition: transform var(--t-base) var(--ease-in-out);
+}
+.mistake-panel .log-summary,
 .mistake-panel .log-row .log-kalimah-word {
+  grid-column: 2; grid-row: 1;
+  min-width: 0;
+  transition: opacity 80ms var(--ease-out), visibility 80ms;
+}
+.mistake-panel .log-summary {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr);
+  align-items: center; gap: 8px;
+  opacity: 1; visibility: visible;
+  transition-delay: 80ms;
+}
+.mistake-panel .log-row .log-kalimah-word {
+  opacity: 0; visibility: hidden;
   text-align: left; white-space: normal; line-height: 1.75;
   overflow-wrap: anywhere; padding-left: 4px;
 }
+.mistake-panel .log-row-wrap.open .log-summary {
+  opacity: 0; visibility: hidden; transition-delay: 0ms;
+}
+.mistake-panel .log-row-wrap.open .log-kalimah-word {
+  opacity: 1; visibility: visible; transition-delay: 80ms;
+}
+.mistake-panel .log-expand-inner {
+  opacity: 0;
+  transition: opacity var(--t-fast) var(--ease-out);
+}
+.mistake-panel .log-row-wrap.open .log-expand-inner { opacity: 1; transition-delay: 60ms; }
 .mistake-panel .log-detail-line { padding: 0 12px; min-height: 44px; gap: 12px; }
 .log-detail-line .log-adjust { flex: 0 0 auto; }
 .log-detail-line .step-btn:focus-visible { outline: 2px solid var(--ink-3); outline-offset: 1px; }
+@media (prefers-reduced-motion: reduce) {
+  .mistake-panel :is(.log-chevron, .log-expand, .log-expand-inner, .log-summary, .log-kalimah-word) {
+    transition: none !important;
+  }
+}
 
 /* Scorecard columns share one geometry, including editable whole-recitation marks. */
 .scorecard .sc-row {
@@ -14795,4 +14839,18 @@ html:has(.finish-dialog[open]) {
   }
   .mobile-score-sheet .scorecard .mark-picker:hover::before,
   .mobile-score-sheet .scorecard .mark-picker.is-open::before { border-color: var(--ink); }
+}
+
+/* Review keeps the background rail and tile scale stable. */
+.mistake-panel-placeholder { flex: 0 1 auto; min-height: 0; }
+@media (min-width: 901px) {
+  .sidebar .mistake-panel { --review-tile-size: 36px; }
+  .sidebar .mistake-panel .log-tile { width: var(--review-tile-size); height: var(--review-tile-size); }
+  .sidebar .mistake-panel .log-row,
+  .sidebar .mistake-panel .log-row-wrap.open .log-row {
+    grid-template-columns: var(--review-tile-size) minmax(0, 1fr) 24px;
+  }
+  .sidebar .mistake-panel .history-item {
+    grid-template-columns: var(--review-tile-size) minmax(0, 1fr) auto;
+  }
 }

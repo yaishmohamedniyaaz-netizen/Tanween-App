@@ -130,6 +130,14 @@
       opacity: 1;
     }
   }
+  @keyframes pill-commit {
+    40% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
   @keyframes dialog-in {
     from {
       opacity: 0;

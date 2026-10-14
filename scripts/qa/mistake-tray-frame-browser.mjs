@@ -1,0 +1,19 @@
+import {createRequire} from 'node:module';import{mkdirSync,writeFileSync}from'node:fs';import assert from'node:assert/strict';
+const require=createRequire(import.meta.url);const{chromium}=require('C:/Users/idraw/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');const browser=await chromium.launch();const out='outputs/tray-frame-preview';mkdirSync(out,{recursive:true});const results=[];
+try{for(const[width,height]of[[1191,668],[768,1024],[390,844],[320,740]]){
+ const page=await browser.newPage({viewport:{width,height},hasTouch:width<900,deviceScaleFactor:2});await page.addInitScript(()=>{localStorage.setItem('tahqeeq.hintSeen.assignedRail.v1','1');localStorage.setItem('tanween.phrases.help.v1','seen');localStorage.setItem('tahqeeq:devicePreferences.v5',JSON.stringify({version:5,slimScorePanel:true,judgeRailSide:'left'}));});
+ await page.goto('http://127.0.0.1:5346/scripts/qa/mobile-paper.html?sessionStorage=3&qaSurah=79&qaAyah=33&qaLines=10');await page.getByRole('button',{name:'Load prepared mobile sample'}).click();await page.getByRole('button',{name:'Begin judging',exact:true}).evaluate(el=>el.click());await page.waitForFunction(()=>window.providerQA?.state.sessionActive);await page.evaluate(()=>window.providerQA.addFindings(8));await page.waitForTimeout(300);
+ const startScroll=await page.evaluate(()=>scrollY);const notes=page.locator('.sidebar .notes-panel');const notesBefore=await notes.boundingBox();let before;
+ if(width>=600){before=await page.locator('.log-tile:visible').first().boundingBox();await page.getByRole('button',{name:'View all',exact:true}).evaluate(el=>el.click());}else await page.locator('.mobile-mistakes-action').click();
+ await page.waitForTimeout(250);const panel=page.locator('.mistake-panel.is-expanded:visible');const first=await panel.locator('.log-tile').first().boundingBox();
+ if(before){assert.equal(first.width,before.width);assert.equal(first.height,before.height);assert.equal((await notes.boundingBox()).y,notesBefore.y,'Rail keeps Notes anchored');}
+ const boxBefore=await panel.boundingBox();await panel.screenshot({path:`${out}/current-${width}.png`});
+ const list=panel.locator('.log');await list.evaluate(el=>el.scrollTop=70);const saved=await list.evaluate(el=>el.scrollTop);
+ await page.getByRole(width<600?'button':'tab',{name:/^History/}).evaluate(el=>el.click());await page.waitForTimeout(200);
+ await panel.screenshot({path:out + '/history-top-' + width + '.png'});const history=panel.locator('.history-scroll');await history.evaluate(el=>el.scrollTop=50);const historySaved=await history.evaluate(el=>el.scrollTop);const boxHistory=await panel.boundingBox();assert.equal(boxHistory.y,boxBefore.y);assert.equal(boxHistory.height,boxBefore.height);await panel.screenshot({path:`${out}/history-${width}.png`});
+ await page.getByRole(width<600?'button':'tab',{name:width<600?'Current mistakes':/^Current/}).evaluate(el=>el.click());await page.waitForTimeout(100);assert.equal(await panel.locator('.log').evaluate(el=>el.scrollTop),saved,'Current position restored');
+ await page.getByRole(width<600?'button':'tab',{name:/^History/}).evaluate(el=>el.click());await page.waitForTimeout(100);assert.equal(await panel.locator('.history-scroll').evaluate(el=>el.scrollTop),historySaved,'History position restored');
+ await page.getByRole('button',{name:width<600?'Close mistakes':'Close',exact:true}).evaluate(el=>el.click());await page.waitForTimeout(150);assert.equal(await page.evaluate(()=>scrollY),startScroll,'Closing review does not scroll document');
+ if(width>=600)assert.equal((await notes.boundingBox()).y,notesBefore.y);
+ results.push({width,tile:first.width,stableFrame:true,scrollPreserved:true,documentScroll:startScroll});await page.close();
+}}finally{await browser.close();}writeFileSync(`${out}/results.json`,JSON.stringify(results,null,2));console.log(JSON.stringify(results));

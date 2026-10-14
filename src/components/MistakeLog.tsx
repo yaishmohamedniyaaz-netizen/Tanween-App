@@ -28,6 +28,10 @@ export function MistakeLog({
   const { state, dispatch } = useJudging();
   const [openId, setOpenId] = useState<string | null>(null);
   const mobileSheet = presentation === "mobile-sheet";
+  const [sheetBlockSize, setSheetBlockSize] = useState<number | null>(null);
+  const [railBlockSize, setRailBlockSize] = useState<number | null>(null);
+  const scrollPositions = useRef({ current: 0, history: 0 });
+  const railScrollPosition = useRef(0);
   const [expanded, setExpanded] = useState(mobileSheet);
   const [mode, setMode] = useState<"current" | "history">("current");
   const panelRef = useRef<HTMLElement>(null);
@@ -64,16 +68,37 @@ export function MistakeLog({
     };
   }, []);
 
+  const lockSheetSize = useCallback(() => {
+    if (!mobileSheet || !panelRef.current) return;
+    const height = Math.max(320, panelRef.current.getBoundingClientRect().height);
+    setSheetBlockSize(current => current ?? height);
+  }, [mobileSheet]);
+
+  useLayoutEffect(() => { lockSheetSize(); }, [lockSheetSize]);
+
+  const switchMode = (next: "current" | "history") => {
+    const list = panelRef.current?.querySelector<HTMLElement>(mode === "current" ? ".log" : ".history-scroll");
+    scrollPositions.current[mode] = list?.scrollTop ?? 0;
+    setMode(next);
+  };
+
+  useLayoutEffect(() => {
+    const list = panelRef.current?.querySelector<HTMLElement>(!expanded || mode === "current" ? ".log" : ".history-scroll");
+    if (list) list.scrollTop = expanded ? scrollPositions.current[mode] : railScrollPosition.current;
+  }, [mode, expanded]);
+
   const closePanel = useCallback(() => {
+    const list = panelRef.current?.querySelector<HTMLElement>(mode === "current" ? ".log" : ".history-scroll");
+    scrollPositions.current[mode] = list?.scrollTop ?? 0;
     if (mobileSheet) onRequestClose?.();
-    else setExpanded(false);
-  }, [mobileSheet, onRequestClose]);
+    else { setExpanded(false); setRailBlockSize(null); }
+  }, [mobileSheet, onRequestClose, mode]);
 
   useEffect(() => {
     if (!expanded) return;
-    closeButtonRef.current?.focus();
+    closeButtonRef.current?.focus({ preventScroll: true });
     return () => {
-      window.requestAnimationFrame(() => viewAllButtonRef.current?.focus());
+      window.requestAnimationFrame(() => viewAllButtonRef.current?.focus({ preventScroll: true }));
     };
   }, [expanded]);
 
@@ -151,6 +176,8 @@ export function MistakeLog({
   }, [openId, expanded]);
 
   const toggle = (mistake: Mistake) => {
+    // Keep a bottom-anchored sheet from following the card's animated height.
+    lockSheetSize();
     const { id, tid, page } = mistake;
     const opening = openId !== id;
     setOpenId(opening ? id : null);
@@ -160,11 +187,15 @@ export function MistakeLog({
   };
 
   const openPanel = () => {
+    setRailBlockSize(panelRef.current?.getBoundingClientRect().height ?? null);
+    railScrollPosition.current = panelRef.current?.querySelector<HTMLElement>(".log")?.scrollTop ?? 0;
+    scrollPositions.current.current = railScrollPosition.current;
     setMode(ordered.length > 0 ? "current" : "history");
     setExpanded(true);
   };
 
   const openCompactMistake = (mistake: Mistake) => {
+    setRailBlockSize(panelRef.current?.getBoundingClientRect().height ?? null);
     const { id, tid, page } = mistake;
     setOpenId(id);
     setMode("current");
@@ -182,8 +213,12 @@ export function MistakeLog({
           onClick={closePanel}
         />
       )}
+      {expanded && !mobileSheet && (
+        <div className="mistake-panel-placeholder" aria-hidden="true" style={{ height: railBlockSize ?? undefined }} />
+      )}
       <section
         ref={panelRef}
+        style={mobileSheet && sheetBlockSize !== null ? { height: sheetBlockSize } : undefined}
         className={`panel mistake-panel ${presentation === "compact" ? "is-compact" : ""} ${expanded ? "is-expanded" : ""} ${mobileSheet ? "is-mobile-sheet" : ""}`}
         aria-label="Mistakes"
         data-letter-tile={LETTER_TILE_STYLE}
@@ -221,7 +256,7 @@ export function MistakeLog({
                 <button
                   type="button"
                   className="log-view-all"
-                  onClick={() => setMode((current) => current === "current" ? "history" : "current")}
+                  onClick={() => switchMode(mode === "current" ? "history" : "current")}
                 >
                   {mode === "current" ? "History" : "Current mistakes"}
                 </button>
@@ -248,7 +283,7 @@ export function MistakeLog({
               aria-selected={mode === "current"}
               aria-controls="mistake-current-panel"
               className={mode === "current" ? "is-active" : ""}
-              onClick={() => setMode("current")}
+              onClick={() => switchMode("current")}
             >
               Current <span>{ordered.length}</span>
             </button>
@@ -259,7 +294,7 @@ export function MistakeLog({
               aria-selected={mode === "history"}
               aria-controls="mistake-history-panel"
               className={mode === "history" ? "is-active" : ""}
-              onClick={() => setMode("history")}
+              onClick={() => switchMode("history")}
             >
               History <span>{state.events.length}</span>
             </button>
@@ -317,37 +352,39 @@ export function MistakeLog({
                   }}
                 >
                   <div className="log-head-row">
-                  <button
-                    type="button"
-                    className="log-row"
-                    aria-expanded={open}
-                    aria-label={`${mistakePrimaryGlyph(mistake)}, ${category.label}, ${reference}, deduction ${mistake.amount}`}
-                    title={`${category.label} · ${reference}`}
-                    onClick={() => {
-                      if (presentation === "compact" && !expanded) {
-                        openCompactMistake(mistake);
-                      } else {
-                        toggle(mistake);
-                      }
-                    }}
-                  >
-                    <span className="log-tile" aria-hidden="true">
-                      <span className="log-glyph" lang="ar" dir="rtl" style={letterTileGlyphStyle(mistakePrimaryGlyph(mistake))}>
-                        {mistakePrimaryGlyph(mistake)}
+                    <button
+                      type="button"
+                      className="log-row"
+                      aria-expanded={open}
+                      aria-label={`${mistakePrimaryGlyph(mistake)}, ${category.label}, ${reference}, deduction ${mistake.amount}`}
+                      title={`${category.label} · ${reference}`}
+                      onClick={() => {
+                        if (presentation === "compact" && !expanded) {
+                          openCompactMistake(mistake);
+                        } else {
+                          toggle(mistake);
+                        }
+                      }}
+                    >
+                      <span className="log-tile" aria-hidden="true">
+                        <span className="log-glyph" lang="ar" dir="rtl" style={letterTileGlyphStyle(mistakePrimaryGlyph(mistake))}>
+                          {mistakePrimaryGlyph(mistake)}
+                        </span>
                       </span>
-                    </span>
-                    {open && <span className="log-kalimah-word" dir="rtl" lang="ar">
-                      {mistake.wordText || mistakeFullGlyph(mistake)}
-                    </span>}
-                    <span className="log-amt t-num">−{mistake.amount}</span>
-                    <span className="mobile-log-detail">
-                      {category.label} · {reference}
-                    </span>
-                    <span className="log-kalimah-ref t-num"><span className="log-forced-category">{category.label} · </span><bdi>{reference}</bdi></span>
-                    <span className="log-chevron" aria-hidden="true">
-                      <Icon name="chevron" size={13} />
-                    </span>
-                  </button>
+                      <span className="log-kalimah-word" dir="rtl" lang="ar" aria-hidden={!open}>
+                        {mistake.wordText || mistakeFullGlyph(mistake)}
+                      </span>
+                      <span className="log-summary" aria-hidden={open}>
+                        <span className="log-amt t-num">−{mistake.amount}</span>
+                        <span className="mobile-log-detail">
+                          {category.label} · {reference}
+                        </span>
+                        <span className="log-kalimah-ref t-num"><span className="log-forced-category">{category.label} · </span><bdi>{reference}</bdi></span>
+                      </span>
+                      <span className="log-chevron" aria-hidden="true">
+                        <Icon name="chevron" size={13} />
+                      </span>
+                    </button>
                   </div>
                   <div
                     className="log-expand"
