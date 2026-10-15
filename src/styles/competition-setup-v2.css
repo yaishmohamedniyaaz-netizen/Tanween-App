@@ -1,40 +1,57 @@
 .competition-setup-page { padding: 22px 20px 48px; }
+/* The app header owns its row; setup owns the remaining viewport and scroll. */
+.app.view-setup {
+  height: 100dvh; min-height: 0; display: grid;
+  grid-template-rows: auto minmax(0, 1fr); overflow: hidden;
+}
+.app.view-setup > .competition-setup-page {
+  min-height: 0; overflow-y: auto; overscroll-behavior-y: contain;
+}
+.app.view-setup > .roster-editor-page { height: auto; min-height: 0; }
+.app.view-questions { height: 100dvh; min-height: 0; display: grid; grid-template-rows: auto minmax(0,1fr); overflow: hidden; }
+.app.view-questions > .question-preparation-page { min-height: 0; overflow-y: auto; overscroll-behavior-y: contain; }
+.app.view-settings { height: 100dvh; min-height: 0; display: grid; grid-template-rows: auto minmax(0,1fr); overflow: hidden; }
+.app.view-settings > .settings-page { min-height: 0; overflow-y: auto; overscroll-behavior-y: contain; }
+.app.view-records { height: 100dvh; min-height: 0; display: grid; grid-template-rows: auto minmax(0,1fr); overflow: hidden; }
+.app.view-records > .records-main { width: 100%; min-height: 0; overflow-y: auto; overscroll-behavior-y: contain; }
+@keyframes workspace-fade { from {opacity: 0;} to {opacity: 1;} }
+.app:is(.view-setup,.view-questions,.view-settings,.view-records) > main { position: relative; animation: workspace-fade var(--t-base) var(--ease-out); }
 .setup-checklist-shell { max-width: 880px; margin: 0 auto; }
 .setup-checklist-intro { position: relative; padding: 12px 4px 24px; }
-.setup-checklist-intro > span { color: var(--ink-3); font-size: 10px; font-weight: 650; letter-spacing: .08em; text-transform: uppercase; }
-.setup-checklist-intro h1 { margin: 5px 0 6px; font-size: clamp(25px, 3vw, 30px); font-weight: 580; letter-spacing: -.045em; }
+.setup-checklist-intro > span { color: var(--ink-3); font-size: var(--t-micro); font-weight: 650; letter-spacing: .08em; text-transform: uppercase; }
+.setup-checklist-intro h1 { margin: 5px 0 6px; font-size: var(--t-display); font-weight: 580; letter-spacing: -.045em; }
 .setup-progress { position: relative; height: 3px; margin-top: 15px; overflow: visible; border-radius: 999px; background: var(--line); }
 .setup-progress > span { display: block; height: 100%; border-radius: inherit; background: var(--ink); transition: width var(--t-base) var(--ease-out); }
-.setup-progress small { position: absolute; top: 8px; right: 0; color: var(--ink-3); font-size: 9.5px; font-variant-numeric: tabular-nums; }
-.setup-sample-utility { display: flex; align-items: center; justify-content: flex-end; gap: 9px; min-height: 32px; margin-top: 23px; }
-.setup-sample-utility > span { display: inline-flex; align-items: center; gap: 7px; color: var(--ink-3); font-size: 10px; }
-.setup-sample-utility .btn-ghost { min-height: 30px; padding: 4px 9px; font-size: 10px; }
-.setup-checklist { display: grid; gap: 7px; padding-top: 15px; }
-.setup-checklist > .setup-task-group { margin: 14px 4px 0; padding: 0; color: var(--ink-3); font-size: 9px; font-weight: 680; letter-spacing: .09em; text-transform: uppercase; }
+.setup-progress small { position: absolute; top: 8px; right: 0; color: var(--ink-3); font-size: var(--t-micro); font-variant-numeric: tabular-nums; }
+.setup-sample-utility { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 8px 12px; min-height: 40px; margin-top: 24px; }
+.setup-sample-utility > span { display: inline-flex; align-items: center; gap: 7px; color: var(--ink-3); font-size: var(--t-micro); }
+.setup-sample-utility .btn-ghost { min-height: 30px; padding: 4px 9px; font-size: var(--t-micro); }
+.setup-checklist { display: grid; gap: 8px; padding-top: 16px; overflow-anchor: none; }
+.setup-checklist > .setup-task-group { margin: 14px 4px 0; padding: 0; color: var(--ink-3); font-size: var(--t-micro); font-weight: 680; letter-spacing: .09em; text-transform: uppercase; }
 .setup-checklist-item { overflow: hidden; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); box-shadow: var(--shadow-rest); transition: border-color var(--t-fast) var(--ease-out), box-shadow var(--t-fast) var(--ease-out); }
 .setup-checklist-item.is-active { border-color: var(--line-2); box-shadow: 0 8px 24px rgba(26,26,28,.07); }
 [data-theme="dark"] .setup-checklist-item.is-active { box-shadow: 0 10px 26px rgba(0,0,0,.25); }
-.setup-checklist-trigger { display: grid; grid-template-columns: 28px minmax(0, 1fr) minmax(104px, auto) 20px; align-items: center; gap: 11px; width: 100%; min-height: 58px; padding: 8px 13px; border: 0; background: transparent; text-align: left; overflow-anchor: auto; }
+.setup-checklist-trigger { display: grid; grid-template-columns: 24px minmax(0, 1fr) 208px 20px; align-items: center; gap: 12px; width: 100%; min-height: 64px; padding: 12px 16px; border: 0; background: transparent; text-align: left; overflow-anchor: auto; }
 .setup-checklist-trigger:hover { background: var(--bg); }
 .setup-checklist-mark { display: grid; place-items: center; width: 24px; height: 24px; border: 1px solid var(--line-2); border-radius: 50%; color: var(--surface); background: transparent; }
 .setup-checklist-mark i { width: 6px; height: 6px; border-radius: 50%; background: var(--ink-3); opacity: .45; }
 .setup-checklist-item.is-complete .setup-checklist-mark { border-color: var(--ink); background: var(--ink); }
 .setup-checklist-trigger .setup-task-copy { display: grid; gap: 3px; min-width: 0; }
-.setup-checklist-trigger .setup-task-copy strong { overflow: hidden; font-size: 13px; font-weight: 620; text-overflow: ellipsis; white-space: nowrap; }
-.setup-checklist-trigger .setup-task-copy small { overflow: hidden; color: var(--ink-3); font-size: 10.5px; line-height: 1.35; text-overflow: ellipsis; white-space: nowrap; }
-.setup-checklist-trigger .setup-task-value { max-width: 220px; overflow: hidden; color: var(--ink-2); font-size: 10.5px; font-weight: 560; font-variant-numeric: tabular-nums; text-align: right; text-overflow: ellipsis; white-space: nowrap; }
+.setup-checklist-trigger .setup-task-copy strong { font-size: var(--t-small); font-weight: 620; line-height: 1.4; overflow-wrap: anywhere; }
+.setup-checklist-trigger .setup-task-copy small { overflow: hidden; color: var(--ink-3); font-size: var(--t-micro); line-height: 1.35; text-overflow: ellipsis; white-space: nowrap; }
+.setup-checklist-trigger .setup-task-value { min-width: 0; color: var(--ink-2); font-size: var(--t-micro); line-height: 1.5; font-weight: 560; font-variant-numeric: tabular-nums; text-align: right; overflow-wrap: anywhere; }
 .setup-checklist-item.has-attention .setup-task-value { color: #8b5c18; }
 [data-theme="dark"] .setup-checklist-item.has-attention .setup-task-value { color: #ddb96f; }
-.setup-checklist-chevron { display: grid; place-items: center; color: var(--ink-3); transition: transform var(--t-fast) var(--ease-out); }
+.setup-checklist-chevron { display: grid; place-items: center; color: var(--ink-3); transition: transform var(--t-base) var(--ease-out); }
 .setup-checklist-item.is-active .setup-checklist-chevron { transform: rotate(90deg); }
-.setup-checklist-panel-shell { overflow-anchor: none; }
+.setup-checklist-panel-shell { overflow-anchor: none; overflow: hidden; }
 .setup-checklist-panel-clip { min-height: 0; }
-.setup-checklist-panel { border-top: 1px solid var(--line); animation: setup-panel-fade 120ms var(--ease-out); }
+.setup-checklist-panel { border-top: 1px solid var(--line); }
 @keyframes setup-panel-fade { from { opacity: 0; } to { opacity: 1; } }
-.setup-checklist-panel > .setup-work-card { border: 0; border-radius: 0; box-shadow: none; background: transparent; }
+.setup-checklist-panel > .setup-work-card { min-height: 0; border: 0; border-radius: 0; box-shadow: none; background: transparent; }
 .setup-checklist-panel .setup-work-head { padding-top: 0; }
-.setup-checklist-panel .setup-work-head h2 { font-size: 20px; }
-.setup-checklist-panel .setup-work-card { padding: 24px 26px 28px; }
+.setup-checklist-panel .setup-work-head h2 { font-size: var(--t-title); }
+.setup-checklist-panel .setup-work-card { padding: 24px 24px 28px; }
 
 .category-summary-list { display: grid; gap: 7px; }
 .category-summary-list .division-card { padding: 0; overflow: hidden; border: 1px solid var(--line); border-radius: 9px; background: var(--bg); }
@@ -42,16 +59,16 @@
 .category-summary-list .division-card-head { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 8px; padding: 0; border: 0; }
 .category-summary-main { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 12px; min-height: 58px; padding: 10px 12px; border: 0; background: transparent; text-align: left; }
 .category-summary-main > span:first-child { display: grid; gap: 3px; min-width: 0; }
-.category-summary-main strong { font-size: 12.5px; font-weight: 620; }
-.category-summary-main small { overflow: hidden; color: var(--ink-3); font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }
-.category-row-state { color: var(--ink-3); font-size: 9.5px; white-space: nowrap; }
+.category-summary-main strong { font-size: var(--t-small); font-weight: 620; }
+.category-summary-main small { overflow: hidden; color: var(--ink-3); font-size: var(--t-micro); text-overflow: ellipsis; white-space: nowrap; }
+.category-row-state { color: var(--ink-3); font-size: var(--t-micro); white-space: nowrap; }
 .category-summary-actions { display: flex; gap: 5px; padding-right: 8px; }
-.category-summary-actions .btn-ghost { min-height: 34px; padding: 0 9px; font-size: 10px; }
+.category-summary-actions .btn-ghost { min-height: 34px; padding: 0 9px; font-size: var(--t-micro); }
 .category-summary-list .division-fields { margin: 0; padding: 18px; border-top: 1px solid var(--line); background: var(--surface); }
 .category-editor-fields { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .category-editor-errors { grid-column: 1 / -1; padding: 11px 12px; border: 1px solid rgba(216,69,61,.28); border-radius: 8px; background: rgba(216,69,61,.07); }
-.category-editor-errors strong { font-size: 11.5px; }
-.category-editor-errors ul { margin: 6px 0 0; padding-left: 18px; color: var(--ink-2); font-size: 10.5px; line-height: 1.45; }
+.category-editor-errors strong { font-size: var(--t-micro); }
+.category-editor-errors ul { margin: 6px 0 0; padding-left: 18px; color: var(--ink-2); font-size: var(--t-micro); line-height: 1.45; }
 .setup-work-actions { align-items: center; gap: 8px; }
 .setup-grid-criteria .t-label:nth-child(n+2) { text-align: center; }
 .setup-grid-criteria > select {
@@ -78,14 +95,14 @@
   text-align: left;
 }
 .readiness-issues li button:hover { background: color-mix(in srgb, #d8453d 7%, transparent); }
-.readiness-issues li button span { color: var(--ink-3); font-size: 9.5px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; }
+.readiness-issues li button span { color: var(--ink-3); font-size: var(--t-micro); font-weight: 600; text-transform: uppercase; letter-spacing: .06em; }
 .participant-entry-disclosure { padding: 0; }
 .participant-entry-disclosure > summary { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; min-height: 58px; padding: 10px 13px; cursor: pointer; list-style: none; }
 .participant-entry-disclosure > summary::-webkit-details-marker { display: none; }
 .participant-entry-disclosure > summary > span:first-child { display: grid; gap: 3px; }
 .participant-entry-disclosure > summary strong { font-size: 12px; }
 .participant-entry-disclosure > summary small,
-.participant-entry-disclosure > summary > span:last-child { color: var(--ink-3); font-size: 10px; }
+.participant-entry-disclosure > summary > span:last-child { color: var(--ink-3); font-size: var(--t-micro); }
 .participant-entry-disclosure[open] > summary { border-bottom: 1px solid var(--line); }
 .participant-entry-disclosure .participant-entry-settings-head,
 .participant-entry-disclosure .participant-institution-settings { margin: 0; padding: 16px; border: 0; }
@@ -93,19 +110,23 @@
 .question-builder-launch-card { text-align: left; }
 .question-workspace-summary { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; margin: 18px 0; }
 .question-workspace-summary > span { display: grid; gap: 3px; padding: 13px; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); }
-.question-workspace-summary strong { font-size: 17px; font-weight: 570; }
-.question-workspace-summary small { color: var(--ink-3); font-size: 10px; }
+.question-workspace-summary strong { font-size: var(--t-lead); font-weight: 570; }
+.question-workspace-summary small { color: var(--ink-3); font-size: var(--t-micro); }
 .question-workspace-open { min-height: 46px; }
 
 @media (max-width: 700px) {
   .competition-setup-page { padding: 12px 10px 32px; }
   .setup-checklist-intro { padding: 8px 4px 18px; }
-  .setup-checklist-intro h1 { font-size: 24px; }
+  .setup-checklist-intro h1 { font-size: var(--t-display); }
   .setup-sample-utility { justify-content: space-between; }
-  .setup-checklist-trigger { grid-template-columns: 26px minmax(0, 1fr) auto 18px; min-height: 60px; padding: 8px 10px; }
-  .setup-checklist-trigger .setup-task-value { max-width: 96px; }
-  .setup-checklist-trigger .setup-task-copy small { white-space: normal; }
-  .setup-checklist-panel .setup-work-card { padding: 20px 14px 24px; }
+  .setup-checklist-trigger { grid-template-columns: 24px minmax(0, 1fr) minmax(0, 96px) 20px; min-height: 64px; padding: 12px; gap: 4px 8px; align-items: start; }
+  .setup-checklist-trigger .setup-task-copy { display: contents; }
+  .setup-checklist-trigger .setup-task-copy strong { grid-column: 2 / 4; grid-row: 1; }
+  .setup-checklist-trigger .setup-task-copy small { grid-column: 2; grid-row: 2; white-space: normal; line-height: 1.5; }
+  .setup-checklist-trigger .setup-task-value { grid-column: 3; grid-row: 2; }
+  .setup-checklist-trigger .setup-checklist-mark { grid-column: 1; grid-row: 1; }
+  .setup-checklist-trigger .setup-checklist-chevron { grid-column: 4; grid-row: 1; height: 24px; }
+  .setup-checklist-panel .setup-work-card { padding: 20px 16px 24px; }
   .category-summary-list .division-card-head { grid-template-columns: 1fr; }
   .category-summary-actions { padding: 0 10px 10px; }
   .category-summary-actions .btn-ghost { flex: 1; }
@@ -121,8 +142,218 @@
   .setup-grid-criteria > .setup-total { grid-column: 2 / -1; }
 }
 
+/* Setup uses the shared type roles without changing other workspaces. */
+.competition-setup-page .setup-work-card { font-size: var(--t-small); }
+.competition-setup-page .setup-work-card p { font-size: var(--t-small); line-height: 1.5; }
+.competition-setup-page .setup-work-card small,
+.competition-setup-page .setup-work-card label,
+.competition-setup-page .participant-entry-disclosure label > span,
+.competition-setup-page .participant-institution-chips > span,
+.competition-setup-page .participant-entry-settings-head > div > span,
+.competition-setup-page .participant-default-side > span,
+.competition-setup-page .setup-work-card :is(.setup-step, .t-label, .setup-note, .setup-empty-note, .setup-warn, .question-foundation-note, .criterion-required, .category-row-state) {
+  font-size: var(--t-micro); line-height: 1.5;
+}
+.competition-setup-page .setup-work-card :is(.roster-setup-count, .roster-setup-mode) > span,
+.competition-setup-page .roster-setup-paths > div > span,
+.competition-setup-page .roster-setup-primary > span,
+.competition-setup-page .judge-row-person > span,
+.competition-setup-page .panel-presets button > span,
+.competition-setup-page .device-judge-block > div > span,
+.competition-setup-page .competition-identity-fields label > span,
+.competition-setup-page .question-rule-grid label > span,
+.competition-setup-page .official-start-block > div > span,
+.competition-setup-page .review-summary-list button > :is(span, em) {
+  font-size: var(--t-micro); line-height: 1.5;
+}
+.competition-setup-page :is(.roster-setup-paths, .device-judge-options, .review-summary-list) strong,
+.competition-setup-page .category-summary-main strong {
+  font-size: var(--t-small); line-height: 1.4;
+}
+.competition-setup-page .ayah-rule-summary span,
+.competition-setup-page .ayah-rule-summary strong { font-size: var(--t-small); line-height: 1.5; }
+.competition-setup-page .roster-setup-count strong { font-size: var(--t-display); }
+.competition-setup-page .roster-setup-mode strong { font-size: var(--t-lead); }
+.competition-setup-page .setup-work-card button,
+.competition-setup-page .setup-sample-utility .btn-ghost {
+  min-height: 40px; font-size: var(--t-small); line-height: 1.4;
+}
+.competition-setup-page .setup-work-card :is(input:not([type="checkbox"]):not([type="radio"]), select) {
+  height: 40px; min-height: 40px; font-size: var(--t-small); border-radius: var(--r-sm);
+}
+.competition-setup-page .setup-work-actions { gap: 8px; align-items: center; }
+.competition-setup-page .setup-work-actions > button { padding: 8px 16px; }
+.competition-setup-page .setup-grid-criteria { gap: 12px; align-items: center; }
+.competition-setup-page .setup-grid-criteria > select { width: 100%; min-width: 0; padding-inline: 8px; }
+.competition-setup-page .criterion-toggle { min-height: 40px; }
+.competition-setup-page .setup-grid-criteria .setup-cat { align-items: flex-start; }
+.competition-setup-page .setup-grid-criteria .setup-cat > .sc-dot { margin-top: 6px; }
+.competition-setup-page .review-summary-list button { align-items: center; }
+.competition-setup-page .review-summary-list small { white-space: normal; overflow-wrap: anywhere; }
+.competition-setup-page .participant-default-side button { padding-inline: 4px; }
+.competition-setup-page .participant-institution-chips button { width: 40px; }
+
+@media (max-width: 700px) {
+  .competition-setup-page .setup-work-card button,
+  .competition-setup-page .setup-sample-utility .btn-ghost,
+  .competition-setup-page .setup-work-card :is(input:not([type="checkbox"]):not([type="radio"]), select),
+  .competition-setup-page .criterion-toggle { min-height: var(--tap); }
+  .competition-setup-page .setup-work-card :is(input:not([type="checkbox"]):not([type="radio"]), select) { height: var(--tap); }
+  .competition-setup-page .setup-grid-criteria { grid-template-columns: minmax(0, 1fr) 72px 64px; gap: 12px 8px; }
+  .competition-setup-page .setup-sample-utility > span { flex: 1 1 140px; }
+  .competition-setup-page .setup-sample-utility .btn-ghost { flex: 0 0 auto; }
+  .competition-setup-page .participant-institution-chips button { width: var(--tap); }
+}
+@media (max-width: 360px) {
+  .competition-setup-page .participant-default-side > div { grid-template-columns: 1fr; }
+}
+
+/* Participant entry keeps its primary action in the footer. */
+.roster-editor-page { scroll-padding-top: 100px; scroll-padding-bottom: 136px; }
+.roster-editor-page .roster-editor-title h1 { font-size: var(--t-title); line-height: 1.2; }
+.roster-editor-page .roster-editor-title :is(span, p),
+.roster-editor-page .roster-editor-summary span,
+.roster-editor-page .roster-editor-summary .roster-summary-source strong,
+.roster-editor-page .roster-editor-footer span { font-size: var(--t-micro); line-height: 1.5; }
+.roster-editor-page .roster-editor-toolbar { align-items: start; gap: 12px; }
+.roster-numbering-disclosure { min-width: 0; width: 100%; flex: 1 1 auto; }
+.roster-editor-page .roster-editor-toolbar { display: grid; grid-template-columns: minmax(260px,1fr) auto; }
+.roster-numbering-disclosure summary,
+.roster-defaults-disclosure summary {
+  display: grid; grid-template-columns: minmax(0,1fr) auto 20px;
+  align-items: center; gap: 8px; min-height: 44px;
+  padding: 12px; cursor: pointer; list-style: none;
+}
+.roster-numbering-disclosure summary::-webkit-details-marker,
+.roster-defaults-disclosure summary::-webkit-details-marker { display: none; }
+.roster-numbering-disclosure summary strong,
+.roster-defaults-disclosure summary strong { font-size: var(--t-small); font-weight: 600; }
+.roster-numbering-disclosure summary span,
+.roster-defaults-disclosure summary span { font-size: var(--t-micro); color: var(--ink-3); }
+.roster-numbering-disclosure[open] summary svg,
+.roster-defaults-disclosure[open] summary svg { transform: rotate(90deg); }
+.roster-tool-details { display: grid; gap: 12px; padding: 12px; border-top: 1px solid var(--line); }
+.roster-tool-details > button { justify-self: start; }
+.roster-defaults-disclosure { width: min(1440px,100%); margin: 12px auto 0; border: 1px solid var(--line); border-radius: var(--r-sm); background: var(--surface); }
+.roster-defaults-disclosure .roster-bulk-bar { width: 100%; margin: 0; border: 0; border-top: 1px solid var(--line); border-radius: 0 0 var(--r-sm) var(--r-sm); }
+.roster-editor-page :is(.roster-source-actions, .roster-tool-details, .roster-bulk-bar, .roster-editor-footer) button { min-height: 40px; font-size: var(--t-small); }
+.roster-editor-page .roster-numbering-control :is(span, small),
+.roster-editor-page .roster-bulk-bar :is(strong, span) { font-size: var(--t-micro); line-height: 1.5; }
+.roster-editor-page .roster-editor-summary > div > strong { font-size: var(--t-title); }
+.roster-editor-page .roster-editor-summary .roster-summary-source strong { font-size: var(--t-micro); }
+.roster-editor-page .roster-category-list-head { flex-direction: row; align-items: center; }
+.roster-editor-page .roster-category-list-head strong { font-size: var(--t-small); }
+.roster-editor-page .roster-category-list-head button { min-height: 44px; font-size: var(--t-micro); padding-inline: 8px; }
+.roster-editor-page .roster-edit-cell :is(input, select) { font-size: var(--t-small); }
+.roster-editor-page .roster-edit-cell small,
+.roster-editor-page .roster-edit-cell::before { font-size: var(--t-micro); }
+.roster-editor-page .roster-edit-cell { min-width: 0; }
+.roster-editor-page .roster-edit-cell::before { max-width: 100%; overflow-wrap: anywhere; }
+@media (max-width: 700px) {
+  .roster-editor-page .roster-editor-header { gap: 0; }
+  .roster-editor-page .roster-editor-head-actions { display: none; }
+  .roster-editor-page .roster-editor-toolbar { display: flex; flex-direction: column; padding: 0; }
+  .roster-numbering-disclosure { width: 100%; flex: none; }
+  .roster-editor-page .roster-source-actions { width: 100%; padding: 0 12px 12px; }
+  .roster-editor-page .roster-source-actions { grid-template-columns: repeat(3,minmax(0,1fr)); gap: 8px; }
+  .roster-editor-page .roster-source-actions button { padding-inline: 4px; }
+  .roster-editor-page .roster-source-actions button { font-size: var(--t-micro); }
+  .roster-editor-page :is(.roster-source-actions, .roster-tool-details, .roster-bulk-bar, .roster-editor-footer) button { min-height: var(--tap); }
+  .roster-editor-page .roster-bulk-bar :is(select, input) { font-size: var(--t-small); }
+  .roster-editor-page .roster-editor-summary .roster-summary-source { min-height: 36px; flex-direction: row; justify-content: center; gap: 8px; padding: 8px; }
+  .roster-editor-page .roster-category-list-head { gap: 8px; }
+}
+@media (min-width: 701px) and (max-width: 1100px) {
+  .roster-editor-page .roster-editor-toolbar { grid-template-columns: 1fr; }
+  .roster-editor-page .roster-source-actions { justify-content: flex-start; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .setup-checklist-panel { animation: none; }
   .setup-checklist-chevron,
   .setup-progress > span { transition: none; }
+}
+
+/* Device settings and review dialogs share the same reading scale. */
+.settings-page .settings-page-head h1 { font-size: var(--t-display); }
+.settings-page .settings-section-head h2 { font-size: var(--t-title); }
+.settings-page :is(.settings-section-head > span,.settings-field-hint,.settings-index small,.settings-choice-grid small) { font-size: var(--t-micro); line-height: 1.5; }
+.settings-page .settings-section-head p,
+.settings-page .settings-action-section p { font-size: var(--t-small); line-height: 1.5; }
+.settings-page .settings-action-section strong { font-size: var(--t-small); }
+.settings-page :is(.settings-fieldset legend,.settings-index strong,.settings-choice-grid strong,.settings-segmented button) { font-size: var(--t-small); }
+.settings-page :is(.restore-preview-head > span,.restore-preview-head small,.restore-preview dt,.settings-lock-note,.settings-inline-action) { font-size: var(--t-micro); line-height: 1.5; }
+.settings-page .restore-preview dd { font-size: var(--t-lead); }
+.settings-page :is(.settings-confirm,.restore-preview-actions) button { min-height: 44px; font-size: var(--t-small); }
+.settings-page .settings-action-section > button { min-height: 44px; font-size: var(--t-small); }
+.roster-dialog :is(.roster-dialog-head span,.roster-dialog-head p,.roster-template-fields small,.roster-review-summary small,.roster-review-numbering span,.roster-review-warning) { font-size: var(--t-micro); line-height: 1.5; }
+.roster-dialog .roster-dialog-head h2 { font-size: var(--t-title); }
+.roster-dialog .roster-dialog-head > button { min-width: 44px; min-height: 44px; }
+.roster-dialog .roster-dialog-actions > button { min-height: 44px; font-size: var(--t-small); }
+.roster-dialog .roster-dialog-head { gap: 12px; align-items: start; }
+.roster-dialog .roster-review-numbering strong { font-size: var(--t-small); }
+.roster-dialog :is(label,small,.roster-compare-count span,.roster-compare-details span) { font-size: var(--t-micro); line-height: 1.5; }
+.roster-dialog .roster-compare-count strong { font-size: var(--t-display); }
+.roster-dialog :is(select,textarea) { font-size: var(--t-small); }
+.roster-dialog .roster-dialog-actions { flex-wrap: wrap; gap: 8px; }
+@media (max-width: 420px) {
+  .roster-dialog .roster-dialog-actions { display: grid; grid-template-columns: 1fr; }
+}
+.settings-guide :is(.settings-guide-progress,.settings-guide-progress span) { font-size: var(--t-micro); }
+.settings-guide .settings-guide-copy h2 { font-size: var(--t-title); }
+.records-main .ro-footer button { min-height: 44px; }
+.records-main .ro-pending > button,
+.records-main .ro-pending nav > button { min-height: 44px; }
+@media print {
+  .app:is(.view-setup,.view-questions,.view-settings,.view-records) { height: auto; display: block; overflow: visible; }
+  .competition-setup-page, .roster-editor-page, .question-preparation-page, .settings-page { display: none !important; }
+}
+
+/* Draft preparation gives the page a stable home beside the editing fields. */
+.question-builder-editor { display: grid; gap: 16px; align-content: start; }
+.question-builder-editor h3 { scroll-margin-top: 16px; }
+.question-preparation-page .question-preparation-head h1 { font-size: var(--t-display); }
+.question-preparation-page .question-preparation-count strong { font-size: var(--t-display); }
+.question-preparation-page .question-preparation-head p { font-size: var(--t-small); line-height: 1.5; }
+.question-preparation-page .question-preparation-head :is(span,small) { font-size: var(--t-micro); }
+.question-preparation-page .question-builder-heading h3,
+.question-preparation-page .question-draft-list-head h3 { font-size: var(--t-lead); }
+.question-preparation-page :is(.question-builder-heading,.question-draft-list-head) p,
+.question-preparation-page .question-builder-fields label,
+.question-preparation-page .question-builder-fields em,
+.question-preparation-page .question-builder-actions > span,
+.question-preparation-page .question-source-note,
+.question-preparation-page .question-draft-open :is(span,small),
+.question-preparation-page .question-resolution :is(span,small),
+.question-preparation-page .question-preview-toolbar span,
+.question-preparation-page .question-preview-legend { font-size: var(--t-micro); line-height: 1.5; }
+.question-preparation-page .question-draft-open strong { font-size: var(--t-small); }
+.question-preparation-page .question-builder-fields :is(input,select) { min-height: 40px; height: 40px; font-size: var(--t-small); }
+.question-preparation-page .question-builder-actions button,
+.question-preparation-page .question-builder-heading button { min-height: 40px; font-size: var(--t-small); }
+.question-preparation-page .question-draft-open { grid-template-columns: 100px 100px minmax(0,1fr); }
+.question-preparation-page .question-draft-open > span:not(.question-draft-state),
+.question-preparation-page .question-draft-open small { white-space: normal; overflow-wrap: anywhere; }
+.question-preparation-page .question-draft-delete { min-width: 44px; min-height: 44px; }
+.question-draft-pagination { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-top: 16px; font-size: var(--t-micro); }
+.question-draft-pagination > div { display: flex; align-items: center; gap: 8px; }
+.question-draft-pagination :is(button,select) { min-height: 44px; font-size: var(--t-small); }
+.question-draft-pagination select { width: 96px; padding: 8px; text-align: center; }
+@media (min-width: 1101px) {
+  .question-preparation-page .question-builder { grid-template-columns: minmax(360px,.85fr) minmax(0,1.15fr); align-items: start; gap: 16px 24px; }
+  .question-preparation-page .question-builder > * { grid-column: 1; }
+  .question-preparation-page .question-builder > .question-preview { grid-column: 2; grid-row: 1; align-self: start; }
+  .question-preparation-page .question-builder > :is(.question-builder-actions,.question-draft-list,.question-source-note) { grid-column: 1 / -1; }
+  .question-preparation-page .question-builder-fields { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .question-preparation-page .question-note-field { grid-column: 1 / -1; }
+}
+@media (max-width: 700px) {
+  .question-preparation-page .question-draft-open { grid-template-columns: 90px minmax(0,1fr); }
+  .question-preparation-page .question-draft-open > span:not(.question-draft-state),
+  .question-preparation-page .question-draft-open small { grid-column: 1 / -1; }
+  .question-preparation-page .question-builder-fields :is(input,select),
+  .question-preparation-page .question-builder-actions button,
+  .question-preparation-page .question-builder-heading button { min-height: 44px; }
+  .question-draft-pagination > div { width: 100%; justify-content: space-between; }
+  .question-draft-pagination select { min-width: 0; width: 76px; }
 }

@@ -1,6 +1,8 @@
 import {
   Fragment,
   type ReactNode,
+  useEffect,
+  useLayoutEffect,
   useMemo,
   useRef,
   useState,
@@ -59,10 +61,65 @@ function SetupAccordionPanel({
   open: boolean;
   render: () => ReactNode;
 }) {
-  if (!open) return null;
+  const [present, setPresent] = useState(open);
+  const shellRef = useRef<HTMLDivElement>(null);
+  const animationRef = useRef<Animation | null>(null);
+  const interruptedHeight = useRef<number | null>(null);
+  const interruptedOpacity = useRef<string | null>(null);
+  const firstLayout = useRef(true);
+
+  useLayoutEffect(() => {
+    const shell = shellRef.current;
+    const initial = firstLayout.current;
+    firstLayout.current = false;
+    if (!shell) return;
+    const from = interruptedHeight.current ?? (present ? shell.getBoundingClientRect().height : 0);
+    const opacity = interruptedOpacity.current ?? (open && !present ? '0' : getComputedStyle(shell).opacity);
+    interruptedHeight.current = null;
+    interruptedOpacity.current = null;
+    shell.inert = !open;
+    if (open) setPresent(true);
+    const finish = () => {
+      shell.style.removeProperty('height');
+      shell.style.removeProperty('opacity');
+      animationRef.current = null;
+      if (!open) setPresent(false);
+    };
+    const motion = matchMedia('(prefers-reduced-motion: reduce)');
+    if (initial || motion.matches) {
+      finish();
+      return;
+    }
+    const to = open ? shell.scrollHeight : 0;
+    const effect = shell.animate([
+      {height: `${from}px`, opacity},
+      {height: `${to}px`, opacity: open ? 1 : 0},
+    ], {duration: 200, easing: 'cubic-bezier(0.25,1,0.5,1)', fill: 'both'});
+    animationRef.current = effect;
+    const reduce = () => {
+      if (motion.matches && animationRef.current === effect) { effect.cancel(); finish(); }
+    };
+    motion.addEventListener('change', reduce);
+    void effect.finished.then(() => {
+      if (animationRef.current !== effect) return;
+      effect.cancel();
+      finish();
+    }, () => {});
+    return () => {
+      motion.removeEventListener('change', reduce);
+      if (animationRef.current === effect) {
+        interruptedHeight.current = shell.getBoundingClientRect().height;
+        interruptedOpacity.current = getComputedStyle(shell).opacity;
+        effect.cancel();
+        animationRef.current = null;
+      }
+    };
+  }, [open]);
+
+  if (!open && !present) return null;
 
   return (
-    <div id={id} className="setup-checklist-panel-shell">
+    <div ref={shellRef} id={id} className="setup-checklist-panel-shell" aria-hidden={!open}>
       <div className="setup-checklist-panel-clip">
         <div className="setup-checklist-panel">{render()}</div>
       </div>
@@ -211,6 +268,20 @@ export function CompetitionSetup({
   const taskTriggerRefs = useRef<
     Partial<Record<SetupTask, HTMLButtonElement | null>>
   >({});
+  const anchorFrame = useRef(0);
+  useEffect(() => {
+    const interrupt = () => cancelAnimationFrame(anchorFrame.current);
+    const onKey = (event: KeyboardEvent) => { if (event.key === 'Tab' || event.key.startsWith('Arrow')) interrupt(); };
+    window.addEventListener('wheel', interrupt, {passive: true});
+    window.addEventListener('touchstart', interrupt, {passive: true});
+    window.addEventListener('keydown', onKey);
+    return () => {
+      interrupt();
+      window.removeEventListener('wheel', interrupt);
+      window.removeEventListener('touchstart', interrupt);
+      window.removeEventListener('keydown', onKey);
+    };
+  }, []);
   const [identity, setIdentity] = useState({
     name: state.competition.name,
     edition: state.competition.edition,
@@ -251,12 +322,29 @@ export function CompetitionSetup({
   const divisionsValid = divisionDrafts.length > 0 && Object.keys(divisionValidation).length === 0;
 
   const returnToTaskTrigger = (task: SetupTask, focus: boolean) => {
-    window.requestAnimationFrame(() => {
-      const trigger = taskTriggerRefs.current[task];
-      if (!trigger) return;
-      if (focus) trigger.focus({ preventScroll: true });
-      trigger.scrollIntoView({ block: "nearest", inline: "nearest" });
-    });
+    cancelAnimationFrame(anchorFrame.current);
+    const trigger = taskTriggerRefs.current[task];
+    if (!trigger) return;
+    const workspace = trigger.closest<HTMLElement>('.competition-setup-page');
+    const owner = workspace && getComputedStyle(workspace).overflowY === 'auto' ? workspace : null;
+    const headerBottom = document.querySelector('.app-header')?.getBoundingClientRect().bottom ?? 0;
+    const initial = trigger.getBoundingClientRect();
+    if (focus) trigger.focus({ preventScroll: true });
+    const lowerEdge = owner?.getBoundingClientRect().bottom ?? innerHeight;
+    const targetTop = Math.max(headerBottom + 12, Math.min(initial.top, lowerEdge - initial.height - 12));
+    const started = performance.now();
+    const follow = () => {
+      if (!trigger.isConnected) return;
+      const delta = trigger.getBoundingClientRect().top - targetTop;
+      if (Math.abs(delta) > .5) {
+        if (owner) owner.scrollBy({top: delta, behavior: 'instant'});
+        else window.scrollBy({top: delta, behavior: 'instant'});
+      }
+      if (performance.now() - started < 240 && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        anchorFrame.current = requestAnimationFrame(follow);
+      }
+    };
+    anchorFrame.current = requestAnimationFrame(follow);
   };
 
   const closeActiveTask = () => {

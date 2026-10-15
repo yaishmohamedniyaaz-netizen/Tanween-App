@@ -15,7 +15,7 @@ export function SettingsGuide({ onDismiss }: { onDismiss: () => void }) {
   }, []);
 
   useEffect(() => {
-    headingRef.current?.focus();
+    headingRef.current?.focus({preventScroll: true});
   }, [step]);
 
   const dismiss = () => {

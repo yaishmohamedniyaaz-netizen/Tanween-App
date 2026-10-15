@@ -22,6 +22,12 @@ export function ResultsOverview({ active = true, pageLayout = "full", onImport }
   const listScroll = useRef(0);
   const returnId = useRef<string | null>(null);
   const buttons = useRef(new Map<string, HTMLButtonElement>());
+  const scrollOwner = () => document.querySelector<HTMLElement>('.records-main');
+  const restoreScroll = (top: number) => {
+    const owner = scrollOwner();
+    if (owner) owner.scrollTo({top, behavior: 'instant'});
+    else window.scrollTo({top, behavior: 'instant'});
+  };
   const model = useMemo(() => buildCompetitionResults(state, selections),
     [state.competition, state.roster, state.history, state.finalizedResults, state.config, selections]);
   const divisionKey = (age: string, category: string) => JSON.stringify([age, category]);
@@ -44,7 +50,7 @@ export function ResultsOverview({ active = true, pageLayout = "full", onImport }
     if (anchor) setPage(Math.floor(filtered.indexOf(anchor) / 10) + 1);
     setSelectedId(null);
     requestAnimationFrame(() => {
-      window.scrollTo({ top: listScroll.current });
+      restoreScroll(listScroll.current);
       buttons.current.get(anchor?.participant.id ?? "")?.focus({ preventScroll: true });
     });
   };
@@ -98,7 +104,7 @@ export function ResultsOverview({ active = true, pageLayout = "full", onImport }
         const score = row.absent ? null : row.view?.preview;
         return <tr key={p.id} className={row.absent ? "ro-absent" : ""}>
           <td><button ref={el => {if(el) buttons.current.set(p.id, el); else buttons.current.delete(p.id);}}
-            onClick={() => {listScroll.current = window.scrollY;returnId.current = p.id;setSelectedId(p.id);requestAnimationFrame(() => window.scrollTo({ top: 0 }));}}>
+            onClick={() => {listScroll.current = scrollOwner()?.scrollTop ?? window.scrollY;returnId.current = p.id;setSelectedId(p.id);requestAnimationFrame(() => restoreScroll(0));}}>
             <bdi className="ro-number">{p.number || "—"}</bdi><span><strong>{p.name || "Unnamed participant"}</strong>
               <small>{p.ageGroup}{p.ageGroup && p.category && " · "}{participantCategoryLabel(p.category)}</small></span>
           </button></td>

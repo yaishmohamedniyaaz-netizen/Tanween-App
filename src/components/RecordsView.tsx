@@ -276,16 +276,22 @@ export function RecordsView({ onResumeSession, pageLayout = "full" }: { onResume
   };
 
   const openParticipantDetail = (participantId: string) => {
-    reviewScrollRef.current = window.scrollY;
+    reviewScrollRef.current = document.querySelector<HTMLElement>('.records-main')?.scrollTop ?? window.scrollY;
     setDetailParticipantId(participantId);
-    window.requestAnimationFrame(() => window.scrollTo({ top: 0 }));
+    window.requestAnimationFrame(() => {
+      const owner = document.querySelector<HTMLElement>('.records-main');
+      if (owner) owner.scrollTo({top: 0, behavior: 'instant'});
+      else window.scrollTo({top: 0, behavior: 'instant'});
+    });
   };
 
   const closeParticipantDetail = () => {
     const participantId = detailParticipantId;
     setDetailParticipantId(null);
     window.requestAnimationFrame(() => {
-      window.scrollTo({ top: reviewScrollRef.current });
+      const owner = document.querySelector<HTMLElement>('.records-main');
+      if (owner) owner.scrollTo({top: reviewScrollRef.current, behavior: 'instant'});
+      else window.scrollTo({top: reviewScrollRef.current, behavior: 'instant'});
       participantButtonRefs.current.get(participantId ?? "")?.focus({
         preventScroll: true,
       });

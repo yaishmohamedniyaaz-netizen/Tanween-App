@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import surahIndex from "../data/surah-index.json";
 import { uid } from "../lib/id.ts";
 import {
@@ -26,6 +26,7 @@ const SURAHS = surahIndex as Array<{
   nameAr: string;
   firstPage: number;
 }>;
+const DRAFTS_PER_PAGE = 10;
 
 function ayahLabel(value: AyahRef): string {
   return `${value.surah}:${value.ayah}`;
@@ -51,6 +52,8 @@ export function QuestionBuilder({ editable }: { editable: boolean }) {
   const [muqarrar, setMuqarrar] = useState<QuestionMuqarrar>("both");
   const [editingId, setEditingId] = useState<string | null>(null);
   const [message, setMessage] = useState("");
+  const [draftPage, setDraftPage] = useState(1);
+  const editorHeadingRef = useRef<HTMLHeadingElement>(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -85,6 +88,9 @@ export function QuestionBuilder({ editable }: { editable: boolean }) {
     () => state.questionDrafts.filter((draft) => draft.competitionId === state.competition.id),
     [state.competition.id, state.questionDrafts],
   );
+  const draftPageCount = Math.max(1, Math.ceil(competitionDrafts.length / DRAFTS_PER_PAGE));
+  const visibleDraftPage = Math.min(draftPage, draftPageCount);
+  const visibleDrafts = competitionDrafts.slice((visibleDraftPage - 1) * DRAFTS_PER_PAGE, visibleDraftPage * DRAFTS_PER_PAGE);
   const selectedDivision = state.competition.divisions.find((division) => division.id === divisionId);
   const ayahCount = useMemo(
     () => lookup?.ayahs.filter((ayah) => ayah.surah === startAyah.surah).length ?? 1,
@@ -156,6 +162,10 @@ export function QuestionBuilder({ editable }: { editable: boolean }) {
     setNote(draft.note);
     setMuqarrar(draft.muqarrar);
     setMessage("");
+    requestAnimationFrame(() => {
+      editorHeadingRef.current?.focus({preventScroll: true});
+      editorHeadingRef.current?.scrollIntoView({block: 'start', behavior: 'instant'});
+    });
   };
 
   const newDraft = () => {
@@ -184,6 +194,7 @@ export function QuestionBuilder({ editable }: { editable: boolean }) {
       previous,
     });
     dispatch({ type: "UPSERT_QUESTION_DRAFT", draft });
+    setDraftPage(1);
     setEditingId(draft.id);
     setMessage(previous ? "Draft updated." : "Draft saved.");
   };
@@ -221,10 +232,11 @@ export function QuestionBuilder({ editable }: { editable: boolean }) {
 
   return (
     <div className="question-builder">
+      <div className="question-builder-editor">
       <div className="question-builder-heading">
         <div>
           <span className="setup-step">Draft preparation</span>
-          <h3>{editingId ? "Check draft question" : "Build a draft question"}</h3>
+          <h3 ref={editorHeadingRef} tabIndex={-1}>{editingId ? "Check draft question" : "Build a draft question"}</h3>
           <p>Choose a complete starting ayah. Tahqeeq finds the first complete ending ayah at or after the target line.</p>
         </div>
         <button type="button" className="btn-ghost" disabled={!editable} onClick={newDraft}><Icon name="plus" size={14} /> New draft</button>
@@ -285,6 +297,7 @@ export function QuestionBuilder({ editable }: { editable: boolean }) {
       {resolution?.ok && !eligible && <div className="question-resolution-error" role="status"><strong>Outside the selected category</strong><span>The complete passage must remain inside that category’s configured Quran portion.</span></div>}
       {duplicate && <div className="question-resolution-error" role="status"><strong>Already saved</strong><span>This category already has a draft with the same starting ayah and line rule.</span></div>}
 
+      </div>
       <QuestionMushafPreview page={previewPage} range={previewRange} onPageChange={setPreviewPage} onAyahPick={chooseStart} />
 
       <div className="question-builder-actions">
@@ -299,11 +312,11 @@ export function QuestionBuilder({ editable }: { editable: boolean }) {
         </div>
         {!competitionDrafts.length ? (
           <div className="question-draft-empty">No drafts saved for this competition.</div>
-        ) : competitionDrafts.map((draft) => {
+        ) : visibleDrafts.map((draft) => {
           const issues = questionDraftIssues({ draft, competition: state.competition, policy, lookup });
           const division = state.competition.divisions.find((item) => item.id === draft.divisionId);
           return (
-            <article key={draft.id} className={`question-draft-row ${editingId === draft.id ? "is-active" : ""} ${issues.length ? "needs-check" : ""}`}>
+            <article key={draft.id} data-draft-id={draft.id} className={`question-draft-row ${editingId === draft.id ? "is-active" : ""} ${issues.length ? "needs-check" : ""}`}>
               <button type="button" className="question-draft-open" onClick={() => openDraft(draft)}>
                 <span className="question-draft-state">{issues.length ? "Needs checking" : "Ready draft"}</span>
                 <strong>{draftRangeLabel(draft)}</strong>
@@ -315,6 +328,18 @@ export function QuestionBuilder({ editable }: { editable: boolean }) {
             </article>
           );
         })}
+        {competitionDrafts.length > DRAFTS_PER_PAGE && (
+          <nav className="question-draft-pagination" aria-label="Saved draft pages">
+            <span>{(visibleDraftPage - 1) * DRAFTS_PER_PAGE + 1}–{Math.min(visibleDraftPage * DRAFTS_PER_PAGE, competitionDrafts.length)} of {competitionDrafts.length} drafts</span>
+            <div>
+              <button type="button" className="btn-ghost" aria-label="Previous drafts page" disabled={visibleDraftPage === 1} onClick={() => setDraftPage(visibleDraftPage - 1)}>Previous</button>
+              <select aria-label="Drafts page" value={visibleDraftPage} onChange={event => setDraftPage(Number(event.target.value))}>
+                {Array.from({length: draftPageCount}, (_, index) => <option key={index + 1} value={index + 1}>{index + 1} / {draftPageCount}</option>)}
+              </select>
+              <button type="button" className="btn-ghost" aria-label="Next drafts page" disabled={visibleDraftPage === draftPageCount} onClick={() => setDraftPage(visibleDraftPage + 1)}>Next</button>
+            </div>
+          </nav>
+        )}
       </section>
 
       <p className="question-source-note">Fixed source: KFGQPC V1 1405H · {lookup.asset.entryCount.toLocaleString()} ayahs · question index verified against all 604 pages.</p>

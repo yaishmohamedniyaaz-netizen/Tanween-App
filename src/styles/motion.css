@@ -154,4 +154,11 @@
       opacity: 1;
     }
   }
+  @keyframes backdrop-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  .btn:active, .btn-primary:active, .btn-ghost:active, .btn-icon:active {
+    transform: none;
+  }
 }

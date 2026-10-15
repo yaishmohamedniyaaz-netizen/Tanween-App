@@ -74,7 +74,8 @@ function WorkspaceEvidence({ item, selected, evidence, active, reasons, onSelect
     if (!node || !docked) return;
     const measure = () => {
       // Document position stays stable when a surrounding page is scrolled.
-      const top = Math.max(0, node.getBoundingClientRect().top + window.scrollY);
+      const owner = node.closest<HTMLElement>('.records-main');
+      const top = Math.max(0, node.getBoundingClientRect().top + (owner?.scrollTop ?? window.scrollY));
       node.style.setProperty("--rw-shell-top", `${top}px`);
       const dock = node.querySelector(".rw-player-dock");
       if (dock) node.style.setProperty("--rw-dock-height", `${dock.getBoundingClientRect().height}px`);

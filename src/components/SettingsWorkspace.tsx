@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import type { DevicePreferencesV5 } from "../lib/devicePreferences";
 import {
   DEFAULT_DEVICE_PREFERENCES,
@@ -64,6 +64,18 @@ export function SettingsWorkspace({
   const headingRef = useRef<HTMLHeadingElement>(null);
   const helpRef = useRef<HTMLButtonElement>(null);
   const guideReturnRef = useRef<HTMLElement | null>(null);
+  const detailHeadingRef = useRef<HTMLHeadingElement>(null);
+  const indexRefs = useRef<Partial<Record<SettingsSection, HTMLButtonElement | null>>>({});
+
+  useLayoutEffect(() => {
+    const compact = matchMedia('(max-width: 779px)');
+    const focusDetail = () => {
+      if (compact.matches && section) detailHeadingRef.current?.focus({preventScroll: true});
+    };
+    focusDetail();
+    compact.addEventListener('change', focusDetail);
+    return () => compact.removeEventListener('change', focusDetail);
+  }, [section]);
 
   const chooseSection = (next: SettingsSection) => {
     setSection(next);
@@ -90,7 +102,7 @@ export function SettingsWorkspace({
     setGuideOpen(false);
     const returnTarget = guideReturnRef.current ?? headingRef.current;
     guideReturnRef.current = null;
-    requestAnimationFrame(() => returnTarget?.focus());
+    requestAnimationFrame(() => returnTarget?.focus({preventScroll: true}));
   };
 
   return (
@@ -120,6 +132,7 @@ export function SettingsWorkspace({
         <nav className="settings-index" aria-label="Settings sections">
           {SECTIONS.map((item) => (
             <button
+              ref={node => { indexRefs.current[item.id] = node; }}
               key={item.id}
               type="button"
               className={section === item.id ? "is-active" : ""}
@@ -134,14 +147,18 @@ export function SettingsWorkspace({
 
         {section && (
           <section className="settings-detail" aria-labelledby={`settings-${section}-title`}>
-            <button type="button" className="settings-detail-back" onClick={() => setSection(null)}>
+            <button type="button" className="settings-detail-back" onClick={() => {
+              const previous = section;
+              setSection(null);
+              requestAnimationFrame(() => indexRefs.current[previous]?.focus({preventScroll: true}));
+            }}>
               <Icon name="back" size={14} /> Settings
             </button>
 
             {section === "appearance" && (
               <>
                 <div className="settings-section-head">
-                  <h2 id="settings-appearance-title">Appearance</h2>
+                  <h2 id="settings-appearance-title" ref={detailHeadingRef} tabIndex={-1}>Appearance</h2>
                   <p>Choose the surface that is easiest to read in this room.</p>
                 </div>
                 <fieldset className="settings-fieldset">
@@ -169,7 +186,7 @@ export function SettingsWorkspace({
             {section === "workspace" && (
               <>
                 <div className="settings-section-head">
-                  <h2 id="settings-workspace-title">Mushaf and judging workspace</h2>
+                  <h2 id="settings-workspace-title" ref={detailHeadingRef} tabIndex={-1}>Mushaf and judging workspace</h2>
                 </div>
 
                 <fieldset className="settings-fieldset">
@@ -187,7 +204,7 @@ export function SettingsWorkspace({
               <>
                 <div className="settings-section-head">
                   <span>Local data</span>
-                  <h2 id="settings-data-title">Data and recovery</h2>
+                  <h2 id="settings-data-title" ref={detailHeadingRef} tabIndex={-1}>Data and recovery</h2>
                   <p>Create a complete local backup or inspect one before restoring it.</p>
                 </div>
 

@@ -60,11 +60,16 @@ test("competition preparation is a dedicated task workspace", () => {
   assert.match(setupSource, /aria-expanded=\{activeTask === task\.id\}/);
   assert.match(setupSource, /SetupAccordionPanel/);
   assert.match(setupSource, /taskTriggerRefs/);
-  assert.match(setupSource, /scrollIntoView\(\{ block: "nearest", inline: "nearest" \}\)/);
+  assert.match(setupSource, /trigger\.focus\(\{ preventScroll: true \}\)/);
+  assert.match(setupSource, /headerBottom \+ 12/);
+  assert.match(setupSource, /trigger\.getBoundingClientRect\(\)\.top - targetTop/);
+  assert.match(setupSource, /window\.scrollBy\(\{top: delta, behavior: 'instant'\}\)/);
   assert.match(setupSource, /focus\(\{ preventScroll: true \}\)/);
   assert.doesNotMatch(setupSource, /SETUP_PANEL_TRANSITION_MS|setup-scroll-reserve|scrollReserve/);
   assert.doesNotMatch(setupStyles, /grid-template-rows 220ms|setup-scroll-reserve/);
-  assert.match(setupStyles, /animation: setup-panel-fade 120ms/);
+  assert.match(setupSource, /shell\.animate\(/);
+  assert.match(setupSource, /shell\.inert = !open/);
+  assert.match(setupSource, /prefers-reduced-motion: reduce/);
   assert.match(setupStyles, /prefers-reduced-motion: reduce/);
   assert.doesNotMatch(setupStyles, /setup-checklist-panel \{[^}]*animation: view-in/s);
   assert.match(setupSource, /setup-sample-utility/);

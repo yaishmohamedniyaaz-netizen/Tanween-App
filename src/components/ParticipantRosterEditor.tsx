@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import {
   createBlankRosterDraftRow,
   createRosterDraftFromRoster,
@@ -109,6 +109,43 @@ export function ParticipantRosterEditor({
     () => readParticipantTemplatePreferences(),
   );
   const [reviewOpen, setReviewOpen] = useState(false);
+  const editorRef = useRef<HTMLElement>(null);
+  useLayoutEffect(() => {
+    if (!pasteOpen && !templateOpen && !reviewOpen) return;
+    const editor = editorRef.current;
+    const modal = editor?.querySelector<HTMLElement>('[role="dialog"]');
+    if (!editor || !modal) return;
+    const previous = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    const blocked = [...editor.children].filter((node): node is HTMLElement => node instanceof HTMLElement && !node.contains(modal));
+    const original = blocked.map(node => node.inert);
+    blocked.forEach(node => { node.inert = true; });
+    const title = modal.querySelector<HTMLElement>('h2');
+    if (title) { title.tabIndex = -1; title.focus({preventScroll: true}); }
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        setPasteOpen(false); setTemplateOpen(false); setReviewOpen(false);
+        return;
+      }
+      if (event.key !== 'Tab') return;
+      const fields = [...modal.querySelectorAll<HTMLElement>('button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex="0"]')].filter(node => node.getClientRects().length > 0);
+      const first = fields[0], last = fields[fields.length - 1];
+      if (!first || !last) return;
+      if (event.shiftKey && (document.activeElement === first || document.activeElement === title)) {
+        event.preventDefault(); last.focus();
+      } else if (!event.shiftKey && (document.activeElement === last || document.activeElement === title)) {
+        event.preventDefault(); first.focus();
+      }
+    };
+    window.addEventListener('keydown', onKey);
+    return () => {
+      window.removeEventListener('keydown', onKey);
+      blocked.forEach((node,index) => { node.inert = original[index]; });
+      requestAnimationFrame(() => {
+        if (previous?.isConnected && !previous.closest('[inert]')) previous.focus({preventScroll: true});
+      });
+    };
+  }, [pasteOpen, templateOpen, reviewOpen]);
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
@@ -355,7 +392,7 @@ export function ParticipantRosterEditor({
   const unresolvedCategories = useMemo(() => importedCategoryGroups(draft), [draft]);
 
   return (
-    <main className="roster-editor-page">
+    <main ref={editorRef} className="roster-editor-page">
       <input
         ref={fileRef}
         type="file"
@@ -379,15 +416,6 @@ export function ParticipantRosterEditor({
         </div>
         <div className="roster-editor-head-actions">
           <span className="roster-save-state"><i aria-hidden="true" /> Saved on this device</span>
-          <button type="button" className="btn-ghost" onClick={discard}>Discard draft</button>
-          <button
-            type="button"
-            className="btn-primary"
-            disabled={validation.errorCount > 0}
-            onClick={() => setReviewOpen(true)}
-          >
-            Review and apply
-          </button>
         </div>
       </header>
 
@@ -400,6 +428,9 @@ export function ParticipantRosterEditor({
       </section>
 
       <section className="roster-editor-toolbar" aria-label="Participant list tools">
+        <details className="roster-numbering-disclosure">
+          <summary><strong>Numbering and draft tools</strong><span>{draft.numberingMode === "automatic" ? "Automatic" : "Supplied"}</span><Icon name="chevron" size={14} /></summary>
+          <div className="roster-tool-details">
         <div className="roster-numbering-control">
           <span>Participant numbers</span>
           <div role="radiogroup" aria-label="Participant numbering mode">
@@ -408,11 +439,14 @@ export function ParticipantRosterEditor({
           </div>
           <small>{draft.numberingMode === "automatic" ? "Assigned from final row order: 01–99, then 100 onward." : "Keep the numbers supplied by the competition."}</small>
         </div>
+            <button type="button" className="btn-ghost" aria-haspopup="dialog" disabled={busy || !state.competition.divisions.length} onClick={openTemplate}><Icon name="download" size={14} /> Participant template</button>
+            <button type="button" className="btn-ghost" onClick={discard}>Discard draft</button>
+          </div>
+        </details>
         <div className="roster-source-actions">
           <button type="button" className="btn-ghost" onClick={() => addRow()}><Icon name="plus" size={14} /> Add participant</button>
           <button type="button" className="btn-ghost" onClick={openPaste}>Paste table</button>
           <button type="button" className="btn-ghost" disabled={busy} onClick={() => fileRef.current?.click()}><Icon name="upload" size={14} /> Upload</button>
-          <button type="button" className="btn-ghost" aria-haspopup="dialog" disabled={busy || !state.competition.divisions.length} onClick={openTemplate}><Icon name="download" size={14} /> Participant template</button>
         </div>
       </section>
 
@@ -481,6 +515,8 @@ export function ParticipantRosterEditor({
             </section>
           )}
 
+          <details className="roster-defaults-disclosure">
+            <summary><strong>Entry defaults</strong><span>Optional</span><Icon name="chevron" size={14} /></summary>
           <section className="roster-bulk-bar" aria-label="Participant entry defaults">
             <div><strong>Entry defaults</strong><span>New rows inherit these. Applying them only fills empty cells.</span></div>
             <select aria-label="Default category" value={bulkDivision} onChange={(event) => setBulkDivision(event.target.value)}><option value="">Category</option>{state.competition.divisions.map((division) => <option value={division.id} key={division.id}>{divisionLabel(division)}</option>)}</select>
@@ -493,8 +529,9 @@ export function ParticipantRosterEditor({
             <button type="button" className="btn-ghost" disabled={!bulkDivision && !bulkMuqarrar && !bulkInstitution.trim()} onClick={fillEmpty}>Apply to empty fields</button>
           </section>
 
+          </details>
           <div className="roster-category-list-head">
-            <div><strong>Categories</strong><span>Keep only the sections you need open.</span></div>
+            <div><strong>Categories</strong></div>
             <div>
               <button type="button" onClick={() => setExpandedCategoryIds(new Set(categoryGroups.map((group) => group.id)))}>Expand all</button>
               <button type="button" onClick={() => setExpandedCategoryIds(new Set(categoryGroups.filter((group) => group.id === CATEGORY_REQUIRED_ID).map((group) => group.id)))}>Collapse all</button>
@@ -531,7 +568,7 @@ export function ParticipantRosterEditor({
                 const invalidMuqarrar = row.muqarrar && !normalizeMuqarrarSide(row.muqarrar);
                 return (
                   <article className="roster-edit-row" role="row" data-roster-row={row.id} key={row.id}>
-                    <div className="roster-edit-cell roster-number-cell" data-label={draft.numberingMode === "automatic" ? "Number" : "Participant number"}>
+                    <div className="roster-edit-cell roster-number-cell" data-label="Number">
                       {draft.numberingMode === "automatic" ? <span className="roster-auto-number">{number}</span> : <input name="number" aria-label={`Participant ${index + 1} number`} aria-invalid={Boolean(firstIssueFor(row.id, "number"))} data-roster-field-error={firstIssueFor(row.id, "number")?.level === "error" || undefined} value={row.number} onChange={(event) => patchRow(row.id, { number: event.target.value })} />}
                       {firstIssueFor(row.id, "number") && <small>{firstIssueFor(row.id, "number")?.message}</small>}
                     </div>
@@ -635,7 +672,7 @@ export function ParticipantRosterEditor({
         <div className="dialog-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) setPasteOpen(false); }}>
           <section className="roster-dialog roster-paste-dialog" role="dialog" aria-modal="true" aria-labelledby="roster-paste-title">
             <div className="roster-dialog-head"><div><span>Spreadsheet shortcut</span><h2 id="roster-paste-title">Paste participant rows</h2><p>Copy cells from Excel or Google Sheets, then paste them below.</p></div><button type="button" onClick={() => setPasteOpen(false)} aria-label="Close">×</button></div>
-            <textarea autoFocus value={pasteText} placeholder={'Name\tCategory\tMuqarrar start\tInstitution\tPhone Number'} onPaste={(event) => { if (!event.currentTarget.value) setFirstRowIsHeader(true); }} onChange={(event) => { setPasteText(event.target.value); setPasteMapping([]); }} />
+            <textarea value={pasteText} placeholder={'Name\tCategory\tMuqarrar start\tInstitution\tPhone Number'} onPaste={(event) => { if (!event.currentTarget.value) setFirstRowIsHeader(true); }} onChange={(event) => { setPasteText(event.target.value); setPasteMapping([]); }} />
             {parsedPaste.grid.length > 0 && (
               <div className="roster-paste-mapping">
                 <div><strong>Match columns</strong><label><input type="checkbox" checked={firstRowIsHeader} onChange={(event) => setFirstRowIsHeader(event.target.checked)} /> First row contains headings</label></div>
