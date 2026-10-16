@@ -4782,7 +4782,8 @@ textarea:focus-visible {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  min-height: 280px;
+  grid-area: 1 / 1 / -1 / -1;
+  min-height: 0;
   padding: 28px;
   color: var(--ink-3);
   font-size: 10.5px;

@@ -21,7 +21,7 @@ import { ResultSheet } from "./components/ResultSheet";
 import { MarkingCoachTip } from "./components/MarkingCoachTip";
 import { RecordsView } from "./components/RecordsView";
 import { StartDialog } from "./components/StartDialog";
-import { CompetitionSetup } from "./components/CompetitionSetup";
+import { CompetitionSetup, type SetupReturnPoint } from "./components/CompetitionSetup";
 import { SettingsWorkspace } from "./components/SettingsWorkspace";
 import { QuestionPreparationWorkspace } from "./components/QuestionPreparationWorkspace";
 import { CompetitionIdlePanel } from "./components/CompetitionIdlePanel";
@@ -73,6 +73,7 @@ export function App() {
   const { state, dispatch } = useJudging();
   const offlineMushaf = useOfflineMushaf();
   const [view, setView] = useState<AppView>("judge");
+  const setupReturnPointRef = useRef<SetupReturnPoint | null>(null);
   const [mobileMushafControls, setMobileMushafControls] = useState<HTMLDivElement | null>(null);
   const [startOpen, setStartOpen] = useState(false);
   const [startMode, setStartMode] = useState<
@@ -488,9 +489,13 @@ export function App() {
           onBack={() => setView("judge")}
         />
       ) : view === "questions" ? (
-        <QuestionPreparationWorkspace onBack={() => setView("setup")} />
+        <QuestionPreparationWorkspace onBack={() => {
+          if (setupReturnPointRef.current) setupReturnPointRef.current.restore = true;
+          setView("setup");
+        }} />
       ) : (
         <CompetitionSetup
+          returnPointRef={setupReturnPointRef}
           onBack={() => setView("judge")}
           onOpenQuestionWorkspace={() => setView("questions")}
         />
