@@ -83,6 +83,7 @@ export function ParticipantSelectionScreen({
           <button
             type="button"
             className="next-reciter-main"
+            data-queue-entry={recommended.id}
             disabled={selectionDisabled}
             onClick={() => onChoose(recommended)}
           >
@@ -175,6 +176,7 @@ export function ParticipantSelectionScreen({
                         <button
                           type="button"
                           className="queue-participant-button"
+                          data-queue-entry={entry.id}
                           disabled={entry.judged || selectionDisabled}
                           onClick={() => onChoose(entry)}
                         >

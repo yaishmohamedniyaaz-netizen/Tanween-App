@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import {
   buildSampleQuestionDrafts,
   questionDraftIssues,
@@ -38,15 +38,18 @@ import { useJudging } from "../state/store";
 import type { RosterEntry } from "../types";
 import { ParticipantSelectionScreen } from "./ParticipantSelectionScreen";
 import { QuestionNumberScreen } from "./QuestionNumberScreen";
+import { useSessionSaveStatus } from "./SessionStorageBoundary";
 
 export function StartDialog({
   onOpenSetup,
   onClose,
   mode = "start",
+  embedded = false,
 }: {
   onOpenSetup: () => void;
   onClose: () => void;
   mode?: "start" | "next-question" | "change-reciter" | "change-question";
+  embedded?: boolean;
 }) {
   const { state, dispatch } = useJudging();
   const roster = state.roster;
@@ -68,6 +71,56 @@ export function StartDialog({
   );
   const [lookup, setLookup] = useState<QuestionIndexLookup | null>(null);
   const [questionLoadError, setQuestionLoadError] = useState(false);
+  const modalRef = useRef<HTMLDialogElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const queueReturnRef = useRef<{ id: string; recommended: boolean; scroll: number } | null>(null);
+  const preparedNewQuestionRef = useRef(false);
+  const changedStageRef = useRef(false);
+  const saveStatus = useSessionSaveStatus();
+
+  useLayoutEffect(() => {
+    const opener = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    const modal = modalRef.current;
+    if (modal && !modal.open) modal.showModal();
+    return () => {
+      if (modal?.open) modal.close();
+      requestAnimationFrame(() => {
+        if (document.querySelector("dialog[open]")) return;
+        const fallback = document.querySelector<HTMLElement>(".prepared-sidebar .btn-primary")
+          ?? document.querySelector<HTMLElement>("[data-reciter-queue-launch]")
+          ?? document.querySelector<HTMLElement>(".competition-start-reciter")
+          ?? document.querySelector<HTMLElement>(".reciter-chip");
+        const target = !preparedNewQuestionRef.current && opener?.isConnected &&
+          opener.matches('button:not([disabled]), input, select, textarea, a[href], [tabindex]') && !opener.closest("[inert]")
+          ? opener : fallback;
+        target?.focus({ preventScroll: true });
+      });
+    };
+  }, [embedded]);
+
+  useLayoutEffect(() => {
+    const panel = panelRef.current;
+    if (!panel) return;
+    panel.querySelector<HTMLElement>(".reciter-start-body")?.scrollTo(0, 0);
+    const point = stage === "participant" ? queueReturnRef.current : null;
+    if (point) {
+      queueReturnRef.current = null;
+      const scroll = panel.querySelector<HTMLElement>(".queue-scroll");
+      if (scroll) scroll.scrollTop = point.scroll;
+      const controls = [...panel.querySelectorAll<HTMLButtonElement>("[data-queue-entry]")];
+      const control = controls.find(
+        (button) => button.dataset.queueEntry === point.id &&
+          button.classList.contains("next-reciter-main") === point.recommended && !button.disabled,
+      ) ?? controls.find((button) => button.dataset.queueEntry === point.id && !button.disabled);
+      if (control) { control.focus({ preventScroll: true }); return; }
+    }
+    titleRef.current?.focus({ preventScroll: true });
+  }, [stage]);
+
+  useEffect(() => {
+    if (saveStatus?.phase === "failed" || saveStatus?.phase === "conflict") onClose();
+  }, [saveStatus?.phase, onClose]);
 
   const liveSnapshot = state.competition.liveSnapshot;
   const participant =
@@ -154,8 +207,13 @@ export function StartDialog({
     if (entry.absent) {
       dispatch({ type: "SET_PARTICIPANT_ABSENT", id: entry.id, absent: false });
     }
+    queueReturnRef.current = {
+      id: entry.id,
+      recommended: document.activeElement?.classList.contains("next-reciter-main") ?? false,
+      scroll: panelRef.current?.querySelector(".queue-scroll")?.scrollTop ?? 0,
+    };
+    changedStageRef.current = true;
     setParticipantId(entry.id);
-    setSearch("");
     setStage("draw");
   };
 
@@ -182,6 +240,7 @@ export function StartDialog({
           ? assignmentFromDraft({ participant, draft: selectedDraft })
           : null;
     if (!question) return;
+    preparedNewQuestionRef.current = true;
     dispatch({
       type: "PREPARE_RECITER",
       participant,
@@ -320,25 +379,21 @@ export function StartDialog({
     [rosterGroups, participant?.id, search],
   );
 
-  return (
+  const content = (
     <div
-      className={`dialog-backdrop reciter-start-backdrop stage-${stage}`}
-      onKeyDown={(event) => {
-        if (event.key === "Escape") onClose();
-      }}
+      className={`dialog-backdrop reciter-start-backdrop stage-${stage} ${embedded ? "is-embedded" : ""}`}
       onPointerDown={(event) => {
         if (event.target === event.currentTarget) onClose();
       }}
     >
       <div
-        className={`dialog reciter-start-dialog stage-${stage} ${assignment ? "has-assignment" : "is-missing-assignment"}`}
-        role="dialog"
-        aria-modal="true"
+        ref={panelRef}
+        className={`dialog reciter-start-dialog stage-${stage} ${assignment ? "has-assignment" : "is-missing-assignment"} ${changedStageRef.current ? "has-changed-stage" : ""}`}
         aria-labelledby="reciter-start-title"
       >
         <header className="reciter-start-head">
           <div>
-            <h2 id="reciter-start-title">
+            <h2 id="reciter-start-title" ref={titleRef} tabIndex={-1}>
               {stage === "participant" ? "Reciter queue" : "Choose a question"}
             </h2>
           </div>
@@ -364,7 +419,7 @@ export function StartDialog({
         )}
 
         <div className="reciter-start-body">
-          {stage === "participant" ? (
+          <div className="reciter-queue-stage" hidden={stage !== "participant"}>
             <ParticipantSelectionScreen
               recommended={participant}
               recommendedDivision={division}
@@ -379,7 +434,8 @@ export function StartDialog({
               onChoose={chooseParticipant}
               onMarkAbsent={markParticipantAbsent}
             />
-          ) : (
+          </div>
+          {stage === "draw" && <div className="reciter-draw-stage">
             <QuestionNumberScreen
               participant={participant}
               participantCount={roster.length}
@@ -407,9 +463,32 @@ export function StartDialog({
                 mode === "change-question" ? onClose() : setStage("participant")
               }
             />
-          )}
+          </div>}
         </div>
       </div>
     </div>
+  );
+  return embedded ? content : (
+    <dialog
+      ref={modalRef}
+      className="reciter-queue-modal"
+      aria-labelledby="reciter-start-title"
+      onCancel={(event) => { event.preventDefault(); onClose(); }}
+      onKeyDown={(event) => {
+        if (event.key !== "Tab") return;
+        const controls = [...event.currentTarget.querySelectorAll<HTMLElement>(
+          'button:not([disabled]), input:not([disabled]), select:not([disabled]), [href], [tabindex]:not([tabindex="-1"])',
+        )].filter((element) => element.getClientRects().length > 0 && !element.closest("[hidden], [inert]"));
+        const first = controls[0], last = controls[controls.length - 1], active = document.activeElement;
+        if (!first || !last) { event.preventDefault(); return; }
+        if (event.shiftKey && (active === first || active === titleRef.current)) {
+          event.preventDefault(); last.focus();
+        } else if (!event.shiftKey && active === last) {
+          event.preventDefault(); first.focus();
+        }
+      }}
+    >
+      {content}
+    </dialog>
   );
 }

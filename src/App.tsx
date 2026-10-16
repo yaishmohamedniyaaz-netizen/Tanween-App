@@ -26,6 +26,7 @@ import { SettingsWorkspace } from "./components/SettingsWorkspace";
 import { QuestionPreparationWorkspace } from "./components/QuestionPreparationWorkspace";
 import { CompetitionIdlePanel } from "./components/CompetitionIdlePanel";
 import { FinishDialog } from "./components/FinishDialog";
+import { useSessionSaveStatus } from "./components/SessionStorageBoundary";
 import { JudgeRoleStrip } from "./components/JudgeRoleStrip";
 import { PreparedSidebar } from "./components/PreparedSidebar";
 import { PageNav } from "./components/PageNav";
@@ -80,6 +81,15 @@ export function App() {
     "start" | "next-question" | "change-reciter" | "change-question"
   >("start");
   const [finishOpen, setFinishOpen] = useState(false);
+  const [finishHandoff, setFinishHandoff] = useState(false);
+  const sessionSaveStatus = useSessionSaveStatus();
+  useEffect(() => {
+    if (finishHandoff && (sessionSaveStatus?.phase === "failed" || sessionSaveStatus?.phase === "conflict")) {
+      // The native modal must not hide the existing recovery/retry controls.
+      setFinishOpen(false);
+      setFinishHandoff(false);
+    }
+  }, [finishHandoff, sessionSaveStatus?.phase]);
   const [markingGuideOpen, setMarkingGuideOpen] = useState(false);
   const [moreControlsOpen, setMoreControlsOpen] = useState(false);
   const [phrasesOpen, setPhrasesOpen] = useState(false);
@@ -166,6 +176,7 @@ export function App() {
   // afterwards, and a refresh mid-recitation must not drag the page back to
   // the opening one. Manual questions carry no page and only mark the pairing
   // as handled.
+  const openedPreparationRef = useRef<{ key: string; questionId: string } | null>(null);
   const openedForKey = questionOpeningKey(
     state.activeSessionId ?? state.preparedRecitation?.id,
     state.activeQuestion ?? state.preparedRecitation?.question,
@@ -178,12 +189,22 @@ export function App() {
     : null;
 
   useEffect(() => {
+    const preparation = openedPreparationRef.current;
+    openedPreparationRef.current = state.preparedRecitation && openedForKey
+      ? { key: openedForKey, questionId: state.preparedRecitation.question.id }
+      : null;
     if (!openedForKey) return;
-    if (localStorage.getItem(LS_QUESTION_PAGE_KEY) === openedForKey) return;
+    const handledKey = localStorage.getItem(LS_QUESTION_PAGE_KEY);
+    if (handledKey === openedForKey) return;
     localStorage.setItem(LS_QUESTION_PAGE_KEY, openedForKey);
+    // Begin gives the already-open prepared question a new session ID. Adopt
+    // that key without moving the page the judge has been viewing or panning.
+    if (state.activeSessionId && preparation &&
+        preparation.questionId === visibleQuestion?.id &&
+        preparation.key === handledKey) return;
     if (openingPage === null) return;
     setPage(openingPage);
-  }, [openedForKey, openingPage]);
+  }, [openedForKey, openingPage, state.preparedRecitation?.id, state.activeSessionId, visibleQuestion?.id]);
 
   const handlePageChange = useCallback(
     (p: number) => {
@@ -235,9 +256,14 @@ export function App() {
     ]);
     dispatch({ type: "FINISH_SESSION" });
     setRecordPracticeRecitation(false);
-    setFinishOpen(false);
     setStartMode("start");
-    setStartOpen(hasNextReciter);
+    if (hasNextReciter) setFinishHandoff(true);
+    else setFinishOpen(false);
+  };
+
+  const closeFinish = () => {
+    setFinishOpen(false);
+    setFinishHandoff(false);
   };
 
   return (
@@ -515,7 +541,7 @@ export function App() {
           onClose={() => setStartOpen(false)}
         />
       )}
-      {finishOpen && state.sessionActive && (
+      {finishOpen && (state.sessionActive || finishHandoff) && (
         <FinishDialog
           hasNextReciter={hasNextReciter}
           inputMode={preferences.aduRaaguInputMode}
@@ -526,7 +552,14 @@ export function App() {
               : recitationAudio.status === "error"
                 ? `Recording stopped ${recitationAudio.durationLabel}`
                 : undefined}
-          onCancel={() => setFinishOpen(false)}
+          handoff={finishHandoff ? (
+            <StartDialog
+              embedded
+              onOpenSetup={() => { closeFinish(); setView("setup"); }}
+              onClose={closeFinish}
+            />
+          ) : undefined}
+          onCancel={closeFinish}
           onConfirm={() => {
             const assignment = state.activeAssignment;
             if (
@@ -539,7 +572,7 @@ export function App() {
             ) {
               return;
             }
-            void finishRecitation();
+            return finishRecitation();
           }}
         />
       )}

@@ -152,6 +152,7 @@ export function CompetitionIdlePanel({
           <button
             type="button"
             className="btn-ghost"
+            data-reciter-queue-launch
             onClick={onOpenReciterQueue}
           >
             Reciter queue
