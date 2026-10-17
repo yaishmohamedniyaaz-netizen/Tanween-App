@@ -9667,7 +9667,17 @@ html:has(.dialog-backdrop) {
 
 /* ---- Stable desktop Mushaf stage ----
    The app shell owns the available height; the observed frame owns Fit. */
+@media (min-width: 601px) {
+  /* Starting / ending appears at Begin in production with a 44px hit target.
+     Reserve its height while prepared too, so the header cannot resize Fit. */
+  .app.view-judge .app-header:has(.reciter-chip) {
+    min-height: calc(44px + 20px + 1px);
+  }
+}
 @media (min-width: 901px) and (min-height: 620px) {
+  .app.view-judge .app-header:has(.reciter-chip) {
+    min-height: calc(44px + 8px + 1px);
+  }
   .app.view-judge {
     display: grid;
     grid-template-rows: auto minmax(0, 1fr);
