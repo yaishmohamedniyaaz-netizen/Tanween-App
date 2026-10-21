@@ -1,6 +1,4 @@
 import {
-  lazy,
-  Suspense,
   useCallback,
   useEffect,
   useLayoutEffect,
@@ -69,13 +67,6 @@ import { MOBILE_MUSHAF_QUERY, MOBILE_MUSHAF_DEFAULT_ZOOM } from './lib/mobileMus
 // Records the session and question the Mushaf was last opened for, so the
 // opening page is restored once per reciter rather than on every render.
 const LS_QUESTION_PAGE_KEY = "tahqeeq:questionOpenedFor";
-
-// Dev-only score card size tuner: open the dev server with ?tune=scorecard.
-// import.meta.env.DEV is false in production builds, so this is never bundled there.
-const ScorecardTuner =
-  import.meta.env.DEV && new URLSearchParams(window.location.search).get("tune") === "scorecard"
-    ? lazy(() => import("./dev/ScorecardTuner").then((m) => ({ default: m.ScorecardTuner })))
-    : null;
 
 export function App() {
   const appRef = useRef<HTMLDivElement>(null);
@@ -676,11 +667,6 @@ export function App() {
       )}
 
       <ResultSheet />
-      {ScorecardTuner && (
-        <Suspense fallback={null}>
-          <ScorecardTuner />
-        </Suspense>
-      )}
     </div>
   );
 }

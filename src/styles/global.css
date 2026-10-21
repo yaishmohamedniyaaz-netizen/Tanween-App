@@ -15515,35 +15515,31 @@ html:has(.finish-dialog[open]) {
 /* ---- Final design (Fix Review v23) on the judging rail, review and page selector ----
    Whole-pixel roundings of the decided sizes: row 16.5 -> 17, numbers 19.35 -> 19,
    "of" 14.9 -> 15, deduction 17.28 -> 17, labels 14.9-15.4 -> 15, markers 12px.
-   The slim rail preference uses the same type sizes; it only tightens spacing.
-   Score card sizes are custom properties so the dev-only tuner
-   (?tune=scorecard, src/dev/ScorecardTuner.tsx) can adjust them live.
-   The fallback in each var() is the shipped value. */
+   The slim rail preference uses the same type sizes; it only tightens spacing. */
 @media (min-width: 901px) {
   .sidebar .judge-role-strip { font-size: var(--t-small); }
   .sidebar .sc-total-label,
-  .sidebar .mistake-panel .t-label { font-size: var(--sc-label-fs, 15px); font-weight: 600; letter-spacing: 0.12em; }
-  .sidebar .scorecard .sc-total-num { font-size: var(--sc-total-fs, 34px); letter-spacing: -0.02em; }
-  .sidebar .scorecard .sc-total-of { font-size: var(--sc-total-of-fs, 16px); }
+  .sidebar .mistake-panel .t-label { font-size: var(--t-small); font-weight: 600; letter-spacing: 0.12em; }
+  .sidebar .scorecard .sc-total-num { letter-spacing: -0.02em; }
+  .sidebar .scorecard .sc-total-of { font-size: 16px; }
   .sidebar .mistake-panel .log-view-all { font-size: var(--t-small); font-weight: 500; color: var(--ink-2); }
   .sidebar .mistake-panel .log-view-all:hover { color: var(--ink); }
-  .sidebar .scorecard .sc-dot { width: var(--sc-dot, 12px); height: var(--sc-dot, 12px); border-radius: var(--sc-dot-r, 3px); }
-  .sidebar .scorecard .sc-name { font-size: var(--sc-name-fs, 17px); font-weight: var(--sc-name-w, 500); }
-  .sidebar .scorecard .sc-deducted { font-size: var(--sc-dd-fs, 17px); }
+  .sidebar .scorecard .sc-dot { width: 12px; height: 12px; border-radius: 3px; }
+  .sidebar .scorecard .sc-name { font-size: var(--t-lead); }
+  .sidebar .scorecard .sc-deducted { font-size: var(--t-lead); }
   .sidebar .scorecard .score-value-number,
-  .sidebar .scorecard .mark-picker-value { font-size: var(--sc-num-fs, 19px); font-weight: var(--sc-num-w, 520); }
-  .sidebar .scorecard :is(.sc-score .sc-of, .mark-picker-of) { font-size: var(--sc-of-fs, 15px); font-weight: 500; }
-  .sidebar .scorecard .mark-picker { border-radius: var(--sc-box-r, 12px); }
-  .sidebar .scorecard .sc-row { min-height: var(--sc-row-h, 36px); padding-block: 0; }
+  .sidebar .scorecard .mark-picker-value { font-size: 19px; font-weight: 520; }
+  .sidebar .scorecard :is(.sc-score .sc-of, .mark-picker-of) { font-size: var(--t-small); font-weight: 500; }
+  .sidebar .scorecard .mark-picker { border-radius: var(--r-md); }
 }
 /* Review and save: the same criterion rows as the rail. */
-.finish-score-row .finish-criterion-name { font-size: var(--sc-name-fs, 17px); font-weight: var(--sc-name-w, 500); }
-.finish-score-row { grid-template-columns: var(--sc-dot, 12px) minmax(0, 1fr) 80px; }
-.finish-score-row .finish-criterion-dot { width: var(--sc-dot, 12px); height: var(--sc-dot, 12px); border-radius: var(--sc-dot-r, 3px); }
+.finish-score-row .finish-criterion-name { font-size: var(--t-lead); }
+.finish-score-row { grid-template-columns: 12px minmax(0, 1fr) 80px; }
+.finish-score-row .finish-criterion-dot { width: 12px; height: 12px; border-radius: 3px; }
 .finish-score-value .score-value-number,
-.finish-score-value .mark-picker-value { font-size: var(--sc-num-fs, 19px); font-weight: var(--sc-num-w, 520); }
-.finish-score-value :is(.score-value-layout .sc-of, .mark-picker-of) { font-size: var(--sc-of-fs, 15px); font-weight: 500; }
-.finish-score-value .mark-picker { border-radius: var(--sc-box-r, 12px); }
+.finish-score-value .mark-picker-value { font-size: 19px; font-weight: 520; }
+.finish-score-value :is(.score-value-layout .sc-of, .mark-picker-of) { font-size: var(--t-small); font-weight: 500; }
+.finish-score-value .mark-picker { border-radius: var(--r-md); }
 /* Page selector: ghost circles and an unboxed page number. Hit areas are unchanged. */
 .page-nav .page-nav-btn,
 .page-nav .page-nav-page {
@@ -15558,11 +15554,11 @@ html:has(.finish-dialog[open]) {
   .page-nav :is(.page-nav-btn, .page-nav-page):hover:not(:disabled) { background: color-mix(in srgb, var(--ink) 6%, transparent); color: var(--ink); }
 }
 @media (min-width: 901px) {
-  .sidebar .sc-row { grid-template-columns: var(--sc-dot, 12px) minmax(0, 1fr) var(--sc-dd-col, 42px) var(--sc-num-col, 76px); gap: var(--sc-gap, 8px); }
+  .sidebar .sc-row { grid-template-columns: 12px minmax(0, 1fr) 42px 76px; gap: 8px; }
   .sidebar .mark-picker::before,
-  .sidebar .sc-row-impression .mark-picker::before { border-radius: var(--sc-box-r, 12px); }
+  .sidebar .sc-row-impression .mark-picker::before { border-radius: var(--r-md); }
 }
-.finish-score-value .mark-picker::before { border-radius: var(--sc-box-r, 12px); }
+.finish-score-value .mark-picker::before { border-radius: var(--r-md); }
 .page-nav .page-nav-btn .page-nav-ink { font-family: var(--ui); font-size: var(--t-lead); font-weight: 500; letter-spacing: 0; color: inherit; }
 /* Header and controls (Fix Review v23): 46px header, 41px controls with 12px
    corners, 16px semibold labels. The 44px recording control still fits, and
