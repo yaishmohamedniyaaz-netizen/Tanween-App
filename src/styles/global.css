@@ -14618,6 +14618,14 @@ html:has(.finish-dialog[open]) {
     gap: 5px;
   }
 
+  /* A disclosure moves the cards below it. Keep their Arabic text painted in
+     separate layers instead of repainting the entire sheet on every frame.
+     These layers exist only while the mobile mistakes sheet is mounted. */
+  .mistake-panel.is-mobile-sheet .log-row-wrap {
+    contain: layout paint;
+    transform: translateZ(0);
+  }
+
   .mistake-panel.is-mobile-sheet .log-row {
     grid-template-columns: 40px 44px minmax(0, 1fr) 24px;
     min-height: 56px;

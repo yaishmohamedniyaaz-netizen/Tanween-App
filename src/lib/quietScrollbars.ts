@@ -27,8 +27,13 @@ export function installQuietScrollbars(doc: Document = document): void {
     const list = event.target;
     if (!(list instanceof HTMLElement) || !list.classList.contains(QUIET_SCROLL_CLASS)) return;
     window.clearTimeout(timers.get(list));
-    list.classList.add("is-scrolling");
-    bump(list);
+    // A shrinking disclosure can emit scroll events every animation frame.
+    // Repaint the scrollbar when visibility changes, not on every scroll tick:
+    // inherited custom-property writes invalidate every card in the list.
+    if (!list.classList.contains("is-scrolling")) {
+      list.classList.add("is-scrolling");
+      bump(list);
+    }
     timers.set(list, window.setTimeout(() => {
       list.classList.remove("is-scrolling");
       bump(list);
