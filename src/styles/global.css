@@ -15233,6 +15233,8 @@ html:has(.finish-dialog[open]) {
 /* Prepared actions each keep a full row; the draw remains unchanged. */
 .prepared-sidebar-secondary { grid-template-columns: minmax(0,1fr); }
 .prepared-sidebar-secondary .btn-ghost { min-height: 44px; }
+.reciter-chip .reciter-prepared-state, .reciter-chip .reciter-question-ref { font-size: var(--t-micro); }
+.reciter-question-ref { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .reciter-selection-screen .queue-scroll { padding-inline: 4px; }
 .queue-participant-button[aria-selected="true"] { position: relative; background: color-mix(in srgb, var(--ink) 5%, transparent); box-shadow: none; }
 .queue-participant-button[aria-selected="true"]::before { content: ""; position: absolute; inset-block: 8px; inset-inline-start: 2px; width: 3px; border-radius: 2px; background: var(--ink-2); }
