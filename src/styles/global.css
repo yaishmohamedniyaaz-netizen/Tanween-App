@@ -15511,3 +15511,52 @@ html:has(.finish-dialog[open]) {
   .finish-dialog.is-queue-handoff { inset: max(8px, env(safe-area-inset-top, 0px)) 8px max(8px, env(safe-area-inset-bottom, 0px)); max-height: calc(100dvh - max(8px, env(safe-area-inset-top, 0px)) - max(8px, env(safe-area-inset-bottom, 0px))); }
   .finish-dialog.is-queue-handoff:has(.stage-participant) { height: calc(100dvh - max(8px, env(safe-area-inset-top, 0px)) - max(8px, env(safe-area-inset-bottom, 0px))); }
 }
+
+/* ---- Final design (Fix Review v23) on the judging rail, review and page selector ----
+   Whole-pixel roundings of the decided sizes: row 16.5 -> 17, numbers 19.35 -> 19,
+   "of" 14.9 -> 15, deduction 17.28 -> 17, labels 14.9-15.4 -> 15, markers 12px.
+   The slim rail preference keeps its own denser sizes. */
+@media (min-width: 901px) {
+  .workspace:not(.score-slim) .sidebar .judge-role-strip { font-size: var(--t-small); }
+  .sidebar .sc-total-label,
+  .sidebar .mistake-panel .t-label { font-size: var(--t-small); font-weight: 600; letter-spacing: 0.12em; }
+  .sidebar .scorecard .sc-total-num { letter-spacing: -0.02em; }
+  .sidebar .scorecard .sc-total-of { font-size: 16px; }
+  .sidebar .mistake-panel .log-view-all { font-size: var(--t-small); font-weight: 500; color: var(--ink-2); }
+  .sidebar .mistake-panel .log-view-all:hover { color: var(--ink); }
+  .workspace:not(.score-slim) .sidebar .scorecard .sc-dot { width: 12px; height: 12px; border-radius: 3px; }
+  .workspace:not(.score-slim) .sidebar .scorecard .sc-name { font-size: var(--t-lead); }
+  .workspace:not(.score-slim) .sidebar .scorecard .sc-deducted { font-size: var(--t-lead); }
+  .workspace:not(.score-slim) .sidebar .scorecard .score-value-number,
+  .workspace:not(.score-slim) .sidebar .scorecard .mark-picker-value { font-size: 19px; font-weight: 520; }
+  .workspace:not(.score-slim) .sidebar .scorecard :is(.sc-score .sc-of, .mark-picker-of) { font-size: var(--t-small); font-weight: 500; }
+  .sidebar .scorecard .mark-picker { border-radius: var(--r-md); }
+}
+/* Review and save: the same criterion rows as the rail. */
+.finish-score-row .finish-criterion-name { font-size: var(--t-lead); }
+.finish-score-row { grid-template-columns: 12px minmax(0, 1fr) 80px; }
+.finish-score-row .finish-criterion-dot { width: 12px; height: 12px; border-radius: 3px; }
+.finish-score-value .score-value-number,
+.finish-score-value .mark-picker-value { font-size: 19px; font-weight: 520; }
+.finish-score-value :is(.score-value-layout .sc-of, .mark-picker-of) { font-size: var(--t-small); font-weight: 500; }
+.finish-score-value .mark-picker { border-radius: var(--r-md); }
+/* Page selector: ghost circles and an unboxed page number. Hit areas are unchanged. */
+.page-nav .page-nav-btn,
+.page-nav .page-nav-page {
+  border-color: transparent;
+  background: transparent;
+  box-shadow: none;
+}
+.page-nav .page-nav-btn { color: var(--ink-2); }
+.page-nav .page-nav-page { border-radius: var(--r-md); min-width: 60px; }
+.page-nav .page-nav-ink { font-size: var(--t-lead); font-weight: 500; letter-spacing: 0.06em; color: var(--ink); }
+@media (hover: hover) {
+  .page-nav :is(.page-nav-btn, .page-nav-page):hover:not(:disabled) { background: color-mix(in srgb, var(--ink) 6%, transparent); color: var(--ink); }
+}
+@media (min-width: 901px) {
+  .workspace:not(.score-slim) .sidebar .sc-row { grid-template-columns: 12px minmax(0, 1fr) 42px 76px; gap: 8px; }
+  .sidebar .mark-picker::before,
+  .sidebar .sc-row-impression .mark-picker::before { border-radius: var(--r-md); }
+}
+.finish-score-value .mark-picker::before { border-radius: var(--r-md); }
+.page-nav .page-nav-btn .page-nav-ink { font-family: var(--ui); font-size: var(--t-lead); font-weight: 500; letter-spacing: 0; color: inherit; }
