@@ -123,7 +123,7 @@ export function FinishDialog({
   const firstMissing = missing[0];
   const remarks = [
     ...impressionCategories.map((category) => ({
-      label: `${CATEGORY_BY_ID[category].label} reason`,
+      label: `${CATEGORY_BY_ID[category].short} reason`,
       text: impressionScore(
         config,
         state.impressions,
@@ -143,7 +143,7 @@ export function FinishDialog({
       : `Question ${state.activeQuestion.label}`
     : null;
   // While a required mark is missing, the total is a running total, not the score.
-  const neededLabel = missing.map((category) => CATEGORY_BY_ID[category].label).join(", ");
+  const neededLabel = missing.map((category) => CATEGORY_BY_ID[category].short).join(", ");
 
   useLayoutEffect(() => {
     const dialog = dialogRef.current;
@@ -310,7 +310,7 @@ export function FinishDialog({
                 <FinishImpressionRow
                   key={category}
                   category={category}
-                  label={definition.label}
+                  label={definition.short}
                   awarded={impression.awarded}
                   max={score.start}
                   step={config[category].step}
@@ -340,7 +340,7 @@ export function FinishDialog({
               <li key={category} className={`finish-score-row cat-${category}`}>
                 <span className="finish-criterion-dot" aria-hidden="true" />
                 <span className="finish-criterion">
-                  <span className="finish-criterion-name">{definition.label}</span>
+                  <span className="finish-criterion-name">{definition.short}</span>
                 </span>
                 <span className="finish-score-value">
                   <span className="score-value-layout t-num">

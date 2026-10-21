@@ -84,7 +84,7 @@ function ImpressionRow({
     category,
     "entry-zero",
   );
-  const label = CATEGORIES.find((item) => item.id === category)?.label ?? category;
+  const label = CATEGORIES.find((item) => item.id === category)?.short ?? category;
   const deducted = Math.round((start - awarded) * 100) / 100;
 
   return (
@@ -160,7 +160,7 @@ export function ScorePanel({
             <CategoryRow
               key={c.id}
               id={c.id}
-              label={c.label}
+              label={c.short}
               score={byCategory[c.id].score}
               start={byCategory[c.id].start}
               deducted={byCategory[c.id].deducted}

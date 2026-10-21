@@ -37,7 +37,7 @@ test("one to four assignment criteria render in canonical order without abbrevia
   assert.deepEqual(
     buildMobileCriterionChips(categories, scores, ["adu-raagu"])
       .map((chip) => chip.label),
-    ["Laḥn Jalī", "Laḥn Khafī", "Faṣāḥa", "Adu / Raagu"],
+    ["Jali", "Khafi", "Fasaha", "Adu / Raagu"],
   );
 });
 

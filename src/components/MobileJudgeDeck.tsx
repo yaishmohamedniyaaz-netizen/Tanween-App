@@ -165,7 +165,7 @@ export function MobileJudgeDeck({
                   {latestAction.mistake.wordText || mistakeFullGlyph(latestAction.mistake)}
                 </span>
                 <span className="mobile-last-detail">
-                  {CATEGORY_BY_ID[latestAction.mistake.category].label}
+                  {CATEGORY_BY_ID[latestAction.mistake.category].short}
                   {startedAt !== null && (
                     <span className="mobile-last-time t-num">
                       {` · ${formatRecitationElapsed(latestAction.at - startedAt)}`}

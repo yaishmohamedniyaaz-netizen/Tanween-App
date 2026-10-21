@@ -374,9 +374,9 @@ export function MistakeLog({
                       <span className="log-summary" aria-hidden={open}>
                         <span className="log-amt t-num">−{mistake.amount}</span>
                         <span className="mobile-log-detail">
-                          {category.label} · {reference}
+                          {category.short} · {reference}
                         </span>
-                        <span className="log-kalimah-ref t-num"><span className="log-forced-category">{category.label} · </span><bdi>{reference}</bdi></span>
+                        <span className="log-kalimah-ref t-num"><span className="log-forced-category">{category.short} · </span><bdi>{reference}</bdi></span>
                       </span>
                       <span className="log-chevron" aria-hidden="true">
                         <Icon name="chevron" size={13} />

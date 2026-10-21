@@ -33,7 +33,7 @@ export function buildMobileCriterionChips(
     const deducted = missing.has(category) ? 0 : score.deducted;
     return {
       category,
-      label: CATEGORY_BY_ID[category].label,
+      label: CATEGORY_BY_ID[category].short,
       value: isImpressionCategory(category)
         ? `${missing.has(category) ? "—" : score.score} / ${score.start}`
         : deducted === 0 ? "—" : `−${deducted}`,

@@ -5,15 +5,6 @@ Last reviewed: 21 August 2026
 This file contains only decisions that still need a human answer. Confirmed
 product rules belong in `PRODUCT_FOUNDATION.md`, not here.
 
-## Compact judging actions — 21 October 2026
-
-- Claude Step 5.4 asks for Change question and Change reciter on separate rows.
-  The desktop sidebar preview now follows that arrangement.
-- The phone preview retains its compact strip alongside Begin, preserving the
-  available Mushaf height. Stacking those actions would make the strip taller.
-- Decision needed: retain the compact phone strip, or stack the phone actions
-  as well? This preview choice does not change judging or competition rules.
-
 ## Questions and scoring
 
 1. **Final printed line**
