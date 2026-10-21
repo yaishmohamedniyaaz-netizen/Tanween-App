@@ -513,7 +513,7 @@ test("Adu and Raagu has one home in the rail, inside its score row", () => {
   assert.match(ruleBody(".mark-picker"), /width: 70px/);
   assert.match(ruleBody(".sc-score .sc-of"), /font-size: 12px/);
   assert.match(ruleBody(".mark-picker-of"), /font-size: 12px/);
-  assert.match(ruleBody(".mark-picker-of"), /font-weight: 400/);
+  assert.match(ruleBody(".mark-picker-of"), /font-weight: 520/);
 });
 
 test("the judging rail sits on the left unless the judge chose otherwise", () => {
@@ -602,12 +602,9 @@ test("holding a word is neutral; only a criterion colours the page", () => {
   assert.equal(holdWashes.length, 4, "a light and a dark pair");
   for (const wash of holdWashes) {
     const [r, g, b] = wash.match(/[\d.]+/g).map(Number);
-    // The washes are the app's own ink, which leans two points cool by design.
-    // Anything wider than that is a hue, and a hue here would read as a verdict.
-    assert.ok(
-      Math.max(r, g, b) - Math.min(r, g, b) <= 4,
-      `${wash} must carry no visible hue`,
-    );
+    // Warm neutral interface ink in light mode; white in dark mode.
+    // These must not become any of the saturated criterion colours.
+    assert.deepEqual([r, g, b], r === 255 ? [255, 255, 255] : [30, 26, 20]);
   }
 
   // Dragging onto a pill still paints the criterion's own colour.
@@ -644,10 +641,10 @@ test("the finish checkpoint reviews assigned category scores and exact remarks",
   assert.doesNotMatch(finishDialogSource, /This saves the result and opens the next reciter/);
 });
 
-test("the finish checkpoint focuses its heading and contains keyboard focus", () => {
+test("the finish checkpoint focuses its primary action and contains keyboard focus", () => {
   assert.match(finishDialogSource, /<dialog/);
   assert.match(finishDialogSource, /dialog\.showModal\(\)/);
-  assert.match(finishDialogSource, /headingRef\.current\?\.focus/);
+  assert.match(finishDialogSource, /finish-dialog-actions \.btn-primary/);
   assert.match(finishDialogSource, /onCancel=\{\(event\) =>/);
   assert.match(finishDialogSource, /const containFocus/);
   assert.match(finishDialogSource, /active === headingRef\.current/);

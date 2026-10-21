@@ -228,7 +228,9 @@ export function Header({
                 {recordingStateLabel}
               </span>
             )}
-            {visibleQuestion && <span className="reciter-question-ref">Q · {visibleQuestion.label}</span>}
+            {visibleQuestion && <span className="reciter-question-ref" title={visibleQuestion.kind === "manual" ? "External question" : `Question ${visibleQuestion.label}`}>
+              {visibleQuestion.kind === "manual" ? "External question" : `Question ${visibleQuestion.label}`}
+            </span>}
             {rosterTotal > 0 && <span className="chip-idx t-num">{rosterDone + 1}/{rosterTotal}</span>}
           </button>
         )}

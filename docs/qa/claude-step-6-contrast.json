@@ -1,0 +1,338 @@
+[
+  {
+    "theme": "light",
+    "role": "--ink on --surface",
+    "foreground": "#1e1a14",
+    "background": "#fdfcf9",
+    "ratio": 16.87,
+    "minimum": 4.5
+  },
+  {
+    "theme": "light",
+    "role": "--ink-2 on --surface",
+    "foreground": "#67625c",
+    "background": "#fdfcf9",
+    "ratio": 5.88,
+    "minimum": 4.5
+  },
+  {
+    "theme": "light",
+    "role": "--ink-3 on --surface",
+    "foreground": "#6f6a64",
+    "background": "#fdfcf9",
+    "ratio": 5.22,
+    "minimum": 4.5
+  },
+  {
+    "theme": "light",
+    "role": "--ring on --surface",
+    "foreground": "#3358d4",
+    "background": "#fdfcf9",
+    "ratio": 5.87,
+    "minimum": 3
+  },
+  {
+    "theme": "light",
+    "role": "--ink on --bg",
+    "foreground": "#1e1a14",
+    "background": "#f3f2ee",
+    "ratio": 15.45,
+    "minimum": 4.5
+  },
+  {
+    "theme": "light",
+    "role": "--ink-2 on --bg",
+    "foreground": "#67625c",
+    "background": "#f3f2ee",
+    "ratio": 5.39,
+    "minimum": 4.5
+  },
+  {
+    "theme": "light",
+    "role": "--ink-3 on --bg",
+    "foreground": "#6f6a64",
+    "background": "#f3f2ee",
+    "ratio": 4.78,
+    "minimum": 4.5
+  },
+  {
+    "theme": "light",
+    "role": "--ring on --bg",
+    "foreground": "#3358d4",
+    "background": "#f3f2ee",
+    "ratio": 5.38,
+    "minimum": 3
+  },
+  {
+    "theme": "light",
+    "role": "jali chosen chip",
+    "foreground": "#ffffff",
+    "background": "#ca244d",
+    "ratio": 5.43,
+    "minimum": 4.5
+  },
+  {
+    "theme": "light",
+    "role": "jali text on tint",
+    "foreground": "#9e2820",
+    "background": [
+      252,
+      236,
+      234
+    ],
+    "ratio": 6.6,
+    "minimum": 4.5
+  },
+  {
+    "theme": "light",
+    "role": "khafi chosen chip",
+    "foreground": "#1e1a14",
+    "background": "#d58e3a",
+    "ratio": 6.4,
+    "minimum": 4.5
+  },
+  {
+    "theme": "light",
+    "role": "khafi text on tint",
+    "foreground": "#7c540e",
+    "background": [
+      250,
+      242,
+      220
+    ],
+    "ratio": 6,
+    "minimum": 4.5
+  },
+  {
+    "theme": "light",
+    "role": "fasaha chosen chip",
+    "foreground": "#ffffff",
+    "background": "#3358d4",
+    "ratio": 6.02,
+    "minimum": 4.5
+  },
+  {
+    "theme": "light",
+    "role": "fasaha text on tint",
+    "foreground": "#2f3aa3",
+    "background": [
+      236,
+      238,
+      251
+    ],
+    "ratio": 8.07,
+    "minimum": 4.5
+  },
+  {
+    "theme": "light",
+    "role": "adu-raagu chosen chip",
+    "foreground": "#ffffff",
+    "background": "#377b60",
+    "ratio": 5.04,
+    "minimum": 4.5
+  },
+  {
+    "theme": "light",
+    "role": "adu-raagu text on tint",
+    "foreground": "#26624b",
+    "background": [
+      238,
+      248,
+      243
+    ],
+    "ratio": 6.6,
+    "minimum": 4.5
+  },
+  {
+    "theme": "light",
+    "role": "needs-review status marker",
+    "foreground": "#b56839",
+    "background": "#fdfcf9",
+    "ratio": 4.09,
+    "minimum": 3
+  },
+  {
+    "theme": "light",
+    "role": "ready status marker",
+    "foreground": "#47769c",
+    "background": "#fdfcf9",
+    "ratio": 4.72,
+    "minimum": 3
+  },
+  {
+    "theme": "light",
+    "role": "finalized status marker",
+    "foreground": "#4b8061",
+    "background": "#fdfcf9",
+    "ratio": 4.49,
+    "minimum": 3
+  },
+  {
+    "theme": "dark",
+    "role": "--ink on --surface",
+    "foreground": "#f0eae3",
+    "background": "#1e1e1d",
+    "ratio": 13.97,
+    "minimum": 4.5
+  },
+  {
+    "theme": "dark",
+    "role": "--ink-2 on --surface",
+    "foreground": "#a9a49d",
+    "background": "#1e1e1d",
+    "ratio": 6.74,
+    "minimum": 4.5
+  },
+  {
+    "theme": "dark",
+    "role": "--ink-3 on --surface",
+    "foreground": "#918b84",
+    "background": "#1e1e1d",
+    "ratio": 4.95,
+    "minimum": 4.5
+  },
+  {
+    "theme": "dark",
+    "role": "--ring on --surface",
+    "foreground": "#7f95f0",
+    "background": "#1e1e1d",
+    "ratio": 5.93,
+    "minimum": 3
+  },
+  {
+    "theme": "dark",
+    "role": "--ink on --bg",
+    "foreground": "#f0eae3",
+    "background": "#151413",
+    "ratio": 15.41,
+    "minimum": 4.5
+  },
+  {
+    "theme": "dark",
+    "role": "--ink-2 on --bg",
+    "foreground": "#a9a49d",
+    "background": "#151413",
+    "ratio": 7.43,
+    "minimum": 4.5
+  },
+  {
+    "theme": "dark",
+    "role": "--ink-3 on --bg",
+    "foreground": "#918b84",
+    "background": "#151413",
+    "ratio": 5.46,
+    "minimum": 4.5
+  },
+  {
+    "theme": "dark",
+    "role": "--ring on --bg",
+    "foreground": "#7f95f0",
+    "background": "#151413",
+    "ratio": 6.54,
+    "minimum": 3
+  },
+  {
+    "theme": "dark",
+    "role": "jali chosen chip",
+    "foreground": "#ffffff",
+    "background": "#ca244d",
+    "ratio": 5.43,
+    "minimum": 4.5
+  },
+  {
+    "theme": "dark",
+    "role": "jali text on tint",
+    "foreground": "#f0a8a2",
+    "background": [
+      60.96,
+      31.080000000000002,
+      37.64
+    ],
+    "ratio": 7.61,
+    "minimum": 4.5
+  },
+  {
+    "theme": "dark",
+    "role": "khafi chosen chip",
+    "foreground": "#1e1a14",
+    "background": "#d58e3a",
+    "ratio": 6.4,
+    "minimum": 4.5
+  },
+  {
+    "theme": "dark",
+    "role": "khafi text on tint",
+    "foreground": "#e6c07a",
+    "background": [
+      66.6,
+      52.400000000000006,
+      34.800000000000004
+    ],
+    "ratio": 6.93,
+    "minimum": 4.5
+  },
+  {
+    "theme": "dark",
+    "role": "fasaha chosen chip",
+    "foreground": "#ffffff",
+    "background": "#385edb",
+    "ratio": 5.54,
+    "minimum": 4.5
+  },
+  {
+    "theme": "dark",
+    "role": "fasaha text on tint",
+    "foreground": "#aeb8f6",
+    "background": [
+      35.2,
+      42.8,
+      67
+    ],
+    "ratio": 7.34,
+    "minimum": 4.5
+  },
+  {
+    "theme": "dark",
+    "role": "adu-raagu chosen chip",
+    "foreground": "#ffffff",
+    "background": "#377b60",
+    "ratio": 5.04,
+    "minimum": 4.5
+  },
+  {
+    "theme": "dark",
+    "role": "adu-raagu text on tint",
+    "foreground": "#a5cfbc",
+    "background": [
+      35.5,
+      50.46,
+      43.74
+    ],
+    "ratio": 7.79,
+    "minimum": 4.5
+  },
+  {
+    "theme": "dark",
+    "role": "needs-review status marker",
+    "foreground": "#dfa078",
+    "background": "#1e1e1d",
+    "ratio": 7.5,
+    "minimum": 3
+  },
+  {
+    "theme": "dark",
+    "role": "ready status marker",
+    "foreground": "#88b4d8",
+    "background": "#1e1e1d",
+    "ratio": 7.6,
+    "minimum": 3
+  },
+  {
+    "theme": "dark",
+    "role": "finalized status marker",
+    "foreground": "#87bf9d",
+    "background": "#1e1e1d",
+    "ratio": 7.92,
+    "minimum": 3
+  }
+]

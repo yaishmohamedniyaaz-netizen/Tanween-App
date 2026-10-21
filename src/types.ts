@@ -18,6 +18,7 @@ export interface CategoryDef {
   /** Optional criteria can be switched off for a competition. */
   optional: boolean;
   label: string; // transliteration
+  short: string; // Plain display label for marking trays; never persisted.
   labelAr: string; // arabic
   hint: string; // short description for the menu / tooltip
 }

@@ -155,5 +155,5 @@ test("CSS locks scrolling, Arabic ink, and shared score alignment", () => {
   assert.match(ruleBody(".sc-score"), /white-space:\s*nowrap/);
   assert.match(ruleBody(".sc-score .sc-of"), /font-size:\s*12px/);
   assert.match(ruleBody(".mark-picker-of"), /font-size:\s*12px/);
-  assert.match(ruleBody(".mark-picker-of"), /font-weight:\s*400/);
+  assert.match(ruleBody(".mark-picker-of"), /font-weight:\s*520/);
 });

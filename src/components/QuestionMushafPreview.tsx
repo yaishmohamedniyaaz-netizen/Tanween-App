@@ -174,12 +174,18 @@ export function QuestionMushafPreview({
         </div>
       </div>
 
-      {loadError ? (
-        <div className="question-preview-state" role="alert">This Mushaf page could not be loaded. Choose another page and try again.</div>
-      ) : !pageData || pageData.page !== page ? (
-        <div className="question-preview-state"><span className="loading-spinner" /> Loading page {page}…</div>
-      ) : (
-        <div className="question-preview-canvas">
+      <div className="question-preview-canvas" aria-busy={!loadError && (!pageData || pageData.page !== page)}>
+        {loadError || !pageData || pageData.page !== page ? (
+          // Use the paper's own responsive geometry, including on the first load.
+          // Never show a previous page's text beneath the newly requested number.
+          <div className="page page-solid-mushaf question-preview-page question-preview-placeholder">
+            {loadError ? (
+              <div className="question-preview-state" role="alert">This Mushaf page could not be loaded. Choose another page and try again.</div>
+            ) : (
+              <div className="question-preview-state" role="status"><span className="loading-spinner" /> Loading page {page}…</div>
+            )}
+          </div>
+        ) : (
           <div className={`page page-solid-mushaf question-preview-page ${pageData.page <= 2 ? "page-opening-layout" : pageData.lines.length < 15 ? "page-short-layout" : ""}`} data-page={pageData.page} data-font-ready={qcfReady ? "true" : "false"}>
             <div className="page-marginalia">
               <span className="page-juz">Juz&apos; {juzByPage[pageData.page]}</span>
@@ -197,8 +203,8 @@ export function QuestionMushafPreview({
               })}
             </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
 
       <div className="question-preview-legend">
         <span><i aria-hidden="true" /> Selected passage</span>

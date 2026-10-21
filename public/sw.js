@@ -32,6 +32,9 @@ const FONT_URLS = [
 ];
 
 const STATIC_PRECACHE_URLS = BUILD_PRECACHE_URLS.concat(FONT_URLS.slice(0, 2), [
+  "/fonts/manrope-latin-wght-normal.woff2",
+  "/fonts/nunito-sans-latin-wght-normal.woff2",
+  "/fonts/platypi-latin-wght-normal.woff2",
   "/manifest.webmanifest",
   "/icons/tanween-favicon.svg",
   "/icons/tanween-favicon-32.png",

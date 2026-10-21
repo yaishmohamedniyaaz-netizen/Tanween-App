@@ -14,7 +14,7 @@
 .ro-filter button, .ro-footer button { border: 0; background: var(--surface); color: var(--ink); padding: 8px 12px; cursor: pointer; font: inherit; }
 .ro-filter button[aria-pressed="true"] { background: var(--ink); color: var(--surface); }
 .ro-table { width: 100%; border-collapse: collapse; background: var(--surface); text-align: left; table-layout: fixed; }
-.ro-table th { font-weight: 500; font-size: 12px; color: var(--ink-3); padding: 8px 12px; border-bottom: 1px solid var(--line); }
+.ro-table th { font-weight: 600; font-size: 12px; color: var(--ink-3); padding: 8px 12px; border-bottom: 1px solid var(--line); }
 .ro-table th:first-child { width: 38%; }
 .ro-table th:nth-child(2) { width: 16%; }
 .ro-table th:nth-child(3) { width: 16%; }
@@ -28,9 +28,10 @@
 .ro-table strong { font-weight: 600; }
 .ro-table small { display: block; font-size: 12px; color: var(--ink-3); }
 .ro-score, .ro-contributions { font-variant-numeric: tabular-nums; }
+.ro-number, .ro-score, .ro-score strong { font-family: var(--num); font-weight: 520; letter-spacing: .045em; }
 .ro-score small { display: inline; }
 .ro-reason { font-size: 12px; }
-.ro-table button:focus-visible, .ro-tools button:focus-visible, .ro-footer button:focus-visible { outline: 2px solid var(--ink); outline-offset: -2px; }
+.ro-table button:focus-visible, .ro-tools button:focus-visible, .ro-footer button:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
 .ro-reason strong { display: block; }
 .ro-absent { color: var(--ink-3); background: var(--bg); }
 .ro-footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-top: 8px; }

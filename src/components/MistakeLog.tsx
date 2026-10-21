@@ -177,7 +177,11 @@ export function MistakeLog({
     const { id, tid, page } = mistake;
     const opening = openId !== id;
     setOpenId(opening ? id : null);
-    if (opening && !isPhraseMistake(mistake)) {
+    // The stacked workspace puts the Mushaf above the editing controls.
+    // Opening a card must not scroll those controls away from the judge.
+    const keepEditingPosition = !mobileSheet && !expanded &&
+      window.matchMedia("(max-width: 900px)").matches;
+    if (opening && !keepEditingPosition && !isPhraseMistake(mistake)) {
       window.dispatchEvent(new CustomEvent(JUMP_EVENT, { detail: { tid, page } }));
     }
   };
@@ -370,9 +374,9 @@ export function MistakeLog({
                       <span className="log-summary" aria-hidden={open}>
                         <span className="log-amt t-num">−{mistake.amount}</span>
                         <span className="mobile-log-detail">
-                          {category.label} · {reference}
+                          {category.short} · {reference}
                         </span>
-                        <span className="log-kalimah-ref t-num"><span className="log-forced-category">{category.label} · </span><bdi>{reference}</bdi></span>
+                        <span className="log-kalimah-ref t-num"><span className="log-forced-category">{category.short} · </span><bdi>{reference}</bdi></span>
                       </span>
                       <span className="log-chevron" aria-hidden="true">
                         <Icon name="chevron" size={13} />
@@ -406,6 +410,15 @@ export function MistakeLog({
                           {mistake.wordText || mistakeFullGlyph(mistake)}
                         </span>
                         <span className="log-detail-actions">
+                        {!isPhraseMistake(mistake) && <button
+                          type="button"
+                          className="log-locate"
+                          onClick={() => window.dispatchEvent(new CustomEvent(JUMP_EVENT, {
+                            detail: { tid: mistake.tid, page: mistake.page },
+                          }))}
+                        >
+                          Show word
+                        </button>}
                         <button
                           type="button"
                           className="log-undo"

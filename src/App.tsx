@@ -1,6 +1,7 @@
 import {
   useCallback,
   useEffect,
+  useLayoutEffect,
   useRef,
   useState,
 } from "react";
@@ -21,11 +22,12 @@ import { ResultSheet } from "./components/ResultSheet";
 import { MarkingCoachTip } from "./components/MarkingCoachTip";
 import { RecordsView } from "./components/RecordsView";
 import { StartDialog } from "./components/StartDialog";
-import { CompetitionSetup } from "./components/CompetitionSetup";
+import { CompetitionSetup, type SetupReturnPoint } from "./components/CompetitionSetup";
 import { SettingsWorkspace } from "./components/SettingsWorkspace";
 import { QuestionPreparationWorkspace } from "./components/QuestionPreparationWorkspace";
 import { CompetitionIdlePanel } from "./components/CompetitionIdlePanel";
 import { FinishDialog } from "./components/FinishDialog";
+import { useSessionSaveStatus } from "./components/SessionStorageBoundary";
 import { JudgeRoleStrip } from "./components/JudgeRoleStrip";
 import { PreparedSidebar } from "./components/PreparedSidebar";
 import { PageNav } from "./components/PageNav";
@@ -74,12 +76,35 @@ export function App() {
   const { state, dispatch } = useJudging();
   const offlineMushaf = useOfflineMushaf();
   const [view, setView] = useState<AppView>("judge");
+  const setupReturnPointRef = useRef<SetupReturnPoint | null>(null);
   const [mobileMushafControls, setMobileMushafControls] = useState<HTMLDivElement | null>(null);
   const [startOpen, setStartOpen] = useState(false);
   const [startMode, setStartMode] = useState<
     "start" | "next-question" | "change-reciter" | "change-question"
   >("start");
   const [finishOpen, setFinishOpen] = useState(false);
+  const [finishHandoff, setFinishHandoff] = useState(false);
+  const focusNextReciterRef = useRef(false);
+  const [openingQuestionPage, setOpeningQuestionPage] = useState<number | null>(null);
+  const [questionPageError, setQuestionPageError] = useState<string | null>(null);
+  const retryQuestionPageRef = useRef<() => void>(() => {});
+  const questionRevealFrame = useRef(0);
+  const closeQuestionPicker = useCallback(() => {
+    cancelAnimationFrame(questionRevealFrame.current);
+    setOpeningQuestionPage(null);
+    setQuestionPageError(null);
+    setStartOpen(false);
+    setFinishOpen(false);
+    setFinishHandoff(false);
+  }, []);
+  useEffect(() => () => cancelAnimationFrame(questionRevealFrame.current), []);
+  const sessionSaveStatus = useSessionSaveStatus();
+  useEffect(() => {
+    if (finishHandoff && (sessionSaveStatus?.phase === "failed" || sessionSaveStatus?.phase === "conflict")) {
+      // The native modal must not hide the existing recovery/retry controls.
+      closeQuestionPicker();
+    }
+  }, [finishHandoff, sessionSaveStatus?.phase, closeQuestionPicker]);
   const [markingGuideOpen, setMarkingGuideOpen] = useState(false);
   const [moreControlsOpen, setMoreControlsOpen] = useState(false);
   const [phrasesOpen, setPhrasesOpen] = useState(false);
@@ -168,24 +193,61 @@ export function App() {
   // afterwards, and a refresh mid-recitation must not drag the page back to
   // the opening one. Manual questions carry no page and only mark the pairing
   // as handled.
+  const openedPreparationRef = useRef<{ key: string; questionId: string } | null>(null);
   const openedForKey = questionOpeningKey(
     state.activeSessionId ?? state.preparedRecitation?.id,
     state.activeQuestion ?? state.preparedRecitation?.question,
   );
   const visibleQuestion = state.activeQuestion ?? state.preparedRecitation?.question;
+  const lastQuestionRendererKey = useRef(visibleQuestion?.id ?? "idle");
+  useLayoutEffect(() => {
+    if (visibleQuestion) lastQuestionRendererKey.current = visibleQuestion.id;
+  }, [visibleQuestion?.id]);
   useEffect(() => { openMushafSurface("navigation"); }, [page, view, state.activeSessionId]);
   const openingPage = questionOpeningPage(visibleQuestion);
   const visibleQuestionRange = visibleQuestion?.version === 2
     ? visibleQuestion.range ?? null
     : null;
 
-  useEffect(() => {
+  useLayoutEffect(() => {
+    const preparation = openedPreparationRef.current;
+    openedPreparationRef.current = state.preparedRecitation && openedForKey
+      ? { key: openedForKey, questionId: state.preparedRecitation.question.id }
+      : null;
     if (!openedForKey) return;
-    if (localStorage.getItem(LS_QUESTION_PAGE_KEY) === openedForKey) return;
+    const handledKey = localStorage.getItem(LS_QUESTION_PAGE_KEY);
+    if (handledKey === openedForKey) return;
     localStorage.setItem(LS_QUESTION_PAGE_KEY, openedForKey);
+    // Begin gives the already-open prepared question a new session ID. Adopt
+    // that key without moving the page the judge has been viewing or panning.
+    if (state.activeSessionId && preparation &&
+        preparation.questionId === visibleQuestion?.id &&
+        preparation.key === handledKey) return;
     if (openingPage === null) return;
     setPage(openingPage);
-  }, [openedForKey, openingPage]);
+  }, [openedForKey, openingPage, state.preparedRecitation?.id, state.activeSessionId, visibleQuestion?.id]);
+
+  const prepareQuestionPage = useCallback((target: number | null) => {
+    if (target === null || !fixedReview) { closeQuestionPicker(); return; }
+    setQuestionPageError(null);
+    setOpeningQuestionPage(target);
+    setPage(target);
+  }, [fixedReview, closeQuestionPicker]);
+
+  const questionPageReady = useCallback((pages: readonly number[]) => {
+    if (openingQuestionPage === null || page !== openingQuestionPage || !pages.includes(openingQuestionPage)) return;
+    cancelAnimationFrame(questionRevealFrame.current);
+    // Artwork and hit geometry are ready. Let the viewport's resize measurement
+    // commit its final Fit before uncovering the prepared workspace.
+    questionRevealFrame.current = requestAnimationFrame(() => {
+      questionRevealFrame.current = requestAnimationFrame(closeQuestionPicker);
+    });
+  }, [openingQuestionPage, page, closeQuestionPicker]);
+
+  const questionPageFailed = useCallback((error: string | null, retry: () => void) => {
+    retryQuestionPageRef.current = retry;
+    setQuestionPageError(error);
+  }, []);
 
   const handlePageChange = useCallback(
     (p: number) => {
@@ -235,12 +297,26 @@ export function App() {
       recitationAudio.finish(),
       new Promise<void>((resolve) => window.setTimeout(resolve, 2_500)),
     ]);
+    // The desktop rail already owns the next-reciter action. Compact layouts
+    // keep the modal handoff because their rail is below the Mushaf or hidden.
+    // Read the current layout after recording stops in case the device rotated.
+    const showQueueHandoff = !window.matchMedia("(min-width: 901px)").matches;
+    focusNextReciterRef.current = hasNextReciter && !showQueueHandoff;
     dispatch({ type: "FINISH_SESSION" });
     setRecordPracticeRecitation(false);
-    setFinishOpen(false);
     setStartMode("start");
-    setStartOpen(hasNextReciter);
+    if (hasNextReciter && showQueueHandoff) setFinishHandoff(true);
+    else setFinishOpen(false);
   };
+
+  useLayoutEffect(() => {
+    if (!focusNextReciterRef.current || state.sessionActive || finishOpen) return;
+    focusNextReciterRef.current = false;
+    appRef.current?.querySelector<HTMLButtonElement>(".competition-start-reciter")
+      ?.focus({ preventScroll: true });
+  }, [state.sessionActive, finishOpen]);
+
+  const closeFinish = closeQuestionPicker;
 
   return (
     <div
@@ -249,6 +325,7 @@ export function App() {
       data-mobile-judge-deck={mobileJudgeDeckActive ? "true" : undefined}
       data-mobile-calibration={mobileCalibration ? 'true' : undefined}
       data-mobile-prepared={mobilePreparedActive ? "true" : undefined}
+      data-competition-live={state.competition.status === "live" ? "true" : undefined}
       data-mobile-judge-layout={
         (mobileJudgeDeckActive || mobilePreparedActive) && mobileJudgeLayout === "raised"
           ? "raised"
@@ -340,6 +417,11 @@ export function App() {
               }
             >
               <PageRenderer
+                // Saving clears the question, not the page already on screen.
+                // A new question still gets a fresh renderer behind its picker.
+                key={visibleQuestion?.id ?? lastQuestionRendererKey.current}
+                onPresentationReady={questionPageReady}
+                onPresentationError={questionPageFailed}
                 preparedFixedPage={mobileCalibration ? readyNavigation.ready : undefined}
                 swipePreviews={mobileCalibration ? readyNavigation.previews : undefined}
                 navigationPending={readyNavigation.pending}
@@ -492,9 +574,13 @@ export function App() {
           onBack={() => setView("judge")}
         />
       ) : view === "questions" ? (
-        <QuestionPreparationWorkspace onBack={() => setView("setup")} />
+        <QuestionPreparationWorkspace onBack={() => {
+          if (setupReturnPointRef.current) setupReturnPointRef.current.restore = true;
+          setView("setup");
+        }} />
       ) : (
         <CompetitionSetup
+          returnPointRef={setupReturnPointRef}
           onBack={() => setView("judge")}
           onOpenQuestionWorkspace={() => setView("questions")}
         />
@@ -511,10 +597,14 @@ export function App() {
             setStartOpen(false);
             setView("setup");
           }}
-          onClose={() => setStartOpen(false)}
+          onClose={closeQuestionPicker}
+          onPrepared={prepareQuestionPage}
+          preparing={openingQuestionPage !== null}
+          preparationError={questionPageError}
+          onRetryPreparation={() => retryQuestionPageRef.current()}
         />
       )}
-      {finishOpen && state.sessionActive && (
+      {finishOpen && (state.sessionActive || finishHandoff) && (
         <FinishDialog
           hasNextReciter={hasNextReciter}
           inputMode={preferences.aduRaaguInputMode}
@@ -525,7 +615,18 @@ export function App() {
               : recitationAudio.status === "error"
                 ? `Recording stopped ${recitationAudio.durationLabel}`
                 : undefined}
-          onCancel={() => setFinishOpen(false)}
+          handoff={finishHandoff ? (
+            <StartDialog
+              embedded
+              onOpenSetup={() => { closeFinish(); setView("setup"); }}
+              onClose={closeQuestionPicker}
+              onPrepared={prepareQuestionPage}
+              preparing={openingQuestionPage !== null}
+              preparationError={questionPageError}
+              onRetryPreparation={() => retryQuestionPageRef.current()}
+            />
+          ) : undefined}
+          onCancel={closeFinish}
           onConfirm={() => {
             const assignment = state.activeAssignment;
             if (
@@ -538,7 +639,7 @@ export function App() {
             ) {
               return;
             }
-            void finishRecitation();
+            return finishRecitation();
           }}
         />
       )}

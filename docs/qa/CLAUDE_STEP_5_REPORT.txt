@@ -1,0 +1,79 @@
+Step 5 — implementation report, 21 October 2026
+
+Status: committed for GitHub review at the user's explicit request.
+Production publication is not part of this push. Phone layout choice stays open.
+Branch: codex/step-5-queue.
+Step 5 is based on 6faf7d0; Step 6 is stacked on the committed Step 5 branch.
+
+5.1 Save returns desktop to the existing Next reciter rail. Compact screens
+    retain the in-dialog handoff. The last renderer identity remains stable
+    when the completed question is cleared; a new question gets a fresh renderer.
+5.2 One selectable, grouped reciter list replaces the duplicate Next card.
+    Next is the recommendation, Ready is the prepared participant. Finished
+    entries sort last within each displayed group and cannot launch judging.
+    Choose question and Not here / Back in queue remain in the fixed footer.
+    Search, group collapse, arrow keys, Home/End and typeahead are retained.
+5.3 Focus follows the selected reciter, first available draw or primary Save.
+    Native dialog Escape handling is retained, with opener restoration and
+    tabbable controls filtered correctly for the roving listbox.
+5.4 Desktop prepared actions are stacked with 44 px targets. Phone keeps its
+    compact strip pending the product choice recorded in UNDECIDED_DECISIONS.
+5.5 Header uses Question / External question and readable Ready/reference text.
+    Truncated references have a title containing the full text.
+5.6 Standalone and embedded queue/draw screens are centred within their viewport.
+
+Retained: Claude's design, the original draw functions, scoring/storage/evidence
+and device preferences. The existing idle rail stays a recommendation summary;
+it is not converted into a second full roster.
+Recomposed: queue selection, status hierarchy, action footer and focus handoffs.
+Removed: the separate Next card inside the queue and duplicate list presentation.
+
+Main files: App.tsx, ParticipantSelectionScreen.tsx, StartDialog.tsx,
+FinishDialog.tsx, Header.tsx, global.css. Browser harnesses in scripts/qa:
+claude-queue-browser, begin-header-browser, question-reveal-browser,
+save-handoff-browser. Existing competition-workspace tests updated to the new
+desktop handoff expectation. No scoring or question-deck implementation edits.
+
+Validation:
+- Full suite: 444 passed / one skipped / zero failed. Production build passed.
+- Queue: 12 viewport/theme cases, selection, search, absence, finished state,
+  collapsed groups, keyboard and Escape/focus restoration.
+- Accessibility tree exposes all DOM options under the grouped Reciters listbox
+  and exactly one selected option. Pattern reference:
+  https://www.w3.org/WAI/ARIA/apg/patterns/listbox/
+- Begin: 14 combinations, including zoom/reduced motion; zero measured drift.
+- Reveal: 29 cases, including slow loading and retry; zero size drift.
+- Save: 35 cases including recording and failure paths; six additional compact
+  cases checked the final embedded draw centring adjustment.
+- AST checks confirm chooseParticipant, markParticipantAbsent,
+  prepareWithQuestion, drawPosition and the FREEZE_DECK effect unchanged.
+
+Screenshots: final/{1440,1024,768,390,320}-{light,dark}-{queue,prepared,draw,review}.png
+Interactive comparison: review.html. Synthetic QA roster only.
+
+Open: phone stacking choice; physical-device and Safari acceptance. Header and
+panel geometry findings are deliberately check-only, detailed in Step 6 report.
+Confidence: practicality 95/100; architecture/data safety 97/100; visual 88/100.
+These are engineering judgments, not substitutes for user visual approval.
+
+Review branches use one commit per numbered task and the requested trailer.
+Both PRs target claude/judging-final-polish; Step 6 includes Step 5 ancestry.
+Do not merge main. This push does not settle the open phone layout decision.
+Co-Authored-By: Codex <noreply@openai.com>
+
+Reproduction: npm ci; npm test; npx tsc -b; npm run build.
+Browser QA: start Vite at 127.0.0.1:5346; install/use Playwright in the review
+environment. Scripts resolve the playwright module normally, or accept
+PLAYWRIGHT_PATH pointing at its installed package. No browser install is
+performed by the scripts. Use an isolated browser context with QA sample data.
+
+Fresh isolated Step 5 validation: 444 tests passed, one skipped; build passed;
+12 queue viewport/theme cases and desktop/phone save pilots passed.
+
+Screenshots shipped with this branch (synthetic fixture):
+- claude-step-5/1440-light-queue.png
+- claude-step-5/1440-dark-queue.png
+- claude-step-5/1024-light-queue.png
+- claude-step-5/390-light-queue.png
+- claude-step-5/1440-light-draw.png
+- claude-step-5/390-light-review.png

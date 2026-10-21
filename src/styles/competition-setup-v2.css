@@ -18,7 +18,7 @@
 .app:is(.view-setup,.view-questions,.view-settings,.view-records) > main { position: relative; animation: workspace-fade var(--t-base) var(--ease-out); }
 .setup-checklist-shell { max-width: 880px; margin: 0 auto; }
 .setup-checklist-intro { position: relative; padding: 12px 4px 24px; }
-.setup-checklist-intro > span { color: var(--ink-3); font-size: var(--t-micro); font-weight: 650; letter-spacing: .08em; text-transform: uppercase; }
+.setup-checklist-intro > span { color: var(--ink-3); font-size: var(--t-micro); font-weight: 600; letter-spacing: .12em; text-transform: uppercase; }
 .setup-checklist-intro h1 { margin: 5px 0 6px; font-size: var(--t-display); font-weight: 580; letter-spacing: -.045em; }
 .setup-progress { position: relative; height: 3px; margin-top: 15px; overflow: visible; border-radius: 999px; background: var(--line); }
 .setup-progress > span { display: block; height: 100%; border-radius: inherit; background: var(--ink); transition: width var(--t-base) var(--ease-out); }
@@ -27,7 +27,7 @@
 .setup-sample-utility > span { display: inline-flex; align-items: center; gap: 7px; color: var(--ink-3); font-size: var(--t-micro); }
 .setup-sample-utility .btn-ghost { min-height: 30px; padding: 4px 9px; font-size: var(--t-micro); }
 .setup-checklist { display: grid; gap: 8px; padding-top: 16px; overflow-anchor: none; }
-.setup-checklist > .setup-task-group { margin: 14px 4px 0; padding: 0; color: var(--ink-3); font-size: var(--t-micro); font-weight: 680; letter-spacing: .09em; text-transform: uppercase; }
+.setup-checklist > .setup-task-group { margin: 14px 4px 0; padding: 0; color: var(--ink-3); font-size: var(--t-micro); font-weight: 600; letter-spacing: .12em; text-transform: uppercase; }
 .setup-checklist-item { overflow: hidden; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); box-shadow: var(--shadow-rest); transition: border-color var(--t-fast) var(--ease-out), box-shadow var(--t-fast) var(--ease-out); }
 .setup-checklist-item.is-active { border-color: var(--line-2); box-shadow: 0 8px 24px rgba(26,26,28,.07); }
 [data-theme="dark"] .setup-checklist-item.is-active { box-shadow: 0 10px 26px rgba(0,0,0,.25); }
@@ -37,7 +37,7 @@
 .setup-checklist-mark i { width: 6px; height: 6px; border-radius: 50%; background: var(--ink-3); opacity: .45; }
 .setup-checklist-item.is-complete .setup-checklist-mark { border-color: var(--ink); background: var(--ink); }
 .setup-checklist-trigger .setup-task-copy { display: grid; gap: 3px; min-width: 0; }
-.setup-checklist-trigger .setup-task-copy strong { font-size: var(--t-small); font-weight: 620; line-height: 1.4; overflow-wrap: anywhere; }
+.setup-checklist-trigger .setup-task-copy strong { font-size: var(--t-small); font-weight: 600; line-height: 1.4; overflow-wrap: anywhere; }
 .setup-checklist-trigger .setup-task-copy small { overflow: hidden; color: var(--ink-3); font-size: var(--t-micro); line-height: 1.35; text-overflow: ellipsis; white-space: nowrap; }
 .setup-checklist-trigger .setup-task-value { min-width: 0; color: var(--ink-2); font-size: var(--t-micro); line-height: 1.5; font-weight: 560; font-variant-numeric: tabular-nums; text-align: right; overflow-wrap: anywhere; }
 .setup-checklist-item.has-attention .setup-task-value { color: #8b5c18; }
@@ -59,7 +59,7 @@
 .category-summary-list .division-card-head { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 8px; padding: 0; border: 0; }
 .category-summary-main { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 12px; min-height: 58px; padding: 10px 12px; border: 0; background: transparent; text-align: left; }
 .category-summary-main > span:first-child { display: grid; gap: 3px; min-width: 0; }
-.category-summary-main strong { font-size: var(--t-small); font-weight: 620; }
+.category-summary-main strong { font-size: var(--t-small); font-weight: 600; }
 .category-summary-main small { overflow: hidden; color: var(--ink-3); font-size: var(--t-micro); text-overflow: ellipsis; white-space: nowrap; }
 .category-row-state { color: var(--ink-3); font-size: var(--t-micro); white-space: nowrap; }
 .category-summary-actions { display: flex; gap: 5px; padding-right: 8px; }
@@ -95,7 +95,7 @@
   text-align: left;
 }
 .readiness-issues li button:hover { background: color-mix(in srgb, #d8453d 7%, transparent); }
-.readiness-issues li button span { color: var(--ink-3); font-size: var(--t-micro); font-weight: 600; text-transform: uppercase; letter-spacing: .06em; }
+.readiness-issues li button span { color: var(--ink-3); font-size: var(--t-micro); font-weight: 600; text-transform: uppercase; letter-spacing: .12em; }
 .participant-entry-disclosure { padding: 0; }
 .participant-entry-disclosure > summary { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; min-height: 58px; padding: 10px 13px; cursor: pointer; list-style: none; }
 .participant-entry-disclosure > summary::-webkit-details-marker { display: none; }
@@ -110,7 +110,7 @@
 .question-builder-launch-card { text-align: left; }
 .question-workspace-summary { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; margin: 18px 0; }
 .question-workspace-summary > span { display: grid; gap: 3px; padding: 13px; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); }
-.question-workspace-summary strong { font-size: var(--t-lead); font-weight: 570; }
+.question-workspace-summary strong { font-size: var(--t-lead); font-weight: 600; }
 .question-workspace-summary small { color: var(--ink-3); font-size: var(--t-micro); }
 .question-workspace-open { min-height: 46px; }
 

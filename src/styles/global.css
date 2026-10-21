@@ -17,20 +17,39 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: "Manrope";
+  src: url("/fonts/manrope-latin-wght-normal.woff2") format("woff2");
+  font-weight: 200 800;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Nunito Sans";
+  src: url("/fonts/nunito-sans-latin-wght-normal.woff2") format("woff2");
+  font-weight: 200 1000;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Platypi";
+  src: url("/fonts/platypi-latin-wght-normal.woff2") format("woff2");
+  font-weight: 300 800;
+  font-display: swap;
+}
+
 /* ---- Tokens ---- */
 :root {
-  --bg: #f2f1ee;
-  --surface: #ffffff;
+  --bg: #f3f2ee;
+  --surface: #fdfcf9;
   --page-paper: #fbfaf7;
-  --ink: #1a1a1c;
-  --ink-2: #62626a;
-  /* 5.35:1 on --surface and 4.74:1 on --bg. The previous #9b9ba3 measured
-     2.76:1 and 2.44:1, roughly half the contrast WCAG AA asks of body text,
-     and it carries most of the secondary text in the app. */
-  --ink-3: #6a6a73;
-  --line: rgba(26, 26, 28, 0.08);
-  --line-2: rgba(26, 26, 28, 0.16);
-  --ring: rgba(85, 102, 230, 0.35);
+  --ink: #1e1a14;
+  --ink-2: #67625c;
+  /* 5.22:1 on --surface and 4.78:1 on --bg; measured by claude-contrast.mjs. */
+  --ink-3: #6f6a64;
+  --line: rgba(30, 26, 20, 0.08);
+  --line-2: rgba(30, 26, 20, 0.16);
+  --ring: #3358d4;
   --mushaf-ink: #1c1b16;
   --question-context-ink: color-mix(
     in srgb,
@@ -50,8 +69,8 @@
   --gold: #b3892f;
   /* Holding a word is not yet a verdict, so it stays neutral. Colour on the
      page belongs to the criteria alone. */
-  --hold-wash: rgba(26, 26, 28, 0.06);
-  --hold-wash-strong: rgba(26, 26, 28, 0.11);
+  --hold-wash: rgba(30, 26, 20, 0.06);
+  --hold-wash-strong: rgba(30, 26, 20, 0.11);
 
   --r-sm: 8px;
   --r-md: 12px;
@@ -62,8 +81,8 @@
      two of them agree. --t-micro is the smallest size permitted anywhere;
      anything a judge reads mid-recitation starts at --t-small. */
   --t-micro: 12px;
-  --t-small: 14px;
-  --t-body: 15px;
+  --t-small: 15px;
+  --t-body: 16px;
   --t-lead: 17px;
   --t-title: 21px;
   --t-display: 27px;
@@ -80,14 +99,15 @@
   /* Minimum hit area for a control pressed during a live recitation. */
   --tap: 44px;
 
-  --shadow-rest: 0 1px 2px rgba(26, 26, 28, 0.05);
-  --shadow-float: 0 12px 32px rgba(26, 26, 28, 0.14), 0 2px 8px rgba(26, 26, 28, 0.08);
-  --selector-filter: drop-shadow(0 12px 24px rgba(26, 26, 28, 0.14))
-    drop-shadow(0 2px 4px rgba(26, 26, 28, 0.08));
-  --selection-fill: rgba(26, 26, 28, 0.055);
-  --selection-ring: rgba(26, 26, 28, 0.42);
+  --shadow-rest: 0 1px 2px rgba(30, 26, 20, 0.05);
+  --shadow-float: 0 12px 32px rgba(30, 26, 20, 0.14), 0 2px 8px rgba(30, 26, 20, 0.08);
+  --selector-filter: drop-shadow(0 12px 24px rgba(30, 26, 20, 0.14))
+    drop-shadow(0 2px 4px rgba(30, 26, 20, 0.08));
+  --selection-fill: rgba(30, 26, 20, 0.055);
+  --selection-ring: rgba(30, 26, 20, 0.42);
 
-  --ui: "InterVar", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --num: "Nunito Sans", var(--ui);
+  --ui: "Manrope", "InterVar", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --quran: "HafsUthmanic", serif;
   /* Native controls and unstyled scrollbars follow the theme. */
   color-scheme: light;
@@ -95,16 +115,16 @@
 
 [data-theme="dark"] {
   color-scheme: dark;
-  --bg: #131316;
-  --surface: #1c1c20;
+  --bg: #151413;
+  --surface: #1e1e1d;
   --page-paper: #211f1c;
-  --ink: #ebebed;
-  --ink-2: #a4a4ac;
-  /* 5.03:1 on --surface, 5.50:1 on --bg; the previous #6f6f77 sat at 3.41:1. */
-  --ink-3: #8b8b95;
+  --ink: #f0eae3;
+  --ink-2: #a9a49d;
+  /* 4.95:1 on --surface and 5.46:1 on --bg; measured by claude-contrast.mjs. */
+  --ink-3: #918b84;
   --line: rgba(255, 255, 255, 0.08);
   --line-2: rgba(255, 255, 255, 0.16);
-  --ring: rgba(120, 135, 255, 0.45);
+  --ring: #7f95f0;
   --mushaf-ink: #eae7de;
   --question-context-ink: color-mix(
     in srgb,
@@ -134,25 +154,26 @@
 
 /* Category colors — the only saturation in the app */
 .cat-jali {
-  --c: #d8453d;
+  --c: #ca244d;
   --c-strong: #9e2820;
   --c-tint: #fcecea;
-  --c-wash: rgba(216, 69, 61, 0.14);
-  --c-wash-strong: rgba(216, 69, 61, 0.3);
+  --c-wash: rgba(202, 36, 77, 0.14);
+  --c-wash-strong: rgba(202, 36, 77, 0.3);
 }
 .cat-khafi {
-  --c: #c0892a;
+  --c: #d58e3a;
+  --c-on: #1e1a14;
   --c-strong: #7c540e;
   --c-tint: #faf2dc;
-  --c-wash: rgba(192, 137, 42, 0.16);
-  --c-wash-strong: rgba(192, 137, 42, 0.34);
+  --c-wash: rgba(213, 142, 58, 0.16);
+  --c-wash-strong: rgba(213, 142, 58, 0.34);
 }
 .cat-fasaha {
-  --c: #5566e6;
+  --c: #3358d4;
   --c-strong: #2f3aa3;
   --c-tint: #eceefb;
-  --c-wash: rgba(85, 102, 230, 0.13);
-  --c-wash-strong: rgba(85, 102, 230, 0.28);
+  --c-wash: rgba(51, 88, 212, 0.13);
+  --c-wash-strong: rgba(51, 88, 212, 0.28);
 }
 /* A chosen chip is filled with --c and lettered in --surface, so --c has to
    carry white. #2e9e83 sat at OKLCH L 63, where white measures 3.32:1 and
@@ -169,15 +190,18 @@
   --c-wash-strong: rgba(55, 123, 96, 0.3);
 }
 [data-theme="dark"] .cat-jali {
-  --c-tint: rgba(216, 69, 61, 0.18);
+  --c-tint: rgba(202, 36, 77, 0.18);
   --c-strong: #f0a8a2;
 }
 [data-theme="dark"] .cat-khafi {
-  --c-tint: rgba(192, 137, 42, 0.2);
+  --c-tint: rgba(213, 142, 58, 0.2);
   --c-strong: #e6c07a;
 }
 [data-theme="dark"] .cat-fasaha {
-  --c-tint: rgba(110, 124, 240, 0.2);
+  --c: #385edb;
+  --c-wash: rgba(56, 94, 219, 0.13);
+  --c-wash-strong: rgba(56, 94, 219, 0.28);
+  --c-tint: rgba(56, 94, 219, 0.2);
   --c-strong: #aeb8f6;
 }
 [data-theme="dark"] .cat-adu-raagu {
@@ -224,11 +248,13 @@ body {
 }
 body {
   font-family: var(--ui);
-  font-size: 14px;
+  font-size: var(--t-body);
   color: var(--ink);
   background: var(--bg);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  font-weight: 500;
+  line-height: 1.4;
 }
 html,
 body,
@@ -255,12 +281,15 @@ button {
 .t-label {
   font-size: 11px;
   font-weight: 500;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--ink-3);
 }
 .t-num {
   font-variant-numeric: tabular-nums;
+  font-family: var(--num);
+  font-weight: 520;
+  letter-spacing: 0.045em;
 }
 
 /* ---- Buttons (one language) ---- */
@@ -327,8 +356,8 @@ button:focus-visible,
 input:focus-visible,
 select:focus-visible,
 textarea:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 3px var(--ring);
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
 }
 
 /* ---- App shell ---- */
@@ -430,8 +459,10 @@ textarea:focus-visible {
 }
 .reciter-chip .chip-idx {
   color: var(--ink-3);
-  font-weight: 400;
+  font-weight: 520;
   font-variant-numeric: tabular-nums;
+  font-family: var(--num);
+  letter-spacing: 0.045em;
 }
 
 .view-toggle {
@@ -464,6 +495,9 @@ textarea:focus-visible {
   font-size: 11px;
   font-variant-numeric: tabular-nums;
   opacity: 0.65;
+  font-family: var(--num);
+  font-weight: 520;
+  letter-spacing: 0.045em;
 }
 
 /* overflow menu */
@@ -875,8 +909,8 @@ textarea:focus-visible {
 }
 .competition-idle-eyebrow {
   margin-bottom: 8px;
-  font-weight: 650;
-  letter-spacing: 0.055em;
+  font-weight: 600;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 .competition-idle-participant {
@@ -924,8 +958,8 @@ textarea:focus-visible {
   color: #8b5c18;
   font-family: var(--ui);
   font-size: 9px;
-  font-weight: 680;
-  letter-spacing: 0.08em;
+  font-weight: 600;
+  letter-spacing: 0.12em;
   line-height: 1;
   text-transform: uppercase;
   vertical-align: middle;
@@ -1003,7 +1037,7 @@ textarea:focus-visible {
   color: var(--ink-3);
   font-size: 9.5px;
   font-weight: 600;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 .competition-setup-topbar strong {
@@ -1043,7 +1077,7 @@ textarea:focus-visible {
   color: var(--ink-3);
   font-size: 9.5px;
   font-weight: 600;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 .setup-task-intro h1 {
@@ -1067,7 +1101,7 @@ textarea:focus-visible {
   color: var(--ink-3);
   font-size: 9px;
   font-weight: 600;
-  letter-spacing: 0.07em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 .setup-task-list nav > button {
@@ -1185,7 +1219,7 @@ textarea:focus-visible {
 }
 
 .results-workspace :is(button, input, select):focus-visible {
-  outline: 2px solid var(--ink);
+  outline: 2px solid var(--ring);
   outline-offset: 2px;
 }
 
@@ -1226,7 +1260,7 @@ textarea:focus-visible {
 .results-competition-context strong {
   max-width: 320px;
   font-size: 15px;
-  font-weight: 620;
+  font-weight: 600;
   line-height: 1.3;
 }
 
@@ -1281,6 +1315,9 @@ textarea:focus-visible {
   color: var(--surface);
   font-size: 12px;
   font-variant-numeric: tabular-nums;
+  font-family: var(--num);
+  font-weight: 520;
+  letter-spacing: 0.045em;
 }
 
 .results-tab-panel {
@@ -1347,9 +1384,10 @@ textarea:focus-visible {
 
 .results-status-strip strong {
   font-size: 24px;
-  font-weight: 580;
+  font-weight: 520;
   font-variant-numeric: tabular-nums;
-  letter-spacing: -0.025em;
+  letter-spacing: 0.045em;
+  font-family: var(--num);
 }
 
 .results-review-section {
@@ -1390,6 +1428,9 @@ textarea:focus-visible {
   font-size: 12px;
   font-variant-numeric: tabular-nums;
   text-align: end;
+  font-family: var(--num);
+  font-weight: 520;
+  letter-spacing: 0.045em;
 }
 
 .results-review-filters,
@@ -1583,7 +1624,7 @@ textarea:focus-visible {
   gap: 7px;
   color: var(--ink-2);
   font-size: 12px;
-  font-weight: 620;
+  font-weight: 600;
 }
 
 .results-state-chip > span {
@@ -1649,8 +1690,8 @@ textarea:focus-visible {
 .final-source-label {
   color: var(--ink-3);
   font-size: 12px;
-  font-weight: 650;
-  letter-spacing: 0.035em;
+  font-weight: 600;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
@@ -1709,8 +1750,10 @@ textarea:focus-visible {
 
 .results-workspace .final-score strong {
   font-size: 18px;
-  font-weight: 620;
+  font-weight: 520;
   font-variant-numeric: tabular-nums;
+  font-family: var(--num);
+  letter-spacing: 0.045em;
 }
 
 .results-workspace .final-result-action .btn-primary {
@@ -2108,7 +2151,7 @@ textarea:focus-visible {
   background: color-mix(in srgb, var(--status) 12%, var(--surface));
   color: color-mix(in srgb, var(--status) 76%, var(--ink));
   font-size: 12px;
-  font-weight: 680;
+  font-weight: 600;
 }
 
 .results-workspace .final-category-sources {
@@ -2266,7 +2309,7 @@ textarea:focus-visible {
 .results-status-strip .results-status-card-copy > span {
   color: color-mix(in srgb, var(--status) 70%, var(--ink));
   font-size: 13px;
-  font-weight: 680;
+  font-weight: 600;
   line-height: 1.2;
 }
 .results-status-card-copy small {
@@ -2302,7 +2345,7 @@ textarea:focus-visible {
   background: var(--surface);
   color: var(--ink-2);
   font-size: 12.5px;
-  font-weight: 620;
+  font-weight: 600;
   cursor: pointer;
   list-style: none;
 }
@@ -2393,7 +2436,7 @@ textarea:focus-visible {
 .results-workspace .final-result-summary .final-result-person strong {
   color: var(--ink);
   font-size: 17px;
-  font-weight: 680;
+  font-weight: 600;
   letter-spacing: -0.012em;
 }
 .results-workspace .final-result-summary .final-result-person small {
@@ -2453,7 +2496,7 @@ textarea:focus-visible {
   gap: 5px;
   color: color-mix(in srgb, var(--status) 72%, var(--ink));
   font-size: 12px;
-  font-weight: 650;
+  font-weight: 600;
 }
 .final-result-disclosure svg {
   transition: transform 140ms ease;
@@ -2486,10 +2529,11 @@ textarea:focus-visible {
   background: transparent;
   color: var(--ink);
   font-size: 18px;
-  font-weight: 680;
+  font-weight: 520;
   font-variant-numeric: tabular-nums;
-  letter-spacing: -0.02em;
+  letter-spacing: 0.045em;
   line-height: 1.2;
+  font-family: var(--num);
 }
 .results-workspace .final-source-value.is-missing strong {
   color: #a65d31;
@@ -2523,8 +2567,10 @@ textarea:focus-visible {
 }
 .results-analysis-scope-note strong {
   color: var(--ink-2);
-  font-weight: 650;
+  font-weight: 520;
   font-variant-numeric: tabular-nums;
+  font-family: var(--num);
+  letter-spacing: 0.045em;
 }
 .results-workspace .cat-row {
   display: grid;
@@ -2544,7 +2590,7 @@ textarea:focus-visible {
 .results-workspace .cat-score {
   color: var(--ink);
   font-size: 15px;
-  font-weight: 650;
+  font-weight: 600;
 }
 .results-workspace .cat-bar {
   height: 6px;
@@ -2574,6 +2620,9 @@ textarea:focus-visible {
   font-size: 11px;
   font-variant-numeric: tabular-nums;
   text-align: center;
+  font-family: var(--num);
+  font-weight: 520;
+  letter-spacing: 0.045em;
 }
 .results-workspace .repeat-bar {
   height: 6px;
@@ -2587,7 +2636,7 @@ textarea:focus-visible {
 .results-workspace .repeat-count strong {
   color: var(--ink);
   font-size: 16px;
-  font-weight: 680;
+  font-weight: 600;
 }
 .results-workspace .repeat-count small {
   color: var(--ink-3);
@@ -2737,8 +2786,8 @@ textarea:focus-visible {
   background: color-mix(in srgb, var(--surface) 64%, var(--bg));
   color: var(--ink-3);
   font-size: var(--t-micro);
-  font-weight: 620;
-  letter-spacing: 0.025em;
+  font-weight: 600;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
@@ -2798,9 +2847,11 @@ textarea:focus-visible {
 
 .analysis-location-row > strong {
   font-size: var(--t-small);
-  font-weight: 650;
+  font-weight: 520;
   font-variant-numeric: tabular-nums;
   text-align: end;
+  font-family: var(--num);
+  letter-spacing: 0.045em;
 }
 
 .analysis-evidence-panel {
@@ -2818,8 +2869,8 @@ textarea:focus-visible {
 .analysis-evidence-head > div > span {
   color: var(--ink-3);
   font-size: var(--t-micro);
-  font-weight: 650;
-  letter-spacing: 0.025em;
+  font-weight: 600;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
@@ -2839,9 +2890,11 @@ textarea:focus-visible {
 
 .analysis-evidence-total strong {
   font-size: var(--t-title);
-  font-weight: 640;
+  font-weight: 520;
   font-variant-numeric: tabular-nums;
   line-height: 1;
+  font-family: var(--num);
+  letter-spacing: 0.045em;
 }
 
 .analysis-evidence-total small {
@@ -2877,7 +2930,7 @@ textarea:focus-visible {
 .analysis-evidence-list-head h4 {
   margin: 0;
   font-size: var(--t-small);
-  font-weight: 620;
+  font-weight: 600;
 }
 
 .analysis-evidence-list-head span {
@@ -2914,8 +2967,10 @@ textarea:focus-visible {
   border: 1px solid var(--line-2);
   border-radius: var(--r-sm);
   font-size: var(--t-micro);
-  font-weight: 650;
+  font-weight: 520;
   font-variant-numeric: tabular-nums;
+  font-family: var(--num);
+  letter-spacing: 0.045em;
 }
 
 .analysis-evidence-person {
@@ -2926,7 +2981,7 @@ textarea:focus-visible {
 .analysis-evidence-person strong {
   overflow: hidden;
   font-size: var(--t-small);
-  font-weight: 620;
+  font-weight: 600;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -2946,7 +3001,7 @@ textarea:focus-visible {
   gap: 6px;
   color: var(--c-strong);
   font-size: var(--t-micro);
-  font-weight: 620;
+  font-weight: 600;
 }
 
 .analysis-evidence-category i {
@@ -2961,8 +3016,10 @@ textarea:focus-visible {
   grid-column: 3;
   grid-row: 1;
   font-size: var(--t-small);
-  font-weight: 650;
+  font-weight: 520;
   font-variant-numeric: tabular-nums;
+  font-family: var(--num);
+  letter-spacing: 0.045em;
 }
 
 @media (max-width: 900px) {
@@ -3013,7 +3070,7 @@ textarea:focus-visible {
   color: var(--ink-3);
   font-size: 10px;
   font-weight: 600;
-  letter-spacing: 0.07em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 .roster-setup-count strong {
@@ -3061,13 +3118,13 @@ textarea:focus-visible {
 .participant-institution-settings label > span:first-child {
   color: var(--ink-3);
   font-size: 9px;
-  font-weight: 650;
-  letter-spacing: 0.06em;
+  font-weight: 600;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 .participant-entry-settings-head strong {
   font-size: 13px;
-  font-weight: 610;
+  font-weight: 600;
 }
 .participant-entry-settings-head small,
 .participant-institution-empty {
@@ -3164,9 +3221,9 @@ textarea:focus-visible {
   gap: 16px;
   margin-top: 10px;
   padding: 12px 13px;
-  border: 1px solid rgba(192, 137, 42, 0.3);
+  border: 1px solid rgba(213, 142, 58, 0.3);
   border-radius: var(--r-sm);
-  background: rgba(192, 137, 42, 0.07);
+  background: rgba(213, 142, 58, 0.07);
 }
 .roster-draft-resume > span {
   display: grid;
@@ -3212,6 +3269,9 @@ textarea:focus-visible {
   border-radius: 999px;
   font-size: 10px;
   font-variant-numeric: tabular-nums;
+  font-family: var(--num);
+  font-weight: 520;
+  letter-spacing: 0.045em;
 }
 .roster-setup-paths strong {
   font-size: 11px;
@@ -3306,8 +3366,8 @@ textarea:focus-visible {
 .roster-empty-copy > span {
   color: var(--ink-3);
   font-size: 10px;
-  font-weight: 620;
-  letter-spacing: 0.08em;
+  font-weight: 600;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 .roster-editor-title h1 {
@@ -3376,9 +3436,10 @@ textarea:focus-visible {
 }
 .roster-editor-summary > div strong {
   font-size: 21px;
-  font-weight: 560;
+  font-weight: 520;
   font-variant-numeric: tabular-nums;
-  letter-spacing: -0.03em;
+  letter-spacing: 0.045em;
+  font-family: var(--num);
 }
 .roster-editor-summary > div span {
   color: var(--ink-3);
@@ -3487,8 +3548,8 @@ textarea:focus-visible {
   color: #96322c;
 }
 .roster-inline-message.is-warning {
-  border-color: rgba(192, 137, 42, 0.26);
-  background: rgba(192, 137, 42, 0.07);
+  border-color: rgba(213, 142, 58, 0.26);
+  background: rgba(213, 142, 58, 0.07);
   color: #7c540e;
 }
 [data-theme="dark"] .roster-inline-message,
@@ -3581,9 +3642,9 @@ textarea:focus-visible {
 .roster-import-resolver {
   margin-top: 12px;
   padding: 13px;
-  border: 1px solid rgba(192, 137, 42, 0.3);
+  border: 1px solid rgba(213, 142, 58, 0.3);
   border-radius: var(--r-sm);
-  background: rgba(192, 137, 42, 0.06);
+  background: rgba(213, 142, 58, 0.06);
 }
 .roster-import-resolver-head {
   display: flex;
@@ -3598,13 +3659,13 @@ textarea:focus-visible {
 .roster-import-resolver-head span {
   color: #805a16;
   font-size: 9px;
-  font-weight: 650;
-  letter-spacing: 0.06em;
+  font-weight: 600;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 .roster-import-resolver-head strong {
   font-size: 12px;
-  font-weight: 620;
+  font-weight: 600;
 }
 .roster-import-resolver-head small,
 .roster-import-resolution-list small {
@@ -3614,10 +3675,10 @@ textarea:focus-visible {
 .roster-import-resolver-head > b {
   padding: 5px 8px;
   border-radius: 999px;
-  background: rgba(192, 137, 42, 0.12);
+  background: rgba(213, 142, 58, 0.12);
   color: #805a16;
   font-size: 9.5px;
-  font-weight: 650;
+  font-weight: 600;
   white-space: nowrap;
 }
 .roster-import-resolution-list {
@@ -3631,7 +3692,7 @@ textarea:focus-visible {
   align-items: center;
   gap: 8px;
   padding-top: 8px;
-  border-top: 1px solid rgba(192, 137, 42, 0.18);
+  border-top: 1px solid rgba(213, 142, 58, 0.18);
 }
 .roster-import-resolution-list > div > span {
   display: grid;
@@ -3694,7 +3755,7 @@ textarea:focus-visible {
 }
 .roster-category-list-head strong {
   font-size: 11px;
-  font-weight: 620;
+  font-weight: 600;
 }
 .roster-category-list-head span {
   color: var(--ink-3);
@@ -3776,8 +3837,8 @@ textarea:focus-visible {
 .roster-category-toggle:focus-visible {
   position: relative;
   z-index: 1;
-  outline: none;
-  box-shadow: inset 0 0 0 3px var(--ring);
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
 }
 .roster-category-title,
 .roster-category-meta {
@@ -3800,7 +3861,7 @@ textarea:focus-visible {
 .roster-category-title strong {
   overflow: hidden;
   font-size: 11.5px;
-  font-weight: 620;
+  font-weight: 600;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -3813,8 +3874,10 @@ textarea:focus-visible {
 }
 .roster-category-meta b {
   color: var(--ink-2);
-  font-weight: 650;
+  font-weight: 520;
   font-variant-numeric: tabular-nums;
+  font-family: var(--num);
+  letter-spacing: 0.045em;
 }
 .roster-category-meta em,
 .roster-category-meta i {
@@ -3870,8 +3933,8 @@ textarea:focus-visible {
 .roster-side-choice button:focus-visible {
   position: relative;
   z-index: 1;
-  outline: none;
-  box-shadow: inset 0 0 0 3px var(--ring);
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
 }
 .roster-grid-head,
 .roster-edit-row {
@@ -3890,8 +3953,8 @@ textarea:focus-visible {
   padding: 10px 9px;
   color: var(--ink-3);
   font-size: 9px;
-  font-weight: 620;
-  letter-spacing: 0.07em;
+  font-weight: 600;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 .roster-edit-row {
@@ -3957,9 +4020,10 @@ textarea:focus-visible {
   border-radius: 8px;
   background: var(--bg);
   font-size: 12px;
-  font-weight: 620;
+  font-weight: 520;
   font-variant-numeric: tabular-nums;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.045em;
+  font-family: var(--num);
 }
 .roster-row-actions {
   display: flex;
@@ -4070,7 +4134,7 @@ textarea:focus-visible {
   color: inherit;
 }
 .roster-undo-toast button:first-of-type {
-  font-weight: 650;
+  font-weight: 600;
 }
 .roster-dialog {
   width: min(720px, calc(100vw - 32px));
@@ -4110,7 +4174,7 @@ textarea:focus-visible {
 .roster-template-format strong {
   color: var(--ink);
   font-size: 11.5px;
-  font-weight: 610;
+  font-weight: 600;
 }
 .roster-template-required small,
 .roster-template-category small,
@@ -4134,7 +4198,7 @@ textarea:focus-visible {
   color: var(--ink-3);
   font-size: 9.5px;
   font-weight: 600;
-  letter-spacing: 0.025em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 .roster-template-option {
@@ -4179,8 +4243,8 @@ textarea:focus-visible {
 .roster-template-category:has(input:focus-visible) {
   position: relative;
   z-index: 1;
-  outline: 2px solid var(--ink);
-  outline-offset: -2px;
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
 }
 .roster-template-category input {
   width: 17px;
@@ -4198,7 +4262,7 @@ textarea:focus-visible {
   background: var(--bg);
 }
 .roster-template-option:has(input:focus-visible) {
-  outline: 2px solid var(--ink);
+  outline: 2px solid var(--ring);
   outline-offset: 2px;
 }
 .roster-template-option input {
@@ -4344,12 +4408,14 @@ textarea:focus-visible {
   color: var(--ink-3);
   font-size: 9.5px;
   text-transform: uppercase;
-  letter-spacing: 0.07em;
+  letter-spacing: 0.12em;
 }
 .roster-compare-count strong {
   font-size: 30px;
-  font-weight: 560;
+  font-weight: 520;
   font-variant-numeric: tabular-nums;
+  font-family: var(--num);
+  letter-spacing: 0.045em;
 }
 .roster-compare-details {
   display: grid;
@@ -4373,6 +4439,9 @@ textarea:focus-visible {
   color: var(--ink);
   font-size: 12px;
   font-variant-numeric: tabular-nums;
+  font-family: var(--num);
+  font-weight: 520;
+  letter-spacing: 0.045em;
 }
 .roster-review-numbering {
   display: flex;
@@ -4790,6 +4859,8 @@ textarea:focus-visible {
 .question-preview-page .question-ayah-pick:hover,
 .question-preview-page .question-ayah-pick:focus-visible {
   outline-color: color-mix(in srgb, #34765b 72%, transparent);
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
 }
 .question-preview-page .question-ayah-pick[aria-pressed="true"] {
   outline-color: #34765b;
@@ -4812,7 +4883,8 @@ textarea:focus-visible {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  min-height: 280px;
+  grid-area: 1 / 1 / -1 / -1;
+  min-height: 0;
   padding: 28px;
   color: var(--ink-3);
   font-size: 10.5px;
@@ -4923,6 +4995,7 @@ textarea:focus-visible {
   font-size: 8.5px;
   font-weight: 600;
   text-transform: uppercase;
+  letter-spacing: 0.12em;
 }
 .needs-check .question-draft-state {
   color: #9a611c;
@@ -5521,11 +5594,13 @@ textarea:focus-visible {
   background: color-mix(in srgb, var(--page-paper) 88%, transparent);
   color: var(--ink);
   font-size: 12px;
-  font-weight: 500;
+  font-weight: 520;
   font-variant-numeric: tabular-nums;
   padding: 0 9px;
   transition: background-color var(--t-fast) var(--ease-out),
     border-color var(--t-fast) var(--ease-out);
+  font-family: var(--num);
+  letter-spacing: 0.045em;
 }
 .page-nav-page:hover {
   background: var(--bg);
@@ -5597,6 +5672,9 @@ textarea:focus-visible {
   font-size: 11px;
   color: var(--ink-3);
   font-variant-numeric: tabular-nums;
+  font-family: var(--num);
+  font-weight: 520;
+  letter-spacing: 0.045em;
 }
 .page-nav-surah-name {
   flex: 1;
@@ -5825,8 +5903,8 @@ textarea:focus-visible {
   pointer-events: none;
   user-select: none;
   box-sizing: border-box;
-  font-family: var(--font-ui, system-ui, sans-serif);
-  font-weight: 600;
+  font-family: var(--num);
+  font-weight: 520;
   font-variant-numeric: tabular-nums;
   text-align: center;
   direction: ltr;
@@ -5834,6 +5912,7 @@ textarea:focus-visible {
   background: var(--surface);
   outline: 1px solid var(--line-2);
   outline-offset: -1px;
+  letter-spacing: 0.045em;
 }
 .menu-backdrop {
   position: fixed;
@@ -5950,8 +6029,8 @@ textarea:focus-visible {
 }
 .unit-choice:focus-visible {
   z-index: 2;
-  outline: 2px solid var(--ink-2);
-  outline-offset: 1px;
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
 }
 .drag-menu.pinned .unit-picker-row {
   /* Keep tap-open letters on the same RTL rail as the hold gesture. */
@@ -6010,7 +6089,7 @@ textarea:focus-visible {
   -webkit-touch-callout: none;
 }
 .selector-undo:focus-visible {
-  outline: 2px solid var(--ink-2);
+  outline: 2px solid var(--ring);
   outline-offset: 2px;
 }
 .selector-undo-progress {
@@ -6149,13 +6228,17 @@ textarea:focus-visible {
 .pill-amt {
   margin-left: auto;
   font-size: var(--t-small);
-  font-weight: 500;
+  font-weight: 520;
   color: var(--ink-2);
   font-variant-numeric: tabular-nums;
+  font-family: var(--num);
+  letter-spacing: 0.045em;
 }
 .pill.active,
 .pill:focus-visible {
   background: var(--c-tint);
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
 }
 .pill.active::after,
 .pill:focus-visible::after {
@@ -6166,6 +6249,8 @@ textarea:focus-visible {
   border: 2px solid var(--c);
   border-radius: inherit;
   pointer-events: none;
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
 }
 .pill-fixed {
   min-height: 46px;
@@ -6175,7 +6260,8 @@ textarea:focus-visible {
 }
 .pill:focus-visible {
   z-index: 1;
-  outline: none;
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
 }
 .pill.active .pill-main,
 .pill.active .pill-amt {
@@ -6202,7 +6288,7 @@ textarea:focus-visible {
 .panel-title {
   font-size: 11px;
   font-weight: 500;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--ink-3);
   margin: 0;
@@ -6213,7 +6299,9 @@ textarea:focus-visible {
 .panel-count {
   font-variant-numeric: tabular-nums;
   color: var(--ink-3);
-  letter-spacing: 0;
+  letter-spacing: 0.045em;
+  font-family: var(--num);
+  font-weight: 520;
 }
 .panel-sub {
   font-size: 11px;
@@ -6249,10 +6337,12 @@ textarea:focus-visible {
 }
 .sc-deducted {
   font-size: 11.5px;
-  font-weight: 500;
+  font-weight: 520;
   text-align: center;
   color: var(--ink-2);
   font-variant-numeric: tabular-nums;
+  font-family: var(--num);
+  letter-spacing: 0.045em;
 }
 .sc-deducted.is-zero {
   color: var(--ink-3);
@@ -6269,6 +6359,9 @@ textarea:focus-visible {
   gap: 2px;
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
+  font-family: var(--num);
+  font-weight: 520;
+  letter-spacing: 0.045em;
 }
 .score-value-number {
   font-size: 14.5px;
@@ -6295,7 +6388,7 @@ textarea:focus-visible {
 .sc-total-label {
   font-size: 11px;
   font-weight: 500;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--ink-3);
 }
@@ -6306,15 +6399,19 @@ textarea:focus-visible {
 }
 .sc-total-num {
   font-size: 30px;
-  font-weight: 550;
-  letter-spacing: -0.02em;
+  font-weight: 520;
+  letter-spacing: 0.045em;
   line-height: 1;
   font-variant-numeric: tabular-nums;
+  font-family: var(--num);
 }
 .sc-total-of {
   font-size: 13px;
   color: var(--ink-3);
   font-variant-numeric: tabular-nums;
+  font-family: var(--num);
+  font-weight: 520;
+  letter-spacing: 0.045em;
 }
 
 /* Mistake log — lean rows, expand on click */
@@ -6412,6 +6509,9 @@ textarea:focus-visible {
   margin-left: 4px;
   color: var(--ink-3);
   font-variant-numeric: tabular-nums;
+  font-family: var(--num);
+  font-weight: 520;
+  letter-spacing: 0.045em;
 }
 .history-scroll {
   min-height: 0;
@@ -6467,6 +6567,9 @@ textarea:focus-visible {
   color: var(--ink-3);
   font-size: 12px;
   font-variant-numeric: tabular-nums;
+  font-family: var(--num);
+  font-weight: 520;
+  letter-spacing: 0.045em;
 }
 .history-restore {
   grid-column: 2;
@@ -6539,10 +6642,12 @@ textarea:focus-visible {
 }
 .log-amt {
   font-size: 15px;
-  font-weight: 500;
+  font-weight: 520;
   text-align: left;
   color: var(--ink-2);
   font-variant-numeric: tabular-nums;
+  font-family: var(--num);
+  letter-spacing: 0.045em;
 }
 .mobile-log-detail {
   display: none;
@@ -6596,10 +6701,12 @@ textarea:focus-visible {
 }
 .step-val {
   font-size: 13px;
-  font-weight: 500;
+  font-weight: 520;
   min-width: 34px;
   text-align: center;
   font-variant-numeric: tabular-nums;
+  font-family: var(--num);
+  letter-spacing: 0.045em;
 }
 .icon-btn {
   background: transparent;
@@ -6616,7 +6723,7 @@ textarea:focus-visible {
 }
 .icon-btn:hover {
   color: #9e2820;
-  background: rgba(216, 69, 61, 0.1);
+  background: rgba(202, 36, 77, 0.1);
 }
 .log-undo {
   margin-left: auto;
@@ -6631,7 +6738,7 @@ textarea:focus-visible {
 }
 .log-undo:hover {
   color: #9e2820;
-  background: rgba(216, 69, 61, 0.08);
+  background: rgba(202, 36, 77, 0.08);
 }
 .empty {
   font-size: 13px;
@@ -7120,7 +7227,7 @@ textarea:focus-visible {
   color: var(--ink-3);
   font-size: 10px;
   font-weight: 500;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 .reopen-reason {
@@ -7234,6 +7341,9 @@ textarea:focus-visible {
   color: var(--ink-3);
   min-width: 22px;
   font-variant-numeric: tabular-nums;
+  font-family: var(--num);
+  font-weight: 520;
+  letter-spacing: 0.045em;
 }
 .roster-name {
   flex: 1;
@@ -7342,12 +7452,12 @@ textarea:focus-visible {
   border-radius: 7px;
   color: var(--ink-2);
   font-size: var(--t-micro);
-  font-weight: 650;
+  font-weight: 600;
 }
 .reciter-step-head h3 {
   margin: 0;
   font-size: var(--t-small);
-  font-weight: 620;
+  font-weight: 600;
 }
 .reciter-step-head p {
   margin: 3px 0 0;
@@ -7370,9 +7480,10 @@ textarea:focus-visible {
   background: var(--bg);
   color: var(--ink-2);
   font-size: var(--t-micro);
-  font-weight: 600;
+  font-weight: 520;
   font-variant-numeric: tabular-nums;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.045em;
+  font-family: var(--num);
 }
 .selected-reciter-main {
   display: grid;
@@ -7433,8 +7544,8 @@ textarea:focus-visible {
   color: var(--ink);
 }
 .reciter-absent:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 3px var(--ring);
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
 }
 .queue-participant-button small.is-absent {
   color: var(--ink-2);
@@ -7538,13 +7649,17 @@ textarea:focus-visible {
   text-align: left;
   cursor: pointer;
 }
-.queue-participant-button:hover:not(:disabled) {
-  border-color: var(--line);
-  background: var(--bg);
+/* Mouse only: on touch, :hover sticks to the last tapped row and reads as a
+   second selection next to the real one. */
+@media (hover: hover) {
+  .queue-participant-button:hover:not(:disabled) {
+    border-color: var(--line);
+    background: var(--bg);
+  }
 }
 .queue-participant-button:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 3px var(--ring);
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
 }
 .queue-participant-button:disabled {
   cursor: default;
@@ -7562,10 +7677,12 @@ textarea:focus-visible {
   background: var(--bg);
   color: var(--ink-2);
   font-size: 11px;
-  font-weight: 620;
+  font-weight: 520;
   font-variant-numeric: tabular-nums;
   line-height: 1;
   white-space: nowrap;
+  font-family: var(--num);
+  letter-spacing: 0.045em;
 }
 .participant-identity {
   display: grid;
@@ -7674,19 +7791,20 @@ textarea:focus-visible {
   border-radius: var(--r-md);
   background: var(--surface);
   color: var(--ink);
-  font-family: var(--ui);
+  font-family: var(--num);
   font-size: clamp(20px, 2.2vw, 26px);
-  font-weight: 600;
+  font-weight: 520;
   font-variant-numeric: tabular-nums;
   cursor: pointer;
   transition: border-color 120ms ease, transform 120ms ease;
+  letter-spacing: 0.045em;
 }
 .draw-tile:hover:not(:disabled) {
   border-color: var(--ink-3);
 }
 .draw-tile:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 3px var(--ring);
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
 }
 .draw-tile:active:not(:disabled) {
   transform: scale(0.97);
@@ -7720,11 +7838,14 @@ textarea:focus-visible {
   color: var(--ink-3);
   font-size: var(--t-micro);
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.12em;
 }
 .draw-revealed > strong {
   font-size: var(--t-body);
   font-variant-numeric: tabular-nums;
+  font-family: var(--num);
+  font-weight: 520;
+  letter-spacing: 0.045em;
 }
 .draw-revealed > small {
   color: var(--ink-2);
@@ -7800,8 +7921,10 @@ textarea:focus-visible {
   background: var(--bg);
   color: var(--ink-2);
   font-size: 10px;
-  font-weight: 650;
+  font-weight: 520;
   font-variant-numeric: tabular-nums;
+  font-family: var(--num);
+  letter-spacing: 0.045em;
 }
 .question-tile-copy {
   display: grid;
@@ -7811,7 +7934,7 @@ textarea:focus-visible {
 }
 .question-tile-copy strong {
   font-size: 13px;
-  font-weight: 620;
+  font-weight: 600;
   font-variant-numeric: tabular-nums;
 }
 .question-tile-copy small,
@@ -8050,7 +8173,7 @@ html:has(.dialog-backdrop) {
 .reciter-queue-summary strong {
   color: var(--ink);
   font-size: var(--t-micro);
-  font-weight: 620;
+  font-weight: 600;
 }
 .next-reciter-row {
   display: grid;
@@ -8081,8 +8204,8 @@ html:has(.dialog-backdrop) {
 .next-reciter-absent:focus-visible {
   position: relative;
   z-index: 1;
-  outline: none;
-  box-shadow: inset 0 0 0 3px var(--ring);
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
 }
 .reciter-row-copy {
   display: grid;
@@ -8092,7 +8215,7 @@ html:has(.dialog-backdrop) {
 .reciter-row-copy strong {
   overflow: hidden;
   font-size: 15px;
-  font-weight: 610;
+  font-weight: 600;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -8166,8 +8289,8 @@ html:has(.dialog-backdrop) {
   background: transparent;
 }
 .queue-group-toggle:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 3px var(--ring);
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
 }
 .queue-group-title {
   display: inline-flex;
@@ -8176,7 +8299,7 @@ html:has(.dialog-backdrop) {
   min-width: 0;
   overflow: hidden;
   font-size: 11px;
-  font-weight: 610;
+  font-weight: 600;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -8579,7 +8702,7 @@ html:has(.dialog-backdrop) {
   background: transparent;
   color: var(--ink);
   font-size: 12.5px;
-  font-weight: 620;
+  font-weight: 600;
 }
 .marking-coach-compact-trigger {
   display: none;
@@ -8645,9 +8768,10 @@ html:has(.dialog-backdrop) {
 }
 .metric-num {
   font-size: 26px;
-  font-weight: 500;
-  letter-spacing: -0.02em;
+  font-weight: 520;
+  letter-spacing: 0.045em;
   font-variant-numeric: tabular-nums;
+  font-family: var(--num);
 }
 .records-filter {
   display: flex;
@@ -8696,8 +8820,10 @@ html:has(.dialog-backdrop) {
 }
 .cat-score {
   font-size: 15px;
-  font-weight: 500;
+  font-weight: 520;
   font-variant-numeric: tabular-nums;
+  font-family: var(--num);
+  letter-spacing: 0.045em;
 }
 .letter-chips {
   display: flex;
@@ -8719,9 +8845,11 @@ html:has(.dialog-backdrop) {
 }
 .letter-chip-count {
   font-size: 12px;
-  font-weight: 500;
+  font-weight: 520;
   color: var(--ink-3);
   font-variant-numeric: tabular-nums;
+  font-family: var(--num);
+  letter-spacing: 0.045em;
 }
 .repeat-list,
 .session-list {
@@ -8781,10 +8909,12 @@ html:has(.dialog-backdrop) {
 }
 .repeat-count {
   font-size: 13px;
-  font-weight: 500;
+  font-weight: 520;
   min-width: 32px;
   text-align: right;
   font-variant-numeric: tabular-nums;
+  font-family: var(--num);
+  letter-spacing: 0.045em;
 }
 .panel-actions {
   display: flex;
@@ -8826,6 +8956,9 @@ html:has(.dialog-backdrop) {
   font-size: 12px;
   color: var(--ink-3);
   font-variant-numeric: tabular-nums;
+  font-family: var(--num);
+  font-weight: 520;
+  letter-spacing: 0.045em;
 }
 .session-main {
   flex: 1;
@@ -8844,8 +8977,10 @@ html:has(.dialog-backdrop) {
 }
 .session-score {
   font-size: 15px;
-  font-weight: 500;
+  font-weight: 520;
   font-variant-numeric: tabular-nums;
+  font-family: var(--num);
+  letter-spacing: 0.045em;
 }
 .session-max {
   font-size: 12px;
@@ -8912,10 +9047,12 @@ html:has(.dialog-backdrop) {
 }
 .drill-amt {
   font-size: 13px;
-  font-weight: 500;
+  font-weight: 520;
   font-variant-numeric: tabular-nums;
   min-width: 30px;
   text-align: right;
+  font-family: var(--num);
+  letter-spacing: 0.045em;
 }
 .drill-notes {
   font-size: 12px;
@@ -9039,6 +9176,9 @@ html:has(.dialog-backdrop) {
   color: var(--ink-2);
   font-size: 11px;
   font-variant-numeric: tabular-nums;
+  font-family: var(--num);
+  font-weight: 520;
+  letter-spacing: 0.045em;
 }
 .final-result-person > span:last-child,
 .final-score {
@@ -9073,7 +9213,7 @@ html:has(.dialog-backdrop) {
   color: var(--ink-3);
   font-size: 9px;
   font-weight: 600;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 .final-category-sources strong,
@@ -9114,6 +9254,9 @@ html:has(.dialog-backdrop) {
 .final-score strong {
   font-size: 14px;
   font-variant-numeric: tabular-nums;
+  font-family: var(--num);
+  font-weight: 520;
+  letter-spacing: 0.045em;
 }
 .final-status {
   color: #33734e;
@@ -9191,8 +9334,8 @@ html:has(.dialog-backdrop) {
   color: var(--ink-2);
   background: var(--bg);
   font-size: 10px;
-  font-weight: 650;
-  letter-spacing: 0.04em;
+  font-weight: 600;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 .prepared-reciter,
@@ -9320,19 +9463,21 @@ html:has(.dialog-backdrop) {
   background: var(--surface);
   color: var(--ink);
   box-shadow: none;
-  font-weight: 650;
+  font-weight: 600;
 }
 
 .results-ledger-controls .results-status-filter:focus-visible {
-  outline: 0;
-  box-shadow: inset 0 -2px var(--ink-3);
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
 }
 
 .results-ledger-controls .results-status-filter strong {
   color: inherit;
   font-size: 11px;
   font-variant-numeric: tabular-nums;
-  font-weight: 700;
+  font-weight: 520;
+  font-family: var(--num);
+  letter-spacing: 0.045em;
 }
 
 .results-ledger-controls .results-review-filters {
@@ -9378,8 +9523,8 @@ html:has(.dialog-backdrop) {
   background: color-mix(in srgb, var(--bg) 44%, var(--surface));
   color: var(--ink-3);
   font-size: var(--t-micro);
-  font-weight: 670;
-  letter-spacing: 0.035em;
+  font-weight: 600;
+  letter-spacing: 0.12em;
   line-height: 1.15;
   text-align: start;
   text-transform: uppercase;
@@ -9421,6 +9566,9 @@ html:has(.dialog-backdrop) {
 .result-ledger-total,
 .result-ledger-participant-number {
   font-variant-numeric: tabular-nums;
+  font-family: var(--num);
+  font-weight: 520;
+  letter-spacing: 0.045em;
 }
 
 .result-ledger-participant {
@@ -9450,7 +9598,7 @@ html:has(.dialog-backdrop) {
 
 .result-ledger-participant strong {
   font-size: var(--t-small);
-  font-weight: 650;
+  font-weight: 600;
 }
 
 .result-ledger-participant small {
@@ -9461,7 +9609,7 @@ html:has(.dialog-backdrop) {
 
 .result-ledger-participant-number {
   color: var(--ink-2);
-  font-weight: 650;
+  font-weight: 520;
 }
 
 .result-ledger-participant button:hover strong {
@@ -9480,7 +9628,7 @@ html:has(.dialog-backdrop) {
 .result-ledger-total strong {
   color: var(--ink);
   font-size: var(--t-lead);
-  font-weight: 680;
+  font-weight: 520;
 }
 
 .result-ledger-total small {
@@ -9505,7 +9653,7 @@ html:has(.dialog-backdrop) {
 
 .result-ledger-state.is-needs-review {
   color: var(--ink);
-  font-weight: 680;
+  font-weight: 600;
 }
 
 .result-ledger-state-column > small {
@@ -9535,15 +9683,15 @@ html:has(.dialog-backdrop) {
 .result-evidence-kicker {
   color: var(--ink-3);
   font-size: 10px;
-  font-weight: 650;
-  letter-spacing: 0.045em;
+  font-weight: 600;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
 .result-evidence-head h3 {
   margin: 7px 0 0;
   font-size: var(--t-title);
-  font-weight: 650;
+  font-weight: 600;
   letter-spacing: -0.025em;
   line-height: 1.15;
 }
@@ -9569,9 +9717,10 @@ html:has(.dialog-backdrop) {
   color: var(--ink);
   font-size: 24px;
   font-variant-numeric: tabular-nums;
-  font-weight: 650;
-  letter-spacing: -0.035em;
+  font-weight: 520;
+  letter-spacing: 0.045em;
   line-height: 1;
+  font-family: var(--num);
 }
 
 .result-evidence-summary > strong small {
@@ -9596,8 +9745,8 @@ html:has(.dialog-backdrop) {
   padding: 12px 16px 8px;
   color: var(--ink-3);
   font-size: 10px;
-  font-weight: 680;
-  letter-spacing: 0.045em;
+  font-weight: 600;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
@@ -9631,7 +9780,7 @@ html:has(.dialog-backdrop) {
 .result-evidence-source-label strong {
   color: var(--ink);
   font-size: 12px;
-  font-weight: 620;
+  font-weight: 600;
 }
 
 .results-workspace .result-evidence-panel .final-source-value {
@@ -9769,8 +9918,8 @@ html:has(.dialog-backdrop) {
 .prepared-sidebar-question span {
   color: var(--ink-3);
   font-size: var(--t-micro);
-  font-weight: 620;
-  letter-spacing: 0.045em;
+  font-weight: 600;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 .prepared-sidebar-question strong {
@@ -9816,7 +9965,19 @@ html:has(.dialog-backdrop) {
 
 /* ---- Stable desktop Mushaf stage ----
    The app shell owns the available height; the observed frame owns Fit. */
+@media (min-width: 601px) {
+  /* Starting / ending uses a 44px hit target while judging. Reserve its height
+     while prepared and between reciters so Begin / Save cannot resize Fit. */
+  .app.view-judge .app-header:has(.reciter-chip),
+  .app.view-judge[data-competition-live="true"] .app-header {
+    min-height: calc(44px + 20px + 1px);
+  }
+}
 @media (min-width: 901px) and (min-height: 620px) {
+  .app.view-judge .app-header:has(.reciter-chip),
+  .app.view-judge[data-competition-live="true"] .app-header {
+    min-height: calc(44px + 8px + 1px);
+  }
   .app.view-judge {
     display: grid;
     grid-template-rows: auto minmax(0, 1fr);
@@ -9979,7 +10140,7 @@ html:has(.dialog-backdrop) {
     padding: 2px 10px 2px 0;
     font-size: 11px;
     text-transform: uppercase;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.12em;
   }
   .rs-meta td {
     padding: 2px 18px 2px 0;
@@ -10704,13 +10865,18 @@ html:has(.dialog-backdrop) {
 }
 .mark-picker-value {
   font-variant-numeric: tabular-nums;
+  font-family: var(--num);
+  font-weight: 520;
+  letter-spacing: 0.045em;
 }
 .mark-picker-of {
   font-size: 12px;
-  font-weight: 400;
+  font-weight: 520;
   line-height: 1;
   color: var(--ink-3);
   font-variant-numeric: tabular-nums;
+  font-family: var(--num);
+  letter-spacing: 0.045em;
 }
 
 /* The mark bar is a direct ruler: every whole mark is labelled, half marks
@@ -10759,7 +10925,8 @@ html:has(.dialog-backdrop) {
 }
 .mark-ruler:focus-visible {
   border-radius: var(--r-sm);
-  box-shadow: 0 0 0 3px var(--ring);
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
 }
 .mark-ruler-rail {
   position: absolute;
@@ -10826,10 +10993,12 @@ html:has(.dialog-backdrop) {
   transform: translateX(-50%);
   color: var(--ink-3);
   font-size: 12px;
-  font-weight: 570;
+  font-weight: 520;
   font-style: normal;
   line-height: 1;
   font-variant-numeric: tabular-nums;
+  font-family: var(--num);
+  letter-spacing: 0.045em;
 }
 .mark-ruler-bubble {
   position: absolute;
@@ -10875,11 +11044,13 @@ html:has(.dialog-backdrop) {
   position: relative;
   z-index: 1;
   font-size: 20px;
-  font-weight: 700;
+  font-weight: 520;
   font-style: normal;
   line-height: 1;
   text-align: center;
   font-variant-numeric: tabular-nums;
+  font-family: var(--num);
+  letter-spacing: 0.045em;
 }
 .mark-ruler.is-dragging .mark-ruler-fill,
 .mark-ruler.is-dragging .mark-ruler-bubble {
@@ -10943,12 +11114,16 @@ html:has(.dialog-backdrop) {
 }
 .mark-stepper-adjust:hover:not(:disabled) { background: var(--line); }
 .mark-stepper-adjust:disabled { color: var(--ink-3); opacity: .5; cursor: default; }
-.mark-stepper-adjust:focus-visible { outline: 2px solid var(--ink-2); outline-offset: -3px; }
+.mark-stepper-adjust:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px; }
 .mark-stepper-readout { text-align: center; font-size: 14px; white-space: nowrap; }
 .mark-stepper-readout .sc-of { font-size: 12px; color: var(--ink-3); }
 .mark-stepper-footer { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 8px; font-size: 12px; color: var(--ink-3); }
 .mark-stepper-footer button { min-height: var(--tap); padding: 0 12px; border: 0; border-radius: 5px; color: var(--ink-2); background: transparent; font: inherit; cursor: pointer; }
-.mark-stepper-footer button:focus-visible { outline: 2px solid var(--ink-2); }
+.mark-stepper-footer button:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px; }
 .finish-dialog {
   display: grid;
   grid-template-rows: auto minmax(0, 1fr) auto;
@@ -11034,7 +11209,7 @@ html:has(.finish-dialog[open]) {
   color: var(--ink-3);
   font-size: var(--t-micro);
   font-weight: 570;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 /* A running total while a required mark is missing: quieter number, and what is still needed. */
@@ -11196,6 +11371,52 @@ html:has(.finish-dialog[open]) {
 .finish-dialog-actions .btn-ghost {
   min-height: 44px;
 }
+.finish-dialog-actions .btn-primary { position: relative; }
+.finish-dialog[aria-busy="true"] .finish-save-label { visibility: hidden; }
+.finish-saving-status { position: absolute; inset: 0; display: grid; place-items: center; }
+.finish-save-error { margin: 0; padding-block: 12px; font-size: 14px; }
+/* Review and next-reciter selection share one native modal and backdrop. */
+.finish-dialog.is-queue-handoff {
+  display: block;
+  width: min(920px, calc(100vw - 40px));
+  max-width: none;
+  padding: 0;
+  transition: none !important;
+  position: fixed;
+  inset: 16px 20px auto;
+  margin: 0 auto;
+}
+.finish-dialog.is-queue-handoff::backdrop { background: var(--bg); }
+.finish-dialog .reciter-start-backdrop.is-embedded {
+  position: static; padding: 0; background: transparent;
+  backdrop-filter: none; -webkit-backdrop-filter: none; animation: none;
+}
+.finish-dialog .is-embedded .reciter-start-dialog {
+  width: 100%; max-height: calc(100dvh - 32px);
+  border: 0; box-shadow: none;
+  animation: save-queue-in 120ms var(--ease-out) both;
+}
+.finish-dialog .is-embedded #reciter-start-title:focus { outline: none; }
+@keyframes save-queue-in { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  .finish-dialog .is-embedded .reciter-start-dialog { animation: none !important; }
+}
+@media (max-width: 700px) and (orientation: portrait) {
+  .finish-dialog.is-queue-handoff {
+    width: calc(100vw - 16px);
+    height: calc(100dvh - max(8px, env(safe-area-inset-top, 0px)) - max(8px, env(safe-area-inset-bottom, 0px)));
+    max-height: none;
+    inset: max(8px, env(safe-area-inset-top, 0px)) 8px auto;
+  }
+  .finish-dialog.is-queue-handoff .is-embedded,
+  .finish-dialog.is-queue-handoff .reciter-start-dialog { height: 100%; max-height: none; }
+  .finish-dialog.is-queue-handoff:has(.stage-draw),
+  .finish-dialog.is-queue-handoff:has(.stage-draw) .is-embedded,
+  .finish-dialog.is-queue-handoff .reciter-start-dialog.stage-draw {
+    height: auto;
+    max-height: calc(100dvh - max(8px, env(safe-area-inset-top, 0px)) - max(8px, env(safe-area-inset-bottom, 0px)));
+  }
+}
 @media (max-width: 600px) {
   .finish-dialog {
     width: calc(100vw - 16px);
@@ -11292,6 +11513,9 @@ html:has(.finish-dialog[open]) {
   color: var(--ink-3);
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
+  font-family: var(--num);
+  font-weight: 520;
+  letter-spacing: 0.045em;
 }
 
 @media (max-width: 1100px) {
@@ -11529,8 +11753,8 @@ html:has(.finish-dialog[open]) {
     content: attr(data-label);
     color: var(--ink-3);
     font-size: 8.5px;
-    font-weight: 620;
-    letter-spacing: 0.06em;
+    font-weight: 600;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
   }
   .roster-edit-cell:nth-child(3),
@@ -11767,8 +11991,8 @@ html:has(.finish-dialog[open]) {
 .result-detail-back:focus-visible,
 .result-mistake-row:focus-visible,
 .evidence-marker-button:focus-visible {
-  outline: 0;
-  box-shadow: 0 0 0 3px var(--ring);
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
 }
 
 .result-detail-header {
@@ -11788,8 +12012,8 @@ html:has(.finish-dialog[open]) {
 .result-question-bar > div > span {
   color: var(--ink-3);
   font-size: var(--t-micro);
-  font-weight: 680;
-  letter-spacing: 0.05em;
+  font-weight: 600;
+  letter-spacing: 0.12em;
   line-height: 1.25;
   text-transform: uppercase;
 }
@@ -11797,12 +12021,15 @@ html:has(.finish-dialog[open]) {
 .result-detail-identity > span bdi {
   color: var(--ink-2);
   font-variant-numeric: tabular-nums;
+  font-family: var(--num);
+  font-weight: 520;
+  letter-spacing: 0.045em;
 }
 
 .result-detail-identity h2 {
   margin: var(--sp-2) 0 0;
   font-size: clamp(23px, 2.2vw, 30px);
-  font-weight: 620;
+  font-weight: 600;
   letter-spacing: -0.035em;
   line-height: 1.08;
 }
@@ -11830,9 +12057,10 @@ html:has(.finish-dialog[open]) {
   color: var(--ink);
   font-size: 30px;
   font-variant-numeric: tabular-nums;
-  font-weight: 630;
-  letter-spacing: -0.045em;
+  font-weight: 520;
+  letter-spacing: 0.045em;
   line-height: 1;
+  font-family: var(--num);
 }
 
 .result-detail-score > strong small {
@@ -11902,6 +12130,7 @@ html:has(.finish-dialog[open]) {
   font-size: var(--t-micro);
   font-weight: 600;
   text-transform: uppercase;
+  letter-spacing: 0.12em;
 }
 
 .result-question-bar dd {
@@ -11952,7 +12181,7 @@ html:has(.finish-dialog[open]) {
   margin: 0;
   color: var(--ink);
   font-size: var(--t-body);
-  font-weight: 620;
+  font-weight: 600;
   letter-spacing: -0.012em;
 }
 
@@ -12083,7 +12312,7 @@ html:has(.finish-dialog[open]) {
   color: var(--surface);
   font-family: var(--ui);
   font-size: var(--t-micro);
-  font-weight: 700;
+  font-weight: 600;
   line-height: 1;
 }
 
@@ -12125,7 +12354,7 @@ html:has(.finish-dialog[open]) {
 .result-evidence-unavailable strong {
   color: var(--ink);
   font-size: var(--t-small);
-  font-weight: 620;
+  font-weight: 600;
 }
 
 .recitation-evidence-state span,
@@ -12204,7 +12433,7 @@ html:has(.finish-dialog[open]) {
   gap: 7px;
   color: var(--c-strong);
   font-size: var(--t-micro);
-  font-weight: 650;
+  font-weight: 600;
 }
 
 .result-mistake-copy > strong i,
@@ -12233,7 +12462,9 @@ html:has(.finish-dialog[open]) {
   color: var(--ink);
   font-size: var(--t-small);
   font-variant-numeric: tabular-nums;
-  font-weight: 650;
+  font-weight: 520;
+  font-family: var(--num);
+  letter-spacing: 0.045em;
 }
 
 .result-mistake-empty {
@@ -12274,7 +12505,7 @@ html:has(.finish-dialog[open]) {
 .result-source-category strong {
   color: var(--c-strong);
   font-size: var(--t-micro);
-  font-weight: 630;
+  font-weight: 600;
 }
 
 .result-source-reading {
@@ -12297,7 +12528,9 @@ html:has(.finish-dialog[open]) {
   color: var(--ink);
   font-size: var(--t-small);
   font-variant-numeric: tabular-nums;
-  font-weight: 650;
+  font-weight: 520;
+  font-family: var(--num);
+  letter-spacing: 0.045em;
 }
 
 .result-source-choice {
@@ -12464,7 +12697,7 @@ html:has(.finish-dialog[open]) {
   margin: 0;
   color: var(--ink);
   font-size: var(--t-body);
-  font-weight: 620;
+  font-weight: 600;
   letter-spacing: -0.012em;
 }
 
@@ -12524,7 +12757,7 @@ html:has(.finish-dialog[open]) {
   color: var(--ink);
   font: inherit;
   font-size: var(--t-micro);
-  font-weight: 620;
+  font-weight: 600;
 }
 
 .recitation-evidence-pager button:disabled {
@@ -12607,7 +12840,7 @@ html:has(.finish-dialog[open]) {
   color: var(--surface);
   font-family: var(--ui);
   font-size: var(--t-micro);
-  font-weight: 700;
+  font-weight: 600;
   line-height: 1;
 }
 
@@ -12643,7 +12876,7 @@ html:has(.finish-dialog[open]) {
 .result-evidence-unavailable strong {
   color: var(--ink);
   font-size: var(--t-small);
-  font-weight: 620;
+  font-weight: 600;
 }
 
 .recitation-evidence-state span,
@@ -12722,7 +12955,7 @@ html:has(.finish-dialog[open]) {
   gap: 7px;
   color: var(--c-strong);
   font-size: var(--t-micro);
-  font-weight: 650;
+  font-weight: 600;
 }
 
 .result-mistake-copy > strong i,
@@ -12751,7 +12984,9 @@ html:has(.finish-dialog[open]) {
   color: var(--ink);
   font-size: var(--t-small);
   font-variant-numeric: tabular-nums;
-  font-weight: 650;
+  font-weight: 520;
+  font-family: var(--num);
+  letter-spacing: 0.045em;
 }
 
 .result-mistake-empty {
@@ -12792,7 +13027,7 @@ html:has(.finish-dialog[open]) {
 .result-source-category strong {
   color: var(--c-strong);
   font-size: var(--t-micro);
-  font-weight: 630;
+  font-weight: 600;
 }
 
 .result-source-reading {
@@ -12815,7 +13050,9 @@ html:has(.finish-dialog[open]) {
   color: var(--ink);
   font-size: var(--t-small);
   font-variant-numeric: tabular-nums;
-  font-weight: 650;
+  font-weight: 520;
+  font-family: var(--num);
+  letter-spacing: 0.045em;
 }
 
 .result-source-choice {
@@ -13022,7 +13259,8 @@ html:has(.finish-dialog[open]) {
 }
 
 .prepared-recording-choice input:focus-visible + .prepared-recording-check {
-  box-shadow: 0 0 0 3px var(--ring);
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
 }
 
 .prepared-recording-choice input:disabled + .prepared-recording-check,
@@ -13038,7 +13276,7 @@ html:has(.finish-dialog[open]) {
 
 .prepared-recording-choice strong {
   font-size: var(--t-small);
-  font-weight: 620;
+  font-weight: 600;
 }
 
 .prepared-recording-label-compact {
@@ -13183,13 +13421,17 @@ html:has(.finish-dialog[open]) {
 .replay-analysis > span { display: block; margin-top: var(--sp-3); color: var(--ink-3); }
 .replay-remove { justify-self: start; border: 0; background: transparent; color: var(--ink-3); text-decoration: underline; }
 .replay-review button:disabled { opacity: 0.5; cursor: not-allowed; }
-.replay-review :is(button, input, select, summary):focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+.replay-review :is(button, input, select, summary):focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px; }
 .evidence-replay-word { position: relative; }
 .evidence-replay-button {
   position: absolute; inset: 0; border: 0; padding: 0; background: transparent;
   border-radius: 4px; cursor: pointer;
 }
-.evidence-replay-button:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.evidence-replay-button:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px; }
 .recitation-evidence-span .is-replay-focus { outline: 2px solid var(--ink); outline-offset: 2px; border-radius: 4px; }
 @media (max-width: 760px) {
   .replay-review { padding: var(--sp-4); }
@@ -13224,15 +13466,15 @@ html:has(.finish-dialog[open]) {
 .session-recording-heading > label > span {
   color: var(--ink-3);
   font-size: var(--t-micro);
-  font-weight: 620;
-  letter-spacing: 0.04em;
+  font-weight: 600;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
 .session-recording-heading h3 {
   margin: 0;
   font-size: var(--t-lead);
-  font-weight: 620;
+  font-weight: 600;
   letter-spacing: -0.015em;
 }
 
@@ -13453,7 +13695,7 @@ html:has(.finish-dialog[open]) {
   background: var(--surface);
   color: var(--ink);
   font: inherit;
-  font-weight: 620;
+  font-weight: 600;
 }
 
 .tilawa-tracker-indicator {
@@ -14287,7 +14529,7 @@ html:has(.finish-dialog[open]) {
     color: var(--ink-3);
     font-size: 10.5px;
     font-weight: 500;
-    letter-spacing: 0.07em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
   }
 
@@ -14378,8 +14620,8 @@ html:has(.finish-dialog[open]) {
   }
 
   .mobile-sheet-close:focus-visible {
-    outline: none;
-    box-shadow: 0 0 0 3px var(--ring);
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
   }
 
   .mobile-score-sheet-context {
@@ -14561,6 +14803,14 @@ html:has(.finish-dialog[open]) {
     gap: 5px;
   }
 
+  /* A disclosure moves the cards below it. Keep their Arabic text painted in
+     separate layers instead of repainting the entire sheet on every frame.
+     These layers exist only while the mobile mistakes sheet is mounted. */
+  .mistake-panel.is-mobile-sheet .log-row-wrap {
+    contain: layout paint;
+    transform: translateZ(0);
+  }
+
   .mistake-panel.is-mobile-sheet .log-row {
     grid-template-columns: 40px 44px minmax(0, 1fr) 24px;
     min-height: 56px;
@@ -14652,12 +14902,6 @@ html:has(.finish-dialog[open]) {
     justify-content: center;
   }
 
-  .app[data-mobile-judge-deck="true"] .finish-score-value .mark-picker {
-    width: 78px;
-    padding-inline: 6px;
-    justify-content: center;
-  }
-
   .app[data-mobile-judge-deck="true"] .finish-dialog-actions {
     min-height: 64px;
     padding: 10px 16px 12px;
@@ -14716,10 +14960,15 @@ html:has(.finish-dialog[open]) {
 }
 /* Desktop judging rail: density changes spacing, never scoring or touch targets. */
 @media (min-width: 901px) {
-  .app.view-judge .workspace:not(.is-idle) { grid-template-columns: minmax(0, 1fr) 300px; }
-  .app.view-judge .workspace:not(.is-idle).rail-left { grid-template-columns: 300px minmax(0, 1fr); }
-  .app.view-judge .workspace:not(.is-idle).score-slim { grid-template-columns: minmax(0, 1fr) 280px; }
-  .app.view-judge .workspace:not(.is-idle).score-slim.rail-left { grid-template-columns: 280px minmax(0, 1fr); }
+  /* A saved recitation returns to this same rail without resizing the paper. */
+  .app.view-judge .workspace:not(.is-idle),
+  .app.view-judge[data-competition-live="true"] .workspace { grid-template-columns: minmax(0, 1fr) 300px; }
+  .app.view-judge .workspace:not(.is-idle).rail-left,
+  .app.view-judge[data-competition-live="true"] .workspace.rail-left { grid-template-columns: 300px minmax(0, 1fr); }
+  .app.view-judge .workspace:not(.is-idle).score-slim,
+  .app.view-judge[data-competition-live="true"] .workspace.score-slim { grid-template-columns: minmax(0, 1fr) 280px; }
+  .app.view-judge .workspace:not(.is-idle).score-slim.rail-left,
+  .app.view-judge[data-competition-live="true"] .workspace.score-slim.rail-left { grid-template-columns: 280px minmax(0, 1fr); }
   .sidebar .scorecard { padding: 10px 14px; flex: 0 0 auto; }
   .sidebar .sc-total { padding-bottom: 6px; }
   .sidebar .sc-total-num { font-size: 26px; }
@@ -14737,12 +14986,17 @@ html:has(.finish-dialog[open]) {
   }
   .sidebar .sc-reason-trigger.has-value { color: var(--ink); }
   .sidebar .sc-reason-trigger:hover { background: var(--bg); }
-  .sidebar .sc-reason-trigger:focus-visible { outline: 2px solid var(--ink); outline-offset: -2px; }
+  .sidebar .sc-reason-trigger:focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px; }
 }
 /* Native scrolling with quiet edge shadows and a stable gutter. The grip itself is a .quiet-scroll grip. */
 .mistake-panel .log, .mistake-panel .history-scroll {
-  scrollbar-gutter: stable both-edges;
-  padding-inline: 2px;
+  /* One stable gutter plus matching start padding keeps rows centred.
+     "both-edges" made Chromium clip 8px off each card once the list
+     scrolled (seen at 1024 x 768), so the mirror is done with padding. */
+  scrollbar-gutter: stable;
+  padding-inline: 10px 2px;
   background:
     linear-gradient(var(--surface) 30%, transparent) center top / 100% 24px local,
     linear-gradient(transparent, var(--surface) 70%) center bottom / 100% 24px local,
@@ -14808,41 +15062,23 @@ html:has(.finish-dialog[open]) {
 .compact-text-dialog-head h2 { margin: 0; font-size: 16px; font-weight: 550; }
 .compact-text-dialog-head button { min-height: 44px; padding: 0 14px; border: 1px solid var(--line-2); border-radius: var(--r-sm); color: var(--ink); background: var(--surface); }
 .compact-text-dialog textarea { box-sizing: border-box; width: 100%; min-height: 120px; padding: 12px; border: 1px solid var(--line-2); border-radius: var(--r-sm); background: var(--bg); color: var(--ink); font: inherit; resize: vertical; }
-.compact-text-dialog :focus-visible { outline: 2px solid var(--ink-2); outline-offset: 2px; }
+.compact-text-dialog :focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px; }
 /* Keep the scoring hit target generous while making its visible box discreet. */
-.sidebar .mark-picker,
-.finish-score-value .mark-picker {
+.sidebar .mark-picker {
   position: relative; width: 56px; min-height: 44px;
   padding: 0 4px; border: 0; background: transparent; box-shadow: none;
 }
-.sidebar .mark-picker::before,
-.finish-score-value .mark-picker::before {
+.sidebar .mark-picker::before {
   content: ''; position: absolute; inset: 9px 0; pointer-events: none;
   border: 1px solid var(--line-2); border-radius: 5px;
 }
 .sidebar .mark-picker:hover::before,
-.sidebar .mark-picker.is-open::before,
-.finish-score-value .mark-picker:hover::before,
-.finish-score-value .mark-picker.is-open::before { border-color: var(--ink-2); }
-.sidebar .mark-picker.is-open,
-.finish-score-value .mark-picker.is-open { background: transparent; box-shadow: none; }
-.finish-score-value .mark-picker { width: 56px; flex-shrink: 0; }
-@media (max-width: 600px) and (orientation: portrait) {
-  .finish-score-value .mark-picker {
-    width: 78px; padding: 6px; border: 1px solid var(--line-2);
-    background: var(--surface);
-  }
-  .finish-score-value .mark-picker::before { content: none; }
-  .finish-score-value .mark-picker:hover { border-color: var(--ink-3); }
-  .finish-score-value .mark-picker.is-open {
-    border-color: var(--ink); background: var(--surface);
-    box-shadow: inset 0 0 0 1px var(--ink);
-  }
-}
+.sidebar .mark-picker.is-open::before { border-color: var(--ink-2); }
+.sidebar .mark-picker.is-open { background: transparent; box-shadow: none; }
 /* Share score-column centering and first-row rhythm with the read-only criteria. */
 @media (min-width: 901px) {
-  .finish-score-value .mark-picker { width: 64px; }
-  .finish-score-value .mark-picker::before { inset: 9px 4px; }
   .sidebar .sc-row-impression .mark-picker {
     width: 100%; height: 44px; min-height: 44px; align-self: center;
     justify-self: stretch; padding: 0; gap: 2px;
@@ -14978,7 +15214,9 @@ html:has(.finish-dialog[open]) {
   transform: none;
 }
 .mistake-panel .log-head-adjust .log-adjust { flex: 0 0 auto; }
-.mistake-panel .log-head-adjust .step-btn:focus-visible { outline: 2px solid var(--ink-3); outline-offset: 1px; }
+.mistake-panel .log-head-adjust .step-btn:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px; }
 /* The kalimah starts where the number starts. */
 .mistake-panel .log-detail-line {
   padding-left: calc(12px + var(--log-tile, 40px) + 8px);
@@ -15004,7 +15242,20 @@ html:has(.finish-dialog[open]) {
   transition-timing-function: cubic-bezier(0.2, 0, 0, 1);
 }
 .log-detail-line .log-adjust { flex: 0 0 auto; }
-.log-detail-line .step-btn:focus-visible { outline: 2px solid var(--ink-3); outline-offset: 1px; }
+.log-detail-line .step-btn:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px; }
+.log-locate { display: none; }
+@media (max-width: 900px) {
+  .sidebar .mistake-panel:not(.is-expanded) .log-locate {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-height: 44px; min-width: 44px; padding: 0 8px;
+    border: 0; border-radius: var(--r-sm); background: transparent;
+    color: var(--ink-2); font: inherit; font-size: var(--t-small);
+    cursor: pointer;
+  }
+  .sidebar .mistake-panel:not(.is-expanded) .log-locate:hover { background: var(--bg); }
+}
 @media (prefers-reduced-motion: reduce) {
   .mistake-panel :is(.log-chevron, .log-expand, .log-expand-inner, .log-summary, .log-kalimah-word, .log-head-adjust) {
     transition: none !important;
@@ -15038,12 +15289,26 @@ html:has(.finish-dialog[open]) {
   padding-block: 0;
   min-height: 44px;
 }
-.scorecard .sc-row-impression .mark-picker {
+.scorecard .sc-row-impression .mark-picker,
+.finish-score-value .mark-picker {
   position: relative;
   width: 100%; height: 44px; min-height: 44px;
   padding: 0 8px; gap: 4px; align-self: center;
 }
 .scorecard .sc-row-impression .mark-picker::before { inset: 8px 0; }
+/* Review uses the same mark box as the scorecard, including decimal values. */
+.finish-score-value .mark-picker {
+  box-sizing: border-box; flex: 0 0 80px; width: 80px;
+  display: flex; justify-content: center; align-items: center;
+  border: 0; background: transparent; box-shadow: none;
+}
+.finish-score-value .mark-picker-value { font-size: 15px; }
+.finish-score-value .mark-picker::before {
+  content: ''; position: absolute; inset: 8px 0; pointer-events: none;
+  border: 1px solid var(--line-2); border-radius: var(--r-sm);
+}
+.finish-score-value .mark-picker:hover::before,
+.finish-score-value .mark-picker.is-open::before { border-color: var(--ink-2); }
 .scorecard .sc-total-value { gap: 4px; padding-right: 4px; }
 .scorecard .sc-total-of { font-size: 12px; }
 @media (min-width: 901px) {
@@ -15072,6 +15337,70 @@ html:has(.finish-dialog[open]) {
   .mobile-score-sheet .scorecard .mark-picker.is-open::before { border-color: var(--ink); }
 }
 
+/* Queue entry and stage changes keep text at its final geometry. */
+.reciter-start-body:has(.question-opening-status) { position: relative; }
+.question-opening-status {
+  position: absolute; inset: 0; z-index: 2;
+  display: flex; align-items: center; justify-content: center; gap: 12px;
+  background: color-mix(in srgb, var(--surface) 94%, transparent);
+  border-radius: inherit; font-size: var(--t-body); color: var(--ink-2);
+  /* Cached pages reveal immediately; only slower loads need a visible status. */
+  animation: question-opening-status 0s 200ms both;
+}
+.question-opening-status[role="alert"] { animation: none; }
+@keyframes question-opening-status { from { visibility: hidden; } to { visibility: visible; } }
+.reciter-queue-modal {
+  width: 100%; max-width: none; height: 100dvh; max-height: none;
+  margin: 0; padding: 0; border: 0; background: transparent; overflow: hidden;
+}
+.reciter-queue-modal:not([open]) { display: none; }
+.reciter-queue-modal::backdrop {
+  background: color-mix(in srgb, var(--bg) 55%, transparent);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+}
+.reciter-queue-modal > .reciter-start-backdrop {
+  align-items: start; padding: 16px 20px; overflow: hidden;
+  background: transparent; backdrop-filter: none; -webkit-backdrop-filter: none;
+  animation: none; transition: none !important;
+}
+.reciter-queue-modal .reciter-start-dialog {
+  width: min(920px, calc(100vw - 40px));
+  max-height: min(820px, calc(100dvh - 32px));
+  animation: save-queue-in 120ms var(--ease-out) both;
+  transition: none !important;
+}
+.reciter-start-dialog:is(.stage-participant, .stage-draw) .reciter-start-head {
+  min-height: 72px; padding: 17px 60px 15px 26px;
+}
+.reciter-start-dialog #reciter-start-title:focus { outline: none; }
+.reciter-queue-stage { height: 100%; min-height: 0; }
+.reciter-start-dialog.has-changed-stage > .reciter-start-body > :not([hidden]) {
+  animation: save-queue-in 120ms var(--ease-out) both;
+}
+@media (max-width: 700px) and (orientation: portrait) {
+  .reciter-queue-modal > .reciter-start-backdrop {
+    padding: max(8px, env(safe-area-inset-top, 0px)) 8px max(8px, env(safe-area-inset-bottom, 0px));
+    place-items: start center;
+  }
+  .reciter-queue-modal .reciter-start-dialog {
+    width: 100%;
+    max-height: calc(100dvh - max(8px, env(safe-area-inset-top, 0px)) - max(8px, env(safe-area-inset-bottom, 0px)));
+  }
+  .reciter-queue-modal .reciter-start-dialog.stage-draw { height: auto; }
+  .reciter-start-dialog:is(.stage-participant, .stage-draw) .reciter-start-head {
+    min-height: 56px; padding: 12px 54px 10px 14px;
+  }
+  .reciter-start-dialog:is(.stage-participant, .stage-draw) .dialog-close {
+    top: 8px; right: 8px; width: 44px; height: 44px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .reciter-start-dialog, .reciter-start-dialog * { transition: none !important; }
+  .reciter-queue-modal .reciter-start-dialog,
+  .reciter-start-dialog.has-changed-stage > .reciter-start-body > :not([hidden]),
+  .reciter-start-dialog .loading-spinner { animation: none !important; }
+}
+
 /* Review keeps the background rail and tile scale stable. */
 .mistake-panel-placeholder { flex: 0 1 auto; min-height: 0; }
 @media (min-width: 901px) {
@@ -15085,4 +15414,96 @@ html:has(.finish-dialog[open]) {
   .sidebar .mistake-panel .history-item {
     grid-template-columns: var(--review-tile-size) minmax(0, 1fr) auto;
   }
+}
+/* One selection list, with actions outside the scroll region. */
+.reciter-selection-screen .queue-actions { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 8px; flex: 0 0 auto; padding-top: 12px; border-top: 1px solid var(--line); }
+.queue-actions button { min-height: 44px; white-space: normal; overflow-wrap: anywhere; }
+.queue-selection-status { grid-column: 1 / -1; color: var(--ink-2); font-size: var(--t-small); }
+.queue-selection-status:empty { display: none; }
+.queue-participant-button[aria-selected="true"] { background: var(--bg); border-color: var(--line); box-shadow: inset 3px 0 var(--ink); }
+.queue-status { padding: 4px 8px; border-radius: var(--r-sm); background: var(--bg); color: var(--ink-2); }
+.reciter-selection-screen .queue-group-title, .reciter-selection-screen .queue-group-toggle small { font-size: var(--t-micro); }
+@media (max-width: 600px) { .queue-actions { grid-template-columns: minmax(0,1fr) auto; } .queue-actions button { padding: 10px 12px; } .queue-group-toggle { gap: 8px; } .queue-group-toggle small { white-space: normal; text-align: right; } }
+/* Prepared actions each keep a full row; the draw remains unchanged. */
+.prepared-sidebar-secondary { grid-template-columns: minmax(0,1fr); }
+.prepared-sidebar-secondary .btn-ghost { min-height: 44px; }
+.reciter-chip .reciter-prepared-state, .reciter-chip .reciter-question-ref { font-size: var(--t-micro); }
+.reciter-question-ref { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.reciter-queue-modal > .reciter-start-backdrop { align-items: center; justify-items: center; }
+@media (max-width: 700px) and (orientation: portrait) {
+  .reciter-queue-modal > .reciter-start-backdrop { place-items: center; }
+}
+/* Final type roles: larger UI text must scroll rather than clip. */
+.sidebar .scorecard .sc-total-num { font: 520 34px/1.1 var(--num); letter-spacing: 0.045em; }
+.scorecard .sc-name { font-size: var(--t-small); }
+.pill-main, .btn-primary, .btn-ghost { font-size: var(--t-small); }
+.t-label { font-size: var(--t-micro); font-weight: 600; letter-spacing: 0.12em; }
+.brand { font-family: "Platypi", serif; font-weight: 600; }
+/* Small visible controls retain their dimensions; their hit regions do not overlap. */
+@media (min-width: 601px) {
+  .app-header :is(.reciter-chip, .view-toggle, .btn-icon) { position: relative; }
+  .app-header :is(.reciter-chip, .view-toggle, .btn-icon)::after { content: ""; position: absolute; inset: -5px 0; min-height: 44px; }
+  .app-header .btn-icon { margin-inline: 5px; }
+  .app-header .btn-icon::after { inset-inline: -5px; min-width: 44px; }
+  .page-nav { gap: 12px; }
+  .mushaf-scroll .page-nav-btn { width: 32px; height: 32px; position: relative; }
+  .mushaf-scroll .page-nav-page { height: 32px; position: relative; }
+  .page-nav-btn::after, .page-nav-page::after { content: ""; position: absolute; inset: -6px; }
+}
+.log-view-all { position: relative; min-width: 44px; }
+.log-view-all::after { content: ""; position: absolute; inset: calc((100% - max(100%, 44px)) / 2) 0; }
+/* An actual outline survives Windows High Contrast. Quran hits keep their geometry. */
+:where(button, input, select, textarea, summary, [tabindex]):not(.hit):focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+@media (forced-colors: active) { :focus-visible { outline-color: Highlight; } }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; scroll-behavior: auto !important; }
+  *:not(.selector-undo-progress), *::before, *::after { transition: none !important; }
+  /* Functional hold feedback must outlast motion.css's global 80ms reduction. */
+  .selector-undo.holding .selector-undo-progress { transition: transform 700ms steps(3, end) !important; }
+}
+.reciter-selection-screen .queue-scroll { padding-inline: 4px; }
+.queue-participant-button[aria-selected="true"] { position: relative; background: color-mix(in srgb, var(--ink) 5%, transparent); box-shadow: none; }
+.queue-participant-button[aria-selected="true"]::before { content: ""; position: absolute; inset-block: 8px; inset-inline-start: 2px; width: 3px; border-radius: 2px; background: var(--ink-2); }
+.queue-search:focus-within { outline: 2px solid var(--ring); outline-offset: 2px; box-shadow: none; }
+.mobile-score-sheet .compact-text-inline-editor textarea:focus { outline: 2px solid var(--ring); outline-offset: 2px; box-shadow: none; }
+@media (min-width: 901px) {
+  .app.view-judge .has-fixed-pages .page-nav-btn { width: 32px; height: 32px; }
+  .app.view-judge .has-fixed-pages .page-nav-page { height: 32px; }
+}
+.mistake-panel .log-view-all { min-height: 44px; margin-block: -6px; }
+.mistake-panel .log-view-all::after { content: none; }
+.mistake-panel > .panel-head { min-height: 32px; align-items: center; }
+.sidebar .mistake-panel:not(.is-expanded) > .panel-head { margin-bottom: 8px; }
+@media (max-width: 600px) and (orientation: portrait) {
+  .app[data-mobile-calibration="true"].view-judge .mushaf-scroll.has-fixed-pages .mushaf-shared-nav > .page-nav { grid-template-columns: 44px 60px 44px; width: 156px; gap: 4px; }
+  .app[data-mobile-calibration="true"].view-judge .mushaf-shell .page-nav :is(.page-nav-btn,.page-nav-page)::after { content: ""; position: absolute; inset: -4px 0; }
+  .app[data-mobile-calibration="true"].view-judge .mushaf-shell .page-nav .page-nav-btn::before { inset-inline: 6px; border-radius: 999px; }
+}
+@media (min-width: 601px) and (max-width: 900px) {
+  .app.view-judge .has-fixed-pages .page-nav-btn { width: 44px; height: 44px; }
+  .app.view-judge .has-fixed-pages .page-nav-page { height: 44px; }
+  .app.view-judge .has-fixed-pages .page-nav-btn::before { inset: 6px; }
+  .app.view-judge .has-fixed-pages .page-nav-page::before { inset: 6px 0; }
+  .page-nav-btn::after, .page-nav-page::after { inset: 0; }
+  .page-nav { gap: 4px; }
+}
+@media (max-width: 600px) and (orientation: portrait) {
+  .app[data-mobile-calibration="true"].view-judge .mushaf-shell .page-nav .page-nav-btn::before { inset-block: auto; top: 50%; height: 32px; transform: translateY(-50%); }
+}
+@media (max-width: 600px) and (orientation: portrait) {
+  .app[data-mobile-calibration="true"].view-judge .mushaf-shell[data-stage-fit="ready"][data-mobile-paper="true"] .mushaf-scroll.has-fixed-pages:is(.is-single,.is-spread) > .mushaf-shared-nav { min-height: 44px; height: 44px; }
+  .app[data-mobile-calibration="true"].view-judge .mushaf-scroll.has-fixed-pages .mushaf-shared-nav > .page-nav { height: 44px; min-height: 44px; }
+  .app[data-mobile-calibration="true"].view-judge .mushaf-shell .page-nav :is(.page-nav-btn,.page-nav-page) { height: 44px; min-height: 44px; }
+  .app[data-mobile-calibration="true"].view-judge .mushaf-shell .page-nav :is(.page-nav-btn,.page-nav-page)::after { inset: 0; }
+  .app[data-mobile-calibration="true"].view-judge .mushaf-shell .page-nav .page-nav-page::before { inset-block: 6px; }
+}
+.score-value-number, .finish-score-value .score-value-number { font-family: var(--num); font-size: var(--t-small); font-weight: 520; letter-spacing: 0.045em; }
+.sc-score .sc-of, .finish-score-value .score-value-layout .sc-of { font-family: var(--num); font-weight: 520; letter-spacing: 0.045em; }
+/* The embedded queue uses the same centring as a queue opened from the rail. */
+.finish-dialog.is-queue-handoff { inset: 16px 20px; margin: auto; height: fit-content; max-height: calc(100dvh - 32px); }
+.finish-dialog.is-queue-handoff:has(.stage-participant) { height: min(820px, calc(100dvh - 32px)); }
+.finish-dialog.is-queue-handoff:has(.stage-draw) { height: fit-content; }
+@media (max-width: 700px) and (orientation: portrait) {
+  .finish-dialog.is-queue-handoff { inset: max(8px, env(safe-area-inset-top, 0px)) 8px max(8px, env(safe-area-inset-bottom, 0px)); max-height: calc(100dvh - max(8px, env(safe-area-inset-top, 0px)) - max(8px, env(safe-area-inset-bottom, 0px))); }
+  .finish-dialog.is-queue-handoff:has(.stage-participant) { height: calc(100dvh - max(8px, env(safe-area-inset-top, 0px)) - max(8px, env(safe-area-inset-bottom, 0px))); }
 }

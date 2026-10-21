@@ -129,7 +129,8 @@ function dominant(mistakes: Mistake[]): CategoryId {
 export interface MushafProps {
   /** Inert page artwork/annotations only: no input, navigation or evidence writes. */
   presentationOnly?: boolean;
-  onPresentationReady?: () => void;
+  onPresentationReady?: (pages: readonly number[]) => void;
+  onPresentationError?: (error: string | null, retry: () => void) => void;
   swipePreviews?: readonly ReadyFixedPage[];
   preparedFixedPage?: ReadyFixedPage | null;
   navigationPending?: boolean;
@@ -512,7 +513,10 @@ export function Mushaf(props: MushafProps) {
     const element = rootForPage(page)?.querySelector<HTMLElement>(
       `[data-word-hit="${CSS.escape(box.wid)}"]`,
     );
-    element?.scrollIntoView({ behavior: "smooth", block: "center", inline: "center" });
+    element?.scrollIntoView({
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth",
+      block: "center", inline: "center",
+    });
     setFlashTid(null);
     requestAnimationFrame(() => setFlashTid(tid));
     return true;
@@ -850,8 +854,10 @@ export function Mushaf(props: MushafProps) {
   }, [boxes, byTid, state.activeAssignment?.judgeSeatId, allowedCountKey]);
   const readyKey = pageData.map(({ page }) => page).join(":");
   useLayoutEffect(() => {
-    if (presentationOnly && boxesKey === requestKey) props.onPresentationReady?.();
-  }, [presentationOnly, boxes, boxesKey, requestKey, props.onPresentationReady]);
+    if (!navigationPending && readyKey === requestKey && boxesKey === requestKey) {
+      props.onPresentationReady?.(pageData.map(({ page }) => page));
+    }
+  }, [navigationPending, readyKey, boxes, boxesKey, requestKey, props.onPresentationReady]);
 
   // Shared by marking and page navigation, including the marker's extra area.
   function wordAtPoint(page: number, clientX: number, clientY: number) {

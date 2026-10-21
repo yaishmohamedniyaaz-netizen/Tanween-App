@@ -133,7 +133,7 @@ test("the live handoff uses quiet status text and two focused screens", () => {
   assert.match(appSource, /\? "is-idle" : ""/);
   assert.match(participantScreenSource, /Participant queue/);
   assert.match(participantScreenSource, /ParticipantIdentity/);
-  assert.match(participantScreenSource, /current\.has\(groupId\) \? new Set\(\) : new Set\(\[groupId\]\)/);
+  assert.match(participantScreenSource, /expanded\s*\?\s*new Set\(\)\s*:\s*new Set\(\[group\.id\]\)/);
   assert.match(participantIdentitySource, /participantContextLabel/);
   assert.match(participantIdentitySource, /participantNumberLabel/);
   assert.match(participantPresentationSource, /participant\.institution/);
@@ -165,9 +165,12 @@ test("a draw opens a locked, recoverable Prepared Mushaf before judging", () => 
   assert.match(appSource, /"next-question"/);
 });
 
-test("finishing a reciter moves directly to the next reciter-queue choice", () => {
+test("finishing exposes the desktop next-reciter action and retains compact queue handoff", () => {
   assert.match(appSource, /const hasNextReciter = state\.roster\.some/);
-  assert.match(appSource, /setStartOpen\(hasNextReciter\)/);
+  assert.match(appSource, /if \(hasNextReciter && showQueueHandoff\) setFinishHandoff\(true\)/);
+  assert.match(appSource, /matchMedia\("\(min-width: 901px\)"\)/);
+  assert.match(appSource, /focusNextReciterRef\.current = hasNextReciter && !showQueueHandoff/);
+  assert.match(appSource, /handoff=\{finishHandoff \? \(/);
   assert.match(appSource, /Finish recitation/);
   assert.match(finishSource, /Save and select next reciter/);
   assert.match(finishSource, /Save recitation/);
