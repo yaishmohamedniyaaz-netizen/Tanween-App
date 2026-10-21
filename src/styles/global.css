@@ -15432,6 +15432,19 @@ html:has(.finish-dialog[open]) {
 .pill-main, .btn-primary, .btn-ghost { font-size: var(--t-small); }
 .t-label { font-size: var(--t-micro); font-weight: 600; letter-spacing: 0.12em; }
 .brand { font-family: "Platypi", serif; font-weight: 600; }
+/* Small visible controls retain their dimensions; their hit regions do not overlap. */
+@media (min-width: 601px) {
+  .app-header :is(.reciter-chip, .view-toggle, .btn-icon) { position: relative; }
+  .app-header :is(.reciter-chip, .view-toggle, .btn-icon)::after { content: ""; position: absolute; inset: -5px 0; min-height: 44px; }
+  .app-header .btn-icon { margin-inline: 5px; }
+  .app-header .btn-icon::after { inset-inline: -5px; min-width: 44px; }
+  .page-nav { gap: 12px; }
+  .mushaf-scroll .page-nav-btn { width: 32px; height: 32px; position: relative; }
+  .mushaf-scroll .page-nav-page { height: 32px; position: relative; }
+  .page-nav-btn::after, .page-nav-page::after { content: ""; position: absolute; inset: -6px; }
+}
+.log-view-all { position: relative; min-width: 44px; }
+.log-view-all::after { content: ""; position: absolute; inset: calc((100% - max(100%, 44px)) / 2) 0; }
 /* An actual outline survives Windows High Contrast. Quran hits keep their geometry. */
 :where(button, input, select, textarea, summary, [tabindex]):not(.hit):focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
 @media (forced-colors: active) { :focus-visible { outline-color: Highlight; } }
@@ -15440,6 +15453,37 @@ html:has(.finish-dialog[open]) {
 .queue-participant-button[aria-selected="true"]::before { content: ""; position: absolute; inset-block: 8px; inset-inline-start: 2px; width: 3px; border-radius: 2px; background: var(--ink-2); }
 .queue-search:focus-within { outline: 2px solid var(--ring); outline-offset: 2px; box-shadow: none; }
 .mobile-score-sheet .compact-text-inline-editor textarea:focus { outline: 2px solid var(--ring); outline-offset: 2px; box-shadow: none; }
+@media (min-width: 901px) {
+  .app.view-judge .has-fixed-pages .page-nav-btn { width: 32px; height: 32px; }
+  .app.view-judge .has-fixed-pages .page-nav-page { height: 32px; }
+}
+.mistake-panel .log-view-all { min-height: 44px; margin-block: -6px; }
+.mistake-panel .log-view-all::after { content: none; }
+.mistake-panel > .panel-head { min-height: 32px; align-items: center; }
+.sidebar .mistake-panel:not(.is-expanded) > .panel-head { margin-bottom: 8px; }
+@media (max-width: 600px) and (orientation: portrait) {
+  .app[data-mobile-calibration="true"].view-judge .mushaf-scroll.has-fixed-pages .mushaf-shared-nav > .page-nav { grid-template-columns: 44px 60px 44px; width: 156px; gap: 4px; }
+  .app[data-mobile-calibration="true"].view-judge .mushaf-shell .page-nav :is(.page-nav-btn,.page-nav-page)::after { content: ""; position: absolute; inset: -4px 0; }
+  .app[data-mobile-calibration="true"].view-judge .mushaf-shell .page-nav .page-nav-btn::before { inset-inline: 6px; border-radius: 999px; }
+}
+@media (min-width: 601px) and (max-width: 900px) {
+  .app.view-judge .has-fixed-pages .page-nav-btn { width: 44px; height: 44px; }
+  .app.view-judge .has-fixed-pages .page-nav-page { height: 44px; }
+  .app.view-judge .has-fixed-pages .page-nav-btn::before { inset: 6px; }
+  .app.view-judge .has-fixed-pages .page-nav-page::before { inset: 6px 0; }
+  .page-nav-btn::after, .page-nav-page::after { inset: 0; }
+  .page-nav { gap: 4px; }
+}
+@media (max-width: 600px) and (orientation: portrait) {
+  .app[data-mobile-calibration="true"].view-judge .mushaf-shell .page-nav .page-nav-btn::before { inset-block: auto; top: 50%; height: 32px; transform: translateY(-50%); }
+}
+@media (max-width: 600px) and (orientation: portrait) {
+  .app[data-mobile-calibration="true"].view-judge .mushaf-shell[data-stage-fit="ready"][data-mobile-paper="true"] .mushaf-scroll.has-fixed-pages:is(.is-single,.is-spread) > .mushaf-shared-nav { min-height: 44px; height: 44px; }
+  .app[data-mobile-calibration="true"].view-judge .mushaf-scroll.has-fixed-pages .mushaf-shared-nav > .page-nav { height: 44px; min-height: 44px; }
+  .app[data-mobile-calibration="true"].view-judge .mushaf-shell .page-nav :is(.page-nav-btn,.page-nav-page) { height: 44px; min-height: 44px; }
+  .app[data-mobile-calibration="true"].view-judge .mushaf-shell .page-nav :is(.page-nav-btn,.page-nav-page)::after { inset: 0; }
+  .app[data-mobile-calibration="true"].view-judge .mushaf-shell .page-nav .page-nav-page::before { inset-block: 6px; }
+}
 .score-value-number, .finish-score-value .score-value-number { font-family: var(--num); font-size: var(--t-small); font-weight: 520; letter-spacing: 0.045em; }
 .sc-score .sc-of, .finish-score-value .score-value-layout .sc-of { font-family: var(--num); font-weight: 520; letter-spacing: 0.045em; }
 /* The embedded queue uses the same centring as a queue opened from the rail. */
