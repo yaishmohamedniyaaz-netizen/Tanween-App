@@ -148,10 +148,12 @@ export function FinishDialog({
   useLayoutEffect(() => {
     const dialog = dialogRef.current;
     if (!dialog) return;
+    const opener = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     if (!dialog.open) dialog.showModal();
-    headingRef.current?.focus({ preventScroll: true });
+    dialog.querySelector<HTMLButtonElement>('.finish-dialog-actions .btn-primary')?.focus({ preventScroll: true });
     return () => {
       if (dialog.open) dialog.close();
+      if (opener?.isConnected && !opener.closest('[inert]')) opener.focus({ preventScroll: true });
     };
   }, []);
 
@@ -180,7 +182,7 @@ export function FinishDialog({
   useLayoutEffect(() => {
     if (bodyRef.current) bodyRef.current.inert = saving;
     if (handoff) {
-      dialogRef.current?.querySelector<HTMLElement>("#reciter-start-title")?.focus({ preventScroll: true });
+      dialogRef.current?.querySelector<HTMLElement>('[role="option"][aria-selected="true"]')?.focus({ preventScroll: true });
     }
   }, [saving, Boolean(handoff)]);
 
@@ -222,7 +224,7 @@ export function FinishDialog({
       dialog.querySelectorAll<HTMLElement>(
       'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
       ),
-    ).filter((element) => element.getClientRects().length > 0 && !element.closest("[inert]"));
+    ).filter((element) => element.tabIndex >= 0 && element.getClientRects().length > 0 && !element.closest("[hidden], [inert]"));
     const first = focusable[0];
     const last = focusable[focusable.length - 1];
     const active = document.activeElement;

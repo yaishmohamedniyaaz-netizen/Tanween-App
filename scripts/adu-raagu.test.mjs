@@ -644,10 +644,10 @@ test("the finish checkpoint reviews assigned category scores and exact remarks",
   assert.doesNotMatch(finishDialogSource, /This saves the result and opens the next reciter/);
 });
 
-test("the finish checkpoint focuses its heading and contains keyboard focus", () => {
+test("the finish checkpoint focuses its primary action and contains keyboard focus", () => {
   assert.match(finishDialogSource, /<dialog/);
   assert.match(finishDialogSource, /dialog\.showModal\(\)/);
-  assert.match(finishDialogSource, /headingRef\.current\?\.focus/);
+  assert.match(finishDialogSource, /finish-dialog-actions \.btn-primary/);
   assert.match(finishDialogSource, /onCancel=\{\(event\) =>/);
   assert.match(finishDialogSource, /const containFocus/);
   assert.match(finishDialogSource, /active === headingRef\.current/);

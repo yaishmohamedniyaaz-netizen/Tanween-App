@@ -124,8 +124,16 @@ export function StartDialog({
       ) ?? controls.find((button) => button.dataset.queueEntry === point.id && !button.disabled);
       if (control) { control.focus({ preventScroll: true }); return; }
     }
-    titleRef.current?.focus({ preventScroll: true });
+    const initial = stage === "participant"
+      ? panel.querySelector<HTMLElement>('[role="option"][aria-selected="true"]')
+      : panel.querySelector<HTMLElement>('.draw-tile:not([disabled]), .draw-external:not([disabled])');
+    (initial ?? titleRef.current)?.focus({ preventScroll: true });
   }, [stage]);
+
+  useEffect(() => {
+    if (stage !== "draw" || document.activeElement !== titleRef.current) return;
+    panelRef.current?.querySelector<HTMLElement>('.draw-tile:not([disabled]), .draw-external:not([disabled])')?.focus({ preventScroll: true });
+  }, [stage, lookup, state.decks]);
 
   useEffect(() => {
     if (saveStatus?.phase === "failed" || saveStatus?.phase === "conflict") onClose();
@@ -493,7 +501,7 @@ export function StartDialog({
         if (event.key !== "Tab") return;
         const controls = [...event.currentTarget.querySelectorAll<HTMLElement>(
           'button:not([disabled]), input:not([disabled]), select:not([disabled]), [href], [tabindex]:not([tabindex="-1"])',
-        )].filter((element) => element.getClientRects().length > 0 && !element.closest("[hidden], [inert]"));
+        )].filter((element) => element.tabIndex >= 0 && element.getClientRects().length > 0 && !element.closest("[hidden], [inert]"));
         const first = controls[0], last = controls[controls.length - 1], active = document.activeElement;
         if (!first || !last) { event.preventDefault(); return; }
         if (event.shiftKey && (active === first || active === titleRef.current)) {
