@@ -70,13 +70,13 @@
   .app[data-mobile-calibration="true"] .mobile-criterion-label { font-size: 12px; line-height: 1.2; }
   .app[data-mobile-calibration="true"] .mobile-criterion-value { font-size: 14px; line-height: 1.2; white-space: nowrap; }
   .app[data-mobile-calibration="true"] .mobile-dock-actions {
-    position: relative; height: auto; min-height: 42px; grid-template-columns: repeat(3,minmax(0,1fr));
+    position: relative; height: auto; min-height: var(--tap); grid-template-columns: repeat(3,minmax(0,1fr));
   }
   .app[data-mobile-calibration="true"] .mobile-dock-actions::before {
     content: ''; position: absolute; z-index: 1; top: 0; inset-inline: 0;
     height: 1px; background: var(--line); pointer-events: none;
   }
-  .app[data-mobile-calibration="true"] .mobile-dock-actions > button { min-height: 42px; }
+  .app[data-mobile-calibration="true"] .mobile-dock-actions > button { min-height: var(--tap); }
   .app[data-mobile-calibration="true"] .mobile-score-action { gap: 4px; }
   .app[data-mobile-calibration="true"] .mobile-score-action strong { font-size: 20px; }
   .app[data-mobile-calibration="true"] .mobile-score-action :is(.mobile-dock-score-label,span:last-child) { font-size: 11px; }
@@ -84,7 +84,7 @@
   .app[data-mobile-calibration="true"] .mobile-mistakes-action > .t-num { font-size: 14px; }
   .app[data-mobile-calibration="true"] .mobile-dock-actions > .mobile-finish-action { font-size: 15px; }
   .app[data-mobile-calibration="true"][data-mobile-prepared="true"] .prepared-sidebar {
-    height: auto; min-height: 86px; grid-template-rows: minmax(44px,auto) minmax(42px,auto); border: 0;
+    height: auto; min-height: 86px; grid-template-rows: minmax(44px,auto) minmax(var(--tap),auto); border: 0;
   }
   .app[data-mobile-calibration="true"][data-mobile-prepared="true"] .sidebar { height: auto; }
   .app[data-mobile-calibration="true"][data-mobile-prepared="true"] .prepared-sidebar-details { border-bottom: 0; }

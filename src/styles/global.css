@@ -7649,9 +7649,13 @@ textarea:focus-visible {
   text-align: left;
   cursor: pointer;
 }
-.queue-participant-button:hover:not(:disabled) {
-  border-color: var(--line);
-  background: var(--bg);
+/* Mouse only: on touch, :hover sticks to the last tapped row and reads as a
+   second selection next to the real one. */
+@media (hover: hover) {
+  .queue-participant-button:hover:not(:disabled) {
+    border-color: var(--line);
+    background: var(--bg);
+  }
 }
 .queue-participant-button:focus-visible {
   outline: 2px solid var(--ring);
@@ -14988,8 +14992,11 @@ html:has(.finish-dialog[open]) {
 }
 /* Native scrolling with quiet edge shadows and a stable gutter. The grip itself is a .quiet-scroll grip. */
 .mistake-panel .log, .mistake-panel .history-scroll {
-  scrollbar-gutter: stable both-edges;
-  padding-inline: 2px;
+  /* One stable gutter plus matching start padding keeps rows centred.
+     "both-edges" made Chromium clip 8px off each card once the list
+     scrolled (seen at 1024 x 768), so the mirror is done with padding. */
+  scrollbar-gutter: stable;
+  padding-inline: 10px 2px;
   background:
     linear-gradient(var(--surface) 30%, transparent) center top / 100% 24px local,
     linear-gradient(transparent, var(--surface) 70%) center bottom / 100% 24px local,
