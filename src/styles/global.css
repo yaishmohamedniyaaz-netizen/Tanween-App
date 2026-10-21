@@ -40,18 +40,16 @@
 
 /* ---- Tokens ---- */
 :root {
-  --bg: #f2f1ee;
-  --surface: #ffffff;
+  --bg: #f3f2ee;
+  --surface: #fdfcf9;
   --page-paper: #fbfaf7;
-  --ink: #1a1a1c;
-  --ink-2: #62626a;
-  /* 5.35:1 on --surface and 4.74:1 on --bg. The previous #9b9ba3 measured
-     2.76:1 and 2.44:1, roughly half the contrast WCAG AA asks of body text,
-     and it carries most of the secondary text in the app. */
-  --ink-3: #6a6a73;
-  --line: rgba(26, 26, 28, 0.08);
-  --line-2: rgba(26, 26, 28, 0.16);
-  --ring: rgba(85, 102, 230, 0.35);
+  --ink: #1e1a14;
+  --ink-2: #67625c;
+  /* 5.22:1 on --surface and 4.78:1 on --bg; measured by claude-contrast.mjs. */
+  --ink-3: #6f6a64;
+  --line: rgba(30, 26, 20, 0.08);
+  --line-2: rgba(30, 26, 20, 0.16);
+  --ring: #3358d4;
   --mushaf-ink: #1c1b16;
   --question-context-ink: color-mix(
     in srgb,
@@ -71,8 +69,8 @@
   --gold: #b3892f;
   /* Holding a word is not yet a verdict, so it stays neutral. Colour on the
      page belongs to the criteria alone. */
-  --hold-wash: rgba(26, 26, 28, 0.06);
-  --hold-wash-strong: rgba(26, 26, 28, 0.11);
+  --hold-wash: rgba(30, 26, 20, 0.06);
+  --hold-wash-strong: rgba(30, 26, 20, 0.11);
 
   --r-sm: 8px;
   --r-md: 12px;
@@ -101,12 +99,12 @@
   /* Minimum hit area for a control pressed during a live recitation. */
   --tap: 44px;
 
-  --shadow-rest: 0 1px 2px rgba(26, 26, 28, 0.05);
-  --shadow-float: 0 12px 32px rgba(26, 26, 28, 0.14), 0 2px 8px rgba(26, 26, 28, 0.08);
-  --selector-filter: drop-shadow(0 12px 24px rgba(26, 26, 28, 0.14))
-    drop-shadow(0 2px 4px rgba(26, 26, 28, 0.08));
-  --selection-fill: rgba(26, 26, 28, 0.055);
-  --selection-ring: rgba(26, 26, 28, 0.42);
+  --shadow-rest: 0 1px 2px rgba(30, 26, 20, 0.05);
+  --shadow-float: 0 12px 32px rgba(30, 26, 20, 0.14), 0 2px 8px rgba(30, 26, 20, 0.08);
+  --selector-filter: drop-shadow(0 12px 24px rgba(30, 26, 20, 0.14))
+    drop-shadow(0 2px 4px rgba(30, 26, 20, 0.08));
+  --selection-fill: rgba(30, 26, 20, 0.055);
+  --selection-ring: rgba(30, 26, 20, 0.42);
 
   --num: "Nunito Sans", var(--ui);
   --ui: "Manrope", "InterVar", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
@@ -117,16 +115,16 @@
 
 [data-theme="dark"] {
   color-scheme: dark;
-  --bg: #131316;
-  --surface: #1c1c20;
+  --bg: #151413;
+  --surface: #1e1e1d;
   --page-paper: #211f1c;
-  --ink: #ebebed;
-  --ink-2: #a4a4ac;
-  /* 5.03:1 on --surface, 5.50:1 on --bg; the previous #6f6f77 sat at 3.41:1. */
-  --ink-3: #8b8b95;
+  --ink: #f0eae3;
+  --ink-2: #a9a49d;
+  /* 4.95:1 on --surface and 5.46:1 on --bg; measured by claude-contrast.mjs. */
+  --ink-3: #918b84;
   --line: rgba(255, 255, 255, 0.08);
   --line-2: rgba(255, 255, 255, 0.16);
-  --ring: rgba(120, 135, 255, 0.45);
+  --ring: #7f95f0;
   --mushaf-ink: #eae7de;
   --question-context-ink: color-mix(
     in srgb,
@@ -156,25 +154,26 @@
 
 /* Category colors — the only saturation in the app */
 .cat-jali {
-  --c: #d8453d;
+  --c: #ca244d;
   --c-strong: #9e2820;
   --c-tint: #fcecea;
-  --c-wash: rgba(216, 69, 61, 0.14);
-  --c-wash-strong: rgba(216, 69, 61, 0.3);
+  --c-wash: rgba(202, 36, 77, 0.14);
+  --c-wash-strong: rgba(202, 36, 77, 0.3);
 }
 .cat-khafi {
-  --c: #c0892a;
+  --c: #d58e3a;
+  --c-on: #1e1a14;
   --c-strong: #7c540e;
   --c-tint: #faf2dc;
-  --c-wash: rgba(192, 137, 42, 0.16);
-  --c-wash-strong: rgba(192, 137, 42, 0.34);
+  --c-wash: rgba(213, 142, 58, 0.16);
+  --c-wash-strong: rgba(213, 142, 58, 0.34);
 }
 .cat-fasaha {
-  --c: #5566e6;
+  --c: #3358d4;
   --c-strong: #2f3aa3;
   --c-tint: #eceefb;
-  --c-wash: rgba(85, 102, 230, 0.13);
-  --c-wash-strong: rgba(85, 102, 230, 0.28);
+  --c-wash: rgba(51, 88, 212, 0.13);
+  --c-wash-strong: rgba(51, 88, 212, 0.28);
 }
 /* A chosen chip is filled with --c and lettered in --surface, so --c has to
    carry white. #2e9e83 sat at OKLCH L 63, where white measures 3.32:1 and
@@ -191,15 +190,18 @@
   --c-wash-strong: rgba(55, 123, 96, 0.3);
 }
 [data-theme="dark"] .cat-jali {
-  --c-tint: rgba(216, 69, 61, 0.18);
+  --c-tint: rgba(202, 36, 77, 0.18);
   --c-strong: #f0a8a2;
 }
 [data-theme="dark"] .cat-khafi {
-  --c-tint: rgba(192, 137, 42, 0.2);
+  --c-tint: rgba(213, 142, 58, 0.2);
   --c-strong: #e6c07a;
 }
 [data-theme="dark"] .cat-fasaha {
-  --c-tint: rgba(110, 124, 240, 0.2);
+  --c: #385edb;
+  --c-wash: rgba(56, 94, 219, 0.13);
+  --c-wash-strong: rgba(56, 94, 219, 0.28);
+  --c-tint: rgba(56, 94, 219, 0.2);
   --c-strong: #aeb8f6;
 }
 [data-theme="dark"] .cat-adu-raagu {
@@ -3219,9 +3221,9 @@ textarea:focus-visible {
   gap: 16px;
   margin-top: 10px;
   padding: 12px 13px;
-  border: 1px solid rgba(192, 137, 42, 0.3);
+  border: 1px solid rgba(213, 142, 58, 0.3);
   border-radius: var(--r-sm);
-  background: rgba(192, 137, 42, 0.07);
+  background: rgba(213, 142, 58, 0.07);
 }
 .roster-draft-resume > span {
   display: grid;
@@ -3546,8 +3548,8 @@ textarea:focus-visible {
   color: #96322c;
 }
 .roster-inline-message.is-warning {
-  border-color: rgba(192, 137, 42, 0.26);
-  background: rgba(192, 137, 42, 0.07);
+  border-color: rgba(213, 142, 58, 0.26);
+  background: rgba(213, 142, 58, 0.07);
   color: #7c540e;
 }
 [data-theme="dark"] .roster-inline-message,
@@ -3640,9 +3642,9 @@ textarea:focus-visible {
 .roster-import-resolver {
   margin-top: 12px;
   padding: 13px;
-  border: 1px solid rgba(192, 137, 42, 0.3);
+  border: 1px solid rgba(213, 142, 58, 0.3);
   border-radius: var(--r-sm);
-  background: rgba(192, 137, 42, 0.06);
+  background: rgba(213, 142, 58, 0.06);
 }
 .roster-import-resolver-head {
   display: flex;
@@ -3673,7 +3675,7 @@ textarea:focus-visible {
 .roster-import-resolver-head > b {
   padding: 5px 8px;
   border-radius: 999px;
-  background: rgba(192, 137, 42, 0.12);
+  background: rgba(213, 142, 58, 0.12);
   color: #805a16;
   font-size: 9.5px;
   font-weight: 600;
@@ -3690,7 +3692,7 @@ textarea:focus-visible {
   align-items: center;
   gap: 8px;
   padding-top: 8px;
-  border-top: 1px solid rgba(192, 137, 42, 0.18);
+  border-top: 1px solid rgba(213, 142, 58, 0.18);
 }
 .roster-import-resolution-list > div > span {
   display: grid;
@@ -6714,7 +6716,7 @@ textarea:focus-visible {
 }
 .icon-btn:hover {
   color: #9e2820;
-  background: rgba(216, 69, 61, 0.1);
+  background: rgba(202, 36, 77, 0.1);
 }
 .log-undo {
   margin-left: auto;
@@ -6729,7 +6731,7 @@ textarea:focus-visible {
 }
 .log-undo:hover {
   color: #9e2820;
-  background: rgba(216, 69, 61, 0.08);
+  background: rgba(202, 36, 77, 0.08);
 }
 .empty {
   font-size: 13px;

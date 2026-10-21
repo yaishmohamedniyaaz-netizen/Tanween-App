@@ -602,12 +602,9 @@ test("holding a word is neutral; only a criterion colours the page", () => {
   assert.equal(holdWashes.length, 4, "a light and a dark pair");
   for (const wash of holdWashes) {
     const [r, g, b] = wash.match(/[\d.]+/g).map(Number);
-    // The washes are the app's own ink, which leans two points cool by design.
-    // Anything wider than that is a hue, and a hue here would read as a verdict.
-    assert.ok(
-      Math.max(r, g, b) - Math.min(r, g, b) <= 4,
-      `${wash} must carry no visible hue`,
-    );
+    // Warm neutral interface ink in light mode; white in dark mode.
+    // These must not become any of the saturated criterion colours.
+    assert.deepEqual([r, g, b], r === 255 ? [255, 255, 255] : [30, 26, 20]);
   }
 
   // Dragging onto a pill still paints the criterion's own colour.
