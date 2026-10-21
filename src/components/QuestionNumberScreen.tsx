@@ -58,7 +58,7 @@ export function QuestionNumberScreen({
       )}
 
       {participant && division && loading && !loadFailed ? (
-        <div className="question-choice-state">
+        <div className="question-choice-state" role="status">
           <span className="loading-spinner" /> Preparing question numbers…
         </div>
       ) : participant && division ? (

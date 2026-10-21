@@ -167,7 +167,8 @@ test("a draw opens a locked, recoverable Prepared Mushaf before judging", () => 
 
 test("finishing a reciter moves directly to the next reciter-queue choice", () => {
   assert.match(appSource, /const hasNextReciter = state\.roster\.some/);
-  assert.match(appSource, /setStartOpen\(hasNextReciter\)/);
+  assert.match(appSource, /if \(hasNextReciter\) setFinishHandoff\(true\)/);
+  assert.match(appSource, /handoff=\{finishHandoff \? \(/);
   assert.match(appSource, /Finish recitation/);
   assert.match(finishSource, /Save and select next reciter/);
   assert.match(finishSource, /Save recitation/);

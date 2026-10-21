@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from "react";
 import { CATEGORY_BY_ID, isImpressionCategory } from "../config";
 import {
   computeScores,
@@ -85,15 +85,21 @@ export function FinishDialog({
   hasNextReciter,
   inputMode,
   recordingSummary,
+  handoff,
 }: {
   onCancel: () => void;
   onConfirm: () => void | Promise<void>;
   hasNextReciter: boolean;
   inputMode: AduRaaguInputMode;
   recordingSummary?: string;
+  handoff?: ReactNode;
 }) {
   const { state, dispatch } = useJudging();
   const [saveAttemptCount, setSaveAttemptCount] = useState(0);
+  const [saving, setSaving] = useState(false);
+  const [saveError, setSaveError] = useState("");
+  const savingRef = useRef(false);
+  const savingRecordingSummaryRef = useRef<string | undefined>(undefined);
   const saveAttempted = saveAttemptCount > 0;
   const dialogRef = useRef<HTMLDialogElement>(null);
   const bodyRef = useRef<HTMLDivElement>(null);
@@ -171,22 +177,41 @@ export function FinishDialog({
     };
   }, [firstMissing, saveAttemptCount]);
 
+  useLayoutEffect(() => {
+    if (bodyRef.current) bodyRef.current.inert = saving;
+    if (handoff) {
+      dialogRef.current?.querySelector<HTMLElement>("#reciter-start-title")?.focus({ preventScroll: true });
+    }
+  }, [saving, Boolean(handoff)]);
+
   const closeDialog = () => {
     if (dialogRef.current?.open) dialogRef.current.close();
   };
 
   const cancel = () => {
+    if (savingRef.current) return;
     closeDialog();
     onCancel();
   };
 
-  const confirm = () => {
+  const confirm = async () => {
+    if (savingRef.current) return;
     if (missing.length > 0) {
       setSaveAttemptCount((attempts) => attempts + 1);
       return;
     }
-    closeDialog();
-    void onConfirm();
+    savingRef.current = true;
+    savingRecordingSummaryRef.current = recordingSummary;
+    setSaving(true);
+    setSaveError("");
+    try {
+      await onConfirm();
+    } catch {
+      setSaveError("Could not save. Your marks are still here. Please try again.");
+    } finally {
+      savingRef.current = false;
+      setSaving(false);
+    }
   };
 
   const containFocus = (event: React.KeyboardEvent<HTMLDialogElement>) => {
@@ -195,15 +220,18 @@ export function FinishDialog({
     if (!dialog) return;
     const focusable = Array.from(
       dialog.querySelectorAll<HTMLElement>(
-        'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
+      'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
       ),
-    ).filter((element) => element.getClientRects().length > 0);
+    ).filter((element) => element.getClientRects().length > 0 && !element.closest("[inert]"));
     const first = focusable[0];
     const last = focusable[focusable.length - 1];
     const active = document.activeElement;
-    if (!first || !last) return;
+    if (!first || !last) {
+      event.preventDefault();
+      return;
+    }
 
-    if (event.shiftKey && (active === first || active === headingRef.current)) {
+    if (event.shiftKey && (active === first || active === headingRef.current || active?.id === "reciter-start-title")) {
       event.preventDefault();
       last.focus();
     } else if (!event.shiftKey && active === last) {
@@ -215,14 +243,16 @@ export function FinishDialog({
   return (
     <dialog
       ref={dialogRef}
-      className="dialog finish-dialog"
-      aria-labelledby="finish-title"
+      className={`dialog finish-dialog ${handoff ? "is-queue-handoff" : ""}`}
+      aria-labelledby={handoff ? "reciter-start-title" : "finish-title"}
+      aria-busy={saving || undefined}
       onKeyDown={containFocus}
       onCancel={(event) => {
         event.preventDefault();
         cancel();
       }}
     >
+      {handoff ?? <>
       <header className="finish-dialog-head">
         <div className="finish-heading-copy">
           <h2 className="dialog-title" id="finish-title" ref={headingRef} tabIndex={-1}>
@@ -233,7 +263,9 @@ export function FinishDialog({
             {questionLabel && <span>{questionLabel}</span>}
             {assignment && <span>{judgeDisplayName(assignment)}</span>}
             <span>{mistakeLabel}</span>
-            {recordingSummary && <span>{recordingSummary}</span>}
+            {(saving ? savingRecordingSummaryRef.current : recordingSummary) && (
+              <span>{saving ? savingRecordingSummaryRef.current : recordingSummary}</span>
+            )}
           </div>
         </div>
         {missing.length > 0 ? (
@@ -344,16 +376,19 @@ export function FinishDialog({
             </dl>
           </section>
         )}
+        {saveError && <p className="finish-save-error" role="alert">{saveError}</p>}
       </div>
 
       <div className="dialog-actions finish-dialog-actions">
-        <button type="button" className="btn-ghost" onClick={cancel}>
+        <button type="button" className="btn-ghost" disabled={saving} onClick={cancel}>
           Keep judging
         </button>
-        <button type="button" className="btn-primary" onClick={confirm}>
-          {hasNextReciter ? "Save and select next reciter" : "Save recitation"}
+        <button type="button" className="btn-primary" disabled={saving} onClick={() => void confirm()}>
+          <span className="finish-save-label">{hasNextReciter ? "Save and select next reciter" : "Save recitation"}</span>
+          {saving && <span className="finish-saving-status" role="status">Saving…</span>}
         </button>
       </div>
+      </>}
     </dialog>
   );
 }

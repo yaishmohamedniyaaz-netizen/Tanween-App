@@ -4812,7 +4812,8 @@ textarea:focus-visible {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  min-height: 280px;
+  grid-area: 1 / 1 / -1 / -1;
+  min-height: 0;
   padding: 28px;
   color: var(--ink-3);
   font-size: 10.5px;
@@ -9816,7 +9817,17 @@ html:has(.dialog-backdrop) {
 
 /* ---- Stable desktop Mushaf stage ----
    The app shell owns the available height; the observed frame owns Fit. */
+@media (min-width: 601px) {
+  /* Starting / ending appears at Begin in production with a 44px hit target.
+     Reserve its height while prepared too, so the header cannot resize Fit. */
+  .app.view-judge .app-header:has(.reciter-chip) {
+    min-height: calc(44px + 20px + 1px);
+  }
+}
 @media (min-width: 901px) and (min-height: 620px) {
+  .app.view-judge .app-header:has(.reciter-chip) {
+    min-height: calc(44px + 8px + 1px);
+  }
   .app.view-judge {
     display: grid;
     grid-template-rows: auto minmax(0, 1fr);
@@ -11195,6 +11206,52 @@ html:has(.finish-dialog[open]) {
 .finish-dialog-actions .btn-primary,
 .finish-dialog-actions .btn-ghost {
   min-height: 44px;
+}
+.finish-dialog-actions .btn-primary { position: relative; }
+.finish-dialog[aria-busy="true"] .finish-save-label { visibility: hidden; }
+.finish-saving-status { position: absolute; inset: 0; display: grid; place-items: center; }
+.finish-save-error { margin: 0; padding-block: 12px; font-size: 14px; }
+/* Review and next-reciter selection share one native modal and backdrop. */
+.finish-dialog.is-queue-handoff {
+  display: block;
+  width: min(920px, calc(100vw - 40px));
+  max-width: none;
+  padding: 0;
+  transition: none !important;
+  position: fixed;
+  inset: 16px 20px auto;
+  margin: 0 auto;
+}
+.finish-dialog.is-queue-handoff::backdrop { background: var(--bg); }
+.finish-dialog .reciter-start-backdrop.is-embedded {
+  position: static; padding: 0; background: transparent;
+  backdrop-filter: none; -webkit-backdrop-filter: none; animation: none;
+}
+.finish-dialog .is-embedded .reciter-start-dialog {
+  width: 100%; max-height: calc(100dvh - 32px);
+  border: 0; box-shadow: none;
+  animation: save-queue-in 120ms var(--ease-out) both;
+}
+.finish-dialog .is-embedded #reciter-start-title:focus { outline: none; }
+@keyframes save-queue-in { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  .finish-dialog .is-embedded .reciter-start-dialog { animation: none !important; }
+}
+@media (max-width: 700px) and (orientation: portrait) {
+  .finish-dialog.is-queue-handoff {
+    width: calc(100vw - 16px);
+    height: calc(100dvh - max(8px, env(safe-area-inset-top, 0px)) - max(8px, env(safe-area-inset-bottom, 0px)));
+    max-height: none;
+    inset: max(8px, env(safe-area-inset-top, 0px)) 8px auto;
+  }
+  .finish-dialog.is-queue-handoff .is-embedded,
+  .finish-dialog.is-queue-handoff .reciter-start-dialog { height: 100%; max-height: none; }
+  .finish-dialog.is-queue-handoff:has(.stage-draw),
+  .finish-dialog.is-queue-handoff:has(.stage-draw) .is-embedded,
+  .finish-dialog.is-queue-handoff .reciter-start-dialog.stage-draw {
+    height: auto;
+    max-height: calc(100dvh - max(8px, env(safe-area-inset-top, 0px)) - max(8px, env(safe-area-inset-bottom, 0px)));
+  }
 }
 @media (max-width: 600px) {
   .finish-dialog {
@@ -14652,12 +14709,6 @@ html:has(.finish-dialog[open]) {
     justify-content: center;
   }
 
-  .app[data-mobile-judge-deck="true"] .finish-score-value .mark-picker {
-    width: 78px;
-    padding-inline: 6px;
-    justify-content: center;
-  }
-
   .app[data-mobile-judge-deck="true"] .finish-dialog-actions {
     min-height: 64px;
     padding: 10px 16px 12px;
@@ -14810,39 +14861,19 @@ html:has(.finish-dialog[open]) {
 .compact-text-dialog textarea { box-sizing: border-box; width: 100%; min-height: 120px; padding: 12px; border: 1px solid var(--line-2); border-radius: var(--r-sm); background: var(--bg); color: var(--ink); font: inherit; resize: vertical; }
 .compact-text-dialog :focus-visible { outline: 2px solid var(--ink-2); outline-offset: 2px; }
 /* Keep the scoring hit target generous while making its visible box discreet. */
-.sidebar .mark-picker,
-.finish-score-value .mark-picker {
+.sidebar .mark-picker {
   position: relative; width: 56px; min-height: 44px;
   padding: 0 4px; border: 0; background: transparent; box-shadow: none;
 }
-.sidebar .mark-picker::before,
-.finish-score-value .mark-picker::before {
+.sidebar .mark-picker::before {
   content: ''; position: absolute; inset: 9px 0; pointer-events: none;
   border: 1px solid var(--line-2); border-radius: 5px;
 }
 .sidebar .mark-picker:hover::before,
-.sidebar .mark-picker.is-open::before,
-.finish-score-value .mark-picker:hover::before,
-.finish-score-value .mark-picker.is-open::before { border-color: var(--ink-2); }
-.sidebar .mark-picker.is-open,
-.finish-score-value .mark-picker.is-open { background: transparent; box-shadow: none; }
-.finish-score-value .mark-picker { width: 56px; flex-shrink: 0; }
-@media (max-width: 600px) and (orientation: portrait) {
-  .finish-score-value .mark-picker {
-    width: 78px; padding: 6px; border: 1px solid var(--line-2);
-    background: var(--surface);
-  }
-  .finish-score-value .mark-picker::before { content: none; }
-  .finish-score-value .mark-picker:hover { border-color: var(--ink-3); }
-  .finish-score-value .mark-picker.is-open {
-    border-color: var(--ink); background: var(--surface);
-    box-shadow: inset 0 0 0 1px var(--ink);
-  }
-}
+.sidebar .mark-picker.is-open::before { border-color: var(--ink-2); }
+.sidebar .mark-picker.is-open { background: transparent; box-shadow: none; }
 /* Share score-column centering and first-row rhythm with the read-only criteria. */
 @media (min-width: 901px) {
-  .finish-score-value .mark-picker { width: 64px; }
-  .finish-score-value .mark-picker::before { inset: 9px 4px; }
   .sidebar .sc-row-impression .mark-picker {
     width: 100%; height: 44px; min-height: 44px; align-self: center;
     justify-self: stretch; padding: 0; gap: 2px;
@@ -15005,6 +15036,17 @@ html:has(.finish-dialog[open]) {
 }
 .log-detail-line .log-adjust { flex: 0 0 auto; }
 .log-detail-line .step-btn:focus-visible { outline: 2px solid var(--ink-3); outline-offset: 1px; }
+.log-locate { display: none; }
+@media (max-width: 900px) {
+  .sidebar .mistake-panel:not(.is-expanded) .log-locate {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-height: 44px; min-width: 44px; padding: 0 8px;
+    border: 0; border-radius: var(--r-sm); background: transparent;
+    color: var(--ink-2); font: inherit; font-size: var(--t-small);
+    cursor: pointer;
+  }
+  .sidebar .mistake-panel:not(.is-expanded) .log-locate:hover { background: var(--bg); }
+}
 @media (prefers-reduced-motion: reduce) {
   .mistake-panel :is(.log-chevron, .log-expand, .log-expand-inner, .log-summary, .log-kalimah-word, .log-head-adjust) {
     transition: none !important;
@@ -15038,12 +15080,26 @@ html:has(.finish-dialog[open]) {
   padding-block: 0;
   min-height: 44px;
 }
-.scorecard .sc-row-impression .mark-picker {
+.scorecard .sc-row-impression .mark-picker,
+.finish-score-value .mark-picker {
   position: relative;
   width: 100%; height: 44px; min-height: 44px;
   padding: 0 8px; gap: 4px; align-self: center;
 }
 .scorecard .sc-row-impression .mark-picker::before { inset: 8px 0; }
+/* Review uses the same mark box as the scorecard, including decimal values. */
+.finish-score-value .mark-picker {
+  box-sizing: border-box; flex: 0 0 80px; width: 80px;
+  display: flex; justify-content: center; align-items: center;
+  border: 0; background: transparent; box-shadow: none;
+}
+.finish-score-value .mark-picker-value { font-size: 15px; }
+.finish-score-value .mark-picker::before {
+  content: ''; position: absolute; inset: 8px 0; pointer-events: none;
+  border: 1px solid var(--line-2); border-radius: var(--r-sm);
+}
+.finish-score-value .mark-picker:hover::before,
+.finish-score-value .mark-picker.is-open::before { border-color: var(--ink-2); }
 .scorecard .sc-total-value { gap: 4px; padding-right: 4px; }
 .scorecard .sc-total-of { font-size: 12px; }
 @media (min-width: 901px) {
@@ -15070,6 +15126,70 @@ html:has(.finish-dialog[open]) {
   }
   .mobile-score-sheet .scorecard .mark-picker:hover::before,
   .mobile-score-sheet .scorecard .mark-picker.is-open::before { border-color: var(--ink); }
+}
+
+/* Queue entry and stage changes keep text at its final geometry. */
+.reciter-start-body:has(.question-opening-status) { position: relative; }
+.question-opening-status {
+  position: absolute; inset: 0; z-index: 2;
+  display: flex; align-items: center; justify-content: center; gap: 12px;
+  background: color-mix(in srgb, var(--surface) 94%, transparent);
+  border-radius: inherit; font-size: var(--t-body); color: var(--ink-2);
+  /* Cached pages reveal immediately; only slower loads need a visible status. */
+  animation: question-opening-status 0s 200ms both;
+}
+.question-opening-status[role="alert"] { animation: none; }
+@keyframes question-opening-status { from { visibility: hidden; } to { visibility: visible; } }
+.reciter-queue-modal {
+  width: 100%; max-width: none; height: 100dvh; max-height: none;
+  margin: 0; padding: 0; border: 0; background: transparent; overflow: hidden;
+}
+.reciter-queue-modal:not([open]) { display: none; }
+.reciter-queue-modal::backdrop {
+  background: color-mix(in srgb, var(--bg) 55%, transparent);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+}
+.reciter-queue-modal > .reciter-start-backdrop {
+  align-items: start; padding: 16px 20px; overflow: hidden;
+  background: transparent; backdrop-filter: none; -webkit-backdrop-filter: none;
+  animation: none; transition: none !important;
+}
+.reciter-queue-modal .reciter-start-dialog {
+  width: min(920px, calc(100vw - 40px));
+  max-height: min(820px, calc(100dvh - 32px));
+  animation: save-queue-in 120ms var(--ease-out) both;
+  transition: none !important;
+}
+.reciter-start-dialog:is(.stage-participant, .stage-draw) .reciter-start-head {
+  min-height: 72px; padding: 17px 60px 15px 26px;
+}
+.reciter-start-dialog #reciter-start-title:focus { outline: none; }
+.reciter-queue-stage { height: 100%; min-height: 0; }
+.reciter-start-dialog.has-changed-stage > .reciter-start-body > :not([hidden]) {
+  animation: save-queue-in 120ms var(--ease-out) both;
+}
+@media (max-width: 700px) and (orientation: portrait) {
+  .reciter-queue-modal > .reciter-start-backdrop {
+    padding: max(8px, env(safe-area-inset-top, 0px)) 8px max(8px, env(safe-area-inset-bottom, 0px));
+    place-items: start center;
+  }
+  .reciter-queue-modal .reciter-start-dialog {
+    width: 100%;
+    max-height: calc(100dvh - max(8px, env(safe-area-inset-top, 0px)) - max(8px, env(safe-area-inset-bottom, 0px)));
+  }
+  .reciter-queue-modal .reciter-start-dialog.stage-draw { height: auto; }
+  .reciter-start-dialog:is(.stage-participant, .stage-draw) .reciter-start-head {
+    min-height: 56px; padding: 12px 54px 10px 14px;
+  }
+  .reciter-start-dialog:is(.stage-participant, .stage-draw) .dialog-close {
+    top: 8px; right: 8px; width: 44px; height: 44px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .reciter-start-dialog, .reciter-start-dialog * { transition: none !important; }
+  .reciter-queue-modal .reciter-start-dialog,
+  .reciter-start-dialog.has-changed-stage > .reciter-start-body > :not([hidden]),
+  .reciter-start-dialog .loading-spinner { animation: none !important; }
 }
 
 /* Review keeps the background rail and tile scale stable. */

@@ -80,8 +80,14 @@ function SetupAccordionPanel({
     shell.inert = !open;
     if (open) setPresent(true);
     const finish = () => {
-      shell.style.removeProperty('height');
-      shell.style.removeProperty('opacity');
+      if (open) {
+        shell.style.removeProperty('height');
+        shell.style.removeProperty('opacity');
+      } else {
+        // Keep the final closed frame until React removes the content.
+        shell.style.height = '0px';
+        shell.style.opacity = '0';
+      }
       animationRef.current = null;
       if (!open) setPresent(false);
     };
@@ -97,13 +103,13 @@ function SetupAccordionPanel({
     ], {duration: 200, easing: 'cubic-bezier(0.25,1,0.5,1)', fill: 'both'});
     animationRef.current = effect;
     const reduce = () => {
-      if (motion.matches && animationRef.current === effect) { effect.cancel(); finish(); }
+      if (motion.matches && animationRef.current === effect) { finish(); effect.cancel(); }
     };
     motion.addEventListener('change', reduce);
     void effect.finished.then(() => {
       if (animationRef.current !== effect) return;
-      effect.cancel();
       finish();
+      effect.cancel();
     }, () => {});
     return () => {
       motion.removeEventListener('change', reduce);
@@ -252,19 +258,35 @@ function categoryErrors(divisions: CompetitionDivision[]): Record<string, string
   return errors;
 }
 
+export interface SetupReturnPoint {
+  competitionId: string;
+  task: 'participants' | 'question-bank';
+  control: 'participant-list' | 'participant-resume' | 'question-workspace';
+  scrollTop: number;
+  controlOffset: number;
+  participantDefaultsOpen: boolean;
+  restore: boolean;
+}
+
 export function CompetitionSetup({
   onBack,
   onOpenQuestionWorkspace,
+  returnPointRef,
 }: {
   onBack: () => void;
   onOpenQuestionWorkspace: () => void;
+  returnPointRef: { current: SetupReturnPoint | null };
 }) {
   const { state, dispatch } = useJudging();
+  const returnPoint = returnPointRef.current;
   const [activeTask, setActiveTask] = useState<SetupTask | null>(
-    state.competition.isSample || state.competition.status !== "draft"
+    returnPoint?.restore && returnPoint.competitionId === state.competition.id
+      ? returnPoint.task
+      : state.competition.isSample || state.competition.status !== "draft"
       ? "review"
       : "details",
   );
+  const setupMainRef = useRef<HTMLElement>(null);
   const taskTriggerRefs = useRef<
     Partial<Record<SetupTask, HTMLButtonElement | null>>
   >({});
@@ -301,6 +323,49 @@ export function CompetitionSetup({
   const [rosterMessage, setRosterMessage] = useState("");
   const [rosterEditorOpen, setRosterEditorOpen] = useState(false);
   const [institutionDraft, setInstitutionDraft] = useState("");
+
+  useLayoutEffect(() => {
+    const point = returnPointRef.current;
+    const main = setupMainRef.current;
+    if (rosterEditorOpen || !main || !point?.restore) return;
+    returnPointRef.current = null;
+    if (point.competitionId !== state.competition.id) return;
+    cancelAnimationFrame(anchorFrame.current);
+    const defaults = main.querySelector<HTMLDetailsElement>('.participant-entry-disclosure');
+    if (defaults) defaults.open = point.participantDefaultsOpen;
+    main.scrollTop = point.scrollTop;
+    const control = main.querySelector<HTMLButtonElement>(`[data-setup-return-control="${point.control}"]`)
+      ?? main.querySelector<HTMLButtonElement>('[data-setup-return-control="participant-list"]')
+      ?? taskTriggerRefs.current[point.task];
+    if (control) {
+      // Draft notices or a resized window can change the content above the control.
+      const offset = Math.max(0, Math.min(point.controlOffset, main.clientHeight - control.offsetHeight));
+      main.scrollTop += control.getBoundingClientRect().top - main.getBoundingClientRect().top - offset;
+      control.focus({ preventScroll: true });
+    }
+  }, [rosterEditorOpen, returnPointRef, state.competition.id]);
+
+  const rememberWorkspaceReturn = (task: SetupReturnPoint['task'], control: SetupReturnPoint['control']) => {
+    const main = setupMainRef.current;
+    const button = main?.querySelector<HTMLButtonElement>(`[data-setup-return-control="${control}"]`);
+    if (!main || !button) return;
+    cancelAnimationFrame(anchorFrame.current);
+    returnPointRef.current = {
+      competitionId: state.competition.id, task, control,
+      scrollTop: main.scrollTop,
+      controlOffset: button.getBoundingClientRect().top - main.getBoundingClientRect().top,
+      participantDefaultsOpen: Boolean(main.querySelector('.participant-entry-disclosure[open]')),
+      restore: false,
+    };
+  };
+  const openRosterEditor = (control: SetupReturnPoint['control']) => {
+    rememberWorkspaceReturn('participants', control);
+    setRosterEditorOpen(true);
+  };
+  const returnFromRosterEditor = () => {
+    if (returnPointRef.current) returnPointRef.current.restore = true;
+    setRosterEditorOpen(false);
+  };
 
   const recitationInProgress =
     state.sessionActive || Boolean(state.preparedRecitation);
@@ -894,7 +959,7 @@ export function CompetitionSetup({
           {state.rosterDraft && (
             <div className="roster-draft-resume" role="status">
               <span><i aria-hidden="true" /><strong>Participant draft saved</strong><small>{state.rosterDraft.rows.length} row{state.rosterDraft.rows.length === 1 ? "" : "s"} waiting for review on this device.</small></span>
-              <button type="button" className="btn-ghost" onClick={() => setRosterEditorOpen(true)}>Resume draft</button>
+              <button type="button" className="btn-ghost" data-setup-return-control="participant-resume" onClick={() => openRosterEditor('participant-resume')}>Resume draft</button>
             </div>
           )}
           <div className="roster-setup-paths">
@@ -904,7 +969,7 @@ export function CompetitionSetup({
           </div>
           {editable && (
             <div className="roster-setup-primary">
-              <button type="button" className="btn-primary" onClick={() => setRosterEditorOpen(true)}>
+              <button type="button" className="btn-primary" data-setup-return-control="participant-list" onClick={() => openRosterEditor('participant-list')}>
                 {state.rosterDraft ? "Resume participant list" : state.roster.length ? "Open participant list" : "Create participant list"}
                 <Icon name="chevron" size={15} />
               </button>
@@ -1059,7 +1124,7 @@ export function CompetitionSetup({
             <p>Prepare exact ayah-first passages on the real Mushaf. Drafts stay separate from official competition delivery.</p>
           </div>
           <div className="question-workspace-summary"><span><strong>{competitionDraftCount}</strong><small>prepared draft{competitionDraftCount === 1 ? "" : "s"}</small></span><span><strong>{state.competition.questionPolicy.mode === "manual" ? "Optional" : "Required"}</strong><small>{state.competition.questionPolicy.mode === "manual" ? "External questions remain allowed" : "Review before official use"}</small></span></div>
-          <button type="button" className="btn-primary question-workspace-open" onClick={onOpenQuestionWorkspace}>Open question workspace <Icon name="chevron" size={15} /></button>
+          <button type="button" className="btn-primary question-workspace-open" data-setup-return-control="question-workspace" onClick={() => { rememberWorkspaceReturn('question-bank', 'question-workspace'); onOpenQuestionWorkspace(); }}>Open question workspace <Icon name="chevron" size={15} /></button>
         </section>
       );
     }
@@ -1110,10 +1175,10 @@ export function CompetitionSetup({
   if (rosterEditorOpen) {
     return (
       <ParticipantRosterEditor
-        onBack={() => setRosterEditorOpen(false)}
+        onBack={returnFromRosterEditor}
         onApplied={(count) => {
           setRosterMessage(`${count} participants applied.`);
-          setRosterEditorOpen(false);
+          returnFromRosterEditor();
         }}
       />
     );
@@ -1128,7 +1193,7 @@ export function CompetitionSetup({
       : state.competition.name || "Competition setup";
   let lastGroup = "";
   return (
-    <main className="competition-setup-page">
+    <main ref={setupMainRef} className="competition-setup-page">
       <div className="setup-checklist-shell">
         <header className="setup-checklist-intro">
           {state.competition.status !== "draft" && <span>Setup</span>}

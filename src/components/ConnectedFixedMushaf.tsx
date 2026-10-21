@@ -34,6 +34,9 @@ export function ConnectedFixedMushaf(props: MushafProps) {
 function PreparedFixedMushaf(props: MushafProps) {
   const compact = useCompactMushafPages();
   const ready = props.preparedFixedPage;
+  useEffect(() => {
+    props.onPresentationError?.(props.navigationError ?? null, props.retryNavigation ?? (() => {}));
+  }, [props.navigationError, props.retryNavigation, props.onPresentationError]);
   if (!ready) return <div className="fixed-mushaf-loading">
     <div role={props.navigationError ? 'alert' : 'status'}>
       {props.navigationError || 'Loading Mushaf…'}
@@ -73,6 +76,9 @@ function LegacyFixedMushaf(props: MushafProps) {
   const compact = useCompactMushafPages();
   const visible = visibleMushafPages(props.page, props.pageLayout, compact);
   const fixed = useFixedMushafPages(visible);
+  useEffect(() => {
+    props.onPresentationError?.(fixed.error, fixed.retry);
+  }, [fixed.error, fixed.retry, props.onPresentationError]);
   if (!fixed.pages) return <div className="fixed-mushaf-loading">
     <div role={fixed.error ? 'alert' : 'status'}>
       {fixed.error || 'Loading Mushaf…'}
