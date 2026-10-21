@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import {createRequire} from 'node:module';
 import {mkdirSync,writeFileSync} from 'node:fs';
 const require=createRequire(import.meta.url);
-const {chromium}=require(process.env.PLAYWRIGHT_PATH||'C:/Users/idraw/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
+const {chromium}=require(process.env.PLAYWRIGHT_PATH||'playwright');
 const origin=process.env.QUESTION_REVEAL_URL||'http://127.0.0.1:5352/';
 const out=process.env.QUESTION_REVEAL_OUT||'outputs/question-reveal-fix';mkdirSync(out,{recursive:true});
 const browser=await chromium.launch({ignoreDefaultArgs:['--hide-scrollbars']});const results=[];
@@ -34,11 +34,11 @@ try{for(const [width,height,motion,network] of process.argv.includes('--slow')?[
   run.reveals.push({label,drift,frames});await page.screenshot({path:`${out}/${key}-${label}.png`});console.log(`PASS ${key} ${label} (${drift}px size drift)`);
  };
  try{
- await page.goto(origin,{waitUntil:'domcontentloaded'});await page.getByRole('button',{name:/Open competition setup/}).click();await page.getByRole('button',{name:'Start competition',exact:true}).click();await page.getByRole('button',{name:'Reciter queue',exact:true}).click();await page.locator('.next-reciter-main').click();await page.evaluate(()=>document.fonts.ready);intercept=true;
+ await page.goto(origin,{waitUntil:'domcontentloaded'});await page.getByRole('button',{name:/Open competition setup/}).click();await page.getByRole('button',{name:'Start competition',exact:true}).click();await page.getByRole('button',{name:'Reciter queue',exact:true}).click();await page.locator('.queue-choose').click();await page.evaluate(()=>document.fonts.ready);intercept=true;
  await choose(1,'first-question');intercept=false;
  await page.getByRole('button',{name:'Change question',exact:true}).click();await choose(2,'change-question');
  await page.getByRole('button',{name:'Begin judging',exact:true}).click();
- if(width>600){await page.getByRole('spinbutton',{name:'Adu / Raagu marks',exact:true}).focus();await page.keyboard.press('End');await page.getByRole('button',{name:'Finish recitation',exact:true}).click();await page.getByRole('button',{name:'Save and select next reciter',exact:true}).click();await page.locator('.next-reciter-main').click();await choose(3,'next-reciter');}
+ if(width>600){await page.getByRole('spinbutton',{name:'Adu / Raagu marks',exact:true}).focus();await page.keyboard.press('End');await page.getByRole('button',{name:'Finish recitation',exact:true}).click();await page.getByRole('button',{name:'Save and select next reciter',exact:true}).click();if(width>900)await page.getByRole('button',{name:'Choose question',exact:true}).click();else await page.locator('.queue-choose').click();await choose(3,'next-reciter');}
  assert.deepEqual(run.errors,[]);
  }catch(error){run.failure=String(error.stack||error);await page.screenshot({path:`${out}/${key}-failure.png`});console.log(`FAIL ${key}: ${error.message}`)}
  finally{writeFileSync(`${out}/results.json`,JSON.stringify(results,null,2));await context.close()}

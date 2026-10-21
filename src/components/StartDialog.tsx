@@ -386,8 +386,8 @@ export function StartDialog({
   const activeGroup = activeGroupFor(rosterGroups, participant?.id);
   const offerSearch = shouldOfferSearch(roster);
   const queueGroups = useMemo(
-    () => visibleRosterGroups(rosterGroups, participant?.id, search),
-    [rosterGroups, participant?.id, search],
+    () => visibleRosterGroups(rosterGroups, undefined, search),
+    [rosterGroups, search],
   );
 
   const content = (
@@ -436,8 +436,8 @@ export function StartDialog({
           </div>}
           <div className="reciter-queue-stage" hidden={stage !== "participant"}>
             <ParticipantSelectionScreen
-              recommended={participant}
-              recommendedDivision={division}
+              recommended={next}
+              preparedId={prepared?.participant.id}
               activeGroup={activeGroup}
               groups={queueGroups}
               participantCount={roster.length}

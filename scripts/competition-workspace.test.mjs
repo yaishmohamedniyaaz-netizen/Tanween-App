@@ -133,7 +133,7 @@ test("the live handoff uses quiet status text and two focused screens", () => {
   assert.match(appSource, /\? "is-idle" : ""/);
   assert.match(participantScreenSource, /Participant queue/);
   assert.match(participantScreenSource, /ParticipantIdentity/);
-  assert.match(participantScreenSource, /current\.has\(groupId\) \? new Set\(\) : new Set\(\[groupId\]\)/);
+  assert.match(participantScreenSource, /expanded\s*\?\s*new Set\(\)\s*:\s*new Set\(\[group\.id\]\)/);
   assert.match(participantIdentitySource, /participantContextLabel/);
   assert.match(participantIdentitySource, /participantNumberLabel/);
   assert.match(participantPresentationSource, /participant\.institution/);

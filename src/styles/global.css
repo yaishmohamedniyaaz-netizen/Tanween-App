@@ -15221,3 +15221,15 @@ html:has(.finish-dialog[open]) {
     grid-template-columns: var(--review-tile-size) minmax(0, 1fr) auto;
   }
 }
+/* One selection list, with actions outside the scroll region. */
+.reciter-selection-screen .queue-actions { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 8px; flex: 0 0 auto; padding-top: 12px; border-top: 1px solid var(--line); }
+.queue-actions button { min-height: 44px; white-space: normal; overflow-wrap: anywhere; }
+.queue-selection-status { grid-column: 1 / -1; color: var(--ink-2); font-size: var(--t-small); }
+.queue-selection-status:empty { display: none; }
+.queue-participant-button[aria-selected="true"] { background: var(--bg); border-color: var(--line); box-shadow: inset 3px 0 var(--ink); }
+.queue-status { padding: 4px 8px; border-radius: var(--r-sm); background: var(--bg); color: var(--ink-2); }
+.reciter-selection-screen .queue-group-title, .reciter-selection-screen .queue-group-toggle small { font-size: var(--t-micro); }
+@media (max-width: 600px) { .queue-actions { grid-template-columns: minmax(0,1fr) auto; } .queue-actions button { padding: 10px 12px; } .queue-group-toggle { gap: 8px; } .queue-group-toggle small { white-space: normal; text-align: right; } }
+.reciter-selection-screen .queue-scroll { padding-inline: 4px; }
+.queue-participant-button[aria-selected="true"] { position: relative; background: color-mix(in srgb, var(--ink) 5%, transparent); box-shadow: none; }
+.queue-participant-button[aria-selected="true"]::before { content: ""; position: absolute; inset-block: 8px; inset-inline-start: 2px; width: 3px; border-radius: 2px; background: var(--ink-2); }

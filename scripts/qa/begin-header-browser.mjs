@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import {createRequire} from 'node:module';
 import {mkdirSync,writeFileSync} from 'node:fs';
 const require=createRequire(import.meta.url);
-const {chromium}=require('C:/Users/idraw/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
+const {chromium}=require(process.env.PLAYWRIGHT_PATH || 'playwright');
 // The production header entry is opt-in on Vite dev: always exercise it here.
 const origin=process.env.BEGIN_QA_URL||'http://127.0.0.1:5346/?phraseHeader=1';
 const out=process.env.BEGIN_QA_OUT||'outputs/begin-header-fix';mkdirSync(out,{recursive:true});
@@ -27,7 +27,7 @@ try{
   await page.getByRole('button',{name:/Open competition setup/}).click();
   await page.getByRole('button',{name:'Start competition',exact:true}).click();
   await page.getByRole('button',{name:'Reciter queue',exact:true}).click();
-  await page.locator('.next-reciter-main').click();
+  await page.locator('.queue-choose').click();
   await page.getByRole('button',{name:'Number 1',exact:true}).click();
   const begin=page.getByRole('button',{name:'Begin judging',exact:true});await begin.waitFor();
   const summary=await page.locator('.prepared-sidebar-question-summary-full').textContent();
