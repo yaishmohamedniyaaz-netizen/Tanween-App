@@ -702,7 +702,11 @@ test("the mark ruler labels every whole mark and exposes half marks as minor tic
   assert.match(ruleBody(".mark-ruler-rail"), /inset: 58px 32px 30px/);
   assert.match(ruleBody(".mark-ruler-track"), /height: 4px/);
   assert.match(ruleBody(".mark-ruler-tick.is-whole"), /height: 16px/);
-  assert.match(ruleBody(".mark-ruler-tick"), /height: 8px/);
+  // Half marks are visible: 1.5 × 10px in --ink-3, notched where the fill covers them.
+  assert.match(ruleBody(".mark-ruler-tick"), /height: 10px/);
+  assert.match(ruleBody(".mark-ruler-tick"), /width: 1\.5px/);
+  assert.match(ruleBody(".mark-ruler-tick"), /background: var\(--ink-3\)/);
+  assert.match(pickerSource, /mark <= shown \? "is-filled" : ""/);
   assert.match(ruleBody(".mark-ruler-label"), /font-size: 12px/);
   assert.doesNotMatch(pickerSource, /role="radio"|data-mark|wholeChips/);
 });
@@ -771,10 +775,9 @@ test("the ruler snaps to half marks and commits only when the pointer is release
 test("the quiet ruler stays neutral until a mark is set or previewed", () => {
   assert.match(pickerSource, /const hasSelection = marked \|\| preview !== null/);
   assert.match(pickerSource, /\{hasSelection && <span className="mark-ruler-fill"/);
-  assert.match(
-    pickerSource,
-    /className=\{`mark-ruler-bubble \$\{hasSelection \? "is-active" : "is-neutral"\}`\}/,
-  );
+  // The bubble appears with the first value; far away it says a release will cancel.
+  assert.match(pickerSource, /!hasSelection && !cancelling \? "is-hidden" : ""/);
+  assert.match(pickerSource, /cancelling \? "Release to cancel" : display/);
   assert.match(ruleBody(".mark-ruler"), /background: var\(--surface\)/);
   assert.match(ruleBody(".mark-ruler-track"), /background: var\(--line-2\)/);
 });
@@ -787,7 +790,11 @@ test("the alternate input uses a floating tray without moving the score columns"
   assert.match(pickerSource, /Subtract \$\{displayMark\(fineStep\)\} marks/);
   assert.match(pickerSource, /Add \$\{displayMark\(fineStep\)\} marks/);
   assert.match(pickerSource, /Set full \$\{displayMark\(max\)\} marks/);
-  assert.match(pickerSource, /const triggerDisplay = mode === "stepper" && !marked \? "—" : display/);
+  // "—" until marked in both modes.
+  assert.match(pickerSource, /const triggerDisplay = !marked && \(mode === "stepper" \|\| preview === null\) \? "—" : display/);
+  // Holding − or + repeats.
+  assert.match(pickerSource, /MARK_REPEAT_DELAY_MS/);
+  assert.match(pickerSource, /\{\.\.\.repeatProps\(-fineStep\)\}/);
   assert.match(pickerSource, /mark-stepper-tray cat-\$\{category\}/);
   assert.match(pickerSource, /\{trigger\}/);
   assert.doesNotMatch(pickerSource, /stepperShift|translateX\(\$\{stepperShift\}|mark-stepper-value/);

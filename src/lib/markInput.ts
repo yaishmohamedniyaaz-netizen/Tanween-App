@@ -36,3 +36,29 @@ export function stepperMark(
   const baseline = marked ? value : max;
   return clampMark(baseline + delta, max, step);
 }
+
+/** How far a press may wander before it counts as a drag (Android "touch slop" is the same idea). */
+export const MARK_TAP_SLOP_PX = 8;
+/** How far above or below the ruler and its box the pointer may go before releasing cancels. */
+export const MARK_CANCEL_BAND_PX = 48;
+/** Holding − or + in the stepper: first repeat after this delay, then at this interval. */
+export const MARK_REPEAT_DELAY_MS = 400;
+export const MARK_REPEAT_INTERVAL_MS = 90;
+
+/** Whether a press has become a drag. Once it has, it stays a drag. */
+export function passedTapSlop(
+  start: { x: number; y: number },
+  point: { x: number; y: number },
+  slop = MARK_TAP_SLOP_PX,
+): boolean {
+  return Math.hypot(point.x - start.x, point.y - start.y) >= slop;
+}
+
+/** A release this far outside the control's vertical band changes nothing (WCAG 2.5.2). */
+export function isInCancelBand(
+  clientY: number,
+  band: { top: number; bottom: number },
+  margin = MARK_CANCEL_BAND_PX,
+): boolean {
+  return clientY < band.top - margin || clientY > band.bottom + margin;
+}

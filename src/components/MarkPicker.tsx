@@ -13,8 +13,12 @@ import { createPortal } from "react-dom";
 import type { AduRaaguInputMode } from "../lib/devicePreferences";
 import {
   clampMark,
+  isInCancelBand,
   MARK_INPUT_WHEEL_DELTA_THRESHOLD,
+  MARK_REPEAT_DELAY_MS,
+  MARK_REPEAT_INTERVAL_MS,
   markFromHorizontalPoint,
+  passedTapSlop,
   stepperMark,
 } from "../lib/markInput";
 import { awardableMarks } from "../lib/scoring";
@@ -73,7 +77,9 @@ export const MarkPicker = forwardRef<MarkPickerHandle, Props>(function MarkPicke
   const barRef = useRef<HTMLDivElement>(null);
   const rulerRef = useRef<HTMLDivElement>(null);
   const rulerRailRef = useRef<HTMLSpanElement>(null);
-  const rulerDragRef = useRef<{ moved: boolean; pointerId: number } | null>(null);
+  const rulerDragRef = useRef<{ moved: boolean; pointerId: number; x: number; y: number } | null>(null);
+  const cancelRef = useRef(false);
+  const repeatRef = useRef<{ timer: number; repeated: boolean } | null>(null);
   const inputWheelDeltaRef = useRef(0);
   const openedAtRef = useRef(0);
   const previewRef = useRef<number | null>(null);
@@ -83,6 +89,7 @@ export const MarkPicker = forwardRef<MarkPickerHandle, Props>(function MarkPicke
   const [open, setOpen] = useState(false);
   const [pinned, setPinned] = useState(false);
   const [dragging, setDragging] = useState(false);
+  const [cancelling, setCancelling] = useState(false);
   const [anchor, setAnchor] = useState({ top: 0, left: 0, width: BAR_MIN_WIDTH });
 
   const setPreviewValue = useCallback(
@@ -100,8 +107,16 @@ export const MarkPicker = forwardRef<MarkPickerHandle, Props>(function MarkPicke
     setPreview(null);
   }, []);
 
+  const setCancel = useCallback((next: boolean) => {
+    if (cancelRef.current === next) return;
+    cancelRef.current = next;
+    setCancelling(next);
+  }, []);
+
   const close = useCallback(() => {
     rulerDragRef.current = null;
+    cancelRef.current = false;
+    setCancelling(false);
     setOpen(false);
     setPinned(false);
     setDragging(false);
@@ -114,7 +129,17 @@ export const MarkPicker = forwardRef<MarkPickerHandle, Props>(function MarkPicke
       const clamped = clampMark(next, max, step);
       valueRef.current = clamped;
       clearPreview();
-      if (!marked || clamped !== value) onChange(clamped);
+      if (!marked || clamped !== value) {
+        onChange(clamped);
+        const trigger = buttonRef.current;
+        const row = trigger?.closest<HTMLElement>(".sc-row, .finish-score-row");
+        for (const target of [trigger, row]) {
+          if (!target) continue;
+          target.classList.remove("is-committed");
+          void target.offsetWidth;
+          target.classList.add("is-committed");
+        }
+      }
       return clamped;
     },
     [clearPreview, marked, max, onChange, step, value],
@@ -173,9 +198,10 @@ export const MarkPicker = forwardRef<MarkPickerHandle, Props>(function MarkPicke
       rightEdge - width,
     );
     const barHeight = barRef.current?.offsetHeight ?? 72;
-    const top = viewportTop + viewportHeight - rect.bottom - 10 < barHeight
-      ? Math.max(viewportTop + 8, rect.top - 10 - barHeight)
-      : rect.bottom + 10;
+    // Above the box when there is room, so a finger on a touch screen does not hide it.
+    const top = rect.top - 10 - barHeight >= viewportTop + 8
+      ? rect.top - 10 - barHeight
+      : Math.min(rect.bottom + 10, viewportTop + viewportHeight - 8 - barHeight);
     setAnchor((previous) => previous.top === top && previous.left === left && previous.width === width
       ? previous : { top, left, width });
   }, [mode, open]);
@@ -288,11 +314,19 @@ export const MarkPicker = forwardRef<MarkPickerHandle, Props>(function MarkPicke
     [markAt, setPreviewValue],
   );
 
+  const cancelBand = useCallback(() => {
+    const ruler = rulerRef.current?.getBoundingClientRect();
+    const box = buttonRef.current?.getBoundingClientRect();
+    const top = Math.min(ruler?.top ?? Infinity, box?.top ?? Infinity);
+    const bottom = Math.max(ruler?.bottom ?? -Infinity, box?.bottom ?? -Infinity);
+    return Number.isFinite(top) && Number.isFinite(bottom) ? { top, bottom } : null;
+  }, []);
+
   const startRulerGesture = (event: React.PointerEvent<HTMLButtonElement>) => {
     if (open) { close(); return; }
     event.preventDefault();
     focusTrigger();
-    rulerDragRef.current = { moved: false, pointerId: event.pointerId };
+    rulerDragRef.current = { moved: false, pointerId: event.pointerId, x: event.clientX, y: event.clientY };
     event.currentTarget.setPointerCapture(event.pointerId);
     setDragging(true);
     setOpen(true);
@@ -304,20 +338,28 @@ export const MarkPicker = forwardRef<MarkPickerHandle, Props>(function MarkPicke
     const onMove = (event: PointerEvent) => {
       const drag = rulerDragRef.current;
       if (!drag || drag.pointerId !== event.pointerId) return;
-      const rect = rulerRef.current?.getBoundingClientRect();
-      if (!rect) return;
-      if (
-        event.clientX < rect.left - 12 || event.clientX > rect.right + 12 ||
-        event.clientY < rect.top - 32 || event.clientY > rect.bottom + 32
-      ) return;
-      previewMarkAt(event.clientX);
+      // A tap that wanders a few pixels is still a tap: it opens the ruler, it sets nothing.
+      if (!drag.moved && !passedTapSlop(drag, { x: event.clientX, y: event.clientY })) return;
       drag.moved = true;
+      // Only left and right choose the mark; past either end is that end.
+      // Far above or below the ruler and the box, releasing cancels.
+      const band = cancelBand();
+      const away = band ? isInCancelBand(event.clientY, band) : false;
+      setCancel(away);
+      // While a release would cancel, show the committed value, not the preview.
+      if (away) clearPreview();
+      else previewMarkAt(event.clientX);
     };
     const onUp = (event: PointerEvent) => {
       const drag = rulerDragRef.current;
       if (!drag || drag.pointerId !== event.pointerId) return;
       rulerDragRef.current = null;
       setDragging(false);
+      if (cancelRef.current) {
+        close();
+        focusTrigger();
+        return;
+      }
       if (drag.moved && previewRef.current !== null) {
         commit(previewRef.current);
         setOpen(false);
@@ -336,7 +378,7 @@ export const MarkPicker = forwardRef<MarkPickerHandle, Props>(function MarkPicke
       window.removeEventListener("pointerup", onUp);
       window.removeEventListener("pointercancel", onCancel);
     };
-  }, [close, commit, focusTrigger, mode, open, openPinned, pinned, previewMarkAt]);
+  }, [cancelBand, clearPreview, close, commit, focusTrigger, mode, open, openPinned, pinned, previewMarkAt, setCancel]);
 
   const onTriggerKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>) => {
     const baseline = mode === "stepper" && !marked ? max : value;
@@ -371,10 +413,44 @@ export const MarkPicker = forwardRef<MarkPickerHandle, Props>(function MarkPicke
     setPinned(true);
   };
 
+  // The repeat timer must use this render's state (marked, value), not the press's.
+  const adjustRef = useRef(adjustStepper);
+  adjustRef.current = adjustStepper;
+  // Holding − or + keeps stepping (UIStepper's autorepeat): after a pause, then steadily.
+  const stopRepeat = useCallback(() => {
+    if (repeatRef.current) window.clearTimeout(repeatRef.current.timer);
+  }, []);
+  useEffect(() => stopRepeat, [stopRepeat]);
+  const repeatProps = (delta: number) => ({
+    onPointerDown: (event: React.PointerEvent<HTMLButtonElement>) => {
+      if (event.button !== 0) return;
+      stopRepeat();
+      const state = { timer: 0, repeated: false };
+      const tick = () => {
+        state.repeated = true;
+        const before = valueRef.current;
+        adjustRef.current(delta);
+        // Stop at either end: nothing left to change.
+        if (valueRef.current !== before) state.timer = window.setTimeout(tick, MARK_REPEAT_INTERVAL_MS);
+      };
+      state.timer = window.setTimeout(tick, MARK_REPEAT_DELAY_MS);
+      repeatRef.current = state;
+    },
+    onPointerUp: stopRepeat,
+    onPointerLeave: stopRepeat,
+    onPointerCancel: stopRepeat,
+    onClick: () => {
+      // A hold that already repeated has done its work; its release is not one more step.
+      if (repeatRef.current?.repeated) { repeatRef.current = null; return; }
+      repeatRef.current = null;
+      adjustStepper(delta);
+    },
+  });
+
   const ruler = (
     <div
       ref={rulerRef}
-      className={`mark-ruler ${hasSelection ? "has-selection" : "is-neutral"} ${percent >= 100 ? "reaches-max" : ""} ${dragging ? "is-dragging" : ""}`}
+      className={`mark-ruler ${hasSelection ? "has-selection" : "is-neutral"} ${percent >= 100 ? "reaches-max" : ""} ${dragging ? "is-dragging" : ""} ${cancelling ? "is-cancel" : ""}`}
       role="slider"
       tabIndex={0}
       aria-label={`${label} marks`}
@@ -387,18 +463,27 @@ export const MarkPicker = forwardRef<MarkPickerHandle, Props>(function MarkPicke
         if (!pinned || event.button !== 0) return;
         event.preventDefault();
         previewMarkAt(event.clientX);
-        rulerDragRef.current = { moved: true, pointerId: event.pointerId };
+        rulerDragRef.current = { moved: true, pointerId: event.pointerId, x: event.clientX, y: event.clientY };
         setDragging(true);
         event.currentTarget.setPointerCapture(event.pointerId);
       }}
       onPointerMove={(event) => {
         if (!pinned || rulerDragRef.current?.pointerId !== event.pointerId) return;
-        previewMarkAt(event.clientX);
+        const band = cancelBand();
+        const away = band ? isInCancelBand(event.clientY, band) : false;
+        setCancel(away);
+        if (away) clearPreview();
+        else previewMarkAt(event.clientX);
       }}
       onPointerUp={(event) => {
         if (!pinned || rulerDragRef.current?.pointerId !== event.pointerId) return;
         rulerDragRef.current = null;
         setDragging(false);
+        if (cancelRef.current) {
+          close();
+          focusTrigger();
+          return;
+        }
         commit(previewRef.current ?? markAt(event.clientX));
         close();
         focusTrigger();
@@ -416,14 +501,17 @@ export const MarkPicker = forwardRef<MarkPickerHandle, Props>(function MarkPicke
         {marks.map((mark) => (
           <span
             key={mark}
-            className={`mark-ruler-tick ${Number.isInteger(mark) ? "is-whole" : "is-half"}`}
+            className={`mark-ruler-tick ${Number.isInteger(mark) ? "is-whole" : "is-half"} ${hasSelection && mark > 0 && mark <= shown ? "is-filled" : ""}`}
             style={{ left: `${max > 0 ? (mark / max) * 100 : 0}%` }}
           >
             {shouldLabelRulerMark(mark, max) && <i className="mark-ruler-label t-num">{mark}</i>}
           </span>
         ))}
-        <span className={`mark-ruler-bubble ${hasSelection ? "is-active" : "is-neutral"}`} style={{ left: `${percent}%` }}>
-          <i className="t-num">{display}</i>
+        <span
+          className={`mark-ruler-bubble ${hasSelection && !cancelling ? "is-active" : "is-neutral"} ${!hasSelection && !cancelling ? "is-hidden" : ""} ${cancelling ? "is-cancel" : ""}`}
+          style={{ left: cancelling ? "50%" : `${percent}%` }}
+        >
+          <i className={cancelling ? undefined : "t-num"}>{cancelling ? "Release to cancel" : display}</i>
         </span>
       </span>
     </div>
@@ -439,7 +527,8 @@ export const MarkPicker = forwardRef<MarkPickerHandle, Props>(function MarkPicke
     </div>
   ) : null;
 
-  const triggerDisplay = mode === "stepper" && !marked ? "—" : display;
+  // "—" until marked, in both modes: "0" would read as zero marks given.
+  const triggerDisplay = !marked && (mode === "stepper" || preview === null) ? "—" : display;
 
   const trigger = (
     <button
@@ -483,7 +572,7 @@ export const MarkPicker = forwardRef<MarkPickerHandle, Props>(function MarkPicke
           className="mark-stepper-adjust is-minus"
           disabled={stepperShown <= 0}
           aria-label={`Subtract ${displayMark(fineStep)} marks`}
-          onClick={() => adjustStepper(-fineStep)}
+          {...repeatProps(-fineStep)}
         >
           <span aria-hidden="true">−</span>
         </button>
@@ -495,7 +584,7 @@ export const MarkPicker = forwardRef<MarkPickerHandle, Props>(function MarkPicke
           className="mark-stepper-adjust is-plus"
           disabled={marked && stepperShown >= max}
           aria-label={marked ? `Add ${displayMark(fineStep)} marks` : `Set full ${displayMark(max)} marks`}
-          onClick={() => adjustStepper(fineStep)}
+          {...repeatProps(fineStep)}
         >
           <span aria-hidden="true">+</span>
         </button>

@@ -10609,6 +10609,10 @@ html:has(.dialog-backdrop) {
 .mark-bar.is-dialog-layer {
   z-index: 90;
 }
+/* The marking tray's own entrance (fade and 0.98 scale); Reduce Motion keeps the fade (motion.css). */
+.mark-bar {
+  animation: selector-in var(--t-fast) var(--ease-out);
+}
 .mark-bar-ruler {
   padding: 0;
   border: 0;
@@ -10668,20 +10672,31 @@ html:has(.dialog-backdrop) {
 .mark-ruler.reaches-max .mark-ruler-fill {
   border-radius: 2px;
 }
+/* Half marks: 1.5 × 10px in --ink-3 (3:1 or more against the surface, WCAG 1.4.11). */
 .mark-ruler-tick {
   position: absolute;
   z-index: 2;
   top: 50%;
-  width: 1px;
-  height: 8px;
-  transform: translate(-0.5px, -50%);
-  background: var(--line-2);
+  width: 1.5px;
+  height: 10px;
+  transform: translate(-0.75px, -50%);
+  background: var(--ink-3);
   pointer-events: none;
+}
+/* Where the fill covers a tick, the tick is notched so it still reads on the colour. */
+.mark-ruler-tick.is-filled {
+  background: linear-gradient(var(--ink-3) 0 3px, var(--surface) 3px 7px, var(--ink-3) 7px 10px);
 }
 .mark-ruler-tick.is-whole {
   width: 2px;
   height: 16px;
   transform: translate(-1px, -50%);
+  background: var(--ink-3);
+}
+.mark-ruler-tick.is-whole.is-filled {
+  background: linear-gradient(var(--ink-3) 0 6px, var(--surface) 6px 10px, var(--ink-3) 10px 16px);
+}
+.mark-ruler.is-cancel .mark-ruler-tick.is-filled {
   background: var(--ink-3);
 }
 .mark-ruler-label {
@@ -10749,6 +10764,41 @@ html:has(.dialog-backdrop) {
 .mark-ruler.is-dragging .mark-ruler-fill,
 .mark-ruler.is-dragging .mark-ruler-bubble {
   transition: none;
+}
+/* No bubble until there is a value: a "0" bubble would read as zero marks given. */
+.mark-ruler-bubble.is-hidden {
+  opacity: 0;
+}
+/* Far above or below: the bubble says what a release will do, and the fill steps back. */
+.mark-ruler-bubble.is-cancel {
+  width: auto;
+  padding: 0 14px;
+  white-space: nowrap;
+  color: var(--ink);
+}
+.mark-ruler-bubble.is-cancel i {
+  font-size: var(--t-small);
+  font-weight: 570;
+}
+.mark-ruler.is-cancel .mark-ruler-fill {
+  opacity: 0.35;
+}
+/* On release the number ticks and its row flashes, as in the mistake tray. */
+@keyframes mark-value-tick {
+  from { opacity: 0.35; transform: translateY(3px); }
+  to { opacity: 1; transform: none; }
+}
+.mark-picker.is-committed .mark-picker-value {
+  display: inline-block;
+  animation: mark-value-tick 160ms var(--ease-out);
+}
+.sc-row.is-committed,
+.finish-score-row.is-committed {
+  animation: flash-pulse 420ms var(--ease-out);
+}
+/* Reduce Motion: the number does not move; the colour flash stays (feedback, not motion). */
+@media (prefers-reduced-motion: reduce) {
+  .mark-picker.is-committed .mark-picker-value { animation: none; }
 }
 
 .mark-stepper-tray { padding: 12px; touch-action: auto; }
