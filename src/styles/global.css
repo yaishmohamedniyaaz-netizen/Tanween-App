@@ -81,8 +81,8 @@
      two of them agree. --t-micro is the smallest size permitted anywhere;
      anything a judge reads mid-recitation starts at --t-small. */
   --t-micro: 12px;
-  --t-small: 14px;
-  --t-body: 15px;
+  --t-small: 15px;
+  --t-body: 16px;
   --t-lead: 17px;
   --t-title: 21px;
   --t-display: 27px;
@@ -15401,6 +15401,10 @@ html:has(.finish-dialog[open]) {
 @media (max-width: 700px) and (orientation: portrait) {
   .reciter-queue-modal > .reciter-start-backdrop { place-items: center; }
 }
+/* Final type roles: larger UI text must scroll rather than clip. */
+.sidebar .scorecard .sc-total-num { font: 520 34px/1.1 var(--num); letter-spacing: 0.045em; }
+.scorecard .sc-name { font-size: var(--t-small); }
+.pill-main, .btn-primary, .btn-ghost { font-size: var(--t-small); }
 .t-label { font-size: var(--t-micro); font-weight: 600; letter-spacing: 0.12em; }
 .brand { font-family: "Platypi", serif; font-weight: 600; }
 .reciter-selection-screen .queue-scroll { padding-inline: 4px; }
