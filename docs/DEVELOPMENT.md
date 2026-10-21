@@ -25,6 +25,17 @@ The [README source map](../README.md#project-structure) lists core components.
 results, and `src/lib/resultPackages.ts` handles portable result/state formats.
 `worker/index.js` and `scripts/prepare-sites.mjs` define hosting output.
 
+## Score card size tuner (dev only)
+
+Run `npm run dev` and open the app (or the QA page) with `?tune=scorecard`,
+for example `http://127.0.0.1:5320/scripts/qa/mobile-paper.html?sessionStorage=3&tune=scorecard`.
+A panel with sliders adjusts the score card and review rows live: text and
+number sizes, weights, row height, marker size, Adu box corners and column
+widths. "Hold to compare" shows the shipped values; "Copy CSS" copies the
+changed values. To ship a value, change the fallback in the matching `var()`
+in `src/styles/global.css` (search for `--sc-`). The tuner is not included in
+production builds and stores its values only in your browser.
+
 ## Quran data generation
 
 Normal development uses checked-in assets. Regenerate only as a deliberate Quran
