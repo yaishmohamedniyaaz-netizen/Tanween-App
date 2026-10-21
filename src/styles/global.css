@@ -9818,14 +9818,16 @@ html:has(.dialog-backdrop) {
 /* ---- Stable desktop Mushaf stage ----
    The app shell owns the available height; the observed frame owns Fit. */
 @media (min-width: 601px) {
-  /* Starting / ending appears at Begin in production with a 44px hit target.
-     Reserve its height while prepared too, so the header cannot resize Fit. */
-  .app.view-judge .app-header:has(.reciter-chip) {
+  /* Starting / ending uses a 44px hit target while judging. Reserve its height
+     while prepared and between reciters so Begin / Save cannot resize Fit. */
+  .app.view-judge .app-header:has(.reciter-chip),
+  .app.view-judge[data-competition-live="true"] .app-header {
     min-height: calc(44px + 20px + 1px);
   }
 }
 @media (min-width: 901px) and (min-height: 620px) {
-  .app.view-judge .app-header:has(.reciter-chip) {
+  .app.view-judge .app-header:has(.reciter-chip),
+  .app.view-judge[data-competition-live="true"] .app-header {
     min-height: calc(44px + 8px + 1px);
   }
   .app.view-judge {
@@ -14775,10 +14777,15 @@ html:has(.finish-dialog[open]) {
 }
 /* Desktop judging rail: density changes spacing, never scoring or touch targets. */
 @media (min-width: 901px) {
-  .app.view-judge .workspace:not(.is-idle) { grid-template-columns: minmax(0, 1fr) 300px; }
-  .app.view-judge .workspace:not(.is-idle).rail-left { grid-template-columns: 300px minmax(0, 1fr); }
-  .app.view-judge .workspace:not(.is-idle).score-slim { grid-template-columns: minmax(0, 1fr) 280px; }
-  .app.view-judge .workspace:not(.is-idle).score-slim.rail-left { grid-template-columns: 280px minmax(0, 1fr); }
+  /* A saved recitation returns to this same rail without resizing the paper. */
+  .app.view-judge .workspace:not(.is-idle),
+  .app.view-judge[data-competition-live="true"] .workspace { grid-template-columns: minmax(0, 1fr) 300px; }
+  .app.view-judge .workspace:not(.is-idle).rail-left,
+  .app.view-judge[data-competition-live="true"] .workspace.rail-left { grid-template-columns: 300px minmax(0, 1fr); }
+  .app.view-judge .workspace:not(.is-idle).score-slim,
+  .app.view-judge[data-competition-live="true"] .workspace.score-slim { grid-template-columns: minmax(0, 1fr) 280px; }
+  .app.view-judge .workspace:not(.is-idle).score-slim.rail-left,
+  .app.view-judge[data-competition-live="true"] .workspace.score-slim.rail-left { grid-template-columns: 280px minmax(0, 1fr); }
   .sidebar .scorecard { padding: 10px 14px; flex: 0 0 auto; }
   .sidebar .sc-total { padding-bottom: 6px; }
   .sidebar .sc-total-num { font-size: 26px; }

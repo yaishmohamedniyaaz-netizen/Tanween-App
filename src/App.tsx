@@ -84,6 +84,7 @@ export function App() {
   >("start");
   const [finishOpen, setFinishOpen] = useState(false);
   const [finishHandoff, setFinishHandoff] = useState(false);
+  const focusNextReciterRef = useRef(false);
   const [openingQuestionPage, setOpeningQuestionPage] = useState<number | null>(null);
   const [questionPageError, setQuestionPageError] = useState<string | null>(null);
   const retryQuestionPageRef = useRef<() => void>(() => {});
@@ -198,6 +199,10 @@ export function App() {
     state.activeQuestion ?? state.preparedRecitation?.question,
   );
   const visibleQuestion = state.activeQuestion ?? state.preparedRecitation?.question;
+  const lastQuestionRendererKey = useRef(visibleQuestion?.id ?? "idle");
+  useLayoutEffect(() => {
+    if (visibleQuestion) lastQuestionRendererKey.current = visibleQuestion.id;
+  }, [visibleQuestion?.id]);
   useEffect(() => { openMushafSurface("navigation"); }, [page, view, state.activeSessionId]);
   const openingPage = questionOpeningPage(visibleQuestion);
   const visibleQuestionRange = visibleQuestion?.version === 2
@@ -292,12 +297,24 @@ export function App() {
       recitationAudio.finish(),
       new Promise<void>((resolve) => window.setTimeout(resolve, 2_500)),
     ]);
+    // The desktop rail already owns the next-reciter action. Compact layouts
+    // keep the modal handoff because their rail is below the Mushaf or hidden.
+    // Read the current layout after recording stops in case the device rotated.
+    const showQueueHandoff = !window.matchMedia("(min-width: 901px)").matches;
+    focusNextReciterRef.current = hasNextReciter && !showQueueHandoff;
     dispatch({ type: "FINISH_SESSION" });
     setRecordPracticeRecitation(false);
     setStartMode("start");
-    if (hasNextReciter) setFinishHandoff(true);
+    if (hasNextReciter && showQueueHandoff) setFinishHandoff(true);
     else setFinishOpen(false);
   };
+
+  useLayoutEffect(() => {
+    if (!focusNextReciterRef.current || state.sessionActive || finishOpen) return;
+    focusNextReciterRef.current = false;
+    appRef.current?.querySelector<HTMLButtonElement>(".competition-start-reciter")
+      ?.focus({ preventScroll: true });
+  }, [state.sessionActive, finishOpen]);
 
   const closeFinish = closeQuestionPicker;
 
@@ -308,6 +325,7 @@ export function App() {
       data-mobile-judge-deck={mobileJudgeDeckActive ? "true" : undefined}
       data-mobile-calibration={mobileCalibration ? 'true' : undefined}
       data-mobile-prepared={mobilePreparedActive ? "true" : undefined}
+      data-competition-live={state.competition.status === "live" ? "true" : undefined}
       data-mobile-judge-layout={
         (mobileJudgeDeckActive || mobilePreparedActive) && mobileJudgeLayout === "raised"
           ? "raised"
@@ -399,7 +417,9 @@ export function App() {
               }
             >
               <PageRenderer
-                key={visibleQuestion?.id ?? "idle"}
+                // Saving clears the question, not the page already on screen.
+                // A new question still gets a fresh renderer behind its picker.
+                key={visibleQuestion?.id ?? lastQuestionRendererKey.current}
                 onPresentationReady={questionPageReady}
                 onPresentationError={questionPageFailed}
                 preparedFixedPage={mobileCalibration ? readyNavigation.ready : undefined}

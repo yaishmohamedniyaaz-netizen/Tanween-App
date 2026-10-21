@@ -165,9 +165,11 @@ test("a draw opens a locked, recoverable Prepared Mushaf before judging", () => 
   assert.match(appSource, /"next-question"/);
 });
 
-test("finishing a reciter moves directly to the next reciter-queue choice", () => {
+test("finishing exposes the desktop next-reciter action and retains compact queue handoff", () => {
   assert.match(appSource, /const hasNextReciter = state\.roster\.some/);
-  assert.match(appSource, /if \(hasNextReciter\) setFinishHandoff\(true\)/);
+  assert.match(appSource, /if \(hasNextReciter && showQueueHandoff\) setFinishHandoff\(true\)/);
+  assert.match(appSource, /matchMedia\("\(min-width: 901px\)"\)/);
+  assert.match(appSource, /focusNextReciterRef\.current = hasNextReciter && !showQueueHandoff/);
   assert.match(appSource, /handoff=\{finishHandoff \? \(/);
   assert.match(appSource, /Finish recitation/);
   assert.match(finishSource, /Save and select next reciter/);
