@@ -32,8 +32,8 @@ export type LetterTileStyle = "tonal" | "hairline";
 export const LETTER_FIT: LetterFit = "optical";
 export const LETTER_TILE_STYLE: LetterTileStyle = "tonal";
 
-export const LETTER_TILE_FONT_SIZE = 27;
-export const SHARED_BASELINE_FONT_SIZE = 22;
+export const LETTER_TILE_FONT_SIZE = 33;
+export const SHARED_BASELINE_FONT_SIZE = 27;
 
 export interface LetterPlacement {
   fontSize: number;

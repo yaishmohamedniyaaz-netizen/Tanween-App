@@ -36,28 +36,28 @@ test("optical fit puts each letter's ink centre on the tile centre", () => {
   }
 });
 
-test("optical fit lifts tailed letters, e.g. ع by about 7px", () => {
-  assert.equal(placeLetter("ع", "optical").dy, -7.1);
-  assert.equal(placeLetter("ح", "optical").dy, -9.2);
+test("optical fit lifts tailed letters, e.g. ع by about 9px", () => {
+  assert.equal(placeLetter("ع", "optical").dy, -8.7);
+  assert.equal(placeLetter("ح", "optical").dy, -11.2);
 });
 
 test("lift-tailed moves only tailed letters, all by one amount", () => {
   const lifts = new Set(TAILED_LETTERS.map((ch) => placeLetter(ch, "lift-tailed").dy));
   assert.equal(lifts.size, 1);
   assert.ok([...lifts][0] < 0);
-  assert.deepEqual(placeLetter("ا", "lift-tailed"), { fontSize: 27, dx: 0, dy: 0 });
+  assert.deepEqual(placeLetter("ا", "lift-tailed"), { fontSize: 33, dx: 0, dy: 0 });
 });
 
 test("shared baseline uses one size and one shift for every letter", () => {
   const all = new Set(Object.keys(LETTER_INK).map((ch) => JSON.stringify(placeLetter(ch, "shared-baseline"))));
   assert.equal(all.size, 1);
-  assert.equal(placeLetter("ب", "shared-baseline").fontSize, 22);
+  assert.equal(placeLetter("ب", "shared-baseline").fontSize, 27);
 });
 
 test("unknown glyphs are left where the font puts them", () => {
   for (const glyph of ["—", "بِ", "constructor", "toString", ""]) {
     for (const fit of ["optical", "lift-tailed", "shared-baseline", "none"]) {
-      assert.deepEqual(placeLetter(glyph, fit), { fontSize: 27, dx: 0, dy: 0 });
+      assert.deepEqual(placeLetter(glyph, fit), { fontSize: 33, dx: 0, dy: 0 });
     }
   }
 });

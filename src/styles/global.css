@@ -6634,7 +6634,7 @@ textarea:focus-visible {
 }
 .log-glyph {
   font-family: var(--quran);
-  font-size: 27px;
+  font-size: 33px;
   line-height: 1.3;
   color: var(--c-strong);
   text-align: center;
@@ -15560,3 +15560,35 @@ html:has(.finish-dialog[open]) {
 }
 .finish-score-value .mark-picker::before { border-radius: var(--r-md); }
 .page-nav .page-nav-btn .page-nav-ink { font-family: var(--ui); font-size: var(--t-lead); font-weight: 500; letter-spacing: 0; color: inherit; }
+/* Header and controls (Fix Review v23): 46px header, 41px controls with 12px
+   corners, 16px semibold labels. The 44px recording control still fits, and
+   the height is the same before, during and after judging, so Fit never jumps. */
+@media (min-width: 901px) and (min-height: 620px) {
+  .app.view-judge .app-header,
+  .app.view-judge .app-header:has(.reciter-chip),
+  .app.view-judge[data-competition-live="true"] .app-header {
+    min-height: 46px;
+    padding-block: 0;
+  }
+}
+@media (min-width: 901px) {
+  .app-header :is(.reciter-chip, .view-toggle) {
+    height: 41px; border-radius: var(--r-md); font-size: 16px; font-weight: 600;
+  }
+  .app-header .reciter-chip :is(.reciter-question-ref, .reciter-prepared-state) { font-weight: 450; }
+  .app-header .btn-icon { width: 41px; height: 41px; border-radius: var(--r-md); }
+  .app-header :is(.reciter-chip, .view-toggle, .btn-icon)::after { inset: calc((41px - 44px) / 2) 0; }
+  .sidebar :is(.btn-primary, .btn-ghost) { border-radius: var(--r-md); font-size: 16px; font-weight: 600; }
+  .sidebar .notes { border-radius: var(--r-md); font-weight: 500; }
+  .sidebar .log-row-wrap { border-radius: var(--r-md); }
+}
+/* Category text and tint colours from Fix Review v23. Strong on tint measures
+   4.66:1 or more in both themes (Khafi light is the lowest). */
+.cat-jali { --c-strong: #9a213d; --c-tint: rgba(202, 36, 77, 0.12); }
+.cat-khafi { --c-strong: #8f622c; --c-tint: rgba(213, 142, 58, 0.12); }
+.cat-fasaha { --c-strong: #2d479e; --c-tint: rgba(51, 88, 212, 0.12); }
+.cat-adu-raagu { --c-strong: #30604b; --c-tint: rgba(55, 123, 96, 0.12); }
+[data-theme="dark"] .cat-jali { --c-strong: #d86b83; --c-tint: rgba(202, 36, 77, 0.12); }
+[data-theme="dark"] .cat-khafi { --c-strong: #dda869; --c-tint: rgba(213, 142, 58, 0.12); }
+[data-theme="dark"] .cat-fasaha { --c-strong: #738bde; --c-tint: rgba(56, 94, 219, 0.12); }
+[data-theme="dark"] .cat-adu-raagu { --c-strong: #6b9a85; --c-tint: rgba(55, 123, 96, 0.12); }
