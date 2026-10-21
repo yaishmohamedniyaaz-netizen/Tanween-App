@@ -123,7 +123,7 @@ export function ParticipantSelectionScreen({
         </label>
       )}
 
-      <div className="queue-scroll">
+      <div className="queue-scroll quiet-scroll">
         {groups.length === 0 ? (
           <p className="queue-empty">
             {search.trim()

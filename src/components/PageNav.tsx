@@ -227,7 +227,7 @@ export function PageNav({
                 <button type="submit" className="btn-ghost">Go</button>
               </form>
             </div>
-            <div className="page-nav-surah-list">
+            <div className="page-nav-surah-list quiet-scroll">
               {surahIndex.map((surah) => (
                 <button
                   key={surah.number}

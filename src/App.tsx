@@ -51,6 +51,7 @@ import { tilawaMushafWordId, type TilawaWordProgress } from "./lib/tilawaWordFoc
 import { isWaiting } from "./lib/rosterQueue";
 import { missingRequiredImpressionCategories } from "./lib/scoring";
 import { mobileJudgeDeckEnabled } from "./lib/mobileJudgeDeck";
+import { installQuietScrollbars } from "./lib/quietScrollbars";
 import {
   applyDeviceTheme,
   DEFAULT_DEVICE_PREFERENCES,
@@ -82,6 +83,8 @@ export function App() {
   const [markingGuideOpen, setMarkingGuideOpen] = useState(false);
   const [moreControlsOpen, setMoreControlsOpen] = useState(false);
   const [phrasesOpen, setPhrasesOpen] = useState(false);
+  // One document listener set for every .quiet-scroll list (idempotent).
+  useEffect(() => installQuietScrollbars(), []);
   useEffect(() => {
     if (startOpen || finishOpen || markingGuideOpen) {
       openMushafSurface(markingGuideOpen ? "guide" : "sheet");

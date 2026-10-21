@@ -363,7 +363,7 @@ export function StartDialog({
           </div>
         )}
 
-        <div className="reciter-start-body">
+        <div className="reciter-start-body quiet-scroll">
           {stage === "participant" ? (
             <ParticipantSelectionScreen
               recommended={participant}

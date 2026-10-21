@@ -44,29 +44,6 @@ export function MistakeLog({
   );
   const canViewAll = ordered.length > 5 || hasReviewHistory;
 
-  useEffect(() => {
-    const panel = panelRef.current;
-    if (!panel) return;
-    const timers = new Map<HTMLElement, number>();
-    const showScrollGrip = (event: Event) => {
-      const list = event.target;
-      if (!(list instanceof HTMLElement) || !list.matches(".log, .history-scroll")) return;
-      window.clearTimeout(timers.get(list));
-      list.classList.add("is-scrolling");
-      timers.set(list, window.setTimeout(() => {
-        list.classList.remove("is-scrolling");
-        timers.delete(list);
-      }, 900));
-    };
-    panel.addEventListener("scroll", showScrollGrip, true);
-    return () => {
-      panel.removeEventListener("scroll", showScrollGrip, true);
-      timers.forEach((timer, list) => {
-        window.clearTimeout(timer);
-        list.classList.remove("is-scrolling");
-      });
-    };
-  }, []);
 
   const lockSheetSize = useCallback(() => {
     if (!mobileSheet || !panelRef.current) return;
@@ -303,7 +280,7 @@ export function MistakeLog({
 
         {expanded && mode === "history" ? (
           <div
-            className="history-scroll"
+            className="history-scroll quiet-scroll"
             tabIndex={0}
             id="mistake-history-panel"
             role="tabpanel"
@@ -331,7 +308,7 @@ export function MistakeLog({
           </p>
         ) : (
           <ul
-            className="log"
+            className="log quiet-scroll"
             tabIndex={0}
             aria-label="Current mistakes"
             id={expanded ? "mistake-current-panel" : undefined}

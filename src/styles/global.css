@@ -89,9 +89,12 @@
 
   --ui: "InterVar", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --quran: "HafsUthmanic", serif;
+  /* Native controls and unstyled scrollbars follow the theme. */
+  color-scheme: light;
 }
 
 [data-theme="dark"] {
+  color-scheme: dark;
   --bg: #131316;
   --surface: #1c1c20;
   --page-paper: #211f1c;
@@ -14560,10 +14563,8 @@ html:has(.finish-dialog[open]) {
   .sidebar .sc-reason-trigger:hover { background: var(--bg); }
   .sidebar .sc-reason-trigger:focus-visible { outline: 2px solid var(--ink); outline-offset: -2px; }
 }
-/* Native scrolling with quiet edge shadows and a stable, discoverable grip. */
+/* Native scrolling with quiet edge shadows and a stable gutter. The grip itself is a .quiet-scroll grip. */
 .mistake-panel .log, .mistake-panel .history-scroll {
-  scrollbar-width: thin;
-  scrollbar-color: transparent transparent;
   scrollbar-gutter: stable both-edges;
   padding-inline: 2px;
   background:
@@ -14573,26 +14574,29 @@ html:has(.finish-dialog[open]) {
     radial-gradient(farthest-side at 50% 100%, color-mix(in srgb, var(--ink) 12%, transparent), transparent) center bottom / 100% 7px scroll;
   background-repeat: no-repeat;
 }
-.mistake-panel :is(.log, .history-scroll):is(:hover, :focus-visible, .is-scrolling) { scrollbar-color: var(--ink-3) transparent; }
+/* Quiet scrollbars (src/lib/quietScrollbars.ts). Hidden at rest; a soft grip while
+   the list scrolls; the full grip only on the bar's own strip, while dragging it,
+   or with keyboard focus. Hovering the cards does not reveal it. Classes, not
+   :hover, because WebKit does not repaint scrollbar pseudo-elements on hover. */
+.quiet-scroll { scrollbar-width: thin; scrollbar-color: transparent transparent; }
+.quiet-scroll.is-scrolling { scrollbar-color: color-mix(in srgb, var(--ink-3) 45%, transparent) transparent; }
+.quiet-scroll:is(.is-grip, :focus-visible) { scrollbar-color: var(--ink-3) transparent; }
 /* Standard scrollbar styling takes precedence over the pseudo-elements.
    Use the latter together on supporting engines so the grip has no buttons. */
 @supports selector(::-webkit-scrollbar) {
-  .mistake-panel .log, .mistake-panel .history-scroll,
-  .mistake-panel :is(.log, .history-scroll):is(:hover, :focus-visible, .is-scrolling) {
+  .quiet-scroll, .quiet-scroll:is(.is-scrolling, .is-grip, :focus-visible) {
     scrollbar-width: auto;
     scrollbar-color: auto;
   }
 }
-.mistake-panel .log::-webkit-scrollbar, .mistake-panel .history-scroll::-webkit-scrollbar { width: 8px; }
-.mistake-panel .log::-webkit-scrollbar-button, .mistake-panel .history-scroll::-webkit-scrollbar-button {
-  display: none;
-  width: 0;
-  height: 0;
+.quiet-scroll::-webkit-scrollbar { width: 8px; height: 8px; }
+.quiet-scroll::-webkit-scrollbar-button { display: none; width: 0; height: 0; }
+.quiet-scroll::-webkit-scrollbar-track, .quiet-scroll::-webkit-scrollbar-corner { background: transparent; }
+.quiet-scroll::-webkit-scrollbar-thumb {
+  background: transparent; background-clip: padding-box; border: 2px solid transparent; border-radius: 8px;
 }
-.mistake-panel .log::-webkit-scrollbar-thumb, .mistake-panel .history-scroll::-webkit-scrollbar-thumb {
-  background: transparent; border: 2px solid var(--surface); border-radius: 8px;
-}
-.mistake-panel :is(.log, .history-scroll):is(:hover, :focus-visible, .is-scrolling)::-webkit-scrollbar-thumb { background: var(--ink-3); }
+.quiet-scroll.is-scrolling::-webkit-scrollbar-thumb { background-color: color-mix(in srgb, var(--ink-3) 45%, transparent); }
+.quiet-scroll:is(.is-grip, :focus-visible)::-webkit-scrollbar-thumb { background-color: var(--ink-3); }
 .mistake-panel .panel-head { flex-shrink: 0; }
 /* Balanced gutters keep rows centred and stable as the list starts scrolling.
    The rail preference still places the grip on the outside edge. */
@@ -14714,7 +14718,7 @@ html:has(.finish-dialog[open]) {
 /* Expanded review is an opaque surface above the integrated score rail. */
 .sidebar .panel.mistake-panel.is-expanded { background: var(--surface); }
 @media (forced-colors: active) {
-  .mistake-panel :is(.log, .history-scroll) { scrollbar-color: auto; }
+  .quiet-scroll { scrollbar-color: auto; }
 }
 
 
