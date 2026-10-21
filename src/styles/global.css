@@ -15448,6 +15448,12 @@ html:has(.finish-dialog[open]) {
 /* An actual outline survives Windows High Contrast. Quran hits keep their geometry. */
 :where(button, input, select, textarea, summary, [tabindex]):not(.hit):focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
 @media (forced-colors: active) { :focus-visible { outline-color: Highlight; } }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; scroll-behavior: auto !important; }
+  *:not(.selector-undo-progress), *::before, *::after { transition: none !important; }
+  /* Functional hold feedback must outlast motion.css's global 80ms reduction. */
+  .selector-undo.holding .selector-undo-progress { transition: transform 700ms steps(3, end) !important; }
+}
 .reciter-selection-screen .queue-scroll { padding-inline: 4px; }
 .queue-participant-button[aria-selected="true"] { position: relative; background: color-mix(in srgb, var(--ink) 5%, transparent); box-shadow: none; }
 .queue-participant-button[aria-selected="true"]::before { content: ""; position: absolute; inset-block: 8px; inset-inline-start: 2px; width: 3px; border-radius: 2px; background: var(--ink-2); }
