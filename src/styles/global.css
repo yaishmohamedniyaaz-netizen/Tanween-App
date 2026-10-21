@@ -15230,6 +15230,9 @@ html:has(.finish-dialog[open]) {
 .queue-status { padding: 4px 8px; border-radius: var(--r-sm); background: var(--bg); color: var(--ink-2); }
 .reciter-selection-screen .queue-group-title, .reciter-selection-screen .queue-group-toggle small { font-size: var(--t-micro); }
 @media (max-width: 600px) { .queue-actions { grid-template-columns: minmax(0,1fr) auto; } .queue-actions button { padding: 10px 12px; } .queue-group-toggle { gap: 8px; } .queue-group-toggle small { white-space: normal; text-align: right; } }
+/* Prepared actions each keep a full row; the draw remains unchanged. */
+.prepared-sidebar-secondary { grid-template-columns: minmax(0,1fr); }
+.prepared-sidebar-secondary .btn-ghost { min-height: 44px; }
 .reciter-selection-screen .queue-scroll { padding-inline: 4px; }
 .queue-participant-button[aria-selected="true"] { position: relative; background: color-mix(in srgb, var(--ink) 5%, transparent); box-shadow: none; }
 .queue-participant-button[aria-selected="true"]::before { content: ""; position: absolute; inset-block: 8px; inset-inline-start: 2px; width: 3px; border-radius: 2px; background: var(--ink-2); }
