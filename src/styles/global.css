@@ -5608,6 +5608,104 @@ textarea:focus-visible {
   font-size: 11px;
   color: var(--ink-3);
 }
+/* ---- Page finder: one field for a page, a surah or a juz ---- */
+.page-finder {
+  width: 300px;
+}
+.page-finder-field {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin: 8px;
+  color: var(--ink-3);
+}
+.page-finder-field svg {
+  position: absolute;
+  left: 12px;
+  pointer-events: none;
+}
+.page-finder-field input {
+  flex: 1;
+  min-width: 0;
+  height: 44px;
+  padding: 0 12px 0 38px;
+  border: 1px solid var(--line-2);
+  border-radius: var(--r-sm);
+  background: var(--bg);
+  color: var(--ink);
+  font: inherit;
+  font-size: var(--t-small);
+}
+.page-finder-field input::placeholder { color: var(--ink-3); }
+.page-finder .page-nav-surah-list {
+  padding: 6px;
+  border-top: 1px solid var(--line);
+}
+.page-finder .page-nav-surah {
+  position: relative;
+  min-height: 44px;
+  font-size: var(--t-small);
+}
+.page-finder .page-nav-surah-num {
+  flex: 0 0 26px;
+  min-width: 26px;
+  font-size: var(--t-micro);
+  text-align: right;
+}
+/* The Latin name gets its full width; the Arabic name and the page follow. */
+.page-finder-title {
+  flex: 1 1 auto;
+  min-width: 0;
+  font-weight: 550;
+  white-space: nowrap;
+}
+.page-finder .page-nav-surah-name {
+  flex: 0 0 auto;
+  color: var(--ink-2);
+  font-size: 18px;
+  line-height: 1.5;
+  white-space: nowrap;
+}
+.page-finder .page-nav-surah-page {
+  flex: 0 0 auto;
+  min-width: 44px;
+  font-size: var(--t-micro);
+  text-align: right;
+  white-space: nowrap;
+}
+.page-finder .page-nav-surah.is-active {
+  background: var(--bg);
+  box-shadow: inset 0 0 0 1px var(--line-2);
+}
+/* The open surah: a quiet tint and a bar at the start edge, no extra words. */
+.page-finder .page-nav-surah[aria-current="true"] {
+  background: color-mix(in srgb, var(--ink) 5%, transparent);
+}
+.page-finder .page-nav-surah[aria-current="true"]::before {
+  content: "";
+  position: absolute;
+  inset-block: 8px;
+  inset-inline-start: 2px;
+  width: 3px;
+  border-radius: 2px;
+  background: var(--ink-2);
+}
+/* The question page stays at the top while the list scrolls to the open surah. */
+.page-finder .page-finder-question {
+  position: sticky;
+  top: -6px;
+  z-index: 1;
+  border-bottom: 1px solid var(--line);
+  border-radius: var(--r-sm) var(--r-sm) 0 0;
+  background: var(--surface);
+}
+.page-finder-empty {
+  margin: 0;
+  padding: 14px 12px;
+  color: var(--ink-2);
+  font-size: var(--t-micro);
+  line-height: 1.45;
+}
 
 /* ---- Loading ---- */
 .mushaf-loading {

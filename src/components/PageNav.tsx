@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useLayoutEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type CSSProperties, type KeyboardEvent, type ReactNode } from "react";
 import { createPortal } from 'react-dom';
 import surahIndex from "../data/surah-index.json";
 import { MUSHAF_SURFACE_EVENT, openMushafSurface } from "../lib/mushafSurface";
@@ -8,7 +8,9 @@ import {
   mushafPageRangeLabel,
 } from "../lib/mushafSpread";
 import { preloadPage } from "../lib/page";
+import { Icon } from "./Icon";
 import { preloadQcfPageFont } from "../lib/qcfFont";
+import { pageFinderItems, SURAH_LATIN, surahOfPage, type PageFinderItem } from "../lib/pageFinder";
 
 interface PageNavProps {
   page: number;
@@ -18,6 +20,8 @@ interface PageNavProps {
   onChange: (page: number) => void;
   prefetchFonts?: boolean;
   calibrated?: boolean;
+  /** The selected question's page, offered first while the field is empty. */
+  questionPage?: number | null;
 }
 
 export function PageNav({
@@ -28,6 +32,7 @@ export function PageNav({
   onChange,
   prefetchFonts = true,
   calibrated = false,
+  questionPage = null,
 }: PageNavProps) {
   const [popoverOpen, setPopoverOpen] = useState(false);
   useEffect(() => {
@@ -38,6 +43,16 @@ export function PageNav({
     return () => window.removeEventListener(MUSHAF_SURFACE_EVENT, switchSurface);
   }, []);
   const [jumpInput, setJumpInput] = useState("");
+  const [activeIndex, setActiveIndex] = useState(0);
+  const listRef = useRef<HTMLDivElement>(null);
+  const items = useMemo(() => pageFinderItems(surahIndex, jumpInput, questionPage), [jumpInput, questionPage]);
+  // The surahs on the open pages: those that start on them, or the one that runs through them.
+  const openSurahs = useMemo(() => {
+    const first = visiblePages[0] ?? page;
+    const on = surahIndex.filter((surah) => visiblePages.includes(surah.firstPage)).map((surah) => surah.number);
+    if (!on.length || surahIndex[on[0] - 1].firstPage > first) on.unshift(surahOfPage(surahIndex, first));
+    return new Set(on);
+  }, [page, visiblePages]);
   const popoverRef = useRef<HTMLDivElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
   const [popupStyle, setPopupStyle] = useState<CSSProperties>({ visibility: 'hidden' });
@@ -92,6 +107,13 @@ export function PageNav({
     const frame = requestAnimationFrame(() => {
       jumpInputRef.current?.focus({ preventScroll: calibrated });
       jumpInputRef.current?.select();
+      // Start the list at the open surah, in view.
+      const list = listRef.current;
+      const current = list?.querySelector<HTMLElement>("[aria-current='true']");
+      // Only when it is below the fold, so the rows above it (the question page) stay in view.
+      if (list && current && current.offsetTop + current.offsetHeight > list.clientHeight) {
+        list.scrollTop = Math.max(0, current.offsetTop - list.clientHeight / 2 + current.offsetHeight / 2);
+      }
     });
     return () => cancelAnimationFrame(frame);
   }, [popoverOpen, calibrated]);
@@ -131,13 +153,35 @@ export function PageNav({
   useEffect(() => { setPopoverOpen(false); }, [calibrated]);
   const renderPopover = (node: ReactNode) => calibrated ? createPortal(node, document.body) : node;
 
+  const goTo = (target: number) => {
+    onChange(target);
+    setPopoverOpen(false);
+    setJumpInput("");
+    setActiveIndex(0);
+  };
   const handleJump = () => {
-    const nextPage = Number(jumpInput);
-    if (!Number.isNaN(nextPage) && nextPage >= 1 && nextPage <= 604) {
-      onChange(nextPage);
+    const item = items[Math.min(activeIndex, items.length - 1)];
+    if (item) goTo(item.page);
+  };
+  const onFinderKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Escape") {
       setPopoverOpen(false);
-      setJumpInput("");
+      pageBtnRef.current?.focus();
+      return;
     }
+    if (event.key !== "ArrowDown" && event.key !== "ArrowUp") return;
+    event.preventDefault();
+    if (!items.length) return;
+    const next = (activeIndex + (event.key === "ArrowDown" ? 1 : -1) + items.length) % items.length;
+    setActiveIndex(next);
+    listRef.current?.querySelector<HTMLElement>(`[data-index="${next}"]`)?.scrollIntoView({ block: "nearest" });
+  };
+  const itemLabel = (item: PageFinderItem) => {
+    const name = SURAH_LATIN[item.surah - 1];
+    if (item.kind === "page") return `Page ${item.page}, ${name}`;
+    if (item.kind === "juz") return `Juz ${item.juz}, page ${item.page}`;
+    if (item.kind === "question") return `Question page, page ${item.page}`;
+    return `${name}, surah ${item.surah}, page ${item.page}${openSurahs.has(item.surah) ? ", open now" : ""}`;
   };
 
   const goForward = useCallback(
@@ -180,76 +224,95 @@ export function PageNav({
           ref={pageBtnRef}
           type="button"
           className="page-nav-page"
-          title="Type a page number"
-          aria-label={`Pages ${rangeLabel}. Jump to page.`}
+          title="Go to a page, surah or juz"
+          aria-label={`Pages ${rangeLabel}. Go to a page or surah.`}
           aria-expanded={popoverOpen}
           aria-haspopup="dialog"
           onClick={() => {
             if (!popoverOpen) openMushafSurface("pages");
             setPopoverOpen((current) => !current);
-            setJumpInput(String(page));
+            setJumpInput("");
+            setActiveIndex(0);
           }}
         >
           <span className="page-nav-ink">{rangeLabel}</span>
         </button>
 
         {popoverOpen && renderPopover(
-          <div ref={menuRef} className={`page-nav-popover${calibrated ? ' page-nav-popover-calibrated' : ''}`}
-            role="dialog" aria-label="Jump to page" style={calibrated ? popupStyle : undefined}>
-            <div className="page-nav-popover-head">
-              <span className="t-label">Jump to page</span>
-              <form
-                className="page-nav-jump-row"
-                onSubmit={(event) => {
-                  event.preventDefault();
-                  handleJump();
-                }}
-              >
-                <input
-                  ref={jumpInputRef}
-                  autoFocus={!calibrated}
-                  type="number"
-                  inputMode="numeric"
-                  enterKeyHint="go"
-                  min={1}
-                  max={604}
-                  value={jumpInput}
-                  onChange={(event) => setJumpInput(event.target.value)}
-                  onKeyDown={(event) => {
-                    if (event.key === "Escape") {
-                      setPopoverOpen(false);
-                      pageBtnRef.current?.focus();
-                    }
-                  }}
-                  onFocus={(event) => event.currentTarget.select()}
-                  placeholder="1–604"
-                />
-                <button type="submit" className="btn-ghost">Go</button>
-              </form>
-            </div>
-            <div className="page-nav-surah-list quiet-scroll">
-              {surahIndex.map((surah) => (
-                <button
-                  key={surah.number}
-                  type="button"
-                  className="page-nav-surah"
-                  onPointerEnter={() => scheduleIntentPrefetch(surah.firstPage)}
-                  onPointerLeave={cancelIntentPrefetch}
-                  onPointerDown={() => {
-                    cancelIntentPrefetch();
-                    prefetchTarget(surah.firstPage);
-                  }}
-                  onFocus={() => prefetchTarget(surah.firstPage)}
-                  onClick={() => {
-                    onChange(surah.firstPage);
-                    setPopoverOpen(false);
-                  }}
-                >
-                  <span className="page-nav-surah-num">{surah.number}</span>
-                  <span className="page-nav-surah-name">{surah.nameAr}</span>
-                  <span className="page-nav-surah-page t-num">p. {surah.firstPage}</span>
-                </button>
-              ))}
+          <div ref={menuRef} className={`page-nav-popover page-finder${calibrated ? ' page-nav-popover-calibrated' : ''}`}
+            role="dialog" aria-label="Go to a page or surah" style={calibrated ? popupStyle : undefined}>
+            {/* One field: a page, a surah number or name (English or Arabic), or "juz 30". */}
+            <form
+              className="page-finder-field"
+              role="search"
+              onSubmit={(event) => {
+                event.preventDefault();
+                handleJump();
+              }}
+            >
+              <Icon name="search" size={16} />
+              <input
+                ref={jumpInputRef}
+                autoFocus={!calibrated}
+                type="text"
+                inputMode="search"
+                enterKeyHint="go"
+                autoComplete="off"
+                spellCheck={false}
+                aria-label="Page number, surah number or name, or juz"
+                aria-controls="page-finder-list"
+                aria-activedescendant={items.length ? `page-finder-item-${Math.min(activeIndex, items.length - 1)}` : undefined}
+                value={jumpInput}
+                onChange={(event) => { setJumpInput(event.target.value); setActiveIndex(0); }}
+                onKeyDown={onFinderKeyDown}
+                onFocus={(event) => event.currentTarget.select()}
+                placeholder="Page or surah"
+              />
+            </form>
+            <div ref={listRef} id="page-finder-list" className="page-nav-surah-list quiet-scroll" role="listbox" aria-label="Pages and surahs">
+              {items.length === 0 && (
+                <p className="page-finder-empty">No match. Type a page (1–604), a surah number or name, or “juz 30”.</p>
+              )}
+              {items.map((item, index) => {
+                const surah = surahIndex[item.surah - 1];
+                const current = item.kind === "surah" && !jumpInput && openSurahs.has(item.surah);
+                const active = index === Math.min(activeIndex, items.length - 1) && (jumpInput !== "" || item.kind === "question");
+                return (
+                  <button
+                    key={`${item.kind}:${item.page}:${item.surah}`}
+                    id={`page-finder-item-${index}`}
+                    data-index={index}
+                    type="button"
+                    role="option"
+                    aria-selected={active}
+                    aria-current={current || undefined}
+                    aria-label={itemLabel(item)}
+                    className={`page-nav-surah page-finder-${item.kind}${active ? " is-active" : ""}`}
+                    onPointerEnter={() => scheduleIntentPrefetch(item.page)}
+                    onPointerLeave={cancelIntentPrefetch}
+                    onPointerDown={() => {
+                      cancelIntentPrefetch();
+                      prefetchTarget(item.page);
+                    }}
+                    onFocus={() => prefetchTarget(item.page)}
+                    onClick={() => goTo(item.page)}
+                  >
+                    <span className="page-nav-surah-num t-num" aria-hidden="true">
+                      {item.kind === "surah" ? item.surah : item.kind === "page" ? "→" : item.kind === "question" ? "⚑" : ""}
+                    </span>
+                    <span className="page-finder-title" aria-hidden="true">
+                      {item.kind === "page" ? <>Page <span className="t-num">{item.page}</span></>
+                        : item.kind === "juz" ? <>Juz <span className="t-num">{item.juz}</span></>
+                        : item.kind === "question" ? "Question page"
+                        : SURAH_LATIN[item.surah - 1]}
+                    </span>
+                    <span className="page-nav-surah-name" lang="ar" dir="rtl" aria-hidden="true">{surah?.nameAr}</span>
+                    <span className="page-nav-surah-page t-num" aria-hidden="true">
+                      {item.kind === "page" ? (active ? "Enter" : "") : `p. ${item.page}`}
+                    </span>
+                  </button>
+                );
+              })}
             </div>
           </div>
         )}

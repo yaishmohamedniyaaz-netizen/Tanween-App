@@ -22,7 +22,8 @@ type IconName =
   | "refresh"
   | "mic"
   | "pause"
-  | "play";
+  | "play"
+  | "search";
 
 const PATHS: Record<IconName, string[]> = {
   marks: [
@@ -116,6 +117,7 @@ const PATHS: Record<IconName, string[]> = {
   ],
   pause: ["M9 5v14", "M15 5v14"],
   play: ["M7 4l12 8l-12 8z"],
+  search: ["M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0", "M21 21l-6 -6"],
 };
 
 export function Icon({ name, size = 18 }: { name: IconName; size?: number }) {

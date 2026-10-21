@@ -362,6 +362,7 @@ export function App() {
                       layout={preferences.mushafLayout}
                       compact={compact}
                       onChange={handlePageChange}
+                      questionPage={openingPage}
                     />
                     {openingPage !== null &&
                       questionIsVisibleOnPages(visibleQuestion, visiblePages) === false && (
