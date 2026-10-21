@@ -31,7 +31,7 @@
 .ro-number, .ro-score, .ro-score strong { font-family: var(--num); font-weight: 520; letter-spacing: .045em; }
 .ro-score small { display: inline; }
 .ro-reason { font-size: 12px; }
-.ro-table button:focus-visible, .ro-tools button:focus-visible, .ro-footer button:focus-visible { outline: 2px solid var(--ink); outline-offset: -2px; }
+.ro-table button:focus-visible, .ro-tools button:focus-visible, .ro-footer button:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
 .ro-reason strong { display: block; }
 .ro-absent { color: var(--ink-3); background: var(--bg); }
 .ro-footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-top: 8px; }

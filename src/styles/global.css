@@ -356,8 +356,8 @@ button:focus-visible,
 input:focus-visible,
 select:focus-visible,
 textarea:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 3px var(--ring);
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
 }
 
 /* ---- App shell ---- */
@@ -1219,7 +1219,7 @@ textarea:focus-visible {
 }
 
 .results-workspace :is(button, input, select):focus-visible {
-  outline: 2px solid var(--ink);
+  outline: 2px solid var(--ring);
   outline-offset: 2px;
 }
 
@@ -3837,8 +3837,8 @@ textarea:focus-visible {
 .roster-category-toggle:focus-visible {
   position: relative;
   z-index: 1;
-  outline: none;
-  box-shadow: inset 0 0 0 3px var(--ring);
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
 }
 .roster-category-title,
 .roster-category-meta {
@@ -3933,8 +3933,8 @@ textarea:focus-visible {
 .roster-side-choice button:focus-visible {
   position: relative;
   z-index: 1;
-  outline: none;
-  box-shadow: inset 0 0 0 3px var(--ring);
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
 }
 .roster-grid-head,
 .roster-edit-row {
@@ -4243,8 +4243,8 @@ textarea:focus-visible {
 .roster-template-category:has(input:focus-visible) {
   position: relative;
   z-index: 1;
-  outline: 2px solid var(--ink);
-  outline-offset: -2px;
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
 }
 .roster-template-category input {
   width: 17px;
@@ -4262,7 +4262,7 @@ textarea:focus-visible {
   background: var(--bg);
 }
 .roster-template-option:has(input:focus-visible) {
-  outline: 2px solid var(--ink);
+  outline: 2px solid var(--ring);
   outline-offset: 2px;
 }
 .roster-template-option input {
@@ -4859,6 +4859,8 @@ textarea:focus-visible {
 .question-preview-page .question-ayah-pick:hover,
 .question-preview-page .question-ayah-pick:focus-visible {
   outline-color: color-mix(in srgb, #34765b 72%, transparent);
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
 }
 .question-preview-page .question-ayah-pick[aria-pressed="true"] {
   outline-color: #34765b;
@@ -6027,8 +6029,8 @@ textarea:focus-visible {
 }
 .unit-choice:focus-visible {
   z-index: 2;
-  outline: 2px solid var(--ink-2);
-  outline-offset: 1px;
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
 }
 .drag-menu.pinned .unit-picker-row {
   /* Keep tap-open letters on the same RTL rail as the hold gesture. */
@@ -6087,7 +6089,7 @@ textarea:focus-visible {
   -webkit-touch-callout: none;
 }
 .selector-undo:focus-visible {
-  outline: 2px solid var(--ink-2);
+  outline: 2px solid var(--ring);
   outline-offset: 2px;
 }
 .selector-undo-progress {
@@ -6235,6 +6237,8 @@ textarea:focus-visible {
 .pill.active,
 .pill:focus-visible {
   background: var(--c-tint);
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
 }
 .pill.active::after,
 .pill:focus-visible::after {
@@ -6245,6 +6249,8 @@ textarea:focus-visible {
   border: 2px solid var(--c);
   border-radius: inherit;
   pointer-events: none;
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
 }
 .pill-fixed {
   min-height: 46px;
@@ -6254,7 +6260,8 @@ textarea:focus-visible {
 }
 .pill:focus-visible {
   z-index: 1;
-  outline: none;
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
 }
 .pill.active .pill-main,
 .pill.active .pill-amt {
@@ -7537,8 +7544,8 @@ textarea:focus-visible {
   color: var(--ink);
 }
 .reciter-absent:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 3px var(--ring);
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
 }
 .queue-participant-button small.is-absent {
   color: var(--ink-2);
@@ -7647,8 +7654,8 @@ textarea:focus-visible {
   background: var(--bg);
 }
 .queue-participant-button:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 3px var(--ring);
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
 }
 .queue-participant-button:disabled {
   cursor: default;
@@ -7792,8 +7799,8 @@ textarea:focus-visible {
   border-color: var(--ink-3);
 }
 .draw-tile:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 3px var(--ring);
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
 }
 .draw-tile:active:not(:disabled) {
   transform: scale(0.97);
@@ -8193,8 +8200,8 @@ html:has(.dialog-backdrop) {
 .next-reciter-absent:focus-visible {
   position: relative;
   z-index: 1;
-  outline: none;
-  box-shadow: inset 0 0 0 3px var(--ring);
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
 }
 .reciter-row-copy {
   display: grid;
@@ -8278,8 +8285,8 @@ html:has(.dialog-backdrop) {
   background: transparent;
 }
 .queue-group-toggle:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 3px var(--ring);
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
 }
 .queue-group-title {
   display: inline-flex;
@@ -9456,8 +9463,8 @@ html:has(.dialog-backdrop) {
 }
 
 .results-ledger-controls .results-status-filter:focus-visible {
-  outline: 0;
-  box-shadow: inset 0 -2px var(--ink-3);
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
 }
 
 .results-ledger-controls .results-status-filter strong {
@@ -10914,7 +10921,8 @@ html:has(.dialog-backdrop) {
 }
 .mark-ruler:focus-visible {
   border-radius: var(--r-sm);
-  box-shadow: 0 0 0 3px var(--ring);
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
 }
 .mark-ruler-rail {
   position: absolute;
@@ -11102,12 +11110,16 @@ html:has(.dialog-backdrop) {
 }
 .mark-stepper-adjust:hover:not(:disabled) { background: var(--line); }
 .mark-stepper-adjust:disabled { color: var(--ink-3); opacity: .5; cursor: default; }
-.mark-stepper-adjust:focus-visible { outline: 2px solid var(--ink-2); outline-offset: -3px; }
+.mark-stepper-adjust:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px; }
 .mark-stepper-readout { text-align: center; font-size: 14px; white-space: nowrap; }
 .mark-stepper-readout .sc-of { font-size: 12px; color: var(--ink-3); }
 .mark-stepper-footer { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 8px; font-size: 12px; color: var(--ink-3); }
 .mark-stepper-footer button { min-height: var(--tap); padding: 0 12px; border: 0; border-radius: 5px; color: var(--ink-2); background: transparent; font: inherit; cursor: pointer; }
-.mark-stepper-footer button:focus-visible { outline: 2px solid var(--ink-2); }
+.mark-stepper-footer button:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px; }
 .finish-dialog {
   display: grid;
   grid-template-rows: auto minmax(0, 1fr) auto;
@@ -11975,8 +11987,8 @@ html:has(.finish-dialog[open]) {
 .result-detail-back:focus-visible,
 .result-mistake-row:focus-visible,
 .evidence-marker-button:focus-visible {
-  outline: 0;
-  box-shadow: 0 0 0 3px var(--ring);
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
 }
 
 .result-detail-header {
@@ -13243,7 +13255,8 @@ html:has(.finish-dialog[open]) {
 }
 
 .prepared-recording-choice input:focus-visible + .prepared-recording-check {
-  box-shadow: 0 0 0 3px var(--ring);
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
 }
 
 .prepared-recording-choice input:disabled + .prepared-recording-check,
@@ -13404,13 +13417,17 @@ html:has(.finish-dialog[open]) {
 .replay-analysis > span { display: block; margin-top: var(--sp-3); color: var(--ink-3); }
 .replay-remove { justify-self: start; border: 0; background: transparent; color: var(--ink-3); text-decoration: underline; }
 .replay-review button:disabled { opacity: 0.5; cursor: not-allowed; }
-.replay-review :is(button, input, select, summary):focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+.replay-review :is(button, input, select, summary):focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px; }
 .evidence-replay-word { position: relative; }
 .evidence-replay-button {
   position: absolute; inset: 0; border: 0; padding: 0; background: transparent;
   border-radius: 4px; cursor: pointer;
 }
-.evidence-replay-button:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.evidence-replay-button:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px; }
 .recitation-evidence-span .is-replay-focus { outline: 2px solid var(--ink); outline-offset: 2px; border-radius: 4px; }
 @media (max-width: 760px) {
   .replay-review { padding: var(--sp-4); }
@@ -14599,8 +14616,8 @@ html:has(.finish-dialog[open]) {
   }
 
   .mobile-sheet-close:focus-visible {
-    outline: none;
-    box-shadow: 0 0 0 3px var(--ring);
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
   }
 
   .mobile-score-sheet-context {
@@ -14965,7 +14982,9 @@ html:has(.finish-dialog[open]) {
   }
   .sidebar .sc-reason-trigger.has-value { color: var(--ink); }
   .sidebar .sc-reason-trigger:hover { background: var(--bg); }
-  .sidebar .sc-reason-trigger:focus-visible { outline: 2px solid var(--ink); outline-offset: -2px; }
+  .sidebar .sc-reason-trigger:focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px; }
 }
 /* Native scrolling with quiet edge shadows and a stable gutter. The grip itself is a .quiet-scroll grip. */
 .mistake-panel .log, .mistake-panel .history-scroll {
@@ -15036,7 +15055,9 @@ html:has(.finish-dialog[open]) {
 .compact-text-dialog-head h2 { margin: 0; font-size: 16px; font-weight: 550; }
 .compact-text-dialog-head button { min-height: 44px; padding: 0 14px; border: 1px solid var(--line-2); border-radius: var(--r-sm); color: var(--ink); background: var(--surface); }
 .compact-text-dialog textarea { box-sizing: border-box; width: 100%; min-height: 120px; padding: 12px; border: 1px solid var(--line-2); border-radius: var(--r-sm); background: var(--bg); color: var(--ink); font: inherit; resize: vertical; }
-.compact-text-dialog :focus-visible { outline: 2px solid var(--ink-2); outline-offset: 2px; }
+.compact-text-dialog :focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px; }
 /* Keep the scoring hit target generous while making its visible box discreet. */
 .sidebar .mark-picker {
   position: relative; width: 56px; min-height: 44px;
@@ -15186,7 +15207,9 @@ html:has(.finish-dialog[open]) {
   transform: none;
 }
 .mistake-panel .log-head-adjust .log-adjust { flex: 0 0 auto; }
-.mistake-panel .log-head-adjust .step-btn:focus-visible { outline: 2px solid var(--ink-3); outline-offset: 1px; }
+.mistake-panel .log-head-adjust .step-btn:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px; }
 /* The kalimah starts where the number starts. */
 .mistake-panel .log-detail-line {
   padding-left: calc(12px + var(--log-tile, 40px) + 8px);
@@ -15212,7 +15235,9 @@ html:has(.finish-dialog[open]) {
   transition-timing-function: cubic-bezier(0.2, 0, 0, 1);
 }
 .log-detail-line .log-adjust { flex: 0 0 auto; }
-.log-detail-line .step-btn:focus-visible { outline: 2px solid var(--ink-3); outline-offset: 1px; }
+.log-detail-line .step-btn:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px; }
 .log-locate { display: none; }
 @media (max-width: 900px) {
   .sidebar .mistake-panel:not(.is-expanded) .log-locate {
@@ -15407,9 +15432,14 @@ html:has(.finish-dialog[open]) {
 .pill-main, .btn-primary, .btn-ghost { font-size: var(--t-small); }
 .t-label { font-size: var(--t-micro); font-weight: 600; letter-spacing: 0.12em; }
 .brand { font-family: "Platypi", serif; font-weight: 600; }
+/* An actual outline survives Windows High Contrast. Quran hits keep their geometry. */
+:where(button, input, select, textarea, summary, [tabindex]):not(.hit):focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+@media (forced-colors: active) { :focus-visible { outline-color: Highlight; } }
 .reciter-selection-screen .queue-scroll { padding-inline: 4px; }
 .queue-participant-button[aria-selected="true"] { position: relative; background: color-mix(in srgb, var(--ink) 5%, transparent); box-shadow: none; }
 .queue-participant-button[aria-selected="true"]::before { content: ""; position: absolute; inset-block: 8px; inset-inline-start: 2px; width: 3px; border-radius: 2px; background: var(--ink-2); }
+.queue-search:focus-within { outline: 2px solid var(--ring); outline-offset: 2px; box-shadow: none; }
+.mobile-score-sheet .compact-text-inline-editor textarea:focus { outline: 2px solid var(--ring); outline-offset: 2px; box-shadow: none; }
 .score-value-number, .finish-score-value .score-value-number { font-family: var(--num); font-size: var(--t-small); font-weight: 520; letter-spacing: 0.045em; }
 .sc-score .sc-of, .finish-score-value .score-value-layout .sc-of { font-family: var(--num); font-weight: 520; letter-spacing: 0.045em; }
 /* The embedded queue uses the same centring as a queue opened from the rail. */
