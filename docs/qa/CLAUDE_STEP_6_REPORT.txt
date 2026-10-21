@@ -1,0 +1,94 @@
+Step 6 — implementation report, 21 October 2026
+
+Status: committed for GitHub review at the user's explicit request.
+Production publication is not part of this push. Phone layout choice stays open.
+
+6.1 Locally hosted Manrope UI / Nunito Sans numbers with OFL licence files and
+    Inter fallback. Numbers use tabular figures, 520 weight and .045em spacing.
+    The approved wordmark already uses outlined Platypi artwork and is preserved.
+    Platypi fallback font is available. Quran fonts and artwork are unchanged.
+6.2 Warm light/dark neutral tokens and category colours applied; actual contrast
+    ratios checked. Existing accessible lighter dark status colours retained.
+6.3 Small text 15 px, body 16 px / 1.4, score total 34 px. Numeric boxes checked
+    with whole and decimal two-digit values. Existing unrelated fractional
+    geometry is not rounded indiscriminately.
+6.4 config.short supplies Jali, Khafi, Fasaha and Adu / Raagu on relevant display
+    pills. Full accessible labels and saved category labels are unchanged.
+6.5 Solid 2 px focus outlines with 2 px offset; forced-colour visibility checked.
+    Quran hit geometry preserved.
+6.6 Header/page controls and View all have tested 44 px targets. Page arrows
+    retain 32 px visible circles. Edge clicks were checked for interception.
+6.7 Reduced motion disables decorative animation. The Undo hold indicator fills
+    in three steps across the full functional 700 ms, overriding an older global
+    80 ms duration rule. The hold action itself is unchanged.
+6.8 Check only: normal rail 300, score rows 36, gap 12, card gap 4, outer rail
+    radius 12 match the requested reference. Desktop header is 53 rather than
+    46; score padding is 10 vertical / 14 horizontal rather than 14 all round.
+    Existing slim rail is 280. Phone header is 55. These are reported rather
+    than forced smaller, preserving touch access and stable Begin geometry.
+
+Retained: Claude's composition, outlined wordmark, Quran font, drawing/marking
+geometry, scoring and persistence contracts.
+Recomposed: typography, neutral/category tokens and keyboard/touch feedback.
+Removed: decorative animation under reduced motion; no product data fields.
+
+Main files: global.css, config.ts, types.ts, DragMenu.tsx, CompetitionSetup.tsx,
+public/sw.js and three font assets plus their licences. QA scripts:
+claude-visual-browser.mjs, claude-number-browser.mjs, claude-contrast.mjs.
+Existing score/mistake assertions updated for the requested number typography.
+
+Validation:
+- Full suite: 444 passed, one skipped. Production build passed; existing large
+  bundle warning remains. Diff whitespace check passed.
+- Visual/control checks: 12 viewport/theme cases from 320 to 1440 px, including
+  reduced motion and forced colours. No horizontal document overflow.
+- Decimal marks: 96 checks across ruler/stepper and values 0, .5, 7.5, 9.5,
+  10, 11.5, 19.5, 20. Maximum centre error under .008 px; min inset 9.78 px;
+  control height 44 px and box dimensions stable.
+- Offline: all three local fonts cached and loaded with network disabled.
+- Mobile collapse: 12 Chromium cycles, no frame over 33 ms in this run.
+- Text/outline/marker contrast: all 38 pairs met their applicable thresholds.
+  Light muted text: 5.22 surface / 4.78 background. Dark: 4.95 / 5.46.
+  Focus outline: light 5.87 / 5.38; dark 5.93 / 6.54.
+  Filled category chips: Jali 5.43; Khafi dark ink 6.40; Fasaha 6.02 light,
+  5.54 dark; Adu / Raagu 5.04. Strong/tint text pairs range 6.0–8.07 light,
+  6.93–7.79 dark. Detailed foreground/background pairs: contrast.json.
+
+Screenshots: visual/{1440,1024,768,390,320}-{light,dark}-{judge,mistakes}.png
+and final/ for queue/draw/review. Interactive comparison: review.html.
+
+Open: user visual approval, physical-device/Safari confirmation, phone action
+stacking choice from Step 5.4. Dhivehi/Arabic interface work is not part of this
+step. Do not equate Chromium emulation with testing an actual tablet or Pencil.
+Confidence: practicality 95/100; architecture/data safety 97/100; visual 88/100.
+
+Co-Authored-By: Codex <noreply@openai.com>
+
+Final component audit, 21 October 2026:
+- competition-setup-v2.css still overrode several label weights and uppercase
+  spacing. These now use 600 and .12em, retaining layout and handlers.
+- resultsOverview.css now applies Nunito Sans 520 to participant numbers and
+  scores, and the agreed ring to table/filter/pagination keyboard focus.
+- Legacy result-ledger number/total overrides in global.css now retain 520.
+- settings.css label weights and uppercase spacing use the agreed roles; the
+  question preparation count uses Nunito Sans 520. Headings above 21 px kept.
+- Setup: 12 browser cases; current Results/Settings: 12; legacy Results: six.
+  Screenshots are included in review.html. Eight focused setup tests passed.
+- Full suite rerun: 444 passed, one skipped. Production build passed.
+- No additional source-contract tests needed changing for these CSS corrections.
+
+Reproduction: npm ci; npm test; npx tsc -b; npm run build.
+Browser QA: start Vite at 127.0.0.1:5346; install/use Playwright in the review
+environment. Scripts resolve the playwright module normally, or accept
+PLAYWRIGHT_PATH pointing at its installed package. No browser install is
+performed by the scripts. Use an isolated browser context with QA sample data.
+
+Complete contrast output is claude-step-6-contrast.json.
+
+Screenshots shipped with this branch (synthetic fixture):
+- claude-step-6/1440-light-judge.png
+- claude-step-6/1440-dark-judge.png
+- claude-step-6/1024-light-judge.png
+- claude-step-6/390-light-mistakes.png
+- claude-step-6/1440-light-setup.png
+- claude-step-6/390-light-settings.png
