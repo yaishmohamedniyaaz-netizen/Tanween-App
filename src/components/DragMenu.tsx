@@ -336,6 +336,7 @@ export function DragMenu({
           key={c.id}
           type="button"
           role="menuitem"
+          aria-label={c.label}
           data-pill={c.id}
           data-path-index={index}
           className={`pill cat-${c.id} ${edgeClasses} ${fixedCategory ? "pill-fixed" : ""} ${hovered === c.id || armed === c.id ? "active" : ""} ${armed === c.id ? "is-armed" : ""}`}
@@ -353,7 +354,7 @@ export function DragMenu({
           <span className="pill-text">
             <span className="pill-main">
               {fixedCategory && pinned ? "Mark " : ""}
-              {c.label.replace("Laḥn ", "")}
+              {c.short}
             </span>
           </span>
           <span className="pill-amt">−{config[c.id].step}</span>
@@ -388,7 +389,7 @@ export function DragMenu({
           {categoryStack}
           {pinned && selectedMistake && selectedCategory && (
             <div className={`selector-correction cat-${selectedMistake.category}`}>
-              <span className="selector-current">{selectedCategory.label.replace("Laḥn ", "")} · −{selectedMistake.amount}</span>
+              <span className="selector-current" aria-label={`${selectedCategory.label} · −${selectedMistake.amount}`}>{selectedCategory.short} · −{selectedMistake.amount}</span>
               <HoldToUndo
                 key={`${selectedMistake.id}:${selectedMistake.category}:${selectedMistake.amount}:${tashkeel}`}
                 onUndo={() => onUndo(selectedMistake.id)}

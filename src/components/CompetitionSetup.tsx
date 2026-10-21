@@ -1017,7 +1017,7 @@ export function CompetitionSetup({
                 <div className="judge-category-set" role="group" aria-label={`${seat.label} categories`}>
                   {CATEGORIES.filter((category) => judgedCategories.includes(category.id)).map((category) => {
                     const selected = seat.categories.includes(category.id);
-                    return <button key={category.id} type="button" disabled={!editable} className={`judge-category cat-${category.id} ${selected ? "is-active" : ""}`} aria-pressed={selected} onClick={() => assignCategory(seat.id, category.id)}><span aria-hidden="true" />{category.label.replace("Laḥn ", "")}</button>;
+                    return <button key={category.id} type="button" disabled={!editable} className={`judge-category cat-${category.id} ${selected ? "is-active" : ""}`} aria-label={category.label} aria-pressed={selected} onClick={() => assignCategory(seat.id, category.id)}><span aria-hidden="true" />{category.short}</button>;
                   })}
                 </div>
                 {editable && panelDraft.seats.length > 1 && <button type="button" className="judge-remove" onClick={() => removeJudge(seat.id)}>Remove</button>}
