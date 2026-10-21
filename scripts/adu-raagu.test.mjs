@@ -513,7 +513,7 @@ test("Adu and Raagu has one home in the rail, inside its score row", () => {
   assert.match(ruleBody(".mark-picker"), /width: 70px/);
   assert.match(ruleBody(".sc-score .sc-of"), /font-size: 12px/);
   assert.match(ruleBody(".mark-picker-of"), /font-size: 12px/);
-  assert.match(ruleBody(".mark-picker-of"), /font-weight: 400/);
+  assert.match(ruleBody(".mark-picker-of"), /font-weight: 520/);
 });
 
 test("the judging rail sits on the left unless the judge chose otherwise", () => {

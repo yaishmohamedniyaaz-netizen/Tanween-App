@@ -17,8 +17,8 @@
 .question-preparation-head > div > span {
   color: var(--ink-3);
   font-size: 10px;
-  font-weight: 650;
-  letter-spacing: .08em;
+  font-weight: 600;
+  letter-spacing: .12em;
   text-transform: uppercase;
 }
 .settings-page-head h1,
@@ -79,7 +79,7 @@
 .settings-guide-copy h2 {
   margin: 0;
   font-size: var(--t-title);
-  font-weight: 610;
+  font-weight: 600;
   letter-spacing: -.035em;
   line-height: 1.18;
 }
@@ -136,7 +136,7 @@
 .settings-index button:hover { background: var(--bg); }
 .settings-index button.is-active { border-color: var(--line-2); background: var(--bg); }
 .settings-index button > span { display: grid; gap: 3px; }
-.settings-index strong { font-size: 12.5px; font-weight: 610; }
+.settings-index strong { font-size: 12.5px; font-weight: 600; }
 .settings-index small { color: var(--ink-3); font-size: 10.5px; line-height: 1.35; }
 .settings-index svg { color: var(--ink-3); }
 .settings-detail {
@@ -185,7 +185,7 @@
   margin-bottom: 12px;
   padding: 0;
   font-size: 13px;
-  font-weight: 620;
+  font-weight: 600;
 }
 .settings-choice-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
 .settings-choice-grid > button {
@@ -203,7 +203,7 @@
 .settings-choice-grid > button:hover,
 .settings-choice-grid > button.is-active { border-color: var(--ink-3); background: var(--bg); }
 .settings-choice-grid > button > span:nth-child(2) { display: grid; gap: 3px; }
-.settings-choice-grid strong { font-size: 13px; font-weight: 620; text-transform: capitalize; }
+.settings-choice-grid strong { font-size: 13px; font-weight: 600; text-transform: capitalize; }
 .settings-choice-grid small { color: var(--ink-3); font-size: 10.5px; line-height: 1.35; }
 .theme-preview {
   display: grid;
@@ -263,7 +263,7 @@
 }
 .settings-action-section:first-of-type { padding-top: 0; }
 .settings-action-section > div:first-child { display: grid; gap: 5px; }
-.settings-action-section strong { font-size: 13px; font-weight: 620; }
+.settings-action-section strong { font-size: 13px; font-weight: 600; }
 .settings-action-section p { max-width: 540px; margin: 0; color: var(--ink-3); font-size: 11.5px; line-height: 1.5; }
 .settings-action-section.is-stacked { grid-template-columns: 1fr auto; }
 .settings-file-input { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
@@ -271,7 +271,7 @@
 .settings-error { grid-column: 1 / -1; padding: 10px 12px; border: 1px solid rgba(216,69,61,.32); border-radius: 8px; background: rgba(216,69,61,.08); color: var(--ink); }
 .restore-preview { grid-column: 1 / -1; display: grid; gap: 16px; padding: 16px; border: 1px solid var(--line-2); border-radius: 10px; background: var(--bg); }
 .restore-preview-head { display: grid; gap: 3px; }
-.restore-preview-head > span { color: var(--ink-3); font-size: 9.5px; font-weight: 650; letter-spacing: .07em; text-transform: uppercase; }
+.restore-preview-head > span { color: var(--ink-3); font-size: 9.5px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; }
 .restore-preview-head small { color: var(--ink-3); font-size: 10.5px; }
 .restore-preview dl { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin: 0; }
 .restore-preview dl div { display: grid; gap: 3px; padding: 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); }
@@ -285,7 +285,7 @@
 .question-preparation-page { min-height: calc(100vh - 59px); padding: 24px 24px 48px; animation: view-in var(--t-base) var(--ease-out); }
 .question-preparation-head { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: start; gap: 18px; max-width: 1240px; margin: 0 auto 18px; }
 .question-preparation-count { display: grid; justify-items: end; gap: 1px; min-width: 70px; }
-.question-preparation-count strong { font-size: 24px; font-weight: 560; font-variant-numeric: tabular-nums; }
+.question-preparation-count strong { font-size: 24px; font-family: var(--num); font-weight: 520; letter-spacing: .045em; font-variant-numeric: tabular-nums; }
 .question-preparation-count small { color: var(--ink-3); font-size: 10px; }
 .question-preparation-surface { max-width: 1240px; margin: 0 auto; padding: 22px; border: 1px solid var(--line); border-radius: var(--r-md); background: var(--surface); box-shadow: var(--shadow-rest); }
 

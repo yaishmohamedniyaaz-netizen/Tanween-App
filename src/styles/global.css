@@ -17,6 +17,27 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: "Manrope";
+  src: url("/fonts/manrope-latin-wght-normal.woff2") format("woff2");
+  font-weight: 200 800;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Nunito Sans";
+  src: url("/fonts/nunito-sans-latin-wght-normal.woff2") format("woff2");
+  font-weight: 200 1000;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Platypi";
+  src: url("/fonts/platypi-latin-wght-normal.woff2") format("woff2");
+  font-weight: 300 800;
+  font-display: swap;
+}
+
 /* ---- Tokens ---- */
 :root {
   --bg: #f2f1ee;
@@ -87,7 +108,8 @@
   --selection-fill: rgba(26, 26, 28, 0.055);
   --selection-ring: rgba(26, 26, 28, 0.42);
 
-  --ui: "InterVar", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --num: "Nunito Sans", var(--ui);
+  --ui: "Manrope", "InterVar", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --quran: "HafsUthmanic", serif;
   /* Native controls and unstyled scrollbars follow the theme. */
   color-scheme: light;
@@ -224,11 +246,13 @@ body {
 }
 body {
   font-family: var(--ui);
-  font-size: 14px;
+  font-size: var(--t-body);
   color: var(--ink);
   background: var(--bg);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  font-weight: 500;
+  line-height: 1.4;
 }
 html,
 body,
@@ -255,12 +279,15 @@ button {
 .t-label {
   font-size: 11px;
   font-weight: 500;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--ink-3);
 }
 .t-num {
   font-variant-numeric: tabular-nums;
+  font-family: var(--num);
+  font-weight: 520;
+  letter-spacing: 0.045em;
 }
 
 /* ---- Buttons (one language) ---- */
@@ -430,8 +457,10 @@ textarea:focus-visible {
 }
 .reciter-chip .chip-idx {
   color: var(--ink-3);
-  font-weight: 400;
+  font-weight: 520;
   font-variant-numeric: tabular-nums;
+  font-family: var(--num);
+  letter-spacing: 0.045em;
 }
 
 .view-toggle {
@@ -464,6 +493,9 @@ textarea:focus-visible {
   font-size: 11px;
   font-variant-numeric: tabular-nums;
   opacity: 0.65;
+  font-family: var(--num);
+  font-weight: 520;
+  letter-spacing: 0.045em;
 }
 
 /* overflow menu */
@@ -875,8 +907,8 @@ textarea:focus-visible {
 }
 .competition-idle-eyebrow {
   margin-bottom: 8px;
-  font-weight: 650;
-  letter-spacing: 0.055em;
+  font-weight: 600;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 .competition-idle-participant {
@@ -924,8 +956,8 @@ textarea:focus-visible {
   color: #8b5c18;
   font-family: var(--ui);
   font-size: 9px;
-  font-weight: 680;
-  letter-spacing: 0.08em;
+  font-weight: 600;
+  letter-spacing: 0.12em;
   line-height: 1;
   text-transform: uppercase;
   vertical-align: middle;
@@ -1003,7 +1035,7 @@ textarea:focus-visible {
   color: var(--ink-3);
   font-size: 9.5px;
   font-weight: 600;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 .competition-setup-topbar strong {
@@ -1043,7 +1075,7 @@ textarea:focus-visible {
   color: var(--ink-3);
   font-size: 9.5px;
   font-weight: 600;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 .setup-task-intro h1 {
@@ -1067,7 +1099,7 @@ textarea:focus-visible {
   color: var(--ink-3);
   font-size: 9px;
   font-weight: 600;
-  letter-spacing: 0.07em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 .setup-task-list nav > button {
@@ -1226,7 +1258,7 @@ textarea:focus-visible {
 .results-competition-context strong {
   max-width: 320px;
   font-size: 15px;
-  font-weight: 620;
+  font-weight: 600;
   line-height: 1.3;
 }
 
@@ -1281,6 +1313,9 @@ textarea:focus-visible {
   color: var(--surface);
   font-size: 12px;
   font-variant-numeric: tabular-nums;
+  font-family: var(--num);
+  font-weight: 520;
+  letter-spacing: 0.045em;
 }
 
 .results-tab-panel {
@@ -1347,9 +1382,10 @@ textarea:focus-visible {
 
 .results-status-strip strong {
   font-size: 24px;
-  font-weight: 580;
+  font-weight: 520;
   font-variant-numeric: tabular-nums;
-  letter-spacing: -0.025em;
+  letter-spacing: 0.045em;
+  font-family: var(--num);
 }
 
 .results-review-section {
@@ -1390,6 +1426,9 @@ textarea:focus-visible {
   font-size: 12px;
   font-variant-numeric: tabular-nums;
   text-align: end;
+  font-family: var(--num);
+  font-weight: 520;
+  letter-spacing: 0.045em;
 }
 
 .results-review-filters,
@@ -1583,7 +1622,7 @@ textarea:focus-visible {
   gap: 7px;
   color: var(--ink-2);
   font-size: 12px;
-  font-weight: 620;
+  font-weight: 600;
 }
 
 .results-state-chip > span {
@@ -1649,8 +1688,8 @@ textarea:focus-visible {
 .final-source-label {
   color: var(--ink-3);
   font-size: 12px;
-  font-weight: 650;
-  letter-spacing: 0.035em;
+  font-weight: 600;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
@@ -1709,8 +1748,10 @@ textarea:focus-visible {
 
 .results-workspace .final-score strong {
   font-size: 18px;
-  font-weight: 620;
+  font-weight: 520;
   font-variant-numeric: tabular-nums;
+  font-family: var(--num);
+  letter-spacing: 0.045em;
 }
 
 .results-workspace .final-result-action .btn-primary {
@@ -2108,7 +2149,7 @@ textarea:focus-visible {
   background: color-mix(in srgb, var(--status) 12%, var(--surface));
   color: color-mix(in srgb, var(--status) 76%, var(--ink));
   font-size: 12px;
-  font-weight: 680;
+  font-weight: 600;
 }
 
 .results-workspace .final-category-sources {
@@ -2266,7 +2307,7 @@ textarea:focus-visible {
 .results-status-strip .results-status-card-copy > span {
   color: color-mix(in srgb, var(--status) 70%, var(--ink));
   font-size: 13px;
-  font-weight: 680;
+  font-weight: 600;
   line-height: 1.2;
 }
 .results-status-card-copy small {
@@ -2302,7 +2343,7 @@ textarea:focus-visible {
   background: var(--surface);
   color: var(--ink-2);
   font-size: 12.5px;
-  font-weight: 620;
+  font-weight: 600;
   cursor: pointer;
   list-style: none;
 }
@@ -2393,7 +2434,7 @@ textarea:focus-visible {
 .results-workspace .final-result-summary .final-result-person strong {
   color: var(--ink);
   font-size: 17px;
-  font-weight: 680;
+  font-weight: 600;
   letter-spacing: -0.012em;
 }
 .results-workspace .final-result-summary .final-result-person small {
@@ -2453,7 +2494,7 @@ textarea:focus-visible {
   gap: 5px;
   color: color-mix(in srgb, var(--status) 72%, var(--ink));
   font-size: 12px;
-  font-weight: 650;
+  font-weight: 600;
 }
 .final-result-disclosure svg {
   transition: transform 140ms ease;
@@ -2486,10 +2527,11 @@ textarea:focus-visible {
   background: transparent;
   color: var(--ink);
   font-size: 18px;
-  font-weight: 680;
+  font-weight: 520;
   font-variant-numeric: tabular-nums;
-  letter-spacing: -0.02em;
+  letter-spacing: 0.045em;
   line-height: 1.2;
+  font-family: var(--num);
 }
 .results-workspace .final-source-value.is-missing strong {
   color: #a65d31;
@@ -2523,8 +2565,10 @@ textarea:focus-visible {
 }
 .results-analysis-scope-note strong {
   color: var(--ink-2);
-  font-weight: 650;
+  font-weight: 520;
   font-variant-numeric: tabular-nums;
+  font-family: var(--num);
+  letter-spacing: 0.045em;
 }
 .results-workspace .cat-row {
   display: grid;
@@ -2544,7 +2588,7 @@ textarea:focus-visible {
 .results-workspace .cat-score {
   color: var(--ink);
   font-size: 15px;
-  font-weight: 650;
+  font-weight: 600;
 }
 .results-workspace .cat-bar {
   height: 6px;
@@ -2574,6 +2618,9 @@ textarea:focus-visible {
   font-size: 11px;
   font-variant-numeric: tabular-nums;
   text-align: center;
+  font-family: var(--num);
+  font-weight: 520;
+  letter-spacing: 0.045em;
 }
 .results-workspace .repeat-bar {
   height: 6px;
@@ -2587,7 +2634,7 @@ textarea:focus-visible {
 .results-workspace .repeat-count strong {
   color: var(--ink);
   font-size: 16px;
-  font-weight: 680;
+  font-weight: 600;
 }
 .results-workspace .repeat-count small {
   color: var(--ink-3);
@@ -2737,8 +2784,8 @@ textarea:focus-visible {
   background: color-mix(in srgb, var(--surface) 64%, var(--bg));
   color: var(--ink-3);
   font-size: var(--t-micro);
-  font-weight: 620;
-  letter-spacing: 0.025em;
+  font-weight: 600;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
@@ -2798,9 +2845,11 @@ textarea:focus-visible {
 
 .analysis-location-row > strong {
   font-size: var(--t-small);
-  font-weight: 650;
+  font-weight: 520;
   font-variant-numeric: tabular-nums;
   text-align: end;
+  font-family: var(--num);
+  letter-spacing: 0.045em;
 }
 
 .analysis-evidence-panel {
@@ -2818,8 +2867,8 @@ textarea:focus-visible {
 .analysis-evidence-head > div > span {
   color: var(--ink-3);
   font-size: var(--t-micro);
-  font-weight: 650;
-  letter-spacing: 0.025em;
+  font-weight: 600;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
@@ -2839,9 +2888,11 @@ textarea:focus-visible {
 
 .analysis-evidence-total strong {
   font-size: var(--t-title);
-  font-weight: 640;
+  font-weight: 520;
   font-variant-numeric: tabular-nums;
   line-height: 1;
+  font-family: var(--num);
+  letter-spacing: 0.045em;
 }
 
 .analysis-evidence-total small {
@@ -2877,7 +2928,7 @@ textarea:focus-visible {
 .analysis-evidence-list-head h4 {
   margin: 0;
   font-size: var(--t-small);
-  font-weight: 620;
+  font-weight: 600;
 }
 
 .analysis-evidence-list-head span {
@@ -2914,8 +2965,10 @@ textarea:focus-visible {
   border: 1px solid var(--line-2);
   border-radius: var(--r-sm);
   font-size: var(--t-micro);
-  font-weight: 650;
+  font-weight: 520;
   font-variant-numeric: tabular-nums;
+  font-family: var(--num);
+  letter-spacing: 0.045em;
 }
 
 .analysis-evidence-person {
@@ -2926,7 +2979,7 @@ textarea:focus-visible {
 .analysis-evidence-person strong {
   overflow: hidden;
   font-size: var(--t-small);
-  font-weight: 620;
+  font-weight: 600;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -2946,7 +2999,7 @@ textarea:focus-visible {
   gap: 6px;
   color: var(--c-strong);
   font-size: var(--t-micro);
-  font-weight: 620;
+  font-weight: 600;
 }
 
 .analysis-evidence-category i {
@@ -2961,8 +3014,10 @@ textarea:focus-visible {
   grid-column: 3;
   grid-row: 1;
   font-size: var(--t-small);
-  font-weight: 650;
+  font-weight: 520;
   font-variant-numeric: tabular-nums;
+  font-family: var(--num);
+  letter-spacing: 0.045em;
 }
 
 @media (max-width: 900px) {
@@ -3013,7 +3068,7 @@ textarea:focus-visible {
   color: var(--ink-3);
   font-size: 10px;
   font-weight: 600;
-  letter-spacing: 0.07em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 .roster-setup-count strong {
@@ -3061,13 +3116,13 @@ textarea:focus-visible {
 .participant-institution-settings label > span:first-child {
   color: var(--ink-3);
   font-size: 9px;
-  font-weight: 650;
-  letter-spacing: 0.06em;
+  font-weight: 600;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 .participant-entry-settings-head strong {
   font-size: 13px;
-  font-weight: 610;
+  font-weight: 600;
 }
 .participant-entry-settings-head small,
 .participant-institution-empty {
@@ -3212,6 +3267,9 @@ textarea:focus-visible {
   border-radius: 999px;
   font-size: 10px;
   font-variant-numeric: tabular-nums;
+  font-family: var(--num);
+  font-weight: 520;
+  letter-spacing: 0.045em;
 }
 .roster-setup-paths strong {
   font-size: 11px;
@@ -3306,8 +3364,8 @@ textarea:focus-visible {
 .roster-empty-copy > span {
   color: var(--ink-3);
   font-size: 10px;
-  font-weight: 620;
-  letter-spacing: 0.08em;
+  font-weight: 600;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 .roster-editor-title h1 {
@@ -3376,9 +3434,10 @@ textarea:focus-visible {
 }
 .roster-editor-summary > div strong {
   font-size: 21px;
-  font-weight: 560;
+  font-weight: 520;
   font-variant-numeric: tabular-nums;
-  letter-spacing: -0.03em;
+  letter-spacing: 0.045em;
+  font-family: var(--num);
 }
 .roster-editor-summary > div span {
   color: var(--ink-3);
@@ -3598,13 +3657,13 @@ textarea:focus-visible {
 .roster-import-resolver-head span {
   color: #805a16;
   font-size: 9px;
-  font-weight: 650;
-  letter-spacing: 0.06em;
+  font-weight: 600;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 .roster-import-resolver-head strong {
   font-size: 12px;
-  font-weight: 620;
+  font-weight: 600;
 }
 .roster-import-resolver-head small,
 .roster-import-resolution-list small {
@@ -3617,7 +3676,7 @@ textarea:focus-visible {
   background: rgba(192, 137, 42, 0.12);
   color: #805a16;
   font-size: 9.5px;
-  font-weight: 650;
+  font-weight: 600;
   white-space: nowrap;
 }
 .roster-import-resolution-list {
@@ -3694,7 +3753,7 @@ textarea:focus-visible {
 }
 .roster-category-list-head strong {
   font-size: 11px;
-  font-weight: 620;
+  font-weight: 600;
 }
 .roster-category-list-head span {
   color: var(--ink-3);
@@ -3800,7 +3859,7 @@ textarea:focus-visible {
 .roster-category-title strong {
   overflow: hidden;
   font-size: 11.5px;
-  font-weight: 620;
+  font-weight: 600;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -3813,8 +3872,10 @@ textarea:focus-visible {
 }
 .roster-category-meta b {
   color: var(--ink-2);
-  font-weight: 650;
+  font-weight: 520;
   font-variant-numeric: tabular-nums;
+  font-family: var(--num);
+  letter-spacing: 0.045em;
 }
 .roster-category-meta em,
 .roster-category-meta i {
@@ -3890,8 +3951,8 @@ textarea:focus-visible {
   padding: 10px 9px;
   color: var(--ink-3);
   font-size: 9px;
-  font-weight: 620;
-  letter-spacing: 0.07em;
+  font-weight: 600;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 .roster-edit-row {
@@ -3957,9 +4018,10 @@ textarea:focus-visible {
   border-radius: 8px;
   background: var(--bg);
   font-size: 12px;
-  font-weight: 620;
+  font-weight: 520;
   font-variant-numeric: tabular-nums;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.045em;
+  font-family: var(--num);
 }
 .roster-row-actions {
   display: flex;
@@ -4070,7 +4132,7 @@ textarea:focus-visible {
   color: inherit;
 }
 .roster-undo-toast button:first-of-type {
-  font-weight: 650;
+  font-weight: 600;
 }
 .roster-dialog {
   width: min(720px, calc(100vw - 32px));
@@ -4110,7 +4172,7 @@ textarea:focus-visible {
 .roster-template-format strong {
   color: var(--ink);
   font-size: 11.5px;
-  font-weight: 610;
+  font-weight: 600;
 }
 .roster-template-required small,
 .roster-template-category small,
@@ -4134,7 +4196,7 @@ textarea:focus-visible {
   color: var(--ink-3);
   font-size: 9.5px;
   font-weight: 600;
-  letter-spacing: 0.025em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 .roster-template-option {
@@ -4344,12 +4406,14 @@ textarea:focus-visible {
   color: var(--ink-3);
   font-size: 9.5px;
   text-transform: uppercase;
-  letter-spacing: 0.07em;
+  letter-spacing: 0.12em;
 }
 .roster-compare-count strong {
   font-size: 30px;
-  font-weight: 560;
+  font-weight: 520;
   font-variant-numeric: tabular-nums;
+  font-family: var(--num);
+  letter-spacing: 0.045em;
 }
 .roster-compare-details {
   display: grid;
@@ -4373,6 +4437,9 @@ textarea:focus-visible {
   color: var(--ink);
   font-size: 12px;
   font-variant-numeric: tabular-nums;
+  font-family: var(--num);
+  font-weight: 520;
+  letter-spacing: 0.045em;
 }
 .roster-review-numbering {
   display: flex;
@@ -4924,6 +4991,7 @@ textarea:focus-visible {
   font-size: 8.5px;
   font-weight: 600;
   text-transform: uppercase;
+  letter-spacing: 0.12em;
 }
 .needs-check .question-draft-state {
   color: #9a611c;
@@ -5522,11 +5590,13 @@ textarea:focus-visible {
   background: color-mix(in srgb, var(--page-paper) 88%, transparent);
   color: var(--ink);
   font-size: 12px;
-  font-weight: 500;
+  font-weight: 520;
   font-variant-numeric: tabular-nums;
   padding: 0 9px;
   transition: background-color var(--t-fast) var(--ease-out),
     border-color var(--t-fast) var(--ease-out);
+  font-family: var(--num);
+  letter-spacing: 0.045em;
 }
 .page-nav-page:hover {
   background: var(--bg);
@@ -5598,6 +5668,9 @@ textarea:focus-visible {
   font-size: 11px;
   color: var(--ink-3);
   font-variant-numeric: tabular-nums;
+  font-family: var(--num);
+  font-weight: 520;
+  letter-spacing: 0.045em;
 }
 .page-nav-surah-name {
   flex: 1;
@@ -5826,8 +5899,8 @@ textarea:focus-visible {
   pointer-events: none;
   user-select: none;
   box-sizing: border-box;
-  font-family: var(--font-ui, system-ui, sans-serif);
-  font-weight: 600;
+  font-family: var(--num);
+  font-weight: 520;
   font-variant-numeric: tabular-nums;
   text-align: center;
   direction: ltr;
@@ -5835,6 +5908,7 @@ textarea:focus-visible {
   background: var(--surface);
   outline: 1px solid var(--line-2);
   outline-offset: -1px;
+  letter-spacing: 0.045em;
 }
 .menu-backdrop {
   position: fixed;
@@ -6150,9 +6224,11 @@ textarea:focus-visible {
 .pill-amt {
   margin-left: auto;
   font-size: var(--t-small);
-  font-weight: 500;
+  font-weight: 520;
   color: var(--ink-2);
   font-variant-numeric: tabular-nums;
+  font-family: var(--num);
+  letter-spacing: 0.045em;
 }
 .pill.active,
 .pill:focus-visible {
@@ -6203,7 +6279,7 @@ textarea:focus-visible {
 .panel-title {
   font-size: 11px;
   font-weight: 500;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--ink-3);
   margin: 0;
@@ -6214,7 +6290,9 @@ textarea:focus-visible {
 .panel-count {
   font-variant-numeric: tabular-nums;
   color: var(--ink-3);
-  letter-spacing: 0;
+  letter-spacing: 0.045em;
+  font-family: var(--num);
+  font-weight: 520;
 }
 .panel-sub {
   font-size: 11px;
@@ -6250,10 +6328,12 @@ textarea:focus-visible {
 }
 .sc-deducted {
   font-size: 11.5px;
-  font-weight: 500;
+  font-weight: 520;
   text-align: center;
   color: var(--ink-2);
   font-variant-numeric: tabular-nums;
+  font-family: var(--num);
+  letter-spacing: 0.045em;
 }
 .sc-deducted.is-zero {
   color: var(--ink-3);
@@ -6270,6 +6350,9 @@ textarea:focus-visible {
   gap: 2px;
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
+  font-family: var(--num);
+  font-weight: 520;
+  letter-spacing: 0.045em;
 }
 .score-value-number {
   font-size: 14.5px;
@@ -6296,7 +6379,7 @@ textarea:focus-visible {
 .sc-total-label {
   font-size: 11px;
   font-weight: 500;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--ink-3);
 }
@@ -6307,15 +6390,19 @@ textarea:focus-visible {
 }
 .sc-total-num {
   font-size: 30px;
-  font-weight: 550;
-  letter-spacing: -0.02em;
+  font-weight: 520;
+  letter-spacing: 0.045em;
   line-height: 1;
   font-variant-numeric: tabular-nums;
+  font-family: var(--num);
 }
 .sc-total-of {
   font-size: 13px;
   color: var(--ink-3);
   font-variant-numeric: tabular-nums;
+  font-family: var(--num);
+  font-weight: 520;
+  letter-spacing: 0.045em;
 }
 
 /* Mistake log — lean rows, expand on click */
@@ -6413,6 +6500,9 @@ textarea:focus-visible {
   margin-left: 4px;
   color: var(--ink-3);
   font-variant-numeric: tabular-nums;
+  font-family: var(--num);
+  font-weight: 520;
+  letter-spacing: 0.045em;
 }
 .history-scroll {
   min-height: 0;
@@ -6468,6 +6558,9 @@ textarea:focus-visible {
   color: var(--ink-3);
   font-size: 12px;
   font-variant-numeric: tabular-nums;
+  font-family: var(--num);
+  font-weight: 520;
+  letter-spacing: 0.045em;
 }
 .history-restore {
   grid-column: 2;
@@ -6540,10 +6633,12 @@ textarea:focus-visible {
 }
 .log-amt {
   font-size: 15px;
-  font-weight: 500;
+  font-weight: 520;
   text-align: left;
   color: var(--ink-2);
   font-variant-numeric: tabular-nums;
+  font-family: var(--num);
+  letter-spacing: 0.045em;
 }
 .mobile-log-detail {
   display: none;
@@ -6597,10 +6692,12 @@ textarea:focus-visible {
 }
 .step-val {
   font-size: 13px;
-  font-weight: 500;
+  font-weight: 520;
   min-width: 34px;
   text-align: center;
   font-variant-numeric: tabular-nums;
+  font-family: var(--num);
+  letter-spacing: 0.045em;
 }
 .icon-btn {
   background: transparent;
@@ -7121,7 +7218,7 @@ textarea:focus-visible {
   color: var(--ink-3);
   font-size: 10px;
   font-weight: 500;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 .reopen-reason {
@@ -7235,6 +7332,9 @@ textarea:focus-visible {
   color: var(--ink-3);
   min-width: 22px;
   font-variant-numeric: tabular-nums;
+  font-family: var(--num);
+  font-weight: 520;
+  letter-spacing: 0.045em;
 }
 .roster-name {
   flex: 1;
@@ -7343,12 +7443,12 @@ textarea:focus-visible {
   border-radius: 7px;
   color: var(--ink-2);
   font-size: var(--t-micro);
-  font-weight: 650;
+  font-weight: 600;
 }
 .reciter-step-head h3 {
   margin: 0;
   font-size: var(--t-small);
-  font-weight: 620;
+  font-weight: 600;
 }
 .reciter-step-head p {
   margin: 3px 0 0;
@@ -7371,9 +7471,10 @@ textarea:focus-visible {
   background: var(--bg);
   color: var(--ink-2);
   font-size: var(--t-micro);
-  font-weight: 600;
+  font-weight: 520;
   font-variant-numeric: tabular-nums;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.045em;
+  font-family: var(--num);
 }
 .selected-reciter-main {
   display: grid;
@@ -7563,10 +7664,12 @@ textarea:focus-visible {
   background: var(--bg);
   color: var(--ink-2);
   font-size: 11px;
-  font-weight: 620;
+  font-weight: 520;
   font-variant-numeric: tabular-nums;
   line-height: 1;
   white-space: nowrap;
+  font-family: var(--num);
+  letter-spacing: 0.045em;
 }
 .participant-identity {
   display: grid;
@@ -7675,12 +7778,13 @@ textarea:focus-visible {
   border-radius: var(--r-md);
   background: var(--surface);
   color: var(--ink);
-  font-family: var(--ui);
+  font-family: var(--num);
   font-size: clamp(20px, 2.2vw, 26px);
-  font-weight: 600;
+  font-weight: 520;
   font-variant-numeric: tabular-nums;
   cursor: pointer;
   transition: border-color 120ms ease, transform 120ms ease;
+  letter-spacing: 0.045em;
 }
 .draw-tile:hover:not(:disabled) {
   border-color: var(--ink-3);
@@ -7721,11 +7825,14 @@ textarea:focus-visible {
   color: var(--ink-3);
   font-size: var(--t-micro);
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.12em;
 }
 .draw-revealed > strong {
   font-size: var(--t-body);
   font-variant-numeric: tabular-nums;
+  font-family: var(--num);
+  font-weight: 520;
+  letter-spacing: 0.045em;
 }
 .draw-revealed > small {
   color: var(--ink-2);
@@ -7801,8 +7908,10 @@ textarea:focus-visible {
   background: var(--bg);
   color: var(--ink-2);
   font-size: 10px;
-  font-weight: 650;
+  font-weight: 520;
   font-variant-numeric: tabular-nums;
+  font-family: var(--num);
+  letter-spacing: 0.045em;
 }
 .question-tile-copy {
   display: grid;
@@ -7812,7 +7921,7 @@ textarea:focus-visible {
 }
 .question-tile-copy strong {
   font-size: 13px;
-  font-weight: 620;
+  font-weight: 600;
   font-variant-numeric: tabular-nums;
 }
 .question-tile-copy small,
@@ -8051,7 +8160,7 @@ html:has(.dialog-backdrop) {
 .reciter-queue-summary strong {
   color: var(--ink);
   font-size: var(--t-micro);
-  font-weight: 620;
+  font-weight: 600;
 }
 .next-reciter-row {
   display: grid;
@@ -8093,7 +8202,7 @@ html:has(.dialog-backdrop) {
 .reciter-row-copy strong {
   overflow: hidden;
   font-size: 15px;
-  font-weight: 610;
+  font-weight: 600;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -8177,7 +8286,7 @@ html:has(.dialog-backdrop) {
   min-width: 0;
   overflow: hidden;
   font-size: 11px;
-  font-weight: 610;
+  font-weight: 600;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -8580,7 +8689,7 @@ html:has(.dialog-backdrop) {
   background: transparent;
   color: var(--ink);
   font-size: 12.5px;
-  font-weight: 620;
+  font-weight: 600;
 }
 .marking-coach-compact-trigger {
   display: none;
@@ -8646,9 +8755,10 @@ html:has(.dialog-backdrop) {
 }
 .metric-num {
   font-size: 26px;
-  font-weight: 500;
-  letter-spacing: -0.02em;
+  font-weight: 520;
+  letter-spacing: 0.045em;
   font-variant-numeric: tabular-nums;
+  font-family: var(--num);
 }
 .records-filter {
   display: flex;
@@ -8697,8 +8807,10 @@ html:has(.dialog-backdrop) {
 }
 .cat-score {
   font-size: 15px;
-  font-weight: 500;
+  font-weight: 520;
   font-variant-numeric: tabular-nums;
+  font-family: var(--num);
+  letter-spacing: 0.045em;
 }
 .letter-chips {
   display: flex;
@@ -8720,9 +8832,11 @@ html:has(.dialog-backdrop) {
 }
 .letter-chip-count {
   font-size: 12px;
-  font-weight: 500;
+  font-weight: 520;
   color: var(--ink-3);
   font-variant-numeric: tabular-nums;
+  font-family: var(--num);
+  letter-spacing: 0.045em;
 }
 .repeat-list,
 .session-list {
@@ -8782,10 +8896,12 @@ html:has(.dialog-backdrop) {
 }
 .repeat-count {
   font-size: 13px;
-  font-weight: 500;
+  font-weight: 520;
   min-width: 32px;
   text-align: right;
   font-variant-numeric: tabular-nums;
+  font-family: var(--num);
+  letter-spacing: 0.045em;
 }
 .panel-actions {
   display: flex;
@@ -8827,6 +8943,9 @@ html:has(.dialog-backdrop) {
   font-size: 12px;
   color: var(--ink-3);
   font-variant-numeric: tabular-nums;
+  font-family: var(--num);
+  font-weight: 520;
+  letter-spacing: 0.045em;
 }
 .session-main {
   flex: 1;
@@ -8845,8 +8964,10 @@ html:has(.dialog-backdrop) {
 }
 .session-score {
   font-size: 15px;
-  font-weight: 500;
+  font-weight: 520;
   font-variant-numeric: tabular-nums;
+  font-family: var(--num);
+  letter-spacing: 0.045em;
 }
 .session-max {
   font-size: 12px;
@@ -8913,10 +9034,12 @@ html:has(.dialog-backdrop) {
 }
 .drill-amt {
   font-size: 13px;
-  font-weight: 500;
+  font-weight: 520;
   font-variant-numeric: tabular-nums;
   min-width: 30px;
   text-align: right;
+  font-family: var(--num);
+  letter-spacing: 0.045em;
 }
 .drill-notes {
   font-size: 12px;
@@ -9040,6 +9163,9 @@ html:has(.dialog-backdrop) {
   color: var(--ink-2);
   font-size: 11px;
   font-variant-numeric: tabular-nums;
+  font-family: var(--num);
+  font-weight: 520;
+  letter-spacing: 0.045em;
 }
 .final-result-person > span:last-child,
 .final-score {
@@ -9074,7 +9200,7 @@ html:has(.dialog-backdrop) {
   color: var(--ink-3);
   font-size: 9px;
   font-weight: 600;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 .final-category-sources strong,
@@ -9115,6 +9241,9 @@ html:has(.dialog-backdrop) {
 .final-score strong {
   font-size: 14px;
   font-variant-numeric: tabular-nums;
+  font-family: var(--num);
+  font-weight: 520;
+  letter-spacing: 0.045em;
 }
 .final-status {
   color: #33734e;
@@ -9192,8 +9321,8 @@ html:has(.dialog-backdrop) {
   color: var(--ink-2);
   background: var(--bg);
   font-size: 10px;
-  font-weight: 650;
-  letter-spacing: 0.04em;
+  font-weight: 600;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 .prepared-reciter,
@@ -9321,7 +9450,7 @@ html:has(.dialog-backdrop) {
   background: var(--surface);
   color: var(--ink);
   box-shadow: none;
-  font-weight: 650;
+  font-weight: 600;
 }
 
 .results-ledger-controls .results-status-filter:focus-visible {
@@ -9333,7 +9462,9 @@ html:has(.dialog-backdrop) {
   color: inherit;
   font-size: 11px;
   font-variant-numeric: tabular-nums;
-  font-weight: 700;
+  font-weight: 520;
+  font-family: var(--num);
+  letter-spacing: 0.045em;
 }
 
 .results-ledger-controls .results-review-filters {
@@ -9379,8 +9510,8 @@ html:has(.dialog-backdrop) {
   background: color-mix(in srgb, var(--bg) 44%, var(--surface));
   color: var(--ink-3);
   font-size: var(--t-micro);
-  font-weight: 670;
-  letter-spacing: 0.035em;
+  font-weight: 600;
+  letter-spacing: 0.12em;
   line-height: 1.15;
   text-align: start;
   text-transform: uppercase;
@@ -9422,6 +9553,9 @@ html:has(.dialog-backdrop) {
 .result-ledger-total,
 .result-ledger-participant-number {
   font-variant-numeric: tabular-nums;
+  font-family: var(--num);
+  font-weight: 520;
+  letter-spacing: 0.045em;
 }
 
 .result-ledger-participant {
@@ -9451,7 +9585,7 @@ html:has(.dialog-backdrop) {
 
 .result-ledger-participant strong {
   font-size: var(--t-small);
-  font-weight: 650;
+  font-weight: 600;
 }
 
 .result-ledger-participant small {
@@ -9462,7 +9596,7 @@ html:has(.dialog-backdrop) {
 
 .result-ledger-participant-number {
   color: var(--ink-2);
-  font-weight: 650;
+  font-weight: 520;
 }
 
 .result-ledger-participant button:hover strong {
@@ -9481,7 +9615,7 @@ html:has(.dialog-backdrop) {
 .result-ledger-total strong {
   color: var(--ink);
   font-size: var(--t-lead);
-  font-weight: 680;
+  font-weight: 520;
 }
 
 .result-ledger-total small {
@@ -9506,7 +9640,7 @@ html:has(.dialog-backdrop) {
 
 .result-ledger-state.is-needs-review {
   color: var(--ink);
-  font-weight: 680;
+  font-weight: 600;
 }
 
 .result-ledger-state-column > small {
@@ -9536,15 +9670,15 @@ html:has(.dialog-backdrop) {
 .result-evidence-kicker {
   color: var(--ink-3);
   font-size: 10px;
-  font-weight: 650;
-  letter-spacing: 0.045em;
+  font-weight: 600;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
 .result-evidence-head h3 {
   margin: 7px 0 0;
   font-size: var(--t-title);
-  font-weight: 650;
+  font-weight: 600;
   letter-spacing: -0.025em;
   line-height: 1.15;
 }
@@ -9570,9 +9704,10 @@ html:has(.dialog-backdrop) {
   color: var(--ink);
   font-size: 24px;
   font-variant-numeric: tabular-nums;
-  font-weight: 650;
-  letter-spacing: -0.035em;
+  font-weight: 520;
+  letter-spacing: 0.045em;
   line-height: 1;
+  font-family: var(--num);
 }
 
 .result-evidence-summary > strong small {
@@ -9597,8 +9732,8 @@ html:has(.dialog-backdrop) {
   padding: 12px 16px 8px;
   color: var(--ink-3);
   font-size: 10px;
-  font-weight: 680;
-  letter-spacing: 0.045em;
+  font-weight: 600;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
@@ -9632,7 +9767,7 @@ html:has(.dialog-backdrop) {
 .result-evidence-source-label strong {
   color: var(--ink);
   font-size: 12px;
-  font-weight: 620;
+  font-weight: 600;
 }
 
 .results-workspace .result-evidence-panel .final-source-value {
@@ -9770,8 +9905,8 @@ html:has(.dialog-backdrop) {
 .prepared-sidebar-question span {
   color: var(--ink-3);
   font-size: var(--t-micro);
-  font-weight: 620;
-  letter-spacing: 0.045em;
+  font-weight: 600;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 .prepared-sidebar-question strong {
@@ -9992,7 +10127,7 @@ html:has(.dialog-backdrop) {
     padding: 2px 10px 2px 0;
     font-size: 11px;
     text-transform: uppercase;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.12em;
   }
   .rs-meta td {
     padding: 2px 18px 2px 0;
@@ -10717,13 +10852,18 @@ html:has(.dialog-backdrop) {
 }
 .mark-picker-value {
   font-variant-numeric: tabular-nums;
+  font-family: var(--num);
+  font-weight: 520;
+  letter-spacing: 0.045em;
 }
 .mark-picker-of {
   font-size: 12px;
-  font-weight: 400;
+  font-weight: 520;
   line-height: 1;
   color: var(--ink-3);
   font-variant-numeric: tabular-nums;
+  font-family: var(--num);
+  letter-spacing: 0.045em;
 }
 
 /* The mark bar is a direct ruler: every whole mark is labelled, half marks
@@ -10839,10 +10979,12 @@ html:has(.dialog-backdrop) {
   transform: translateX(-50%);
   color: var(--ink-3);
   font-size: 12px;
-  font-weight: 570;
+  font-weight: 520;
   font-style: normal;
   line-height: 1;
   font-variant-numeric: tabular-nums;
+  font-family: var(--num);
+  letter-spacing: 0.045em;
 }
 .mark-ruler-bubble {
   position: absolute;
@@ -10888,11 +11030,13 @@ html:has(.dialog-backdrop) {
   position: relative;
   z-index: 1;
   font-size: 20px;
-  font-weight: 700;
+  font-weight: 520;
   font-style: normal;
   line-height: 1;
   text-align: center;
   font-variant-numeric: tabular-nums;
+  font-family: var(--num);
+  letter-spacing: 0.045em;
 }
 .mark-ruler.is-dragging .mark-ruler-fill,
 .mark-ruler.is-dragging .mark-ruler-bubble {
@@ -11047,7 +11191,7 @@ html:has(.finish-dialog[open]) {
   color: var(--ink-3);
   font-size: var(--t-micro);
   font-weight: 570;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 /* A running total while a required mark is missing: quieter number, and what is still needed. */
@@ -11351,6 +11495,9 @@ html:has(.finish-dialog[open]) {
   color: var(--ink-3);
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
+  font-family: var(--num);
+  font-weight: 520;
+  letter-spacing: 0.045em;
 }
 
 @media (max-width: 1100px) {
@@ -11588,8 +11735,8 @@ html:has(.finish-dialog[open]) {
     content: attr(data-label);
     color: var(--ink-3);
     font-size: 8.5px;
-    font-weight: 620;
-    letter-spacing: 0.06em;
+    font-weight: 600;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
   }
   .roster-edit-cell:nth-child(3),
@@ -11847,8 +11994,8 @@ html:has(.finish-dialog[open]) {
 .result-question-bar > div > span {
   color: var(--ink-3);
   font-size: var(--t-micro);
-  font-weight: 680;
-  letter-spacing: 0.05em;
+  font-weight: 600;
+  letter-spacing: 0.12em;
   line-height: 1.25;
   text-transform: uppercase;
 }
@@ -11856,12 +12003,15 @@ html:has(.finish-dialog[open]) {
 .result-detail-identity > span bdi {
   color: var(--ink-2);
   font-variant-numeric: tabular-nums;
+  font-family: var(--num);
+  font-weight: 520;
+  letter-spacing: 0.045em;
 }
 
 .result-detail-identity h2 {
   margin: var(--sp-2) 0 0;
   font-size: clamp(23px, 2.2vw, 30px);
-  font-weight: 620;
+  font-weight: 600;
   letter-spacing: -0.035em;
   line-height: 1.08;
 }
@@ -11889,9 +12039,10 @@ html:has(.finish-dialog[open]) {
   color: var(--ink);
   font-size: 30px;
   font-variant-numeric: tabular-nums;
-  font-weight: 630;
-  letter-spacing: -0.045em;
+  font-weight: 520;
+  letter-spacing: 0.045em;
   line-height: 1;
+  font-family: var(--num);
 }
 
 .result-detail-score > strong small {
@@ -11961,6 +12112,7 @@ html:has(.finish-dialog[open]) {
   font-size: var(--t-micro);
   font-weight: 600;
   text-transform: uppercase;
+  letter-spacing: 0.12em;
 }
 
 .result-question-bar dd {
@@ -12011,7 +12163,7 @@ html:has(.finish-dialog[open]) {
   margin: 0;
   color: var(--ink);
   font-size: var(--t-body);
-  font-weight: 620;
+  font-weight: 600;
   letter-spacing: -0.012em;
 }
 
@@ -12142,7 +12294,7 @@ html:has(.finish-dialog[open]) {
   color: var(--surface);
   font-family: var(--ui);
   font-size: var(--t-micro);
-  font-weight: 700;
+  font-weight: 600;
   line-height: 1;
 }
 
@@ -12184,7 +12336,7 @@ html:has(.finish-dialog[open]) {
 .result-evidence-unavailable strong {
   color: var(--ink);
   font-size: var(--t-small);
-  font-weight: 620;
+  font-weight: 600;
 }
 
 .recitation-evidence-state span,
@@ -12263,7 +12415,7 @@ html:has(.finish-dialog[open]) {
   gap: 7px;
   color: var(--c-strong);
   font-size: var(--t-micro);
-  font-weight: 650;
+  font-weight: 600;
 }
 
 .result-mistake-copy > strong i,
@@ -12292,7 +12444,9 @@ html:has(.finish-dialog[open]) {
   color: var(--ink);
   font-size: var(--t-small);
   font-variant-numeric: tabular-nums;
-  font-weight: 650;
+  font-weight: 520;
+  font-family: var(--num);
+  letter-spacing: 0.045em;
 }
 
 .result-mistake-empty {
@@ -12333,7 +12487,7 @@ html:has(.finish-dialog[open]) {
 .result-source-category strong {
   color: var(--c-strong);
   font-size: var(--t-micro);
-  font-weight: 630;
+  font-weight: 600;
 }
 
 .result-source-reading {
@@ -12356,7 +12510,9 @@ html:has(.finish-dialog[open]) {
   color: var(--ink);
   font-size: var(--t-small);
   font-variant-numeric: tabular-nums;
-  font-weight: 650;
+  font-weight: 520;
+  font-family: var(--num);
+  letter-spacing: 0.045em;
 }
 
 .result-source-choice {
@@ -12523,7 +12679,7 @@ html:has(.finish-dialog[open]) {
   margin: 0;
   color: var(--ink);
   font-size: var(--t-body);
-  font-weight: 620;
+  font-weight: 600;
   letter-spacing: -0.012em;
 }
 
@@ -12583,7 +12739,7 @@ html:has(.finish-dialog[open]) {
   color: var(--ink);
   font: inherit;
   font-size: var(--t-micro);
-  font-weight: 620;
+  font-weight: 600;
 }
 
 .recitation-evidence-pager button:disabled {
@@ -12666,7 +12822,7 @@ html:has(.finish-dialog[open]) {
   color: var(--surface);
   font-family: var(--ui);
   font-size: var(--t-micro);
-  font-weight: 700;
+  font-weight: 600;
   line-height: 1;
 }
 
@@ -12702,7 +12858,7 @@ html:has(.finish-dialog[open]) {
 .result-evidence-unavailable strong {
   color: var(--ink);
   font-size: var(--t-small);
-  font-weight: 620;
+  font-weight: 600;
 }
 
 .recitation-evidence-state span,
@@ -12781,7 +12937,7 @@ html:has(.finish-dialog[open]) {
   gap: 7px;
   color: var(--c-strong);
   font-size: var(--t-micro);
-  font-weight: 650;
+  font-weight: 600;
 }
 
 .result-mistake-copy > strong i,
@@ -12810,7 +12966,9 @@ html:has(.finish-dialog[open]) {
   color: var(--ink);
   font-size: var(--t-small);
   font-variant-numeric: tabular-nums;
-  font-weight: 650;
+  font-weight: 520;
+  font-family: var(--num);
+  letter-spacing: 0.045em;
 }
 
 .result-mistake-empty {
@@ -12851,7 +13009,7 @@ html:has(.finish-dialog[open]) {
 .result-source-category strong {
   color: var(--c-strong);
   font-size: var(--t-micro);
-  font-weight: 630;
+  font-weight: 600;
 }
 
 .result-source-reading {
@@ -12874,7 +13032,9 @@ html:has(.finish-dialog[open]) {
   color: var(--ink);
   font-size: var(--t-small);
   font-variant-numeric: tabular-nums;
-  font-weight: 650;
+  font-weight: 520;
+  font-family: var(--num);
+  letter-spacing: 0.045em;
 }
 
 .result-source-choice {
@@ -13097,7 +13257,7 @@ html:has(.finish-dialog[open]) {
 
 .prepared-recording-choice strong {
   font-size: var(--t-small);
-  font-weight: 620;
+  font-weight: 600;
 }
 
 .prepared-recording-label-compact {
@@ -13283,15 +13443,15 @@ html:has(.finish-dialog[open]) {
 .session-recording-heading > label > span {
   color: var(--ink-3);
   font-size: var(--t-micro);
-  font-weight: 620;
-  letter-spacing: 0.04em;
+  font-weight: 600;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
 .session-recording-heading h3 {
   margin: 0;
   font-size: var(--t-lead);
-  font-weight: 620;
+  font-weight: 600;
   letter-spacing: -0.015em;
 }
 
@@ -13512,7 +13672,7 @@ html:has(.finish-dialog[open]) {
   background: var(--surface);
   color: var(--ink);
   font: inherit;
-  font-weight: 620;
+  font-weight: 600;
 }
 
 .tilawa-tracker-indicator {
@@ -14346,7 +14506,7 @@ html:has(.finish-dialog[open]) {
     color: var(--ink-3);
     font-size: 10.5px;
     font-weight: 500;
-    letter-spacing: 0.07em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
   }
 
@@ -15239,9 +15399,13 @@ html:has(.finish-dialog[open]) {
 @media (max-width: 700px) and (orientation: portrait) {
   .reciter-queue-modal > .reciter-start-backdrop { place-items: center; }
 }
+.t-label { font-size: var(--t-micro); font-weight: 600; letter-spacing: 0.12em; }
+.brand { font-family: "Platypi", serif; font-weight: 600; }
 .reciter-selection-screen .queue-scroll { padding-inline: 4px; }
 .queue-participant-button[aria-selected="true"] { position: relative; background: color-mix(in srgb, var(--ink) 5%, transparent); box-shadow: none; }
 .queue-participant-button[aria-selected="true"]::before { content: ""; position: absolute; inset-block: 8px; inset-inline-start: 2px; width: 3px; border-radius: 2px; background: var(--ink-2); }
+.score-value-number, .finish-score-value .score-value-number { font-family: var(--num); font-size: var(--t-small); font-weight: 520; letter-spacing: 0.045em; }
+.sc-score .sc-of, .finish-score-value .score-value-layout .sc-of { font-family: var(--num); font-weight: 520; letter-spacing: 0.045em; }
 /* The embedded queue uses the same centring as a queue opened from the rail. */
 .finish-dialog.is-queue-handoff { inset: 16px 20px; margin: auto; height: fit-content; max-height: calc(100dvh - 32px); }
 .finish-dialog.is-queue-handoff:has(.stage-participant) { height: min(820px, calc(100dvh - 32px)); }
