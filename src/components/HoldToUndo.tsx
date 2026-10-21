@@ -83,7 +83,7 @@ export function HoldToUndo({ onUndo }: { onUndo: () => void }) {
       onClick={(event) => { if (event.detail === 0) onUndo(); }}
     >
       <span aria-hidden="true">↶</span>
-      <span aria-live="polite">{phase === "ready" ? "Release to undo" : "Hold to undo"}</span>
+      <span aria-live="polite">{phase === "ready" ? "Release to undo" : phase === "holding" ? "Keep holding…" : "Hold to undo"}</span>
       <span className="selector-undo-progress" aria-hidden="true" />
     </button>
   );

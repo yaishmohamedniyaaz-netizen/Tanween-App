@@ -31,7 +31,8 @@ test('add, recategorise and undo update counts without modifying evidence', () =
 test('small and later-line words keep their attached circle', () => {
   for (const w of [3,8,16,80]) for(const y of [10,100,500]) {
     const marker=wordTotalCircle({x:100,y,w,h:18},3);
-    assert.ok(marker);assert.equal(marker.w,12);assert.equal(marker.h,12);
+    // 12px number: the 9px circle scaled by 12/9 (12 -> 16).
+    assert.ok(marker);assert.equal(marker.w,16);assert.equal(marker.h,16);
     assert.equal(marker.x+marker.w*0.4,100+w);
     assert.equal(marker.y+marker.h*0.75,y);
   }
@@ -44,6 +45,6 @@ test('multi-digit totals remain circular and grow only as needed', () => {
   const word={x:0,y:10,w:8,h:18};
   for(const total of [2,12,100]) {
     const marker=wordTotalCircle(word,total);
-    assert.equal(marker.w,marker.h);assert.ok(marker.w>=12);
+    assert.equal(marker.w,marker.h);assert.ok(marker.w>=16);
   }
 });

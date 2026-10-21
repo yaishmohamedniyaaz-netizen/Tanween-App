@@ -27,8 +27,11 @@ export function wordFindingCounts(
 }
 
 /** A fixed-size circle attached to the word corner, independent of word width. */
+/** The count's number: 12px, the type floor (it was 9px). The circle scales with it. */
+export const WORD_TOTAL_FONT_PX = 12;
+
 export function wordTotalCircle(word: MarkerRect, total: number): MarkerRect | null {
   if (!Number.isFinite(total) || total < 2) return null;
-  const size = Math.max(12, String(total).length * 4 + 6);
+  const size = Math.round(Math.max(12, String(total).length * 4 + 6) * (WORD_TOTAL_FONT_PX / 9));
   return { x: word.x + word.w - size * 0.4, y: word.y - size * 0.75, w: size, h: size };
 }

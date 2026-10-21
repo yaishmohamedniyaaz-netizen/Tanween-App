@@ -38,6 +38,9 @@ interface Props {
   }>;
   targetSelected: boolean;
   hovered: CategoryId | null;
+  /** Category chosen first (by sliding to it before any letter); a letter tap then marks it. */
+  armed?: CategoryId | null;
+  onArmedPick?: (tid: string) => void;
   onPreview: (category: CategoryId | null) => void;
   pinned: boolean;
   config: ScoreConfig;
@@ -63,6 +66,8 @@ export function DragMenu({
   units,
   targetSelected,
   hovered,
+  armed = null,
+  onArmedPick,
   onPreview,
   pinned,
   config,
@@ -76,6 +81,8 @@ export function DragMenu({
 }: Props) {
   const tashkeel = showTashkeel ?? false;
   const menuRef = useRef<HTMLDivElement>(null);
+  const stackRef = useRef<HTMLDivElement>(null);
+  const lastPointerRef = useRef<{ x: number; y: number } | null>(null);
   const [menuHeight, setMenuHeight] = useState(SELECTOR_ESTIMATED_HEIGHT);
   const visualViewport = window.visualViewport;
   const viewportWidth =
@@ -147,13 +154,34 @@ export function DragMenu({
     };
   }, [onClose, visualViewport]);
 
-  // When the menu is pinned (tap path), move focus into it for keyboard users.
+  // When the menu is pinned (tap path), move focus into it for keyboard users:
+  // the selected letter if there is one, otherwise the first.
+  // A category chosen first comes from a pointer gesture: leave focus alone, so
+  // no keyboard focus ring appears on a letter the judge did not pick.
+  useEffect(() => {
+    if (!pinned || armed) return;
+    (menuRef.current?.querySelector<HTMLButtonElement>("[data-unit-tid][aria-checked='true']") ??
+      menuRef.current?.querySelector<HTMLButtonElement>("[data-unit-tid]"))
+      ?.focus({ preventScroll: true });
+  }, [armed, pinned]);
+
+  // Diagonal guard: with a mouse, moving from the chosen letter toward the
+  // categories must not pick the letters crossed on the way.
   useEffect(() => {
     if (!pinned) return;
-    menuRef.current
-      ?.querySelector<HTMLButtonElement>("[data-unit-tid]")
-      ?.focus({ preventScroll: true });
+    const onMove = (event: PointerEvent) => { lastPointerRef.current = { x: event.clientX, y: event.clientY }; };
+    document.addEventListener("pointermove", onMove, true);
+    return () => document.removeEventListener("pointermove", onMove, true);
   }, [pinned]);
+  const headingToCategories = (event: React.PointerEvent) => {
+    const last = lastPointerRef.current;
+    const stack = stackRef.current?.getBoundingClientRect();
+    if (!last || !stack || !targetSelected) return false;
+    const dx = event.clientX - last.x;
+    const dy = event.clientY - last.y;
+    const toward = Math.sign(dy) === Math.sign((stack.top + stack.bottom) / 2 - event.clientY);
+    return dy !== 0 && toward && Math.abs(dy) >= Math.abs(dx) * 0.5;
+  };
 
   const onKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
     if (e.key === "Escape") {
@@ -250,7 +278,7 @@ export function DragMenu({
 
   const unitPicker = (
     <div
-      className={`unit-picker ${tashkeel ? "with-tashkeel" : ""} ${hovered ? `cat-${hovered}` : fixedCategory ? `cat-${fixedCategory.id}` : ""}`}
+      className={`unit-picker ${tashkeel ? "with-tashkeel" : ""} ${armed ? "is-armed" : ""} ${hovered ? `cat-${hovered}` : armed ? `cat-${armed}` : fixedCategory ? `cat-${fixedCategory.id}` : ""}`}
       dir="rtl"
     >
       <div
@@ -275,12 +303,14 @@ export function DragMenu({
             onPointerEnter={(event) => {
               // A mouse can explore the pinned tray without extra clicks.
               // Touch still chooses deliberately by tapping or dragging.
+              if (armed) return;
+              if (pinned && event.pointerType === "mouse" && headingToCategories(event)) return;
               if (!pinned || event.pointerType === "mouse") {
                 onPreview(null);
                 onUnitPick(unit.tid);
               }
             }}
-            onClick={() => onUnitPick(unit.tid)}
+            onClick={() => (armed && onArmedPick ? onArmedPick(unit.tid) : onUnitPick(unit.tid))}
           >
             <span aria-hidden="true" className="unit-glyph">{tashkeel ? unit.fullGlyph || unit.primaryGlyph : unit.primaryGlyph}</span>
           </button>
@@ -290,6 +320,7 @@ export function DragMenu({
   );
   const categoryStack = (
     <div
+      ref={stackRef}
       className="category-stack"
       role="menu"
       aria-label="Choose mistake type"
@@ -307,7 +338,7 @@ export function DragMenu({
           role="menuitem"
           data-pill={c.id}
           data-path-index={index}
-          className={`pill cat-${c.id} ${edgeClasses} ${fixedCategory ? "pill-fixed" : ""} ${hovered === c.id ? "active" : ""}`}
+          className={`pill cat-${c.id} ${edgeClasses} ${fixedCategory ? "pill-fixed" : ""} ${hovered === c.id || armed === c.id ? "active" : ""} ${armed === c.id ? "is-armed" : ""}`}
           disabled={!targetSelected}
           aria-disabled={!targetSelected}
           aria-posinset={index + 1}

@@ -5930,8 +5930,28 @@ textarea:focus-visible {
 .selector-undo.ready .selector-undo-progress {
   transform: scaleX(1);
 }
+/* Reduce Motion removes the sweep, not the feedback: the label changes at once
+   and the bar fills in three steps over the same 0.7 s. */
 @media (prefers-reduced-motion: reduce) {
-  .selector-undo.holding .selector-undo-progress { transition: none; transform: scaleX(0); }
+  .selector-undo.holding .selector-undo-progress { transition: transform 700ms steps(3, end); transform: scaleX(1); }
+}
+/* Category first: the chosen category stays lit and the letters are outlined in its colour. */
+.pill.is-armed:disabled {
+  cursor: default;
+  color: var(--ink);
+  -webkit-text-fill-color: currentColor;
+  background: var(--c-tint);
+}
+.pill.is-armed:disabled::before,
+.pill.is-armed:disabled .pill-amt {
+  opacity: 1;
+}
+.unit-picker.is-armed .unit-choice {
+  box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--c) 70%, transparent);
+}
+.unit-picker.is-armed .unit-choice:hover {
+  background: color-mix(in srgb, var(--c) 11%, var(--surface));
+  box-shadow: inset 0 0 0 2px var(--c);
 }
 .category-stack {
   display: flex;
@@ -6017,8 +6037,9 @@ textarea:focus-visible {
   flex: 0 1 auto;
   min-width: 0;
 }
+/* Read during a recitation: 14px names and deductions (were 12.25px and 11.5px). */
 .pill-main {
-  font-size: 12.25px;
+  font-size: var(--t-small);
   font-weight: 500;
   line-height: 1.25;
   white-space: nowrap;
@@ -6029,7 +6050,7 @@ textarea:focus-visible {
 }
 .pill-amt {
   margin-left: auto;
-  font-size: 11.5px;
+  font-size: var(--t-small);
   font-weight: 500;
   color: var(--ink-2);
   font-variant-numeric: tabular-nums;

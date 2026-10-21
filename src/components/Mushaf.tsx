@@ -65,7 +65,7 @@ import {
 import { MushafPageSurface, MushafWord } from "./MushafPageSurface.tsx";
 import { FixedMushafPageSurface } from "./FixedMushafPageSurface.tsx";
 import { assertFixedPageMatches, type FixedPageGeometry } from "../lib/fixedMushafGeometry.ts";
-import { wordTotalCircle, wordFindingCounts, type MarkerRect } from "../lib/wordFindingSummary";
+import { WORD_TOTAL_FONT_PX, wordTotalCircle, wordFindingCounts, type MarkerRect } from "../lib/wordFindingSummary";
 import { invalidateMushafMetrics, measureMushafGlyph, mushafPageScale, pickMushafWord } from "../lib/mushafGeometry.ts";
 
 interface UnitTarget {
@@ -239,6 +239,9 @@ export function Mushaf(props: MushafProps) {
   const [active, setActive] = useState<ActiveDrag | null>(null);
   const [hovered, setHovered] = useState<CategoryId | null>(null);
   const [pinned, setPinned] = useState(false);
+  // Category first: a slide that ends on a category before any letter keeps the
+  // tray open with that category chosen; one tap on a letter then marks it.
+  const [armed, setArmed] = useState<CategoryId | null>(null);
   const startRef = useRef<{
     x: number;
     y: number;
@@ -551,6 +554,7 @@ export function Mushaf(props: MushafProps) {
     setActive(null);
     setHovered(null);
     setPinned(false);
+    setArmed(null);
   }, []);
 
   // A tray never survives navigation or a structural page-layout change.
@@ -734,7 +738,19 @@ export function Mushaf(props: MushafProps) {
       commit(hovered);
       closeAll();
     } else if (start && !start.moved && Date.now() - start.t < 500) {
+      // A tap on a word that already has a mistake opens on its marked letter,
+      // so the correction and Hold to undo are there at once.
+      if (!active.tid) {
+        const marked = latestMarkedTid(active.meta);
+        if (marked) setActive((current) => (current ? { ...current, tid: marked } : current));
+      }
       setPinned(true);
+    } else if (!active.tid && start?.moved) {
+      const pill = element?.closest<HTMLElement>("[data-pill]")?.dataset.pill as CategoryId | undefined;
+      if (pill && allowedCategories.includes(pill)) {
+        setArmed(pill);
+        setPinned(true);
+      } else closeAll();
     } else {
       closeAll();
     }
@@ -752,9 +768,10 @@ export function Mushaf(props: MushafProps) {
     event.stopPropagation();
     const rect = event.currentTarget.getBoundingClientRect();
     setHovered(null);
+    setArmed(null);
     setPinned(true);
     setActive({
-      tid: null,
+      tid: latestMarkedTid(box),
       meta: box,
       anchor: {
         left: rect.left,
@@ -795,6 +812,18 @@ export function Mushaf(props: MushafProps) {
     }
     return matches;
   };
+  /** The letter of this word that holds the judge's most recent mistake, if any. */
+  function latestMarkedTid(box: WordHitbox): string | null {
+    let best: { tid: string; ts: number } | null = null;
+    for (const unit of box.units) {
+      for (const mistake of mistakesForUnit(unit)) {
+        if ((mistake.judgeSeatId ?? state.activeAssignment?.judgeSeatId) !== state.activeAssignment?.judgeSeatId) continue;
+        if (!allowedCategories.includes(mistake.category)) continue;
+        if (!best || mistake.ts > best.ts) best = { tid: unit.tid, ts: mistake.ts };
+      }
+    }
+    return best?.tid ?? null;
+  }
   const mistakesForWord = (box: WordHitbox): Mistake[] => {
     const seen = new Set<string>();
     const matches: Mistake[] = [];
@@ -1009,7 +1038,7 @@ export function Mushaf(props: MushafProps) {
                       style={{
                         left: localLeft(summary.marker.x), top: localTop(summary.marker.y),
                         width: local(summary.marker.w), height: local(summary.marker.h),
-                        fontSize: local(9), lineHeight: `${local(summary.marker.h)}px`, borderRadius: "50%",
+                        fontSize: local(WORD_TOTAL_FONT_PX), lineHeight: `${local(summary.marker.h)}px`, borderRadius: "50%",
                       }}
                     >{summary.total}</span>
                   )}
@@ -1096,6 +1125,7 @@ export function Mushaf(props: MushafProps) {
           }))}
           targetSelected={Boolean(activeUnit)}
           hovered={hovered}
+          armed={armed}
           onPreview={setHovered}
           pinned={pinned}
           config={state.activeAssignment?.config ?? state.config}
@@ -1107,6 +1137,11 @@ export function Mushaf(props: MushafProps) {
           onUnitPick={(tid) => {
             if (!active.meta.units.some((unit) => unit.tid === tid)) return;
             setActive((current) => (current ? { ...current, tid } : current));
+          }}
+          onArmedPick={(tid) => {
+            if (!armed || !active.meta.units.some((unit) => unit.tid === tid)) return;
+            commit(armed, tid);
+            closeTray();
           }}
           onClose={closeTray}
           onUndo={(id) => {
