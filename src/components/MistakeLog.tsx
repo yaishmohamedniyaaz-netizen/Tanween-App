@@ -122,6 +122,25 @@ export function MistakeLog({
     }));
   }, [initialOpenId, mobileSheet, state.mistakes]);
 
+  // Nothing is set by accident: − appears where the number was, so the second
+  // tap of a double tap that opened the card must not land on it. Ignore
+  // changes for the length of a double tap (500 ms) after a card opens.
+  const openedAtRef = useRef(0);
+  useEffect(() => { openedAtRef.current = performance.now(); }, [openId]);
+
+  // A long kalimah shrinks to fit its line instead of breaking (down to 60%).
+  useLayoutEffect(() => {
+    const word = panelRef.current?.querySelector<HTMLElement>(".log-row-wrap.open .log-detail-line .log-kalimah-word");
+    if (!word) return;
+    word.style.fontSize = "";
+    const available = word.clientWidth;
+    const needed = word.scrollWidth;
+    if (available > 0 && needed > available + 1) {
+      const base = parseFloat(getComputedStyle(word).fontSize);
+      word.style.fontSize = `${(base * Math.max(0.6, (available - 1) / needed)).toFixed(2)}px`;
+    }
+  }, [openId, state.mistakes]);
+
   useEffect(() => {
     if (openId && !state.mistakes.some((mistake) => mistake.id === openId)) {
       setOpenId(null);
@@ -348,9 +367,6 @@ export function MistakeLog({
                           {mistakePrimaryGlyph(mistake)}
                         </span>
                       </span>
-                      <span className="log-kalimah-word" dir="rtl" lang="ar" aria-hidden={!open}>
-                        {mistake.wordText || mistakeFullGlyph(mistake)}
-                      </span>
                       <span className="log-summary" aria-hidden={open}>
                         <span className="log-amt t-num">−{mistake.amount}</span>
                         <span className="mobile-log-detail">
@@ -362,6 +378,21 @@ export function MistakeLog({
                         <Icon name="chevron" size={13} />
                       </span>
                     </button>
+                    {/* Open: − and + grow around the number on the letter's line,
+                        away from the collapse arrow (the number moves right as − appears). */}
+                    <div
+                      className="log-head-adjust"
+                      ref={(node) => node?.toggleAttribute("inert", !open)}
+                      aria-hidden={!open}
+                    >
+                      <MistakeAmount
+                        amount={mistake.amount}
+                        onChange={(amount) => {
+                          if (performance.now() - openedAtRef.current < 500) return;
+                          dispatch({ type: "SET_MISTAKE_AMOUNT", id: mistake.id, amount });
+                        }}
+                      />
+                    </div>
                   </div>
                   <div
                     className="log-expand"
@@ -370,10 +401,10 @@ export function MistakeLog({
                   >
                     <div className="log-expand-inner">
                       <div className="log-detail-line">
-                        <MistakeAmount
-                          amount={mistake.amount}
-                          onChange={(amount) => dispatch({ type: "SET_MISTAKE_AMOUNT", id: mistake.id, amount })}
-                        />
+                        {/* The kalimah has its own line below; it shrinks to fit and is never split. */}
+                        <span className="log-kalimah-word" dir="rtl" lang="ar">
+                          {mistake.wordText || mistakeFullGlyph(mistake)}
+                        </span>
                         <span className="log-detail-actions">
                         <button
                           type="button"

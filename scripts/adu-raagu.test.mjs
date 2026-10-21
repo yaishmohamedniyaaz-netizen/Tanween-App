@@ -571,7 +571,11 @@ test("the opened mark fits one evidence line and never spells out its category",
   assert.match(mistakeLogSource, /<MistakeAmount/);
   assert.match(cssSource, /\.log-detail-line\s*\{[^}]*flex-wrap: nowrap/s);
   assert.doesNotMatch(ruleBody(".log-detail-line .log-kalimah"), /background/);
-  assert.match(ruleBody(".log-detail-line .log-adjust"), /height: 44px/);
+  // The stepper sits on the letter's line (look 3); the same 44px control.
+  assert.match(ruleBody(":is(.log-detail-line, .log-head-adjust) .log-adjust"), /height: 44px/);
+  assert.match(mistakeLogSource, /className="log-head-adjust"/);
+  // A double tap that opens the card cannot land on − (500 ms guard).
+  assert.match(mistakeLogSource, /performance\.now\(\) - openedAtRef\.current < 500/);
   // The letter leads its row, and the kalimah shares the row's inset.
   assert.match(mistakeLogSource, /className="log-tile"/);
   assert.doesNotMatch(mistakeLogSource, /className="log-dot"/);

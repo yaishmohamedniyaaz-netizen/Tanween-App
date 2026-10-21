@@ -8229,7 +8229,7 @@ html:has(.dialog-backdrop) {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.log-detail-line .log-adjust {
+:is(.log-detail-line, .log-head-adjust) .log-adjust {
   position: relative;
   display: grid;
   grid-template-columns: repeat(3, 44px);
@@ -8241,7 +8241,7 @@ html:has(.dialog-backdrop) {
   background: transparent;
 }
 /* A 28px visual control inside three non-overlapping 44px hit regions. */
-.log-detail-line .log-adjust::before {
+:is(.log-detail-line, .log-head-adjust) .log-adjust::before {
   content: "";
   position: absolute;
   inset: 8px 0;
@@ -8253,14 +8253,14 @@ html:has(.dialog-backdrop) {
     linear-gradient(var(--line), var(--line)) 87px center / 1px 100% no-repeat,
     var(--surface);
 }
-.log-detail-line .log-adjust .step-btn {
+:is(.log-detail-line, .log-head-adjust) .log-adjust .step-btn {
   position: relative;
   width: 44px;
   height: 44px;
   border: 0;
   border-radius: 0;
 }
-.log-detail-line .step-val {
+:is(.log-detail-line, .log-head-adjust) .step-val {
   position: relative;
   width: 44px;
   min-width: 44px;
@@ -8269,7 +8269,8 @@ html:has(.dialog-backdrop) {
   height: 44px;
   display: grid;
   place-items: center;
-  font-size: 14px;
+  /* The deduction keeps its 15px size when the card opens. */
+  font-size: 15px;
 }
 .log-detail-line .log-undo {
   min-height: 44px;
@@ -14854,12 +14855,63 @@ html:has(.finish-dialog[open]) {
 }
 .mistake-panel .log-row-wrap.open .log-expand-inner { opacity: 1; transition-delay: 60ms; }
 .mistake-panel .log-detail-line { padding: 0 12px; min-height: 44px; gap: 12px; }
+/* ---- Open card (look 3) ----
+   − and + grow around the number on the letter's line: − on the left, away from
+   the collapse arrow, and the number moves right to make room. The kalimah gets
+   its own line below, level with the number, with Undo at the far right. */
+.mistake-panel .log-head-row {
+  position: relative;
+}
+.mistake-panel .log-head-adjust {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(12px + var(--log-tile, 40px) + 8px);
+  display: flex;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-44px);
+  transition: opacity var(--t-fast) var(--ease-out), transform var(--t-base) cubic-bezier(0.2, 0, 0, 1);
+}
+.mistake-panel .log-row-wrap.open .log-head-adjust {
+  opacity: 1;
+  pointer-events: auto;
+  transform: none;
+}
+.mistake-panel .log-head-adjust .log-adjust { flex: 0 0 auto; }
+.mistake-panel .log-head-adjust .step-btn:focus-visible { outline: 2px solid var(--ink-3); outline-offset: 1px; }
+/* The kalimah starts where the number starts. */
+.mistake-panel .log-detail-line {
+  padding-left: calc(12px + var(--log-tile, 40px) + 8px);
+}
+.mistake-panel .log-detail-line .log-kalimah-word {
+  flex: 1 1 auto;
+  text-align: left;
+}
+/* Where the mark sits is not repeated in the tray; the open card shows the kalimah. */
+.mistake-panel .log-row .log-kalimah-ref { display: none; }
+/* The open card takes its own category's pale ground, not grey. */
+.mistake-panel .log-row-wrap.open {
+  border-color: color-mix(in srgb, var(--c) 30%, var(--line));
+  background: color-mix(in srgb, var(--c-tint) 60%, var(--surface));
+}
+.mistake-panel .log-row-wrap.open .log-row,
+.mistake-panel .log-row-wrap.open .log-row:hover {
+  background: transparent;
+}
+/* One soft curve for opening and closing. */
+.mistake-panel .log-expand,
+.mistake-panel .log-row .log-chevron {
+  transition-timing-function: cubic-bezier(0.2, 0, 0, 1);
+}
 .log-detail-line .log-adjust { flex: 0 0 auto; }
 .log-detail-line .step-btn:focus-visible { outline: 2px solid var(--ink-3); outline-offset: 1px; }
 @media (prefers-reduced-motion: reduce) {
-  .mistake-panel :is(.log-chevron, .log-expand, .log-expand-inner, .log-summary, .log-kalimah-word) {
+  .mistake-panel :is(.log-chevron, .log-expand, .log-expand-inner, .log-summary, .log-kalimah-word, .log-head-adjust) {
     transition: none !important;
   }
+  .mistake-panel .log-head-adjust { transform: none; }
 }
 
 /* Scorecard columns share one geometry, including editable whole-recitation marks. */
@@ -14926,6 +14978,7 @@ html:has(.finish-dialog[open]) {
 .mistake-panel-placeholder { flex: 0 1 auto; min-height: 0; }
 @media (min-width: 901px) {
   .sidebar .mistake-panel { --review-tile-size: 36px; }
+  .sidebar .mistake-panel :is(.log-head-adjust, .log-detail-line) { --log-tile: var(--review-tile-size); }
   .sidebar .mistake-panel .log-tile { width: var(--review-tile-size); height: var(--review-tile-size); }
   .sidebar .mistake-panel .log-row,
   .sidebar .mistake-panel .log-row-wrap.open .log-row {
