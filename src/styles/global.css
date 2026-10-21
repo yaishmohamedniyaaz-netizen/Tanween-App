@@ -15515,21 +15515,21 @@ html:has(.finish-dialog[open]) {
 /* ---- Final design (Fix Review v23) on the judging rail, review and page selector ----
    Whole-pixel roundings of the decided sizes: row 16.5 -> 17, numbers 19.35 -> 19,
    "of" 14.9 -> 15, deduction 17.28 -> 17, labels 14.9-15.4 -> 15, markers 12px.
-   The slim rail preference keeps its own denser sizes. */
+   The slim rail preference uses the same type sizes; it only tightens spacing. */
 @media (min-width: 901px) {
-  .workspace:not(.score-slim) .sidebar .judge-role-strip { font-size: var(--t-small); }
+  .sidebar .judge-role-strip { font-size: var(--t-small); }
   .sidebar .sc-total-label,
   .sidebar .mistake-panel .t-label { font-size: var(--t-small); font-weight: 600; letter-spacing: 0.12em; }
   .sidebar .scorecard .sc-total-num { letter-spacing: -0.02em; }
   .sidebar .scorecard .sc-total-of { font-size: 16px; }
   .sidebar .mistake-panel .log-view-all { font-size: var(--t-small); font-weight: 500; color: var(--ink-2); }
   .sidebar .mistake-panel .log-view-all:hover { color: var(--ink); }
-  .workspace:not(.score-slim) .sidebar .scorecard .sc-dot { width: 12px; height: 12px; border-radius: 3px; }
-  .workspace:not(.score-slim) .sidebar .scorecard .sc-name { font-size: var(--t-lead); }
-  .workspace:not(.score-slim) .sidebar .scorecard .sc-deducted { font-size: var(--t-lead); }
-  .workspace:not(.score-slim) .sidebar .scorecard .score-value-number,
-  .workspace:not(.score-slim) .sidebar .scorecard .mark-picker-value { font-size: 19px; font-weight: 520; }
-  .workspace:not(.score-slim) .sidebar .scorecard :is(.sc-score .sc-of, .mark-picker-of) { font-size: var(--t-small); font-weight: 500; }
+  .sidebar .scorecard .sc-dot { width: 12px; height: 12px; border-radius: 3px; }
+  .sidebar .scorecard .sc-name { font-size: var(--t-lead); }
+  .sidebar .scorecard .sc-deducted { font-size: var(--t-lead); }
+  .sidebar .scorecard .score-value-number,
+  .sidebar .scorecard .mark-picker-value { font-size: 19px; font-weight: 520; }
+  .sidebar .scorecard :is(.sc-score .sc-of, .mark-picker-of) { font-size: var(--t-small); font-weight: 500; }
   .sidebar .scorecard .mark-picker { border-radius: var(--r-md); }
 }
 /* Review and save: the same criterion rows as the rail. */
@@ -15549,12 +15549,12 @@ html:has(.finish-dialog[open]) {
 }
 .page-nav .page-nav-btn { color: var(--ink-2); }
 .page-nav .page-nav-page { border-radius: var(--r-md); min-width: 60px; }
-.page-nav .page-nav-ink { font-size: var(--t-lead); font-weight: 500; letter-spacing: 0.06em; color: var(--ink); }
+.page-nav .page-nav-ink { font-size: var(--t-lead); font-weight: 500; letter-spacing: 0.11em; color: var(--ink); }
 @media (hover: hover) {
   .page-nav :is(.page-nav-btn, .page-nav-page):hover:not(:disabled) { background: color-mix(in srgb, var(--ink) 6%, transparent); color: var(--ink); }
 }
 @media (min-width: 901px) {
-  .workspace:not(.score-slim) .sidebar .sc-row { grid-template-columns: 12px minmax(0, 1fr) 42px 76px; gap: 8px; }
+  .sidebar .sc-row { grid-template-columns: 12px minmax(0, 1fr) 42px 76px; gap: 8px; }
   .sidebar .mark-picker::before,
   .sidebar .sc-row-impression .mark-picker::before { border-radius: var(--r-md); }
 }
@@ -15563,7 +15563,7 @@ html:has(.finish-dialog[open]) {
 /* Header and controls (Fix Review v23): 46px header, 41px controls with 12px
    corners, 16px semibold labels. The 44px recording control still fits, and
    the height is the same before, during and after judging, so Fit never jumps. */
-@media (min-width: 901px) and (min-height: 620px) {
+@media (min-width: 901px) {
   .app.view-judge .app-header,
   .app.view-judge .app-header:has(.reciter-chip),
   .app.view-judge[data-competition-live="true"] .app-header {

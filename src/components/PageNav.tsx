@@ -235,7 +235,7 @@ export function PageNav({
             setActiveIndex(0);
           }}
         >
-          <span className="page-nav-ink">{rangeLabel}</span>
+          <span className="page-nav-ink">{rangeLabel.replace("\u2013", " - ")}</span>
         </button>
 
         {popoverOpen && renderPopover(
