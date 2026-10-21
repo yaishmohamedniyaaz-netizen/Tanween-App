@@ -15235,6 +15235,18 @@ html:has(.finish-dialog[open]) {
 .prepared-sidebar-secondary .btn-ghost { min-height: 44px; }
 .reciter-chip .reciter-prepared-state, .reciter-chip .reciter-question-ref { font-size: var(--t-micro); }
 .reciter-question-ref { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.reciter-queue-modal > .reciter-start-backdrop { align-items: center; justify-items: center; }
+@media (max-width: 700px) and (orientation: portrait) {
+  .reciter-queue-modal > .reciter-start-backdrop { place-items: center; }
+}
 .reciter-selection-screen .queue-scroll { padding-inline: 4px; }
 .queue-participant-button[aria-selected="true"] { position: relative; background: color-mix(in srgb, var(--ink) 5%, transparent); box-shadow: none; }
 .queue-participant-button[aria-selected="true"]::before { content: ""; position: absolute; inset-block: 8px; inset-inline-start: 2px; width: 3px; border-radius: 2px; background: var(--ink-2); }
+/* The embedded queue uses the same centring as a queue opened from the rail. */
+.finish-dialog.is-queue-handoff { inset: 16px 20px; margin: auto; height: fit-content; max-height: calc(100dvh - 32px); }
+.finish-dialog.is-queue-handoff:has(.stage-participant) { height: min(820px, calc(100dvh - 32px)); }
+.finish-dialog.is-queue-handoff:has(.stage-draw) { height: fit-content; }
+@media (max-width: 700px) and (orientation: portrait) {
+  .finish-dialog.is-queue-handoff { inset: max(8px, env(safe-area-inset-top, 0px)) 8px max(8px, env(safe-area-inset-bottom, 0px)); max-height: calc(100dvh - max(8px, env(safe-area-inset-top, 0px)) - max(8px, env(safe-area-inset-bottom, 0px))); }
+  .finish-dialog.is-queue-handoff:has(.stage-participant) { height: calc(100dvh - max(8px, env(safe-area-inset-top, 0px)) - max(8px, env(safe-area-inset-bottom, 0px))); }
+}
