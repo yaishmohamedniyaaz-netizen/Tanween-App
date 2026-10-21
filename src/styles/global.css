@@ -5145,7 +5145,7 @@ textarea:focus-visible {
   padding: 8px 12px;
   border-bottom: 1px solid var(--line);
   color: var(--ink-2);
-  font-size: 11.5px;
+  font-size: var(--t-micro);
 }
 .judge-role-main {
   display: flex;
@@ -5159,7 +5159,7 @@ textarea:focus-visible {
 .judge-role-main strong {
   flex: 0 0 auto;
   color: var(--ink);
-  font-weight: 550;
+  font-weight: 600;
 }
 .judge-role-colors {
   display: flex;
@@ -6386,8 +6386,8 @@ textarea:focus-visible {
   border-bottom: 1px solid var(--line-2);
 }
 .sc-total-label {
-  font-size: 11px;
-  font-weight: 500;
+  font-size: var(--t-micro);
+  font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--ink-3);
@@ -6473,7 +6473,7 @@ textarea:focus-visible {
   border: 0;
   background: transparent;
   color: var(--ink-3);
-  font-size: 11px;
+  font-size: var(--t-micro);
 }
 .log-view-all:hover {
   color: var(--ink);
@@ -6756,10 +6756,14 @@ textarea:focus-visible {
   border: 1px solid var(--line-2);
   border-radius: var(--r-sm);
   padding: 8px 10px;
-  font-size: 12.5px;
-  line-height: 1.45;
+  font-size: var(--t-small);
+  line-height: 1.4;
   background: transparent;
   transition: border-color var(--t-fast) var(--ease-out);
+}
+.notes::placeholder {
+  color: var(--ink-3);
+  opacity: 1;
 }
 .notes:hover {
   border-color: var(--ink-3);
@@ -14527,7 +14531,7 @@ html:has(.finish-dialog[open]) {
 
   .mobile-score-action .mobile-dock-score-label {
     color: var(--ink-3);
-    font-size: 10.5px;
+    font-size: var(--t-micro);
     font-weight: 500;
     letter-spacing: 0.12em;
     text-transform: uppercase;

@@ -79,7 +79,7 @@
   .app[data-mobile-calibration="true"] .mobile-dock-actions > button { min-height: var(--tap); }
   .app[data-mobile-calibration="true"] .mobile-score-action { gap: 4px; }
   .app[data-mobile-calibration="true"] .mobile-score-action strong { font-size: 20px; }
-  .app[data-mobile-calibration="true"] .mobile-score-action :is(.mobile-dock-score-label,span:last-child) { font-size: 11px; }
+  .app[data-mobile-calibration="true"] .mobile-score-action :is(.mobile-dock-score-label,span:last-child) { font-size: var(--t-micro); }
   .app[data-mobile-calibration="true"] .mobile-mistakes-action,
   .app[data-mobile-calibration="true"] .mobile-mistakes-action > .t-num { font-size: 14px; }
   .app[data-mobile-calibration="true"] .mobile-dock-actions > .mobile-finish-action { font-size: 15px; }
