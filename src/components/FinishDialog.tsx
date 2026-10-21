@@ -18,7 +18,6 @@ function FinishImpressionRow({
   max,
   step,
   marked,
-  deducted,
   pending,
   invalid,
   inputMode,
@@ -32,35 +31,34 @@ function FinishImpressionRow({
   max: number;
   step: number;
   marked: boolean;
-  deducted: string;
   pending: boolean;
   invalid: boolean;
   inputMode: AduRaaguInputMode;
   onChange: (value: number) => void;
   registerPicker: (picker: MarkPickerHandle | null) => void;
-  registerRow: (row: HTMLDivElement | null) => void;
+  registerRow: (row: HTMLLIElement | null) => void;
 }) {
   const errorId = `finish-${category}-error`;
 
   return (
-    <div
+    <li
       ref={registerRow}
       className={`finish-score-row cat-${category} ${
         pending ? "is-pending" : ""
       } ${invalid ? "is-invalid" : ""}`}
-      role="row"
     >
-      <div className="finish-criterion" role="cell">
-        <span className="finish-criterion-dot" aria-hidden="true" />
-        <span>
-          <strong>{label}</strong>
-          {pending && <small>{invalid ? "Mark required" : "Not entered"}</small>}
-        </span>
-      </div>
-      <span className="finish-deducted t-num" role="cell">
-        {deducted}
+      <span className="finish-criterion-dot" aria-hidden="true" />
+      <span className="finish-criterion">
+        <span className="finish-criterion-name">{label}</span>
+        {pending && (invalid ? (
+          <small id={errorId} className="finish-mark-error" role="alert">
+            Choose an Adu / Raagu mark to save.
+          </small>
+        ) : (
+          <small>Needed before saving</small>
+        ))}
       </span>
-      <div className="finish-score-value" role="cell">
+      <span className="finish-score-value">
         <MarkPicker
           ref={registerPicker}
           value={awarded}
@@ -76,13 +74,8 @@ function FinishImpressionRow({
           describedBy={invalid ? errorId : undefined}
           dismissOnOutsidePress={!invalid}
         />
-      </div>
-      {invalid && (
-        <p className="finish-mark-error" id={errorId} role="alert">
-          Choose an Adu / Raagu mark to save.
-        </p>
-      )}
-    </div>
+      </span>
+    </li>
   );
 }
 
@@ -106,7 +99,7 @@ export function FinishDialog({
   const bodyRef = useRef<HTMLDivElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
   const pickerRefs = useRef<Partial<Record<CategoryId, MarkPickerHandle | null>>>({});
-  const rowRefs = useRef<Partial<Record<CategoryId, HTMLDivElement | null>>>({});
+  const rowRefs = useRef<Partial<Record<CategoryId, HTMLLIElement | null>>>({});
   const { byCategory, total, totalMax } = computeScores(state);
   const assignment = state.activeAssignment;
   const config = assignment?.config ?? state.config;
@@ -123,7 +116,6 @@ export function FinishDialog({
     : [];
   const firstMissing = missing[0];
   const remarks = [
-    { label: "Notes", text: state.notes },
     ...impressionCategories.map((category) => ({
       label: `${CATEGORY_BY_ID[category].label} reason`,
       text: impressionScore(
@@ -138,6 +130,14 @@ export function FinishDialog({
   const mistakeLabel = `${state.mistakes.length} mistake${
     state.mistakes.length === 1 ? "" : "s"
   }`;
+  // Said in words: "External question", or the question's range ("Question 2:1–2:5").
+  const questionLabel = state.activeQuestion
+    ? state.activeQuestion.kind === "manual"
+      ? state.activeQuestion.label
+      : `Question ${state.activeQuestion.label}`
+    : null;
+  // While a required mark is missing, the total is a running total, not the score.
+  const neededLabel = missing.map((category) => CATEGORY_BY_ID[category].label).join(", ");
 
   useLayoutEffect(() => {
     const dialog = dialogRef.current;
@@ -230,28 +230,33 @@ export function FinishDialog({
           </h2>
           <p className="finish-participant">{participantName}</p>
           <div className="finish-context" aria-label="Recitation context">
-            {state.activeQuestion && <span>Q · {state.activeQuestion.label}</span>}
+            {questionLabel && <span>{questionLabel}</span>}
             {assignment && <span>{judgeDisplayName(assignment)}</span>}
             <span>{mistakeLabel}</span>
             {recordingSummary && <span>{recordingSummary}</span>}
           </div>
         </div>
-        <div className="finish-total" aria-label={`Score ${total} out of ${totalMax}`}>
-          <span className="finish-total-value" aria-live="polite" aria-atomic="true">
-            <strong className="t-num">{total}</strong>
-            <span className="t-num">/ {totalMax}</span>
-          </span>
-          <small>Score</small>
-        </div>
+        {missing.length > 0 ? (
+          <div className="finish-total is-partial" aria-label={`${total} so far. ${neededLabel} needed`}>
+            <span className="finish-total-value" aria-live="polite" aria-atomic="true">
+              <strong className="t-num">{total}</strong>
+              <span>so far</span>
+            </span>
+            <small className={`finish-total-needed cat-${missing[0]}`}>{neededLabel} needed</small>
+          </div>
+        ) : (
+          <div className="finish-total" aria-label={`Score ${total} out of ${totalMax}`}>
+            <span className="finish-total-value" aria-live="polite" aria-atomic="true">
+              <strong className="t-num">{total}</strong>
+              <span className="t-num">/ {totalMax}</span>
+            </span>
+            <small>Score</small>
+          </div>
+        )}
       </header>
 
       <div className="finish-dialog-body" ref={bodyRef}>
-        <div className="finish-score-table" role="table" aria-label="Score by criterion">
-          <div className="finish-score-head" role="row">
-            <span role="columnheader">Criterion</span>
-            <span role="columnheader">Deducted</span>
-            <span role="columnheader">Score</span>
-          </div>
+        <ul className="finish-score-table" aria-label="Marks by criterion">
           {reviewCategories.map((category) => {
             const definition = CATEGORY_BY_ID[category];
             const score = byCategory[category];
@@ -266,10 +271,6 @@ export function FinishDialog({
                   "entry-zero",
                 )
               : null;
-            const deducted = isMissing || score.deducted === 0
-              ? "—"
-              : `−${score.deducted}`;
-
             if (isImpression && impression) {
               return (
                 <FinishImpressionRow
@@ -280,7 +281,6 @@ export function FinishDialog({
                   max={score.start}
                   step={config[category].step}
                   marked={impression.marked}
-                  deducted={deducted}
                   pending={isMissing}
                   invalid={isInvalid}
                   inputMode={inputMode}
@@ -303,26 +303,33 @@ export function FinishDialog({
             }
 
             return (
-              <div key={category} className={`finish-score-row cat-${category}`} role="row">
-                <div className="finish-criterion" role="cell">
-                  <span className="finish-criterion-dot" aria-hidden="true" />
-                  <span>
-                    <strong>{definition.label}</strong>
-                  </span>
-                </div>
-                <span className="finish-deducted t-num" role="cell">
-                  {deducted}
+              <li key={category} className={`finish-score-row cat-${category}`}>
+                <span className="finish-criterion-dot" aria-hidden="true" />
+                <span className="finish-criterion">
+                  <span className="finish-criterion-name">{definition.label}</span>
                 </span>
-                <div className="finish-score-value" role="cell">
+                <span className="finish-score-value">
                   <span className="score-value-layout t-num">
                     <span className="score-value-number">{score.score}</span>
                     <span className="sc-of">/ {score.start}</span>
                   </span>
-                </div>
-              </div>
+                </span>
+              </li>
             );
           })}
-        </div>
+        </ul>
+
+        <label className="finish-notes">
+          <span className="finish-notes-label">Notes for improvement</span>
+          <textarea
+            className="notes"
+            dir="auto"
+            rows={3}
+            value={state.notes}
+            placeholder="Optional"
+            onChange={(event) => dispatch({ type: "SET_NOTES", notes: event.target.value })}
+          />
+        </label>
 
         {remarks.length > 0 && (
           <section className="finish-remarks" aria-labelledby="finish-remarks-title">

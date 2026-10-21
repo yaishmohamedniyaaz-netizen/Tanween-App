@@ -622,11 +622,19 @@ test("the mark bar carries its criterion's colour across the portal", () => {
 });
 
 test("the finish checkpoint reviews assigned category scores and exact remarks", () => {
-  assert.match(finishDialogSource, /role="table" aria-label="Score by criterion"/);
+  // One list of marks per criterion (no table header, no Deducted column).
+  assert.match(finishDialogSource, /<ul className="finish-score-table" aria-label="Marks by criterion">/);
+  assert.doesNotMatch(finishDialogSource, /columnheader|finish-deducted/);
   assert.match(finishDialogSource, /reviewCategories\.map/);
   assert.match(finishDialogSource, /byCategory\[category\]/);
   assert.match(finishDialogSource, /state\.activeQuestion\.label/);
-  assert.match(finishDialogSource, /label: "Notes", text: state\.notes/);
+  // Notes stay editable in the review, the same state as the rail's field.
+  assert.match(finishDialogSource, /value=\{state\.notes\}/);
+  assert.match(finishDialogSource, /dispatch\(\{ type: "SET_NOTES", notes: event\.target\.value \}\)/);
+  assert.doesNotMatch(finishDialogSource, /label: "Notes", text: state\.notes/);
+  // While a required mark is missing, the total is a running total.
+  assert.match(finishDialogSource, /<span>so far<\/span>/);
+  assert.match(finishDialogSource, /\{neededLabel\} needed/);
   assert.match(finishDialogSource, /finish-remarks/);
   assert.doesNotMatch(finishDialogSource, /finish-summary/);
   assert.doesNotMatch(finishDialogSource, /This saves the result and opens the next reciter/);
@@ -729,7 +737,8 @@ test("the Finish recovery remains available across repeated invalid saves", () =
   assert.match(pickerSource, /dismissOnOutsidePress\?: boolean/);
   assert.match(pickerSource, /if \(!dismissOnOutsidePress\) return/);
   assert.doesNotMatch(ruleBody(".finish-score-row.is-invalid"), /inset 3px/);
-  assert.match(ruleBody(".finish-score-row.is-invalid"), /padding: 8px 10px 12px/);
+  assert.match(ruleBody(".finish-score-row.is-invalid"), /padding-inline: 10px/);
+  assert.match(finishDialogSource, /<small id=\{errorId\} className="finish-mark-error" role="alert">/);
   assert.match(
     ruleBody('[data-theme="dark"] .finish-mark-error'),
     /color: #e17c73/,
