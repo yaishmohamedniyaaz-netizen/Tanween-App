@@ -7,7 +7,7 @@ export const MUSHAF_SPREAD_FRAME_INSET = 4;
 
 export const MUSHAF_PAGE_ASPECT_RATIO = 0.68;
 export const MUSHAF_PAGE_MAX_INLINE_SIZE = 760;
-export const MUSHAF_SPREAD_GAP = 12;
+export const MUSHAF_SPREAD_GAP = 20;
 /** A 36px control row plus one 4px spacing unit above a two-page spread. */
 export const MUSHAF_SPREAD_NAV_BLOCK_SIZE = 40;
 

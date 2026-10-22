@@ -15592,3 +15592,45 @@ html:has(.finish-dialog[open]) {
 [data-theme="dark"] .cat-khafi { --c-strong: #dda869; --c-tint: rgba(213, 142, 58, 0.12); }
 [data-theme="dark"] .cat-fasaha { --c-strong: #738bde; --c-tint: rgba(56, 94, 219, 0.12); }
 [data-theme="dark"] .cat-adu-raagu { --c-strong: #6b9a85; --c-tint: rgba(55, 123, 96, 0.12); }
+/* Spacing from Fix Review v23 (final export "spacing"): screen margin 16,
+   rail to pages 12, panel padding 14, pages 20 apart with 12px corners,
+   page selector buttons 5 apart. Measured against the prototype at 1440 x 900. */
+@media (min-width: 901px) {
+  .app.view-judge .workspace,
+  .app.view-judge .workspace.layout-spread { padding: 0 16px 16px; gap: 12px; }
+  .app.view-judge .workspace > aside.sidebar,
+  .app.view-judge .workspace.layout-spread > aside.sidebar { margin-top: 16px; height: calc(100% - 16px); }
+  .sidebar .judge-role-strip { padding-inline: 14px; }
+  .sidebar .scorecard { padding: 13px 14px; }
+  .sidebar .scorecard .sc-total { padding-bottom: 9px; }
+  .sidebar .mistake-panel,
+  .sidebar .mistake-panel:not(.is-expanded) { padding: 13px 14px; }
+  .sidebar .mistake-panel > .panel-head { min-height: 24px; }
+  .sidebar .mistake-panel:not(.is-expanded) > .panel-head { margin-bottom: 4px; }
+  .sidebar .mistake-panel .log-view-all { min-height: 44px; margin-block: -10px; }
+  .sidebar .mistake-panel :is(.log, .history-scroll) { padding-inline: 8px 0; }
+  .sidebar .notes-panel { padding: 8px 14px; }
+  .sidebar > .btn-primary { margin: 0 14px 13px; width: auto; }
+  .app-header .reciter-chip { padding-inline: 12px; }
+}
+.mushaf-scroll .page.page-fixed-mushaf { border-radius: 12px; }
+.page-nav { gap: 5px; }
+@media (min-width: 601px) { .page-nav { gap: 5px; } }
+.app.view-judge .mushaf-scroll .page-nav .page-nav-page { padding-inline: 10px; min-width: 60px; }
+@media (min-width: 901px) {
+  /* Page selector moved down to sit near the prototype's 8px below the header. */
+  .app.view-judge .mushaf-shell[data-stage-fit="ready"] .mushaf-scroll.has-fixed-pages.is-spread > .mushaf-shared-nav > .page-nav { transform: translateY(6px); }
+}
+/* Page selector arrows: 18px chevrons, 2.25 stroke (final export pageSelector.buttons). */
+.page-nav .page-nav-btn { display: inline-grid; place-items: center; }
+.page-nav .page-nav-chev { display: block; }
+/* Closed mistake card: the amount sits centred in the 44px stepper slot, as in the prototype. */
+@media (min-width: 901px) {
+  .sidebar .mistake-panel .log-row .log-amt { min-width: 44px; text-align: center; }
+}
+@media (min-width: 901px) {
+  /* Small alignments to the prototype at 1440 x 900. */
+  .sidebar .scorecard .sc-total-num { line-height: 1; }
+  .app-header .reciter-chip .chip-idx { font-size: 16px; font-weight: 600; color: var(--ink-2); }
+}
+.page-nav .page-nav-page .page-nav-ink { font-size: 16px; }

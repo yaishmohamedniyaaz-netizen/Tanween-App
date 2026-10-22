@@ -33,7 +33,7 @@ test("two-page spread Fit is width- or height-limited without changing either pa
     frameInlineSize: 1200,
     frameBlockSize: 700,
     layout: "spread",
-  }), 898);
+  }), 906);
   assert.equal(MUSHAF_SPREAD_NAV_BLOCK_SIZE, 40);
 });
 
@@ -65,7 +65,7 @@ test("stored view scales remain uniform magnifications of Fit", () => {
   assert.equal(computeMushafRenderedInlineSize(403, 140), 564);
   assert.equal(computeMushafRenderedInlineSize(403, 190), 605);
   assert.equal(computeMushafRenderedBlockSize(403, "full", 110), 652);
-  assert.equal(computeMushafRenderedBlockSize(620, "spread", 150), 671);
+  assert.equal(computeMushafRenderedBlockSize(620, "spread", 150), 662);
   assert.equal(computeMushafRenderedInlineSize(0, 100), 0);
 });
 
