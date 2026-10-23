@@ -6236,8 +6236,8 @@ textarea:focus-visible {
 .pill.active,
 .pill:focus-visible {
   background: var(--c-tint);
-  outline: 2px solid var(--ring);
-  outline-offset: 2px;
+  outline: none;
+  outline-offset: 0;
 }
 .pill.active::after,
 .pill:focus-visible::after {
@@ -6248,8 +6248,8 @@ textarea:focus-visible {
   border: 2px solid var(--c);
   border-radius: inherit;
   pointer-events: none;
-  outline: 2px solid var(--ring);
-  outline-offset: 2px;
+  outline: none;
+  outline-offset: 0;
 }
 .pill-fixed {
   min-height: 46px;
@@ -6257,10 +6257,10 @@ textarea:focus-visible {
 .pill-fixed .pill-main {
   letter-spacing: 0.01em;
 }
-.pill:focus-visible {
+.drag-menu .pill:focus-visible {
   z-index: 1;
-  outline: 2px solid var(--ring);
-  outline-offset: 2px;
+  outline: 2px solid var(--c);
+  outline-offset: -2px;
 }
 .pill.active .pill-main,
 .pill.active .pill-amt {
