@@ -15723,3 +15723,16 @@ html:has(.finish-dialog[open]) {
   .page-nav > .page-nav-btn:last-child::after { right: -12px; }
   .page-nav .page-nav-page::after { inset: -6px 0; }
 }
+
+/* Share the desktop's unboxed page selector on compact screens, retaining touch targets. */
+@media (max-width: 900px) {
+  .page-nav .page-nav-btn::before,
+  .page-nav .page-nav-page::before { content: none; }
+}
+@media (max-width: 600px) and (orientation: portrait) {
+  .app[data-mobile-calibration="true"].view-judge .mushaf-scroll.has-fixed-pages .mushaf-shared-nav > .page-nav {
+    grid-template-columns: 44px minmax(44px, auto) 44px;
+    width: max-content;
+    gap: 0;
+  }
+}

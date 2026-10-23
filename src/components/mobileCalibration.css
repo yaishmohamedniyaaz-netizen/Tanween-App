@@ -28,8 +28,7 @@
     position: relative; isolation: isolate;
   }
   .app[data-mobile-calibration="true"].view-judge .mushaf-shell .page-nav :is(.page-nav-btn,.page-nav-page)::before {
-    content: ''; display: block; position: absolute; inset: 4.5px 0; z-index: -1;
-    border: 1px solid var(--line); border-radius: 10px; background: var(--surface);
+    content: none;
   }
   .app[data-mobile-calibration="true"] .page-nav-btn .page-nav-ink { font-size: 20px; }
   .app[data-mobile-calibration="true"] .page-nav > .page-nav-btn .page-nav-ink { transform: none; }
@@ -39,7 +38,7 @@
     max-height: min(360px, 55svh);
     animation: mobile-calibration-popover-in 120ms ease-out;
   }
-  .app[data-mobile-calibration="true"] .page-nav-center { height: 37px; }
+  .app[data-mobile-calibration="true"] .page-nav-center { height: 44px; display: grid; align-items: center; }
   .app[data-mobile-calibration="true"] .mushaf-shell { position: relative; }
   .app[data-mobile-calibration="true"] .fixed-navigation-status {
     position: absolute; z-index: 32; bottom: 44px; left: 50%; transform: translateX(-50%);
