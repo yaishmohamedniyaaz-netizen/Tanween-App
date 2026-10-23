@@ -6158,7 +6158,6 @@ textarea:focus-visible {
   text-align: left;
   background: var(--surface);
   border: 0;
-  border-bottom: 1px solid var(--line);
   border-radius: 0;
   padding: 7px 10px;
   color: var(--ink);
