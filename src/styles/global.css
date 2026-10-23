@@ -15634,3 +15634,79 @@ html:has(.finish-dialog[open]) {
   .app-header .reciter-chip .chip-idx { font-size: 16px; font-weight: 600; color: var(--ink-2); }
 }
 .page-nav .page-nav-page .page-nav-ink { font-size: 16px; }
+
+/* ---- Mistake card open / close, as Fix Review v23 ("num: slide", "anim: move", "ease: soft") ----
+   One number. The stepper's value is the deduction in both states: closed, the
+   stepper sits 44px to the left so its value is where the amount was, with − and +
+   shrunk to 40% and hidden; opening slides it right while − and + grow beside the
+   number. The number never fades out and back in. Timings: 200ms soft curve for
+   movement and height, 120ms for fades, + follows − by 50ms. */
+.mistake-panel {
+  --card-ease: cubic-bezier(0.2, 0, 0, 1);
+  --card-move: 200ms;
+  --card-fade: 120ms;
+}
+.mistake-panel .log-row-wrap {
+  transition: background-color var(--card-move) var(--card-ease), border-color var(--card-move) var(--card-ease);
+}
+.mistake-panel .log-row-wrap.open {
+  border-color: color-mix(in srgb, var(--c) 30%, var(--surface));
+  background: color-mix(in srgb, var(--c) 6%, var(--surface));
+}
+/* The summary's own amount stays for screen readers; the stepper value is what shows. */
+.mistake-panel .log-summary .log-amt { opacity: 0; }
+.mistake-panel .log-head-adjust,
+.mistake-panel .log-row-wrap.open .log-head-adjust {
+  opacity: 1;
+}
+.mistake-panel .log-head-adjust {
+  pointer-events: none;
+  transform: translateX(-44px);
+  transition: transform var(--card-move) var(--card-ease);
+}
+.mistake-panel .log-row-wrap.open .log-head-adjust { pointer-events: auto; transform: none; }
+.mistake-panel .log-head-adjust .log-adjust::before {
+  inset: 8px 40px;
+  opacity: 0;
+  background: transparent;
+  border-radius: var(--r-md);
+  transition: opacity var(--card-fade) var(--ease-out), left var(--card-move) var(--ease-out), right var(--card-move) var(--ease-out);
+}
+.mistake-panel .log-row-wrap.open .log-head-adjust .log-adjust::before { left: 0; right: 0; opacity: 1; }
+.mistake-panel .log-head-adjust .step-btn {
+  opacity: 0;
+  transition: opacity var(--card-fade) var(--ease-out), transform var(--card-move) var(--ease-out);
+}
+.mistake-panel .log-head-adjust .step-btn:first-child { transform: translateX(20px) scale(0.4); }
+.mistake-panel .log-head-adjust .step-btn:last-child { transform: translateX(-20px) scale(0.4); }
+.mistake-panel .log-row-wrap.open .log-head-adjust .step-btn { opacity: 1; transform: none; }
+.mistake-panel .log-row-wrap.open .log-head-adjust .step-btn:last-child { transition-delay: 50ms, 0ms; }
+.mistake-panel .log-head-adjust .step-val {
+  color: var(--ink-2);
+  transition: color var(--card-fade) var(--ease-out);
+}
+.mistake-panel .log-row-wrap.open .log-head-adjust .step-val { color: var(--ink); }
+.mistake-panel .log-head-adjust .step-val::before,
+.mistake-panel .log-head-adjust .step-val::after {
+  content: ""; position: absolute; top: 12px; bottom: 12px; width: 1px;
+  background: var(--line); opacity: 0; transition: opacity var(--card-fade) var(--ease-out);
+}
+.mistake-panel .log-head-adjust .step-val::before { left: 0; }
+.mistake-panel .log-head-adjust .step-val::after { right: 0; }
+.mistake-panel .log-row-wrap.open .log-head-adjust .step-val::before,
+.mistake-panel .log-row-wrap.open .log-head-adjust .step-val::after { opacity: 1; transition-delay: 60ms; }
+.mistake-panel .log-expand,
+.mistake-panel .log-row .log-chevron {
+  transition-duration: var(--card-move);
+  transition-timing-function: var(--card-ease);
+}
+.mistake-panel .log-expand-inner { transition: opacity var(--card-fade) var(--ease-out); }
+.mistake-panel .log-row-wrap.open .log-expand-inner { transition-delay: 60ms; }
+@media (prefers-reduced-motion: reduce) {
+  .mistake-panel :is(.log-head-adjust, .log-head-adjust .step-btn, .log-head-adjust .log-adjust::before) { transition: opacity var(--card-fade) linear !important; }
+  .mistake-panel .log-head-adjust .step-btn { transform: none !important; }
+}
+/* No grey edge shadows on the mistake list: the prototype has none, and the
+   top shadow flashed as a grey bar while a card collapsed near the end. The
+   cut-off last card already shows that the list goes on. */
+.mistake-panel .log, .mistake-panel .history-scroll { background: none; }

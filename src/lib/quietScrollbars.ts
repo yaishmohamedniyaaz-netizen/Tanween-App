@@ -13,6 +13,8 @@
  */
 export const QUIET_SCROLL_CLASS = "quiet-scroll";
 const SCROLL_HIDE_MS = 900;
+/** A scroll within this long of a wheel, touch or key press counts as the person's. */
+const USER_SCROLL_WINDOW_MS = 400;
 
 let installed = false;
 
@@ -21,11 +23,25 @@ export function installQuietScrollbars(doc: Document = document): void {
   installed = true;
   const timers = new WeakMap<HTMLElement, number>();
   let repaint = 0;
+  let grip: HTMLElement | null = null;
+  let dragging = false;
   const bump = (list: HTMLElement) => list.style.setProperty("--quiet-scroll-paint", String(++repaint));
+
+  // Only a scroll the person makes shows the grip. A list also scrolls when its
+  // content changes height (a mistake card collapsing at the bottom of the list),
+  // and that must not flash a grey bar.
+  let intentAt = -Infinity;
+  const noteIntent = () => { intentAt = performance.now(); };
+  doc.addEventListener("wheel", noteIntent, { capture: true, passive: true });
+  doc.addEventListener("touchmove", noteIntent, { capture: true, passive: true });
+  doc.addEventListener("keydown", (event) => {
+    if (["ArrowUp", "ArrowDown", "PageUp", "PageDown", "Home", "End", " "].includes(event.key)) noteIntent();
+  }, true);
 
   doc.addEventListener("scroll", (event) => {
     const list = event.target;
     if (!(list instanceof HTMLElement) || !list.classList.contains(QUIET_SCROLL_CLASS)) return;
+    if (!dragging && performance.now() - intentAt > USER_SCROLL_WINDOW_MS) return;
     window.clearTimeout(timers.get(list));
     // A shrinking disclosure can emit scroll events every animation frame.
     // Repaint the scrollbar when visibility changes, not on every scroll tick:
@@ -40,8 +56,6 @@ export function installQuietScrollbars(doc: Document = document): void {
     }, SCROLL_HIDE_MS));
   }, true);
 
-  let grip: HTMLElement | null = null;
-  let dragging = false;
   const setGrip = (list: HTMLElement | null) => {
     if (grip === list) return;
     if (grip) { grip.classList.remove("is-grip"); bump(grip); }
