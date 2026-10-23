@@ -14,6 +14,9 @@ import { JudgingHistory } from "./JudgingHistory";
 import { MistakeAmount } from "./MistakeAmount";
 import { LETTER_TILE_STYLE, letterTileGlyphStyle } from "../lib/letterFit";
 
+/** The card's opening movement (--card-move in global.css) plus one frame. */
+const CARD_OPEN_BEFORE_JUMP_MS = 220;
+
 interface MistakeLogProps {
   presentation?: "rail" | "compact" | "mobile-sheet";
   initialOpenId?: string | null;
@@ -126,6 +129,8 @@ export function MistakeLog({
   // tap of a double tap that opened the card must not land on it. Ignore
   // changes for the length of a double tap (500 ms) after a card opens.
   const openedAtRef = useRef(0);
+  const jumpTimerRef = useRef(0);
+  useEffect(() => () => window.clearTimeout(jumpTimerRef.current), []);
   useEffect(() => { openedAtRef.current = performance.now(); }, [openId]);
 
   // A long kalimah shrinks to fit its line instead of breaking (down to 60%).
@@ -181,8 +186,14 @@ export function MistakeLog({
     // Opening a card must not scroll those controls away from the judge.
     const keepEditingPosition = !mobileSheet && !expanded &&
       window.matchMedia("(max-width: 900px)").matches;
+    window.clearTimeout(jumpTimerRef.current);
     if (opening && !keepEditingPosition && !isPhraseMistake(mistake)) {
-      window.dispatchEvent(new CustomEvent(JUMP_EVENT, { detail: { tid, page } }));
+      // Showing the word on the page re-renders the Mushaf. Doing that in the
+      // same frame as the click dropped the first frames of the card opening,
+      // so it looked sudden. Let the card open first, then show the word.
+      jumpTimerRef.current = window.setTimeout(() => {
+        window.dispatchEvent(new CustomEvent(JUMP_EVENT, { detail: { tid, page } }));
+      }, CARD_OPEN_BEFORE_JUMP_MS);
     }
   };
 
