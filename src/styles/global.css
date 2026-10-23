@@ -15710,3 +15710,17 @@ html:has(.finish-dialog[open]) {
    top shadow flashed as a grey bar while a card collapsed near the end. The
    cut-off last card already shows that the list goes on. */
 .mistake-panel .log, .mistake-panel .history-scroll { background: none; }
+/* Page selector values chosen by Yaish in the tuner (23 Oct 2026): buttons touch
+   (gap 0), number box at least 32px, number letter-spacing 0.01em. With no gap the
+   44px hit areas grow outward only, so the arrows and the number never overlap. */
+.page-nav,
+.app.view-judge .mushaf-scroll .page-nav { gap: 0; }
+.app.view-judge .mushaf-scroll .page-nav .page-nav-page,
+.mushaf-scroll .page-nav .page-nav-page { min-width: 32px; }
+.page-nav .page-nav-page .page-nav-ink { letter-spacing: 0.01em; }
+@media (min-width: 601px) {
+  .page-nav .page-nav-btn::after { inset: -6px 0; }
+  .page-nav > .page-nav-btn:first-child::after { left: -12px; }
+  .page-nav > .page-nav-btn:last-child::after { right: -12px; }
+  .page-nav .page-nav-page::after { inset: -6px 0; }
+}
