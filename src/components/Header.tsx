@@ -250,7 +250,7 @@ export function Header({
           </>
         ) : (
           <>
-            <Icon name="back" size={15} />
+            <Icon name={view === "records" ? "mic" : "back"} size={15} />
             <span className="view-toggle-label">
               {view === "records" ? "Judging" : "Back to Mushaf"}
             </span>

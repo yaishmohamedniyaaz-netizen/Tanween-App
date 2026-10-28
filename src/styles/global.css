@@ -15736,3 +15736,15 @@ html:has(.finish-dialog[open]) {
     gap: 0;
   }
 }
+/* Results screen: "Judging" is a quiet outlined button with a microphone, the
+   same look as "Results" on the judging screen, not a filled back button
+   (Results review, round 3). */
+.view-toggle.is-active { background: transparent; color: var(--ink); border-color: var(--line-2); }
+.view-toggle.is-active:hover { background: var(--bg); }
+@media (max-width: 600px),
+  (min-width: 601px) and (max-width: 900px) and (max-device-width: 600px) and
+    (pointer: coarse) and (orientation: portrait) {
+  .view-toggle.is-active { border-color: transparent; }
+  .view-toggle.is-active::before { border-color: var(--line-2); background: transparent; }
+  .view-toggle.is-active:hover::before { background: var(--bg); }
+}
