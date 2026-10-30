@@ -183,6 +183,22 @@ product rules belong in `PRODUCT_FOUNDATION.md`, not here.
       a national competition, and a bring-your-own-device event? Who prepares,
       verifies, unlocks, and recovers each device?
 
+34. **Changing a saved result from the results screen ("Edit result")**
+    - Approved look (Results review, rounds 2–6): the participant result opens
+      "View only"; an "Edit result" button opens an edit mode marked by a grey
+      strip and a near-black frame; Save or Cancel; "Result saved · Undo" after
+      saving; a confirm box only for results that are already Official.
+    - Not built yet. Today a result is built from locked judge records with
+      revision numbers, and the results screen only chooses between sources
+      ("Source choices change this view only. They do not edit a judge's
+      record."), so editing changes competition data, not just the screen.
+    - Decision needed: what Save writes (proposed: a new revision of that
+      judge's record, with the old revision kept in "Sources and question
+      history", and exports using the newest revision); who may edit (anyone on
+      this device, or only the judge who gave the result); whether an edit of an
+      Official result needs the result to be finalized again; and the wording
+      of the edit strip, Save button, saved message and confirm box.
+
 ## Later research, not current blockers
 
 20. **AI question suggestions**

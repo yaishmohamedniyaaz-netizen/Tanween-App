@@ -58,3 +58,26 @@ test('list layout keeps the agreed column rhythm and status colours', () => {
   assert.match(css, /\.ro-status\.is-check \{ --st: var\(--ro-st-check\); \}/);
   assert.doesNotMatch(css, /\.ro-status\.is-ready \{[^}]*background/);
 });
+
+test('participant result keeps the judging frame, the facing page and the read-only look', () => {
+  const read = path => readFileSync(new URL(`../${path}`, import.meta.url), 'utf8');
+  const workspace = read('src/components/ParticipantReviewWorkspace.tsx');
+  const evidence = read('src/components/RecitationEvidenceSpan.tsx');
+  const css = read('src/styles/participantReviewWorkspace.css');
+  const global = read('src/styles/global.css');
+  // Two pages by default on wide screens; the lone question page gets its faded facing page.
+  assert.match(workspace, /const spread = !compact;/);
+  assert.match(workspace, /paginated spread=\{spread\} facingPage/);
+  assert.match(evidence, /visibleMushafPages\(rangePages\[rangePages\.length - 1\], "spread"\)/);
+  assert.match(evidence, /outside the question/);
+  // Same frame as judging: 300px rail, 12px gap, 16px in from the header, 46px header on both views.
+  assert.match(css, /grid-template-columns: 300px minmax\(0, 1fr\); grid-template-rows: 32px minmax\(0, 1fr\);/);
+  assert.match(css, /\.rw2 \.rw2-rail \{ grid-column: 1; grid-row: 1 \/ span 2; margin: 16px 0;/);
+  assert.match(global, /\.app\.view-records \.app-header \{\s*min-height: 46px;/);
+  // Read-only: "View only", no editing controls in the rail.
+  assert.match(workspace, /View only/);
+  assert.doesNotMatch(workspace, /MarkPicker|ADD_MISTAKE|SET_IMPRESSION/);
+  // Both score cards line up their marks on the "/".
+  assert.match(css, /\.rw2-cval \{ display: grid; grid-template-columns: 34px auto;/);
+  assert.match(global, /\.sidebar \.scorecard \.score-value-layout \{ display: grid; grid-template-columns: 34px auto;/);
+});

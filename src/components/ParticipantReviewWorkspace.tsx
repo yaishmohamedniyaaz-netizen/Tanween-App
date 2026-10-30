@@ -17,6 +17,13 @@ import { useMediaQuery } from "../hooks/useMediaQuery";
 import type { MushafLayout } from "../lib/devicePreferences";
 import { fixedMushafReviewEnabled } from "../lib/fixedMushafReview";
 import { FIXED_PAGE_ASPECT_RATIO } from "./FixedMushafPageSurface";
+import { Icon } from "./Icon";
+import { mistakePrimaryGlyph } from "../lib/mistakeDisplay";
+import { letterTileGlyphStyle } from "../lib/letterFit";
+import { visibleMushafPages, mushafPageRangeLabel } from "../lib/mushafSpread";
+import { RESULT_STATUS_WORDS, type ResultStatus } from "../lib/resultStatus";
+import type { JudgeRailSide } from "../lib/devicePreferences";
+import { participantCategoryLabel } from "../lib/participants";
 
 interface Props {
   item: ResultsReviewItem;
@@ -29,6 +36,13 @@ interface Props {
   onBack: () => void;
   onPrevious?: () => void;
   onNext?: () => void;
+  /** Number and name of the neighbouring participants in the filtered list. */
+  previous?: { number: string; name: string };
+  next?: { number: string; name: string };
+  position?: { index: number; total: number };
+  status?: { status: ResultStatus; detail?: string };
+  /** Follows the judging rail setting, so both screens put the details on the same side. */
+  railSide?: JudgeRailSide;
 }
 
 const unavailable: Record<ParticipantQuestionEvidence["status"], string> = {
@@ -49,8 +63,8 @@ export function ParticipantReviewWorkspace(props: Props) {
   return <WorkspaceEvidence key={identity} {...props} evidence={evidence} />;
 }
 
-function WorkspaceEvidence({ item, selected, evidence, active, reasons, onSelectSource, pageLayout = "full",
-  onBack, onPrevious, onNext }: Props & { evidence: ParticipantQuestionEvidence }) {
+function WorkspaceEvidence({ item, selected, evidence, active, reasons, onSelectSource,
+  onBack, onPrevious, onNext, previous, next, position, status, railSide = "left" }: Props & { evidence: ParticipantQuestionEvidence }) {
   const [words, setWords] = useState<ReplayWord[]>([]);
   const [locatable, setLocatable] = useState<Set<string> | null>(null);
   const [wordId, setWordId] = useState<string | null>(null);
@@ -103,7 +117,8 @@ function WorkspaceEvidence({ item, selected, evidence, active, reasons, onSelect
   const fixedReview = fixedMushafReviewEnabled();
   const compact = useMediaQuery(fixedReview ? "(max-width: 900px)" : "(max-width: 760px)");
   const narrowDesktop = useMediaQuery("(min-width: 901px) and (max-width: 1279px)");
-  const spread = pageLayout === "spread" && !compact;
+  // Results always open as two pages on a wide screen, the facing page faded (Results review, round 2).
+  const spread = !compact;
   useEffect(() => {
     const dismiss = (event: PointerEvent) => {
       const card = scoreDetails.current;
@@ -164,114 +179,138 @@ function WorkspaceEvidence({ item, selected, evidence, active, reasons, onSelect
   const replayToggle = <button className="btn-secondary" aria-pressed={replayMode} disabled={!active || evidence.status !== "ready" || (!replayMode && audioAvailability !== "ready")}
     onClick={toggleReplay} title="Controls word taps, not the Play button">Word replay {replayMode ? "on" : "off"}</button>;
 
-  return <article ref={shell} className={`participant-review-workspace${spread ? " rw-dual" : ""}${replayPrototype ? " rw-player-layout" : ""}${docked ? " rw-docked" : ""}`} aria-labelledby="rw-participant"
+  const firstName = (name: string) => name.trim().split(/\s+/)[0] || "Unnamed";
+  const judges = [...new Set(evidence.selectedSessions.map(s => s.assignment?.judgeName || s.assignment?.judgeLabel || "Judge"))];
+  const spreadPages = evidence.range ? (spread ? visibleMushafPages(evidence.range.startPage, "spread") : [evidence.range.startPage]) : [];
+  const pagesLabel = evidence.range && evidence.range.endPage > spreadPages[spreadPages.length - 1]
+    ? `${evidence.range.startPage}–${evidence.range.endPage}` : mushafPageRangeLabel(spreadPages);
+  const checkReasons = status?.status === "check" ? reasons.filter(r => !r.startsWith("Awaiting ")) : [];
+
+  return <article ref={shell} className={`participant-review-workspace rw2 rail-${railSide}${spread ? " rw-dual" : ""}${replayPrototype ? " rw-player-layout" : ""}${docked ? " rw-docked" : ""}`} aria-labelledby="rw-participant"
+    style={{ "--rw-page-ratio": fixedReview ? FIXED_PAGE_ASPECT_RATIO : 1 / 1.471 } as import("react").CSSProperties}
     onKeyDown={event => {
       if (event.key === "Escape" && playbackRequest) {
         event.stopPropagation(); setPlaybackRequest(null);
         shell.current?.querySelector<HTMLButtonElement>('.rw-passage button[aria-pressed="true"]')?.focus();
       }
     }}>
-    <header className="rw-header">
-      <button onClick={onBack} className="btn-ghost">Back to results</button>
-      <div className="rw-identity"><h2 id="rw-participant" ref={heading} tabIndex={-1}>
-        <bdi>{participant.number}</bdi> {participant.name || "Unnamed participant"}</h2>
-        <p>{evidence.question?.label || "Recorded passage unavailable"}</p></div>
-      <details ref={scoreDetails} className="rw-score"><summary aria-label="Score breakdown and judge sources">
-        Score <strong>{view.preview?.total ?? "—"}</strong>{view.preview && <span> / {view.preview.totalMax}</span>}
-      </summary><div className="rw-score-content">
-        <button className="btn-ghost" onClick={event => {
-          const details = event.currentTarget.closest("details");
-          if (details) { details.open = false; details.querySelector("summary")?.focus(); }
-        }}>Close score details</button>
-        {view.official && !view.matchesOfficial && <p>Official: {view.official.total} / {view.official.totalMax} · revision {view.official.revision}</p>}
-        {reasons.length > 0 && <ul>{reasons.map(reason => <li key={reason}>{reason}</li>)}</ul>}
+    {/* The row where judging shows page numbers: back, View only, pages, participant switcher. */}
+    <header className="rw-header rw2-row">
+      <button type="button" onClick={onBack} className="rw2-chip"><span className="rw2-back"><Icon name="chevron" size={16} /></span>All results</button>
+      <span className="rw2-viewonly"><EyeIcon />View only</span>
+      {pagesLabel && <span className="rw2-pages-label t-num" aria-label={`Pages ${pagesLabel}`}>{pagesLabel.replace("–", " – ")}</span>}
+      <nav className="rw-neighbours rw2-switch" aria-label="Participants in filtered results">
+        <button type="button" className="rw2-chip" disabled={!onPrevious} onClick={onPrevious}
+          aria-label={previous ? `Previous participant: ${previous.number} ${previous.name}` : "Previous participant"} title={previous ? `${previous.number} ${previous.name}` : undefined}>
+          <span className="rw2-back"><Icon name="chevron" size={16} /></span>{previous && <><bdi className="t-num">{previous.number}</bdi> {firstName(previous.name)}</>}</button>
+        {position && <span className="rw2-pos t-num">{position.index} of {position.total}</span>}
+        <button type="button" className="rw2-chip" disabled={!onNext} onClick={onNext}
+          aria-label={next ? `Next participant: ${next.number} ${next.name}` : "Next participant"} title={next ? `${next.number} ${next.name}` : undefined}>
+          {next && <><bdi className="t-num">{next.number}</bdi> {firstName(next.name)}</>}<Icon name="chevron" size={16} /></button>
+      </nav>
+    </header>
+    <aside className="rw-sidebar rw2-rail" aria-label="Result details">
+      <section className="rw2-sec rw2-identity">
+        <div className="rw2-name-row"><h2 id="rw-participant" ref={heading} tabIndex={-1}>{participant.name || "Unnamed participant"}</h2>
+          {status && <span className={`ro-status is-${status.status}`}>{RESULT_STATUS_WORDS[status.status]}</span>}</div>
+        <p className="rw2-meta"><bdi className="t-num">{participant.number}</bdi>{[participant.ageGroup, participant.category && participantCategoryLabel(participant.category), participant.institution].filter(Boolean).map(part => <span key={part}> · {part}</span>)}</p>
+        <dl className="rw2-kv">
+          <dt>Question</dt><dd>{evidence.question?.label || "Recorded passage unavailable"}</dd>
+          <dt>Judge</dt><dd>{judges.join(", ") || "—"}</dd>
+        </dl>
+        {checkReasons.length > 0 && <ul className="rw2-reasons">{checkReasons.map(reason => <li key={reason}>{reason}</li>)}</ul>}
+        {view.official && !view.matchesOfficial && <p className="rw2-official t-num">Official: {view.official.total} / {view.official.totalMax} · revision {view.official.revision}</p>}
+      </section>
+      <section className="rw2-sec rw2-score" aria-label="Score">
+        <div className="rw2-total"><span className="rw2-label">Score</span>
+          <span className="rw2-total-value"><b className="t-num">{view.preview?.total ?? "—"}</b><small className="t-num">/ {view.preview?.totalMax ?? item.candidate.categories.reduce((sum, c) => sum + (item.candidate.byCategory[c][0]?.config[c].start ?? 0), 0)}</small></span></div>
         {item.candidate.categories.map(category => {
           const options = item.candidate.byCategory[category];
           const source = options.find(s => s.id === selected[category]);
           const score = source && !missingRequiredImpressionCategories(source.config, source.impressions ?? [], [category]).length
             ? computeCategoryScores(source.config, source.mistakes, source.impressions ?? []).byCategory[category] : null;
-          return <div className={`rw-criterion cat-${category}`} key={category}>
-            <span><i aria-hidden="true"/>{CATEGORY_BY_ID[category].label}</span><strong>{score ? `${score.score} / ${score.start}` : "—"}</strong>
-            {options.length > 1 ? <label>Source<select value={selected[category]}
+          const deducted = score ? Math.round((score.start - score.score) * 100) / 100 : 0;
+          return <div className={`rw-criterion rw2-crow cat-${category}`} key={category}>
+            <i aria-hidden="true" />
+            <span className="rw2-cname">{CATEGORY_BY_ID[category].short}</span>
+            <span className={`rw2-cded t-num${deducted ? "" : " is-zero"}`}>{deducted ? `−${deducted}` : "—"}</span>
+            <span className="rw2-cval t-num"><b>{score ? score.score : "—"}</b><small>/ {source?.config[category].start ?? options[0]?.config[category].start ?? "—"}</small></span>
+            {options.length > 1 && <label className="rw2-source">Source<select value={selected[category]}
               aria-label={`${CATEGORY_BY_ID[category].label} source`} onChange={e => onSelectSource(category, e.target.value)}>
               <option value="">Choose source</option>{options.map(s => <option key={s.id} value={s.id}>
                 {s.assignment?.judgeName || s.assignment?.judgeLabel || "Judge"} · revision {s.revision ?? 1}
-              </option>)}</select></label> : <small>{source ? `${source.assignment?.judgeName || source.assignment?.judgeLabel || "Judge"} · revision ${source.revision ?? 1}` : "Source missing"}</small>}
+              </option>)}</select></label>}
           </div>;
         })}
-        <p>Source choices change this view only. They do not edit a judge's record.</p>
-      </div></details>
-      <nav className="rw-neighbours" aria-label="Participants in filtered results">
-        <button className="btn-ghost" disabled={!onPrevious} onClick={onPrevious} aria-label="Previous participant">←</button>
-        <button className="btn-ghost" disabled={!onNext} onClick={onNext} aria-label="Next participant">→</button>
-      </nav>
-    </header>
-    <div className="rw-layout">
-      <section className="rw-passage" aria-label="Recorded Quran passage"
-        style={{ "--rw-page-ratio": fixedReview ? FIXED_PAGE_ASPECT_RATIO : 1 / 1.471 } as import("react").CSSProperties}>
-        {evidence.status === "ready" && evidence.range ? <RecitationEvidenceSpan
-          range={evidence.range} mistakes={evidence.mistakes} activeMistakeKey={findingKey}
-          focusActiveWord={focusWord} onMistakeSelect={key => selectFinding(key, true)}
-          onWordIdsReady={setLocatable} onReplayWordsReady={setWords} onReplayWordSelect={selectWord}
-          selectedWordId={wordId} replayWordId={playbackWord} wordReplayMode={replayPrototype && replayMode} paginated spread={spread} locationRequest={locationRequest}
-        /> : <p className="rw-unavailable" role="status">{unavailable[evidence.status] || "The saved Quran range is unavailable."} Judge findings remain readable.</p>}
       </section>
-      <aside className="rw-sidebar" aria-label="Findings and recording">
-        {replayPrototype && <section ref={recordingPanel} tabIndex={-1} className="rw-replay-panel" aria-label="Recording replay">
-          <div className="rw-inspector-head"><h3>Recording</h3>
-            {!docked && replayToggle}</div>
-          <p>{replayMode ? "Tap a word to replay." : "Word taps inspect findings."}</p>
-          {active && <SessionRecordingPlayer sources={sources} presentation="workspace"
-            replay={evidence.status === "ready" && evidence.fingerprint ? {
-              questionFingerprint:evidence.fingerprint, words, selectedWordId:wordId, requestedSessionId:requestedSource,
-              playbackRequest, wordReplayEnabled: replayMode, transportTarget: docked ? transportTarget : null, feedbackTarget: docked ? feedbackTarget : null,
-              onAvailabilityChange: setAudioAvailability,
-              onTimingWordSelect: nextWord => { setWordId(nextWord); setPlaybackRequest(null); },
-              onCloseWordFeedback: () => {
-                setPlaybackRequest(null);
-                shell.current?.querySelector<HTMLButtonElement>('.rw-passage button[aria-pressed="true"]')?.focus();
-              }, onWordSelect:selectWord, onPlaybackWord:() => {},
-            } : undefined}/>}
-        </section>}
-        <section className="rw-findings" aria-labelledby="rw-findings-title">
-          <h3 id="rw-findings-title">Judge findings <span>{evidence.mistakes.length}</span></h3>
-          {evidence.mistakes.length ? <ol>{evidence.mistakes.map(entry => <li key={entry.key}>
-            <button className={`rw-finding cat-${entry.mistake.category}`} aria-pressed={findingKey === entry.key}
-              onClick={() => selectFinding(entry.key)}><i aria-hidden="true"/>
-              <span><strong>{entry.mistake.label || CATEGORY_BY_ID[entry.mistake.category].label}</strong>
-                <small>{mistakeLocationReference(entry.mistake)} · {entry.judgeName}</small></span>
-              <bdi>−{entry.mistake.amount}</bdi></button>
-          </li>)}</ol> : <p>No judge-recorded findings.</p>}
-        </section>
-        {(!replayPrototype || inspectorOpen) && <section ref={inspector} tabIndex={-1} className={`rw-inspector${inspectorOpen ? " is-open" : ""}`}
-          aria-label="Selected word or finding" onKeyDown={e => {if(e.key === "Escape") closeInspector();}}>
-          <div className="rw-inspector-head"><h3>{word ? <ReplayKalima word={word}/> : finding ? "Selected finding" : "Word & recording"}</h3>
-            {inspectorOpen && <button className="btn-ghost" onClick={closeInspector}>Close</button>}</div>
-          {active && !replayPrototype && <SessionRecordingPlayer sources={sources} presentation="workspace"
-            replay={evidence.status === "ready" && evidence.fingerprint ? {
-              questionFingerprint:evidence.fingerprint, words, selectedWordId:wordId, requestedSessionId:requestedSource,
-              onWordSelect:selectWord, onPlaybackWord:setPlaybackWord,
-            } : undefined}/>}
-          {inspectorOpen ? <>
-            {word && <p>{word.surah}:{word.ayah ?? "Basmalah"}</p>}
-            {related.map(entry => <div className={`rw-selected-finding cat-${entry.mistake.category}`} key={entry.key}>
-              <strong><i aria-hidden="true"/>{CATEGORY_BY_ID[entry.mistake.category].label} · −{entry.mistake.amount}</strong>
-              <p>{entry.mistake.label}</p>{entry.mistake.note && <p>{entry.mistake.note}</p>}
-              <small>{entry.judgeName} · revision {entry.sessionRevision}</small>
-              {isPhraseMistake(entry.mistake) ? <p className="rw-phrase-word" lang="ar" dir="rtl">{entry.mistake.wordText}</p>
-                : !locatable?.has(entry.mistake.wordId ?? "") && <p>Location not verified in this recorded passage.</p>}
-            </div>)}
-            {word && !related.length && <p>No judge finding on this word. This is not an automatic assessment.</p>}
-          </> : <p>Select a word or finding to inspect it.</p>}
-        </section>}
-        <details className="rw-notes"><summary>Source notes & question history</summary>
+      <section className="rw-findings rw2-sec rw2-mistakes" aria-labelledby="rw-findings-title">
+        <h3 id="rw-findings-title" className="rw2-label">Mistakes · <span className="t-num">{evidence.mistakes.length}</span></h3>
+        {evidence.mistakes.length ? <ol className="rw2-cards">{evidence.mistakes.map(entry => {
+          const open = findingKey === entry.key;
+          const glyph = mistakePrimaryGlyph(entry.mistake);
+          return <li key={entry.key} className={`rw2-card cat-${entry.mistake.category}${open ? " is-open" : ""}`}>
+            <button type="button" className="rw-finding rw2-card-row" aria-pressed={open} onClick={() => selectFinding(entry.key)}
+              aria-label={`${glyph}, ${CATEGORY_BY_ID[entry.mistake.category].label}, ${mistakeLocationReference(entry.mistake)}, deduction ${entry.mistake.amount}`}>
+              <span className="log-tile" aria-hidden="true"><span className="log-glyph" lang="ar" dir="rtl" style={letterTileGlyphStyle(glyph)}>{glyph}</span></span>
+              <span className="rw2-amt t-num">−{entry.mistake.amount}</span>
+              <span className="rw2-ref t-num"><bdi>{mistakeLocationReference(entry.mistake)}</bdi>{judges.length > 1 && <> · {entry.judgeName}</>}</span>
+            </button>
+            {open && <div className="rw2-card-line">
+              {isPhraseMistake(entry.mistake) || !entry.mistake.wordText ? <span>{entry.mistake.label}</span>
+                : <span className="rw2-word" lang="ar" dir="rtl">{entry.mistake.wordText}</span>}
+              {entry.mistake.note && <small>{entry.mistake.note}</small>}
+              {!isPhraseMistake(entry.mistake) && !locatable?.has(entry.mistake.wordId ?? "") && <small>Location not verified in this recorded passage.</small>}
+            </div>}
+          </li>;
+        })}</ol> : <p>No judge-recorded findings.</p>}
+      </section>
+      {replayPrototype && <section ref={recordingPanel} tabIndex={-1} className="rw-replay-panel rw2-sec" aria-label="Recording replay">
+        <div className="rw-inspector-head"><h3>Recording</h3>
+          {!docked && replayToggle}</div>
+        <p>{replayMode ? "Tap a word to replay." : "Word taps inspect findings."}</p>
+        {active && <SessionRecordingPlayer sources={sources} presentation="workspace"
+          replay={evidence.status === "ready" && evidence.fingerprint ? {
+            questionFingerprint:evidence.fingerprint, words, selectedWordId:wordId, requestedSessionId:requestedSource,
+            playbackRequest, wordReplayEnabled: replayMode, transportTarget: docked ? transportTarget : null, feedbackTarget: docked ? feedbackTarget : null,
+            onAvailabilityChange: setAudioAvailability,
+            onTimingWordSelect: nextWord => { setWordId(nextWord); setPlaybackRequest(null); },
+            onCloseWordFeedback: () => {
+              setPlaybackRequest(null);
+              shell.current?.querySelector<HTMLButtonElement>('.rw-passage button[aria-pressed="true"]')?.focus();
+            }, onWordSelect:selectWord, onPlaybackWord:() => {},
+          } : undefined}/>}
+      </section>}
+      {!replayPrototype && <details ref={inspector as unknown as import("react").RefObject<HTMLDetailsElement>} className="rw-inspector rw2-sec rw2-recording" open={inspectorOpen}
+        onToggle={event => setInspectorOpen((event.currentTarget as HTMLDetailsElement).open)}
+        onKeyDown={e => {if(e.key === "Escape") closeInspector();}}>
+        <summary className="rw2-disc">{word ? <>Recording · <ReplayKalima word={word}/></> : "Recording"}<Icon name="chevron" size={14} /></summary>
+        {active && <SessionRecordingPlayer sources={sources} presentation="workspace"
+          replay={evidence.status === "ready" && evidence.fingerprint ? {
+            questionFingerprint:evidence.fingerprint, words, selectedWordId:wordId, requestedSessionId:requestedSource,
+            onWordSelect:selectWord, onPlaybackWord:setPlaybackWord,
+          } : undefined}/>}
+        {word && !related.length && <p>No judge finding on this word. This is not an automatic assessment.</p>}
+      </details>}
+      <section className="rw2-sec rw2-notes-sec">
+        <span className="rw2-label">Notes</span>
+        <p className="rw2-notes">{evidence.selectedSessions.map(s => s.notes).filter(Boolean).join(" ") || "No session note."}</p>
+        <details className="rw-notes"><summary className="rw2-disc">Sources and question history<Icon name="chevron" size={14} /></summary>
           {evidence.selectedSessions.map(s => <div key={s.id}><strong>{s.assignment?.judgeName || s.assignment?.judgeLabel || "Judge"} · revision {s.revision ?? 1}</strong>
             <p>{s.notes || "No session note."}</p>
             {(s.question?.replacements ?? []).map(r => <p key={r.id}>Before judging: {r.reason === "reciter-changed" ? "Reciter changed" : "Question changed"} · {new Date(r.replacedAt).toLocaleString()}</p>)}
           </div>)}
+          <p>Source choices change this view only. They do not edit a judge's record.</p>
         </details>
-      </aside>
-    </div>
+      </section>
+    </aside>
+    <section className="rw-passage rw2-pages" aria-label="Recorded Quran passage">
+      {evidence.status === "ready" && evidence.range ? <RecitationEvidenceSpan
+        range={evidence.range} mistakes={evidence.mistakes} activeMistakeKey={findingKey}
+        focusActiveWord={focusWord} onMistakeSelect={key => selectFinding(key, true)}
+        onWordIdsReady={setLocatable} onReplayWordsReady={setWords} onReplayWordSelect={selectWord}
+        selectedWordId={wordId} replayWordId={playbackWord} wordReplayMode={replayPrototype && replayMode} paginated spread={spread} facingPage locationRequest={locationRequest}
+      /> : <p className="rw-unavailable" role="status">{unavailable[evidence.status] || "The saved Quran range is unavailable."} Judge findings remain readable.</p>}
+    </section>
     {replayPrototype && <footer className="rw-player-dock" aria-label="Recording playback controls" hidden={!docked}>
       <div ref={setFeedbackTarget} className="rw-feedback-slot" />
       <div className="rw-dock-context">
@@ -286,4 +325,9 @@ function WorkspaceEvidence({ item, selected, evidence, active, reasons, onSelect
       <p className="rw-transport-empty" role="status">{audioAvailability === "loading" ? "Loading recording…" : audioAvailability === "failed" ? "Could not open recording. Open Details to retry." : "Recording unavailable on this device. Open Details."}</p>
     </footer>}
   </article>;
+}
+
+function EyeIcon() {
+  return <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z" /><circle cx="12" cy="12" r="3" /></svg>;
 }

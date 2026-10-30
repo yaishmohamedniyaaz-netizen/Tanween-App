@@ -11,7 +11,10 @@
 .ro-sr-only { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 
 /* Page width and the list's own title row (the shared "Results" heading is replaced by .ro-top) */
-.records-main:has(.results-overview-shell) { max-width: 1212px; padding: 16px; }
+.records-main:has(.results-overview-shell) { max-width: 1227px; padding: 16px; }  /* 1180 content + 2 × 16 padding + 15 reserved scrollbar */
+/* The list scrolls inside .records-main; reserve its scrollbar so filtering never shifts the columns.
+   The participant screen never scrolls, so it keeps the full width, like the judging screen. */
+.app.view-records > .records-main:has(.results-overview-shell):not(:has(.rw2)) { scrollbar-gutter: stable; }
 .results-workspace.results-overview-shell { display: block; }
 .results-overview-shell .results-page-head { display: none; }
 .results-overview-shell > .results-tab-panel { display: grid; gap: 0; }

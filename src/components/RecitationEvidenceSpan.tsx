@@ -30,6 +30,7 @@ import { fixedMushafLoader, useFixedMushafPages } from "../hooks/useFixedMushafP
 import { FixedMushafPageSurface } from "./FixedMushafPageSurface";
 import { useFixedCompactPages } from "./ConnectedFixedMushaf";
 import { evidencePageWindow } from "../lib/reviewNavigation";
+import { visibleMushafPages } from "../lib/mushafSpread";
 
 type LoadState =
   | { status: "loading" }
@@ -37,6 +38,8 @@ type LoadState =
   | {
       status: "ready";
       pages: MushafPage[];
+      /** The facing page of a one-page spread: shown faded, outside the question, never a target. */
+      contextPage: MushafPage | null;
       fontPages: Set<number>;
       selectedWordIds: Set<string>;
     };
@@ -63,6 +66,7 @@ export function RecitationEvidenceSpan({
   paginated = false,
   spread = false,
   locationRequest = 0,
+  facingPage = false,
 }: {
   range: RecitationRangeSnapshot;
   mistakes: EvidenceMistake[];
@@ -78,6 +82,8 @@ export function RecitationEvidenceSpan({
   paginated?: boolean;
   spread?: boolean;
   locationRequest?: number;
+  /** In a two-page view, show the page facing a lone question page, faded, as the judging screen does. */
+  facingPage?: boolean;
 }) {
   const [loadState, setLoadState] = useState<LoadState>({ status: "loading" });
   const [activePageIndex, setActivePageIndex] = useState(0);
@@ -86,8 +92,14 @@ export function RecitationEvidenceSpan({
   const rangePages = pageNumbers(range);
   const pageWindow = evidencePageWindow(activePageIndex, rangePages.length,
     paginated ? spread && (!fixedReview || !compact) : !compact && rangePages.length === 2);
+  const twoPageView = pageWindow.size === 2;
+  // Only the last window of an odd-length range can hold a single page.
+  const contextPageNumber = facingPage && twoPageView && rangePages.length % 2 === 1
+    ? visibleMushafPages(rangePages[rangePages.length - 1], "spread").find(page => page !== rangePages[rangePages.length - 1]) ?? null
+    : null;
+  const showContextPage = contextPageNumber !== null && pageWindow.end - pageWindow.start === 1;
   const visibleFixedPages = fixedReview && loadState.status === "ready"
-    ? rangePages.slice(pageWindow.start, pageWindow.end)
+    ? [...rangePages.slice(pageWindow.start, pageWindow.end), ...(showContextPage ? [contextPageNumber] : [])]
     : [];
   const fixed = useFixedMushafPages(visibleFixedPages);
   const wordRefs = useRef(new Map<string, HTMLButtonElement>());
@@ -102,9 +114,11 @@ export function RecitationEvidenceSpan({
     onWordIdsReady?.(null);
     onReplayWordsReady?.([]);
     const pages = pageNumbers(range);
+    const loadText = (page: number) => fixedReview ? fixedMushafLoader.text(page, abort.signal) : loadPage(page);
     Promise.all([
       loadQuestionIndex(),
-      Promise.all(pages.map((page) => fixedReview ? fixedMushafLoader.text(page, abort.signal) : loadPage(page))),
+      Promise.all(pages.map(loadText)),
+      contextPageNumber === null ? Promise.resolve(null) : loadText(contextPageNumber).catch(() => null),
       Promise.all(
         pages.map((page) =>
           (fixedReview ? Promise.resolve() : loadQcfPageFont(page))
@@ -113,7 +127,7 @@ export function RecitationEvidenceSpan({
         ),
       ),
     ])
-      .then(([index, loadedPages, loadedFonts]) => {
+      .then(([index, loadedPages, loadedContextPage, loadedFonts]) => {
         if (cancelled) return;
         if (
           range.mushafLayout !== MUSHAF_LAYOUT ||
@@ -144,6 +158,7 @@ export function RecitationEvidenceSpan({
         setLoadState({
           status: "ready",
           pages: loadedPages,
+          contextPage: loadedContextPage,
           fontPages: new Set(
             loadedFonts.filter((page): page is number => page !== null),
           ),
@@ -169,7 +184,7 @@ export function RecitationEvidenceSpan({
       cancelled = true;
       abort.abort();
     };
-  }, [onWordIdsReady, onReplayWordsReady, range, fixedReview]);
+  }, [onWordIdsReady, onReplayWordsReady, range, fixedReview, contextPageNumber]);
 
   useEffect(() => {
     if (!replayWordId || loadState.status !== "ready") return;
@@ -243,6 +258,27 @@ export function RecitationEvidenceSpan({
     );
   }
 
+  // The facing page: every line faded like the outside of a question on the judging screen.
+  function renderContextPage(page: MushafPage) {
+    const geometry = fixedReview ? fixed.pages?.get(page.page) : undefined;
+    if (fixedReview && !geometry) return null;
+    const qcfReady = !fixedReview && loadState.status === "ready" && loadState.fontPages.has(page.page);
+    const surfaceProps = {
+      data: page,
+      qcfReady,
+      className: "recitation-evidence-page is-active is-context-page",
+      role: "group" as const,
+      "aria-label": `Quran page ${page.page}, outside the question`,
+      "data-question-focus-mode": "fade",
+      lineClassName: () => "question-context-line evidence-context-line",
+      renderWord: (word: PageWord) => <MushafWord key={word.wid} word={word} qcfReady={qcfReady}
+        className="question-context-word evidence-context-word" aria-hidden={true} />,
+    };
+    return geometry
+      ? <FixedMushafPageSurface key={page.page} {...surfaceProps} fixed={geometry} />
+      : <MushafPageSurface key={page.page} {...surfaceProps} />;
+  }
+
   return (
     <div className={`recitation-evidence-span ${fixedReview ? "fixed-evidence-span" : ""}${paginated ? " is-paginated" : ""}`} aria-label="Recorded recitation span">
       {loadState.pages.length > pageWindow.size && (
@@ -272,7 +308,7 @@ export function RecitationEvidenceSpan({
       </div>}
       <div
         className={`recitation-evidence-pages mushaf-composition ${
-          loadState.pages.length === 1
+          loadState.pages.length === 1 && !(showContextPage && loadState.contextPage)
             ? "mushaf-single"
             : loadState.pages.length === 2
               ? "mushaf-spread"
@@ -363,7 +399,8 @@ export function RecitationEvidenceSpan({
           return geometry
             ? <FixedMushafPageSurface key={page.page} {...surfaceProps} fixed={geometry} />
             : <MushafPageSurface key={page.page} {...surfaceProps} />;
-        })}
+        }).concat(showContextPage && loadState.contextPage ? [renderContextPage(loadState.contextPage)] : [])
+          .sort((a, b) => Number(a?.key ?? 0) - Number(b?.key ?? 0))}
       </div>
       {!fixedReview && loadState.fontPages.size !== loadState.pages.length && (
         <p className="recitation-font-note">

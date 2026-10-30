@@ -5,7 +5,7 @@ import { useJudging } from "../state/store.tsx";
 import { ParticipantReviewWorkspace } from "./ParticipantReviewWorkspace.tsx";
 import "../styles/resultsOverview.css";
 import { resultPageItems } from "../lib/reviewNavigation";
-import type { MushafLayout } from "../lib/devicePreferences";
+import type { JudgeRailSide, MushafLayout } from "../lib/devicePreferences";
 import { CATEGORY_BY_ID, enabledCategories, enabledMarksTotal } from "../config";
 import { RESULT_STATUS_WORDS, resultStatus } from "../lib/resultStatus.ts";
 import { Icon } from "./Icon";
@@ -21,7 +21,7 @@ function Num({ value, kind = "mark" }: { value: number | null | undefined; kind?
   return <span className={`ro-n ro-n-${kind}`}><span className="ro-ni">{whole}</span><span className="ro-nd">{fraction ? `.${fraction}` : ""}</span></span>;
 }
 
-export function ResultsOverview({ active = true, pageLayout = "full", onImport }: { active?: boolean; pageLayout?: MushafLayout; onImport?: () => void }) {
+export function ResultsOverview({ active = true, pageLayout = "full", railSide = "left", onImport }: { active?: boolean; pageLayout?: MushafLayout; railSide?: JudgeRailSide; onImport?: () => void }) {
   const { state } = useJudging();
   const [query, setQuery] = useState("");
   const [filter, setFilter] = useState<StatusFilter>("all");
@@ -89,6 +89,10 @@ export function ResultsOverview({ active = true, pageLayout = "full", onImport }
       isSample={state.competition.isSample} active={active} pageLayout={pageLayout} reasons={selected.reasons} onBack={close}
       onPrevious={selectedIndex > 0 ? () => setSelectedId(filtered[selectedIndex - 1].participant.id) : undefined}
       onNext={selectedIndex >= 0 && selectedIndex < filtered.length - 1 ? () => setSelectedId(filtered[selectedIndex + 1].participant.id) : undefined}
+      previous={selectedIndex > 0 ? { number: filtered[selectedIndex - 1].participant.number, name: filtered[selectedIndex - 1].participant.name } : undefined}
+      next={selectedIndex >= 0 && selectedIndex < filtered.length - 1 ? { number: filtered[selectedIndex + 1].participant.number, name: filtered[selectedIndex + 1].participant.name } : undefined}
+      position={selectedIndex >= 0 ? { index: selectedIndex + 1, total: filtered.length } : undefined}
+      status={statuses.get(selected.participant.id)} railSide={railSide}
       onSelectSource={(category, id) => setSelections(current => ({ ...current,
         [selected.participant.id]: { ...current[selected.participant.id], [category]: id } }))}
     /> : <div className="ro-pending">

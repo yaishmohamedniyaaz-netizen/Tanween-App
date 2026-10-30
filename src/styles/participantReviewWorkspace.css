@@ -99,3 +99,130 @@
  .rw-score-content { position: fixed; top: 112px; left: 12px; right: 12px; width: auto; }
  .rw-sidebar select, .rw-sidebar input[type="number"], .rw-score select { font-size: 16px; }
 }
+
+/* ===== Participant result, final design (Results review, rounds 3–6) =====
+   Same frame as the judging screen: rail 300px on the judging rail's side, 16px in from the edge and from the
+   header; pages in the judging page box (two pages, 12px apart, the facing page faded). Read-only look: the rail
+   has no card, plain text, lines between sections. */
+.app .records-main:has(.rw2), .records-main.records-main:has(.rw2) { max-width: none; padding: 0 16px; }
+.results-tab-panel:has(.rw2) > .ro-source-tools { display: none; }
+.rw2 { --rw2-gap: 12px; color: var(--ink); font-size: var(--t-small); }
+.rw2 .t-num { font-family: var(--num); font-weight: 520; letter-spacing: .045em; font-variant-numeric: tabular-nums; }
+.rw2-label { margin: 0; font: 600 var(--t-small)/1.3 var(--ui); letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3); }
+
+/* Page row: where judging shows the page numbers. 32px to look at, 44px to tap. */
+.rw2 .rw2-row { position: relative; display: flex; align-items: center; gap: 8px; height: 32px; margin: 0; flex-wrap: nowrap; }
+.rw2-chip { position: relative; height: 32px; min-height: 32px !important; display: inline-flex; align-items: center; gap: 6px; padding: 0 10px;
+  border: 1px solid var(--line-2); border-radius: 10px; background: transparent; color: var(--ink-2); font: 600 var(--t-small)/1 var(--ui); white-space: nowrap; cursor: pointer; }
+.rw2-chip::after { content: ""; position: absolute; inset: -6px 0; }
+.rw2-chip:hover:not(:disabled) { background: var(--bg); color: var(--ink); }
+.rw2-chip:disabled { opacity: .4; cursor: default; }
+.rw2-chip:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+.rw2-chip bdi { color: var(--ink-3); font-size: 14px; }
+.rw2-back { display: inline-flex; transform: rotate(180deg); }
+.rw2-viewonly { display: inline-flex; align-items: center; gap: 7px; padding: 0 6px; color: var(--ink-2); font: 600 var(--t-small)/1 var(--ui); white-space: nowrap; }
+.rw2-viewonly svg { color: var(--ink-3); }
+.rw2-pages-label { position: absolute; left: 50%; transform: translateX(-50%); font-size: var(--t-body); font-weight: 500; letter-spacing: .01em; color: var(--ink); white-space: nowrap; }
+.rw2 .rw2-switch { margin-left: auto; display: inline-flex; align-items: center; gap: 8px; }
+.rw2-pos { color: var(--ink-3); font-size: var(--t-small); padding: 0 2px; white-space: nowrap; }
+
+/* Rail: read-only details */
+.rw2 .rw2-rail { display: flex; flex-direction: column; gap: 0; min-width: 0; min-height: 0; overflow-y: auto; scrollbar-width: thin; }
+.rw2-sec { padding: 9px 0; border-top: 1px solid var(--line-2); }
+.rw2-sec:first-child { border-top: 0; padding-top: 2px; }
+.rw2-name-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 26px; }
+.rw2-name-row h2 { margin: 0; font: 600 var(--t-title)/1.2 var(--ui); overflow-wrap: anywhere; }
+.rw2-name-row h2:focus { outline: none; }
+.rw2-name-row .ro-status.is-check, .rw2-name-row .ro-status.is-official { height: 26px; }
+.rw2-meta { margin: 2px 0 0; color: var(--ink-3); font-size: var(--t-small); }
+.rw2-meta bdi { color: var(--ink-3); }
+.rw2-kv { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 2px 14px; margin: 8px 0 0; font-size: var(--t-small); }
+.rw2-kv dt { color: var(--ink-3); } .rw2-kv dd { margin: 0; color: var(--ink); overflow-wrap: anywhere; }
+.rw2-reasons { margin: 8px 0 0; padding: 0 0 0 16px; font-size: 14px; color: var(--ink-2); }
+.rw2-official { margin: 6px 0 0; font-size: 14px; color: var(--ink-2); }
+.rw2 .rw2-sidebar p, .rw2 .rw2-rail p { font-size: var(--t-small); color: var(--ink-2); line-height: 1.45; }
+
+/* Score card: the judging card's geometry (12 / 116 / 42 / 76px, gap 8, rows 36px), marks lined up on the "/" */
+.rw2-total { display: flex; align-items: baseline; justify-content: space-between; padding: 0 4px 9px 0; margin-bottom: 1px; border-bottom: 1px solid var(--line-2); }
+.rw2-total-value { display: inline-flex; align-items: baseline; gap: 4px; }
+.rw2-total-value b { font: 520 34px/1 var(--num) !important; letter-spacing: -.02em !important; }
+.rw2-total-value small { font: 500 16px/1 var(--num); color: var(--ink-3); letter-spacing: .045em; }
+.rw2 .rw2-crow { display: grid; grid-template-columns: 12px 116px 42px 76px; column-gap: 8px; align-items: center; min-height: 36px; padding: 0;
+  border: 0; border-bottom: 1px solid var(--line); font-size: inherit; }
+.rw2 .rw2-crow:last-child { border-bottom-color: transparent; }
+.rw2 .rw2-crow > i { width: 12px; height: 12px; border-radius: 3px; background: var(--c); }
+.rw2-cname { font-size: var(--t-lead); }
+.rw2-cded { text-align: right; padding-right: 6px; font-size: var(--t-lead); color: var(--ink-2); }
+.rw2-cded.is-zero { color: var(--ink-3); }
+.rw2-cval { display: grid; grid-template-columns: 34px auto; column-gap: 4px; align-items: baseline; padding-left: 4px; white-space: nowrap; }
+.rw2-cval b { text-align: right; font-size: 19px; font-weight: 520; }
+.rw2-cval small { font-size: var(--t-small); color: var(--ink-3); font-family: var(--num); }
+.rw2-source { grid-column: 2 / -1; display: grid; gap: 4px; padding: 0 0 8px; font-size: 14px; color: var(--ink-3); }
+.rw2-source select { width: 100%; min-height: 44px; border: 1px solid var(--line-2); border-radius: var(--r-sm); background: var(--surface); color: var(--ink); font: inherit; padding: 0 8px; }
+
+/* Mistakes: the judging mistake card, read-only (50px card, 36px tile, −2 at 56px, 4px apart; no fill, no arrow) */
+.rw2 .rw2-mistakes { border: 0; border-top: 1px solid var(--line-2); border-radius: 0; background: transparent; overflow: visible; }
+.rw2 .rw2-mistakes h3 { padding: 0; border: 0; display: block; margin-bottom: 6px; }
+.rw2 .rw2-cards { list-style: none; margin: 0; padding: 0 8px; display: grid; align-content: start; gap: 4px; max-height: none; overflow: visible; }
+.rw2-card { border: 1px solid var(--line-2); border-radius: var(--r-md); background: transparent; }
+.rw2-card.is-open { border-color: color-mix(in srgb, var(--c) 30%, transparent); background: color-mix(in srgb, var(--c) 6%, transparent); }
+.rw2 .rw2-card-row { display: grid; grid-template-columns: 36px 44px minmax(0, 1fr); gap: 8px; align-items: center; width: 100%; height: 48px; min-height: 48px;
+  padding: 8px 12px 4px; border: 0; background: transparent; color: var(--ink); text-align: left; font: inherit; cursor: pointer; border-radius: var(--r-md); }
+.rw2 .rw2-card-row[aria-pressed="true"] { background: transparent; }
+.rw2-card-row:focus-visible { outline: 2px solid var(--ring); outline-offset: -2px; }
+.rw2 .rw2-card-row .log-tile { width: 36px; height: 36px; }
+.rw2-amt { font-size: var(--t-small); color: var(--ink-2); }
+.rw2-ref { font-size: var(--t-small); color: var(--ink-3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.rw2-card-line { display: grid; gap: 2px; padding: 0 12px 10px 56px; }
+.rw2-word { font: 400 24px/1.5 HafsUthmanic, serif; color: var(--ink); }
+.rw2-card-line small { font-size: 14px; color: var(--ink-3); }
+
+/* Recording and notes */
+.rw2 .rw2-recording { padding: 0; border: 0; border-top: 1px solid var(--line-2); border-radius: 0; background: transparent; }
+.rw2-disc { min-height: 40px; display: flex; align-items: center; justify-content: space-between; gap: 8px; cursor: pointer; list-style: none;
+  font: 600 var(--t-small)/1.2 var(--ui); color: var(--ink-2); }
+.rw2-disc::-webkit-details-marker { display: none; }
+.rw2-disc svg { transform: rotate(90deg); color: var(--ink-3); transition: transform 120ms ease-out; }
+details[open] > .rw2-disc svg { transform: rotate(-90deg); }
+.rw2-recording > :not(summary) { margin-bottom: 10px; }
+.rw2 .rw2-notes { margin: 6px 0 2px; color: var(--ink); }
+.rw2 .rw-notes summary { padding: 0; }
+
+/* Marked words: the same tint the judging screen draws */
+.rw2 .rw-passage .evidence-marked-word { background: var(--c-mark-fill, color-mix(in srgb, var(--c) 16%, transparent)); border-radius: 3px; }
+.rw2 .rw-passage .evidence-marked-word.is-active { outline: 2px solid var(--c); outline-offset: 1px; }
+
+@media (min-width: 901px) {
+  /* Like the judging rail: the mistake list takes the free height and scrolls inside it. */
+  .rw2 .rw2-mistakes { flex: 1 1 auto; min-height: 120px; display: flex; flex-direction: column; }
+  .rw2 .rw2-mistakes > .rw2-cards { flex: 1 1 auto; min-height: 0; overflow-y: auto; scrollbar-width: thin; }
+  .rw2 .rw2-rail { overflow: hidden; }
+  .rw2 { display: grid; grid-template-columns: 300px minmax(0, 1fr); grid-template-rows: 32px minmax(0, 1fr);
+    column-gap: var(--rw2-gap); height: calc(100dvh - 46px); }
+  .rw2.rail-right { grid-template-columns: minmax(0, 1fr) 300px; }
+  .rw2 .rw2-row { grid-column: 2; grid-row: 1; margin-inline: 4px; }
+  .rw2.rail-right .rw2-row { grid-column: 1; }
+  .rw2 .rw2-rail { grid-column: 1; grid-row: 1 / span 2; margin: 16px 0; padding: 0 14px 0 15px; border-right: 1px solid var(--line-2); }
+  .rw2.rail-right .rw2-rail { grid-column: 2; padding: 0 15px 0 14px; border-right: 0; border-left: 1px solid var(--line-2); }
+  .rw2 .rw2-pages { grid-column: 2; grid-row: 2; min-height: 0; margin-top: 9.7px; padding-bottom: 20px; container-type: size; }
+  .rw2.rail-right .rw2-pages { grid-column: 1; }
+  .rw2 .rw-passage .recitation-evidence-span { height: 100%; }
+  /* The judging page box: page height fills the space, width follows the page ratio, two pages 12px apart. */
+  .rw2 .rw-passage .recitation-evidence-pages {
+    --rw2-page-h: min(100cqh, calc((100cqw - var(--rw2-gap)) / 2 / var(--rw-page-ratio)));
+    --rw2-page-w: calc(var(--rw2-page-h) * var(--rw-page-ratio));
+    display: grid; grid-template-columns: repeat(2, var(--rw2-page-w)); gap: var(--rw2-gap); justify-content: center;
+    max-width: none; margin: 0 auto; direction: rtl; }
+  .rw2 .rw-passage .recitation-evidence-pages.mushaf-single { grid-template-columns: var(--rw2-page-w); }
+  .rw2 .rw-passage .recitation-evidence-pages > .recitation-evidence-page { width: var(--rw2-page-w); }
+}
+@media (max-width: 900px) {
+  .app .records-main:has(.rw2), .records-main.records-main:has(.rw2) { padding: 12px 16px 24px; }
+  .rw2 { display: flex; flex-direction: column; gap: 12px; }
+  .rw2 .rw2-row { flex-wrap: wrap; height: auto; row-gap: 8px; }
+  .rw2-pages-label { display: none; }
+  .rw2 .rw2-switch { width: 100%; justify-content: space-between; margin: 0; }
+  .rw2-chip { height: 44px; min-height: 44px !important; }
+  .rw2 .rw2-rail { overflow: visible; }
+  .rw2 .rw2-crow { grid-template-columns: 12px minmax(0, 1fr) 42px 76px; }
+}

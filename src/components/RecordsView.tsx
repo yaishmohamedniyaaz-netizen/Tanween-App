@@ -78,7 +78,7 @@ function DataScopeControl({
   );
 }
 
-export function RecordsView({ onResumeSession, pageLayout = "full" }: { onResumeSession: () => void; pageLayout?: import("../lib/devicePreferences").MushafLayout }) {
+export function RecordsView({ onResumeSession, pageLayout = "full", railSide = "left" }: { onResumeSession: () => void; pageLayout?: import("../lib/devicePreferences").MushafLayout; railSide?: import("../lib/devicePreferences").JudgeRailSide }) {
   const { state, dispatch } = useJudging();
   // Default Results experience; explicit escape hatch for the legacy interface.
   const overviewEnabled = new URLSearchParams(window.location.search).get("resultsOverview") !== "0";
@@ -105,12 +105,6 @@ export function RecordsView({ onResumeSession, pageLayout = "full" }: { onResume
   const importRef = useRef<HTMLInputElement>(null);
   const participantButtonRefs = useRef(new Map<string, HTMLButtonElement>());
   const reviewScrollRef = useRef(0);
-  useEffect(() => {
-    if (!overviewEnabled) return;
-    const previous = document.documentElement.style.scrollbarGutter;
-    document.documentElement.style.scrollbarGutter = "stable";
-    return () => { document.documentElement.style.scrollbarGutter = previous; };
-  }, [overviewEnabled]);
   const judgedCategories = useMemo(
     () => enabledCategories(
       state.competition.liveSnapshot?.scoreConfig ?? state.config,
@@ -828,7 +822,7 @@ export function RecordsView({ onResumeSession, pageLayout = "full" }: { onResume
         className="results-tab-panel"
       >
         {overviewEnabled ? <>
-          <ResultsOverview key={`${state.competition.id}:${state.competition.liveSnapshot?.versionId ?? "draft"}`} active={true} pageLayout={pageLayout} onImport={() => {
+          <ResultsOverview key={`${state.competition.id}:${state.competition.liveSnapshot?.versionId ?? "draft"}`} active={true} pageLayout={pageLayout} railSide={railSide} onImport={() => {
             const disclosure = importRef.current?.closest("details");
             if (disclosure) disclosure.open = true;
             importRef.current?.click();

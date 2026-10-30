@@ -15565,7 +15565,8 @@ html:has(.finish-dialog[open]) {
 @media (min-width: 901px) {
   .app.view-judge .app-header,
   .app.view-judge .app-header:has(.reciter-chip),
-  .app.view-judge[data-competition-live="true"] .app-header {
+  .app.view-judge[data-competition-live="true"] .app-header,
+  .app.view-records .app-header {
     min-height: 46px;
     padding-block: 0;
   }
@@ -15747,4 +15748,12 @@ html:has(.finish-dialog[open]) {
   .view-toggle.is-active { border-color: transparent; }
   .view-toggle.is-active::before { border-color: var(--line-2); background: transparent; }
   .view-toggle.is-active:hover::before { background: var(--bg); }
+}
+/* Score card marks line up on the "/": the number ends at one point and "/ 50" starts at one point, in every
+   row, the Adu / Raagu box included. Same as the results screen (Results review, round 7). */
+@media (min-width: 901px) {
+  .sidebar .scorecard .score-value-layout { display: grid; grid-template-columns: 34px auto; justify-content: start; column-gap: 4px; padding-inline: 4px 0; }
+  .sidebar .scorecard .score-value-layout .score-value-number { text-align: right; }
+  .sidebar .scorecard .score-value-layout .sc-of { text-align: left; }
+  .sidebar .scorecard .sc-deducted { text-align: right; padding-right: 6px; }
 }
