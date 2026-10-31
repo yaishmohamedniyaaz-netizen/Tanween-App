@@ -192,8 +192,8 @@ product rules belong in `PRODUCT_FOUNDATION.md`, not here.
       revision numbers, and the results screen only chooses between sources
       ("Source choices change this view only. They do not edit a judge's
       record."), so editing changes competition data, not just the screen.
-    - Decided by the owner (2026-10-30/31; Save may be revisited with the
-      backend developer):
+    - To be decided. Owner's current leaning (2026-10-30/31), not final; to be
+      confirmed with the backend developer:
       - Save writes a new revision of that judge's record. The old revision is
         kept, shown in "Sources and question history", and never enters
         rankings; exports use the newest revision.
@@ -207,7 +207,7 @@ product rules belong in `PRODUCT_FOUNDATION.md`, not here.
         exists; delete recordings after the appeal or complaint period ends.
         The deletion period should be a setting, not fixed in code.
       - Wording: keep the approved proposal's wording.
-    - Still open: who may edit when the responsible judge is absent (for
+    - To be decided, no leaning yet: who may edit when the responsible judge is absent (for
       example, the organiser with a reason, or nobody); the length of the
       appeal or complaint period; and which copy wins when two devices
       disagree once a server exists.
