@@ -192,12 +192,29 @@ product rules belong in `PRODUCT_FOUNDATION.md`, not here.
       revision numbers, and the results screen only chooses between sources
       ("Source choices change this view only. They do not edit a judge's
       record."), so editing changes competition data, not just the screen.
-    - Decision needed: what Save writes (proposed: a new revision of that
-      judge's record, with the old revision kept in "Sources and question
-      history", and exports using the newest revision); who may edit (anyone on
-      this device, or only the judge who gave the result); whether an edit of an
-      Official result needs the result to be finalized again; and the wording
-      of the edit strip, Save button, saved message and confirm box.
+    - Decided by the owner (2026-10-30/31; Save may be revisited with the
+      backend developer):
+      - Save writes a new revision of that judge's record. The old revision is
+        kept, shown in "Sources and question history", and never enters
+        rankings; exports use the newest revision.
+      - Only the judge responsible for a mark may edit it, and only inside
+        their own criteria. Other judges cannot edit it.
+      - No reason is asked for when editing.
+      - Editing an Official result makes it need finalizing again.
+      - Old revisions may be seen by the judge who made them and by the
+        organiser, not by participants by default.
+      - How long to keep data: keep the mark history as long as the result
+        exists; delete recordings after the appeal or complaint period ends.
+        The deletion period should be a setting, not fixed in code.
+      - Wording: keep the approved proposal's wording.
+    - Still open: who may edit when the responsible judge is absent (for
+      example, the organiser with a reason, or nobody); the length of the
+      appeal or complaint period; and which copy wins when two devices
+      disagree once a server exists.
+    - Legal context (checked 2026-10-30): the Maldives has no data protection
+      law yet. A Personal Data Protection Bill was sent to the Parliament ICT
+      Committee on 22 June 2026 (https://en.mmtv.mv/10387). Recheck before
+      launch.
 
 ## Later research, not current blockers
 
