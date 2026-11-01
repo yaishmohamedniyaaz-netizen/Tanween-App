@@ -1,0 +1,83 @@
+# Letter-level highlight trial plan
+
+Status: trial started 1 November 2026. Not approved for the app. Nothing here
+changes saved mistakes, scoring or Quran text; it only changes what the page
+highlight could cover later.
+
+## Goal
+
+Today a mistake highlights the whole printed kalimah on the page. The goal is to
+highlight only the letter (with its dots and haraka) that the mistake is about,
+on the same 1405H page artwork the app already shows.
+
+## Owner rules so far
+
+- The letter and its haraka are marked together, in one uniform colour, for now.
+- A different colour for the haraka is undecided (see `UNDECIDED_DECISIONS.md`,
+  item 35).
+- The mark follows the letter's own shape plus a small margin, about 1–2 px at
+  normal size, growing with zoom. The margin is cut where a neighbouring
+  letter's ink begins. The whole kalimah keeps a very light wash for context.
+
+## Why this needs mapping work
+
+- The page is a fixed picture (1920 × 3106 PNG per page, from the pinned Quran
+  iOS 1405H artwork). The app knows each word's box, not its letters.
+- Inside a word, dots and harakat are usually separate ink pieces. Letters that
+  join are one ink piece, so they need cut lines.
+- The same word is often drawn differently on different pages (stretched
+  letters, moved harakat). Reuse must therefore work on letter shapes, not only
+  on whole words.
+
+## Measured on all 604 pages (scripts in `scripts/letter-masks/`)
+
+| Measure | Result |
+| --- | --- |
+| Letter words | 77,433 |
+| Different word spellings | 21,116 (13,959 appear only once) |
+| Letters | 325,961 |
+| Words where the ink-piece count matches the text | 90.9% |
+| Letters standing alone in their own piece (no cut needed) | 21.3% of letters in matching words |
+| First automatic cut lines, pages 1–3, 50, 300, 500 | 4% look clean, 36% need a check, 60% fail |
+
+The simple cut rule (cut where only a thin baseline stroke remains) is not good
+enough on its own. Stacked letters (for example lam over meem) cannot be split
+with a straight vertical line. This is the main work.
+
+## Method: approve a few, reuse the rest
+
+1. A program proposes letter areas for each word.
+2. Every word gets a channel:
+   - **Green**: matches shapes already approved. Accepted, but a random sample
+     is checked by a person.
+   - **Yellow**: near match. One click to approve or fix.
+   - **Red**: new shape or failed split. Fixed by hand once; it becomes a new
+     approved pattern.
+3. Approved cuts are reused by shape matching, run as plain code (no AI cost per
+   word).
+4. If any random check of a green word is wrong, stop the batch and find out why.
+
+## Who does what
+
+- AI models (strong model for rules and hard cases; cheaper models or Codex for
+  repeated coding and batch runs) build and run the tools.
+- No model decides that a letter area is correct. Only a person's approval and
+  the random checks do.
+
+## Trial steps
+
+1. Review screen: shows a word large, proposed letter areas, lets the reviewer
+   approve, move or bend a cut line, or paint pixels to a letter (needed for
+   stacked letters).
+2. Owner reviews pages 1–2.
+3. Reuse those approvals on pages 3–20. Measure green / yellow / red rates,
+   wrong greens in random checks, and review time per word.
+4. Decide on the full 604 pages from those numbers.
+
+## Open checks
+
+- Licence: the artwork fetch script states it "does not establish artwork
+  redistribution permission". Letter maps made from the artwork need the same
+  check before release.
+- Mistakes that cover more than one letter or cross two words, lam-alif and
+  other joined shapes, stacked letters, small letters and signs: rules needed.

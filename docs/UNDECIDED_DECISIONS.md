@@ -216,6 +216,13 @@ product rules belong in `PRODUCT_FOUNDATION.md`, not here.
       Committee on 22 June 2026 (https://en.mmtv.mv/10387). Recheck before
       launch.
 
+35. **Letter-level page highlight: separate colour for the haraka**
+    - Owner rule for now (1 November 2026): the letter and its haraka are
+      marked together in one uniform colour.
+    - To be decided: whether the haraka gets its own colour (for example a
+      brighter shade) so it is clear the mistake is in the haraka, or whether
+      that looks too busy. Trial plan: `LETTER_LEVEL_HIGHLIGHT_TRIAL_PLAN.md`.
+
 ## Later research, not current blockers
 
 20. **AI question suggestions**
