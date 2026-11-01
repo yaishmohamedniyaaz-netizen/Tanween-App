@@ -2,12 +2,13 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Amiri:wght@400;700&display=swap">
 <style>
+@font-face{font-family:"TanweenHafs";src:url(data:font/woff2;base64,__HAFS__) format("woff2");font-display:block}
 /* Layout: word list on the left, one large word with its letters and tools on the right; stacks on phones. */
 :root{
   --bg:#f6f7f5; --panel:#ffffff; --line:#d9ddd6; --fg:#1d221f; --muted:#5f685f;
   --accent:#2f6f5e; --accent-fg:#ffffff; --warn:#a8641f; --bad:#b23b33; --good:#2f7a4a;
   --mark:#c4402f; --ink:#111;
-  --ui:"Atkinson Hyperlegible",system-ui,sans-serif; --ar:"Amiri","Noto Naskh Arabic",serif;
+  --ui:"Atkinson Hyperlegible",system-ui,sans-serif; --ar:"TanweenHafs","Amiri","Noto Naskh Arabic",serif;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   --bg:#141816; --panel:#1c211f; --line:#323a36; --fg:#e7ece8; --muted:#9aa59e;
@@ -41,7 +42,14 @@ h1{font-size:20px;margin:0;text-wrap:balance}
 .meta{color:var(--muted);font-size:13px}
 .stage{overflow:auto;background:#fff;border-radius:6px;border:1px solid var(--line);touch-action:none}
 canvas{display:block;image-rendering:pixelated}
-#big{cursor:crosshair;margin:auto}
+#big{cursor:crosshair}
+.canvaswrap{position:relative;margin:auto}
+.handles{position:absolute;inset:0;pointer-events:none}
+.handles .band{position:absolute;top:0;bottom:0;opacity:.14}
+.handles .h{position:absolute;top:0;bottom:0;width:0;border-left:2px solid var(--fg);pointer-events:none}
+.handles .h i{position:absolute;left:-12px;width:22px;height:22px;border-radius:50%;background:var(--panel);border:3px solid var(--fg);pointer-events:auto;cursor:ew-resize;touch-action:none}
+.handles .h i.top{top:-2px} .handles .h i.bot{bottom:-2px}
+.handles .h i:focus-visible{outline:3px solid var(--accent)}
 .chips{display:flex;flex-wrap:wrap;gap:6px;direction:rtl}
 .chip{all:unset;box-sizing:border-box;cursor:pointer;display:flex;gap:6px;align-items:center;padding:2px 10px 2px 8px;border-radius:6px;border:2px solid var(--line);background:var(--panel);direction:ltr}
 .chip .ar{font:26px/1.5 var(--ar)}
@@ -90,10 +98,11 @@ input[type=text]{font:inherit;padding:6px 8px;border:1px solid var(--line);borde
       </div>
       <div class="card" style="display:grid;gap:10px">
         <div class="chips" id="chips" role="radiogroup" aria-label="Letter to paint"></div>
-        <div class="stage" id="stage"><canvas id="big" aria-label="Word ink, coloured by letter"></canvas></div>
+        <div class="stage" id="stage"><div class="canvaswrap" id="cwrap"><canvas id="big" aria-label="Word ink, coloured by letter"></canvas><div class="handles" id="handles" hidden><div class="band" id="band"></div><div class="h" id="hR"><i class="top" tabindex="0" aria-label="Right edge of the letter"></i><i class="bot"></i></div><div class="h" id="hL"><i class="top" tabindex="0" aria-label="Left edge of the letter"></i><i class="bot"></i></div></div></div></div>
         <div class="row">
           <div class="seg" role="group" aria-label="Tool">
-            <button id="t-brush" class="on">Brush <span class="sub">B</span></button>
+            <button id="t-edges" class="on">Edges <span class="sub">R</span></button>
+            <button id="t-brush">Brush <span class="sub">B</span></button>
             <button id="t-fill">Whole piece <span class="sub">F</span></button>
             <button id="t-erase">Clear <span class="sub">E</span></button>
           </div>
@@ -120,7 +129,7 @@ input[type=text]{font:inherit;padding:6px 8px;border:1px solid var(--line);borde
         <button class="btn" id="prev">Previous</button>
         <button class="btn" id="next">Next</button>
       </div>
-      <p class="help">Pick a letter, then paint its ink. <kbd>1</kbd>–<kbd>9</kbd> pick a letter, <kbd>B</kbd> brush, <kbd>F</kbd> whole piece (good for dots and harakat), <kbd>E</kbd> clear, <kbd>Z</kbd> undo, <kbd>Enter</kbd> approve. Grey ink is not given to any letter yet. Click a letter chip to see only that letter in the preview.</p>
+      <p class="help">Pick a letter, then drag the two round handles to its right and left edges; the letter body between them becomes that letter, and the neighbouring letters get the rest. Use Brush for stacked letters the handles cannot separate. <kbd>1</kbd>–<kbd>9</kbd> pick a letter, <kbd>R</kbd> edges (arrow keys move a focused handle by one pixel), <kbd>B</kbd> brush, <kbd>F</kbd> whole piece (good for dots and harakat), <kbd>E</kbd> clear, <kbd>Z</kbd> undo, <kbd>Enter</kbd> approve. Grey ink is not given to any letter yet. Click a letter chip to see only that letter in the preview.</p>
     </section>
   </div>
 </div>
@@ -140,7 +149,7 @@ function rle(arr){ const out=[]; let p=arr[0], n=0; for(let i=0;i<arr.length;i++
 const words = DATA.words.map(w => ({...w, piecesArr: unrle(w.pieces, w.w*w.h, Uint16Array), proposalArr: unrle(w.proposal, w.w*w.h, Uint8Array), img: null}));
 const state = {};   // wid -> {labels:Uint8Array, status, note}
 words.forEach(w => state[w.wid] = {labels: w.proposalArr.slice(), status: null, note: ''});
-let cur = 0, fitNext = true, letter = 1, tool = 'brush', undo = [], focusLetter = null;
+let cur = 0, fitNext = true, letter = 1, tool = 'edges', edges = null, dragBase = null, undo = [], focusLetter = null;
 let db = null;
 
 function grey(w){ return new Promise(res => { if (w.img) return res(w.img); const im = new Image(); im.onload = () => { const c=document.createElement('canvas'); c.width=w.w; c.height=w.h; const x=c.getContext('2d'); x.drawImage(im,0,0); w.img = x.getImageData(0,0,w.w,w.h).data; res(w.img); }; im.src = 'data:image/png;base64,' + w.png; }); }
@@ -172,7 +181,7 @@ function renderChips(){
     const b=document.createElement('button'); b.className='chip'+(letter===i+1?' on':''); b.setAttribute('role','radio'); b.setAttribute('aria-checked', letter===i+1);
     b.innerHTML='<span class="k">'+(i+1)+'</span><span class="sw" style="background:'+COLORS[i%COLORS.length]+'"></span><span class="ar"></span>';
     b.querySelector('.ar').textContent = '‍'+t+'‍';
-    b.onclick = () => { letter=i+1; focusLetter = (focusLetter===i+1 ? null : i+1); renderChips(); draw(); };
+    b.onclick = () => { letter=i+1; focusLetter = (focusLetter===i+1 ? null : i+1); initEdges(); renderChips(); draw(); };
     C.appendChild(b);
   });
 }
@@ -182,6 +191,7 @@ async function draw(){
   if (fitNext){ fitNext=false; const avail=$('stage').clientWidth-4; $('zoom').value = Math.max(1, Math.min(8, Math.floor(avail/w.w*2)/2)); }
   const z = +$('zoom').value;
   const c = $('big'); c.width = w.w; c.height = w.h; c.style.width = (w.w*z)+'px'; c.style.height = (w.h*z)+'px';
+  $('cwrap').style.width=(w.w*z)+'px'; $('cwrap').style.height=(w.h*z)+'px';
   const x = c.getContext('2d'), id = x.createImageData(w.w,w.h), d = id.data;
   for (let i=0;i<w.w*w.h;i++){
     const v=g[i*4], p=w.piecesArr[i], L=lab[i];
@@ -191,6 +201,7 @@ async function draw(){
     d[i*4]=r; d[i*4+1]=gg; d[i*4+2]=b; d[i*4+3]=255;
   }
   x.putImageData(id,0,0);
+  drawHandles();
   drawPreview();
 }
 
@@ -226,12 +237,39 @@ function drawPreview(){
   });
 }
 
-function go(i){ cur=Math.max(0,Math.min(words.length-1,i)); fitNext=true; undo=[]; focusLetter=null; letter=1;
+function go(i){ cur=Math.max(0,Math.min(words.length-1,i)); fitNext=true; edges=null; undo=[]; focusLetter=null; letter=1;
   const w=words[cur]; $('wtext').textContent=w.text; $('note').value=state[w.wid].note||'';
   $('wmeta').textContent='Page '+w.page+' · line '+w.line+' · '+w.letters.length+' letters · '+label(statusOf(w))+(w.reason && !state[w.wid].status ? ' ('+w.reason.replace(/ in .*/,'')+')' : '');
   renderList(); renderChips(); draw();
   const on=document.querySelector('.list button.on'); if(on) on.scrollIntoView({block:'nearest'});
 }
+
+// edges tool: the selected letter owns the body ink between two handles
+function skelSet(w){ if(!w._sk) w._sk=new Set(w.skeleton); return w._sk; }
+function groupOf(w,L){ return w.groups.find(g => g.includes(L-1)) || [L-1]; }
+function letterSpan(w,L){ const lab=state[w.wid].labels, sk=skelSet(w); let a=1e9,b=-1;
+  for(let i=0;i<lab.length;i++) if(lab[i]===L && sk.has(w.piecesArr[i])){ const x=i%w.w; if(x<a)a=x; if(x>b)b=x; }
+  return b<0 ? null : [a,b+1]; }
+function initEdges(){ const w=words[cur]; const sp=letterSpan(w,letter); edges = sp || [Math.round(w.w*0.45), Math.round(w.w*0.55)]; }
+function applyEdges(){ const w=words[cur], base=dragBase, lab=state[w.wid].labels, sk=skelSet(w), g=groupOf(w,letter), L=letter;
+  const inG=new Set(g.map(i=>i+1)); inG.add(0);
+  const right = inG.has(L-1) && L-1>0 ? L-1 : 0, left = inG.has(L+1) ? L+1 : 0;   // Arabic runs right to left
+  for(let i=0;i<lab.length;i++){ const p=w.piecesArr[i]; if(!p || !sk.has(p)) continue; const v=base[i]; if(!inG.has(v)) { lab[i]=v; continue; }
+    const x=i%w.w; if(x>=edges[0] && x<edges[1]) lab[i]=L; else if(v===L) lab[i] = x>=edges[1] ? right : left; else lab[i]=v; } }
+function drawHandles(){ const H=$('handles'); H.hidden = tool!=='edges'; if(tool!=='edges') return; if(!edges) initEdges();
+  const z=+$('zoom').value; $('hL').style.left=(edges[0]*z)+'px'; $('hR').style.left=(edges[1]*z)+'px';
+  const band=$('band'); band.style.left=(edges[0]*z)+'px'; band.style.width=((edges[1]-edges[0])*z)+'px'; band.style.background=COLORS[(letter-1)%COLORS.length]; }
+function startDrag(which, ev){ ev.preventDefault(); undo.push(state[words[cur].wid].labels.slice()); dragBase=state[words[cur].wid].labels.slice();
+  const move = e => { const r=$('big').getBoundingClientRect(); const x=Math.round((e.clientX-r.left)/r.width*words[cur].w);
+    if(which==='L') edges[0]=Math.max(0,Math.min(edges[1]-1,x)); else edges[1]=Math.min(words[cur].w,Math.max(edges[0]+1,x)); applyEdges(); draw(); };
+  const up = () => { window.removeEventListener('pointermove',move); window.removeEventListener('pointerup',up); dragBase=null; };
+  window.addEventListener('pointermove',move); window.addEventListener('pointerup',up); }
+document.querySelectorAll('#hL i').forEach(e=>e.addEventListener('pointerdown',ev=>startDrag('L',ev)));
+document.querySelectorAll('#hR i').forEach(e=>e.addEventListener('pointerdown',ev=>startDrag('R',ev)));
+[['hL',0],['hR',1]].forEach(([id,k]) => $(id).querySelector('i.top').addEventListener('keydown', ev => {
+  if(ev.key!=='ArrowLeft' && ev.key!=='ArrowRight') return; ev.preventDefault(); ev.stopPropagation();
+  undo.push(state[words[cur].wid].labels.slice()); dragBase=state[words[cur].wid].labels.slice();
+  edges[k]+= ev.key==='ArrowLeft' ? -1 : 1; edges[0]=Math.max(0,Math.min(edges[0],edges[1]-1)); edges[1]=Math.min(words[cur].w,Math.max(edges[1],edges[0]+1)); applyEdges(); dragBase=null; draw(); }));
 
 // painting
 let painting=false;
@@ -247,12 +285,12 @@ function paint(ev){
   draw();
 }
 const big=$('big');
-big.addEventListener('pointerdown', ev => { undo.push(state[words[cur].wid].labels.slice()); painting = tool!=='fill'; big.setPointerCapture(ev.pointerId); paint(ev); });
+big.addEventListener('pointerdown', ev => { if(tool==='edges'){ const w=words[cur], [px]=at(ev); const k = Math.abs(px-edges[0]) < Math.abs(px-edges[1]) ? 'L':'R'; startDrag(k, ev); window.dispatchEvent(new PointerEvent('pointermove',{clientX:ev.clientX,clientY:ev.clientY})); return; } undo.push(state[words[cur].wid].labels.slice()); painting = tool!=='fill'; big.setPointerCapture(ev.pointerId); paint(ev); });
 big.addEventListener('pointermove', ev => { if(painting) paint(ev); });
 ['pointerup','pointercancel'].forEach(t => big.addEventListener(t, () => painting=false));
 
-function setTool(t){ tool=t; ['brush','fill','erase'].forEach(k => $('t-'+k).classList.toggle('on', k===t)); }
-$('t-brush').onclick=()=>setTool('brush'); $('t-fill').onclick=()=>setTool('fill'); $('t-erase').onclick=()=>setTool('erase');
+function setTool(t){ tool=t; if(t==='edges') initEdges(); drawHandles(); ['edges','brush','fill','erase'].forEach(k => $('t-'+k).classList.toggle('on', k===t)); }
+$('t-edges').onclick=()=>setTool('edges'); $('t-brush').onclick=()=>setTool('brush'); $('t-fill').onclick=()=>setTool('fill'); $('t-erase').onclick=()=>setTool('erase');
 $('undo').onclick=()=>{ const u=undo.pop(); if(u){ state[words[cur].wid].labels=u; draw(); } };
 $('reset').onclick=()=>{ undo.push(state[words[cur].wid].labels.slice()); state[words[cur].wid].labels=words[cur].proposalArr.slice(); draw(); };
 $('zoom').oninput=draw; $('margin').oninput=drawPreview;
@@ -274,8 +312,8 @@ $('flag').onclick=async()=>{ await save('flagged'); go(cur+1); };
 
 document.addEventListener('keydown', ev => {
   if (ev.target.tagName==='INPUT' && ev.target.type==='text') return;
-  if (ev.key>='1' && ev.key<='9'){ const n=+ev.key; if(n<=words[cur].letters.length){ letter=n; focusLetter=null; renderChips(); drawPreview(); } }
-  else if (ev.key==='b') setTool('brush'); else if (ev.key==='f') setTool('fill'); else if (ev.key==='e') setTool('erase');
+  if (ev.key>='1' && ev.key<='9'){ const n=+ev.key; if(n<=words[cur].letters.length){ letter=n; focusLetter=null; initEdges(); renderChips(); draw(); } }
+  else if (ev.key==='r') setTool('edges'); else if (ev.key==='b') setTool('brush'); else if (ev.key==='f') setTool('fill'); else if (ev.key==='e') setTool('erase');
   else if (ev.key==='z') $('undo').click(); else if (ev.key==='Enter'){ ev.preventDefault(); $('approve').click(); }
 });
 

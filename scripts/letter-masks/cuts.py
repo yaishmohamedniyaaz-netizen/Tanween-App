@@ -29,7 +29,8 @@ def propose(page):
         w = r['word']; ls = letters(w['text']); gs = groups(ls); b = r['baseline']
         sk = sorted([p for p in r['pieces'] if p['kind'] == 'skeleton'], key=lambda p: -p['box'][2])  # right to left
         marks = [p for p in r['pieces'] if p['kind'] == 'mark']
-        item = dict(wid=w['wid'], text=w['text'], status='red', letters=[], reason='')
+        item = dict(wid=w['wid'], text=w['text'], status='red', letters=[], reason='',
+                    all=[(p['id'], p['kind']) for p in r['pieces']])
         if len(sk) != len(gs):
             item['reason'] = f'pieces {len(sk)} vs text {len(gs)}'; out.append(item); continue
         status = 'yellow'; cutsall = []

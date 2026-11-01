@@ -45,11 +45,10 @@ def export(page):
         piece_map = np.zeros(crop_lab.shape, np.uint16)
         letter_map = np.zeros(crop_lab.shape, np.uint8)
         piece_ids = []
-        # every piece the earlier pass gave to this word
-        owned = [g_[1] for g_ in it.get('groups', [])] + [m[0] for m in it.get('marks', [])]
-        if not owned:   # red because the piece count did not match: keep every piece inside the box
-            owned = [int(v) for v in np.unique(lab[by0:by1, bx0:bx1]) if v]
-            owned = [i for i in owned if (lab[by0:by1, bx0:bx1] == i).sum() >= 0.5 * (lab[y0:y1, x0:x1] == i).sum()]
+        # every piece the earlier pass gave to this word, skeleton pieces first
+        kinds = dict(it['all'])
+        owned = [pid for pid, k in it['all'] if k == 'skeleton'] + [pid for pid, k in it['all'] if k != 'skeleton']
+        skeleton = [k for k, pid in enumerate(owned, 1) if kinds[pid] == 'skeleton']
         for k, pid in enumerate(owned, 1):
             piece_map[crop_lab == pid] = k
             piece_ids.append(int(pid))
@@ -80,7 +79,7 @@ def export(page):
             groups=[[i for i in grp] for grp in groups(ls)],
             box=[x0, y0, x1, y1], w=x1 - x0, h=y1 - y0,
             png=base64.b64encode(buf.getvalue()).decode(),
-            pieces=rle(piece_map), proposal=rle(letter_map),
+            pieces=rle(piece_map), proposal=rle(letter_map), skeleton=skeleton,
             status=it['status'], reason=it.get('reason', ''),
         ))
     return words
