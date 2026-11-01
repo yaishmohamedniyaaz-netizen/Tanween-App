@@ -1,0 +1,296 @@
+<title>Letter Map Review</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Amiri:wght@400;700&display=swap">
+<style>
+/* Layout: word list on the left, one large word with its letters and tools on the right; stacks on phones. */
+:root{
+  --bg:#f6f7f5; --panel:#ffffff; --line:#d9ddd6; --fg:#1d221f; --muted:#5f685f;
+  --accent:#2f6f5e; --accent-fg:#ffffff; --warn:#a8641f; --bad:#b23b33; --good:#2f7a4a;
+  --mark:#c4402f; --ink:#111;
+  --ui:"Atkinson Hyperlegible",system-ui,sans-serif; --ar:"Amiri","Noto Naskh Arabic",serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#141816; --panel:#1c211f; --line:#323a36; --fg:#e7ece8; --muted:#9aa59e;
+  --accent:#6fbca5; --accent-fg:#0d1512; --warn:#e0a35e; --bad:#ec8077; --good:#7ccf98; --mark:#f07a68; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#141816; --panel:#1c211f; --line:#323a36; --fg:#e7ece8; --muted:#9aa59e;
+  --accent:#6fbca5; --accent-fg:#0d1512; --warn:#e0a35e; --bad:#ec8077; --good:#7ccf98; --mark:#f07a68; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:15px/1.45 var(--ui);margin:0}
+.wrap{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:16px 32px;max-width:1360px;margin:0 auto;display:grid;gap:16px}
+header{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:baseline;justify-content:space-between}
+h1{font-size:20px;margin:0;text-wrap:balance}
+.sub{color:var(--muted);font-size:13px}
+.progress{display:flex;gap:16px;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums;flex-wrap:wrap}
+.progress b{color:var(--fg)}
+.banner{border:1px solid var(--warn);color:var(--warn);padding:8px 12px;border-radius:6px;font-size:13px}
+.main{display:grid;grid-template-columns:240px minmax(0,1fr);gap:16px;align-items:start}
+@media (max-width:820px){.main{grid-template-columns:minmax(0,1fr)}.list{max-height:220px}}
+.list{background:var(--panel);border:1px solid var(--line);border-radius:8px;max-height:calc(100dvh - 120px);overflow:auto}
+.list h2{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:0;padding:10px 12px 6px;position:sticky;top:0;background:var(--panel)}
+.list button{all:unset;box-sizing:border-box;display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;width:100%;padding:6px 12px;cursor:pointer;border-top:1px solid var(--line)}
+.list button:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.list button.on{background:color-mix(in srgb,var(--accent) 14%,transparent)}
+.list .ar{font:20px/1.6 var(--ar);direction:rtl;text-align:right}
+.tag{font-size:11px;padding:1px 6px;border-radius:4px;border:1px solid currentColor;white-space:nowrap}
+.t-approved{color:var(--good)} .t-flagged{color:var(--bad)} .t-red{color:var(--bad);opacity:.75} .t-yellow{color:var(--warn)} .t-green-candidate{color:var(--good);opacity:.75}
+.work{display:grid;gap:12px;min-width:0}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:12px;min-width:0}
+.wordhead{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;justify-content:space-between}
+.wordhead .ar{font:30px/1.5 var(--ar);direction:rtl}
+.meta{color:var(--muted);font-size:13px}
+.stage{overflow:auto;background:#fff;border-radius:6px;border:1px solid var(--line);touch-action:none}
+canvas{display:block;image-rendering:pixelated}
+#big{cursor:crosshair;margin:auto}
+.chips{display:flex;flex-wrap:wrap;gap:6px;direction:rtl}
+.chip{all:unset;box-sizing:border-box;cursor:pointer;display:flex;gap:6px;align-items:center;padding:2px 10px 2px 8px;border-radius:6px;border:2px solid var(--line);background:var(--panel);direction:ltr}
+.chip .ar{font:26px/1.5 var(--ar)}
+.chip .k{font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums}
+.chip .sw{width:12px;height:12px;border-radius:3px}
+.chip.on{border-color:var(--fg)}
+.chip:focus-visible{outline:2px solid var(--accent)}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.seg button{all:unset;cursor:pointer;padding:6px 12px;font-size:14px}
+.seg button.on{background:var(--fg);color:var(--bg)}
+.seg button:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.btn{all:unset;cursor:pointer;padding:7px 14px;border-radius:6px;border:1px solid var(--line);font-size:14px;background:var(--panel)}
+.btn:focus-visible{outline:2px solid var(--accent)}
+.btn.primary{background:var(--accent);color:var(--accent-fg);border-color:var(--accent);font-weight:700}
+.btn.danger{color:var(--bad);border-color:currentColor}
+label{font-size:13px;color:var(--muted);display:flex;gap:6px;align-items:center}
+input[type=range]{width:120px}
+input[type=text]{font:inherit;padding:6px 8px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--fg);min-width:0;flex:1}
+.previews{display:flex;flex-wrap:wrap;gap:16px;align-items:flex-end}
+.previews figure{margin:0;display:grid;gap:4px}
+.previews figcaption{font-size:12px;color:var(--muted)}
+.previews .pv{background:#fff;border:1px solid var(--line);border-radius:4px}
+.help{font-size:13px;color:var(--muted);margin:0}
+.help kbd{font:12px var(--ui);border:1px solid var(--line);border-bottom-width:2px;border-radius:4px;padding:0 5px}
+.toast{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--fg);color:var(--bg);padding:8px 14px;border-radius:6px;font-size:14px;opacity:0;transition:opacity .2s;pointer-events:none}
+.toast.show{opacity:1}
+@media (prefers-reduced-motion:reduce){.toast{transition:none}}
+</style>
+
+<div class="wrap">
+  <header>
+    <div>
+      <h1>Letter map review · pages 1–2</h1>
+      <div class="sub">Tanween trial. Check which ink belongs to which letter. Letter and haraka are marked together.</div>
+    </div>
+    <div class="progress" id="progress"></div>
+  </header>
+  <div class="banner" id="nosave" hidden>Saving is not available in this view, so approvals stay in this tab only. Open the artifact page while signed in to save.</div>
+  <div class="main">
+    <nav class="list" id="list" aria-label="Words"></nav>
+    <section class="work">
+      <div class="card wordhead">
+        <div class="ar" id="wtext"></div>
+        <div class="meta" id="wmeta"></div>
+      </div>
+      <div class="card" style="display:grid;gap:10px">
+        <div class="chips" id="chips" role="radiogroup" aria-label="Letter to paint"></div>
+        <div class="stage" id="stage"><canvas id="big" aria-label="Word ink, coloured by letter"></canvas></div>
+        <div class="row">
+          <div class="seg" role="group" aria-label="Tool">
+            <button id="t-brush" class="on">Brush <span class="sub">B</span></button>
+            <button id="t-fill">Whole piece <span class="sub">F</span></button>
+            <button id="t-erase">Clear <span class="sub">E</span></button>
+          </div>
+          <label for="brush">Brush size <input id="brush" type="range" min="1" max="14" value="4"></label>
+          <label for="zoom">Zoom <input id="zoom" type="range" min="1" max="10" step="0.5" value="4"></label>
+          <button class="btn" id="undo">Undo <span class="sub">Z</span></button>
+          <button class="btn" id="reset">Back to proposal</button>
+        </div>
+      </div>
+      <div class="card" style="display:grid;gap:10px">
+        <div class="row" style="justify-content:space-between">
+          <strong>How the highlight would look</strong>
+          <label for="margin">Margin around the letter <input id="margin" type="range" min="0" max="4" step="0.5" value="1.5"> <span id="mval"></span></label>
+        </div>
+        <div class="previews">
+          <figure><canvas class="pv" id="pv1"></canvas><figcaption>Desktop page size</figcaption></figure>
+          <figure><canvas class="pv" id="pv2"></canvas><figcaption>3 × zoom</figcaption></figure>
+        </div>
+      </div>
+      <div class="card row">
+        <button class="btn primary" id="approve">Approve and next <span class="sub" style="color:inherit;opacity:.8">Enter</span></button>
+        <button class="btn danger" id="flag">Needs a rule</button>
+        <input type="text" id="note" placeholder="Note (for example: lam-alif, stacked letters)" aria-label="Note">
+        <button class="btn" id="prev">Previous</button>
+        <button class="btn" id="next">Next</button>
+      </div>
+      <p class="help">Pick a letter, then paint its ink. <kbd>1</kbd>–<kbd>9</kbd> pick a letter, <kbd>B</kbd> brush, <kbd>F</kbd> whole piece (good for dots and harakat), <kbd>E</kbd> clear, <kbd>Z</kbd> undo, <kbd>Enter</kbd> approve. Grey ink is not given to any letter yet. Click a letter chip to see only that letter in the preview.</p>
+    </section>
+  </div>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script id="data" type="application/json">__DATA__</script>
+<script>
+(function(){
+const DATA = JSON.parse(document.getElementById('data').textContent);
+const PAGE_SCALE = 496/1920;
+const PAD = 8;               // crop padding added around each word box by the export script          // desktop page width in the app / artwork width
+const COLORS = ['#d1495b','#2e86ab','#edae49','#3f8f5a','#8e5ac8','#e07a2f','#1f9e9e','#c2477d','#6b7f2a','#4a5ad1'];
+const $ = id => document.getElementById(id);
+function unrle(a, n, Arr){ const out = new Arr(n); let i=0; for(let k=0;k<a.length;k+=2){ out.fill(a[k], i, i+a[k+1]); i+=a[k+1]; } return out; }
+function rle(arr){ const out=[]; let p=arr[0], n=0; for(let i=0;i<arr.length;i++){ if(arr[i]===p) n++; else { out.push(p,n); p=arr[i]; n=1; } } out.push(p,n); return out; }
+
+const words = DATA.words.map(w => ({...w, piecesArr: unrle(w.pieces, w.w*w.h, Uint16Array), proposalArr: unrle(w.proposal, w.w*w.h, Uint8Array), img: null}));
+const state = {};   // wid -> {labels:Uint8Array, status, note}
+words.forEach(w => state[w.wid] = {labels: w.proposalArr.slice(), status: null, note: ''});
+let cur = 0, fitNext = true, letter = 1, tool = 'brush', undo = [], focusLetter = null;
+let db = null;
+
+function grey(w){ return new Promise(res => { if (w.img) return res(w.img); const im = new Image(); im.onload = () => { const c=document.createElement('canvas'); c.width=w.w; c.height=w.h; const x=c.getContext('2d'); x.drawImage(im,0,0); w.img = x.getImageData(0,0,w.w,w.h).data; res(w.img); }; im.src = 'data:image/png;base64,' + w.png; }); }
+function hex(c){ return [parseInt(c.slice(1,3),16),parseInt(c.slice(3,5),16),parseInt(c.slice(5,7),16)]; }
+const RGB = COLORS.map(hex);
+
+function statusOf(w){ return state[w.wid].status || w.status; }
+function label(s){ return {approved:'Approved', flagged:'Needs a rule', red:'Not split', yellow:'Check', 'green-candidate':'Likely fine'}[s] || s; }
+
+function renderList(){
+  const L = $('list'); L.innerHTML='';
+  DATA.pages.forEach(p => {
+    const h = document.createElement('h2'); h.textContent = 'Page ' + p; L.appendChild(h);
+    words.forEach((w,i) => { if (w.page!==p) return;
+      const b=document.createElement('button'); if(i===cur) b.className='on';
+      const s = statusOf(w);
+      b.innerHTML = '<span class="ar"></span><span class="tag t-'+s+'">'+label(s)+'</span>';
+      b.querySelector('.ar').textContent = w.text;
+      b.onclick = () => go(i); L.appendChild(b);
+    });
+  });
+  const counts = {approved:0, flagged:0}; words.forEach(w => { const s=state[w.wid].status; if(s) counts[s]++; });
+  $('progress').innerHTML = '<span><b>'+counts.approved+'</b> of '+words.length+' approved</span><span><b>'+counts.flagged+'</b> need a rule</span><span><b>'+(words.length-counts.approved-counts.flagged)+'</b> left</span>';
+}
+
+function renderChips(){
+  const w = words[cur], C = $('chips'); C.innerHTML='';
+  w.letters.forEach((t,i) => {
+    const b=document.createElement('button'); b.className='chip'+(letter===i+1?' on':''); b.setAttribute('role','radio'); b.setAttribute('aria-checked', letter===i+1);
+    b.innerHTML='<span class="k">'+(i+1)+'</span><span class="sw" style="background:'+COLORS[i%COLORS.length]+'"></span><span class="ar"></span>';
+    b.querySelector('.ar').textContent = '‍'+t+'‍';
+    b.onclick = () => { letter=i+1; focusLetter = (focusLetter===i+1 ? null : i+1); renderChips(); draw(); };
+    C.appendChild(b);
+  });
+}
+
+async function draw(){
+  const w = words[cur], g = await grey(w), lab = state[w.wid].labels;
+  if (fitNext){ fitNext=false; const avail=$('stage').clientWidth-4; $('zoom').value = Math.max(1, Math.min(8, Math.floor(avail/w.w*2)/2)); }
+  const z = +$('zoom').value;
+  const c = $('big'); c.width = w.w; c.height = w.h; c.style.width = (w.w*z)+'px'; c.style.height = (w.h*z)+'px';
+  const x = c.getContext('2d'), id = x.createImageData(w.w,w.h), d = id.data;
+  for (let i=0;i<w.w*w.h;i++){
+    const v=g[i*4], p=w.piecesArr[i], L=lab[i];
+    let r=v,gg=v,b=v;
+    if (p){ if (L){ const col=RGB[(L-1)%RGB.length]; const dim = focusLetter && focusLetter!==L; const a = dim? .25 : 1; const k=(255-v)/255; r=255-(255-col[0])*k*a; gg=255-(255-col[1])*k*a; b=255-(255-col[2])*k*a; } else { r=gg=b=Math.min(255, v+60); } }
+    else if (v<250){ r=gg=b=Math.min(255, v+110); }   // ink of other words, faded
+    d[i*4]=r; d[i*4+1]=gg; d[i*4+2]=b; d[i*4+3]=255;
+  }
+  x.putImageData(id,0,0);
+  drawPreview();
+}
+
+// Highlight preview: the letter's ink plus a margin that stops where other ink is nearer.
+function highlightMask(w, lab, L, rad){
+  const W=w.w, H=w.h, N=W*H, dist=new Float32Array(N).fill(1e9), own=new Int16Array(N).fill(-1);
+  for(let i=0;i<N;i++) if (w.piecesArr[i] || (w.img && w.img[i*4]<128)) { dist[i]=0; own[i]= (w.piecesArr[i] ? lab[i] : 255); }
+  const S=[[-1,-1,1.4142],[0,-1,1],[1,-1,1.4142],[-1,0,1]], S2=[[1,1,1.4142],[0,1,1],[-1,1,1.4142],[1,0,1]];
+  for(let y=0;y<H;y++) for(let x=0;x<W;x++){ const i=y*W+x; for(const [dx,dy,c] of S){ const X=x+dx,Y=y+dy; if(X<0||Y<0||X>=W||Y>=H) continue; const j=Y*W+X; if(dist[j]+c<dist[i]){dist[i]=dist[j]+c; own[i]=own[j];} } }
+  for(let y=H-1;y>=0;y--) for(let x=W-1;x>=0;x--){ const i=y*W+x; for(const [dx,dy,c] of S2){ const X=x+dx,Y=y+dy; if(X<0||Y<0||X>=W||Y>=H) continue; const j=Y*W+X; if(dist[j]+c<dist[i]){dist[i]=dist[j]+c; own[i]=own[j];} } }
+  const m=new Uint8Array(N); for(let i=0;i<N;i++) if(own[i]===L && dist[i]<=rad) m[i]=1; return m;
+}
+function drawPreview(){
+  const w=words[cur]; if(!w.img) return;
+  const lab=state[w.wid].labels, L = focusLetter || letter;
+  const screenPx = +$('margin').value; $('mval').textContent = screenPx+' px';
+  const m = highlightMask(w, lab, L, screenPx/PAGE_SCALE);
+  const base=document.createElement('canvas'); base.width=w.w; base.height=w.h; const bx=base.getContext('2d'); const id=bx.createImageData(w.w,w.h), d=id.data;
+  const mk = hex(getComputedStyle(document.documentElement).getPropertyValue('--mark').trim() || '#c4402f');
+  for(let i=0;i<w.w*w.h;i++){
+    const v=w.img[i*4]; let r=255,g=255,b=255;
+    const washA = 0.10, hiA = 0.34;
+    const X=i%w.w, Y=(i/w.w)|0, inWord = X>=PAD && Y>=PAD && X<w.w-PAD && Y<w.h-PAD;
+    let a = 0; if (m[i]) a = hiA; else if (inWord) a = washA;
+    r = 255 - (255-mk[0])*a; g = 255 - (255-mk[1])*a; b = 255 - (255-mk[2])*a;
+    const k=v/255; r*=k; g*=k; b*=k;   // ink multiplied on top
+    d[i*4]=r; d[i*4+1]=g; d[i*4+2]=b; d[i*4+3]=255;
+  }
+  bx.putImageData(id,0,0);
+  [['pv1',PAGE_SCALE*(window.devicePixelRatio||1), PAGE_SCALE],['pv2',PAGE_SCALE*3*(window.devicePixelRatio||1), PAGE_SCALE*3]].forEach(([cid,s,css]) => {
+    const c=$(cid); c.width=Math.max(1,Math.round(w.w*s)); c.height=Math.max(1,Math.round(w.h*s)); c.style.width=(w.w*css)+'px'; c.style.height=(w.h*css)+'px';
+    const x=c.getContext('2d'); x.imageSmoothingEnabled=true; x.imageSmoothingQuality='high'; x.drawImage(base,0,0,c.width,c.height);
+  });
+}
+
+function go(i){ cur=Math.max(0,Math.min(words.length-1,i)); fitNext=true; undo=[]; focusLetter=null; letter=1;
+  const w=words[cur]; $('wtext').textContent=w.text; $('note').value=state[w.wid].note||'';
+  $('wmeta').textContent='Page '+w.page+' · line '+w.line+' · '+w.letters.length+' letters · '+label(statusOf(w))+(w.reason && !state[w.wid].status ? ' ('+w.reason.replace(/ in .*/,'')+')' : '');
+  renderList(); renderChips(); draw();
+  const on=document.querySelector('.list button.on'); if(on) on.scrollIntoView({block:'nearest'});
+}
+
+// painting
+let painting=false;
+function at(ev){ const c=$('big'), r=c.getBoundingClientRect(); return [Math.floor((ev.clientX-r.left)/r.width*c.width), Math.floor((ev.clientY-r.top)/r.height*c.height)]; }
+function paint(ev){
+  const w=words[cur], lab=state[w.wid].labels, [px,py]=at(ev), val = tool==='erase'?0:letter;
+  if (tool==='fill'){
+    let best=null; for(let dy=-4;dy<=4;dy++) for(let dx=-4;dx<=4;dx++){ const X=px+dx,Y=py+dy; if(X<0||Y<0||X>=w.w||Y>=w.h) continue; const p=w.piecesArr[Y*w.w+X]; if(p){ const d=dx*dx+dy*dy; if(!best||d<best[0]) best=[d,p]; } }
+    if(best) for(let i=0;i<lab.length;i++) if(w.piecesArr[i]===best[1]) lab[i]=val;
+  } else {
+    const r=+$('brush').value; for(let dy=-r;dy<=r;dy++) for(let dx=-r;dx<=r;dx++){ if(dx*dx+dy*dy>r*r) continue; const X=px+dx,Y=py+dy; if(X<0||Y<0||X>=w.w||Y>=w.h) continue; const i=Y*w.w+X; if(w.piecesArr[i]) lab[i]=val; }
+  }
+  draw();
+}
+const big=$('big');
+big.addEventListener('pointerdown', ev => { undo.push(state[words[cur].wid].labels.slice()); painting = tool!=='fill'; big.setPointerCapture(ev.pointerId); paint(ev); });
+big.addEventListener('pointermove', ev => { if(painting) paint(ev); });
+['pointerup','pointercancel'].forEach(t => big.addEventListener(t, () => painting=false));
+
+function setTool(t){ tool=t; ['brush','fill','erase'].forEach(k => $('t-'+k).classList.toggle('on', k===t)); }
+$('t-brush').onclick=()=>setTool('brush'); $('t-fill').onclick=()=>setTool('fill'); $('t-erase').onclick=()=>setTool('erase');
+$('undo').onclick=()=>{ const u=undo.pop(); if(u){ state[words[cur].wid].labels=u; draw(); } };
+$('reset').onclick=()=>{ undo.push(state[words[cur].wid].labels.slice()); state[words[cur].wid].labels=words[cur].proposalArr.slice(); draw(); };
+$('zoom').oninput=draw; $('margin').oninput=drawPreview;
+$('prev').onclick=()=>go(cur-1); $('next').onclick=()=>go(cur+1);
+
+function toast(t){ const e=$('toast'); e.textContent=t; e.classList.add('show'); clearTimeout(toast.t); toast.t=setTimeout(()=>e.classList.remove('show'),1600); }
+async function save(status){
+  const w=words[cur], s=state[w.wid]; s.status=status; s.note=$('note').value.trim();
+  renderList();
+  if (!db){ toast(status==='approved'?'Approved (this tab only)':'Marked: needs a rule (this tab only)'); return; }
+  try {
+    const lab=s.labels, unassigned = w.piecesArr.reduce((n,p,i)=> n + (p && !lab[i] ? 1:0), 0);
+    await db.collection('reviews').doc(w.wid).set({wid:w.wid, page:w.page, text:w.text, status, note:s.note, labels:rle(lab).join(','), w:w.w, h:w.h, box:w.box, unassignedInk:unassigned, proposalStatus:w.status, savedAt:Date.now()});
+    toast(status==='approved'?'Approved and saved':'Saved: needs a rule');
+  } catch(e){ toast('Not saved: '+(e && e.message || 'error')); }
+}
+$('approve').onclick=async()=>{ await save('approved'); go(cur+1); };
+$('flag').onclick=async()=>{ await save('flagged'); go(cur+1); };
+
+document.addEventListener('keydown', ev => {
+  if (ev.target.tagName==='INPUT' && ev.target.type==='text') return;
+  if (ev.key>='1' && ev.key<='9'){ const n=+ev.key; if(n<=words[cur].letters.length){ letter=n; focusLetter=null; renderChips(); drawPreview(); } }
+  else if (ev.key==='b') setTool('brush'); else if (ev.key==='f') setTool('fill'); else if (ev.key==='e') setTool('erase');
+  else if (ev.key==='z') $('undo').click(); else if (ev.key==='Enter'){ ev.preventDefault(); $('approve').click(); }
+});
+
+go(0);
+
+(async () => {
+  const timer=setTimeout(()=>{ if(!db) $('nosave').hidden=false; }, 10000);
+  try { db = window.claude ? await window.claude.use('db') : null; } catch(e){ db=null; }
+  clearTimeout(timer);
+  if (!db){ $('nosave').hidden=false; return; }
+  db.collection('reviews').onSnapshot(snap => {
+    snap.docs.forEach(doc => { const v=doc.data(); if(!v) return; const w=words.find(x=>x.wid===v.wid); if(!w) return;
+      const s=state[w.wid]; s.status=v.status; s.note=v.note||''; if (v.labels && v.w===w.w && v.h===w.h) s.labels=unrle(v.labels.split(',').map(Number), w.w*w.h, Uint8Array); });
+    renderList(); if (state[words[cur].wid].status) { $('note').value=state[words[cur].wid].note; draw(); }
+  }, () => { $('nosave').hidden=false; });
+})();
+})();
+</script>
