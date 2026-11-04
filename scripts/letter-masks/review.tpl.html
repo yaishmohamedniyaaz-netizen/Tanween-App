@@ -1,21 +1,20 @@
 <title>Letter Map Review</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Amiri:wght@400;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap">
 <style>
 @font-face{font-family:"TanweenHafs";src:url(data:font/woff2;base64,__HAFS__) format("woff2");font-display:block}
-/* Layout: word list on the left, one large word with its letters and tools on the right; stacks on phones. */
+/* Layout: word list on the left; one large word with its letter edges and a page-size preview on the right; stacks on phones. */
 :root{
   --bg:#f6f7f5; --panel:#ffffff; --line:#d9ddd6; --fg:#1d221f; --muted:#5f685f;
   --accent:#2f6f5e; --accent-fg:#ffffff; --warn:#a8641f; --bad:#b23b33; --good:#2f7a4a;
-  --mark:#c4402f; --ink:#111;
-  --ui:"Atkinson Hyperlegible",system-ui,sans-serif; --ar:"TanweenHafs","Amiri","Noto Naskh Arabic",serif;
+  --ui:"Atkinson Hyperlegible",system-ui,sans-serif; --ar:"TanweenHafs",serif;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   --bg:#141816; --panel:#1c211f; --line:#323a36; --fg:#e7ece8; --muted:#9aa59e;
-  --accent:#6fbca5; --accent-fg:#0d1512; --warn:#e0a35e; --bad:#ec8077; --good:#7ccf98; --mark:#f07a68; color-scheme:dark}}
+  --accent:#6fbca5; --accent-fg:#0d1512; --warn:#e0a35e; --bad:#ec8077; --good:#7ccf98; color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#141816; --panel:#1c211f; --line:#323a36; --fg:#e7ece8; --muted:#9aa59e;
-  --accent:#6fbca5; --accent-fg:#0d1512; --warn:#e0a35e; --bad:#ec8077; --good:#7ccf98; --mark:#f07a68; color-scheme:dark}
+  --accent:#6fbca5; --accent-fg:#0d1512; --warn:#e0a35e; --bad:#ec8077; --good:#7ccf98; color-scheme:dark}
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--fg);font:15px/1.45 var(--ui);margin:0}
 .wrap{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:16px 32px;max-width:1360px;margin:0 auto;display:grid;gap:16px}
@@ -32,36 +31,34 @@ h1{font-size:20px;margin:0;text-wrap:balance}
 .list button{all:unset;box-sizing:border-box;display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;width:100%;padding:6px 12px;cursor:pointer;border-top:1px solid var(--line)}
 .list button:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
 .list button.on{background:color-mix(in srgb,var(--accent) 14%,transparent)}
-.list .ar{font:20px/1.6 var(--ar);direction:rtl;text-align:right}
+.list .ar{font:22px/1.7 var(--ar);direction:rtl;text-align:right}
 .tag{font-size:11px;padding:1px 6px;border-radius:4px;border:1px solid currentColor;white-space:nowrap}
-.t-approved{color:var(--good)} .t-flagged{color:var(--bad)} .t-red{color:var(--bad);opacity:.75} .t-yellow{color:var(--warn)} .t-green-candidate{color:var(--good);opacity:.75}
+.t-approved{color:var(--good)} .t-flagged{color:var(--bad)} .t-todo{color:var(--muted)} .t-old{color:var(--warn)}
 .work{display:grid;gap:12px;min-width:0}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:12px;min-width:0}
 .wordhead{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;justify-content:space-between}
-.wordhead .ar{font:30px/1.5 var(--ar);direction:rtl}
+.wordhead .ar{font:32px/1.6 var(--ar);direction:rtl}
 .meta{color:var(--muted);font-size:13px}
-.stage{overflow:auto;background:#fff;border-radius:6px;border:1px solid var(--line);touch-action:none}
-canvas{display:block;image-rendering:pixelated}
-#big{cursor:crosshair}
-.canvaswrap{position:relative;margin:auto}
-.handles{position:absolute;inset:0;pointer-events:none}
-.handles .band{position:absolute;top:0;bottom:0;opacity:.14}
-.handles .h{position:absolute;top:0;bottom:0;width:0;border-left:2px solid var(--fg);pointer-events:none}
-.handles .h i{position:absolute;left:-12px;width:22px;height:22px;border-radius:50%;background:var(--panel);border:3px solid var(--fg);pointer-events:auto;cursor:ew-resize;touch-action:none}
-.handles .h i.top{top:-2px} .handles .h i.bot{bottom:-2px}
-.handles .h i:focus-visible{outline:3px solid var(--accent)}
 .chips{display:flex;flex-wrap:wrap;gap:6px;direction:rtl}
 .chip{all:unset;box-sizing:border-box;cursor:pointer;display:flex;gap:6px;align-items:center;padding:2px 10px 2px 8px;border-radius:6px;border:2px solid var(--line);background:var(--panel);direction:ltr}
-.chip .ar{font:26px/1.5 var(--ar)}
+.chip .ar{font:28px/1.6 var(--ar)}
 .chip .k{font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums}
 .chip .sw{width:12px;height:12px;border-radius:3px}
 .chip.on{border-color:var(--fg)}
+.chip.unset .sw{background:transparent!important;border:2px dashed var(--muted)}
 .chip:focus-visible{outline:2px solid var(--accent)}
+.stage{overflow:auto;background:#fbfaf7;border-radius:6px;border:1px solid var(--line);touch-action:none;padding:16px 0 8px}
+.cwrap{position:relative;margin:0 auto}
+canvas{display:block}
+#big{cursor:crosshair}
+.lanes{position:relative;height:30px;margin-top:6px}
+.lanes .ln{position:absolute;height:6px;border-radius:2px;opacity:.55}
+.lanes .ln.on{opacity:1;height:8px;top:2px}
+.h{position:absolute;top:0;width:0;border-left:2px solid #1d221f;pointer-events:none}
+.h i{position:absolute;left:-12px;width:22px;height:22px;border-radius:50%;background:#fff;border:3px solid #1d221f;pointer-events:auto;cursor:ew-resize;touch-action:none}
+.h i.top{top:-14px} .h i.bot{bottom:-14px}
+.h i:focus-visible{outline:3px solid var(--accent)}
 .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
-.seg{display:inline-flex;border:1px solid var(--line);border-radius:6px;overflow:hidden}
-.seg button{all:unset;cursor:pointer;padding:6px 12px;font-size:14px}
-.seg button.on{background:var(--fg);color:var(--bg)}
-.seg button:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
 .btn{all:unset;cursor:pointer;padding:7px 14px;border-radius:6px;border:1px solid var(--line);font-size:14px;background:var(--panel)}
 .btn:focus-visible{outline:2px solid var(--accent)}
 .btn.primary{background:var(--accent);color:var(--accent-fg);border-color:var(--accent);font-weight:700}
@@ -72,8 +69,8 @@ input[type=text]{font:inherit;padding:6px 8px;border:1px solid var(--line);borde
 .previews{display:flex;flex-wrap:wrap;gap:16px;align-items:flex-end}
 .previews figure{margin:0;display:grid;gap:4px}
 .previews figcaption{font-size:12px;color:var(--muted)}
-.previews .pv{background:#fff;border:1px solid var(--line);border-radius:4px}
-.help{font-size:13px;color:var(--muted);margin:0}
+.previews canvas{border:1px solid var(--line);border-radius:4px}
+.help{font-size:13px;color:var(--muted);margin:0;max-width:90ch}
 .help kbd{font:12px var(--ui);border:1px solid var(--line);border-bottom-width:2px;border-radius:4px;padding:0 5px}
 .toast{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--fg);color:var(--bg);padding:8px 14px;border-radius:6px;font-size:14px;opacity:0;transition:opacity .2s;pointer-events:none}
 .toast.show{opacity:1}
@@ -84,7 +81,7 @@ input[type=text]{font:inherit;padding:6px 8px;border:1px solid var(--line);borde
   <header>
     <div>
       <h1>Letter map review · pages 1–2</h1>
-      <div class="sub">Tanween trial. Check which ink belongs to which letter. Letter and haraka are marked together.</div>
+      <div class="sub">Set where each letter starts and ends. The app draws the mistake bar under this span.</div>
     </div>
     <div class="progress" id="progress"></div>
   </header>
@@ -97,39 +94,36 @@ input[type=text]{font:inherit;padding:6px 8px;border:1px solid var(--line);borde
         <div class="meta" id="wmeta"></div>
       </div>
       <div class="card" style="display:grid;gap:10px">
-        <div class="chips" id="chips" role="radiogroup" aria-label="Letter to paint"></div>
-        <div class="stage" id="stage"><div class="canvaswrap" id="cwrap"><canvas id="big" aria-label="Word ink, coloured by letter"></canvas><div class="handles" id="handles" hidden><div class="band" id="band"></div><div class="h" id="hR"><i class="top" tabindex="0" aria-label="Right edge of the letter"></i><i class="bot"></i></div><div class="h" id="hL"><i class="top" tabindex="0" aria-label="Left edge of the letter"></i><i class="bot"></i></div></div></div></div>
-        <div class="row">
-          <div class="seg" role="group" aria-label="Tool">
-            <button id="t-edges" class="on">Edges <span class="sub">R</span></button>
-            <button id="t-brush">Brush <span class="sub">B</span></button>
-            <button id="t-fill">Whole piece <span class="sub">F</span></button>
-            <button id="t-erase">Clear <span class="sub">E</span></button>
+        <div class="chips" id="chips" role="radiogroup" aria-label="Letter"></div>
+        <div class="stage" id="stage">
+          <div class="cwrap" id="cwrap">
+            <canvas id="big" aria-label="The word from the Mushaf page, with the chosen letter's span shaded"></canvas>
+            <div class="h" id="hL"><i class="top" tabindex="0" aria-label="Left edge of the letter"></i><i class="bot"></i></div>
+            <div class="h" id="hR"><i class="top" tabindex="0" aria-label="Right edge of the letter"></i><i class="bot"></i></div>
+            <div class="lanes" id="lanes" aria-hidden="true"></div>
           </div>
-          <label for="brush">Brush size <input id="brush" type="range" min="1" max="14" value="4"></label>
+        </div>
+        <div class="row">
           <label for="zoom">Zoom <input id="zoom" type="range" min="1" max="10" step="0.5" value="4"></label>
           <button class="btn" id="undo">Undo <span class="sub">Z</span></button>
-          <button class="btn" id="reset">Back to proposal</button>
+          <button class="btn" id="reset">Back to first guess</button>
         </div>
       </div>
       <div class="card" style="display:grid;gap:10px">
-        <div class="row" style="justify-content:space-between">
-          <strong>How the highlight would look</strong>
-          <label for="margin">Margin around the letter <input id="margin" type="range" min="0" max="4" step="0.5" value="1.5"> <span id="mval"></span></label>
-        </div>
+        <strong>How the mistake would look</strong>
         <div class="previews">
-          <figure><canvas class="pv" id="pv1"></canvas><figcaption>Desktop page size</figcaption></figure>
-          <figure><canvas class="pv" id="pv2"></canvas><figcaption>3 × zoom</figcaption></figure>
+          <figure><canvas id="pv1"></canvas><figcaption>Desktop page size</figcaption></figure>
+          <figure><canvas id="pv2"></canvas><figcaption>3 × zoom</figcaption></figure>
         </div>
       </div>
       <div class="card row">
         <button class="btn primary" id="approve">Approve and next <span class="sub" style="color:inherit;opacity:.8">Enter</span></button>
         <button class="btn danger" id="flag">Needs a rule</button>
-        <input type="text" id="note" placeholder="Note (for example: lam-alif, stacked letters)" aria-label="Note">
+        <input type="text" id="note" placeholder="Note (for example: stacked letters, lam-alif)" aria-label="Note">
         <button class="btn" id="prev">Previous</button>
         <button class="btn" id="next">Next</button>
       </div>
-      <p class="help">Pick a letter, then drag the two round handles to its right and left edges; the letter body between them becomes that letter, and the neighbouring letters get the rest. Use Brush for stacked letters the handles cannot separate. <kbd>1</kbd>–<kbd>9</kbd> pick a letter, <kbd>R</kbd> edges (arrow keys move a focused handle by one pixel), <kbd>B</kbd> brush, <kbd>F</kbd> whole piece (good for dots and harakat), <kbd>E</kbd> clear, <kbd>Z</kbd> undo, <kbd>Enter</kbd> approve. Grey ink is not given to any letter yet. Click a letter chip to see only that letter in the preview.</p>
+      <p class="help">Pick a letter (or press <kbd>1</kbd>–<kbd>9</kbd>), then drag the two round handles to its right and left edges. Click on the word to move the nearer handle there. A focused handle moves 1 pixel with the arrow keys, 5 with <kbd>Shift</kbd>. The coloured lines under the word show every letter's span, so gaps and overlaps are easy to see. A dashed chip means that letter has no span yet.</p>
     </section>
   </div>
 </div>
@@ -139,196 +133,133 @@ input[type=text]{font:inherit;padding:6px 8px;border:1px solid var(--line);borde
 <script>
 (function(){
 const DATA = JSON.parse(document.getElementById('data').textContent);
-const PAGE_SCALE = 496/1920;
-const PAD = 8;               // crop padding added around each word box by the export script          // desktop page width in the app / artwork width
-const COLORS = ['#d1495b','#2e86ab','#edae49','#3f8f5a','#8e5ac8','#e07a2f','#1f9e9e','#c2477d','#6b7f2a','#4a5ad1'];
+const PAGE_SCALE = 473.624/1920;   // artwork px -> CSS px in the desktop two-page view
+const PAD = 8;                     // padding the export adds around each word box
+const COLORS = ['#d1495b','#2e86ab','#e09f3e','#3f8f5a','#8e5ac8','#e07a2f','#1f9e9e','#c2477d','#6b7f2a','#4a5ad1'];
+const MARK = [0xca,0x24,0x4d], PAPER=[251,250,247], INK=[28,27,22];   // app Jali colour, page paper and ink
 const $ = id => document.getElementById(id);
-function unrle(a, n, Arr){ const out = new Arr(n); let i=0; for(let k=0;k<a.length;k+=2){ out.fill(a[k], i, i+a[k+1]); i+=a[k+1]; } return out; }
-function rle(arr){ const out=[]; let p=arr[0], n=0; for(let i=0;i<arr.length;i++){ if(arr[i]===p) n++; else { out.push(p,n); p=arr[i]; n=1; } } out.push(p,n); return out; }
+function unrle(a, n, Arr){ const out=new Arr(n); let i=0; for(let k=0;k<a.length;k+=2){ out.fill(a[k],i,i+a[k+1]); i+=a[k+1]; } return out; }
 
-const words = DATA.words.map(w => ({...w, piecesArr: unrle(w.pieces, w.w*w.h, Uint16Array), proposalArr: unrle(w.proposal, w.w*w.h, Uint8Array), img: null}));
-const state = {};   // wid -> {labels:Uint8Array, status, note}
-words.forEach(w => state[w.wid] = {labels: w.proposalArr.slice(), status: null, note: ''});
-let cur = 0, fitNext = true, letter = 1, tool = 'edges', edges = null, dragBase = null, undo = [], focusLetter = null;
-let db = null;
+const words = DATA.words.map(w => ({...w, piecesArr: unrle(w.pieces,w.w*w.h,Uint16Array), proposalArr: unrle(w.proposal,w.w*w.h,Uint8Array), img:null}));
+function spansFrom(w, lab){
+  const sk=new Set(w.skeleton), out=w.letters.map(()=>null), any=w.letters.map(()=>null);
+  for(let i=0;i<lab.length;i++){ const L=lab[i]; if(!L||!w.piecesArr[i]) continue; const x=i%w.w;
+    const t = sk.has(w.piecesArr[i]) ? out : any; const s=t[L-1]; t[L-1] = s ? [Math.min(s[0],x),Math.max(s[1],x+1)] : [x,x+1]; }
+  return out.map((s,k)=> s || any[k]);
+}
+const state={};
+words.forEach(w => { const sp=spansFrom(w,w.proposalArr); state[w.wid]={spans:sp, first:sp.map(s=>s&&s.slice()), status:null, note:'', old:null, labels:null}; });
+let cur=0, letter=1, undo=[], db=null, fitNext=true;
 
-function grey(w){ return new Promise(res => { if (w.img) return res(w.img); const im = new Image(); im.onload = () => { const c=document.createElement('canvas'); c.width=w.w; c.height=w.h; const x=c.getContext('2d'); x.drawImage(im,0,0); w.img = x.getImageData(0,0,w.w,w.h).data; res(w.img); }; im.src = 'data:image/png;base64,' + w.png; }); }
-function hex(c){ return [parseInt(c.slice(1,3),16),parseInt(c.slice(3,5),16),parseInt(c.slice(5,7),16)]; }
-const RGB = COLORS.map(hex);
-
-function statusOf(w){ return state[w.wid].status || w.status; }
-function label(s){ return {approved:'Approved', flagged:'Needs a rule', red:'Not split', yellow:'Check', 'green-candidate':'Likely fine'}[s] || s; }
+function grey(w){ return new Promise(res => { if(w.img) return res(w.img); const im=new Image(); im.onload=()=>{ const c=document.createElement('canvas'); c.width=w.w; c.height=w.h; const x=c.getContext('2d'); x.drawImage(im,0,0); w.img=x.getImageData(0,0,w.w,w.h).data; res(w.img); }; im.src='data:image/png;base64,'+w.png; }); }
+function statusOf(w){ const s=state[w.wid]; return s.status || (s.old ? 'old' : 'todo'); }
+function label(s){ return {approved:'Approved', flagged:'Needs a rule', todo:'To do', old:'Check edges'}[s]; }
 
 function renderList(){
-  const L = $('list'); L.innerHTML='';
-  DATA.pages.forEach(p => {
-    const h = document.createElement('h2'); h.textContent = 'Page ' + p; L.appendChild(h);
-    words.forEach((w,i) => { if (w.page!==p) return;
-      const b=document.createElement('button'); if(i===cur) b.className='on';
-      const s = statusOf(w);
-      b.innerHTML = '<span class="ar"></span><span class="tag t-'+s+'">'+label(s)+'</span>';
-      b.querySelector('.ar').textContent = w.text;
-      b.onclick = () => go(i); L.appendChild(b);
-    });
-  });
-  const counts = {approved:0, flagged:0}; words.forEach(w => { const s=state[w.wid].status; if(s) counts[s]++; });
-  $('progress').innerHTML = '<span><b>'+counts.approved+'</b> of '+words.length+' approved</span><span><b>'+counts.flagged+'</b> need a rule</span><span><b>'+(words.length-counts.approved-counts.flagged)+'</b> left</span>';
+  const L=$('list'); L.innerHTML='';
+  DATA.pages.forEach(p => { const h=document.createElement('h2'); h.textContent='Page '+p; L.appendChild(h);
+    words.forEach((w,i) => { if(w.page!==p) return; const b=document.createElement('button'); if(i===cur) b.className='on';
+      const s=statusOf(w); b.innerHTML='<span class="ar"></span><span class="tag t-'+s+'">'+label(s)+'</span>';
+      b.querySelector('.ar').textContent=w.text; b.onclick=()=>go(i); L.appendChild(b); }); });
+  let a=0,f=0; words.forEach(w=>{ const s=state[w.wid].status; if(s==='approved')a++; if(s==='flagged')f++; });
+  $('progress').innerHTML='<span><b>'+a+'</b> of '+words.length+' approved</span><span><b>'+f+'</b> need a rule</span><span><b>'+(words.length-a-f)+'</b> left</span>';
 }
-
 function renderChips(){
-  const w = words[cur], C = $('chips'); C.innerHTML='';
-  w.letters.forEach((t,i) => {
-    const b=document.createElement('button'); b.className='chip'+(letter===i+1?' on':''); b.setAttribute('role','radio'); b.setAttribute('aria-checked', letter===i+1);
+  const w=words[cur], C=$('chips'), sp=state[w.wid].spans; C.innerHTML='';
+  w.letters.forEach((t,i) => { const b=document.createElement('button'); b.className='chip'+(letter===i+1?' on':'')+(sp[i]?'':' unset');
+    b.setAttribute('role','radio'); b.setAttribute('aria-checked', letter===i+1);
     b.innerHTML='<span class="k">'+(i+1)+'</span><span class="sw" style="background:'+COLORS[i%COLORS.length]+'"></span><span class="ar"></span>';
-    b.querySelector('.ar').textContent = '‍'+t+'‍';
-    b.onclick = () => { letter=i+1; focusLetter = (focusLetter===i+1 ? null : i+1); initEdges(); renderChips(); draw(); };
-    C.appendChild(b);
-  });
+    b.querySelector('.ar').textContent='‍'+t+'‍'; b.onclick=()=>{ letter=i+1; renderChips(); draw(); }; C.appendChild(b); });
 }
-
 async function draw(){
-  const w = words[cur], g = await grey(w), lab = state[w.wid].labels;
-  if (fitNext){ fitNext=false; const avail=$('stage').clientWidth-4; $('zoom').value = Math.max(1, Math.min(8, Math.floor(avail/w.w*2)/2)); }
-  const z = +$('zoom').value;
-  const c = $('big'); c.width = w.w; c.height = w.h; c.style.width = (w.w*z)+'px'; c.style.height = (w.h*z)+'px';
-  $('cwrap').style.width=(w.w*z)+'px'; $('cwrap').style.height=(w.h*z)+'px';
-  const x = c.getContext('2d'), id = x.createImageData(w.w,w.h), d = id.data;
-  for (let i=0;i<w.w*w.h;i++){
-    const v=g[i*4], p=w.piecesArr[i], L=lab[i];
-    let r=v,gg=v,b=v;
-    if (p){ if (L){ const col=RGB[(L-1)%RGB.length]; const dim = focusLetter && focusLetter!==L; const a = dim? .25 : 1; const k=(255-v)/255; r=255-(255-col[0])*k*a; gg=255-(255-col[1])*k*a; b=255-(255-col[2])*k*a; } else { r=gg=b=Math.min(255, v+60); } }
-    else if (v<250){ r=gg=b=Math.min(255, v+110); }   // ink of other words, faded
-    d[i*4]=r; d[i*4+1]=gg; d[i*4+2]=b; d[i*4+3]=255;
-  }
+  const w=words[cur], g=await grey(w), sp=state[w.wid].spans;
+  if(fitNext){ fitNext=false; const avail=$('stage').clientWidth-40; $('zoom').value=Math.max(1,Math.min(8,Math.floor(avail/w.w*2)/2)); }
+  const z=+$('zoom').value, c=$('big'); c.width=w.w; c.height=w.h; c.style.width=(w.w*z)+'px'; c.style.height=(w.h*z)+'px';
+  $('cwrap').style.width=(w.w*z)+'px';
+  const x=c.getContext('2d'), id=x.createImageData(w.w,w.h), d=id.data, s=sp[letter-1], col=hex(COLORS[(letter-1)%COLORS.length]);
+  for(let i=0;i<w.w*w.h;i++){ const v=g[i*4], own=w.piecesArr[i]>0, X=i%w.w; let bg=[251,250,247];
+    if(s && X>=s[0] && X<s[1]) bg=bg.map((c0,k)=>c0*.72+col[k]*.28);
+    const t=(255-v)/255*(own?1:.35); for(let k=0;k<3;k++) d[i*4+k]=bg[k]*(1-t)+INK[k]*t; d[i*4+3]=255; }
   x.putImageData(id,0,0);
-  drawHandles();
+  // handles
+  const H=w.h*z; ['hL','hR'].forEach(h=>$(h).style.height=H+'px');
+  $('hL').hidden=$('hR').hidden=!s;
+  if(s){ $('hL').style.left=(s[0]*z)+'px'; $('hR').style.left=(s[1]*z)+'px'; }
+  // lanes: every letter's span
+  const ln=$('lanes'); ln.innerHTML='';
+  sp.forEach((q,i)=>{ if(!q) return; const e=document.createElement('div'); e.className='ln'+(i===letter-1?' on':''); e.style.left=(q[0]*z)+'px'; e.style.width=((q[1]-q[0])*z)+'px'; e.style.background=COLORS[i%COLORS.length]; e.style.top=(i===letter-1?2:4+ (i%2)*10)+'px'; ln.appendChild(e); });
   drawPreview();
 }
-
-// Highlight preview: the letter's ink plus a margin that stops where other ink is nearer.
-function highlightMask(w, lab, L, rad){
-  const W=w.w, H=w.h, N=W*H, dist=new Float32Array(N).fill(1e9), own=new Int16Array(N).fill(-1);
-  for(let i=0;i<N;i++) if (w.piecesArr[i] || (w.img && w.img[i*4]<128)) { dist[i]=0; own[i]= (w.piecesArr[i] ? lab[i] : 255); }
-  const S=[[-1,-1,1.4142],[0,-1,1],[1,-1,1.4142],[-1,0,1]], S2=[[1,1,1.4142],[0,1,1],[-1,1,1.4142],[1,0,1]];
-  for(let y=0;y<H;y++) for(let x=0;x<W;x++){ const i=y*W+x; for(const [dx,dy,c] of S){ const X=x+dx,Y=y+dy; if(X<0||Y<0||X>=W||Y>=H) continue; const j=Y*W+X; if(dist[j]+c<dist[i]){dist[i]=dist[j]+c; own[i]=own[j];} } }
-  for(let y=H-1;y>=0;y--) for(let x=W-1;x>=0;x--){ const i=y*W+x; for(const [dx,dy,c] of S2){ const X=x+dx,Y=y+dy; if(X<0||Y<0||X>=W||Y>=H) continue; const j=Y*W+X; if(dist[j]+c<dist[i]){dist[i]=dist[j]+c; own[i]=own[j];} } }
-  const m=new Uint8Array(N); for(let i=0;i<N;i++) if(own[i]===L && dist[i]<=rad) m[i]=1; return m;
-}
+function hex(c){ return [parseInt(c.slice(1,3),16),parseInt(c.slice(3,5),16),parseInt(c.slice(5,7),16)]; }
+// Preview of the chosen style: light word block behind the ink + solid bar under the letter span.
 function drawPreview(){
-  const w=words[cur]; if(!w.img) return;
-  const lab=state[w.wid].labels, L = focusLetter || letter;
-  const screenPx = +$('margin').value; $('mval').textContent = screenPx+' px';
-  const m = highlightMask(w, lab, L, screenPx/PAGE_SCALE);
-  const base=document.createElement('canvas'); base.width=w.w; base.height=w.h; const bx=base.getContext('2d'); const id=bx.createImageData(w.w,w.h), d=id.data;
-  const mk = hex(getComputedStyle(document.documentElement).getPropertyValue('--mark').trim() || '#c4402f');
-  for(let i=0;i<w.w*w.h;i++){
-    const v=w.img[i*4]; let r=255,g=255,b=255;
-    const washA = 0.10, hiA = 0.34;
-    const X=i%w.w, Y=(i/w.w)|0, inWord = X>=PAD && Y>=PAD && X<w.w-PAD && Y<w.h-PAD;
-    let a = 0; if (m[i]) a = hiA; else if (inWord) a = washA;
-    r = 255 - (255-mk[0])*a; g = 255 - (255-mk[1])*a; b = 255 - (255-mk[2])*a;
-    const k=v/255; r*=k; g*=k; b*=k;   // ink multiplied on top
-    d[i*4]=r; d[i*4+1]=g; d[i*4+2]=b; d[i*4+3]=255;
-  }
-  bx.putImageData(id,0,0);
-  [['pv1',PAGE_SCALE*(window.devicePixelRatio||1), PAGE_SCALE],['pv2',PAGE_SCALE*3*(window.devicePixelRatio||1), PAGE_SCALE*3]].forEach(([cid,s,css]) => {
-    const c=$(cid); c.width=Math.max(1,Math.round(w.w*s)); c.height=Math.max(1,Math.round(w.h*s)); c.style.width=(w.w*css)+'px'; c.style.height=(w.h*css)+'px';
-    const x=c.getContext('2d'); x.imageSmoothingEnabled=true; x.imageSmoothingQuality='high'; x.drawImage(base,0,0,c.width,c.height);
-  });
+  const w=words[cur]; if(!w.img) return; const s=state[w.wid].spans[letter-1];
+  const extra=24, H=w.h+extra, base=document.createElement('canvas'); base.width=w.w; base.height=H;
+  const bx=base.getContext('2d'), id=bx.createImageData(w.w,H), d=id.data, barH=Math.round(2.5/PAGE_SCALE), barY=w.h-PAD+6;
+  for(let y=0;y<H;y++) for(let X=0;X<w.w;X++){ const o=(y*w.w+X)*4; let bg=PAPER.slice();
+    const inWord = X>=PAD && X<w.w-PAD && y>=PAD-14 && y<barY+barH;
+    if(inWord) bg=bg.map((c0,k)=>c0*(1-.18)+MARK[k]*.18);
+    if(s && X>=s[0] && X<s[1] && y>=barY && y<barY+barH) bg=MARK.slice();
+    const v = y<w.h ? w.img[(y*w.w+X)*4] : 255, t=(255-v)/255;
+    for(let k=0;k<3;k++) d[o+k]=bg[k]*(1-t)+INK[k]*t; d[o+3]=255; }
+  bx.putImageData(id,0,0); const dpr=window.devicePixelRatio||1;
+  [['pv1',PAGE_SCALE],['pv2',PAGE_SCALE*3]].forEach(([cid,css])=>{ const c=$(cid); c.width=Math.round(w.w*css*dpr); c.height=Math.round(H*css*dpr);
+    c.style.width=(w.w*css)+'px'; c.style.height=(H*css)+'px'; const x=c.getContext('2d'); x.imageSmoothingEnabled=true; x.imageSmoothingQuality='high'; x.drawImage(base,0,0,c.width,c.height); });
 }
+function go(i){ cur=Math.max(0,Math.min(words.length-1,i)); fitNext=true; undo=[]; letter=1;
+  const w=words[cur], st=state[w.wid]; $('wtext').textContent=w.text; $('note').value=st.note||'';
+  $('wmeta').textContent='Page '+w.page+' · line '+w.line+' · '+w.letters.length+' letters · '+label(statusOf(w));
+  renderList(); renderChips(); draw(); const on=document.querySelector('.list button.on'); if(on) on.scrollIntoView({block:'nearest'}); }
 
-function go(i){ cur=Math.max(0,Math.min(words.length-1,i)); fitNext=true; edges=null; undo=[]; focusLetter=null; letter=1;
-  const w=words[cur]; $('wtext').textContent=w.text; $('note').value=state[w.wid].note||'';
-  $('wmeta').textContent='Page '+w.page+' · line '+w.line+' · '+w.letters.length+' letters · '+label(statusOf(w))+(w.reason && !state[w.wid].status ? ' ('+w.reason.replace(/ in .*/,'')+')' : '');
-  renderList(); renderChips(); draw();
-  const on=document.querySelector('.list button.on'); if(on) on.scrollIntoView({block:'nearest'});
-}
-
-// edges tool: the selected letter owns the body ink between two handles
-function skelSet(w){ if(!w._sk) w._sk=new Set(w.skeleton); return w._sk; }
-function groupOf(w,L){ return w.groups.find(g => g.includes(L-1)) || [L-1]; }
-function letterSpan(w,L){ const lab=state[w.wid].labels, sk=skelSet(w); let a=1e9,b=-1;
-  for(let i=0;i<lab.length;i++) if(lab[i]===L && sk.has(w.piecesArr[i])){ const x=i%w.w; if(x<a)a=x; if(x>b)b=x; }
-  return b<0 ? null : [a,b+1]; }
-function initEdges(){ const w=words[cur]; const sp=letterSpan(w,letter); edges = sp || [Math.round(w.w*0.45), Math.round(w.w*0.55)]; }
-function applyEdges(){ const w=words[cur], base=dragBase, lab=state[w.wid].labels, sk=skelSet(w), g=groupOf(w,letter), L=letter;
-  const inG=new Set(g.map(i=>i+1)); inG.add(0);
-  const right = inG.has(L-1) && L-1>0 ? L-1 : 0, left = inG.has(L+1) ? L+1 : 0;   // Arabic runs right to left
-  for(let i=0;i<lab.length;i++){ const p=w.piecesArr[i]; if(!p || !sk.has(p)) continue; const v=base[i]; if(!inG.has(v)) { lab[i]=v; continue; }
-    const x=i%w.w; if(x>=edges[0] && x<edges[1]) lab[i]=L; else if(v===L) lab[i] = x>=edges[1] ? right : left; else lab[i]=v; } }
-function drawHandles(){ const H=$('handles'); H.hidden = tool!=='edges'; if(tool!=='edges') return; if(!edges) initEdges();
-  const z=+$('zoom').value; $('hL').style.left=(edges[0]*z)+'px'; $('hR').style.left=(edges[1]*z)+'px';
-  const band=$('band'); band.style.left=(edges[0]*z)+'px'; band.style.width=((edges[1]-edges[0])*z)+'px'; band.style.background=COLORS[(letter-1)%COLORS.length]; }
-function startDrag(which, ev){ ev.preventDefault(); undo.push(state[words[cur].wid].labels.slice()); dragBase=state[words[cur].wid].labels.slice();
-  const move = e => { const r=$('big').getBoundingClientRect(); const x=Math.round((e.clientX-r.left)/r.width*words[cur].w);
-    if(which==='L') edges[0]=Math.max(0,Math.min(edges[1]-1,x)); else edges[1]=Math.min(words[cur].w,Math.max(edges[0]+1,x)); applyEdges(); draw(); };
-  const up = () => { window.removeEventListener('pointermove',move); window.removeEventListener('pointerup',up); dragBase=null; };
-  window.addEventListener('pointermove',move); window.addEventListener('pointerup',up); }
-document.querySelectorAll('#hL i').forEach(e=>e.addEventListener('pointerdown',ev=>startDrag('L',ev)));
-document.querySelectorAll('#hR i').forEach(e=>e.addEventListener('pointerdown',ev=>startDrag('R',ev)));
+// edges
+function setEdge(k, x){ const w=words[cur], sp=state[w.wid].spans; let s=sp[letter-1] || [Math.round(w.w*.45),Math.round(w.w*.55)];
+  s=s.slice(); s[k]=Math.max(0,Math.min(w.w,Math.round(x))); if(s[1]-s[0]<1){ if(k===0) s[0]=s[1]-1; else s[1]=s[0]+1; } sp[letter-1]=s; }
+function startDrag(k, ev){ ev.preventDefault(); const w=words[cur]; undo.push(state[w.wid].spans.map(s=>s&&s.slice()));
+  const move=e=>{ const r=$('big').getBoundingClientRect(); setEdge(k,(e.clientX-r.left)/r.width*w.w); renderChips(); draw(); };
+  const up=()=>{ window.removeEventListener('pointermove',move); window.removeEventListener('pointerup',up); };
+  window.addEventListener('pointermove',move); window.addEventListener('pointerup',up); move(ev); }
+document.querySelectorAll('#hL i').forEach(e=>e.addEventListener('pointerdown',ev=>startDrag(0,ev)));
+document.querySelectorAll('#hR i').forEach(e=>e.addEventListener('pointerdown',ev=>startDrag(1,ev)));
+$('big').addEventListener('pointerdown', ev => { const w=words[cur], r=$('big').getBoundingClientRect(), x=(ev.clientX-r.left)/r.width*w.w, s=state[w.wid].spans[letter-1];
+  const k = !s ? 0 : (Math.abs(x-s[0]) < Math.abs(x-s[1]) ? 0 : 1); startDrag(k, ev); });
 [['hL',0],['hR',1]].forEach(([id,k]) => $(id).querySelector('i.top').addEventListener('keydown', ev => {
   if(ev.key!=='ArrowLeft' && ev.key!=='ArrowRight') return; ev.preventDefault(); ev.stopPropagation();
-  undo.push(state[words[cur].wid].labels.slice()); dragBase=state[words[cur].wid].labels.slice();
-  edges[k]+= ev.key==='ArrowLeft' ? -1 : 1; edges[0]=Math.max(0,Math.min(edges[0],edges[1]-1)); edges[1]=Math.min(words[cur].w,Math.max(edges[1],edges[0]+1)); applyEdges(); dragBase=null; draw(); }));
-
-// painting
-let painting=false;
-function at(ev){ const c=$('big'), r=c.getBoundingClientRect(); return [Math.floor((ev.clientX-r.left)/r.width*c.width), Math.floor((ev.clientY-r.top)/r.height*c.height)]; }
-function paint(ev){
-  const w=words[cur], lab=state[w.wid].labels, [px,py]=at(ev), val = tool==='erase'?0:letter;
-  if (tool==='fill'){
-    let best=null; for(let dy=-4;dy<=4;dy++) for(let dx=-4;dx<=4;dx++){ const X=px+dx,Y=py+dy; if(X<0||Y<0||X>=w.w||Y>=w.h) continue; const p=w.piecesArr[Y*w.w+X]; if(p){ const d=dx*dx+dy*dy; if(!best||d<best[0]) best=[d,p]; } }
-    if(best) for(let i=0;i<lab.length;i++) if(w.piecesArr[i]===best[1]) lab[i]=val;
-  } else {
-    const r=+$('brush').value; for(let dy=-r;dy<=r;dy++) for(let dx=-r;dx<=r;dx++){ if(dx*dx+dy*dy>r*r) continue; const X=px+dx,Y=py+dy; if(X<0||Y<0||X>=w.w||Y>=w.h) continue; const i=Y*w.w+X; if(w.piecesArr[i]) lab[i]=val; }
-  }
-  draw();
-}
-const big=$('big');
-big.addEventListener('pointerdown', ev => { if(tool==='edges'){ const w=words[cur], [px]=at(ev); const k = Math.abs(px-edges[0]) < Math.abs(px-edges[1]) ? 'L':'R'; startDrag(k, ev); window.dispatchEvent(new PointerEvent('pointermove',{clientX:ev.clientX,clientY:ev.clientY})); return; } undo.push(state[words[cur].wid].labels.slice()); painting = tool!=='fill'; big.setPointerCapture(ev.pointerId); paint(ev); });
-big.addEventListener('pointermove', ev => { if(painting) paint(ev); });
-['pointerup','pointercancel'].forEach(t => big.addEventListener(t, () => painting=false));
-
-function setTool(t){ tool=t; if(t==='edges') initEdges(); drawHandles(); ['edges','brush','fill','erase'].forEach(k => $('t-'+k).classList.toggle('on', k===t)); }
-$('t-edges').onclick=()=>setTool('edges'); $('t-brush').onclick=()=>setTool('brush'); $('t-fill').onclick=()=>setTool('fill'); $('t-erase').onclick=()=>setTool('erase');
-$('undo').onclick=()=>{ const u=undo.pop(); if(u){ state[words[cur].wid].labels=u; draw(); } };
-$('reset').onclick=()=>{ undo.push(state[words[cur].wid].labels.slice()); state[words[cur].wid].labels=words[cur].proposalArr.slice(); draw(); };
-$('zoom').oninput=draw; $('margin').oninput=drawPreview;
-$('prev').onclick=()=>go(cur-1); $('next').onclick=()=>go(cur+1);
+  const w=words[cur], s=state[w.wid].spans[letter-1]; if(!s) return; undo.push(state[w.wid].spans.map(q=>q&&q.slice()));
+  setEdge(k, s[k] + (ev.key==='ArrowLeft'?-1:1)*(ev.shiftKey?5:1)); draw(); }));
+$('undo').onclick=()=>{ const u=undo.pop(); if(u){ state[words[cur].wid].spans=u; renderChips(); draw(); } };
+$('reset').onclick=()=>{ const st=state[words[cur].wid]; undo.push(st.spans.map(s=>s&&s.slice())); st.spans=st.first.map(s=>s&&s.slice()); renderChips(); draw(); };
+$('zoom').oninput=draw; $('prev').onclick=()=>go(cur-1); $('next').onclick=()=>go(cur+1);
 
 function toast(t){ const e=$('toast'); e.textContent=t; e.classList.add('show'); clearTimeout(toast.t); toast.t=setTimeout(()=>e.classList.remove('show'),1600); }
 async function save(status){
-  const w=words[cur], s=state[w.wid]; s.status=status; s.note=$('note').value.trim();
-  renderList();
-  if (!db){ toast(status==='approved'?'Approved (this tab only)':'Marked: needs a rule (this tab only)'); return; }
-  try {
-    const lab=s.labels, unassigned = w.piecesArr.reduce((n,p,i)=> n + (p && !lab[i] ? 1:0), 0);
-    await db.collection('reviews').doc(w.wid).set({wid:w.wid, page:w.page, text:w.text, status, note:s.note, labels:rle(lab).join(','), w:w.w, h:w.h, box:w.box, unassignedInk:unassigned, proposalStatus:w.status, savedAt:Date.now()});
-    toast(status==='approved'?'Approved and saved':'Saved: needs a rule');
-  } catch(e){ toast('Not saved: '+(e && e.message || 'error')); }
+  const w=words[cur], s=state[w.wid]; s.status=status; s.note=$('note').value.trim(); renderList();
+  if(!db){ toast(status==='approved'?'Approved (this tab only)':'Marked: needs a rule (this tab only)'); return; }
+  const doc={wid:w.wid, page:w.page, text:w.text, status, note:s.note, mode:'edges', spans:s.spans.map(q=>q?q.join('-'):''), w:w.w, h:w.h, box:w.box, savedAt:Date.now()};
+  if(s.labels) doc.labels=s.labels;
+  try{ await db.collection('reviews').doc(w.wid).set(doc); toast(status==='approved'?'Approved and saved':'Saved: needs a rule'); }
+  catch(e){ toast('Not saved: '+(e&&e.message||'error')); }
 }
 $('approve').onclick=async()=>{ await save('approved'); go(cur+1); };
 $('flag').onclick=async()=>{ await save('flagged'); go(cur+1); };
-
 document.addEventListener('keydown', ev => {
-  if (ev.target.tagName==='INPUT' && ev.target.type==='text') return;
-  if (ev.key>='1' && ev.key<='9'){ const n=+ev.key; if(n<=words[cur].letters.length){ letter=n; focusLetter=null; initEdges(); renderChips(); draw(); } }
-  else if (ev.key==='r') setTool('edges'); else if (ev.key==='b') setTool('brush'); else if (ev.key==='f') setTool('fill'); else if (ev.key==='e') setTool('erase');
-  else if (ev.key==='z') $('undo').click(); else if (ev.key==='Enter'){ ev.preventDefault(); $('approve').click(); }
+  if(ev.target.tagName==='INPUT' && ev.target.type==='text') return;
+  if(ev.key>='1' && ev.key<='9'){ const n=+ev.key; if(n<=words[cur].letters.length){ letter=n; renderChips(); draw(); } }
+  else if(ev.key==='z') $('undo').click(); else if(ev.key==='Enter'){ ev.preventDefault(); $('approve').click(); }
 });
-
 go(0);
 
-(async () => {
-  const timer=setTimeout(()=>{ if(!db) $('nosave').hidden=false; }, 10000);
-  try { db = window.claude ? await window.claude.use('db') : null; } catch(e){ db=null; }
-  clearTimeout(timer);
-  if (!db){ $('nosave').hidden=false; return; }
+(async()=>{
+  const timer=setTimeout(()=>{ if(!db) $('nosave').hidden=false; },10000);
+  try{ db = window.claude ? await window.claude.use('db') : null; }catch(e){ db=null; }
+  clearTimeout(timer); if(!db){ $('nosave').hidden=false; return; }
   db.collection('reviews').onSnapshot(snap => {
-    snap.docs.forEach(doc => { const v=doc.data(); if(!v) return; const w=words.find(x=>x.wid===v.wid); if(!w) return;
-      const s=state[w.wid]; s.status=v.status; s.note=v.note||''; if (v.labels && v.w===w.w && v.h===w.h) s.labels=unrle(v.labels.split(',').map(Number), w.w*w.h, Uint8Array); });
-    renderList(); if (state[words[cur].wid].status) { $('note').value=state[words[cur].wid].note; draw(); }
-  }, () => { $('nosave').hidden=false; });
+    snap.docs.forEach(doc => { const v=doc.data(); if(!v) return; const w=words.find(x=>x.wid===v.wid); if(!w) return; const s=state[w.wid];
+      if(v.mode==='edges'){ s.status=v.status; s.note=v.note||''; s.spans=v.spans.map(q=>q?q.split('-').map(Number):null); if(v.labels) s.labels=v.labels; }
+      else if(v.labels && v.w===w.w && v.h===w.h){ // approved earlier with the brush tool: use its letters as the first guess, ask for a check
+        s.labels=v.labels; s.old=true; s.note=v.note||''; const sp=spansFrom(w, unrle(v.labels.split(',').map(Number), w.w*w.h, Uint8Array)); s.spans=sp; s.first=sp.map(q=>q&&q.slice()); }
+    });
+    renderList(); const st=state[words[cur].wid]; $('note').value=st.note||''; renderChips(); draw();
+  }, ()=>{ $('nosave').hidden=false; });
 })();
 })();
 </script>

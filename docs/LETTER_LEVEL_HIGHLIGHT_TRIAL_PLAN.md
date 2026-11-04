@@ -12,12 +12,16 @@ on the same 1405H page artwork the app already shows.
 
 ## Owner rules so far
 
-- The letter and its haraka are marked together, in one uniform colour, for now.
+- Style for now (4 November 2026): keep the word block, and add a solid bar
+  in the criteria colour under the marked letter's span. All tints sit behind
+  the ink, so the letters keep their own colour.
+- Because the bar needs only where a letter starts and ends, the mapping is
+  two edges per letter, not a pixel mask. The review screen sets these edges.
+- The letter and its haraka are treated together.
 - A different colour for the haraka is undecided (see `UNDECIDED_DECISIONS.md`,
   item 35).
-- The mark follows the letter's own shape plus a small margin, about 1–2 px at
-  normal size, growing with zoom. The margin is cut where a neighbouring
-  letter's ink begins. The whole kalimah keeps a very light wash for context.
+- Known limit: stacked letters share the same horizontal space, so their bars
+  overlap.
 
 ## Why this needs mapping work
 
