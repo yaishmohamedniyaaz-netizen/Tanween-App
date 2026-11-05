@@ -13,6 +13,32 @@ test("a dagger alif after a haraka gets its own short stroke on joining letters"
   assert.equal(tileGlyph("لَٰٓ"), `لَ${TATWEEL}ٰٓ`);
 });
 
+test("kaf gets a longer tatweel so the dagger alif clears its top stroke", () => {
+  assert.equal(tileGlyph("كَٰ"), `كَ${TATWEEL}${TATWEEL}ٰ`);
+});
+
+test("ain, ghain and kaf keep the fatha clear of a madd alif", () => {
+  assert.equal(tileGlyph("عَا"), `عَ${TATWEEL}ا`);
+  assert.equal(tileGlyph("غَا"), `غَ${TATWEEL}ا`);
+  assert.equal(tileGlyph("كَا"), `كَ${TATWEEL}ا`);
+  assert.equal(tileGlyph("عٗا"), `عٗ${TATWEEL}ا`);
+  // other letters and lam-alif already draw cleanly
+  assert.equal(tileGlyph("مَا"), "مَا");
+  assert.equal(tileGlyph("لَا"), "لَا");
+});
+
+test("ya-hamza with a kasra shows its joined form so the kasra is not hidden", () => {
+  assert.equal(tileGlyph("ئِ"), "ئِ\u200D");
+  assert.equal(tileGlyph("ئَ"), "ئَ");
+});
+
+test("hamza on a tatweel is shown as a plain hamza", () => {
+  // QPC order: tatweel, hamza above, haraka (خَطِيٓـَٔتُهُۥ)
+  assert.equal(tileGlyph("\u0640\u0654\u064E"), "\u0621\u064E");
+  assert.equal(tileGlyph("\u0640\u0654\u064F"), "\u0621\u064F");
+  assert.equal(tileGlyph("\u0640\u0654\u064E\u0627"), "\u0621\u064E\u0627");
+});
+
 test("letters that do not join forward keep the dagger alif as written", () => {
   for (const glyph of ["ذَٰ", "رَٰ", "وَٰ", "دَّٰ", "زَٰٓ", "ءَٰ"]) {
     assert.equal(tileGlyph(glyph), glyph);

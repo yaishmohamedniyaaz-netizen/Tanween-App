@@ -220,8 +220,17 @@ function renderList(){
   $('progress').innerHTML='<span><b>'+a+'</b> of '+words.length+' approved</span><span><b>'+f+'</b> need a rule</span><span><b>'+(words.length-a-f)+'</b> left</span>';
 }
 // Same display rule as the app tray (src/lib/tileGlyph.ts): pause signs off,
-// a dagger alif after a haraka sits on a short tatweel on joining letters.
-function tileGlyph(g){ const t=g.replace(/[\u06D6-\u06DC]/gu,''); return 'بتثجحخسشصضطظعغفقكلمنهيىئـ'.includes(t.charAt(0)) ? t.replace(/([\u064B-\u065F\u06E1])(\u0670)/u,'$1\u0640$2') : t; }
+// hamza on a tatweel as a plain hamza, ya-hamza with a kasra in joined form,
+// a dagger alif after a haraka on a tatweel (two for kaf), and a tatweel
+// between ain, ghain or kaf and a madd alif.
+function tileGlyph(g){
+  let t=g.replace(/[\u06D6-\u06DC]/gu,'').replace(/^\u0640\u0654/u,'\u0621');
+  const M='[\\u064B-\\u065F\\u0670\\u06DF-\\u06ED]';
+  if(new RegExp('^\u0626'+M+'*[\\u0650\\u064D\\u0656]'+M+'*$','u').test(t)) return t+'\u200D';
+  if(!'بتثجحخسشصضطظعغفقكلمنهيىئـ'.includes(t.charAt(0))) return t;
+  t=t.replace(/([\u064B-\u065F\u06E1])(\u0670)/u, t.charAt(0)==='ك' ? '$1\u0640\u0640$2' : '$1\u0640$2');
+  return t.replace(new RegExp('^([عغك]'+M+'+)(ا)','u'),'$1\u0640$2');
+}
 function renderChips(){
   const w=words[cur], C=$('chips'); C.innerHTML='';
   w.letters.forEach((t,i) => { const m=marks.find(x=>x.L===i+1), b=document.createElement('button'); b.className='chip'+(w.silent&&w.silent[i]?' silent':'')+(letter===i+1?' on':'')+(m?' marked':'');
