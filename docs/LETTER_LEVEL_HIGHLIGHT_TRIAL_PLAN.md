@@ -25,7 +25,7 @@ on the same 1405H page artwork the app already shows.
   overlap.
 - Bar placement (5 November 2026): inside the word block, along its bottom
   edge, not below it.
-- Proposed bar settings, to confirm: 2.5 px thick at desktop page size,
+- Bar settings (decided 5 November 2026): 2.5 px thick at desktop page size,
   square ends, full letter width; word block about 18% in light (22/14 of that
   in dark), drawn behind the ink. Bar colour: the criterion colour in light,
   the lighter criterion colour in dark. Comparison script:
