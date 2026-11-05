@@ -299,7 +299,10 @@ export function ParticipantSelectionScreen({
         <button
           type="button"
           className="btn-ghost queue-absence"
-          disabled={!selected || selected.judged || selectionDisabled}
+          // The prepared (Ready) reciter cannot be marked absent from here:
+          // that would let Begin judge someone recorded as not here.
+          disabled={!selected || selected.judged || selectionDisabled ||
+            (!selected.absent && selected.id === preparedId)}
           onClick={() => {
             if (!selected) return;
             if (selected.absent) onChoose(selected);

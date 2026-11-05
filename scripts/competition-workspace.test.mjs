@@ -176,3 +176,7 @@ test("finishing exposes the desktop next-reciter action and retains compact queu
   assert.match(finishSource, /Save recitation/);
   assert.match(finishSource, /hasNextReciter/);
 });
+
+test("the prepared (Ready) reciter cannot be marked Not here from the queue", () => {
+  assert.match(participantScreenSource, /queue-absence[\s\S]{0,400}selected\.id === preparedId/);
+});
