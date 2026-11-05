@@ -1,4 +1,5 @@
 <title>Letter Map Review</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap">
 <style>
@@ -85,7 +86,37 @@ input[type=text]{font:inherit;padding:6px 8px;border:1px solid var(--line);borde
 .previews canvas{border:1px solid var(--line);border-radius:4px}
 .help{font-size:13px;color:var(--muted);margin:0;max-width:90ch}
 .help kbd{font:12px var(--ui);border:1px solid var(--line);border-bottom-width:2px;border-radius:4px;padding:0 5px}
-.toast{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--fg);color:var(--bg);padding:8px 14px;border-radius:6px;font-size:14px;opacity:0;transition:opacity .2s;pointer-events:none}
+/* Phone-first controls: a sticky dock with the actions used on every word,
+   fine-step buttons for the selected letter's two borders, word list as a sheet. */
+.dock{position:sticky;bottom:0;z-index:5;display:flex;gap:8px;align-items:center;justify-content:space-between;
+  background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:8px;padding-bottom:calc(8px + env(safe-area-inset-bottom,0px));box-shadow:0 -4px 16px rgba(0,0,0,.08)}
+.dock .btn,.nudge .btn{min-height:44px;display:inline-flex;align-items:center;justify-content:center;gap:6px}
+.lnav{display:flex;align-items:center;gap:6px}
+.lnav .btn{min-width:48px;font-size:20px;padding:0 10px}
+.lpos{font-variant-numeric:tabular-nums;font-size:14px;color:var(--muted);min-width:42px;text-align:center}
+.dock{min-width:0} .dock .primary{flex:1;min-width:0}
+.dock .btn{padding:0 10px;white-space:nowrap}
+.lnav .btn{min-width:44px}
+.btn:disabled{opacity:.4;cursor:default}
+.nudge{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;justify-content:center;padding:8px 14px;border-top:1px solid var(--line)}
+.nudge .grp{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--muted)}
+.nudge .btn{min-width:48px;padding:0 10px;font-size:18px}
+.listtoggle{display:none}
+.list .close{display:none}
+.list .group{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);margin:0;padding:12px 12px 4px}
+@media (max-width:820px){
+  .wrap{padding-block:10px 0;gap:10px}
+  h1{font-size:17px} header .sub{display:none}
+  .listtoggle{display:inline-flex}
+  .list{display:none;position:fixed;inset:0;z-index:20;max-height:none;border-radius:0;padding-bottom:env(safe-area-inset-bottom,0px)}
+  .list.open{display:block}
+  .list .close{display:block}
+  .help,.previewcard{display:none}
+  .stage{padding:26px 8px 30px}
+  .toolbar{padding:8px 10px}
+}
+.list .close{position:sticky;top:0;z-index:2;width:100%;padding:12px;background:var(--panel);border-bottom:1px solid var(--line);font-weight:700;text-align:center}
+.toast{position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--fg);color:var(--bg);padding:8px 14px;border-radius:6px;font-size:14px;opacity:0;transition:opacity .2s;pointer-events:none}
 .toast.show{opacity:1}
 @media (prefers-reduced-motion:reduce){.toast,.grip i,.stage{transition:none}}
 </style>
@@ -93,10 +124,10 @@ input[type=text]{font:inherit;padding:6px 8px;border:1px solid var(--line);borde
 <div class="wrap">
   <header>
     <div>
-      <h1>Letter map review · pages 1–2</h1>
-      <div class="sub">This is how the mistake will look in the app. Tap a letter to put the bar under it; drag a round handle to move a border.</div>
+      <h1>Letter map review</h1>
+      <div class="sub">This is how the mistake will look in the app. Tap a letter to put the bar under it; drag a round handle, or use the arrow buttons, to move a border.</div>
     </div>
-    <div class="progress" id="progress"></div>
+    <div class="row"><div class="progress" id="progress"></div><button class="btn listtoggle" id="listToggle" aria-expanded="false" aria-controls="list">Words</button></div>
   </header>
   <div class="banner" id="nosave" hidden>Saving is not available in this view, so approvals stay in this tab only. Open the artifact page while signed in to save.</div>
   <div class="main">
@@ -111,6 +142,10 @@ input[type=text]{font:inherit;padding:6px 8px;border:1px solid var(--line);borde
           <canvas id="big" role="img" aria-label="The word as the app will show it, with the mistake bar under the selected letter"></canvas>
           <div class="grips" id="grips"></div>
         </div>
+        <div class="nudge" id="nudge" role="group" aria-label="Move the selected letter's borders">
+          <span class="grp">Left edge <button class="btn" data-k="left" data-d="-2" aria-label="Move left edge to the left">◀</button><button class="btn" data-k="left" data-d="2" aria-label="Move left edge to the right">▶</button></span>
+          <span class="grp">Right edge <button class="btn" data-k="right" data-d="-2" aria-label="Move right edge to the left">◀</button><button class="btn" data-k="right" data-d="2" aria-label="Move right edge to the right">▶</button></span>
+        </div>
         <div class="toolbar"><div class="lettersbar">
           <div class="chips" id="chips" role="group" aria-label="Letters"></div>
           <div class="row"><button class="btn toggle" id="multi" aria-pressed="false">Several mistakes <span class="sub">M</span></button>
@@ -119,11 +154,10 @@ input[type=text]{font:inherit;padding:6px 8px;border:1px solid var(--line);borde
         <div class="toolbar">
           <div class="seg" id="theme" role="group" aria-label="Page theme"><button data-v="light" class="on">Light page</button><button data-v="dark">Dark page</button></div>
           <label for="cat">Criterion <select id="cat"><option value="jali">Jali</option><option value="khafi">Khafi</option><option value="fasaha">Fasaha</option></select></label>
-          <button class="btn" id="undo">Undo <span class="sub">Z</span></button>
           <button class="btn" id="reset">Back to first guess</button>
         </div>
       </div>
-      <div class="card" style="display:grid;gap:8px">
+      <div class="card previewcard" style="display:grid;gap:8px">
         <span class="sub">Real size on the desktop page</span>
         <div class="previews">
           <figure><canvas id="pv1"></canvas><figcaption>Light</figcaption></figure>
@@ -131,13 +165,17 @@ input[type=text]{font:inherit;padding:6px 8px;border:1px solid var(--line);borde
         </div>
       </div>
       <div class="card row">
-        <button class="btn primary" id="approve">Approve and next <span class="sub" style="color:inherit;opacity:.8">Enter</span></button>
         <button class="btn danger" id="flag">Needs a rule</button>
         <input type="text" id="note" placeholder="Note (for example: stacked letters, lam-alif)" aria-label="Note">
-        <button class="btn" id="prev">Previous</button>
-        <button class="btn" id="next">Next</button>
+        <button class="btn" id="prev">Previous word</button>
+        <button class="btn" id="next">Skip word</button>
       </div>
-      <p class="help">Hold and slide across the word to move the bar from letter to letter; tap to choose one. With <b>Several mistakes</b> on (or holding <kbd>Shift</kbd>), each tap adds or removes a bar, each in its own criterion colour. <b>Random test</b> marks 1–3 random letters with random criteria. Tap a letter, or press <kbd>←</kbd> <kbd>→</kbd> or <kbd>1</kbd>–<kbd>9</kbd>, to move the bar. The two large handles are the ends of the selected letter's bar; the small dots are the other borders. While you drag, the letters are lightly shaded so you can see the split, and the letters on both sides of the border are shown above it; when you let go, the view goes back to the app look. A focused handle moves 1 pixel with the arrow keys, 5 with <kbd>Shift</kbd>. <kbd>Z</kbd> undo, <kbd>Enter</kbd> approve.</p>
+      <div class="dock" id="dock">
+        <div class="lnav"><button class="btn" id="lnext" aria-label="Next letter (to the left)">←</button><span class="lpos" id="lpos"></span><button class="btn" id="lprev" aria-label="Previous letter (to the right)">→</button></div>
+        <button class="btn" id="undo" disabled>Undo</button>
+        <button class="btn primary" id="approve">Approve ✓</button>
+      </div>
+      <p class="help">Hold and slide across the word to move the bar from letter to letter; tap to choose one. With <b>Several mistakes</b> on (or holding <kbd>Shift</kbd>), each tap adds or removes a bar, each in its own criterion colour. <b>Random test</b> marks 1–3 random letters with random criteria. The ◀ ▶ buttons move the selected letter’s edges in small steps; ← → in the bottom bar go to the next or previous letter. Tap a letter, or press <kbd>←</kbd> <kbd>→</kbd> or <kbd>1</kbd>–<kbd>9</kbd>, to move the bar. The two large handles are the ends of the selected letter's bar; the small dots are the other borders. While you drag, the letters are lightly shaded so you can see the split, and the letters on both sides of the border are shown above it; when you let go, the view goes back to the app look. A focused handle moves 1 pixel with the arrow keys, 5 with <kbd>Shift</kbd>. <kbd>Z</kbd> undo, <kbd>Enter</kbd> approve.</p>
     </section>
   </div>
 </div>
@@ -199,7 +237,7 @@ function remapLabels(w, lab){ const out=new Uint8Array(lab.length); for(let i=0;
 const spansOf = c => c.slice(0,-1).map((r,i)=>[c[i+1], r]);
 const state={};
 words.forEach(w => { const c=cutsFrom(w,spansFrom(w,w.proposalArr)); state[w.wid]={cuts:c, first:c.slice(), status:null, note:'', labels:null}; });
-let cur=0, letter=1, undo=[], db=null;
+let cur=0, letter=1, undo=[], db=null, jumped=false;
 let theme='light', cat='jali', drag=null, barShown=null, anim=null, scale=1;
 let marks=[{L:1, cat:'jali'}], multi=false, scrub=null;   // bars on screen; letter = the one whose borders you edit
 
@@ -212,13 +250,22 @@ function geom(w){ const top=PAD-toArt(2.5), bottom=w.h-PAD+toArt(2.5), barH=Math
 
 function renderList(){
   const L=$('list'); L.innerHTML='';
-  DATA.pages.forEach(p => { const h=document.createElement('h2'); h.textContent='Page '+p; L.appendChild(h);
-    words.forEach((w,i) => { if(w.page!==p) return; const b=document.createElement('button'); if(i===cur) b.className='on';
+  const close=document.createElement('button'); close.className='close'; close.textContent='Close word list'; close.onclick=()=>openList(false); L.appendChild(close);
+  const item=(w,i)=>{ const b=document.createElement('button'); if(i===cur) b.className='on';
       const s=statusOf(w); b.innerHTML='<span class="ar"></span><span class="tag t-'+s+'">'+label(s)+'</span>';
-      b.querySelector('.ar').textContent=w.text; b.onclick=()=>go(i); L.appendChild(b); }); });
+      b.querySelector('.ar').textContent=w.text; b.onclick=()=>{ openList(false); go(i); }; L.appendChild(b); };
+  const group=t=>{ const h=document.createElement('p'); h.className='group'; h.textContent=t; L.appendChild(h); };
+  if(words.some(w=>w.sample)){ group('Sample from regular pages'); const pages=[...new Set(words.filter(w=>w.sample).map(w=>w.page))];
+    pages.forEach(p=>{ const h=document.createElement('h2'); h.textContent='Page '+p; L.appendChild(h); words.forEach((w,i)=>{ if(w.sample&&w.page===p) item(w,i); }); });
+    group('Opening pages'); }
+  [...new Set(words.filter(w=>!w.sample).map(w=>w.page))].forEach(p => { const h=document.createElement('h2'); h.textContent='Page '+p; L.appendChild(h);
+    words.forEach((w,i) => { if(!w.sample && w.page===p) item(w,i); }); });
   let a=0,f=0; words.forEach(w=>{ const s=state[w.wid].status; if(s==='approved')a++; if(s==='flagged')f++; });
   $('progress').innerHTML='<span><b>'+a+'</b> of '+words.length+' approved</span><span><b>'+f+'</b> need a rule</span><span><b>'+(words.length-a-f)+'</b> left</span>';
 }
+function openList(open){ const L=$('list'); L.classList.toggle('open',open); $('listToggle').setAttribute('aria-expanded',String(open));
+  if(open){ const on=L.querySelector('button.on'); if(on) on.scrollIntoView({block:'center'}); } }
+$('listToggle').onclick=()=>openList(!$('list').classList.contains('open'));
 // Same display rule as the app tray (src/lib/tileGlyph.ts): pause signs off,
 // hamza on a tatweel as a plain hamza, ya-hamza with a kasra in joined form,
 // a dagger alif after a haraka on a tatweel (two for kaf), and a tatweel
@@ -241,6 +288,7 @@ function renderChips(){
   const am=marks.find(m=>m.L===letter); if(am) $('cat').value=am.cat;   // the picker shows the edited letter's criterion
   $('selLetter').textContent=tileGlyph(w.letters[letter-1]);   // on its own so it reads clearly
   $('selMeta').textContent='Letter '+letter+' of '+w.letters.length+(marks.length>1?' · '+marks.length+' mistakes shown':'');
+  $('lpos').textContent=letter+' / '+w.letters.length; $('lnext').disabled=letter>=w.letters.length; $('lprev').disabled=letter<=1;
 }
 
 // Draw at artwork resolution: paper, word block, (edit shading), bar, then ink on top.
@@ -266,7 +314,7 @@ function barsNow(){ const sp=spansOf(state[words[cur].wid].cuts);
   return marks.map(m=>{ let q=sp[m.L-1]; if(m.L===letter && barShown) q=barShown; return {x0:q[0], x1:q[1], cat:m.cat}; }); }
 async function draw(){
   const w=words[cur]; await grey(w); const T=THEMES[theme];
-  const avail=$('stage').clientWidth-32; scale=Math.max(1, Math.min(9, avail/w.w));
+  const avail=$('stage').clientWidth-16; scale=Math.max(1, Math.min(9, avail/w.w, window.innerHeight*0.42/geom(w).H));   // word and controls fit on one phone screen
   blit($('big'), paint(w, T, barsNow(), !!drag), scale);
   const still=marks.map(m=>{ const q=spansOf(state[w.wid].cuts)[m.L-1]; return {x0:q[0],x1:q[1],cat:m.cat}; });
   blit($('pv1'), paint(w, THEMES.light, still, false), PAGE_SCALE);
@@ -319,7 +367,8 @@ $('random').onclick=()=>{ const n=words[cur].letters.length, k=Math.min(n, 1+Mat
   marks=[]; for(let i=0;i<k;i++){ const j=Math.floor(Math.random()*pool.length); marks.push({L:pool.splice(j,1)[0], cat:cats[Math.floor(Math.random()*3)]}); }
   letter=marks[0].L; barShown=null; renderChips(); draw(); };
 
-function pushUndo(){ undo.push(state[words[cur].wid].cuts.slice()); }
+function pushUndo(){ undo.push(state[words[cur].wid].cuts.slice()); syncUndo(); }
+function syncUndo(){ $('undo').disabled=!undo.length; $('undo').textContent=undo.length?'Undo '+undo.length:'Undo'; }
 function setCut(k, x){ const w=words[cur], c=state[w.wid].cuts, hi = k===0 ? w.w : c[k-1]-1, lo = k===c.length-1 ? 0 : c[k+1]+1;
   c[k]=Math.max(lo,Math.min(hi,Math.round(x))); }
 function startDrag(k, ev){ ev.preventDefault(); ev.stopPropagation(); const w=words[cur]; pushUndo(); cancelAnimationFrame(anim); barShown=null;
@@ -330,15 +379,19 @@ function startDrag(k, ev){ ev.preventDefault(); ev.stopPropagation(); const w=wo
   const up=()=>{ window.removeEventListener('pointermove',move); window.removeEventListener('pointerup',up); window.removeEventListener('pointercancel',up); drag=null; draw(); };
   window.addEventListener('pointermove',move); window.addEventListener('pointerup',up); window.addEventListener('pointercancel',up); draw(); }
 
-$('undo').onclick=()=>{ const u=undo.pop(); if(u){ state[words[cur].wid].cuts=u; draw(); } };
+$('undo').onclick=()=>{ const u=undo.pop(); if(u){ state[words[cur].wid].cuts=u; draw(); } syncUndo(); };
+$('lnext').onclick=()=>select(letter+1); $('lprev').onclick=()=>select(letter-1);
+$('nudge').addEventListener('click', e=>{ const b=e.target.closest('button'); if(!b) return; const c=state[words[cur].wid].cuts;
+  const k = b.dataset.k==='right' ? letter-1 : letter; pushUndo(); setCut(k, c[k]+Number(b.dataset.d)); draw(); });
 $('reset').onclick=()=>{ const st=state[words[cur].wid]; pushUndo(); st.cuts=st.first.slice(); draw(); };
-$('prev').onclick=()=>go(cur-1); $('next').onclick=()=>go(cur+1);
+$('prev').onclick=()=>go(cur-1); $('next').onclick=()=>go(nextTodo());
 $('theme').addEventListener('click', e=>{ const b=e.target.closest('button'); if(!b) return; theme=b.dataset.v; $('stage').className='stage '+theme;
   document.querySelectorAll('#theme button').forEach(x=>x.classList.toggle('on',x===b)); draw(); });
 $('cat').addEventListener('input', ()=>{ cat=$('cat').value; const m=marks.find(x=>x.L===letter); if(m) m.cat=cat; renderChips(); draw(); });
 window.addEventListener('resize', ()=>draw());
 
-function go(i){ cur=Math.max(0,Math.min(words.length-1,i)); undo=[]; letter=1; barShown=null; drag=null; marks=[{L:1, cat}];
+function nextTodo(){ for(let k=1;k<=words.length;k++){ const j=(cur+k)%words.length; if(!state[words[j].wid].status) return j; } return Math.min(words.length-1,cur+1); }
+function go(i){ cur=Math.max(0,Math.min(words.length-1,i)); undo=[]; syncUndo(); letter=1; barShown=null; drag=null; marks=[{L:1, cat}];
   const w=words[cur], st=state[w.wid]; $('note').value=st.note||'';
   $('wmeta').textContent='Page '+w.page+' · line '+w.line+' · '+label(statusOf(w));
   renderList(); renderChips(); draw(); const on=document.querySelector('.list button.on'); if(on) on.scrollIntoView({block:'nearest'}); }
@@ -352,8 +405,8 @@ async function save(status){
   try{ await db.collection('reviews').doc(w.wid).set(doc); toast(status==='approved'?'Approved and saved':'Saved: needs a rule'); }
   catch(e){ toast('Not saved: '+(e&&e.message||'error')); }
 }
-$('approve').onclick=async()=>{ await save('approved'); go(cur+1); };
-$('flag').onclick=async()=>{ await save('flagged'); go(cur+1); };
+$('approve').onclick=async()=>{ await save('approved'); go(nextTodo()); };
+$('flag').onclick=async()=>{ await save('flagged'); go(nextTodo()); };
 document.addEventListener('keydown', ev => {
   if(ev.target.tagName==='INPUT' && ev.target.type==='text') return;
   if(ev.target.classList && ev.target.classList.contains('grip')) return;
@@ -363,7 +416,7 @@ document.addEventListener('keydown', ev => {
   else if(ev.key==='m') $('multi').click(); else if(ev.key==='r') $('random').click();
   else if(ev.key==='z') $('undo').click(); else if(ev.key==='Enter'){ ev.preventDefault(); $('approve').click(); }
 });
-go(0);
+{ const s0=words.findIndex(w=>w.sample); go(s0>=0?s0:0); }
 
 (async()=>{
   const timer=setTimeout(()=>{ if(!db) $('nosave').hidden=false; },10000);
@@ -374,7 +427,8 @@ go(0);
       if(v.mode==='edges'){ s.status=v.status; s.note=v.note||''; let c = v.cuts ? v.cuts.split(',').map(Number) : null; const vt = v.tids || (c && w.mergedTids && c.length===w.mergedTids.length+1 && c.length!==w.letters.length+1 ? w.mergedTids : null); if(c && vt && vt.join()!==w.tids.join() && c.length===vt.length+1){ const r=splitCuts(w,vt,c); c=r.cuts; if(r.split) s.status=null; } else if(c && c.length===w.oldLetters+1 && c.length!==w.letters.length+1) c=remapCuts(w,c); s.cuts = c && c.length===w.letters.length+1 ? c : cutsFrom(w, (v.spans||[]).map(q=>q?q.split('-').map(Number):null)); if(v.labels) s.labels=v.labels; }
       else if(v.labels && v.w===w.w && v.h===w.h){ s.labels=v.labels; s.status = v.status || 'approved'; s.note=v.note||''; const sp=spansFrom(w, remapLabels(w, unrle(v.labels.split(',').map(Number), w.w*w.h, Uint8Array))); s.cuts=cutsFrom(w,sp); s.first=s.cuts.slice(); }
     });
-    renderList(); const st=state[words[cur].wid]; $('note').value=st.note||''; renderChips(); draw();
+    renderList(); if(!jumped){ jumped=true; if(state[words[cur].wid].status){ const j=words.findIndex(w=>w.sample&&!state[w.wid].status); if(j>=0){ go(j); return; } } }
+    const st=state[words[cur].wid]; $('note').value=st.note||''; renderChips(); draw();
   }, ()=>{ $('nosave').hidden=false; });
 })();
 })();
