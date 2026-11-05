@@ -171,6 +171,26 @@ tried method reached the 85% target (details in
 The prototype branch `claude/word-block-behind-ink` draws the word block and
 the letter bar behind the ink (owner review pending).
 
+### Map on demand: how the queue is made (6 November 2026)
+
+Tool ready, no app change: `scripts/letter-masks/border-queue.mts` reads the
+files the app already exports (judge results, state backups) and lists the
+marked words that have no approved border for today's letter rules. Words
+marked by more judge records come first. A record exported twice counts once
+(newest revision). Tests: `scripts/border-queue.test.mjs`.
+
+Loop, once real judging records exist:
+
+1. Collect exported judge results after a competition day.
+2. Run the queue; it lists words and pages.
+3. Make review data for those pages (same steps as `sample_review.py`) and
+   publish the review screen; the owner approves.
+4. `export_app_borders.py` writes the new borders; tests; release.
+
+No server is needed: records already move as files. A server (see
+`EDIT_RESULT_BACKEND_NOTES_2026-11-06.md`) would let the queue update by
+itself.
+
 ## Open checks
 
 - Licence: the artwork fetch script states it "does not establish artwork
