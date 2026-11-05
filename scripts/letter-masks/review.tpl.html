@@ -199,7 +199,7 @@ function renderChips(){
     b.setAttribute('role','radio'); b.setAttribute('aria-checked', String(letter===i+1));
     b.innerHTML='<span class="k">'+(i+1)+'</span><span class="ar"></span>';
     b.querySelector('.ar').textContent='‍'+t+'‍'; b.onclick=()=>select(i+1); C.appendChild(b); });
-  $('selLetter').textContent='‍'+w.letters[letter-1]+'‍';
+  $('selLetter').textContent=w.letters[letter-1];   // on its own so it reads clearly
   $('selMeta').textContent='Letter '+letter+' of '+w.letters.length;
 }
 
