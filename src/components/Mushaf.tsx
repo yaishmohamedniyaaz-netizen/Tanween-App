@@ -27,6 +27,7 @@ import {
   preloadPage,
 } from "../lib/page";
 import { nextRecitedWords } from "../lib/recitedNeighbours.ts";
+import { letterBarGeometry, loadLetterBorders, type LetterBorderPage } from "../lib/letterBorders.ts";
 import type { MushafPage, PageWord } from "../lib/page";
 import {
   loadQcfPageFont,
@@ -99,6 +100,8 @@ interface WordHitbox {
   hy: number;
   hw: number;
   hh: number;
+  /** Artwork region [x0, y0, x1, y1] of the word on a fixed 1405H page. */
+  region?: readonly number[];
 }
 
 interface ActiveDrag {
@@ -219,6 +222,7 @@ export function Mushaf(props: MushafProps) {
   const [boxes, setBoxes] = useState<WordHitbox[]>([]);
   const [shadeBoxes, setShadeBoxes] = useState<ContextShadeBox[]>([]);
   const [boxesKey, setBoxesKey] = useState("");
+  const [letterBorders, setLetterBorders] = useState<ReadonlyMap<number, LetterBorderPage>>(new Map());
   const [measureEpoch, setMeasureEpoch] = useState(0);
   const [flashTid, setFlashTid] = useState<string | null>(null);
   const [pendingFlash, setPendingFlash] = useState<{ tid: string; page: number } | null>(null);
@@ -263,6 +267,23 @@ export function Mushaf(props: MushafProps) {
     }
     return map;
   }, [state.mistakes]);
+
+  // Approved letter borders (fixed 1405H pages only). Pages without them keep
+  // the plain word highlight.
+  const borderPagesKey = fixedPages ? pageData.map(({ page }) => page).join(":") : "";
+  useEffect(() => {
+    if (!borderPagesKey) return;
+    let cancelled = false;
+    Promise.all(borderPagesKey.split(":").map(Number).map(loadLetterBorders)).then((loaded) => {
+      if (cancelled) return;
+      setLetterBorders((previous) => {
+        const next = new Map(previous);
+        for (const data of loaded) if (data) next.set(data.page, data);
+        return next;
+      });
+    });
+    return () => { cancelled = true; };
+  }, [borderPagesKey]);
 
   // Every requested page and its page-specific font become visible in one
   // commit. The previous complete view remains intact during navigation.
@@ -404,6 +425,7 @@ export function Mushaf(props: MushafProps) {
           hy: ink.y - (fixedPages ? 0 : HIT_PAD_Y),
           hw: ink.w + (fixedPages ? 0 : HIT_PAD_X * 2),
           hh: ink.h + (fixedPages ? 0 : HIT_PAD_Y * 2),
+          region: fixedPages?.get(page.page)?.words.find((word) => word.wid === wid)?.region,
         });
       });
 
@@ -1039,7 +1061,27 @@ export function Mushaf(props: MushafProps) {
                         width: local(box.w),
                         height: local(box.h),
                       }}
-                    />
+                    >
+                      {box.units.map((unit) => {
+                        const unitMistakes = mistakesForUnit(unit);
+                        if (!unitMistakes.length) return null;
+                        const bar = letterBarGeometry(letterBorders.get(box.page), box.wid, unit.tid, box.region);
+                        if (!bar) return null;
+                        return (
+                          <span
+                            key={unit.tid}
+                            className={`letter-bar cat-${dominant(unitMistakes)}`}
+                            data-letter-bar={unit.tid}
+                            aria-hidden="true"
+                            style={{
+                              left: local(bar.left * box.w),
+                              width: local(bar.width * box.w),
+                              height: local(bar.thickness * box.w),
+                            }}
+                          />
+                        );
+                      })}
+                    </div>
                   )}
                   {summary?.marker && (
                     <span

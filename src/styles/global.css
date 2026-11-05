@@ -5893,6 +5893,20 @@ textarea:focus-visible {
   border-radius: 3px;
   background: var(--c-mark-fill);
 }
+/* Letter bar: under the marked letter, inside the bottom of the word block.
+   Only for words with owner-approved letter borders. The blend keeps the ink
+   on top: dark ink stays dark on light paper, light ink stays light in dark. */
+.glyph-ink .letter-bar {
+  position: absolute;
+  bottom: calc(-1 * var(--mark-wash-pad-bottom));
+  background: var(--c-bar, var(--c));
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+[data-theme="dark"] .glyph-ink .letter-bar { mix-blend-mode: screen; }
+[data-theme="dark"] .letter-bar.cat-jali { --c-bar: #d86b83; }
+[data-theme="dark"] .letter-bar.cat-khafi { --c-bar: #dda869; }
+[data-theme="dark"] .letter-bar.cat-fasaha { --c-bar: #738bde; }
 .glyph-ink.flash {
   animation: flash-pulse 1.2s var(--ease-in-out);
 }

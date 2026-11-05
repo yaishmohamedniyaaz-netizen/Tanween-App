@@ -34,8 +34,13 @@ Your job: make the first guess good enough that most borders need no change.
 | `scripts/letter-masks/export_review.py` | Builds per-word crops, ink pieces and a proposed letter map |
 | `scripts/letter-masks/dump_units.mts` | Writes the app's letter units per word (`units.json`) |
 | `scripts/letter-masks/to_app_units.py` | Re-keys the export to the app's letter units (`review-data-app.json`) |
-| `scripts/letter-masks/approved/page1-approvals-2026-11-05.json` | Owner approvals: 22 words of page 1, 15 with borders (`mode: "edges"`, `cuts`) |
-| `scripts/letter-masks/border_guess_eval.py` | Scores a guess against the approvals |
+| `scripts/letter-masks/approved/pages1-2-approvals-2026-11-05.json` | Owner approvals: all 65 words of pages 1-2 (224 inner borders). Use this one. |
+| `scripts/letter-masks/approved/page1-approvals-2026-11-05.json` | Older, smaller set (22 words of page 1) |
+| `scripts/letter-masks/border_data.py` | Loads words, ink, first guess and approved borders |
+| `scripts/letter-masks/border_shape_model.py` | Method tried: learned letter shapes + dynamic programming |
+| `scripts/letter-masks/border_font_dtw.py` | Method tried: Hafs font rendering aligned to the artwork by warping |
+| `scripts/letter-masks/border_compare.py` | Scores all methods (table below) |
+| `scripts/letter-masks/border_guess_eval.py` | Older scorer (first guess and width prior only) |
 
 Build the inputs (from `scripts/letter-masks`):
 
@@ -43,26 +48,43 @@ Build the inputs (from `scripts/letter-masks`):
 python3 export_review.py review-data.json 1 2
 node --experimental-strip-types dump_units.mts 1 2      # writes units.json
 python3 to_app_units.py                                 # writes review-data-app.json
-python3 border_guess_eval.py review-data-app.json approved/page1-approvals-2026-11-05.json
+python3 border_compare.py review-data-app.json approved/pages1-2-approvals-2026-11-05.json units.json
 ```
+
+Python packages: `numpy pillow scipy uharfbuzz freetype-py fonttools brotli`.
 
 ## How to score
 
-`border_guess_eval.py` measures only the borders *between* letters (the two
-outer ends are already exact), in screen px at desktop page size
-(473.6 px page width), leave-one-word-out when a method learns from the data.
+`border_compare.py` measures only the borders *between* letters (the two
+outer ends are already exact), in screen px at desktop page size (473.6 px page
+width). Methods that learn are scored on words they did not learn from.
 
-Current numbers (15 words, 45 inner borders):
+Measured 5 November 2026 on all 65 approved words of pages 1-2 (64 with more
+than one letter; 35 on page 2):
 
-| Method | Median | Mean | Within 1 px | Within 2 px |
+| Method | Median px | Borders within 2 px | Borders off by more than 5 px | Words with every border within 2 px |
 | --- | --- | --- | --- | --- |
-| First guess (thin-joint cuts, today) | 1.48 | 3.92 | 42% | 58% |
-| Width prior per letter, dynamic programming | 1.73 | 2.94 | 40% | 53% |
-| Hybrid (first guess + widths + thin joints) | 1.23–2.22 | 3.85–4.04 | 33–42% | 49–58% |
-| KFGQPC Hafs font letter positions, scaled | 4.19 | 5.55 | 13% | 22% |
+| First guess (today), pages 1-2 | 0.74 | 64% | 18% | 28/64 (44%) |
+| First guess, page 2 only | 1.23 | 59% | 14% | 14/35 (40%) |
+| Learned shapes, leave one word out, pages 1-2 | 0.99 | 70% | 13% | 34/64 (53%) |
+| Learned shapes, learn page 1 -> test page 2 | 1.36 | 63% | 12% | 16/35 (46%) |
+| Font + warping (no learning), pages 1-2 | 1.23 | 69% | 13% | 25/64 (39%) |
+| Font + warping, page 2 only | 0.99 | 78% | 6% | 14/35 (40%) |
 
-Target: **within 2 px for at least 85% of inner borders**, measured on words the
-method did not learn from. Report the table above with your method added.
+Agreement check: when the first guess and the font method agree within 2 px on
+every border, 13 of 14 such words were right (14 of 64 words qualify).
+
+What this says:
+- Learning from 65 words helps a little (+4 points of borders on a new page).
+  Learning from 7, 14 or 29 words of page 1 gave the same page-2 result, so more
+  of the same data is unlikely to help this model much.
+- The font method needs no approvals and halves the big errors on page 2, but
+  is worse on page 1. Pages 1-2 are the decorated opening pages with larger
+  writing, so **none of these numbers is known to hold for pages 3-604**.
+- The agreement check is a useful "safe to accept" signal, but covers few words.
+
+Target: **within 2 px for at least 85% of inner borders, and a confidence
+signal that picks out words that need no change**, measured on regular pages.
 
 ## What we learned
 
@@ -72,6 +94,11 @@ method did not learn from. Report the table above with your method added.
 - The digital Hafs font does not match the 1405 artwork closely enough to
   place borders (letters are stretched differently).
 - 15 words are too few to learn letter widths reliably.
+
+## Before you start: a fair test set
+
+Ask the owner to approve a random sample of words from regular pages (3-604)
+in the review screen. Score on that sample, not only on pages 1-2.
 
 ## Ideas worth trying
 
@@ -85,7 +112,11 @@ method did not learn from. Report the table above with your method added.
    column ink, and mark tall letters (alif, lam, kaf) as no-cut zones.
 3. **Combine** (dynamic programming over border positions): joint score +
    shape match score + learned width as a weak prior.
-4. Report which letter pairs fail most, so the owner can review those first.
+4. **Font + warping, improved.** Warp on base-letter ink only is in
+   `border_font_dtw.py`; try a band limit, per-letter stretch limits, and
+   using the font's joint positions as soft targets for a local snap to thin
+   strokes.
+5. Report which letter pairs fail most, so the owner can review those first.
 
 ## Deliverables
 

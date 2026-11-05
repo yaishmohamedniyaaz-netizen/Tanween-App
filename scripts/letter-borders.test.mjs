@@ -1,0 +1,54 @@
+import assert from "node:assert/strict";
+import fs from "node:fs";
+import test from "node:test";
+import { judgingTargetsOf, TARGET_RULE_VERSION } from "../src/lib/judgingUnits.ts";
+import { nextRecitedWords } from "../src/lib/recitedNeighbours.ts";
+import { letterBarGeometry, LETTER_BAR_ARTWORK_PX } from "../src/lib/letterBorders.ts";
+
+const page = (words, ruleVersion = TARGET_RULE_VERSION) => ({ page: 2, ruleVersion, words });
+const MIN = { tids: ["2.5.3@r0", "2.5.3@r3"], x: [966, 931, 891] };
+const REGION = [880, 1150, 980, 1300];
+
+test("a letter bar spans that letter's approved borders inside the word region", () => {
+  const nun = letterBarGeometry(page({ "2.5.3": MIN }), "2.5.3", "2.5.3@r3", REGION);
+  assert.deepEqual(nun, { left: 0.11, width: 0.4, thickness: LETTER_BAR_ARTWORK_PX / 100 });
+  const meem = letterBarGeometry(page({ "2.5.3": MIN }), "2.5.3", "2.5.3@r0", REGION);
+  assert.equal(meem.left, 0.51);
+  assert.equal(meem.width, 0.35);
+});
+
+test("no bar without an approved border: unknown word, other letter units, or old rules", () => {
+  assert.equal(letterBarGeometry(page({}), "2.5.3", "2.5.3@r3", REGION), null);
+  assert.equal(letterBarGeometry(page({ "2.5.3": MIN }), "2.5.3", "2.5.3@r9", REGION), null);
+  assert.equal(letterBarGeometry(page({ "2.5.3": MIN }, "qpc-hafs-v1-targets-3.0.0"), "2.5.3", "2.5.3@r3", REGION), null);
+  assert.equal(letterBarGeometry(null, "2.5.3", "2.5.3@r3", REGION), null);
+  assert.equal(letterBarGeometry(page({ "2.5.3": MIN }), "2.5.3", "2.5.3@r3", undefined), null);
+});
+
+test("the shipped borders match the app's current letters and sit inside each word", () => {
+  const index = JSON.parse(fs.readFileSync("public/letter-borders/index.json", "utf8"));
+  assert.equal(index.ruleVersion, TARGET_RULE_VERSION);
+  let words = 0;
+  for (const p of index.pages) {
+    const data = JSON.parse(fs.readFileSync(`public/letter-borders/p${p}.json`, "utf8"));
+    const art = JSON.parse(fs.readFileSync(`public/mushaf/1405-artwork-5a5f9f3846158475/p${p}.json`, "utf8"));
+    const text = JSON.parse(fs.readFileSync(`public/pages/p${p}.json`, "utf8"));
+    const next = nextRecitedWords(text);
+    // Ink can reach past the reading-order region (a final letter under the next
+    // word), so borders are checked against the word body, with the review
+    // screen's 8 px crop margin.
+    const bodies = new Map(art.words.map((word) => [word.wid, word.body]));
+    const semantic = new Map(text.lines.flatMap((line) => line.words ?? []).map((word) => [word.wid, word]));
+    assert.equal(data.ruleVersion, TARGET_RULE_VERSION);
+    for (const [wid, word] of Object.entries(data.words)) {
+      const source = semantic.get(wid);
+      const tids = judgingTargetsOf(source.text, source.role, wid, { nextWord: next.get(wid) }).map((t) => t.tid);
+      assert.deepEqual(word.tids, tids, `${wid} letters`);
+      for (let i = 1; i < word.x.length; i += 1) assert.ok(word.x[i] < word.x[i - 1], `${wid} borders go right to left`);
+      const body = bodies.get(wid);
+      assert.ok(word.x[0] <= body[2] + 8 && word.x.at(-1) >= body[0] - 8, `${wid} inside its body`);
+      words += 1;
+    }
+  }
+  assert.ok(words >= 65);
+});

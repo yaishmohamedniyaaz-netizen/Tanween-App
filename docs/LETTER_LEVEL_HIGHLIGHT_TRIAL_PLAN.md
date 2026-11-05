@@ -129,6 +129,28 @@ with a straight vertical line. This is the main work.
   Too few approved letters; shape matching needs more. Handed over as
   `docs/CODEX_TASK_LETTER_BORDERS.md`.
 
+## In the app (5 November 2026)
+
+- The letter bar is drawn only for words with owner-approved borders
+  (`public/letter-borders/p{N}.json`, written by
+  `scripts/letter-masks/export_app_borders.py`). Every other word keeps the
+  plain word highlight, so a missing border never puts a bar under the wrong
+  letter. Today: the 65 words of pages 1-2.
+- Borders are checked against the app's current letters: if the letter rules
+  change, old borders are ignored until re-exported.
+- The word block itself is unchanged (drawn over the ink as before); moving it
+  behind the ink is still to do.
+
+## Learning from approvals (5 November 2026)
+
+Measured on the 65 approved words of pages 1-2 (`border_compare.py`, full
+table in `CODEX_TASK_LETTER_BORDERS.md`): on a page the method had not seen,
+words needing no change went from 40% (first guess) to 46% (learned shapes);
+the font-and-warping method, which needs no approvals, brought borders within
+2 px from 59% to 78% but did not raise whole-word accuracy. Pages 1-2 are the
+decorated opening pages, so a fair score for the rest of the Quran needs a
+sample of approved words from regular pages.
+
 ## Open checks
 
 - Licence: the artwork fetch script states it "does not establish artwork
