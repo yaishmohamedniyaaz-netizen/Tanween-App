@@ -117,7 +117,7 @@ select{font:inherit;padding:4px 6px;border:1px solid var(--line);border-radius:6
           <span class="sub" id="tuneSaved"></span></div>
         <div class="tune">
           <label for="tThick">Bar thickness <input id="tThick" type="range" min="1" max="5" step="0.25" value="2.5"><output id="oThick"></output></label>
-          <label for="tGap">Gap below the word <input id="tGap" type="range" min="-4" max="4" step="0.25" value="0"><output id="oGap"></output></label>
+          <label for="tGap">Move the bar down <input id="tGap" type="range" min="-4" max="4" step="0.25" value="0"><output id="oGap"></output></label>
           <label for="tInset">Shorter at each end <input id="tInset" type="range" min="0" max="3" step="0.25" value="0"><output id="oInset"></output></label>
           <label for="tBlock">Word block strength <input id="tBlock" type="range" min="0" max="30" step="1" value="18"><output id="oBlock"></output></label>
           <label><input id="tRound" type="checkbox"> Round ends</label>
@@ -238,7 +238,7 @@ function drawPreview(){
   const w=words[cur]; if(!w.img) return; const s=spansOf(state[w.wid].cuts)[letter-1], t=tune(); showTune();
   const px = v => v/PAGE_SCALE;                                   // CSS px at page size -> artwork px
   const top=PAD-px(2.5), bottom=w.h-PAD+px(2.5);                  // word block, like the app's mark box
-  const barH=Math.max(1,px(t.thick)), barY=bottom+px(t.gap), H=Math.ceil(Math.max(w.h, barY+barH)+px(3));
+  const barH=Math.max(1,px(t.thick)), barY=bottom-barH+px(t.gap), H=Math.ceil(Math.max(w.h, barY+barH)+px(3));
   ['light','dark'].forEach(theme => {
     const T=THEMES[theme], base=document.createElement('canvas'); base.width=w.w; base.height=H;
     const bx=base.getContext('2d'), id=bx.createImageData(w.w,H), d=id.data, a=Math.min(.9,t.block*T.k);
