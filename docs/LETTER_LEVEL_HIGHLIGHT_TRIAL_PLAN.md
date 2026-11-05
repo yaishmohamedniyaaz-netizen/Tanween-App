@@ -23,6 +23,13 @@ on the same 1405H page artwork the app already shows.
   item 35).
 - Known limit: stacked letters share the same horizontal space, so their bars
   overlap.
+- Bar placement (5 November 2026): inside the word block, along its bottom
+  edge, not below it.
+- Proposed bar settings, to confirm: 2.5 px thick at desktop page size,
+  square ends, full letter width; word block about 18% in light (22/14 of that
+  in dark), drawn behind the ink. Bar colour: the criterion colour in light,
+  the lighter criterion colour in dark. Comparison script:
+  `scripts/letter-masks/thickness_compare.py`.
 
 ## Silent letters (decided 5 November 2026: option B)
 
