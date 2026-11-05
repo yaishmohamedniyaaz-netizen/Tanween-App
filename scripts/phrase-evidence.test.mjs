@@ -8,7 +8,7 @@ import { execFileSync } from 'node:child_process';
 import { buildSync } from 'esbuild';
 import { phraseFixture, savedPhraseFixture, phraseTestCompetition, phraseStateFixture as stateFixture } from './qa/phrase-evidence-fixtures.ts';
 import { RECITATION_PHRASES } from '../src/lib/recitationPhrases.ts';
-import { judgingTargetsOf } from '../src/lib/judgingUnits.ts';
+import { judgingTargetsOf, TARGET_RULE_VERSION, MERGED_SILENT_RULE_VERSION } from '../src/lib/judgingUnits.ts';
 import { isPhraseMistakeSnapshot, hasNonQuranEvidence, hasPhraseEvidence } from '../src/lib/phraseEvidence.ts';
 import { projectMistakes } from '../src/lib/judgingLedger.ts';
 import { buildJudgeResultPackage, parseJudgeResultPackage, buildStateBackup, parseStateBackup, readJudgeResultFile, readStateBackupFile } from '../src/lib/resultPackages.ts';
@@ -160,4 +160,16 @@ test('JSON and workbook readers retain Arabic without invented Quran references'
   const rows=utils.sheet_to_json(workbook.Sheets.Mistakes,{defval:'',raw:false});
   assert.equal(rows[0]['Evidence type'],'Phrase mistake');assert.equal(rows[0].Surah,'');assert.equal(rows[0].Ayah,'');
   assert.equal(rows[0].Kalimah,m.wordText);assert.equal(rows[0].Letter,m.fullGlyph);
+});
+
+test('phrase evidence saved under rule 2.0.0 still loads after the 4.0.0 rule change', () => {
+  const backup = buildStateBackup(stateFixture());
+  const restamp = (rule) => JSON.parse(JSON.stringify(backup).replaceAll(TARGET_RULE_VERSION, rule));
+  assert.doesNotThrow(() => parseStateBackup(restamp('qpc-hafs-v1-targets-2.0.0')));
+  const saved = savedPhraseFixture();
+  const oldPackage = JSON.parse(JSON.stringify(buildJudgeResultPackage(saved, phraseTestCompetition))
+    .replaceAll(TARGET_RULE_VERSION, 'qpc-hafs-v1-targets-2.0.0'));
+  assert.doesNotThrow(() => parseJudgeResultPackage(oldPackage));
+  // The never-released merged rule had other letter units: still refused.
+  assert.throws(() => parseStateBackup(restamp(MERGED_SILENT_RULE_VERSION)));
 });

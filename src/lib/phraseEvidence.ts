@@ -1,5 +1,5 @@
 import type { JudgingEvent, Mistake, PhraseMistake, PhraseTarget } from "../types.ts";
-import { judgingTargetsOf, TARGET_RULE_VERSION } from "./judgingUnits.ts";
+import { COMPATIBLE_TARGET_RULE_VERSIONS, judgingTargetsOf } from "./judgingUnits.ts";
 import { RECITATION_PHRASES } from "./recitationPhrases.ts";
 
 export const PHRASE_CATALOGUE_VERSION = "tanween-phrases-v1" as const;
@@ -26,7 +26,7 @@ export function isPhraseMistakeSnapshot(value: unknown): value is PhraseMistake 
       !Number.isInteger(target.wordIndex) || (target.wordIndex as number) < 0 ||
       value.surah !== undefined || value.ayah !== undefined || value.page !== undefined ||
       value.targetVersion !== 2 || value.sourceVersion !== PHRASE_CATALOGUE_VERSION ||
-      value.ruleVersion !== TARGET_RULE_VERSION || typeof value.judgeSeatId !== "string" || !value.judgeSeatId.trim() ||
+      !COMPATIBLE_TARGET_RULE_VERSIONS.has(value.ruleVersion as string) || typeof value.judgeSeatId !== "string" || !value.judgeSeatId.trim() ||
       typeof value.id !== "string" || !value.id.trim() || typeof value.label !== "string" ||
       !["jali", "khafi", "fasaha"].includes(value.category as string) ||
       typeof value.amount !== "number" || !Number.isFinite(value.amount) || value.amount < 0 ||

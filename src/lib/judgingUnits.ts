@@ -5,6 +5,16 @@ export const TARGET_SCHEMA_VERSION = 2 as const;
 export const TARGET_RULE_VERSION = "qpc-hafs-v1-targets-4.0.0";
 /** Rule version that merged silent letters into their sound (never released). */
 export const MERGED_SILENT_RULE_VERSION = "qpc-hafs-v1-targets-3.0.0";
+/**
+ * Released rule versions whose letter units are identical to today's (same tid,
+ * offsets and glyphs; 4.0.0 only adds the `silent` flag). Checked on all 77,881
+ * Quran words and every phrase word. Evidence stamped with one of these stays
+ * valid as it is; the merged 3.0.0 rule is not in this list.
+ */
+export const COMPATIBLE_TARGET_RULE_VERSIONS: ReadonlySet<string> = new Set([
+  "qpc-hafs-v1-targets-2.0.0",
+  TARGET_RULE_VERSION,
+]);
 export const TARGET_SOURCE_VERSION = "qpc-hafs-v1-1405-r1";
 
 export type JudgingUnitKind = "letter" | "hamza" | "allah-lam";
