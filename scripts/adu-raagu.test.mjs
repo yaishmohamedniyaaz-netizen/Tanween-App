@@ -796,6 +796,8 @@ test("the alternate input uses a floating tray without moving the score columns"
   // Holding − or + repeats.
   assert.match(pickerSource, /MARK_REPEAT_DELAY_MS/);
   assert.match(pickerSource, /\{\.\.\.repeatProps\(-fineStep\)\}/);
+  // A keyboard press always steps, even after a hold that ended without a click.
+  assert.match(pickerSource, /event\.detail !== 0 && repeatRef\.current\?\.repeated/);
   assert.match(pickerSource, /mark-stepper-tray cat-\$\{category\}/);
   assert.match(pickerSource, /\{trigger\}/);
   assert.doesNotMatch(pickerSource, /stepperShift|translateX\(\$\{stepperShift\}|mark-stepper-value/);

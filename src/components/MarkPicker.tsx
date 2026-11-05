@@ -439,9 +439,11 @@ export const MarkPicker = forwardRef<MarkPickerHandle, Props>(function MarkPicke
     onPointerUp: stopRepeat,
     onPointerLeave: stopRepeat,
     onPointerCancel: stopRepeat,
-    onClick: () => {
+    onClick: (event: React.MouseEvent<HTMLButtonElement>) => {
       // A hold that already repeated has done its work; its release is not one more step.
-      if (repeatRef.current?.repeated) { repeatRef.current = null; return; }
+      // A keyboard press (detail 0) always steps: a hold that ended without a
+      // click (released off the button) must not swallow it.
+      if (event.detail !== 0 && repeatRef.current?.repeated) { repeatRef.current = null; return; }
       repeatRef.current = null;
       adjustStepper(delta);
     },
