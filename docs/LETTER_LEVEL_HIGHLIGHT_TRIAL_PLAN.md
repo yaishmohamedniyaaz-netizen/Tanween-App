@@ -151,6 +151,26 @@ the font-and-warping method, which needs no approvals, brought borders within
 decorated opening pages, so a fair score for the rest of the Quran needs a
 sample of approved words from regular pages.
 
+## Regular pages and next options (6 November 2026)
+
+On a random 60-word sample from regular pages (owner-approved), today's first
+guess put 60% of borders within 2 px and needed no change on 49% of words; no
+tried method reached the 85% target (details in
+`CODEX_TASK_LETTER_BORDERS.md`). Options for the owner:
+
+1. **Map on demand.** The app already falls back to the word highlight. Words
+   that get marked in real judging go into a review queue, so mapping effort
+   follows real use.
+2. **Common words first.** 40 spellings cover 19% of the Quran's words, 1,000
+   cover 56%. One approved drawing per spelling, copied to its other drawings
+   by warping (75% within 2 px in a first test), with spot checks.
+3. **A shorter, centred bar** (about 40% of the letter width): 85% of letters
+   get a bar fully under the right letter with no review at all.
+4. Keep improving the automatic guess (Codex task), using the anchoring check.
+
+The prototype branch `claude/word-block-behind-ink` draws the word block and
+the letter bar behind the ink (owner review pending).
+
 ## Open checks
 
 - Licence: the artwork fetch script states it "does not establish artwork

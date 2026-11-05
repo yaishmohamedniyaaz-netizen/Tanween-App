@@ -103,6 +103,7 @@ input[type=text]{font:inherit;padding:6px 8px;border:1px solid var(--line);borde
 .nudge .btn{min-width:48px;padding:0 10px;font-size:18px}
 .listtoggle{display:none}
 .list .close{display:none}
+.list .freq{font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums}
 .list .group{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);margin:0;padding:12px 12px 4px}
 @media (max-width:820px){
   .wrap{padding-block:10px 0;gap:10px}
@@ -236,7 +237,7 @@ function splitCuts(w, tids, old){
 function remapLabels(w, lab){ const out=new Uint8Array(lab.length); for(let i=0;i<lab.length;i++) out[i] = lab[i] ? w.oldToNew[lab[i]-1]+1 : 0; return out; }
 const spansOf = c => c.slice(0,-1).map((r,i)=>[c[i+1], r]);
 const state={};
-words.forEach(w => { const c=cutsFrom(w,spansFrom(w,w.proposalArr)); state[w.wid]={cuts:c, first:c.slice(), status:null, note:'', labels:null}; });
+words.forEach(w => { const c=w.startCuts ? w.startCuts.slice() : cutsFrom(w,spansFrom(w,w.proposalArr)); state[w.wid]={cuts:c, first:c.slice(), status:null, note:'', labels:null}; });
 let cur=0, letter=1, undo=[], db=null, jumped=false;
 let theme='light', cat='jali', drag=null, barShown=null, anim=null, scale=1;
 let marks=[{L:1, cat:'jali'}], multi=false, scrub=null;   // bars on screen; letter = the one whose borders you edit
@@ -253,13 +254,15 @@ function renderList(){
   const close=document.createElement('button'); close.className='close'; close.textContent='Close word list'; close.onclick=()=>openList(false); L.appendChild(close);
   const item=(w,i)=>{ const b=document.createElement('button'); if(i===cur) b.className='on';
       const s=statusOf(w); b.innerHTML='<span class="ar"></span><span class="tag t-'+s+'">'+label(s)+'</span>';
-      b.querySelector('.ar').textContent=w.text; b.onclick=()=>{ openList(false); go(i); }; L.appendChild(b); };
+      b.querySelector('.ar').textContent=w.text; if(w.freq){ const f=document.createElement('span'); f.className='freq'; f.textContent='×'+w.freq.toLocaleString('en'); b.querySelector('.ar').after(f); b.style.gridTemplateColumns='1fr auto auto'; }
+      b.onclick=()=>{ openList(false); go(i); }; L.appendChild(b); };
   const group=t=>{ const h=document.createElement('p'); h.className='group'; h.textContent=t; L.appendChild(h); };
+  if(words.some(w=>w.batch==='common')){ group('Common words (one drawing each)'); words.forEach((w,i)=>{ if(w.batch==='common') item(w,i); }); }
   if(words.some(w=>w.sample)){ group('Sample from regular pages'); const pages=[...new Set(words.filter(w=>w.sample).map(w=>w.page))];
     pages.forEach(p=>{ const h=document.createElement('h2'); h.textContent='Page '+p; L.appendChild(h); words.forEach((w,i)=>{ if(w.sample&&w.page===p) item(w,i); }); });
     group('Opening pages'); }
-  [...new Set(words.filter(w=>!w.sample).map(w=>w.page))].forEach(p => { const h=document.createElement('h2'); h.textContent='Page '+p; L.appendChild(h);
-    words.forEach((w,i) => { if(!w.sample && w.page===p) item(w,i); }); });
+  [...new Set(words.filter(w=>!w.sample&&!w.batch).map(w=>w.page))].forEach(p => { const h=document.createElement('h2'); h.textContent='Page '+p; L.appendChild(h);
+    words.forEach((w,i) => { if(!w.sample && !w.batch && w.page===p) item(w,i); }); });
   let a=0,f=0; words.forEach(w=>{ const s=state[w.wid].status; if(s==='approved')a++; if(s==='flagged')f++; });
   $('progress').innerHTML='<span><b>'+a+'</b> of '+words.length+' approved</span><span><b>'+f+'</b> need a rule</span><span><b>'+(words.length-a-f)+'</b> left</span>';
 }
@@ -390,7 +393,7 @@ $('theme').addEventListener('click', e=>{ const b=e.target.closest('button'); if
 $('cat').addEventListener('input', ()=>{ cat=$('cat').value; const m=marks.find(x=>x.L===letter); if(m) m.cat=cat; renderChips(); draw(); });
 window.addEventListener('resize', ()=>draw());
 
-function nextTodo(){ for(let k=1;k<=words.length;k++){ const j=(cur+k)%words.length; if(!state[words[j].wid].status) return j; } return Math.min(words.length-1,cur+1); }
+function nextTodo(){ const o=order(), at=o.indexOf(cur); for(let k=1;k<=o.length;k++){ const j=o[(at+k)%o.length]; if(!state[words[j].wid].status) return j; } return Math.min(words.length-1,cur+1); }
 function go(i){ cur=Math.max(0,Math.min(words.length-1,i)); undo=[]; syncUndo(); letter=1; barShown=null; drag=null; marks=[{L:1, cat}];
   const w=words[cur], st=state[w.wid]; $('note').value=st.note||'';
   $('wmeta').textContent='Page '+w.page+' · line '+w.line+' · '+label(statusOf(w));
@@ -416,7 +419,8 @@ document.addEventListener('keydown', ev => {
   else if(ev.key==='m') $('multi').click(); else if(ev.key==='r') $('random').click();
   else if(ev.key==='z') $('undo').click(); else if(ev.key==='Enter'){ ev.preventDefault(); $('approve').click(); }
 });
-{ const s0=words.findIndex(w=>w.sample); go(s0>=0?s0:0); }
+const order=()=>[...words.keys()].sort((a,b)=>(words[a].batch?0:words[a].sample?1:2)-(words[b].batch?0:words[b].sample?1:2)||a-b);
+{ go(order()[0]); }
 
 (async()=>{
   const timer=setTimeout(()=>{ if(!db) $('nosave').hidden=false; },10000);
@@ -427,7 +431,7 @@ document.addEventListener('keydown', ev => {
       if(v.mode==='edges'){ s.status=v.status; s.note=v.note||''; let c = v.cuts ? v.cuts.split(',').map(Number) : null; const vt = v.tids || (c && w.mergedTids && c.length===w.mergedTids.length+1 && c.length!==w.letters.length+1 ? w.mergedTids : null); if(c && vt && vt.join()!==w.tids.join() && c.length===vt.length+1){ const r=splitCuts(w,vt,c); c=r.cuts; if(r.split) s.status=null; } else if(c && c.length===w.oldLetters+1 && c.length!==w.letters.length+1) c=remapCuts(w,c); s.cuts = c && c.length===w.letters.length+1 ? c : cutsFrom(w, (v.spans||[]).map(q=>q?q.split('-').map(Number):null)); if(v.labels) s.labels=v.labels; }
       else if(v.labels && v.w===w.w && v.h===w.h){ s.labels=v.labels; s.status = v.status || 'approved'; s.note=v.note||''; const sp=spansFrom(w, remapLabels(w, unrle(v.labels.split(',').map(Number), w.w*w.h, Uint8Array))); s.cuts=cutsFrom(w,sp); s.first=s.cuts.slice(); }
     });
-    renderList(); if(!jumped){ jumped=true; if(state[words[cur].wid].status){ const j=words.findIndex(w=>w.sample&&!state[w.wid].status); if(j>=0){ go(j); return; } } }
+    renderList(); if(!jumped){ jumped=true; if(state[words[cur].wid].status){ const j=order().find(k=>!state[words[k].wid].status); if(j!==undefined){ go(j); return; } } }
     const st=state[words[cur].wid]; $('note').value=st.note||''; renderChips(); draw();
   }, ()=>{ $('nosave').hidden=false; });
 })();

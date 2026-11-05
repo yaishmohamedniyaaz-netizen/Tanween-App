@@ -39,7 +39,10 @@ Your job: make the first guess good enough that most borders need no change.
 | `scripts/letter-masks/border_data.py` | Loads words, ink, first guess and approved borders |
 | `scripts/letter-masks/border_shape_model.py` | Method tried: learned letter shapes + dynamic programming |
 | `scripts/letter-masks/border_font_dtw.py` | Method tried: Hafs font rendering aligned to the artwork by warping |
-| `scripts/letter-masks/border_compare.py` | Scores all methods (table below) |
+| `scripts/letter-masks/border_compare.py` | Scores all methods on pages 1-2 (table below) |
+| `scripts/letter-masks/sample_compare.py` | Scores methods on the regular-page sample (dev or hidden test half) |
+| `scripts/letter-masks/border_shift.py` | Method A: move joined borders right by a share of the word height |
+| `scripts/letter-masks/anchor_check.py` | Compares the two halves of the common-words batch (anchoring check) |
 | `scripts/letter-masks/border_guess_eval.py` | Older scorer (first guess and width prior only) |
 
 Build the inputs (from `scripts/letter-masks`):
@@ -95,10 +98,57 @@ signal that picks out words that need no change**, measured on regular pages.
   place borders (letters are stretched differently).
 - 15 words are too few to learn letter widths reliably.
 
-## Before you start: a fair test set
+## Regular pages (measured 6 November 2026)
 
-Ask the owner to approve a random sample of words from regular pages (3-604)
-in the review screen. Score on that sample, not only on pages 1-2.
+The owner approved a fixed random sample of 60 words from 20 regular pages
+(`sample_review.py`, seed 20261105), split by page into 30 "dev" words (for
+tuning) and 30 hidden "test" words (`sample_compare.py`).
+
+All 59 multi-letter sample words, methods not tuned on them:
+
+| Method | Median px | Borders within 2 px | Borders off by more than 5 px | Words with every border within 2 px |
+| --- | --- | --- | --- | --- |
+| First guess (today) | 1.23 | 60% | 14% | 29/59 (49%) |
+| Learned shapes (from pages 1-2 + dev) | 1.23 | 64% | 13% | 30/59 (51%) |
+| Font + warping (no learning) | 1.60 | 56% | 14% | 17/59 (29%) |
+
+Tuned on dev, scored once on the 30 hidden test words:
+
+| Method | Borders within 2 px | Off by more than 5 px | Words with every border within 2 px |
+| --- | --- | --- | --- |
+| First guess (today) | 53% | 22% | 12/29 |
+| A: joined borders moved right by 0.046 of the word height | 59% | 13% | 10/29 |
+| B: learned correction from ink features (gradient boosting) | 57% | 16% | 9/29 |
+
+Findings:
+- **Anchoring.** The owner starts from the first guess and leaves borders that
+  look fine: 41% of inner borders on the sample were approved exactly as
+  guessed. So "distance to the approved border" favours the first guess, and a
+  different method can look worse while being just as acceptable. The
+  common-words batch tests this: half of its words start from guess A
+  (`anchor_check.py` compares the halves).
+- **Systematic error.** Big first-guess errors are almost all on joined
+  strokes and almost all too far left (95 of 103): on stretched joins
+  (kashida) the owner gives the stretch to the letter on the left.
+- Method A halves the big errors but does not raise whole-word accuracy.
+  None reaches the 85% target.
+- **Copying borders between drawings of the same word** (warping one approved
+  drawing onto another): 75% within 2 px, 5% big errors, on 42 pairs.
+- **A shorter, centred bar** hides small border errors: with the bar at 40% of
+  the guessed letter width, 85% of letters on the sample have the bar fully
+  under the right letter with no review (75% of words).
+- The 40 most common spellings cover 15,116 words (19% of the Quran); 100
+  cover 29%, 1,000 cover 56%.
+
+## Test set rules
+
+- Tune only on pages 1-2 and the "dev" half of the sample. Run
+  `sample_compare.py ... test` once, at the end, and report it.
+- Approvals snapshot: `approved/all-approvals-2026-11-06.json` (125 words:
+  pages 1-2 and the 60-word sample).
+- Because of anchoring, also report how many words a method gets *exactly*
+  equal to the approved borders, and look at failures by eye before trusting a
+  px score.
 
 ## Ideas worth trying
 
