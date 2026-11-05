@@ -114,8 +114,11 @@ with a straight vertical line. This is the main work.
   page size: median 1.5 px off, mean 3.9 px; 42% within 1 px, 58% within 2 px.
   The two outer ends of a word were exact.
 - Meaning: the first guess is not good enough to accept without review yet.
-  Next step is to learn from these borders (shape matching against approved
-  letters) and measure again on page 2.
+  Learning from these 15 words did not help yet: a width prior per letter
+  (median 1.7 px, 53% within 2 px) and the Hafs font's letter positions
+  (median 4.2 px, 22% within 2 px) were both worse than the first guess.
+  Too few approved letters; shape matching needs more. Handed over as
+  `docs/CODEX_TASK_LETTER_BORDERS.md`.
 
 ## Open checks
 
