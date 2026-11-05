@@ -16,6 +16,7 @@ import {
   SELECTOR_ESTIMATED_HEIGHT,
 } from "../lib/selectorLayout";
 import type { CategoryId, ScoreConfig } from "../types";
+import { tileGlyph } from "../lib/tileGlyph";
 
 export interface MenuAnchor {
   left: number;
@@ -314,7 +315,7 @@ export function DragMenu({
             }}
             onClick={() => (armed && onArmedPick ? onArmedPick(unit.tid) : onUnitPick(unit.tid))}
           >
-            <span aria-hidden="true" className="unit-glyph">{tashkeel ? unit.audibleGlyph || unit.fullGlyph || unit.primaryGlyph : unit.primaryGlyph}</span>
+            <span aria-hidden="true" className="unit-glyph">{tashkeel ? tileGlyph(unit.audibleGlyph || unit.fullGlyph || unit.primaryGlyph) : unit.primaryGlyph}</span>
           </button>
         ))}
       </div>
