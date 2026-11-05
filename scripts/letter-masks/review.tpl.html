@@ -67,6 +67,9 @@ canvas{display:block}
 label{font-size:13px;color:var(--muted);display:flex;gap:6px;align-items:center}
 input[type=range]{width:120px}
 input[type=text]{font:inherit;padding:6px 8px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--fg);min-width:0;flex:1}
+.tune{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center}
+.tune output{font-variant-numeric:tabular-nums;min-width:3.5em;color:var(--fg)}
+select{font:inherit;padding:4px 6px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--fg)}
 .previews{display:flex;flex-wrap:wrap;gap:16px;align-items:flex-end}
 .previews figure{margin:0;display:grid;gap:4px}
 .previews figcaption{font-size:12px;color:var(--muted)}
@@ -110,10 +113,22 @@ input[type=text]{font:inherit;padding:6px 8px;border:1px solid var(--line);borde
         </div>
       </div>
       <div class="card" style="display:grid;gap:10px">
-        <strong>How the mistake would look</strong>
+        <div class="row" style="justify-content:space-between"><strong>How the mistake would look</strong>
+          <span class="sub" id="tuneSaved"></span></div>
+        <div class="tune">
+          <label for="tThick">Bar thickness <input id="tThick" type="range" min="1" max="5" step="0.25" value="2.5"><output id="oThick"></output></label>
+          <label for="tGap">Gap below the word <input id="tGap" type="range" min="-4" max="4" step="0.25" value="0"><output id="oGap"></output></label>
+          <label for="tInset">Shorter at each end <input id="tInset" type="range" min="0" max="3" step="0.25" value="0"><output id="oInset"></output></label>
+          <label for="tBlock">Word block strength <input id="tBlock" type="range" min="0" max="30" step="1" value="18"><output id="oBlock"></output></label>
+          <label><input id="tRound" type="checkbox"> Round ends</label>
+          <label for="tCat">Criterion <select id="tCat"><option value="jali">Jali</option><option value="khafi">Khafi</option><option value="fasaha">Fasaha</option></select></label>
+          <button class="btn" id="tSave">Save these settings</button>
+        </div>
         <div class="previews">
-          <figure><canvas id="pv1"></canvas><figcaption>Desktop page size</figcaption></figure>
-          <figure><canvas id="pv2"></canvas><figcaption>3 × zoom</figcaption></figure>
+          <figure><canvas id="pv1"></canvas><figcaption>Desktop page size · light</figcaption></figure>
+          <figure><canvas id="pv1d"></canvas><figcaption>Desktop page size · dark</figcaption></figure>
+          <figure><canvas id="pv2"></canvas><figcaption>3 × zoom · light</figcaption></figure>
+          <figure><canvas id="pv2d"></canvas><figcaption>3 × zoom · dark</figcaption></figure>
         </div>
       </div>
       <div class="card row">
@@ -159,6 +174,9 @@ function cutsFrom(w, sp){
   for(let k=1;k<=n;k++) if(c[k]>c[k-1]-1) c[k]=c[k-1]-1;
   return c;
 }
+// Saved before the app merged madd alifs and silent letters: convert to the app's own units.
+function remapCuts(w, old){ const n=w.letters.length, c=[]; for(let k=0;k<n;k++){ const first=w.oldToNew.indexOf(k); c.push(old[first]); } c.push(old[old.length-1]); return c; }
+function remapLabels(w, lab){ const out=new Uint8Array(lab.length); for(let i=0;i<lab.length;i++) out[i] = lab[i] ? w.oldToNew[lab[i]-1]+1 : 0; return out; }
 const spansOf = c => c.slice(0,-1).map((r,i)=>[c[i+1], r]);
 const state={};
 words.forEach(w => { const c=cutsFrom(w,spansFrom(w,w.proposalArr)); state[w.wid]={cuts:c, first:c.slice(), status:null, note:'', old:null, labels:null}; });
@@ -210,20 +228,37 @@ async function draw(){
 }
 function hex(c){ return [parseInt(c.slice(1,3),16),parseInt(c.slice(3,5),16),parseInt(c.slice(5,7),16)]; }
 // Preview of the chosen style: light word block behind the ink + solid bar under the letter span.
+const THEMES = {
+  light:{paper:[251,250,247], ink:[28,27,22], block:{jali:[0xca,0x24,0x4d],khafi:[0xd5,0x8e,0x3a],fasaha:[0x33,0x58,0xd4]}, bar:{jali:[0xca,0x24,0x4d],khafi:[0xd5,0x8e,0x3a],fasaha:[0x33,0x58,0xd4]}, k:1},
+  dark:{paper:[33,31,28], ink:[234,231,222], block:{jali:[0xca,0x24,0x4d],khafi:[0xd5,0x8e,0x3a],fasaha:[0x33,0x58,0xd4]}, bar:{jali:[0xd8,0x6b,0x83],khafi:[0xdd,0xa8,0x69],fasaha:[0x73,0x8b,0xde]}, k:22/14},
+};
+function tune(){ const v=id=>+$(id).value; return {thick:v('tThick'), gap:v('tGap'), inset:v('tInset'), block:v('tBlock')/100, round:$('tRound').checked, cat:$('tCat').value}; }
+function showTune(){ const t=tune(); $('oThick').textContent=t.thick+' px'; $('oGap').textContent=t.gap+' px'; $('oInset').textContent=t.inset+' px'; $('oBlock').textContent=Math.round(t.block*100)+'%'; }
 function drawPreview(){
-  const w=words[cur]; if(!w.img) return; const s=spansOf(state[w.wid].cuts)[letter-1];
-  const extra=24, H=w.h+extra, base=document.createElement('canvas'); base.width=w.w; base.height=H;
-  const bx=base.getContext('2d'), id=bx.createImageData(w.w,H), d=id.data, barH=Math.round(2.5/PAGE_SCALE), barY=w.h-PAD+6;
-  for(let y=0;y<H;y++) for(let X=0;X<w.w;X++){ const o=(y*w.w+X)*4; let bg=PAPER.slice();
-    const inWord = X>=PAD && X<w.w-PAD && y>=PAD-14 && y<barY+barH;
-    if(inWord) bg=bg.map((c0,k)=>c0*(1-.18)+MARK[k]*.18);
-    if(s && X>=s[0] && X<s[1] && y>=barY && y<barY+barH) bg=MARK.slice();
-    const v = y<w.h ? w.img[(y*w.w+X)*4] : 255, t=(255-v)/255;
-    for(let k=0;k<3;k++) d[o+k]=bg[k]*(1-t)+INK[k]*t; d[o+3]=255; }
-  bx.putImageData(id,0,0); const dpr=window.devicePixelRatio||1;
-  [['pv1',PAGE_SCALE],['pv2',PAGE_SCALE*3]].forEach(([cid,css])=>{ const c=$(cid); c.width=Math.round(w.w*css*dpr); c.height=Math.round(H*css*dpr);
-    c.style.width=(w.w*css)+'px'; c.style.height=(H*css)+'px'; const x=c.getContext('2d'); x.imageSmoothingEnabled=true; x.imageSmoothingQuality='high'; x.drawImage(base,0,0,c.width,c.height); });
+  const w=words[cur]; if(!w.img) return; const s=spansOf(state[w.wid].cuts)[letter-1], t=tune(); showTune();
+  const px = v => v/PAGE_SCALE;                                   // CSS px at page size -> artwork px
+  const top=PAD-px(2.5), bottom=w.h-PAD+px(2.5);                  // word block, like the app's mark box
+  const barH=Math.max(1,px(t.thick)), barY=bottom+px(t.gap), H=Math.ceil(Math.max(w.h, barY+barH)+px(3));
+  ['light','dark'].forEach(theme => {
+    const T=THEMES[theme], base=document.createElement('canvas'); base.width=w.w; base.height=H;
+    const bx=base.getContext('2d'), id=bx.createImageData(w.w,H), d=id.data, a=Math.min(.9,t.block*T.k);
+    const x0 = s ? s[0]+px(t.inset) : 0, x1 = s ? s[1]-px(t.inset) : 0, r = barH/2;
+    for(let y=0;y<H;y++) for(let X=0;X<w.w;X++){ const o=(y*w.w+X)*4; let bg=T.paper.slice();
+      if(X>=PAD && X<w.w-PAD && y>=top && y<bottom) bg=bg.map((c0,k)=>c0*(1-a)+T.block[t.cat][k]*a);
+      let inBar = s && x1>x0 && y>=barY && y<barY+barH && X>=x0 && X<x1;
+      if(inBar && t.round){ const cy=barY+r, cx = X<x0+r ? x0+r : X>x1-r ? x1-r : X; inBar = (X-cx)**2+(y+.5-cy)**2 <= r*r; }
+      if(inBar) bg=T.bar[t.cat].slice();
+      const v = y<w.h ? w.img[(y*w.w+X)*4] : 255, tt=(255-v)/255;
+      for(let k=0;k<3;k++) d[o+k]=bg[k]*(1-tt)+T.ink[k]*tt; d[o+3]=255; }
+    bx.putImageData(id,0,0); const dpr=window.devicePixelRatio||1;
+    [['pv1',PAGE_SCALE],['pv2',PAGE_SCALE*3]].forEach(([cid,css])=>{ const c=$(cid+(theme==='dark'?'d':'')); c.width=Math.round(w.w*css*dpr); c.height=Math.round(H*css*dpr);
+      c.style.width=(w.w*css)+'px'; c.style.height=(H*css)+'px'; const x=c.getContext('2d'); x.imageSmoothingEnabled=true; x.imageSmoothingQuality='high'; x.drawImage(base,0,0,c.width,c.height); });
+  });
 }
+['tThick','tGap','tInset','tBlock','tRound','tCat'].forEach(id=>$(id).addEventListener('input',drawPreview));
+$('tSave').onclick=async()=>{ const t=tune(); if(!db){ toast('Saving is not available in this view'); return; }
+  try{ await db.collection('settings').doc('underline').set({...t, savedAt:Date.now()}); $('tuneSaved').textContent='Saved: '+t.thick+' px bar, gap '+t.gap+' px, inset '+t.inset+' px'+(t.round?', round ends':''); toast('Underline settings saved'); }
+  catch(e){ toast('Not saved: '+(e&&e.message||'error')); } };
 function go(i){ cur=Math.max(0,Math.min(words.length-1,i)); fitNext=true; undo=[]; letter=1;
   const w=words[cur], st=state[w.wid]; $('wtext').textContent=w.text; $('note').value=st.note||'';
   $('wmeta').textContent='Page '+w.page+' · line '+w.line+' · '+w.letters.length+' letters · '+label(statusOf(w));
@@ -265,11 +300,14 @@ go(0);
   const timer=setTimeout(()=>{ if(!db) $('nosave').hidden=false; },10000);
   try{ db = window.claude ? await window.claude.use('db') : null; }catch(e){ db=null; }
   clearTimeout(timer); if(!db){ $('nosave').hidden=false; return; }
+  db.collection('settings').doc('underline').get().then(doc=>{ const v=doc&&doc.data&&doc.data(); if(!v) return;
+    $('tThick').value=v.thick; $('tGap').value=v.gap; $('tInset').value=v.inset; $('tBlock').value=Math.round(v.block*100); $('tRound').checked=!!v.round; $('tCat').value=v.cat||'jali';
+    $('tuneSaved').textContent='Saved settings loaded'; drawPreview(); }).catch(()=>{});
   db.collection('reviews').onSnapshot(snap => {
     snap.docs.forEach(doc => { const v=doc.data(); if(!v) return; const w=words.find(x=>x.wid===v.wid); if(!w) return; const s=state[w.wid];
-      if(v.mode==='edges'){ s.status=v.status; s.note=v.note||''; s.cuts = v.cuts ? v.cuts.split(',').map(Number) : cutsFrom(w, v.spans.map(q=>q?q.split('-').map(Number):null)); if(v.labels) s.labels=v.labels; }
+      if(v.mode==='edges'){ s.status=v.status; s.note=v.note||''; let c = v.cuts ? v.cuts.split(',').map(Number) : null; if(c && c.length===w.oldLetters+1 && c.length!==w.letters.length+1) c=remapCuts(w,c); s.cuts = c && c.length===w.letters.length+1 ? c : cutsFrom(w, (v.spans||[]).map(q=>q?q.split('-').map(Number):null)); if(v.labels) s.labels=v.labels; }
       else if(v.labels && v.w===w.w && v.h===w.h){ // approved earlier with the brush tool: use its letters as the first guess, ask for a check
-        s.labels=v.labels; s.status = v.status || 'approved'; s.note=v.note||''; const sp=spansFrom(w, unrle(v.labels.split(',').map(Number), w.w*w.h, Uint8Array)); s.cuts=cutsFrom(w,sp); s.first=s.cuts.slice(); }
+        s.labels=v.labels; s.status = v.status || 'approved'; s.note=v.note||''; const sp=spansFrom(w, remapLabels(w, unrle(v.labels.split(',').map(Number), w.w*w.h, Uint8Array))); s.cuts=cutsFrom(w,sp); s.first=s.cuts.slice(); }
     });
     renderList(); const st=state[words[cur].wid]; $('note').value=st.note||''; renderChips(); draw();
   }, ()=>{ $('nosave').hidden=false; });
