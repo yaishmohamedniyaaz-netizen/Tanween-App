@@ -24,6 +24,26 @@ on the same 1405H page artwork the app already shows.
 - Known limit: stacked letters share the same horizontal space, so their bars
   overlap.
 
+## Silent letters (decided 5 November 2026: option B)
+
+Letters that are written but never pronounced are not separate targets. They
+join the sound that carries them, and the tray shows only the sounded letter:
+
+- A bare letter before a shadda letter in the same word (lam shamsiyyah and
+  other complete idgham, for example ٱلرَّحۡمَٰنِ, أَرَدتُّمۡ): joins the shadda letter.
+- A letter with the small round zero (U+0652 in the QPC text, for example the
+  waw of أُوْلَٰٓئِكَ): joins the letter before it.
+- A bare final letter when the next word starts with a shadda (for example
+  مِّن رَّبِّهِمۡ, قَد تَّبَيَّنَ): joins its own word's last sound; a judge marks the
+  shadda letter of the next word.
+- A nun before a letter without shadda (ikhfa, ghunna idgham such as
+  مَن يَقُولُ) stays a target.
+
+Across all 604 pages this merges 2,988 in-word letters, 264 round-zero letters
+and 1,598 cross-word letters (rule version `qpc-hafs-v1-targets-3.0.0`). The
+saved record keeps the full written span, so the page bar covers the silent
+letter too. Earlier marks on a merged letter migrate to the new target.
+
 ## Why this needs mapping work
 
 - The page is a fixed picture (1920 × 3106 PNG per page, from the pinned Quran

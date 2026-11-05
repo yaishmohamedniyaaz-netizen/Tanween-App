@@ -40,7 +40,7 @@ test('every reviewed word and letter validates against the exact Arabic catalogu
       assert.equal(isPhraseMistakeSnapshot(phraseFixture({phraseId:phrase.id,wordIndex,unitIndex})),true);count++;
     }
   }
-  assert.ok(count>45);
+  assert.ok(count>40); // silent letters now join the sound that carries them
 });
 test('damaged source, offset, identity, version and Quran coordinates are rejected',()=>{
   const changes=[{wordText:'اعوذ'},{sourceStart:999},{sourceEnd:999},{glyph:'ب'},{primaryGlyph:'ب'},

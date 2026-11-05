@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { judgingTargetsOf } from "../src/lib/judgingUnits.ts";
+import { judgingTargetsOf, TARGET_RULE_VERSION } from "../src/lib/judgingUnits.ts";
 import { buildTargetMigrationPatches } from "../src/state/migrateTargets.ts";
 
 const config = {
@@ -86,7 +86,7 @@ test("many-to-one V1 ids migrate to one stable target without mutable fields", a
     tid: "103.3.5@r4",
     targetVersion: 2,
     sourceVersion: "qpc-hafs-v1-1405-r1",
-    ruleVersion: "qpc-hafs-v1-targets-2.0.0",
+    ruleVersion: TARGET_RULE_VERSION,
     wordId: "103.3.5",
     sourceStart: 4,
     sourceEnd: 7,
@@ -130,7 +130,7 @@ test("fully migrated V2 evidence is idempotent and performs no page load", async
     tid: target.tid,
     targetVersion: 2,
     sourceVersion: "qpc-hafs-v1-1405-r1",
-    ruleVersion: "qpc-hafs-v1-targets-2.0.0",
+    ruleVersion: TARGET_RULE_VERSION,
     wordId: "103.3.5",
     sourceStart: target.start,
     sourceEnd: target.end,
@@ -154,7 +154,7 @@ test("current V2 evidence missing display fields is hydrated non-destructively",
       tid: target.tid,
       targetVersion: 2,
       sourceVersion: "qpc-hafs-v1-1405-r1",
-      ruleVersion: "qpc-hafs-v1-targets-2.0.0",
+      ruleVersion: TARGET_RULE_VERSION,
       wordId: "103.3.5",
       sourceStart: target.start,
       sourceEnd: target.end,
@@ -192,4 +192,17 @@ test("a page-load failure rejects before any partial state can be dispatched", a
     }),
     /offline/,
   );
+});
+
+test("a saved mark on the sounded letter after a silent lam migrates to the merged target", async () => {
+  const rahman = "ٱلرَّحۡمَٰنِ";
+  const pageOne = { page: 1, font: "qcf-v1", layout: "KFGQPC V1 1405H", lines: [{ n: 1, type: "ayah", centered: true,
+    words: [{ wid: "1.1.2", text: rahman, surah: 1, ayah: 1, role: "letter" }] }] };
+  const old = mistake({ tid: "1.1.2@r2", wordId: "1.1.2", targetVersion: 2, sourceVersion: "qpc-hafs-v1-1405-r1",
+    ruleVersion: "qpc-hafs-v1-targets-2.0.0", sourceStart: 2, sourceEnd: 5, primaryGlyph: "ر", fullGlyph: "رَّ", page: 1 });
+  const patches = await buildTargetMigrationPatches(state([old]), async () => pageOne);
+  assert.equal(patches.m1.tid, "1.1.2@r1");
+  assert.equal(patches.m1.primaryGlyph, "ر");
+  assert.equal(patches.m1.ruleVersion, TARGET_RULE_VERSION);
+  assert.notEqual(patches.m1.migrationStatus, "unresolved");
 });

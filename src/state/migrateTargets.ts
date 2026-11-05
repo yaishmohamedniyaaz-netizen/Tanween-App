@@ -6,6 +6,7 @@ import {
   TARGET_SOURCE_VERSION,
 } from "../lib/judgingUnits.ts";
 import type { MushafPage, PageWord } from "../lib/page.ts";
+import { nextRecitedWords } from "../lib/recitedNeighbours.ts";
 import type { JudgingState, Mistake } from "../types.ts";
 import { isPhraseMistake } from "../lib/phraseEvidence.ts";
 
@@ -56,9 +57,10 @@ function unresolvedPatch(mistake: Mistake): Partial<TargetMigrationPatch> {
 function patchForWord(
   mistake: Mistake,
   word: PageWord | undefined,
+  nextWord?: string,
 ): Partial<TargetMigrationPatch> {
   if (!word || word.role !== "letter") return unresolvedPatch(mistake);
-  const targets = judgingTargetsOf(word.text, word.role, word.wid);
+  const targets = judgingTargetsOf(word.text, word.role, word.wid, { nextWord });
   const matches = targets.filter((target) =>
     resolvesTargetId(target, mistake.tid),
   );
@@ -134,10 +136,11 @@ export async function buildTargetMigrationPatches(
   for (const [pageNumber, mistakes] of byPage) {
     const page = await pageLoader(pageNumber);
     const words = wordsById(page);
+    const nextWords = nextRecitedWords(page);
     for (const mistake of mistakes) {
       const wordId = wordIdOf(mistake);
       patches[mistake.id] = wordId
-        ? patchForWord(mistake, words.get(wordId))
+        ? patchForWord(mistake, words.get(wordId), nextWords.get(wordId))
         : unresolvedPatch(mistake);
     }
   }

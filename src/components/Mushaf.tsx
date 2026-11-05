@@ -26,6 +26,7 @@ import {
   MUSHAF_LAYOUT,
   preloadPage,
 } from "../lib/page";
+import { nextRecitedWords } from "../lib/recitedNeighbours.ts";
 import type { MushafPage, PageWord } from "../lib/page";
 import {
   loadQcfPageFont,
@@ -76,6 +77,7 @@ interface UnitTarget {
   end: number;
   primaryGlyph: string;
   fullGlyph: string;
+  audibleGlyph?: string;
 }
 
 interface WordHitbox {
@@ -352,13 +354,14 @@ export function Mushaf(props: MushafProps) {
       const wordElements = root.querySelectorAll<HTMLElement>(
         '.m-word[data-role="letter"]',
       );
+      const nextWordOf = nextRecitedWords(page);
 
       wordElements.forEach((wordElement) => {
         const semanticText = wordElement.dataset.semantic ?? "";
         const wid = wordElement.dataset.wid;
         if (!wid || !semanticText) return;
         const role = (wordElement.dataset.role as TokenRole) ?? "letter";
-        const units = judgingTargetsOf(semanticText, role, wid);
+        const units = judgingTargetsOf(semanticText, role, wid, { nextWord: nextWordOf.get(wid) });
         if (!units.length) return;
 
         const rect = wordElement.getBoundingClientRect();
@@ -393,6 +396,7 @@ export function Mushaf(props: MushafProps) {
             end: unit.end,
             primaryGlyph: unit.primaryGlyph,
             fullGlyph: unit.fullGlyph,
+            audibleGlyph: unit.audibleGlyph,
           })),
           ...ink,
           hx: ink.x - (fixedPages ? 0 : HIT_PAD_X),
@@ -1124,6 +1128,7 @@ export function Mushaf(props: MushafProps) {
             tid: unit.tid,
             primaryGlyph: unit.primaryGlyph,
             fullGlyph: unit.fullGlyph,
+            audibleGlyph: unit.audibleGlyph,
             selected: unit.tid === active.tid,
             mistake: mistakesForUnit(unit).find((mistake) =>
               (mistake.judgeSeatId ?? state.activeAssignment?.judgeSeatId) === state.activeAssignment?.judgeSeatId &&

@@ -2,7 +2,7 @@ import type { TokenRole } from "../types";
 import { graphemesOf, isNonRecitationWord } from "./tokenize.ts";
 
 export const TARGET_SCHEMA_VERSION = 2 as const;
-export const TARGET_RULE_VERSION = "qpc-hafs-v1-targets-2.0.0";
+export const TARGET_RULE_VERSION = "qpc-hafs-v1-targets-3.0.0";
 export const TARGET_SOURCE_VERSION = "qpc-hafs-v1-1405-r1";
 
 export type JudgingUnitKind = "letter" | "hamza" | "allah-lam";
@@ -11,7 +11,8 @@ export type OrthographyRole =
   | "hamza-carrier"
   | "madd-support"
   | "silent-plural-alif"
-  | "allah-ligature";
+  | "allah-ligature"
+  | "idgham-absorbed";
 export type JudgingFeature =
   | "fatha"
   | "damma"
@@ -26,7 +27,9 @@ export type JudgingFeature =
   | "hamzat-wasl"
   | "pause-mark"
   | "madd-alif"
-  | "silent-plural-alif";
+  | "silent-plural-alif"
+  | "idgham-absorbed"
+  | "silent-letter";
 
 /**
  * A source-faithful recitation target.
@@ -52,6 +55,19 @@ export interface JudgingUnit {
   reviewStatus: "source" | "policy";
   /** V1 grapheme indices absorbed by this target. */
   legacyGraphemeIndices: number[];
+  /**
+   * The sounded part of the span, when the span also holds a letter that is
+   * written but never pronounced (complete idgham, round-zero letters).
+   */
+  audibleGlyph?: string;
+  /** Source offsets of earlier V2 targets merged into this one (id aliases). */
+  absorbedStarts?: number[];
+}
+
+/** Neighbouring source a target rule may need. */
+export interface TargetContext {
+  /** Text of the next recited word on the same line or page, if any. */
+  nextWord?: string;
 }
 
 export interface JudgingTarget extends JudgingUnit {
@@ -343,13 +359,105 @@ function mergeAllahLams(word: string, source: JudgingUnit[]): JudgingUnit[] {
 }
 
 /** Convert QPC Hafs semantic text into ordered, source-covering V2 targets. */
+const SHADDA = "\u0651";
+/** In QPC Hafs text U+0652 is the small round zero: a letter that is never read. */
+const ROUND_ZERO = "\u0652";
+const MARK_RE = /[\u064B-\u065F\u0670\u06D6-\u06ED]/u;
+const NEVER_ABSORBED = new Set(["ا", "و", "ى", "ي", "ٱ"]);
+
+function isBareConsonant(unit: JudgingUnit): boolean {
+  return unit.kind === "letter" && !NEVER_ABSORBED.has(unit.base) &&
+    !MARK_RE.test(unit.fullGlyph);
+}
+
+function opensWithShadda(word: string | undefined): boolean {
+  if (!word) return false;
+  const marks = word.slice(1).match(/^[\u064B-\u065F\u0670\u06D6-\u06ED]*/u)?.[0] ?? "";
+  return marks.includes(SHADDA);
+}
+
+function absorb(
+  word: string,
+  host: JudgingUnit,
+  silent: JudgingUnit,
+  ruleId: string,
+  feature: JudgingFeature,
+  role: OrthographyRole,
+  hostFirst: boolean,
+  silentKeepsId = true,
+): JudgingUnit {
+  const start = Math.min(host.start, silent.start);
+  const end = Math.max(host.end, silent.end);
+  return refreshSpan(word, {
+    ...host,
+    start,
+    end,
+    audibleGlyph: host.audibleGlyph ?? host.fullGlyph,
+    orthographyRole: role,
+    features: [...new Set([...host.features, feature])],
+    ruleId,
+    reviewStatus: "policy",
+    absorbedStarts: [
+      ...new Set([
+        ...(host.absorbedStarts ?? []),
+        ...(silentKeepsId ? [...(silent.absorbedStarts ?? []), silent.start] : []),
+        host.start,
+      ]),
+    ].filter((offset) => offset !== start),
+    legacyGraphemeIndices: hostFirst
+      ? [...host.legacyGraphemeIndices, ...silent.legacyGraphemeIndices]
+      : [...silent.legacyGraphemeIndices, ...host.legacyGraphemeIndices],
+  });
+}
+
+/**
+ * Written letters that are never pronounced join the sound that carries them:
+ * a bare letter before a shadda letter (complete idgham, including lam
+ * shamsiyyah), a letter with the round zero, and a bare final letter whose
+ * sound is taken by a shadda at the start of the next word. The Madinah Mushaf
+ * writes complete idgham with exactly this sign pattern.
+ */
+function absorbSilentLetters(
+  word: string,
+  source: JudgingUnit[],
+  context: TargetContext,
+): JudgingUnit[] {
+  const units: JudgingUnit[] = [];
+  for (let index = 0; index < source.length; index += 1) {
+    const unit = source[index];
+    const next = source[index + 1];
+    const previous = units[units.length - 1];
+    if (previous && unit.kind === "letter" && unit.orthographyRole === "independent" &&
+      unit.fullGlyph.charAt(1) === ROUND_ZERO) {
+      units[units.length - 1] = absorb(word, previous, unit, "round-zero-silent-v3", "silent-letter", previous.orthographyRole, true);
+      continue;
+    }
+    if (next && isBareConsonant(unit) && next.fullGlyph.includes(SHADDA)) {
+      units.push(absorb(word, next, unit, "idgham-absorbed-v3", "idgham-absorbed", "idgham-absorbed", false));
+      index += 1;
+      continue;
+    }
+    if (!next && previous && isBareConsonant(unit) && opensWithShadda(context.nextWord)) {
+      units[units.length - 1] = absorb(word, previous, unit, "idgham-next-word-v3", "idgham-absorbed", previous.orthographyRole, true, false);
+      continue;
+    }
+    units.push(unit);
+  }
+  return units;
+}
+
 export function judgingUnitsOf(
   word: string,
   wordRole: TokenRole,
+  context: TargetContext = {},
 ): JudgingUnit[] {
-  return mergeAllahLams(
+  return absorbSilentLetters(
     word,
-    mergeMaddAlifs(word, sourceUnitsOf(word, wordRole)),
+    mergeAllahLams(
+      word,
+      mergeMaddAlifs(word, sourceUnitsOf(word, wordRole)),
+    ),
+    context,
   );
 }
 
@@ -367,8 +475,9 @@ export function judgingTargetsOf(
   word: string,
   wordRole: TokenRole,
   wordId: string,
+  context: TargetContext = {},
 ): JudgingTarget[] {
-  const targets = judgingUnitsOf(word, wordRole);
+  const targets = judgingUnitsOf(word, wordRole, context);
   const legacyUnits = legacyV1UnitsOf(word, wordRole);
   return targets.map((target) => {
     const aliases = new Set<string>();
@@ -380,6 +489,9 @@ export function judgingTargetsOf(
         }
       }
     });
+    // Earlier V2 ids of merged letters still resolve. A letter whose sound
+    // moved into the next word keeps no id: a saved mark on it stays unresolved.
+    for (const offset of target.absorbedStarts ?? []) aliases.add(`${wordId}@r${offset}`);
     return {
       ...target,
       tid: judgingTargetId(wordId, target),

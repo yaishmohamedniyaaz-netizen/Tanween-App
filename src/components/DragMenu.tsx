@@ -33,6 +33,8 @@ interface Props {
     tid: string;
     primaryGlyph: string;
     fullGlyph: string;
+    /** Sounded part, when the span also holds a never-pronounced letter. */
+    audibleGlyph?: string;
     selected: boolean;
     mistake?: { id: string; category: CategoryId; amount: number };
   }>;
@@ -312,7 +314,7 @@ export function DragMenu({
             }}
             onClick={() => (armed && onArmedPick ? onArmedPick(unit.tid) : onUnitPick(unit.tid))}
           >
-            <span aria-hidden="true" className="unit-glyph">{tashkeel ? unit.fullGlyph || unit.primaryGlyph : unit.primaryGlyph}</span>
+            <span aria-hidden="true" className="unit-glyph">{tashkeel ? unit.audibleGlyph || unit.fullGlyph || unit.primaryGlyph : unit.primaryGlyph}</span>
           </button>
         ))}
       </div>
