@@ -257,7 +257,8 @@ function renderList(){
       b.querySelector('.ar').textContent=w.text; if(w.freq){ const f=document.createElement('span'); f.className='freq'; f.textContent='×'+w.freq.toLocaleString('en'); b.querySelector('.ar').after(f); b.style.gridTemplateColumns='1fr auto auto'; }
       b.onclick=()=>{ openList(false); go(i); }; L.appendChild(b); };
   const group=t=>{ const h=document.createElement('p'); h.className='group'; h.textContent=t; L.appendChild(h); };
-  if(words.some(w=>w.batch==='common')){ group('Common words (one drawing each)'); words.forEach((w,i)=>{ if(w.batch==='common') item(w,i); }); }
+  const BATCHES=[['copied','Copied borders (spot check)'],['common','Common words (one drawing each)']];
+  BATCHES.forEach(([b,t])=>{ if(words.some(w=>w.batch===b)){ group(t); words.forEach((w,i)=>{ if(w.batch===b) item(w,i); }); } });
   if(words.some(w=>w.sample)){ group('Sample from regular pages'); const pages=[...new Set(words.filter(w=>w.sample).map(w=>w.page))];
     pages.forEach(p=>{ const h=document.createElement('h2'); h.textContent='Page '+p; L.appendChild(h); words.forEach((w,i)=>{ if(w.sample&&w.page===p) item(w,i); }); });
     group('Opening pages'); }
@@ -419,7 +420,8 @@ document.addEventListener('keydown', ev => {
   else if(ev.key==='m') $('multi').click(); else if(ev.key==='r') $('random').click();
   else if(ev.key==='z') $('undo').click(); else if(ev.key==='Enter'){ ev.preventDefault(); $('approve').click(); }
 });
-const order=()=>[...words.keys()].sort((a,b)=>(words[a].batch?0:words[a].sample?1:2)-(words[b].batch?0:words[b].sample?1:2)||a-b);
+const rank=w=>w.batch==='copied'?0:w.batch?1:w.sample?2:3;
+const order=()=>[...words.keys()].sort((a,b)=>rank(words[a])-rank(words[b])||a-b);
 { go(order()[0]); }
 
 (async()=>{

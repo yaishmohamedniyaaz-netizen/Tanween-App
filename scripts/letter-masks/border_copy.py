@@ -30,7 +30,8 @@ def prepare(w):
 def art(w):
     pcs = w['_pcs'].reshape(w['h'], w['w']); sk = np.isin(pcs, w['skeleton']) & w['_ink']
     if not sk.any(): sk = w['_ink']
-    cols = np.where(w['_ink'].any(0))[0]; R = int(cols.max()) + 1; L = int(cols.min())
+    own = (pcs > 0) & w['_ink']   # this word's pieces only; the crop margin can hold a neighbour's ink
+    cols = np.where((own if own.any() else w['_ink']).any(0))[0]; R = int(cols.max()) + 1; L = int(cols.min())
     bl = int(np.argmax(sk.sum(1))); ys = np.where(sk.any(1))[0]
     return sk, L, R, bl, ys.max() - ys.min() + 1
 
