@@ -25,7 +25,7 @@ on the same 1405H page artwork the app already shows.
   overlap.
 - Bar placement (5 November 2026): inside the word block, along its bottom
   edge, not below it.
-- Bar settings (decided 5 November 2026): 2.5 px thick at desktop page size,
+- Bar settings (decided 5 November 2026): 2.25 px thick at desktop page size,
   square ends, full letter width; word block about 18% in light (22/14 of that
   in dark), drawn behind the ink. Bar colour: the criterion colour in light,
   the lighter criterion colour in dark. Comparison script:
@@ -105,6 +105,17 @@ with a straight vertical line. This is the main work.
 3. Reuse those approvals on pages 3–20. Measure green / yellow / red rates,
    wrong greens in random checks, and review time per word.
 4. Decide on the full 604 pages from those numbers.
+
+## First review results (5 November 2026)
+
+- 22 of 65 words on pages 1–2 approved (all on page 1); 15 of them with the
+  border tool.
+- Automatic first guess vs the owner's borders, between letters, at desktop
+  page size: median 1.5 px off, mean 3.9 px; 42% within 1 px, 58% within 2 px.
+  The two outer ends of a word were exact.
+- Meaning: the first guess is not good enough to accept without review yet.
+  Next step is to learn from these borders (shape matching against approved
+  letters) and measure again on page 2.
 
 ## Open checks
 
