@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { judgingTargetsOf, TARGET_RULE_VERSION } from "../src/lib/judgingUnits.ts";
+import { judgingTargetsOf, MERGED_SILENT_RULE_VERSION, TARGET_RULE_VERSION } from "../src/lib/judgingUnits.ts";
 import { buildTargetMigrationPatches } from "../src/state/migrateTargets.ts";
 
 const config = {
@@ -194,15 +194,26 @@ test("a page-load failure rejects before any partial state can be dispatched", a
   );
 });
 
-test("a saved mark on the sounded letter after a silent lam migrates to the merged target", async () => {
-  const rahman = "ٱلرَّحۡمَٰنِ";
-  const pageOne = { page: 1, font: "qcf-v1", layout: "KFGQPC V1 1405H", lines: [{ n: 1, type: "ayah", centered: true,
-    words: [{ wid: "1.1.2", text: rahman, surah: 1, ayah: 1, role: "letter" }] }] };
+const RAHMAN_PAGE = { page: 1, font: "qcf-v1", layout: "KFGQPC V1 1405H", lines: [{ n: 1, type: "ayah", centered: true,
+  words: [{ wid: "1.1.2", text: "ٱلرَّحۡمَٰنِ", surah: 1, ayah: 1, role: "letter" }] }] };
+
+test("a saved mark on the sounded letter after a silent lam keeps its own letter", async () => {
   const old = mistake({ tid: "1.1.2@r2", wordId: "1.1.2", targetVersion: 2, sourceVersion: "qpc-hafs-v1-1405-r1",
     ruleVersion: "qpc-hafs-v1-targets-2.0.0", sourceStart: 2, sourceEnd: 5, primaryGlyph: "ر", fullGlyph: "رَّ", page: 1 });
-  const patches = await buildTargetMigrationPatches(state([old]), async () => pageOne);
-  assert.equal(patches.m1.tid, "1.1.2@r1");
+  const patches = await buildTargetMigrationPatches(state([old]), async () => RAHMAN_PAGE);
+  assert.equal(patches.m1.tid, "1.1.2@r2");
   assert.equal(patches.m1.primaryGlyph, "ر");
   assert.equal(patches.m1.ruleVersion, TARGET_RULE_VERSION);
-  assert.notEqual(patches.m1.migrationStatus, "unresolved");
+  assert.equal(patches.m1.migrationStatus, "exact");
+});
+
+test("a mark saved while the lam was merged into the ra moves back to the ra", async () => {
+  // Rule 3.0.0 gave the merged lam+ra target the lam's id.
+  const merged = mistake({ tid: "1.1.2@r1", wordId: "1.1.2", targetVersion: 2, sourceVersion: "qpc-hafs-v1-1405-r1",
+    ruleVersion: MERGED_SILENT_RULE_VERSION, sourceStart: 1, sourceEnd: 5, primaryGlyph: "ر", fullGlyph: "لرَّ", page: 1 });
+  const patches = await buildTargetMigrationPatches(state([merged]), async () => RAHMAN_PAGE);
+  assert.equal(patches.m1.tid, "1.1.2@r2");
+  assert.equal(patches.m1.primaryGlyph, "ر");
+  assert.equal(patches.m1.fullGlyph, "رَّ");
+  assert.equal(patches.m1.originalTid, "1.1.2@r1");
 });

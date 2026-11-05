@@ -223,6 +223,14 @@ product rules belong in `PRODUCT_FOUNDATION.md`, not here.
       brighter shade) so it is clear the mistake is in the haraka, or whether
       that looks too busy. Trial plan: `LETTER_LEVEL_HIGHLIGHT_TRIAL_PLAN.md`.
 
+36. **Other silent letters in the letter tray**
+    - Decided 5 November 2026: letters silent by complete idgham (including
+      lam shamsiyyah) or the round zero are their own letters, drawn faded.
+    - To be decided: the first lam of ٱللَّه (now merged with the second lam)
+      and the plural alif of قَالُواْ (now merged with the waw); and whether
+      hamzat al-wasl looks faded when reading on from the word before.
+    - Tutorial wording that explains faded letters.
+
 ## Later research, not current blockers
 
 20. **AI question suggestions**

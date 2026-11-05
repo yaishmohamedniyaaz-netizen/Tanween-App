@@ -34,8 +34,8 @@ interface Props {
     tid: string;
     primaryGlyph: string;
     fullGlyph: string;
-    /** Sounded part, when the span also holds a never-pronounced letter. */
-    audibleGlyph?: string;
+    /** Written but never pronounced: drawn faded, still selectable. */
+    silent?: boolean;
     selected: boolean;
     mistake?: { id: string; category: CategoryId; amount: number };
   }>;
@@ -295,7 +295,7 @@ export function DragMenu({
             type="button"
             role="radio"
             data-unit-tid={unit.tid}
-            className={`unit-choice ${unit.selected ? "selected" : ""} ${unit.mistake ? `marked cat-${unit.selected && hovered ? hovered : unit.mistake.category}` : ""}`}
+            className={`unit-choice ${unit.silent ? "silent" : ""} ${unit.selected ? "selected" : ""} ${unit.mistake ? `marked cat-${unit.selected && hovered ? hovered : unit.mistake.category}` : ""}`}
             aria-label={`Letter ${index + 1} of ${units.length}: ${unit.primaryGlyph}. Exact source ${unit.fullGlyph}${unit.mistake ? `. Marked: ${CATEGORIES.find((category) => category.id === unit.mistake?.category)?.label}` : ""}`}
             aria-checked={unit.selected}
             tabIndex={
@@ -315,7 +315,7 @@ export function DragMenu({
             }}
             onClick={() => (armed && onArmedPick ? onArmedPick(unit.tid) : onUnitPick(unit.tid))}
           >
-            <span aria-hidden="true" className="unit-glyph">{tashkeel ? tileGlyph(unit.audibleGlyph || unit.fullGlyph || unit.primaryGlyph) : unit.primaryGlyph}</span>
+            <span aria-hidden="true" className="unit-glyph">{tashkeel ? tileGlyph(unit.fullGlyph || unit.primaryGlyph) : unit.primaryGlyph}</span>
           </button>
         ))}
       </div>

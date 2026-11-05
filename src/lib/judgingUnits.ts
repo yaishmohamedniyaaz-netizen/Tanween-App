@@ -2,7 +2,9 @@ import type { TokenRole } from "../types";
 import { graphemesOf, isNonRecitationWord } from "./tokenize.ts";
 
 export const TARGET_SCHEMA_VERSION = 2 as const;
-export const TARGET_RULE_VERSION = "qpc-hafs-v1-targets-3.0.0";
+export const TARGET_RULE_VERSION = "qpc-hafs-v1-targets-4.0.0";
+/** Rule version that merged silent letters into their sound (never released). */
+export const MERGED_SILENT_RULE_VERSION = "qpc-hafs-v1-targets-3.0.0";
 export const TARGET_SOURCE_VERSION = "qpc-hafs-v1-1405-r1";
 
 export type JudgingUnitKind = "letter" | "hamza" | "allah-lam";
@@ -12,7 +14,7 @@ export type OrthographyRole =
   | "madd-support"
   | "silent-plural-alif"
   | "allah-ligature"
-  | "idgham-absorbed";
+  | "silent-letter";
 export type JudgingFeature =
   | "fatha"
   | "damma"
@@ -28,8 +30,8 @@ export type JudgingFeature =
   | "pause-mark"
   | "madd-alif"
   | "silent-plural-alif"
-  | "idgham-absorbed"
-  | "silent-letter";
+  | "idgham"
+  | "round-zero";
 
 /**
  * A source-faithful recitation target.
@@ -56,12 +58,10 @@ export interface JudgingUnit {
   /** V1 grapheme indices absorbed by this target. */
   legacyGraphemeIndices: number[];
   /**
-   * The sounded part of the span, when the span also holds a letter that is
-   * written but never pronounced (complete idgham, round-zero letters).
+   * Written but never pronounced (complete idgham, round zero). Still its own
+   * target: mistakes such as pronouncing it belong to this letter.
    */
-  audibleGlyph?: string;
-  /** Source offsets of earlier V2 targets merged into this one (id aliases). */
-  absorbedStarts?: number[];
+  silent?: boolean;
 }
 
 /** Neighbouring source a target rule may need. */
@@ -376,74 +376,42 @@ function opensWithShadda(word: string | undefined): boolean {
   return marks.includes(SHADDA);
 }
 
-function absorb(
-  word: string,
-  host: JudgingUnit,
-  silent: JudgingUnit,
-  ruleId: string,
-  feature: JudgingFeature,
-  role: OrthographyRole,
-  hostFirst: boolean,
-  silentKeepsId = true,
-): JudgingUnit {
-  const start = Math.min(host.start, silent.start);
-  const end = Math.max(host.end, silent.end);
-  return refreshSpan(word, {
-    ...host,
-    start,
-    end,
-    audibleGlyph: host.audibleGlyph ?? host.fullGlyph,
-    orthographyRole: role,
-    features: [...new Set([...host.features, feature])],
-    ruleId,
-    reviewStatus: "policy",
-    absorbedStarts: [
-      ...new Set([
-        ...(host.absorbedStarts ?? []),
-        ...(silentKeepsId ? [...(silent.absorbedStarts ?? []), silent.start] : []),
-        host.start,
-      ]),
-    ].filter((offset) => offset !== start),
-    legacyGraphemeIndices: hostFirst
-      ? [...host.legacyGraphemeIndices, ...silent.legacyGraphemeIndices]
-      : [...silent.legacyGraphemeIndices, ...host.legacyGraphemeIndices],
-  });
-}
-
 /**
- * Written letters that are never pronounced join the sound that carries them:
- * a bare letter before a shadda letter (complete idgham, including lam
+ * Written letters that are never pronounced stay their own targets, flagged
+ * silent: a bare letter before a shadda letter (complete idgham, including lam
  * shamsiyyah), a letter with the round zero, and a bare final letter whose
  * sound is taken by a shadda at the start of the next word. The Madinah Mushaf
- * writes complete idgham with exactly this sign pattern.
+ * writes complete idgham with exactly this sign pattern. A reciter can still
+ * err on them (for example pronouncing the nun of مِّن رَّبِّهِمۡ), and that
+ * mistake belongs to the silent letter.
  */
-function absorbSilentLetters(
-  word: string,
+function markSilentLetters(
   source: JudgingUnit[],
   context: TargetContext,
 ): JudgingUnit[] {
-  const units: JudgingUnit[] = [];
-  for (let index = 0; index < source.length; index += 1) {
-    const unit = source[index];
+  const silent = (unit: JudgingUnit, ruleId: string, feature: JudgingFeature): JudgingUnit => ({
+    ...unit,
+    silent: true,
+    orthographyRole: "silent-letter",
+    features: [...new Set([...unit.features, feature])],
+    ruleId,
+    reviewStatus: "policy",
+  });
+  return source.map((unit, index) => {
     const next = source[index + 1];
-    const previous = units[units.length - 1];
+    const previous = source[index - 1];
     if (previous && unit.kind === "letter" && unit.orthographyRole === "independent" &&
       unit.fullGlyph.charAt(1) === ROUND_ZERO) {
-      units[units.length - 1] = absorb(word, previous, unit, "round-zero-silent-v3", "silent-letter", previous.orthographyRole, true);
-      continue;
+      return silent(unit, "silent-round-zero-v4", "round-zero");
     }
     if (next && isBareConsonant(unit) && next.fullGlyph.includes(SHADDA)) {
-      units.push(absorb(word, next, unit, "idgham-absorbed-v3", "idgham-absorbed", "idgham-absorbed", false));
-      index += 1;
-      continue;
+      return silent(unit, "silent-idgham-v4", "idgham");
     }
     if (!next && previous && isBareConsonant(unit) && opensWithShadda(context.nextWord)) {
-      units[units.length - 1] = absorb(word, previous, unit, "idgham-next-word-v3", "idgham-absorbed", previous.orthographyRole, true, false);
-      continue;
+      return silent(unit, "silent-idgham-next-word-v4", "idgham");
     }
-    units.push(unit);
-  }
-  return units;
+    return unit;
+  });
 }
 
 export function judgingUnitsOf(
@@ -451,8 +419,7 @@ export function judgingUnitsOf(
   wordRole: TokenRole,
   context: TargetContext = {},
 ): JudgingUnit[] {
-  return absorbSilentLetters(
-    word,
+  return markSilentLetters(
     mergeAllahLams(
       word,
       mergeMaddAlifs(word, sourceUnitsOf(word, wordRole)),
@@ -489,9 +456,6 @@ export function judgingTargetsOf(
         }
       }
     });
-    // Earlier V2 ids of merged letters still resolve. A letter whose sound
-    // moved into the next word keeps no id: a saved mark on it stays unresolved.
-    for (const offset of target.absorbedStarts ?? []) aliases.add(`${wordId}@r${offset}`);
     return {
       ...target,
       tid: judgingTargetId(wordId, target),

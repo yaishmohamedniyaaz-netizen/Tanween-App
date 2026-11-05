@@ -31,25 +31,34 @@ on the same 1405H page artwork the app already shows.
   the lighter criterion colour in dark. Comparison script:
   `scripts/letter-masks/thickness_compare.py`.
 
-## Silent letters (decided 5 November 2026: option B)
+## Silent letters (decided 5 November 2026: faded own letter)
 
-Letters that are written but never pronounced are not separate targets. They
-join the sound that carries them, and the tray shows only the sounded letter:
+Letters that are written but never pronounced stay their own targets. The
+letter tray draws them faded (38% strength, no other mark); a tutorial will
+explain the fading. Reason: a reciter can still err on them, and the mistake
+belongs to that letter, for example pronouncing the nun in مِّن رَّبِّهِمۡ
+(leaving the idgham) or saying the lam in ٱلرَّحۡمَٰنِ. The page bar then sits
+under the silent letter only.
+
+Silent letters (rule version `qpc-hafs-v1-targets-4.0.0`):
 
 - A bare letter before a shadda letter in the same word (lam shamsiyyah and
-  other complete idgham, for example ٱلرَّحۡمَٰنِ, أَرَدتُّمۡ): joins the shadda letter.
+  other complete idgham, for example ٱلرَّحۡمَٰنِ, أَرَدتُّمۡ): 2,988.
 - A letter with the small round zero (U+0652 in the QPC text, for example the
-  waw of أُوْلَٰٓئِكَ): joins the letter before it.
+  waw of أُوْلَٰٓئِكَ): 264.
 - A bare final letter when the next word starts with a shadda (for example
-  مِّن رَّبِّهِمۡ, قَد تَّبَيَّنَ): joins its own word's last sound; a judge marks the
-  shadda letter of the next word.
+  مِّن رَّبِّهِمۡ, قُلُوبِهِم مَّرَضٞ, قَد تَّبَيَّنَ): 1,598.
 - A nun before a letter without shadda (ikhfa, ghunna idgham such as
-  مَن يَقُولُ) stays a target.
+  مَن يَقُولُ) is pronounced in part and is not marked silent.
 
-Across all 604 pages this merges 2,988 in-word letters, 264 round-zero letters
-and 1,598 cross-word letters (rule version `qpc-hafs-v1-targets-3.0.0`). The
-saved record keeps the full written span, so the page bar covers the silent
-letter too. Earlier marks on a merged letter migrate to the new target.
+Not yet decided: the first lam of ٱللَّه (2,667) and the plural alif of قَالُواْ
+(3,703) stay merged as before; hamzat al-wasl (13,819) stays a normal letter
+although it is silent when reading on from the word before.
+
+History: on 5 November 2026 these letters were first merged into the sound
+that carries them (option B, rule 3.0.0, never released). The owner flagged
+مِّن: the nun can be pronounced by mistake. Marks saved under 3.0.0 on a merged
+lam and shadda letter move to the shadda letter.
 
 ## Why this needs mapping work
 

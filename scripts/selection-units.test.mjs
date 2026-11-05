@@ -181,46 +181,49 @@ test("all 604 pages produce ordered, source-complete, alias-safe targets", () =>
   assert.equal(tawasawFixtures, 4);
 });
 
-// Letters that are written but never pronounced join the sound that carries them.
-const RAHMAN = "ٱلرَّحۡمَٰنِ";
+// Letters that are written but never pronounced stay their own targets,
+// flagged silent: a reciter can still pronounce them by mistake.
+const RAHMAN = "ٱلرَّحۡمَٰنِ";
 const ULAIKA = "أُوْلَٰٓئِكَ";
-const MIN = "مِّن";
-const RABBIHIM = "رَّبِّهِمۡۖ";
+const MIN = "مِّن";
+const RABBIHIM = "رَّبِّهِمۡۖ";
+const silentOf = (units) => units.filter((unit) => unit.silent).map((unit) => unit.primaryGlyph);
 
-test("a silent lam before a sun letter joins the shadda letter", () => {
+test("a lam before a sun letter is its own silent target", () => {
   const units = judgingUnitsOf(RAHMAN, "letter");
-  assert.deepEqual(units.map((unit) => unit.primaryGlyph), ["ٱ", "ر", "ح", "م", "ن"]);
-  assert.equal(units[1].fullGlyph, RAHMAN.slice(1, 5));
-  assert.equal(units[1].audibleGlyph, RAHMAN.slice(2, 5));
-  assert.equal(units[1].orthographyRole, "idgham-absorbed");
-  assert.ok(units[1].features.includes("idgham-absorbed"));
+  assert.deepEqual(units.map((unit) => unit.primaryGlyph), ["ٱ", "ل", "ر", "ح", "م", "ن"]);
+  assert.deepEqual(silentOf(units), ["ل"]);
+  assert.equal(units[1].fullGlyph, "ل");
+  assert.equal(units[1].orthographyRole, "silent-letter");
+  assert.ok(units[1].features.includes("idgham"));
+  assert.equal(units[2].fullGlyph, "رَّ");
+  assert.ok(!units[2].silent);
   const targets = judgingTargetsOf(RAHMAN, "letter", "1.1.2");
   assert.equal(targets[1].tid, "1.1.2@r1");
-  assert.ok(resolvesTargetId(targets[1], "1.1.2@r2"), "the old ra id still resolves");
+  assert.equal(targets[2].tid, "1.1.2@r2");
 });
 
-test("complete idgham inside a word and round-zero letters join their sound", () => {
-  assert.deepEqual(
-    primaryGlyphs("أَرَدتُّمۡ"),
-    ["ء", "ر", "ت", "م"],
-  );
+test("complete idgham inside a word and round-zero letters are silent targets", () => {
+  const arattum = judgingUnitsOf("أَرَدتُّمۡ", "letter");
+  assert.deepEqual(arattum.map((unit) => unit.primaryGlyph), ["ء", "ر", "د", "ت", "م"]);
+  assert.deepEqual(silentOf(arattum), ["د"]);
   const units = judgingUnitsOf(ULAIKA, "letter");
-  assert.deepEqual(units.map((unit) => unit.primaryGlyph), ["ء", "ل", "ء", "ك"]);
-  assert.equal(units[0].fullGlyph, ULAIKA.slice(0, 4));
-  assert.ok(units[0].features.includes("silent-letter"));
-  const targets = judgingTargetsOf(ULAIKA, "letter", "2.5.0");
-  assert.ok(resolvesTargetId(targets[0], "2.5.0@r2"), "the old waw id still resolves");
+  assert.deepEqual(units.map((unit) => unit.primaryGlyph), ["ء", "و", "ل", "ء", "ك"]);
+  assert.deepEqual(silentOf(units), ["و"]);
+  assert.ok(units[1].features.includes("round-zero"));
+  assert.equal(judgingTargetsOf(ULAIKA, "letter", "2.5.0")[1].tid, "2.5.0@r2");
 });
 
-test("a final letter absorbed by the next word joins its own word's last sound", () => {
+test("a final nun whose sound the next word takes is a silent target", () => {
   const alone = judgingUnitsOf(MIN, "letter");
   assert.deepEqual(alone.map((unit) => unit.primaryGlyph), ["م", "ن"]);
+  assert.deepEqual(silentOf(alone), []);
   const units = judgingUnitsOf(MIN, "letter", { nextWord: RABBIHIM });
-  assert.deepEqual(units.map((unit) => unit.primaryGlyph), ["م"]);
-  assert.equal(units[0].fullGlyph, MIN);
-  assert.equal(units[0].audibleGlyph, MIN.slice(0, 3));
+  assert.deepEqual(units.map((unit) => unit.primaryGlyph), ["م", "ن"]);
+  assert.deepEqual(silentOf(units), ["ن"]);
+  assert.equal(units[0].fullGlyph, "مِّ");
   const targets = judgingTargetsOf(MIN, "letter", "2.5.3", { nextWord: RABBIHIM });
-  assert.ok(!resolvesTargetId(targets[0], "2.5.3@r3"), "the silent nun keeps no id of its own");
+  assert.equal(targets[1].tid, "2.5.3@r3");
 });
 
 test("a nun kept as ghunna (no shadda on the next letter) stays a target", () => {

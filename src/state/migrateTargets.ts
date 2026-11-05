@@ -1,5 +1,6 @@
 import {
   judgingTargetsOf,
+  MERGED_SILENT_RULE_VERSION,
   resolvesTargetId,
   TARGET_RULE_VERSION,
   TARGET_SCHEMA_VERSION,
@@ -66,7 +67,13 @@ function patchForWord(
   );
   if (matches.length !== 1) return unresolvedPatch(mistake);
 
-  const target = matches[0];
+  let target = matches[0];
+  // Rule 3.0.0 merged a silent letter into the shadda letter after it and gave
+  // the merged target the silent letter's id. Those marks meant the sound.
+  if (mistake.ruleVersion === MERGED_SILENT_RULE_VERSION &&
+    target.ruleId === "silent-idgham-v4") {
+    target = targets[targets.indexOf(target) + 1] ?? target;
+  }
   const oldOrdinalAliases = target.aliases.filter((alias) =>
     /@u\d+$/u.test(alias),
   );

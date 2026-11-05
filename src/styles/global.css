@@ -6052,6 +6052,8 @@ textarea:focus-visible {
   font-size: 22px;
 }
 .unit-glyph { white-space: nowrap; }
+/* Written but never pronounced: faded, still selectable. */
+.unit-choice.silent .unit-glyph { opacity: 0.38; }
 .drag-menu.up .unit-picker {
   flex-direction: column-reverse;
 }

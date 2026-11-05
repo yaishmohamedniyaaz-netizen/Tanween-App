@@ -60,6 +60,7 @@ h1{font-size:20px;margin:0;text-wrap:balance}
 .chip .ar{font:32px/1.45 var(--ar)}
 .chip .k{font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums}
 .chip::after{content:"";position:absolute;left:8px;right:8px;bottom:3px;height:4px;border-radius:2px;background:transparent}
+.chip.silent .ar{opacity:.38}
 .chip.marked{border-color:var(--cc);background:color-mix(in srgb,var(--cc) 14%,var(--panel))}
 .chip.marked::after{background:var(--cc)}
 .chip.on{box-shadow:0 0 0 2px var(--panel),0 0 0 4px var(--fg)}
@@ -178,8 +179,22 @@ function cutsFrom(w, sp){
   for(let k=1;k<=n;k++) if(c[k]>c[k-1]-1) c[k]=c[k-1]-1;
   return c;
 }
-// Saved before the app merged madd alifs and silent letters: convert to the app's own units.
+// Saved before the app merged madd alifs: convert to the app's own units.
 function remapCuts(w, old){ const n=w.letters.length, c=[]; for(let k=0;k<n;k++){ const first=w.oldToNew.indexOf(k); c.push(old[first]); } c.push(old[old.length-1]); return c; }
+// Saved under other letter units (silent letters were merged into their sound
+// before 5 Nov 2026): keep every saved border; a new border inside a merged
+// letter starts from the first guess and the word goes back to "to check".
+function splitCuts(w, tids, old){
+  const at=t=>+String(t).split('@r')[1], os=tids.map(at), ns=w.tids.map(at), n=ns.length;
+  const from=k=>{ let i=0; for(let j=0;j<os.length;j++) if(os[j]<=ns[k]) i=j; return i; };
+  const c=[old[0]]; let split=false;
+  for(let k=1;k<n;k++){ const a=from(k-1), b=from(k);
+    if(a!==b){ c.push(old[b]); continue; }
+    split=true; const hi=old[a]-1, lo=old[a+1]+1; c.push(Math.max(lo, Math.min(hi, state[w.wid].first[k]))); }
+  c.push(old[old.length-1]);
+  for(let k=1;k<=n;k++) if(c[k]>c[k-1]-1) c[k]=c[k-1]-1;
+  return {cuts:c, split};
+}
 function remapLabels(w, lab){ const out=new Uint8Array(lab.length); for(let i=0;i<lab.length;i++) out[i] = lab[i] ? w.oldToNew[lab[i]-1]+1 : 0; return out; }
 const spansOf = c => c.slice(0,-1).map((r,i)=>[c[i+1], r]);
 const state={};
@@ -204,15 +219,18 @@ function renderList(){
   let a=0,f=0; words.forEach(w=>{ const s=state[w.wid].status; if(s==='approved')a++; if(s==='flagged')f++; });
   $('progress').innerHTML='<span><b>'+a+'</b> of '+words.length+' approved</span><span><b>'+f+'</b> need a rule</span><span><b>'+(words.length-a-f)+'</b> left</span>';
 }
+// Same display rule as the app tray (src/lib/tileGlyph.ts): pause signs off,
+// a dagger alif after a haraka sits on a short tatweel on joining letters.
+function tileGlyph(g){ const t=g.replace(/[\u06D6-\u06DC]/gu,''); return 'بتثجحخسشصضطظعغفقكلمنهيىئـ'.includes(t.charAt(0)) ? t.replace(/([\u064B-\u065F\u06E1])(\u0670)/u,'$1\u0640$2') : t; }
 function renderChips(){
   const w=words[cur], C=$('chips'); C.innerHTML='';
-  w.letters.forEach((t,i) => { const m=marks.find(x=>x.L===i+1), b=document.createElement('button'); b.className='chip'+(letter===i+1?' on':'')+(m?' marked':'');
+  w.letters.forEach((t,i) => { const m=marks.find(x=>x.L===i+1), b=document.createElement('button'); b.className='chip'+(w.silent&&w.silent[i]?' silent':'')+(letter===i+1?' on':'')+(m?' marked':'');
     if(m) b.style.setProperty('--cc','rgb('+THEMES.light.bar[m.cat].join(',')+')');
     b.setAttribute('aria-pressed', String(!!m)); b.setAttribute('aria-label','Letter '+(i+1)+(m?', marked '+m.cat:''));
     b.innerHTML='<span class="k">'+(i+1)+'</span><span class="ar"></span>';
-    b.querySelector('.ar').textContent=t; b.onclick=ev=>tapLetter(i+1, ev.shiftKey); C.appendChild(b); });   // standalone letter form reads clearly
+    b.querySelector('.ar').textContent=tileGlyph(t); b.onclick=ev=>tapLetter(i+1, ev.shiftKey); C.appendChild(b); });   // standalone letter form reads clearly
   const am=marks.find(m=>m.L===letter); if(am) $('cat').value=am.cat;   // the picker shows the edited letter's criterion
-  $('selLetter').textContent=w.letters[letter-1];   // on its own so it reads clearly
+  $('selLetter').textContent=tileGlyph(w.letters[letter-1]);   // on its own so it reads clearly
   $('selMeta').textContent='Letter '+letter+' of '+w.letters.length+(marks.length>1?' · '+marks.length+' mistakes shown':'');
 }
 
@@ -344,7 +362,7 @@ go(0);
   clearTimeout(timer); if(!db){ $('nosave').hidden=false; return; }
   db.collection('reviews').onSnapshot(snap => {
     snap.docs.forEach(doc => { const v=doc.data(); if(!v) return; const w=words.find(x=>x.wid===v.wid); if(!w) return; const s=state[w.wid];
-      if(v.mode==='edges'){ s.status=v.status; s.note=v.note||''; let c = v.cuts ? v.cuts.split(',').map(Number) : null; if(c && c.length===w.oldLetters+1 && c.length!==w.letters.length+1) c=remapCuts(w,c); s.cuts = c && c.length===w.letters.length+1 ? c : cutsFrom(w, (v.spans||[]).map(q=>q?q.split('-').map(Number):null)); if(v.labels) s.labels=v.labels; }
+      if(v.mode==='edges'){ s.status=v.status; s.note=v.note||''; let c = v.cuts ? v.cuts.split(',').map(Number) : null; const vt = v.tids || (c && w.mergedTids && c.length===w.mergedTids.length+1 && c.length!==w.letters.length+1 ? w.mergedTids : null); if(c && vt && vt.join()!==w.tids.join() && c.length===vt.length+1){ const r=splitCuts(w,vt,c); c=r.cuts; if(r.split) s.status=null; } else if(c && c.length===w.oldLetters+1 && c.length!==w.letters.length+1) c=remapCuts(w,c); s.cuts = c && c.length===w.letters.length+1 ? c : cutsFrom(w, (v.spans||[]).map(q=>q?q.split('-').map(Number):null)); if(v.labels) s.labels=v.labels; }
       else if(v.labels && v.w===w.w && v.h===w.h){ s.labels=v.labels; s.status = v.status || 'approved'; s.note=v.note||''; const sp=spansFrom(w, remapLabels(w, unrle(v.labels.split(',').map(Number), w.w*w.h, Uint8Array))); s.cuts=cutsFrom(w,sp); s.first=s.cuts.slice(); }
     });
     renderList(); const st=state[words[cur].wid]; $('note').value=st.note||''; renderChips(); draw();

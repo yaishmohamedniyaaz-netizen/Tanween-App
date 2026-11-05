@@ -77,7 +77,8 @@ interface UnitTarget {
   end: number;
   primaryGlyph: string;
   fullGlyph: string;
-  audibleGlyph?: string;
+  /** Written but never pronounced: shown faded in the letter tray. */
+  silent?: boolean;
 }
 
 interface WordHitbox {
@@ -396,7 +397,7 @@ export function Mushaf(props: MushafProps) {
             end: unit.end,
             primaryGlyph: unit.primaryGlyph,
             fullGlyph: unit.fullGlyph,
-            audibleGlyph: unit.audibleGlyph,
+            silent: unit.silent,
           })),
           ...ink,
           hx: ink.x - (fixedPages ? 0 : HIT_PAD_X),
@@ -1128,7 +1129,7 @@ export function Mushaf(props: MushafProps) {
             tid: unit.tid,
             primaryGlyph: unit.primaryGlyph,
             fullGlyph: unit.fullGlyph,
-            audibleGlyph: unit.audibleGlyph,
+            silent: unit.silent,
             selected: unit.tid === active.tid,
             mistake: mistakesForUnit(unit).find((mistake) =>
               (mistake.judgeSeatId ?? state.activeAssignment?.judgeSeatId) === state.activeAssignment?.judgeSeatId &&

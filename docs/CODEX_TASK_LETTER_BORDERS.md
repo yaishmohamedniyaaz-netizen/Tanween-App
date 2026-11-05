@@ -22,8 +22,9 @@ Your job: make the first guess good enough that most borders need no change.
 - Letters sit edge to edge: a word with N letters has N+1 borders, right to
   left, strictly decreasing. No gaps, no overlaps.
 - Letter units are the app's own (`judgingTargetsOf`, rule version
-  `qpc-hafs-v1-targets-3.0.0`): madd alifs and never-pronounced letters are
-  already merged into the sound that carries them.
+  `qpc-hafs-v1-targets-4.0.0`): madd alifs are merged into the letter that
+  carries them; never-pronounced letters are their own letters (flagged
+  `silent`) and need their own borders.
 
 ## Inputs
 

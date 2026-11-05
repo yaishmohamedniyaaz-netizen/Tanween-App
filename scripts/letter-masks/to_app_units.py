@@ -1,4 +1,4 @@
-"""Re-key the review data to the app's own letter units (madd alifs and silent letters merged)."""
+"""Re-key the review data to the app's own letter units (madd alifs merged; silent letters kept, flagged)."""
 import json, sys, unicodedata
 sys.path.insert(0, __import__('os').path.dirname(__file__))
 from pieces import letters
@@ -21,7 +21,8 @@ for w in data['words']:
     lab = unrle(w['proposal'], w['w'] * w['h'])
     lab = [old_to_new[v - 1] + 1 if v else 0 for v in lab]
     w['proposal'] = rle(lab); w['oldToNew'] = old_to_new; w['oldLetters'] = len(offs)
-    w['letters'] = [x['show'] for x in u]; w['tids'] = [x['tid'] for x in u]
+    w['letters'] = [x['show'] for x in u]; w['tids'] = [x['tid'] for x in u]; w['silent'] = [x.get('silent', False) for x in u]
+    w['mergedTids'] = units[w['wid']]['mergedTids']
     w.pop('groups', None)
 json.dump(data, open('review-data-app.json', 'w'), ensure_ascii=False, separators=(',', ':'))
 print('words', len(data['words']), 'changed', sum(1 for w in data['words'] if len(w['letters']) != w['oldLetters']))
