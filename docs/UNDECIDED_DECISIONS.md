@@ -231,6 +231,26 @@ product rules belong in `PRODUCT_FOUNDATION.md`, not here.
       hamzat al-wasl looks faded when reading on from the word before.
     - Tutorial wording that explains faded letters.
 
+37. **How letter borders reach the whole Quran**
+    - Today (6 November 2026): the letter bar shows only on owner-approved
+      words (125 words); every other word keeps the word highlight.
+    - Measured: the automatic first guess needs no change on about half of
+      words on regular pages; copying approved borders to other drawings of
+      the same spelling reaches 11% of all words from 105 spellings.
+    - Options (`LETTER_LEVEL_HIGHLIGHT_TRIAL_PLAN.md`): map on demand (words
+      marked in real judging go to a review queue); common words first, then
+      copy; a shorter centred bar that hides small errors; keep improving
+      the automatic guess (Codex task).
+    - To be decided: which mix, and whether copied borders may show in the
+      app after a spot check, or only owner-approved ones.
+
+38. **Word highlight behind the ink**
+    - Prototype branch `claude/word-block-behind-ink` (6 November 2026):
+      the page ink is drawn above the word block and letter bar, so letters
+      keep their own colour.
+    - To be decided: approve it; and whether marks on faded (out-of-question)
+      lines should fade with the line (prototype) or stay vivid (today).
+
 ## Later research, not current blockers
 
 20. **AI question suggestions**
