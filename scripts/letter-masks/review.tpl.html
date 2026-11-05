@@ -58,6 +58,7 @@ canvas{display:block}
 .h i{position:absolute;left:-12px;width:22px;height:22px;border-radius:50%;background:#fff;border:3px solid #1d221f;pointer-events:auto;cursor:ew-resize;touch-action:none}
 .h i.top{top:-14px} .h i.bot{bottom:-14px}
 .h i:focus-visible{outline:3px solid var(--accent)}
+.h.dim{border-left-color:#8a918b}.h.dim i{border-color:#8a918b}
 .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
 .btn{all:unset;cursor:pointer;padding:7px 14px;border-radius:6px;border:1px solid var(--line);font-size:14px;background:var(--panel)}
 .btn:focus-visible{outline:2px solid var(--accent)}
@@ -81,7 +82,7 @@ input[type=text]{font:inherit;padding:6px 8px;border:1px solid var(--line);borde
   <header>
     <div>
       <h1>Letter map review · pages 1–2</h1>
-      <div class="sub">Set where each letter starts and ends. The app draws the mistake bar under this span.</div>
+      <div class="sub">Set the borders between letters. The app draws the mistake bar under the marked letter.</div>
     </div>
     <div class="progress" id="progress"></div>
   </header>
@@ -98,8 +99,7 @@ input[type=text]{font:inherit;padding:6px 8px;border:1px solid var(--line);borde
         <div class="stage" id="stage">
           <div class="cwrap" id="cwrap">
             <canvas id="big" aria-label="The word from the Mushaf page, with the chosen letter's span shaded"></canvas>
-            <div class="h" id="hL"><i class="top" tabindex="0" aria-label="Left edge of the letter"></i><i class="bot"></i></div>
-            <div class="h" id="hR"><i class="top" tabindex="0" aria-label="Right edge of the letter"></i><i class="bot"></i></div>
+            <div id="handles"></div>
             <div class="lanes" id="lanes" aria-hidden="true"></div>
           </div>
         </div>
@@ -123,7 +123,7 @@ input[type=text]{font:inherit;padding:6px 8px;border:1px solid var(--line);borde
         <button class="btn" id="prev">Previous</button>
         <button class="btn" id="next">Next</button>
       </div>
-      <p class="help">Pick a letter (or press <kbd>1</kbd>–<kbd>9</kbd>), then drag the two round handles to its right and left edges. Click on the word to move the nearer handle there. A focused handle moves 1 pixel with the arrow keys, 5 with <kbd>Shift</kbd>. The coloured lines under the word show every letter's span, so gaps and overlaps are easy to see. A dashed chip means that letter has no span yet.</p>
+      <p class="help">The letters sit side by side with no gaps: each round handle is the border between two letters, so moving it grows one letter and shrinks the next. The outer two handles are the word's right and left ends. Pick a letter (or press <kbd>1</kbd>–<kbd>9</kbd>) to bring its two borders forward and see its bar in the preview. Click on the word to move the nearest border there. A focused handle moves 1 pixel with the arrow keys, 5 with <kbd>Shift</kbd>.</p>
     </section>
   </div>
 </div>
@@ -147,8 +147,21 @@ function spansFrom(w, lab){
     const t = sk.has(w.piecesArr[i]) ? out : any; const s=t[L-1]; t[L-1] = s ? [Math.min(s[0],x),Math.max(s[1],x+1)] : [x,x+1]; }
   return out.map((s,k)=> s || any[k]);
 }
+// Letters always join edge to edge: a word has N+1 cuts (right to left), letter i owns [cut[i+1], cut[i]].
+function cutsFrom(w, sp){
+  const n=w.letters.length, c=new Array(n+1).fill(null);
+  const known=sp.map(q=>q?q.slice():null);
+  const right=known.find(q=>q), left=[...known].reverse().find(q=>q);
+  c[0]= right ? right[1] : w.w-PAD; c[n]= left ? left[0] : PAD;
+  for(let i=1;i<n;i++){ const a=known[i-1], b=known[i]; if(a&&b) c[i]=Math.round((a[0]+b[1])/2); else if(a) c[i]=a[0]; else if(b) c[i]=b[1]; }
+  // fill gaps evenly between known cuts, then force right-to-left order
+  let i=0; while(i<=n){ if(c[i]!==null){ i++; continue; } let j=i; while(c[j]===null) j++; const a=c[i-1], b=c[j]; for(let k=i;k<j;k++) c[k]=Math.round(a+(b-a)*(k-i+1)/(j-i+1)); i=j; }
+  for(let k=1;k<=n;k++) if(c[k]>c[k-1]-1) c[k]=c[k-1]-1;
+  return c;
+}
+const spansOf = c => c.slice(0,-1).map((r,i)=>[c[i+1], r]);
 const state={};
-words.forEach(w => { const sp=spansFrom(w,w.proposalArr); state[w.wid]={spans:sp, first:sp.map(s=>s&&s.slice()), status:null, note:'', old:null, labels:null}; });
+words.forEach(w => { const c=cutsFrom(w,spansFrom(w,w.proposalArr)); state[w.wid]={cuts:c, first:c.slice(), status:null, note:'', old:null, labels:null}; });
 let cur=0, letter=1, undo=[], db=null, fitNext=true;
 
 function grey(w){ return new Promise(res => { if(w.img) return res(w.img); const im=new Image(); im.onload=()=>{ const c=document.createElement('canvas'); c.width=w.w; c.height=w.h; const x=c.getContext('2d'); x.drawImage(im,0,0); w.img=x.getImageData(0,0,w.w,w.h).data; res(w.img); }; im.src='data:image/png;base64,'+w.png; }); }
@@ -165,35 +178,40 @@ function renderList(){
   $('progress').innerHTML='<span><b>'+a+'</b> of '+words.length+' approved</span><span><b>'+f+'</b> need a rule</span><span><b>'+(words.length-a-f)+'</b> left</span>';
 }
 function renderChips(){
-  const w=words[cur], C=$('chips'), sp=state[w.wid].spans; C.innerHTML='';
-  w.letters.forEach((t,i) => { const b=document.createElement('button'); b.className='chip'+(letter===i+1?' on':'')+(sp[i]?'':' unset');
+  const w=words[cur], C=$('chips'), sp=spansOf(state[w.wid].cuts); C.innerHTML='';
+  w.letters.forEach((t,i) => { const b=document.createElement('button'); b.className='chip'+(letter===i+1?' on':'');
     b.setAttribute('role','radio'); b.setAttribute('aria-checked', letter===i+1);
     b.innerHTML='<span class="k">'+(i+1)+'</span><span class="sw" style="background:'+COLORS[i%COLORS.length]+'"></span><span class="ar"></span>';
     b.querySelector('.ar').textContent='‍'+t+'‍'; b.onclick=()=>{ letter=i+1; renderChips(); draw(); }; C.appendChild(b); });
 }
 async function draw(){
-  const w=words[cur], g=await grey(w), sp=state[w.wid].spans;
+  const w=words[cur], g=await grey(w), cuts=state[w.wid].cuts, sp=spansOf(cuts);
   if(fitNext){ fitNext=false; const avail=$('stage').clientWidth-40; $('zoom').value=Math.max(1,Math.min(8,Math.floor(avail/w.w*2)/2)); }
   const z=+$('zoom').value, c=$('big'); c.width=w.w; c.height=w.h; c.style.width=(w.w*z)+'px'; c.style.height=(w.h*z)+'px';
   $('cwrap').style.width=(w.w*z)+'px';
   const x=c.getContext('2d'), id=x.createImageData(w.w,w.h), d=id.data, s=sp[letter-1], col=hex(COLORS[(letter-1)%COLORS.length]);
   for(let i=0;i<w.w*w.h;i++){ const v=g[i*4], own=w.piecesArr[i]>0, X=i%w.w; let bg=[251,250,247];
-    if(s && X>=s[0] && X<s[1]) bg=bg.map((c0,k)=>c0*.72+col[k]*.28);
+    for(let L=0;L<sp.length;L++){ const q=sp[L]; if(X>=q[0] && X<q[1]){ const cc=hex(COLORS[L%COLORS.length]), a = L===letter-1 ? .32 : .10; bg=bg.map((c0,k)=>c0*(1-a)+cc[k]*a); break; } }
     const t=(255-v)/255*(own?1:.35); for(let k=0;k<3;k++) d[i*4+k]=bg[k]*(1-t)+INK[k]*t; d[i*4+3]=255; }
   x.putImageData(id,0,0);
   // handles
-  const H=w.h*z; ['hL','hR'].forEach(h=>$(h).style.height=H+'px');
-  $('hL').hidden=$('hR').hidden=!s;
-  if(s){ $('hL').style.left=(s[0]*z)+'px'; $('hR').style.left=(s[1]*z)+'px'; }
+  const H=w.h*z, HB=$('handles'); HB.innerHTML='';
+  cuts.forEach((x0,k)=>{ const h=document.createElement('div'); h.className='h'+((k===letter-1||k===letter)?'':' dim'); h.style.height=H+'px'; h.style.left=(x0*z)+'px';
+    const lbl = k===0 ? 'Right edge of the word' : k===cuts.length-1 ? 'Left edge of the word' : 'Boundary between letter '+k+' and letter '+(k+1);
+    h.innerHTML='<i class="top" tabindex="0"></i><i class="bot"></i>'; h.querySelector('i.top').setAttribute('aria-label',lbl);
+    h.querySelectorAll('i').forEach(e=>e.addEventListener('pointerdown',ev=>startDrag(k,ev)));
+    h.querySelector('i.top').addEventListener('keydown',ev=>{ if(ev.key!=='ArrowLeft'&&ev.key!=='ArrowRight') return; ev.preventDefault(); ev.stopPropagation();
+      pushUndo(); setCut(k, cuts[k]+(ev.key==='ArrowLeft'?-1:1)*(ev.shiftKey?5:1)); draw().then(()=>HB.children[k].querySelector('i.top').focus()); });
+    HB.appendChild(h); });
   // lanes: every letter's span
   const ln=$('lanes'); ln.innerHTML='';
-  sp.forEach((q,i)=>{ if(!q) return; const e=document.createElement('div'); e.className='ln'+(i===letter-1?' on':''); e.style.left=(q[0]*z)+'px'; e.style.width=((q[1]-q[0])*z)+'px'; e.style.background=COLORS[i%COLORS.length]; e.style.top=(i===letter-1?2:4+ (i%2)*10)+'px'; ln.appendChild(e); });
+  sp.forEach((q,i)=>{ const e=document.createElement('div'); e.className='ln'+(i===letter-1?' on':''); e.style.left=(q[0]*z)+'px'; e.style.width=((q[1]-q[0])*z)+'px'; e.style.background=COLORS[i%COLORS.length]; e.style.top=(i===letter-1?2:4)+'px'; ln.appendChild(e); });
   drawPreview();
 }
 function hex(c){ return [parseInt(c.slice(1,3),16),parseInt(c.slice(3,5),16),parseInt(c.slice(5,7),16)]; }
 // Preview of the chosen style: light word block behind the ink + solid bar under the letter span.
 function drawPreview(){
-  const w=words[cur]; if(!w.img) return; const s=state[w.wid].spans[letter-1];
+  const w=words[cur]; if(!w.img) return; const s=spansOf(state[w.wid].cuts)[letter-1];
   const extra=24, H=w.h+extra, base=document.createElement('canvas'); base.width=w.w; base.height=H;
   const bx=base.getContext('2d'), id=bx.createImageData(w.w,H), d=id.data, barH=Math.round(2.5/PAGE_SCALE), barY=w.h-PAD+6;
   for(let y=0;y<H;y++) for(let X=0;X<w.w;X++){ const o=(y*w.w+X)*4; let bg=PAPER.slice();
@@ -212,29 +230,24 @@ function go(i){ cur=Math.max(0,Math.min(words.length-1,i)); fitNext=true; undo=[
   renderList(); renderChips(); draw(); const on=document.querySelector('.list button.on'); if(on) on.scrollIntoView({block:'nearest'}); }
 
 // edges
-function setEdge(k, x){ const w=words[cur], sp=state[w.wid].spans; let s=sp[letter-1] || [Math.round(w.w*.45),Math.round(w.w*.55)];
-  s=s.slice(); s[k]=Math.max(0,Math.min(w.w,Math.round(x))); if(s[1]-s[0]<1){ if(k===0) s[0]=s[1]-1; else s[1]=s[0]+1; } sp[letter-1]=s; }
-function startDrag(k, ev){ ev.preventDefault(); const w=words[cur]; undo.push(state[w.wid].spans.map(s=>s&&s.slice()));
-  const move=e=>{ const r=$('big').getBoundingClientRect(); setEdge(k,(e.clientX-r.left)/r.width*w.w); renderChips(); draw(); };
+function pushUndo(){ undo.push(state[words[cur].wid].cuts.slice()); }
+function setCut(k, x){ const w=words[cur], c=state[w.wid].cuts, hi = k===0 ? w.w : c[k-1]-1, lo = k===c.length-1 ? 0 : c[k+1]+1;
+  c[k]=Math.max(lo,Math.min(hi,Math.round(x))); }
+function startDrag(k, ev){ ev.preventDefault(); ev.stopPropagation(); const w=words[cur]; pushUndo();
+  const move=e=>{ const r=$('big').getBoundingClientRect(); setCut(k,(e.clientX-r.left)/r.width*w.w); draw(); };
   const up=()=>{ window.removeEventListener('pointermove',move); window.removeEventListener('pointerup',up); };
   window.addEventListener('pointermove',move); window.addEventListener('pointerup',up); move(ev); }
-document.querySelectorAll('#hL i').forEach(e=>e.addEventListener('pointerdown',ev=>startDrag(0,ev)));
-document.querySelectorAll('#hR i').forEach(e=>e.addEventListener('pointerdown',ev=>startDrag(1,ev)));
-$('big').addEventListener('pointerdown', ev => { const w=words[cur], r=$('big').getBoundingClientRect(), x=(ev.clientX-r.left)/r.width*w.w, s=state[w.wid].spans[letter-1];
-  const k = !s ? 0 : (Math.abs(x-s[0]) < Math.abs(x-s[1]) ? 0 : 1); startDrag(k, ev); });
-[['hL',0],['hR',1]].forEach(([id,k]) => $(id).querySelector('i.top').addEventListener('keydown', ev => {
-  if(ev.key!=='ArrowLeft' && ev.key!=='ArrowRight') return; ev.preventDefault(); ev.stopPropagation();
-  const w=words[cur], s=state[w.wid].spans[letter-1]; if(!s) return; undo.push(state[w.wid].spans.map(q=>q&&q.slice()));
-  setEdge(k, s[k] + (ev.key==='ArrowLeft'?-1:1)*(ev.shiftKey?5:1)); draw(); }));
-$('undo').onclick=()=>{ const u=undo.pop(); if(u){ state[words[cur].wid].spans=u; renderChips(); draw(); } };
-$('reset').onclick=()=>{ const st=state[words[cur].wid]; undo.push(st.spans.map(s=>s&&s.slice())); st.spans=st.first.map(s=>s&&s.slice()); renderChips(); draw(); };
+$('big').addEventListener('pointerdown', ev => { const w=words[cur], c=state[w.wid].cuts, r=$('big').getBoundingClientRect(), x=(ev.clientX-r.left)/r.width*w.w;
+  let k=0; c.forEach((v,i)=>{ if(Math.abs(v-x)<Math.abs(c[k]-x)) k=i; }); startDrag(k, ev); });
+$('undo').onclick=()=>{ const u=undo.pop(); if(u){ state[words[cur].wid].cuts=u; draw(); } };
+$('reset').onclick=()=>{ const st=state[words[cur].wid]; pushUndo(); st.cuts=st.first.slice(); draw(); };
 $('zoom').oninput=draw; $('prev').onclick=()=>go(cur-1); $('next').onclick=()=>go(cur+1);
 
 function toast(t){ const e=$('toast'); e.textContent=t; e.classList.add('show'); clearTimeout(toast.t); toast.t=setTimeout(()=>e.classList.remove('show'),1600); }
 async function save(status){
   const w=words[cur], s=state[w.wid]; s.status=status; s.note=$('note').value.trim(); renderList();
   if(!db){ toast(status==='approved'?'Approved (this tab only)':'Marked: needs a rule (this tab only)'); return; }
-  const doc={wid:w.wid, page:w.page, text:w.text, status, note:s.note, mode:'edges', spans:s.spans.map(q=>q?q.join('-'):''), w:w.w, h:w.h, box:w.box, savedAt:Date.now()};
+  const doc={wid:w.wid, page:w.page, text:w.text, status, note:s.note, mode:'edges', cuts:s.cuts.join(','), spans:spansOf(s.cuts).map(q=>q.join('-')), w:w.w, h:w.h, box:w.box, savedAt:Date.now()};
   if(s.labels) doc.labels=s.labels;
   try{ await db.collection('reviews').doc(w.wid).set(doc); toast(status==='approved'?'Approved and saved':'Saved: needs a rule'); }
   catch(e){ toast('Not saved: '+(e&&e.message||'error')); }
@@ -254,9 +267,9 @@ go(0);
   clearTimeout(timer); if(!db){ $('nosave').hidden=false; return; }
   db.collection('reviews').onSnapshot(snap => {
     snap.docs.forEach(doc => { const v=doc.data(); if(!v) return; const w=words.find(x=>x.wid===v.wid); if(!w) return; const s=state[w.wid];
-      if(v.mode==='edges'){ s.status=v.status; s.note=v.note||''; s.spans=v.spans.map(q=>q?q.split('-').map(Number):null); if(v.labels) s.labels=v.labels; }
+      if(v.mode==='edges'){ s.status=v.status; s.note=v.note||''; s.cuts = v.cuts ? v.cuts.split(',').map(Number) : cutsFrom(w, v.spans.map(q=>q?q.split('-').map(Number):null)); if(v.labels) s.labels=v.labels; }
       else if(v.labels && v.w===w.w && v.h===w.h){ // approved earlier with the brush tool: use its letters as the first guess, ask for a check
-        s.labels=v.labels; s.status = v.status || 'approved'; s.note=v.note||''; const sp=spansFrom(w, unrle(v.labels.split(',').map(Number), w.w*w.h, Uint8Array)); s.spans=sp; s.first=sp.map(q=>q&&q.slice()); }
+        s.labels=v.labels; s.status = v.status || 'approved'; s.note=v.note||''; const sp=spansFrom(w, unrle(v.labels.split(',').map(Number), w.w*w.h, Uint8Array)); s.cuts=cutsFrom(w,sp); s.first=s.cuts.slice(); }
     });
     renderList(); const st=state[words[cur].wid]; $('note').value=st.note||''; renderChips(); draw();
   }, ()=>{ $('nosave').hidden=false; });

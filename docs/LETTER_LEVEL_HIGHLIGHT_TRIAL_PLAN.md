@@ -16,7 +16,8 @@ on the same 1405H page artwork the app already shows.
   in the criteria colour under the marked letter's span. All tints sit behind
   the ink, so the letters keep their own colour.
 - Because the bar needs only where a letter starts and ends, the mapping is
-  two edges per letter, not a pixel mask. The review screen sets these edges.
+  the borders between letters, not a pixel mask. Letters sit side by side with
+  no gaps or overlaps; the review screen sets these borders.
 - The letter and its haraka are treated together.
 - A different colour for the haraka is undecided (see `UNDECIDED_DECISIONS.md`,
   item 35).
