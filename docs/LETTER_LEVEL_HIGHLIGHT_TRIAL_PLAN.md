@@ -193,6 +193,12 @@ itself.
 
 ## Open checks
 
+- Bar past the word box (review, 6 November 2026): 3 of 509 approved letters
+  reach past their word's box, the worst by about 4 px on desktop (p30,
+  2.194.1, first letter). The bar is still under the right letter's ink.
+  Proposed fix, waiting for approval as a visible change: clip the bar to the
+  word box in `letterBarGeometry`.
+
 - Licence: the artwork fetch script states it "does not establish artwork
   redistribution permission". Letter maps made from the artwork need the same
   check before release.
