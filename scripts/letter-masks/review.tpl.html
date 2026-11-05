@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap">
 <style>
 @font-face{font-family:"TanweenHafs";src:url(data:font/woff2;base64,__HAFS__) format("woff2");font-display:block}
-/* Layout: word list on the left; one large word with its letter edges and a page-size preview on the right; stacks on phones. */
+/* Layout: word list on the left; the word drawn exactly as the app will show it fills the right; stacks on phones. */
 :root{
   --bg:#f6f7f5; --panel:#ffffff; --line:#d9ddd6; --fg:#1d221f; --muted:#5f685f;
   --accent:#2f6f5e; --accent-fg:#ffffff; --warn:#a8641f; --bad:#b23b33; --good:#2f7a4a;
@@ -24,52 +24,54 @@ h1{font-size:20px;margin:0;text-wrap:balance}
 .progress{display:flex;gap:16px;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums;flex-wrap:wrap}
 .progress b{color:var(--fg)}
 .banner{border:1px solid var(--warn);color:var(--warn);padding:8px 12px;border-radius:6px;font-size:13px}
-.main{display:grid;grid-template-columns:240px minmax(0,1fr);gap:16px;align-items:start}
+.main{display:grid;grid-template-columns:230px minmax(0,1fr);gap:16px;align-items:start}
 .list{background:var(--panel);border:1px solid var(--line);border-radius:8px;max-height:calc(100dvh - 120px);overflow:auto}
-@media (max-width:820px){.main{grid-template-columns:minmax(0,1fr)}.list{max-height:220px}}
+@media (max-width:820px){.main{grid-template-columns:minmax(0,1fr)}.list{max-height:200px}}
 .list h2{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:0;padding:10px 12px 6px;position:sticky;top:0;background:var(--panel)}
 .list button{all:unset;box-sizing:border-box;display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;width:100%;padding:6px 12px;cursor:pointer;border-top:1px solid var(--line)}
 .list button:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
 .list button.on{background:color-mix(in srgb,var(--accent) 14%,transparent)}
 .list .ar{font:22px/1.7 var(--ar);direction:rtl;text-align:right}
 .tag{font-size:11px;padding:1px 6px;border-radius:4px;border:1px solid currentColor;white-space:nowrap}
-.t-approved{color:var(--good)} .t-flagged{color:var(--bad)} .t-todo{color:var(--muted)} .t-old{color:var(--warn)}
+.t-approved{color:var(--good)} .t-flagged{color:var(--bad)} .t-todo{color:var(--muted)}
 .work{display:grid;gap:12px;min-width:0}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:12px;min-width:0}
-.wordhead{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;justify-content:space-between}
-.wordhead .ar{font:32px/1.6 var(--ar);direction:rtl}
+.stagecard{padding:0;overflow:hidden;display:grid}
+.stagebar{display:flex;flex-wrap:wrap;gap:6px 16px;align-items:center;justify-content:space-between;padding:10px 14px}
+.selected{display:flex;gap:10px;align-items:center}
+.selected .ar{font:34px/1.3 var(--ar);min-width:1.2em;text-align:center}
 .meta{color:var(--muted);font-size:13px}
+.stage{position:relative;touch-action:none;user-select:none;-webkit-user-select:none;padding:34px 16px 40px;transition:background .15s}
+.stage.light{background:#fbfaf7} .stage.dark{background:#211f1c}
+.stage canvas{display:block;margin:0 auto;cursor:pointer}
+.grips{position:absolute;inset:0;pointer-events:none}
+.grip{position:absolute;width:34px;height:34px;margin:-17px 0 0 -17px;pointer-events:auto;cursor:ew-resize;touch-action:none;display:grid;place-items:center;outline:none;border-radius:50%}
+.grip i{display:block;width:9px;height:9px;border-radius:50%;background:var(--gc);opacity:.45;transition:transform .12s,opacity .12s}
+.grip.end i{width:15px;height:15px;opacity:1;border:3px solid var(--gr);box-shadow:0 1px 3px rgba(0,0,0,.35)}
+.stage:hover .grip i{opacity:.8} .stage:hover .grip.end i{opacity:1}
+.grip:hover i,.grip.active i{transform:scale(1.3);opacity:1}
+.grip:focus-visible i{box-shadow:0 0 0 3px var(--accent);opacity:1}
+.guide{position:absolute;width:0;border-left:2px dashed var(--gc);pointer-events:none}
+.pairtip{position:absolute;transform:translate(-50%,-100%);background:var(--fg);color:var(--bg);border-radius:6px;padding:0 8px;font:22px/1.5 var(--ar);pointer-events:none;white-space:nowrap;direction:rtl}
+.toolbar{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;padding:10px 14px;border-top:1px solid var(--line)}
 .chips{display:flex;flex-wrap:wrap;gap:6px;direction:rtl}
-.chip{all:unset;box-sizing:border-box;cursor:pointer;display:flex;gap:6px;align-items:center;padding:2px 10px 2px 8px;border-radius:6px;border:2px solid var(--line);background:var(--panel);direction:ltr}
-.chip .ar{font:28px/1.6 var(--ar)}
+.chip{all:unset;box-sizing:border-box;cursor:pointer;display:flex;gap:6px;align-items:center;padding:0 10px 0 8px;border-radius:6px;border:2px solid var(--line);background:var(--panel);direction:ltr}
+.chip .ar{font:24px/1.5 var(--ar)}
 .chip .k{font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums}
-.chip .sw{width:12px;height:12px;border-radius:3px}
 .chip.on{border-color:var(--fg)}
-.chip.unset .sw{background:transparent!important;border:2px dashed var(--muted)}
 .chip:focus-visible{outline:2px solid var(--accent)}
-.stage{overflow:auto;background:#fbfaf7;border-radius:6px;border:1px solid var(--line);touch-action:none;padding:16px 0 8px}
-.cwrap{position:relative;margin:0 auto}
-canvas{display:block}
-#big{cursor:crosshair}
-.lanes{position:relative;height:30px;margin-top:6px}
-.lanes .ln{position:absolute;height:6px;border-radius:2px;opacity:.55}
-.lanes .ln.on{opacity:1;height:8px;top:2px}
-.h{position:absolute;top:0;width:0;border-left:2px solid #1d221f;pointer-events:none}
-.h i{position:absolute;left:-12px;width:22px;height:22px;border-radius:50%;background:#fff;border:3px solid #1d221f;pointer-events:auto;cursor:ew-resize;touch-action:none}
-.h i.top{top:-14px} .h i.bot{bottom:-14px}
-.h i:focus-visible{outline:3px solid var(--accent)}
-.h.dim{border-left-color:#8a918b}.h.dim i{border-color:#8a918b}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.seg button{all:unset;cursor:pointer;padding:5px 12px;font-size:13px}
+.seg button.on{background:var(--fg);color:var(--bg)}
+.seg button:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+select{font:inherit;font-size:13px;padding:4px 6px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--fg)}
+label{font-size:13px;color:var(--muted);display:flex;gap:6px;align-items:center}
 .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
 .btn{all:unset;cursor:pointer;padding:7px 14px;border-radius:6px;border:1px solid var(--line);font-size:14px;background:var(--panel)}
 .btn:focus-visible{outline:2px solid var(--accent)}
 .btn.primary{background:var(--accent);color:var(--accent-fg);border-color:var(--accent);font-weight:700}
 .btn.danger{color:var(--bad);border-color:currentColor}
-label{font-size:13px;color:var(--muted);display:flex;gap:6px;align-items:center}
-input[type=range]{width:120px}
 input[type=text]{font:inherit;padding:6px 8px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--fg);min-width:0;flex:1}
-.tune{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center}
-.tune output{font-variant-numeric:tabular-nums;min-width:3.5em;color:var(--fg)}
-select{font:inherit;padding:4px 6px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--fg)}
 .previews{display:flex;flex-wrap:wrap;gap:16px;align-items:flex-end}
 .previews figure{margin:0;display:grid;gap:4px}
 .previews figcaption{font-size:12px;color:var(--muted)}
@@ -78,14 +80,14 @@ select{font:inherit;padding:4px 6px;border:1px solid var(--line);border-radius:6
 .help kbd{font:12px var(--ui);border:1px solid var(--line);border-bottom-width:2px;border-radius:4px;padding:0 5px}
 .toast{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--fg);color:var(--bg);padding:8px 14px;border-radius:6px;font-size:14px;opacity:0;transition:opacity .2s;pointer-events:none}
 .toast.show{opacity:1}
-@media (prefers-reduced-motion:reduce){.toast{transition:none}}
+@media (prefers-reduced-motion:reduce){.toast,.grip i,.stage{transition:none}}
 </style>
 
 <div class="wrap">
   <header>
     <div>
       <h1>Letter map review · pages 1–2</h1>
-      <div class="sub">Set the borders between letters. The app draws the mistake bar under the marked letter.</div>
+      <div class="sub">This is how the mistake will look in the app. Tap a letter to put the bar under it; drag a round handle to move a border.</div>
     </div>
     <div class="progress" id="progress"></div>
   </header>
@@ -93,42 +95,28 @@ select{font:inherit;padding:4px 6px;border:1px solid var(--line);border-radius:6
   <div class="main">
     <nav class="list" id="list" aria-label="Words"></nav>
     <section class="work">
-      <div class="card wordhead">
-        <div class="ar" id="wtext"></div>
-        <div class="meta" id="wmeta"></div>
-      </div>
-      <div class="card" style="display:grid;gap:10px">
-        <div class="chips" id="chips" role="radiogroup" aria-label="Letter"></div>
-        <div class="stage" id="stage">
-          <div class="cwrap" id="cwrap">
-            <canvas id="big" aria-label="The word from the Mushaf page, with the chosen letter's span shaded"></canvas>
-            <div id="handles"></div>
-            <div class="lanes" id="lanes" aria-hidden="true"></div>
-          </div>
+      <div class="card stagecard">
+        <div class="stagebar">
+          <div class="selected"><span class="ar" id="selLetter"></span><span class="meta" id="selMeta"></span></div>
+          <div class="meta" id="wmeta"></div>
         </div>
-        <div class="row">
-          <label for="zoom">Zoom <input id="zoom" type="range" min="1" max="10" step="0.5" value="4"></label>
+        <div class="stage light" id="stage">
+          <canvas id="big" role="img" aria-label="The word as the app will show it, with the mistake bar under the selected letter"></canvas>
+          <div class="grips" id="grips"></div>
+        </div>
+        <div class="toolbar"><div class="chips" id="chips" role="radiogroup" aria-label="Letter"></div></div>
+        <div class="toolbar">
+          <div class="seg" id="theme" role="group" aria-label="Page theme"><button data-v="light" class="on">Light page</button><button data-v="dark">Dark page</button></div>
+          <label for="cat">Criterion <select id="cat"><option value="jali">Jali</option><option value="khafi">Khafi</option><option value="fasaha">Fasaha</option></select></label>
           <button class="btn" id="undo">Undo <span class="sub">Z</span></button>
           <button class="btn" id="reset">Back to first guess</button>
         </div>
       </div>
-      <div class="card" style="display:grid;gap:10px">
-        <div class="row" style="justify-content:space-between"><strong>How the mistake would look</strong>
-          <span class="sub" id="tuneSaved"></span></div>
-        <div class="tune">
-          <label for="tThick">Bar thickness <input id="tThick" type="range" min="1" max="5" step="0.25" value="2.25"><output id="oThick"></output></label>
-          <label for="tGap">Move the bar down <input id="tGap" type="range" min="-4" max="4" step="0.25" value="0"><output id="oGap"></output></label>
-          <label for="tInset">Shorter at each end <input id="tInset" type="range" min="0" max="3" step="0.25" value="0"><output id="oInset"></output></label>
-          <label for="tBlock">Word block strength <input id="tBlock" type="range" min="0" max="30" step="1" value="18"><output id="oBlock"></output></label>
-          <label><input id="tRound" type="checkbox"> Round ends</label>
-          <label for="tCat">Criterion <select id="tCat"><option value="jali">Jali</option><option value="khafi">Khafi</option><option value="fasaha">Fasaha</option></select></label>
-          <button class="btn" id="tSave">Save these settings</button>
-        </div>
+      <div class="card" style="display:grid;gap:8px">
+        <span class="sub">Real size on the desktop page</span>
         <div class="previews">
-          <figure><canvas id="pv1"></canvas><figcaption>Desktop page size · light</figcaption></figure>
-          <figure><canvas id="pv1d"></canvas><figcaption>Desktop page size · dark</figcaption></figure>
-          <figure><canvas id="pv2"></canvas><figcaption>3 × zoom · light</figcaption></figure>
-          <figure><canvas id="pv2d"></canvas><figcaption>3 × zoom · dark</figcaption></figure>
+          <figure><canvas id="pv1"></canvas><figcaption>Light</figcaption></figure>
+          <figure><canvas id="pv1d"></canvas><figcaption>Dark</figcaption></figure>
         </div>
       </div>
       <div class="card row">
@@ -138,7 +126,7 @@ select{font:inherit;padding:4px 6px;border:1px solid var(--line);border-radius:6
         <button class="btn" id="prev">Previous</button>
         <button class="btn" id="next">Next</button>
       </div>
-      <p class="help">The letters sit side by side with no gaps: each round handle is the border between two letters, so moving it grows one letter and shrinks the next. The outer two handles are the word's right and left ends. Pick a letter (or press <kbd>1</kbd>–<kbd>9</kbd>) to bring its two borders forward and see its bar in the preview. Click on the word to move the nearest border there. A focused handle moves 1 pixel with the arrow keys, 5 with <kbd>Shift</kbd>.</p>
+      <p class="help">Tap a letter, or press <kbd>←</kbd> <kbd>→</kbd> or <kbd>1</kbd>–<kbd>9</kbd>, to move the bar. The two large handles are the ends of the selected letter's bar; the small dots are the other borders. While you drag, the letters are lightly shaded so you can see the split, and the letters on both sides of the border are shown above it; when you let go, the view goes back to the app look. A focused handle moves 1 pixel with the arrow keys, 5 with <kbd>Shift</kbd>. <kbd>Z</kbd> undo, <kbd>Enter</kbd> approve.</p>
     </section>
   </div>
 </div>
@@ -151,9 +139,16 @@ const DATA = JSON.parse(document.getElementById('data').textContent);
 const PAGE_SCALE = 473.624/1920;   // artwork px -> CSS px in the desktop two-page view
 const PAD = 8;                     // padding the export adds around each word box
 const COLORS = ['#d1495b','#2e86ab','#e09f3e','#3f8f5a','#8e5ac8','#e07a2f','#1f9e9e','#c2477d','#6b7f2a','#4a5ad1'];
-const MARK = [0xca,0x24,0x4d], PAPER=[251,250,247], INK=[28,27,22];   // app Jali colour, page paper and ink
+// Decided style (5 Nov 2026): word block behind the ink, 2.25 px bar inside its bottom edge, square ends.
+const STYLE = {thick:2.25, block:.18};
+const THEMES = {
+  light:{paper:[251,250,247], ink:[28,27,22], block:{jali:[0xca,0x24,0x4d],khafi:[0xd5,0x8e,0x3a],fasaha:[0x33,0x58,0xd4]}, bar:{jali:[0xca,0x24,0x4d],khafi:[0xd5,0x8e,0x3a],fasaha:[0x33,0x58,0xd4]}, k:1, grip:'#1d221f', ring:'#fbfaf7'},
+  dark:{paper:[33,31,28], ink:[234,231,222], block:{jali:[0xca,0x24,0x4d],khafi:[0xd5,0x8e,0x3a],fasaha:[0x33,0x58,0xd4]}, bar:{jali:[0xd8,0x6b,0x83],khafi:[0xdd,0xa8,0x69],fasaha:[0x73,0x8b,0xde]}, k:22/14, grip:'#eae7de', ring:'#211f1c'},
+};
 const $ = id => document.getElementById(id);
+const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 function unrle(a, n, Arr){ const out=new Arr(n); let i=0; for(let k=0;k<a.length;k+=2){ out.fill(a[k],i,i+a[k+1]); i+=a[k+1]; } return out; }
+function hex(c){ return [parseInt(c.slice(1,3),16),parseInt(c.slice(3,5),16),parseInt(c.slice(5,7),16)]; }
 
 const words = DATA.words.map(w => ({...w, piecesArr: unrle(w.pieces,w.w*w.h,Uint16Array), proposalArr: unrle(w.proposal,w.w*w.h,Uint8Array), img:null}));
 function spansFrom(w, lab){
@@ -162,14 +157,13 @@ function spansFrom(w, lab){
     const t = sk.has(w.piecesArr[i]) ? out : any; const s=t[L-1]; t[L-1] = s ? [Math.min(s[0],x),Math.max(s[1],x+1)] : [x,x+1]; }
   return out.map((s,k)=> s || any[k]);
 }
-// Letters always join edge to edge: a word has N+1 cuts (right to left), letter i owns [cut[i+1], cut[i]].
+// Letters join edge to edge: a word has N+1 cuts (right to left), letter i owns [cut[i+1], cut[i]].
 function cutsFrom(w, sp){
   const n=w.letters.length, c=new Array(n+1).fill(null);
   const known=sp.map(q=>q?q.slice():null);
   const right=known.find(q=>q), left=[...known].reverse().find(q=>q);
   c[0]= right ? right[1] : w.w-PAD; c[n]= left ? left[0] : PAD;
   for(let i=1;i<n;i++){ const a=known[i-1], b=known[i]; if(a&&b) c[i]=Math.round((a[0]+b[1])/2); else if(a) c[i]=a[0]; else if(b) c[i]=b[1]; }
-  // fill gaps evenly between known cuts, then force right-to-left order
   let i=0; while(i<=n){ if(c[i]!==null){ i++; continue; } let j=i; while(c[j]===null) j++; const a=c[i-1], b=c[j]; for(let k=i;k<j;k++) c[k]=Math.round(a+(b-a)*(k-i+1)/(j-i+1)); i=j; }
   for(let k=1;k<=n;k++) if(c[k]>c[k-1]-1) c[k]=c[k-1]-1;
   return c;
@@ -179,12 +173,16 @@ function remapCuts(w, old){ const n=w.letters.length, c=[]; for(let k=0;k<n;k++)
 function remapLabels(w, lab){ const out=new Uint8Array(lab.length); for(let i=0;i<lab.length;i++) out[i] = lab[i] ? w.oldToNew[lab[i]-1]+1 : 0; return out; }
 const spansOf = c => c.slice(0,-1).map((r,i)=>[c[i+1], r]);
 const state={};
-words.forEach(w => { const c=cutsFrom(w,spansFrom(w,w.proposalArr)); state[w.wid]={cuts:c, first:c.slice(), status:null, note:'', old:null, labels:null}; });
-let cur=0, letter=1, undo=[], db=null, fitNext=true;
+words.forEach(w => { const c=cutsFrom(w,spansFrom(w,w.proposalArr)); state[w.wid]={cuts:c, first:c.slice(), status:null, note:'', labels:null}; });
+let cur=0, letter=1, undo=[], db=null;
+let theme='light', cat='jali', drag=null, barShown=null, anim=null, scale=1;
 
 function grey(w){ return new Promise(res => { if(w.img) return res(w.img); const im=new Image(); im.onload=()=>{ const c=document.createElement('canvas'); c.width=w.w; c.height=w.h; const x=c.getContext('2d'); x.drawImage(im,0,0); w.img=x.getImageData(0,0,w.w,w.h).data; res(w.img); }; im.src='data:image/png;base64,'+w.png; }); }
-function statusOf(w){ const s=state[w.wid]; return s.status || (s.old ? 'old' : 'todo'); }
-function label(s){ return {approved:'Approved', flagged:'Needs a rule', todo:'To do', old:'Check edges'}[s]; }
+function statusOf(w){ return state[w.wid].status || 'todo'; }
+function label(s){ return {approved:'Approved', flagged:'Needs a rule', todo:'To do'}[s]; }
+const toArt = v => v/PAGE_SCALE;   // CSS px at desktop page size -> artwork px
+function geom(w){ const top=PAD-toArt(2.5), bottom=w.h-PAD+toArt(2.5), barH=Math.max(1,toArt(STYLE.thick));
+  return {top, bottom, barH, barY:bottom-barH, H:Math.ceil(bottom+toArt(2))}; }
 
 function renderList(){
   const L=$('list'); L.innerHTML='';
@@ -196,93 +194,99 @@ function renderList(){
   $('progress').innerHTML='<span><b>'+a+'</b> of '+words.length+' approved</span><span><b>'+f+'</b> need a rule</span><span><b>'+(words.length-a-f)+'</b> left</span>';
 }
 function renderChips(){
-  const w=words[cur], C=$('chips'), sp=spansOf(state[w.wid].cuts); C.innerHTML='';
+  const w=words[cur], C=$('chips'); C.innerHTML='';
   w.letters.forEach((t,i) => { const b=document.createElement('button'); b.className='chip'+(letter===i+1?' on':'');
-    b.setAttribute('role','radio'); b.setAttribute('aria-checked', letter===i+1);
-    b.innerHTML='<span class="k">'+(i+1)+'</span><span class="sw" style="background:'+COLORS[i%COLORS.length]+'"></span><span class="ar"></span>';
-    b.querySelector('.ar').textContent='‍'+t+'‍'; b.onclick=()=>{ letter=i+1; renderChips(); draw(); }; C.appendChild(b); });
+    b.setAttribute('role','radio'); b.setAttribute('aria-checked', String(letter===i+1));
+    b.innerHTML='<span class="k">'+(i+1)+'</span><span class="ar"></span>';
+    b.querySelector('.ar').textContent='‍'+t+'‍'; b.onclick=()=>select(i+1); C.appendChild(b); });
+  $('selLetter').textContent='‍'+w.letters[letter-1]+'‍';
+  $('selMeta').textContent='Letter '+letter+' of '+w.letters.length;
 }
-async function draw(){
-  const w=words[cur], g=await grey(w), cuts=state[w.wid].cuts, sp=spansOf(cuts);
-  if(fitNext){ fitNext=false; const avail=$('stage').clientWidth-40; $('zoom').value=Math.max(1,Math.min(8,Math.floor(avail/w.w*2)/2)); }
-  const z=+$('zoom').value, c=$('big'); c.width=w.w; c.height=w.h; c.style.width=(w.w*z)+'px'; c.style.height=(w.h*z)+'px';
-  $('cwrap').style.width=(w.w*z)+'px';
-  const x=c.getContext('2d'), id=x.createImageData(w.w,w.h), d=id.data, s=sp[letter-1], col=hex(COLORS[(letter-1)%COLORS.length]);
-  for(let i=0;i<w.w*w.h;i++){ const v=g[i*4], own=w.piecesArr[i]>0, X=i%w.w; let bg=[251,250,247];
-    for(let L=0;L<sp.length;L++){ const q=sp[L]; if(X>=q[0] && X<q[1]){ const cc=hex(COLORS[L%COLORS.length]), a = L===letter-1 ? .32 : .10; bg=bg.map((c0,k)=>c0*(1-a)+cc[k]*a); break; } }
-    const t=(255-v)/255*(own?1:.35); for(let k=0;k<3;k++) d[i*4+k]=bg[k]*(1-t)+INK[k]*t; d[i*4+3]=255; }
-  x.putImageData(id,0,0);
-  // handles
-  const H=w.h*z, HB=$('handles'); HB.innerHTML='';
-  cuts.forEach((x0,k)=>{ const h=document.createElement('div'); h.className='h'+((k===letter-1||k===letter)?'':' dim'); h.style.height=H+'px'; h.style.left=(x0*z)+'px';
-    const lbl = k===0 ? 'Right edge of the word' : k===cuts.length-1 ? 'Left edge of the word' : 'Boundary between letter '+k+' and letter '+(k+1);
-    h.innerHTML='<i class="top" tabindex="0"></i><i class="bot"></i>'; h.querySelector('i.top').setAttribute('aria-label',lbl);
-    h.querySelectorAll('i').forEach(e=>e.addEventListener('pointerdown',ev=>startDrag(k,ev)));
-    h.querySelector('i.top').addEventListener('keydown',ev=>{ if(ev.key!=='ArrowLeft'&&ev.key!=='ArrowRight') return; ev.preventDefault(); ev.stopPropagation();
-      pushUndo(); setCut(k, cuts[k]+(ev.key==='ArrowLeft'?-1:1)*(ev.shiftKey?5:1)); draw().then(()=>HB.children[k].querySelector('i.top').focus()); });
-    HB.appendChild(h); });
-  // lanes: every letter's span
-  const ln=$('lanes'); ln.innerHTML='';
-  sp.forEach((q,i)=>{ const e=document.createElement('div'); e.className='ln'+(i===letter-1?' on':''); e.style.left=(q[0]*z)+'px'; e.style.width=((q[1]-q[0])*z)+'px'; e.style.background=COLORS[i%COLORS.length]; e.style.top=(i===letter-1?2:4)+'px'; ln.appendChild(e); });
-  drawPreview();
-}
-function hex(c){ return [parseInt(c.slice(1,3),16),parseInt(c.slice(3,5),16),parseInt(c.slice(5,7),16)]; }
-// Preview of the chosen style: light word block behind the ink + solid bar under the letter span.
-const THEMES = {
-  light:{paper:[251,250,247], ink:[28,27,22], block:{jali:[0xca,0x24,0x4d],khafi:[0xd5,0x8e,0x3a],fasaha:[0x33,0x58,0xd4]}, bar:{jali:[0xca,0x24,0x4d],khafi:[0xd5,0x8e,0x3a],fasaha:[0x33,0x58,0xd4]}, k:1},
-  dark:{paper:[33,31,28], ink:[234,231,222], block:{jali:[0xca,0x24,0x4d],khafi:[0xd5,0x8e,0x3a],fasaha:[0x33,0x58,0xd4]}, bar:{jali:[0xd8,0x6b,0x83],khafi:[0xdd,0xa8,0x69],fasaha:[0x73,0x8b,0xde]}, k:22/14},
-};
-function tune(){ const v=id=>+$(id).value; return {thick:v('tThick'), gap:v('tGap'), inset:v('tInset'), block:v('tBlock')/100, round:$('tRound').checked, cat:$('tCat').value}; }
-function showTune(){ const t=tune(); $('oThick').textContent=t.thick+' px'; $('oGap').textContent=t.gap+' px'; $('oInset').textContent=t.inset+' px'; $('oBlock').textContent=Math.round(t.block*100)+'%'; }
-function drawPreview(){
-  const w=words[cur]; if(!w.img) return; const s=spansOf(state[w.wid].cuts)[letter-1], t=tune(); showTune();
-  const px = v => v/PAGE_SCALE;                                   // CSS px at page size -> artwork px
-  const top=PAD-px(2.5), bottom=w.h-PAD+px(2.5);                  // word block, like the app's mark box
-  const barH=Math.max(1,px(t.thick)), barY=bottom-barH+px(t.gap), H=Math.ceil(Math.max(w.h, barY+barH)+px(3));
-  ['light','dark'].forEach(theme => {
-    const T=THEMES[theme], base=document.createElement('canvas'); base.width=w.w; base.height=H;
-    const bx=base.getContext('2d'), id=bx.createImageData(w.w,H), d=id.data, a=Math.min(.9,t.block*T.k);
-    const x0 = s ? s[0]+px(t.inset) : 0, x1 = s ? s[1]-px(t.inset) : 0, r = barH/2;
-    for(let y=0;y<H;y++) for(let X=0;X<w.w;X++){ const o=(y*w.w+X)*4; let bg=T.paper.slice();
-      if(X>=PAD && X<w.w-PAD && y>=top && y<bottom) bg=bg.map((c0,k)=>c0*(1-a)+T.block[t.cat][k]*a);
-      let inBar = s && x1>x0 && y>=barY && y<barY+barH && X>=x0 && X<x1;
-      if(inBar && t.round){ const cy=barY+r, cx = X<x0+r ? x0+r : X>x1-r ? x1-r : X; inBar = (X-cx)**2+(y+.5-cy)**2 <= r*r; }
-      if(inBar) bg=T.bar[t.cat].slice();
-      const v = y<w.h ? w.img[(y*w.w+X)*4] : 255, tt=(255-v)/255;
-      for(let k=0;k<3;k++) d[o+k]=bg[k]*(1-tt)+T.ink[k]*tt; d[o+3]=255; }
-    bx.putImageData(id,0,0); const dpr=window.devicePixelRatio||1;
-    [['pv1',PAGE_SCALE],['pv2',PAGE_SCALE*3]].forEach(([cid,css])=>{ const c=$(cid+(theme==='dark'?'d':'')); c.width=Math.round(w.w*css*dpr); c.height=Math.round(H*css*dpr);
-      c.style.width=(w.w*css)+'px'; c.style.height=(H*css)+'px'; const x=c.getContext('2d'); x.imageSmoothingEnabled=true; x.imageSmoothingQuality='high'; x.drawImage(base,0,0,c.width,c.height); });
-  });
-}
-['tThick','tGap','tInset','tBlock','tRound','tCat'].forEach(id=>$(id).addEventListener('input',drawPreview));
-$('tSave').onclick=async()=>{ const t=tune(); if(!db){ toast('Saving is not available in this view'); return; }
-  try{ await db.collection('settings').doc('underline').set({...t, savedAt:Date.now()}); $('tuneSaved').textContent='Saved: '+t.thick+' px bar, gap '+t.gap+' px, inset '+t.inset+' px'+(t.round?', round ends':''); toast('Underline settings saved'); }
-  catch(e){ toast('Not saved: '+(e&&e.message||'error')); } };
-function go(i){ cur=Math.max(0,Math.min(words.length-1,i)); fitNext=true; undo=[]; letter=1;
-  const w=words[cur], st=state[w.wid]; $('wtext').textContent=w.text; $('note').value=st.note||'';
-  $('wmeta').textContent='Page '+w.page+' · line '+w.line+' · '+w.letters.length+' letters · '+label(statusOf(w));
-  renderList(); renderChips(); draw(); const on=document.querySelector('.list button.on'); if(on) on.scrollIntoView({block:'nearest'}); }
 
-// edges
+// Draw at artwork resolution: paper, word block, (edit shading), bar, then ink on top.
+function paint(w, T, bar, edit){
+  const g=geom(w), H=g.H, out=new ImageData(w.w,H), d=out.data, a=Math.min(.9,STYLE.block*T.k), sp=spansOf(state[w.wid].cuts);
+  const blk=T.block[cat], barc=T.bar[cat], shade = edit ? sp.map((q,L)=>[q, hex(COLORS[L%COLORS.length]), L===letter-1?.24:(L%2?0:.10)]) : null;
+  for(let y=0;y<H;y++){ const inBlockY = y>=g.top && y<g.bottom, inBarY = y>=g.barY && y<g.barY+g.barH;
+    for(let X=0;X<w.w;X++){ const o=(y*w.w+X)*4; let r=T.paper[0],gg=T.paper[1],b=T.paper[2];
+      if(inBlockY && X>=PAD && X<w.w-PAD){ r=r*(1-a)+blk[0]*a; gg=gg*(1-a)+blk[1]*a; b=b*(1-a)+blk[2]*a; }
+      if(shade) for(const [q,cc,e] of shade){ if(X>=q[0]&&X<q[1]){ if(e){ r=r*(1-e)+cc[0]*e; gg=gg*(1-e)+cc[1]*e; b=b*(1-e)+cc[2]*e; } break; } }
+      if(bar && inBarY && X>=bar[0] && X<bar[1]){ r=barc[0]; gg=barc[1]; b=barc[2]; }
+      const t = y<w.h ? (255-w.img[(y*w.w+X)*4])/255 : 0;
+      d[o]=r*(1-t)+T.ink[0]*t; d[o+1]=gg*(1-t)+T.ink[1]*t; d[o+2]=b*(1-t)+T.ink[2]*t; d[o+3]=255; } }
+  return out;
+}
+function blit(cv, img, css){ const dpr=window.devicePixelRatio||1, src=document.createElement('canvas'); src.width=img.width; src.height=img.height; src.getContext('2d').putImageData(img,0,0);
+  cv.width=Math.round(img.width*css*dpr); cv.height=Math.round(img.height*css*dpr); cv.style.width=(img.width*css)+'px'; cv.style.height=(img.height*css)+'px';
+  const x=cv.getContext('2d'); x.imageSmoothingEnabled=true; x.imageSmoothingQuality='high'; x.drawImage(src,0,0,cv.width,cv.height); }
+
+function targetBar(){ return spansOf(state[words[cur].wid].cuts)[letter-1]; }
+async function draw(){
+  const w=words[cur]; await grey(w); const T=THEMES[theme];
+  const avail=$('stage').clientWidth-32; scale=Math.max(1, Math.min(9, avail/w.w));
+  const bar = barShown || targetBar();
+  blit($('big'), paint(w, T, bar, !!drag), scale);
+  blit($('pv1'), paint(w, THEMES.light, targetBar(), false), PAGE_SCALE);
+  blit($('pv1d'), paint(w, THEMES.dark, targetBar(), false), PAGE_SCALE);
+  drawGrips();
+}
+function drawGrips(){
+  const w=words[cur], cuts=state[w.wid].cuts, g=geom(w), G=$('grips'), T=THEMES[theme]; G.innerHTML='';
+  const cv=$('big'), off=cv.offsetLeft, top=cv.offsetTop, yBar=top+(g.barY+g.barH/2)*scale;
+  G.style.setProperty('--gc', T.grip); G.style.setProperty('--gr', T.ring);
+  cuts.forEach((x,k)=>{ const end = k===letter-1 || k===letter; const e=document.createElement('div');
+    e.className='grip'+(end?' end':'')+(drag&&drag.k===k?' active':''); e.style.left=(off+x*scale)+'px'; e.style.top=yBar+'px'; e.tabIndex=0;
+    e.style.setProperty('--gc', end ? 'rgb('+T.bar[cat].join(',')+')' : T.grip);
+    e.setAttribute('role','slider'); e.setAttribute('aria-valuenow', String(x)); e.setAttribute('aria-label', k===0?'Right end of the word':k===cuts.length-1?'Left end of the word':'Border between letter '+k+' and letter '+(k+1));
+    e.innerHTML='<i></i>'; e.addEventListener('pointerdown',ev=>startDrag(k,ev));
+    e.addEventListener('keydown',ev=>{ if(ev.key!=='ArrowLeft'&&ev.key!=='ArrowRight') return; ev.preventDefault(); ev.stopPropagation();
+      pushUndo(); setCut(k, cuts[k]+(ev.key==='ArrowLeft'?-1:1)*(ev.shiftKey?5:1)); draw().then(()=>$('grips').children[k]&&$('grips').children[k].focus()); });
+    G.appendChild(e); });
+  if(drag){ const x=cuts[drag.k], gd=document.createElement('div'); gd.className='guide'; gd.style.left=(off+x*scale)+'px'; gd.style.top=(top-6)+'px'; gd.style.height=(g.H*scale+12)+'px'; G.appendChild(gd);
+    const tip=document.createElement('div'); tip.className='pairtip'; tip.style.left=(off+x*scale)+'px'; tip.style.top=(top-8)+'px';
+    const L=w.letters; tip.textContent = drag.k===0 ? '‍'+L[0]+'‍' : drag.k===L.length ? '‍'+L[L.length-1]+'‍' : '‍'+L[drag.k-1]+'‍  |  ‍'+L[drag.k]+'‍'; G.appendChild(tip); }
+}
+// Bar slides to the newly selected letter (short, skipped when reduced motion is on).
+function select(n){ const w=words[cur]; n=Math.max(1,Math.min(w.letters.length,n)); if(n===letter) return;
+  const from = barShown || targetBar(); letter=n; renderChips(); const to=targetBar();
+  if(reduceMotion || !from){ barShown=null; draw(); return; }
+  cancelAnimationFrame(anim); const t0=performance.now(), dur=140;
+  const step=now=>{ const p=Math.min(1,(now-t0)/dur), e=1-Math.pow(1-p,3);
+    barShown=[from[0]+(to[0]-from[0])*e, from[1]+(to[1]-from[1])*e]; draw(); if(p<1) anim=requestAnimationFrame(step); else { barShown=null; draw(); } };
+  anim=requestAnimationFrame(step); }
+function letterAt(x){ const sp=spansOf(state[words[cur].wid].cuts); for(let i=0;i<sp.length;i++) if(x>=sp[i][0]&&x<sp[i][1]) return i+1;
+  return x>=sp[0][1] ? 1 : sp.length; }
+$('big').addEventListener('pointerdown', ev => { const r=$('big').getBoundingClientRect(); select(letterAt((ev.clientX-r.left)/r.width*words[cur].w)); });
+
 function pushUndo(){ undo.push(state[words[cur].wid].cuts.slice()); }
 function setCut(k, x){ const w=words[cur], c=state[w.wid].cuts, hi = k===0 ? w.w : c[k-1]-1, lo = k===c.length-1 ? 0 : c[k+1]+1;
   c[k]=Math.max(lo,Math.min(hi,Math.round(x))); }
-function startDrag(k, ev){ ev.preventDefault(); ev.stopPropagation(); const w=words[cur]; pushUndo();
+function startDrag(k, ev){ ev.preventDefault(); ev.stopPropagation(); const w=words[cur]; pushUndo(); cancelAnimationFrame(anim); barShown=null;
+  // grabbing a border of another letter selects the letter on the side you grabbed toward, so its bar follows the drag
+  if(k!==letter-1 && k!==letter){ letter = Math.min(w.letters.length, Math.max(1, k)); renderChips(); }
+  drag={k};
   const move=e=>{ const r=$('big').getBoundingClientRect(); setCut(k,(e.clientX-r.left)/r.width*w.w); draw(); };
-  const up=()=>{ window.removeEventListener('pointermove',move); window.removeEventListener('pointerup',up); };
-  window.addEventListener('pointermove',move); window.addEventListener('pointerup',up); move(ev); }
-$('big').addEventListener('pointerdown', ev => { const w=words[cur], c=state[w.wid].cuts, r=$('big').getBoundingClientRect(), x=(ev.clientX-r.left)/r.width*w.w;
-  let k=0; c.forEach((v,i)=>{ if(Math.abs(v-x)<Math.abs(c[k]-x)) k=i; }); startDrag(k, ev); });
+  const up=()=>{ window.removeEventListener('pointermove',move); window.removeEventListener('pointerup',up); window.removeEventListener('pointercancel',up); drag=null; draw(); };
+  window.addEventListener('pointermove',move); window.addEventListener('pointerup',up); window.addEventListener('pointercancel',up); draw(); }
+
 $('undo').onclick=()=>{ const u=undo.pop(); if(u){ state[words[cur].wid].cuts=u; draw(); } };
 $('reset').onclick=()=>{ const st=state[words[cur].wid]; pushUndo(); st.cuts=st.first.slice(); draw(); };
-$('zoom').oninput=draw; $('prev').onclick=()=>go(cur-1); $('next').onclick=()=>go(cur+1);
+$('prev').onclick=()=>go(cur-1); $('next').onclick=()=>go(cur+1);
+$('theme').addEventListener('click', e=>{ const b=e.target.closest('button'); if(!b) return; theme=b.dataset.v; $('stage').className='stage '+theme;
+  document.querySelectorAll('#theme button').forEach(x=>x.classList.toggle('on',x===b)); draw(); });
+$('cat').addEventListener('input', ()=>{ cat=$('cat').value; draw(); });
+window.addEventListener('resize', ()=>draw());
+
+function go(i){ cur=Math.max(0,Math.min(words.length-1,i)); undo=[]; letter=1; barShown=null; drag=null;
+  const w=words[cur], st=state[w.wid]; $('note').value=st.note||'';
+  $('wmeta').textContent='Page '+w.page+' · line '+w.line+' · '+label(statusOf(w));
+  renderList(); renderChips(); draw(); const on=document.querySelector('.list button.on'); if(on) on.scrollIntoView({block:'nearest'}); }
 
 function toast(t){ const e=$('toast'); e.textContent=t; e.classList.add('show'); clearTimeout(toast.t); toast.t=setTimeout(()=>e.classList.remove('show'),1600); }
 async function save(status){
   const w=words[cur], s=state[w.wid]; s.status=status; s.note=$('note').value.trim(); renderList();
   if(!db){ toast(status==='approved'?'Approved (this tab only)':'Marked: needs a rule (this tab only)'); return; }
-  const doc={wid:w.wid, page:w.page, text:w.text, status, note:s.note, mode:'edges', cuts:s.cuts.join(','), spans:spansOf(s.cuts).map(q=>q.join('-')), w:w.w, h:w.h, box:w.box, savedAt:Date.now()};
+  const doc={wid:w.wid, page:w.page, text:w.text, status, note:s.note, mode:'edges', cuts:s.cuts.join(','), spans:spansOf(s.cuts).map(q=>q.join('-')), tids:w.tids, w:w.w, h:w.h, box:w.box, savedAt:Date.now()};
   if(s.labels) doc.labels=s.labels;
   try{ await db.collection('reviews').doc(w.wid).set(doc); toast(status==='approved'?'Approved and saved':'Saved: needs a rule'); }
   catch(e){ toast('Not saved: '+(e&&e.message||'error')); }
@@ -291,7 +295,10 @@ $('approve').onclick=async()=>{ await save('approved'); go(cur+1); };
 $('flag').onclick=async()=>{ await save('flagged'); go(cur+1); };
 document.addEventListener('keydown', ev => {
   if(ev.target.tagName==='INPUT' && ev.target.type==='text') return;
-  if(ev.key>='1' && ev.key<='9'){ const n=+ev.key; if(n<=words[cur].letters.length){ letter=n; renderChips(); draw(); } }
+  if(ev.target.classList && ev.target.classList.contains('grip')) return;
+  if(ev.key>='1' && ev.key<='9'){ select(+ev.key); }
+  else if(ev.key==='ArrowRight'){ ev.preventDefault(); select(letter-1); }   // Arabic runs right to left
+  else if(ev.key==='ArrowLeft'){ ev.preventDefault(); select(letter+1); }
   else if(ev.key==='z') $('undo').click(); else if(ev.key==='Enter'){ ev.preventDefault(); $('approve').click(); }
 });
 go(0);
@@ -300,14 +307,10 @@ go(0);
   const timer=setTimeout(()=>{ if(!db) $('nosave').hidden=false; },10000);
   try{ db = window.claude ? await window.claude.use('db') : null; }catch(e){ db=null; }
   clearTimeout(timer); if(!db){ $('nosave').hidden=false; return; }
-  db.collection('settings').doc('underline').get().then(doc=>{ const v=doc&&doc.data&&doc.data(); if(!v) return;
-    $('tThick').value=v.thick; $('tGap').value=v.gap; $('tInset').value=v.inset; $('tBlock').value=Math.round(v.block*100); $('tRound').checked=!!v.round; $('tCat').value=v.cat||'jali';
-    $('tuneSaved').textContent='Saved settings loaded'; drawPreview(); }).catch(()=>{});
   db.collection('reviews').onSnapshot(snap => {
     snap.docs.forEach(doc => { const v=doc.data(); if(!v) return; const w=words.find(x=>x.wid===v.wid); if(!w) return; const s=state[w.wid];
       if(v.mode==='edges'){ s.status=v.status; s.note=v.note||''; let c = v.cuts ? v.cuts.split(',').map(Number) : null; if(c && c.length===w.oldLetters+1 && c.length!==w.letters.length+1) c=remapCuts(w,c); s.cuts = c && c.length===w.letters.length+1 ? c : cutsFrom(w, (v.spans||[]).map(q=>q?q.split('-').map(Number):null)); if(v.labels) s.labels=v.labels; }
-      else if(v.labels && v.w===w.w && v.h===w.h){ // approved earlier with the brush tool: use its letters as the first guess, ask for a check
-        s.labels=v.labels; s.status = v.status || 'approved'; s.note=v.note||''; const sp=spansFrom(w, remapLabels(w, unrle(v.labels.split(',').map(Number), w.w*w.h, Uint8Array))); s.cuts=cutsFrom(w,sp); s.first=s.cuts.slice(); }
+      else if(v.labels && v.w===w.w && v.h===w.h){ s.labels=v.labels; s.status = v.status || 'approved'; s.note=v.note||''; const sp=spansFrom(w, remapLabels(w, unrle(v.labels.split(',').map(Number), w.w*w.h, Uint8Array))); s.cuts=cutsFrom(w,sp); s.first=s.cuts.slice(); }
     });
     renderList(); const st=state[words[cur].wid]; $('note').value=st.note||''; renderChips(); draw();
   }, ()=>{ $('nosave').hidden=false; });
