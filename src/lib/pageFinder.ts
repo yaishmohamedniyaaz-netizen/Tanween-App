@@ -55,10 +55,25 @@ export function latinKey(text: string, dropArticle = true): string {
   return key.length > 2 ? key.replace(/h$/, "") : key;
 }
 
-const SURAH_KEYS = SURAH_LATIN.map((name, index) => [
-  latinKey(name), latinKey(name, false), latinKey(SURAH_MEANING[index]), latinKey(SURAH_MEANING[index], false),
-]);
-const ARABIC_DIGITS = "\u0660\u0661\u0662\u0663\u0664\u0665\u0666\u0667\u0668\u0669";
+/** Other common spellings and names, searched like the main name (not shown). */
+const SURAH_OTHER_NAMES: Readonly<Record<number, readonly string[]>> = {
+  21: ["Al-Anbiya"],
+  108: ["Al-Kauthar", "Al-Kawsar"],
+  111: ["Al-Lahab"],
+};
+const SURAH_KEYS = SURAH_LATIN.map((name, index) => {
+  const names = [name, ...(SURAH_OTHER_NAMES[index + 1] ?? [])];
+  return {
+    names: names.map((item) => latinKey(item)),
+    namesWithArticle: names.map((item) => latinKey(item, false)),
+    meaning: latinKey(SURAH_MEANING[index]),
+    meaningWithArticle: latinKey(SURAH_MEANING[index], false),
+  };
+});
+/** Arabic-Indic (U+0660-0669) and Persian (U+06F0-06F9) digits to 0-9. */
+const toWesternDigits = (text: string) =>
+  text.replace(/[\u0660-\u0669\u06F0-\u06F9]/g, (digit) => String(digit.charCodeAt(0) & 0xf));
+const withoutArticle = (name: string) => name.replace(/^\u0627\u0644 ?/, "");
 
 export function pageFinderItems(
   surahs: readonly SurahEntry[],
@@ -66,13 +81,19 @@ export function pageFinderItems(
   questionPage: number | null = null,
 ): PageFinderItem[] {
   const q = String(query || "").trim();
-  const digits = q.replace(/[\u0660-\u0669]/g, (digit) => String(ARABIC_DIGITS.indexOf(digit)));
+  const digits = toWesternDigits(q);
   const juzItem = (juz: number): PageFinderItem => ({ kind: "juz", juz, page: JUZ_START[juz - 1], surah: surahOfPage(surahs, JUZ_START[juz - 1]) });
 
   const juzMatch = digits.match(/^(?:juz|juzu|juzz|para|jz|j|\u062c\u0632\u0621|\u0627\u0644\u062c\u0632\u0621)\s*(\d{1,2})$/i);
   if (juzMatch) {
     const juz = Number(juzMatch[1]);
     return juz >= 1 && juz <= 30 ? [juzItem(juz)] : [];
+  }
+
+  const pageMatch = digits.match(/^(?:page|pg|p|\u0635\u0641\u062d\u0629|\u0635\u0641\u062d\u0647)\s*(\d{1,3})$/i);
+  if (pageMatch) {
+    const page = Number(pageMatch[1]);
+    return page >= 1 && page <= 604 ? [{ kind: "page", page, surah: surahOfPage(surahs, page) }] : [];
   }
 
   const out: PageFinderItem[] = [];
@@ -90,11 +111,11 @@ export function pageFinderItems(
     if (!key) return out;
     const rank = (candidate: string) => (candidate === key ? 0 : candidate.startsWith(key) ? 1 : key.length > 1 && candidate.includes(key) ? 2 : 9);
     const scored: Array<[number, number]> = [];
-    SURAH_KEYS.forEach(([name, nameWithArticle, meaning, meaningWithArticle], index) => {
+    SURAH_KEYS.forEach(({ names, namesWithArticle, meaning, meaningWithArticle }, index) => {
       // The article only counts when one was typed: "an" alone does not match every An- surah.
       const best = Math.min(
-        rank(name),
-        keyWithArticle !== key && nameWithArticle === keyWithArticle ? 0 : 9,
+        ...names.map(rank),
+        keyWithArticle !== key && namesWithArticle.includes(keyWithArticle) ? 0 : 9,
         rank(meaning) + 3,
         keyWithArticle !== key && meaningWithArticle.startsWith(keyWithArticle) ? 4 : 9,
       );
@@ -105,11 +126,16 @@ export function pageFinderItems(
     return out;
   }
   const arabic = normalizeArabic(q);
-  surahs.forEach((surah) => {
-    const name = normalizeArabic(surah.nameAr);
-    if (!arabic || name.includes(arabic) || normalizeArabic("\u0627\u0644" + surah.nameAr).includes(arabic)) {
-      out.push({ kind: "surah", page: surah.firstPage, surah: surah.number });
-    }
-  });
+  const typed = withoutArticle(arabic);
+  // Exact name first (with or without the article), then names that start
+  // with the text, then names that contain it: "ق" opens Qaf, not Al-Baqarah.
+  const scored: Array<[number, SurahEntry]> = [];
+  for (const surah of surahs) {
+    const name = withoutArticle(normalizeArabic(surah.nameAr));
+    const rank = !arabic ? 0 : name === typed ? 0 : name.startsWith(typed) ? 1 : name.includes(typed) ? 2 : 9;
+    if (rank < 9) scored.push([rank, surah]);
+  }
+  scored.sort((a, b) => a[0] - b[0] || a[1].number - b[1].number);
+  for (const [, surah] of scored) out.push({ kind: "surah", page: surah.firstPage, surah: surah.number });
   return out;
 }

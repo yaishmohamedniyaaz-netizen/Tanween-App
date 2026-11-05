@@ -47,3 +47,22 @@ test("the question page leads the empty list", () => {
   assert.equal(find("", 440).length, 115);
   assert.ok(!find("50", 440).some((item) => item.startsWith("question")));
 });
+
+test("an exact Arabic name comes first, so Enter opens that surah", () => {
+  assert.equal(find("الحج")[0], "surah:22:332");
+  assert.equal(find("حج")[0], "surah:22:332");
+  assert.equal(find("ص")[0], "surah:38:453");
+  assert.equal(find("ق")[0], "surah:50:518");
+  assert.ok(find("ق").length > 1, "names containing the letter still follow");
+});
+
+test("common other spellings, a page prefix and Persian digits", () => {
+  assert.equal(find("anbiya")[0], "surah:21:322");
+  assert.equal(find("Al-Anbiya")[0], "surah:21:322");
+  assert.equal(find("kauthar")[0], "surah:108:602");
+  assert.equal(find("kawsar")[0], "surah:108:602");
+  assert.equal(find("lahab")[0], "surah:111:603");
+  assert.deepEqual(find("page 50"), ["page:3:50"]);
+  assert.deepEqual(find("p50"), ["page:3:50"]);
+  assert.deepEqual(find("۵۰"), ["page:3:50", "surah:50:518"], "Persian digits");
+});
