@@ -241,6 +241,8 @@ product rules belong in `PRODUCT_FOUNDATION.md`, not here.
       marked in real judging go to a review queue); common words first, then
       copy; a shorter centred bar that hides small errors; keep improving
       the automatic guess (Codex task).
+    - For map on demand, the queue tool exists (`border-queue.mts`, reads
+      exported judge results; no app change).
     - To be decided: which mix, and whether copied borders may show in the
       app after a spot check, or only owner-approved ones.
 
