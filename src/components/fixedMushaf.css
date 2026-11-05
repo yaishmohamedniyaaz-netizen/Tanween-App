@@ -47,7 +47,12 @@
   /* Paper, image ink and context washes must switch theme in the same frame. */
   transition: none;
 }
-.page-fixed-mushaf > img { position: absolute; pointer-events: none; user-select: none; }
+/* The artwork is transparent except for the ink. Drawing it above the marks
+   layer (z-index 3) puts word highlights and letter bars behind the ink; it
+   takes no pointer events, so taps still reach the words. Context fades must
+   still cover the ink, so they sit above it. */
+.page-fixed-mushaf > img { position: absolute; pointer-events: none; user-select: none; z-index: 4; }
+.page-fixed-mushaf .fixed-artwork-context { z-index: 5; }
 [data-theme="dark"] .page-fixed-mushaf > img { filter: invert(1) brightness(0.9); }
 .page-fixed-mushaf > .mushaf-lines { position: absolute; inset: 0; display: block; padding: 0; isolation: auto; }
 .page-fixed-mushaf .fixed-word { position: absolute; pointer-events: none; }
@@ -67,7 +72,7 @@
 .page-fixed-mushaf[data-question-focus-mode="fade"] .fixed-word:has(.question-context-word)::before,
 .page-fixed-mushaf[data-question-focus-mode="shade-fade"] .fixed-word:has(.question-context-word)::before {
   content: ""; position: absolute; inset: 0 var(--context-right, 0px) 0 var(--context-left, 0px);
-  background: var(--page-paper); opacity: 0.65; pointer-events: none;
+  background: var(--page-paper); opacity: 0.65; pointer-events: none; z-index: 5;
 }
 .page-fixed-mushaf .hit::before {
   left: calc(var(--ink-left) + 1.5px); width: max(0px, calc(var(--ink-width) - 3px)); border-radius: 3px;

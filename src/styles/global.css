@@ -5893,6 +5893,16 @@ textarea:focus-visible {
   border-radius: 3px;
   background: var(--c-mark-fill);
 }
+/* Fixed 1405H pages: the word block sits behind the ink (decided style,
+   5 Nov 2026: about 18% in light, 22/14 of that in dark). The page image is
+   drawn above the marks layer (see fixedMushaf.css), so the tint shows only
+   on the paper and every letter keeps its own ink colour. */
+.page-fixed-mushaf .glyph-ink.marked::before {
+  background: color-mix(in srgb, var(--c) 18%, transparent);
+}
+[data-theme="dark"] .page-fixed-mushaf .glyph-ink.marked::before {
+  background: color-mix(in srgb, var(--c) 28%, transparent);
+}
 /* Letter bar: under the marked letter, inside the bottom of the word block.
    Only for words with owner-approved letter borders. The blend keeps the ink
    on top: dark ink stays dark on light paper, light ink stays light in dark. */
