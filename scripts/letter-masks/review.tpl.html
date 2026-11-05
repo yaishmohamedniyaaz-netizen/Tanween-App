@@ -55,10 +55,16 @@ h1{font-size:20px;margin:0;text-wrap:balance}
 .pairtip{position:absolute;transform:translate(-50%,-100%);background:var(--fg);color:var(--bg);border-radius:6px;padding:0 8px;font:22px/1.5 var(--ar);pointer-events:none;white-space:nowrap;direction:rtl}
 .toolbar{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;padding:10px 14px;border-top:1px solid var(--line)}
 .chips{display:flex;flex-wrap:wrap;gap:6px;direction:rtl}
-.chip{all:unset;box-sizing:border-box;cursor:pointer;display:flex;gap:6px;align-items:center;padding:0 10px 0 8px;border-radius:6px;border:2px solid var(--line);background:var(--panel);direction:ltr}
-.chip .ar{font:24px/1.5 var(--ar)}
+.chips{gap:8px}
+.chip{all:unset;box-sizing:border-box;cursor:pointer;display:grid;justify-items:center;min-width:56px;padding:2px 10px 6px;border-radius:8px;border:2px solid var(--line);background:var(--panel);direction:ltr;position:relative}
+.chip .ar{font:32px/1.45 var(--ar)}
 .chip .k{font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums}
-.chip.on{border-color:var(--fg)}
+.chip::after{content:"";position:absolute;left:8px;right:8px;bottom:3px;height:4px;border-radius:2px;background:transparent}
+.chip.marked{border-color:var(--cc);background:color-mix(in srgb,var(--cc) 14%,var(--panel))}
+.chip.marked::after{background:var(--cc)}
+.chip.on{box-shadow:0 0 0 2px var(--panel),0 0 0 4px var(--fg)}
+.lettersbar{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;justify-content:space-between;width:100%}
+.btn.toggle[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
 .chip:focus-visible{outline:2px solid var(--accent)}
 .seg{display:inline-flex;border:1px solid var(--line);border-radius:6px;overflow:hidden}
 .seg button{all:unset;cursor:pointer;padding:5px 12px;font-size:13px}
@@ -104,7 +110,11 @@ input[type=text]{font:inherit;padding:6px 8px;border:1px solid var(--line);borde
           <canvas id="big" role="img" aria-label="The word as the app will show it, with the mistake bar under the selected letter"></canvas>
           <div class="grips" id="grips"></div>
         </div>
-        <div class="toolbar"><div class="chips" id="chips" role="radiogroup" aria-label="Letter"></div></div>
+        <div class="toolbar"><div class="lettersbar">
+          <div class="chips" id="chips" role="group" aria-label="Letters"></div>
+          <div class="row"><button class="btn toggle" id="multi" aria-pressed="false">Several mistakes <span class="sub">M</span></button>
+            <button class="btn" id="random">Random test <span class="sub">R</span></button></div>
+        </div></div>
         <div class="toolbar">
           <div class="seg" id="theme" role="group" aria-label="Page theme"><button data-v="light" class="on">Light page</button><button data-v="dark">Dark page</button></div>
           <label for="cat">Criterion <select id="cat"><option value="jali">Jali</option><option value="khafi">Khafi</option><option value="fasaha">Fasaha</option></select></label>
@@ -126,7 +136,7 @@ input[type=text]{font:inherit;padding:6px 8px;border:1px solid var(--line);borde
         <button class="btn" id="prev">Previous</button>
         <button class="btn" id="next">Next</button>
       </div>
-      <p class="help">Tap a letter, or press <kbd>←</kbd> <kbd>→</kbd> or <kbd>1</kbd>–<kbd>9</kbd>, to move the bar. The two large handles are the ends of the selected letter's bar; the small dots are the other borders. While you drag, the letters are lightly shaded so you can see the split, and the letters on both sides of the border are shown above it; when you let go, the view goes back to the app look. A focused handle moves 1 pixel with the arrow keys, 5 with <kbd>Shift</kbd>. <kbd>Z</kbd> undo, <kbd>Enter</kbd> approve.</p>
+      <p class="help">Hold and slide across the word to move the bar from letter to letter; tap to choose one. With <b>Several mistakes</b> on (or holding <kbd>Shift</kbd>), each tap adds or removes a bar, each in its own criterion colour. <b>Random test</b> marks 1–3 random letters with random criteria. Tap a letter, or press <kbd>←</kbd> <kbd>→</kbd> or <kbd>1</kbd>–<kbd>9</kbd>, to move the bar. The two large handles are the ends of the selected letter's bar; the small dots are the other borders. While you drag, the letters are lightly shaded so you can see the split, and the letters on both sides of the border are shown above it; when you let go, the view goes back to the app look. A focused handle moves 1 pixel with the arrow keys, 5 with <kbd>Shift</kbd>. <kbd>Z</kbd> undo, <kbd>Enter</kbd> approve.</p>
     </section>
   </div>
 </div>
@@ -176,6 +186,7 @@ const state={};
 words.forEach(w => { const c=cutsFrom(w,spansFrom(w,w.proposalArr)); state[w.wid]={cuts:c, first:c.slice(), status:null, note:'', labels:null}; });
 let cur=0, letter=1, undo=[], db=null;
 let theme='light', cat='jali', drag=null, barShown=null, anim=null, scale=1;
+let marks=[{L:1, cat:'jali'}], multi=false, scrub=null;   // bars on screen; letter = the one whose borders you edit
 
 function grey(w){ return new Promise(res => { if(w.img) return res(w.img); const im=new Image(); im.onload=()=>{ const c=document.createElement('canvas'); c.width=w.w; c.height=w.h; const x=c.getContext('2d'); x.drawImage(im,0,0); w.img=x.getImageData(0,0,w.w,w.h).data; res(w.img); }; im.src='data:image/png;base64,'+w.png; }); }
 function statusOf(w){ return state[w.wid].status || 'todo'; }
@@ -195,23 +206,26 @@ function renderList(){
 }
 function renderChips(){
   const w=words[cur], C=$('chips'); C.innerHTML='';
-  w.letters.forEach((t,i) => { const b=document.createElement('button'); b.className='chip'+(letter===i+1?' on':'');
-    b.setAttribute('role','radio'); b.setAttribute('aria-checked', String(letter===i+1));
+  w.letters.forEach((t,i) => { const m=marks.find(x=>x.L===i+1), b=document.createElement('button'); b.className='chip'+(letter===i+1?' on':'')+(m?' marked':'');
+    if(m) b.style.setProperty('--cc','rgb('+THEMES.light.bar[m.cat].join(',')+')');
+    b.setAttribute('aria-pressed', String(!!m)); b.setAttribute('aria-label','Letter '+(i+1)+(m?', marked '+m.cat:''));
     b.innerHTML='<span class="k">'+(i+1)+'</span><span class="ar"></span>';
-    b.querySelector('.ar').textContent='‍'+t+'‍'; b.onclick=()=>select(i+1); C.appendChild(b); });
+    b.querySelector('.ar').textContent=t; b.onclick=ev=>tapLetter(i+1, ev.shiftKey); C.appendChild(b); });   // standalone letter form reads clearly
+  const am=marks.find(m=>m.L===letter); if(am) $('cat').value=am.cat;   // the picker shows the edited letter's criterion
   $('selLetter').textContent=w.letters[letter-1];   // on its own so it reads clearly
-  $('selMeta').textContent='Letter '+letter+' of '+w.letters.length;
+  $('selMeta').textContent='Letter '+letter+' of '+w.letters.length+(marks.length>1?' · '+marks.length+' mistakes shown':'');
 }
 
 // Draw at artwork resolution: paper, word block, (edit shading), bar, then ink on top.
-function paint(w, T, bar, edit){
+function dominant(ms){ const n={}; ms.forEach(m=>n[m.cat]=(n[m.cat]||0)+1); return ms.reduce((b,m)=> (n[m.cat]>n[b]?m.cat:b), ms[0]?ms[0].cat:cat); }
+function paint(w, T, bars, edit){
   const g=geom(w), H=g.H, out=new ImageData(w.w,H), d=out.data, a=Math.min(.9,STYLE.block*T.k), sp=spansOf(state[w.wid].cuts);
-  const blk=T.block[cat], barc=T.bar[cat], shade = edit ? sp.map((q,L)=>[q, hex(COLORS[L%COLORS.length]), L===letter-1?.24:(L%2?0:.10)]) : null;
+  const blk=T.block[dominant(marks)], shade = edit ? sp.map((q,L)=>[q, hex(COLORS[L%COLORS.length]), L===letter-1?.24:(L%2?0:.10)]) : null;
   for(let y=0;y<H;y++){ const inBlockY = y>=g.top && y<g.bottom, inBarY = y>=g.barY && y<g.barY+g.barH;
     for(let X=0;X<w.w;X++){ const o=(y*w.w+X)*4; let r=T.paper[0],gg=T.paper[1],b=T.paper[2];
       if(inBlockY && X>=PAD && X<w.w-PAD){ r=r*(1-a)+blk[0]*a; gg=gg*(1-a)+blk[1]*a; b=b*(1-a)+blk[2]*a; }
       if(shade) for(const [q,cc,e] of shade){ if(X>=q[0]&&X<q[1]){ if(e){ r=r*(1-e)+cc[0]*e; gg=gg*(1-e)+cc[1]*e; b=b*(1-e)+cc[2]*e; } break; } }
-      if(bar && inBarY && X>=bar[0] && X<bar[1]){ r=barc[0]; gg=barc[1]; b=barc[2]; }
+      if(inBarY) for(const q of bars){ if(X>=q.x0 && X<q.x1){ const c=T.bar[q.cat]; r=c[0]; gg=c[1]; b=c[2]; break; } }
       const t = y<w.h ? (255-w.img[(y*w.w+X)*4])/255 : 0;
       d[o]=r*(1-t)+T.ink[0]*t; d[o+1]=gg*(1-t)+T.ink[1]*t; d[o+2]=b*(1-t)+T.ink[2]*t; d[o+3]=255; } }
   return out;
@@ -221,13 +235,15 @@ function blit(cv, img, css){ const dpr=window.devicePixelRatio||1, src=document.
   const x=cv.getContext('2d'); x.imageSmoothingEnabled=true; x.imageSmoothingQuality='high'; x.drawImage(src,0,0,cv.width,cv.height); }
 
 function targetBar(){ return spansOf(state[words[cur].wid].cuts)[letter-1]; }
+function barsNow(){ const sp=spansOf(state[words[cur].wid].cuts);
+  return marks.map(m=>{ let q=sp[m.L-1]; if(m.L===letter && barShown) q=barShown; return {x0:q[0], x1:q[1], cat:m.cat}; }); }
 async function draw(){
   const w=words[cur]; await grey(w); const T=THEMES[theme];
   const avail=$('stage').clientWidth-32; scale=Math.max(1, Math.min(9, avail/w.w));
-  const bar = barShown || targetBar();
-  blit($('big'), paint(w, T, bar, !!drag), scale);
-  blit($('pv1'), paint(w, THEMES.light, targetBar(), false), PAGE_SCALE);
-  blit($('pv1d'), paint(w, THEMES.dark, targetBar(), false), PAGE_SCALE);
+  blit($('big'), paint(w, T, barsNow(), !!drag), scale);
+  const still=marks.map(m=>{ const q=spansOf(state[w.wid].cuts)[m.L-1]; return {x0:q[0],x1:q[1],cat:m.cat}; });
+  blit($('pv1'), paint(w, THEMES.light, still, false), PAGE_SCALE);
+  blit($('pv1d'), paint(w, THEMES.dark, still, false), PAGE_SCALE);
   drawGrips();
 }
 function drawGrips(){
@@ -236,7 +252,7 @@ function drawGrips(){
   G.style.setProperty('--gc', T.grip); G.style.setProperty('--gr', T.ring);
   cuts.forEach((x,k)=>{ const end = k===letter-1 || k===letter; const e=document.createElement('div');
     e.className='grip'+(end?' end':'')+(drag&&drag.k===k?' active':''); e.style.left=(off+x*scale)+'px'; e.style.top=yBar+'px'; e.tabIndex=0;
-    e.style.setProperty('--gc', end ? 'rgb('+T.bar[cat].join(',')+')' : T.grip);
+    const mk=marks.find(m=>m.L===letter); e.style.setProperty('--gc', end ? 'rgb('+T.bar[mk?mk.cat:cat].join(',')+')' : T.grip);
     e.setAttribute('role','slider'); e.setAttribute('aria-valuenow', String(x)); e.setAttribute('aria-label', k===0?'Right end of the word':k===cuts.length-1?'Left end of the word':'Border between letter '+k+' and letter '+(k+1));
     e.innerHTML='<i></i>'; e.addEventListener('pointerdown',ev=>startDrag(k,ev));
     e.addEventListener('keydown',ev=>{ if(ev.key!=='ArrowLeft'&&ev.key!=='ArrowRight') return; ev.preventDefault(); ev.stopPropagation();
@@ -247,8 +263,16 @@ function drawGrips(){
     const L=w.letters; tip.textContent = drag.k===0 ? '‍'+L[0]+'‍' : drag.k===L.length ? '‍'+L[L.length-1]+'‍' : '‍'+L[drag.k-1]+'‍  |  ‍'+L[drag.k]+'‍'; G.appendChild(tip); }
 }
 // Bar slides to the newly selected letter (short, skipped when reduced motion is on).
-function select(n){ const w=words[cur]; n=Math.max(1,Math.min(w.letters.length,n)); if(n===letter) return;
-  const from = barShown || targetBar(); letter=n; renderChips(); const to=targetBar();
+function tapLetter(n, add){ if(multi || add){ const i=marks.findIndex(m=>m.L===n);
+    if(i>=0 && marks.length>1){ marks.splice(i,1); if(letter===n){ letter=marks[marks.length-1].L; } }
+    else if(i<0){ marks.push({L:n, cat}); letter=n; } else letter=n;
+    renderChips(); draw(); return; }
+  select(n); }
+function select(n){ const w=words[cur]; n=Math.max(1,Math.min(w.letters.length,n)); if(n===letter && marks.length===1 && marks[0].L===n) return;
+  const from = barShown || targetBar(); const keep=(marks.find(m=>m.L===letter)||{cat}).cat;
+  if(multi){ const m=marks.find(m=>m.L===letter); if(m && !marks.some(x=>x.L===n)) m.L=n; else if(!marks.some(x=>x.L===n)) marks.push({L:n,cat}); }
+  else marks=[{L:n, cat:keep}];
+  letter=n; renderChips(); const to=targetBar();
   if(reduceMotion || !from){ barShown=null; draw(); return; }
   cancelAnimationFrame(anim); const t0=performance.now(), dur=140;
   const step=now=>{ const p=Math.min(1,(now-t0)/dur), e=1-Math.pow(1-p,3);
@@ -256,14 +280,24 @@ function select(n){ const w=words[cur]; n=Math.max(1,Math.min(w.letters.length,n
   anim=requestAnimationFrame(step); }
 function letterAt(x){ const sp=spansOf(state[words[cur].wid].cuts); for(let i=0;i<sp.length;i++) if(x>=sp[i][0]&&x<sp[i][1]) return i+1;
   return x>=sp[0][1] ? 1 : sp.length; }
-$('big').addEventListener('pointerdown', ev => { const r=$('big').getBoundingClientRect(); select(letterAt((ev.clientX-r.left)/r.width*words[cur].w)); });
+$('big').addEventListener('pointerdown', ev => { ev.preventDefault(); const cv=$('big'), r=cv.getBoundingClientRect(), xAt=e=>(e.clientX-r.left)/r.width*words[cur].w;
+  const first=letterAt(xAt(ev));
+  if(multi || ev.shiftKey){ tapLetter(first, true); return; }
+  select(first); cv.setPointerCapture(ev.pointerId);
+  const move=e=>{ const n=letterAt(xAt(e)); if(n!==letter) select(n); };
+  const up=()=>{ cv.removeEventListener('pointermove',move); cv.removeEventListener('pointerup',up); cv.removeEventListener('pointercancel',up); };
+  cv.addEventListener('pointermove',move); cv.addEventListener('pointerup',up); cv.addEventListener('pointercancel',up); });
+$('multi').onclick=()=>{ multi=!multi; $('multi').setAttribute('aria-pressed',String(multi)); if(!multi){ marks=[marks.find(m=>m.L===letter)||{L:letter,cat}]; } renderChips(); draw(); };
+$('random').onclick=()=>{ const n=words[cur].letters.length, k=Math.min(n, 1+Math.floor(Math.random()*3)), cats=['jali','khafi','fasaha'], pool=[...Array(n).keys()].map(i=>i+1);
+  marks=[]; for(let i=0;i<k;i++){ const j=Math.floor(Math.random()*pool.length); marks.push({L:pool.splice(j,1)[0], cat:cats[Math.floor(Math.random()*3)]}); }
+  letter=marks[0].L; barShown=null; renderChips(); draw(); };
 
 function pushUndo(){ undo.push(state[words[cur].wid].cuts.slice()); }
 function setCut(k, x){ const w=words[cur], c=state[w.wid].cuts, hi = k===0 ? w.w : c[k-1]-1, lo = k===c.length-1 ? 0 : c[k+1]+1;
   c[k]=Math.max(lo,Math.min(hi,Math.round(x))); }
 function startDrag(k, ev){ ev.preventDefault(); ev.stopPropagation(); const w=words[cur]; pushUndo(); cancelAnimationFrame(anim); barShown=null;
   // grabbing a border of another letter selects the letter on the side you grabbed toward, so its bar follows the drag
-  if(k!==letter-1 && k!==letter){ letter = Math.min(w.letters.length, Math.max(1, k)); renderChips(); }
+  if(k!==letter-1 && k!==letter){ letter = Math.min(w.letters.length, Math.max(1, k)); if(!marks.some(m=>m.L===letter)){ if(multi) marks.push({L:letter,cat}); else marks=[{L:letter,cat:marks[0]?marks[0].cat:cat}]; } renderChips(); }
   drag={k};
   const move=e=>{ const r=$('big').getBoundingClientRect(); setCut(k,(e.clientX-r.left)/r.width*w.w); draw(); };
   const up=()=>{ window.removeEventListener('pointermove',move); window.removeEventListener('pointerup',up); window.removeEventListener('pointercancel',up); drag=null; draw(); };
@@ -274,10 +308,10 @@ $('reset').onclick=()=>{ const st=state[words[cur].wid]; pushUndo(); st.cuts=st.
 $('prev').onclick=()=>go(cur-1); $('next').onclick=()=>go(cur+1);
 $('theme').addEventListener('click', e=>{ const b=e.target.closest('button'); if(!b) return; theme=b.dataset.v; $('stage').className='stage '+theme;
   document.querySelectorAll('#theme button').forEach(x=>x.classList.toggle('on',x===b)); draw(); });
-$('cat').addEventListener('input', ()=>{ cat=$('cat').value; draw(); });
+$('cat').addEventListener('input', ()=>{ cat=$('cat').value; const m=marks.find(x=>x.L===letter); if(m) m.cat=cat; renderChips(); draw(); });
 window.addEventListener('resize', ()=>draw());
 
-function go(i){ cur=Math.max(0,Math.min(words.length-1,i)); undo=[]; letter=1; barShown=null; drag=null;
+function go(i){ cur=Math.max(0,Math.min(words.length-1,i)); undo=[]; letter=1; barShown=null; drag=null; marks=[{L:1, cat}];
   const w=words[cur], st=state[w.wid]; $('note').value=st.note||'';
   $('wmeta').textContent='Page '+w.page+' · line '+w.line+' · '+label(statusOf(w));
   renderList(); renderChips(); draw(); const on=document.querySelector('.list button.on'); if(on) on.scrollIntoView({block:'nearest'}); }
@@ -299,6 +333,7 @@ document.addEventListener('keydown', ev => {
   if(ev.key>='1' && ev.key<='9'){ select(+ev.key); }
   else if(ev.key==='ArrowRight'){ ev.preventDefault(); select(letter-1); }   // Arabic runs right to left
   else if(ev.key==='ArrowLeft'){ ev.preventDefault(); select(letter+1); }
+  else if(ev.key==='m') $('multi').click(); else if(ev.key==='r') $('random').click();
   else if(ev.key==='z') $('undo').click(); else if(ev.key==='Enter'){ ev.preventDefault(); $('approve').click(); }
 });
 go(0);
