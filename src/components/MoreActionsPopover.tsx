@@ -1,4 +1,6 @@
 import { useEffect, useId, useRef, useState } from "react";
+import type { MarkingPreferences } from "../lib/markingPreferences";
+import { MarkingSettings } from "./MarkingSettings";
 import type { AppView } from "./Header";
 import { downloadSessionJSON } from "../lib/exportSession";
 import { useJudging } from "../state/store";
@@ -47,6 +49,8 @@ interface MoreActionsPopoverProps {
   onSlimScorePanelChange: (value: boolean) => void;
   selectorTashkeel: boolean;
   onSelectorTashkeelChange: (value: boolean) => void;
+  marking: MarkingPreferences;
+  onMarkingChange: (patch: Partial<MarkingPreferences>) => void;
   lastMarkStrip: LastMarkStrip;
   onLastMarkStripChange: (value: LastMarkStrip) => void;
   onShowMarkingGuide: () => void;
@@ -77,6 +81,8 @@ export function MoreActionsPopover({
   onSlimScorePanelChange,
   selectorTashkeel,
   onSelectorTashkeelChange,
+  marking,
+  onMarkingChange,
   lastMarkStrip,
   onLastMarkStripChange,
   onShowMarkingGuide,
@@ -336,6 +342,10 @@ export function MoreActionsPopover({
                 </div>
                 <small>Show vowel marks in the letter selector.</small>
               </fieldset>
+              <details className="marking-settings-group">
+                <summary>Marking: criterion bar, keys, pen</summary>
+                <MarkingSettings value={marking} onChange={onMarkingChange} />
+              </details>
               <fieldset className="mobile-deck-control">
                 <legend>Mobile judge deck</legend>
                 <span className="mobile-deck-control-label">Last mistake strip</span>

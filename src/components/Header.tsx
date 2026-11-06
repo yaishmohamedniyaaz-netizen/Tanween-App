@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import type { MarkingPreferences } from "../lib/markingPreferences";
 import { enabledCategories } from "../config";
 import type {
   AduRaaguInputMode,
@@ -47,6 +48,8 @@ interface Props {
   onSlimScorePanelChange: (value: boolean) => void;
   selectorTashkeel: boolean;
   onSelectorTashkeelChange: (value: boolean) => void;
+  marking: MarkingPreferences;
+  onMarkingChange: (patch: Partial<MarkingPreferences>) => void;
   lastMarkStrip: LastMarkStrip;
   onLastMarkStripChange: (value: LastMarkStrip) => void;
   onShowMarkingGuide: () => void;
@@ -90,6 +93,8 @@ export function Header({
   onSlimScorePanelChange,
   selectorTashkeel,
   onSelectorTashkeelChange,
+  marking,
+  onMarkingChange,
   lastMarkStrip,
   onLastMarkStripChange,
   onShowMarkingGuide,
@@ -305,6 +310,8 @@ export function Header({
         onSlimScorePanelChange={onSlimScorePanelChange}
         selectorTashkeel={selectorTashkeel}
         onSelectorTashkeelChange={onSelectorTashkeelChange}
+        marking={marking}
+        onMarkingChange={onMarkingChange}
         lastMarkStrip={lastMarkStrip}
         onLastMarkStripChange={onLastMarkStripChange}
         onShowMarkingGuide={onShowMarkingGuide}

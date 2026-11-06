@@ -123,6 +123,8 @@ export function useMushafPageGesture(options: Options) {
       draw();
     };
     const onDown = (event: PointerEvent) => {
+      // A finger on the criterion bar is not a second finger on the page.
+      if (event.target instanceof Element && event.target.closest('[data-criterion-bar]')) return;
       clickGuard.current = null; contacts.current.add(event.pointerId);
       const target = event.target instanceof Element ? event.target : null;
       const inside = target && host.contains(target);

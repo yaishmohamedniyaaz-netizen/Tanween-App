@@ -187,6 +187,9 @@ export function App() {
   const updatePreferences = (patch: Partial<DevicePreferencesV5>) => {
     setPreferences((current) => ({ ...current, ...patch, version: 5 }));
   };
+  const updateMarking = (patch: Partial<DevicePreferencesV5["marking"]>) => {
+    setPreferences((current) => ({ ...current, marking: { ...current.marking, ...patch }, version: 5 }));
+  };
 
   // Open the Mushaf on the page the reciter's question actually starts on.
   // This runs once per session and question: the judge navigates freely
@@ -372,6 +375,8 @@ export function App() {
         onSlimScorePanelChange={(slimScorePanel) => updatePreferences({ slimScorePanel })}
         selectorTashkeel={preferences.selectorTashkeel}
         onSelectorTashkeelChange={(selectorTashkeel) => updatePreferences({ selectorTashkeel })}
+        marking={preferences.marking}
+        onMarkingChange={updateMarking}
         lastMarkStrip={preferences.lastMarkStrip}
         onLastMarkStripChange={(lastMarkStrip) =>
           updatePreferences({ lastMarkStrip })
@@ -428,6 +433,9 @@ export function App() {
                 navigationError={readyNavigation.error}
                 retryNavigation={readyNavigation.retry}
                 selectorTashkeel={preferences.selectorTashkeel}
+                marking={preferences.marking}
+                onMarkingChange={updateMarking}
+                judgeRailSide={preferences.judgeRailSide}
                 page={displayedPage}
                 pageLayout={preferences.mushafLayout}
                 questionFocusMode={preferences.questionFocusMode}

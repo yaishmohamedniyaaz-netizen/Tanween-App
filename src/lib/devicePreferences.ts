@@ -1,3 +1,5 @@
+import { DEFAULT_MARKING_PREFERENCES, normalizeMarkingPreferences, type MarkingPreferences } from "./markingPreferences.ts";
+
 export type AppTheme = "light" | "dark";
 export type MushafLayout = "full" | "spread";
 export type JudgeRailSide = "left" | "right";
@@ -18,6 +20,8 @@ export interface DevicePreferencesV5 {
   scoreChipTint: ScoreChipTint;
   selectorTashkeel: boolean;
   slimScorePanel: boolean;
+  /** How the criterion is chosen when marking (criterion bar, keys, pen). */
+  marking: MarkingPreferences;
 }
 
 export const DEVICE_PREFERENCES_KEY = "tahqeeq:devicePreferences.v5";
@@ -48,6 +52,7 @@ export const DEFAULT_DEVICE_PREFERENCES: DevicePreferencesV5 = {
   scoreChipTint: "earned",
   selectorTashkeel: false,
   slimScorePanel: false,
+  marking: DEFAULT_MARKING_PREFERENCES,
 };
 
 export function normalizeMushafZoom(
@@ -122,6 +127,7 @@ export function normalizeDevicePreferences(
     selectorTashkeel: typeof candidate.selectorTashkeel === "boolean"
       ? candidate.selectorTashkeel
       : fallback.selectorTashkeel,
+    marking: normalizeMarkingPreferences(candidate.marking, fallback.marking ?? DEFAULT_MARKING_PREFERENCES),
   };
 }
 

@@ -15773,3 +15773,135 @@ html:has(.finish-dialog[open]) {
   .sidebar .scorecard .score-value-layout .sc-of { text-align: left; }
   .sidebar .scorecard .sc-deducted { text-align: right; padding-right: 6px; }
 }
+
+/* ---------- Criterion bar (marking-order prototype) ----------
+   Criterion buttons at the Mushaf's edge: tap = next mark, hold = while held.
+   Above the tray backdrop (55) so a bar press never closes the open tray,
+   below the tray itself (60). */
+.criterion-bar {
+  position: fixed;
+  z-index: 58;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-2);
+  background: var(--surface);
+  border: 1px solid var(--line-2);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-float);
+  touch-action: none;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+.criterion-button {
+  --size: 64px;
+  position: relative;
+  width: var(--size);
+  min-height: 56px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  padding: 6px 4px;
+  border-radius: var(--r-md);
+  border: 1.5px solid color-mix(in srgb, var(--c) 45%, transparent);
+  background: var(--c-tint);
+  color: var(--c-strong);
+  font: 650 var(--t-small) / 1.1 var(--ui);
+  cursor: pointer;
+  touch-action: none;
+  transition: background-color var(--t-fast, 120ms) ease, box-shadow var(--t-fast, 120ms) ease;
+}
+.criterion-bar.size-large .criterion-button { --size: 82px; min-height: 76px; font-size: var(--t-body); }
+.criterion-button kbd {
+  font: 600 11px/1 var(--num, var(--ui));
+  padding: 2px 5px;
+  border-radius: 4px;
+  border: 1px solid color-mix(in srgb, currentColor 35%, transparent);
+  background: transparent;
+  color: inherit;
+}
+.criterion-state { font-size: 10.5px; font-weight: 600; min-height: 12px; }
+.criterion-button.is-on {
+  background: var(--c);
+  border-color: var(--c);
+  color: var(--c-on, #ffffff);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--c) 30%, transparent);
+}
+.criterion-button.is-held { box-shadow: 0 0 0 5px color-mix(in srgb, var(--c) 40%, transparent); }
+.criterion-button:focus-visible, .criterion-settings:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+.criterion-settings {
+  width: 44px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: var(--r-sm);
+  background: transparent;
+  color: var(--ink-2);
+  cursor: pointer;
+}
+.criterion-settings:hover, .criterion-settings[aria-expanded="true"] { background: var(--line); color: var(--ink); }
+.criterion-hint {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  white-space: nowrap;
+  padding: 8px 12px;
+  border-radius: var(--r-md);
+  background: var(--ink);
+  color: var(--surface);
+  font: 600 var(--t-small) var(--ui);
+  pointer-events: none;
+}
+.criterion-bar.side-left .criterion-hint { left: calc(100% + 10px); }
+.criterion-bar.side-right .criterion-hint { right: calc(100% + 10px); }
+.criterion-bar.is-nudged { animation: criterion-nudge 360ms ease; }
+@keyframes criterion-nudge {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+.criterion-panel {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: min(360px, calc(100vw - 140px));
+  max-height: min(78vh, 640px);
+  overflow: auto;
+  padding: var(--sp-3) var(--sp-4) var(--sp-4);
+  background: var(--surface);
+  border: 1px solid var(--line-2);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-float);
+  touch-action: pan-y;
+  -webkit-user-select: auto;
+  user-select: auto;
+  text-align: left;
+}
+.criterion-bar.side-left .criterion-panel { left: calc(100% + 10px); }
+.criterion-bar.side-right .criterion-panel { right: calc(100% + 10px); }
+.criterion-panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--sp-2);
+  font: 650 var(--t-body) var(--ui);
+}
+.marking-settings { display: grid; gap: var(--sp-3); }
+.marking-settings .mushaf-view-options { flex-wrap: wrap; }
+.marking-settings small { display: block; margin-top: 4px; color: var(--ink-3); }
+.marking-settings-group { margin-top: var(--sp-3); }
+.marking-settings-group > summary { cursor: pointer; font-weight: 600; padding: 6px 0; }
+@media (prefers-reduced-motion: reduce) { .criterion-bar.is-nudged { animation: none; } }
+
+/* The Mushaf frame carries the chosen criterion's colour while it is on. */
+[data-criterion-frame] { outline: 3px solid var(--criterion-frame); outline-offset: -3px; }
+[data-criterion-frame="jali"] { --criterion-frame: #ca244d; }
+[data-criterion-frame="khafi"] { --criterion-frame: #d58e3a; }
+[data-criterion-frame="fasaha"] { --criterion-frame: #3358d4; }
+.mushaf-viewport[data-criterion-bar="left"] { padding-left: var(--criterion-bar-space, 96px); }
+.mushaf-viewport[data-criterion-bar="right"] { padding-right: var(--criterion-bar-space, 96px); }

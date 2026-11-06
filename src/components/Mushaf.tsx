@@ -34,7 +34,20 @@ import {
   preloadQcfPageFont,
 } from "../lib/qcfFont";
 import { useJudging } from "../state/store";
-import { enabledCategories, isPinpointCategory } from "../config";
+import { enabledCategories, isPinpointCategory, PINPOINT_CATEGORIES } from "../config";
+import {
+  DEFAULT_MARKING_PREFERENCES,
+  afterMark,
+  categoryForKey,
+  pressCriterion,
+  releaseCriterion,
+  resolvedBarSide,
+  type MarkingPreferences,
+  type Preselect,
+} from "../lib/markingPreferences.ts";
+import type { JudgeRailSide } from "../lib/devicePreferences";
+import { CriterionBar } from "./CriterionBar";
+import { MarkingSettings } from "./MarkingSettings";
 import type {
   CategoryId,
   Mistake,
@@ -146,6 +159,10 @@ export interface MushafProps {
   fixedPages?: ReadonlyMap<number, FixedPageGeometry>;
   fixedSemanticPages?: ReadonlyMap<number, MushafPage>;
   selectorTashkeel?: boolean;
+  /** Criterion bar, keys and pen choices (device preference). */
+  marking?: MarkingPreferences;
+  onMarkingChange?: (patch: Partial<MarkingPreferences>) => void;
+  judgeRailSide?: JudgeRailSide;
   page: number;
   pageLayout: MushafLayout;
   questionFocusMode: QuestionFocusMode;
@@ -175,6 +192,9 @@ export function Mushaf(props: MushafProps) {
   fixedPages,
   fixedSemanticPages,
   selectorTashkeel = false,
+  marking = DEFAULT_MARKING_PREFERENCES,
+  onMarkingChange,
+  judgeRailSide = "left",
   page: currentPage,
   pageLayout,
   questionFocusMode,
@@ -250,6 +270,22 @@ export function Mushaf(props: MushafProps) {
   // Category first: a slide that ends on a category before any letter keeps the
   // tray open with that category chosen; one tap on a letter then marks it.
   const [armed, setArmed] = useState<CategoryId | null>(null);
+  // Criterion bar: a criterion chosen before (or while) the word is tapped.
+  const barCategories = useMemo(
+    () => PINPOINT_CATEGORIES.filter((category) => allowedCategories.includes(category)),
+    [allowedCategories.join("|")], // eslint-disable-line react-hooks/exhaustive-deps
+  );
+  const barEnabled = judgingEnabled && marking.order !== "word-first" && barCategories.length > 1;
+  const [preselect, setPreselectState] = useState<Preselect | null>(null);
+  const preselectRef = useRef<Preselect | null>(null);
+  const setPreselect = useCallback((next: Preselect | null) => {
+    preselectRef.current = next;
+    setPreselectState(next);
+  }, []);
+  const barPressRef = useRef<{ category: CategoryId; before: Preselect | null } | null>(null);
+  const [barNudge, setBarNudge] = useState(0);
+  const lastPointerTypeRef = useRef<string>("mouse");
+  const penTapRef = useRef<{ tid: string; t: number; timer: number } | null>(null);
   const startRef = useRef<{
     x: number;
     y: number;
@@ -581,6 +617,7 @@ export function Mushaf(props: MushafProps) {
   }, [flashTid]);
 
   const closeAll = useCallback(() => {
+    if (penTapRef.current) { window.clearTimeout(penTapRef.current.timer); penTapRef.current = null; }
     startRef.current = null;
     setActive(null);
     setHovered(null);
@@ -621,16 +658,16 @@ export function Mushaf(props: MushafProps) {
     : null;
   const commit = useCallback(
     (category: CategoryId, tidOverride?: string | null) => {
-      if (!active || !judgingEnabled || swipeLocked.current()) return;
+      if (!active || !judgingEnabled || swipeLocked.current()) return false;
       // A prepared desktop spread contains two markable pages. Reject stale
       // geometry, not the second page of the currently displayed spread.
       if (preparedFixedPage && (!requestedPages.includes(active.meta.page) ||
-        !preparedFixedPage.semantic.has(active.meta.page) || boxesKey !== requestKey)) return;
-      if (!allowedCategories.includes(category)) return;
+        !preparedFixedPage.semantic.has(active.meta.page) || boxesKey !== requestKey)) return false;
+      if (!allowedCategories.includes(category)) return false;
       const selectedTid = tidOverride ?? active.tid;
-      if (!selectedTid) return;
+      if (!selectedTid) return false;
       const unit = active.meta.units.find((candidate) => candidate.tid === selectedTid);
-      if (!unit) return;
+      if (!unit) return false;
       const mistake: Mistake = {
         id: uid(),
         tid: unit.tid,
@@ -658,15 +695,22 @@ export function Mushaf(props: MushafProps) {
         ts: Date.now(),
       };
       dispatch({ type: "ADD_MISTAKE", mistake });
+      // A next-mark criterion turns off; a held or sticky one stays.
+      setPreselect(afterMark(preselectRef.current, category));
+      return true;
     },
-    [active, allowedCategories, dispatch, state.activeAssignment, state.config, judgingEnabled, preparedFixedPage, requestedPages, boxesKey, requestKey],
+    [active, allowedCategories, dispatch, state.activeAssignment, state.config, judgingEnabled, preparedFixedPage, requestedPages, boxesKey, requestKey, setPreselect],
   );
 
   const onPointerDown = (event: React.PointerEvent, page: number) => {
     if (!judgingEnabled || swipeLocked.current()) return;
+    // Pen only: fingers and palm never mark (the bar still takes fingers).
+    if (marking.penOnly && event.pointerType === "touch") return;
     if (preparedFixedPage && boxesKey !== requestKey) return;
     if (fixedPages && requestKey !== pageData.map(data => data.page).join(":")) return;
-    if (fixedPages && (!event.isPrimary || startRef.current)) { closeAll(); return; }
+    // A finger holding a bar button is the first touch; the word tap is then
+    // not "primary" but still a single marking gesture.
+    if (fixedPages && ((!event.isPrimary && !barPressRef.current) || startRef.current)) { closeAll(); return; }
     if (startRef.current) return;
     // Navigation lives inside the page frame. Its pointer events must never
     // fall through to a kalimah underneath the popover.
@@ -680,6 +724,11 @@ export function Mushaf(props: MushafProps) {
       return;
     }
     if (!box.units.length) return;
+    if (barEnabled && marking.order === "criterion-first" && !preselectRef.current) {
+      if (pinned) closeAll();
+      setBarNudge(Date.now());
+      return;
+    }
 
     // The word owns a one-finger gesture; pinch remains browser-controlled.
     if (event.cancelable) event.preventDefault();
@@ -703,6 +752,7 @@ export function Mushaf(props: MushafProps) {
     flushSync(() => {
       setHovered(null);
       setPinned(false);
+      setArmed(barEnabled ? preselectRef.current?.category ?? null : null);
       setActive({
         tid: null,
         meta: box,
@@ -762,7 +812,11 @@ export function Mushaf(props: MushafProps) {
     const validFinalTid = finalTid && active.meta.units.some((unit) => unit.tid === finalTid)
       ? finalTid
       : null;
-    if (allowedCategories.length === 1 && start?.moved && validFinalTid) {
+    if (armed && !hovered && start?.moved && validFinalTid) {
+      // A criterion chosen first: slide from the word to the letter and lift.
+      commit(armed, validFinalTid);
+      closeAll();
+    } else if (allowedCategories.length === 1 && start?.moved && validFinalTid) {
       commit(allowedCategories[0], validFinalTid);
       closeAll();
     } else if (hovered && active.tid && allowedCategories.includes(hovered)) {
@@ -797,9 +851,13 @@ export function Mushaf(props: MushafProps) {
     if (event.key !== "Enter" && event.key !== " ") return;
     event.preventDefault();
     event.stopPropagation();
+    if (barEnabled && marking.order === "criterion-first" && !preselectRef.current) {
+      setBarNudge(Date.now());
+      return;
+    }
     const rect = event.currentTarget.getBoundingClientRect();
     setHovered(null);
-    setArmed(null);
+    setArmed(barEnabled ? preselectRef.current?.category ?? null : null);
     setPinned(true);
     setActive({
       tid: latestMarkedTid(box),
@@ -829,6 +887,153 @@ export function Mushaf(props: MushafProps) {
           ?.focus({ preventScroll: true });
       }, 0);
     }
+  };
+
+  /* ---------- criterion bar ---------- */
+  // A letter already chosen in an open tray is marked by the bar at once.
+  const commitSelectedLetter = (category: CategoryId) => {
+    if (!active?.tid || !pinned) return false;
+    if (!commit(category)) return false;
+    closeTray();
+    return true;
+  };
+  const barPress = (category: CategoryId) => {
+    if (!barEnabled) return;
+    const { next, before } = pressCriterion(preselectRef.current, category, marking);
+    barPressRef.current = { category, before };
+    setPreselect(next);
+    if (next?.held) commitSelectedLetter(category);
+  };
+  const barRelease = (category: CategoryId) => {
+    const press = barPressRef.current;
+    if (!press || press.category !== category) return;
+    barPressRef.current = null;
+    const next = releaseCriterion(preselectRef.current, press.before, category, marking);
+    setPreselect(next);
+    if (next && !marking.holdToKeep) commitSelectedLetter(category);
+  };
+  const barHandlers = useRef({ barPress, barRelease });
+  barHandlers.current = { barPress, barRelease };
+
+  // An open tray follows the bar: choosing a criterion after the word arms it.
+  useEffect(() => {
+    if (!barEnabled) return;
+    setArmed((current) => (active ? preselect?.category ?? null : current));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [preselect?.category]);
+
+  // The choice never outlives the session, the bar or the judge's criteria.
+  useEffect(() => {
+    if (!barEnabled || (preselect && !barCategories.includes(preselect.category))) {
+      barPressRef.current = null;
+      if (preselectRef.current) setPreselect(null);
+    }
+  }, [barEnabled, barCategories, preselect, setPreselect]);
+
+  // Keys 1 · 2 · 3 press the visible bar buttons; holding a key holds it.
+  useEffect(() => {
+    if (!barEnabled || !marking.keys) return;
+    let heldKey: string | null = null;
+    const editable = (target: EventTarget | null) =>
+      target instanceof HTMLElement &&
+      Boolean(target.closest("input, textarea, select, [contenteditable='true'], [role='slider']"));
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape" && !event.defaultPrevented && preselectRef.current && !heldKey) {
+        barPressRef.current = null;
+        setPreselect(null);
+        return;
+      }
+      if (event.repeat || event.ctrlKey || event.metaKey || event.altKey || editable(event.target)) return;
+      // Other dialogs own the keyboard; the letter tray does not.
+      if (document.querySelector('[aria-modal="true"]:not(.drag-menu), dialog[open]')) return;
+      const category = categoryForKey(event.key, barCategories);
+      if (!category || heldKey) return;
+      event.preventDefault();
+      heldKey = event.key;
+      barHandlers.current.barPress(category);
+    };
+    const onKeyUp = (event: KeyboardEvent) => {
+      if (event.key !== heldKey) return;
+      heldKey = null;
+      const category = categoryForKey(event.key, barCategories);
+      if (category) barHandlers.current.barRelease(category);
+    };
+    const onBlur = () => {
+      if (!heldKey) return;
+      const category = categoryForKey(heldKey, barCategories);
+      heldKey = null;
+      if (category) barHandlers.current.barRelease(category);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    window.addEventListener("keyup", onKeyUp);
+    window.addEventListener("blur", onBlur);
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+      window.removeEventListener("keyup", onKeyUp);
+      window.removeEventListener("blur", onBlur);
+    };
+  }, [barEnabled, marking.keys, barCategories, setPreselect]);
+
+  // The bar gets its own column beside the pages, so it never covers a line.
+  const barSide = resolvedBarSide(marking.barSide, judgeRailSide);
+  const barSpace = marking.barSize === "large" ? 118 : 96;
+  useLayoutEffect(() => {
+    const viewport = stageRef.current?.closest<HTMLElement>(".mushaf-viewport");
+    if (!viewport || !barEnabled) return;
+    viewport.dataset.criterionBar = barSide;
+    viewport.style.setProperty("--criterion-bar-space", `${barSpace}px`);
+    return () => {
+      delete viewport.dataset.criterionBar;
+      viewport.style.removeProperty("--criterion-bar-space");
+    };
+  }, [barEnabled, barSide, barSpace, stageRef]);
+
+  // The tray stays over the pages, clear of the bar's column.
+  const trayClearance = () => {
+    const rect = stageRef.current?.getBoundingClientRect();
+    if (!rect) return { left: 0, right: 0 };
+    const width = document.documentElement.clientWidth;
+    return barSide === "left"
+      ? { left: Math.max(0, rect.left), right: 0 }
+      : { left: 0, right: Math.max(0, width - rect.right) };
+  };
+
+  // The whole Mushaf frame shows the chosen criterion's colour.
+  useEffect(() => {
+    const stage = stageRef.current;
+    if (!stage) return;
+    if (barEnabled && preselect) stage.dataset.criterionFrame = preselect.category;
+    else delete stage.dataset.criterionFrame;
+    return () => { delete stage.dataset.criterionFrame; };
+  }, [barEnabled, preselect, stageRef]);
+
+  // Pen tap and double tap need to know which kind of pointer chose a letter.
+  useEffect(() => {
+    const onDown = (event: PointerEvent) => { lastPointerTypeRef.current = event.pointerType; };
+    document.addEventListener("pointerdown", onDown, true);
+    return () => document.removeEventListener("pointerdown", onDown, true);
+  }, []);
+  const penDoubleTap = marking.penDoubleTap && barCategories.length > 1;
+  /** Pen in the tray: tap = first criterion, double tap (within 350 ms) = second. */
+  const penPickLetter = (tid: string) => {
+    const now = Date.now();
+    const pending = penTapRef.current;
+    if (pending && pending.tid === tid && now - pending.t < 350) {
+      window.clearTimeout(pending.timer);
+      penTapRef.current = null;
+      if (commit(barCategories[1], tid)) closeTray();
+      return;
+    }
+    if (pending) window.clearTimeout(pending.timer);
+    setActive((current) => (current ? { ...current, tid } : current));
+    penTapRef.current = {
+      tid,
+      t: now,
+      timer: window.setTimeout(() => {
+        penTapRef.current = null;
+        if (commit(barCategories[0], tid)) closeTray();
+      }, 350),
+    };
   };
 
   const mistakesForUnit = (unit: UnitTarget): Mistake[] => {
@@ -1030,7 +1235,7 @@ export function Mushaf(props: MushafProps) {
                 <Fragment key={`${box.page}:${box.wid}`}>
                   {!presentationOnly && <div
                     data-word-hit={box.wid}
-                    className={`hit word-hit ${isActive ? `armed ${hovered ? `cat-${hovered}` : ""}` : ""}`}
+                    className={`hit word-hit ${isActive ? `armed ${hovered || armed ? `cat-${hovered ?? armed}` : ""}` : ""}`}
                     style={
                       {
                         left: localLeft(box.x),
@@ -1162,9 +1367,28 @@ export function Mushaf(props: MushafProps) {
         </div>
       )}
 
+      {barEnabled && (
+        <CriterionBar
+          categories={barCategories}
+          preselect={preselect}
+          side={barSide}
+          size={marking.barSize}
+          space={barSpace}
+          showKeys={marking.keys}
+          nudge={barNudge}
+          stageRef={stageRef}
+          onPress={barPress}
+          onRelease={barRelease}
+          settings={onMarkingChange
+            ? <MarkingSettings value={marking} onChange={onMarkingChange} penCategories={barCategories} />
+            : null}
+        />
+      )}
+
       {judgingEnabled && active && (
         <DragMenu
           showTashkeel={selectorTashkeel}
+          keepClear={barEnabled ? trayClearance() : undefined}
           anchor={active.anchor}
           glyph={active.meta.semanticText}
           units={active.meta.units.map((unit) => ({
@@ -1190,6 +1414,10 @@ export function Mushaf(props: MushafProps) {
           }}
           onUnitPick={(tid) => {
             if (!active.meta.units.some((unit) => unit.tid === tid)) return;
+            if (penDoubleTap && pinned && lastPointerTypeRef.current === "pen") {
+              penPickLetter(tid);
+              return;
+            }
             setActive((current) => (current ? { ...current, tid } : current));
           }}
           onArmedPick={(tid) => {

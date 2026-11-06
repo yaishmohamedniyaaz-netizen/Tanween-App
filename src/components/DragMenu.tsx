@@ -55,6 +55,8 @@ interface Props {
   showTashkeel?: boolean;
   /** Floating tray within a parent surface; that surface owns dismissal and focus. */
   portalHost?: HTMLElement | null;
+  /** Viewport px kept clear at each side (the criterion bar column). */
+  keepClear?: { left: number; right: number };
 }
 
 type SelectorStyle = CSSProperties & {
@@ -81,6 +83,7 @@ export function DragMenu({
   onUndo,
   showTashkeel,
   portalHost,
+  keepClear,
 }: Props) {
   const tashkeel = showTashkeel ?? false;
   const menuRef = useRef<HTMLDivElement>(null);
@@ -88,11 +91,14 @@ export function DragMenu({
   const lastPointerRef = useRef<{ x: number; y: number } | null>(null);
   const [menuHeight, setMenuHeight] = useState(SELECTOR_ESTIMATED_HEIGHT);
   const visualViewport = window.visualViewport;
+  // Space kept clear at the sides (the criterion bar's column), in viewport px.
+  const clearLeft = keepClear?.left ?? 0;
+  const clearRight = keepClear?.right ?? 0;
   const viewportWidth =
-    visualViewport?.width ?? document.documentElement.clientWidth;
+    (visualViewport?.width ?? document.documentElement.clientWidth) - clearLeft - clearRight;
   const viewportHeight =
     visualViewport?.height ?? document.documentElement.clientHeight;
-  const viewportLeft = visualViewport?.offsetLeft ?? 0;
+  const viewportLeft = (visualViewport?.offsetLeft ?? 0) + clearLeft;
   const viewportTop = visualViewport?.offsetTop ?? 0;
   // The parent owns focus and dismissal, not the tray's available space.
   // Use the same viewport placement for phrase and Quran words so every
