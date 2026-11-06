@@ -2,39 +2,38 @@
 
 Branch `claude/criterion-bar` (experimental, not on main). Tablet and PC only.
 
-## Defaults (the recommended path)
+## Current build (round 2, 6 November 2026)
+
+Built from the owner decisions below and the research in `docs/CRITERION_ISLAND_RESEARCH.md`.
 
 | Decision | Default | How it works |
 | --- | --- | --- |
-| Order | Both | Choose a criterion on the bar first, or tap the word first as today |
-| Bar tap | Next mark | A tapped criterion is used for one mark, then turns off; tap it again to cancel |
-| Hold to keep | On | Hold a bar button or key: the criterion stays on only while held |
-| Keys | 1 · 2 · 3 | Each number presses the visible bar button with that number |
-| Bar side | Away from scorecard | The bar gets its own column; pages shrink a little, no line is covered |
-| Letter tray | Letters only | Criteria live on the bar; after a letter, the tray says "Now choose a criterion on the bar" |
-| Misclick guards | On | Word and whole Mushaf frame show the chosen colour; undo as before |
+| How you mark | Criterion first | Three separate modes, never mixed: Criterion first, Drag and hold, Word first |
+| After a mark | Stays chosen | The criterion stays until another is picked or it is tapped again |
+| Nothing chosen | Island shakes | A word tap opens nothing. A word that already has the judge's mark still opens, so undo stays one tap away |
+| Colour on the page | Frame only | A rounded line around the pages; words and tray letters are not tinted |
+| Settings | Bottom-right corner | A separate 44px button; the panel opens beside the island |
+| Escape | Tray first | Escape closes an open tray; with no tray it clears the choice |
 
-## Other options (Marking settings)
+Drag and hold (the drag-and-hold behaviour was still open; this is the version built for testing):
 
-Open from the slider icon under the bar, or More → Marking.
+- Drag a criterion from the island onto a word. The label follows the finger until the tray opens.
+- Rest on a word to open its tray. Passing over other words on the way to the tray does not move it (220 ms rest).
+- Lift on a letter: marks it. Lift on a word: its tray stays open with the criterion, and one tap marks. Lift anywhere else: nothing is marked.
+- A tap on an island button in this mode only shakes the island.
 
-- Order: Criterion first (a word tap without a criterion shows "Choose a criterion first"), Word first (no bar; today's flow).
-- Bar tap: Stays on (until tapped again).
-- Hold to keep: Off.
-- Keys: Off.
-- Pen tap and double tap: in the letter tray, pen tap = first criterion, double tap (within 350 ms) = second.
-- Pen only: fingers and palm cannot mark the page; the bar still takes fingers.
-- Criteria in the letter tray: On (criteria on the bar and in the tray).
-- Bar side: left or right. Bar size: large.
+Look switches (test only, Settings → Look). One set will be kept:
 
-Settings are saved on the device (device preferences), no account needed.
+- Chosen button: Solid (default) or Soft + edge.
+- Khafi colour: Current #d58e3a (default) or Deeper #a16300.
+- Buttons at rest: Paper (default) or Tinted.
+- Shape: Squares (default) or Rows.
+- Corners: 12, 16 or 20 (default).
+- Gap: 8 or 12 (default).
+- Mushaf frame: 3px (default), 2px or Off.
+- Keyboard focus ring: Neutral (default) or Blue.
 
-## Ways to mark with the bar
-
-1. Bar, then word, then letter (tap the letter in the tray).
-2. Bar, then press the word and slide to the letter, lift (one movement).
-3. Word, then letter, then bar (the bar marks the chosen letter at once).
-4. Hold a bar button or key, mark several letters, let go.
+Other settings: Hold to keep and Keys 1 · 2 · 3 (Criterion first only), Criteria in the letter tray, Island side, Island size, Pen tap and double tap, Pen only.
 
 ## Not built, and why
 

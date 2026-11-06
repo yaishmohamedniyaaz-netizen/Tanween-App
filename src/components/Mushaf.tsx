@@ -117,6 +117,9 @@ interface WordHitbox {
   region?: readonly number[];
 }
 
+/** Drag and hold: how long the finger rests on another word before the tray moves to it. */
+const DRAG_DWELL_MS = 220;
+
 interface ActiveDrag {
   /** No target is implied by opening the tray. */
   tid: string | null;
@@ -265,6 +268,9 @@ export function Mushaf(props: MushafProps) {
   }, [compatibleQuestionRange, pageData]);
 
   const [active, setActive] = useState<ActiveDrag | null>(null);
+  // The open word, readable inside one drag before React re-renders.
+  const activeRef = useRef<ActiveDrag | null>(null);
+  activeRef.current = active;
   const [hovered, setHovered] = useState<CategoryId | null>(null);
   const [pinned, setPinned] = useState(false);
   // Category first: a slide that ends on a category before any letter keeps the
@@ -697,7 +703,7 @@ export function Mushaf(props: MushafProps) {
         ts: Date.now(),
       };
       dispatch({ type: "ADD_MISTAKE", mistake });
-      // A next-mark criterion turns off; a held or sticky one stays.
+      // The choice stays; a held one notes that it was used.
       setPreselect(afterMark(preselectRef.current, category));
       return true;
     },
@@ -726,7 +732,9 @@ export function Mushaf(props: MushafProps) {
       return;
     }
     if (!box.units.length) return;
-    if (barEnabled && marking.order === "criterion-first" && !preselectRef.current) {
+    // Nothing chosen: the word does not open and the island shakes. A word
+    // that already has the judge's mark still opens, so undo stays one tap away.
+    if (barEnabled && !preselectRef.current && !latestMarkedTid(box)) {
       if (pinned) closeAll();
       setBarNudge(Date.now());
       return;
@@ -857,7 +865,7 @@ export function Mushaf(props: MushafProps) {
     if (event.key !== "Enter" && event.key !== " ") return;
     event.preventDefault();
     event.stopPropagation();
-    if (barEnabled && marking.order === "criterion-first" && !preselectRef.current) {
+    if (barEnabled && !preselectRef.current && !latestMarkedTid(box)) {
       setBarNudge(Date.now());
       return;
     }
@@ -914,7 +922,7 @@ export function Mushaf(props: MushafProps) {
     const press = barPressRef.current;
     if (!press || press.category !== category) return;
     barPressRef.current = null;
-    const next = releaseCriterion(preselectRef.current, press.before, category, marking);
+    const next = releaseCriterion(preselectRef.current, press.before, category);
     setPreselect(next);
     if (next && !marking.holdToKeep) commitSelectedLetter(category);
   };
@@ -923,7 +931,7 @@ export function Mushaf(props: MushafProps) {
 
   // An open tray follows the bar: choosing a criterion after the word arms it.
   useEffect(() => {
-    if (!barEnabled) return;
+    if (!barEnabled || marking.order === "drag-hold") return;
     setArmed((current) => (active ? preselect?.category ?? null : current));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [preselect?.category]);
@@ -938,13 +946,15 @@ export function Mushaf(props: MushafProps) {
 
   // Keys 1 · 2 · 3 press the visible bar buttons; holding a key holds it.
   useEffect(() => {
-    if (!barEnabled || !marking.keys) return;
+    if (!barEnabled || !marking.keys || marking.order !== "criterion-first") return;
     let heldKey: string | null = null;
     const editable = (target: EventTarget | null) =>
       target instanceof HTMLElement &&
       Boolean(target.closest("input, textarea, select, [contenteditable='true'], [role='slider']"));
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape" && !event.defaultPrevented && preselectRef.current && !heldKey) {
+      // Escape closes an open tray first; with no tray it clears the choice.
+      if (event.key === "Escape" && !event.defaultPrevented && preselectRef.current && !heldKey &&
+          !document.querySelector(".drag-menu")) {
         barPressRef.current = null;
         setPreselect(null);
         return;
@@ -978,11 +988,14 @@ export function Mushaf(props: MushafProps) {
       window.removeEventListener("keyup", onKeyUp);
       window.removeEventListener("blur", onBlur);
     };
-  }, [barEnabled, marking.keys, barCategories, setPreselect]);
+  }, [barEnabled, marking.keys, marking.order, barCategories, setPreselect]);
 
   // The bar gets its own column beside the pages, so it never covers a line.
   const barSide = resolvedBarSide(marking.barSide, judgeRailSide);
-  const barSpace = marking.barSize === "large" ? 118 : 96;
+  // Column = button + 12px each side (docs/CRITERION_ISLAND_RESEARCH.md).
+  const barSpace = marking.look.shape === "rows"
+    ? (marking.barSize === "large" ? 176 : 152)
+    : (marking.barSize === "large" ? 112 : 96);
   useLayoutEffect(() => {
     const viewport = stageRef.current?.closest<HTMLElement>(".mushaf-viewport");
     if (!viewport || !barEnabled) return;
@@ -1004,14 +1017,121 @@ export function Mushaf(props: MushafProps) {
       : { left: 0, right: Math.max(0, width - rect.right) };
   };
 
-  // The whole Mushaf frame shows the chosen criterion's colour.
+  // The frame around the pages shows the chosen criterion's colour.
   useEffect(() => {
-    const stage = stageRef.current;
-    if (!stage) return;
-    if (barEnabled && preselect) stage.dataset.criterionFrame = preselect.category;
-    else delete stage.dataset.criterionFrame;
-    return () => { delete stage.dataset.criterionFrame; };
-  }, [barEnabled, preselect, stageRef]);
+    const frame = compositionRef.current;
+    if (!frame) return;
+    if (barEnabled && preselect && marking.look.frame !== "off") {
+      frame.dataset.criterionFrame = preselect.category;
+      frame.dataset.frameLook = marking.look.frame;
+      frame.dataset.khafi = marking.look.khafi;
+    } else {
+      delete frame.dataset.criterionFrame;
+      delete frame.dataset.frameLook;
+      delete frame.dataset.khafi;
+    }
+    return () => { delete frame.dataset.criterionFrame; delete frame.dataset.frameLook; delete frame.dataset.khafi; };
+  }, [barEnabled, preselect, requestKey, marking.look.frame, marking.look.khafi]);
+
+  /* ---------- drag and hold ---------- */
+  // Drag a criterion from the island onto a word, slide to the letter, lift.
+  const dragWord = (x: number, y: number) => {
+    for (const page of requestedPages) {
+      const box = wordAtPoint(page, x, y);
+      if (box?.units.length) return box;
+    }
+    return undefined;
+  };
+  const dragUnitAt = (x: number, y: number) => {
+    const tid = document.elementFromPoint(x, y)?.closest<HTMLElement>("[data-unit-tid]")?.dataset.unitTid;
+    return tid && activeRef.current?.meta.units.some((unit) => unit.tid === tid) ? tid : null;
+  };
+  const openForDrag = (box: WordHitbox, category: CategoryId) => {
+    const target = rootForPage(box.page)?.querySelector<HTMLElement>(`.hit[data-word-hit="${CSS.escape(box.wid)}"]`);
+    if (!target) return;
+    const rect = target.getBoundingClientRect();
+    setHovered(null);
+    setPinned(false);
+    setArmed(category);
+    const next: ActiveDrag = {
+      tid: null,
+      meta: box,
+      anchor: { left: rect.left, top: rect.top, right: rect.right, bottom: rect.bottom, width: rect.width, height: rect.height },
+    };
+    activeRef.current = next;
+    setActive(next);
+  };
+  const dragCategory = useRef<CategoryId | null>(null);
+  const dragStart = (category: CategoryId) => {
+    dragCategory.current = category;
+    closeAll();
+    setPreselect({ category, held: true, used: false });
+  };
+  // Passing over other words on the way up to the tray must not move it:
+  // another word takes the tray only after the finger rests on it.
+  const dragDwell = useRef<{ key: string; timer: number } | null>(null);
+  const clearDwell = () => {
+    if (dragDwell.current) window.clearTimeout(dragDwell.current.timer);
+    dragDwell.current = null;
+  };
+  const dragMove = (x: number, y: number) => {
+    const category = dragCategory.current;
+    if (!category) return;
+    const tid = dragUnitAt(x, y);
+    if (tid) clearDwell();
+    if (tid) {
+      const current = activeRef.current;
+      if (current && tid !== current.tid) {
+        activeRef.current = { ...current, tid };
+        setActive(activeRef.current);
+      }
+      return;
+    }
+    const box = dragWord(x, y);
+    const current = activeRef.current;
+    if (!box || (box.page === current?.meta.page && box.wid === current?.meta.wid)) { clearDwell(); return; }
+    const key = `${box.page}:${box.wid}`;
+    if (dragDwell.current?.key === key) return;
+    clearDwell();
+    dragDwell.current = {
+      key,
+      timer: window.setTimeout(() => {
+        dragDwell.current = null;
+        if (dragCategory.current) openForDrag(box, dragCategory.current);
+      }, DRAG_DWELL_MS),
+    };
+  };
+  const dragEnd = (x: number, y: number) => {
+    const category = dragCategory.current;
+    dragCategory.current = null;
+    clearDwell();
+    if (!category) return;
+    const tid = x >= 0 ? dragUnitAt(x, y) : null;
+    const box = x >= 0 ? dragWord(x, y) : undefined;
+    const current = activeRef.current;
+    if (tid && current) {
+      // Lifted on a letter: mark it.
+      commit(category, tid);
+      closeAll();
+      setPreselect(null);
+    } else if (box) {
+      // Lifted on a word: its tray stays open with the criterion; one tap marks.
+      if (current && box.page === current.meta.page && box.wid === current.meta.wid) setActive({ ...current, tid: null });
+      else openForDrag(box, category);
+      setArmed(category);
+      setPinned(true);
+      setPreselect({ category, held: false, used: false });
+    } else {
+      // Lifted anywhere else: nothing is marked.
+      closeAll();
+      setPreselect(null);
+    }
+  };
+  // In drag mode the choice lives only as long as its tray.
+  useEffect(() => {
+    if (marking.order !== "drag-hold" || active || dragCategory.current) return;
+    if (preselectRef.current) setPreselect(null);
+  }, [active, marking.order, setPreselect]);
 
   // Pen tap and double tap need to know which kind of pointer chose a letter.
   useEffect(() => {
@@ -1241,7 +1361,7 @@ export function Mushaf(props: MushafProps) {
                 <Fragment key={`${box.page}:${box.wid}`}>
                   {!presentationOnly && <div
                     data-word-hit={box.wid}
-                    className={`hit word-hit ${isActive ? `armed ${hovered || armed ? `cat-${hovered ?? armed}` : ""}` : ""}`}
+                    className={`hit word-hit ${isActive ? `armed ${hovered || (armed && !barEnabled) ? `cat-${hovered ?? armed}` : ""}` : ""}`}
                     style={
                       {
                         left: localLeft(box.x),
@@ -1378,13 +1498,21 @@ export function Mushaf(props: MushafProps) {
           categories={barCategories}
           preselect={preselect}
           side={barSide}
+          mode={marking.order === "drag-hold" ? "drag-hold" : "criterion-first"}
+          look={marking.look}
           size={marking.barSize}
           space={barSpace}
           showKeys={marking.keys}
           nudge={barNudge}
           stageRef={stageRef}
+          alignRef={compositionRef}
           onPress={barPress}
           onRelease={barRelease}
+          onDragStart={dragStart}
+          onDragMove={dragMove}
+          onDragEnd={dragEnd}
+          trayOpen={Boolean(active)}
+          onDragTap={() => setBarNudge(Date.now())}
           settings={onMarkingChange
             ? <MarkingSettings value={marking} onChange={onMarkingChange} penCategories={barCategories} />
             : null}

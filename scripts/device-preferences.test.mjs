@@ -301,54 +301,52 @@ test("slim score preference defaults off and preserves other device settings", (
   assert.equal(restored.theme, "dark");
 });
 
-test("marking preferences: recommended defaults, invalid values fall back, valid ones survive", () => {
+test("marking preferences: owner defaults, invalid values fall back, the old mixed order becomes criterion first", () => {
   assert.deepEqual(DEFAULT_DEVICE_PREFERENCES.marking, {
-    order: "both", barTap: "next", holdToKeep: true, keys: true,
+    order: "criterion-first", holdToKeep: true, keys: true,
     penDoubleTap: false, penOnly: false, barSide: "auto", barSize: "standard", trayCriteria: false,
+    look: { chosen: "solid", khafi: "current", radius: 20, shape: "squares", gap: 12, rest: "paper", frame: "strong", focus: "neutral" },
   });
   assert.deepEqual(normalizeMarkingPreferences({ order: "sideways", keys: "yes", penOnly: true, barSide: "right" }), {
     ...DEFAULT_MARKING_PREFERENCES, penOnly: true, barSide: "right",
   });
+  assert.equal(normalizeMarkingPreferences({ order: "both", barTap: "next" }).order, "criterion-first");
+  assert.equal("barTap" in normalizeMarkingPreferences({ barTap: "next" }), false);
+  assert.deepEqual(normalizeMarkingPreferences({ look: { radius: 16, gap: 9, khafi: "deep", chosen: "glow" } }).look, {
+    ...DEFAULT_MARKING_PREFERENCES.look, radius: 16, khafi: "deep",
+  });
   const storage = memoryStorage();
-  writeDevicePreferences({ ...DEFAULT_DEVICE_PREFERENCES, marking: { ...DEFAULT_MARKING_PREFERENCES, order: "criterion-first" } }, storage);
-  assert.equal(readDevicePreferences(storage).marking.order, "criterion-first");
+  writeDevicePreferences({ ...DEFAULT_DEVICE_PREFERENCES, marking: { ...DEFAULT_MARKING_PREFERENCES, order: "drag-hold" } }, storage);
+  assert.equal(readDevicePreferences(storage).marking.order, "drag-hold");
   assert.equal(resolvedBarSide("auto", "left"), "right");
   assert.equal(resolvedBarSide("auto", "right"), "left");
   assert.equal(resolvedBarSide("left", "left"), "left");
 });
 
-test("criterion bar: tap arms the next mark, tap again turns it off, hold keeps it only while held", () => {
-  const prefs = { holdToKeep: true, barTap: "next" };
-  // Tap: down + up without a mark arms the next mark.
+test("criterion island: a tap chooses and it stays chosen, tap again turns it off, a hold ends at release", () => {
+  const prefs = { holdToKeep: true };
+  // Tap: down + up without a mark chooses; it stays after marks.
   let { next, before } = pressCriterion(null, "jali", prefs);
-  let state = releaseCriterion(next, before, "jali", prefs);
-  assert.deepEqual(state, { category: "jali", held: false, used: false, sticky: false });
-  state = afterMark(state, "jali");
-  assert.equal(state, null, "next-mark criterion turns off after one mark");
-  // Tap the armed criterion again: off.
-  state = { category: "khafi", held: false, used: false, sticky: false };
-  ({ next, before } = pressCriterion(state, "khafi", prefs));
-  assert.equal(releaseCriterion(next, before, "khafi", prefs), null);
-  // Tap another criterion: replaces.
+  let state = releaseCriterion(next, before, "jali");
+  assert.deepEqual(state, { category: "jali", held: false, used: false });
+  assert.equal(afterMark(afterMark(state, "jali"), "jali"), state, "stays chosen after marks");
+  // Tap the chosen criterion again: off.
   ({ next, before } = pressCriterion(state, "jali", prefs));
-  assert.equal(releaseCriterion(next, before, "jali", prefs).category, "jali");
-  // Hold while marking twice: stays on during the hold, off at release.
+  assert.equal(releaseCriterion(next, before, "jali"), null);
+  // Tap another criterion: replaces.
+  ({ next, before } = pressCriterion(state, "khafi", prefs));
+  assert.equal(releaseCriterion(next, before, "khafi").category, "khafi");
+  // Hold while marking twice: on during the hold, off at release.
   ({ next, before } = pressCriterion(null, "fasaha", prefs));
   state = afterMark(afterMark(next, "fasaha"), "fasaha");
-  assert.deepEqual(state, { category: "fasaha", held: true, used: true, sticky: false });
-  assert.equal(releaseCriterion(state, before, "fasaha", prefs), null);
-  // Sticky: stays after marks until tapped again.
-  const sticky = { holdToKeep: true, barTap: "sticky" };
-  ({ next, before } = pressCriterion(null, "jali", sticky));
-  state = releaseCriterion(next, before, "jali", sticky);
-  assert.equal(afterMark(state, "jali"), state);
+  assert.deepEqual(state, { category: "fasaha", held: true, used: true });
+  assert.equal(releaseCriterion(state, before, "fasaha"), null);
   // Hold disabled: the press does nothing until release.
-  const noHold = { holdToKeep: false, barTap: "next" };
-  ({ next, before } = pressCriterion(null, "jali", noHold));
+  ({ next, before } = pressCriterion(null, "jali", { holdToKeep: false }));
   assert.equal(next, null);
-  assert.equal(releaseCriterion(next, before, "jali", noHold).category, "jali");
-  // A mark with another criterion leaves the bar choice alone.
-  state = { category: "jali", held: false, used: false, sticky: false };
+  assert.equal(releaseCriterion(next, before, "jali").category, "jali");
+  // A mark with another criterion leaves the choice alone.
+  state = { category: "jali", held: false, used: false };
   assert.equal(afterMark(state, "khafi"), state);
 });
 

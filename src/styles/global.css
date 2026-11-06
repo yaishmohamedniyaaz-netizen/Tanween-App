@@ -15778,99 +15778,170 @@ html:has(.finish-dialog[open]) {
    Criterion buttons at the Mushaf's edge: tap = next mark, hold = while held.
    Above the tray backdrop (55) so a bar press never closes the open tray,
    below the tray itself (60). */
+/* ---- Criterion island (docs/CRITERION_ISLAND_RESEARCH.md) ----
+   Quiet at rest; strong colour only on the chosen criterion. The look
+   switches (data-* on the island) are test options; one set will be kept. */
 .criterion-bar {
   position: fixed;
   z-index: 58;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--sp-2);
-  padding: var(--sp-2);
-  background: var(--surface);
-  border: 1px solid var(--line-2);
-  border-radius: var(--r-lg);
-  box-shadow: var(--shadow-float);
+  gap: var(--island-gap, 12px);
   touch-action: none;
   -webkit-user-select: none;
   user-select: none;
   -webkit-touch-callout: none;
 }
+/* Per-criterion steps at matched lightness. */
+.criterion-bar .cat-jali, .criterion-ghost.cat-jali { --isl-strong: #ca244d; --isl-container: #fedadc; --isl-on: #7b2434; }
+.criterion-bar .cat-khafi, .criterion-ghost.cat-khafi { --isl-strong: #d58e3a; --isl-container: #f7e0c9; --isl-on: #663d00; }
+.criterion-bar[data-khafi="deep"] .cat-khafi, .criterion-ghost.cat-khafi[data-khafi="deep"] { --isl-strong: #a16300; }
+.criterion-bar .cat-fasaha, .criterion-ghost.cat-fasaha { --isl-strong: #3358d4; --isl-container: #d9e5ff; --isl-on: #2b4288; }
+.criterion-bar .cat-adu-raagu, .criterion-ghost.cat-adu-raagu { --isl-strong: #377b60; --isl-container: #cdeede; --isl-on: #0a553d; }
+[data-theme="dark"] .criterion-bar .cat-jali, [data-theme="dark"] .criterion-ghost.cat-jali { --isl-strong: #f07685; --isl-container: #49282b; --isl-on: #f7cbcd; }
+[data-theme="dark"] .criterion-bar .cat-khafi, [data-theme="dark"] .criterion-ghost.cat-khafi { --isl-strong: #de8d18; --isl-container: #442e15; --isl-on: #eed2b5; }
+[data-theme="dark"] .criterion-bar .cat-fasaha, [data-theme="dark"] .criterion-ghost.cat-fasaha { --isl-strong: #779cff; --isl-container: #27324d; --isl-on: #c9d7fa; }
+[data-theme="dark"] .criterion-bar .cat-adu-raagu, [data-theme="dark"] .criterion-ghost.cat-adu-raagu { --isl-strong: #49b98f; --isl-container: #163b2c; --isl-on: #c0e0d1; }
+
 .criterion-button {
-  --size: 64px;
+  --size: 72px;
+  --on-solid: #ffffff;
   position: relative;
   width: var(--size);
-  min-height: 56px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 2px;
-  padding: 6px 4px;
-  border-radius: var(--r-md);
-  border: 1.5px solid color-mix(in srgb, var(--c) 45%, transparent);
-  background: var(--c-tint);
-  color: var(--c-strong);
-  font: 650 var(--t-small) / 1.1 var(--ui);
+  height: var(--size);
+  padding: 0;
+  border: 0;
+  border-radius: var(--island-radius, 20px);
+  background: var(--surface);
+  box-shadow: var(--shadow-rest), 0 0 0 1px var(--line);
+  color: var(--ink-2);
+  font: 550 var(--t-small) / 1.1 var(--ui);
   cursor: pointer;
   touch-action: none;
-  transition: background-color var(--t-fast, 120ms) ease, box-shadow var(--t-fast, 120ms) ease;
+  transition: background-color 120ms ease, box-shadow 120ms ease, color 120ms ease;
 }
-.criterion-bar.size-large .criterion-button { --size: 82px; min-height: 76px; font-size: var(--t-body); }
-.criterion-button kbd {
-  font: 600 11px/1 var(--num, var(--ui));
-  padding: 2px 5px;
-  border-radius: 4px;
-  border: 1px solid color-mix(in srgb, currentColor 35%, transparent);
-  background: transparent;
-  color: inherit;
+[data-theme="dark"] .criterion-button { --on-solid: #1e1a14; }
+.criterion-bar.size-large .criterion-button { --size: 88px; font-size: var(--t-body); }
+/* Press and hover: a state layer of the label colour (Material 3: 8% / 10%). */
+.criterion-button::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: currentColor;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 90ms ease;
 }
-.criterion-state { font-size: 10.5px; font-weight: 600; min-height: 12px; }
-.criterion-button.is-on {
-  background: var(--c);
-  border-color: var(--c);
-  color: var(--c-on, #ffffff);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--c) 30%, transparent);
+@media (hover: hover) { .criterion-button:hover::after { opacity: 0.08; } }
+.criterion-button:active::after, .criterion-button.is-held::after { opacity: 0.1; }
+.criterion-tick {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  background: var(--isl-strong);
 }
-.criterion-button.is-held { box-shadow: 0 0 0 5px color-mix(in srgb, var(--c) 40%, transparent); }
-.criterion-button:focus-visible, .criterion-settings:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+.criterion-key {
+  position: absolute;
+  right: 10px;
+  top: 7px;
+  font: 600 var(--t-micro) / 1 var(--num);
+  color: var(--ink-3);
+}
+.criterion-name {
+  position: absolute;
+  left: 4px;
+  right: 4px;
+  bottom: 11px;
+  text-align: center;
+}
+.criterion-bar.size-large .criterion-name { bottom: 14px; }
+/* Option 2: rows with the small square and the name. */
+.criterion-bar.shape-rows .criterion-button { width: 128px; height: 52px; }
+.criterion-bar.shape-rows.size-large .criterion-button { width: 152px; height: 60px; }
+.criterion-bar.shape-rows .criterion-tick { top: calc(50% - 6px); left: 14px; }
+.criterion-bar.shape-rows .criterion-key { top: calc(50% - 6px); right: 14px; }
+.criterion-bar.shape-rows .criterion-name { left: 36px; right: 28px; bottom: auto; top: 50%; transform: translateY(-50%); text-align: left; }
+/* Rest look: tinted. */
+.criterion-bar[data-rest-look="tinted"] .criterion-button {
+  background: color-mix(in srgb, var(--isl-container) 55%, var(--surface));
+  box-shadow: var(--shadow-rest);
+  color: var(--isl-on);
+}
+/* Chosen: solid fill, or soft fill with a 2px strong edge (WCAG 1.4.11 needs the edge). */
+.criterion-bar .criterion-button.is-on { font-weight: 650; }
+.criterion-bar[data-chosen-look="solid"] .criterion-button.is-on {
+  background: var(--isl-strong);
+  box-shadow: var(--shadow-rest);
+  color: var(--on-solid);
+}
+.criterion-bar[data-chosen-look="solid"] .criterion-button.is-on .criterion-tick { background: currentColor; }
+.criterion-bar[data-chosen-look="soft"] .criterion-button.is-on {
+  background: var(--isl-container);
+  box-shadow: inset 0 0 0 2px var(--isl-strong), var(--shadow-rest);
+  color: var(--isl-on);
+}
+.criterion-bar .criterion-button.is-on .criterion-key { color: currentColor; opacity: 0.85; }
+.criterion-bar .criterion-button.is-on:active::after, .criterion-bar .criterion-button.is-on.is-held::after { opacity: 0.12; }
+/* Keyboard focus: neutral ink by default; the app's blue equals Fasaha. */
+.criterion-button:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.criterion-bar[data-focus-look="blue"] .criterion-button:focus-visible { outline-color: var(--ring); }
+.criterion-bar.is-nudged { animation: criterion-nudge 300ms ease; }
+@keyframes criterion-nudge {
+  0%, 100% { transform: translateX(0); }
+  17%, 50%, 83% { transform: translateX(-4px); }
+  33%, 67% { transform: translateX(4px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .criterion-bar.is-nudged { animation: criterion-dim 300ms ease; }
+}
+@keyframes criterion-dim { 50% { opacity: 0.45; } }
+/* Drag and hold: the criterion travels with the finger, just above it. */
+.criterion-ghost {
+  position: fixed;
+  z-index: 70;
+  transform: translate(-50%, calc(-100% - 28px));
+  padding: 6px 10px;
+  border-radius: var(--r-sm);
+  background: var(--isl-strong);
+  color: #ffffff;
+  font: 650 var(--t-small) / 1 var(--ui);
+  box-shadow: var(--shadow-float);
+  pointer-events: none;
+}
+[data-theme="dark"] .criterion-ghost { color: #1e1a14; }
+/* Settings: a separate small button in the bottom-right corner. */
+.criterion-corner {
+  position: fixed;
+  z-index: 58;
+  right: var(--sp-4);
+  bottom: var(--sp-4);
+}
 .criterion-settings {
   width: 44px;
-  height: 40px;
+  height: 44px;
   display: grid;
   place-items: center;
   border: 0;
-  border-radius: var(--r-sm);
-  background: transparent;
+  border-radius: var(--r-md);
+  background: var(--surface);
+  box-shadow: var(--shadow-rest), 0 0 0 1px var(--line);
   color: var(--ink-2);
   cursor: pointer;
 }
-.criterion-settings:hover, .criterion-settings[aria-expanded="true"] { background: var(--line); color: var(--ink); }
-.criterion-hint {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  white-space: nowrap;
-  padding: 8px 12px;
-  border-radius: var(--r-md);
-  background: var(--ink);
-  color: var(--surface);
-  font: 600 var(--t-small) var(--ui);
-  pointer-events: none;
-}
-.criterion-bar.side-left .criterion-hint { left: calc(100% + 10px); }
-.criterion-bar.side-right .criterion-hint { right: calc(100% + 10px); }
-.criterion-bar.is-nudged { animation: criterion-nudge 360ms ease; }
-@keyframes criterion-nudge {
-  0%, 100% { transform: translateX(0); }
-  25% { transform: translateX(-5px); }
-  75% { transform: translateX(5px); }
-}
+.criterion-settings:hover, .criterion-settings[aria-expanded="true"] { color: var(--ink); background: color-mix(in srgb, var(--ink) 6%, var(--surface)); }
+.criterion-settings:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
 .criterion-panel {
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: min(360px, calc(100vw - 140px));
-  max-height: min(78vh, 640px);
+  /* Beside the island, so look changes show while the panel is open. */
+  right: var(--panel-clear, 0px);
+  bottom: calc(100% + var(--sp-2));
+  width: min(380px, calc(100vw - 32px));
+  max-height: min(78vh, 680px);
   overflow: auto;
   padding: var(--sp-3) var(--sp-4) var(--sp-4);
   background: var(--surface);
@@ -15882,8 +15953,6 @@ html:has(.finish-dialog[open]) {
   user-select: auto;
   text-align: left;
 }
-.criterion-bar.side-left .criterion-panel { left: calc(100% + 10px); }
-.criterion-bar.side-right .criterion-panel { right: calc(100% + 10px); }
 .criterion-panel-head {
   display: flex;
   align-items: center;
@@ -15896,13 +15965,20 @@ html:has(.finish-dialog[open]) {
 .marking-settings small { display: block; margin-top: 4px; color: var(--ink-3); }
 .marking-settings-group { margin-top: var(--sp-3); }
 .marking-settings-group > summary { cursor: pointer; font-weight: 600; padding: 6px 0; }
-@media (prefers-reduced-motion: reduce) { .criterion-bar.is-nudged { animation: none; } }
 
-/* The Mushaf frame carries the chosen criterion's colour while it is on. */
-[data-criterion-frame] { outline: 3px solid var(--criterion-frame); outline-offset: -3px; }
+/* The Mushaf frame carries the chosen criterion's colour while it is on:
+   a line around the pages, rounded, never a fill and never on a word. */
+[data-criterion-frame] { outline: var(--criterion-frame-width, 3px) solid var(--criterion-frame); outline-offset: 1px; border-radius: var(--r-md); }
+[data-criterion-frame][data-frame-look="thin"] { --criterion-frame-width: 2px; }
 [data-criterion-frame="jali"] { --criterion-frame: #ca244d; }
 [data-criterion-frame="khafi"] { --criterion-frame: #d58e3a; }
+[data-criterion-frame="khafi"][data-khafi="deep"] { --criterion-frame: #a16300; }
 [data-criterion-frame="fasaha"] { --criterion-frame: #3358d4; }
+[data-criterion-frame="adu-raagu"] { --criterion-frame: #377b60; }
+[data-theme="dark"] [data-criterion-frame="jali"] { --criterion-frame: #f07685; }
+[data-theme="dark"] [data-criterion-frame="khafi"] { --criterion-frame: #de8d18; }
+[data-theme="dark"] [data-criterion-frame="fasaha"] { --criterion-frame: #779cff; }
+[data-theme="dark"] [data-criterion-frame="adu-raagu"] { --criterion-frame: #49b98f; }
 .mushaf-viewport[data-criterion-bar="left"] { padding-left: var(--criterion-bar-space, 96px); }
 .mushaf-viewport[data-criterion-bar="right"] { padding-right: var(--criterion-bar-space, 96px); }
 .selector-next {

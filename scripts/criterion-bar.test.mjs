@@ -18,10 +18,29 @@ test("the bar is shown only with two or more pinpoint criteria and not in word-f
   assert.match(mushaf, /barEnabled = judgingEnabled && marking\.order !== "word-first" && barCategories\.length > 1/);
 });
 
-test("a criterion chosen first arms the tray, a slide to a letter marks it, and criterion-first order blocks the word", () => {
+test("a criterion chosen first arms the tray, a slide to a letter marks it, and nothing chosen shakes the island", () => {
   assert.match(mushaf, /setArmed\(barEnabled \? preselectRef\.current\?\.category \?\? null : null\)/);
   assert.match(mushaf, /if \(armed && !hovered && start\?\.moved && validFinalTid\)/);
-  assert.match(mushaf, /marking\.order === "criterion-first" && !preselectRef\.current\) \{\s*if \(pinned\) closeAll\(\);\s*setBarNudge/);
+  // A word with the judge's mark still opens, so undo stays one tap away.
+  assert.match(mushaf, /if \(barEnabled && !preselectRef\.current && !latestMarkedTid\(box\)\) \{\s*if \(pinned\) closeAll\(\);\s*setBarNudge/);
+  assert.match(bar, /is-nudged/);
+  assert.doesNotMatch(bar, /Choose a criterion first/);
+});
+
+test("no word tint with the island: only the Mushaf frame shows the chosen colour", () => {
+  assert.match(mushaf, /hovered \|\| \(armed && !barEnabled\)/);
+  assert.match(mushaf, /frame\.dataset\.criterionFrame = preselect\.category/);
+});
+
+test("drag and hold: lift on a letter marks, lift on the word keeps the tray, anywhere else cancels", () => {
+  assert.match(mushaf, /Lifted on a letter: mark it\.\s*commit\(category, tid\)/);
+  assert.match(mushaf, /Lifted on a word[\s\S]{0,300}setPinned\(true\)/);
+  assert.match(mushaf, /Lifted anywhere else: nothing is marked\.\s*closeAll\(\);\s*setPreselect\(null\)/);
+  assert.match(bar, /DRAG_START = 8/);
+});
+
+test("the settings opener is its own button in the bottom-right corner", () => {
+  assert.match(bar, /className="criterion-corner"/);
 });
 
 test("keys 1 · 2 · 3 stay out of text fields and other dialogs, but work with the letter tray open", () => {

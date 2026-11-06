@@ -290,7 +290,7 @@ export function DragMenu({
 
   const unitPicker = (
     <div
-      className={`unit-picker ${tashkeel ? "with-tashkeel" : ""} ${armed ? "is-armed" : ""} ${hovered ? `cat-${hovered}` : armed ? `cat-${armed}` : fixedCategory ? `cat-${fixedCategory.id}` : ""}`}
+      className={`unit-picker ${tashkeel ? "with-tashkeel" : ""} ${armed ? "is-armed" : ""} ${hovered ? `cat-${hovered}` : armed && !hideCategories ? `cat-${armed}` : fixedCategory ? `cat-${fixedCategory.id}` : ""}`}
       dir="rtl"
     >
       <div

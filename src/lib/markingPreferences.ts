@@ -3,20 +3,53 @@ import type { CategoryId } from "../types";
 /**
  * How a judge chooses the criterion for a mark (device preference).
  *
- * Defaults are the recommended path from the marking-order study
- * (docs/MARKING_ORDER_PROTOTYPE.md): a criterion bar that works before or
- * after the word, tap for the next mark, hold to keep, keys 1 · 2 · 3.
+ * Owner decisions of 6 November 2026 (docs/MARKING_ORDER_PROTOTYPE.md): the
+ * ways of marking are separate modes, never mixed; a chosen criterion stays
+ * chosen until another is picked or it is tapped again.
+ *
+ * - criterion-first: choose on the island, then tap the word (default).
+ * - drag-hold: drag from an island button onto the word, slide to the letter.
+ * - word-first: no island; tap the word, then the letter and criterion in the tray.
  */
-export type MarkOrder = "both" | "criterion-first" | "word-first";
-/** What a tap on a bar button does: arm the next mark only, or stay on until tapped again. */
-export type BarTap = "next" | "sticky";
+export type MarkOrder = "criterion-first" | "drag-hold" | "word-first";
 /** "auto" keeps the bar on the side away from the scorecard. */
 export type BarSide = "auto" | "left" | "right";
 export type BarSize = "standard" | "large";
 
+/**
+ * Look of the criterion island. These are test switches for choosing a final
+ * design (docs/CRITERION_ISLAND_RESEARCH.md); one set will be kept.
+ */
+export interface IslandLook {
+  /** Chosen button: strong colour fill, or soft fill with a 2px strong edge. */
+  chosen: "solid" | "soft";
+  /** Khafi's strong colour: the app's current #d58e3a, or the deeper #a16300. */
+  khafi: "current" | "deep";
+  radius: 12 | 16 | 20;
+  /** Large squares (option 1) or rows with a small square and the name (option 2). */
+  shape: "squares" | "rows";
+  gap: 8 | 12;
+  /** Buttons at rest: neutral paper with a small colour square, or a light tint. */
+  rest: "paper" | "tinted";
+  /** The Mushaf frame while a criterion is chosen. */
+  frame: "strong" | "thin" | "off";
+  /** Keyboard focus ring: neutral ink, or the app's blue (the same as Fasaha). */
+  focus: "neutral" | "blue";
+}
+
+export const DEFAULT_ISLAND_LOOK: IslandLook = {
+  chosen: "solid",
+  khafi: "current",
+  radius: 20,
+  shape: "squares",
+  gap: 12,
+  rest: "paper",
+  frame: "strong",
+  focus: "neutral",
+};
+
 export interface MarkingPreferences {
   order: MarkOrder;
-  barTap: BarTap;
   /** Holding a bar button (or key) keeps the criterion only while held. */
   holdToKeep: boolean;
   /** Keys 1 · 2 · 3 press the visible bar buttons. */
@@ -29,11 +62,11 @@ export interface MarkingPreferences {
   barSize: BarSize;
   /** Show the criterion buttons in the letter tray too (off: the bar is the only place). */
   trayCriteria: boolean;
+  look: IslandLook;
 }
 
 export const DEFAULT_MARKING_PREFERENCES: MarkingPreferences = {
-  order: "both",
-  barTap: "next",
+  order: "criterion-first",
   holdToKeep: true,
   keys: true,
   penDoubleTap: false,
@@ -41,20 +74,37 @@ export const DEFAULT_MARKING_PREFERENCES: MarkingPreferences = {
   barSide: "auto",
   barSize: "standard",
   trayCriteria: false,
+  look: DEFAULT_ISLAND_LOOK,
 };
 
-const oneOf = <T extends string>(value: unknown, options: readonly T[], fallback: T): T =>
-  typeof value === "string" && (options as readonly string[]).includes(value) ? value as T : fallback;
+const oneOf = <T extends string | number>(value: unknown, options: readonly T[], fallback: T): T =>
+  (options as readonly unknown[]).includes(value) ? value as T : fallback;
 const bool = (value: unknown, fallback: boolean) => typeof value === "boolean" ? value : fallback;
+const record = (value: unknown) => value && typeof value === "object" ? value as Record<string, unknown> : {};
+
+export function normalizeIslandLook(value: unknown, fallback: IslandLook = DEFAULT_ISLAND_LOOK): IslandLook {
+  const v = record(value);
+  return {
+    chosen: oneOf(v.chosen, ["solid", "soft"] as const, fallback.chosen),
+    khafi: oneOf(v.khafi, ["current", "deep"] as const, fallback.khafi),
+    radius: oneOf(v.radius, [12, 16, 20] as const, fallback.radius),
+    shape: oneOf(v.shape, ["squares", "rows"] as const, fallback.shape),
+    gap: oneOf(v.gap, [8, 12] as const, fallback.gap),
+    rest: oneOf(v.rest, ["paper", "tinted"] as const, fallback.rest),
+    frame: oneOf(v.frame, ["strong", "thin", "off"] as const, fallback.frame),
+    focus: oneOf(v.focus, ["neutral", "blue"] as const, fallback.focus),
+  };
+}
 
 export function normalizeMarkingPreferences(
   value: unknown,
   fallback: MarkingPreferences = DEFAULT_MARKING_PREFERENCES,
 ): MarkingPreferences {
-  const v = value && typeof value === "object" ? value as Record<string, unknown> : {};
+  const v = record(value);
+  // "both" (the first prototype) is gone: modes are never mixed.
+  const order = v.order === "both" ? "criterion-first" : v.order;
   return {
-    order: oneOf(v.order, ["both", "criterion-first", "word-first"] as const, fallback.order),
-    barTap: oneOf(v.barTap, ["next", "sticky"] as const, fallback.barTap),
+    order: oneOf(order, ["criterion-first", "drag-hold", "word-first"] as const, fallback.order),
     holdToKeep: bool(v.holdToKeep, fallback.holdToKeep),
     keys: bool(v.keys, fallback.keys),
     penDoubleTap: bool(v.penDoubleTap, fallback.penDoubleTap),
@@ -62,6 +112,7 @@ export function normalizeMarkingPreferences(
     barSide: oneOf(v.barSide, ["auto", "left", "right"] as const, fallback.barSide),
     barSize: oneOf(v.barSize, ["standard", "large"] as const, fallback.barSize),
     trayCriteria: bool(v.trayCriteria, fallback.trayCriteria),
+    look: normalizeIslandLook(v.look, fallback.look),
   };
 }
 
@@ -72,28 +123,24 @@ export function resolvedBarSide(side: BarSide, railSide: "left" | "right"): "lef
 }
 
 /**
- * The criterion chosen on the bar before (or while) the word is tapped.
+ * The criterion chosen on the island. It stays chosen after marks.
  * `held`: the button or key is still pressed; `used`: a mark was made
- * during this press; `sticky`: stays on after marks until tapped again.
+ * during this press.
  */
 export interface Preselect {
   category: CategoryId;
   held: boolean;
   used: boolean;
-  sticky: boolean;
 }
 
 /** Bar button or key goes down. Returns the new state and the state before the press. */
 export function pressCriterion(
   current: Preselect | null,
   category: CategoryId,
-  prefs: Pick<MarkingPreferences, "holdToKeep" | "barTap">,
+  prefs: Pick<MarkingPreferences, "holdToKeep">,
 ): { next: Preselect | null; before: Preselect | null } {
   if (!prefs.holdToKeep) return { next: current, before: current };
-  return {
-    next: { category, held: true, used: false, sticky: prefs.barTap === "sticky" },
-    before: current,
-  };
+  return { next: { category, held: true, used: false }, before: current };
 }
 
 /**
@@ -105,18 +152,16 @@ export function releaseCriterion(
   current: Preselect | null,
   before: Preselect | null,
   category: CategoryId,
-  prefs: Pick<MarkingPreferences, "barTap">,
 ): Preselect | null {
   if (current?.held && current.category === category && current.used) return null;
   if (before?.category === category) return null;
-  return { category, held: false, used: false, sticky: prefs.barTap === "sticky" };
+  return { category, held: false, used: false };
 }
 
-/** After a mark was saved with `category`. */
+/** After a mark was saved with `category`: the choice stays (a hold notes it was used). */
 export function afterMark(current: Preselect | null, category: CategoryId): Preselect | null {
   if (!current || current.category !== category) return current;
-  if (current.held) return { ...current, used: true };
-  return current.sticky ? current : null;
+  return current.held ? { ...current, used: true } : current;
 }
 
 /** Keys 1 · 2 · 3 map to the bar's visible order. */

@@ -1,13 +1,13 @@
 import { CATEGORY_BY_ID } from "../config";
 import type { CategoryId } from "../types";
-import type { MarkingPreferences } from "../lib/markingPreferences";
+import type { IslandLook, MarkingPreferences } from "../lib/markingPreferences";
 
 interface Choice<T> {
   value: T;
   label: string;
 }
 
-function Options<T extends string | boolean>({ legend, value, choices, onChange, note }: {
+function Options<T extends string | number | boolean>({ legend, value, choices, onChange, note }: {
   legend: string;
   value: T;
   choices: Choice<T>[];
@@ -33,12 +33,41 @@ function Options<T extends string | boolean>({ legend, value, choices, onChange,
 }
 
 const ORDER_NOTE: Record<MarkingPreferences["order"], string> = {
-  both: "Choose a criterion on the bar first, or tap the word first as before.",
-  "criterion-first": "Choose a criterion on the bar before tapping a word.",
-  "word-first": "No bar. Tap the word, then the letter and criterion in the tray.",
+  "criterion-first": "Choose a criterion on the island, then tap the word. It stays chosen until you pick another or tap it again.",
+  "drag-hold": "Drag from a criterion onto the word, slide to the letter and lift. Lift on the word to keep the tray open.",
+  "word-first": "No island. Tap the word, then the letter and criterion in the tray.",
 };
 
-/** Marking choices for this device: criterion bar, keys and pen. */
+/** Test switches for the island's look; one set will be kept. */
+function LookSettings({ value, onChange }: { value: IslandLook; onChange: (patch: Partial<IslandLook>) => void }) {
+  return (
+    <details className="marking-settings-group" open>
+      <summary>Look (test switches)</summary>
+      <div className="marking-settings">
+        <Options legend="Chosen button" value={value.chosen} onChange={(chosen) => onChange({ chosen })}
+          choices={[{ value: "solid", label: "Solid" }, { value: "soft", label: "Soft + edge" }]} />
+        <Options legend="Khafi colour" value={value.khafi} onChange={(khafi) => onChange({ khafi })}
+          note={value.khafi === "current" ? "Current #d58e3a. White text on it measures 2.7:1 (4.5 needed)." : "Deeper #a16300. White text 4.9:1."}
+          choices={[{ value: "current", label: "Current" }, { value: "deep", label: "Deeper" }]} />
+        <Options legend="Buttons at rest" value={value.rest} onChange={(rest) => onChange({ rest })}
+          choices={[{ value: "paper", label: "Paper" }, { value: "tinted", label: "Tinted" }]} />
+        <Options legend="Shape" value={value.shape} onChange={(shape) => onChange({ shape })}
+          choices={[{ value: "squares", label: "Squares" }, { value: "rows", label: "Rows" }]} />
+        <Options legend="Corners" value={value.radius} onChange={(radius) => onChange({ radius })}
+          choices={[{ value: 12, label: "12" }, { value: 16, label: "16" }, { value: 20, label: "20" }]} />
+        <Options legend="Gap" value={value.gap} onChange={(gap) => onChange({ gap })}
+          choices={[{ value: 8, label: "8" }, { value: 12, label: "12" }]} />
+        <Options legend="Mushaf frame" value={value.frame} onChange={(frame) => onChange({ frame })}
+          choices={[{ value: "strong", label: "3px" }, { value: "thin", label: "2px" }, { value: "off", label: "Off" }]} />
+        <Options legend="Keyboard focus ring" value={value.focus} onChange={(focus) => onChange({ focus })}
+          note="Press Tab to see it. The app's blue is the same colour as Fasaha."
+          choices={[{ value: "neutral", label: "Neutral" }, { value: "blue", label: "Blue" }]} />
+      </div>
+    </details>
+  );
+}
+
+/** Marking choices for this device: criterion island, keys and pen. */
 export function MarkingSettings({ value, onChange, penCategories }: {
   value: MarkingPreferences;
   onChange: (patch: Partial<MarkingPreferences>) => void;
@@ -50,36 +79,36 @@ export function MarkingSettings({ value, onChange, penCategories }: {
   const bar = value.order !== "word-first";
   return (
     <div className="marking-settings">
-      <Options legend="Order" value={value.order} onChange={(order) => onChange({ order })}
+      <Options legend="How you mark" value={value.order} onChange={(order) => onChange({ order })}
         note={ORDER_NOTE[value.order]}
         choices={[
-          { value: "both", label: "Both" },
           { value: "criterion-first", label: "Criterion first" },
+          { value: "drag-hold", label: "Drag and hold" },
           { value: "word-first", label: "Word first" },
         ]} />
-      {bar && <>
-        <Options legend="Tap on the bar" value={value.barTap} onChange={(barTap) => onChange({ barTap })}
-          note={value.barTap === "next" ? "A tapped criterion is used for the next mark, then turns off." : "A tapped criterion stays on until you tap it again."}
-          choices={[{ value: "next", label: "Next mark" }, { value: "sticky", label: "Stays on" }]} />
+      {bar && <LookSettings value={value.look} onChange={(patch) => onChange({ look: { ...value.look, ...patch } })} />}
+      {value.order === "criterion-first" && <>
         <Options legend="Hold to keep" value={value.holdToKeep} onChange={(holdToKeep) => onChange({ holdToKeep })}
-          note="Hold a bar button or key: the criterion stays on only while you hold it."
+          note="Hold a criterion or key while you mark: it turns off when you let go."
           choices={[{ value: true, label: "On" }, { value: false, label: "Off" }]} />
         <Options legend="Keys 1 · 2 · 3" value={value.keys} onChange={(keys) => onChange({ keys })}
-          note="Each number presses the bar button with that number."
+          note="Each number presses the criterion with that number."
           choices={[{ value: true, label: "On" }, { value: false, label: "Off" }]} />
+      </>}
+      {bar && <>
         <Options legend="Criteria in the letter tray" value={value.trayCriteria} onChange={(trayCriteria) => onChange({ trayCriteria })}
-          note={value.trayCriteria ? "Criteria show on the bar and in the tray." : "The tray shows letters only; choose the criterion on the bar."}
+          note={value.trayCriteria ? "Criteria show on the island and in the tray." : "The tray shows letters only."}
           choices={[{ value: false, label: "Off" }, { value: true, label: "On" }]} />
-        <Options legend="Bar side" value={value.barSide} onChange={(barSide) => onChange({ barSide })}
+        <Options legend="Island side" value={value.barSide} onChange={(barSide) => onChange({ barSide })}
           choices={[{ value: "auto", label: "Away from scorecard" }, { value: "left", label: "Left" }, { value: "right", label: "Right" }]} />
-        <Options legend="Bar size" value={value.barSize} onChange={(barSize) => onChange({ barSize })}
+        <Options legend="Island size" value={value.barSize} onChange={(barSize) => onChange({ barSize })}
           choices={[{ value: "standard", label: "Standard" }, { value: "large", label: "Large" }]} />
       </>}
       <Options legend="Pen tap and double tap" value={value.penDoubleTap} onChange={(penDoubleTap) => onChange({ penDoubleTap })}
         note={`With a pen, in the letter tray: tap a letter = ${first}, double tap = ${second}.`}
         choices={[{ value: true, label: "On" }, { value: false, label: "Off" }]} />
       <Options legend="Pen only" value={value.penOnly} onChange={(penOnly) => onChange({ penOnly })}
-        note="Fingers and palm cannot mark the page. The bar still works with a finger."
+        note="Fingers and palm cannot mark the page. The island still works with a finger."
         choices={[{ value: true, label: "On" }, { value: false, label: "Off" }]} />
     </div>
   );
