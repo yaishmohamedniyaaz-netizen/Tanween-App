@@ -304,7 +304,7 @@ test("slim score preference defaults off and preserves other device settings", (
 test("marking preferences: owner defaults, invalid values fall back, the old mixed order becomes criterion first", () => {
   assert.deepEqual(DEFAULT_DEVICE_PREFERENCES.marking, {
     order: "criterion-first", holdToKeep: true, keys: true,
-    penDoubleTap: false, penOnly: false, barSide: "auto", barSize: "standard", trayCriteria: false, guessedUnderlines: "short",
+    penDoubleTap: false, penOnly: false, barSide: "auto", barSize: "standard", trayCriteria: false, guessedUnderlines: "off",
     look: { place: "scorecard", chosen: "solid", khafi: "current", radius: 20, shape: "squares", gap: 12, rest: "paper", frame: "strong", focus: "neutral" },
   });
   assert.deepEqual(normalizeMarkingPreferences({ order: "sideways", keys: "yes", penOnly: true, barSide: "right" }), {

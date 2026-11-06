@@ -79,7 +79,7 @@ export const DEFAULT_MARKING_PREFERENCES: MarkingPreferences = {
   barSide: "auto",
   barSize: "standard",
   trayCriteria: false,
-  guessedUnderlines: "short",
+  guessedUnderlines: "off",
   look: DEFAULT_ISLAND_LOOK,
 };
 
