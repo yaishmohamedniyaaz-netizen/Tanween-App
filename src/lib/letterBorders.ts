@@ -13,7 +13,19 @@ export interface LetterBorderWord {
   tids: string[];
   /** Borders in artwork px (1920-wide page), right to left: letter i spans x[i+1]..x[i]. */
   x: number[];
+  /** Guesses only (public/letter-borders-guess): never present on approved words. */
+  confidence?: "high" | "medium" | "low";
 }
+
+/**
+ * Prototype switch for words the owner has not approved, using the learned
+ * guesses (docs/CODEX_TASK_LETTER_BORDERS_ALL_PAGES.md): off; high-confidence
+ * guesses only; every guess with a short centred bar (hides small border
+ * errors); every guess with the full bar.
+ */
+export type GuessedUnderlines = "off" | "high" | "short" | "full";
+/** Share of the guessed letter width used by the short bar (measured in the Codex task). */
+export const SHORT_BAR_SHARE = 0.4;
 
 export interface LetterBorderPage {
   page: number;
@@ -58,29 +70,56 @@ export function letterBarGeometry(
   };
 }
 
-let indexPromise: Promise<Set<number>> | null = null;
-const pagePromises = new Map<number, Promise<LetterBorderPage | null>>();
+/**
+ * The underline for one marked letter: the approved border first; otherwise,
+ * when the prototype switch allows it, the learned guess.
+ */
+export function underlineGeometry(
+  approved: LetterBorderPage | null | undefined,
+  guessed: LetterBorderPage | null | undefined,
+  mode: GuessedUnderlines,
+  wid: string,
+  tid: string,
+  region: readonly number[] | undefined,
+): LetterBarGeometry | null {
+  const exact = letterBarGeometry(approved, wid, tid, region);
+  if (exact || mode === "off" || !guessed) return exact;
+  const word = guessed.words[wid];
+  if (!word || (mode === "high" && word.confidence !== "high")) return null;
+  const bar = letterBarGeometry(guessed, wid, tid, region);
+  if (!bar || mode !== "short") return bar;
+  const width = bar.width * SHORT_BAR_SHARE;
+  return { ...bar, left: bar.left + (bar.width - width) / 2, width };
+}
+
+function borderLoader(folder: string) {
+  let indexPromise: Promise<Set<number>> | null = null;
+  const pagePromises = new Map<number, Promise<LetterBorderPage | null>>();
+  return (page: number): Promise<LetterBorderPage | null> => {
+    const cached = pagePromises.get(page);
+    if (cached) return cached;
+    indexPromise ??= fetch(`/${folder}/index.json`)
+      .then((response) => (response.ok ? response.json() : { pages: [] }))
+      .then((index: { pages?: number[] }) => new Set(index.pages ?? []))
+      .catch(() => {
+        indexPromise = null; // offline now; try again on a later page view
+        return new Set<number>();
+      });
+    const promise = indexPromise.then(async (pages) => {
+      if (!pages.has(page)) return null;
+      const response = await fetch(`/${folder}/p${page}.json`);
+      if (!response.ok) return null;
+      const data = (await response.json()) as LetterBorderPage;
+      return data.page === page ? data : null;
+    }).catch(() => null);
+    pagePromises.set(page, promise);
+    // A failed fetch may succeed later (back online): do not keep the miss.
+    promise.then((data) => { if (!data) pagePromises.delete(page); });
+    return promise;
+  };
+}
 
 /** Approved borders for one page, or null when that page has none (or offline). */
-export function loadLetterBorders(page: number): Promise<LetterBorderPage | null> {
-  const cached = pagePromises.get(page);
-  if (cached) return cached;
-  indexPromise ??= fetch("/letter-borders/index.json")
-    .then((response) => (response.ok ? response.json() : { pages: [] }))
-    .then((index: { pages?: number[] }) => new Set(index.pages ?? []))
-    .catch(() => {
-      indexPromise = null; // offline now; try again on a later page view
-      return new Set<number>();
-    });
-  const promise = indexPromise.then(async (pages) => {
-    if (!pages.has(page)) return null;
-    const response = await fetch(`/letter-borders/p${page}.json`);
-    if (!response.ok) return null;
-    const data = (await response.json()) as LetterBorderPage;
-    return data.page === page ? data : null;
-  }).catch(() => null);
-  pagePromises.set(page, promise);
-  // A failed fetch may succeed later (back online): do not keep the miss.
-  promise.then((data) => { if (!data) pagePromises.delete(page); });
-  return promise;
-}
+export const loadLetterBorders = borderLoader("letter-borders");
+/** Learned, unapproved guesses for one page (prototype only). */
+export const loadLetterBorderGuesses = borderLoader("letter-borders-guess");

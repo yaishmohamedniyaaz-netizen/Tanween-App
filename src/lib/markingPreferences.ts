@@ -65,6 +65,8 @@ export interface MarkingPreferences {
   barSize: BarSize;
   /** Show the criterion buttons in the letter tray too (off: the bar is the only place). */
   trayCriteria: boolean;
+  /** Prototype: underlines on words without approved borders, from learned guesses. */
+  guessedUnderlines: "off" | "high" | "short" | "full";
   look: IslandLook;
 }
 
@@ -77,6 +79,7 @@ export const DEFAULT_MARKING_PREFERENCES: MarkingPreferences = {
   barSide: "auto",
   barSize: "standard",
   trayCriteria: false,
+  guessedUnderlines: "short",
   look: DEFAULT_ISLAND_LOOK,
 };
 
@@ -116,6 +119,7 @@ export function normalizeMarkingPreferences(
     barSide: oneOf(v.barSide, ["auto", "left", "right"] as const, fallback.barSide),
     barSize: oneOf(v.barSize, ["standard", "large"] as const, fallback.barSize),
     trayCriteria: bool(v.trayCriteria, fallback.trayCriteria),
+    guessedUnderlines: oneOf(v.guessedUnderlines, ["off", "high", "short", "full"] as const, fallback.guessedUnderlines),
     look: normalizeIslandLook(v.look, fallback.look),
   };
 }

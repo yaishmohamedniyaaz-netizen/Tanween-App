@@ -3,7 +3,7 @@ import fs from "node:fs";
 import test from "node:test";
 import { judgingTargetsOf, TARGET_RULE_VERSION } from "../src/lib/judgingUnits.ts";
 import { nextRecitedWords } from "../src/lib/recitedNeighbours.ts";
-import { letterBarGeometry, LETTER_BAR_ARTWORK_PX } from "../src/lib/letterBorders.ts";
+import { letterBarGeometry, LETTER_BAR_ARTWORK_PX, underlineGeometry } from "../src/lib/letterBorders.ts";
 
 const page = (words, ruleVersion = TARGET_RULE_VERSION) => ({ page: 2, ruleVersion, words });
 const MIN = { tids: ["2.5.3@r0", "2.5.3@r3"], x: [966, 931, 891] };
@@ -51,4 +51,19 @@ test("the shipped borders match the app's current letters and sit inside each wo
     }
   }
   assert.ok(words >= 65);
+});
+
+test("guessed underlines: approved first, then guesses by the prototype switch", () => {
+  const approved = page({ "2.5.3": MIN });
+  const guess = page({ "2.6.0": { ...MIN, tids: ["2.6.0@r0", "2.6.0@r3"], confidence: "low" } });
+  // An approved word ignores the guesses.
+  assert.equal(underlineGeometry(approved, guess, "full", "2.5.3", "2.5.3@r3", REGION).width, 0.4);
+  // Off: no guesses; "high": only high-confidence guesses.
+  assert.equal(underlineGeometry(approved, guess, "off", "2.6.0", "2.6.0@r3", REGION), null);
+  assert.equal(underlineGeometry(approved, guess, "high", "2.6.0", "2.6.0@r3", REGION), null);
+  // Full bar: the whole guessed letter. Short bar: 40% of it, centred.
+  const full = underlineGeometry(approved, guess, "full", "2.6.0", "2.6.0@r3", REGION);
+  assert.deepEqual([full.left, full.width], [0.11, 0.4]);
+  const short = underlineGeometry(approved, guess, "short", "2.6.0", "2.6.0@r3", REGION);
+  assert.ok(Math.abs(short.width - 0.16) < 1e-9 && Math.abs(short.left - 0.23) < 1e-9);
 });

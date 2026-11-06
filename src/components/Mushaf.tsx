@@ -27,7 +27,7 @@ import {
   preloadPage,
 } from "../lib/page";
 import { nextRecitedWords } from "../lib/recitedNeighbours.ts";
-import { letterBarGeometry, loadLetterBorders, type LetterBorderPage } from "../lib/letterBorders.ts";
+import { loadLetterBorderGuesses, loadLetterBorders, underlineGeometry, type LetterBorderPage } from "../lib/letterBorders.ts";
 import type { MushafPage, PageWord } from "../lib/page";
 import {
   loadQcfPageFont,
@@ -247,6 +247,7 @@ export function Mushaf(props: MushafProps) {
   const [shadeBoxes, setShadeBoxes] = useState<ContextShadeBox[]>([]);
   const [boxesKey, setBoxesKey] = useState("");
   const [letterBorders, setLetterBorders] = useState<ReadonlyMap<number, LetterBorderPage>>(new Map());
+  const [borderGuesses, setBorderGuesses] = useState<ReadonlyMap<number, LetterBorderPage>>(new Map());
   const [measureEpoch, setMeasureEpoch] = useState(0);
   const [flashTid, setFlashTid] = useState<string | null>(null);
   const [pendingFlash, setPendingFlash] = useState<{ tid: string; page: number } | null>(null);
@@ -329,6 +330,23 @@ export function Mushaf(props: MushafProps) {
     });
     return () => { cancelled = true; };
   }, [borderPagesKey]);
+  // Prototype: learned guesses for words the owner has not approved.
+  const guessesWanted = marking.guessedUnderlines !== "off";
+  useEffect(() => {
+    if (!borderPagesKey || !guessesWanted) return;
+    let cancelled = false;
+    Promise.all(borderPagesKey.split(":").map(Number).map(loadLetterBorderGuesses)).then((loaded) => {
+      if (cancelled) return;
+      setBorderGuesses((previous) => {
+        const next = new Map(previous);
+        for (const data of loaded) if (data) next.set(data.page, data);
+        return next;
+      });
+    });
+    return () => { cancelled = true; };
+  }, [borderPagesKey, guessesWanted]);
+  const underlineFor = (box: WordHitbox, tid: string) => underlineGeometry(
+    letterBorders.get(box.page), borderGuesses.get(box.page), marking.guessedUnderlines, box.wid, tid, box.region);
 
   // Every requested page and its page-specific font become visible in one
   // commit. The previous complete view remains intact during navigation.
@@ -1231,8 +1249,7 @@ export function Mushaf(props: MushafProps) {
   // already show where the mistakes are: the word's count circle is not needed.
   const lettersUnderlined = (box: WordHitbox) => {
     const marked = box.units.filter((unit) => mistakesForUnit(unit).length > 0);
-    return marked.length > 0 && marked.every((unit) =>
-      letterBarGeometry(letterBorders.get(box.page), box.wid, unit.tid, box.region) !== null);
+    return marked.length > 0 && marked.every((unit) => underlineFor(box, unit.tid) !== null);
   };
   const allowedCountKey = allowedCategories.join(":");
   const wordSummaries = useMemo(() => {
@@ -1434,7 +1451,7 @@ export function Mushaf(props: MushafProps) {
                       {box.units.map((unit) => {
                         const unitMistakes = mistakesForUnit(unit);
                         if (!unitMistakes.length) return null;
-                        const bar = letterBarGeometry(letterBorders.get(box.page), box.wid, unit.tid, box.region);
+                        const bar = underlineFor(box, unit.tid);
                         if (!bar) return null;
                         return (
                           <span

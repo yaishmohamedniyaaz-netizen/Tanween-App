@@ -70,5 +70,5 @@ test("the scorecard rows can be the criterion buttons; the island is then not sh
 
 test("a word whose marked letters all have underlines drops its count circle", () => {
   assert.match(mushaf, /summary\?\.marker && !lettersUnderlined\(box\)/);
-  assert.match(mushaf, /marked\.every\(\(unit\) =>\s*letterBarGeometry\(/);
+  assert.match(mushaf, /marked\.every\(\(unit\) => underlineFor\(box, unit\.tid\) !== null\)/);
 });

@@ -111,6 +111,15 @@ export function MarkingSettings({ value, onChange, penCategories }: {
           choices={[{ value: "standard", label: "Standard" }, { value: "large", label: "Large" }]} />
         </>}
       </>}
+      <Options legend="Underlines on words you have not approved" value={value.guessedUnderlines}
+        onChange={(guessedUnderlines) => onChange({ guessedUnderlines })}
+        note={{
+          off: "Only words you approved get an underline; others keep the word highlight.",
+          high: "Adds the 3,648 most certain guesses (high confidence).",
+          short: "Every word, from learned guesses, with a short bar in the middle of the letter. Unchecked: about 1 in 6 may sit under the wrong letter.",
+          full: "Every word, from learned guesses, with the full bar. Unchecked: about 1 in 3 borders are more than 2 px off.",
+        }[value.guessedUnderlines]}
+        choices={[{ value: "off", label: "Off" }, { value: "high", label: "Most certain" }, { value: "short", label: "All, short" }, { value: "full", label: "All, full" }]} />
       <Options legend="Pen tap and double tap" value={value.penDoubleTap} onChange={(penDoubleTap) => onChange({ penDoubleTap })}
         note={`With a pen, in the letter tray: tap a letter = ${first}, double tap = ${second}.`}
         choices={[{ value: true, label: "On" }, { value: false, label: "Off" }]} />
