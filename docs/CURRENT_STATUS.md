@@ -18,7 +18,7 @@ GitHub branch is not necessarily identical to a hosted build.
 
 ### Update, 6 November 2026
 
-`claude/judging-final-polish` is 86 commits ahead of `main` and 0 behind
+`claude/judging-final-polish` is more than 80 commits ahead of `main` and 0 behind
 (merges by fast-forward). Not deployed; release waits for the owner. Main
 additions: letter-unit rule 4.0.0 (silent letters faded, not merged), tray
 tashkeel collisions fixed, letter bar for owner-approved words, page finder,
