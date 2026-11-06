@@ -9,6 +9,9 @@ import { judgeSeatFor } from "../lib/judgeAssignments";
 import type { AduRaaguInputMode } from "../lib/devicePreferences";
 import type { CategoryId } from "../types";
 import { MarkPicker } from "./MarkPicker";
+import { CriterionPressable } from "./CriterionPressable";
+import { criterionChoiceHandlers, useCriterionChoice } from "../lib/criterionChoice";
+import { useEffect, useRef, useState } from "react";
 import "../styles/scorePanelReason.css";
 
 type ScorePanelPresentation = "rail" | "compact";
@@ -39,17 +42,24 @@ function CategoryRow({
   score,
   start,
   deducted,
+  pick = false,
 }: {
   id: CategoryId;
   label: string;
   score: number;
   start: number;
   deducted: number;
+  /** The row is the criterion button (marking look "place: scorecard"). */
+  pick?: boolean;
 }) {
-  return (
-    <div className={`sc-row cat-${id}`}>
+  const choice = useCriterionChoice();
+  const cells = (
+    <>
       <span className="sc-dot" aria-hidden="true" />
-      <span className="sc-name">{label}</span>
+      <span className="sc-name">
+        {label}
+        {pick && choice.showKeys && <span className="sc-key" aria-hidden="true">{choice.categories.indexOf(id) + 1}</span>}
+      </span>
       <span className={`sc-deducted t-num ${deducted === 0 ? "is-zero" : ""}`}>
         {deducted === 0 ? "—" : `−${deducted}`}
       </span>
@@ -57,7 +67,25 @@ function CategoryRow({
         <span className="score-value-number">{score}</span>
         <span className="sc-of">/ {start}</span>
       </span>
-    </div>
+    </>
+  );
+  if (!pick || !choice.look) return <div className={`sc-row cat-${id}`}>{cells}</div>;
+  const on = choice.preselect?.category === id;
+  const index = choice.categories.indexOf(id);
+  return (
+    <CriterionPressable
+      category={id}
+      mode={choice.mode}
+      handlers={criterionChoiceHandlers}
+      trayOpen={choice.trayOpen}
+      khafi={choice.look.khafi}
+      data-criterion-bar=""
+      className={`sc-row sc-row-pick cat-${id} ${on ? "is-on" : ""} ${on && choice.preselect?.held ? "is-held" : ""}`}
+      aria-pressed={choice.mode === "criterion-first" ? on : undefined}
+      aria-label={`${label}: choose for the next mark${choice.showKeys ? `, key ${index + 1}` : ""}. Score ${score} of ${start}`}
+    >
+      {cells}
+    </CriterionPressable>
   );
 }
 
@@ -127,6 +155,19 @@ export function ScorePanel({
     state.activeAssignment?.categories ??
     judgeSeatFor(state.panel, state.deviceJudgeId)?.categories ??
     enabledCategories(config);
+  // With the scorecard as the picker, its pinpoint rows are the criterion buttons.
+  const choice = useCriterionChoice();
+  const picking = choice.active && presentation === "rail" && choice.look !== null;
+  const [shake, setShake] = useState(false);
+  const seenNudge = useRef(choice.nudge);
+  useEffect(() => {
+    if (!picking || choice.nudge === seenNudge.current) return;
+    seenNudge.current = choice.nudge;
+    setShake(false);
+    const start = window.requestAnimationFrame(() => setShake(true));
+    const timer = window.setTimeout(() => setShake(false), 420);
+    return () => { window.cancelAnimationFrame(start); window.clearTimeout(timer); };
+  }, [choice.nudge, picking]);
   const missingImpressions = missingRequiredImpressionCategories(
     config,
     state.impressions,
@@ -145,7 +186,13 @@ export function ScorePanel({
           <span className="sc-total-of t-num"> / {totalMax}</span>
         </span>
       </div>
-      <div className="sc-rows" data-category-count={categories.length}>
+      <div
+        className={`sc-rows ${picking ? "is-picker" : ""} ${shake ? "is-nudged" : ""}`}
+        data-category-count={categories.length}
+        data-chosen-look={picking ? choice.look?.chosen : undefined}
+        data-khafi={picking ? choice.look?.khafi : undefined}
+        data-focus-look={picking ? choice.look?.focus : undefined}
+      >
         {CATEGORIES.filter((category) => categories.includes(category.id)).map((c) =>
           isImpressionCategory(c.id) ? (
             <ImpressionRow
@@ -164,6 +211,7 @@ export function ScorePanel({
               score={byCategory[c.id].score}
               start={byCategory[c.id].start}
               deducted={byCategory[c.id].deducted}
+              pick={picking && choice.categories.includes(c.id)}
             />
           ),
         )}

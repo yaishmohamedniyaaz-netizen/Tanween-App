@@ -305,7 +305,7 @@ test("marking preferences: owner defaults, invalid values fall back, the old mix
   assert.deepEqual(DEFAULT_DEVICE_PREFERENCES.marking, {
     order: "criterion-first", holdToKeep: true, keys: true,
     penDoubleTap: false, penOnly: false, barSide: "auto", barSize: "standard", trayCriteria: false,
-    look: { chosen: "solid", khafi: "current", radius: 20, shape: "squares", gap: 12, rest: "paper", frame: "strong", focus: "neutral" },
+    look: { place: "scorecard", chosen: "solid", khafi: "current", radius: 20, shape: "squares", gap: 12, rest: "paper", frame: "strong", focus: "neutral" },
   });
   assert.deepEqual(normalizeMarkingPreferences({ order: "sideways", keys: "yes", penOnly: true, barSide: "right" }), {
     ...DEFAULT_MARKING_PREFERENCES, penOnly: true, barSide: "right",
@@ -323,13 +323,13 @@ test("marking preferences: owner defaults, invalid values fall back, the old mix
   assert.equal(resolvedBarSide("left", "left"), "left");
 });
 
-test("criterion island: a tap chooses and it stays chosen, tap again turns it off, a hold ends at release", () => {
+test("criterion choice: a tap chooses for one mark, tap again turns it off, a hold keeps it until release", () => {
   const prefs = { holdToKeep: true };
-  // Tap: down + up without a mark chooses; it stays after marks.
+  // Tap: down + up without a mark chooses; one mark turns it off.
   let { next, before } = pressCriterion(null, "jali", prefs);
   let state = releaseCriterion(next, before, "jali");
   assert.deepEqual(state, { category: "jali", held: false, used: false });
-  assert.equal(afterMark(afterMark(state, "jali"), "jali"), state, "stays chosen after marks");
+  assert.equal(afterMark(state, "jali"), null, "back to nothing chosen after one mark");
   // Tap the chosen criterion again: off.
   ({ next, before } = pressCriterion(state, "jali", prefs));
   assert.equal(releaseCriterion(next, before, "jali"), null);

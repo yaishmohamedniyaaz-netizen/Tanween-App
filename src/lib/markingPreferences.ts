@@ -21,6 +21,8 @@ export type BarSize = "standard" | "large";
  * design (docs/CRITERION_ISLAND_RESEARCH.md); one set will be kept.
  */
 export interface IslandLook {
+  /** Where the criteria are chosen: the scorecard rows, or an island beside the pages. */
+  place: "scorecard" | "island";
   /** Chosen button: strong colour fill, or soft fill with a 2px strong edge. */
   chosen: "solid" | "soft";
   /** Khafi's strong colour: the app's current #d58e3a, or the deeper #a16300. */
@@ -38,6 +40,7 @@ export interface IslandLook {
 }
 
 export const DEFAULT_ISLAND_LOOK: IslandLook = {
+  place: "scorecard",
   chosen: "solid",
   khafi: "current",
   radius: 20,
@@ -85,6 +88,7 @@ const record = (value: unknown) => value && typeof value === "object" ? value as
 export function normalizeIslandLook(value: unknown, fallback: IslandLook = DEFAULT_ISLAND_LOOK): IslandLook {
   const v = record(value);
   return {
+    place: oneOf(v.place, ["scorecard", "island"] as const, fallback.place),
     chosen: oneOf(v.chosen, ["solid", "soft"] as const, fallback.chosen),
     khafi: oneOf(v.khafi, ["current", "deep"] as const, fallback.khafi),
     radius: oneOf(v.radius, [12, 16, 20] as const, fallback.radius),
@@ -123,7 +127,8 @@ export function resolvedBarSide(side: BarSide, railSide: "left" | "right"): "lef
 }
 
 /**
- * The criterion chosen on the island. It stays chosen after marks.
+ * The criterion chosen for the next mark. After a mark it turns off (owner
+ * decision, 6 November 2026, round 2); a hold keeps it until the hold ends.
  * `held`: the button or key is still pressed; `used`: a mark was made
  * during this press.
  */
@@ -158,10 +163,10 @@ export function releaseCriterion(
   return { category, held: false, used: false };
 }
 
-/** After a mark was saved with `category`: the choice stays (a hold notes it was used). */
+/** After a mark was saved with `category`: back to nothing chosen, unless it is held. */
 export function afterMark(current: Preselect | null, category: CategoryId): Preselect | null {
   if (!current || current.category !== category) return current;
-  return current.held ? { ...current, used: true } : current;
+  return current.held ? { ...current, used: true } : null;
 }
 
 /** Keys 1 · 2 · 3 map to the bar's visible order. */

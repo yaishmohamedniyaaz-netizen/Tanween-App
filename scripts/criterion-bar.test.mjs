@@ -36,7 +36,7 @@ test("drag and hold: lift on a letter marks, lift on the word keeps the tray, an
   assert.match(mushaf, /Lifted on a letter: mark it\.\s*commit\(category, tid\)/);
   assert.match(mushaf, /Lifted on a word[\s\S]{0,300}setPinned\(true\)/);
   assert.match(mushaf, /Lifted anywhere else: nothing is marked\.\s*closeAll\(\);\s*setPreselect\(null\)/);
-  assert.match(bar, /DRAG_START = 8/);
+  assert.match(read("src/components/CriterionPressable.tsx"), /DRAG_START = 8/);
 });
 
 test("the settings opener is its own button in the bottom-right corner", () => {
@@ -58,4 +58,12 @@ test("with the bar on, the tray shows letters only by default; a setting brings 
   assert.match(mushaf, /hideTrayCriteria = barEnabled && !marking\.trayCriteria/);
   assert.match(tray, /\{!hideCategories && categoryStack\}/);
   assert.match(tray, /Now choose a criterion on the bar/);
+});
+
+test("the scorecard rows can be the criterion buttons; the island is then not shown", () => {
+  const panel = read("src/components/ScorePanel.tsx");
+  assert.match(panel, /picking = choice\.active && presentation === "rail"/);
+  assert.match(panel, /className=\{`sc-row sc-row-pick/);
+  assert.match(mushaf, /active: barEnabled && marking\.look\.place === "scorecard"/);
+  assert.match(mushaf, /showButtons=\{islandShown\}/);
 });

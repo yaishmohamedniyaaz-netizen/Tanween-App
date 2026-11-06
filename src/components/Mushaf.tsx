@@ -47,6 +47,7 @@ import {
 } from "../lib/markingPreferences.ts";
 import type { JudgeRailSide } from "../lib/devicePreferences";
 import { CriterionBar } from "./CriterionBar";
+import { clearCriterionChoice, publishCriterionChoice } from "../lib/criterionChoice";
 import { MarkingSettings } from "./MarkingSettings";
 import type {
   CategoryId,
@@ -703,7 +704,7 @@ export function Mushaf(props: MushafProps) {
         ts: Date.now(),
       };
       dispatch({ type: "ADD_MISTAKE", mistake });
-      // The choice stays; a held one notes that it was used.
+      // Back to nothing chosen; a held choice stays until the hold ends.
       setPreselect(afterMark(preselectRef.current, category));
       return true;
     },
@@ -993,19 +994,28 @@ export function Mushaf(props: MushafProps) {
   // The bar gets its own column beside the pages, so it never covers a line.
   const barSide = resolvedBarSide(marking.barSide, judgeRailSide);
   // Column = button + 12px each side (docs/CRITERION_ISLAND_RESEARCH.md).
+  const islandShown = barEnabled && marking.look.place === "island";
   const barSpace = marking.look.shape === "rows"
     ? (marking.barSize === "large" ? 176 : 152)
     : (marking.barSize === "large" ? 112 : 96);
   useLayoutEffect(() => {
     const viewport = stageRef.current?.closest<HTMLElement>(".mushaf-viewport");
-    if (!viewport || !barEnabled) return;
+    if (!viewport) return;
+    // A column that appears or goes while the pages fit the screen must not
+    // leave the stage scrolled sideways.
+    const settle = () => window.setTimeout(() => {
+      const shell = viewport.querySelector<HTMLElement>('.mushaf-shell[data-fit-mode="true"]');
+      if (shell) shell.scrollLeft = 0;
+    }, 250);
+    if (!islandShown) { settle(); return; }
     viewport.dataset.criterionBar = barSide;
     viewport.style.setProperty("--criterion-bar-space", `${barSpace}px`);
+    settle();
     return () => {
       delete viewport.dataset.criterionBar;
       viewport.style.removeProperty("--criterion-bar-space");
     };
-  }, [barEnabled, barSide, barSpace, stageRef]);
+  }, [islandShown, barSide, barSpace, stageRef]);
 
   // The tray stays over the pages, clear of the bar's column.
   const trayClearance = () => {
@@ -1127,6 +1137,25 @@ export function Mushaf(props: MushafProps) {
       setPreselect(null);
     }
   };
+  // The scorecard rows (and the island) reach these handlers through one bridge.
+  useLayoutEffect(() => {
+    publishCriterionChoice({
+      active: barEnabled && marking.look.place === "scorecard",
+      preselect,
+      mode: marking.order === "drag-hold" ? "drag-hold" : "criterion-first",
+      categories: barCategories,
+      showKeys: marking.keys && marking.order === "criterion-first",
+      look: marking.look,
+      trayOpen: Boolean(active),
+      nudge: barNudge,
+    }, barEnabled ? {
+      onPress: barPress, onRelease: barRelease,
+      onDragStart: dragStart, onDragMove: dragMove, onDragEnd: dragEnd,
+      onDragTap: () => setBarNudge(Date.now()),
+    } : null);
+  });
+  useEffect(() => () => clearCriterionChoice(), []);
+
   // In drag mode the choice lives only as long as its tray.
   useEffect(() => {
     if (marking.order !== "drag-hold" || active || dragCategory.current) return;
@@ -1495,6 +1524,7 @@ export function Mushaf(props: MushafProps) {
 
       {barEnabled && (
         <CriterionBar
+          showButtons={islandShown}
           categories={barCategories}
           preselect={preselect}
           side={barSide}
@@ -1506,13 +1536,7 @@ export function Mushaf(props: MushafProps) {
           nudge={barNudge}
           stageRef={stageRef}
           alignRef={compositionRef}
-          onPress={barPress}
-          onRelease={barRelease}
-          onDragStart={dragStart}
-          onDragMove={dragMove}
-          onDragEnd={dragEnd}
           trayOpen={Boolean(active)}
-          onDragTap={() => setBarNudge(Date.now())}
           settings={onMarkingChange
             ? <MarkingSettings value={marking} onChange={onMarkingChange} penCategories={barCategories} />
             : null}

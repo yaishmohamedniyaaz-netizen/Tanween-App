@@ -2,17 +2,18 @@
 
 Branch `claude/criterion-bar` (experimental, not on main). Tablet and PC only.
 
-## Current build (round 2, 6 November 2026)
+## Current build (round 3, 6 November 2026)
 
 Built from the owner decisions below and the research in `docs/CRITERION_ISLAND_RESEARCH.md`.
 
 | Decision | Default | How it works |
 | --- | --- | --- |
+| Where you choose | Scorecard (test switch: Island) | The scorecard's pinpoint rows are the criterion buttons; the island option puts buttons beside the pages, centred on them |
 | How you mark | Criterion first | Three separate modes, never mixed: Criterion first, Drag and hold, Word first |
-| After a mark | Stays chosen | The criterion stays until another is picked or it is tapped again |
-| Nothing chosen | Island shakes | A word tap opens nothing. A word that already has the judge's mark still opens, so undo stays one tap away |
+| After a mark | Back to nothing chosen | Round 3 owner decision; hold a row, button or key to mark several letters |
+| Nothing chosen | The criteria shake | A word tap opens nothing. A word that already has the judge's mark still opens, so undo stays one tap away |
 | Colour on the page | Frame only | A rounded line around the pages; words and tray letters are not tinted |
-| Settings | Bottom-right corner | A separate 44px button; the panel opens beside the island |
+| Settings | Bottom-right corner | A separate 44px button |
 | Escape | Tray first | Escape closes an open tray; with no tray it clears the choice |
 
 Drag and hold (the drag-and-hold behaviour was still open; this is the version built for testing):
@@ -23,6 +24,8 @@ Drag and hold (the drag-and-hold behaviour was still open; this is the version b
 - A tap on an island button in this mode only shakes the island.
 
 Look switches (test only, Settings → Look). One set will be kept:
+
+- Where you choose: Scorecard (default) or Island.
 
 - Chosen button: Solid (default) or Soft + edge.
 - Khafi colour: Current #d58e3a (default) or Deeper #a16300.
@@ -51,6 +54,7 @@ check on a real iPad or Android tablet. Pen double tap needs a real pen.
 
 - Modes are separate settings, never mixed: Criterion first (default), Drag and hold, Word first.
 - After a mark the criterion stays chosen until another is picked or it is tapped again. No "Next mark" wording.
+  *Replaced in round 3:* after a mark, back to nothing chosen.
 - Criterion first: tapping a word with nothing chosen opens nothing; the island shakes once.
 - Only the Mushaf frame shows the chosen colour; words are not tinted.
 - The island buttons are large squares in the scorecard square's design (option 1); rows with a small square

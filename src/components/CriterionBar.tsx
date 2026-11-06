@@ -3,8 +3,12 @@ import { createPortal } from "react-dom";
 import { CATEGORY_BY_ID } from "../config";
 import type { CategoryId } from "../types";
 import type { BarSize, IslandLook, Preselect } from "../lib/markingPreferences";
+import { criterionChoiceHandlers } from "../lib/criterionChoice";
+import { CriterionPressable } from "./CriterionPressable";
 
 interface CriterionBarProps {
+  /** Island buttons beside the pages; off when the scorecard rows are the buttons. */
+  showButtons: boolean;
   categories: readonly CategoryId[];
   preselect: Preselect | null;
   /** criterion-first: tap to choose; drag-hold: drag a criterion onto the word. */
@@ -18,58 +22,47 @@ interface CriterionBarProps {
   /** Changes when the island should shake (a word was tapped with nothing chosen). */
   nudge: number;
   stageRef: RefObject<HTMLDivElement | null>;
-  /** The pages: the first button starts on their top line. */
+  /** The pages: the island is centred on their visible part. */
   alignRef: RefObject<HTMLDivElement | null>;
   settings: ReactNode;
-  onPress: (category: CategoryId) => void;
-  onRelease: (category: CategoryId) => void;
-  onDragStart: (category: CategoryId) => void;
-  onDragMove: (x: number, y: number) => void;
-  onDragEnd: (x: number, y: number) => void;
   /** The letter tray is open: the dragged label hides so it never covers the letters. */
   trayOpen: boolean;
-  /** A tap in drag mode: nothing to choose, the island shakes. */
-  onDragTap: () => void;
 }
 
 const EDGE = 12;
-/** A press that travels further than this is a drag (drag-hold mode). */
-const DRAG_START = 8;
 
 /**
- * The criterion island at the edge of the Mushaf. Rendered outside the page
- * so its own touches never count as a second finger on the page. The settings
- * opener is a separate small button in the bottom-right corner.
+ * The criterion island beside the Mushaf, centred on the visible pages.
+ * Rendered outside the page so its own touches never count as a second
+ * finger on the page. The settings opener is a separate small button in the
+ * bottom-right corner (also shown when the scorecard rows are the buttons).
  */
 export function CriterionBar({
-  categories, preselect, mode, look, side, size, space, showKeys, nudge, stageRef, alignRef, settings,
-  trayOpen, onPress, onRelease, onDragStart, onDragMove, onDragEnd, onDragTap,
+  showButtons, categories, preselect, mode, look, side, size, space, showKeys, nudge, stageRef, alignRef, settings, trayOpen,
 }: CriterionBarProps) {
   const barRef = useRef<HTMLDivElement>(null);
-  const pressed = useRef(new Map<number, CategoryId>());
-  const drag = useRef<{ pointerId: number; category: CategoryId; x: number; y: number; moving: boolean } | null>(null);
-  const [ghost, setGhost] = useState<{ category: CategoryId; x: number; y: number } | null>(null);
   const [position, setPosition] = useState<CSSProperties>({ visibility: "hidden" });
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [shake, setShake] = useState(false);
 
   useLayoutEffect(() => {
+    if (!showButtons) return;
     const place = () => {
       const stage = stageRef.current;
       const bar = barRef.current;
       if (!stage || !bar) return;
       const rect = stage.getBoundingClientRect();
+      const pages = alignRef.current?.getBoundingClientRect() ?? rect;
       const height = bar.offsetHeight;
-      // The first button starts on the pages' top line (below the app header).
+      // Centre on the part of the pages the judge can see, below the app header.
       const header = document.querySelector(".app-header")?.getBoundingClientRect().bottom ?? 0;
-      const pagesTop = alignRef.current?.getBoundingClientRect().top ?? rect.top;
-      const top = Math.max(pagesTop, header + EDGE, EDGE);
+      const visibleTop = Math.max(pages.top, rect.top, header + EDGE);
+      const visibleBottom = Math.min(pages.bottom, rect.bottom, window.innerHeight - EDGE);
+      const top = Math.max(header + EDGE, Math.min(window.innerHeight - height - EDGE,
+        (visibleTop + visibleBottom) / 2 - height / 2));
       const width = bar.offsetWidth;
       const left = side === "left" ? rect.left - space / 2 - width / 2 : rect.right + space / 2 - width / 2;
-      setPosition({
-        top: Math.min(top, window.innerHeight - height - EDGE - 56),
-        left: Math.max(EDGE / 2, Math.min(window.innerWidth - width - EDGE / 2, left)),
-      });
+      setPosition({ top, left: Math.max(EDGE / 2, Math.min(window.innerWidth - width - EDGE / 2, left)) });
     };
     place();
     const stage = stageRef.current;
@@ -83,7 +76,7 @@ export function CriterionBar({
       window.removeEventListener("resize", place);
       window.removeEventListener("scroll", place, true);
     };
-  }, [side, size, space, stageRef, alignRef, categories.length, look.shape, look.gap]);
+  }, [showButtons, side, size, space, stageRef, alignRef, categories.length, look.shape, look.gap]);
 
   // Only a new nudge shakes, not one left from before the island mounted.
   const seenNudge = useRef(nudge);
@@ -96,25 +89,6 @@ export function CriterionBar({
     return () => { window.cancelAnimationFrame(start); window.clearTimeout(timer); };
   }, [nudge]);
 
-  // A press that loses its pointer (finger slid away, window lost focus) still ends.
-  const release = (pointerId: number) => {
-    const category = pressed.current.get(pointerId);
-    if (!category) return;
-    pressed.current.delete(pointerId);
-    onRelease(category);
-  };
-
-  const endDrag = (event: React.PointerEvent, cancelled: boolean) => {
-    const current = drag.current;
-    if (!current || current.pointerId !== event.pointerId) return;
-    drag.current = null;
-    setGhost(null);
-    if (current.moving) {
-      if (cancelled) onDragEnd(-1, -1);
-      else onDragEnd(event.clientX, event.clientY);
-    } else if (!cancelled) onDragTap();
-  };
-
   const islandStyle = {
     "--island-radius": `${look.radius}px`,
     "--island-gap": `${look.gap}px`,
@@ -122,83 +96,46 @@ export function CriterionBar({
 
   return createPortal(
     <>
-      <div
-        ref={barRef}
-        data-criterion-bar=""
-        data-chosen-look={look.chosen}
-        data-rest-look={look.rest}
-        data-khafi={look.khafi}
-        data-focus-look={look.focus}
-        className={`criterion-bar side-${side} size-${size} shape-${look.shape} ${shake ? "is-nudged" : ""}`}
-        style={{ ...position, ...islandStyle }}
-        role="toolbar"
-        aria-orientation="vertical"
-        aria-label={mode === "drag-hold" ? "Drag a criterion onto a word" : "Criterion for the next marks"}
-      >
-        {categories.map((category, index) => {
-          const on = preselect?.category === category;
-          const def = CATEGORY_BY_ID[category];
-          return (
-            <button
-              key={category}
-              type="button"
-              className={`criterion-button cat-${category} ${on ? "is-on" : ""} ${on && preselect?.held ? "is-held" : ""}`}
-              aria-pressed={mode === "criterion-first" ? on : undefined}
-              aria-label={`${def.label}${showKeys && mode === "criterion-first" ? `, key ${index + 1}` : ""}`}
-              title={def.hint}
-              data-criterion-button={category}
-              onPointerDown={(event) => {
-                if (event.button > 0) return;
-                event.preventDefault();
-                try { event.currentTarget.setPointerCapture(event.pointerId); } catch { /* optional */ }
-                if (mode === "drag-hold") {
-                  drag.current = { pointerId: event.pointerId, category, x: event.clientX, y: event.clientY, moving: false };
-                  return;
-                }
-                pressed.current.set(event.pointerId, category);
-                onPress(category);
-              }}
-              onPointerMove={(event) => {
-                const current = drag.current;
-                if (!current || current.pointerId !== event.pointerId) return;
-                if (!current.moving) {
-                  if (Math.hypot(event.clientX - current.x, event.clientY - current.y) < DRAG_START) return;
-                  current.moving = true;
-                  onDragStart(current.category);
-                }
-                setGhost({ category: current.category, x: event.clientX, y: event.clientY });
-                onDragMove(event.clientX, event.clientY);
-              }}
-              onPointerUp={(event) => { endDrag(event, false); release(event.pointerId); }}
-              onPointerCancel={(event) => { endDrag(event, true); release(event.pointerId); }}
-              onLostPointerCapture={(event) => { endDrag(event, true); release(event.pointerId); }}
-              onContextMenu={(event) => event.preventDefault()}
-              onClick={(event) => {
-                // Pointer presses are handled above; this is Enter or Space.
-                if (event.detail !== 0 || mode !== "criterion-first") return;
-                onPress(category);
-                onRelease(category);
-              }}
-            >
-              <span className="criterion-tick" aria-hidden="true" />
-              {showKeys && mode === "criterion-first" && <span className="criterion-key" aria-hidden="true">{index + 1}</span>}
-              <span className="criterion-name">{def.short}</span>
-            </button>
-          );
-        })}
-      </div>
-      {ghost && !trayOpen && (
+      {showButtons && (
         <div
-          className={`criterion-ghost cat-${ghost.category}`}
+          ref={barRef}
+          data-criterion-bar=""
+          data-chosen-look={look.chosen}
+          data-rest-look={look.rest}
           data-khafi={look.khafi}
-          style={{ left: ghost.x, top: ghost.y }}
-          aria-hidden="true"
+          data-focus-look={look.focus}
+          className={`criterion-bar side-${side} size-${size} shape-${look.shape} ${shake ? "is-nudged" : ""}`}
+          style={{ ...position, ...islandStyle }}
+          role="toolbar"
+          aria-orientation="vertical"
+          aria-label={mode === "drag-hold" ? "Drag a criterion onto a word" : "Criterion for the next mark"}
         >
-          {CATEGORY_BY_ID[ghost.category].short}
+          {categories.map((category, index) => {
+            const on = preselect?.category === category;
+            const def = CATEGORY_BY_ID[category];
+            return (
+              <CriterionPressable
+                key={category}
+                category={category}
+                mode={mode}
+                handlers={criterionChoiceHandlers}
+                trayOpen={trayOpen}
+                khafi={look.khafi}
+                className={`criterion-button cat-${category} ${on ? "is-on" : ""} ${on && preselect?.held ? "is-held" : ""}`}
+                aria-pressed={mode === "criterion-first" ? on : undefined}
+                aria-label={`${def.label}${showKeys && mode === "criterion-first" ? `, key ${index + 1}` : ""}`}
+                title={def.hint}
+              >
+                <span className="criterion-tick" aria-hidden="true" />
+                {showKeys && mode === "criterion-first" && <span className="criterion-key" aria-hidden="true">{index + 1}</span>}
+                <span className="criterion-name">{def.short}</span>
+              </CriterionPressable>
+            );
+          })}
         </div>
       )}
       <div data-criterion-bar="" className="criterion-corner"
-        style={{ "--panel-clear": side === "right" ? `${space - 12}px` : "0px" } as CSSProperties}>
+        style={{ "--panel-clear": showButtons && side === "right" ? `${space - 12}px` : "0px" } as CSSProperties}>
         <button
           type="button"
           className="criterion-settings"
