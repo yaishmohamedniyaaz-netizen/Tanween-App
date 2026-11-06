@@ -12,11 +12,13 @@ Two separate review passes read the branch's logic changes against `main`
 | 3 | Page finder: "Al-Anbiya", "kauthar", "kawsar", "lahab", "page 50", Persian digits found nothing | Low | `21350de` |
 | 4 | The prepared (Ready) reciter could be marked "Not here" in change-reciter mode, then judged | Medium | `a8efcaf` |
 | 5 | After a hold on − or + that ended off the button, the next keyboard press on the stepper did nothing | Low | `27254e9` |
+| 6 | Results: an applied Official/Absent filter lost its button when its count dropped to 0 | Low | `9d243c6` |
+| 7 | Letter tray: أٞ showed its tanween under the alif | Low (2 words) | `a1f68f1` |
 
 Checks: for 1, letters under 2.0.0 and 4.0.0 were compared on all 77,881
 Quran words and 12 phrase words (identical). For 2, every one of the 114
 Arabic and Latin names now finds its own surah first. All tests pass
-(481 tests).
+(482 tests).
 
 ## Not changed (owner choice or visible change)
 
@@ -26,9 +28,6 @@ Arabic and Latin names now finds its own surah first. All tests pass
   covers a little more of the neighbouring word and the line above (about
   2-3 units more). The tap area matches what is drawn. Keep, or shrink the
   tap area only?
-- **Results filter:** when the Official or Absent count drops to 0 while its
-  filter is on, the filter button disappears but stays applied ("No
-  participants match"; "Clear filters" still works). Minor.
 - **3.0.0 audit status:** marks saved under the merged rule 3.0.0 would be
   labelled "exact" after moving to 4.0.0. 3.0.0 was never released, so no
   real record has it.
