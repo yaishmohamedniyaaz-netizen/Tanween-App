@@ -1227,6 +1227,13 @@ export function Mushaf(props: MushafProps) {
     }
     return matches;
   };
+  // When every marked letter of a word has its underline, the underlines
+  // already show where the mistakes are: the word's count circle is not needed.
+  const lettersUnderlined = (box: WordHitbox) => {
+    const marked = box.units.filter((unit) => mistakesForUnit(unit).length > 0);
+    return marked.length > 0 && marked.every((unit) =>
+      letterBarGeometry(letterBorders.get(box.page), box.wid, unit.tid, box.region) !== null);
+  };
   const allowedCountKey = allowedCategories.join(":");
   const wordSummaries = useMemo(() => {
     const result = new Map<string, { counts: ReturnType<typeof wordFindingCounts>; total: number; marker: MarkerRect | null }>();
@@ -1445,7 +1452,7 @@ export function Mushaf(props: MushafProps) {
                       })}
                     </div>
                   )}
-                  {summary?.marker && (
+                  {summary?.marker && !lettersUnderlined(box) && (
                     <span
                       className="word-total-marker"
                       data-word-total={box.wid}
