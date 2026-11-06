@@ -47,3 +47,15 @@ Settings are saved on the device (device preferences), no account needed.
 Holding a bar button with one finger while tapping a word with another was
 tested in code (the bar's finger is excluded from page gestures) but needs a
 check on a real iPad or Android tablet. Pen double tap needs a real pen.
+
+## Owner decisions (6 November 2026, after trying the preview)
+
+- Modes are separate settings, never mixed: Criterion first (default), Drag and hold, Word first.
+- After a mark the criterion stays chosen until another is picked or it is tapped again. No "Next mark" wording.
+- Criterion first: tapping a word with nothing chosen opens nothing; the island shakes once.
+- Only the Mushaf frame shows the chosen colour; words are not tinted.
+- The island buttons are large squares in the scorecard square's design (option 1); rows with a small square
+  and the name are option 2. Solid and softer fills, edges, gaps and the panel behind are being chosen in the
+  Criterion island lab (claude.ai artifact), where saved combinations can be read back.
+- The settings opener is a separate small button in the bottom-right corner.
+- Still open: drag-and-hold details (release on a word but not a letter; how to cancel).
