@@ -4,7 +4,7 @@ from PIL import Image
 from scipy import ndimage
 from pieces import D, letters, groups
 def page_pieces(page):
-    geo = json.load(open(f'{D}/p{page}.json'))
+    geo = json.load(open(f'{D}/p{page}.json', encoding='utf-8'))
     ink = np.array(Image.open(f'{D}/p{page}.png').convert('L')) < 128
     lab, n = ndimage.label(ink, structure=np.ones((3, 3)))
     objs = ndimage.find_objects(lab)
