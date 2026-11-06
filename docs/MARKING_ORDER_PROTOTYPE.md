@@ -11,6 +11,7 @@ Branch `claude/criterion-bar` (experimental, not on main). Tablet and PC only.
 | Hold to keep | On | Hold a bar button or key: the criterion stays on only while held |
 | Keys | 1 · 2 · 3 | Each number presses the visible bar button with that number |
 | Bar side | Away from scorecard | The bar gets its own column; pages shrink a little, no line is covered |
+| Letter tray | Letters only | Criteria live on the bar; after a letter, the tray says "Now choose a criterion on the bar" |
 | Misclick guards | On | Word and whole Mushaf frame show the chosen colour; undo as before |
 
 ## Other options (Marking settings)
@@ -23,6 +24,7 @@ Open from the slider icon under the bar, or More → Marking.
 - Keys: Off.
 - Pen tap and double tap: in the letter tray, pen tap = first criterion, double tap (within 350 ms) = second.
 - Pen only: fingers and palm cannot mark the page; the bar still takes fingers.
+- Criteria in the letter tray: On (criteria on the bar and in the tray).
 - Bar side: left or right. Bar size: large.
 
 Settings are saved on the device (device preferences), no account needed.

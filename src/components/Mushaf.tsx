@@ -276,6 +276,8 @@ export function Mushaf(props: MushafProps) {
     [allowedCategories.join("|")], // eslint-disable-line react-hooks/exhaustive-deps
   );
   const barEnabled = judgingEnabled && marking.order !== "word-first" && barCategories.length > 1;
+  // With the bar on, the tray shows letters only unless the judge asks for both.
+  const hideTrayCriteria = barEnabled && !marking.trayCriteria;
   const [preselect, setPreselectState] = useState<Preselect | null>(null);
   const preselectRef = useRef<Preselect | null>(null);
   const setPreselect = useCallback((next: Preselect | null) => {
@@ -816,6 +818,10 @@ export function Mushaf(props: MushafProps) {
       // A criterion chosen first: slide from the word to the letter and lift.
       commit(armed, validFinalTid);
       closeAll();
+    } else if (hideTrayCriteria && !hovered && start?.moved && validFinalTid) {
+      // Slid to a letter with no criterion yet: keep the tray open on it; the bar finishes.
+      setActive((current) => (current ? { ...current, tid: validFinalTid } : current));
+      setPinned(true);
     } else if (allowedCategories.length === 1 && start?.moved && validFinalTid) {
       commit(allowedCategories[0], validFinalTid);
       closeAll();
@@ -1389,6 +1395,7 @@ export function Mushaf(props: MushafProps) {
         <DragMenu
           showTashkeel={selectorTashkeel}
           keepClear={barEnabled ? trayClearance() : undefined}
+          hideCategories={hideTrayCriteria}
           anchor={active.anchor}
           glyph={active.meta.semanticText}
           units={active.meta.units.map((unit) => ({

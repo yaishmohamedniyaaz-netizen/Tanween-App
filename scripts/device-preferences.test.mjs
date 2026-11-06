@@ -304,7 +304,7 @@ test("slim score preference defaults off and preserves other device settings", (
 test("marking preferences: recommended defaults, invalid values fall back, valid ones survive", () => {
   assert.deepEqual(DEFAULT_DEVICE_PREFERENCES.marking, {
     order: "both", barTap: "next", holdToKeep: true, keys: true,
-    penDoubleTap: false, penOnly: false, barSide: "auto", barSize: "standard",
+    penDoubleTap: false, penOnly: false, barSide: "auto", barSize: "standard", trayCriteria: false,
   });
   assert.deepEqual(normalizeMarkingPreferences({ order: "sideways", keys: "yes", penOnly: true, barSide: "right" }), {
     ...DEFAULT_MARKING_PREFERENCES, penOnly: true, barSide: "right",

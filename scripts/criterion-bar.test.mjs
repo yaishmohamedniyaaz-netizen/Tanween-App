@@ -34,3 +34,9 @@ test("pen only ignores finger touches on the page; the tray keeps clear of the b
   assert.match(tray, /keepClear\?\.left \?\? 0/);
   assert.match(mushaf, /keepClear=\{barEnabled \? trayClearance\(\) : undefined\}/);
 });
+
+test("with the bar on, the tray shows letters only by default; a setting brings the criteria back", () => {
+  assert.match(mushaf, /hideTrayCriteria = barEnabled && !marking\.trayCriteria/);
+  assert.match(tray, /\{!hideCategories && categoryStack\}/);
+  assert.match(tray, /Now choose a criterion on the bar/);
+});

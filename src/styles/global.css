@@ -15905,3 +15905,15 @@ html:has(.finish-dialog[open]) {
 [data-criterion-frame="fasaha"] { --criterion-frame: #3358d4; }
 .mushaf-viewport[data-criterion-bar="left"] { padding-left: var(--criterion-bar-space, 96px); }
 .mushaf-viewport[data-criterion-bar="right"] { padding-right: var(--criterion-bar-space, 96px); }
+.selector-next {
+  margin: var(--sp-2) 0 0;
+  padding: 8px 12px;
+  border-radius: var(--r-md);
+  background: var(--surface);
+  border: 1px solid var(--line-2);
+  box-shadow: var(--shadow-rest);
+  color: var(--ink-2);
+  font: 600 var(--t-small) var(--ui);
+  text-align: center;
+  white-space: nowrap;
+}

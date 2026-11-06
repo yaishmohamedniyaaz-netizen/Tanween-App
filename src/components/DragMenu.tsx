@@ -57,6 +57,8 @@ interface Props {
   portalHost?: HTMLElement | null;
   /** Viewport px kept clear at each side (the criterion bar column). */
   keepClear?: { left: number; right: number };
+  /** The criterion bar is the only place to choose a criterion: letters only. */
+  hideCategories?: boolean;
 }
 
 type SelectorStyle = CSSProperties & {
@@ -84,6 +86,7 @@ export function DragMenu({
   showTashkeel,
   portalHost,
   keepClear,
+  hideCategories = false,
 }: Props) {
   const tashkeel = showTashkeel ?? false;
   const menuRef = useRef<HTMLDivElement>(null);
@@ -395,7 +398,10 @@ export function DragMenu({
       >
         <div className="selector-runway">
           {unitPicker}
-          {categoryStack}
+          {!hideCategories && categoryStack}
+          {hideCategories && pinned && targetSelected && !armed && !selectedMistake && (
+            <p className="selector-next" role="status">Now choose a criterion on the bar</p>
+          )}
           {pinned && selectedMistake && selectedCategory && (
             <div className={`selector-correction cat-${selectedMistake.category}`}>
               <span className="selector-current" aria-label={`${selectedCategory.label} · −${selectedMistake.amount}`}>{selectedCategory.short} · −{selectedMistake.amount}</span>

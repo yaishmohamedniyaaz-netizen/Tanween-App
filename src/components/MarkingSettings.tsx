@@ -67,6 +67,9 @@ export function MarkingSettings({ value, onChange, penCategories }: {
         <Options legend="Keys 1 · 2 · 3" value={value.keys} onChange={(keys) => onChange({ keys })}
           note="Each number presses the bar button with that number."
           choices={[{ value: true, label: "On" }, { value: false, label: "Off" }]} />
+        <Options legend="Criteria in the letter tray" value={value.trayCriteria} onChange={(trayCriteria) => onChange({ trayCriteria })}
+          note={value.trayCriteria ? "Criteria show on the bar and in the tray." : "The tray shows letters only; choose the criterion on the bar."}
+          choices={[{ value: false, label: "Off" }, { value: true, label: "On" }]} />
         <Options legend="Bar side" value={value.barSide} onChange={(barSide) => onChange({ barSide })}
           choices={[{ value: "auto", label: "Away from scorecard" }, { value: "left", label: "Left" }, { value: "right", label: "Right" }]} />
         <Options legend="Bar size" value={value.barSize} onChange={(barSize) => onChange({ barSize })}

@@ -27,6 +27,8 @@ export interface MarkingPreferences {
   penOnly: boolean;
   barSide: BarSide;
   barSize: BarSize;
+  /** Show the criterion buttons in the letter tray too (off: the bar is the only place). */
+  trayCriteria: boolean;
 }
 
 export const DEFAULT_MARKING_PREFERENCES: MarkingPreferences = {
@@ -38,6 +40,7 @@ export const DEFAULT_MARKING_PREFERENCES: MarkingPreferences = {
   penOnly: false,
   barSide: "auto",
   barSize: "standard",
+  trayCriteria: false,
 };
 
 const oneOf = <T extends string>(value: unknown, options: readonly T[], fallback: T): T =>
@@ -58,6 +61,7 @@ export function normalizeMarkingPreferences(
     penOnly: bool(v.penOnly, fallback.penOnly),
     barSide: oneOf(v.barSide, ["auto", "left", "right"] as const, fallback.barSide),
     barSize: oneOf(v.barSize, ["standard", "large"] as const, fallback.barSize),
+    trayCriteria: bool(v.trayCriteria, fallback.trayCriteria),
   };
 }
 
