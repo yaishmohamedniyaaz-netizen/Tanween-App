@@ -63,3 +63,8 @@ test("other signs that belong to the letter stay", () => {
   assert.equal(tileGlyph("نَا۠"), "نَا۠");
   assert.equal(tileGlyph("رِۭ"), "رِۭ");
 });
+
+test("alif-hamza with the open tanween keeps the tanween above (joined form)", () => {
+  assert.equal(tileGlyph("أٞ"), "‍أٞ");
+  assert.equal(tileGlyph("أَ"), "أَ");
+});

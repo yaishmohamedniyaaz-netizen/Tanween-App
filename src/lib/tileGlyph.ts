@@ -19,6 +19,9 @@
  *   It is shown in its joined form (ئِـ), as in the word.
  * - Hamza on a tatweel (ـَٔ): the haraka runs into the tatweel. Shown as a
  *   plain hamza (ءَ), the same letter the tray shows without tashkeel.
+ * - Alif-hamza with the open tanween U+065E (أٞ, as in ظَمَأٞ): alone, the font
+ *   drops the tanween below the alif. A zero-width joiner before it gives the
+ *   joined form, with the tanween above as in the word.
  *
  * Display only: the saved letter keeps its exact source text.
  */
@@ -29,6 +32,7 @@ const MARKS = "[\\u064B-\\u065F\\u0670\\u06DF-\\u06ED]";
 const ALIF_AFTER_LIGATING_LETTER = new RegExp(`^([عغك]${MARKS}+)(ا)`, "u");
 const YA_HAMZA_MARK_BELOW = new RegExp(`^ئ${MARKS}*[\\u0650\\u064D\\u0656]${MARKS}*$`, "u");
 const TATWEEL_HAMZA = /^ـٔ/u;
+const ALIF_HAMZA_OPEN_TANWEEN = /^\u0623\u065E$/u;
 const TATWEEL = "ـ";
 const ZWJ = "‍";
 
@@ -36,6 +40,7 @@ export function tileGlyph(glyph: string): string {
   let text = glyph.replace(PAUSE_SIGNS, "");
   text = text.replace(TATWEEL_HAMZA, "ء");
   if (YA_HAMZA_MARK_BELOW.test(text)) return text + ZWJ;
+  if (ALIF_HAMZA_OPEN_TANWEEN.test(text)) return ZWJ + text;
   if (!JOINS_FORWARD.has(text.charAt(0))) return text;
   const tatweels = text.charAt(0) === "ك" ? TATWEEL + TATWEEL : TATWEEL;
   text = text.replace(DAGGER_AFTER_MARK, `$1${tatweels}$2`);
