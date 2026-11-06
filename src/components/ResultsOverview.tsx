@@ -110,8 +110,9 @@ export function ResultsOverview({ active = true, pageLayout = "full", railSide =
   const readyOf = model.total - model.absent;
   const filters: Array<[StatusFilter, string]> = [
     ["all", "All"], ["ready", RESULT_STATUS_WORDS.ready], ["check", RESULT_STATUS_WORDS.check], ["awaiting", RESULT_STATUS_WORDS.awaiting],
-    ...(counts.official ? [["official", RESULT_STATUS_WORDS.official] as [StatusFilter, string]] : []),
-    ...(counts.absent ? [["absent", RESULT_STATUS_WORDS.absent] as [StatusFilter, string]] : []),
+    // Shown only when in use; an applied filter stays visible even at 0 so it can be seen and changed.
+    ...(counts.official || filter === "official" ? [["official", RESULT_STATUS_WORDS.official] as [StatusFilter, string]] : []),
+    ...(counts.absent || filter === "absent" ? [["absent", RESULT_STATUS_WORDS.absent] as [StatusFilter, string]] : []),
   ];
   const pick = (next: StatusFilter) => { setFilter(next); setPage(1); };
 

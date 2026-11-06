@@ -81,3 +81,9 @@ test('participant result keeps the judging frame, the facing page and the read-o
   assert.match(css, /\.rw2-cval \{ display: grid; grid-template-columns: 34px auto;/);
   assert.match(global, /\.sidebar \.scorecard \.score-value-layout \{ display: grid; grid-template-columns: 34px auto;/);
 });
+
+test('an applied Official or Absent filter keeps its button even when its count drops to 0', () => {
+  const source = readFileSync(new URL('../src/components/ResultsOverview.tsx', import.meta.url), 'utf8');
+  assert.match(source, /counts\.official \|\| filter === "official"/);
+  assert.match(source, /counts\.absent \|\| filter === "absent"/);
+});
