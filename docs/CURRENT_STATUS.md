@@ -16,6 +16,16 @@ This documentation refresh does not merge those runtime changes. Check ancestry
 again before releasing and package the exact validated commit. The default
 GitHub branch is not necessarily identical to a hosted build.
 
+### Update, 6 November 2026
+
+`claude/judging-final-polish` is 86 commits ahead of `main` and 0 behind
+(merges by fast-forward). Not deployed; release waits for the owner. Main
+additions: letter-unit rule 4.0.0 (silent letters faded, not merged), tray
+tashkeel collisions fixed, letter bar for owner-approved words, page finder,
+build-tool security updates. Pre-merge review and its fixes:
+[`BRANCH_REVIEW_2026-11-06.md`](BRANCH_REVIEW_2026-11-06.md). Open choices:
+`UNDECIDED_DECISIONS.md` items 34-38.
+
 ## Implemented in the inspected main source
 
 | Area | Current behavior |
