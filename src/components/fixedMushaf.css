@@ -53,6 +53,13 @@
    still cover the ink, so they sit above it. */
 .page-fixed-mushaf > img { position: absolute; pointer-events: none; user-select: none; z-index: 4; }
 .page-fixed-mushaf .fixed-artwork-context { z-index: 5; }
+/* The marks layer joins the page's stacking order (instead of making its
+   own at z-index 3), so one mark can rise above the fade: a mark on a word
+   outside the question stays as visible as today, drawn over the faded ink. */
+.page-fixed-mushaf .hit-layer { z-index: auto; }
+.page-fixed-mushaf .hit-layer > * { z-index: 3; }
+.page-fixed-mushaf:is([data-question-focus-mode="fade"], [data-question-focus-mode="shade-fade"]) .glyph-ink.marked.outside-question { z-index: 6; }
+.page-fixed-mushaf:is([data-question-focus-mode="fade"], [data-question-focus-mode="shade-fade"]) .glyph-ink.marked.outside-question::before { background: var(--c-mark-fill); }
 [data-theme="dark"] .page-fixed-mushaf > img { filter: invert(1) brightness(0.9); }
 .page-fixed-mushaf > .mushaf-lines { position: absolute; inset: 0; display: block; padding: 0; isolation: auto; }
 .page-fixed-mushaf .fixed-word { position: absolute; pointer-events: none; }
