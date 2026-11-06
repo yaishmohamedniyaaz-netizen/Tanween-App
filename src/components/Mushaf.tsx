@@ -1384,6 +1384,8 @@ export function Mushaf(props: MushafProps) {
               const inkClasses = [
                 "glyph-ink",
                 category ? `marked cat-${category}` : "",
+                // Outside the question: the page may fade this word, but its mark must stay visible.
+                questionDisplay && !questionDisplay.selectedWordIds.has(box.wid) ? "outside-question" : "",
                 isFlashing ? `flash ${category ? "" : "cat-fasaha"}` : "",
               ].filter(Boolean).join(" ");
               return (
