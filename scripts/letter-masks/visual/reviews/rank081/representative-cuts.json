@@ -1,0 +1,516 @@
+{
+  "48.5.15": {
+    "wid": "48.5.15",
+    "page": 511,
+    "x": [
+      1235,
+      1193,
+      1175,
+      1113
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00081-c0001",
+    "note": "Compact nun tooth; curved left join assigned dal, uncertain. Kasra clipped at right.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "33.69.13": {
+    "wid": "33.69.13",
+    "page": 427,
+    "x": [
+      740,
+      698,
+      675,
+      605
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00081-c0002",
+    "note": "Ayn ends at its left stem; nun keeps compact tooth, left connecting stretch assigned dal per guide. Nun/dal curved join is doubtful."
+  },
+  "14.37.9": {
+    "wid": "14.37.9",
+    "page": 260,
+    "x": [
+      414,
+      373,
+      353,
+      285
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00081-c0003",
+    "note": "Ayn ends at its left stem; nun keeps compact tooth, left connecting stretch assigned dal per guide. Nun/dal curved join is doubtful."
+  },
+  "42.22.18": {
+    "wid": "42.22.18",
+    "page": 485,
+    "x": [
+      1383,
+      1341,
+      1324,
+      1238
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00081-c0004",
+    "note": "Ayn ends at its left stem; nun keeps compact tooth, left connecting stretch assigned dal per guide. Nun/dal curved join is doubtful."
+  },
+  "11.83.1": {
+    "wid": "11.83.1",
+    "page": 231,
+    "x": [
+      437,
+      395,
+      374,
+      313
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00081-c0005",
+    "note": "Compact nun tooth with left join to dal; kasra clipped at right.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "8.4.6": {
+    "wid": "8.4.6",
+    "page": 177,
+    "x": [
+      248,
+      208,
+      190,
+      101
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00081-c0006",
+    "note": "Long left join assigned dal; kasra clipped at right.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.80.9": {
+    "wid": "2.80.9",
+    "page": 12,
+    "x": [
+      1580,
+      1541,
+      1522,
+      1450
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00081-c0007",
+    "note": "Ayn ends at its left stem; nun keeps compact tooth, left connecting stretch assigned dal per guide. Nun/dal curved join is doubtful."
+  },
+  "2.94.6": {
+    "wid": "2.94.6",
+    "page": 15,
+    "x": [
+      720,
+      680,
+      662,
+      597
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00081-c0008",
+    "note": "Ayn ends at its left stem; nun keeps compact tooth, left connecting stretch assigned dal per guide. Nun/dal curved join is doubtful."
+  },
+  "2.277.11": {
+    "wid": "2.277.11",
+    "page": 47,
+    "x": [
+      883,
+      846,
+      823,
+      761
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00081-c0009",
+    "note": "Ayn ends at its left stem; nun keeps compact tooth, left connecting stretch assigned dal per guide. Nun/dal curved join is doubtful."
+  },
+  "7.187.30": {
+    "wid": "7.187.30",
+    "page": 174,
+    "x": [
+      1302,
+      1262,
+      1242,
+      1176
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00081-c0010",
+    "note": "Ayn ends at its left stem; nun keeps compact tooth, left connecting stretch assigned dal per guide. Nun/dal curved join is doubtful."
+  },
+  "19.78.4": {
+    "wid": "19.78.4",
+    "page": 311,
+    "x": [
+      1082,
+      1042,
+      1020,
+      950
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00081-c0011",
+    "note": "Ayn ends at its left stem; nun keeps compact tooth, left connecting stretch assigned dal per guide. Nun/dal curved join is doubtful."
+  },
+  "32.12.6": {
+    "wid": "32.12.6",
+    "page": 416,
+    "x": [
+      491,
+      449,
+      431,
+      359
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00081-c0012",
+    "note": "Ayn ends at its left stem; nun keeps compact tooth, left connecting stretch assigned dal per guide. Nun/dal curved join is doubtful."
+  },
+  "43.35.9": {
+    "wid": "43.35.9",
+    "page": 492,
+    "x": [
+      421,
+      379,
+      362,
+      284
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00081-c0013",
+    "note": "Ayn ends at its left stem; nun keeps compact tooth, left connecting stretch assigned dal per guide. Nun/dal curved join is doubtful."
+  },
+  "49.3.4": {
+    "wid": "49.3.4",
+    "page": 515,
+    "x": [
+      1288,
+      1249,
+      1230,
+      1160
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00081-c0014",
+    "note": "Ayn ends at its left stem; nun keeps compact tooth, left connecting stretch assigned dal per guide. Nun/dal curved join is doubtful."
+  },
+  "63.7.7": {
+    "wid": "63.7.7",
+    "page": 555,
+    "x": [
+      1239,
+      1194,
+      1178,
+      1065
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00081-c0015",
+    "note": "Ayn ends at its left stem; nun keeps compact tooth, left connecting stretch assigned dal per guide. Nun/dal curved join is doubtful."
+  },
+  "68.34.2": {
+    "wid": "68.34.2",
+    "page": 565,
+    "x": [
+      690,
+      655,
+      641,
+      580
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00081-c0016",
+    "note": "Ayn ends at its left stem; nun keeps compact tooth, left connecting stretch assigned dal per guide. Nun/dal curved join is doubtful."
+  },
+  "2.54.18": {
+    "wid": "2.54.18",
+    "page": 8,
+    "x": [
+      1557,
+      1516,
+      1497,
+      1434
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00081-c0017",
+    "note": "Compact nun tooth with left join to dal; kasra clipped at right.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "3.19.2": {
+    "wid": "3.19.2",
+    "page": 52,
+    "x": [
+      293,
+      255,
+      234,
+      124
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00081-c0018",
+    "note": "Shaded review corrected ayn left stem and compact nun tooth. Broad left connector assigned to dal per style; bowl-versus-join boundary remains uncertain."
+  },
+  "3.199.24": {
+    "wid": "3.199.24",
+    "page": 76,
+    "x": [
+      835,
+      790,
+      770,
+      679
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00081-c0019",
+    "note": "Ayn ends at left stem, nun keeps compact tooth. Broad left connector assigned dal, but curved bowl-versus-stretch ownership remains uncertain."
+  },
+  "8.22.3": {
+    "wid": "8.22.3",
+    "page": 179,
+    "x": [
+      713,
+      672,
+      653,
+      583
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00081-c0020",
+    "note": "Ayn ends at left stem, nun keeps compact tooth. Broad left connector assigned dal, but curved bowl-versus-stretch ownership remains uncertain."
+  },
+  "19.76.8": {
+    "wid": "19.76.8",
+    "page": 310,
+    "x": [
+      1035,
+      996,
+      975,
+      909
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00081-c0021",
+    "note": "Ayn ends at left stem, nun keeps compact tooth. Broad left connector assigned dal, but curved bowl-versus-stretch ownership remains uncertain."
+  },
+  "34.31.16": {
+    "wid": "34.31.16",
+    "page": 431,
+    "x": [
+      261,
+      218,
+      201,
+      96
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00081-c0022",
+    "note": "Long left join assigned dal; kasra clipped at right.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.198.14": {
+    "wid": "2.198.14",
+    "page": 31,
+    "x": [
+      944,
+      900,
+      878,
+      759
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00081-c0023",
+    "note": "Long left join assigned dal; kasra clipped at right.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.217.22": {
+    "wid": "2.217.22",
+    "page": 34,
+    "x": [
+      1817,
+      1777,
+      1760,
+      1686
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00081-c0024",
+    "note": "Ayn ends at left stem, nun keeps compact tooth. Broad left connector assigned dal, but curved bowl-versus-stretch ownership remains uncertain."
+  },
+  "2.262.16": {
+    "wid": "2.262.16",
+    "page": 44,
+    "x": [
+      1590,
+      1550,
+      1530,
+      1457
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00081-c0025",
+    "note": "Ayn ends at left stem, nun keeps compact tooth. Broad left connector assigned dal, but curved bowl-versus-stretch ownership remains uncertain."
+  },
+  "2.274.9": {
+    "wid": "2.274.9",
+    "page": 46,
+    "x": [
+      283,
+      243,
+      222,
+      126
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00081-c0026",
+    "note": "Ayn ends at left stem, nun keeps compact tooth. Broad left connector assigned dal, but curved bowl-versus-stretch ownership remains uncertain."
+  },
+  "7.31.4": {
+    "wid": "7.31.4",
+    "page": 154,
+    "x": [
+      1015,
+      976,
+      958,
+      897
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00081-c0027",
+    "note": "Ayn ends at left stem, nun keeps compact tooth. Broad left connector assigned dal, but curved bowl-versus-stretch ownership remains uncertain."
+  },
+  "9.7.11": {
+    "wid": "9.7.11",
+    "page": 188,
+    "x": [
+      888,
+      845,
+      826,
+      731
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00081-c0028",
+    "note": "Ayn ends at left stem, nun keeps compact tooth. Broad left connector assigned dal, but curved bowl-versus-stretch ownership remains uncertain."
+  },
+  "9.20.11": {
+    "wid": "9.20.11",
+    "page": 189,
+    "x": [
+      1040,
+      997,
+      981,
+      921
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00081-c0029",
+    "note": "Ayn ends at left stem, nun keeps compact tooth. Broad left connector assigned dal, but curved bowl-versus-stretch ownership remains uncertain."
+  },
+  "9.36.3": {
+    "wid": "9.36.3",
+    "page": 192,
+    "x": [
+      682,
+      640,
+      620,
+      533
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00081-c0030",
+    "note": "Ayn ends at left stem, nun keeps compact tooth. Broad left connector assigned dal, but curved bowl-versus-stretch ownership remains uncertain."
+  },
+  "18.46.8": {
+    "wid": "18.46.8",
+    "page": 299,
+    "x": [
+      1702,
+      1674,
+      1653,
+      1589
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00081-c0031",
+    "note": "Partial ayn head clipped by right box edge; compact nun, curved left join uncertain.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "22.30.8": {
+    "wid": "22.30.8",
+    "page": 335,
+    "x": [
+      837,
+      794,
+      774,
+      660
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00081-c0032",
+    "note": "Long left join assigned dal; kasra clipped at right.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "29.50.10": {
+    "wid": "29.50.10",
+    "page": 402,
+    "x": [
+      806,
+      766,
+      743,
+      643
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00081-c0033",
+    "note": "Ayn ends at left stem, nun keeps compact tooth. Broad left connector assigned dal, but curved bowl-versus-stretch ownership remains uncertain."
+  },
+  "46.23.3": {
+    "wid": "46.23.3",
+    "page": 505,
+    "x": [
+      331,
+      294,
+      279,
+      216
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00081-c0034",
+    "note": "Ayn ends at left stem, nun keeps compact tooth. Broad left connector assigned dal, but curved bowl-versus-stretch ownership remains uncertain."
+  },
+  "62.11.11": {
+    "wid": "62.11.11",
+    "page": 554,
+    "x": [
+      1744,
+      1699,
+      1680,
+      1609
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00081-c0035",
+    "note": "Neighbour alif intrudes at left of crop; dal body and tail distinguished from it; curved nun-dal join uncertain."
+  }
+}

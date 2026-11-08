@@ -1,0 +1,1006 @@
+{
+  "3.97.0": {
+    "wid": "3.97.0",
+    "page": 62,
+    "x": [
+      769,
+      739,
+      729,
+      672
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00082-c0001",
+    "note": "X-warp from visually decided 4.82.10; destination requires sheet review. Actual destination shows fa loop, ya tooth and ha core supported by spans; joining boundaries moderately uncertain."
+  },
+  "4.157.19": {
+    "wid": "4.157.19",
+    "page": 103,
+    "x": [
+      1578,
+      1555,
+      1543,
+      1488
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00082-c0001",
+    "note": "X-warp from visually decided 4.82.10; destination requires sheet review. Actual destination shows fa loop, ya tooth and ha core supported by spans; joining boundaries moderately uncertain. Kasra clipped at immutable right word edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "14.42.11": {
+    "wid": "14.42.11",
+    "page": 260,
+    "x": [
+      602,
+      578,
+      566,
+      502
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00082-c0001",
+    "note": "X-warp from visually decided 4.82.10; destination requires sheet review. Actual destination shows fa loop, ya tooth and ha core supported by spans; joining boundaries moderately uncertain."
+  },
+  "15.29.3": {
+    "wid": "15.29.3",
+    "page": 263,
+    "x": [
+      279,
+      257,
+      248,
+      192
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00082-c0001",
+    "note": "X-warp from visually decided 4.82.10; destination requires sheet review. Actual destination shows fa loop, ya tooth and ha core supported by spans; joining boundaries moderately uncertain. Kasra clipped at immutable right word edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "20.113.5": {
+    "wid": "20.113.5",
+    "page": 319,
+    "x": [
+      1590,
+      1565,
+      1556,
+      1487
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00082-c0001",
+    "note": "X-warp from visually decided 4.82.10; destination requires sheet review. Actual destination shows fa loop, ya tooth and ha core supported by spans; joining boundaries moderately uncertain. Kasra clipped at immutable right word edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "43.75.4": {
+    "wid": "43.75.4",
+    "page": 495,
+    "x": [
+      1822,
+      1796,
+      1784,
+      1722
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00082-c0001",
+    "note": "X-warp from visually decided 4.82.10; destination requires sheet review. Actual destination shows fa loop, ya tooth and ha core supported by spans; joining boundaries moderately uncertain. Kasra clipped at immutable right word edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "45.12.7": {
+    "wid": "45.12.7",
+    "page": 499,
+    "x": [
+      676,
+      652,
+      640,
+      588
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00082-c0001",
+    "note": "X-warp from visually decided 4.82.10; destination requires sheet review. Actual destination shows fa loop, ya tooth and ha core supported by spans; joining boundaries moderately uncertain. Kasra clipped at immutable right word edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.113.29": {
+    "wid": "2.113.29",
+    "page": 18,
+    "x": [
+      1521,
+      1493,
+      1483,
+      1414
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00082-c0002",
+    "note": "X-warp from visually decided 5.48.49; destination requires sheet review. Actual destination shows fa loop, ya tooth and ha core supported by spans; joining boundaries moderately uncertain. Kasra clipped at immutable right word edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.213.21": {
+    "wid": "2.213.21",
+    "page": 33,
+    "x": [
+      950,
+      923,
+      913,
+      843
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00082-c0002",
+    "note": "X-warp from visually decided 5.48.49; destination requires sheet review. Actual destination shows fa loop, ya tooth and ha core supported by spans; joining boundaries moderately uncertain. Kasra clipped at immutable right word edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "5.46.14": {
+    "wid": "5.46.14",
+    "page": 116,
+    "x": [
+      1054,
+      1027,
+      1014,
+      952
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00082-c0002",
+    "note": "X-warp from visually decided 5.48.49; destination requires sheet review. Actual destination shows fa loop, ya tooth and ha core supported by spans; joining boundaries moderately uncertain. Kasra clipped at immutable right word edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "17.69.4": {
+    "wid": "17.69.4",
+    "page": 289,
+    "x": [
+      746,
+      720,
+      707,
+      644
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00082-c0002",
+    "note": "X-warp from visually decided 5.48.49; destination requires sheet review. Actual destination shows fa loop, ya tooth and ha core supported by spans; joining boundaries moderately uncertain. Kasra clipped at immutable right word edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "16.71.17": {
+    "wid": "16.71.17",
+    "page": 274,
+    "x": [
+      655,
+      631,
+      621,
+      555
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00082-c0003",
+    "note": "X-warp from visually decided 15.14.7; destination requires sheet review. Actual destination shows fa loop, ya tooth and ha core supported by spans; joining boundaries moderately uncertain."
+  },
+  "22.25.14": {
+    "wid": "22.25.14",
+    "page": 335,
+    "x": [
+      402,
+      375,
+      362,
+      295
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00082-c0003",
+    "note": "X-warp from visually decided 15.14.7; destination requires sheet review. Actual destination shows fa loop, ya tooth and ha core supported by spans; joining boundaries moderately uncertain. Kasra clipped at immutable right word edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "32.25.9": {
+    "wid": "32.25.9",
+    "page": 417,
+    "x": [
+      507,
+      480,
+      470,
+      408
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00082-c0003",
+    "note": "X-warp from visually decided 15.14.7; destination requires sheet review. Actual destination shows fa loop, ya tooth and ha core supported by spans; joining boundaries moderately uncertain. Kasra clipped at immutable right word edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "57.13.21": {
+    "wid": "57.13.21",
+    "page": 539,
+    "x": [
+      928,
+      903,
+      895,
+      835
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00082-c0003",
+    "note": "X-warp from visually decided 15.14.7; destination requires sheet review. Actual destination shows fa loop, ya tooth and ha core supported by spans; joining boundaries moderately uncertain."
+  },
+  "21.78.8": {
+    "wid": "21.78.8",
+    "page": 328,
+    "x": [
+      1603,
+      1578,
+      1567,
+      1493
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00082-c0004",
+    "note": "X-warp from visually decided 16.69.15; destination requires sheet review. Actual destination shows fa loop, ya tooth and ha core supported by spans; joining boundaries moderately uncertain. Kasra clipped at immutable right word edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "39.68.16": {
+    "wid": "39.68.16",
+    "page": 466,
+    "x": [
+      1111,
+      1085,
+      1072,
+      1001
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00082-c0004",
+    "note": "X-warp from visually decided 16.69.15; destination requires sheet review. Actual destination shows fa loop, ya tooth and ha core supported by spans; joining boundaries moderately uncertain. Kasra clipped at immutable right word edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "42.10.2": {
+    "wid": "42.10.2",
+    "page": 483,
+    "x": [
+      741,
+      717,
+      705,
+      640
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00082-c0004",
+    "note": "X-warp from visually decided 16.69.15; destination requires sheet review. Actual destination shows fa loop, ya tooth and ha core supported by spans; joining boundaries moderately uncertain. Kasra clipped at immutable right word edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "45.17.22": {
+    "wid": "45.17.22",
+    "page": 500,
+    "x": [
+      569,
+      542,
+      531,
+      453
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00082-c0004",
+    "note": "X-warp from visually decided 16.69.15; destination requires sheet review. Actual destination shows fa loop, ya tooth and ha core supported by spans; joining boundaries moderately uncertain. Kasra clipped at immutable right word edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "16.64.9": {
+    "wid": "16.64.9",
+    "page": 273,
+    "x": [
+      1414,
+      1387,
+      1378,
+      1306
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00082-c0005",
+    "note": "X-warp from visually decided 23.77.10; destination requires sheet review. Actual destination shows fa loop, ya tooth and ha core supported by spans; joining boundaries moderately uncertain. Kasra clipped at immutable right word edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "24.37.16": {
+    "wid": "24.37.16",
+    "page": 355,
+    "x": [
+      1050,
+      1025,
+      1015,
+      948
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00082-c0005",
+    "note": "X-warp from visually decided 23.77.10; destination requires sheet review. Actual destination shows fa loop, ya tooth and ha core supported by spans; joining boundaries moderately uncertain. Kasra clipped at immutable right word edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "27.76.10": {
+    "wid": "27.76.10",
+    "page": 383,
+    "x": [
+      699,
+      676,
+      664,
+      599
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00082-c0005",
+    "note": "X-warp from visually decided 23.77.10; destination requires sheet review. Actual destination shows fa loop, ya tooth and ha core supported by spans; joining boundaries moderately uncertain. Kasra clipped at immutable right word edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "39.46.15": {
+    "wid": "39.46.15",
+    "page": 463,
+    "x": [
+      1514,
+      1487,
+      1476,
+      1403
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00082-c0005",
+    "note": "X-warp from visually decided 23.77.10; destination requires sheet review. Actual destination shows fa loop, ya tooth and ha core supported by spans; joining boundaries moderately uncertain. Kasra clipped at immutable right word edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "4.19.31": {
+    "wid": "4.19.31",
+    "page": 80,
+    "x": [
+      871,
+      842,
+      831,
+      759
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00082-c0006",
+    "note": "X-warp from visually decided 28.73.7; destination requires sheet review. Actual destination shows fa loop, ya tooth and ha core supported by spans; joining boundaries moderately uncertain. Kasra clipped at immutable right word edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "16.92.30": {
+    "wid": "16.92.30",
+    "page": 277,
+    "x": [
+      656,
+      627,
+      618,
+      552
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00082-c0006",
+    "note": "X-warp from visually decided 28.73.7; destination requires sheet review. Actual destination shows fa loop, ya tooth and ha core supported by spans; joining boundaries moderately uncertain. Kasra clipped at immutable right word edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "27.86.6": {
+    "wid": "27.86.6",
+    "page": 384,
+    "x": [
+      958,
+      932,
+      923,
+      851
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00082-c0006",
+    "note": "X-warp from visually decided 28.73.7; destination requires sheet review. Actual destination shows fa loop, ya tooth and ha core supported by spans; joining boundaries moderately uncertain. Kasra clipped at immutable right word edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "16.10.11": {
+    "wid": "16.10.11",
+    "page": 268,
+    "x": [
+      1152,
+      1119,
+      1107,
+      1026
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00082-c0007",
+    "note": "X-warp from visually decided 30.28.17; destination requires sheet review. Actual destination shows fa loop, ya tooth and ha core supported by spans; joining boundaries moderately uncertain."
+  },
+  "18.3.1": {
+    "wid": "18.3.1",
+    "page": 293,
+    "x": [
+      1856,
+      1829,
+      1819,
+      1739
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00082-c0007",
+    "note": "X-warp from visually decided 30.28.17; destination requires sheet review. Actual destination shows fa loop, ya tooth and ha core supported by spans; joining boundaries moderately uncertain. Kasra clipped at immutable right word edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "18.49.6": {
+    "wid": "18.49.6",
+    "page": 299,
+    "x": [
+      1400,
+      1371,
+      1358,
+      1282
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00082-c0007",
+    "note": "X-warp from visually decided 30.28.17; destination requires sheet review. Actual destination shows fa loop, ya tooth and ha core supported by spans; joining boundaries moderately uncertain. Kasra clipped at immutable right word edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "7.171.16": {
+    "wid": "7.171.16",
+    "page": 173,
+    "x": [
+      814,
+      787,
+      777,
+      716
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00082-c0008",
+    "note": "X-warp from visually decided 35.37.15; destination requires sheet review. Actual destination shows fa loop, ya tooth and ha core supported by spans; joining boundaries moderately uncertain. Kasra clipped at immutable right word edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "32.2.4": {
+    "wid": "32.2.4",
+    "page": 415,
+    "x": [
+      739,
+      713,
+      704,
+      634
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00082-c0008",
+    "note": "X-warp from visually decided 35.37.15; destination requires sheet review. Actual destination shows fa loop, ya tooth and ha core supported by spans; joining boundaries moderately uncertain. Kasra clipped at immutable right word edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "44.33.4": {
+    "wid": "44.33.4",
+    "page": 497,
+    "x": [
+      636,
+      610,
+      600,
+      534
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00082-c0008",
+    "note": "X-warp from visually decided 35.37.15; destination requires sheet review. Actual destination shows fa loop, ya tooth and ha core supported by spans; joining boundaries moderately uncertain. Kasra clipped at immutable right word edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "12.20.6": {
+    "wid": "12.20.6",
+    "page": 237,
+    "x": [
+      1004,
+      982,
+      971,
+      900
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00082-c0009",
+    "note": "X-warp from visually decided 2.63.12; destination requires sheet review. Actual destination shows fa loop, ya tooth and ha core supported by spans; joining boundaries moderately uncertain. Kasra clipped at immutable right word edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "12.49.6": {
+    "wid": "12.49.6",
+    "page": 241,
+    "x": [
+      1708,
+      1684,
+      1671,
+      1605
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00082-c0009",
+    "note": "X-warp from visually decided 2.63.12; destination requires sheet review. Actual destination shows fa loop, ya tooth and ha core supported by spans; joining boundaries moderately uncertain. Kasra clipped at immutable right word edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.213.38": {
+    "wid": "2.213.38",
+    "page": 33,
+    "x": [
+      1474,
+      1449,
+      1440,
+      1375
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00082-c0010",
+    "note": "X-warp from visually decided 2.217.8; destination requires sheet review. Actual destination shows fa loop, ya tooth and ha core supported by spans; joining boundaries moderately uncertain. Kasra clipped at immutable right word edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "19.34.7": {
+    "wid": "19.34.7",
+    "page": 307,
+    "x": [
+      1638,
+      1613,
+      1597,
+      1530
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00082-c0010",
+    "note": "X-warp from visually decided 2.217.8; destination requires sheet review. Actual destination shows fa loop, ya tooth and ha core supported by spans; joining boundaries moderately uncertain. Kasra clipped at immutable right word edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "9.108.2": {
+    "wid": "9.108.2",
+    "page": 204,
+    "x": [
+      1438,
+      1413,
+      1370,
+      1317
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00082-c0011",
+    "note": "X-warp from visually decided 2.254.13; destination requires sheet review. Actual destination shows fa loop, ya tooth and ha core supported by spans; joining boundaries moderately uncertain. Kasra clipped at immutable right word edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "39.3.23": {
+    "wid": "39.3.23",
+    "page": 458,
+    "x": [
+      1556,
+      1531,
+      1479,
+      1422
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00082-c0011",
+    "note": "X-warp from visually decided 2.254.13; destination requires sheet review. Actual destination shows fa loop, ya tooth and ha core supported by spans; joining boundaries moderately uncertain."
+  },
+  "21.10.4": {
+    "wid": "21.10.4",
+    "page": 322,
+    "x": [
+      1040,
+      1014,
+      1000,
+      937
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00082-c0012",
+    "note": "X-warp from visually decided 10.93.22; destination requires sheet review. Actual destination shows fa loop, ya tooth and ha core supported by spans; joining boundaries moderately uncertain. Kasra clipped at immutable right word edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "52.45.5": {
+    "wid": "52.45.5",
+    "page": 525,
+    "x": [
+      1479,
+      1455,
+      1442,
+      1382
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00082-c0012",
+    "note": "X-warp from visually decided 10.93.22; destination requires sheet review. Actual destination shows fa loop, ya tooth and ha core supported by spans; joining boundaries moderately uncertain. Kasra clipped at immutable right word edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "6.139.15": {
+    "wid": "6.139.15",
+    "page": 146,
+    "x": [
+      1430,
+      1405,
+      1341,
+      1280
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00082-c0013",
+    "note": "X-warp from visually decided 11.116.23; destination requires sheet review. Actual destination shows fa loop, ya tooth and ha core supported by spans; joining boundaries moderately uncertain."
+  },
+  "9.108.15": {
+    "wid": "9.108.15",
+    "page": 204,
+    "x": [
+      1111,
+      1089,
+      1028,
+      972
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00082-c0013",
+    "note": "X-warp from visually decided 11.116.23; destination requires sheet review. Actual destination shows fa loop, ya tooth and ha core supported by spans; joining boundaries moderately uncertain."
+  },
+  "6.60.10": {
+    "wid": "6.60.10",
+    "page": 135,
+    "x": [
+      1433,
+      1408,
+      1396,
+      1335
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00082-c0014",
+    "note": "X-warp from visually decided 12.41.17; destination requires sheet review. Actual destination shows fa loop, ya tooth and ha core supported by spans; joining boundaries moderately uncertain. Kasra clipped at immutable right word edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "10.37.18": {
+    "wid": "10.37.18",
+    "page": 213,
+    "x": [
+      1859,
+      1835,
+      1818,
+      1751
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00082-c0014",
+    "note": "X-warp from visually decided 12.41.17; destination requires sheet review. Actual destination shows fa loop, ya tooth and ha core supported by spans; joining boundaries moderately uncertain. Kasra clipped at immutable right word edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "6.164.27": {
+    "wid": "6.164.27",
+    "page": 150,
+    "x": [
+      1272,
+      1246,
+      1237,
+      1176
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00082-c0015",
+    "note": "X-warp from visually decided 17.99.18; destination requires sheet review. Actual destination shows fa loop, ya tooth and ha core supported by spans; joining boundaries moderately uncertain."
+  },
+  "18.95.3": {
+    "wid": "18.95.3",
+    "page": 303,
+    "x": [
+      1177,
+      1156,
+      1143,
+      1082
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00082-c0015",
+    "note": "X-warp from visually decided 17.99.18; destination requires sheet review. Actual destination shows fa loop, ya tooth and ha core supported by spans; joining boundaries moderately uncertain. Kasra clipped at immutable right word edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "20.81.7": {
+    "wid": "20.81.7",
+    "page": 317,
+    "x": [
+      850,
+      826,
+      814,
+      740
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00082-c0016",
+    "note": "X-warp from visually decided 16.124.15; destination requires sheet review. Actual destination shows fa loop, ya tooth and ha core supported by spans; joining boundaries moderately uncertain. Kasra clipped at immutable right word edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.20.8": {
+    "wid": "2.20.8",
+    "page": 4,
+    "x": [
+      905,
+      880,
+      869,
+      810
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00082-c0017",
+    "note": "X-warp from visually decided 38.72.3; destination requires sheet review. Actual destination shows fa loop, ya tooth and ha core supported by spans; joining boundaries moderately uncertain. Kasra clipped at immutable right word edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "39.29.4": {
+    "wid": "39.29.4",
+    "page": 461,
+    "x": [
+      202,
+      176,
+      158,
+      98
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00082-c0017",
+    "note": "X-warp from visually decided 38.72.3; destination requires sheet review. Actual destination shows fa loop, ya tooth and ha core supported by spans; joining boundaries moderately uncertain. Kasra clipped at immutable right word edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "46.26.5": {
+    "wid": "46.26.5",
+    "page": 505,
+    "x": [
+      247,
+      221,
+      204,
+      115
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00082-c0018",
+    "note": "X-warp from visually decided 66.12.7; destination requires sheet review. Actual destination shows fa loop, ya tooth and ha core supported by spans; joining boundaries moderately uncertain. Kasra clipped at immutable right word edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "57.25.13": {
+    "wid": "57.25.13",
+    "page": 541,
+    "x": [
+      235,
+      209,
+      194,
+      117
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00082-c0018",
+    "note": "X-warp from visually decided 66.12.7; destination requires sheet review. Actual destination shows fa loop, ya tooth and ha core supported by spans; joining boundaries moderately uncertain. Kasra clipped at immutable right word edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "68.37.3": {
+    "wid": "68.37.3",
+    "page": 565,
+    "x": [
+      1597,
+      1574,
+      1560,
+      1509
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00082-c0019",
+    "note": "X-warp from visually decided 68.38.2; destination requires sheet review. Actual destination shows fa loop, ya tooth and ha core supported by spans; joining boundaries moderately uncertain. Kasra clipped at immutable right word edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "78.3.2": {
+    "wid": "78.3.2",
+    "page": 582,
+    "x": [
+      543,
+      520,
+      507,
+      455
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00082-c0019",
+    "note": "X-warp from visually decided 68.38.2; destination requires sheet review. Actual destination shows fa loop, ya tooth and ha core supported by spans; joining boundaries moderately uncertain. Kasra clipped at immutable right word edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "10.19.15": {
+    "wid": "10.19.15",
+    "page": 210,
+    "x": [
+      576,
+      551,
+      536,
+      449
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00082-c0020",
+    "note": "X-warp from visually decided 2.185.4; destination requires sheet review. Actual destination shows fa loop, ya tooth and ha core supported by spans; joining boundaries moderately uncertain. Kasra clipped at immutable right word edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "3.55.28": {
+    "wid": "3.55.28",
+    "page": 57,
+    "x": [
+      948,
+      924,
+      886,
+      828
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00082-c0021",
+    "note": "X-warp from visually decided 2.248.9; destination requires sheet review. Actual destination shows fa loop, ya tooth and ha core supported by spans; joining boundaries moderately uncertain."
+  },
+  "3.25.6": {
+    "wid": "3.25.6",
+    "page": 53,
+    "x": [
+      1431,
+      1407,
+      1365,
+      1313
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00082-c0022",
+    "note": "X-warp from visually decided 2.266.25; destination requires sheet review. Actual destination shows fa loop, ya tooth and ha core supported by spans; joining boundaries moderately uncertain. Kasra clipped at immutable right word edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "45.26.12": {
+    "wid": "45.26.12",
+    "page": 501,
+    "x": [
+      1425,
+      1398,
+      1390,
+      1328
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00082-c0023",
+    "note": "X-warp from visually decided 7.139.5; destination requires sheet review. Actual destination shows fa loop, ya tooth and ha core supported by spans; joining boundaries moderately uncertain. Kasra clipped at immutable right word edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "21.13.6": {
+    "wid": "21.13.6",
+    "page": 323,
+    "x": [
+      820,
+      796,
+      766,
+      705
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00082-c0024",
+    "note": "X-warp from visually decided 14.31.18; destination requires sheet review. Actual destination shows fa loop, ya tooth and ha core supported by spans; joining boundaries moderately uncertain."
+  },
+  "22.25.18": {
+    "wid": "22.25.18",
+    "page": 335,
+    "x": [
+      1531,
+      1503,
+      1490,
+      1390
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00082-c0025",
+    "note": "X-warp from visually decided 16.14.15; destination requires sheet review. Actual destination shows fa loop, ya tooth and ha core supported by spans; joining boundaries moderately uncertain. Kasra clipped at immutable right word edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "24.14.12": {
+    "wid": "24.14.12",
+    "page": 351,
+    "x": [
+      728,
+      703,
+      693,
+      625
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00082-c0026",
+    "note": "X-warp from visually decided 16.39.4; destination requires sheet review. Actual destination shows fa loop, ya tooth and ha core supported by spans; joining boundaries moderately uncertain. Kasra clipped at immutable right word edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "54.4.5": {
+    "wid": "54.4.5",
+    "page": 528,
+    "x": [
+      1775,
+      1751,
+      1742,
+      1653
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00082-c0027",
+    "note": "X-warp from visually decided 22.69.7; destination requires sheet review. Actual destination shows fa loop, ya tooth and ha core supported by spans; joining boundaries moderately uncertain. Kasra clipped at immutable right word edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "20.94.5": {
+    "wid": "20.94.5",
+    "page": 318,
+    "x": [
+      366,
+      340,
+      280
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00009-c0065",
+    "note": "Carried from visually decided 35.22.3; destination requires sheet review."
+  },
+  "47.33.7": {
+    "wid": "47.33.7",
+    "page": 510,
+    "x": [
+      382,
+      358,
+      300
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00009-c0065",
+    "note": "Carried from visually decided 35.22.3; destination requires sheet review."
+  },
+  "69.36.0": {
+    "wid": "69.36.0",
+    "page": 568,
+    "x": [
+      1071,
+      1046,
+      982
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00009-c0091",
+    "note": "Carried from visually decided 31.18.0; destination requires sheet review."
+  }
+}

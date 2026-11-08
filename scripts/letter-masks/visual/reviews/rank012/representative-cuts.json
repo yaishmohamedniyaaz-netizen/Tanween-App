@@ -1,0 +1,890 @@
+{
+  "36.76.7": {
+    "wid": "36.76.7",
+    "page": 445,
+    "x": [
+      1210,
+      1176,
+      1111
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00012-c0001",
+    "note": "Detached waw head and merged mim-alif body divided in the visual gap; descending waw tail may cross leftward. Upper right mark is clipped by immutable box; keep inside bounds.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "8.33.0": {
+    "wid": "8.33.0",
+    "page": 180,
+    "x": [
+      951,
+      918,
+      852
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00012-c0002",
+    "note": "Detached waw head and merged mim-alif body divided in the visual gap; descending waw tail may cross leftward."
+  },
+  "2.167.18": {
+    "wid": "2.167.18",
+    "page": 25,
+    "x": [
+      1061,
+      1026,
+      958
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00012-c0003",
+    "note": "Detached waw head and merged mim-alif body divided in the visual gap; descending waw tail may cross leftward."
+  },
+  "12.73.9": {
+    "wid": "12.73.9",
+    "page": 244,
+    "x": [
+      596,
+      562,
+      499
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00012-c0004",
+    "note": "Detached waw head and merged mim-alif body divided in the visual gap; descending waw tail may cross leftward."
+  },
+  "16.23.7": {
+    "wid": "16.23.7",
+    "page": 269,
+    "x": [
+      616,
+      583,
+      517
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00012-c0005",
+    "note": "Detached waw head and merged mim-alif body divided in the visual gap; descending waw tail may cross leftward."
+  },
+  "12.106.0": {
+    "wid": "12.106.0",
+    "page": 248,
+    "x": [
+      1013,
+      978,
+      907
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00012-c0006",
+    "note": "Detached waw head and merged mim-alif body divided in the visual gap; descending waw tail may cross leftward."
+  },
+  "51.22.3": {
+    "wid": "51.22.3",
+    "page": 521,
+    "x": [
+      1861,
+      1830,
+      1771
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00012-c0007",
+    "note": "Detached waw head and merged mim-alif body divided in the visual gap; descending waw tail may cross leftward."
+  },
+  "43.85.6": {
+    "wid": "43.85.6",
+    "page": 495,
+    "x": [
+      1561,
+      1528,
+      1462
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00012-c0008",
+    "note": "Detached waw head and merged mim-alif body divided in the visual gap; descending waw tail may cross leftward."
+  },
+  "4.113.10": {
+    "wid": "4.113.10",
+    "page": 96,
+    "x": [
+      1545,
+      1508,
+      1437
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00012-c0009",
+    "note": "Detached waw head and merged mim-alif body divided in the visual gap; descending waw tail may cross leftward."
+  },
+  "42.53.7": {
+    "wid": "42.53.7",
+    "page": 489,
+    "x": [
+      1358,
+      1324,
+      1260
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00012-c0010",
+    "note": "Detached waw head and merged mim-alif body divided in the visual gap; descending waw tail may cross leftward."
+  },
+  "57.10.0": {
+    "wid": "57.10.0",
+    "page": 538,
+    "x": [
+      1263,
+      1233,
+      1166
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00012-c0011",
+    "note": "Detached waw head and merged mim-alif body divided in the visual gap; descending waw tail may cross leftward."
+  },
+  "2.57.12": {
+    "wid": "2.57.12",
+    "page": 8,
+    "x": [
+      1542,
+      1503,
+      1438
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00012-c0012",
+    "note": "Detached waw head and merged mim-alif body divided in the visual gap; descending waw tail may cross leftward."
+  },
+  "6.123.13": {
+    "wid": "6.123.13",
+    "page": 143,
+    "x": [
+      1043,
+      1010,
+      944
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00012-c0013",
+    "note": "Detached waw head and merged mim-alif body divided in visual gap; descending waw tail may cross leftward."
+  },
+  "15.85.0": {
+    "wid": "15.85.0",
+    "page": 266,
+    "x": [
+      1848,
+      1816,
+      1753
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00012-c0014",
+    "note": "Detached waw head and merged mim-alif body divided in visual gap; descending waw tail may cross leftward."
+  },
+  "33.4.8": {
+    "wid": "33.4.8",
+    "page": 418,
+    "x": [
+      1598,
+      1565,
+      1497
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00012-c0015",
+    "note": "Detached waw head and merged mim-alif body divided in visual gap; descending waw tail may cross leftward."
+  },
+  "46.3.4": {
+    "wid": "46.3.4",
+    "page": 502,
+    "x": [
+      1278,
+      1247,
+      1184
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00012-c0016",
+    "note": "Detached waw head and merged mim-alif body divided in visual gap; descending waw tail may cross leftward."
+  },
+  "3.56.9": {
+    "wid": "3.56.9",
+    "page": 57,
+    "x": [
+      218,
+      185,
+      114
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00012-c0017",
+    "note": "Detached waw head and merged mim-alif body divided in visual gap; descending waw tail may cross leftward."
+  },
+  "5.18.26": {
+    "wid": "5.18.26",
+    "page": 111,
+    "x": [
+      1835,
+      1800,
+      1727
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00012-c0018",
+    "note": "Detached waw head and merged mim-alif body divided in visual gap; descending waw tail may cross leftward."
+  },
+  "23.91.5": {
+    "wid": "23.91.5",
+    "page": 348,
+    "x": [
+      1835,
+      1801,
+      1738
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00012-c0019",
+    "note": "Detached waw head and merged mim-alif body divided in visual gap; descending waw tail may cross leftward. Upper right mark clipped by immutable box; retain inward extent.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "61.1.5": {
+    "wid": "61.1.5",
+    "page": 551,
+    "x": [
+      1070,
+      1037,
+      969
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00012-c0020",
+    "note": "Detached waw head and merged mim-alif body divided in visual gap; descending waw tail may cross leftward."
+  },
+  "3.69.7": {
+    "wid": "3.69.7",
+    "page": 58,
+    "x": [
+      1822,
+      1788,
+      1719
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00012-c0021",
+    "note": "Detached waw head and merged mim-alif body divided in visual gap; descending waw tail may cross leftward."
+  },
+  "5.4.8": {
+    "wid": "5.4.8",
+    "page": 107,
+    "x": [
+      437,
+      404,
+      339
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00012-c0022",
+    "note": "Detached waw head and merged mim-alif body divided in visual gap; descending waw tail may cross leftward. Upper right mark clipped by immutable box; retain inward extent.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "74.31.0": {
+    "wid": "74.31.0",
+    "page": 576,
+    "x": [
+      1687,
+      1659,
+      1604
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00012-c0023",
+    "note": "Detached waw head and merged mim-alif body divided in visual gap; descending waw tail may cross leftward."
+  },
+  "28.86.0": {
+    "wid": "28.86.0",
+    "page": 396,
+    "x": [
+      352,
+      323,
+      263
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00012-c0024",
+    "note": "Detached waw head and merged mim-alif body divided in visual gap; descending waw tail may cross leftward."
+  },
+  "6.119.0": {
+    "wid": "6.119.0",
+    "page": 143,
+    "x": [
+      1818,
+      1782,
+      1713
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00012-c0025",
+    "note": "Detached waw head and merged mim-alif body divided in visual gap; descending waw tail may cross leftward."
+  },
+  "16.49.5": {
+    "wid": "16.49.5",
+    "page": 272,
+    "x": [
+      834,
+      799,
+      727
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00012-c0026",
+    "note": "Detached waw head and merged mim-alif body divided in visual gap; descending waw tail may cross leftward."
+  },
+  "26.138.0": {
+    "wid": "26.138.0",
+    "page": 373,
+    "x": [
+      996,
+      968,
+      915
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00012-c0027",
+    "note": "Detached waw head and merged mim-alif body divided in visual gap; descending waw tail may cross leftward."
+  },
+  "42.36.7": {
+    "wid": "42.36.7",
+    "page": 487,
+    "x": [
+      1468,
+      1439,
+      1380
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00012-c0028",
+    "note": "Detached waw head and merged mim-alif body divided in visual gap; descending waw tail may cross leftward."
+  },
+  "68.1.2": {
+    "wid": "68.1.2",
+    "page": 564,
+    "x": [
+      1483,
+      1452,
+      1389
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00012-c0029",
+    "note": "Detached waw head and merged mim-alif body divided in visual gap; descending waw tail may cross leftward. Right ink clipped by immutable box; retain inward extent.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "74.31.52": {
+    "wid": "74.31.52",
+    "page": 576,
+    "x": [
+      965,
+      937,
+      882
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00012-c0030",
+    "note": "Detached waw head and merged mim-alif body divided in visual gap; descending waw tail may cross leftward."
+  },
+  "6.29.6": {
+    "wid": "6.29.6",
+    "page": 131,
+    "x": [
+      359,
+      330,
+      268
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00012-c0031",
+    "note": "Detached waw head and merged mim-alif body divided in visual gap; descending waw tail may cross leftward."
+  },
+  "14.11.16": {
+    "wid": "14.11.16",
+    "page": 257,
+    "x": [
+      925,
+      889,
+      822
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00012-c0032",
+    "note": "Detached waw head and merged mim-alif body divided in visual gap; descending waw tail may cross leftward."
+  },
+  "17.64.14": {
+    "wid": "17.64.14",
+    "page": 288,
+    "x": [
+      895,
+      860,
+      795
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00012-c0033",
+    "note": "Detached waw head and merged mim-alif body divided in visual gap; descending waw tail may cross leftward. Right ink clipped by immutable box; retain inward extent.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "25.60.6": {
+    "wid": "25.60.6",
+    "page": 365,
+    "x": [
+      401,
+      372,
+      311
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00012-c0034",
+    "note": "Detached waw head and merged mim-alif body divided in visual gap; descending waw tail may cross leftward."
+  },
+  "42.46.0": {
+    "wid": "42.46.0",
+    "page": 488,
+    "x": [
+      1139,
+      1105,
+      1035
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00012-c0035",
+    "note": "Detached waw head and merged mim-alif body divided in visual gap; descending waw tail may cross leftward."
+  },
+  "73.20.60": {
+    "wid": "73.20.60",
+    "page": 575,
+    "x": [
+      992,
+      967,
+      913
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00012-c0036",
+    "note": "Detached waw head and merged mim-alif body divided in visual gap; descending waw tail may cross leftward."
+  },
+  "2.77.7": {
+    "wid": "2.77.7",
+    "page": 12,
+    "x": [
+      622,
+      586,
+      514
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00012-c0037",
+    "note": "Detached waw head and merged mim-alif body divided in visual gap; descending waw tail may cross leftward."
+  },
+  "2.272.13": {
+    "wid": "2.272.13",
+    "page": 46,
+    "x": [
+      1292,
+      1256,
+      1184
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00012-c0038",
+    "note": "Detached waw head and merged mim-alif body divided in visual gap; descending waw tail may cross leftward. Upper right mark clipped by immutable box; retain inward extent.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "5.17.32": {
+    "wid": "5.17.32",
+    "page": 110,
+    "x": [
+      1834,
+      1793,
+      1711
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00012-c0039",
+    "note": "Detached waw head and merged mim-alif body divided in visual gap; descending waw tail may cross leftward."
+  },
+  "5.120.4": {
+    "wid": "5.120.4",
+    "page": 127,
+    "x": [
+      1054,
+      1024,
+      964
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00012-c0040",
+    "note": "Detached waw head and merged mim-alif body divided in visual gap; descending waw tail may cross leftward."
+  },
+  "38.10.5": {
+    "wid": "38.10.5",
+    "page": 453,
+    "x": [
+      1145,
+      1116,
+      1057
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00012-c0041",
+    "note": "Detached waw head and merged mim-alif body divided in visual gap; descending waw tail may cross leftward."
+  },
+  "40.31.9": {
+    "wid": "40.31.9",
+    "page": 470,
+    "x": [
+      942,
+      912,
+      847
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00012-c0042",
+    "note": "Detached waw head and merged mim-alif body divided in visual gap; descending waw tail may cross leftward."
+  },
+  "45.24.8": {
+    "wid": "45.24.8",
+    "page": 501,
+    "x": [
+      370,
+      343,
+      289
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00012-c0043",
+    "note": "Detached waw head and merged mim-alif body divided in visual gap; descending waw tail may cross leftward."
+  },
+  "50.38.9": {
+    "wid": "50.38.9",
+    "page": 520,
+    "x": [
+      421,
+      386,
+      321
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00012-c0044",
+    "note": "Detached waw head and merged mim-alif body divided in visual gap; descending waw tail may cross leftward."
+  },
+  "85.8.0": {
+    "wid": "85.8.0",
+    "page": 590,
+    "x": [
+      370,
+      339,
+      274
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00012-c0045",
+    "note": "Detached waw head and merged mim-alif body divided in visual gap; descending waw tail may cross leftward."
+  },
+  "2.149.12": {
+    "wid": "2.149.12",
+    "page": 23,
+    "x": [
+      238,
+      202,
+      115
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00012-c0046",
+    "note": "Detached waw head and merged mim-alif body divided in visual gap; descending waw tail may cross leftward."
+  },
+  "3.115.0": {
+    "wid": "3.115.0",
+    "page": 64,
+    "x": [
+      465,
+      431,
+      362
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00012-c0047",
+    "note": "Detached waw head and merged mim-alif body divided in visual gap; descending waw tail may cross leftward."
+  },
+  "4.113.14": {
+    "wid": "4.113.14",
+    "page": 96,
+    "x": [
+      689,
+      645,
+      569
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00012-c0048",
+    "note": "Detached waw head and merged mim-alif body divided in visual gap; descending waw tail may cross leftward. Upper right mark clipped by immutable box; retain inward extent.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "12.102.6": {
+    "wid": "12.102.6",
+    "page": 247,
+    "x": [
+      1421,
+      1387,
+      1316
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00012-c0049",
+    "note": "Detached waw head and merged mim-alif body divided in visual gap; descending waw tail may cross leftward."
+  },
+  "45.4.2": {
+    "wid": "45.4.2",
+    "page": 499,
+    "x": [
+      667,
+      638,
+      581
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00012-c0050",
+    "note": "Detached waw head and merged mim-alif body divided in visual gap; descending waw tail may cross leftward."
+  },
+  "111.2.4": {
+    "wid": "111.2.4",
+    "page": 603,
+    "x": [
+      258,
+      222,
+      117
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00012-c0051",
+    "note": "Detached waw head and merged mim-alif body divided in visual gap; descending waw tail may cross leftward."
+  },
+  "2.200.18": {
+    "wid": "2.200.18",
+    "page": 31,
+    "x": [
+      888,
+      847,
+      766
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00012-c0052",
+    "note": "Detached waw head and merged mim-alif body divided in visual gap; descending waw tail may cross leftward. Right ink clipped by immutable box; retain inward extent.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "3.117.17": {
+    "wid": "3.117.17",
+    "page": 65,
+    "x": [
+      226,
+      193,
+      117
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00012-c0053",
+    "note": "Detached waw head and merged mim-alif body divided in visual gap; descending waw tail may cross leftward."
+  },
+  "10.6.5": {
+    "wid": "10.6.5",
+    "page": 208,
+    "x": [
+      414,
+      382,
+      309
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00012-c0054",
+    "note": "Detached waw head and merged mim-alif body divided in visual gap; descending waw tail may cross leftward."
+  },
+  "11.27.11": {
+    "wid": "11.27.11",
+    "page": 224,
+    "x": [
+      1656,
+      1630,
+      1573
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00012-c0055",
+    "note": "Detached waw head and merged mim-alif body divided in visual gap; descending waw tail may cross leftward."
+  },
+  "11.104.0": {
+    "wid": "11.104.0",
+    "page": 233,
+    "x": [
+      242,
+      209,
+      103
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00012-c0056",
+    "note": "Detached waw head and merged mim-alif body divided in visual gap; descending waw tail may cross leftward."
+  },
+  "19.28.7": {
+    "wid": "19.28.7",
+    "page": 307,
+    "x": [
+      404,
+      366,
+      295
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00012-c0057",
+    "note": "Detached waw head and merged mim-alif body divided in visual gap; descending waw tail may cross leftward."
+  },
+  "28.44.9": {
+    "wid": "28.44.9",
+    "page": 391,
+    "x": [
+      344,
+      312,
+      250
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00012-c0058",
+    "note": "Detached waw head and merged mim-alif body divided in visual gap; descending waw tail may cross leftward."
+  },
+  "29.64.0": {
+    "wid": "29.64.0",
+    "page": 404,
+    "x": [
+      1842,
+      1810,
+      1747
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00012-c0059",
+    "note": "Detached waw head and merged mim-alif body divided in visual gap; descending waw tail may cross leftward."
+  },
+  "3.7.41": {
+    "wid": "3.7.41",
+    "page": 50,
+    "x": [
+      344,
+      317,
+      256
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00012-c0060",
+    "note": "Detached waw head and merged mim-alif body divided in visual gap; descending waw tail may cross leftward."
+  },
+  "5.73.8": {
+    "wid": "5.73.8",
+    "page": 120,
+    "x": [
+      375,
+      338,
+      210
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00012-c0061",
+    "note": "Detached waw head and merged mim-alif body divided in visual gap; descending waw tail may cross leftward. Right ink clipped by immutable box; retain inward extent.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "6.132.4": {
+    "wid": "6.132.4",
+    "page": 145,
+    "x": [
+      832,
+      797,
+      704
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00012-c0062",
+    "note": "Detached waw head and merged mim-alif body divided in visual gap; descending waw tail may cross leftward."
+  },
+  "7.160.37": {
+    "wid": "7.160.37",
+    "page": 171,
+    "x": [
+      274,
+      235,
+      107
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00012-c0063",
+    "note": "Detached waw head and merged mim-alif body divided in visual gap; descending waw tail may cross leftward."
+  },
+  "26.103.4": {
+    "wid": "26.103.4",
+    "page": 371,
+    "x": [
+      286,
+      259,
+      199
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00012-c0064",
+    "note": "Detached waw head and merged mim-alif body divided in visual gap; descending waw tail may cross leftward."
+  },
+  "53.17.3": {
+    "wid": "53.17.3",
+    "page": 526,
+    "x": [
+      666,
+      646,
+      591
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00012-c0065",
+    "note": "Detached waw head and merged mim-alif body divided in visual gap; descending waw tail may cross leftward. Right ink clipped by immutable box; retain inward extent.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "53.31.4": {
+    "wid": "53.31.4",
+    "page": 527,
+    "x": [
+      208,
+      178,
+      91
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00012-c0066",
+    "note": "Detached waw head and merged mim-alif body divided in visual gap; descending waw tail may cross leftward."
+  }
+}

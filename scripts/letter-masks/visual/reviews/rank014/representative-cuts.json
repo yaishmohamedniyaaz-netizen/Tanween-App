@@ -1,0 +1,993 @@
+{
+  "12.66.18": {
+    "wid": "12.66.18",
+    "page": 243,
+    "x": [
+      803,
+      752,
+      693
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00014-c0001",
+    "note": "Detached lam bowl separated from merged qaf-alif at visual body gap."
+  },
+  "43.51.4": {
+    "wid": "43.51.4",
+    "page": 493,
+    "x": [
+      1845,
+      1797,
+      1741
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00014-c0002",
+    "note": "Detached lam bowl separated from merged qaf-alif at visual body gap. Upper right vowel ink clipped at immutable edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "16.27.11": {
+    "wid": "16.27.11",
+    "page": 270,
+    "x": [
+      1118,
+      1072,
+      1022
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00014-c0003",
+    "note": "Detached lam bowl separated from merged qaf-alif at visual body gap."
+  },
+  "12.55.0": {
+    "wid": "12.55.0",
+    "page": 242,
+    "x": [
+      216,
+      167,
+      105
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00014-c0004",
+    "note": "Detached lam bowl separated from merged qaf-alif at visual body gap."
+  },
+  "28.27.0": {
+    "wid": "28.27.0",
+    "page": 388,
+    "x": [
+      1643,
+      1594,
+      1544
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00014-c0005",
+    "note": "Detached lam bowl separated from merged qaf-alif at visual body gap."
+  },
+  "43.63.4": {
+    "wid": "43.63.4",
+    "page": 494,
+    "x": [
+      913,
+      864,
+      806
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00014-c0006",
+    "note": "Detached lam bowl separated from merged qaf-alif at visual body gap."
+  },
+  "2.258.19": {
+    "wid": "2.258.19",
+    "page": 43,
+    "x": [
+      1538,
+      1485,
+      1429
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00014-c0007",
+    "note": "Detached lam bowl separated from merged qaf-alif at visual body gap. Upper right vowel ink clipped at immutable edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "7.150.22": {
+    "wid": "7.150.22",
+    "page": 169,
+    "x": [
+      1339,
+      1288,
+      1231
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00014-c0008",
+    "note": "Detached lam bowl separated from merged qaf-alif at visual body gap."
+  },
+  "26.34.0": {
+    "wid": "26.34.0",
+    "page": 368,
+    "x": [
+      977,
+      931,
+      877
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00014-c0009",
+    "note": "Detached lam bowl separated from merged qaf-alif at visual body gap."
+  },
+  "38.35.0": {
+    "wid": "38.35.0",
+    "page": 455,
+    "x": [
+      459,
+      411,
+      360
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00014-c0010",
+    "note": "Detached lam bowl separated from merged qaf-alif at visual body gap."
+  },
+  "5.27.18": {
+    "wid": "5.27.18",
+    "page": 112,
+    "x": [
+      1822,
+      1773,
+      1717
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00014-c0011",
+    "note": "Detached lam bowl separated from merged qaf-alif at visual body gap. Upper right vowel ink clipped at immutable edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "7.71.0": {
+    "wid": "7.71.0",
+    "page": 159,
+    "x": [
+      1654,
+      1602,
+      1545
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00014-c0012",
+    "note": "Detached lam bowl separated from merged qaf-alif at visual body gap."
+  },
+  "18.70.0": {
+    "wid": "18.70.0",
+    "page": 301,
+    "x": [
+      206,
+      156,
+      106
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00014-c0013",
+    "note": "Detached lam bowl separated from merged qaf-alif at visual body gap."
+  },
+  "7.14.0": {
+    "wid": "7.14.0",
+    "page": 152,
+    "x": [
+      830,
+      782,
+      735
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00014-c0014",
+    "note": "Detached lam bowl separated from merged qaf-alif at visual body gap."
+  },
+  "11.54.7": {
+    "wid": "11.54.7",
+    "page": 228,
+    "x": [
+      564,
+      516,
+      464
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00014-c0015",
+    "note": "Detached lam bowl separated from merged qaf-alif at visual body gap. Upper right vowel ink clipped at immutable edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "15.41.0": {
+    "wid": "15.41.0",
+    "page": 264,
+    "x": [
+      693,
+      646,
+      593
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00014-c0016",
+    "note": "Detached lam bowl separated from merged qaf-alif at visual body gap."
+  },
+  "15.57.0": {
+    "wid": "15.57.0",
+    "page": 265,
+    "x": [
+      1005,
+      961,
+      906
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00014-c0017",
+    "note": "Detached lam bowl separated from merged qaf-alif at visual body gap."
+  },
+  "20.51.0": {
+    "wid": "20.51.0",
+    "page": 314,
+    "x": [
+      969,
+      921,
+      865
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00014-c0018",
+    "note": "Detached lam bowl separated from merged qaf-alif at visual body gap."
+  },
+  "27.44.11": {
+    "wid": "27.44.11",
+    "page": 380,
+    "x": [
+      1575,
+      1527,
+      1475
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00014-c0019",
+    "note": "Detached lam bowl separated from merged qaf-alif at visual body gap. Upper right vowel ink clipped at immutable edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "28.33.0": {
+    "wid": "28.33.0",
+    "page": 389,
+    "x": [
+      1170,
+      1120,
+      1070
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00014-c0020",
+    "note": "Detached lam bowl separated from merged qaf-alif at visual body gap."
+  },
+  "5.110.1": {
+    "wid": "5.110.1",
+    "page": 126,
+    "x": [
+      793,
+      745,
+      691
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00014-c0021",
+    "note": "Detached lam bowl separated from merged qaf-alif at visual body gap. Upper right vowel ink clipped at immutable edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.260.11": {
+    "wid": "2.260.11",
+    "page": 44,
+    "x": [
+      1604,
+      1551,
+      1495
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00014-c0022",
+    "note": "Detached lam bowl separated from merged qaf-alif at visual body gap. Upper right vowel ink clipped at immutable edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.247.25": {
+    "wid": "2.247.25",
+    "page": 40,
+    "x": [
+      726,
+      675,
+      622
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00014-c0023",
+    "note": "Detached lam bowl separated from merged qaf-alif at visual body gap."
+  },
+  "2.259.9": {
+    "wid": "2.259.9",
+    "page": 43,
+    "x": [
+      810,
+      756,
+      706
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00014-c0024",
+    "note": "Detached lam bowl separated from merged qaf-alif at visual body gap. Upper right vowel ink clipped at immutable edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "12.80.5": {
+    "wid": "12.80.5",
+    "page": 245,
+    "x": [
+      1815,
+      1771,
+      1722
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00014-c0025",
+    "note": "Detached lam bowl separated from merged qaf-alif at visual body gap."
+  },
+  "12.83.0": {
+    "wid": "12.83.0",
+    "page": 245,
+    "x": [
+      1066,
+      1015,
+      959
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00014-c0026",
+    "note": "Detached lam bowl separated from merged qaf-alif at visual body gap."
+  },
+  "26.12.0": {
+    "wid": "26.12.0",
+    "page": 367,
+    "x": [
+      591,
+      547,
+      498
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00014-c0027",
+    "note": "Detached lam bowl separated from merged qaf-alif at visual body gap."
+  },
+  "31.13.1": {
+    "wid": "31.13.1",
+    "page": 412,
+    "x": [
+      186,
+      134,
+      84
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00014-c0028",
+    "note": "Detached lam bowl separated from merged qaf-alif at visual body gap. Upper right vowel ink clipped at immutable edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "7.116.0": {
+    "wid": "7.116.0",
+    "page": 164,
+    "x": [
+      1044,
+      995,
+      938
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00014-c0029",
+    "note": "Detached lam bowl separated from merged qaf-alif at visual body gap."
+  },
+  "12.13.0": {
+    "wid": "12.13.0",
+    "page": 236,
+    "x": [
+      1300,
+      1252,
+      1194
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00014-c0030",
+    "note": "Detached lam bowl separated from merged qaf-alif at visual body gap."
+  },
+  "50.27.0": {
+    "wid": "50.27.0",
+    "page": 519,
+    "x": [
+      755,
+      713,
+      666
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00014-c0031",
+    "note": "Detached lam bowl separated from merged qaf-alif at visual body gap; elongated qaf baseline retained with alif."
+  },
+  "2.249.42": {
+    "wid": "2.249.42",
+    "page": 41,
+    "x": [
+      509,
+      455,
+      399
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00014-c0032",
+    "note": "Detached lam bowl separated from merged qaf-alif at visual body gap; elongated qaf baseline retained with alif."
+  },
+  "18.76.0": {
+    "wid": "18.76.0",
+    "page": 302,
+    "x": [
+      285,
+      233,
+      186
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00014-c0033",
+    "note": "Detached lam bowl separated from merged qaf-alif at visual body gap; elongated qaf baseline retained with alif."
+  },
+  "26.15.0": {
+    "wid": "26.15.0",
+    "page": 367,
+    "x": [
+      176,
+      128,
+      77
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00014-c0034",
+    "note": "Detached lam bowl separated from merged qaf-alif at visual body gap; elongated qaf baseline retained with alif."
+  },
+  "26.25.0": {
+    "wid": "26.25.0",
+    "page": 368,
+    "x": [
+      1679,
+      1633,
+      1585
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00014-c0035",
+    "note": "Detached lam bowl separated from merged qaf-alif at visual body gap; elongated qaf baseline retained with alif."
+  },
+  "27.47.5": {
+    "wid": "27.47.5",
+    "page": 381,
+    "x": [
+      491,
+      441,
+      387
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00014-c0036",
+    "note": "Detached lam bowl separated from merged qaf-alif at visual body gap; elongated qaf baseline retained with alif."
+  },
+  "3.40.11": {
+    "wid": "3.40.11",
+    "page": 55,
+    "x": [
+      211,
+      160,
+      108
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00014-c0037",
+    "note": "Detached lam bowl separated from merged qaf-alif at visual body gap; elongated qaf baseline retained with alif."
+  },
+  "3.173.1": {
+    "wid": "3.173.1",
+    "page": 72,
+    "x": [
+      1666,
+      1588,
+      1531
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00014-c0038",
+    "note": "Detached lam bowl separated from merged qaf-alif at visual body gap; elongated qaf baseline retained with alif."
+  },
+  "5.26.0": {
+    "wid": "5.26.0",
+    "page": 112,
+    "x": [
+      1277,
+      1229,
+      1171
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00014-c0039",
+    "note": "Detached lam bowl separated from merged qaf-alif at visual body gap; elongated qaf baseline retained with alif."
+  },
+  "5.112.1": {
+    "wid": "5.112.1",
+    "page": 126,
+    "x": [
+      237,
+      169,
+      115
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00014-c0040",
+    "note": "Detached lam bowl separated from merged qaf-alif at visual body gap; elongated qaf baseline retained with alif."
+  },
+  "7.61.0": {
+    "wid": "7.61.0",
+    "page": 158,
+    "x": [
+      247,
+      155,
+      103
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00014-c0041",
+    "note": "Detached lam bowl separated from merged qaf-alif at visual body gap; elongated qaf baseline retained with alif."
+  },
+  "12.28.6": {
+    "wid": "12.28.6",
+    "page": 238,
+    "x": [
+      380,
+      288,
+      232
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00014-c0042",
+    "note": "Detached lam bowl separated from merged qaf-alif at visual body gap; elongated qaf baseline retained with alif."
+  },
+  "18.78.0": {
+    "wid": "18.78.0",
+    "page": 302,
+    "x": [
+      667,
+      611,
+      557
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00014-c0043",
+    "note": "Detached lam bowl separated from merged qaf-alif at visual body gap; elongated qaf baseline retained with alif."
+  },
+  "20.21.0": {
+    "wid": "20.21.0",
+    "page": 313,
+    "x": [
+      397,
+      346,
+      288
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00014-c0044",
+    "note": "Detached lam bowl separated from merged qaf-alif at visual body gap; elongated qaf baseline retained with alif."
+  },
+  "26.188.0": {
+    "wid": "26.188.0",
+    "page": 375,
+    "x": [
+      1238,
+      1189,
+      1137
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00014-c0045",
+    "note": "Detached lam bowl separated from merged qaf-alif at visual body gap; elongated qaf baseline retained with alif."
+  },
+  "2.113.16": {
+    "wid": "2.113.16",
+    "page": 18,
+    "x": [
+      227,
+      165,
+      111
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00014-c0046",
+    "note": "Detached lam bowl separated from merged qaf-alif at visual body gap; elongated qaf baseline retained with alif."
+  },
+  "2.124.14": {
+    "wid": "2.124.14",
+    "page": 19,
+    "x": [
+      315,
+      237,
+      189
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00014-c0047",
+    "note": "Detached lam bowl separated from merged qaf-alif at visual body gap; elongated qaf baseline retained with alif."
+  },
+  "2.246.21": {
+    "wid": "2.246.21",
+    "page": 40,
+    "x": [
+      306,
+      175,
+      126
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00014-c0048",
+    "note": "Detached lam bowl separated from merged qaf-alif at visual body gap; elongated qaf baseline retained with alif."
+  },
+  "7.155.9": {
+    "wid": "7.155.9",
+    "page": 169,
+    "x": [
+      1838,
+      1790,
+      1735
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00014-c0049",
+    "note": "Detached lam bowl separated from merged qaf-alif at visual body gap; elongated qaf baseline retained with alif. Upper right vowel ink clipped at immutable edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "17.102.0": {
+    "wid": "17.102.0",
+    "page": 292,
+    "x": [
+      734,
+      688,
+      636
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00014-c0050",
+    "note": "Detached lam bowl separated from merged qaf-alif at visual body gap; elongated qaf baseline retained with alif."
+  },
+  "20.61.0": {
+    "wid": "20.61.0",
+    "page": 315,
+    "x": [
+      426,
+      321,
+      266
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00014-c0051",
+    "note": "Detached lam bowl separated from merged qaf-alif at visual body gap; elongated qaf baseline retained with alif."
+  },
+  "20.94.0": {
+    "wid": "20.94.0",
+    "page": 318,
+    "x": [
+      1157,
+      1105,
+      1052
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00014-c0052",
+    "note": "Detached lam bowl separated from merged qaf-alif at visual body gap; elongated qaf baseline retained with alif."
+  },
+  "20.96.0": {
+    "wid": "20.96.0",
+    "page": 318,
+    "x": [
+      498,
+      410,
+      357
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00014-c0053",
+    "note": "Detached lam bowl separated from merged qaf-alif at visual body gap; elongated qaf baseline retained with alif."
+  },
+  "2.67.1": {
+    "wid": "2.67.1",
+    "page": 10,
+    "x": [
+      288,
+      163,
+      106
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00014-c0054",
+    "note": "Detached lam bowl separated from merged qaf-alif at visual body gap; elongated qaf baseline retained with alif."
+  },
+  "3.52.10": {
+    "wid": "3.52.10",
+    "page": 56,
+    "x": [
+      826,
+      775,
+      644
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00014-c0055",
+    "note": "Detached lam bowl separated from merged qaf-alif at visual body gap; elongated baseline retained with owning target. Upper right ink clipped at immutable edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "3.59.11": {
+    "wid": "3.59.11",
+    "page": 57,
+    "x": [
+      228,
+      168,
+      113
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00014-c0056",
+    "note": "Detached lam bowl separated from merged qaf-alif at visual body gap; elongated baseline retained with owning target."
+  },
+  "11.43.0": {
+    "wid": "11.43.0",
+    "page": 226,
+    "x": [
+      1834,
+      1785,
+      1731
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00014-c0057",
+    "note": "Detached lam bowl separated from merged qaf-alif at visual body gap; elongated baseline retained with owning target. Upper right ink clipped at immutable edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "11.78.9": {
+    "wid": "11.78.9",
+    "page": 230,
+    "x": [
+      1268,
+      1224,
+      1177
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00014-c0058",
+    "note": "Detached lam bowl separated from merged qaf-alif at visual body gap; elongated baseline retained with owning target."
+  },
+  "11.84.4": {
+    "wid": "11.84.4",
+    "page": 231,
+    "x": [
+      1604,
+      1558,
+      1499
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00014-c0059",
+    "note": "Detached lam bowl separated from merged qaf-alif at visual body gap; elongated baseline retained with owning target."
+  },
+  "12.18.5": {
+    "wid": "12.18.5",
+    "page": 237,
+    "x": [
+      1495,
+      1452,
+      1395
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00014-c0060",
+    "note": "Detached lam bowl separated from merged qaf-alif at visual body gap; elongated baseline retained with owning target. Upper right ink clipped at immutable edge. Partial qaf bowl and dots remain visible; no target body wholly absent.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "12.69.7": {
+    "wid": "12.69.7",
+    "page": 243,
+    "x": [
+      231,
+      166,
+      111
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00014-c0061",
+    "note": "Detached lam bowl separated from merged qaf-alif at visual body gap; elongated baseline retained with owning target."
+  },
+  "12.94.3": {
+    "wid": "12.94.3",
+    "page": 246,
+    "x": [
+      1639,
+      1592,
+      1421
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00014-c0062",
+    "note": "Detached lam bowl separated from merged qaf-alif at visual body gap; elongated baseline retained with owning target."
+  },
+  "12.96.9": {
+    "wid": "12.96.9",
+    "page": 247,
+    "x": [
+      226,
+      158,
+      104
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00014-c0063",
+    "note": "Detached lam bowl separated from merged qaf-alif at visual body gap; elongated baseline retained with owning target."
+  },
+  "18.60.1": {
+    "wid": "18.60.1",
+    "page": 300,
+    "x": [
+      1233,
+      1183,
+      1040
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00014-c0064",
+    "note": "Detached lam bowl separated from merged qaf-alif at visual body gap; elongated baseline retained with owning target. Shaded check shows right vowel ink clipped at immutable edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "20.25.0": {
+    "wid": "20.25.0",
+    "page": 313,
+    "x": [
+      230,
+      148,
+      91
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00014-c0065",
+    "note": "Detached lam bowl separated from merged qaf-alif at visual body gap; elongated baseline retained with owning target."
+  },
+  "20.66.0": {
+    "wid": "20.66.0",
+    "page": 316,
+    "x": [
+      231,
+      164,
+      113
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00014-c0066",
+    "note": "Detached lam bowl separated from merged qaf-alif at visual body gap; elongated baseline retained with owning target."
+  },
+  "20.97.0": {
+    "wid": "20.97.0",
+    "page": 318,
+    "x": [
+      323,
+      170,
+      109
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00014-c0067",
+    "note": "Detached lam bowl separated from merged qaf-alif at visual body gap; elongated baseline retained with owning target."
+  },
+  "20.125.0": {
+    "wid": "20.125.0",
+    "page": 320,
+    "x": [
+      1484,
+      1432,
+      1376
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00014-c0068",
+    "note": "Detached lam bowl separated from merged qaf-alif at visual body gap; elongated baseline retained with owning target."
+  },
+  "29.30.0": {
+    "wid": "29.30.0",
+    "page": 399,
+    "x": [
+      1645,
+      1538,
+      1483
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00014-c0069",
+    "note": "Detached lam bowl separated from merged qaf-alif at visual body gap; elongated baseline retained with owning target."
+  },
+  "37.102.4": {
+    "wid": "37.102.4",
+    "page": 449,
+    "x": [
+      265,
+      139,
+      87
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00014-c0070",
+    "note": "Detached lam bowl separated from merged qaf-alif at visual body gap; elongated baseline retained with owning target."
+  },
+  "37.85.1": {
+    "wid": "37.85.1",
+    "page": 449,
+    "x": [
+      203,
+      134,
+      86
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00014-c0071",
+    "note": "Detached lam bowl separated from merged qaf-alif at visual body gap; elongated baseline retained with owning target."
+  },
+  "48.15.18": {
+    "wid": "48.15.18",
+    "page": 512,
+    "x": [
+      712,
+      666,
+      502
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00014-c0072",
+    "note": "Detached lam bowl separated from merged qaf-alif at visual body gap; elongated baseline retained with owning target."
+  },
+  "68.15.4": {
+    "wid": "68.15.4",
+    "page": 564,
+    "x": [
+      1069,
+      1017,
+      834
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00014-c0073",
+    "note": "Detached lam body and elongated lam return separated from merged qaf-alif at visual body gap."
+  }
+}

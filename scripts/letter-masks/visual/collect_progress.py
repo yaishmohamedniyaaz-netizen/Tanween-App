@@ -43,7 +43,12 @@ def collect():
         events.append(dict(event='visually-reviewed', observer='blind_test',
                            image=path.relative_to(ROOT).as_posix(), words=[e['wid']],
                            phase=e['stage'], time=e.get('time')))
-    (HERE/'audit/blind.jsonl').write_text(''.join(json.dumps(e)+'\n' for e in events), encoding='utf-8')
+    normalized_blind = HERE/'audit/blind.jsonl'
+    if normalized_blind.exists():
+        if lines(normalized_blind) != events:
+            raise ValueError('Existing blind audit differs; preserve history and reconcile explicitly')
+    else:
+        normalized_blind.write_text(''.join(json.dumps(e)+'\n' for e in events), encoding='utf-8')
     events = [e for p in sorted((HERE/'audit').glob('*.jsonl')) for e in lines(p)]
     actual_events = [e for e in events if e.get('event')=='visually-reviewed']
     reviewed = {wid for e in actual_events for wid in e['words']}

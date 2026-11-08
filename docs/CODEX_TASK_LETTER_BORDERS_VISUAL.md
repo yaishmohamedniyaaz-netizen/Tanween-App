@@ -145,3 +145,13 @@ The job will span several sessions. Keep everything resumable:
 - Then Claude:
   - switches the app's prototype to the new guesses;
   - shows the owner the sheets and questions.
+
+### Cloud continuation — intermediate snapshot, 2026-11-08 11:17 UTC
+
+Continued only on `codex/letter-borders-visual` from `e9c81c4`. Linux RAQM is available; the actual synthetic Arabic smoke image was opened and read. The rank005 original013 evidence gap was addressed first by directly reopening the current original and intact shaded check, inspecting all six specified words, and appending two fresh SHA-backed audit events (`cloud-root-20261108`). Historical events remain unchanged; historical original bytes were not recovered. Current original SHA is `364caf3ed8db7ae0f51b4c51186fa25f310962f18d65ac49cf5a5e63ef04fa37`; shaded check SHA remains `89bcb722f8f78dd2153410ff06133455b375b7fcfc66706c52085087f4a88672`.
+
+The saved 11:16:55 UTC aggregate contains 14,276 pilot decisions, 25 reviewed withheld exceptions, 8,347 unresolved words, and 52 complete ranks out of 100 (22,648 pilot words). There are 14,297 total decisions including frozen non-pilot test words, 1,969 actual-view audit events and 1,928 distinct audited image paths across historical and continuation work. These are cumulative audit counts, not a claim that all images were newly opened this session. Exact token usage is unavailable. Direct reviews have been ongoing since approximately 10:50 UTC; parallel agent times overlap and are not summed as elapsed wall time.
+
+Checkpoint A remains incomplete. No hidden answers were inspected, no scoring was run, and no evaluation outputs are claimed. Frozen decisions SHA256 remains `766e716327f6ee1b0e2823ad8786b5b2181954b27c3939aa5aaa0954b969e046`. The completeness command correctly returns exit2 while unresolved words remain. Scoped Node tests passed10/10 earlier in this continuation. Source, artwork, page data, judging targets, approved borders, and blind files are untouched. Working drafts are retained as drafts; only canonical saved decisions count.
+
+Rank028–032 reviews are complete (rank032 has214 decisions+2withheld); rank-specific RESUME files and archived shaded evidence identify corrections. Visual review exposed occasional outer endpoints from piece ownership that omitted a visible detached alif. Such endpoints were corrected manually only after viewing, within the immutable word box, and shaded results were reopened. Owner question for later review: how should marginal alif traces be distinguished from meaningful surviving body slivers? Absent bodies are withheld; recognizable partial black stems are retained low with `clipped-ink`, with evidence preserved for owner adjudication.

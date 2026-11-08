@@ -1,0 +1,826 @@
+{
+  "8.67.7": {
+    "wid": "8.67.7",
+    "page": 185,
+    "x": [
+      1544,
+      1485,
+      1468,
+      1419
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00084-c0001",
+    "note": "X-warp from visually decided 49.5.3; destination requires sheet review. Actual destination spans checked against ha head, ta shoulder and maqsura neck; overlapping return retained, moderate division uncertainty."
+  },
+  "24.28.7": {
+    "wid": "24.28.7",
+    "page": 353,
+    "x": [
+      690,
+      632,
+      614,
+      566
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00084-c0001",
+    "note": "X-warp from visually decided 49.5.3; destination requires sheet review. Actual destination spans checked against ha head, ta shoulder and maqsura neck; overlapping return retained, moderate division uncertainty."
+  },
+  "37.174.2": {
+    "wid": "37.174.2",
+    "page": 452,
+    "x": [
+      880,
+      822,
+      806,
+      763
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00084-c0001",
+    "note": "X-warp from visually decided 49.5.3; destination requires sheet review. Actual destination spans checked against ha head, ta shoulder and maqsura neck; overlapping return retained, moderate division uncertainty."
+  },
+  "37.178.2": {
+    "wid": "37.178.2",
+    "page": 452,
+    "x": [
+      875,
+      818,
+      800,
+      753
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00084-c0001",
+    "note": "X-warp from visually decided 49.5.3; destination requires sheet review. Actual destination spans checked against ha head, ta shoulder and maqsura neck; overlapping return retained, moderate division uncertainty."
+  },
+  "47.4.16": {
+    "wid": "47.4.16",
+    "page": 507,
+    "x": [
+      502,
+      446,
+      429,
+      385
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00084-c0001",
+    "note": "X-warp from visually decided 49.5.3; destination requires sheet review. Actual destination spans checked against ha head, ta shoulder and maqsura neck; overlapping return retained, moderate division uncertainty."
+  },
+  "60.4.28": {
+    "wid": "60.4.28",
+    "page": 549,
+    "x": [
+      889,
+      832,
+      819,
+      774
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00084-c0001",
+    "note": "X-warp from visually decided 49.5.3; destination requires sheet review. Actual destination spans checked against ha head, ta shoulder and maqsura neck; overlapping return retained, moderate division uncertainty."
+  },
+  "98.1.9": {
+    "wid": "98.1.9",
+    "page": 598,
+    "x": [
+      1814,
+      1755,
+      1740,
+      1696
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00084-c0001",
+    "note": "X-warp from visually decided 49.5.3; destination requires sheet review. Actual destination spans checked against ha head, ta shoulder and maqsura neck; overlapping return retained, moderate division uncertainty."
+  },
+  "2.187.32": {
+    "wid": "2.187.32",
+    "page": 29,
+    "x": [
+      526,
+      471,
+      454,
+      411
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00084-c0002",
+    "note": "X-warp from visually decided 7.95.5; destination requires sheet review. Actual destination spans checked against ha head, ta shoulder and maqsura neck; overlapping return retained, moderate division uncertainty."
+  },
+  "2.191.16": {
+    "wid": "2.191.16",
+    "page": 30,
+    "x": [
+      500,
+      443,
+      428,
+      386
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00084-c0002",
+    "note": "X-warp from visually decided 7.95.5; destination requires sheet review. Actual destination spans checked against ha head, ta shoulder and maqsura neck; overlapping return retained, moderate division uncertainty."
+  },
+  "13.31.42": {
+    "wid": "13.31.42",
+    "page": 253,
+    "x": [
+      349,
+      287,
+      271,
+      228
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00084-c0002",
+    "note": "X-warp from visually decided 7.95.5; destination requires sheet review. Actual destination spans checked against ha head, ta shoulder and maqsura neck; overlapping return retained, moderate division uncertainty."
+  },
+  "17.93.13": {
+    "wid": "17.93.13",
+    "page": 291,
+    "x": [
+      1635,
+      1575,
+      1558,
+      1515
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00084-c0002",
+    "note": "X-warp from visually decided 7.95.5; destination requires sheet review. Actual destination spans checked against ha head, ta shoulder and maqsura neck; overlapping return retained, moderate division uncertainty."
+  },
+  "20.91.5": {
+    "wid": "20.91.5",
+    "page": 318,
+    "x": [
+      669,
+      605,
+      588,
+      539
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00084-c0002",
+    "note": "X-warp from visually decided 7.95.5; destination requires sheet review. Actual destination spans checked against ha head, ta shoulder and maqsura neck; overlapping return retained, moderate division uncertainty."
+  },
+  "21.44.4": {
+    "wid": "21.44.4",
+    "page": 325,
+    "x": [
+      1474,
+      1409,
+      1392,
+      1345
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00084-c0002",
+    "note": "X-warp from visually decided 7.95.5; destination requires sheet review. Actual destination spans checked against ha head, ta shoulder and maqsura neck; overlapping return retained, moderate division uncertainty."
+  },
+  "2.55.6": {
+    "wid": "2.55.6",
+    "page": 8,
+    "x": [
+      725,
+      671,
+      655,
+      604
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00084-c0003",
+    "note": "X-warp from visually decided 2.235.30; destination requires sheet review. Actual destination spans checked against ha head, ta shoulder and maqsura neck; overlapping return retained, moderate division uncertainty."
+  },
+  "2.214.16": {
+    "wid": "2.214.16",
+    "page": 33,
+    "x": [
+      1596,
+      1542,
+      1524,
+      1478
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00084-c0003",
+    "note": "X-warp from visually decided 2.235.30; destination requires sheet review. Actual destination spans checked against ha head, ta shoulder and maqsura neck; overlapping return retained, moderate division uncertainty."
+  },
+  "2.221.15": {
+    "wid": "2.221.15",
+    "page": 35,
+    "x": [
+      251,
+      198,
+      176,
+      126
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00084-c0003",
+    "note": "X-warp from visually decided 2.235.30; destination requires sheet review. Actual destination spans checked against ha head, ta shoulder and maqsura neck; overlapping return retained, moderate division uncertainty."
+  },
+  "2.230.7": {
+    "wid": "2.230.7",
+    "page": 36,
+    "x": [
+      426,
+      373,
+      357,
+      308
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00084-c0003",
+    "note": "X-warp from visually decided 2.235.30; destination requires sheet review. Actual destination spans checked against ha head, ta shoulder and maqsura neck; overlapping return retained, moderate division uncertainty."
+  },
+  "28.23.21": {
+    "wid": "28.23.21",
+    "page": 388,
+    "x": [
+      917,
+      863,
+      845,
+      798
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00084-c0003",
+    "note": "X-warp from visually decided 2.235.30; destination requires sheet review. Actual destination spans checked against ha head, ta shoulder and maqsura neck; overlapping return retained, moderate division uncertainty."
+  },
+  "9.43.6": {
+    "wid": "9.43.6",
+    "page": 194,
+    "x": [
+      860,
+      796,
+      778,
+      731
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00084-c0004",
+    "note": "X-warp from visually decided 12.80.26; destination requires sheet review. Actual destination spans checked against ha head, ta shoulder and maqsura neck; overlapping return retained, moderate division uncertainty."
+  },
+  "10.88.25": {
+    "wid": "10.88.25",
+    "page": 218,
+    "x": [
+      934,
+      868,
+      853,
+      804
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00084-c0004",
+    "note": "X-warp from visually decided 12.80.26; destination requires sheet review. Actual destination spans checked against ha head, ta shoulder and maqsura neck; overlapping return retained, moderate division uncertainty."
+  },
+  "12.35.9": {
+    "wid": "12.35.9",
+    "page": 239,
+    "x": [
+      1826,
+      1763,
+      1747,
+      1699
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00084-c0004",
+    "note": "X-warp from visually decided 12.80.26; destination requires sheet review. Actual destination spans checked against ha head, ta shoulder and maqsura neck; overlapping return retained, moderate division uncertainty. Ha right tip appears clipped flush at immutable box edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "12.66.4": {
+    "wid": "12.66.4",
+    "page": 243,
+    "x": [
+      1290,
+      1230,
+      1214,
+      1168
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00084-c0004",
+    "note": "X-warp from visually decided 12.80.26; destination requires sheet review. Actual destination spans checked against ha head, ta shoulder and maqsura neck; overlapping return retained, moderate division uncertainty."
+  },
+  "65.6.16": {
+    "wid": "65.6.16",
+    "page": 559,
+    "x": [
+      676,
+      608,
+      592,
+      540
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00084-c0004",
+    "note": "X-warp from visually decided 12.80.26; destination requires sheet review. Actual destination spans checked against ha head, ta shoulder and maqsura neck; overlapping return retained, moderate division uncertainty."
+  },
+  "7.40.14": {
+    "wid": "7.40.14",
+    "page": 155,
+    "x": [
+      1610,
+      1552,
+      1540,
+      1494
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00084-c0005",
+    "note": "X-warp from visually decided 10.93.11; destination requires sheet review. Actual destination spans checked against ha head, ta shoulder and maqsura neck; overlapping return retained, moderate division uncertainty."
+  },
+  "10.99.12": {
+    "wid": "10.99.12",
+    "page": 220,
+    "x": [
+      1040,
+      979,
+      968,
+      917
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00084-c0005",
+    "note": "X-warp from visually decided 10.93.11; destination requires sheet review. Actual destination spans checked against ha head, ta shoulder and maqsura neck; overlapping return retained, moderate division uncertainty."
+  },
+  "38.32.8": {
+    "wid": "38.32.8",
+    "page": 455,
+    "x": [
+      911,
+      846,
+      835,
+      786
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00084-c0005",
+    "note": "X-warp from visually decided 10.93.11; destination requires sheet review. Actual destination spans checked against ha head, ta shoulder and maqsura neck; overlapping return retained, moderate division uncertainty."
+  },
+  "102.2.0": {
+    "wid": "102.2.0",
+    "page": 600,
+    "x": [
+      1155,
+      1092,
+      1080,
+      1032
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00084-c0005",
+    "note": "X-warp from visually decided 10.93.11; destination requires sheet review. Actual destination spans checked against ha head, ta shoulder and maqsura neck; overlapping return retained, moderate division uncertainty."
+  },
+  "17.90.4": {
+    "wid": "17.90.4",
+    "page": 291,
+    "x": [
+      579,
+      522,
+      504,
+      450
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00084-c0006",
+    "note": "X-warp from visually decided 17.15.18; destination requires sheet review. Actual destination spans checked against ha head, ta shoulder and maqsura neck; overlapping return retained, moderate division uncertainty."
+  },
+  "21.15.4": {
+    "wid": "21.15.4",
+    "page": 323,
+    "x": [
+      1551,
+      1489,
+      1471,
+      1417
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00084-c0006",
+    "note": "X-warp from visually decided 17.15.18; destination requires sheet review. Actual destination spans checked against ha head, ta shoulder and maqsura neck; overlapping return retained, moderate division uncertainty."
+  },
+  "22.55.7": {
+    "wid": "22.55.7",
+    "page": 338,
+    "x": [
+      211,
+      151,
+      134,
+      80
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00084-c0006",
+    "note": "X-warp from visually decided 17.15.18; destination requires sheet review. Actual destination spans checked against ha head, ta shoulder and maqsura neck; overlapping return retained, moderate division uncertainty."
+  },
+  "23.25.8": {
+    "wid": "23.25.8",
+    "page": 343,
+    "x": [
+      975,
+      909,
+      890,
+      834
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00084-c0006",
+    "note": "X-warp from visually decided 17.15.18; destination requires sheet review. Actual destination spans checked against ha head, ta shoulder and maqsura neck; overlapping return retained, moderate division uncertainty."
+  },
+  "6.124.6": {
+    "wid": "6.124.6",
+    "page": 143,
+    "x": [
+      1224,
+      1161,
+      1142,
+      1094
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00084-c0007",
+    "note": "X-warp from visually decided 24.33.5; destination requires sheet review. Actual destination spans checked against ha head, ta shoulder and maqsura neck; overlapping return retained, moderate division uncertainty."
+  },
+  "9.48.8": {
+    "wid": "9.48.8",
+    "page": 195,
+    "x": [
+      232,
+      169,
+      148,
+      100
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00084-c0007",
+    "note": "X-warp from visually decided 24.33.5; destination requires sheet review. Actual destination spans checked against ha head, ta shoulder and maqsura neck; overlapping return retained, moderate division uncertainty."
+  },
+  "41.53.6": {
+    "wid": "41.53.6",
+    "page": 482,
+    "x": [
+      891,
+      824,
+      807,
+      752
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00084-c0007",
+    "note": "X-warp from visually decided 24.33.5; destination requires sheet review. Actual destination spans checked against ha head, ta shoulder and maqsura neck; overlapping return retained, moderate division uncertainty."
+  },
+  "52.45.1": {
+    "wid": "52.45.1",
+    "page": 525,
+    "x": [
+      412,
+      355,
+      336,
+      291
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00084-c0007",
+    "note": "X-warp from visually decided 24.33.5; destination requires sheet review. Actual destination spans checked against ha head, ta shoulder and maqsura neck; overlapping return retained, moderate division uncertainty."
+  },
+  "4.140.17": {
+    "wid": "4.140.17",
+    "page": 100,
+    "x": [
+      1420,
+      1357,
+      1342,
+      1292
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00084-c0008",
+    "note": "X-warp from visually decided 7.87.12; destination requires sheet review. Actual destination spans checked against ha head, ta shoulder and maqsura neck; overlapping return retained, moderate division uncertainty."
+  },
+  "17.34.8": {
+    "wid": "17.34.8",
+    "page": 285,
+    "x": [
+      1542,
+      1479,
+      1464,
+      1413
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00084-c0008",
+    "note": "X-warp from visually decided 7.87.12; destination requires sheet review. Actual destination spans checked against ha head, ta shoulder and maqsura neck; overlapping return retained, moderate division uncertainty."
+  },
+  "51.43.6": {
+    "wid": "51.43.6",
+    "page": 522,
+    "x": [
+      1089,
+      1028,
+      1015,
+      966
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00084-c0008",
+    "note": "X-warp from visually decided 7.87.12; destination requires sheet review. Actual destination spans checked against ha head, ta shoulder and maqsura neck; overlapping return retained, moderate division uncertainty."
+  },
+  "6.152.8": {
+    "wid": "6.152.8",
+    "page": 149,
+    "x": [
+      555,
+      498,
+      485,
+      438
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00084-c0009",
+    "note": "X-warp from visually decided 2.120.6; destination requires sheet review. Actual destination spans checked against ha head, ta shoulder and maqsura neck; overlapping return retained, moderate division uncertainty."
+  },
+  "47.31.1": {
+    "wid": "47.31.1",
+    "page": 510,
+    "x": [
+      389,
+      326,
+      313,
+      265
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00084-c0009",
+    "note": "X-warp from visually decided 2.120.6; destination requires sheet review. Actual destination spans checked against ha head, ta shoulder and maqsura neck; overlapping return retained, moderate division uncertainty."
+  },
+  "13.11.17": {
+    "wid": "13.11.17",
+    "page": 250,
+    "x": [
+      749,
+      688,
+      674,
+      624
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00084-c0010",
+    "note": "X-warp from visually decided 2.222.12; destination requires sheet review. Actual destination spans checked against ha head, ta shoulder and maqsura neck; overlapping return retained, moderate division uncertainty."
+  },
+  "15.99.2": {
+    "wid": "15.99.2",
+    "page": 267,
+    "x": [
+      881,
+      820,
+      805,
+      752
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00084-c0010",
+    "note": "X-warp from visually decided 2.222.12; destination requires sheet review. Actual destination spans checked against ha head, ta shoulder and maqsura neck; overlapping return retained, moderate division uncertainty."
+  },
+  "2.217.31": {
+    "wid": "2.217.31",
+    "page": 34,
+    "x": [
+      1814,
+      1757,
+      1740,
+      1696
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00084-c0011",
+    "note": "X-warp from visually decided 5.22.9; destination requires sheet review. Actual destination spans checked against ha head, ta shoulder and maqsura neck; overlapping return retained, moderate division uncertainty."
+  },
+  "9.6.6": {
+    "wid": "9.6.6",
+    "page": 187,
+    "x": [
+      442,
+      380,
+      363,
+      316
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00084-c0011",
+    "note": "X-warp from visually decided 5.22.9; destination requires sheet review. Actual destination spans checked against ha head, ta shoulder and maqsura neck; overlapping return retained, moderate division uncertainty."
+  },
+  "2.221.3": {
+    "wid": "2.221.3",
+    "page": 35,
+    "x": [
+      1073,
+      1016,
+      1000,
+      950
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00084-c0012",
+    "note": "X-warp from visually decided 9.115.8; destination requires sheet review. Actual destination spans checked against ha head, ta shoulder and maqsura neck; overlapping return retained, moderate division uncertainty."
+  },
+  "3.183.9": {
+    "wid": "3.183.9",
+    "page": 74,
+    "x": [
+      659,
+      598,
+      581,
+      527
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00084-c0012",
+    "note": "X-warp from visually decided 9.115.8; destination requires sheet review. Actual destination spans checked against ha head, ta shoulder and maqsura neck; overlapping return retained, moderate division uncertainty."
+  },
+  "23.54.3": {
+    "wid": "23.54.3",
+    "page": 345,
+    "x": [
+      948,
+      891,
+      876,
+      827
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00084-c0013",
+    "note": "X-warp from visually decided 27.32.10; destination requires sheet review. Actual destination spans checked against ha head, ta shoulder and maqsura neck; overlapping return retained, moderate division uncertainty."
+  },
+  "28.59.5": {
+    "wid": "28.59.5",
+    "page": 392,
+    "x": [
+      1592,
+      1535,
+      1517,
+      1465
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00084-c0013",
+    "note": "X-warp from visually decided 27.32.10; destination requires sheet review. Actual destination spans checked against ha head, ta shoulder and maqsura neck; overlapping return retained, moderate division uncertainty."
+  },
+  "43.29.4": {
+    "wid": "43.29.4",
+    "page": 491,
+    "x": [
+      1123,
+      1061,
+      1041,
+      987
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00084-c0014",
+    "note": "X-warp from visually decided 2.102.27; destination requires sheet review. Actual destination spans checked against ha head, ta shoulder and maqsura neck; overlapping return retained, moderate division uncertainty."
+  },
+  "4.15.14": {
+    "wid": "4.15.14",
+    "page": 80,
+    "x": [
+      1503,
+      1449,
+      1434,
+      1383
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00084-c0015",
+    "note": "X-warp from visually decided 2.109.23; destination requires sheet review. Actual destination spans checked against ha head, ta shoulder and maqsura neck; overlapping return retained, moderate division uncertainty."
+  },
+  "49.9.15": {
+    "wid": "49.9.15",
+    "page": 516,
+    "x": [
+      1031,
+      974,
+      958,
+      912
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00084-c0016",
+    "note": "X-warp from visually decided 2.193.1; destination requires sheet review. Actual destination spans checked against ha head, ta shoulder and maqsura neck; overlapping return retained, moderate division uncertainty."
+  },
+  "97.5.2": {
+    "wid": "97.5.2",
+    "page": 598,
+    "x": [
+      709,
+      649,
+      636,
+      586
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00084-c0017",
+    "note": "X-warp from visually decided 4.43.17; destination requires sheet review. Actual destination spans checked against ha head, ta shoulder and maqsura neck; overlapping return retained, moderate division uncertainty. Ha right tip appears clipped flush at immutable box edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "4.89.11": {
+    "wid": "4.89.11",
+    "page": 92,
+    "x": [
+      1821,
+      1756,
+      1745,
+      1690
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00084-c0018",
+    "note": "X-warp from visually decided 4.43.8; destination requires sheet review. Actual destination spans checked against ha head, ta shoulder and maqsura neck; overlapping return retained, moderate division uncertainty."
+  },
+  "8.39.1": {
+    "wid": "8.39.1",
+    "page": 181,
+    "x": [
+      249,
+      188,
+      168,
+      116
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00084-c0019",
+    "note": "X-warp from visually decided 5.68.6; destination requires sheet review. Actual destination spans checked against ha head, ta shoulder and maqsura neck; overlapping return retained, moderate division uncertainty."
+  },
+  "9.29.22": {
+    "wid": "9.29.22",
+    "page": 191,
+    "x": [
+      1426,
+      1360,
+      1349,
+      1301
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00084-c0020",
+    "note": "X-warp from visually decided 9.24.24; destination requires sheet review. Actual destination spans checked against ha head, ta shoulder and maqsura neck; overlapping return retained, moderate division uncertainty. Ha right tip appears clipped flush at immutable box edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "57.14.13": {
+    "wid": "57.14.13",
+    "page": 539,
+    "x": [
+      491,
+      427,
+      414,
+      359
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00084-c0021",
+    "note": "X-warp from visually decided 10.109.5; destination requires sheet review. Actual destination spans checked against ha head, ta shoulder and maqsura neck; overlapping return retained, moderate division uncertainty."
+  },
+  "25.18.15": {
+    "wid": "25.18.15",
+    "page": 361,
+    "x": [
+      1462,
+      1401,
+      1391,
+      1340
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00084-c0022",
+    "note": "X-warp from visually decided 12.85.5; destination requires sheet review. Actual destination spans checked against ha head, ta shoulder and maqsura neck; overlapping return retained, moderate division uncertainty. Ha right tip appears clipped flush at immutable box edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "26.201.3": {
+    "wid": "26.201.3",
+    "page": 375,
+    "x": [
+      543,
+      485,
+      473,
+      424
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00084-c0023",
+    "note": "X-warp from visually decided 24.62.14; destination requires sheet review. Actual destination spans checked against ha head, ta shoulder and maqsura neck; overlapping return retained, moderate division uncertainty."
+  }
+}

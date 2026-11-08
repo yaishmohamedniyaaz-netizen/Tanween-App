@@ -1,0 +1,3 @@
+# Rank032 cloud review
+
+2026-11-08:214 accepted decisions +2 visually evidenced withheld exceptions (2.171.4,35.39.1), covering216 words. 53 representative originals and every carried destination actually inspected. Accepted shaded sheets in cloud-batch-001..003; first-pass corrections preserved separately. Main body cuts refined where ya head overlapped the dhal tail. Partial alif stems35.37.8,33.43.1,42.28.1 retained low+clipped-ink; only marginal trace in35.39.1 withheld. Manual outer-edge corrections include visible alif ink missed by piece-ownership helper, all within immutable boxes. No hidden answers inspected or scoring performed.

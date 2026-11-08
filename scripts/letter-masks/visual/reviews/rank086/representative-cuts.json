@@ -1,0 +1,375 @@
+{
+  "18.82.31": {
+    "wid": "18.82.31",
+    "page": 302,
+    "x": [
+      1122,
+      1108,
+      1057
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00086-c0001",
+    "note": "Lam upright and short join end at mim shoulder; right fatha clipped.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "18.42.15": {
+    "wid": "18.42.15",
+    "page": 298,
+    "x": [
+      1130,
+      1113,
+      1064
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00086-c0002",
+    "note": "Lam short join ends at mim shoulder; right fatha clipped.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "3.188.10": {
+    "wid": "3.188.10",
+    "page": 75,
+    "x": [
+      795,
+      772,
+      735
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00086-c0003",
+    "note": "Lam upright and its short turn separated at mim right shoulder; mim bowl and tail retained, moderate joining ambiguity."
+  },
+  "4.168.4": {
+    "wid": "4.168.4",
+    "page": 104,
+    "x": [
+      928,
+      900,
+      862
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00086-c0004",
+    "note": "Lam short join ends at mim shoulder; right fatha clipped.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "58.8.21": {
+    "wid": "58.8.21",
+    "page": 543,
+    "x": [
+      319,
+      306,
+      259
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00086-c0005",
+    "note": "Lam short join ends at mim shoulder; right fatha clipped.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "63.6.5": {
+    "wid": "63.6.5",
+    "page": 555,
+    "x": [
+      1178,
+      1144,
+      1105
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00086-c0006",
+    "note": "Lam short join ends at mim shoulder; right fatha clipped.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "24.35.29": {
+    "wid": "24.35.29",
+    "page": 354,
+    "x": [
+      616,
+      584,
+      533
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00086-c0007",
+    "note": "Lam short turn ends at mim shoulder; mim bowl/tail kept whole, moderate join ambiguity."
+  },
+  "62.5.5": {
+    "wid": "62.5.5",
+    "page": 553,
+    "x": [
+      185,
+      157,
+      123
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00086-c0008",
+    "note": "Lam turn/mim shoulder; clipped right fatha.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "96.5.3": {
+    "wid": "96.5.3",
+    "page": 597,
+    "x": [
+      558,
+      548,
+      505
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00086-c0009",
+    "note": "Lam turn/mim shoulder; clipped right fatha.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "5.41.24": {
+    "wid": "5.41.24",
+    "page": 114,
+    "x": [
+      1571,
+      1548,
+      1495
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00086-c0010",
+    "note": "Lam turn/mim shoulder; clipped right fatha.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "25.67.3": {
+    "wid": "25.67.3",
+    "page": 365,
+    "x": [
+      1839,
+      1805,
+      1769
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00086-c0011",
+    "note": "Lam turn/mim shoulder; clipped right fatha.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "53.36.1": {
+    "wid": "53.36.1",
+    "page": 527,
+    "x": [
+      674,
+      651,
+      615
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00086-c0012",
+    "note": "Lam turn/mim shoulder; clipped right fatha.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.259.40": {
+    "wid": "2.259.40",
+    "page": 43,
+    "x": [
+      819,
+      784,
+      745
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00086-c0013",
+    "note": "Lam short turn ends at mim right shoulder; mim bowl/tail kept whole, moderate join ambiguity."
+  },
+  "6.91.32": {
+    "wid": "6.91.32",
+    "page": 139,
+    "x": [
+      334,
+      324,
+      274
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00086-c0014",
+    "note": "Lam turn/mim shoulder; clipped right fatha.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "9.4.6": {
+    "wid": "9.4.6",
+    "page": 187,
+    "x": [
+      463,
+      437,
+      407
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00086-c0015",
+    "note": "Lam short turn ends at mim right shoulder; mim bowl/tail kept whole, moderate join ambiguity."
+  },
+  "24.4.4": {
+    "wid": "24.4.4",
+    "page": 350,
+    "x": [
+      635,
+      620,
+      578
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00086-c0016",
+    "note": "Lam short turn ends at mim right shoulder; mim bowl/tail kept whole, moderate join ambiguity."
+  },
+  "24.40.20": {
+    "wid": "24.40.20",
+    "page": 355,
+    "x": [
+      166,
+      150,
+      101
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00086-c0017",
+    "note": "Lam turn/mim shoulder; clipped right fatha.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "25.73.5": {
+    "wid": "25.73.5",
+    "page": 366,
+    "x": [
+      1812,
+      1788,
+      1737
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00086-c0018",
+    "note": "Lam short turn ends at mim right shoulder; mim bowl/tail kept whole, moderate join ambiguity."
+  },
+  "27.22.6": {
+    "wid": "27.22.6",
+    "page": 378,
+    "x": [
+      1462,
+      1428,
+      1393
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00086-c0019",
+    "note": "Lam turn/mim shoulder; clipped right fatha.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "33.20.2": {
+    "wid": "33.20.2",
+    "page": 420,
+    "x": [
+      1829,
+      1796,
+      1762
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00086-c0020",
+    "note": "Lam turn/mim shoulder; right fatha appears clipped flush.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "36.10.4": {
+    "wid": "36.10.4",
+    "page": 440,
+    "x": [
+      1235,
+      1216,
+      1167
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00086-c0021",
+    "note": "Lam turn/mim shoulder; right fatha and lam edge clipped.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "18.68.4": {
+    "wid": "18.68.4",
+    "page": 301,
+    "x": [
+      826,
+      817,
+      772
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00086-c0022",
+    "note": "Lam short turn ends at mim right shoulder; mim bowl/tail kept whole, moderate join ambiguity."
+  },
+  "39.42.6": {
+    "wid": "39.42.6",
+    "page": 463,
+    "x": [
+      1823,
+      1813,
+      1736
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00086-c0023",
+    "note": "Compact lam at right turn; inserted long stretch belongs to left mim. Joining ambiguity; right fatha clipped.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "98.1.0": {
+    "wid": "98.1.0",
+    "page": 598,
+    "x": [
+      1805,
+      1791,
+      1753
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00086-c0024",
+    "note": "Lam short turn ends at mim right shoulder; mim bowl/tail kept whole, moderate join ambiguity."
+  },
+  "112.3.0": {
+    "wid": "112.3.0",
+    "page": 604,
+    "x": [
+      435,
+      422,
+      358
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00086-c0025",
+    "note": "Compact lam ends at right turn; extended connector assigned to left mim per guide, moderate join ambiguity."
+  }
+}

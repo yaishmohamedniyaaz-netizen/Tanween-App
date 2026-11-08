@@ -1,0 +1,780 @@
+{
+  "2.244.5": {
+    "wid": "2.244.5",
+    "page": 39,
+    "x": [
+      873,
+      856,
+      802
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00079-c0001",
+    "note": "Clear alif/nun gap; upper mark clipped at right edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "49.7.1": {
+    "wid": "49.7.1",
+    "page": 516,
+    "x": [
+      1587,
+      1573,
+      1513
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00079-c0002",
+    "note": "Boundary lies in the visible gap between detached alif carrier and nun bowl."
+  },
+  "9.3.9": {
+    "wid": "9.3.9",
+    "page": 187,
+    "x": [
+      928,
+      911,
+      860
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00079-c0003",
+    "note": "Gap separates alif and nun; upper mark clipped.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "10.54.1": {
+    "wid": "10.54.1",
+    "page": 215,
+    "x": [
+      1724,
+      1710,
+      1656
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00079-c0004",
+    "note": "Gap separates bodies; hamza reaches right crop edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "35.27.2": {
+    "wid": "35.27.2",
+    "page": 437,
+    "x": [
+      1659,
+      1647,
+      1590
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00079-c0005",
+    "note": "Alif/nun gap; upper marks clipped.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "5.40.2": {
+    "wid": "5.40.2",
+    "page": 114,
+    "x": [
+      663,
+      646,
+      591
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00079-c0006",
+    "note": "Boundary lies in the visible gap between detached alif carrier and nun bowl."
+  },
+  "5.65.1": {
+    "wid": "5.65.1",
+    "page": 119,
+    "x": [
+      1689,
+      1673,
+      1615
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00079-c0007",
+    "note": "Alif/nun gap; upper marks clipped.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "7.75.12": {
+    "wid": "7.75.12",
+    "page": 160,
+    "x": [
+      1808,
+      1793,
+      1649
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00079-c0008",
+    "note": "Wide nun bowl retained; upper marks clipped at right.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "6.58.2": {
+    "wid": "6.58.2",
+    "page": 134,
+    "x": [
+      1189,
+      1165,
+      1116
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00079-c0009",
+    "note": "Boundary lies in the visible gap between detached alif carrier and nun bowl."
+  },
+  "31.20.2": {
+    "wid": "31.20.2",
+    "page": 413,
+    "x": [
+      1631,
+      1615,
+      1566
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00079-c0010",
+    "note": "Detached bodies; hamza clipped at right.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.77.2": {
+    "wid": "2.77.2",
+    "page": 12,
+    "x": [
+      1410,
+      1391,
+      1341
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00079-c0011",
+    "note": "Boundary lies in the visible gap between detached alif carrier and nun bowl."
+  },
+  "2.194.18": {
+    "wid": "2.194.18",
+    "page": 30,
+    "x": [
+      407,
+      390,
+      341
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00079-c0012",
+    "note": "Boundary lies in the visible gap between detached alif carrier and nun bowl."
+  },
+  "5.98.1": {
+    "wid": "5.98.1",
+    "page": 124,
+    "x": [
+      1037,
+      1019,
+      886
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00079-c0013",
+    "note": "Broad nun bowl; clipped hamza at right edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "8.24.11": {
+    "wid": "8.24.11",
+    "page": 179,
+    "x": [
+      1542,
+      1523,
+      1367
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00079-c0014",
+    "note": "Broad nun bowl; clipped upper marks.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "16.23.2": {
+    "wid": "16.23.2",
+    "page": 269,
+    "x": [
+      1429,
+      1414,
+      1282
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00079-c0015",
+    "note": "Broad nun bowl; clipped hamza at right edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "31.29.2": {
+    "wid": "31.29.2",
+    "page": 414,
+    "x": [
+      1646,
+      1638,
+      1585
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00079-c0016",
+    "note": "Alif stem partly clipped at right box edge; retained visible fragment.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.106.13": {
+    "wid": "2.106.13",
+    "page": 17,
+    "x": [
+      1589,
+      1569,
+      1517
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00079-c0017",
+    "note": "Boundary lies in the visible gap between detached alif carrier and nun bowl."
+  },
+  "2.107.2": {
+    "wid": "2.107.2",
+    "page": 17,
+    "x": [
+      390,
+      374,
+      261
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00079-c0018",
+    "note": "Wide nun bowl; upper marks clipped at right.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.165.23": {
+    "wid": "2.165.23",
+    "page": 25,
+    "x": [
+      1551,
+      1534,
+      1480
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00079-c0019",
+    "note": "Detached bodies; hamza clipped at right.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.167.4": {
+    "wid": "2.167.4",
+    "page": 25,
+    "x": [
+      244,
+      222,
+      121
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00079-c0020",
+    "note": "Boundary lies in the visible gap between detached alif carrier and nun bowl."
+  },
+  "2.235.35": {
+    "wid": "2.235.35",
+    "page": 38,
+    "x": [
+      1521,
+      1503,
+      1448
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00079-c0021",
+    "note": "Detached bodies; hamza clipped at right.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.267.25": {
+    "wid": "2.267.25",
+    "page": 45,
+    "x": [
+      663,
+      646,
+      592
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00079-c0022",
+    "note": "Detached bodies; upper marks clipped at right.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "3.86.8": {
+    "wid": "3.86.8",
+    "page": 61,
+    "x": [
+      1826,
+      1809,
+      1753
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00079-c0023",
+    "note": "Detached bodies; upper mark clipped at right.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "5.34.9": {
+    "wid": "5.34.9",
+    "page": 113,
+    "x": [
+      1831,
+      1812,
+      1657
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00079-c0024",
+    "note": "Wide nun bowl; hamza clipped at right.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "5.36.4": {
+    "wid": "5.36.4",
+    "page": 113,
+    "x": [
+      237,
+      219,
+      106
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00079-c0025",
+    "note": "Wide nun bowl; upper mark clipped at right.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "5.45.3": {
+    "wid": "5.45.3",
+    "page": 115,
+    "x": [
+      1674,
+      1655,
+      1595
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00079-c0026",
+    "note": "Boundary in the visible gap between alif carrier and nun bowl; entire nun bowl retained."
+  },
+  "6.19.20": {
+    "wid": "6.19.20",
+    "page": 130,
+    "x": [
+      469,
+      450,
+      306
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00079-c0027",
+    "note": "Wide nun bowl; hamza clipped at right.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "8.25.9": {
+    "wid": "8.25.9",
+    "page": 179,
+    "x": [
+      1059,
+      1040,
+      879
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00079-c0028",
+    "note": "Boundary in the visible gap between alif carrier and nun bowl; entire nun bowl retained."
+  },
+  "9.36.32": {
+    "wid": "9.36.32",
+    "page": 192,
+    "x": [
+      858,
+      839,
+      785
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00079-c0029",
+    "note": "Detached bodies; hamza clipped at right.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "9.78.2": {
+    "wid": "9.78.2",
+    "page": 199,
+    "x": [
+      1836,
+      1820,
+      1651
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00079-c0030",
+    "note": "Wide nun bowl; hamza clipped at right.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "11.80.2": {
+    "wid": "11.80.2",
+    "page": 230,
+    "x": [
+      1514,
+      1495,
+      1442
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00079-c0031",
+    "note": "Boundary in the visible gap between alif carrier and nun bowl; entire nun bowl retained."
+  },
+  "12.80.9": {
+    "wid": "12.80.9",
+    "page": 245,
+    "x": [
+      963,
+      949,
+      787
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00079-c0032",
+    "note": "Wide nun bowl; hamza clipped at right.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "13.18.9": {
+    "wid": "13.18.9",
+    "page": 251,
+    "x": [
+      1759,
+      1741,
+      1613
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00079-c0033",
+    "note": "Boundary in the visible gap between alif carrier and nun bowl; entire nun bowl retained."
+  },
+  "14.19.2": {
+    "wid": "14.19.2",
+    "page": 258,
+    "x": [
+      1638,
+      1620,
+      1471
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00079-c0034",
+    "note": "Boundary in the visible gap between alif carrier and nun bowl; entire nun bowl retained."
+  },
+  "15.66.4": {
+    "wid": "15.66.4",
+    "page": 265,
+    "x": [
+      205,
+      190,
+      85
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00079-c0035",
+    "note": "Wide nun bowl; hamza clipped at right.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "16.62.7": {
+    "wid": "16.62.7",
+    "page": 273,
+    "x": [
+      1026,
+      1011,
+      870
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00079-c0036",
+    "note": "Boundary in the visible gap between alif carrier and nun bowl; entire nun bowl retained."
+  },
+  "17.99.2": {
+    "wid": "17.99.2",
+    "page": 292,
+    "x": [
+      280,
+      267,
+      209
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00079-c0037",
+    "note": "Boundary in the visible gap between alif carrier and nun bowl; entire nun bowl retained."
+  },
+  "18.2.11": {
+    "wid": "18.2.11",
+    "page": 293,
+    "x": [
+      1113,
+      1098,
+      1044
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00079-c0038",
+    "note": "Detached bodies; upper marks clipped at right.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "20.48.4": {
+    "wid": "20.48.4",
+    "page": 314,
+    "x": [
+      909,
+      895,
+      842
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00079-c0039",
+    "note": "Boundary in the visible gap between alif carrier and nun bowl; entire nun bowl retained."
+  },
+  "22.18.2": {
+    "wid": "22.18.2",
+    "page": 334,
+    "x": [
+      326,
+      316,
+      210
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00079-c0040",
+    "note": "Alif body partly clipped at right; preserved visible portion inside box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "22.63.2": {
+    "wid": "22.63.2",
+    "page": 339,
+    "x": [
+      1595,
+      1573,
+      1412
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00079-c0041",
+    "note": "Wide nun bowl; hamza clipped at right; stray neighbour at left not allocated to target.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "22.65.2": {
+    "wid": "22.65.2",
+    "page": 340,
+    "x": [
+      1646,
+      1637,
+      1584
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00079-c0042",
+    "note": "Alif partly clipped at right; preserved visible portion.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "22.70.2": {
+    "wid": "22.70.2",
+    "page": 340,
+    "x": [
+      1552,
+      1536,
+      1403
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00079-c0043",
+    "note": "Wide nun bowl; upper marks clipped at right.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "24.9.1": {
+    "wid": "24.9.1",
+    "page": 350,
+    "x": [
+      1350,
+      1334,
+      1278
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00079-c0044",
+    "note": "Boundary in the visible gap between alif carrier and nun bowl; entire nun bowl retained."
+  },
+  "24.25.6": {
+    "wid": "24.25.6",
+    "page": 352,
+    "x": [
+      556,
+      544,
+      493
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00079-c0045",
+    "note": "Detached bodies; upper marks clipped at right.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "24.41.2": {
+    "wid": "24.41.2",
+    "page": 355,
+    "x": [
+      158,
+      142,
+      88
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00079-c0046",
+    "note": "Detached bodies; upper marks clipped at right.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "26.102.1": {
+    "wid": "26.102.1",
+    "page": 371,
+    "x": [
+      1727,
+      1712,
+      1659
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00079-c0048",
+    "note": "Boundary in the visible gap between alif carrier and nun bowl; entire nun bowl retained."
+  },
+  "27.82.10": {
+    "wid": "27.82.10",
+    "page": 384,
+    "x": [
+      171,
+      156,
+      102
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00079-c0049",
+    "note": "Detached bodies; upper marks clipped at right.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "30.37.2": {
+    "wid": "30.37.2",
+    "page": 408,
+    "x": [
+      960,
+      945,
+      889
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00079-c0050",
+    "note": "Boundary between detached alif carrier and nun bowl."
+  },
+  "39.57.3": {
+    "wid": "39.57.3",
+    "page": 465,
+    "x": [
+      1516,
+      1512,
+      1347
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00079-c0052",
+    "note": "Partial alif body remains at right crop edge; narrow visible portion retained within box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "39.58.6": {
+    "wid": "39.58.6",
+    "page": 465,
+    "x": [
+      911,
+      904,
+      747
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00079-c0053",
+    "note": "Partial upper alif body remains at right crop edge; narrow visible portion retained within box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "65.12.12": {
+    "wid": "65.12.12",
+    "page": 559,
+    "x": [
+      172,
+      155,
+      96
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00079-c0055",
+    "note": "Detached bodies; hamza reaches right crop edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  }
+}

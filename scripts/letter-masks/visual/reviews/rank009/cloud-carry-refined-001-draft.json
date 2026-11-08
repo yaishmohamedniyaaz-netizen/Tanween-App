@@ -1,0 +1,34 @@
+{
+  "20.94.5": {
+    "wid": "20.94.5",
+    "page": 318,
+    "x": [
+      366,
+      341,
+      280
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00009-c0065",
+    "note": "Carried from visually decided 35.22.3; destination requires sheet review. Every carried word visually inspected in rendered shaded spans; descending waw tail overlaps left lam-alif span. Visible attached mark clipped by immutable crop; kept inside box for owner review. Enlarged original shows overlapping projected lam serif and waw head: no fully clear vertical division. Manually balanced one-pixel adjustment; owner review required.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "47.33.7": {
+    "wid": "47.33.7",
+    "page": 510,
+    "x": [
+      382,
+      359,
+      300
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00009-c0065",
+    "note": "Carried from visually decided 35.22.3; destination requires sheet review. Every carried word visually inspected in rendered shaded spans; descending waw tail overlaps left lam-alif span. Visible attached mark clipped by immutable crop; kept inside box for owner review. Enlarged original shows overlapping projected lam serif and waw head: no fully clear vertical division. Manually balanced one-pixel adjustment; owner review required.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  }
+}

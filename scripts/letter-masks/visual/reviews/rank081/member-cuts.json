@@ -1,0 +1,944 @@
+{
+  "2.76.19": {
+    "wid": "2.76.19",
+    "page": 11,
+    "x": [
+      1017,
+      973,
+      952,
+      882
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00081-c0001",
+    "note": "X-warp from visually decided 48.5.15; destination requires sheet review. Compact nun tooth retained; left joining span belongs to dal by style, but curved bowl versus join remains uncertain."
+  },
+  "2.191.13": {
+    "wid": "2.191.13",
+    "page": 30,
+    "x": [
+      1066,
+      1026,
+      1008,
+      949
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00081-c0001",
+    "note": "X-warp from visually decided 48.5.15; destination requires sheet review. Compact nun tooth retained; left joining span belongs to dal by style, but curved bowl versus join remains uncertain."
+  },
+  "5.60.7": {
+    "wid": "5.60.7",
+    "page": 118,
+    "x": [
+      975,
+      937,
+      918,
+      860
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00081-c0001",
+    "note": "X-warp from visually decided 48.5.15; destination requires sheet review. Compact nun tooth retained; left joining span belongs to dal by style, but curved bowl versus join remains uncertain. Actual destination view shows boundary-clipped ink; immutable box retained.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "22.47.8": {
+    "wid": "22.47.8",
+    "page": 338,
+    "x": [
+      1854,
+      1811,
+      1793,
+      1722
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00081-c0001",
+    "note": "X-warp from visually decided 48.5.15; destination requires sheet review. Compact nun tooth retained; left joining span belongs to dal by style, but curved bowl versus join remains uncertain."
+  },
+  "33.63.7": {
+    "wid": "33.63.7",
+    "page": 427,
+    "x": [
+      649,
+      607,
+      588,
+      525
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00081-c0001",
+    "note": "X-warp from visually decided 48.5.15; destination requires sheet review. Compact nun tooth retained; left joining span belongs to dal by style, but curved bowl versus join remains uncertain. Actual destination view shows boundary-clipped ink; immutable box retained.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "35.39.14": {
+    "wid": "35.39.14",
+    "page": 439,
+    "x": [
+      1199,
+      1157,
+      1139,
+      1074
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00081-c0001",
+    "note": "X-warp from visually decided 48.5.15; destination requires sheet review. Compact nun tooth retained; left joining span belongs to dal by style, but curved bowl versus join remains uncertain."
+  },
+  "39.34.3": {
+    "wid": "39.34.3",
+    "page": 462,
+    "x": [
+      1270,
+      1225,
+      1203,
+      1132
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00081-c0001",
+    "note": "X-warp from visually decided 48.5.15; destination requires sheet review. Compact nun tooth retained; left joining span belongs to dal by style, but curved bowl versus join remains uncertain."
+  },
+  "49.13.13": {
+    "wid": "49.13.13",
+    "page": 517,
+    "x": [
+      752,
+      710,
+      692,
+      630
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00081-c0001",
+    "note": "X-warp from visually decided 48.5.15; destination requires sheet review. Compact nun tooth retained; left joining span belongs to dal by style, but curved bowl versus join remains uncertain."
+  },
+  "57.19.8": {
+    "wid": "57.19.8",
+    "page": 540,
+    "x": [
+      1819,
+      1779,
+      1760,
+      1696
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00081-c0001",
+    "note": "X-warp from visually decided 48.5.15; destination requires sheet review. Compact nun tooth retained; left joining span belongs to dal by style, but curved bowl versus join remains uncertain."
+  },
+  "6.109.12": {
+    "wid": "6.109.12",
+    "page": 141,
+    "x": [
+      1005,
+      964,
+      943,
+      876
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00081-c0002",
+    "note": "X-warp from visually decided 33.69.13; destination requires sheet review. Compact nun tooth retained; left joining span belongs to dal by style, but curved bowl versus join remains uncertain. Actual destination view shows boundary-clipped ink; immutable box retained.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "9.19.17": {
+    "wid": "9.19.17",
+    "page": 189,
+    "x": [
+      895,
+      856,
+      835,
+      772
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00081-c0002",
+    "note": "X-warp from visually decided 33.69.13; destination requires sheet review. Compact nun tooth retained; left joining span belongs to dal by style, but curved bowl versus join remains uncertain."
+  },
+  "17.38.4": {
+    "wid": "17.38.4",
+    "page": 285,
+    "x": [
+      735,
+      697,
+      676,
+      615
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00081-c0002",
+    "note": "X-warp from visually decided 33.69.13; destination requires sheet review. Compact nun tooth retained; left joining span belongs to dal by style, but curved bowl versus join remains uncertain. Actual destination view shows boundary-clipped ink; immutable box retained.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "33.5.4": {
+    "wid": "33.5.4",
+    "page": 418,
+    "x": [
+      1510,
+      1469,
+      1449,
+      1385
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00081-c0002",
+    "note": "X-warp from visually decided 33.69.13; destination requires sheet review. Compact nun tooth retained; left joining span belongs to dal by style, but curved bowl versus join remains uncertain. Actual destination view shows boundary-clipped ink; immutable box retained.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "42.36.8": {
+    "wid": "42.36.8",
+    "page": 487,
+    "x": [
+      1359,
+      1317,
+      1296,
+      1232
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00081-c0002",
+    "note": "X-warp from visually decided 33.69.13; destination requires sheet review. Compact nun tooth retained; left joining span belongs to dal by style, but curved bowl versus join remains uncertain."
+  },
+  "53.14.0": {
+    "wid": "53.14.0",
+    "page": 526,
+    "x": [
+      1397,
+      1359,
+      1341,
+      1280
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00081-c0002",
+    "note": "X-warp from visually decided 33.69.13; destination requires sheet review. Compact nun tooth retained; left joining span belongs to dal by style, but curved bowl versus join remains uncertain. Actual destination view shows boundary-clipped ink; immutable box retained.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "67.26.3": {
+    "wid": "67.26.3",
+    "page": 563,
+    "x": [
+      1066,
+      1028,
+      1008,
+      947
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00081-c0002",
+    "note": "X-warp from visually decided 33.69.13; destination requires sheet review. Compact nun tooth retained; left joining span belongs to dal by style, but curved bowl versus join remains uncertain."
+  },
+  "81.20.2": {
+    "wid": "81.20.2",
+    "page": 586,
+    "x": [
+      947,
+      913,
+      894,
+      836
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00081-c0002",
+    "note": "X-warp from visually decided 33.69.13; destination requires sheet review. Compact nun tooth retained; left joining span belongs to dal by style, but curved bowl versus join remains uncertain."
+  },
+  "2.62.16": {
+    "wid": "2.62.16",
+    "page": 10,
+    "x": [
+      1835,
+      1791,
+      1773,
+      1704
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00081-c0003",
+    "note": "X-warp from visually decided 14.37.9; destination requires sheet review. Compact nun tooth retained; left joining span belongs to dal by style, but curved bowl versus join remains uncertain."
+  },
+  "3.15.7": {
+    "wid": "3.15.7",
+    "page": 51,
+    "x": [
+      667,
+      632,
+      615,
+      559
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00081-c0003",
+    "note": "X-warp from visually decided 14.37.9; destination requires sheet review. Compact nun tooth retained; left joining span belongs to dal by style, but curved bowl versus join remains uncertain."
+  },
+  "7.131.16": {
+    "wid": "7.131.16",
+    "page": 166,
+    "x": [
+      516,
+      476,
+      460,
+      395
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00081-c0003",
+    "note": "X-warp from visually decided 14.37.9; destination requires sheet review. Compact nun tooth retained; left joining span belongs to dal by style, but curved bowl versus join remains uncertain."
+  },
+  "23.117.12": {
+    "wid": "23.117.12",
+    "page": 349,
+    "x": [
+      839,
+      799,
+      782,
+      717
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00081-c0003",
+    "note": "X-warp from visually decided 14.37.9; destination requires sheet review. Compact nun tooth retained; left joining span belongs to dal by style, but curved bowl versus join remains uncertain."
+  },
+  "24.15.13": {
+    "wid": "24.15.13",
+    "page": 351,
+    "x": [
+      1235,
+      1195,
+      1178,
+      1111
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00081-c0003",
+    "note": "X-warp from visually decided 14.37.9; destination requires sheet review. Compact nun tooth retained; left joining span belongs to dal by style, but curved bowl versus join remains uncertain."
+  },
+  "42.16.11": {
+    "wid": "42.16.11",
+    "page": 485,
+    "x": [
+      1580,
+      1538,
+      1521,
+      1457
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00081-c0003",
+    "note": "X-warp from visually decided 14.37.9; destination requires sheet review. Compact nun tooth retained; left joining span belongs to dal by style, but curved bowl versus join remains uncertain."
+  },
+  "51.34.1": {
+    "wid": "51.34.1",
+    "page": 522,
+    "x": [
+      332,
+      293,
+      277,
+      220
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00081-c0003",
+    "note": "X-warp from visually decided 14.37.9; destination requires sheet review. Compact nun tooth retained; left joining span belongs to dal by style, but curved bowl versus join remains uncertain."
+  },
+  "8.55.3": {
+    "wid": "8.55.3",
+    "page": 184,
+    "x": [
+      1372,
+      1332,
+      1311,
+      1237
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00081-c0004",
+    "note": "X-warp from visually decided 42.22.18; destination requires sheet review. Compact nun tooth retained; left joining span belongs to dal by style, but curved bowl versus join remains uncertain. Actual destination view shows boundary-clipped ink; immutable box retained.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "9.99.11": {
+    "wid": "9.99.11",
+    "page": 202,
+    "x": [
+      1296,
+      1259,
+      1241,
+      1164
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00081-c0004",
+    "note": "X-warp from visually decided 42.22.18; destination requires sheet review. Compact nun tooth retained; left joining span belongs to dal by style, but curved bowl versus join remains uncertain. Actual destination view shows boundary-clipped ink; immutable box retained.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "10.2.18": {
+    "wid": "10.2.18",
+    "page": 208,
+    "x": [
+      1259,
+      1222,
+      1205,
+      1134
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00081-c0004",
+    "note": "X-warp from visually decided 42.22.18; destination requires sheet review. Compact nun tooth retained; left joining span belongs to dal by style, but curved bowl versus join remains uncertain. Actual destination view shows boundary-clipped ink; immutable box retained.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "20.52.2": {
+    "wid": "20.52.2",
+    "page": 315,
+    "x": [
+      1512,
+      1472,
+      1451,
+      1378
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00081-c0004",
+    "note": "X-warp from visually decided 42.22.18; destination requires sheet review. Compact nun tooth retained; left joining span belongs to dal by style, but curved bowl versus join remains uncertain."
+  },
+  "40.35.10": {
+    "wid": "40.35.10",
+    "page": 471,
+    "x": [
+      1193,
+      1150,
+      1129,
+      1054
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00081-c0004",
+    "note": "X-warp from visually decided 42.22.18; destination requires sheet review. Compact nun tooth retained; left joining span belongs to dal by style, but curved bowl versus join remains uncertain."
+  },
+  "61.3.2": {
+    "wid": "61.3.2",
+    "page": 551,
+    "x": [
+      1418,
+      1376,
+      1361,
+      1273
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00081-c0004",
+    "note": "X-warp from visually decided 42.22.18; destination requires sheet review. Compact nun tooth retained; left joining span belongs to dal by style, but curved bowl versus join remains uncertain."
+  },
+  "3.169.10": {
+    "wid": "3.169.10",
+    "page": 72,
+    "x": [
+      1030,
+      987,
+      965,
+      901
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00081-c0005",
+    "note": "X-warp from visually decided 11.83.1; destination requires sheet review. Compact nun tooth retained; left joining span belongs to dal by style, but curved bowl versus join remains uncertain."
+  },
+  "19.55.6": {
+    "wid": "19.55.6",
+    "page": 309,
+    "x": [
+      1420,
+      1379,
+      1356,
+      1287
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00081-c0005",
+    "note": "X-warp from visually decided 11.83.1; destination requires sheet review. Compact nun tooth retained; left joining span belongs to dal by style, but curved bowl versus join remains uncertain."
+  },
+  "24.13.10": {
+    "wid": "24.13.10",
+    "page": 351,
+    "x": [
+      1832,
+      1790,
+      1770,
+      1709
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00081-c0005",
+    "note": "X-warp from visually decided 11.83.1; destination requires sheet review. Compact nun tooth retained; left joining span belongs to dal by style, but curved bowl versus join remains uncertain."
+  },
+  "33.53.66": {
+    "wid": "33.53.66",
+    "page": 425,
+    "x": [
+      846,
+      804,
+      780,
+      713
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00081-c0005",
+    "note": "X-warp from visually decided 11.83.1; destination requires sheet review. Compact nun tooth retained; left joining span belongs to dal by style, but curved bowl versus join remains uncertain."
+  },
+  "2.110.10": {
+    "wid": "2.110.10",
+    "page": 17,
+    "x": [
+      1359,
+      1318,
+      1301,
+      1201
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00081-c0006",
+    "note": "X-warp from visually decided 8.4.6; destination requires sheet review. Compact nun tooth retained; left joining span belongs to dal by style, but curved bowl versus join remains uncertain."
+  },
+  "9.7.4": {
+    "wid": "9.7.4",
+    "page": 188,
+    "x": [
+      635,
+      596,
+      576,
+      470
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00081-c0006",
+    "note": "X-warp from visually decided 8.4.6; destination requires sheet review. Compact nun tooth retained; left joining span belongs to dal by style, but curved bowl versus join remains uncertain."
+  },
+  "10.18.12": {
+    "wid": "10.18.12",
+    "page": 210,
+    "x": [
+      1871,
+      1831,
+      1813,
+      1717
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00081-c0006",
+    "note": "X-warp from visually decided 8.4.6; destination requires sheet review. Compact nun tooth retained; left joining span belongs to dal by style, but curved bowl versus join remains uncertain. Actual destination view shows boundary-clipped ink; immutable box retained.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "3.59.3": {
+    "wid": "3.59.3",
+    "page": 57,
+    "x": [
+      1498,
+      1458,
+      1438,
+      1368
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00081-c0007",
+    "note": "X-warp from visually decided 2.80.9; destination requires sheet review. Compact nun tooth retained; left joining span belongs to dal by style, but curved bowl versus join remains uncertain."
+  },
+  "29.17.19": {
+    "wid": "29.17.19",
+    "page": 398,
+    "x": [
+      591,
+      552,
+      532,
+      458
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00081-c0007",
+    "note": "X-warp from visually decided 2.80.9; destination requires sheet review. Compact nun tooth retained; left joining span belongs to dal by style, but curved bowl versus join remains uncertain."
+  },
+  "3.163.2": {
+    "wid": "3.163.2",
+    "page": 71,
+    "x": [
+      1267,
+      1222,
+      1200,
+      1131
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00081-c0008",
+    "note": "X-warp from visually decided 2.94.6; destination requires sheet review. Compact nun tooth retained; left joining span belongs to dal by style, but curved bowl versus join remains uncertain."
+  },
+  "16.96.4": {
+    "wid": "16.96.4",
+    "page": 278,
+    "x": [
+      1724,
+      1682,
+      1663,
+      1592
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00081-c0008",
+    "note": "X-warp from visually decided 2.94.6; destination requires sheet review. Compact nun tooth retained; left joining span belongs to dal by style, but curved bowl versus join remains uncertain. Actual destination view shows boundary-clipped ink; immutable box retained.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.282.88": {
+    "wid": "2.282.88",
+    "page": 48,
+    "x": [
+      1809,
+      1772,
+      1748,
+      1684
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00081-c0009",
+    "note": "X-warp from visually decided 2.277.11; destination requires sheet review. Compact nun tooth retained; left joining span belongs to dal by style, but curved bowl versus join remains uncertain."
+  },
+  "3.198.17": {
+    "wid": "3.198.17",
+    "page": 76,
+    "x": [
+      1156,
+      1117,
+      1091,
+      1026
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00081-c0009",
+    "note": "X-warp from visually decided 2.277.11; destination requires sheet review. Compact nun tooth retained; left joining span belongs to dal by style, but curved bowl versus join remains uncertain. Actual destination view shows boundary-clipped ink; immutable box retained.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "7.187.8": {
+    "wid": "7.187.8",
+    "page": 174,
+    "x": [
+      1095,
+      1058,
+      1037,
+      973
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00081-c0010",
+    "note": "X-warp from visually decided 7.187.30; destination requires sheet review. Compact nun tooth retained; left joining span belongs to dal by style, but curved bowl versus join remains uncertain. Actual destination view shows boundary-clipped ink; immutable box retained.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "7.206.2": {
+    "wid": "7.206.2",
+    "page": 176,
+    "x": [
+      477,
+      436,
+      416,
+      352
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00081-c0010",
+    "note": "X-warp from visually decided 7.187.30; destination requires sheet review. Compact nun tooth retained; left joining span belongs to dal by style, but curved bowl versus join remains uncertain. Actual destination view shows boundary-clipped ink; immutable box retained.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "12.17.7": {
+    "wid": "12.17.7",
+    "page": 237,
+    "x": [
+      1243,
+      1207,
+      1182,
+      1117
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00081-c0011",
+    "note": "X-warp from visually decided 19.78.4; destination requires sheet review. Compact nun tooth retained; left joining span belongs to dal by style, but curved bowl versus join remains uncertain."
+  },
+  "16.95.7": {
+    "wid": "16.95.7",
+    "page": 278,
+    "x": [
+      324,
+      285,
+      264,
+      197
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00081-c0011",
+    "note": "X-warp from visually decided 19.78.4; destination requires sheet review. Compact nun tooth retained; left joining span belongs to dal by style, but curved bowl versus join remains uncertain."
+  },
+  "39.31.4": {
+    "wid": "39.31.4",
+    "page": 461,
+    "x": [
+      1046,
+      1004,
+      984,
+      909
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00081-c0012",
+    "note": "X-warp from visually decided 32.12.6; destination requires sheet review. Compact nun tooth retained; left joining span belongs to dal by style, but curved bowl versus join remains uncertain."
+  },
+  "73.20.66": {
+    "wid": "73.20.66",
+    "page": 575,
+    "x": [
+      1863,
+      1828,
+      1814,
+      1755
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00081-c0012",
+    "note": "X-warp from visually decided 32.12.6; destination requires sheet review. Compact nun tooth retained; left joining span belongs to dal by style, but curved bowl versus join remains uncertain. Actual destination view shows boundary-clipped ink; immutable box retained.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "6.127.3": {
+    "wid": "6.127.3",
+    "page": 144,
+    "x": [
+      390,
+      354,
+      339,
+      271
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00081-c0013",
+    "note": "X-warp from visually decided 43.35.9; destination requires sheet review. Compact nun tooth retained; left joining span belongs to dal by style, but curved bowl versus join remains uncertain. Actual destination view shows boundary-clipped ink; immutable box retained.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "54.55.3": {
+    "wid": "54.55.3",
+    "page": 531,
+    "x": [
+      793,
+      754,
+      737,
+      665
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00081-c0013",
+    "note": "X-warp from visually decided 43.35.9; destination requires sheet review. Compact nun tooth retained; left joining span belongs to dal by style, but curved bowl versus join remains uncertain."
+  },
+  "7.29.6": {
+    "wid": "7.29.6",
+    "page": 153,
+    "x": [
+      679,
+      638,
+      617,
+      549
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00081-c0014",
+    "note": "X-warp from visually decided 49.3.4; destination requires sheet review. Compact nun tooth retained; left joining span belongs to dal by style, but curved bowl versus join remains uncertain."
+  },
+  "30.39.10": {
+    "wid": "30.39.10",
+    "page": 408,
+    "x": [
+      921,
+      878,
+      863,
+      795
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00081-c0014",
+    "note": "X-warp from visually decided 49.3.4; destination requires sheet review. Compact nun tooth retained; left joining span belongs to dal by style, but curved bowl versus join remains uncertain. Actual destination view shows boundary-clipped ink; immutable box retained.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "8.35.3": {
+    "wid": "8.35.3",
+    "page": 181,
+    "x": [
+      1820,
+      1777,
+      1764,
+      1656
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00081-c0015",
+    "note": "X-warp from visually decided 63.7.7; destination requires sheet review. Compact nun tooth retained; left joining span belongs to dal by style, but curved bowl versus join remains uncertain."
+  },
+  "12.42.7": {
+    "wid": "12.42.7",
+    "page": 240,
+    "x": [
+      821,
+      781,
+      769,
+      653
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00081-c0015",
+    "note": "X-warp from visually decided 63.7.7; destination requires sheet review. Compact nun tooth retained; left joining span belongs to dal by style, but curved bowl versus join remains uncertain."
+  },
+  "3.73.19": {
+    "wid": "3.73.19",
+    "page": 59,
+    "x": [
+      1814,
+      1776,
+      1760,
+      1699
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00081-c0016",
+    "note": "X-warp from visually decided 68.34.2; destination requires sheet review. Compact nun tooth retained; left joining span belongs to dal by style, but curved bowl versus join remains uncertain."
+  },
+  "98.8.1": {
+    "wid": "98.8.1",
+    "page": 599,
+    "x": [
+      1572,
+      1531,
+      1519,
+      1456
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00081-c0016",
+    "note": "X-warp from visually decided 68.34.2; destination requires sheet review. Compact nun tooth retained; left joining span belongs to dal by style, but curved bowl versus join remains uncertain."
+  },
+  "2.112.9": {
+    "wid": "2.112.9",
+    "page": 17,
+    "x": [
+      1526,
+      1484,
+      1465,
+      1399
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00081-c0017",
+    "note": "X-warp from visually decided 2.54.18; destination requires sheet review. Compact nun tooth retained; left joining span belongs to dal by style, but curved bowl versus join remains uncertain."
+  },
+  "28.60.9": {
+    "wid": "28.60.9",
+    "page": 393,
+    "x": [
+      297,
+      258,
+      236,
+      124
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00081-c0018",
+    "note": "X-warp from visually decided 3.19.2; destination requires sheet review. Compact nun tooth retained; left joining span belongs to dal by style, but curved bowl versus join remains uncertain. Actual destination view shows boundary-clipped ink; immutable box retained.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "6.124.22": {
+    "wid": "6.124.22",
+    "page": 143,
+    "x": [
+      1582,
+      1536,
+      1521,
+      1433
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00081-c0019",
+    "note": "X-warp from visually decided 3.199.24; destination requires sheet review. Compact nun tooth retained; left joining span belongs to dal by style, but curved bowl versus join remains uncertain."
+  },
+  "27.47.7": {
+    "wid": "27.47.7",
+    "page": 381,
+    "x": [
+      1818,
+      1779,
+      1754,
+      1690
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00081-c0020",
+    "note": "X-warp from visually decided 8.22.3; destination requires sheet review. Compact nun tooth retained; left joining span belongs to dal by style, but curved bowl versus join remains uncertain. Actual destination view shows boundary-clipped ink; immutable box retained.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "19.87.6": {
+    "wid": "19.87.6",
+    "page": 311,
+    "x": [
+      232,
+      191,
+      170,
+      103
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00081-c0021",
+    "note": "X-warp from visually decided 19.76.8; destination requires sheet review. Compact nun tooth retained; left joining span belongs to dal by style, but curved bowl versus join remains uncertain."
+  },
+  "41.38.3": {
+    "wid": "41.38.3",
+    "page": 480,
+    "x": [
+      304,
+      258,
+      232,
+      117
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00081-c0022",
+    "note": "X-warp from visually decided 34.31.16; destination requires sheet review. Compact nun tooth retained; left joining span belongs to dal by style, but curved bowl versus join remains uncertain. Actual destination view shows boundary-clipped ink; immutable box retained.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  }
+}

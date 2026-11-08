@@ -1,0 +1,599 @@
+{
+  "4.82.10": {
+    "wid": "4.82.10",
+    "page": 91,
+    "x": [
+      1812,
+      1787,
+      1774,
+      1709
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00082-c0001",
+    "note": "Visual cuts after fa loop and at left of ya tooth; long joining strokes retained with the left letter. Curved join boundaries remain moderately uncertain. Kasra is clipped at immutable right box edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "5.48.49": {
+    "wid": "5.48.49",
+    "page": 116,
+    "x": [
+      1265,
+      1239,
+      1227,
+      1155
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00082-c0002",
+    "note": "Visual cuts after fa loop and at left of ya tooth; long joining strokes retained with the left letter. Curved join boundaries remain moderately uncertain. Kasra is clipped at immutable right box edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "15.14.7": {
+    "wid": "15.14.7",
+    "page": 262,
+    "x": [
+      473,
+      445,
+      435,
+      370
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00082-c0003",
+    "note": "Visual cuts after fa loop and at left of ya tooth; long joining strokes retained with the left letter. Curved join boundaries remain moderately uncertain. Kasra is clipped at immutable right box edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "16.69.15": {
+    "wid": "16.69.15",
+    "page": 274,
+    "x": [
+      1221,
+      1196,
+      1183,
+      1117
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00082-c0004",
+    "note": "Visual cuts after fa loop and at left of ya tooth; long joining strokes retained with the left letter. Curved join boundaries remain moderately uncertain. Kasra is clipped at immutable right box edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "23.77.10": {
+    "wid": "23.77.10",
+    "page": 347,
+    "x": [
+      1660,
+      1635,
+      1626,
+      1558
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00082-c0005",
+    "note": "Visual cuts after fa loop and at left of ya tooth; long joining strokes retained with the left letter. Curved join boundaries remain moderately uncertain. Kasra is clipped at immutable right box edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "28.73.7": {
+    "wid": "28.73.7",
+    "page": 394,
+    "x": [
+      1278,
+      1254,
+      1244,
+      1179
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00082-c0006",
+    "note": "Visual cuts after fa loop and at left of ya tooth; long joining strokes retained with the left letter. Curved join boundaries remain moderately uncertain.",
+    "reviewFlags": []
+  },
+  "30.28.17": {
+    "wid": "30.28.17",
+    "page": 407,
+    "x": [
+      1168,
+      1142,
+      1131,
+      1051
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00082-c0007",
+    "note": "Visual cuts after fa loop and at left of ya tooth; long joining strokes retained with the left letter. Curved join boundaries remain moderately uncertain.",
+    "reviewFlags": []
+  },
+  "35.37.15": {
+    "wid": "35.37.15",
+    "page": 438,
+    "x": [
+      1005,
+      979,
+      967,
+      901
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00082-c0008",
+    "note": "Visual cuts after fa loop and at left of ya tooth; long joining strokes retained with the left letter. Curved join boundaries remain moderately uncertain.",
+    "reviewFlags": []
+  },
+  "2.63.12": {
+    "wid": "2.63.12",
+    "page": 10,
+    "x": [
+      1334,
+      1310,
+      1297,
+      1223
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00082-c0009",
+    "note": "Visual cuts after fa loop and at left of ya tooth; long joining strokes retained with the left letter. Curved join boundaries remain moderately uncertain. Kasra is clipped at immutable right box edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.217.8": {
+    "wid": "2.217.8",
+    "page": 34,
+    "x": [
+      1006,
+      979,
+      969,
+      898
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00082-c0010",
+    "note": "Visual cuts after fa loop and at left of ya tooth; long joining strokes retained with the left letter. Curved join boundaries remain moderately uncertain. Kasra is clipped at immutable right box edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.254.13": {
+    "wid": "2.254.13",
+    "page": 42,
+    "x": [
+      624,
+      598,
+      555,
+      497
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00082-c0011",
+    "note": "Shaded inspection moved fa border to left edge of loop. Long connector assigned to ya; ya tooth retained. Curved join remains moderately uncertain."
+  },
+  "10.93.22": {
+    "wid": "10.93.22",
+    "page": 219,
+    "x": [
+      1539,
+      1515,
+      1505,
+      1443
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00082-c0012",
+    "note": "Visual cuts after fa loop and at left of ya tooth; long joining strokes retained with the left letter. Curved join boundaries remain moderately uncertain. Kasra is clipped at immutable right box edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "11.116.23": {
+    "wid": "11.116.23",
+    "page": 234,
+    "x": [
+      1307,
+      1281,
+      1223,
+      1170
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00082-c0013",
+    "note": "Visual cuts after fa loop and at left of ya tooth; long joining strokes retained with the left letter. Curved join boundaries remain moderately uncertain. Kasra is clipped at immutable right box edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "12.41.17": {
+    "wid": "12.41.17",
+    "page": 240,
+    "x": [
+      996,
+      970,
+      958,
+      890
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00082-c0014",
+    "note": "Visual cuts after fa loop and at left of ya tooth; long joining strokes retained with the left letter. Curved join boundaries remain moderately uncertain. Kasra is clipped at immutable right box edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "17.99.18": {
+    "wid": "17.99.18",
+    "page": 292,
+    "x": [
+      1093,
+      1070,
+      1056,
+      988
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00082-c0015",
+    "note": "Visual cuts after fa loop and at left of ya tooth; long joining strokes retained with the left letter. Curved join boundaries remain moderately uncertain. Kasra is clipped at immutable right box edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "16.124.15": {
+    "wid": "16.124.15",
+    "page": 281,
+    "x": [
+      1545,
+      1520,
+      1508,
+      1432
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00082-c0016",
+    "note": "Visual cuts after fa loop and at left of ya tooth; long joining strokes retained with the left letter. Curved join boundaries remain moderately uncertain. Kasra is clipped at immutable right box edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "38.72.3": {
+    "wid": "38.72.3",
+    "page": 457,
+    "x": [
+      171,
+      145,
+      133,
+      76
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00082-c0017",
+    "note": "Visual cuts after fa loop and at left of ya tooth; long joining strokes retained with the left letter. Curved join boundaries remain moderately uncertain. Kasra is clipped at immutable right box edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "66.12.7": {
+    "wid": "66.12.7",
+    "page": 561,
+    "x": [
+      688,
+      663,
+      645,
+      559
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00082-c0018",
+    "note": "Visual cuts after fa loop and at left of ya tooth; long joining strokes retained with the left letter. Curved join boundaries remain moderately uncertain. Kasra is clipped at immutable right box edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "68.38.2": {
+    "wid": "68.38.2",
+    "page": 565,
+    "x": [
+      919,
+      896,
+      884,
+      835
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00082-c0019",
+    "note": "Visual cuts after fa loop and at left of ya tooth; long joining strokes retained with the left letter. Curved join boundaries remain moderately uncertain. Kasra is clipped at immutable right box edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.185.4": {
+    "wid": "2.185.4",
+    "page": 28,
+    "x": [
+      1146,
+      1119,
+      1108,
+      1020
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00082-c0020",
+    "note": "Visual cuts after fa loop and at left of ya tooth; long joining strokes retained with the left letter. Curved join boundaries remain moderately uncertain. Kasra is clipped at immutable right box edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.248.9": {
+    "wid": "2.248.9",
+    "page": 40,
+    "x": [
+      1482,
+      1455,
+      1413,
+      1350
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00082-c0021",
+    "note": "Visual cuts after fa loop and at left of ya tooth; long joining strokes retained with the left letter. Curved join boundaries remain moderately uncertain. Kasra is clipped at immutable right box edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.266.25": {
+    "wid": "2.266.25",
+    "page": 45,
+    "x": [
+      1263,
+      1240,
+      1191,
+      1136
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00082-c0022",
+    "note": "Visual cuts after fa loop and at left of ya tooth; long joining strokes retained with the left letter. Curved join boundaries remain moderately uncertain.",
+    "reviewFlags": []
+  },
+  "7.139.5": {
+    "wid": "7.139.5",
+    "page": 167,
+    "x": [
+      406,
+      381,
+      372,
+      315
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00082-c0023",
+    "note": "Visual cuts after fa loop and at left of ya tooth; long joining strokes retained with the left letter. Curved join boundaries remain moderately uncertain. Kasra is clipped at immutable right box edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "14.31.18": {
+    "wid": "14.31.18",
+    "page": 259,
+    "x": [
+      1087,
+      1063,
+      1027,
+      972
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00082-c0024",
+    "note": "Visual cuts after fa loop and at left of ya tooth; long joining strokes retained with the left letter. Curved join boundaries remain moderately uncertain. Kasra is clipped at immutable right box edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "16.14.15": {
+    "wid": "16.14.15",
+    "page": 268,
+    "x": [
+      249,
+      225,
+      210,
+      95
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00082-c0025",
+    "note": "Visual cuts after fa loop and at left of ya tooth; long joining strokes retained with the left letter. Curved join boundaries remain moderately uncertain.",
+    "reviewFlags": []
+  },
+  "16.39.4": {
+    "wid": "16.39.4",
+    "page": 271,
+    "x": [
+      1041,
+      1015,
+      1004,
+      935
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00082-c0026",
+    "note": "Visual cuts after fa loop and at left of ya tooth; long joining strokes retained with the left letter. Curved join boundaries remain moderately uncertain. Kasra is clipped at immutable right box edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "22.69.7": {
+    "wid": "22.69.7",
+    "page": 340,
+    "x": [
+      805,
+      778,
+      769,
+      673
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00082-c0027",
+    "note": "Visual cuts after fa loop and at left of ya tooth; long joining strokes retained with the left letter. Curved join boundaries remain moderately uncertain. Kasra is clipped at immutable right box edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.19.4": {
+    "wid": "2.19.4",
+    "page": 4,
+    "x": [
+      207,
+      182,
+      173,
+      117
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00082-c0028",
+    "note": "Visual cuts after fa loop and at left of ya tooth; long joining strokes retained with the left letter. Curved join boundaries remain moderately uncertain. Kasra is clipped at immutable right box edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.281.3": {
+    "wid": "2.281.3",
+    "page": 47,
+    "x": [
+      315,
+      289,
+      274,
+      222
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00082-c0029",
+    "note": "Visual cuts after fa loop and at left of ya tooth; long joining strokes retained with the left letter. Curved join boundaries remain moderately uncertain. Kasra is clipped at immutable right box edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "3.49.18": {
+    "wid": "3.49.18",
+    "page": 56,
+    "x": [
+      252,
+      226,
+      168,
+      111
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00082-c0030",
+    "note": "Visual cuts after fa loop and at left of ya tooth; long joining strokes retained with the left letter. Curved join boundaries remain moderately uncertain.",
+    "reviewFlags": []
+  },
+  "3.61.2": {
+    "wid": "3.61.2",
+    "page": 57,
+    "x": [
+      1466,
+      1437,
+      1404,
+      1347
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00082-c0031",
+    "note": "Visual cuts after fa loop and at left of ya tooth; long joining strokes retained with the left letter. Curved join boundaries remain moderately uncertain. Kasra is clipped at immutable right box edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "10.67.6": {
+    "wid": "10.67.6",
+    "page": 216,
+    "x": [
+      1268,
+      1243,
+      1227,
+      1154
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00082-c0032",
+    "note": "Visual cuts after fa loop and at left of ya tooth; long joining strokes retained with the left letter. Curved join boundaries remain moderately uncertain. Kasra is clipped at immutable right box edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "15.63.5": {
+    "wid": "15.63.5",
+    "page": 265,
+    "x": [
+      213,
+      189,
+      179,
+      85
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00082-c0033",
+    "note": "Visual cuts after fa loop and at left of ya tooth; long joining strokes retained with the left letter. Curved join boundaries remain moderately uncertain. Kasra is clipped at immutable right box edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "32.9.3": {
+    "wid": "32.9.3",
+    "page": 415,
+    "x": [
+      273,
+      249,
+      238,
+      113
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00082-c0034",
+    "note": "Visual cuts after fa loop and at left of ya tooth; long joining strokes retained with the left letter. Curved join boundaries remain moderately uncertain. Kasra is clipped at immutable right box edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "40.61.6": {
+    "wid": "40.61.6",
+    "page": 474,
+    "x": [
+      1808,
+      1783,
+      1749,
+      1681
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00082-c0035",
+    "note": "Visual cuts after fa loop and at left of ya tooth; long joining strokes retained with the left letter. Curved join boundaries remain moderately uncertain. Kasra is clipped at immutable right box edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "41.26.8": {
+    "wid": "41.26.8",
+    "page": 479,
+    "x": [
+      1633,
+      1608,
+      1596,
+      1534
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00082-c0036",
+    "note": "Visual cuts after fa loop and at left of ya tooth; long joining strokes retained with the left letter. Curved join boundaries remain moderately uncertain. Kasra is clipped at immutable right box edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  }
+}

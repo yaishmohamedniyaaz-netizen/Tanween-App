@@ -1,0 +1,38 @@
+{
+  "31.17.12": {
+    "wid": "31.17.12",
+    "page": 412,
+    "x": null,
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00008-c0007",
+    "note": "Carried from visually decided 10.21.17; destination requires sheet review."
+  },
+  "31.27.17": {
+    "wid": "31.27.17",
+    "page": 413,
+    "x": null,
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00008-c0007",
+    "note": "Carried from visually decided 10.21.17; destination requires sheet review."
+  },
+  "20.117.2": {
+    "wid": "20.117.2",
+    "page": 320,
+    "x": null,
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00008-c0042",
+    "note": "Carried from visually decided 16.27.15; destination requires sheet review."
+  },
+  "22.38.6": {
+    "wid": "22.38.6",
+    "page": 336,
+    "x": null,
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00008-c0096",
+    "note": "Carried from visually decided 22.14.0; destination requires sheet review."
+  }
+}

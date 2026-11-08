@@ -1,0 +1,12 @@
+[
+  {
+    "wid": "21.56.4",
+    "page": 326,
+    "cluster": "s00041-c0053",
+    "status": "withheld-missing-target",
+    "reason": "Direct original review shows the alif/wasl target body entirely beyond immutable right crop edge; only a wasl mark fragment remains. No empty target span invented.",
+    "image": "scripts/letter-masks/visual/reviews/rank041/representatives-09.png",
+    "sha256": "121a7922d930b0f1e2e6f87444ccca35bdd60e99283461c8e19fd8ab379c1e36",
+    "observer": "cloud041_055"
+  }
+]

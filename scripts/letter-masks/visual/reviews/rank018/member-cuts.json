@@ -1,0 +1,1193 @@
+{
+  "2.281.6": {
+    "wid": "2.281.6",
+    "page": 47,
+    "x": [
+      1696,
+      1680,
+      1607
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00018-c0001",
+    "note": "X-warp from visually decided 8.36.10; destination requires sheet review. Actual destination view shows mark clipping at immutable crop edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "3.79.9": {
+    "wid": "3.79.9",
+    "page": 60,
+    "x": [
+      1245,
+      1231,
+      1150
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00018-c0001",
+    "note": "X-warp from visually decided 8.36.10; destination requires sheet review. Actual destination view shows mark clipping at immutable crop edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "4.62.7": {
+    "wid": "4.62.7",
+    "page": 88,
+    "x": [
+      1275,
+      1260,
+      1180
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00018-c0001",
+    "note": "X-warp from visually decided 8.36.10; destination requires sheet review. Actual destination view shows mark clipping at immutable crop edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "11.9.5": {
+    "wid": "11.9.5",
+    "page": 222,
+    "x": [
+      815,
+      801,
+      721
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00018-c0001",
+    "note": "X-warp from visually decided 8.36.10; destination requires sheet review."
+  },
+  "41.52.7": {
+    "wid": "41.52.7",
+    "page": 482,
+    "x": [
+      527,
+      506,
+      430
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00018-c0001",
+    "note": "X-warp from visually decided 8.36.10; destination requires sheet review."
+  },
+  "48.22.6": {
+    "wid": "48.22.6",
+    "page": 513,
+    "x": [
+      1437,
+      1421,
+      1348
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00018-c0001",
+    "note": "X-warp from visually decided 8.36.10; destination requires sheet review."
+  },
+  "49.15.6": {
+    "wid": "49.15.6",
+    "page": 517,
+    "x": [
+      524,
+      509,
+      435
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00018-c0001",
+    "note": "X-warp from visually decided 8.36.10; destination requires sheet review."
+  },
+  "2.51.5": {
+    "wid": "2.51.5",
+    "page": 8,
+    "x": [
+      1459,
+      1446,
+      1380
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00018-c0002",
+    "note": "X-warp from visually decided 2.28.6; destination requires sheet review."
+  },
+  "2.79.5": {
+    "wid": "2.79.5",
+    "page": 12,
+    "x": [
+      1824,
+      1808,
+      1746
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00018-c0002",
+    "note": "X-warp from visually decided 2.28.6; destination requires sheet review. Actual destination view shows mark clipping at immutable crop edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.85.0": {
+    "wid": "2.85.0",
+    "page": 13,
+    "x": [
+      1785,
+      1770,
+      1705
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00018-c0002",
+    "note": "X-warp from visually decided 2.28.6; destination requires sheet review. Actual destination view shows mark clipping at immutable crop edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.92.4": {
+    "wid": "2.92.4",
+    "page": 14,
+    "x": [
+      1815,
+      1797,
+      1733
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00018-c0002",
+    "note": "X-warp from visually decided 2.28.6; destination requires sheet review. Actual destination view shows mark clipping at immutable crop edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "16.123.0": {
+    "wid": "16.123.0",
+    "page": 281,
+    "x": [
+      1669,
+      1655,
+      1587
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00018-c0002",
+    "note": "X-warp from visually decided 2.28.6; destination requires sheet review. Actual destination view shows mark clipping at immutable crop edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.28.8": {
+    "wid": "2.28.8",
+    "page": 5,
+    "x": [
+      1394,
+      1381,
+      1300
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00018-c0003",
+    "note": "X-warp from visually decided 2.259.53; destination requires sheet review."
+  },
+  "2.28.10": {
+    "wid": "2.28.10",
+    "page": 5,
+    "x": [
+      977,
+      965,
+      885
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00018-c0003",
+    "note": "X-warp from visually decided 2.259.53; destination requires sheet review. Actual destination view shows mark clipping at immutable crop edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.262.6": {
+    "wid": "2.262.6",
+    "page": 44,
+    "x": [
+      1420,
+      1409,
+      1335
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00018-c0003",
+    "note": "X-warp from visually decided 2.259.53; destination requires sheet review. Actual destination view shows mark clipping at immutable crop edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "8.36.14": {
+    "wid": "8.36.14",
+    "page": 181,
+    "x": [
+      1310,
+      1300,
+      1222
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00018-c0004",
+    "note": "X-warp from visually decided 22.5.12; destination requires sheet review. Actual destination view shows mark clipping at immutable crop edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "11.90.2": {
+    "wid": "11.90.2",
+    "page": 232,
+    "x": [
+      741,
+      732,
+      646
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00018-c0004",
+    "note": "X-warp from visually decided 22.5.12; destination requires sheet review."
+  },
+  "41.30.5": {
+    "wid": "41.30.5",
+    "page": 480,
+    "x": [
+      1041,
+      1029,
+      948
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00018-c0004",
+    "note": "X-warp from visually decided 22.5.12; destination requires sheet review."
+  },
+  "22.66.3": {
+    "wid": "22.66.3",
+    "page": 340,
+    "x": [
+      1821,
+      1809,
+      1732
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00018-c0005",
+    "note": "X-warp from visually decided 10.52.0; destination requires sheet review. Actual destination view shows mark clipping at immutable crop edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "39.54.10": {
+    "wid": "39.54.10",
+    "page": 464,
+    "x": [
+      1532,
+      1521,
+      1444
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00018-c0005",
+    "note": "X-warp from visually decided 10.52.0; destination requires sheet review. Actual destination view shows mark clipping at immutable crop edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "6.1.9": {
+    "wid": "6.1.9",
+    "page": 128,
+    "x": [
+      1601,
+      1587,
+      1499
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00018-c0006",
+    "note": "X-warp from visually decided 30.54.11; destination requires sheet review. Actual destination view shows mark clipping at immutable crop edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "30.54.5": {
+    "wid": "30.54.5",
+    "page": 410,
+    "x": [
+      1519,
+      1506,
+      1409
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00018-c0006",
+    "note": "X-warp from visually decided 30.54.11; destination requires sheet review."
+  },
+  "3.23.14": {
+    "wid": "3.23.14",
+    "page": 53,
+    "x": [
+      1289,
+      1276,
+      1194
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00018-c0007",
+    "note": "X-warp from visually decided 32.11.7; destination requires sheet review. Actual destination view shows mark clipping at immutable crop edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "33.60.13": {
+    "wid": "33.60.13",
+    "page": 426,
+    "x": [
+      1682,
+      1668,
+      1578
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00018-c0007",
+    "note": "X-warp from visually decided 32.11.7; destination requires sheet review."
+  },
+  "17.69.15": {
+    "wid": "17.69.15",
+    "page": 289,
+    "x": [
+      452,
+      433,
+      389
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00018-c0008",
+    "note": "X-warp from visually decided 35.32.0; destination requires sheet review. Actual destination view shows mark clipping at immutable crop edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "19.70.0": {
+    "wid": "19.70.0",
+    "page": 310,
+    "x": [
+      694,
+      675,
+      630
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00018-c0008",
+    "note": "X-warp from visually decided 35.32.0; destination requires sheet review. Actual destination view shows mark clipping at immutable crop edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "33.14.5": {
+    "wid": "33.14.5",
+    "page": 419,
+    "x": [
+      655,
+      645,
+      574
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00018-c0009",
+    "note": "X-warp from visually decided 37.136.0; destination requires sheet review. Actual destination view shows mark clipping at immutable crop edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "39.6.4": {
+    "wid": "39.6.4",
+    "page": 459,
+    "x": [
+      1097,
+      1087,
+      1023
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00018-c0009",
+    "note": "X-warp from visually decided 37.136.0; destination requires sheet review. Actual destination view shows mark clipping at immutable crop edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "10.14.0": {
+    "wid": "10.14.0",
+    "page": 209,
+    "x": [
+      462,
+      433,
+      389
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00018-c0010",
+    "note": "X-warp from visually decided 75.33.0; destination requires sheet review. Actual destination view shows mark clipping at immutable crop edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "67.4.0": {
+    "wid": "67.4.0",
+    "page": 562,
+    "x": [
+      607,
+      581,
+      545
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00018-c0010",
+    "note": "X-warp from visually decided 75.33.0; destination requires sheet review. Actual destination view shows mark clipping at immutable crop edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "37.68.0": {
+    "wid": "37.68.0",
+    "page": 448,
+    "x": [
+      1042,
+      1013,
+      980
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0011",
+    "note": "X-warp from visually decided 2.31.4; destination visually reviewed and manually corrected. Actual destination view shows mark clipping at immutable crop edge. Manually corrected folded mim projection after actual carry view; checked on members-corrected-cloud-001.png.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "40.67.14": {
+    "wid": "40.67.14",
+    "page": 475,
+    "x": [
+      1299,
+      1273,
+      1230
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00018-c0012",
+    "note": "X-warp from visually decided 2.52.0; destination requires sheet review. Actual destination view shows mark clipping at immutable crop edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "17.6.0": {
+    "wid": "17.6.0",
+    "page": 282,
+    "x": [
+      1003,
+      990,
+      902
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00018-c0013",
+    "note": "X-warp from visually decided 2.75.11; destination requires sheet review."
+  },
+  "16.110.0": {
+    "wid": "16.110.0",
+    "page": 279,
+    "x": [
+      666,
+      657,
+      551
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00018-c0014",
+    "note": "X-warp from visually decided 2.199.0; destination requires sheet review."
+  },
+  "4.65.9": {
+    "wid": "4.65.9",
+    "page": 88,
+    "x": [
+      604,
+      590,
+      508
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00018-c0015",
+    "note": "X-warp from visually decided 2.259.20; destination requires sheet review. Actual destination view shows mark clipping at immutable crop edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "30.33.8": {
+    "wid": "30.33.8",
+    "page": 408,
+    "x": [
+      577,
+      564,
+      480
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00018-c0016",
+    "note": "X-warp from visually decided 2.260.30; destination requires sheet review."
+  },
+  "39.21.12": {
+    "wid": "39.21.12",
+    "page": 460,
+    "x": [
+      207,
+      195,
+      111
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00018-c0017",
+    "note": "X-warp from visually decided 3.59.10; destination requires sheet review."
+  },
+  "22.29.0": {
+    "wid": "22.29.0",
+    "page": 335,
+    "x": [
+      1120,
+      1107,
+      995
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00018-c0018",
+    "note": "X-warp from visually decided 3.61.18; destination requires sheet review."
+  },
+  "5.71.10": {
+    "wid": "5.71.10",
+    "page": 120,
+    "x": [
+      1597,
+      1587,
+      1505
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00018-c0019",
+    "note": "X-warp from visually decided 3.152.28; destination requires sheet review. Actual destination view shows mark clipping at immutable crop edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "5.43.7": {
+    "wid": "5.43.7",
+    "page": 115,
+    "x": [
+      1112,
+      1101,
+      1007
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00018-c0020",
+    "note": "X-warp from visually decided 4.17.8; destination requires sheet review."
+  },
+  "18.87.6": {
+    "wid": "18.87.6",
+    "page": 303,
+    "x": [
+      532,
+      520,
+      449
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00018-c0021",
+    "note": "X-warp from visually decided 4.137.9; destination requires sheet review."
+  },
+  "39.31.0": {
+    "wid": "39.31.0",
+    "page": 461,
+    "x": [
+      1651,
+      1640,
+      1567
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00018-c0022",
+    "note": "X-warp from visually decided 5.102.5; destination requires sheet review."
+  },
+  "6.91.39": {
+    "wid": "6.91.39",
+    "page": 139,
+    "x": [
+      1106,
+      1094,
+      1006
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00018-c0023",
+    "note": "X-warp from visually decided 6.8.10; destination requires sheet review."
+  },
+  "35.11.7": {
+    "wid": "35.11.7",
+    "page": 435,
+    "x": [
+      621,
+      610,
+      532
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00018-c0024",
+    "note": "X-warp from visually decided 6.23.0; destination requires sheet review."
+  },
+  "7.54.10": {
+    "wid": "7.54.10",
+    "page": 157,
+    "x": [
+      1654,
+      1622,
+      1584
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00018-c0025",
+    "note": "X-warp from visually decided 6.36.7; destination requires sheet review. Actual destination view shows mark clipping at immutable crop edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "29.20.8": {
+    "wid": "29.20.8",
+    "page": 398,
+    "x": [
+      934,
+      922,
+      831
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00018-c0026",
+    "note": "X-warp from visually decided 6.46.20; destination requires sheet review."
+  },
+  "59.12.13": {
+    "wid": "59.12.13",
+    "page": 547,
+    "x": [
+      779,
+      766,
+      662
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00018-c0027",
+    "note": "X-warp from visually decided 6.54.19; destination requires sheet review."
+  },
+  "7.103.0": {
+    "wid": "7.103.0",
+    "page": 163,
+    "x": [
+      1641,
+      1608,
+      1569
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00018-c0028",
+    "note": "X-warp from visually decided 6.60.17; destination requires sheet review. Actual destination view shows mark clipping at immutable crop edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "40.67.11": {
+    "wid": "40.67.11",
+    "page": 475,
+    "x": [
+      176,
+      153,
+      112
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0029",
+    "note": "X-warp from visually decided 6.159.14; destination visually reviewed and manually corrected. Actual destination view shows mark clipping at immutable crop edge. Manually corrected folded mim projection after actual carry view; checked on members-corrected-cloud-001.png. Expanded self-check exposed transcription error1246; corrected to artwork153 and rechecked on members-corrected-cloud-002.png.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "57.20.22": {
+    "wid": "57.20.22",
+    "page": 540,
+    "x": [
+      1578,
+      1553,
+      1509
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00018-c0030",
+    "note": "X-warp from visually decided 6.164.20; destination requires sheet review. Actual destination view shows mark clipping at immutable crop edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "37.67.0": {
+    "wid": "37.67.0",
+    "page": 448,
+    "x": [
+      412,
+      387,
+      348
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00018-c0031",
+    "note": "X-warp from visually decided 7.17.0; destination requires sheet review. Actual destination view shows mark clipping at immutable crop edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "9.25.20": {
+    "wid": "9.25.20",
+    "page": 190,
+    "x": [
+      1459,
+      1431,
+      1388
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00018-c0032",
+    "note": "X-warp from visually decided 8.56.3; destination requires sheet review. Actual destination view shows mark clipping at immutable crop edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "80.21.0": {
+    "wid": "80.21.0",
+    "page": 585,
+    "x": [
+      1365,
+      1337,
+      1305
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00018-c0033",
+    "note": "X-warp from visually decided 9.4.5; destination requires sheet review. Actual destination view shows mark clipping at immutable crop edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "23.15.0": {
+    "wid": "23.15.0",
+    "page": 342,
+    "x": [
+      638,
+      610,
+      565
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00018-c0034",
+    "note": "X-warp from visually decided 9.101.17; destination requires sheet review. Actual destination view shows mark clipping at immutable crop edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "29.25.12": {
+    "wid": "29.25.12",
+    "page": 399,
+    "x": [
+      1240,
+      1225,
+      1141
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00018-c0035",
+    "note": "X-warp from visually decided 9.118.22; destination requires sheet review."
+  },
+  "10.70.3": {
+    "wid": "10.70.3",
+    "page": 216,
+    "x": [
+      763,
+      751,
+      655
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00018-c0036",
+    "note": "X-warp from visually decided 10.4.9; destination requires sheet review."
+  },
+  "16.53.6": {
+    "wid": "16.53.6",
+    "page": 272,
+    "x": [
+      1395,
+      1381,
+      1292
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00018-c0037",
+    "note": "X-warp from visually decided 10.23.18; destination requires sheet review."
+  },
+  "12.70.8": {
+    "wid": "12.70.8",
+    "page": 244,
+    "x": [
+      157,
+      132,
+      87
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00018-c0038",
+    "note": "X-warp from visually decided 10.34.13; destination requires sheet review. Actual destination view shows mark clipping at immutable crop edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "80.26.0": {
+    "wid": "80.26.0",
+    "page": 585,
+    "x": [
+      1718,
+      1698,
+      1664
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00018-c0039",
+    "note": "X-warp from visually decided 11.1.4; destination requires sheet review. Actual destination view shows mark clipping at immutable crop edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "24.47.5": {
+    "wid": "24.47.5",
+    "page": 356,
+    "x": [
+      975,
+      961,
+      874
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00018-c0040",
+    "note": "X-warp from visually decided 11.55.4; destination requires sheet review."
+  },
+  "40.72.2": {
+    "wid": "40.72.2",
+    "page": 475,
+    "x": [
+      1506,
+      1494,
+      1402
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00018-c0041",
+    "note": "X-warp from visually decided 11.61.20; destination requires sheet review."
+  },
+  "12.49.0": {
+    "wid": "12.49.0",
+    "page": 241,
+    "x": [
+      655,
+      627,
+      591
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00018-c0042",
+    "note": "X-warp from visually decided 12.48.0; destination requires sheet review. Actual destination view shows mark clipping at immutable crop edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "20.122.0": {
+    "wid": "20.122.0",
+    "page": 320,
+    "x": [
+      1843,
+      1818,
+      1773
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00018-c0043",
+    "note": "X-warp from visually decided 13.2.7; destination requires sheet review. Actual destination view shows mark clipping at immutable crop edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "22.66.5": {
+    "wid": "22.66.5",
+    "page": 340,
+    "x": [
+      1414,
+      1401,
+      1298
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00018-c0044",
+    "note": "X-warp from visually decided 16.54.0; destination requires sheet review."
+  },
+  "39.44.8": {
+    "wid": "39.44.8",
+    "page": 463,
+    "x": [
+      218,
+      203,
+      115
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00018-c0045",
+    "note": "X-warp from visually decided 16.84.6; destination requires sheet review."
+  },
+  "26.66.0": {
+    "wid": "26.66.0",
+    "page": 370,
+    "x": [
+      1834,
+      1822,
+      1730
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00018-c0046",
+    "note": "X-warp from visually decided 16.119.0; destination requires sheet review."
+  },
+  "34.46.9": {
+    "wid": "34.46.9",
+    "page": 433,
+    "x": [
+      1022,
+      1008,
+      915
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00018-c0047",
+    "note": "X-warp from visually decided 17.18.11; destination requires sheet review."
+  },
+  "79.22.0": {
+    "wid": "79.22.0",
+    "page": 584,
+    "x": [
+      766,
+      742,
+      705
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00018-c0048",
+    "note": "X-warp from visually decided 18.92.0; destination requires sheet review. Actual destination view shows mark clipping at immutable crop edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "21.9.0": {
+    "wid": "21.9.0",
+    "page": 322,
+    "x": [
+      503,
+      474,
+      431
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00018-c0049",
+    "note": "X-warp from visually decided 20.82.7; destination requires sheet review. Actual destination view shows mark clipping at immutable crop edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "40.67.17": {
+    "wid": "40.67.17",
+    "page": 475,
+    "x": [
+      524,
+      509,
+      404
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00018-c0050",
+    "note": "X-warp from visually decided 22.58.5; destination requires sheet review."
+  },
+  "23.31.0": {
+    "wid": "23.31.0",
+    "page": 344,
+    "x": [
+      319,
+      305,
+      260
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00018-c0051",
+    "note": "X-warp from visually decided 23.16.0; destination requires sheet review."
+  },
+  "88.26.0": {
+    "wid": "88.26.0",
+    "page": 592,
+    "x": [
+      855,
+      829,
+      785
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00018-c0052",
+    "note": "X-warp from visually decided 23.44.0; destination requires sheet review. Actual destination view shows mark clipping at immutable crop edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "69.46.0": {
+    "wid": "69.46.0",
+    "page": 568,
+    "x": [
+      359,
+      334,
+      298
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00018-c0053",
+    "note": "X-warp from visually decided 24.4.3; destination requires sheet review. Actual destination view shows mark clipping at immutable crop edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "30.40.5": {
+    "wid": "30.40.5",
+    "page": 408,
+    "x": [
+      1210,
+      1196,
+      1101
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00018-c0054",
+    "note": "X-warp from visually decided 29.19.6; destination requires sheet review."
+  },
+  "71.18.0": {
+    "wid": "71.18.0",
+    "page": 571,
+    "x": [
+      845,
+      822,
+      785
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00018-c0055",
+    "note": "X-warp from visually decided 30.25.7; destination requires sheet review. Actual destination view shows mark clipping at immutable crop edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "40.73.0": {
+    "wid": "40.73.0",
+    "page": 475,
+    "x": [
+      580,
+      552,
+      515
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00018-c0056",
+    "note": "X-warp from visually decided 39.68.14; destination requires sheet review. Actual destination view shows mark clipping at immutable crop edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "45.26.5": {
+    "wid": "45.26.5",
+    "page": 501,
+    "x": [
+      550,
+      526,
+      486
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00018-c0057",
+    "note": "X-warp from visually decided 45.8.5; destination requires sheet review. Actual destination view shows mark clipping at immutable crop edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "58.7.36": {
+    "wid": "58.7.36",
+    "page": 543,
+    "x": [
+      389,
+      365,
+      328
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0058",
+    "note": "X-warp from visually decided 53.41.0; destination visually reviewed and manually corrected. Actual destination view shows mark clipping at immutable crop edge. Manually corrected folded mim projection after actual carry view; checked on members-corrected-cloud-001.png.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "74.22.0": {
+    "wid": "74.22.0",
+    "page": 576,
+    "x": [
+      1685,
+      1659,
+      1628
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00018-c0059",
+    "note": "X-warp from visually decided 57.20.18; destination requires sheet review. Actual destination view shows mark clipping at immutable crop edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "77.17.0": {
+    "wid": "77.17.0",
+    "page": 580,
+    "x": [
+      689,
+      658,
+      626
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00018-c0060",
+    "note": "X-warp from visually decided 57.27.0; destination requires sheet review."
+  },
+  "87.13.0": {
+    "wid": "87.13.0",
+    "page": 591,
+    "x": [
+      393,
+      366,
+      328
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00018-c0061",
+    "note": "X-warp from visually decided 80.22.0; destination requires sheet review. Actual destination view shows mark clipping at immutable crop edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  }
+}

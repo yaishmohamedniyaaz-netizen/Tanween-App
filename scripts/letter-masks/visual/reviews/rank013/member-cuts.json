@@ -1,0 +1,5937 @@
+{
+  "2.228.8": {
+    "wid": "2.228.8",
+    "page": 36,
+    "x": [
+      827,
+      814,
+      760
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0001",
+    "note": "X-warp from visually decided 12.76.21; destination requires sheet review."
+  },
+  "4.19.17": {
+    "wid": "4.19.17",
+    "page": 80,
+    "x": [
+      674,
+      661,
+      604
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0001",
+    "note": "X-warp from visually decided 12.76.21; destination requires sheet review."
+  },
+  "7.43.29": {
+    "wid": "7.43.29",
+    "page": 155,
+    "x": [
+      1599,
+      1584,
+      1532
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0001",
+    "note": "X-warp from visually decided 12.76.21; destination requires sheet review."
+  },
+  "7.97.3": {
+    "wid": "7.97.3",
+    "page": 163,
+    "x": [
+      733,
+      719,
+      665
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0001",
+    "note": "X-warp from visually decided 12.76.21; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "7.129.4": {
+    "wid": "7.129.4",
+    "page": 165,
+    "x": [
+      1562,
+      1547,
+      1493
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0001",
+    "note": "X-warp from visually decided 12.76.21; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "9.110.9": {
+    "wid": "9.110.9",
+    "page": 204,
+    "x": [
+      1386,
+      1372,
+      1320
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0001",
+    "note": "X-warp from visually decided 12.76.21; destination requires sheet review."
+  },
+  "10.35.23": {
+    "wid": "10.35.23",
+    "page": 213,
+    "x": [
+      1219,
+      1206,
+      1152
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0001",
+    "note": "X-warp from visually decided 12.76.21; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "10.100.3": {
+    "wid": "10.100.3",
+    "page": 220,
+    "x": [
+      1414,
+      1400,
+      1348
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0001",
+    "note": "X-warp from visually decided 12.76.21; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "11.46.19": {
+    "wid": "11.46.19",
+    "page": 227,
+    "x": [
+      963,
+      949,
+      895
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0001",
+    "note": "X-warp from visually decided 12.76.21; destination requires sheet review."
+  },
+  "11.89.4": {
+    "wid": "11.89.4",
+    "page": 232,
+    "x": [
+      961,
+      945,
+      890
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0001",
+    "note": "X-warp from visually decided 12.76.21; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "12.21.9": {
+    "wid": "12.21.9",
+    "page": 237,
+    "x": [
+      1817,
+      1803,
+      1747
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0001",
+    "note": "X-warp from visually decided 12.76.21; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "12.37.9": {
+    "wid": "12.37.9",
+    "page": 239,
+    "x": [
+      1424,
+      1410,
+      1357
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0001",
+    "note": "X-warp from visually decided 12.76.21; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "14.22.19": {
+    "wid": "14.22.19",
+    "page": 258,
+    "x": [
+      386,
+      371,
+      320
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0001",
+    "note": "X-warp from visually decided 12.76.21; destination requires sheet review."
+  },
+  "18.55.3": {
+    "wid": "18.55.3",
+    "page": 300,
+    "x": [
+      383,
+      368,
+      315
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0001",
+    "note": "X-warp from visually decided 12.76.21; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "18.77.15": {
+    "wid": "18.77.15",
+    "page": 302,
+    "x": [
+      685,
+      671,
+      621
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0001",
+    "note": "X-warp from visually decided 12.76.21; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "18.81.1": {
+    "wid": "18.81.1",
+    "page": 302,
+    "x": [
+      1474,
+      1461,
+      1405
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0001",
+    "note": "X-warp from visually decided 12.76.21; destination requires sheet review."
+  },
+  "18.86.17": {
+    "wid": "18.86.17",
+    "page": 303,
+    "x": [
+      766,
+      754,
+      706
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0001",
+    "note": "X-warp from visually decided 12.76.21; destination requires sheet review."
+  },
+  "19.91.0": {
+    "wid": "19.91.0",
+    "page": 311,
+    "x": [
+      683,
+      671,
+      617
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0001",
+    "note": "X-warp from visually decided 12.76.21; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "20.86.18": {
+    "wid": "20.86.18",
+    "page": 317,
+    "x": [
+      1343,
+      1328,
+      1273
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0001",
+    "note": "X-warp from visually decided 12.76.21; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "26.12.4": {
+    "wid": "26.12.4",
+    "page": 367,
+    "x": [
+      1850,
+      1836,
+      1785
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0001",
+    "note": "X-warp from visually decided 12.76.21; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "27.56.5": {
+    "wid": "27.56.5",
+    "page": 382,
+    "x": [
+      739,
+      726,
+      673
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0001",
+    "note": "X-warp from visually decided 12.76.21; destination requires sheet review."
+  },
+  "28.47.1": {
+    "wid": "28.47.1",
+    "page": 391,
+    "x": [
+      1619,
+      1604,
+      1549
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0001",
+    "note": "X-warp from visually decided 12.76.21; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "30.10.6": {
+    "wid": "30.10.6",
+    "page": 405,
+    "x": [
+      1833,
+      1820,
+      1769
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0001",
+    "note": "X-warp from visually decided 12.76.21; destination requires sheet review."
+  },
+  "32.20.7": {
+    "wid": "32.20.7",
+    "page": 416,
+    "x": [
+      1055,
+      1041,
+      986
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0001",
+    "note": "X-warp from visually decided 12.76.21; destination requires sheet review."
+  },
+  "33.6.19": {
+    "wid": "33.6.19",
+    "page": 418,
+    "x": [
+      828,
+      814,
+      761
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0001",
+    "note": "X-warp from visually decided 12.76.21; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "35.41.5": {
+    "wid": "35.41.5",
+    "page": 439,
+    "x": [
+      1560,
+      1545,
+      1492
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0001",
+    "note": "X-warp from visually decided 12.76.21; destination requires sheet review."
+  },
+  "36.40.4": {
+    "wid": "36.40.4",
+    "page": 442,
+    "x": [
+      362,
+      348,
+      294
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0001",
+    "note": "X-warp from visually decided 12.76.21; destination requires sheet review."
+  },
+  "41.22.3": {
+    "wid": "41.22.3",
+    "page": 479,
+    "x": [
+      1224,
+      1210,
+      1152
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0001",
+    "note": "X-warp from visually decided 12.76.21; destination requires sheet review."
+  },
+  "60.10.32": {
+    "wid": "60.10.32",
+    "page": 550,
+    "x": [
+      1090,
+      1076,
+      1026
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0001",
+    "note": "X-warp from visually decided 12.76.21; destination requires sheet review."
+  },
+  "68.14.0": {
+    "wid": "68.14.0",
+    "page": 564,
+    "x": [
+      736,
+      722,
+      668
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0001",
+    "note": "X-warp from visually decided 12.76.21; destination requires sheet review."
+  },
+  "72.28.1": {
+    "wid": "72.28.1",
+    "page": 573,
+    "x": [
+      478,
+      464,
+      409
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0001",
+    "note": "X-warp from visually decided 12.76.21; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "74.56.3": {
+    "wid": "74.56.3",
+    "page": 577,
+    "x": [
+      1408,
+      1394,
+      1340
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0001",
+    "note": "X-warp from visually decided 12.76.21; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "81.29.3": {
+    "wid": "81.29.3",
+    "page": 586,
+    "x": [
+      1014,
+      1002,
+      950
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0001",
+    "note": "X-warp from visually decided 12.76.21; destination requires sheet review."
+  },
+  "7.46.11": {
+    "wid": "7.46.11",
+    "page": 156,
+    "x": [
+      511,
+      497,
+      449
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0002",
+    "note": "X-warp from visually decided 34.43.11; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "9.62.7": {
+    "wid": "9.62.7",
+    "page": 197,
+    "x": [
+      1835,
+      1820,
+      1773
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0002",
+    "note": "X-warp from visually decided 34.43.11; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "9.108.12": {
+    "wid": "9.108.12",
+    "page": 204,
+    "x": [
+      1536,
+      1521,
+      1473
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0002",
+    "note": "X-warp from visually decided 34.43.11; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "9.113.5": {
+    "wid": "9.113.5",
+    "page": 205,
+    "x": [
+      172,
+      157,
+      114
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0002",
+    "note": "X-warp from visually decided 34.43.11; destination requires sheet review."
+  },
+  "16.33.3": {
+    "wid": "16.33.3",
+    "page": 270,
+    "x": [
+      770,
+      754,
+      708
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0002",
+    "note": "X-warp from visually decided 34.43.11; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "17.46.4": {
+    "wid": "17.46.4",
+    "page": 286,
+    "x": [
+      743,
+      727,
+      678
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0002",
+    "note": "X-warp from visually decided 34.43.11; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "18.57.17": {
+    "wid": "18.57.17",
+    "page": 300,
+    "x": [
+      923,
+      907,
+      859
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0002",
+    "note": "X-warp from visually decided 34.43.11; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "18.102.3": {
+    "wid": "18.102.3",
+    "page": 304,
+    "x": [
+      911,
+      896,
+      847
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0002",
+    "note": "X-warp from visually decided 34.43.11; destination requires sheet review."
+  },
+  "20.45.4": {
+    "wid": "20.45.4",
+    "page": 314,
+    "x": [
+      500,
+      484,
+      435
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0002",
+    "note": "X-warp from visually decided 34.43.11; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "23.98.3": {
+    "wid": "23.98.3",
+    "page": 348,
+    "x": [
+      1706,
+      1689,
+      1638
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0002",
+    "note": "X-warp from visually decided 34.43.11; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "24.8.3": {
+    "wid": "24.8.3",
+    "page": 350,
+    "x": [
+      1455,
+      1439,
+      1392
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0002",
+    "note": "X-warp from visually decided 34.43.11; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "25.62.8": {
+    "wid": "25.62.8",
+    "page": 365,
+    "x": [
+      590,
+      575,
+      529
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0002",
+    "note": "X-warp from visually decided 34.43.11; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "27.39.8": {
+    "wid": "27.39.8",
+    "page": 380,
+    "x": [
+      758,
+      741,
+      695
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0002",
+    "note": "X-warp from visually decided 34.43.11; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "27.40.10": {
+    "wid": "27.40.10",
+    "page": 380,
+    "x": [
+      1608,
+      1591,
+      1542
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0002",
+    "note": "X-warp from visually decided 34.43.11; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "28.19.3": {
+    "wid": "28.19.3",
+    "page": 387,
+    "x": [
+      1165,
+      1149,
+      1098
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0002",
+    "note": "X-warp from visually decided 34.43.11; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "28.19.28": {
+    "wid": "28.19.28",
+    "page": 387,
+    "x": [
+      893,
+      877,
+      831
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0002",
+    "note": "X-warp from visually decided 34.43.11; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "28.30.12": {
+    "wid": "28.30.12",
+    "page": 389,
+    "x": [
+      1007,
+      990,
+      941
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0002",
+    "note": "X-warp from visually decided 34.43.11; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "30.25.2": {
+    "wid": "30.25.2",
+    "page": 407,
+    "x": [
+      1473,
+      1457,
+      1407
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0002",
+    "note": "X-warp from visually decided 34.43.11; destination requires sheet review."
+  },
+  "33.49.10": {
+    "wid": "33.49.10",
+    "page": 424,
+    "x": [
+      1595,
+      1578,
+      1526
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0002",
+    "note": "X-warp from visually decided 34.43.11; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "33.50.36": {
+    "wid": "33.50.36",
+    "page": 424,
+    "x": [
+      515,
+      497,
+      444
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0002",
+    "note": "X-warp from visually decided 34.43.11; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "33.51.17": {
+    "wid": "33.51.17",
+    "page": 425,
+    "x": [
+      609,
+      593,
+      541
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0002",
+    "note": "X-warp from visually decided 34.43.11; destination requires sheet review."
+  },
+  "33.52.7": {
+    "wid": "33.52.7",
+    "page": 425,
+    "x": [
+      1237,
+      1221,
+      1171
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0002",
+    "note": "X-warp from visually decided 34.43.11; destination requires sheet review."
+  },
+  "33.59.13": {
+    "wid": "33.59.13",
+    "page": 426,
+    "x": [
+      909,
+      893,
+      842
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0002",
+    "note": "X-warp from visually decided 34.43.11; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "60.1.20": {
+    "wid": "60.1.20",
+    "page": 549,
+    "x": [
+      1607,
+      1592,
+      1542
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0002",
+    "note": "X-warp from visually decided 34.43.11; destination requires sheet review."
+  },
+  "70.38.4": {
+    "wid": "70.38.4",
+    "page": 569,
+    "x": [
+      1844,
+      1829,
+      1782
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0002",
+    "note": "X-warp from visually decided 34.43.11; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.237.4": {
+    "wid": "2.237.4",
+    "page": 38,
+    "x": [
+      933,
+      916,
+      862
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0003",
+    "note": "X-warp from visually decided 4.99.3; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "3.142.2": {
+    "wid": "3.142.2",
+    "page": 68,
+    "x": [
+      1538,
+      1523,
+      1468
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0003",
+    "note": "X-warp from visually decided 4.99.3; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "3.143.6": {
+    "wid": "3.143.6",
+    "page": 68,
+    "x": [
+      1685,
+      1669,
+      1618
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0003",
+    "note": "X-warp from visually decided 4.99.3; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "4.25.5": {
+    "wid": "4.25.5",
+    "page": 82,
+    "x": [
+      521,
+      506,
+      447
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0003",
+    "note": "X-warp from visually decided 4.99.3; destination requires sheet review."
+  },
+  "4.27.2": {
+    "wid": "4.27.2",
+    "page": 83,
+    "x": [
+      1477,
+      1461,
+      1407
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0003",
+    "note": "X-warp from visually decided 4.99.3; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "4.29.9": {
+    "wid": "4.29.9",
+    "page": 83,
+    "x": [
+      184,
+      169,
+      118
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0003",
+    "note": "X-warp from visually decided 4.99.3; destination requires sheet review."
+  },
+  "4.58.12": {
+    "wid": "4.58.12",
+    "page": 87,
+    "x": [
+      1644,
+      1627,
+      1574
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0003",
+    "note": "X-warp from visually decided 4.99.3; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "4.90.12": {
+    "wid": "4.90.12",
+    "page": 92,
+    "x": [
+      1220,
+      1205,
+      1150
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0003",
+    "note": "X-warp from visually decided 4.99.3; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "4.92.20": {
+    "wid": "4.92.20",
+    "page": 93,
+    "x": [
+      1462,
+      1445,
+      1389
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0003",
+    "note": "X-warp from visually decided 4.99.3; destination requires sheet review."
+  },
+  "4.101.7": {
+    "wid": "4.101.7",
+    "page": 94,
+    "x": [
+      969,
+      954,
+      903
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0003",
+    "note": "X-warp from visually decided 4.99.3; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "4.150.6": {
+    "wid": "4.150.6",
+    "page": 102,
+    "x": [
+      933,
+      915,
+      862
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0003",
+    "note": "X-warp from visually decided 4.99.3; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "5.34.5": {
+    "wid": "5.34.5",
+    "page": 113,
+    "x": [
+      851,
+      835,
+      782
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0003",
+    "note": "X-warp from visually decided 4.99.3; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "5.52.9": {
+    "wid": "5.52.9",
+    "page": 117,
+    "x": [
+      1452,
+      1437,
+      1386
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0003",
+    "note": "X-warp from visually decided 4.99.3; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "6.80.14": {
+    "wid": "6.80.14",
+    "page": 137,
+    "x": [
+      1717,
+      1702,
+      1649
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0003",
+    "note": "X-warp from visually decided 4.99.3; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "6.156.0": {
+    "wid": "6.156.0",
+    "page": 149,
+    "x": [
+      952,
+      936,
+      883
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0003",
+    "note": "X-warp from visually decided 4.99.3; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "9.18.19": {
+    "wid": "9.18.19",
+    "page": 189,
+    "x": [
+      1641,
+      1624,
+      1569
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0003",
+    "note": "X-warp from visually decided 4.99.3; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "12.96.1": {
+    "wid": "12.96.1",
+    "page": 247,
+    "x": [
+      1692,
+      1677,
+      1623
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0003",
+    "note": "X-warp from visually decided 4.99.3; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "28.27.9": {
+    "wid": "28.27.9",
+    "page": 388,
+    "x": [
+      192,
+      175,
+      119
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0003",
+    "note": "X-warp from visually decided 4.99.3; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "29.2.4": {
+    "wid": "29.2.4",
+    "page": 396,
+    "x": [
+      823,
+      808,
+      757
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0003",
+    "note": "X-warp from visually decided 4.99.3; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "60.9.14": {
+    "wid": "60.9.14",
+    "page": 550,
+    "x": [
+      922,
+      907,
+      855
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0003",
+    "note": "X-warp from visually decided 4.99.3; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "65.1.19": {
+    "wid": "65.1.19",
+    "page": 558,
+    "x": [
+      1242,
+      1226,
+      1169
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0003",
+    "note": "X-warp from visually decided 4.99.3; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "5.108.9": {
+    "wid": "5.108.9",
+    "page": 125,
+    "x": [
+      528,
+      513,
+      458
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0004",
+    "note": "X-warp from visually decided 28.19.21; destination requires sheet review."
+  },
+  "7.5.7": {
+    "wid": "7.5.7",
+    "page": 151,
+    "x": [
+      594,
+      580,
+      528
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0004",
+    "note": "X-warp from visually decided 28.19.21; destination requires sheet review."
+  },
+  "7.20.18": {
+    "wid": "7.20.18",
+    "page": 152,
+    "x": [
+      743,
+      730,
+      681
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0004",
+    "note": "X-warp from visually decided 28.19.21; destination requires sheet review."
+  },
+  "9.17.3": {
+    "wid": "9.17.3",
+    "page": 189,
+    "x": [
+      1878,
+      1864,
+      1808
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0004",
+    "note": "X-warp from visually decided 28.19.21; destination requires sheet review."
+  },
+  "9.64.2": {
+    "wid": "9.64.2",
+    "page": 197,
+    "x": [
+      1835,
+      1822,
+      1766
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0004",
+    "note": "X-warp from visually decided 28.19.21; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "9.108.18": {
+    "wid": "9.108.18",
+    "page": 204,
+    "x": [
+      487,
+      473,
+      420
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0004",
+    "note": "X-warp from visually decided 28.19.21; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "12.25.18": {
+    "wid": "12.25.18",
+    "page": 238,
+    "x": [
+      626,
+      612,
+      555
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0004",
+    "note": "X-warp from visually decided 28.19.21; destination requires sheet review."
+  },
+  "12.107.1": {
+    "wid": "12.107.1",
+    "page": 248,
+    "x": [
+      996,
+      982,
+      929
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0004",
+    "note": "X-warp from visually decided 28.19.21; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "17.68.1": {
+    "wid": "17.68.1",
+    "page": 289,
+    "x": [
+      394,
+      381,
+      329
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0004",
+    "note": "X-warp from visually decided 28.19.21; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "18.24.10": {
+    "wid": "18.24.10",
+    "page": 296,
+    "x": [
+      1171,
+      1156,
+      1100
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0004",
+    "note": "X-warp from visually decided 28.19.21; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "28.19.12": {
+    "wid": "28.19.12",
+    "page": 387,
+    "x": [
+      1431,
+      1416,
+      1360
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0004",
+    "note": "X-warp from visually decided 28.19.21; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "28.22.7": {
+    "wid": "28.22.7",
+    "page": 388,
+    "x": [
+      611,
+      598,
+      546
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0004",
+    "note": "X-warp from visually decided 28.19.21; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "30.49.4": {
+    "wid": "30.49.4",
+    "page": 409,
+    "x": [
+      1162,
+      1149,
+      1094
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0004",
+    "note": "X-warp from visually decided 28.19.21; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "40.28.10": {
+    "wid": "40.28.10",
+    "page": 470,
+    "x": [
+      559,
+      544,
+      488
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0004",
+    "note": "X-warp from visually decided 28.19.21; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "50.2.2": {
+    "wid": "50.2.2",
+    "page": 518,
+    "x": [
+      793,
+      780,
+      729
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0004",
+    "note": "X-warp from visually decided 28.19.21; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "60.8.13": {
+    "wid": "60.8.13",
+    "page": 550,
+    "x": [
+      1530,
+      1514,
+      1464
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0004",
+    "note": "X-warp from visually decided 28.19.21; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "67.17.5": {
+    "wid": "67.17.5",
+    "page": 563,
+    "x": [
+      897,
+      883,
+      835
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0004",
+    "note": "X-warp from visually decided 28.19.21; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "68.32.2": {
+    "wid": "68.32.2",
+    "page": 565,
+    "x": [
+      1732,
+      1721,
+      1672
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0004",
+    "note": "X-warp from visually decided 28.19.21; destination requires sheet review."
+  },
+  "73.20.31": {
+    "wid": "73.20.31",
+    "page": 575,
+    "x": [
+      755,
+      741,
+      689
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0004",
+    "note": "X-warp from visually decided 28.19.21; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "80.2.0": {
+    "wid": "80.2.0",
+    "page": 585,
+    "x": [
+      1409,
+      1397,
+      1351
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0004",
+    "note": "X-warp from visually decided 28.19.21; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.214.2": {
+    "wid": "2.214.2",
+    "page": 33,
+    "x": [
+      868,
+      852,
+      801
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0005",
+    "note": "X-warp from visually decided 17.59.6; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "3.147.4": {
+    "wid": "3.147.4",
+    "page": 68,
+    "x": [
+      1689,
+      1674,
+      1619
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0005",
+    "note": "X-warp from visually decided 17.59.6; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "4.102.51": {
+    "wid": "4.102.51",
+    "page": 95,
+    "x": [
+      848,
+      834,
+      780
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0005",
+    "note": "X-warp from visually decided 17.59.6; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "5.52.14": {
+    "wid": "5.52.14",
+    "page": 117,
+    "x": [
+      684,
+      670,
+      621
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0005",
+    "note": "X-warp from visually decided 17.59.6; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "6.25.8": {
+    "wid": "6.25.8",
+    "page": 130,
+    "x": [
+      1461,
+      1446,
+      1397
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0005",
+    "note": "X-warp from visually decided 17.59.6; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "9.102.10": {
+    "wid": "9.102.10",
+    "page": 203,
+    "x": [
+      1205,
+      1190,
+      1138
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0005",
+    "note": "X-warp from visually decided 17.59.6; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "11.34.12": {
+    "wid": "11.34.12",
+    "page": 225,
+    "x": [
+      431,
+      416,
+      362
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0005",
+    "note": "X-warp from visually decided 17.59.6; destination requires sheet review."
+  },
+  "13.21.6": {
+    "wid": "13.21.6",
+    "page": 252,
+    "x": [
+      856,
+      841,
+      791
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0005",
+    "note": "X-warp from visually decided 17.59.6; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "18.66.6": {
+    "wid": "18.66.6",
+    "page": 301,
+    "x": [
+      1707,
+      1693,
+      1640
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0005",
+    "note": "X-warp from visually decided 17.59.6; destination requires sheet review."
+  },
+  "18.80.6": {
+    "wid": "18.80.6",
+    "page": 302,
+    "x": [
+      972,
+      957,
+      905
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0005",
+    "note": "X-warp from visually decided 17.59.6; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "20.114.9": {
+    "wid": "20.114.9",
+    "page": 320,
+    "x": [
+      154,
+      139,
+      89
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0005",
+    "note": "X-warp from visually decided 17.59.6; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "28.34.12": {
+    "wid": "28.34.12",
+    "page": 389,
+    "x": [
+      677,
+      662,
+      609
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0005",
+    "note": "X-warp from visually decided 17.59.6; destination requires sheet review."
+  },
+  "29.24.5": {
+    "wid": "29.24.5",
+    "page": 399,
+    "x": [
+      830,
+      816,
+      763
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0005",
+    "note": "X-warp from visually decided 17.59.6; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "42.51.3": {
+    "wid": "42.51.3",
+    "page": 488,
+    "x": [
+      1665,
+      1649,
+      1594
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0005",
+    "note": "X-warp from visually decided 17.59.6; destination requires sheet review."
+  },
+  "45.25.9": {
+    "wid": "45.25.9",
+    "page": 501,
+    "x": [
+      760,
+      745,
+      696
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0005",
+    "note": "X-warp from visually decided 17.59.6; destination requires sheet review."
+  },
+  "59.3.1": {
+    "wid": "59.3.1",
+    "page": 545,
+    "x": [
+      688,
+      673,
+      617
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0005",
+    "note": "X-warp from visually decided 17.59.6; destination requires sheet review."
+  },
+  "67.16.4": {
+    "wid": "67.16.4",
+    "page": 563,
+    "x": [
+      1056,
+      1041,
+      988
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0005",
+    "note": "X-warp from visually decided 17.59.6; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "76.30.3": {
+    "wid": "76.30.3",
+    "page": 580,
+    "x": [
+      1341,
+      1327,
+      1271
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0005",
+    "note": "X-warp from visually decided 17.59.6; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "5.2.30": {
+    "wid": "5.2.30",
+    "page": 106,
+    "x": [
+      1005,
+      989,
+      938
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0006",
+    "note": "X-warp from visually decided 4.135.25; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "5.80.11": {
+    "wid": "5.80.11",
+    "page": 121,
+    "x": [
+      1826,
+      1810,
+      1758
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0006",
+    "note": "X-warp from visually decided 4.135.25; destination requires sheet review."
+  },
+  "7.115.3": {
+    "wid": "7.115.3",
+    "page": 164,
+    "x": [
+      612,
+      593,
+      537
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0006",
+    "note": "X-warp from visually decided 4.135.25; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "12.13.3": {
+    "wid": "12.13.3",
+    "page": 236,
+    "x": [
+      805,
+      789,
+      734
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0006",
+    "note": "X-warp from visually decided 4.135.25; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "17.88.6": {
+    "wid": "17.88.6",
+    "page": 291,
+    "x": [
+      876,
+      861,
+      810
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0006",
+    "note": "X-warp from visually decided 4.135.25; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "20.97.6": {
+    "wid": "20.97.6",
+    "page": 318,
+    "x": [
+      939,
+      923,
+      864
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0006",
+    "note": "X-warp from visually decided 4.135.25; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "38.75.4": {
+    "wid": "38.75.4",
+    "page": 457,
+    "x": [
+      1382,
+      1366,
+      1316
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0006",
+    "note": "X-warp from visually decided 4.135.25; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "39.4.3": {
+    "wid": "39.4.3",
+    "page": 458,
+    "x": [
+      1011,
+      993,
+      941
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0006",
+    "note": "X-warp from visually decided 4.135.25; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "39.54.7": {
+    "wid": "39.54.7",
+    "page": 464,
+    "x": [
+      448,
+      430,
+      374
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0006",
+    "note": "X-warp from visually decided 4.135.25; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "39.55.9": {
+    "wid": "39.55.9",
+    "page": 464,
+    "x": [
+      876,
+      861,
+      808
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0006",
+    "note": "X-warp from visually decided 4.135.25; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "39.56.0": {
+    "wid": "39.56.0",
+    "page": 464,
+    "x": [
+      804,
+      785,
+      730
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0006",
+    "note": "X-warp from visually decided 4.135.25; destination requires sheet review."
+  },
+  "40.26.13": {
+    "wid": "40.26.13",
+    "page": 470,
+    "x": [
+      1124,
+      1109,
+      1056
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0006",
+    "note": "X-warp from visually decided 4.135.25; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "42.47.4": {
+    "wid": "42.47.4",
+    "page": 488,
+    "x": [
+      1354,
+      1336,
+      1283
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0006",
+    "note": "X-warp from visually decided 4.135.25; destination requires sheet review."
+  },
+  "43.5.4": {
+    "wid": "43.5.4",
+    "page": 489,
+    "x": [
+      1831,
+      1815,
+      1761
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0006",
+    "note": "X-warp from visually decided 4.135.25; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "58.3.12": {
+    "wid": "58.3.12",
+    "page": 542,
+    "x": [
+      916,
+      899,
+      846
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0006",
+    "note": "X-warp from visually decided 4.135.25; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "59.2.14": {
+    "wid": "59.2.14",
+    "page": 545,
+    "x": [
+      1143,
+      1126,
+      1070
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0006",
+    "note": "X-warp from visually decided 4.135.25; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "4.28.2": {
+    "wid": "4.28.2",
+    "page": 83,
+    "x": [
+      382,
+      367,
+      315
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0007",
+    "note": "X-warp from visually decided 47.22.4; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "5.19.11": {
+    "wid": "5.19.11",
+    "page": 111,
+    "x": [
+      656,
+      641,
+      585
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0007",
+    "note": "X-warp from visually decided 47.22.4; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "6.51.4": {
+    "wid": "6.51.4",
+    "page": 133,
+    "x": [
+      456,
+      441,
+      388
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0007",
+    "note": "X-warp from visually decided 47.22.4; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "7.98.3": {
+    "wid": "7.98.3",
+    "page": 163,
+    "x": [
+      673,
+      657,
+      602
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0007",
+    "note": "X-warp from visually decided 47.22.4; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "8.7.16": {
+    "wid": "8.7.16",
+    "page": 177,
+    "x": [
+      1493,
+      1477,
+      1424
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0007",
+    "note": "X-warp from visually decided 47.22.4; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "12.66.12": {
+    "wid": "12.66.12",
+    "page": 243,
+    "x": [
+      1817,
+      1802,
+      1749
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0007",
+    "note": "X-warp from visually decided 47.22.4; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "17.8.2": {
+    "wid": "17.8.2",
+    "page": 283,
+    "x": [
+      1506,
+      1492,
+      1441
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0007",
+    "note": "X-warp from visually decided 47.22.4; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "24.29.3": {
+    "wid": "24.29.3",
+    "page": 353,
+    "x": [
+      950,
+      934,
+      882
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0007",
+    "note": "X-warp from visually decided 47.22.4; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "24.50.7": {
+    "wid": "24.50.7",
+    "page": 356,
+    "x": [
+      1816,
+      1802,
+      1749
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0007",
+    "note": "X-warp from visually decided 47.22.4; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "43.33.1": {
+    "wid": "43.33.1",
+    "page": 491,
+    "x": [
+      1835,
+      1819,
+      1765
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0007",
+    "note": "X-warp from visually decided 47.22.4; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "43.66.4": {
+    "wid": "43.66.4",
+    "page": 494,
+    "x": [
+      184,
+      169,
+      116
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0007",
+    "note": "X-warp from visually decided 47.22.4; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "46.33.13": {
+    "wid": "46.33.13",
+    "page": 506,
+    "x": [
+      699,
+      684,
+      629
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0007",
+    "note": "X-warp from visually decided 47.22.4; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "48.15.10": {
+    "wid": "48.15.10",
+    "page": 512,
+    "x": [
+      437,
+      421,
+      368
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0007",
+    "note": "X-warp from visually decided 47.22.4; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "75.36.2": {
+    "wid": "75.36.2",
+    "page": 578,
+    "x": [
+      572,
+      558,
+      509
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0007",
+    "note": "X-warp from visually decided 47.22.4; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.125.15": {
+    "wid": "2.125.15",
+    "page": 19,
+    "x": [
+      1475,
+      1456,
+      1407
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0008",
+    "note": "X-warp from visually decided 6.65.4; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.282.45": {
+    "wid": "2.282.45",
+    "page": 48,
+    "x": [
+      1810,
+      1793,
+      1744
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0008",
+    "note": "X-warp from visually decided 6.65.4; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "3.79.3": {
+    "wid": "3.79.3",
+    "page": 60,
+    "x": [
+      838,
+      820,
+      770
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0008",
+    "note": "X-warp from visually decided 6.65.4; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "3.124.5": {
+    "wid": "3.124.5",
+    "page": 66,
+    "x": [
+      1397,
+      1378,
+      1329
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0008",
+    "note": "X-warp from visually decided 6.65.4; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "4.6.17": {
+    "wid": "4.6.17",
+    "page": 77,
+    "x": [
+      644,
+      624,
+      575
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0008",
+    "note": "X-warp from visually decided 6.65.4; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "4.91.3": {
+    "wid": "4.91.3",
+    "page": 92,
+    "x": [
+      1011,
+      991,
+      940
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0008",
+    "note": "X-warp from visually decided 6.65.4; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "4.101.13": {
+    "wid": "4.101.13",
+    "page": 94,
+    "x": [
+      1832,
+      1814,
+      1770
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0008",
+    "note": "X-warp from visually decided 6.65.4; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "5.37.1": {
+    "wid": "5.37.1",
+    "page": 114,
+    "x": [
+      1491,
+      1471,
+      1421
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0008",
+    "note": "X-warp from visually decided 6.65.4; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "5.113.8": {
+    "wid": "5.113.8",
+    "page": 126,
+    "x": [
+      1606,
+      1588,
+      1539
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0008",
+    "note": "X-warp from visually decided 6.65.4; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "7.69.1": {
+    "wid": "7.69.1",
+    "page": 159,
+    "x": [
+      1823,
+      1805,
+      1757
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0008",
+    "note": "X-warp from visually decided 6.65.4; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "16.45.4": {
+    "wid": "16.45.4",
+    "page": 272,
+    "x": [
+      784,
+      765,
+      716
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0008",
+    "note": "X-warp from visually decided 6.65.4; destination requires sheet review."
+  },
+  "44.20.4": {
+    "wid": "44.20.4",
+    "page": 497,
+    "x": [
+      1502,
+      1483,
+      1433
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0008",
+    "note": "X-warp from visually decided 6.65.4; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.216.7": {
+    "wid": "2.216.7",
+    "page": 34,
+    "x": [
+      459,
+      442,
+      392
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0009",
+    "note": "X-warp from visually decided 4.129.2; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.229.10": {
+    "wid": "2.229.10",
+    "page": 36,
+    "x": [
+      188,
+      171,
+      123
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0009",
+    "note": "X-warp from visually decided 4.129.2; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.230.16": {
+    "wid": "2.230.16",
+    "page": 36,
+    "x": [
+      702,
+      684,
+      630
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0009",
+    "note": "X-warp from visually decided 4.129.2; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.233.45": {
+    "wid": "2.233.45",
+    "page": 37,
+    "x": [
+      1668,
+      1651,
+      1603
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0009",
+    "note": "X-warp from visually decided 4.129.2; destination requires sheet review."
+  },
+  "2.237.14": {
+    "wid": "2.237.14",
+    "page": 38,
+    "x": [
+      774,
+      756,
+      704
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0009",
+    "note": "X-warp from visually decided 4.129.2; destination requires sheet review."
+  },
+  "4.58.3": {
+    "wid": "4.58.3",
+    "page": 87,
+    "x": [
+      1507,
+      1491,
+      1442
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0009",
+    "note": "X-warp from visually decided 4.129.2; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "5.49.24": {
+    "wid": "5.49.24",
+    "page": 116,
+    "x": [
+      403,
+      387,
+      339
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0009",
+    "note": "X-warp from visually decided 4.129.2; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "6.35.7": {
+    "wid": "6.35.7",
+    "page": 131,
+    "x": [
+      365,
+      348,
+      297
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0009",
+    "note": "X-warp from visually decided 4.129.2; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "6.125.3": {
+    "wid": "6.125.3",
+    "page": 144,
+    "x": [
+      1442,
+      1425,
+      1376
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0009",
+    "note": "X-warp from visually decided 4.129.2; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "7.44.5": {
+    "wid": "7.44.5",
+    "page": 156,
+    "x": [
+      893,
+      877,
+      832
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0009",
+    "note": "X-warp from visually decided 4.129.2; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "4.60.26": {
+    "wid": "4.60.26",
+    "page": 88,
+    "x": [
+      427,
+      416,
+      360
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0010",
+    "note": "X-warp from visually decided 19.92.3; destination requires sheet review."
+  },
+  "10.87.4": {
+    "wid": "10.87.4",
+    "page": 218,
+    "x": [
+      1827,
+      1817,
+      1767
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0010",
+    "note": "X-warp from visually decided 19.92.3; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "13.25.12": {
+    "wid": "13.25.12",
+    "page": 252,
+    "x": [
+      1496,
+      1485,
+      1432
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0010",
+    "note": "X-warp from visually decided 19.92.3; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "18.94.14": {
+    "wid": "18.94.14",
+    "page": 303,
+    "x": [
+      612,
+      602,
+      548
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0010",
+    "note": "X-warp from visually decided 19.92.3; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "20.63.5": {
+    "wid": "20.63.5",
+    "page": 315,
+    "x": [
+      473,
+      463,
+      408
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0010",
+    "note": "X-warp from visually decided 19.92.3; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "24.22.6": {
+    "wid": "24.22.6",
+    "page": 352,
+    "x": [
+      1583,
+      1572,
+      1516
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0010",
+    "note": "X-warp from visually decided 19.92.3; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "24.60.10": {
+    "wid": "24.60.10",
+    "page": 358,
+    "x": [
+      863,
+      853,
+      800
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0010",
+    "note": "X-warp from visually decided 19.92.3; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "26.14.4": {
+    "wid": "26.14.4",
+    "page": 367,
+    "x": [
+      694,
+      683,
+      627
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0010",
+    "note": "X-warp from visually decided 19.92.3; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "47.18.4": {
+    "wid": "47.18.4",
+    "page": 508,
+    "x": [
+      1608,
+      1597,
+      1544
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0010",
+    "note": "X-warp from visually decided 19.92.3; destination requires sheet review."
+  },
+  "48.25.9": {
+    "wid": "48.25.9",
+    "page": 514,
+    "x": [
+      1578,
+      1567,
+      1515
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0010",
+    "note": "X-warp from visually decided 19.92.3; destination requires sheet review."
+  },
+  "2.90.10": {
+    "wid": "2.90.10",
+    "page": 14,
+    "x": [
+      1555,
+      1539,
+      1488
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0011",
+    "note": "X-warp from visually decided 65.4.17; destination requires sheet review."
+  },
+  "12.15.4": {
+    "wid": "12.15.4",
+    "page": 237,
+    "x": [
+      1116,
+      1102,
+      1051
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0011",
+    "note": "X-warp from visually decided 65.4.17; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "18.77.9": {
+    "wid": "18.77.9",
+    "page": 302,
+    "x": [
+      1817,
+      1802,
+      1749
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0011",
+    "note": "X-warp from visually decided 65.4.17; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "24.19.3": {
+    "wid": "24.19.3",
+    "page": 351,
+    "x": [
+      1613,
+      1598,
+      1548
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0011",
+    "note": "X-warp from visually decided 65.4.17; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "27.38.7": {
+    "wid": "27.38.7",
+    "page": 380,
+    "x": [
+      830,
+      814,
+      767
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0011",
+    "note": "X-warp from visually decided 65.4.17; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "30.43.6": {
+    "wid": "30.43.6",
+    "page": 409,
+    "x": [
+      1718,
+      1702,
+      1650
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0011",
+    "note": "X-warp from visually decided 65.4.17; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "33.37.23": {
+    "wid": "33.37.23",
+    "page": 423,
+    "x": [
+      878,
+      859,
+      807
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0011",
+    "note": "X-warp from visually decided 65.4.17; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "55.33.5": {
+    "wid": "55.33.5",
+    "page": 532,
+    "x": [
+      1849,
+      1834,
+      1786
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0011",
+    "note": "X-warp from visually decided 65.4.17; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "66.5.4": {
+    "wid": "66.5.4",
+    "page": 560,
+    "x": [
+      556,
+      541,
+      488
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0011",
+    "note": "X-warp from visually decided 65.4.17; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "71.1.10": {
+    "wid": "71.1.10",
+    "page": 570,
+    "x": [
+      414,
+      400,
+      350
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0011",
+    "note": "X-warp from visually decided 65.4.17; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "4.19.26": {
+    "wid": "4.19.26",
+    "page": 80,
+    "x": [
+      1809,
+      1791,
+      1742
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0012",
+    "note": "X-warp from visually decided 79.18.4; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "9.120.8": {
+    "wid": "9.120.8",
+    "page": 206,
+    "x": [
+      1423,
+      1405,
+      1356
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0012",
+    "note": "X-warp from visually decided 79.18.4; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "12.13.7": {
+    "wid": "12.13.7",
+    "page": 236,
+    "x": [
+      1813,
+      1795,
+      1741
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0012",
+    "note": "X-warp from visually decided 79.18.4; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "13.38.12": {
+    "wid": "13.38.12",
+    "page": 254,
+    "x": [
+      1620,
+      1603,
+      1551
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0012",
+    "note": "X-warp from visually decided 79.18.4; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "18.82.16": {
+    "wid": "18.82.16",
+    "page": 302,
+    "x": [
+      359,
+      342,
+      289
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0012",
+    "note": "X-warp from visually decided 79.18.4; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "24.61.52": {
+    "wid": "24.61.52",
+    "page": 358,
+    "x": [
+      491,
+      474,
+      424
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0012",
+    "note": "X-warp from visually decided 79.18.4; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "29.33.1": {
+    "wid": "29.33.1",
+    "page": 400,
+    "x": [
+      1815,
+      1798,
+      1748
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0012",
+    "note": "X-warp from visually decided 79.18.4; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "31.10.9": {
+    "wid": "31.10.9",
+    "page": 411,
+    "x": [
+      336,
+      320,
+      272
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0012",
+    "note": "X-warp from visually decided 79.18.4; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "36.82.5": {
+    "wid": "36.82.5",
+    "page": 445,
+    "x": [
+      1069,
+      1051,
+      998
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0012",
+    "note": "X-warp from visually decided 79.18.4; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "81.28.3": {
+    "wid": "81.28.3",
+    "page": 586,
+    "x": [
+      145,
+      130,
+      83
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0012",
+    "note": "X-warp from visually decided 79.18.4; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.67.7": {
+    "wid": "2.67.7",
+    "page": 10,
+    "x": [
+      951,
+      935,
+      882
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0013",
+    "note": "X-warp from visually decided 2.254.8; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.75.1": {
+    "wid": "2.75.1",
+    "page": 11,
+    "x": [
+      1222,
+      1205,
+      1153
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0013",
+    "note": "X-warp from visually decided 2.254.8; destination requires sheet review."
+  },
+  "2.210.3": {
+    "wid": "2.210.3",
+    "page": 32,
+    "x": [
+      1133,
+      1114,
+      1062
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0013",
+    "note": "X-warp from visually decided 2.254.8; destination requires sheet review."
+  },
+  "2.267.21": {
+    "wid": "2.267.21",
+    "page": 45,
+    "x": [
+      1440,
+      1422,
+      1370
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0013",
+    "note": "X-warp from visually decided 2.254.8; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.282.65": {
+    "wid": "2.282.65",
+    "page": 48,
+    "x": [
+      1034,
+      1016,
+      965
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0013",
+    "note": "X-warp from visually decided 2.254.8; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "4.84.12": {
+    "wid": "4.84.12",
+    "page": 91,
+    "x": [
+      1522,
+      1505,
+      1452
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0013",
+    "note": "X-warp from visually decided 2.254.8; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "5.11.10": {
+    "wid": "5.11.10",
+    "page": 109,
+    "x": [
+      980,
+      964,
+      911
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0013",
+    "note": "X-warp from visually decided 2.254.8; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "7.82.5": {
+    "wid": "7.82.5",
+    "page": 161,
+    "x": [
+      828,
+      812,
+      763
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0013",
+    "note": "X-warp from visually decided 2.254.8; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "9.16.2": {
+    "wid": "9.16.2",
+    "page": 189,
+    "x": [
+      1300,
+      1284,
+      1229
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0013",
+    "note": "X-warp from visually decided 2.254.8; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.26.4": {
+    "wid": "2.26.4",
+    "page": 5,
+    "x": [
+      1108,
+      1093,
+      1039
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0014",
+    "note": "X-warp from visually decided 3.188.7; destination requires sheet review."
+  },
+  "2.27.12": {
+    "wid": "2.27.12",
+    "page": 5,
+    "x": [
+      385,
+      370,
+      319
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0014",
+    "note": "X-warp from visually decided 3.188.7; destination requires sheet review."
+  },
+  "2.114.17": {
+    "wid": "2.114.17",
+    "page": 18,
+    "x": [
+      1686,
+      1671,
+      1618
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0014",
+    "note": "X-warp from visually decided 3.188.7; destination requires sheet review."
+  },
+  "2.229.16": {
+    "wid": "2.229.16",
+    "page": 36,
+    "x": [
+      835,
+      820,
+      770
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0014",
+    "note": "X-warp from visually decided 3.188.7; destination requires sheet review."
+  },
+  "2.232.7": {
+    "wid": "2.232.7",
+    "page": 37,
+    "x": [
+      394,
+      378,
+      328
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0014",
+    "note": "X-warp from visually decided 3.188.7; destination requires sheet review."
+  },
+  "4.116.4": {
+    "wid": "4.116.4",
+    "page": 97,
+    "x": [
+      977,
+      960,
+      911
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0014",
+    "note": "X-warp from visually decided 3.188.7; destination requires sheet review."
+  },
+  "4.144.11": {
+    "wid": "4.144.11",
+    "page": 101,
+    "x": [
+      1820,
+      1805,
+      1751
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0014",
+    "note": "X-warp from visually decided 3.188.7; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "4.176.44": {
+    "wid": "4.176.44",
+    "page": 106,
+    "x": [
+      1276,
+      1261,
+      1204
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0014",
+    "note": "X-warp from visually decided 3.188.7; destination requires sheet review."
+  },
+  "5.91.3": {
+    "wid": "5.91.3",
+    "page": 123,
+    "x": [
+      1555,
+      1540,
+      1493
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0014",
+    "note": "X-warp from visually decided 3.188.7; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.96.19": {
+    "wid": "2.96.19",
+    "page": 15,
+    "x": [
+      1441,
+      1428,
+      1372
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0015",
+    "note": "X-warp from visually decided 4.19.6; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.114.6": {
+    "wid": "2.114.6",
+    "page": 18,
+    "x": [
+      1718,
+      1705,
+      1649
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0015",
+    "note": "X-warp from visually decided 4.19.6; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "4.24.15": {
+    "wid": "4.24.15",
+    "page": 82,
+    "x": [
+      422,
+      409,
+      354
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0015",
+    "note": "X-warp from visually decided 4.19.6; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "4.27.9": {
+    "wid": "4.27.9",
+    "page": 83,
+    "x": [
+      1489,
+      1474,
+      1415
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0015",
+    "note": "X-warp from visually decided 4.19.6; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "4.60.21": {
+    "wid": "4.60.21",
+    "page": 88,
+    "x": [
+      1449,
+      1434,
+      1375
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0015",
+    "note": "X-warp from visually decided 4.19.6; destination requires sheet review."
+  },
+  "4.92.3": {
+    "wid": "4.92.3",
+    "page": 93,
+    "x": [
+      1199,
+      1185,
+      1126
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0015",
+    "note": "X-warp from visually decided 4.19.6; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "4.171.39": {
+    "wid": "4.171.39",
+    "page": 105,
+    "x": [
+      1257,
+      1243,
+      1187
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0015",
+    "note": "X-warp from visually decided 4.19.6; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "5.33.10": {
+    "wid": "5.33.10",
+    "page": 113,
+    "x": [
+      1596,
+      1583,
+      1523
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0015",
+    "note": "X-warp from visually decided 4.19.6; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "9.13.15": {
+    "wid": "9.13.15",
+    "page": 188,
+    "x": [
+      1141,
+      1127,
+      1065
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0015",
+    "note": "X-warp from visually decided 4.19.6; destination requires sheet review."
+  },
+  "4.44.11": {
+    "wid": "4.44.11",
+    "page": 85,
+    "x": [
+      768,
+      752,
+      698
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0016",
+    "note": "X-warp from visually decided 14.10.24; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "4.88.10": {
+    "wid": "4.88.10",
+    "page": 92,
+    "x": [
+      548,
+      532,
+      481
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0016",
+    "note": "X-warp from visually decided 14.10.24; destination requires sheet review."
+  },
+  "5.112.9": {
+    "wid": "5.112.9",
+    "page": 126,
+    "x": [
+      188,
+      171,
+      118
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0016",
+    "note": "X-warp from visually decided 14.10.24; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "11.12.9": {
+    "wid": "11.12.9",
+    "page": 222,
+    "x": [
+      1249,
+      1233,
+      1179
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0016",
+    "note": "X-warp from visually decided 14.10.24; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "16.92.13": {
+    "wid": "16.92.13",
+    "page": 277,
+    "x": [
+      1615,
+      1599,
+      1544
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0016",
+    "note": "X-warp from visually decided 14.10.24; destination requires sheet review."
+  },
+  "18.40.2": {
+    "wid": "18.40.2",
+    "page": 298,
+    "x": [
+      675,
+      658,
+      603
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0016",
+    "note": "X-warp from visually decided 14.10.24; destination requires sheet review."
+  },
+  "18.55.11": {
+    "wid": "18.55.11",
+    "page": 300,
+    "x": [
+      550,
+      535,
+      484
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0016",
+    "note": "X-warp from visually decided 14.10.24; destination requires sheet review."
+  },
+  "19.35.3": {
+    "wid": "19.35.3",
+    "page": 307,
+    "x": [
+      860,
+      846,
+      796
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0016",
+    "note": "X-warp from visually decided 14.10.24; destination requires sheet review."
+  },
+  "29.2.2": {
+    "wid": "29.2.2",
+    "page": 396,
+    "x": [
+      1095,
+      1080,
+      1032
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0016",
+    "note": "X-warp from visually decided 14.10.24; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.105.9": {
+    "wid": "2.105.9",
+    "page": 16,
+    "x": [
+      1847,
+      1826,
+      1774
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0017",
+    "note": "X-warp from visually decided 5.17.18; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "3.145.3": {
+    "wid": "3.145.3",
+    "page": 68,
+    "x": [
+      1610,
+      1590,
+      1537
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0017",
+    "note": "X-warp from visually decided 5.17.18; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "4.128.11": {
+    "wid": "4.128.11",
+    "page": 99,
+    "x": [
+      1597,
+      1577,
+      1524
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0017",
+    "note": "X-warp from visually decided 5.17.18; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "4.150.17": {
+    "wid": "4.150.17",
+    "page": 102,
+    "x": [
+      1820,
+      1799,
+      1751
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0017",
+    "note": "X-warp from visually decided 5.17.18; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "4.153.3": {
+    "wid": "4.153.3",
+    "page": 102,
+    "x": [
+      1381,
+      1361,
+      1307
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0017",
+    "note": "X-warp from visually decided 5.17.18; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "8.26.8": {
+    "wid": "8.26.8",
+    "page": 180,
+    "x": [
+      1836,
+      1818,
+      1771
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0017",
+    "note": "X-warp from visually decided 5.17.18; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "9.44.7": {
+    "wid": "9.44.7",
+    "page": 194,
+    "x": [
+      802,
+      782,
+      730
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0017",
+    "note": "X-warp from visually decided 5.17.18; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "17.69.2": {
+    "wid": "17.69.2",
+    "page": 289,
+    "x": [
+      1079,
+      1062,
+      1012
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0017",
+    "note": "X-warp from visually decided 5.17.18; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "17.79.7": {
+    "wid": "17.79.7",
+    "page": 290,
+    "x": [
+      1420,
+      1405,
+      1350
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0018",
+    "note": "X-warp from visually decided 30.46.2; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "18.109.10": {
+    "wid": "18.109.10",
+    "page": 304,
+    "x": [
+      1420,
+      1408,
+      1357
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0018",
+    "note": "X-warp from visually decided 30.46.2; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "19.11.7": {
+    "wid": "19.11.7",
+    "page": 305,
+    "x": [
+      979,
+      963,
+      908
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0018",
+    "note": "X-warp from visually decided 30.46.2; destination requires sheet review."
+  },
+  "22.65.16": {
+    "wid": "22.65.16",
+    "page": 340,
+    "x": [
+      1081,
+      1065,
+      1009
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0018",
+    "note": "X-warp from visually decided 30.46.2; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "28.9.10": {
+    "wid": "28.9.10",
+    "page": 386,
+    "x": [
+      1819,
+      1804,
+      1751
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0018",
+    "note": "X-warp from visually decided 30.46.2; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "29.29.14": {
+    "wid": "29.29.14",
+    "page": 399,
+    "x": [
+      1816,
+      1801,
+      1746
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0018",
+    "note": "X-warp from visually decided 30.46.2; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "36.81.7": {
+    "wid": "36.81.7",
+    "page": 445,
+    "x": [
+      1505,
+      1490,
+      1433
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0018",
+    "note": "X-warp from visually decided 30.46.2; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "66.8.10": {
+    "wid": "66.8.10",
+    "page": 561,
+    "x": [
+      1809,
+      1795,
+      1743
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0018",
+    "note": "X-warp from visually decided 30.46.2; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "18.86.20": {
+    "wid": "18.86.20",
+    "page": 303,
+    "x": [
+      344,
+      331,
+      286
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0019",
+    "note": "X-warp from visually decided 24.22.19; destination requires sheet review."
+  },
+  "20.65.3": {
+    "wid": "20.65.3",
+    "page": 316,
+    "x": [
+      1375,
+      1361,
+      1314
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0019",
+    "note": "X-warp from visually decided 24.22.19; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "24.17.2": {
+    "wid": "24.17.2",
+    "page": 351,
+    "x": [
+      1312,
+      1297,
+      1246
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0019",
+    "note": "X-warp from visually decided 24.22.19; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "24.51.11": {
+    "wid": "24.51.11",
+    "page": 356,
+    "x": [
+      1813,
+      1798,
+      1747
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0019",
+    "note": "X-warp from visually decided 24.22.19; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "26.51.2": {
+    "wid": "26.51.2",
+    "page": 369,
+    "x": [
+      971,
+      955,
+      909
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0019",
+    "note": "X-warp from visually decided 24.22.19; destination requires sheet review."
+  },
+  "26.82.2": {
+    "wid": "26.82.2",
+    "page": 370,
+    "x": [
+      1018,
+      1003,
+      958
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0019",
+    "note": "X-warp from visually decided 24.22.19; destination requires sheet review."
+  },
+  "75.25.1": {
+    "wid": "75.25.1",
+    "page": 578,
+    "x": [
+      629,
+      614,
+      571
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0019",
+    "note": "X-warp from visually decided 24.22.19; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "11.69.11": {
+    "wid": "11.69.11",
+    "page": 229,
+    "x": [
+      1045,
+      1030,
+      977
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0020",
+    "note": "X-warp from visually decided 27.60.17; destination requires sheet review."
+  },
+  "12.94.10": {
+    "wid": "12.94.10",
+    "page": 246,
+    "x": [
+      169,
+      155,
+      111
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0020",
+    "note": "X-warp from visually decided 27.60.17; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "18.24.1": {
+    "wid": "18.24.1",
+    "page": 296,
+    "x": [
+      895,
+      880,
+      831
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0020",
+    "note": "X-warp from visually decided 27.60.17; destination requires sheet review."
+  },
+  "27.72.2": {
+    "wid": "27.72.2",
+    "page": 383,
+    "x": [
+      1814,
+      1799,
+      1752
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0020",
+    "note": "X-warp from visually decided 27.60.17; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "28.67.7": {
+    "wid": "28.67.7",
+    "page": 393,
+    "x": [
+      1382,
+      1367,
+      1319
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0020",
+    "note": "X-warp from visually decided 27.60.17; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "29.4.5": {
+    "wid": "29.4.5",
+    "page": 396,
+    "x": [
+      1530,
+      1514,
+      1467
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0020",
+    "note": "X-warp from visually decided 27.60.17; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "33.36.10": {
+    "wid": "33.36.10",
+    "page": 423,
+    "x": [
+      309,
+      294,
+      248
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0020",
+    "note": "X-warp from visually decided 27.60.17; destination requires sheet review."
+  },
+  "4.48.4": {
+    "wid": "4.48.4",
+    "page": 86,
+    "x": [
+      832,
+      817,
+      764
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0021",
+    "note": "X-warp from visually decided 33.53.52; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "4.172.3": {
+    "wid": "4.172.3",
+    "page": 105,
+    "x": [
+      1547,
+      1530,
+      1477
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0021",
+    "note": "X-warp from visually decided 33.53.52; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "12.83.10": {
+    "wid": "12.83.10",
+    "page": 245,
+    "x": [
+      1063,
+      1048,
+      990
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0021",
+    "note": "X-warp from visually decided 33.53.52; destination requires sheet review."
+  },
+  "26.35.1": {
+    "wid": "26.35.1",
+    "page": 368,
+    "x": [
+      1348,
+      1334,
+      1284
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0021",
+    "note": "X-warp from visually decided 33.53.52; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "38.4.1": {
+    "wid": "38.4.1",
+    "page": 453,
+    "x": [
+      1842,
+      1828,
+      1777
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0021",
+    "note": "X-warp from visually decided 33.53.52; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "40.78.17": {
+    "wid": "40.78.17",
+    "page": 476,
+    "x": [
+      370,
+      352,
+      300
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0021",
+    "note": "X-warp from visually decided 33.53.52; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "60.7.2": {
+    "wid": "60.7.2",
+    "page": 550,
+    "x": [
+      375,
+      358,
+      305
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0021",
+    "note": "X-warp from visually decided 33.53.52; destination requires sheet review."
+  },
+  "2.90.4": {
+    "wid": "2.90.4",
+    "page": 14,
+    "x": [
+      897,
+      882,
+      822
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0022",
+    "note": "X-warp from visually decided 2.108.2; destination requires sheet review."
+  },
+  "2.248.6": {
+    "wid": "2.248.6",
+    "page": 40,
+    "x": [
+      501,
+      486,
+      431
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0022",
+    "note": "X-warp from visually decided 2.108.2; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "3.73.11": {
+    "wid": "3.73.11",
+    "page": 59,
+    "x": [
+      1271,
+      1256,
+      1204
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0022",
+    "note": "X-warp from visually decided 2.108.2; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "3.80.2": {
+    "wid": "3.80.2",
+    "page": 60,
+    "x": [
+      660,
+      644,
+      593
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0022",
+    "note": "X-warp from visually decided 2.108.2; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "4.60.15": {
+    "wid": "4.60.15",
+    "page": 88,
+    "x": [
+      939,
+      923,
+      866
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0022",
+    "note": "X-warp from visually decided 2.108.2; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "9.32.9": {
+    "wid": "9.32.9",
+    "page": 192,
+    "x": [
+      1833,
+      1818,
+      1763
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0022",
+    "note": "X-warp from visually decided 2.108.2; destination requires sheet review."
+  },
+  "5.2.35": {
+    "wid": "5.2.35",
+    "page": 106,
+    "x": [
+      1612,
+      1597,
+      1542
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0023",
+    "note": "X-warp from visually decided 5.41.55; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "9.32.1": {
+    "wid": "9.32.1",
+    "page": 192,
+    "x": [
+      1446,
+      1431,
+      1381
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0023",
+    "note": "X-warp from visually decided 5.41.55; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "9.81.7": {
+    "wid": "9.81.7",
+    "page": 200,
+    "x": [
+      707,
+      694,
+      640
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0023",
+    "note": "X-warp from visually decided 5.41.55; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "17.74.1": {
+    "wid": "17.74.1",
+    "page": 289,
+    "x": [
+      730,
+      715,
+      662
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0023",
+    "note": "X-warp from visually decided 5.41.55; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "17.99.10": {
+    "wid": "17.99.10",
+    "page": 292,
+    "x": [
+      618,
+      601,
+      548
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0023",
+    "note": "X-warp from visually decided 5.41.55; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "25.57.9": {
+    "wid": "25.57.9",
+    "page": 365,
+    "x": [
+      1244,
+      1228,
+      1174
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0023",
+    "note": "X-warp from visually decided 5.41.55; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "23.95.2": {
+    "wid": "23.95.2",
+    "page": 348,
+    "x": [
+      1097,
+      1081,
+      1030
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0024",
+    "note": "X-warp from visually decided 5.113.2; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "68.24.0": {
+    "wid": "68.24.0",
+    "page": 565,
+    "x": [
+      1847,
+      1832,
+      1786
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0024",
+    "note": "X-warp from visually decided 5.113.2; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "72.5.2": {
+    "wid": "72.5.2",
+    "page": 572,
+    "x": [
+      596,
+      581,
+      529
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0024",
+    "note": "X-warp from visually decided 5.113.2; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "72.7.4": {
+    "wid": "72.7.4",
+    "page": 572,
+    "x": [
+      444,
+      430,
+      380
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0024",
+    "note": "X-warp from visually decided 5.113.2; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "72.12.2": {
+    "wid": "72.12.2",
+    "page": 572,
+    "x": [
+      492,
+      477,
+      429
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0024",
+    "note": "X-warp from visually decided 5.113.2; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "96.7.0": {
+    "wid": "96.7.0",
+    "page": 597,
+    "x": [
+      1340,
+      1327,
+      1282
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0024",
+    "note": "X-warp from visually decided 5.113.2; destination requires sheet review."
+  },
+  "6.125.10": {
+    "wid": "6.125.10",
+    "page": 144,
+    "x": [
+      1811,
+      1796,
+      1745
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0025",
+    "note": "X-warp from visually decided 6.70.11; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "6.145.12": {
+    "wid": "6.145.12",
+    "page": 147,
+    "x": [
+      433,
+      417,
+      360
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0025",
+    "note": "X-warp from visually decided 6.70.11; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "9.54.2": {
+    "wid": "9.54.2",
+    "page": 195,
+    "x": [
+      849,
+      835,
+      783
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0025",
+    "note": "X-warp from visually decided 6.70.11; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "14.31.13": {
+    "wid": "14.31.13",
+    "page": 259,
+    "x": [
+      1624,
+      1610,
+      1555
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0025",
+    "note": "X-warp from visually decided 6.70.11; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "17.51.22": {
+    "wid": "17.51.22",
+    "page": 287,
+    "x": [
+      157,
+      142,
+      87
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0025",
+    "note": "X-warp from visually decided 6.70.11; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "49.2.16": {
+    "wid": "49.2.16",
+    "page": 515,
+    "x": [
+      1618,
+      1602,
+      1546
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0025",
+    "note": "X-warp from visually decided 6.70.11; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "12.24.6": {
+    "wid": "12.24.6",
+    "page": 238,
+    "x": [
+      1669,
+      1655,
+      1597
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0026",
+    "note": "X-warp from visually decided 21.87.13; destination requires sheet review."
+  },
+  "14.35.10": {
+    "wid": "14.35.10",
+    "page": 260,
+    "x": [
+      1843,
+      1830,
+      1774
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0026",
+    "note": "X-warp from visually decided 21.87.13; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "22.26.5": {
+    "wid": "22.26.5",
+    "page": 335,
+    "x": [
+      642,
+      627,
+      571
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0026",
+    "note": "X-warp from visually decided 21.87.13; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "28.82.16": {
+    "wid": "28.82.16",
+    "page": 395,
+    "x": [
+      941,
+      928,
+      873
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0026",
+    "note": "X-warp from visually decided 21.87.13; destination requires sheet review."
+  },
+  "34.33.11": {
+    "wid": "34.33.11",
+    "page": 432,
+    "x": [
+      1560,
+      1547,
+      1492
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0026",
+    "note": "X-warp from visually decided 21.87.13; destination requires sheet review."
+  },
+  "48.12.2": {
+    "wid": "48.12.2",
+    "page": 512,
+    "x": [
+      1184,
+      1169,
+      1115
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0026",
+    "note": "X-warp from visually decided 21.87.13; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "4.127.22": {
+    "wid": "4.127.22",
+    "page": 98,
+    "x": [
+      541,
+      525,
+      474
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0027",
+    "note": "X-warp from visually decided 49.11.9; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "5.108.2": {
+    "wid": "5.108.2",
+    "page": 125,
+    "x": [
+      1687,
+      1672,
+      1619
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0027",
+    "note": "X-warp from visually decided 49.11.9; destination requires sheet review."
+  },
+  "16.15.4": {
+    "wid": "16.15.4",
+    "page": 269,
+    "x": [
+      1034,
+      1018,
+      966
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0027",
+    "note": "X-warp from visually decided 49.11.9; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "33.72.8": {
+    "wid": "33.72.8",
+    "page": 427,
+    "x": [
+      1021,
+      1006,
+      955
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0027",
+    "note": "X-warp from visually decided 49.11.9; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "49.11.18": {
+    "wid": "49.11.18",
+    "page": 516,
+    "x": [
+      409,
+      394,
+      343
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0027",
+    "note": "X-warp from visually decided 49.11.9; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "74.52.5": {
+    "wid": "74.52.5",
+    "page": 577,
+    "x": [
+      1421,
+      1407,
+      1359
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0027",
+    "note": "X-warp from visually decided 49.11.9; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.177.2": {
+    "wid": "2.177.2",
+    "page": 27,
+    "x": [
+      1468,
+      1454,
+      1402
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0028",
+    "note": "X-warp from visually decided 57.16.4; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "3.122.4": {
+    "wid": "3.122.4",
+    "page": 66,
+    "x": [
+      906,
+      892,
+      837
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0028",
+    "note": "X-warp from visually decided 57.16.4; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "6.23.5": {
+    "wid": "6.23.5",
+    "page": 130,
+    "x": [
+      433,
+      420,
+      369
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0028",
+    "note": "X-warp from visually decided 57.16.4; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "6.37.12": {
+    "wid": "6.37.12",
+    "page": 132,
+    "x": [
+      1564,
+      1552,
+      1499
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0028",
+    "note": "X-warp from visually decided 57.16.4; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "7.13.6": {
+    "wid": "7.13.6",
+    "page": 152,
+    "x": [
+      414,
+      402,
+      350
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0028",
+    "note": "X-warp from visually decided 57.16.4; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "74.37.3": {
+    "wid": "74.37.3",
+    "page": 576,
+    "x": [
+      762,
+      752,
+      704
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0028",
+    "note": "X-warp from visually decided 57.16.4; destination requires sheet review."
+  },
+  "7.105.2": {
+    "wid": "7.105.2",
+    "page": 164,
+    "x": [
+      1492,
+      1478,
+      1423
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0029",
+    "note": "X-warp from visually decided 60.12.7; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "13.31.22": {
+    "wid": "13.31.22",
+    "page": 253,
+    "x": [
+      1833,
+      1820,
+      1766
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0029",
+    "note": "X-warp from visually decided 60.12.7; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "45.21.5": {
+    "wid": "45.21.5",
+    "page": 500,
+    "x": [
+      624,
+      611,
+      558
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0029",
+    "note": "X-warp from visually decided 60.12.7; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "47.29.6": {
+    "wid": "47.29.6",
+    "page": 509,
+    "x": [
+      1063,
+      1048,
+      990
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0029",
+    "note": "X-warp from visually decided 60.12.7; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "56.61.1": {
+    "wid": "56.61.1",
+    "page": 536,
+    "x": [
+      1700,
+      1686,
+      1630
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0029",
+    "note": "X-warp from visually decided 60.12.7; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "90.5.1": {
+    "wid": "90.5.1",
+    "page": 594,
+    "x": [
+      534,
+      521,
+      467
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0029",
+    "note": "X-warp from visually decided 60.12.7; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.216.14": {
+    "wid": "2.216.14",
+    "page": 34,
+    "x": [
+      927,
+      910,
+      860
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0030",
+    "note": "X-warp from visually decided 7.185.13; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.282.17": {
+    "wid": "2.282.17",
+    "page": 48,
+    "x": [
+      1612,
+      1594,
+      1543
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0030",
+    "note": "X-warp from visually decided 7.185.13; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "5.29.2": {
+    "wid": "5.29.2",
+    "page": 112,
+    "x": [
+      951,
+      933,
+      880
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0030",
+    "note": "X-warp from visually decided 7.185.13; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "7.63.1": {
+    "wid": "7.63.1",
+    "page": 158,
+    "x": [
+      972,
+      953,
+      899
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0030",
+    "note": "X-warp from visually decided 7.185.13; destination requires sheet review."
+  },
+  "7.129.13": {
+    "wid": "7.129.13",
+    "page": 165,
+    "x": [
+      1834,
+      1815,
+      1758
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0030",
+    "note": "X-warp from visually decided 7.185.13; destination requires sheet review."
+  },
+  "7.89.17": {
+    "wid": "7.89.17",
+    "page": 162,
+    "x": [
+      809,
+      794,
+      742
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0031",
+    "note": "X-warp from visually decided 21.87.6; destination requires sheet review."
+  },
+  "11.87.10": {
+    "wid": "11.87.10",
+    "page": 231,
+    "x": [
+      1029,
+      1014,
+      964
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0031",
+    "note": "X-warp from visually decided 21.87.6; destination requires sheet review."
+  },
+  "17.16.2": {
+    "wid": "17.16.2",
+    "page": 283,
+    "x": [
+      1165,
+      1151,
+      1099
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0031",
+    "note": "X-warp from visually decided 21.87.6; destination requires sheet review."
+  },
+  "20.65.6": {
+    "wid": "20.65.6",
+    "page": 316,
+    "x": [
+      1018,
+      1004,
+      955
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0031",
+    "note": "X-warp from visually decided 21.87.6; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "25.18.6": {
+    "wid": "25.18.6",
+    "page": 361,
+    "x": [
+      1530,
+      1516,
+      1466
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0031",
+    "note": "X-warp from visually decided 21.87.6; destination requires sheet review."
+  },
+  "24.63.20": {
+    "wid": "24.63.20",
+    "page": 359,
+    "x": [
+      1834,
+      1823,
+      1768
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0032",
+    "note": "X-warp from visually decided 39.17.3; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "28.33.7": {
+    "wid": "28.33.7",
+    "page": 389,
+    "x": [
+      1815,
+      1805,
+      1753
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0032",
+    "note": "X-warp from visually decided 39.17.3; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "49.6.8": {
+    "wid": "49.6.8",
+    "page": 516,
+    "x": [
+      1831,
+      1821,
+      1767
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0032",
+    "note": "X-warp from visually decided 39.17.3; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "51.57.7": {
+    "wid": "51.57.7",
+    "page": 523,
+    "x": [
+      1591,
+      1580,
+      1524
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0032",
+    "note": "X-warp from visually decided 39.17.3; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "58.13.1": {
+    "wid": "58.13.1",
+    "page": 544,
+    "x": [
+      1425,
+      1415,
+      1363
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0032",
+    "note": "X-warp from visually decided 39.17.3; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "9.52.10": {
+    "wid": "9.52.10",
+    "page": 195,
+    "x": [
+      1398,
+      1384,
+      1326
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0033",
+    "note": "X-warp from visually decided 63.10.6; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "40.26.9": {
+    "wid": "40.26.9",
+    "page": 470,
+    "x": [
+      1825,
+      1811,
+      1756
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0033",
+    "note": "X-warp from visually decided 63.10.6; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "58.4.8": {
+    "wid": "58.4.8",
+    "page": 542,
+    "x": [
+      1277,
+      1264,
+      1209
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0033",
+    "note": "X-warp from visually decided 63.10.6; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "61.3.4": {
+    "wid": "61.3.4",
+    "page": 551,
+    "x": [
+      1155,
+      1141,
+      1083
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0033",
+    "note": "X-warp from visually decided 63.10.6; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "17.59.2": {
+    "wid": "17.59.2",
+    "page": 288,
+    "x": [
+      1523,
+      1509,
+      1460
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0034",
+    "note": "X-warp from visually decided 70.41.1; destination requires sheet review."
+  },
+  "21.17.2": {
+    "wid": "21.17.2",
+    "page": 323,
+    "x": [
+      423,
+      409,
+      353
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0034",
+    "note": "X-warp from visually decided 70.41.1; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "24.16.7": {
+    "wid": "24.16.7",
+    "page": 351,
+    "x": [
+      1349,
+      1334,
+      1283
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0034",
+    "note": "X-warp from visually decided 70.41.1; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "57.22.14": {
+    "wid": "57.22.14",
+    "page": 540,
+    "x": [
+      1583,
+      1567,
+      1511
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0034",
+    "note": "X-warp from visually decided 70.41.1; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.230.20": {
+    "wid": "2.230.20",
+    "page": 36,
+    "x": [
+      192,
+      177,
+      126
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0035",
+    "note": "X-warp from visually decided 2.282.96; destination requires sheet review."
+  },
+  "2.266.2": {
+    "wid": "2.266.2",
+    "page": 45,
+    "x": [
+      416,
+      399,
+      348
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0035",
+    "note": "X-warp from visually decided 2.282.96; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "3.28.17": {
+    "wid": "3.28.17",
+    "page": 53,
+    "x": [
+      617,
+      603,
+      553
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0035",
+    "note": "X-warp from visually decided 2.282.96; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "15.31.3": {
+    "wid": "15.31.3",
+    "page": 263,
+    "x": [
+      1052,
+      1039,
+      991
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0036",
+    "note": "X-warp from visually decided 3.93.14; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "23.24.12": {
+    "wid": "23.24.12",
+    "page": 343,
+    "x": [
+      1269,
+      1256,
+      1205
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0036",
+    "note": "X-warp from visually decided 3.93.14; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "24.36.4": {
+    "wid": "24.36.4",
+    "page": 354,
+    "x": [
+      311,
+      298,
+      251
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0036",
+    "note": "X-warp from visually decided 3.93.14; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "6.111.16": {
+    "wid": "6.111.16",
+    "page": 142,
+    "x": [
+      690,
+      675,
+      624
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0037",
+    "note": "X-warp from visually decided 7.89.21; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "6.158.3": {
+    "wid": "6.158.3",
+    "page": 150,
+    "x": [
+      1350,
+      1336,
+      1286
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0037",
+    "note": "X-warp from visually decided 7.89.21; destination requires sheet review."
+  },
+  "7.110.1": {
+    "wid": "7.110.1",
+    "page": 164,
+    "x": [
+      1401,
+      1387,
+      1335
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0037",
+    "note": "X-warp from visually decided 7.89.21; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "17.94.3": {
+    "wid": "17.94.3",
+    "page": 291,
+    "x": [
+      599,
+      581,
+      530
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0038",
+    "note": "X-warp from visually decided 21.31.4; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "17.94.9": {
+    "wid": "17.94.9",
+    "page": 291,
+    "x": [
+      1489,
+      1474,
+      1423
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0038",
+    "note": "X-warp from visually decided 21.31.4; destination requires sheet review."
+  },
+  "17.103.1": {
+    "wid": "17.103.1",
+    "page": 292,
+    "x": [
+      810,
+      794,
+      738
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0038",
+    "note": "X-warp from visually decided 21.31.4; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "16.40.5": {
+    "wid": "16.40.5",
+    "page": 271,
+    "x": [
+      308,
+      294,
+      245
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0039",
+    "note": "X-warp from visually decided 28.5.1; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "34.14.17": {
+    "wid": "34.14.17",
+    "page": 429,
+    "x": [
+      1832,
+      1817,
+      1765
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0039",
+    "note": "X-warp from visually decided 28.5.1; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "73.20.20": {
+    "wid": "73.20.20",
+    "page": 575,
+    "x": [
+      605,
+      591,
+      546
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0039",
+    "note": "X-warp from visually decided 28.5.1; destination requires sheet review."
+  },
+  "8.67.3": {
+    "wid": "8.67.3",
+    "page": 185,
+    "x": [
+      365,
+      348,
+      296
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0040",
+    "note": "X-warp from visually decided 33.53.57; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "20.94.9": {
+    "wid": "20.94.9",
+    "page": 318,
+    "x": [
+      1452,
+      1435,
+      1379
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0040",
+    "note": "X-warp from visually decided 33.53.57; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "53.26.12": {
+    "wid": "53.26.12",
+    "page": 526,
+    "x": [
+      1084,
+      1070,
+      1018
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0040",
+    "note": "X-warp from visually decided 33.53.57; destination requires sheet review."
+  },
+  "3.161.3": {
+    "wid": "3.161.3",
+    "page": 71,
+    "x": [
+      165,
+      149,
+      100
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0041",
+    "note": "X-warp from visually decided 68.49.1; destination requires sheet review."
+  },
+  "5.84.10": {
+    "wid": "5.84.10",
+    "page": 122,
+    "x": [
+      1582,
+      1567,
+      1517
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0041",
+    "note": "X-warp from visually decided 68.49.1; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "37.104.1": {
+    "wid": "37.104.1",
+    "page": 450,
+    "x": [
+      757,
+      742,
+      695
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0041",
+    "note": "X-warp from visually decided 68.49.1; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "4.47.12": {
+    "wid": "4.47.12",
+    "page": 86,
+    "x": [
+      943,
+      924,
+      868
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0042",
+    "note": "X-warp from visually decided 7.115.6; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "12.79.3": {
+    "wid": "12.79.3",
+    "page": 245,
+    "x": [
+      1356,
+      1339,
+      1287
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0042",
+    "note": "X-warp from visually decided 7.115.6; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "10.37.4": {
+    "wid": "10.37.4",
+    "page": 213,
+    "x": [
+      596,
+      579,
+      534
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0043",
+    "note": "X-warp from visually decided 10.83.12; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "34.46.4": {
+    "wid": "34.46.4",
+    "page": 433,
+    "x": [
+      162,
+      143,
+      93
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0043",
+    "note": "X-warp from visually decided 10.83.12; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "7.100.8": {
+    "wid": "7.100.8",
+    "page": 163,
+    "x": [
+      775,
+      761,
+      701
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0044",
+    "note": "X-warp from visually decided 14.11.19; destination requires sheet review."
+  },
+  "28.10.10": {
+    "wid": "28.10.10",
+    "page": 386,
+    "x": [
+      185,
+      171,
+      114
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0044",
+    "note": "X-warp from visually decided 14.11.19; destination requires sheet review."
+  },
+  "11.62.9": {
+    "wid": "11.62.9",
+    "page": 228,
+    "x": [
+      168,
+      153,
+      103
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0045",
+    "note": "X-warp from visually decided 20.134.16; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "12.38.9": {
+    "wid": "12.38.9",
+    "page": 240,
+    "x": [
+      1725,
+      1710,
+      1654
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0045",
+    "note": "X-warp from visually decided 20.134.16; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "24.61.15": {
+    "wid": "24.61.15",
+    "page": 358,
+    "x": [
+      363,
+      351,
+      304
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0046",
+    "note": "X-warp from visually decided 26.51.7; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "48.25.19": {
+    "wid": "48.25.19",
+    "page": 514,
+    "x": [
+      1464,
+      1451,
+      1404
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0046",
+    "note": "X-warp from visually decided 26.51.7; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "18.97.2": {
+    "wid": "18.97.2",
+    "page": 303,
+    "x": [
+      1252,
+      1240,
+      1188
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0047",
+    "note": "X-warp from visually decided 28.86.3; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "19.45.3": {
+    "wid": "19.45.3",
+    "page": 308,
+    "x": [
+      971,
+      959,
+      904
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0047",
+    "note": "X-warp from visually decided 28.86.3; destination requires sheet review."
+  },
+  "20.45.8": {
+    "wid": "20.45.8",
+    "page": 314,
+    "x": [
+      1779,
+      1767,
+      1714
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0048",
+    "note": "X-warp from visually decided 31.15.3; destination requires sheet review."
+  },
+  "22.22.2": {
+    "wid": "22.22.2",
+    "page": 334,
+    "x": [
+      1822,
+      1811,
+      1757
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0048",
+    "note": "X-warp from visually decided 31.15.3; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "18.35.8": {
+    "wid": "18.35.8",
+    "page": 298,
+    "x": [
+      462,
+      447,
+      396
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0049",
+    "note": "X-warp from visually decided 2.158.14; destination requires sheet review."
+  },
+  "2.282.79": {
+    "wid": "2.282.79",
+    "page": 48,
+    "x": [
+      1804,
+      1778,
+      1731
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0050",
+    "note": "X-warp from visually decided 2.198.3; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "25.42.6": {
+    "wid": "25.42.6",
+    "page": 363,
+    "x": [
+      1029,
+      1017,
+      876
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0051",
+    "note": "X-warp from visually decided 2.224.5; destination requires sheet review."
+  },
+  "9.85.7": {
+    "wid": "9.85.7",
+    "page": 200,
+    "x": [
+      393,
+      378,
+      328
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0052",
+    "note": "X-warp from visually decided 2.233.7; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "7.172.17": {
+    "wid": "7.172.17",
+    "page": 173,
+    "x": [
+      524,
+      509,
+      389
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0053",
+    "note": "X-warp from visually decided 4.113.8; destination requires sheet review."
+  },
+  "49.12.19": {
+    "wid": "49.12.19",
+    "page": 517,
+    "x": [
+      204,
+      189,
+      135
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0054",
+    "note": "X-warp from visually decided 5.49.10; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "15.54.3": {
+    "wid": "15.54.3",
+    "page": 265,
+    "x": [
+      148,
+      131,
+      86
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00013-c0055",
+    "note": "X-warp from visually decided 6.131.1; destination requires sheet review. Destination upper right ink clipped at immutable edge; body separation remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "85.8.4": {
+    "wid": "85.8.4",
+    "page": 590,
+    "x": [
+      1577,
+      1560,
+      1510
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0056",
+    "note": "X-warp from visually decided 8.62.2; destination requires sheet review."
+  },
+  "90.7.1": {
+    "wid": "90.7.1",
+    "page": 594,
+    "x": [
+      459,
+      443,
+      395
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0057",
+    "note": "X-warp from visually decided 9.118.15; destination requires sheet review."
+  },
+  "12.100.31": {
+    "wid": "12.100.31",
+    "page": 247,
+    "x": [
+      1295,
+      1279,
+      1228
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0058",
+    "note": "X-warp from visually decided 11.87.4; destination requires sheet review."
+  },
+  "26.197.4": {
+    "wid": "26.197.4",
+    "page": 375,
+    "x": [
+      318,
+      304,
+      260
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0059",
+    "note": "X-warp from visually decided 21.57.4; destination requires sheet review."
+  },
+  "33.53.8": {
+    "wid": "33.53.8",
+    "page": 425,
+    "x": [
+      254,
+      239,
+      112
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0060",
+    "note": "X-warp from visually decided 22.40.7; destination requires sheet review."
+  },
+  "84.14.2": {
+    "wid": "84.14.2",
+    "page": 589,
+    "x": [
+      1629,
+      1615,
+      1566
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00013-c0061",
+    "note": "X-warp from visually decided 75.4.3; destination requires sheet review."
+  }
+}

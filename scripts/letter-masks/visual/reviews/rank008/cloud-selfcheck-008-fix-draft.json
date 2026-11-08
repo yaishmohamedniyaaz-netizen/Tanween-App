@@ -1,0 +1,47 @@
+{
+  "11.81.23": {
+    "wid": "11.81.23",
+    "page": 230,
+    "x": [
+      1501,
+      1482,
+      1428
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00008-c0170",
+    "note": "Refined detached-body gap after shaded self-check. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "11.107.10": {
+    "wid": "11.107.10",
+    "page": 233,
+    "x": [
+      799,
+      774,
+      727
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00008-c0172",
+    "note": "Refined detached-body gap after shaded self-check. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "22.17.10": {
+    "wid": "22.17.10",
+    "page": 334,
+    "x": [
+      893,
+      872,
+      730
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00008-c0191",
+    "note": "Refined gap to preserve full leaning alif body after shaded self-check."
+  }
+}

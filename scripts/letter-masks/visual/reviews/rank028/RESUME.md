@@ -12,3 +12,7 @@ Stopped for the owner's cloud-transfer request on 2026-11-08. No annotation work
 Use annotation_grouping.py for draft rendering and root_review.py for archival acceptance. Only call accept after opening every named sheet. Use a fresh batch003 archive. Preserve old evidence before any regeneration. Inspect STYLE_GUIDE.md for ha ownership: the owner generally cuts near the right edge of the ha head, leaving the lower transition with the preceding combined lam. Do not infer inner cuts from pixel gaps.
 
 Every copy must be viewed. Mark partly clipped ink low and flag it. If an entire app target is missing from the immutable box, preserve actual-view evidence and withhold instead of inventing a slot. All cuts must remain within ceil/floor body bounds, with exact app N+1 targets and minimum2px spans. No hidden test scoring before the complete pilot gate.
+
+## Cloud continuation 2026-11-08
+
+Rank028 now has 239 accepted decisions, complete eligible coverage. Original sheets07–10 re-opened; all 20 representatives and 10 carries reviewed in batch-003 (four shaded representative sheets and one carry sheet). Actual-view audits use cloud-root-20261108 with SHA256. Prior working files preserved in pre-cloud-working; prior batch events unchanged. 2.232.28 retains partial waw tail/marginal body inside box, low plus clipped-ink; outer end visually corrected to immutable right edge194. Several clipped edge marks also flagged low. No hidden scoring. Next rank029 is unstarted.

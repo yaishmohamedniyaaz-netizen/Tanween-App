@@ -1,0 +1,3621 @@
+{
+  "8.36.10": {
+    "wid": "8.36.10",
+    "page": 181,
+    "x": [
+      439,
+      426,
+      359
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0001",
+    "note": "Manual visual division retains initial tha body and assigns intervening thin join to final mim; dots and marks do not shift the cut."
+  },
+  "2.28.6": {
+    "wid": "2.28.6",
+    "page": 5,
+    "x": [
+      1811,
+      1795,
+      1724
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0002",
+    "note": "Manual visual division retains initial tha body and assigns intervening thin join to final mim; dots and marks do not shift the cut."
+  },
+  "2.259.53": {
+    "wid": "2.259.53",
+    "page": 43,
+    "x": [
+      936,
+      924,
+      848
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0003",
+    "note": "Manual visual division retains initial tha body and assigns intervening thin join to final mim; dots and marks do not shift the cut."
+  },
+  "22.5.12": {
+    "wid": "22.5.12",
+    "page": 332,
+    "x": [
+      667,
+      657,
+      566
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0004",
+    "note": "Manual visual division retains initial tha body and assigns intervening thin join to final mim; dots and marks do not shift the cut."
+  },
+  "10.52.0": {
+    "wid": "10.52.0",
+    "page": 214,
+    "x": [
+      1313,
+      1303,
+      1232
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0005",
+    "note": "Manual visual division retains initial tha body and assigns intervening thin join to final mim; dots and marks do not shift the cut."
+  },
+  "30.54.11": {
+    "wid": "30.54.11",
+    "page": 410,
+    "x": [
+      631,
+      618,
+      521
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0006",
+    "note": "Manual visual division retains initial tha body and assigns intervening thin join to final mim; dots and marks do not shift the cut."
+  },
+  "32.11.7": {
+    "wid": "32.11.7",
+    "page": 415,
+    "x": [
+      1004,
+      991,
+      908
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0007",
+    "note": "Manual visual division retains initial tha body and assigns intervening thin join to final mim; dots and marks do not shift the cut."
+  },
+  "35.32.0": {
+    "wid": "35.32.0",
+    "page": 438,
+    "x": [
+      630,
+      610,
+      561
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00018-c0008",
+    "note": "Manual visual division retains initial tha body and assigns intervening thin join to final mim; dots and marks do not shift the cut."
+  },
+  "37.136.0": {
+    "wid": "37.136.0",
+    "page": 451,
+    "x": [
+      1320,
+      1310,
+      1243
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0009",
+    "note": "Manual visual division retains initial tha body and assigns intervening thin join to final mim; dots and marks do not shift the cut."
+  },
+  "75.33.0": {
+    "wid": "75.33.0",
+    "page": 578,
+    "x": [
+      1080,
+      1053,
+      1015
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00018-c0010",
+    "note": "Manual visual division retains initial tha body and assigns intervening thin join to final mim; dots and marks do not shift the cut."
+  },
+  "2.31.4": {
+    "wid": "2.31.4",
+    "page": 6,
+    "x": [
+      859,
+      824,
+      797
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00018-c0011",
+    "note": "Manual visual division retains initial tha body and assigns intervening thin join to final mim; dots and marks do not shift the cut."
+  },
+  "2.52.0": {
+    "wid": "2.52.0",
+    "page": 8,
+    "x": [
+      1661,
+      1634,
+      1592
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00018-c0012",
+    "note": "Manual visual division retains initial tha body and assigns intervening thin join to final mim; dots and marks do not shift the cut."
+  },
+  "2.75.11": {
+    "wid": "2.75.11",
+    "page": 11,
+    "x": [
+      1164,
+      1150,
+      1059
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0013",
+    "note": "Manual visual division retains initial tha body and assigns intervening thin join to final mim; dots and marks do not shift the cut. Right-edge body or attached dots visibly clipped by immutable crop; keep inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.199.0": {
+    "wid": "2.199.0",
+    "page": 31,
+    "x": [
+      1133,
+      1123,
+      1029
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0014",
+    "note": "Manual visual division retains initial tha body and assigns intervening thin join to final mim; dots and marks do not shift the cut."
+  },
+  "2.259.20": {
+    "wid": "2.259.20",
+    "page": 43,
+    "x": [
+      881,
+      869,
+      798
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0015",
+    "note": "Manual visual division retains initial tha body and assigns intervening thin join to final mim; dots and marks do not shift the cut. Right-edge body or attached dots visibly clipped by immutable crop; keep inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.260.30": {
+    "wid": "2.260.30",
+    "page": 44,
+    "x": [
+      1806,
+      1794,
+      1705
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0016",
+    "note": "Manual visual division retains initial tha body and assigns intervening thin join to final mim; dots and marks do not shift the cut."
+  },
+  "3.59.10": {
+    "wid": "3.59.10",
+    "page": 57,
+    "x": [
+      329,
+      316,
+      236
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0017",
+    "note": "Manual visual division retains initial tha body and assigns intervening thin join to final mim; dots and marks do not shift the cut."
+  },
+  "3.61.18": {
+    "wid": "3.61.18",
+    "page": 57,
+    "x": [
+      1815,
+      1803,
+      1706
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0018",
+    "note": "Manual visual division retains initial tha body and assigns intervening thin join to final mim; dots and marks do not shift the cut. Right-edge body or attached dots visibly clipped by immutable crop; keep inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "3.152.28": {
+    "wid": "3.152.28",
+    "page": 69,
+    "x": [
+      1167,
+      1156,
+      1058
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0019",
+    "note": "Manual visual division retains initial tha body and assigns intervening thin join to final mim; dots and marks do not shift the cut."
+  },
+  "4.17.8": {
+    "wid": "4.17.8",
+    "page": 80,
+    "x": [
+      1807,
+      1795,
+      1709
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0020",
+    "note": "Manual visual division retains initial tha body and assigns intervening thin join to final mim; dots and marks do not shift the cut."
+  },
+  "4.137.9": {
+    "wid": "4.137.9",
+    "page": 100,
+    "x": [
+      1574,
+      1561,
+      1485
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0021",
+    "note": "Manual visual division retains initial tha body and assigns intervening thin join to final mim; dots and marks do not shift the cut."
+  },
+  "5.102.5": {
+    "wid": "5.102.5",
+    "page": 124,
+    "x": [
+      1038,
+      1024,
+      951
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0022",
+    "note": "Manual visual division retains initial tha body and assigns intervening thin join to final mim; dots and marks do not shift the cut."
+  },
+  "6.8.10": {
+    "wid": "6.8.10",
+    "page": 128,
+    "x": [
+      694,
+      680,
+      588
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0023",
+    "note": "Manual visual division retains initial tha body and assigns intervening thin join to final mim; dots and marks do not shift the cut."
+  },
+  "6.23.0": {
+    "wid": "6.23.0",
+    "page": 130,
+    "x": [
+      1101,
+      1090,
+      1007
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0024",
+    "note": "Manual visual division retains initial tha body and assigns intervening thin join to final mim; dots and marks do not shift the cut."
+  },
+  "6.36.7": {
+    "wid": "6.36.7",
+    "page": 132,
+    "x": [
+      308,
+      281,
+      245
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0025",
+    "note": "Folded tha-mim drawing: manual cut through upper join just right of mim shoulder; vertical division cannot isolate every curved stroke. Attached mark or dots visibly clipped at immutable crop edge; kept inside box for review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "6.46.20": {
+    "wid": "6.46.20",
+    "page": 133,
+    "x": [
+      1823,
+      1813,
+      1724
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0026",
+    "note": "Manually separated right tha body from final mim, retaining long join with mim; marks do not move boundary."
+  },
+  "6.54.19": {
+    "wid": "6.54.19",
+    "page": 134,
+    "x": [
+      1589,
+      1576,
+      1483
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0027",
+    "note": "Manually separated right tha body from final mim, retaining long join with mim; marks do not move boundary."
+  },
+  "6.60.17": {
+    "wid": "6.60.17",
+    "page": 135,
+    "x": [
+      1850,
+      1819,
+      1782
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0028",
+    "note": "Folded tha-mim drawing: manual cut through upper join just right of mim shoulder; vertical division cannot isolate every curved stroke. Edge of attached dots clipped at immutable right crop boundary; kept inside box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "6.159.14": {
+    "wid": "6.159.14",
+    "page": 150,
+    "x": [
+      838,
+      812,
+      769
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00018-c0029",
+    "note": "Folded tha-mim drawing: manual cut through upper join just right of mim shoulder; vertical division cannot isolate every curved stroke."
+  },
+  "6.164.20": {
+    "wid": "6.164.20",
+    "page": 150,
+    "x": [
+      672,
+      647,
+      605
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00018-c0030",
+    "note": "Folded tha-mim drawing: manual cut through upper join just right of mim shoulder; vertical division cannot isolate every curved stroke."
+  },
+  "7.17.0": {
+    "wid": "7.17.0",
+    "page": 152,
+    "x": [
+      1139,
+      1115,
+      1076
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00018-c0031",
+    "note": "Folded tha-mim drawing: manual cut through upper join just right of mim shoulder; vertical division cannot isolate every curved stroke."
+  },
+  "8.56.3": {
+    "wid": "8.56.3",
+    "page": 184,
+    "x": [
+      1165,
+      1138,
+      1098
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0032",
+    "note": "Folded tha-mim drawing: manual cut through upper join just right of mim shoulder; vertical division cannot isolate every curved stroke. Attached mark or dots visibly clipped at immutable crop edge; kept inside box for review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "9.4.5": {
+    "wid": "9.4.5",
+    "page": 187,
+    "x": [
+      543,
+      515,
+      475
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0033",
+    "note": "Folded tha-mim drawing: manual cut through upper join just right of mim shoulder; vertical division cannot isolate every curved stroke. Attached mark or dots visibly clipped at immutable crop edge; kept inside box for review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "9.101.17": {
+    "wid": "9.101.17",
+    "page": 203,
+    "x": [
+      818,
+      792,
+      746
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0034",
+    "note": "Folded tha-mim drawing: manual cut through upper join just right of mim shoulder; vertical division cannot isolate every curved stroke. Attached mark or dots visibly clipped at immutable crop edge; kept inside box for review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "9.118.22": {
+    "wid": "9.118.22",
+    "page": 206,
+    "x": [
+      1359,
+      1343,
+      1253
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0035",
+    "note": "Manually separated right tha body from final mim, retaining long join with mim; marks do not move boundary."
+  },
+  "10.4.9": {
+    "wid": "10.4.9",
+    "page": 208,
+    "x": [
+      1475,
+      1464,
+      1378
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0036",
+    "note": "Manually separated right tha body from final mim, retaining long join with mim; marks do not move boundary."
+  },
+  "10.23.18": {
+    "wid": "10.23.18",
+    "page": 211,
+    "x": [
+      1654,
+      1643,
+      1558
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0037",
+    "note": "Manually separated right tha body from final mim, retaining long join with mim; marks do not move boundary."
+  },
+  "10.34.13": {
+    "wid": "10.34.13",
+    "page": 213,
+    "x": [
+      1670,
+      1645,
+      1603
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0038",
+    "note": "Folded tha-mim drawing: manual cut through upper join just right of mim shoulder; vertical division cannot isolate every curved stroke. Attached mark or dots visibly clipped at immutable crop edge; kept inside box for review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "11.1.4": {
+    "wid": "11.1.4",
+    "page": 221,
+    "x": [
+      1126,
+      1105,
+      1067
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0039",
+    "note": "Folded tha-mim drawing: manual cut through upper join just right of mim shoulder; vertical division cannot isolate every curved stroke. Edge of attached dots clipped at immutable right crop boundary; kept inside box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "11.55.4": {
+    "wid": "11.55.4",
+    "page": 228,
+    "x": [
+      1639,
+      1627,
+      1546
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0040",
+    "note": "Manually separated right tha body from final mim, retaining long join with mim; marks do not move boundary."
+  },
+  "11.61.20": {
+    "wid": "11.61.20",
+    "page": 228,
+    "x": [
+      1031,
+      1017,
+      927
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0041",
+    "note": "Manually separated right tha body from final mim, retaining long join with mim; marks do not move boundary."
+  },
+  "12.48.0": {
+    "wid": "12.48.0",
+    "page": 241,
+    "x": [
+      1162,
+      1134,
+      1095
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0042",
+    "note": "Folded tha-mim drawing: manual cut through upper join just right of mim shoulder; vertical division cannot isolate every curved stroke. Edge of attached dots clipped at immutable right crop boundary; kept inside box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "13.2.7": {
+    "wid": "13.2.7",
+    "page": 249,
+    "x": [
+      1497,
+      1471,
+      1431
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0043",
+    "note": "Folded tha-mim drawing: manual cut through upper join just right of mim shoulder; vertical division cannot isolate every curved stroke. Edge of attached dots clipped at immutable right crop boundary; kept inside box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "16.54.0": {
+    "wid": "16.54.0",
+    "page": 272,
+    "x": [
+      190,
+      178,
+      86
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0044",
+    "note": "Manually separated right tha body from final mim, retaining long join with mim; marks do not move boundary."
+  },
+  "16.84.6": {
+    "wid": "16.84.6",
+    "page": 276,
+    "x": [
+      1567,
+      1553,
+      1476
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0045",
+    "note": "Manually separated right tha body from final mim, retaining long join with mim; marks do not move boundary."
+  },
+  "16.119.0": {
+    "wid": "16.119.0",
+    "page": 281,
+    "x": [
+      1850,
+      1838,
+      1751
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0046",
+    "note": "Manually separated right tha body from final mim, retaining long join with mim; marks do not move boundary."
+  },
+  "17.18.11": {
+    "wid": "17.18.11",
+    "page": 284,
+    "x": [
+      193,
+      178,
+      93
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0047",
+    "note": "Manually separated right tha body from final mim, retaining long join with mim; marks do not move boundary."
+  },
+  "18.92.0": {
+    "wid": "18.92.0",
+    "page": 303,
+    "x": [
+      292,
+      267,
+      228
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00018-c0048",
+    "note": "Folded tha-mim drawing: manual cut through upper join just right of mim shoulder; vertical division cannot isolate every curved stroke."
+  },
+  "20.82.7": {
+    "wid": "20.82.7",
+    "page": 317,
+    "x": [
+      1242,
+      1215,
+      1173
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0049",
+    "note": "Folded tha-mim drawing: manual cut through upper join just right of mim shoulder; some strokes overlap horizontally. Attached dots visibly clipped at immutable right crop edge; kept inside box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "22.58.5": {
+    "wid": "22.58.5",
+    "page": 339,
+    "x": [
+      747,
+      733,
+      619
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0050",
+    "note": "Manual visual division at left foot of initial tha rising stroke; intervening thin join and final tail stay with mim."
+  },
+  "23.16.0": {
+    "wid": "23.16.0",
+    "page": 342,
+    "x": [
+      1456,
+      1442,
+      1389
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00018-c0051",
+    "note": "Manual visual division at left foot of initial tha rising stroke; intervening thin join and final tail stay with mim."
+  },
+  "23.44.0": {
+    "wid": "23.44.0",
+    "page": 345,
+    "x": [
+      652,
+      626,
+      585
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00018-c0052",
+    "note": "Folded tha-mim drawing: manual cut through upper join just right of mim shoulder; some strokes overlap horizontally."
+  },
+  "24.4.3": {
+    "wid": "24.4.3",
+    "page": 350,
+    "x": [
+      702,
+      676,
+      641
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0053",
+    "note": "Folded tha-mim drawing: manual cut through upper join just right of mim shoulder; some strokes overlap horizontally. Attached dots visibly clipped at immutable right crop edge; kept inside box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "29.19.6": {
+    "wid": "29.19.6",
+    "page": 398,
+    "x": [
+      219,
+      207,
+      114
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0054",
+    "note": "Manual visual division at left foot of initial tha rising stroke; intervening thin join and final tail stay with mim."
+  },
+  "30.25.7": {
+    "wid": "30.25.7",
+    "page": 407,
+    "x": [
+      478,
+      453,
+      413
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00018-c0055",
+    "note": "Folded tha-mim drawing: manual cut through upper join just right of mim shoulder; some strokes overlap horizontally."
+  },
+  "39.68.14": {
+    "wid": "39.68.14",
+    "page": 466,
+    "x": [
+      1329,
+      1300,
+      1264
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00018-c0056",
+    "note": "Folded tha-mim drawing: manual cut through upper join just right of mim shoulder; some strokes overlap horizontally."
+  },
+  "45.8.5": {
+    "wid": "45.8.5",
+    "page": 499,
+    "x": [
+      1450,
+      1426,
+      1386
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00018-c0057",
+    "note": "Folded tha-mim drawing: manual cut through upper join just right of mim shoulder; some strokes overlap horizontally."
+  },
+  "53.41.0": {
+    "wid": "53.41.0",
+    "page": 527,
+    "x": [
+      1546,
+      1511,
+      1477
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00018-c0058",
+    "note": "Folded tha-mim drawing: manual cut through upper join just right of mim shoulder; some strokes overlap horizontally."
+  },
+  "57.20.18": {
+    "wid": "57.20.18",
+    "page": 540,
+    "x": [
+      532,
+      504,
+      466
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0059",
+    "note": "Folded tha-mim drawing: manual cut through upper join just right of mim shoulder; some strokes overlap horizontally. Attached dots visibly clipped at immutable right crop edge; kept inside box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "57.27.0": {
+    "wid": "57.27.0",
+    "page": 541,
+    "x": [
+      831,
+      799,
+      765
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00018-c0060",
+    "note": "Folded tha-mim drawing: manual cut through upper join just right of mim shoulder; some strokes overlap horizontally."
+  },
+  "80.22.0": {
+    "wid": "80.22.0",
+    "page": 585,
+    "x": [
+      815,
+      789,
+      762
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00018-c0061",
+    "note": "Folded tha-mim drawing: manual cut through upper join just right of mim shoulder; some strokes overlap horizontally. Left outer end manually excludes detached neighbouring marks visible to left of mim tail."
+  },
+  "2.29.8": {
+    "wid": "2.29.8",
+    "page": 5,
+    "x": [
+      574,
+      560,
+      496
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0062",
+    "note": "Manual visual division at left foot of initial tha rising stroke; intervening thin join and final tail stay with mim."
+  },
+  "2.56.0": {
+    "wid": "2.56.0",
+    "page": 8,
+    "x": [
+      587,
+      559,
+      516
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00018-c0063",
+    "note": "Folded tha-mim drawing: manual cut through upper join just right of mim shoulder; some strokes overlap horizontally."
+  },
+  "2.64.0": {
+    "wid": "2.64.0",
+    "page": 10,
+    "x": [
+      581,
+      554,
+      517
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00018-c0064",
+    "note": "Folded tha-mim drawing: manual cut through upper join just right of mim shoulder; some strokes overlap horizontally."
+  },
+  "2.74.0": {
+    "wid": "2.74.0",
+    "page": 11,
+    "x": [
+      970,
+      941,
+      901
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00018-c0065",
+    "note": "Folded tha-mim drawing: manual cut through upper join just right of mim shoulder; some strokes overlap horizontally."
+  },
+  "2.83.22": {
+    "wid": "2.83.22",
+    "page": 12,
+    "x": [
+      179,
+      153,
+      107
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00018-c0066",
+    "note": "Folded tha-mim drawing: manual cut through upper join just right of mim shoulder; some strokes overlap horizontally."
+  },
+  "2.84.11": {
+    "wid": "2.84.11",
+    "page": 13,
+    "x": [
+      1112,
+      1087,
+      1040
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0067",
+    "note": "Folded tha-mim drawing: manual cut through upper join just right of mim shoulder; some strokes overlap horizontally. Attached dots visibly clipped at immutable right crop edge; kept inside box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.126.23": {
+    "wid": "2.126.23",
+    "page": 19,
+    "x": [
+      1440,
+      1426,
+      1366
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0068",
+    "note": "Manual visual division at left foot of initial tha rising stroke; intervening thin join and final tail stay with mim."
+  },
+  "2.187.42": {
+    "wid": "2.187.42",
+    "page": 29,
+    "x": [
+      530,
+      517,
+      445
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0069",
+    "note": "Manual visual division at left foot of initial tha rising stroke; intervening thin join and final tail stay with mim."
+  },
+  "2.243.15": {
+    "wid": "2.243.15",
+    "page": 39,
+    "x": [
+      1197,
+      1182,
+      1115
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0070",
+    "note": "Manual visual division at left foot of initial tha rising stroke; intervening thin join and final tail stay with mim."
+  },
+  "2.260.23": {
+    "wid": "2.260.23",
+    "page": 44,
+    "x": [
+      1158,
+      1147,
+      1053
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0071",
+    "note": "Manual visual division at left foot of initial tha rising stroke; intervening thin join and final tail stay with mim."
+  },
+  "3.55.21": {
+    "wid": "3.55.21",
+    "page": 57,
+    "x": [
+      719,
+      705,
+      614
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0072",
+    "note": "Manual visual division at left foot of initial tha rising stroke; intervening thin join and final tail stay with mim. Corrected self-check to retain the complete tha rising stroke."
+  },
+  "3.81.10": {
+    "wid": "3.81.10",
+    "page": 60,
+    "x": [
+      1535,
+      1522,
+      1433
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0073",
+    "note": "Manually placed cut left of initial tha rising body, leaving stretched join and final mim tail together."
+  },
+  "3.90.5": {
+    "wid": "3.90.5",
+    "page": 61,
+    "x": [
+      1186,
+      1172,
+      1075
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0074",
+    "note": "Manually placed cut left of initial tha rising body, leaving stretched join and final mim tail together."
+  },
+  "3.111.8": {
+    "wid": "3.111.8",
+    "page": 64,
+    "x": [
+      933,
+      923,
+      858
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0075",
+    "note": "Manually placed cut left of initial tha rising body, leaving stretched join and final mim tail together."
+  },
+  "3.154.0": {
+    "wid": "3.154.0",
+    "page": 70,
+    "x": [
+      1828,
+      1812,
+      1748
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0076",
+    "note": "Manually placed cut left of initial tha rising body, leaving stretched join and final mim tail together."
+  },
+  "3.161.12": {
+    "wid": "3.161.12",
+    "page": 71,
+    "x": [
+      526,
+      501,
+      455
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00018-c0077",
+    "note": "Folded tha-mim: manual division on upper join right of mim shoulder; horizontal overlap remains."
+  },
+  "3.197.2": {
+    "wid": "3.197.2",
+    "page": 76,
+    "x": [
+      1819,
+      1806,
+      1721
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0078",
+    "note": "Manually placed cut left of initial tha rising body, leaving stretched join and final mim tail together."
+  },
+  "4.100.19": {
+    "wid": "4.100.19",
+    "page": 94,
+    "x": [
+      540,
+      527,
+      467
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0079",
+    "note": "Manually placed cut left of initial tha rising body, leaving stretched join and final mim tail together."
+  },
+  "4.110.6": {
+    "wid": "4.110.6",
+    "page": 96,
+    "x": [
+      1146,
+      1132,
+      1050
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0080",
+    "note": "Manually placed cut left of initial tha rising body, leaving stretched join and final mim tail together."
+  },
+  "4.112.5": {
+    "wid": "4.112.5",
+    "page": 96,
+    "x": [
+      1821,
+      1808,
+      1730
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0081",
+    "note": "Manually placed cut left of initial tha rising body, leaving stretched join and final mim tail together."
+  },
+  "4.137.3": {
+    "wid": "4.137.3",
+    "page": 100,
+    "x": [
+      721,
+      709,
+      625
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0082",
+    "note": "Manually placed cut left of initial tha rising body, leaving stretched join and final mim tail together."
+  },
+  "4.137.5": {
+    "wid": "4.137.5",
+    "page": 100,
+    "x": [
+      435,
+      421,
+      331
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0083",
+    "note": "Manually placed cut left of initial tha rising body, leaving stretched join and final mim tail together."
+  },
+  "4.137.7": {
+    "wid": "4.137.7",
+    "page": 100,
+    "x": [
+      1843,
+      1826,
+      1760
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0084",
+    "note": "Manually placed cut left of initial tha rising body, leaving stretched join and final mim tail together."
+  },
+  "4.153.22": {
+    "wid": "4.153.22",
+    "page": 102,
+    "x": [
+      1257,
+      1243,
+      1166
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0085",
+    "note": "Manually placed cut left of initial tha rising body, leaving stretched join and final mim tail together. Attached marks or dots clipped at right crop edge; retain immutable box and flag for review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "5.32.31": {
+    "wid": "5.32.31",
+    "page": 113,
+    "x": [
+      508,
+      495,
+      418
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0086",
+    "note": "Manually placed cut left of initial tha rising body, leaving stretched join and final mim tail together."
+  },
+  "5.71.6": {
+    "wid": "5.71.6",
+    "page": 120,
+    "x": [
+      535,
+      524,
+      438
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0087",
+    "note": "Manually placed cut left of initial tha rising body, leaving stretched join and final mim tail together."
+  },
+  "5.75.21": {
+    "wid": "5.75.21",
+    "page": 120,
+    "x": [
+      622,
+      608,
+      476
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0088",
+    "note": "Manually placed cut left of initial tha rising body, leaving stretched join and final mim tail together."
+  },
+  "5.93.15": {
+    "wid": "5.93.15",
+    "page": 123,
+    "x": [
+      1517,
+      1495,
+      1456
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0089",
+    "note": "Folded tha-mim: manual division on upper join right of mim shoulder; horizontal overlap remains. Attached marks or dots clipped at right crop edge; retain immutable box and flag for review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "5.93.18": {
+    "wid": "5.93.18",
+    "page": 123,
+    "x": [
+      1060,
+      1035,
+      1005
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00018-c0090",
+    "note": "Folded tha-mim: manual division on upper join right of mim shoulder; horizontal overlap remains."
+  },
+  "6.2.11": {
+    "wid": "6.2.11",
+    "page": 128,
+    "x": [
+      324,
+      312,
+      234
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0091",
+    "note": "Manually placed cut left of initial tha rising body, leaving stretched join and final mim tail together."
+  },
+  "6.2.5": {
+    "wid": "6.2.5",
+    "page": 128,
+    "x": [
+      1333,
+      1322,
+      1244
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0092",
+    "note": "Manually placed cut left of initial tha rising body, leaving stretched join and final mim tail together."
+  },
+  "6.11.4": {
+    "wid": "6.11.4",
+    "page": 129,
+    "x": [
+      1206,
+      1193,
+      1094
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0093",
+    "note": "Manually placed cut left of initial tha rising body, leaving stretched join and final mim tail together."
+  },
+  "6.22.3": {
+    "wid": "6.22.3",
+    "page": 130,
+    "x": [
+      1056,
+      1027,
+      993
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0094",
+    "note": "Folded tha-mim: manual division on upper join right of mim shoulder; horizontal overlap remains. Attached marks or dots clipped at right crop edge; retain immutable box and flag for review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "6.38.18": {
+    "wid": "6.38.18",
+    "page": 132,
+    "x": [
+      976,
+      962,
+      878
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0095",
+    "note": "Manually placed cut left of initial tha rising body, leaving stretched join and final mim tail together."
+  },
+  "6.60.14": {
+    "wid": "6.60.14",
+    "page": 135,
+    "x": [
+      675,
+      660,
+      569
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0096",
+    "note": "Manually placed cut left of initial tha rising body, leaving stretched join and final mim tail together."
+  },
+  "6.60.8": {
+    "wid": "6.60.8",
+    "page": 135,
+    "x": [
+      151,
+      127,
+      80
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00018-c0097",
+    "note": "Folded tha-mim: manual cut through upper bridge just right of mim shoulder, allowing unavoidable stroke overlap."
+  },
+  "6.62.0": {
+    "wid": "6.62.0",
+    "page": 135,
+    "x": [
+      985,
+      950,
+      908
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00018-c0098",
+    "note": "Folded tha-mim: manual cut through upper bridge just right of mim shoulder, allowing unavoidable stroke overlap."
+  },
+  "6.64.7": {
+    "wid": "6.64.7",
+    "page": 135,
+    "x": [
+      1849,
+      1836,
+      1772
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0099",
+    "note": "Manually placed cut at left edge of tha rising stroke; horizontal stretch and final tail remain with mim."
+  },
+  "6.108.17": {
+    "wid": "6.108.17",
+    "page": 141,
+    "x": [
+      1285,
+      1255,
+      1217
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0100",
+    "note": "Folded tha-mim: manual cut through upper bridge just right of mim shoulder, allowing unavoidable stroke overlap. Right-edge attached marks/dots visibly clipped by immutable crop; kept inside box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "6.154.0": {
+    "wid": "6.154.0",
+    "page": 149,
+    "x": [
+      1423,
+      1410,
+      1318
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0101",
+    "note": "Manually placed cut at left edge of tha rising stroke; horizontal stretch and final tail remain with mim."
+  },
+  "7.11.2": {
+    "wid": "7.11.2",
+    "page": 151,
+    "x": [
+      1271,
+      1248,
+      1203
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00018-c0102",
+    "note": "Folded tha-mim: manual cut through upper bridge just right of mim shoulder, allowing unavoidable stroke overlap."
+  },
+  "7.11.4": {
+    "wid": "7.11.4",
+    "page": 151,
+    "x": [
+      877,
+      853,
+      817
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0103",
+    "note": "Folded tha-mim: manual cut through upper bridge just right of mim shoulder, allowing unavoidable stroke overlap. Right-edge attached marks/dots visibly clipped by immutable crop; kept inside box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "7.95.0": {
+    "wid": "7.95.0",
+    "page": 162,
+    "x": [
+      158,
+      127,
+      89
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00018-c0104",
+    "note": "Folded tha-mim: manual cut through upper bridge just right of mim shoulder, allowing unavoidable stroke overlap."
+  },
+  "7.124.5": {
+    "wid": "7.124.5",
+    "page": 165,
+    "x": [
+      979,
+      951,
+      911
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0105",
+    "note": "Folded tha-mim: manual cut through upper bridge just right of mim shoulder, allowing unavoidable stroke overlap. Right-edge attached marks/dots visibly clipped by immutable crop; kept inside box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "7.153.3": {
+    "wid": "7.153.3",
+    "page": 169,
+    "x": [
+      200,
+      186,
+      108
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0106",
+    "note": "Manually placed cut at left edge of tha rising stroke; horizontal stretch and final tail remain with mim."
+  },
+  "7.195.22": {
+    "wid": "7.195.22",
+    "page": 175,
+    "x": [
+      895,
+      867,
+      820
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00018-c0107",
+    "note": "Folded tha-mim: manual cut through upper bridge just right of mim shoulder, allowing unavoidable stroke overlap."
+  },
+  "7.202.4": {
+    "wid": "7.202.4",
+    "page": 176,
+    "x": [
+      217,
+      202,
+      103
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0108",
+    "note": "Manually placed cut at left edge of tha rising stroke; horizontal stretch and final tail remain with mim."
+  },
+  "9.6.10": {
+    "wid": "9.6.10",
+    "page": 187,
+    "x": [
+      1577,
+      1563,
+      1479
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0109",
+    "note": "Manually placed cut at left edge of tha rising stroke; horizontal stretch and final tail remain with mim."
+  },
+  "9.26.0": {
+    "wid": "9.26.0",
+    "page": 190,
+    "x": [
+      645,
+      611,
+      572
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00018-c0110",
+    "note": "Folded tha-mim: manual cut through upper bridge just right of mim shoulder, allowing unavoidable stroke overlap."
+  },
+  "9.27.0": {
+    "wid": "9.27.0",
+    "page": 191,
+    "x": [
+      1839,
+      1825,
+      1727
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0111",
+    "note": "Manually placed cut at left edge of tha rising stroke; horizontal stretch and final tail remain with mim."
+  },
+  "9.94.20": {
+    "wid": "9.94.20",
+    "page": 202,
+    "x": [
+      1132,
+      1106,
+      1066
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00018-c0112",
+    "note": "Folded tha-mim: manual cut through upper bridge just right of mim shoulder, allowing unavoidable stroke overlap."
+  },
+  "9.117.20": {
+    "wid": "9.117.20",
+    "page": 205,
+    "x": [
+      1629,
+      1618,
+      1511
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0113",
+    "note": "Manually placed cut at left edge of tha rising stroke; horizontal stretch and final tail remain with mim."
+  },
+  "9.126.10": {
+    "wid": "9.126.10",
+    "page": 207,
+    "x": [
+      181,
+      159,
+      110
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00018-c0114",
+    "note": "Folded tha-mim: manual cut through upper bridge just right of mim shoulder, allowing unavoidable stroke overlap."
+  },
+  "9.127.12": {
+    "wid": "9.127.12",
+    "page": 207,
+    "x": [
+      1825,
+      1811,
+      1726
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0115",
+    "note": "Manually placed cut at left edge of tha rising stroke; horizontal stretch and final tail remain with mim."
+  },
+  "10.3.10": {
+    "wid": "10.3.10",
+    "page": 208,
+    "x": [
+      1439,
+      1410,
+      1369
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00018-c0116",
+    "note": "Folded tha-mim: manual cut through upper bridge just right of mim shoulder, allowing unavoidable stroke overlap."
+  },
+  "10.28.3": {
+    "wid": "10.28.3",
+    "page": 212,
+    "x": [
+      1630,
+      1607,
+      1566
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0117",
+    "note": "Folded tha-mim: manual cut through upper bridge just right of mim shoulder, allowing unavoidable stroke overlap. Right-edge attached marks/dots visibly clipped by immutable crop; kept inside box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "10.34.7": {
+    "wid": "10.34.7",
+    "page": 213,
+    "x": [
+      785,
+      758,
+      719
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00018-c0118",
+    "note": "Folded tha-mim: manual cut through upper bridge just right of mim shoulder, allowing unavoidable stroke overlap."
+  },
+  "10.46.9": {
+    "wid": "10.46.9",
+    "page": 214,
+    "x": [
+      1378,
+      1349,
+      1311
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00018-c0119",
+    "note": "Folded tha-mim: manual cut through upper bridge just right of mim shoulder, allowing unavoidable stroke overlap."
+  },
+  "10.70.6": {
+    "wid": "10.70.6",
+    "page": 216,
+    "x": [
+      141,
+      128,
+      58
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0120",
+    "note": "Manually placed cut at left edge of tha rising stroke; horizontal stretch and final tail remain with mim. Right-edge attached marks/dots visibly clipped by immutable crop; kept inside box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "10.71.22": {
+    "wid": "10.71.22",
+    "page": 217,
+    "x": [
+      1316,
+      1303,
+      1221
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0121",
+    "note": "Manual cut preserves initial tha rising body; thin join and broad final mim tail assigned to mim."
+  },
+  "10.71.28": {
+    "wid": "10.71.28",
+    "page": 217,
+    "x": [
+      423,
+      411,
+      325
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0122",
+    "note": "Manual cut preserves initial tha rising body; thin join and broad final mim tail assigned to mim."
+  },
+  "10.74.0": {
+    "wid": "10.74.0",
+    "page": 217,
+    "x": [
+      1651,
+      1640,
+      1576
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0123",
+    "note": "Manual cut preserves initial tha rising body; thin join and broad final mim tail assigned to mim."
+  },
+  "10.75.0": {
+    "wid": "10.75.0",
+    "page": 217,
+    "x": [
+      1331,
+      1326,
+      1244
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0124",
+    "note": "Manual cut preserves initial tha rising body; thin join and broad final mim tail assigned to mim."
+  },
+  "10.103.0": {
+    "wid": "10.103.0",
+    "page": 220,
+    "x": [
+      357,
+      346,
+      263
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0125",
+    "note": "Manual cut preserves initial tha rising body; thin join and broad final mim tail assigned to mim."
+  },
+  "11.3.3": {
+    "wid": "11.3.3",
+    "page": 221,
+    "x": [
+      1650,
+      1627,
+      1586
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0126",
+    "note": "Folded tha-mim: manual division right of mim shoulder on upper joining stroke; overlapping strokes cannot be perfectly partitioned. Attached mark/dots clipped at immutable right crop edge; flagged for review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "11.48.13": {
+    "wid": "11.48.13",
+    "page": 227,
+    "x": [
+      1304,
+      1282,
+      1236
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0127",
+    "note": "Folded tha-mim: manual division right of mim shoulder on upper joining stroke; overlapping strokes cannot be perfectly partitioned. Attached mark/dots clipped at immutable right crop edge; flagged for review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "11.52.3": {
+    "wid": "11.52.3",
+    "page": 227,
+    "x": [
+      999,
+      987,
+      888
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0128",
+    "note": "Manual cut preserves initial tha rising body; thin join and broad final mim tail assigned to mim."
+  },
+  "11.113.14": {
+    "wid": "11.113.14",
+    "page": 234,
+    "x": [
+      207,
+      194,
+      102
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0129",
+    "note": "Manual cut preserves initial tha rising body; thin join and broad final mim tail assigned to mim."
+  },
+  "12.35.0": {
+    "wid": "12.35.0",
+    "page": 239,
+    "x": [
+      1452,
+      1436,
+      1355
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0130",
+    "note": "Manual cut preserves initial tha rising body; thin join and broad final mim tail assigned to mim."
+  },
+  "12.76.5": {
+    "wid": "12.76.5",
+    "page": 244,
+    "x": [
+      664,
+      641,
+      613
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00018-c0131",
+    "note": "Folded tha-mim: manual division right of mim shoulder on upper joining stroke; overlapping strokes cannot be perfectly partitioned."
+  },
+  "13.32.8": {
+    "wid": "13.32.8",
+    "page": 253,
+    "x": [
+      919,
+      889,
+      853
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00018-c0132",
+    "note": "Folded tha-mim: manual division right of mim shoulder on upper joining stroke; overlapping strokes cannot be perfectly partitioned."
+  },
+  "16.27.0": {
+    "wid": "16.27.0",
+    "page": 270,
+    "x": [
+      1791,
+      1778,
+      1693
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0133",
+    "note": "Manual cut preserves initial tha rising body; thin join and broad final mim tail assigned to mim."
+  },
+  "16.69.0": {
+    "wid": "16.69.0",
+    "page": 274,
+    "x": [
+      240,
+      216,
+      177
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0134",
+    "note": "Folded tha-mim: manual division right of mim shoulder on upper joining stroke; overlapping strokes cannot be perfectly partitioned. Shaded self-check also shows left-edge mark clipping in immutable crop.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "16.70.2": {
+    "wid": "16.70.2",
+    "page": 274,
+    "x": [
+      1004,
+      991,
+      942
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00018-c0135",
+    "note": "Manual cut preserves initial tha rising body; thin join and broad final mim tail assigned to mim."
+  },
+  "16.83.3": {
+    "wid": "16.83.3",
+    "page": 276,
+    "x": [
+      643,
+      632,
+      525
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0136",
+    "note": "Manual cut preserves initial tha rising body; thin join and broad final mim tail assigned to mim."
+  },
+  "16.110.9": {
+    "wid": "16.110.9",
+    "page": 279,
+    "x": [
+      593,
+      580,
+      467
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0137",
+    "note": "Manual cut preserves initial tha rising body; thin join and broad final mim tail assigned to mim."
+  },
+  "16.119.7": {
+    "wid": "16.119.7",
+    "page": 281,
+    "x": [
+      462,
+      438,
+      391
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0138",
+    "note": "Folded tha-mim: manual division right of mim shoulder on upper joining stroke; overlapping strokes cannot be perfectly partitioned. Shaded self-check also shows left-edge mark clipping in immutable crop.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "17.68.10": {
+    "wid": "17.68.10",
+    "page": 289,
+    "x": [
+      535,
+      523,
+      449
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0139",
+    "note": "Manual cut preserves initial tha rising body; thin join and broad final mim tail assigned to mim."
+  },
+  "17.75.6": {
+    "wid": "17.75.6",
+    "page": 289,
+    "x": [
+      1075,
+      1044,
+      1012
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0140",
+    "note": "Folded tha-mim: manual division right of mim shoulder on upper joining stroke; overlapping strokes cannot be perfectly partitioned. Attached mark/dots clipped at immutable right crop edge; flagged for review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "17.86.6": {
+    "wid": "17.86.6",
+    "page": 290,
+    "x": [
+      1206,
+      1180,
+      1137
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0141",
+    "note": "Folded tha-mim: manual division right of mim shoulder on upper joining stroke; overlapping strokes cannot be perfectly partitioned. Shaded self-check also shows left-edge mark clipping in immutable crop.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "18.12.0": {
+    "wid": "18.12.0",
+    "page": 294,
+    "x": [
+      899,
+      887,
+      807
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0142",
+    "note": "Manual cut preserves initial tha rising body; thin join and broad final mim tail assigned to mim."
+  },
+  "18.37.10": {
+    "wid": "18.37.10",
+    "page": 298,
+    "x": [
+      885,
+      859,
+      817
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0143",
+    "note": "Folded tha-mim: manual division right of mim shoulder on upper joining stroke; overlapping strokes cannot be perfectly partitioned. Shaded self-check also shows left-edge mark clipping in immutable crop.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "18.37.13": {
+    "wid": "18.37.13",
+    "page": 298,
+    "x": [
+      502,
+      474,
+      432
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0144",
+    "note": "Folded tha-mim: manual division right of mim shoulder on upper joining stroke; overlapping strokes cannot be perfectly partitioned. Attached mark/dots clipped at immutable right crop edge; flagged for review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "18.89.0": {
+    "wid": "18.89.0",
+    "page": 303,
+    "x": [
+      748,
+      727,
+      685
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0145",
+    "note": "Manually selected from actual original view: initial tha body right of cut; connector belongs to mim on left. Folded body overlap limits vertical separation. Shaded self-check shows left-edge mark clipping in immutable crop.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "19.68.3": {
+    "wid": "19.68.3",
+    "page": 310,
+    "x": [
+      215,
+      200,
+      126
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0146",
+    "note": "Manually selected from actual original view: initial tha body right of cut; connector belongs to mim on left."
+  },
+  "19.69.0": {
+    "wid": "19.69.0",
+    "page": 310,
+    "x": [
+      710,
+      691,
+      643
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0147",
+    "note": "Manually selected from actual original view: initial tha body right of cut; connector belongs to mim on left. Folded body overlap limits vertical separation. Shaded self-check shows left-edge mark clipping in immutable crop.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "19.72.0": {
+    "wid": "19.72.0",
+    "page": 310,
+    "x": [
+      1227,
+      1197,
+      1160
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0148",
+    "note": "Manually selected from actual original view: initial tha body right of cut; connector belongs to mim on left. Folded body overlap limits vertical separation. Shaded self-check shows left-edge mark clipping in immutable crop.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "20.40.29": {
+    "wid": "20.40.29",
+    "page": 314,
+    "x": [
+      1004,
+      973,
+      928
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0149",
+    "note": "Manually selected from actual original view: initial tha body right of cut; connector belongs to mim on left. Folded body overlap limits vertical separation. Shaded self-check shows left-edge mark clipping in immutable crop.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "20.50.7": {
+    "wid": "20.50.7",
+    "page": 314,
+    "x": [
+      1407,
+      1385,
+      1335
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0150",
+    "note": "Manually selected from actual original view: initial tha body right of cut; connector belongs to mim on left. Folded body overlap limits vertical separation. Shaded self-check shows left-edge mark clipping in immutable crop. Detached neighboring mark intrudes at left edge; kept immutable crop and own-word span.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "20.60.4": {
+    "wid": "20.60.4",
+    "page": 315,
+    "x": [
+      760,
+      737,
+      693
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0151",
+    "note": "Manually selected from actual original view: initial tha body right of cut; connector belongs to mim on left. Folded body overlap limits vertical separation. Right edge ink is visibly clipped by immutable word box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "20.64.2": {
+    "wid": "20.64.2",
+    "page": 315,
+    "x": [
+      1494,
+      1470,
+      1428
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0152",
+    "note": "Manually selected from actual original view: initial tha body right of cut; connector belongs to mim on left. Folded body overlap limits vertical separation. Right edge ink is visibly clipped by immutable word box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "20.97.23": {
+    "wid": "20.97.23",
+    "page": 318,
+    "x": [
+      1340,
+      1327,
+      1248
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0153",
+    "note": "Manually selected from actual original view: initial tha body right of cut; connector belongs to mim on left."
+  },
+  "21.65.0": {
+    "wid": "21.65.0",
+    "page": 327,
+    "x": [
+      512,
+      477,
+      438
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0154",
+    "note": "Manually selected from actual original view: initial tha body right of cut; connector belongs to mim on left. Folded body overlap limits vertical separation. Shaded self-check shows left-edge mark clipping in immutable crop.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "22.5.15": {
+    "wid": "22.5.15",
+    "page": 332,
+    "x": [
+      232,
+      219,
+      105
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0155",
+    "note": "Manually selected from actual original view: initial tha body right of cut; connector belongs to mim on left."
+  },
+  "22.5.18": {
+    "wid": "22.5.18",
+    "page": 332,
+    "x": [
+      1559,
+      1548,
+      1467
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0156",
+    "note": "Manually selected from actual original view: initial tha body right of cut; connector belongs to mim on left."
+  },
+  "22.5.34": {
+    "wid": "22.5.34",
+    "page": 332,
+    "x": [
+      477,
+      448,
+      413
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0157",
+    "note": "Manually selected from actual original view: initial tha body right of cut; connector belongs to mim on left. Folded body overlap limits vertical separation. Right edge ink is visibly clipped by immutable word box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "22.5.37": {
+    "wid": "22.5.37",
+    "page": 332,
+    "x": [
+      1624,
+      1612,
+      1518
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0158",
+    "note": "Manually selected from actual original view: initial tha body right of cut; connector belongs to mim on left."
+  },
+  "22.15.14": {
+    "wid": "22.15.14",
+    "page": 333,
+    "x": [
+      1606,
+      1594,
+      1532
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0159",
+    "note": "Manually selected from actual original view: initial tha body right of cut; connector belongs to mim on left. Shaded self-check shows left-edge mark clipping in immutable crop.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "22.33.6": {
+    "wid": "22.33.6",
+    "page": 336,
+    "x": [
+      703,
+      692,
+      591
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0160",
+    "note": "Manually selected from actual original view: initial tha body right of cut; connector belongs to mim on left. Right edge ink is visibly clipped by immutable word box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "22.44.6": {
+    "wid": "22.44.6",
+    "page": 337,
+    "x": [
+      187,
+      180,
+      97
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0161",
+    "note": "Manually selected from actual original view: initial tha body right of cut; connector belongs to mim on left."
+  },
+  "22.48.7": {
+    "wid": "22.48.7",
+    "page": 338,
+    "x": [
+      839,
+      828,
+      744
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0162",
+    "note": "Manually selected from actual original view: initial tha body right of cut; connector belongs to mim on left."
+  },
+  "22.52.20": {
+    "wid": "22.52.20",
+    "page": 338,
+    "x": [
+      1855,
+      1843,
+      1740
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0163",
+    "note": "Manually selected from actual original view: initial tha body right of cut; connector belongs to mim on left. Right edge ink is visibly clipped by immutable word box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "22.60.7": {
+    "wid": "22.60.7",
+    "page": 339,
+    "x": [
+      1401,
+      1391,
+      1302
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0164",
+    "note": "Manually selected from actual original view: initial tha body right of cut; connector belongs to mim on left. Shaded self-check shows left-edge mark clipping in immutable crop.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "23.13.0": {
+    "wid": "23.13.0",
+    "page": 342,
+    "x": [
+      1213,
+      1184,
+      1135
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0165",
+    "note": "Manually selected from actual original view: initial tha body right of cut; connector belongs to mim on left. Folded body overlap limits vertical separation. Detached neighboring mark intrudes at left edge; kept immutable crop and own-word span."
+  },
+  "23.14.0": {
+    "wid": "23.14.0",
+    "page": 342,
+    "x": [
+      142,
+      134,
+      78
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00018-c0166",
+    "note": "Manually selected from actual original view: initial tha body right of cut; connector belongs to mim on left."
+  },
+  "23.14.13": {
+    "wid": "23.14.13",
+    "page": 342,
+    "x": [
+      578,
+      570,
+      510
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00018-c0167",
+    "note": "Manually selected from actual original view: initial tha body right of cut; connector belongs to mim on left."
+  },
+  "23.42.0": {
+    "wid": "23.42.0",
+    "page": 344,
+    "x": [
+      1328,
+      1317,
+      1225
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0168",
+    "note": "Manually selected from actual original view: initial tha body right of cut; connector belongs to mim on left. Detached neighboring mark intrudes at left edge; kept immutable crop and own-word span."
+  },
+  "23.45.0": {
+    "wid": "23.45.0",
+    "page": 345,
+    "x": [
+      815,
+      789,
+      746
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0169",
+    "note": "Manually selected after actual original view: initial tha body right of cut, stretched connector belongs to mim left. Folded body overlap limits exact vertical separation. Shaded self-check shows left-edge mark clipping within immutable crop.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "24.43.6": {
+    "wid": "24.43.6",
+    "page": 355,
+    "x": [
+      1677,
+      1648,
+      1610
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0170",
+    "note": "Manually selected after actual original view: initial tha body right of cut, stretched connector belongs to mim left. Folded body overlap limits exact vertical separation. Shaded self-check shows left-edge mark clipping within immutable crop.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "24.43.9": {
+    "wid": "24.43.9",
+    "page": 355,
+    "x": [
+      1269,
+      1238,
+      1205
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00018-c0171",
+    "note": "Manually selected after actual original view: initial tha body right of cut, stretched connector belongs to mim left. Folded body overlap limits exact vertical separation."
+  },
+  "25.45.11": {
+    "wid": "25.45.11",
+    "page": 364,
+    "x": [
+      967,
+      955,
+      872
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0172",
+    "note": "Manually selected after actual original view: initial tha body right of cut, stretched connector belongs to mim left."
+  },
+  "25.46.0": {
+    "wid": "25.46.0",
+    "page": 364,
+    "x": [
+      1664,
+      1654,
+      1563
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0173",
+    "note": "Manually selected after actual original view: initial tha body right of cut, stretched connector belongs to mim left."
+  },
+  "25.59.9": {
+    "wid": "25.59.9",
+    "page": 365,
+    "x": [
+      1414,
+      1403,
+      1316
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0174",
+    "note": "Manually selected after actual original view: initial tha body right of cut, stretched connector belongs to mim left."
+  },
+  "26.81.2": {
+    "wid": "26.81.2",
+    "page": 370,
+    "x": [
+      202,
+      191,
+      93
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0175",
+    "note": "Manually selected after actual original view: initial tha body right of cut, stretched connector belongs to mim left. Right-edge dots are visibly clipped within immutable crop.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "26.120.0": {
+    "wid": "26.120.0",
+    "page": 372,
+    "x": [
+      1674,
+      1639,
+      1606
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0176",
+    "note": "Manually selected after actual original view: initial tha body right of cut, stretched connector belongs to mim left. Folded body overlap limits exact vertical separation. Shaded self-check shows left-edge mark clipping within immutable crop.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "26.172.0": {
+    "wid": "26.172.0",
+    "page": 374,
+    "x": [
+      1067,
+      1038,
+      993
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0177",
+    "note": "Manually selected after actual original view: initial tha body right of cut, stretched connector belongs to mim left. Folded body overlap limits exact vertical separation. Detached neighboring ink at left edge remains outside letter-body interpretation. Shaded self-check shows left-edge mark clipping within immutable crop.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "26.206.0": {
+    "wid": "26.206.0",
+    "page": 375,
+    "x": [
+      1088,
+      1074,
+      1015
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00018-c0178",
+    "note": "Manually selected after actual original view: initial tha body right of cut, stretched connector belongs to mim left."
+  },
+  "27.11.3": {
+    "wid": "27.11.3",
+    "page": 377,
+    "x": [
+      603,
+      589,
+      534
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00018-c0179",
+    "note": "Manually selected after actual original view: initial tha body right of cut, stretched connector belongs to mim left."
+  },
+  "27.28.5": {
+    "wid": "27.28.5",
+    "page": 379,
+    "x": [
+      1498,
+      1487,
+      1418
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0180",
+    "note": "Manually selected after actual original view: initial tha body right of cut, stretched connector belongs to mim left. Shaded self-check shows left-edge mark clipping within immutable crop.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "27.49.5": {
+    "wid": "27.49.5",
+    "page": 381,
+    "x": [
+      877,
+      860,
+      784
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00018-c0181",
+    "note": "Manually selected after actual original view: initial tha body right of cut, stretched connector belongs to mim left. Detached neighboring ink at left edge remains outside letter-body interpretation."
+  },
+  "27.64.3": {
+    "wid": "27.64.3",
+    "page": 383,
+    "x": [
+      1346,
+      1335,
+      1259
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0182",
+    "note": "Manually selected after actual original view: initial tha body right of cut, stretched connector belongs to mim left."
+  },
+  "28.24.2": {
+    "wid": "28.24.2",
+    "page": 388,
+    "x": [
+      824,
+      815,
+      733
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0183",
+    "note": "Manually selected after actual original view: initial tha body right of cut, stretched connector belongs to mim left."
+  },
+  "28.61.11": {
+    "wid": "28.61.11",
+    "page": 393,
+    "x": [
+      594,
+      568,
+      526
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0184",
+    "note": "Manually selected after actual original view: initial tha body right of cut, stretched connector belongs to mim left. Folded body overlap limits exact vertical separation. Shaded self-check shows left-edge mark clipping within immutable crop.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "29.57.4": {
+    "wid": "29.57.4",
+    "page": 403,
+    "x": [
+      1012,
+      983,
+      945
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0185",
+    "note": "Manually selected after actual original view: initial tha body right of cut, stretched connector belongs to mim left. Folded body overlap limits exact vertical separation. Shaded self-check shows left-edge mark clipping within immutable crop.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "30.10.0": {
+    "wid": "30.10.0",
+    "page": 405,
+    "x": [
+      1115,
+      1105,
+      1014
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00018-c0186",
+    "note": "Manually selected after actual original view: initial tha body right of cut, stretched connector belongs to mim left. Detached neighboring ink at left edge remains outside letter-body interpretation."
+  },
+  "30.11.3": {
+    "wid": "30.11.3",
+    "page": 405,
+    "x": [
+      1404,
+      1371,
+      1335
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0187",
+    "note": "Manually selected after actual original view: initial tha body right of cut, stretched connector belongs to mim left. Folded body overlap limits exact vertical separation. Shaded self-check shows left-edge mark clipping within immutable crop.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "30.11.5": {
+    "wid": "30.11.5",
+    "page": 405,
+    "x": [
+      1107,
+      1076,
+      1040
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0188",
+    "note": "Manually selected after actual original view: initial tha body right of cut, stretched connector belongs to mim left. Folded body overlap limits exact vertical separation. Shaded self-check shows left-edge mark clipping within immutable crop.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "30.20.6": {
+    "wid": "30.20.6",
+    "page": 406,
+    "x": [
+      635,
+      624,
+      543
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0189",
+    "note": "Manually selected after actual original view: initial tha body right of cut, stretched connector belongs to mim left. Right-edge dots are visibly clipped within immutable crop.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "30.27.4": {
+    "wid": "30.27.4",
+    "page": 407,
+    "x": [
+      1857,
+      1846,
+      1765
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0190",
+    "note": "Manually selected after actual original view: initial tha body right of cut, stretched connector belongs to mim left. Right-edge dots are visibly clipped within immutable crop.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "30.40.3": {
+    "wid": "30.40.3",
+    "page": 408,
+    "x": [
+      1578,
+      1566,
+      1476
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0191",
+    "note": "Manually selected after actual original view: initial tha body right of cut, stretched connector belongs to mim left."
+  },
+  "30.40.7": {
+    "wid": "30.40.7",
+    "page": 408,
+    "x": [
+      724,
+      714,
+      627
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00018-c0192",
+    "note": "Manually selected after actual original view: initial tha body right of cut, stretched connector belongs to mim left. Detached neighboring ink at left edge remains outside letter-body interpretation."
+  },
+  "31.15.22": {
+    "wid": "31.15.22",
+    "page": 412,
+    "x": [
+      1054,
+      1043,
+      948
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0193",
+    "note": "Manual cut chosen from actual original view: initial tha body kept right; join assigned to mim left."
+  },
+  "31.24.2": {
+    "wid": "31.24.2",
+    "page": 413,
+    "x": [
+      1241,
+      1215,
+      1177
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0194",
+    "note": "Manual cut chosen from actual original view: initial tha body kept right; join assigned to mim left. Folded arrangement has vertical overlap. Right-edge ink visibly clipped in immutable word crop.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "32.4.10": {
+    "wid": "32.4.10",
+    "page": 415,
+    "x": [
+      1827,
+      1815,
+      1755
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0195",
+    "note": "Manual cut chosen from actual original view: initial tha body kept right; join assigned to mim left. Right-edge ink visibly clipped in immutable word crop.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "32.5.6": {
+    "wid": "32.5.6",
+    "page": 415,
+    "x": [
+      351,
+      338,
+      276
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0196",
+    "note": "Manual cut chosen from actual original view: initial tha body kept right; join assigned to mim left. Right-edge ink visibly clipped in immutable word crop.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "32.8.0": {
+    "wid": "32.8.0",
+    "page": 415,
+    "x": [
+      361,
+      343,
+      284
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00018-c0197",
+    "note": "Manual cut chosen from actual original view: initial tha body kept right; join assigned to mim left. Neighboring left-edge ink excluded from letter-body interpretation."
+  },
+  "32.9.0": {
+    "wid": "32.9.0",
+    "page": 415,
+    "x": [
+      759,
+      750,
+      654
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00018-c0198",
+    "note": "Manual cut chosen from actual original view: initial tha body kept right; join assigned to mim left. Neighboring left-edge ink excluded from letter-body interpretation."
+  },
+  "32.22.6": {
+    "wid": "32.22.6",
+    "page": 417,
+    "x": [
+      159,
+      146,
+      93
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0199",
+    "note": "Manual cut chosen from actual original view: initial tha body kept right; join assigned to mim left. Shaded self-check shows cropped edge marks in immutable crop.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "33.49.6": {
+    "wid": "33.49.6",
+    "page": 424,
+    "x": [
+      539,
+      529,
+      450
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0200",
+    "note": "Manual cut chosen from actual original view: initial tha body kept right; join assigned to mim left. Right-edge ink visibly clipped in immutable word crop. Neighboring left-edge ink excluded from letter-body interpretation.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "34.26.4": {
+    "wid": "34.26.4",
+    "page": 431,
+    "x": [
+      1357,
+      1346,
+      1270
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0201",
+    "note": "Manual cut chosen from actual original view: initial tha body kept right; join assigned to mim left. Self-check moved cut left to keep full initial upstroke."
+  },
+  "34.40.3": {
+    "wid": "34.40.3",
+    "page": 433,
+    "x": [
+      1254,
+      1228,
+      1191
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0202",
+    "note": "Manual cut chosen from actual original view: initial tha body kept right; join assigned to mim left. Folded arrangement has vertical overlap. Shaded self-check shows cropped edge marks in immutable crop.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "35.11.4": {
+    "wid": "35.11.4",
+    "page": 435,
+    "x": [
+      1023,
+      1013,
+      946
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0203",
+    "note": "Manual cut chosen from actual original view: initial tha body kept right; join assigned to mim left. Shaded self-check shows cropped edge marks in immutable crop.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "35.26.0": {
+    "wid": "35.26.0",
+    "page": 437,
+    "x": [
+      1457,
+      1446,
+      1384
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0204",
+    "note": "Manual cut chosen from actual original view: initial tha body kept right; join assigned to mim left. Shaded self-check shows cropped edge marks in immutable crop.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "37.82.0": {
+    "wid": "37.82.0",
+    "page": 449,
+    "x": [
+      1214,
+      1182,
+      1147
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0205",
+    "note": "Manual cut chosen from actual original view: initial tha body kept right; join assigned to mim left. Folded arrangement has vertical overlap. Shaded self-check shows cropped edge marks in immutable crop.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "38.34.7": {
+    "wid": "38.34.7",
+    "page": 455,
+    "x": [
+      859,
+      836,
+      795
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0206",
+    "note": "Manual cut chosen from actual original view: initial tha body kept right; join assigned to mim left. Folded arrangement has vertical overlap. Shaded self-check shows cropped edge marks in immutable crop.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "39.7.19": {
+    "wid": "39.7.19",
+    "page": 459,
+    "x": [
+      869,
+      837,
+      791
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0207",
+    "note": "Manual cut chosen from actual original view: initial tha body kept right; join assigned to mim left. Folded arrangement has vertical overlap. Right-edge ink visibly clipped in immutable word crop. Neighboring left-edge ink excluded from letter-body interpretation.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "39.8.8": {
+    "wid": "39.8.8",
+    "page": 459,
+    "x": [
+      503,
+      473,
+      428
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0208",
+    "note": "Manual cut chosen from actual original view: initial tha body kept right; join assigned to mim left. Folded arrangement has vertical overlap. Neighboring left-edge ink excluded from letter-body interpretation. Shaded self-check shows cropped edge marks in immutable crop.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "39.21.18": {
+    "wid": "39.21.18",
+    "page": 460,
+    "x": [
+      1035,
+      1009,
+      967
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0209",
+    "note": "Manual cut chosen from actual original view: initial tha body kept right; join assigned to mim left. Folded arrangement has vertical overlap. Shaded self-check shows cropped edge marks in immutable crop.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "39.21.22": {
+    "wid": "39.21.22",
+    "page": 460,
+    "x": [
+      206,
+      196,
+      114
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00018-c0210",
+    "note": "Manual cut chosen from actual original view: initial tha body kept right; join assigned to mim left."
+  },
+  "39.23.13": {
+    "wid": "39.23.13",
+    "page": 461,
+    "x": [
+      930,
+      897,
+      854
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0211",
+    "note": "Manual cut chosen from actual original view: initial tha body kept right; join assigned to mim left. Folded arrangement has vertical overlap. Shaded self-check shows cropped edge marks in immutable crop.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "39.49.5": {
+    "wid": "39.49.5",
+    "page": 464,
+    "x": [
+      508,
+      480,
+      438
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0212",
+    "note": "Manual cut chosen from actual original view: initial tha body kept right; join assigned to mim left. Folded arrangement has vertical overlap. Neighboring left-edge ink excluded from letter-body interpretation. Shaded self-check shows cropped edge marks in immutable crop.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "40.67.5": {
+    "wid": "40.67.5",
+    "page": 475,
+    "x": [
+      898,
+      870,
+      830
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0213",
+    "note": "Manual cut chosen from actual original view: initial tha body kept right; join assigned to mim left. Folded arrangement has vertical overlap. Shaded self-check shows cropped edge marks in immutable crop.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "40.67.8": {
+    "wid": "40.67.8",
+    "page": 475,
+    "x": [
+      538,
+      511,
+      470
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0214",
+    "note": "Manual cut chosen from actual original view: initial tha body kept right; join assigned to mim left. Folded arrangement has vertical overlap. Shaded self-check shows cropped edge marks in immutable crop.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "41.11.0": {
+    "wid": "41.11.0",
+    "page": 477,
+    "x": [
+      949,
+      924,
+      884
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0215",
+    "note": "Manual cut chosen from actual original view: initial tha body kept right; join assigned to mim left. Folded arrangement has vertical overlap. Shaded self-check shows cropped edge marks in immutable crop.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "43.13.3": {
+    "wid": "43.13.3",
+    "page": 490,
+    "x": [
+      1841,
+      1830,
+      1753
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0216",
+    "note": "Manual cut chosen from actual original view: initial tha body kept right; join assigned to mim left. Self-check moved cut left to keep full initial upstroke."
+  },
+  "44.14.0": {
+    "wid": "44.14.0",
+    "page": 496,
+    "x": [
+      1835,
+      1807,
+      1772
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0217",
+    "note": "Manual visual selection from opened original: tha body on right, connector with mim to left. Folded body overlap constrains vertical separation. Visible right-edge mark clipping inside immutable crop."
+  },
+  "44.48.0": {
+    "wid": "44.48.0",
+    "page": 498,
+    "x": [
+      183,
+      154,
+      107
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0218",
+    "note": "Manual visual selection from opened original: tha body on right, connector with mim to left. Folded body overlap constrains vertical separation. Shaded self-check shows left-edge mark clipping within immutable crop.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "45.15.7": {
+    "wid": "45.15.7",
+    "page": 500,
+    "x": [
+      1321,
+      1294,
+      1254
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0219",
+    "note": "Manual visual selection from opened original: tha body on right, connector with mim to left. Folded body overlap constrains vertical separation. Intruding neighboring edge ink not treated as target body. Shaded self-check shows left-edge mark clipping within immutable crop.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "45.18.0": {
+    "wid": "45.18.0",
+    "page": 500,
+    "x": [
+      1668,
+      1653,
+      1567
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0220",
+    "note": "Manual visual selection from opened original: tha body on right, connector with mim to left."
+  },
+  "45.26.3": {
+    "wid": "45.26.3",
+    "page": 501,
+    "x": [
+      833,
+      807,
+      769
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0221",
+    "note": "Manual visual selection from opened original: tha body on right, connector with mim to left. Folded body overlap constrains vertical separation. Shaded self-check shows left-edge mark clipping within immutable crop.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "46.13.5": {
+    "wid": "46.13.5",
+    "page": 503,
+    "x": [
+      1707,
+      1696,
+      1626
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0222",
+    "note": "Manual visual selection from opened original: tha body on right, connector with mim to left. Visible right-edge mark clipping inside immutable crop. Intruding neighboring edge ink not treated as target body."
+  },
+  "47.34.7": {
+    "wid": "47.34.7",
+    "page": 510,
+    "x": [
+      351,
+      323,
+      282
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0223",
+    "note": "Manual visual selection from opened original: tha body on right, connector with mim to left. Folded body overlap constrains vertical separation. Shaded self-check shows left-edge mark clipping within immutable crop.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "47.38.25": {
+    "wid": "47.38.25",
+    "page": 510,
+    "x": [
+      971,
+      960,
+      881
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0224",
+    "note": "Manual visual selection from opened original: tha body on right, connector with mim to left."
+  },
+  "53.8.0": {
+    "wid": "53.8.0",
+    "page": 526,
+    "x": [
+      556,
+      525,
+      485
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0225",
+    "note": "Manual visual selection from opened original: tha body on right, connector with mim to left. Folded body overlap constrains vertical separation. Shaded self-check shows left-edge mark clipping within immutable crop.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "56.51.0": {
+    "wid": "56.51.0",
+    "page": 536,
+    "x": [
+      1824,
+      1801,
+      1763
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0226",
+    "note": "Manual visual selection from opened original: tha body on right, connector with mim to left. Folded body overlap constrains vertical separation. Visible right-edge mark clipping inside immutable crop."
+  },
+  "57.4.8": {
+    "wid": "57.4.8",
+    "page": 538,
+    "x": [
+      394,
+      368,
+      331
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0227",
+    "note": "Manual visual selection from opened original: tha body on right, connector with mim to left. Folded body overlap constrains vertical separation. Shaded self-check shows left-edge mark clipping within immutable crop.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "58.3.4": {
+    "wid": "58.3.4",
+    "page": 542,
+    "x": [
+      392,
+      373,
+      333
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0228",
+    "note": "Manual visual selection from opened original: tha body on right, connector with mim to left. Folded body overlap constrains vertical separation. Visible right-edge mark clipping inside immutable crop."
+  },
+  "58.8.7": {
+    "wid": "58.8.7",
+    "page": 543,
+    "x": [
+      1370,
+      1347,
+      1314
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0229",
+    "note": "Manual visual selection from opened original: tha body on right, connector with mim to left. Folded body overlap constrains vertical separation. Visible right-edge mark clipping inside immutable crop."
+  },
+  "62.5.4": {
+    "wid": "62.5.4",
+    "page": 553,
+    "x": [
+      263,
+      236,
+      200
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0230",
+    "note": "Manual visual selection from opened original: tha body on right, connector with mim to left. Folded body overlap constrains vertical separation. Shaded self-check shows left-edge mark clipping within immutable crop.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "62.8.8": {
+    "wid": "62.8.8",
+    "page": 553,
+    "x": [
+      367,
+      354,
+      287
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0231",
+    "note": "Manual visual selection from opened original: tha body on right, connector with mim to left. Intruding neighboring edge ink not treated as target body."
+  },
+  "63.3.3": {
+    "wid": "63.3.3",
+    "page": 554,
+    "x": [
+      879,
+      867,
+      793
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0232",
+    "note": "Manual visual selection from opened original: tha body on right, connector with mim to left. Intruding neighboring edge ink not treated as target body. Shaded self-check shows left-edge mark clipping within immutable crop.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "64.7.10": {
+    "wid": "64.7.10",
+    "page": 556,
+    "x": [
+      1632,
+      1609,
+      1571
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0233",
+    "note": "Manual visual selection from opened original: tha body on right, connector with mim to left. Folded body overlap constrains vertical separation. Visible right-edge mark clipping inside immutable crop."
+  },
+  "69.31.0": {
+    "wid": "69.31.0",
+    "page": 567,
+    "x": [
+      311,
+      294,
+      250
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00018-c0234",
+    "note": "Manual visual selection from opened original: tha body on right, connector with mim to left. Intruding neighboring edge ink not treated as target body."
+  },
+  "69.32.0": {
+    "wid": "69.32.0",
+    "page": 567,
+    "x": [
+      1540,
+      1526,
+      1474
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0235",
+    "note": "Manual visual selection from opened original: tha body on right, connector with mim to left. Shaded self-check shows left-edge mark clipping within immutable crop.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "70.14.4": {
+    "wid": "70.14.4",
+    "page": 569,
+    "x": [
+      1679,
+      1654,
+      1612
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0236",
+    "note": "Manual visual selection from opened original: tha body on right, connector with mim to left. Folded body overlap constrains vertical separation. Intruding neighboring edge ink not treated as target body. Shaded self-check shows left-edge mark clipping within immutable crop.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "71.8.0": {
+    "wid": "71.8.0",
+    "page": 570,
+    "x": [
+      1652,
+      1641,
+      1563
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0237",
+    "note": "Manual visual selection from opened original: tha body on right, connector with mim to left."
+  },
+  "71.9.0": {
+    "wid": "71.9.0",
+    "page": 570,
+    "x": [
+      808,
+      799,
+      733
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0238",
+    "note": "Manual visual selection from opened original: tha body on right, connector with mim to left. Shaded self-check shows left-edge mark clipping within immutable crop.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "74.15.0": {
+    "wid": "74.15.0",
+    "page": 575,
+    "x": [
+      296,
+      273,
+      238
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0239",
+    "note": "Manual visual selection from opened original: tha body on right, connector with mim to left. Folded body overlap constrains vertical separation. Shaded self-check shows left-edge mark clipping within immutable crop.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "74.20.0": {
+    "wid": "74.20.0",
+    "page": 576,
+    "x": [
+      818,
+      786,
+      756
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00018-c0240",
+    "note": "Manual visual selection from opened original: tha body on right, connector with mim to left. Folded body overlap constrains vertical separation."
+  },
+  "74.21.0": {
+    "wid": "74.21.0",
+    "page": 576,
+    "x": [
+      254,
+      232,
+      200
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0241",
+    "note": "Manual cut selected from actual original view: initial tha body retained right, connector assigned to mim left. Folded body overlap limits vertical separation. Shaded self-check shows left-edge mark clipping within immutable crop.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "74.23.0": {
+    "wid": "74.23.0",
+    "page": 576,
+    "x": [
+      1192,
+      1161,
+      1130
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0242",
+    "note": "Manual cut selected from actual original view: initial tha body retained right, connector assigned to mim left. Folded body overlap limits vertical separation. Shaded self-check shows left-edge mark clipping within immutable crop.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "75.19.0": {
+    "wid": "75.19.0",
+    "page": 577,
+    "x": [
+      719,
+      694,
+      658
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0243",
+    "note": "Manual cut selected from actual original view: initial tha body retained right, connector assigned to mim left. Folded body overlap limits vertical separation. Shaded self-check shows left-edge mark clipping within immutable crop.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "75.35.0": {
+    "wid": "75.35.0",
+    "page": 578,
+    "x": [
+      1563,
+      1534,
+      1502
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0244",
+    "note": "Manual cut selected from actual original view: initial tha body retained right, connector assigned to mim left. Folded body overlap limits vertical separation. Shaded self-check shows left-edge mark clipping within immutable crop.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "75.38.0": {
+    "wid": "75.38.0",
+    "page": 578,
+    "x": [
+      1096,
+      1064,
+      1026
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0245",
+    "note": "Manual cut selected from actual original view: initial tha body retained right, connector assigned to mim left. Folded body overlap limits vertical separation. Neighboring edge ink is not interpreted as target body. Shaded self-check shows left-edge mark clipping within immutable crop.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "78.5.0": {
+    "wid": "78.5.0",
+    "page": 582,
+    "x": [
+      1369,
+      1354,
+      1310
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0246",
+    "note": "Manual cut selected from actual original view: initial tha body retained right, connector assigned to mim left. Neighboring edge ink is not interpreted as target body. Shaded self-check shows left-edge mark clipping within immutable crop.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "80.20.0": {
+    "wid": "80.20.0",
+    "page": 585,
+    "x": [
+      134,
+      122,
+      53
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0247",
+    "note": "Manual cut selected from actual original view: initial tha body retained right, connector assigned to mim left."
+  },
+  "82.18.0": {
+    "wid": "82.18.0",
+    "page": 587,
+    "x": [
+      883,
+      849,
+      813
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0248",
+    "note": "Manual cut selected from actual original view: initial tha body retained right, connector assigned to mim left. Folded body overlap limits vertical separation. Shaded self-check shows left-edge mark clipping within immutable crop.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "83.16.0": {
+    "wid": "83.16.0",
+    "page": 588,
+    "x": [
+      990,
+      962,
+      926
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00018-c0249",
+    "note": "Manual cut selected from actual original view: initial tha body retained right, connector assigned to mim left. Folded body overlap limits vertical separation. Neighboring edge ink is not interpreted as target body."
+  },
+  "83.17.0": {
+    "wid": "83.17.0",
+    "page": 588,
+    "x": [
+      266,
+      242,
+      208
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0250",
+    "note": "Manual cut selected from actual original view: initial tha body retained right, connector assigned to mim left. Folded body overlap limits vertical separation. Shaded self-check shows left-edge mark clipping within immutable crop.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "85.10.5": {
+    "wid": "85.10.5",
+    "page": 590,
+    "x": [
+      1111,
+      1084,
+      1041
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0251",
+    "note": "Manual cut selected from actual original view: initial tha body retained right, connector assigned to mim left. Folded body overlap limits vertical separation. Right-edge marks visibly clipped in immutable crop.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "90.17.0": {
+    "wid": "90.17.0",
+    "page": 594,
+    "x": [
+      962,
+      948,
+      872
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0252",
+    "note": "Manual cut selected from actual original view: initial tha body retained right, connector assigned to mim left. Neighboring edge ink is not interpreted as target body. Shaded self-check moved boundary left slightly to retain complete initial upstroke."
+  },
+  "95.5.0": {
+    "wid": "95.5.0",
+    "page": 597,
+    "x": [
+      764,
+      750,
+      687
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0253",
+    "note": "Manual cut selected from actual original view: initial tha body retained right, connector assigned to mim left."
+  },
+  "102.4.0": {
+    "wid": "102.4.0",
+    "page": 600,
+    "x": [
+      1389,
+      1375,
+      1305
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00018-c0254",
+    "note": "Manual cut selected from actual original view: initial tha body retained right, connector assigned to mim left. Neighboring edge ink is not interpreted as target body. Shaded self-check shows left-edge mark clipping within immutable crop.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "102.7.0": {
+    "wid": "102.7.0",
+    "page": 600,
+    "x": [
+      459,
+      443,
+      353
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0255",
+    "note": "Manual cut selected from actual original view: initial tha body retained right, connector assigned to mim left. Neighboring edge ink is not interpreted as target body. Shaded self-check moved boundary left slightly to retain complete initial upstroke."
+  },
+  "102.8.0": {
+    "wid": "102.8.0",
+    "page": 600,
+    "x": [
+      1200,
+      1186,
+      1106
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00018-c0256",
+    "note": "Manual cut selected from actual original view: initial tha body retained right, connector assigned to mim left. Neighboring edge ink is not interpreted as target body. Shaded self-check moved boundary left slightly to retain complete initial upstroke."
+  }
+}

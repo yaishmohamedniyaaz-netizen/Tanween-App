@@ -1,0 +1,18 @@
+{
+  "2.249.5": {
+    "wid": "2.249.5",
+    "page": 41,
+    "x": [
+      815,
+      798,
+      611
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00008-c0129",
+    "note": "Refined detached alif/nun gap after shaded self-check; keep full visible alif body on its right span. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  }
+}

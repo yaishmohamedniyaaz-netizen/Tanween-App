@@ -1,0 +1,23 @@
+[
+  {
+    "wid": "24.43.2",
+    "page": 355,
+    "cluster": "s00079-c0047",
+    "status": "withheld-missing-target",
+    "reason": "Immutable right edge omits the alif body; only marginal trace below clipped hamza survives. No useful target body to allocate without inventing a slot. Original representatives-original-008.png actually reviewed."
+  },
+  {
+    "wid": "37.168.1",
+    "page": 452,
+    "cluster": "s00079-c0051",
+    "status": "withheld-missing-target",
+    "reason": "Alif stem body entirely outside immutable right edge; only clipped hamza above nun remains. Original representatives-original-009.png actually reviewed; no fabricated slot."
+  },
+  {
+    "wid": "58.7.2",
+    "page": 543,
+    "cluster": "s00079-c0054",
+    "status": "withheld-missing-target",
+    "reason": "Alif body absent from immutable right crop apart from tiny marginal trace; clipped hamza above survives. Original representatives-original-009.png actually reviewed; no fabricated slot."
+  }
+]

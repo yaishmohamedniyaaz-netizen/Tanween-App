@@ -24,3 +24,7 @@ Stopped on the owner request to transfer to cloud. No commit, push, hidden-test 
 - Helper/init excludes hidden IDs; no hidden truth read. Faint rejected-round reference is immutable base2837f6f.
 - Borders use exact app target count; all spans>=2px; all cuts within ceil/floor immutable word boxes. Partial clipped body ink => low plus reviewFlags. Entire missing target => withhold in pending-owner.json with actual image evidence; never invent a slot.
 - Save one current decision per word in annotations/rankNNN.jsonl. Do not change src/, Quran artwork/page data, approved border files, or other workers' ranks/global progress.
+
+## Cloud continuation 2026-11-08 (cloud041_055)
+
+Rank041 now complete: 173 accepted guesses and 1 reviewed withheld exception (`21.56.4`, no visible alif body inside immutable box). This continuation accepted 83 new words, including all 30 formerly pending carries, after actual image review. Original sheets05–12, their shaded checks, and every newly carried word were opened. Two sin/mim cuts were corrected after self-check; pass1 images and audits remain in cloud-05-06-pass1. `39.46.3` retains a partial clipped alif, low confidence with clipped-ink flag. Current draft/manual files are already accepted work, not pending. Archives use `cloud-*`, audit observer `cloud041_055`. No hidden answers or evaluation read/run.

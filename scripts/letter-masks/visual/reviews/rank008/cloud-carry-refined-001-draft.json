@@ -1,0 +1,66 @@
+{
+  "31.17.12": {
+    "wid": "31.17.12",
+    "page": 412,
+    "x": [
+      326,
+      308,
+      258
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00008-c0007",
+    "note": "Manually refined divider from enlarged original after carried cut touched or approached alif upper edge. Clipped attached marks retained inside immutable box; owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "31.27.17": {
+    "wid": "31.27.17",
+    "page": 413,
+    "x": [
+      1214,
+      1196,
+      1144
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00008-c0007",
+    "note": "Manually refined divider from enlarged original after carried cut touched or approached alif upper edge. Clipped attached marks retained inside immutable box; owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "20.117.2": {
+    "wid": "20.117.2",
+    "page": 320,
+    "x": [
+      1311,
+      1293,
+      1238
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00008-c0042",
+    "note": "Manually refined divider from enlarged original after carried cut touched or approached alif upper edge. Clipped attached marks retained inside immutable box; owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "22.38.6": {
+    "wid": "22.38.6",
+    "page": 336,
+    "x": [
+      1184,
+      1168,
+      1115
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00008-c0096",
+    "note": "Manually refined divider from enlarged original after carried cut touched or approached alif upper edge. Clipped attached marks retained inside immutable box; owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "rank": 18,
+  "eligible": 337,
+  "decisions": 337,
+  "sources": {
+    "visual": 259,
+    "visual-copy": 78
+  },
+  "confidence": {
+    "high": 132,
+    "low": 153,
+    "medium": 52
+  },
+  "clipped": 143,
+  "auditEvents": 104,
+  "uniqueReviewedImages": 102,
+  "auditStart": "2026-11-08T10:52:00.482928+00:00",
+  "auditEnd": "2026-11-08T11:08:31.487674+00:00",
+  "geometry": "pass",
+  "auditHashes": "pass",
+  "hiddenIds": "excluded",
+  "withheld": 0
+}

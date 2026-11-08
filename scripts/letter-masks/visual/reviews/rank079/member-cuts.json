@@ -1,0 +1,685 @@
+{
+  "2.235.43": {
+    "wid": "2.235.43",
+    "page": 38,
+    "x": [
+      1804,
+      1787,
+      1731
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00079-c0001",
+    "note": "X-warp from visually decided 2.244.5; destination requires sheet review. Actual destination image shows cropped upper mark or partial right alif; keep inside immutable box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.260.35": {
+    "wid": "2.260.35",
+    "page": 44,
+    "x": [
+      805,
+      789,
+      737
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00079-c0001",
+    "note": "X-warp from visually decided 2.244.5; destination requires sheet review. Actual destination image shows cropped upper mark or partial right alif; keep inside immutable box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "3.87.2": {
+    "wid": "3.87.2",
+    "page": 61,
+    "x": [
+      739,
+      722,
+      670
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00079-c0001",
+    "note": "X-warp from visually decided 2.244.5; destination requires sheet review. Actual destination image shows cropped upper mark or partial right alif; keep inside immutable box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "5.97.13": {
+    "wid": "5.97.13",
+    "page": 124,
+    "x": [
+      1825,
+      1808,
+      1759
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00079-c0001",
+    "note": "X-warp from visually decided 2.244.5; destination requires sheet review. Actual destination image shows cropped upper mark or partial right alif; keep inside immutable box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "9.104.2": {
+    "wid": "9.104.2",
+    "page": 203,
+    "x": [
+      1813,
+      1796,
+      1742
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00079-c0001",
+    "note": "X-warp from visually decided 2.244.5; destination requires sheet review. Actual destination image shows cropped upper mark or partial right alif; keep inside immutable box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "9.123.12": {
+    "wid": "9.123.12",
+    "page": 207,
+    "x": [
+      856,
+      840,
+      785
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00079-c0001",
+    "note": "X-warp from visually decided 2.244.5; destination requires sheet review. Actual destination image shows cropped upper mark or partial right alif; keep inside immutable box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "41.22.13": {
+    "wid": "41.22.13",
+    "page": 479,
+    "x": [
+      1029,
+      1012,
+      957
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00079-c0001",
+    "note": "X-warp from visually decided 2.244.5; destination requires sheet review. Actual destination image shows cropped upper mark or partial right alif; keep inside immutable box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.25.5": {
+    "wid": "2.25.5",
+    "page": 5,
+    "x": [
+      480,
+      466,
+      415
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00079-c0002",
+    "note": "X-warp from visually decided 49.7.1; destination requires sheet review."
+  },
+  "2.196.69": {
+    "wid": "2.196.69",
+    "page": 30,
+    "x": [
+      838,
+      823,
+      773
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00079-c0002",
+    "note": "X-warp from visually decided 49.7.1; destination requires sheet review."
+  },
+  "2.233.59": {
+    "wid": "2.233.59",
+    "page": 37,
+    "x": [
+      852,
+      838,
+      781
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00079-c0002",
+    "note": "X-warp from visually decided 49.7.1; destination requires sheet review."
+  },
+  "10.2.14": {
+    "wid": "10.2.14",
+    "page": 208,
+    "x": [
+      1822,
+      1809,
+      1757
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00079-c0002",
+    "note": "X-warp from visually decided 49.7.1; destination requires sheet review. Actual destination image shows cropped upper mark or partial right alif; keep inside immutable box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "18.9.2": {
+    "wid": "18.9.2",
+    "page": 294,
+    "x": [
+      1848,
+      1833,
+      1778
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00079-c0002",
+    "note": "X-warp from visually decided 49.7.1; destination requires sheet review. Actual destination image shows cropped upper mark or partial right alif; keep inside immutable box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "54.28.1": {
+    "wid": "54.28.1",
+    "page": 530,
+    "x": [
+      1624,
+      1609,
+      1559
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00079-c0002",
+    "note": "X-warp from visually decided 49.7.1; destination requires sheet review."
+  },
+  "21.30.4": {
+    "wid": "21.30.4",
+    "page": 324,
+    "x": [
+      1848,
+      1833,
+      1777
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00079-c0003",
+    "note": "X-warp from visually decided 9.3.9; destination requires sheet review. Actual destination image shows cropped upper mark or partial right alif; keep inside immutable box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "25.44.2": {
+    "wid": "25.44.2",
+    "page": 364,
+    "x": [
+      1518,
+      1502,
+      1448
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00079-c0003",
+    "note": "X-warp from visually decided 9.3.9; destination requires sheet review. Actual destination image shows cropped upper mark or partial right alif; keep inside immutable box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "39.21.2": {
+    "wid": "39.21.2",
+    "page": 460,
+    "x": [
+      1824,
+      1808,
+      1751
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00079-c0003",
+    "note": "X-warp from visually decided 9.3.9; destination requires sheet review. Actual destination image shows cropped upper mark or partial right alif; keep inside immutable box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "44.22.2": {
+    "wid": "44.22.2",
+    "page": 497,
+    "x": [
+      1705,
+      1688,
+      1635
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00079-c0003",
+    "note": "X-warp from visually decided 9.3.9; destination requires sheet review. Actual destination image shows cropped upper mark or partial right alif; keep inside immutable box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "7.96.1": {
+    "wid": "7.96.1",
+    "page": 163,
+    "x": [
+      1680,
+      1665,
+      1607
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00079-c0004",
+    "note": "X-warp from visually decided 10.54.1; destination requires sheet review. Actual destination image shows cropped upper mark or partial right alif; keep inside immutable box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "17.9.12": {
+    "wid": "17.9.12",
+    "page": 283,
+    "x": [
+      806,
+      793,
+      736
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00079-c0004",
+    "note": "X-warp from visually decided 10.54.1; destination requires sheet review. Actual destination image shows cropped upper mark or partial right alif; keep inside immutable box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "57.17.1": {
+    "wid": "57.17.1",
+    "page": 539,
+    "x": [
+      1594,
+      1580,
+      1522
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00079-c0004",
+    "note": "X-warp from visually decided 10.54.1; destination requires sheet review. Actual destination image shows cropped upper mark or partial right alif; keep inside immutable box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "104.3.1": {
+    "wid": "104.3.1",
+    "page": 601,
+    "x": [
+      1609,
+      1596,
+      1537
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00079-c0004",
+    "note": "X-warp from visually decided 10.54.1; destination requires sheet review. Actual destination image shows cropped upper mark or partial right alif; keep inside immutable box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "13.31.1": {
+    "wid": "13.31.1",
+    "page": 253,
+    "x": [
+      1717,
+      1703,
+      1642
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00079-c0005",
+    "note": "X-warp from visually decided 35.27.2; destination requires sheet review. Actual destination image shows cropped upper mark or partial right alif; keep inside immutable box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "39.47.1": {
+    "wid": "39.47.1",
+    "page": 463,
+    "x": [
+      731,
+      717,
+      654
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00079-c0005",
+    "note": "X-warp from visually decided 35.27.2; destination requires sheet review. Actual destination image shows cropped upper mark or partial right alif; keep inside immutable box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "39.52.2": {
+    "wid": "39.52.2",
+    "page": 464,
+    "x": [
+      677,
+      665,
+      600
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00079-c0005",
+    "note": "X-warp from visually decided 35.27.2; destination requires sheet review. Actual destination image shows cropped upper mark or partial right alif; keep inside immutable box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "69.49.2": {
+    "wid": "69.49.2",
+    "page": 568,
+    "x": [
+      1178,
+      1166,
+      1105
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00079-c0005",
+    "note": "X-warp from visually decided 35.27.2; destination requires sheet review. Actual destination image shows cropped upper mark or partial right alif; keep inside immutable box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "3.30.15": {
+    "wid": "3.30.15",
+    "page": 54,
+    "x": [
+      1364,
+      1350,
+      1300
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00079-c0006",
+    "note": "X-warp from visually decided 5.40.2; destination requires sheet review. Actual destination image shows cropped upper mark or partial right alif; keep inside immutable box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "3.39.7": {
+    "wid": "3.39.7",
+    "page": 55,
+    "x": [
+      1253,
+      1238,
+      1188
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00079-c0006",
+    "note": "X-warp from visually decided 5.40.2; destination requires sheet review. Actual destination image shows cropped upper mark or partial right alif; keep inside immutable box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "16.62.12": {
+    "wid": "16.62.12",
+    "page": 273,
+    "x": [
+      144,
+      130,
+      78
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00079-c0006",
+    "note": "X-warp from visually decided 5.40.2; destination requires sheet review. Actual destination image shows cropped upper mark or partial right alif; keep inside immutable box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.209.8": {
+    "wid": "2.209.8",
+    "page": 32,
+    "x": [
+      808,
+      791,
+      735
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00079-c0007",
+    "note": "X-warp from visually decided 5.65.1; destination requires sheet review. Actual destination image shows cropped upper mark or partial right alif; keep inside immutable box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.259.61": {
+    "wid": "2.259.61",
+    "page": 43,
+    "x": [
+      1172,
+      1157,
+      1102
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00079-c0007",
+    "note": "X-warp from visually decided 5.65.1; destination requires sheet review. Actual destination image shows cropped upper mark or partial right alif; keep inside immutable box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "8.7.8": {
+    "wid": "8.7.8",
+    "page": 177,
+    "x": [
+      1302,
+      1285,
+      1223
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00079-c0007",
+    "note": "X-warp from visually decided 5.65.1; destination requires sheet review. Actual destination image shows cropped upper mark or partial right alif; keep inside immutable box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "8.66.5": {
+    "wid": "8.66.5",
+    "page": 185,
+    "x": [
+      1348,
+      1334,
+      1182
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00079-c0008",
+    "note": "X-warp from visually decided 7.75.12; destination requires sheet review. Actual destination image shows cropped upper mark or partial right alif; keep inside immutable box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "28.13.9": {
+    "wid": "28.13.9",
+    "page": 386,
+    "x": [
+      1818,
+      1804,
+      1669
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00079-c0008",
+    "note": "X-warp from visually decided 7.75.12; destination requires sheet review. Actual destination image shows cropped upper mark or partial right alif; keep inside immutable box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "41.15.14": {
+    "wid": "41.15.14",
+    "page": 478,
+    "x": [
+      361,
+      346,
+      216
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00079-c0008",
+    "note": "X-warp from visually decided 7.75.12; destination requires sheet review. Actual destination image shows cropped upper mark or partial right alif; keep inside immutable box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "6.150.5": {
+    "wid": "6.150.5",
+    "page": 148,
+    "x": [
+      1426,
+      1407,
+      1350
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00079-c0009",
+    "note": "X-warp from visually decided 6.58.2; destination requires sheet review. Actual destination image shows cropped upper mark or partial right alif; keep inside immutable box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "46.33.2": {
+    "wid": "46.33.2",
+    "page": 506,
+    "x": [
+      979,
+      959,
+      905
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00079-c0009",
+    "note": "X-warp from visually decided 6.58.2; destination requires sheet review."
+  },
+  "24.7.1": {
+    "wid": "24.7.1",
+    "page": 350,
+    "x": [
+      1520,
+      1504,
+      1453
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00079-c0010",
+    "note": "X-warp from visually decided 31.20.2; destination requires sheet review. Actual destination image shows cropped upper mark or partial right alif; keep inside immutable box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "28.75.9": {
+    "wid": "28.75.9",
+    "page": 394,
+    "x": [
+      1080,
+      1065,
+      1015
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00079-c0010",
+    "note": "X-warp from visually decided 31.20.2; destination requires sheet review. Actual destination image shows cropped upper mark or partial right alif; keep inside immutable box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "8.40.3": {
+    "wid": "8.40.3",
+    "page": 181,
+    "x": [
+      1545,
+      1526,
+      1473
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00079-c0011",
+    "note": "X-warp from visually decided 2.77.2; destination requires sheet review."
+  },
+  "2.231.40": {
+    "wid": "2.231.40",
+    "page": 37,
+    "x": [
+      909,
+      889,
+      838
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00079-c0012",
+    "note": "X-warp from visually decided 2.194.18; destination requires sheet review."
+  },
+  "28.78.8": {
+    "wid": "28.78.8",
+    "page": 395,
+    "x": [
+      652,
+      634,
+      506
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00079-c0013",
+    "note": "X-warp from visually decided 5.98.1; destination requires sheet review. Actual destination image shows cropped upper mark or partial right alif; keep inside immutable box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "18.21.4": {
+    "wid": "18.21.4",
+    "page": 296,
+    "x": [
+      799,
+      780,
+      622
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00079-c0014",
+    "note": "X-warp from visually decided 8.24.11; destination requires sheet review. Actual destination image shows cropped upper mark or partial right alif; keep inside immutable box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "21.105.7": {
+    "wid": "21.105.7",
+    "page": 331,
+    "x": [
+      462,
+      448,
+      322
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00079-c0015",
+    "note": "X-warp from visually decided 16.23.2; destination requires sheet review. Actual destination image shows cropped upper mark or partial right alif; keep inside immutable box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "31.31.2": {
+    "wid": "31.31.2",
+    "page": 414,
+    "x": [
+      176,
+      169,
+      116
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00079-c0016",
+    "note": "X-warp from visually decided 31.29.2; destination requires sheet review. Actual destination image shows cropped upper mark or partial right alif; keep inside immutable box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  }
+}
