@@ -1,0 +1,141 @@
+{
+  "ranks": [
+    {
+      "rank": 41,
+      "accepted": 173,
+      "expected": 174,
+      "withheldIds": [
+        "21.56.4"
+      ],
+      "confidence": {
+        "medium": 154,
+        "low": 19
+      },
+      "observerAuditEvents": 22,
+      "uniqueViewedSha": 20
+    },
+    {
+      "rank": 42,
+      "accepted": 171,
+      "expected": 171,
+      "withheldIds": [],
+      "confidence": {
+        "high": 170,
+        "low": 1
+      },
+      "observerAuditEvents": 28,
+      "uniqueViewedSha": 28
+    },
+    {
+      "rank": 43,
+      "accepted": 171,
+      "expected": 171,
+      "withheldIds": [],
+      "confidence": {
+        "medium": 171
+      },
+      "observerAuditEvents": 24,
+      "uniqueViewedSha": 24
+    },
+    {
+      "rank": 44,
+      "accepted": 170,
+      "expected": 170,
+      "withheldIds": [],
+      "confidence": {
+        "low": 167,
+        "high": 3
+      },
+      "observerAuditEvents": 28,
+      "uniqueViewedSha": 28
+    },
+    {
+      "rank": 45,
+      "accepted": 163,
+      "expected": 163,
+      "withheldIds": [],
+      "confidence": {
+        "low": 84,
+        "medium": 79
+      },
+      "observerAuditEvents": 43,
+      "uniqueViewedSha": 39
+    },
+    {
+      "rank": 46,
+      "accepted": 162,
+      "expected": 162,
+      "withheldIds": [],
+      "confidence": {
+        "low": 91,
+        "high": 71
+      },
+      "observerAuditEvents": 24,
+      "uniqueViewedSha": 15
+    },
+    {
+      "rank": 47,
+      "accepted": 157,
+      "expected": 157,
+      "withheldIds": [],
+      "confidence": {
+        "low": 140,
+        "medium": 17
+      },
+      "observerAuditEvents": 57,
+      "uniqueViewedSha": 46
+    },
+    {
+      "rank": 48,
+      "accepted": 153,
+      "expected": 153,
+      "withheldIds": [],
+      "confidence": {
+        "low": 124,
+        "high": 29
+      },
+      "observerAuditEvents": 38,
+      "uniqueViewedSha": 31
+    },
+    {
+      "rank": 49,
+      "accepted": 149,
+      "expected": 149,
+      "withheldIds": [],
+      "confidence": {
+        "low": 130,
+        "medium": 19
+      },
+      "observerAuditEvents": 42,
+      "uniqueViewedSha": 34
+    },
+    {
+      "rank": 50,
+      "accepted": 149,
+      "expected": 149,
+      "withheldIds": [],
+      "confidence": {
+        "low": 105,
+        "high": 44
+      },
+      "observerAuditEvents": 14,
+      "uniqueViewedSha": 14
+    },
+    {
+      "rank": 51,
+      "accepted": 149,
+      "expected": 149,
+      "withheldIds": [],
+      "confidence": {
+        "high": 18,
+        "low": 122,
+        "medium": 9
+      },
+      "observerAuditEvents": 44,
+      "uniqueViewedSha": 34
+    }
+  ],
+  "observerFirstAudit": "2026-11-08T10:51:53.025703+00:00",
+  "observerLastAudit": "2026-11-08T11:41:44.229140+00:00",
+  "note": "Timestamps bound audit activity, not measured active work; token totals unavailable. Prior rank041 accepted90 retained. SHA-verified image evidence records views, not evaluator accuracy. All geometry and coverage checks pass, with documented withheld21.56.4 only. Frozen decisions SHA preserved."
+}

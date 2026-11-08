@@ -1,0 +1,339 @@
+{
+  "2.112.4": {
+    "wid": "2.112.4",
+    "page": 17,
+    "x": [
+      590,
+      570,
+      546,
+      513
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00091-c0001",
+    "note": "Visual cuts between lam uprights at their low join, then ha right shoulder; curved joins leave moderate uncertainty. Right kasra clipped by immutable box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "14.21.1": {
+    "wid": "14.21.1",
+    "page": 258,
+    "x": [
+      1404,
+      1385,
+      1365,
+      1329
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00091-c0002",
+    "note": "Visual cuts between lam uprights at their low join, then ha right shoulder; curved joins leave moderate uncertainty. Right kasra clipped by immutable box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "30.4.3": {
+    "wid": "30.4.3",
+    "page": 404,
+    "x": [
+      430,
+      409,
+      389,
+      343
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00091-c0003",
+    "note": "Visual cuts between lam uprights at their low join, then ha right shoulder; curved joins leave moderate uncertainty. Right kasra clipped by immutable box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "10.66.2": {
+    "wid": "10.66.2",
+    "page": 216,
+    "x": [
+      134,
+      114,
+      95,
+      58
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00091-c0004",
+    "note": "Visual cuts between lam uprights at their low join, then ha right shoulder; curved joins leave moderate uncertainty. Right kasra clipped by immutable box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "62.1.1": {
+    "wid": "62.1.1",
+    "page": 553,
+    "x": [
+      1630,
+      1604,
+      1580,
+      1547
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00091-c0005",
+    "note": "Visual cuts between lam uprights at their low join, then ha right shoulder; curved joins leave moderate uncertainty. Right kasra clipped by immutable box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "4.125.6": {
+    "wid": "4.125.6",
+    "page": 98,
+    "x": [
+      803,
+      784,
+      759,
+      723
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00091-c0006",
+    "note": "Visual cuts between lam uprights at their low join, then ha right shoulder; curved joins leave moderate uncertainty. Right kasra clipped by immutable box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "40.65.11": {
+    "wid": "40.65.11",
+    "page": 474,
+    "x": [
+      963,
+      946,
+      918,
+      883
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00091-c0007",
+    "note": "Visual cuts between lam uprights at low join and ha right shoulder; curved joins moderately uncertain. Right kasra clipped; marks do not move cuts.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "3.20.5": {
+    "wid": "3.20.5",
+    "page": 52,
+    "x": [
+      1597,
+      1576,
+      1556,
+      1518
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00091-c0008",
+    "note": "Visual cuts between lam uprights at low join and ha right shoulder; curved joins moderately uncertain. Right kasra clipped; marks do not move cuts.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "6.45.6": {
+    "wid": "6.45.6",
+    "page": 133,
+    "x": [
+      714,
+      694,
+      673,
+      639
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00091-c0009",
+    "note": "Visual cuts between lam uprights at low join and ha right shoulder; curved joins moderately uncertain. Right kasra clipped; marks do not move cuts.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "10.10.11": {
+    "wid": "10.10.11",
+    "page": 209,
+    "x": [
+      155,
+      135,
+      115,
+      75
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00091-c0010",
+    "note": "Visual cuts between lam uprights at low join and ha right shoulder; curved joins moderately uncertain. Right kasra clipped; marks do not move cuts.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "12.40.18": {
+    "wid": "12.40.18",
+    "page": 240,
+    "x": [
+      192,
+      172,
+      151,
+      109
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00091-c0011",
+    "note": "Visual cuts between lam uprights at low join and ha right shoulder; curved joins moderately uncertain. Right kasra clipped; marks do not move cuts.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "27.44.25": {
+    "wid": "27.44.25",
+    "page": 380,
+    "x": [
+      742,
+      725,
+      702,
+      662
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00091-c0012",
+    "note": "Visual cuts between lam uprights at low join and ha right shoulder; curved joins moderately uncertain. Right kasra clipped; marks do not move cuts.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "61.1.1": {
+    "wid": "61.1.1",
+    "page": 551,
+    "x": [
+      1634,
+      1612,
+      1589,
+      1548
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00091-c0013",
+    "note": "Lam upright join and ha right shoulder; right kasra clipped at immutable edge, curved-join uncertainty.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "3.172.2": {
+    "wid": "3.172.2",
+    "page": 72,
+    "x": [
+      896,
+      879,
+      853,
+      820
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00091-c0014",
+    "note": "Lam upright join and ha right shoulder; right kasra clipped at immutable edge, curved-join uncertainty.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "4.144.13": {
+    "wid": "4.144.13",
+    "page": 101,
+    "x": [
+      1488,
+      1470,
+      1445,
+      1411
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00091-c0015",
+    "note": "Lam upright join and ha right shoulder; right kasra clipped at immutable edge, curved-join uncertainty.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "8.24.4": {
+    "wid": "8.24.4",
+    "page": 179,
+    "x": [
+      1247,
+      1226,
+      1203,
+      1165
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00091-c0016",
+    "note": "Lam upright join and ha right shoulder; right kasra clipped at immutable edge, curved-join uncertainty.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "39.74.2": {
+    "wid": "39.74.2",
+    "page": 466,
+    "x": [
+      1285,
+      1258,
+      1235,
+      1197
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00091-c0017",
+    "note": "Lam upright join and ha right shoulder; intact marks, moderate curved-join uncertainty."
+  },
+  "5.8.5": {
+    "wid": "5.8.5",
+    "page": 108,
+    "x": [
+      194,
+      177,
+      152,
+      109
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00091-c0018",
+    "note": "Lam upright join and ha right shoulder; right kasra clipped at immutable edge, curved-join uncertainty.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "27.25.2": {
+    "wid": "27.25.2",
+    "page": 379,
+    "x": [
+      772,
+      747,
+      726,
+      688
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00091-c0019",
+    "note": "Lam uprights and ha shoulder; right kasra clipped, upper sajdah rule is context and does not move cuts.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "59.1.1": {
+    "wid": "59.1.1",
+    "page": 545,
+    "x": [
+      1641,
+      1620,
+      1597,
+      1561
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00091-c0020",
+    "note": "Lam upright joins and ha shoulder; right kasra clipped.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  }
+}

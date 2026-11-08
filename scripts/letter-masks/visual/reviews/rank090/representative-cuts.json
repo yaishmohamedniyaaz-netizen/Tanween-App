@@ -1,0 +1,621 @@
+{
+  "6.109.10": {
+    "wid": "6.109.10",
+    "page": 141,
+    "x": [
+      1395,
+      1377,
+      1359,
+      1269
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00090-c0001",
+    "note": "Detached carrier gap and compact nun left shoulder; connecting baseline belongs to merged mim-alif. Right hamza/kasra clipped; join uncertain. Shaded check moved nun border to left edge of full compact tooth.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "42.42.0": {
+    "wid": "42.42.0",
+    "page": 487,
+    "x": [
+      632,
+      610,
+      590,
+      527
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00090-c0002",
+    "note": "Detached carrier gap and compact nun left shoulder, leaving connecting baseline to merged mim-alif; moderate join uncertainty. Shaded check moved nun border to left edge of full compact tooth."
+  },
+  "2.275.16": {
+    "wid": "2.275.16",
+    "page": 47,
+    "x": [
+      428,
+      410,
+      392,
+      315
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00090-c0003",
+    "note": "Carrier gap and nun shoulder; right hamza/kasra clipped.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "14.42.7": {
+    "wid": "14.42.7",
+    "page": 260,
+    "x": [
+      1429,
+      1412,
+      1393,
+      1308
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00090-c0004",
+    "note": "Carrier gap and nun shoulder; right hamza/kasra clipped.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "10.20.8": {
+    "wid": "10.20.8",
+    "page": 210,
+    "x": [
+      174,
+      157,
+      140,
+      61
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00090-c0005",
+    "note": "Carrier gap and nun shoulder; right hamza/kasra clipped. Shaded check moved nun border to left edge of full compact tooth.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "16.115.0": {
+    "wid": "16.115.0",
+    "page": 280,
+    "x": [
+      1821,
+      1807,
+      1786,
+      1692
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00090-c0006",
+    "note": "Carrier gap and nun shoulder; right hamza/kasra clipped.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "16.100.0": {
+    "wid": "16.100.0",
+    "page": 278,
+    "x": [
+      245,
+      215,
+      197,
+      92
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00090-c0007",
+    "note": "Carrier gap and compact nun shoulder; thin connector left with merged mim-alif, moderate join uncertainty. Shaded check moved nun border to left edge of full compact tooth."
+  },
+  "52.16.7": {
+    "wid": "52.16.7",
+    "page": 524,
+    "x": [
+      1084,
+      1067,
+      1050,
+      971
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00090-c0008",
+    "note": "Carrier gap and compact nun; right hamza/kasra clipped. Shaded check moved nun border to left edge of full compact tooth.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.14.13": {
+    "wid": "2.14.13",
+    "page": 3,
+    "x": [
+      1591,
+      1574,
+      1556,
+      1479
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00090-c0009",
+    "note": "Carrier gap and compact nun; right hamza/kasra clipped. Shaded check moved nun border to left edge of full compact tooth.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "9.28.3": {
+    "wid": "9.28.3",
+    "page": 191,
+    "x": [
+      620,
+      602,
+      585,
+      492
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00090-c0010",
+    "note": "Carrier gap and compact nun; right hamza/kasra clipped. Shaded check moved nun border to left edge of full compact tooth.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "36.11.0": {
+    "wid": "36.11.0",
+    "page": 440,
+    "x": [
+      406,
+      378,
+      359,
+      276
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00090-c0011",
+    "note": "Carrier gap and compact nun shoulder; thin connector left with merged mim-alif, moderate join uncertainty. Shaded check moved nun border to left edge of full compact tooth."
+  },
+  "58.10.0": {
+    "wid": "58.10.0",
+    "page": 543,
+    "x": [
+      451,
+      422,
+      403,
+      336
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00090-c0012",
+    "note": "Carrier gap and compact nun shoulder; thin connector left with merged mim-alif, moderate join uncertainty. Shaded check moved nun border to left edge of full compact tooth."
+  },
+  "3.155.7": {
+    "wid": "3.155.7",
+    "page": 70,
+    "x": [
+      1222,
+      1204,
+      1185,
+      1098
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00090-c0013",
+    "note": "Carrier gap/nun shoulder; right hamza/kasra clipped.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "3.175.0": {
+    "wid": "3.175.0",
+    "page": 73,
+    "x": [
+      655,
+      623,
+      607,
+      539
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00090-c0014",
+    "note": "Carrier gap and compact nun shoulder; connector belongs to merged mim-alif, moderate join uncertainty. Shaded check moved nun border to left edge of full compact tooth."
+  },
+  "13.19.11": {
+    "wid": "13.19.11",
+    "page": 252,
+    "x": [
+      345,
+      329,
+      313,
+      272
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00090-c0015",
+    "note": "Stacked nun hook above mim lower knot overlaps horizontally; cut through shared footprint is uncertain. Right kasra clipped.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.11.8": {
+    "wid": "2.11.8",
+    "page": 3,
+    "x": [
+      961,
+      943,
+      925,
+      846
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00090-c0016",
+    "note": "Carrier gap/nun shoulder; right hamza/kasra clipped. Shaded check moved nun border to left edge of full compact tooth.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "4.171.12": {
+    "wid": "4.171.12",
+    "page": 105,
+    "x": [
+      1284,
+      1265,
+      1246,
+      1160
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00090-c0017",
+    "note": "Carrier gap/nun shoulder; right hamza/kasra clipped.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "5.55.0": {
+    "wid": "5.55.0",
+    "page": 117,
+    "x": [
+      1225,
+      1200,
+      1181,
+      1122
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00090-c0018",
+    "note": "Carrier gap and compact nun shoulder above descending mim knot; slight overlap uncertainty. Shaded check moved nun border to left edge of full compact tooth."
+  },
+  "5.91.0": {
+    "wid": "5.91.0",
+    "page": 123,
+    "x": [
+      438,
+      406,
+      389,
+      307
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00090-c0019",
+    "note": "Carrier gap and compact nun shoulder; thin baseline connector left with merged mim-alif, moderate join uncertainty."
+  },
+  "7.187.6": {
+    "wid": "7.187.6",
+    "page": 174,
+    "x": [
+      1383,
+      1364,
+      1348,
+      1282
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00090-c0020",
+    "note": "Carrier gap/nun shoulder; right hamza/kasra clipped. Shaded check moved nun border to left edge of full compact tooth.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "9.45.0": {
+    "wid": "9.45.0",
+    "page": 194,
+    "x": [
+      766,
+      734,
+      717,
+      636
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00090-c0021",
+    "note": "Carrier gap and compact nun shoulder; thin baseline connector left with merged mim-alif, moderate join uncertainty. Shaded check moved nun border to left edge of full compact tooth."
+  },
+  "9.93.0": {
+    "wid": "9.93.0",
+    "page": 201,
+    "x": [
+      661,
+      644,
+      629,
+      516
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00090-c0022",
+    "note": "Carrier gap/nun shoulder; right hamza/kasra clipped.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "10.23.11": {
+    "wid": "10.23.11",
+    "page": 211,
+    "x": [
+      1262,
+      1247,
+      1230,
+      1144
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00090-c0023",
+    "note": "Carrier gap/nun shoulder; right hamza/kasra clipped.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "15.15.1": {
+    "wid": "15.15.1",
+    "page": 262,
+    "x": [
+      1495,
+      1477,
+      1459,
+      1383
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00090-c0024",
+    "note": "Carrier gap/nun shoulder; right hamza/kasra clipped. Shaded check moved nun border to left edge of full compact tooth.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "16.40.0": {
+    "wid": "16.40.0",
+    "page": 271,
+    "x": [
+      1146,
+      1128,
+      1109,
+      1026
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00090-c0025",
+    "note": "Carrier gap/nun shoulder; right hamza/kasra clipped. Shaded check moved nun border to left edge of full compact tooth.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "16.103.4": {
+    "wid": "16.103.4",
+    "page": 279,
+    "x": [
+      985,
+      970,
+      949,
+      853
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00090-c0026",
+    "note": "Carrier gap/nun shoulder; right hamza/kasra clipped. Shaded check moved nun border to left edge of full compact tooth.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "20.69.7": {
+    "wid": "20.69.7",
+    "page": 316,
+    "x": [
+      390,
+      379,
+      360,
+      294
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00090-c0027",
+    "note": "Carrier gap/nun shoulder; right kasra clipped. Shaded check moved nun border to left edge of full compact tooth.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "21.108.1": {
+    "wid": "21.108.1",
+    "page": 331,
+    "x": [
+      1549,
+      1532,
+      1518,
+      1402
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00090-c0028",
+    "note": "Carrier gap/nun shoulder; right hamza/kasra clipped.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "29.17.0": {
+    "wid": "29.17.0",
+    "page": 398,
+    "x": [
+      643,
+      619,
+      601,
+      519
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00090-c0029",
+    "note": "Carrier gap/nun shoulder; right kasra clipped.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "33.33.15": {
+    "wid": "33.33.15",
+    "page": 422,
+    "x": [
+      254,
+      237,
+      218,
+      105
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00090-c0030",
+    "note": "Carrier gap/nun shoulder; right hamza/kasra clipped. Shaded check moved nun border to left edge of full compact tooth.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "35.6.6": {
+    "wid": "35.6.6",
+    "page": 435,
+    "x": [
+      1683,
+      1665,
+      1650,
+      1580
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00090-c0031",
+    "note": "Carrier gap/nun shoulder; right hamza/kasra clipped. Shaded check moved nun border to left edge of full compact tooth.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "39.10.15": {
+    "wid": "39.10.15",
+    "page": 459,
+    "x": [
+      1298,
+      1284,
+      1269,
+      1203
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00090-c0032",
+    "note": "Carrier gap/nun shoulder; right hamza/kasra clipped. Shaded check moved nun border to left edge of full compact tooth.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "40.39.1": {
+    "wid": "40.39.1",
+    "page": 471,
+    "x": [
+      1613,
+      1593,
+      1577,
+      1476
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00090-c0033",
+    "note": "Carrier gap/nun shoulder; right hamza/kasra clipped. Shaded check moved nun border to left edge of full compact tooth.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "47.36.0": {
+    "wid": "47.36.0",
+    "page": 510,
+    "x": [
+      283,
+      250,
+      234,
+      122
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00090-c0034",
+    "note": "Carrier gap and compact nun shoulder; thin connector left with merged mim-alif, moderate join uncertainty. Shaded check moved nun border to left edge of full compact tooth."
+  },
+  "48.10.3": {
+    "wid": "48.10.3",
+    "page": 512,
+    "x": [
+      1214,
+      1201,
+      1181,
+      1104
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00090-c0035",
+    "note": "Carrier gap/nun shoulder; right hamza/kasra clipped. Shaded check moved nun border to left edge of full compact tooth.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "49.15.0": {
+    "wid": "49.15.0",
+    "page": 517,
+    "x": [
+      1822,
+      1808,
+      1790,
+      1701
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00090-c0036",
+    "note": "Carrier gap/nun shoulder; right hamza/kasra clipped. Shaded check moved nun border to left edge of full compact tooth.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "67.26.1": {
+    "wid": "67.26.1",
+    "page": 563,
+    "x": [
+      1328,
+      1312,
+      1294,
+      1225
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00090-c0037",
+    "note": "Carrier gap/nun shoulder; right hamza/kasra clipped. Shaded check moved nun border to left edge of full compact tooth.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "76.9.0": {
+    "wid": "76.9.0",
+    "page": 579,
+    "x": [
+      1355,
+      1332,
+      1315,
+      1272
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00090-c0038",
+    "note": "Nun hook above mim knot overlaps horizontally; cut through shared footprint uncertain. Right hamza/kasra clipped.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  }
+}

@@ -1,0 +1,814 @@
+{
+  "11.80.6": {
+    "wid": "11.80.6",
+    "page": 230,
+    "x": [
+      1110,
+      1093,
+      1038
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00022-c0001",
+    "note": "Original visually inspected: gap between detached alif and waw bodies; marks ignored for cut."
+  },
+  "12.80.30": {
+    "wid": "12.80.30",
+    "page": 245,
+    "x": [
+      1111,
+      1093,
+      1036
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00022-c0002",
+    "note": "Original visually inspected: gap between detached alif and waw bodies; marks ignored for cut."
+  },
+  "4.102.48": {
+    "wid": "4.102.48",
+    "page": 95,
+    "x": [
+      1343,
+      1326,
+      1266
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00022-c0003",
+    "note": "Original visually inspected: gap between detached alif and waw bodies; marks ignored for cut. Crop clips hamza/fatha or waw tip; retained visible bodies, clipped-ink.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "31.16.14": {
+    "wid": "31.16.14",
+    "page": 412,
+    "x": [
+      638,
+      621,
+      557
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00022-c0004",
+    "note": "Original visually inspected: gap between detached alif and waw bodies; marks ignored for cut."
+  },
+  "2.229.4": {
+    "wid": "2.229.4",
+    "page": 36,
+    "x": [
+      1265,
+      1249,
+      1195
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00022-c0005",
+    "note": "Original visually inspected: gap between detached alif and waw bodies; marks ignored for cut. Shaded view: waw tip at crop edge, conservative clipped-ink.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "13.31.10": {
+    "wid": "13.31.10",
+    "page": 253,
+    "x": [
+      274,
+      257,
+      204
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00022-c0006",
+    "note": "Original visually inspected: gap between detached alif and waw bodies; marks ignored for cut. Crop clips hamza/fatha or waw tip; retained visible bodies, clipped-ink.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "90.16.0": {
+    "wid": "90.16.0",
+    "page": 594,
+    "x": [
+      1683,
+      1668,
+      1622
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00022-c0007",
+    "note": "Original visually inspected: gap between detached alif and waw bodies; marks ignored for cut."
+  },
+  "4.43.25": {
+    "wid": "4.43.25",
+    "page": 85,
+    "x": [
+      374,
+      355,
+      301
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00022-c0008",
+    "note": "Original visually inspected: gap between detached alif and waw bodies; marks ignored for cut. Crop clips hamza/fatha or waw tip; retained visible bodies, clipped-ink.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "16.33.6": {
+    "wid": "16.33.6",
+    "page": 270,
+    "x": [
+      1799,
+      1786,
+      1731
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00022-c0009",
+    "note": "Original visually inspected: gap between detached alif and waw bodies; marks ignored for cut. Crop clips hamza/fatha or waw tip; retained visible bodies, clipped-ink.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "24.61.19": {
+    "wid": "24.61.19",
+    "page": 358,
+    "x": [
+      1343,
+      1330,
+      1275
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00022-c0010",
+    "note": "Original visually inspected: gap between detached alif and waw bodies; marks ignored for cut. Crop clips hamza/fatha or waw tip; retained visible bodies, clipped-ink.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "4.47.18": {
+    "wid": "4.47.18",
+    "page": 86,
+    "x": [
+      1438,
+      1425,
+      1371
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00022-c0011",
+    "note": "Original visually inspected: gap between detached alif and waw bodies; marks ignored for cut. Crop clips hamza/fatha or waw tip; retained visible bodies, clipped-ink.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "8.30.6": {
+    "wid": "8.30.6",
+    "page": 180,
+    "x": [
+      1362,
+      1350,
+      1299
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00022-c0012",
+    "note": "Original visually inspected: gap between detached alif and waw bodies; marks ignored for cut. Crop clips hamza/fatha or waw tip; retained visible bodies, clipped-ink.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "18.20.5": {
+    "wid": "18.20.5",
+    "page": 295,
+    "x": [
+      1828,
+      1812,
+      1754
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00022-c0013",
+    "note": "Original visually inspected: gap between detached alif and waw bodies; marks ignored for cut."
+  },
+  "24.61.43": {
+    "wid": "24.61.43",
+    "page": 358,
+    "x": [
+      1032,
+      1014,
+      957
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00022-c0014",
+    "note": "Original visually inspected: gap between detached alif and waw bodies; marks ignored for cut. Crop clips hamza/fatha or waw tip; retained visible bodies, clipped-ink.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "90.14.0": {
+    "wid": "90.14.0",
+    "page": 594,
+    "x": [
+      1442,
+      1426,
+      1375
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00022-c0015",
+    "note": "Original visually inspected: gap between detached alif and waw bodies; marks ignored for cut."
+  },
+  "4.11.53": {
+    "wid": "4.11.53",
+    "page": 78,
+    "x": [
+      1704,
+      1688,
+      1635
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00022-c0016",
+    "note": "Original visually inspected: gap between detached alif and waw bodies; marks ignored for cut."
+  },
+  "5.6.24": {
+    "wid": "5.6.24",
+    "page": 108,
+    "x": [
+      1319,
+      1301,
+      1248
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00022-c0017",
+    "note": "Original visually inspected: gap between detached alif and waw bodies; marks ignored for cut. Crop clips hamza/fatha or waw tip; retained visible bodies, clipped-ink.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "10.12.6": {
+    "wid": "10.12.6",
+    "page": 209,
+    "x": [
+      926,
+      914,
+      859
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00022-c0018",
+    "note": "Original visually inspected: gap between detached alif and waw bodies; marks ignored for cut. Crop clips hamza/fatha or waw tip; retained visible bodies, clipped-ink.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "17.58.9": {
+    "wid": "17.58.9",
+    "page": 287,
+    "x": [
+      1846,
+      1827,
+      1776
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00022-c0019",
+    "note": "Original visually inspected: gap between detached alif and waw bodies; marks ignored for cut. Crop clips hamza/fatha or waw tip; retained visible bodies, clipped-ink.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "24.31.35": {
+    "wid": "24.31.35",
+    "page": 353,
+    "x": [
+      1482,
+      1468,
+      1404
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00022-c0020",
+    "note": "Original visually inspected: gap between detached alif and waw bodies; marks ignored for cut. Crop clips hamza/fatha or waw tip; retained visible bodies, clipped-ink.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "65.2.5": {
+    "wid": "65.2.5",
+    "page": 558,
+    "x": [
+      1555,
+      1539,
+      1483
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00022-c0021",
+    "note": "Original visually inspected: gap between detached alif and waw bodies; marks ignored for cut. Crop clips hamza/fatha or waw tip; retained visible bodies, clipped-ink.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "4.135.29": {
+    "wid": "4.135.29",
+    "page": 100,
+    "x": [
+      1657,
+      1641,
+      1587
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00022-c0022",
+    "note": "Original visually inspected: gap between detached alif and waw bodies; marks ignored for cut. Crop clips hamza/fatha or waw tip; retained visible bodies, clipped-ink.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "12.85.8": {
+    "wid": "12.85.8",
+    "page": 245,
+    "x": [
+      1823,
+      1810,
+      1749
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00022-c0023",
+    "note": "Original visually inspected: gap between detached alif and waw bodies; marks ignored for cut. Crop clips hamza/fatha or waw tip; retained visible bodies, clipped-ink.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "23.113.3": {
+    "wid": "23.113.3",
+    "page": 349,
+    "x": [
+      302,
+      290,
+      230
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00022-c0024",
+    "note": "Original visually inspected: gap between detached alif and waw bodies; marks ignored for cut. Crop clips hamza/fatha or waw tip; retained visible bodies, clipped-ink.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "40.40.12": {
+    "wid": "40.40.12",
+    "page": 471,
+    "x": [
+      809,
+      789,
+      727
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00022-c0025",
+    "note": "Original visually inspected: cut between detached alif and waw bodies; marks do not set boundaries. Immutable crop clips ink; visible target bodies retained, clipped-ink.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.19.0": {
+    "wid": "2.19.0",
+    "page": 4,
+    "x": [
+      880,
+      861,
+      808
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00022-c0026",
+    "note": "Original visually inspected: cut between detached alif and waw bodies; marks do not set boundaries. Shaded check shows mark/tip at crop edge; conservative clipped-ink flag.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "4.124.6": {
+    "wid": "4.124.6",
+    "page": 98,
+    "x": [
+      676,
+      657,
+      607
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00022-c0027",
+    "note": "Original visually inspected: cut between detached alif and waw bodies; marks do not set boundaries. Immutable crop clips ink; visible target bodies retained, clipped-ink.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "9.126.8": {
+    "wid": "9.126.8",
+    "page": 207,
+    "x": [
+      578,
+      563,
+      507
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00022-c0028",
+    "note": "Original visually inspected: cut between detached alif and waw bodies; marks do not set boundaries. Immutable crop clips ink; visible target bodies retained, clipped-ink.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "18.60.10": {
+    "wid": "18.60.10",
+    "page": 300,
+    "x": [
+      1095,
+      1076,
+      1021
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00022-c0029",
+    "note": "Original visually inspected: cut between detached alif and waw bodies; marks do not set boundaries. Immutable crop clips ink; visible target bodies retained, clipped-ink.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "24.61.37": {
+    "wid": "24.61.37",
+    "page": 358,
+    "x": [
+      667,
+      651,
+      593
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00022-c0030",
+    "note": "Original visually inspected: cut between detached alif and waw bodies; marks do not set boundaries. Immutable crop clips ink; visible target bodies retained, clipped-ink.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "25.8.4": {
+    "wid": "25.8.4",
+    "page": 360,
+    "x": [
+      1425,
+      1411,
+      1348
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00022-c0031",
+    "note": "Original visually inspected: cut between detached alif and waw bodies; marks do not set boundaries. Shaded check shows mark/tip at crop edge; conservative clipped-ink flag.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "27.21.3": {
+    "wid": "27.21.3",
+    "page": 378,
+    "x": [
+      483,
+      465,
+      408
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00022-c0032",
+    "note": "Original visually inspected: cut between detached alif and waw bodies; marks do not set boundaries. Immutable crop clips ink; visible target bodies retained, clipped-ink.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "3.128.8": {
+    "wid": "3.128.8",
+    "page": 66,
+    "x": [
+      925,
+      911,
+      857
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00022-c0033",
+    "note": "Original visually inspected: cut between detached alif and waw bodies; marks do not set boundaries. Immutable crop clips ink; visible target bodies retained, clipped-ink.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "4.3.20": {
+    "wid": "4.3.20",
+    "page": 77,
+    "x": [
+      1603,
+      1587,
+      1540
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00022-c0034",
+    "note": "Original visually inspected: cut between detached alif and waw bodies; marks do not set boundaries. Immutable crop clips ink; visible target bodies retained, clipped-ink.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "4.7.15": {
+    "wid": "4.7.15",
+    "page": 78,
+    "x": [
+      498,
+      478,
+      426
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00022-c0035",
+    "note": "Original visually inspected: cut between detached alif and waw bodies; marks do not set boundaries. Immutable crop clips ink; visible target bodies retained, clipped-ink.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "6.158.9": {
+    "wid": "6.158.9",
+    "page": 150,
+    "x": [
+      363,
+      348,
+      298
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00022-c0036",
+    "note": "Original visually inspected: cut between detached alif and waw bodies; marks do not set boundaries. Immutable crop clips ink; visible target bodies retained, clipped-ink.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "40.77.10": {
+    "wid": "40.77.10",
+    "page": 475,
+    "x": [
+      1035,
+      1021,
+      964
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00022-c0037",
+    "note": "Original visually inspected: cut between detached alif and waw bodies; marks do not set boundaries. Immutable crop clips ink; visible target bodies retained, clipped-ink.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "4.12.23": {
+    "wid": "4.12.23",
+    "page": 79,
+    "x": [
+      396,
+      372,
+      322
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00022-c0038",
+    "note": "Original visually inspected: cut between detached alif and waw bodies; marks do not set boundaries. Immutable crop clips ink; visible target bodies retained, clipped-ink.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "4.15.17": {
+    "wid": "4.15.17",
+    "page": 80,
+    "x": [
+      861,
+      843,
+      792
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00022-c0039",
+    "note": "Original visually inspected: cut between detached alif and waw bodies; marks do not set boundaries."
+  },
+  "6.65.14": {
+    "wid": "6.65.14",
+    "page": 135,
+    "x": [
+      910,
+      898,
+      851
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00022-c0040",
+    "note": "Original visually inspected: cut between detached alif and waw bodies; marks do not set boundaries."
+  },
+  "34.24.9": {
+    "wid": "34.24.9",
+    "page": 431,
+    "x": [
+      1696,
+      1684,
+      1634
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00022-c0041",
+    "note": "Original visually inspected: cut between detached alif and waw bodies; marks do not set boundaries. Shaded check shows mark/tip at crop edge; conservative clipped-ink flag.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.111.8": {
+    "wid": "2.111.8",
+    "page": 17,
+    "x": [
+      401,
+      383,
+      327
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00022-c0042",
+    "note": "Original visually inspected: cut between detached alif and waw bodies; marks do not set boundaries. Immutable crop clips ink; visible target bodies retained, clipped-ink. Visually exclude neighboring noon/other ink left of waw; outer left tightened to327 after fresh shaded check preserved complete waw tip and excluded neighboring noon.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "5.89.20": {
+    "wid": "5.89.20",
+    "page": 122,
+    "x": [
+      1566,
+      1547,
+      1498
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00022-c0043",
+    "note": "Original visually inspected: cut between detached alif and waw bodies; marks do not set boundaries. Immutable crop clips ink; visible target bodies retained, clipped-ink.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "17.51.0": {
+    "wid": "17.51.0",
+    "page": 287,
+    "x": [
+      826,
+      811,
+      758
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00022-c0044",
+    "note": "Original visually inspected: cut between detached alif and waw bodies; marks do not set boundaries."
+  },
+  "20.10.13": {
+    "wid": "20.10.13",
+    "page": 312,
+    "x": [
+      1835,
+      1817,
+      1756
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00022-c0045",
+    "note": "Original visually inspected: cut between detached alif and waw bodies; marks do not set boundaries. Immutable crop clips ink; visible target bodies retained, clipped-ink.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "22.46.9": {
+    "wid": "22.46.9",
+    "page": 337,
+    "x": [
+      919,
+      910,
+      845
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00022-c0046",
+    "note": "Original visually inspected: cut between detached alif and waw bodies; marks do not set boundaries. Immutable crop clips ink; visible target bodies retained, clipped-ink.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "24.63.23": {
+    "wid": "24.63.23",
+    "page": 359,
+    "x": [
+      1297,
+      1280,
+      1217
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00022-c0047",
+    "note": "Original visually inspected: cut between detached alif and waw bodies; marks do not set boundaries. Shaded check shows mark/tip at crop edge; conservative clipped-ink flag.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "33.17.11": {
+    "wid": "33.17.11",
+    "page": 420,
+    "x": [
+      1400,
+      1386,
+      1326
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00022-c0048",
+    "note": "Original visually inspected: cut between detached alif and waw bodies; marks do not set boundaries."
+  },
+  "37.147.4": {
+    "wid": "37.147.4",
+    "page": 451,
+    "x": [
+      667,
+      647,
+      588
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00022-c0049",
+    "note": "Original visually inspected: cut between detached alif and waw bodies; marks do not set boundaries. Immutable crop clips ink; visible target bodies retained, clipped-ink.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "51.39.4": {
+    "wid": "51.39.4",
+    "page": 522,
+    "x": [
+      896,
+      893,
+      834
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00022-c0050",
+    "note": "Original visually inspected: cut between detached alif and waw bodies; marks do not set boundaries. Immutable crop clips ink; visible target bodies retained, clipped-ink. Enlarged view confirms a thin partial alif body at right crop edge; three-pixel visible body span retained.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "70.30.3": {
+    "wid": "70.30.3",
+    "page": 569,
+    "x": [
+      1605,
+      1587,
+      1541
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00022-c0052",
+    "note": "Original visually inspected: cut between detached alif and waw bodies; marks do not set boundaries. Immutable crop clips ink; visible target bodies retained, clipped-ink.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "80.4.0": {
+    "wid": "80.4.0",
+    "page": 585,
+    "x": [
+      119,
+      106,
+      61
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00022-c0053",
+    "note": "Original visually inspected: cut between detached alif and waw bodies; marks do not set boundaries. Shaded check shows mark/tip at crop edge; conservative clipped-ink flag.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "96.12.0": {
+    "wid": "96.12.0",
+    "page": 597,
+    "x": [
+      222,
+      210,
+      170
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00022-c0054",
+    "note": "Original visually inspected: cut between detached alif and waw bodies; marks do not set boundaries."
+  }
+}

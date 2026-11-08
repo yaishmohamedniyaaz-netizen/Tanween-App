@@ -1,0 +1,30 @@
+{
+  "6.56.8": {
+    "wid": "6.56.8",
+    "page": 134,
+    "x": [
+      602,
+      567,
+      526,
+      473
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00095-c0013",
+    "note": "After shaded review moved dal-waw boundary left into the clear gap to retain complete dal."
+  },
+  "2.107.11": {
+    "wid": "2.107.11",
+    "page": 17,
+    "x": [
+      488,
+      454,
+      424,
+      318
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00095-c0026",
+    "note": "After shaded review moved waw-nun division left to retain the compact waw head; lower return can cross adjacent span."
+  }
+}

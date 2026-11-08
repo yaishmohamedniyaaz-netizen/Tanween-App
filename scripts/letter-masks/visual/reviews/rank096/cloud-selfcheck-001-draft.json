@@ -1,0 +1,374 @@
+{
+  "2.253.30": {
+    "wid": "2.253.30",
+    "page": 42,
+    "x": [
+      1319,
+      1298,
+      1263,
+      1187
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00096-c0001",
+    "note": "Initial ba tooth and compact ayn head retained; the baseline stretch preceding dal is allocated to the left-hand dal, with detached marks ignored for body divisions."
+  },
+  "24.33.44": {
+    "wid": "24.33.44",
+    "page": 354,
+    "x": [
+      898,
+      880,
+      846,
+      784
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00096-c0002",
+    "note": "Initial ba tooth and compact ayn head retained; the baseline stretch preceding dal is allocated to the left-hand dal, with detached marks ignored for body divisions."
+  },
+  "2.56.3": {
+    "wid": "2.56.3",
+    "page": 8,
+    "x": [
+      1825,
+      1802,
+      1768,
+      1711
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00096-c0003",
+    "note": "Initial ba tooth and compact ayn head retained; the baseline stretch preceding dal is allocated to the left-hand dal, with detached marks ignored for body divisions. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "12.35.4": {
+    "wid": "12.35.4",
+    "page": 239,
+    "x": [
+      1041,
+      1022,
+      988,
+      923
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00096-c0004",
+    "note": "Initial ba tooth and compact ayn head retained; the baseline stretch preceding dal is allocated to the left-hand dal, with detached marks ignored for body divisions. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "4.12.19": {
+    "wid": "4.12.19",
+    "page": 79,
+    "x": [
+      1363,
+      1342,
+      1310,
+      1219
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00096-c0005",
+    "note": "Initial ba tooth and compact ayn head retained; the baseline stretch preceding dal is allocated to the left-hand dal, with detached marks ignored for body divisions."
+  },
+  "4.12.43": {
+    "wid": "4.12.43",
+    "page": 79,
+    "x": [
+      1691,
+      1666,
+      1632,
+      1555
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00096-c0006",
+    "note": "Initial ba tooth and compact ayn head retained; the baseline stretch preceding dal is allocated to the left-hand dal, with detached marks ignored for body divisions."
+  },
+  "5.106.29": {
+    "wid": "5.106.29",
+    "page": 125,
+    "x": [
+      491,
+      465,
+      437,
+      380
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00096-c0007",
+    "note": "Initial ba tooth and compact ayn head retained; the baseline stretch preceding dal is allocated to the left-hand dal, with detached marks ignored for body divisions."
+  },
+  "7.69.15": {
+    "wid": "7.69.15",
+    "page": 159,
+    "x": [
+      775,
+      746,
+      718,
+      654
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00096-c0008",
+    "note": "Initial ba tooth and compact ayn head retained; the baseline stretch preceding dal is allocated to the left-hand dal, with detached marks ignored for body divisions. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "30.54.8": {
+    "wid": "30.54.8",
+    "page": 410,
+    "x": [
+      1104,
+      1078,
+      1045,
+      984
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00096-c0009",
+    "note": "Initial ba tooth and compact ayn head retained; the baseline stretch preceding dal is allocated to the left-hand dal, with detached marks ignored for body divisions."
+  },
+  "42.28.5": {
+    "wid": "42.28.5",
+    "page": 486,
+    "x": [
+      546,
+      522,
+      495,
+      390
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00096-c0010",
+    "note": "Initial ba tooth and compact ayn head retained; the baseline stretch preceding dal is allocated to the left-hand dal, with detached marks ignored for body divisions. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.159.9": {
+    "wid": "2.159.9",
+    "page": 24,
+    "x": [
+      548,
+      523,
+      490,
+      409
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00096-c0011",
+    "note": "Initial ba tooth and compact ayn head retained; the baseline stretch preceding dal is allocated to the left-hand dal, with detached marks ignored for body divisions. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "53.26.11": {
+    "wid": "53.26.11",
+    "page": 526,
+    "x": [
+      1217,
+      1195,
+      1167,
+      1108
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00096-c0012",
+    "note": "Initial ba tooth and compact ayn head retained; the baseline stretch preceding dal is allocated to the left-hand dal, with detached marks ignored for body divisions."
+  },
+  "2.213.26": {
+    "wid": "2.213.26",
+    "page": 33,
+    "x": [
+      242,
+      218,
+      190,
+      111
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00096-c0013",
+    "note": "Initial ba tooth and compact ayn head retained; the baseline stretch preceding dal is allocated to the left-hand dal, with detached marks ignored for body divisions. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "4.115.4": {
+    "wid": "4.115.4",
+    "page": 97,
+    "x": [
+      1172,
+      1145,
+      1111,
+      1047
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00096-c0014",
+    "note": "Initial ba tooth and compact ayn head retained; the baseline stretch preceding dal is allocated to the left-hand dal, with detached marks ignored for body divisions."
+  },
+  "5.41.29": {
+    "wid": "5.41.29",
+    "page": 114,
+    "x": [
+      696,
+      673,
+      643,
+      548
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00096-c0015",
+    "note": "Initial ba tooth and compact ayn head retained; the baseline stretch preceding dal is allocated to the left-hand dal, with detached marks ignored for body divisions. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "5.43.10": {
+    "wid": "5.43.10",
+    "page": 115,
+    "x": [
+      527,
+      498,
+      470,
+      356
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00096-c0016",
+    "note": "Initial ba tooth and compact ayn head retained; the baseline stretch preceding dal is allocated to the left-hand dal, with detached marks ignored for body divisions. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "11.7.21": {
+    "wid": "11.7.21",
+    "page": 222,
+    "x": [
+      1174,
+      1147,
+      1119,
+      1052
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00096-c0017",
+    "note": "Initial ba tooth and compact ayn head retained; the baseline stretch preceding dal is allocated to the left-hand dal, with detached marks ignored for body divisions."
+  },
+  "16.110.6": {
+    "wid": "16.110.6",
+    "page": 279,
+    "x": [
+      1085,
+      1055,
+      1025,
+      945
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00096-c0018",
+    "note": "Initial ba tooth and compact ayn head retained; the baseline stretch preceding dal is allocated to the left-hand dal, with detached marks ignored for body divisions. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.74.4": {
+    "wid": "2.74.4",
+    "page": 11,
+    "x": [
+      355,
+      330,
+      305,
+      255
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00096-c0019",
+    "note": "Initial ba tooth and compact ayn head retained; the baseline stretch preceding dal is allocated to the left-hand dal, with detached marks ignored for body divisions. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.145.23": {
+    "wid": "2.145.23",
+    "page": 22,
+    "x": [
+      296,
+      273,
+      245,
+      125
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00096-c0020",
+    "note": "Initial ba tooth and compact ayn head retained; the baseline stretch preceding dal is allocated to the left-hand dal, with detached marks ignored for body divisions. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.209.3": {
+    "wid": "2.209.3",
+    "page": 32,
+    "x": [
+      322,
+      296,
+      269,
+      120
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00096-c0021",
+    "note": "Initial ba tooth and compact ayn head retained; the baseline stretch preceding dal is allocated to the left-hand dal, with detached marks ignored for body divisions."
+  },
+  "9.12.4": {
+    "wid": "9.12.4",
+    "page": 188,
+    "x": [
+      1441,
+      1416,
+      1388,
+      1305
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00096-c0022",
+    "note": "Initial ba tooth and compact ayn head retained; the baseline stretch preceding dal is allocated to the left-hand dal, with detached marks ignored for body divisions. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "39.6.20": {
+    "wid": "39.6.20",
+    "page": 459,
+    "x": [
+      1554,
+      1530,
+      1500,
+      1441
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00096-c0023",
+    "note": "Initial ba tooth and compact ayn head retained; the baseline stretch preceding dal is allocated to the left-hand dal, with detached marks ignored for body divisions."
+  },
+  "42.16.5": {
+    "wid": "42.16.5",
+    "page": 485,
+    "x": [
+      964,
+      937,
+      909,
+      828
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00096-c0024",
+    "note": "Initial ba tooth and compact ayn head retained; the baseline stretch preceding dal is allocated to the left-hand dal, with detached marks ignored for body divisions."
+  }
+}

@@ -1,0 +1,634 @@
+{
+  "23.6.0": {
+    "wid": "23.6.0",
+    "page": 342,
+    "x": [
+      306,
+      270,
+      203
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00011-c0145",
+    "note": "Manually located clear body gap between detached hamza-bearing alif and merged lam-alif. Attached marks do not shift the body division."
+  },
+  "23.25.2": {
+    "wid": "23.25.2",
+    "page": 343,
+    "x": [
+      190,
+      172,
+      109
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00011-c0146",
+    "note": "Manually located clear body gap between detached hamza-bearing alif and merged lam-alif. Attached marks do not shift the body division. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "23.116.6": {
+    "wid": "23.116.6",
+    "page": 349,
+    "x": [
+      178,
+      156,
+      89
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00011-c0147",
+    "note": "Manually located clear body gap between detached hamza-bearing alif and merged lam-alif. Attached marks do not shift the body division. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "24.5.0": {
+    "wid": "24.5.0",
+    "page": 350,
+    "x": [
+      1403,
+      1370,
+      1306
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00011-c0148",
+    "note": "Manually located clear body gap between detached hamza-bearing alif and merged lam-alif. Attached marks do not shift the body division."
+  },
+  "25.57.6": {
+    "wid": "25.57.6",
+    "page": 365,
+    "x": [
+      1625,
+      1603,
+      1539
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00011-c0149",
+    "note": "Manually located clear body gap between detached hamza-bearing alif and merged lam-alif. Attached marks do not shift the body division. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "26.5.7": {
+    "wid": "26.5.7",
+    "page": 367,
+    "x": [
+      1852,
+      1831,
+      1768
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00011-c0150",
+    "note": "Manually located clear body gap between detached hamza-bearing alif and merged lam-alif. Attached marks do not shift the body division. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "27.11.0": {
+    "wid": "27.11.0",
+    "page": 377,
+    "x": [
+      948,
+      917,
+      853
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00011-c0151",
+    "note": "Manually located clear body gap between detached hamza-bearing alif and merged lam-alif. Attached marks do not shift the body division."
+  },
+  "27.87.11": {
+    "wid": "27.87.11",
+    "page": 384,
+    "x": [
+      898,
+      874,
+      808
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00011-c0152",
+    "note": "Manually located clear body gap between detached hamza-bearing alif and merged lam-alif. Attached marks do not shift the body division. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "33.18.12": {
+    "wid": "33.18.12",
+    "page": 420,
+    "x": [
+      762,
+      734,
+      677
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00011-c0153",
+    "note": "Manually located clear body gap between detached hamza-bearing alif and merged lam-alif. Attached marks do not shift the body division."
+  },
+  "34.3.28": {
+    "wid": "34.3.28",
+    "page": 428,
+    "x": [
+      1410,
+      1395,
+      1327
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00011-c0154",
+    "note": "Manually located clear body gap between detached hamza-bearing alif and merged lam-alif. Attached marks do not shift the body division. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "34.28.2": {
+    "wid": "34.28.2",
+    "page": 431,
+    "x": [
+      664,
+      647,
+      574
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00011-c0155",
+    "note": "Manually located clear body gap between detached hamza-bearing alif and merged lam-alif. Attached marks do not shift the body division. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "34.46.17": {
+    "wid": "34.46.17",
+    "page": 433,
+    "x": [
+      1342,
+      1318,
+      1246
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00011-c0156",
+    "note": "Manually located clear body gap between detached hamza-bearing alif and merged lam-alif. Attached marks do not shift the body division. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "35.11.16": {
+    "wid": "35.11.16",
+    "page": 435,
+    "x": [
+      999,
+      973,
+      908
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00011-c0157",
+    "note": "Manually located clear body gap between detached hamza-bearing alif and merged lam-alif. Attached marks do not shift the body division. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "35.39.16": {
+    "wid": "35.39.16",
+    "page": 439,
+    "x": [
+      893,
+      878,
+      814
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00011-c0158",
+    "note": "Manually located clear body gap between detached hamza-bearing alif and merged lam-alif. Attached marks do not shift the body division. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "35.39.22": {
+    "wid": "35.39.22",
+    "page": 439,
+    "x": [
+      1597,
+      1581,
+      1515
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00011-c0159",
+    "note": "Manually located clear body gap between detached hamza-bearing alif and merged lam-alif. Attached marks do not shift the body division. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "35.43.9": {
+    "wid": "35.43.9",
+    "page": 439,
+    "x": [
+      1160,
+      1146,
+      1081
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00011-c0160",
+    "note": "Manually located clear body gap between detached hamza-bearing alif and merged lam-alif. Attached marks do not shift the body division. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "36.15.3": {
+    "wid": "36.15.3",
+    "page": 441,
+    "x": [
+      812,
+      798,
+      729
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00011-c0161",
+    "note": "Manually located clear body gap between detached hamza-bearing alif and merged lam-alif. Attached marks do not shift the body division. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "36.69.8": {
+    "wid": "36.69.8",
+    "page": 444,
+    "x": [
+      705,
+      687,
+      611
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00011-c0162",
+    "note": "Manually located clear body gap between detached hamza-bearing alif and merged lam-alif. Attached marks do not shift the body division."
+  },
+  "37.10.0": {
+    "wid": "37.10.0",
+    "page": 446,
+    "x": [
+      443,
+      413,
+      349
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00011-c0163",
+    "note": "Manually located clear body gap between detached hamza-bearing alif and merged lam-alif. Attached marks do not shift the body division."
+  },
+  "37.40.0": {
+    "wid": "37.40.0",
+    "page": 447,
+    "x": [
+      1681,
+      1650,
+      1588
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00011-c0164",
+    "note": "Manually located clear body gap between detached hamza-bearing alif and merged lam-alif. Attached marks do not shift the body division."
+  },
+  "38.65.7": {
+    "wid": "38.65.7",
+    "page": 457,
+    "x": [
+      763,
+      746,
+      691
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00011-c0165",
+    "note": "Manually located clear body gap between detached hamza-bearing alif and merged lam-alif. Attached marks do not shift the body division. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "40.3.10": {
+    "wid": "40.3.10",
+    "page": 467,
+    "x": [
+      283,
+      263,
+      199
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00011-c0166",
+    "note": "Manually located clear body gap between detached hamza-bearing alif and merged lam-alif. Attached marks do not shift the body division. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "40.13.11": {
+    "wid": "40.13.11",
+    "page": 468,
+    "x": [
+      668,
+      648,
+      577
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00011-c0167",
+    "note": "Manually located clear body gap between detached hamza-bearing alif and merged lam-alif. Attached marks do not shift the body division. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "41.47.16": {
+    "wid": "41.47.16",
+    "page": 482,
+    "x": [
+      968,
+      947,
+      878
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00011-c0168",
+    "note": "Manually located clear body gap between detached hamza-bearing alif and merged lam-alif. Attached marks do not shift the body division. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "42.23.14": {
+    "wid": "42.23.14",
+    "page": 486,
+    "x": [
+      1340,
+      1321,
+      1260
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00011-c0169",
+    "note": "Manually located clear body gap between detached hamza-bearing alif and merged lam-alif. Attached marks do not shift the body division. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "42.48.8": {
+    "wid": "42.48.8",
+    "page": 488,
+    "x": [
+      692,
+      671,
+      598
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00011-c0170",
+    "note": "Manually located clear body gap between detached hamza-bearing alif and merged lam-alif. Attached marks do not shift the body division. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "43.20.13": {
+    "wid": "43.20.13",
+    "page": 490,
+    "x": [
+      901,
+      879,
+      812
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00011-c0171",
+    "note": "Manually located clear body gap between detached hamza-bearing alif and merged lam-alif. Attached marks do not shift the body division. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "43.23.9": {
+    "wid": "43.23.9",
+    "page": 491,
+    "x": [
+      562,
+      546,
+      479
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00011-c0172",
+    "note": "Manually located clear body gap between detached hamza-bearing alif and merged lam-alif. Attached marks do not shift the body division. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "44.42.0": {
+    "wid": "44.42.0",
+    "page": 498,
+    "x": [
+      625,
+      590,
+      523
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00011-c0173",
+    "note": "Manually located clear body gap between detached hamza-bearing alif and merged lam-alif. Attached marks do not shift the body division."
+  },
+  "50.18.4": {
+    "wid": "50.18.4",
+    "page": 519,
+    "x": [
+      1243,
+      1227,
+      1163
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00011-c0174",
+    "note": "Manually located clear body gap between detached hamza-bearing alif and merged lam-alif. Attached marks do not shift the body division. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "55.60.3": {
+    "wid": "55.60.3",
+    "page": 533,
+    "x": [
+      1549,
+      1531,
+      1468
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00011-c0175",
+    "note": "Manually located clear body gap between detached hamza-bearing alif and merged lam-alif. Attached marks do not shift the body division. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "56.26.0": {
+    "wid": "56.26.0",
+    "page": 535,
+    "x": [
+      1545,
+      1515,
+      1449
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00011-c0176",
+    "note": "Manually located clear body gap between detached hamza-bearing alif and merged lam-alif. Attached marks do not shift the body division. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "68.52.2": {
+    "wid": "68.52.2",
+    "page": 566,
+    "x": [
+      629,
+      613,
+      551
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00011-c0177",
+    "note": "Manually located clear body gap between detached hamza-bearing alif and merged lam-alif. Attached marks do not shift the body division. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "69.36.2": {
+    "wid": "69.36.2",
+    "page": 568,
+    "x": [
+      836,
+      824,
+      763
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00011-c0178",
+    "note": "Manually located clear body gap between detached hamza-bearing alif and merged lam-alif. Attached marks do not shift the body division. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "70.22.0": {
+    "wid": "70.22.0",
+    "page": 569,
+    "x": [
+      185,
+      160,
+      93
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00011-c0179",
+    "note": "Manually located clear body gap between detached hamza-bearing alif and merged lam-alif. Attached marks do not shift the body division. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "71.6.3": {
+    "wid": "71.6.3",
+    "page": 570,
+    "x": [
+      183,
+      165,
+      110
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00011-c0180",
+    "note": "Manually located clear body gap between detached hamza-bearing alif and merged lam-alif. Attached marks do not shift the body division. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "72.23.0": {
+    "wid": "72.23.0",
+    "page": 573,
+    "x": [
+      317,
+      290,
+      227
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00011-c0181",
+    "note": "Manually located clear body gap between detached hamza-bearing alif and merged lam-alif. Attached marks do not shift the body division. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "74.25.2": {
+    "wid": "74.25.2",
+    "page": 576,
+    "x": [
+      1361,
+      1345,
+      1281
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00011-c0182",
+    "note": "Manually located clear body gap between detached hamza-bearing alif and merged lam-alif. Attached marks do not shift the body division. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "81.27.2": {
+    "wid": "81.27.2",
+    "page": 586,
+    "x": [
+      1167,
+      1149,
+      1087
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00011-c0183",
+    "note": "Manually located clear body gap between detached hamza-bearing alif and merged lam-alif. Attached marks do not shift the body division. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "98.4.5": {
+    "wid": "98.4.5",
+    "page": 598,
+    "x": [
+      306,
+      281,
+      216
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00011-c0184",
+    "note": "Manually located clear body gap between detached hamza-bearing alif and merged lam-alif. Attached marks do not shift the body division. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "98.5.2": {
+    "wid": "98.5.2",
+    "page": 598,
+    "x": [
+      780,
+      759,
+      692
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00011-c0185",
+    "note": "Manually located clear body gap between detached hamza-bearing alif and merged lam-alif. Attached marks do not shift the body division. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  }
+}

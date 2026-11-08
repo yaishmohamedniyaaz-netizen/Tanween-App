@@ -1,0 +1,1381 @@
+{
+  "59.6.17": {
+    "wid": "59.6.17",
+    "page": 546,
+    "x": [
+      1084,
+      1046,
+      1024,
+      980
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0001",
+    "note": "Visually chosen ain body/lam division and left edge of upright lam; maqsura return overlaps lam span, consistent with approved 2.5.1 stacked treatment."
+  },
+  "13.6.14": {
+    "wid": "13.6.14",
+    "page": 250,
+    "x": [
+      454,
+      419,
+      396,
+      357
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0002",
+    "note": "Visually chosen ain body/lam division and left edge of upright lam; maqsura return overlaps lam span, consistent with approved 2.5.1 stacked treatment."
+  },
+  "12.66.20": {
+    "wid": "12.66.20",
+    "page": 243,
+    "x": [
+      562,
+      525,
+      501,
+      456
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0003",
+    "note": "Visually chosen ain body/lam division and left edge of upright lam; maqsura return overlaps lam span, consistent with approved 2.5.1 stacked treatment."
+  },
+  "27.76.4": {
+    "wid": "27.76.4",
+    "page": 383,
+    "x": [
+      1658,
+      1624,
+      1602,
+      1562
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0004",
+    "note": "Visually chosen ain body/lam division and left edge of upright lam; maqsura return overlaps lam span, consistent with approved 2.5.1 stacked treatment."
+  },
+  "45.18.2": {
+    "wid": "45.18.2",
+    "page": 500,
+    "x": [
+      1279,
+      1241,
+      1216,
+      1167
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0005",
+    "note": "Visually chosen ain body/lam division and left edge of upright lam; maqsura return overlaps lam span, consistent with approved 2.5.1 stacked treatment. Right fatha clipped by immutable crop edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "16.37.2": {
+    "wid": "16.37.2",
+    "page": 271,
+    "x": [
+      476,
+      440,
+      418,
+      371
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0006",
+    "note": "Visually chosen ain body/lam division and left edge of upright lam; maqsura return overlaps lam span, consistent with approved 2.5.1 stacked treatment."
+  },
+  "9.93.14": {
+    "wid": "9.93.14",
+    "page": 201,
+    "x": [
+      1077,
+      1042,
+      1016,
+      975
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0007",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "47.24.4": {
+    "wid": "47.24.4",
+    "page": 509,
+    "x": [
+      1745,
+      1708,
+      1684,
+      1643
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0008",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "26.221.2": {
+    "wid": "26.221.2",
+    "page": 376,
+    "x": [
+      1135,
+      1098,
+      1079,
+      1037
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0009",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "59.7.3": {
+    "wid": "59.7.3",
+    "page": 546,
+    "x": [
+      1212,
+      1175,
+      1154,
+      1108
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0010",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "6.57.2": {
+    "wid": "6.57.2",
+    "page": 134,
+    "x": [
+      1632,
+      1595,
+      1570,
+      1532
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0011",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "7.100.14": {
+    "wid": "7.100.14",
+    "page": 163,
+    "x": [
+      1254,
+      1215,
+      1189,
+      1148
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0012",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment. Corrected after first shaded check showed middle span misplaced to the right of lam."
+  },
+  "28.15.2": {
+    "wid": "28.15.2",
+    "page": 387,
+    "x": [
+      843,
+      810,
+      785,
+      747
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0013",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "2.23.6": {
+    "wid": "2.23.6",
+    "page": 4,
+    "x": [
+      388,
+      351,
+      327,
+      289
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0014",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "11.28.5": {
+    "wid": "11.28.5",
+    "page": 224,
+    "x": [
+      940,
+      906,
+      881,
+      837
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0015",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "26.198.2": {
+    "wid": "26.198.2",
+    "page": 375,
+    "x": [
+      847,
+      812,
+      790,
+      754
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0016",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "27.15.10": {
+    "wid": "27.15.10",
+    "page": 378,
+    "x": [
+      1014,
+      980,
+      959,
+      914
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0017",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "42.9.12": {
+    "wid": "42.9.12",
+    "page": 483,
+    "x": [
+      1843,
+      1809,
+      1785,
+      1742
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0018",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "2.185.21": {
+    "wid": "2.185.21",
+    "page": 28,
+    "x": [
+      738,
+      698,
+      672,
+      629
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0019",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "23.91.18": {
+    "wid": "23.91.18",
+    "page": 348,
+    "x": [
+      1592,
+      1554,
+      1530,
+      1488
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0020",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "9.97.11": {
+    "wid": "9.97.11",
+    "page": 202,
+    "x": [
+      1273,
+      1236,
+      1214,
+      1173
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0021",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "55.54.1": {
+    "wid": "55.54.1",
+    "page": 533,
+    "x": [
+      356,
+      325,
+      302,
+      261
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0022",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "4.41.9": {
+    "wid": "4.41.9",
+    "page": 85,
+    "x": [
+      1453,
+      1415,
+      1386,
+      1346
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0023",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "6.46.8": {
+    "wid": "6.46.8",
+    "page": 133,
+    "x": [
+      421,
+      387,
+      364,
+      328
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0024",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "7.138.5": {
+    "wid": "7.138.5",
+    "page": 167,
+    "x": [
+      776,
+      741,
+      718,
+      680
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0025",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "21.65.2": {
+    "wid": "21.65.2",
+    "page": 327,
+    "x": [
+      210,
+      174,
+      151,
+      102
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0026",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "42.29.11": {
+    "wid": "42.29.11",
+    "page": 486,
+    "x": [
+      432,
+      397,
+      373,
+      325
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0027",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "45.23.10": {
+    "wid": "45.23.10",
+    "page": 501,
+    "x": [
+      384,
+      352,
+      330,
+      291
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0028",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "85.9.6": {
+    "wid": "85.9.6",
+    "page": 590,
+    "x": [
+      1080,
+      1045,
+      1020,
+      984
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0029",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "2.259.3": {
+    "wid": "2.259.3",
+    "page": 43,
+    "x": [
+      1809,
+      1775,
+      1757,
+      1713
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0030",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "3.135.18": {
+    "wid": "3.135.18",
+    "page": 67,
+    "x": [
+      219,
+      181,
+      158,
+      114
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0031",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "3.189.5": {
+    "wid": "3.189.5",
+    "page": 75,
+    "x": [
+      1030,
+      991,
+      963,
+      923
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0032",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "4.111.5": {
+    "wid": "4.111.5",
+    "page": 96,
+    "x": [
+      409,
+      370,
+      345,
+      307
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0033",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "5.52.22": {
+    "wid": "5.52.22",
+    "page": 117,
+    "x": [
+      1230,
+      1195,
+      1172,
+      1134
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0034",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "6.54.10": {
+    "wid": "6.54.10",
+    "page": 134,
+    "x": [
+      1619,
+      1580,
+      1555,
+      1510
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0035",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "6.83.4": {
+    "wid": "6.83.4",
+    "page": 138,
+    "x": [
+      211,
+      177,
+      151,
+      110
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0036",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "8.58.7": {
+    "wid": "8.58.7",
+    "page": 184,
+    "x": [
+      1086,
+      1049,
+      1026,
+      986
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0037",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "9.109.3": {
+    "wid": "9.109.3",
+    "page": 204,
+    "x": [
+      1818,
+      1786,
+      1764,
+      1727
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0038",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "35.45.8": {
+    "wid": "35.45.8",
+    "page": 440,
+    "x": [
+      190,
+      151,
+      132,
+      88
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0039",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "39.22.6": {
+    "wid": "39.22.6",
+    "page": 461,
+    "x": [
+      744,
+      705,
+      681,
+      632
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0040",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "2.7.2": {
+    "wid": "2.7.2",
+    "page": 3,
+    "x": [
+      1056,
+      1020,
+      1001,
+      961
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0041",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "2.90.15": {
+    "wid": "2.90.15",
+    "page": 14,
+    "x": [
+      825,
+      786,
+      763,
+      726
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0042",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "2.184.7": {
+    "wid": "2.184.7",
+    "page": 28,
+    "x": [
+      1485,
+      1445,
+      1423,
+      1380
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0043",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "2.264.29": {
+    "wid": "2.264.29",
+    "page": 44,
+    "x": [
+      243,
+      200,
+      174,
+      129
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0044",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "3.103.20": {
+    "wid": "3.103.20",
+    "page": 63,
+    "x": [
+      843,
+      806,
+      783,
+      744
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0045",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "3.165.16": {
+    "wid": "3.165.16",
+    "page": 71,
+    "x": [
+      885,
+      846,
+      819,
+      781
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0046",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "4.156.2": {
+    "wid": "4.156.2",
+    "page": 103,
+    "x": [
+      427,
+      393,
+      369,
+      326
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0047",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "5.117.25": {
+    "wid": "5.117.25",
+    "page": 127,
+    "x": [
+      1481,
+      1444,
+      1423,
+      1385
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0048",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "8.41.29": {
+    "wid": "8.41.29",
+    "page": 182,
+    "x": [
+      1065,
+      1030,
+      1006,
+      961
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0049",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "8.48.19": {
+    "wid": "8.48.19",
+    "page": 183,
+    "x": [
+      1817,
+      1782,
+      1758,
+      1712
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0050",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment. Right ain stroke clipped by immutable crop edge; body remains present.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "9.15.5": {
+    "wid": "9.15.5",
+    "page": 189,
+    "x": [
+      1028,
+      994,
+      969,
+      926
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0051",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "9.26.4": {
+    "wid": "9.26.4",
+    "page": 190,
+    "x": [
+      1844,
+      1809,
+      1789,
+      1747
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0052",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "16.59.9": {
+    "wid": "16.59.9",
+    "page": 273,
+    "x": [
+      354,
+      317,
+      296,
+      250
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0053",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "22.39.7": {
+    "wid": "22.39.7",
+    "page": 337,
+    "x": [
+      442,
+      416,
+      395,
+      366
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0054",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "25.1.4": {
+    "wid": "25.1.4",
+    "page": 359,
+    "x": [
+      1100,
+      1068,
+      1050,
+      1012
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0055",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "26.222.1": {
+    "wid": "26.222.1",
+    "page": 376,
+    "x": [
+      169,
+      136,
+      116,
+      80
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0056",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "33.55.26": {
+    "wid": "33.55.26",
+    "page": 426,
+    "x": [
+      757,
+      719,
+      698,
+      655
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0057",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "34.47.13": {
+    "wid": "34.47.13",
+    "page": 433,
+    "x": [
+      175,
+      147,
+      127,
+      86
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0058",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment. Right ain stroke clipped by immutable crop edge; body remains present.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "39.39.3": {
+    "wid": "39.39.3",
+    "page": 462,
+    "x": [
+      1827,
+      1791,
+      1767,
+      1717
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0059",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "39.56.4": {
+    "wid": "39.56.4",
+    "page": 464,
+    "x": [
+      1823,
+      1787,
+      1765,
+      1717
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0060",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "2.102.4": {
+    "wid": "2.102.4",
+    "page": 16,
+    "x": [
+      1033,
+      996,
+      975,
+      930
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0061",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "2.106.15": {
+    "wid": "2.106.15",
+    "page": 17,
+    "x": [
+      1382,
+      1345,
+      1323,
+      1284
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0062",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "2.185.39": {
+    "wid": "2.185.39",
+    "page": 28,
+    "x": [
+      423,
+      385,
+      356,
+      211
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0063",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment. Long left maqsura bowl retained without arbitrary equal subdivision."
+  },
+  "2.260.25": {
+    "wid": "2.260.25",
+    "page": 44,
+    "x": [
+      838,
+      804,
+      776,
+      732
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0064",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "2.284.24": {
+    "wid": "2.284.24",
+    "page": 49,
+    "x": [
+      1656,
+      1615,
+      1590,
+      1554
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0065",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "3.29.18": {
+    "wid": "3.29.18",
+    "page": 53,
+    "x": [
+      995,
+      962,
+      936,
+      896
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0066",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "3.179.5": {
+    "wid": "3.179.5",
+    "page": 73,
+    "x": [
+      351,
+      314,
+      291,
+      245
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0067",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "4.86.11": {
+    "wid": "4.86.11",
+    "page": 91,
+    "x": [
+      814,
+      776,
+      745,
+      707
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0068",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "4.133.9": {
+    "wid": "4.133.9",
+    "page": 99,
+    "x": [
+      1708,
+      1666,
+      1644,
+      1609
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0069",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "5.13.19": {
+    "wid": "5.13.19",
+    "page": 109,
+    "x": [
+      1031,
+      990,
+      959,
+      918
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0070",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "5.19.24": {
+    "wid": "5.19.24",
+    "page": 111,
+    "x": [
+      343,
+      303,
+      269,
+      228
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0071",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "5.78.6": {
+    "wid": "5.78.6",
+    "page": 121,
+    "x": [
+      888,
+      850,
+      824,
+      785
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0072",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "5.120.7": {
+    "wid": "5.120.7",
+    "page": 127,
+    "x": [
+      684,
+      649,
+      626,
+      590
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0073",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "6.34.6": {
+    "wid": "6.34.6",
+    "page": 131,
+    "x": [
+      1131,
+      1094,
+      1067,
+      1030
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0074",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "6.102.12": {
+    "wid": "6.102.12",
+    "page": 141,
+    "x": [
+      1375,
+      1336,
+      1315,
+      1276
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0075",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "7.63.6": {
+    "wid": "7.63.6",
+    "page": 158,
+    "x": [
+      201,
+      162,
+      137,
+      97
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0076",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "8.37.8": {
+    "wid": "8.37.8",
+    "page": 181,
+    "x": [
+      1313,
+      1277,
+      1251,
+      1214
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0077",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "10.83.7": {
+    "wid": "10.83.7",
+    "page": 218,
+    "x": [
+      261,
+      224,
+      205,
+      97
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0078",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment. Long left maqsura bowl retained; right ain stroke clipped by immutable crop edge, body present.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "11.18.16": {
+    "wid": "11.18.16",
+    "page": 223,
+    "x": [
+      209,
+      172,
+      145,
+      104
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0079",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "11.93.2": {
+    "wid": "11.93.2",
+    "page": 232,
+    "x": [
+      914,
+      878,
+      851,
+      810
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0080",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "13.4.17": {
+    "wid": "13.4.17",
+    "page": 249,
+    "x": [
+      428,
+      390,
+      367,
+      267
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0081",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment. Long left maqsura bowl kept intact."
+  },
+  "13.33.3": {
+    "wid": "13.33.3",
+    "page": 253,
+    "x": [
+      1015,
+      976,
+      955,
+      910
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0082",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "16.2.5": {
+    "wid": "16.2.5",
+    "page": 267,
+    "x": [
+      730,
+      697,
+      678,
+      632
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0083",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "16.76.8": {
+    "wid": "16.76.8",
+    "page": 275,
+    "x": [
+      950,
+      912,
+      887,
+      841
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0084",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "16.108.4": {
+    "wid": "16.108.4",
+    "page": 279,
+    "x": [
+      1250,
+      1215,
+      1194,
+      1148
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0085",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "20.130.1": {
+    "wid": "20.130.1",
+    "page": 321,
+    "x": [
+      260,
+      224,
+      202,
+      105
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0086",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment. Long left maqsura bowl retained."
+  },
+  "22.6.9": {
+    "wid": "22.6.9",
+    "page": 333,
+    "x": [
+      615,
+      579,
+      561,
+      515
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0087",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "30.50.15": {
+    "wid": "30.50.15",
+    "page": 409,
+    "x": [
+      803,
+      779,
+      758,
+      717
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0088",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment. Right ain body and fatha clipped by immutable crop edge; substantial ain remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "33.52.21": {
+    "wid": "33.52.21",
+    "page": 425,
+    "x": [
+      638,
+      601,
+      582,
+      541
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0089",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "35.1.20": {
+    "wid": "35.1.20",
+    "page": 434,
+    "x": [
+      290,
+      254,
+      234,
+      187
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0090",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "39.62.5": {
+    "wid": "39.62.5",
+    "page": 465,
+    "x": [
+      1106,
+      1066,
+      1043,
+      998
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0091",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "43.13.1": {
+    "wid": "43.13.1",
+    "page": 490,
+    "x": [
+      410,
+      378,
+      364,
+      328
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0092",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "45.23.14": {
+    "wid": "45.23.14",
+    "page": 501,
+    "x": [
+      1443,
+      1407,
+      1385,
+      1339
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0093",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "46.33.18": {
+    "wid": "46.33.18",
+    "page": 506,
+    "x": [
+      1709,
+      1671,
+      1647,
+      1601
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0094",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "50.39.1": {
+    "wid": "50.39.1",
+    "page": 520,
+    "x": [
+      1166,
+      1136,
+      1116,
+      1072
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0095",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment. Right ain body clipped by immutable crop edge; substantial ain remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "57.29.6": {
+    "wid": "57.29.6",
+    "page": 541,
+    "x": [
+      881,
+      843,
+      820,
+      772
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0096",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "64.1.13": {
+    "wid": "64.1.13",
+    "page": 556,
+    "x": [
+      1690,
+      1664,
+      1640,
+      1594
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0097",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; maqsura return overlaps middle span. Right ain clipped by immutable crop edge; substantial target body remains visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  }
+}

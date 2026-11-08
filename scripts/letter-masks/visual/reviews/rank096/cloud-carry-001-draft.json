@@ -1,0 +1,916 @@
+{
+  "2.27.5": {
+    "wid": "2.27.5",
+    "page": 5,
+    "x": [
+      1586,
+      1569,
+      1534,
+      1453
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00096-c0001",
+    "note": "Carried from visually decided 2.253.30; destination requires sheet review."
+  },
+  "4.11.49": {
+    "wid": "4.11.49",
+    "page": 78,
+    "x": [
+      693,
+      673,
+      638,
+      567
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00096-c0001",
+    "note": "Carried from visually decided 2.253.30; destination requires sheet review. Actual destination review: fatha clipped at immutable crop edge; body targets remain visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "4.12.74": {
+    "wid": "4.12.74",
+    "page": 79,
+    "x": [
+      856,
+      837,
+      800,
+      717
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00096-c0001",
+    "note": "Carried from visually decided 2.253.30; destination requires sheet review. Actual destination review: fatha clipped at immutable crop edge; body targets remain visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "7.74.5": {
+    "wid": "7.74.5",
+    "page": 160,
+    "x": [
+      779,
+      759,
+      724,
+      645
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00096-c0001",
+    "note": "Carried from visually decided 2.253.30; destination requires sheet review. Actual destination review: fatha clipped at immutable crop edge; body targets remain visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "7.100.6": {
+    "wid": "7.100.6",
+    "page": 163,
+    "x": [
+      1171,
+      1150,
+      1116,
+      1037
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00096-c0001",
+    "note": "Carried from visually decided 2.253.30; destination requires sheet review. Actual destination review: fatha clipped at immutable crop edge; body targets remain visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "21.105.5": {
+    "wid": "21.105.5",
+    "page": 331,
+    "x": [
+      790,
+      769,
+      731,
+      650
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00096-c0001",
+    "note": "Carried from visually decided 2.253.30; destination requires sheet review. Actual destination review: fatha clipped at immutable crop edge; body targets remain visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "22.5.52": {
+    "wid": "22.5.52",
+    "page": 332,
+    "x": [
+      1841,
+      1821,
+      1780,
+      1708
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00096-c0001",
+    "note": "Carried from visually decided 2.253.30; destination requires sheet review. Actual destination review: fatha clipped at immutable crop edge; body targets remain visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "45.17.8": {
+    "wid": "45.17.8",
+    "page": 500,
+    "x": [
+      1225,
+      1205,
+      1167,
+      1095
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00096-c0001",
+    "note": "Carried from visually decided 2.253.30; destination requires sheet review. Actual destination review: fatha clipped at immutable crop edge; body targets remain visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "45.23.20": {
+    "wid": "45.23.20",
+    "page": 501,
+    "x": [
+      493,
+      473,
+      437,
+      370
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00096-c0001",
+    "note": "Carried from visually decided 2.253.30; destination requires sheet review."
+  },
+  "47.25.6": {
+    "wid": "47.25.6",
+    "page": 509,
+    "x": [
+      1731,
+      1712,
+      1677,
+      1604
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00096-c0001",
+    "note": "Carried from visually decided 2.253.30; destination requires sheet review."
+  },
+  "5.39.3": {
+    "wid": "5.39.3",
+    "page": 114,
+    "x": [
+      1265,
+      1244,
+      1210,
+      1149
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00096-c0002",
+    "note": "Carried from visually decided 24.33.44; destination requires sheet review. Actual destination review: fatha clipped at immutable crop edge; body targets remain visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "12.48.3": {
+    "wid": "12.48.3",
+    "page": 241,
+    "x": [
+      868,
+      850,
+      822,
+      766
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00096-c0002",
+    "note": "Carried from visually decided 24.33.44; destination requires sheet review. Actual destination review: fatha clipped at immutable crop edge; body targets remain visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "12.49.3": {
+    "wid": "12.49.3",
+    "page": 241,
+    "x": [
+      365,
+      350,
+      318,
+      264
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00096-c0002",
+    "note": "Carried from visually decided 24.33.44; destination requires sheet review. Actual destination review: fatha clipped at immutable crop edge; body targets remain visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "12.100.30": {
+    "wid": "12.100.30",
+    "page": 247,
+    "x": [
+      1424,
+      1407,
+      1374,
+      1310
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00096-c0002",
+    "note": "Carried from visually decided 24.33.44; destination requires sheet review."
+  },
+  "17.17.5": {
+    "wid": "17.17.5",
+    "page": 283,
+    "x": [
+      1537,
+      1519,
+      1489,
+      1436
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00096-c0002",
+    "note": "Carried from visually decided 24.33.44; destination requires sheet review. Actual destination review: fatha clipped at immutable crop edge; body targets remain visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "26.227.10": {
+    "wid": "26.227.10",
+    "page": 376,
+    "x": [
+      1848,
+      1830,
+      1798,
+      1737
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00096-c0002",
+    "note": "Carried from visually decided 24.33.44; destination requires sheet review."
+  },
+  "29.63.11": {
+    "wid": "29.63.11",
+    "page": 403,
+    "x": [
+      416,
+      396,
+      363,
+      302
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00096-c0002",
+    "note": "Carried from visually decided 24.33.44; destination requires sheet review. Actual destination review: fatha clipped at immutable crop edge; body targets remain visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.64.3": {
+    "wid": "2.64.3",
+    "page": 10,
+    "x": [
+      1831,
+      1814,
+      1779,
+      1724
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00096-c0003",
+    "note": "Carried from visually decided 2.56.3; destination requires sheet review."
+  },
+  "3.61.4": {
+    "wid": "3.61.4",
+    "page": 57,
+    "x": [
+      1223,
+      1205,
+      1169,
+      1112
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00096-c0003",
+    "note": "Carried from visually decided 2.56.3; destination requires sheet review. Actual destination review: fatha clipped at immutable crop edge; body targets remain visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "4.153.26": {
+    "wid": "4.153.26",
+    "page": 102,
+    "x": [
+      592,
+      569,
+      535,
+      484
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00096-c0003",
+    "note": "Carried from visually decided 2.56.3; destination requires sheet review. Actual destination review: fatha clipped at immutable crop edge; body targets remain visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "13.25.5": {
+    "wid": "13.25.5",
+    "page": 252,
+    "x": [
+      867,
+      848,
+      816,
+      763
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00096-c0003",
+    "note": "Carried from visually decided 2.56.3; destination requires sheet review. Actual destination review: fatha clipped at immutable crop edge; body targets remain visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "16.41.5": {
+    "wid": "16.41.5",
+    "page": 271,
+    "x": [
+      437,
+      418,
+      385,
+      333
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00096-c0003",
+    "note": "Carried from visually decided 2.56.3; destination requires sheet review. Actual destination review: fatha clipped at immutable crop edge; body targets remain visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "98.4.7": {
+    "wid": "98.4.7",
+    "page": 598,
+    "x": [
+      1819,
+      1800,
+      1768,
+      1718
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00096-c0003",
+    "note": "Carried from visually decided 2.56.3; destination requires sheet review. Actual destination review: fatha clipped at immutable crop edge; body targets remain visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.109.16": {
+    "wid": "2.109.16",
+    "page": 17,
+    "x": [
+      1154,
+      1136,
+      1101,
+      1035
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00096-c0004",
+    "note": "Carried from visually decided 12.35.4; destination requires sheet review."
+  },
+  "2.211.13": {
+    "wid": "2.211.13",
+    "page": 33,
+    "x": [
+      1622,
+      1603,
+      1570,
+      1512
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00096-c0004",
+    "note": "Carried from visually decided 12.35.4; destination requires sheet review. Actual destination review: fatha clipped at immutable crop edge; body targets remain visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "3.154.4": {
+    "wid": "3.154.4",
+    "page": 70,
+    "x": [
+      1258,
+      1241,
+      1211,
+      1150
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00096-c0004",
+    "note": "Carried from visually decided 12.35.4; destination requires sheet review. Actual destination review: fatha clipped at immutable crop edge; body targets remain visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "4.24.35": {
+    "wid": "4.24.35",
+    "page": 82,
+    "x": [
+      1117,
+      1098,
+      1064,
+      997
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00096-c0004",
+    "note": "Carried from visually decided 12.35.4; destination requires sheet review."
+  },
+  "16.92.6": {
+    "wid": "16.92.6",
+    "page": 277,
+    "x": [
+      1484,
+      1466,
+      1430,
+      1364
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00096-c0004",
+    "note": "Carried from visually decided 12.35.4; destination requires sheet review. Actual destination review: fatha clipped at immutable crop edge; body targets remain visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "24.55.23": {
+    "wid": "24.55.23",
+    "page": 357,
+    "x": [
+      1402,
+      1385,
+      1351,
+      1289
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00096-c0004",
+    "note": "Carried from visually decided 12.35.4; destination requires sheet review."
+  },
+  "2.109.8": {
+    "wid": "2.109.8",
+    "page": 17,
+    "x": [
+      997,
+      980,
+      946,
+      854
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00096-c0005",
+    "note": "Carried from visually decided 4.12.19; destination requires sheet review."
+  },
+  "3.19.12": {
+    "wid": "3.19.12",
+    "page": 52,
+    "x": [
+      1816,
+      1800,
+      1767,
+      1676
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00096-c0005",
+    "note": "Carried from visually decided 4.12.19; destination requires sheet review."
+  },
+  "3.172.5": {
+    "wid": "3.172.5",
+    "page": 72,
+    "x": [
+      330,
+      313,
+      276,
+      187
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00096-c0005",
+    "note": "Carried from visually decided 4.12.19; destination requires sheet review. Actual destination review: fatha clipped at immutable crop edge; body targets remain visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "9.27.4": {
+    "wid": "9.27.4",
+    "page": 191,
+    "x": [
+      1298,
+      1280,
+      1250,
+      1158
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00096-c0005",
+    "note": "Carried from visually decided 4.12.19; destination requires sheet review."
+  },
+  "9.113.13": {
+    "wid": "9.113.13",
+    "page": 205,
+    "x": [
+      232,
+      212,
+      179,
+      106
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00096-c0006",
+    "note": "Carried from visually decided 4.12.43; destination requires sheet review."
+  },
+  "24.47.10": {
+    "wid": "24.47.10",
+    "page": 356,
+    "x": [
+      266,
+      243,
+      207,
+      127
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00096-c0006",
+    "note": "Carried from visually decided 4.12.43; destination requires sheet review."
+  },
+  "28.43.5": {
+    "wid": "28.43.5",
+    "page": 390,
+    "x": [
+      1106,
+      1082,
+      1049,
+      976
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00096-c0006",
+    "note": "Carried from visually decided 4.12.43; destination requires sheet review. Actual destination review: fatha clipped at immutable crop edge; body targets remain visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "10.3.21": {
+    "wid": "10.3.21",
+    "page": 208,
+    "x": [
+      1618,
+      1595,
+      1564,
+      1506
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00096-c0007",
+    "note": "Carried from visually decided 5.106.29; destination requires sheet review. Actual destination review: fatha clipped at immutable crop edge; body targets remain visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "24.5.4": {
+    "wid": "24.5.4",
+    "page": 350,
+    "x": [
+      957,
+      939,
+      907,
+      855
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00096-c0007",
+    "note": "Carried from visually decided 5.106.29; destination requires sheet review."
+  },
+  "48.24.10": {
+    "wid": "48.24.10",
+    "page": 514,
+    "x": [
+      1824,
+      1802,
+      1768,
+      1713
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00096-c0007",
+    "note": "Carried from visually decided 5.106.29; destination requires sheet review. Actual destination review: fatha clipped at immutable crop edge; body targets remain visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.52.4": {
+    "wid": "2.52.4",
+    "page": 8,
+    "x": [
+      1069,
+      1049,
+      1017,
+      957
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00096-c0008",
+    "note": "Carried from visually decided 7.69.15; destination requires sheet review. Actual destination review: fatha clipped at immutable crop edge; body targets remain visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "3.94.6": {
+    "wid": "3.94.6",
+    "page": 62,
+    "x": [
+      696,
+      679,
+      642,
+      581
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00096-c0008",
+    "note": "Carried from visually decided 7.69.15; destination requires sheet review."
+  },
+  "41.50.5": {
+    "wid": "41.50.5",
+    "page": 482,
+    "x": [
+      612,
+      591,
+      554,
+      494
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00096-c0008",
+    "note": "Carried from visually decided 7.69.15; destination requires sheet review. Actual destination review: fatha clipped at immutable crop edge; body targets remain visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "10.21.5": {
+    "wid": "10.21.5",
+    "page": 211,
+    "x": [
+      1084,
+      1064,
+      1031,
+      974
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00096-c0009",
+    "note": "Carried from visually decided 30.54.8; destination requires sheet review."
+  },
+  "16.119.10": {
+    "wid": "16.119.10",
+    "page": 281,
+    "x": [
+      1856,
+      1834,
+      1799,
+      1743
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00096-c0009",
+    "note": "Carried from visually decided 30.54.8; destination requires sheet review. Actual destination review: fatha clipped at immutable crop edge; body targets remain visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "42.14.4": {
+    "wid": "42.14.4",
+    "page": 484,
+    "x": [
+      1431,
+      1408,
+      1374,
+      1309
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00096-c0009",
+    "note": "Carried from visually decided 30.54.8; destination requires sheet review. Actual destination review: fatha clipped at immutable crop edge; body targets remain visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.75.14": {
+    "wid": "2.75.14",
+    "page": 11,
+    "x": [
+      592,
+      571,
+      534,
+      425
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00096-c0010",
+    "note": "Carried from visually decided 42.28.5; destination requires sheet review. Actual destination review: fatha clipped at immutable crop edge; body targets remain visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.246.8": {
+    "wid": "2.246.8",
+    "page": 40,
+    "x": [
+      720,
+      702,
+      670,
+      571
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00096-c0010",
+    "note": "Carried from visually decided 42.28.5; destination requires sheet review. Actual destination review: fatha clipped at immutable crop edge; body targets remain visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "3.152.15": {
+    "wid": "3.152.15",
+    "page": 69,
+    "x": [
+      588,
+      570,
+      537,
+      431
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00096-c0010",
+    "note": "Carried from visually decided 42.28.5; destination requires sheet review."
+  },
+  "3.89.4": {
+    "wid": "3.89.4",
+    "page": 61,
+    "x": [
+      1819,
+      1801,
+      1766,
+      1694
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00096-c0011",
+    "note": "Carried from visually decided 2.159.9; destination requires sheet review."
+  },
+  "30.54.14": {
+    "wid": "30.54.14",
+    "page": 410,
+    "x": [
+      222,
+      202,
+      169,
+      89
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00096-c0011",
+    "note": "Carried from visually decided 2.159.9; destination requires sheet review."
+  },
+  "3.105.6": {
+    "wid": "3.105.6",
+    "page": 63,
+    "x": [
+      714,
+      696,
+      667,
+      615
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00096-c0012",
+    "note": "Carried from visually decided 53.26.11; destination requires sheet review. Actual destination review: fatha clipped at immutable crop edge; body targets remain visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "47.32.10": {
+    "wid": "47.32.10",
+    "page": 510,
+    "x": [
+      432,
+      412,
+      384,
+      328
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00096-c0012",
+    "note": "Carried from visually decided 53.26.11; destination requires sheet review."
+  },
+  "7.129.7": {
+    "wid": "7.129.7",
+    "page": 165,
+    "x": [
+      1076,
+      1056,
+      1020,
+      941
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00096-c0013",
+    "note": "Carried from visually decided 2.213.26; destination requires sheet review. Actual destination review: fatha clipped at immutable crop edge; body targets remain visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "46.30.7": {
+    "wid": "46.30.7",
+    "page": 506,
+    "x": [
+      424,
+      396,
+      360,
+      290
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00096-c0014",
+    "note": "Carried from visually decided 4.115.4; destination requires sheet review. Actual destination review: fatha clipped at immutable crop edge; body targets remain visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "16.106.4": {
+    "wid": "16.106.4",
+    "page": 279,
+    "x": [
+      1019,
+      999,
+      964,
+      879
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00096-c0015",
+    "note": "Carried from visually decided 5.41.29; destination requires sheet review."
+  },
+  "9.117.13": {
+    "wid": "9.117.13",
+    "page": 205,
+    "x": [
+      1187,
+      1165,
+      1136,
+      1030
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00096-c0016",
+    "note": "Carried from visually decided 5.43.10; destination requires sheet review."
+  },
+  "24.58.24": {
+    "wid": "24.58.24",
+    "page": 357,
+    "x": [
+      1677,
+      1655,
+      1623,
+      1547
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00096-c0017",
+    "note": "Carried from visually decided 11.7.21; destination requires sheet review."
+  },
+  "30.3.5": {
+    "wid": "30.3.5",
+    "page": 404,
+    "x": [
+      227,
+      204,
+      170,
+      92
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00096-c0018",
+    "note": "Carried from visually decided 16.110.6; destination requires sheet review. Actual destination review: fatha clipped at immutable crop edge; body targets remain visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  }
+}

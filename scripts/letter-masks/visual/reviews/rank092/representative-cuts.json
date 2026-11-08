@@ -1,0 +1,468 @@
+{
+  "40.28.0": {
+    "wid": "40.28.0",
+    "page": 470,
+    "x": [
+      902,
+      870,
+      805,
+      744
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00092-c0001",
+    "note": "Clear gaps between detached principal bodies: waw head, merged qaf-alif, lam. Waw lower return may cross left span; marks do not move cuts."
+  },
+  "38.4.5": {
+    "wid": "38.4.5",
+    "page": 453,
+    "x": [
+      1241,
+      1210,
+      1157,
+      1107
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00092-c0002",
+    "note": "Clear gaps between detached principal bodies: waw head, merged qaf-alif, lam. Waw lower return may cross left span; marks do not move cuts."
+  },
+  "29.12.0": {
+    "wid": "29.12.0",
+    "page": 397,
+    "x": [
+      1639,
+      1604,
+      1542,
+      1490
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00092-c0003",
+    "note": "Clear gaps between detached principal bodies: waw head, merged qaf-alif, lam. Waw lower return may cross left span; marks do not move cuts."
+  },
+  "12.45.0": {
+    "wid": "12.45.0",
+    "page": 241,
+    "x": [
+      1813,
+      1782,
+      1726,
+      1671
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00092-c0004",
+    "note": "Detached head gaps, qaf-alif merged; right waw fatha clipped, return remains overlapping.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "12.54.0": {
+    "wid": "12.54.0",
+    "page": 242,
+    "x": [
+      1020,
+      988,
+      930,
+      875
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00092-c0005",
+    "note": "Detached head gaps, qaf-alif merged; right waw fatha clipped, return remains overlapping.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "25.4.0": {
+    "wid": "25.4.0",
+    "page": 360,
+    "x": [
+      1080,
+      1057,
+      990,
+      941
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00092-c0006",
+    "note": "Clear gaps between detached principal bodies: waw head, merged qaf-alif, lam. Waw lower return may cross left span; marks do not move cuts."
+  },
+  "14.13.0": {
+    "wid": "14.13.0",
+    "page": 257,
+    "x": [
+      1644,
+      1609,
+      1550,
+      1499
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00092-c0007",
+    "note": "Clear detached principal-body gaps; merged qaf-alif retained, waw lower return crosses adjacent span without moving boundary."
+  },
+  "16.51.0": {
+    "wid": "16.51.0",
+    "page": 272,
+    "x": [
+      900,
+      867,
+      810,
+      760
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00092-c0008",
+    "note": "Clear detached principal-body gaps; merged qaf-alif retained, waw lower return crosses adjacent span without moving boundary."
+  },
+  "27.19.4": {
+    "wid": "27.19.4",
+    "page": 378,
+    "x": [
+      882,
+      850,
+      792,
+      743
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00092-c0009",
+    "note": "Clear detached principal-body gaps; merged qaf-alif retained, waw lower return crosses adjacent span without moving boundary."
+  },
+  "34.3.0": {
+    "wid": "34.3.0",
+    "page": 428,
+    "x": [
+      1138,
+      1101,
+      1037,
+      981
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00092-c0010",
+    "note": "Clear detached principal-body gaps; merged qaf-alif retained, waw lower return crosses adjacent span without moving boundary."
+  },
+  "99.3.0": {
+    "wid": "99.3.0",
+    "page": 599,
+    "x": [
+      1682,
+      1649,
+      1589,
+      1537
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00092-c0011",
+    "note": "Clear detached principal-body gaps; merged qaf-alif retained, waw lower return crosses adjacent span without moving boundary."
+  },
+  "2.167.0": {
+    "wid": "2.167.0",
+    "page": 25,
+    "x": [
+      861,
+      827,
+      766,
+      718
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00092-c0012",
+    "note": "Clear detached principal-body gaps; merged qaf-alif retained, waw lower return crosses adjacent span without moving boundary."
+  },
+  "6.128.9": {
+    "wid": "6.128.9",
+    "page": 144,
+    "x": [
+      583,
+      551,
+      487,
+      435
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00092-c0013",
+    "note": "Detached principal-body gaps; right waw fatha clipped at immutable edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "7.93.2": {
+    "wid": "7.93.2",
+    "page": 162,
+    "x": [
+      551,
+      517,
+      451,
+      399
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00092-c0014",
+    "note": "Clear detached body gaps, keeping qaf-alif merged and full lam bowl; waw lower return overlaps left span."
+  },
+  "10.28.12": {
+    "wid": "10.28.12",
+    "page": 212,
+    "x": [
+      1642,
+      1614,
+      1553,
+      1503
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00092-c0015",
+    "note": "Detached principal-body gaps; right waw fatha clipped at immutable edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "12.62.0": {
+    "wid": "12.62.0",
+    "page": 242,
+    "x": [
+      1268,
+      1241,
+      1171,
+      1120
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00092-c0016",
+    "note": "Clear detached body gaps, keeping qaf-alif merged and full lam bowl; waw lower return overlaps left span."
+  },
+  "12.67.0": {
+    "wid": "12.67.0",
+    "page": 243,
+    "x": [
+      1644,
+      1612,
+      1549,
+      1496
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00092-c0017",
+    "note": "Clear detached body gaps, keeping qaf-alif merged and full lam bowl; waw lower return overlaps left span."
+  },
+  "30.56.0": {
+    "wid": "30.56.0",
+    "page": 410,
+    "x": [
+      962,
+      933,
+      872,
+      821
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00092-c0018",
+    "note": "Clear detached body gaps, keeping qaf-alif merged and full lam bowl; waw lower return overlaps left span."
+  },
+  "40.26.0": {
+    "wid": "40.26.0",
+    "page": 470,
+    "x": [
+      1820,
+      1788,
+      1732,
+      1674
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00092-c0019",
+    "note": "Detached gaps; right waw fatha clipped.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.247.0": {
+    "wid": "2.247.0",
+    "page": 40,
+    "x": [
+      281,
+      252,
+      181,
+      125
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00092-c0020",
+    "note": "Clear detached principal-body gaps, qaf-alif retained as one target; low waw return does not drag border."
+  },
+  "2.248.0": {
+    "wid": "2.248.0",
+    "page": 40,
+    "x": [
+      1797,
+      1766,
+      1659,
+      1607
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00092-c0021",
+    "note": "Detached gaps; long qaf-alif body remains one merged target."
+  },
+  "4.118.2": {
+    "wid": "4.118.2",
+    "page": 97,
+    "x": [
+      682,
+      644,
+      578,
+      418
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00092-c0022",
+    "note": "Detached gaps; broad final lam remains full-width."
+  },
+  "5.12.11": {
+    "wid": "5.12.11",
+    "page": 109,
+    "x": [
+      463,
+      427,
+      303,
+      247
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00092-c0023",
+    "note": "Long merged qaf-alif and detached gaps; right waw fatha clipped.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "7.90.0": {
+    "wid": "7.90.0",
+    "page": 162,
+    "x": [
+      344,
+      316,
+      267,
+      224
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00092-c0024",
+    "note": "Clear detached principal-body gaps, qaf-alif retained as one target; low waw return does not drag border. Shaded check corrected alif/lam cut from275 to267 into narrow gap."
+  },
+  "7.142.11": {
+    "wid": "7.142.11",
+    "page": 167,
+    "x": [
+      291,
+      255,
+      175,
+      121
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00092-c0025",
+    "note": "Clear detached principal-body gaps; merged qaf-alif kept whole; waw lower return may overlap left span."
+  },
+  "8.48.21": {
+    "wid": "8.48.21",
+    "page": 183,
+    "x": [
+      1445,
+      1411,
+      1349,
+      1295
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00092-c0026",
+    "note": "Clear detached principal-body gaps; merged qaf-alif kept whole; waw lower return may overlap left span."
+  },
+  "10.88.0": {
+    "wid": "10.88.0",
+    "page": 218,
+    "x": [
+      513,
+      480,
+      425,
+      266
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00092-c0027",
+    "note": "Clear gaps; broad final lam retains full left body."
+  },
+  "11.41.0": {
+    "wid": "11.41.0",
+    "page": 226,
+    "x": [
+      512,
+      482,
+      431,
+      375
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00092-c0028",
+    "note": "Clear detached principal-body gaps; merged qaf-alif kept whole; waw lower return may overlap left span."
+  },
+  "23.33.0": {
+    "wid": "23.33.0",
+    "page": 344,
+    "x": [
+      666,
+      634,
+      571,
+      515
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00092-c0029",
+    "note": "Clear detached principal-body gaps; merged qaf-alif kept whole; waw lower return may overlap left span."
+  },
+  "25.8.10": {
+    "wid": "25.8.10",
+    "page": 360,
+    "x": [
+      342,
+      310,
+      167,
+      114
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00092-c0030",
+    "note": "Long qaf-alif remains one merged target; principal-head gaps locate both cuts."
+  },
+  "28.80.0": {
+    "wid": "28.80.0",
+    "page": 395,
+    "x": [
+      348,
+      313,
+      182,
+      125
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00092-c0031",
+    "note": "Clear detached principal-body gaps; merged qaf-alif kept whole; low waw return crosses left span."
+  },
+  "50.23.0": {
+    "wid": "50.23.0",
+    "page": 519,
+    "x": [
+      1681,
+      1646,
+      1592,
+      1540
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00092-c0032",
+    "note": "Clear detached principal-body gaps; merged qaf-alif kept whole; low waw return crosses left span."
+  }
+}

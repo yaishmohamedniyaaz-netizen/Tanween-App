@@ -1,0 +1,15 @@
+[
+  {
+    "wid": "51.52.11",
+    "page": 523,
+    "cluster": "s00022-c0051",
+    "status": "withheld-missing-target",
+    "reason": "Actual original and enlarged image show waw plus clipped hamza/vowel fragments, but entire alif body is outside immutable crop. No honest alif body span exists; withheld rather than fabricated.",
+    "reviewFlags": [
+      "clipped-ink",
+      "missing-target"
+    ],
+    "image": "scripts/letter-masks/visual/reviews/rank022/absent-check-original001.png",
+    "observer": "cloud-ranks018_025"
+  }
+]

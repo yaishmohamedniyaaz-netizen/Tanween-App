@@ -1,0 +1,38 @@
+[
+  {
+    "image": "cloud-selfcheck-fixed-001-001.png",
+    "words": [
+      "4.12.19",
+      "5.106.29",
+      "7.69.15",
+      "30.54.8",
+      "42.28.5",
+      "2.159.9"
+    ],
+    "stage": "cloud-selfcheck-fixed-001"
+  },
+  {
+    "image": "cloud-selfcheck-fixed-001-002.png",
+    "words": [
+      "53.26.11",
+      "2.213.26",
+      "5.41.29",
+      "5.43.10",
+      "11.7.21",
+      "16.110.6"
+    ],
+    "stage": "cloud-selfcheck-fixed-001"
+  },
+  {
+    "image": "cloud-selfcheck-fixed-001-003.png",
+    "words": [
+      "2.74.4",
+      "2.145.23",
+      "2.209.3",
+      "9.12.4",
+      "39.6.20",
+      "42.16.5"
+    ],
+    "stage": "cloud-selfcheck-fixed-001"
+  }
+]

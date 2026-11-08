@@ -1,0 +1,777 @@
+{
+  "4.10.6": {
+    "wid": "4.10.6",
+    "page": 78,
+    "x": [
+      559,
+      542,
+      520,
+      428
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00090-c0001",
+    "note": "Actual shaded destination review: carrier gap and full compact nun tooth; thin joining baseline belongs to merged mim-alif, moderate join uncertainty. Right hamza/kasra clipped at immutable edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "4.17.0": {
+    "wid": "4.17.0",
+    "page": 80,
+    "x": [
+      1639,
+      1609,
+      1592,
+      1507
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00090-c0001",
+    "note": "Actual shaded destination review: carrier gap and full compact nun tooth; thin joining baseline belongs to merged mim-alif, moderate join uncertainty."
+  },
+  "8.2.0": {
+    "wid": "8.2.0",
+    "page": 177,
+    "x": [
+      1409,
+      1377,
+      1358,
+      1264
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00090-c0001",
+    "note": "Actual shaded destination review: carrier gap and full compact nun tooth; thin joining baseline belongs to merged mim-alif, moderate join uncertainty."
+  },
+  "9.18.0": {
+    "wid": "9.18.0",
+    "page": 189,
+    "x": [
+      1879,
+      1860,
+      1841,
+      1753
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00090-c0001",
+    "note": "Actual shaded destination review: carrier gap and full compact nun tooth; thin joining baseline belongs to merged mim-alif, moderate join uncertainty. Right hamza/kasra clipped at immutable edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "20.90.7": {
+    "wid": "20.90.7",
+    "page": 318,
+    "x": [
+      1622,
+      1605,
+      1585,
+      1496
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00090-c0001",
+    "note": "Actual shaded destination review: carrier gap and full compact nun tooth; thin joining baseline belongs to merged mim-alif, moderate join uncertainty. Right hamza/kasra clipped at immutable edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "77.7.0": {
+    "wid": "77.7.0",
+    "page": 580,
+    "x": [
+      237,
+      212,
+      190,
+      99
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00090-c0001",
+    "note": "Actual shaded destination review: carrier gap and full compact nun tooth; thin joining baseline belongs to merged mim-alif, moderate join uncertainty. Right hamza/kasra clipped at immutable edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "9.55.5": {
+    "wid": "9.55.5",
+    "page": 196,
+    "x": [
+      764,
+      750,
+      732,
+      656
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00090-c0002",
+    "note": "Actual shaded destination review: carrier gap and full compact nun tooth; thin joining baseline belongs to merged mim-alif, moderate join uncertainty. Right hamza/kasra clipped at immutable edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "24.51.0": {
+    "wid": "24.51.0",
+    "page": 356,
+    "x": [
+      1823,
+      1807,
+      1791,
+      1712
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00090-c0002",
+    "note": "Actual shaded destination review: carrier gap and full compact nun tooth; thin joining baseline belongs to merged mim-alif, moderate join uncertainty. Right hamza/kasra clipped at immutable edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "35.28.7": {
+    "wid": "35.28.7",
+    "page": 437,
+    "x": [
+      1121,
+      1107,
+      1087,
+      1012
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00090-c0002",
+    "note": "Actual shaded destination review: carrier gap and full compact nun tooth; thin joining baseline belongs to merged mim-alif, moderate join uncertainty. Right hamza/kasra clipped at immutable edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "39.9.20": {
+    "wid": "39.9.20",
+    "page": 459,
+    "x": [
+      1526,
+      1514,
+      1494,
+      1422
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00090-c0002",
+    "note": "Actual shaded destination review: carrier gap and full compact nun tooth; thin joining baseline belongs to merged mim-alif, moderate join uncertainty. Right hamza/kasra clipped at immutable edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "46.23.1": {
+    "wid": "46.23.1",
+    "page": 505,
+    "x": [
+      592,
+      578,
+      557,
+      484
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00090-c0002",
+    "note": "Actual shaded destination review: carrier gap and full compact nun tooth; thin joining baseline belongs to merged mim-alif, moderate join uncertainty. Right hamza/kasra clipped at immutable edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "66.7.6": {
+    "wid": "66.7.6",
+    "page": 560,
+    "x": [
+      1015,
+      1002,
+      982,
+      911
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00090-c0002",
+    "note": "Actual shaded destination review: carrier gap and full compact nun tooth; thin joining baseline belongs to merged mim-alif, moderate join uncertainty. Right hamza/kasra clipped at immutable edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.169.0": {
+    "wid": "2.169.0",
+    "page": 25,
+    "x": [
+      458,
+      431,
+      414,
+      335
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00090-c0003",
+    "note": "Actual shaded destination review: carrier gap and full compact nun tooth; thin joining baseline belongs to merged mim-alif, moderate join uncertainty."
+  },
+  "2.173.0": {
+    "wid": "2.173.0",
+    "page": 26,
+    "x": [
+      378,
+      347,
+      333,
+      262
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00090-c0003",
+    "note": "Actual shaded destination review: carrier gap and full compact nun tooth; thin joining baseline belongs to merged mim-alif, moderate join uncertainty."
+  },
+  "4.171.34": {
+    "wid": "4.171.34",
+    "page": 105,
+    "x": [
+      417,
+      400,
+      384,
+      315
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00090-c0003",
+    "note": "Actual shaded destination review: carrier gap and full compact nun tooth; thin joining baseline belongs to merged mim-alif, moderate join uncertainty. Right hamza/kasra clipped at immutable edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "7.33.1": {
+    "wid": "7.33.1",
+    "page": 154,
+    "x": [
+      1192,
+      1173,
+      1157,
+      1082
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00090-c0003",
+    "note": "Actual shaded destination review: carrier gap and full compact nun tooth; thin joining baseline belongs to merged mim-alif, moderate join uncertainty. Right hamza/kasra clipped at immutable edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "60.9.0": {
+    "wid": "60.9.0",
+    "page": 550,
+    "x": [
+      1653,
+      1621,
+      1606,
+      1539
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00090-c0003",
+    "note": "Actual shaded destination review: carrier gap and full compact nun tooth; thin joining baseline belongs to merged mim-alif, moderate join uncertainty."
+  },
+  "5.27.19": {
+    "wid": "5.27.19",
+    "page": 112,
+    "x": [
+      1693,
+      1676,
+      1655,
+      1575
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00090-c0004",
+    "note": "Actual shaded destination review: carrier gap and full compact nun tooth; thin joining baseline belongs to merged mim-alif, moderate join uncertainty. Right hamza/kasra clipped at immutable edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "6.19.29": {
+    "wid": "6.19.29",
+    "page": 130,
+    "x": [
+      1009,
+      992,
+      973,
+      896
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00090-c0004",
+    "note": "Actual shaded destination review: carrier gap and full compact nun tooth; thin joining baseline belongs to merged mim-alif, moderate join uncertainty. Right hamza/kasra clipped at immutable edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "7.131.14": {
+    "wid": "7.131.14",
+    "page": 166,
+    "x": [
+      913,
+      895,
+      878,
+      798
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00090-c0004",
+    "note": "Actual shaded destination review: carrier gap and full compact nun tooth; thin joining baseline belongs to merged mim-alif, moderate join uncertainty. Right hamza/kasra clipped at immutable edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "16.92.20": {
+    "wid": "16.92.20",
+    "page": 277,
+    "x": [
+      572,
+      555,
+      536,
+      454
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00090-c0004",
+    "note": "Actual shaded destination review: carrier gap and full compact nun tooth; thin joining baseline belongs to merged mim-alif, moderate join uncertainty. Right hamza/kasra clipped at immutable edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "49.10.0": {
+    "wid": "49.10.0",
+    "page": 516,
+    "x": [
+      1681,
+      1649,
+      1633,
+      1561
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00090-c0004",
+    "note": "Actual shaded destination review: carrier gap and full compact nun tooth; thin joining baseline belongs to merged mim-alif, moderate join uncertainty."
+  },
+  "2.102.29": {
+    "wid": "2.102.29",
+    "page": 16,
+    "x": [
+      885,
+      867,
+      847,
+      755
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00090-c0005",
+    "note": "Actual shaded destination review: carrier gap and full compact nun tooth; thin joining baseline belongs to merged mim-alif, moderate join uncertainty. Right hamza/kasra clipped at immutable edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "10.24.0": {
+    "wid": "10.24.0",
+    "page": 211,
+    "x": [
+      1843,
+      1827,
+      1810,
+      1731
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00090-c0005",
+    "note": "Actual shaded destination review: carrier gap and full compact nun tooth; thin joining baseline belongs to merged mim-alif, moderate join uncertainty. Right hamza/kasra clipped at immutable edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "19.84.3": {
+    "wid": "19.84.3",
+    "page": 311,
+    "x": [
+      813,
+      797,
+      779,
+      696
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00090-c0005",
+    "note": "Actual shaded destination review: carrier gap and full compact nun tooth; thin joining baseline belongs to merged mim-alif, moderate join uncertainty. Right hamza/kasra clipped at immutable edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "32.15.0": {
+    "wid": "32.15.0",
+    "page": 416,
+    "x": [
+      398,
+      369,
+      352,
+      272
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00090-c0005",
+    "note": "Actual shaded destination review: carrier gap and full compact nun tooth; thin joining baseline belongs to merged mim-alif, moderate join uncertainty."
+  },
+  "9.37.0": {
+    "wid": "9.37.0",
+    "page": 193,
+    "x": [
+      1828,
+      1815,
+      1793,
+      1697
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00090-c0006",
+    "note": "Actual shaded destination review: carrier gap and full compact nun tooth; thin joining baseline belongs to merged mim-alif, moderate join uncertainty. Right hamza/kasra clipped at immutable edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "16.105.0": {
+    "wid": "16.105.0",
+    "page": 279,
+    "x": [
+      925,
+      896,
+      874,
+      769
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00090-c0006",
+    "note": "Actual shaded destination review: carrier gap and full compact nun tooth; thin joining baseline belongs to merged mim-alif, moderate join uncertainty."
+  },
+  "20.72.14": {
+    "wid": "20.72.14",
+    "page": 316,
+    "x": [
+      603,
+      592,
+      569,
+      479
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00090-c0006",
+    "note": "Actual shaded destination review: carrier gap and full compact nun tooth; thin joining baseline belongs to merged mim-alif, moderate join uncertainty. Right hamza/kasra clipped at immutable edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "29.25.1": {
+    "wid": "29.25.1",
+    "page": 399,
+    "x": [
+      1486,
+      1471,
+      1451,
+      1355
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00090-c0006",
+    "note": "Actual shaded destination review: carrier gap and full compact nun tooth; thin joining baseline belongs to merged mim-alif, moderate join uncertainty. Right hamza/kasra clipped at immutable edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "5.33.0": {
+    "wid": "5.33.0",
+    "page": 113,
+    "x": [
+      263,
+      229,
+      209,
+      110
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00090-c0007",
+    "note": "Actual shaded destination review: carrier gap and full compact nun tooth; thin joining baseline belongs to merged mim-alif, moderate join uncertainty. Right hamza/kasra clipped at immutable edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "16.124.0": {
+    "wid": "16.124.0",
+    "page": 281,
+    "x": [
+      1093,
+      1063,
+      1045,
+      950
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00090-c0007",
+    "note": "Actual shaded destination review: carrier gap and full compact nun tooth; thin joining baseline belongs to merged mim-alif, moderate join uncertainty. Right hamza/kasra clipped at immutable edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "29.50.8": {
+    "wid": "29.50.8",
+    "page": 402,
+    "x": [
+      1210,
+      1193,
+      1179,
+      1084
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00090-c0007",
+    "note": "Actual shaded destination review: carrier gap and full compact nun tooth; thin joining baseline belongs to merged mim-alif, moderate join uncertainty. Right hamza/kasra clipped at immutable edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "6.36.0": {
+    "wid": "6.36.0",
+    "page": 132,
+    "x": [
+      1698,
+      1681,
+      1666,
+      1597
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00090-c0008",
+    "note": "Actual shaded destination review: carrier gap and full compact nun tooth; thin joining baseline belongs to merged mim-alif, moderate join uncertainty. Right hamza/kasra clipped at immutable edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "9.60.0": {
+    "wid": "9.60.0",
+    "page": 196,
+    "x": [
+      561,
+      544,
+      524,
+      447
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00090-c0008",
+    "note": "Actual shaded destination review: carrier gap and full compact nun tooth; thin joining baseline belongs to merged mim-alif, moderate join uncertainty. Right hamza/kasra clipped at immutable edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "11.33.1": {
+    "wid": "11.33.1",
+    "page": 225,
+    "x": [
+      1834,
+      1818,
+      1803,
+      1725
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00090-c0008",
+    "note": "Actual shaded destination review: carrier gap and full compact nun tooth; thin joining baseline belongs to merged mim-alif, moderate join uncertainty. Right hamza/kasra clipped at immutable edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "3.178.9": {
+    "wid": "3.178.9",
+    "page": 73,
+    "x": [
+      984,
+      966,
+      948,
+      870
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00090-c0009",
+    "note": "Actual shaded destination review: carrier gap and full compact nun tooth; thin joining baseline belongs to merged mim-alif, moderate join uncertainty. Right hamza/kasra clipped at immutable edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "16.95.6": {
+    "wid": "16.95.6",
+    "page": 278,
+    "x": [
+      448,
+      430,
+      413,
+      333
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00090-c0009",
+    "note": "Actual shaded destination review: carrier gap and full compact nun tooth; thin joining baseline belongs to merged mim-alif, moderate join uncertainty. Right hamza/kasra clipped at immutable edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "9.65.3": {
+    "wid": "9.65.3",
+    "page": 197,
+    "x": [
+      1505,
+      1485,
+      1468,
+      1371
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00090-c0010",
+    "note": "Actual shaded destination review: carrier gap and full compact nun tooth; thin joining baseline belongs to merged mim-alif, moderate join uncertainty. Right hamza/kasra clipped at immutable edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "24.62.0": {
+    "wid": "24.62.0",
+    "page": 359,
+    "x": [
+      1831,
+      1813,
+      1801,
+      1715
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00090-c0010",
+    "note": "Actual shaded destination review: carrier gap and full compact nun tooth; thin joining baseline belongs to merged mim-alif, moderate join uncertainty. Right hamza/kasra clipped at immutable edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "9.85.4": {
+    "wid": "9.85.4",
+    "page": 200,
+    "x": [
+      765,
+      750,
+      731,
+      642
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00090-c0011",
+    "note": "Actual shaded destination review: carrier gap and full compact nun tooth; thin joining baseline belongs to merged mim-alif, moderate join uncertainty. Right hamza/kasra clipped at immutable edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "35.18.18": {
+    "wid": "35.18.18",
+    "page": 436,
+    "x": [
+      1817,
+      1804,
+      1786,
+      1698
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00090-c0011",
+    "note": "Actual shaded destination review: carrier gap and full compact nun tooth; thin joining baseline belongs to merged mim-alif, moderate join uncertainty. Right hamza/kasra clipped at immutable edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "16.51.6": {
+    "wid": "16.51.6",
+    "page": 272,
+    "x": [
+      1672,
+      1657,
+      1640,
+      1565
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00090-c0012",
+    "note": "Actual shaded destination review: carrier gap and full compact nun tooth; thin joining baseline belongs to merged mim-alif, moderate join uncertainty. Right hamza/kasra clipped at immutable edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "33.63.5": {
+    "wid": "33.63.5",
+    "page": 427,
+    "x": [
+      968,
+      955,
+      933,
+      861
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00090-c0012",
+    "note": "Actual shaded destination review: carrier gap and full compact nun tooth; thin joining baseline belongs to merged mim-alif, moderate join uncertainty. Right hamza/kasra clipped at immutable edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "7.187.28": {
+    "wid": "7.187.28",
+    "page": 174,
+    "x": [
+      1617,
+      1601,
+      1583,
+      1503
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00090-c0013",
+    "note": "Actual shaded destination review: carrier gap and full compact nun tooth; thin joining baseline belongs to merged mim-alif, moderate join uncertainty. Right hamza/kasra clipped at immutable edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "5.90.3": {
+    "wid": "5.90.3",
+    "page": 123,
+    "x": [
+      1303,
+      1285,
+      1270,
+      1206
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00090-c0014",
+    "note": "Actual shaded destination review: carrier gap and full compact nun tooth; thin joining baseline belongs to merged mim-alif, moderate join uncertainty. Right hamza/kasra clipped at immutable edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "51.5.0": {
+    "wid": "51.5.0",
+    "page": 520,
+    "x": [
+      1264,
+      1232,
+      1216,
+      1170
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00090-c0015",
+    "note": "Actual shaded destination review: carrier gap and full compact nun tooth; thin joining baseline belongs to merged mim-alif, moderate join uncertainty. Right hamza/kasra clipped at immutable edge. Stacked nun/mim overlap makes horizontal division uncertain.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  }
+}
