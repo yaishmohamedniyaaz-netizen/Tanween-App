@@ -1,0 +1,96 @@
+{
+  "checkpoint": "A",
+  "status": "checkpoint_a_awaiting_owner_review_targets_failed",
+  "completedRanks": 100,
+  "pilotWords": 22648,
+  "pilotDecisions": 22616,
+  "rankAnnotations": 22607,
+  "frozenPilotDecisions": 9,
+  "totalDecisions": 22637,
+  "withheld": 32,
+  "unresolved": 0,
+  "overall": {
+    "words": 30,
+    "innerBorders": 90,
+    "letters": 120,
+    "medianPx": 1.7266666666666668,
+    "bordersWithin2": 0.6555555555555556,
+    "bordersOver5": 0.15555555555555556,
+    "wordsWithin2": 0.3,
+    "exactWords": 0.0,
+    "shortBar": 0.8416666666666667
+  },
+  "confidence": {
+    "high": {
+      "words": 16,
+      "innerBorders": 36,
+      "letters": 52,
+      "medianPx": 1.3566666666666667,
+      "bordersWithin2": 0.6388888888888888,
+      "bordersOver5": 0.25,
+      "wordsWithin2": 0.375,
+      "exactWords": 0.0,
+      "shortBar": 0.8653846153846154
+    },
+    "medium": {
+      "words": 2,
+      "innerBorders": 10,
+      "letters": 12,
+      "medianPx": 1.3566666666666667,
+      "bordersWithin2": 0.8,
+      "bordersOver5": 0.0,
+      "wordsWithin2": 0.5,
+      "exactWords": 0.0,
+      "shortBar": 0.8333333333333334
+    },
+    "low": {
+      "words": 12,
+      "innerBorders": 44,
+      "letters": 56,
+      "medianPx": 1.9733333333333334,
+      "bordersWithin2": 0.6363636363636364,
+      "bordersOver5": 0.11363636363636363,
+      "wordsWithin2": 0.16666666666666666,
+      "exactWords": 0.0,
+      "shortBar": 0.8214285714285714
+    }
+  },
+  "targets": {
+    "bordersWithin2": 0.85,
+    "shortBar": 0.95,
+    "highConfidenceRight": 0.95
+  },
+  "acceptanceTargetsPassed": false,
+  "evaluationRuns": 1,
+  "blindSha256": "766e716327f6ee1b0e2823ad8786b5b2181954b27c3939aa5aaa0954b969e046",
+  "cost": {
+    "historicalActualViewEvents": 921,
+    "historicalDistinctAuditedPaths": 893,
+    "totalActualViewEvents": 3320,
+    "totalDistinctAuditedPaths": 3139,
+    "continuationActualViewEvents": 2399,
+    "additionalDistinctAuditedPaths": 2246,
+    "continuationNewDecisions": 14624,
+    "continuationNewWithheldExceptions": 14,
+    "approximateCloudWallMinutes": 83.9,
+    "cloudWallStartApproximate": "2026-11-08T10:50:00Z",
+    "reportAtUtc": "2026-11-08T12:13:54.908588+00:00",
+    "exactTokenUsageAvailable": false,
+    "tokenEstimate": null,
+    "timeNote": "Elapsed wall time includes parallel observers and pauses; not summed agent labor. Historical task spans sessions since2026-11-06. Token accounting unavailable; no defensible numerical estimate."
+  },
+  "scopeTests": {
+    "passed": 10,
+    "failed": 0
+  },
+  "confidenceAssessment": {
+    "practicality": 60,
+    "architectureDataSafety": 95,
+    "visualCertainty": 55
+  },
+  "evaluationResultSha256": "54c3c7532dd95f597cdf70268c0c6a50ec54314c150f64713744d40e85e008fd",
+  "postEvaluationDecisionsUnchanged": true,
+  "artifactImagesActuallyViewed": 20,
+  "seededPilotWords": 200,
+  "seed": 20261107
+}
