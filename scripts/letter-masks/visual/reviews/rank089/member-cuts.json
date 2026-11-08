@@ -1,0 +1,404 @@
+{
+  "4.162.6": {
+    "wid": "4.162.6",
+    "page": 103,
+    "x": [
+      819,
+      796,
+      754,
+      726,
+      692,
+      665,
+      608
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00089-c0001",
+    "note": "Actual shaded destination review: compact ya tooth, detached first waw, mim/nun joins, second waw head and intact final nun bowl; overlapping waw tails leave moderate horizontal-span uncertainty. Right ya dots or damma reach/cut the immutable right edge; retain box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "6.92.14": {
+    "wid": "6.92.14",
+    "page": 139,
+    "x": [
+      951,
+      929,
+      886,
+      854,
+      817,
+      787,
+      725
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00089-c0001",
+    "note": "Actual shaded destination review: compact ya tooth, detached first waw, mim/nun joins, second waw head and intact final nun bowl; overlapping waw tails leave moderate horizontal-span uncertainty. Right ya dots or damma reach/cut the immutable right edge; retain box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "8.55.9": {
+    "wid": "8.55.9",
+    "page": 184,
+    "x": [
+      512,
+      489,
+      443,
+      415,
+      375,
+      348,
+      281
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00089-c0001",
+    "note": "Actual shaded destination review: compact ya tooth, detached first waw, mim/nun joins, second waw head and intact final nun bowl; overlapping waw tails leave moderate horizontal-span uncertainty. Right ya dots or damma reach/cut the immutable right edge; retain box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "13.1.14": {
+    "wid": "13.1.14",
+    "page": 249,
+    "x": [
+      1230,
+      1207,
+      1181,
+      1143,
+      1105,
+      1072,
+      1020
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00089-c0002",
+    "note": "Actual shaded destination review: compact ya tooth, detached first waw, mim/nun joins, second waw head and intact final nun bowl; overlapping waw tails leave moderate horizontal-span uncertainty. Right ya dots or damma reach/cut the immutable right edge; retain box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "23.44.18": {
+    "wid": "23.44.18",
+    "page": 345,
+    "x": [
+      1207,
+      1182,
+      1156,
+      1120,
+      1082,
+      1052,
+      1003
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00089-c0002",
+    "note": "Actual shaded destination review: compact ya tooth, detached first waw, mim/nun joins, second waw head and intact final nun bowl; overlapping waw tails leave moderate horizontal-span uncertainty."
+  },
+  "28.52.7": {
+    "wid": "28.52.7",
+    "page": 392,
+    "x": [
+      865,
+      843,
+      820,
+      784,
+      745,
+      713,
+      668
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00089-c0002",
+    "note": "Actual shaded destination review: compact ya tooth, detached first waw, mim/nun joins, second waw head and intact final nun bowl; overlapping waw tails leave moderate horizontal-span uncertainty."
+  },
+  "10.101.13": {
+    "wid": "10.101.13",
+    "page": 220,
+    "x": [
+      504,
+      479,
+      449,
+      414,
+      365,
+      340,
+      274
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00089-c0003",
+    "note": "Actual shaded destination review: compact ya tooth, detached first waw, mim/nun joins, second waw head and intact final nun bowl; overlapping waw tails leave moderate horizontal-span uncertainty."
+  },
+  "16.22.5": {
+    "wid": "16.22.5",
+    "page": 269,
+    "x": [
+      1498,
+      1476,
+      1444,
+      1413,
+      1375,
+      1350,
+      1287
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00089-c0003",
+    "note": "Actual shaded destination review: compact ya tooth, detached first waw, mim/nun joins, second waw head and intact final nun bowl; overlapping waw tails leave moderate horizontal-span uncertainty. Right ya dots or damma reach/cut the immutable right edge; retain box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "52.33.5": {
+    "wid": "52.33.5",
+    "page": 525,
+    "x": [
+      1692,
+      1671,
+      1639,
+      1606,
+      1564,
+      1539,
+      1475
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00089-c0003",
+    "note": "Actual shaded destination review: compact ya tooth, detached first waw, mim/nun joins, second waw head and intact final nun bowl; overlapping waw tails leave moderate horizontal-span uncertainty. Right ya dots or damma reach/cut the immutable right edge; retain box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "4.51.8": {
+    "wid": "4.51.8",
+    "page": 86,
+    "x": [
+      1293,
+      1264,
+      1228,
+      1196,
+      1151,
+      1111,
+      1059
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00089-c0004",
+    "note": "Actual shaded destination review: compact ya tooth, detached first waw, mim/nun joins, second waw head and intact final nun bowl; overlapping waw tails leave moderate horizontal-span uncertainty. Right ya dots or damma reach/cut the immutable right edge; retain box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "6.150.22": {
+    "wid": "6.150.22",
+    "page": 148,
+    "x": [
+      1730,
+      1701,
+      1666,
+      1635,
+      1585,
+      1547,
+      1496
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00089-c0004",
+    "note": "Actual shaded destination review: compact ya tooth, detached first waw, mim/nun joins, second waw head and intact final nun bowl; overlapping waw tails leave moderate horizontal-span uncertainty."
+  },
+  "34.8.10": {
+    "wid": "34.8.10",
+    "page": 429,
+    "x": [
+      583,
+      557,
+      524,
+      485,
+      452,
+      421,
+      368
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00089-c0005",
+    "note": "Actual shaded destination review: compact ya tooth, detached first waw, mim/nun joins, second waw head and intact final nun bowl; overlapping waw tails leave moderate horizontal-span uncertainty. Right ya dots or damma reach/cut the immutable right edge; retain box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "6.92.16": {
+    "wid": "6.92.16",
+    "page": 139,
+    "x": [
+      450,
+      430,
+      398,
+      364,
+      328,
+      291,
+      240
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00089-c0006",
+    "note": "Actual shaded destination review: compact ya tooth, detached first waw, mim/nun joins, second waw head and intact final nun bowl; overlapping waw tails leave moderate horizontal-span uncertainty."
+  },
+  "7.188.27": {
+    "wid": "7.188.27",
+    "page": 175,
+    "x": [
+      1153,
+      1132,
+      1107,
+      1073,
+      1033,
+      1004,
+      951
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00089-c0007",
+    "note": "Actual shaded destination review: compact ya tooth, detached first waw, mim/nun joins, second waw head and intact final nun bowl; overlapping waw tails leave moderate horizontal-span uncertainty. Right ya dots or damma reach/cut the immutable right edge; retain box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "9.29.3": {
+    "wid": "9.29.3",
+    "page": 191,
+    "x": [
+      1768,
+      1746,
+      1707,
+      1668,
+      1618,
+      1590,
+      1436
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00089-c0008",
+    "note": "Actual shaded destination review: compact ya tooth, detached first waw, mim/nun joins, second waw head and intact final nun bowl; overlapping waw tails leave moderate horizontal-span uncertainty. Right ya dots or damma reach/cut the immutable right edge; retain box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "7.203.22": {
+    "wid": "7.203.22",
+    "page": 176,
+    "x": [
+      1212,
+      1187,
+      1152,
+      1119,
+      1078,
+      1048,
+      991
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00089-c0009",
+    "note": "Actual shaded destination review: compact ya tooth, detached first waw, mim/nun joins, second waw head and intact final nun bowl; overlapping waw tails leave moderate horizontal-span uncertainty. Right ya dots or damma reach/cut the immutable right edge; retain box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "27.4.3": {
+    "wid": "27.4.3",
+    "page": 377,
+    "x": [
+      779,
+      754,
+      724,
+      691,
+      656,
+      621,
+      573
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00089-c0010",
+    "note": "Actual shaded destination review: compact ya tooth, detached first waw, mim/nun joins, second waw head and intact final nun bowl; overlapping waw tails leave moderate horizontal-span uncertainty. Right ya dots or damma reach/cut the immutable right edge; retain box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "16.104.3": {
+    "wid": "16.104.3",
+    "page": 279,
+    "x": [
+      1082,
+      1053,
+      1024,
+      978,
+      938,
+      908,
+      752
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00089-c0011",
+    "note": "Actual shaded destination review: compact ya tooth, detached first waw, mim/nun joins, second waw head and intact final nun bowl; overlapping waw tails leave moderate horizontal-span uncertainty."
+  },
+  "21.30.17": {
+    "wid": "21.30.17",
+    "page": 324,
+    "x": [
+      1013,
+      989,
+      960,
+      931,
+      883,
+      850,
+      797
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00089-c0012",
+    "note": "Actual shaded destination review: compact ya tooth, detached first waw, mim/nun joins, second waw head and intact final nun bowl; overlapping waw tails leave moderate horizontal-span uncertainty. Right ya dots or damma reach/cut the immutable right edge; retain box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "43.88.6": {
+    "wid": "43.88.6",
+    "page": 495,
+    "x": [
+      1765,
+      1740,
+      1703,
+      1675,
+      1638,
+      1603,
+      1556
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00089-c0013",
+    "note": "Actual shaded destination review: compact ya tooth, detached first waw, mim/nun joins, second waw head and intact final nun bowl; overlapping waw tails leave moderate horizontal-span uncertainty. Right ya dots or damma reach/cut the immutable right edge; retain box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "84.20.3": {
+    "wid": "84.20.3",
+    "page": 589,
+    "x": [
+      742,
+      714,
+      685,
+      648,
+      614,
+      578,
+      521
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00089-c0014",
+    "note": "Actual shaded destination review: compact ya tooth, detached first waw, mim/nun joins, second waw head and intact final nun bowl; overlapping waw tails leave moderate horizontal-span uncertainty. Right ya dots or damma reach/cut the immutable right edge; retain box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  }
+}

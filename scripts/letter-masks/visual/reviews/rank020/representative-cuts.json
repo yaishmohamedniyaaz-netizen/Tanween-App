@@ -1,0 +1,1080 @@
+{
+  "26.187.3": {
+    "wid": "26.187.3",
+    "page": 375,
+    "x": [
+      709,
+      686,
+      618
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00020-c0001",
+    "note": "Visual cut at left edge of initial meem body; connecting stroke belongs to noon. Kasra ink clipped at immutable right box edge; target bodies present.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "29.58.5": {
+    "wid": "29.58.5",
+    "page": 403,
+    "x": [
+      686,
+      666,
+      600
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00020-c0002",
+    "note": "Visual cut at left edge of initial meem body; connecting stroke belongs to noon. Bodies and marks visible."
+  },
+  "3.23.6": {
+    "wid": "3.23.6",
+    "page": 53,
+    "x": [
+      975,
+      949,
+      895
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00020-c0003",
+    "note": "Visual cut at left edge of initial meem body; connecting stroke belongs to noon. Kasra ink clipped at immutable right box edge; target bodies present.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "8.5.8": {
+    "wid": "8.5.8",
+    "page": 177,
+    "x": [
+      1015,
+      994,
+      925
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00020-c0004",
+    "note": "Visual cut at left edge of initial meem body; connecting stroke belongs to noon. Kasra ink clipped at immutable right box edge; target bodies present.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "7.11.14": {
+    "wid": "7.11.14",
+    "page": 151,
+    "x": [
+      736,
+      713,
+      645
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00020-c0005",
+    "note": "Visual cut at left edge of initial meem body; connecting stroke belongs to noon. Bodies and marks visible."
+  },
+  "43.31.7": {
+    "wid": "43.31.7",
+    "page": 491,
+    "x": [
+      937,
+      912,
+      843
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00020-c0006",
+    "note": "Visual cut at left edge of initial meem body; connecting stroke belongs to noon. Bodies and marks visible. Shaded review confirms shadda partly clipped at immutable right edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "18.40.10": {
+    "wid": "18.40.10",
+    "page": 298,
+    "x": [
+      923,
+      900,
+      829
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00020-c0007",
+    "note": "Visual cut at left edge of initial meem body; connecting stroke belongs to noon. Kasra ink clipped at immutable right box edge; target bodies present.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "5.38.8": {
+    "wid": "5.38.8",
+    "page": 114,
+    "x": [
+      845,
+      821,
+      748
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00020-c0008",
+    "note": "Visual cut at left edge of initial meem body; connecting stroke belongs to noon. Kasra ink clipped at immutable right box edge; target bodies present.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "33.17.5": {
+    "wid": "33.17.5",
+    "page": 420,
+    "x": [
+      385,
+      360,
+      293
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00020-c0009",
+    "note": "Visual cut at left edge of initial meem body; connecting stroke belongs to noon. Bodies and marks visible."
+  },
+  "15.65.3": {
+    "wid": "15.65.3",
+    "page": 265,
+    "x": [
+      1444,
+      1420,
+      1352
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00020-c0010",
+    "note": "Visual cut at left edge of initial meem body; connecting stroke belongs to noon. Kasra ink clipped at immutable right box edge; target bodies present.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.19.2": {
+    "wid": "2.19.2",
+    "page": 4,
+    "x": [
+      549,
+      527,
+      461
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00020-c0011",
+    "note": "Visual cut at left edge of initial meem body; connecting stroke belongs to noon. Bodies and marks visible."
+  },
+  "7.38.8": {
+    "wid": "7.38.8",
+    "page": 155,
+    "x": [
+      632,
+      609,
+      546
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00020-c0012",
+    "note": "Visual cut at left edge of initial meem body; connecting stroke belongs to noon. Bodies and marks visible."
+  },
+  "33.43.6": {
+    "wid": "33.43.6",
+    "page": 423,
+    "x": [
+      1862,
+      1838,
+      1770
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00020-c0013",
+    "note": "Visual cut at left edge of initial meem body; connecting stroke belongs to noon. Kasra ink clipped at immutable right box edge; target bodies present.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "21.85.5": {
+    "wid": "21.85.5",
+    "page": 329,
+    "x": [
+      517,
+      499,
+      440
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00020-c0014",
+    "note": "Visual cut at left edge of initial meem body; connecting stroke belongs to noon. Bodies and marks visible."
+  },
+  "3.49.13": {
+    "wid": "3.49.13",
+    "page": 56,
+    "x": [
+      1310,
+      1288,
+      1132
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00020-c0015",
+    "note": "Visual cut at left edge of initial meem body; connecting stroke belongs to noon. Bodies and marks visible."
+  },
+  "5.15.18": {
+    "wid": "5.15.18",
+    "page": 110,
+    "x": [
+      964,
+      940,
+      760
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00020-c0016",
+    "note": "Visual cut at left edge of initial meem body; connecting stroke belongs to noon. Kasra ink clipped at immutable right box edge; target bodies present.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "7.56.13": {
+    "wid": "7.56.13",
+    "page": 157,
+    "x": [
+      1474,
+      1451,
+      1298
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00020-c0017",
+    "note": "Visual cut at left edge of initial meem body; connecting stroke belongs to noon. Kasra ink clipped at immutable right box edge; target bodies present.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "7.162.12": {
+    "wid": "7.162.12",
+    "page": 171,
+    "x": [
+      1076,
+      1052,
+      876
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00020-c0018",
+    "note": "Visual cut at left edge of initial meem body; connecting stroke belongs to noon. Kasra ink clipped at immutable right box edge; target bodies present.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "8.16.14": {
+    "wid": "8.16.14",
+    "page": 178,
+    "x": [
+      1592,
+      1569,
+      1392
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00020-c0019",
+    "note": "Visual cut at left edge of initial meem body; connecting stroke belongs to noon. Kasra ink clipped at immutable right box edge; target bodies present.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "9.24.17": {
+    "wid": "9.24.17",
+    "page": 190,
+    "x": [
+      943,
+      924,
+      776
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00020-c0020",
+    "note": "Visual cut at left edge of initial meem body; connecting stroke belongs to noon. Bodies and marks visible."
+  },
+  "9.60.17": {
+    "wid": "9.60.17",
+    "page": 196,
+    "x": [
+      1564,
+      1541,
+      1366
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00020-c0021",
+    "note": "Visual cut at left edge of initial meem body; connecting stroke belongs to noon. Kasra ink clipped at immutable right box edge; target bodies present.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "17.1.5": {
+    "wid": "17.1.5",
+    "page": 282,
+    "x": [
+      824,
+      799,
+      654
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00020-c0022",
+    "note": "Visual cut at left edge of initial meem body; connecting stroke belongs to noon. Kasra ink clipped at immutable right box edge; target bodies present.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "17.95.10": {
+    "wid": "17.95.10",
+    "page": 291,
+    "x": [
+      1867,
+      1845,
+      1697
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00020-c0023",
+    "note": "Visual cut at left edge of initial meem body; connecting stroke belongs to noon. Kasra ink clipped at immutable right box edge; target bodies present.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "28.23.7": {
+    "wid": "28.23.7",
+    "page": 388,
+    "x": [
+      276,
+      253,
+      114
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00020-c0024",
+    "note": "Visual cut at left edge of initial meem body; connecting stroke belongs to noon. Kasra ink clipped at immutable right box edge; target bodies present.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "28.50.15": {
+    "wid": "28.50.15",
+    "page": 391,
+    "x": [
+      1608,
+      1583,
+      1420
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00020-c0025",
+    "note": "Visually selected initial meem body boundary; noon owns connecting stroke. Ink clipped at immutable right edge; target bodies remain visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "29.28.12": {
+    "wid": "29.28.12",
+    "page": 399,
+    "x": [
+      827,
+      805,
+      651
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00020-c0026",
+    "note": "Visually selected initial meem body boundary; noon owns connecting stroke. Target bodies complete."
+  },
+  "36.31.5": {
+    "wid": "36.31.5",
+    "page": 442,
+    "x": [
+      524,
+      500,
+      334
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00020-c0027",
+    "note": "Visually selected initial meem body boundary; noon owns connecting stroke. Ink clipped at immutable right edge; target bodies remain visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "53.56.2": {
+    "wid": "53.56.2",
+    "page": 528,
+    "x": [
+      1585,
+      1570,
+      1506
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00020-c0028",
+    "note": "Visually selected initial meem body boundary; noon owns connecting stroke. Ink clipped at immutable right edge; target bodies remain visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "57.9.8": {
+    "wid": "57.9.8",
+    "page": 538,
+    "x": [
+      1133,
+      1112,
+      1046
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00020-c0029",
+    "note": "Visually selected initial meem body boundary; noon owns connecting stroke. Ink clipped at immutable right edge; target bodies remain visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.19.12": {
+    "wid": "2.19.12",
+    "page": 4,
+    "x": [
+      433,
+      411,
+      354
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00020-c0030",
+    "note": "Visually selected initial meem body boundary; noon owns connecting stroke. Target bodies complete. Neighboring upright alif overlaps horizontally above noon but is not a target; body-based cut."
+  },
+  "2.61.42": {
+    "wid": "2.61.42",
+    "page": 9,
+    "x": [
+      233,
+      212,
+      113
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00020-c0031",
+    "note": "Visually selected initial meem body boundary; noon owns connecting stroke. Target bodies complete."
+  },
+  "2.64.11": {
+    "wid": "2.64.11",
+    "page": 10,
+    "x": [
+      192,
+      170,
+      104
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00020-c0032",
+    "note": "Visually selected initial meem body boundary; noon owns connecting stroke. Target bodies complete."
+  },
+  "2.247.23": {
+    "wid": "2.247.23",
+    "page": 40,
+    "x": [
+      1115,
+      1089,
+      928
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00020-c0033",
+    "note": "Visually selected initial meem body boundary; noon owns connecting stroke. Ink clipped at immutable right edge; target bodies remain visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.257.14": {
+    "wid": "2.257.14",
+    "page": 43,
+    "x": [
+      249,
+      227,
+      127
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00020-c0034",
+    "note": "Visually selected initial meem body boundary; noon owns connecting stroke. Target bodies complete."
+  },
+  "2.257.5": {
+    "wid": "2.257.5",
+    "page": 43,
+    "x": [
+      810,
+      787,
+      722
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00020-c0035",
+    "note": "Visually selected initial meem body boundary; noon owns connecting stroke. Target bodies complete. Outer left tightened to visually observed noon edge722, excluding separate neighboring alif/lam bodies in overly broad immutable crop."
+  },
+  "3.15.19": {
+    "wid": "3.15.19",
+    "page": 51,
+    "x": [
+      1403,
+      1381,
+      1209
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00020-c0036",
+    "note": "Visually selected initial meem body boundary; noon owns connecting stroke. Ink clipped at immutable right edge; target bodies remain visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "4.11.64": {
+    "wid": "4.11.64",
+    "page": 78,
+    "x": [
+      1373,
+      1349,
+      1180
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00020-c0037",
+    "note": "Visually selected initial meem body boundary; noon owns connecting stroke. Ink clipped at immutable right edge; target bodies remain visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "4.22.5": {
+    "wid": "4.22.5",
+    "page": 81,
+    "x": [
+      291,
+      267,
+      124
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00020-c0038",
+    "note": "Visually selected initial meem body boundary; noon owns connecting stroke. Target bodies complete."
+  },
+  "4.23.15": {
+    "wid": "4.23.15",
+    "page": 81,
+    "x": [
+      1345,
+      1322,
+      1147
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00020-c0039",
+    "note": "Visually selected initial meem body boundary; noon owns connecting stroke. Target bodies complete."
+  },
+  "4.160.1": {
+    "wid": "4.160.1",
+    "page": 103,
+    "x": [
+      627,
+      603,
+      539
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00020-c0040",
+    "note": "Visually selected initial meem body boundary; noon owns connecting stroke. Ink clipped at immutable right edge; target bodies remain visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "6.143.2": {
+    "wid": "6.143.2",
+    "page": 147,
+    "x": [
+      1382,
+      1360,
+      1208
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00020-c0041",
+    "note": "Visually selected initial meem body boundary; noon owns connecting stroke. Ink clipped at immutable right edge; target bodies remain visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "7.80.11": {
+    "wid": "7.80.11",
+    "page": 160,
+    "x": [
+      1469,
+      1447,
+      1316
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00020-c0042",
+    "note": "Visually selected initial meem body boundary; noon owns connecting stroke. Target bodies complete."
+  },
+  "7.144.12": {
+    "wid": "7.144.12",
+    "page": 168,
+    "x": [
+      1168,
+      1147,
+      984
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00020-c0043",
+    "note": "Visually selected initial meem body boundary; noon owns connecting stroke. Target bodies complete."
+  },
+  "7.179.4": {
+    "wid": "7.179.4",
+    "page": 174,
+    "x": [
+      974,
+      951,
+      829
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00020-c0044",
+    "note": "Visually selected initial meem body boundary; noon owns connecting stroke. Ink clipped at immutable right edge; target bodies remain visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "8.68.2": {
+    "wid": "8.68.2",
+    "page": 185,
+    "x": [
+      172,
+      150,
+      90
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00020-c0045",
+    "note": "Visually selected initial meem body boundary; noon owns connecting stroke. Ink clipped at immutable right edge; target bodies remain visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "8.70.6": {
+    "wid": "8.70.6",
+    "page": 186,
+    "x": [
+      954,
+      934,
+      775
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00020-c0046",
+    "note": "Visually selected initial meem body boundary; noon owns connecting stroke. Target bodies complete."
+  },
+  "9.34.5": {
+    "wid": "9.34.5",
+    "page": 192,
+    "x": [
+      1194,
+      1171,
+      998
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00020-c0047",
+    "note": "Visually selected initial meem body boundary; noon owns connecting stroke. Ink clipped at immutable right edge; target bodies remain visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "9.72.17": {
+    "wid": "9.72.17",
+    "page": 198,
+    "x": [
+      1569,
+      1542,
+      1370
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00020-c0048",
+    "note": "Visually selected initial meem body boundary; noon owns connecting stroke. Ink clipped at immutable right edge; target bodies remain visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "10.20.14": {
+    "wid": "10.20.14",
+    "page": 210,
+    "x": [
+      833,
+      807,
+      618
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00020-c0049",
+    "note": "Visual initial meem-body cut; connecting stroke retained with noon. Ink clipped at immutable right edge; both target bodies present.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "10.102.13": {
+    "wid": "10.102.13",
+    "page": 220,
+    "x": [
+      1149,
+      1129,
+      961
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00020-c0050",
+    "note": "Visual initial meem-body cut; connecting stroke retained with noon. Bodies complete."
+  },
+  "12.66.7": {
+    "wid": "12.66.7",
+    "page": 243,
+    "x": [
+      802,
+      779,
+      633
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00020-c0051",
+    "note": "Visual initial meem-body cut; connecting stroke retained with noon. Ink clipped at immutable right edge; both target bodies present.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "14.37.17": {
+    "wid": "14.37.17",
+    "page": 260,
+    "x": [
+      473,
+      451,
+      303
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00020-c0052",
+    "note": "Visual initial meem-body cut; connecting stroke retained with noon. Ink clipped at immutable right edge; both target bodies present.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "17.70.9": {
+    "wid": "17.70.9",
+    "page": 289,
+    "x": [
+      1047,
+      1023,
+      891
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00020-c0053",
+    "note": "Visual initial meem-body cut; connecting stroke retained with noon. Ink clipped at immutable right edge; both target bodies present.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "21.49.5": {
+    "wid": "21.49.5",
+    "page": 326,
+    "x": [
+      246,
+      224,
+      103
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00020-c0054",
+    "note": "Visual initial meem-body cut; connecting stroke retained with noon. Bodies complete."
+  },
+  "21.56.11": {
+    "wid": "21.56.11",
+    "page": 326,
+    "x": [
+      587,
+      564,
+      497
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00020-c0055",
+    "note": "Visual initial meem-body cut; connecting stroke retained with noon. Ink clipped at immutable right edge; both target bodies present.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "21.86.4": {
+    "wid": "21.86.4",
+    "page": 329,
+    "x": [
+      673,
+      647,
+      503
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00020-c0056",
+    "note": "Visual initial meem-body cut; connecting stroke retained with noon. Bodies complete."
+  },
+  "22.18.19": {
+    "wid": "22.18.19",
+    "page": 334,
+    "x": [
+      404,
+      386,
+      326
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00020-c0057",
+    "note": "Visual initial meem-body cut; connecting stroke retained with noon. Bodies complete."
+  },
+  "26.5.4": {
+    "wid": "26.5.4",
+    "page": 367,
+    "x": [
+      541,
+      518,
+      459
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00020-c0058",
+    "note": "Visual initial meem-body cut; connecting stroke retained with noon. Ink clipped at immutable right edge; both target bodies present.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "27.60.6": {
+    "wid": "27.60.6",
+    "page": 382,
+    "x": [
+      457,
+      435,
+      309
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00020-c0059",
+    "note": "Visual initial meem-body cut; connecting stroke retained with noon. Bodies complete."
+  },
+  "28.29.23": {
+    "wid": "28.29.23",
+    "page": 389,
+    "x": [
+      1103,
+      1082,
+      907
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00020-c0060",
+    "note": "Visual initial meem-body cut; connecting stroke retained with noon. Ink clipped at immutable right edge; both target bodies present.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "28.42.8": {
+    "wid": "28.42.8",
+    "page": 390,
+    "x": [
+      1238,
+      1217,
+      1054
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00020-c0061",
+    "note": "Visual initial meem-body cut; connecting stroke retained with noon. Ink clipped at immutable right edge; both target bodies present.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "33.16.6": {
+    "wid": "33.16.6",
+    "page": 420,
+    "x": [
+      948,
+      932,
+      766
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00020-c0062",
+    "note": "Visual initial meem-body cut; connecting stroke retained with noon. Ink clipped at immutable right edge; both target bodies present.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "34.9.8": {
+    "wid": "34.9.8",
+    "page": 429,
+    "x": [
+      1472,
+      1448,
+      1268
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00020-c0063",
+    "note": "Visual initial meem-body cut; connecting stroke retained with noon. Ink clipped at immutable right edge; both target bodies present.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "34.24.3": {
+    "wid": "34.24.3",
+    "page": 431,
+    "x": [
+      1119,
+      1098,
+      932
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00020-c0064",
+    "note": "Visual initial meem-body cut; connecting stroke retained with noon. Bodies complete."
+  },
+  "36.28.8": {
+    "wid": "36.28.8",
+    "page": 442,
+    "x": [
+      577,
+      555,
+      436
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00020-c0065",
+    "note": "Visual initial meem-body cut; connecting stroke retained with noon. Bodies complete."
+  },
+  "39.47.19": {
+    "wid": "39.47.19",
+    "page": 463,
+    "x": [
+      1194,
+      1171,
+      1030
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00020-c0066",
+    "note": "Visual initial meem-body cut; connecting stroke retained with noon. Bodies complete."
+  },
+  "48.11.20": {
+    "wid": "48.11.20",
+    "page": 512,
+    "x": [
+      387,
+      364,
+      234
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00020-c0067",
+    "note": "Visual initial meem-body cut; connecting stroke retained with noon. Ink clipped at immutable right edge; both target bodies present.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "49.8.1": {
+    "wid": "49.8.1",
+    "page": 516,
+    "x": [
+      1638,
+      1615,
+      1550
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00020-c0068",
+    "note": "Visual initial meem-body cut; connecting stroke retained with noon. Ink clipped at immutable right edge; both target bodies present.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "52.31.4": {
+    "wid": "52.31.4",
+    "page": 524,
+    "x": [
+      781,
+      758,
+      603
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00020-c0069",
+    "note": "Visual initial meem-body cut; connecting stroke retained with noon. Bodies complete."
+  },
+  "53.32.16": {
+    "wid": "53.32.16",
+    "page": 527,
+    "x": [
+      504,
+      484,
+      310
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00020-c0070",
+    "note": "Visual initial meem-body cut; connecting stroke retained with noon. Meem counter filled, boundary read from outer body contour."
+  },
+  "54.4.2": {
+    "wid": "54.4.2",
+    "page": 528,
+    "x": [
+      431,
+      409,
+      339
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00020-c0071",
+    "note": "Visual initial meem-body cut; connecting stroke retained with noon. Ink clipped at immutable right edge; both target bodies present.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "70.3.0": {
+    "wid": "70.3.0",
+    "page": 568,
+    "x": [
+      265,
+      247,
+      100
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00020-c0072",
+    "note": "Visual initial meem-body cut; connecting stroke retained with noon. Bodies complete."
+  },
+  "71.17.2": {
+    "wid": "71.17.2",
+    "page": 571,
+    "x": [
+      1465,
+      1442,
+      1379
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00020-c0073",
+    "note": "Visual initial meem-body cut; connecting stroke retained with noon. Ink clipped at immutable right edge; both target bodies present.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  }
+}

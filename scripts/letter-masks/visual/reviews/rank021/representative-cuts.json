@@ -1,0 +1,1119 @@
+{
+  "41.9.11": {
+    "wid": "41.9.11",
+    "page": 477,
+    "x": [
+      770,
+      730,
+      699,
+      631
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00021-c0001",
+    "note": "Original visually reviewed: dhal separated at body gap; lam bowl begins after kaf upright, connector retained with kaf. Diacritics do not set boundaries."
+  },
+  "34.17.0": {
+    "wid": "34.17.0",
+    "page": 430,
+    "x": [
+      1662,
+      1628,
+      1598,
+      1525
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00021-c0002",
+    "note": "Original visually reviewed: dhal separated at body gap; lam bowl begins after kaf upright, connector retained with kaf. Diacritics do not set boundaries."
+  },
+  "4.169.7": {
+    "wid": "4.169.7",
+    "page": 104,
+    "x": [
+      1661,
+      1621,
+      1589,
+      1518
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00021-c0003",
+    "note": "Original visually reviewed: dhal separated at body gap; lam bowl begins after kaf upright, connector retained with kaf. Diacritics do not set boundaries."
+  },
+  "2.228.25": {
+    "wid": "2.228.25",
+    "page": 36,
+    "x": [
+      1727,
+      1689,
+      1657,
+      1584
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00021-c0004",
+    "note": "Original visually reviewed: dhal separated at body gap; lam bowl begins after kaf upright, connector retained with kaf. Diacritics do not set boundaries."
+  },
+  "9.120.18": {
+    "wid": "9.120.18",
+    "page": 206,
+    "x": [
+      1477,
+      1440,
+      1405,
+      1251
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00021-c0005",
+    "note": "Original visually reviewed: dhal separated at body gap; lam bowl begins after kaf upright, connector retained with kaf. Diacritics do not set boundaries."
+  },
+  "41.12.15": {
+    "wid": "41.12.15",
+    "page": 478,
+    "x": [
+      644,
+      608,
+      572,
+      500
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00021-c0006",
+    "note": "Original visually reviewed: dhal separated at body gap; lam bowl begins after kaf upright, connector retained with kaf. Diacritics do not set boundaries. Shaded review shows ink touching/cut at immutable crop edge; conservative clipped-ink flag.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "3.182.0": {
+    "wid": "3.182.0",
+    "page": 74,
+    "x": [
+      847,
+      802,
+      775,
+      704
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00021-c0007",
+    "note": "Original visually reviewed: dhal separated at body gap; lam bowl begins after kaf upright, connector retained with kaf. Diacritics do not set boundaries."
+  },
+  "24.5.5": {
+    "wid": "24.5.5",
+    "page": 350,
+    "x": [
+      840,
+      808,
+      777,
+      715
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00021-c0008",
+    "note": "Original visually reviewed: dhal separated at body gap; lam bowl begins after kaf upright, connector retained with kaf. Diacritics do not set boundaries."
+  },
+  "41.28.0": {
+    "wid": "41.28.0",
+    "page": 479,
+    "x": [
+      410,
+      376,
+      344,
+      277
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00021-c0009",
+    "note": "Original visually reviewed: dhal separated at body gap; lam bowl begins after kaf upright, connector retained with kaf. Diacritics do not set boundaries."
+  },
+  "59.13.7": {
+    "wid": "59.13.7",
+    "page": 547,
+    "x": [
+      560,
+      518,
+      482,
+      414
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00021-c0010",
+    "note": "Original visually reviewed: dhal separated at body gap; lam bowl begins after kaf upright, connector retained with kaf. Diacritics do not set boundaries."
+  },
+  "85.11.11": {
+    "wid": "85.11.11",
+    "page": 590,
+    "x": [
+      989,
+      956,
+      923,
+      860
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00021-c0011",
+    "note": "Original visually reviewed: dhal separated at body gap; lam bowl begins after kaf upright, connector retained with kaf. Diacritics do not set boundaries."
+  },
+  "12.40.24": {
+    "wid": "12.40.24",
+    "page": 240,
+    "x": [
+      1100,
+      1066,
+      1030,
+      958
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00021-c0012",
+    "note": "Original visually reviewed: dhal separated at body gap; lam bowl begins after kaf upright, connector retained with kaf. Diacritics do not set boundaries."
+  },
+  "22.11.21": {
+    "wid": "22.11.21",
+    "page": 333,
+    "x": [
+      391,
+      354,
+      322,
+      244
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00021-c0013",
+    "note": "Original visually reviewed: dhal separated at body gap; lam bowl begins after kaf upright, connector retained with kaf. Diacritics do not set boundaries."
+  },
+  "22.70.10": {
+    "wid": "22.70.10",
+    "page": 340,
+    "x": [
+      329,
+      283,
+      255,
+      119
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00021-c0014",
+    "note": "Original visually reviewed: dhal separated at body gap; lam bowl begins after kaf upright, connector retained with kaf. Diacritics do not set boundaries."
+  },
+  "33.51.15": {
+    "wid": "33.51.15",
+    "page": 425,
+    "x": [
+      909,
+      869,
+      842,
+      770
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00021-c0015",
+    "note": "Original visually reviewed: dhal separated at body gap; lam bowl begins after kaf upright, connector retained with kaf. Diacritics do not set boundaries."
+  },
+  "62.4.0": {
+    "wid": "62.4.0",
+    "page": 553,
+    "x": [
+      1125,
+      1090,
+      1054,
+      982
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00021-c0016",
+    "note": "Original visually reviewed: dhal separated at body gap; lam bowl begins after kaf upright, connector retained with kaf. Diacritics do not set boundaries."
+  },
+  "4.150.20": {
+    "wid": "4.150.20",
+    "page": 102,
+    "x": [
+      1300,
+      1265,
+      1228,
+      1150
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00021-c0017",
+    "note": "Original visually reviewed: dhal separated at body gap; lam bowl begins after kaf upright, connector retained with kaf. Diacritics do not set boundaries."
+  },
+  "6.88.0": {
+    "wid": "6.88.0",
+    "page": 138,
+    "x": [
+      699,
+      660,
+      632,
+      569
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00021-c0018",
+    "note": "Original visually reviewed: dhal separated at body gap; lam bowl begins after kaf upright, connector retained with kaf. Diacritics do not set boundaries."
+  },
+  "16.11.12": {
+    "wid": "16.11.12",
+    "page": 268,
+    "x": [
+      1394,
+      1356,
+      1331,
+      1197
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00021-c0019",
+    "note": "Original visually reviewed: dhal separated at body gap; lam bowl begins after kaf upright, connector retained with kaf. Diacritics do not set boundaries."
+  },
+  "24.3.15": {
+    "wid": "24.3.15",
+    "page": 350,
+    "x": [
+      379,
+      342,
+      316,
+      213
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00021-c0020",
+    "note": "Original visually reviewed: dhal separated at body gap; lam bowl begins after kaf upright, connector retained with kaf. Diacritics do not set boundaries."
+  },
+  "58.7.27": {
+    "wid": "58.7.27",
+    "page": 543,
+    "x": [
+      1470,
+      1434,
+      1406,
+      1343
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00021-c0021",
+    "note": "Original visually reviewed: dhal separated at body gap; lam bowl begins after kaf upright, connector retained with kaf. Diacritics do not set boundaries."
+  },
+  "3.28.10": {
+    "wid": "3.28.10",
+    "page": 53,
+    "x": [
+      1599,
+      1559,
+      1533,
+      1415
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00021-c0022",
+    "note": "Original visually reviewed: dhal separated at body gap; lam bowl begins after kaf upright, connector retained with kaf. Diacritics do not set boundaries. Shaded review shows ink touching/cut at immutable crop edge; conservative clipped-ink flag.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "3.94.7": {
+    "wid": "3.94.7",
+    "page": 62,
+    "x": [
+      567,
+      526,
+      490,
+      416
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00021-c0023",
+    "note": "Original visually reviewed: dhal separated at body gap; lam bowl begins after kaf upright, connector retained with kaf. Diacritics do not set boundaries."
+  },
+  "7.146.29": {
+    "wid": "7.146.29",
+    "page": 168,
+    "x": [
+      926,
+      889,
+      856,
+      791
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00021-c0024",
+    "note": "Original visually reviewed: dhal separated at body gap; lam bowl begins after kaf upright, connector retained with kaf. Diacritics do not set boundaries."
+  },
+  "29.51.10": {
+    "wid": "29.51.10",
+    "page": 402,
+    "x": [
+      1163,
+      1128,
+      1095,
+      956
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00021-c0025",
+    "note": "Original visually reviewed: detached dhal gap and lam bowl after kaf upright; stretch retained with kaf. Shaded view: crop-edge ink contact/cut at tip or diacritic; conservative clipped-ink flag.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "30.21.16": {
+    "wid": "30.21.16",
+    "page": 406,
+    "x": [
+      1662,
+      1624,
+      1597,
+      1524
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00021-c0026",
+    "note": "Original visually reviewed: detached dhal gap and lam bowl after kaf upright; stretch retained with kaf. Shaded view: crop-edge ink contact/cut at tip or diacritic; conservative clipped-ink flag.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "34.9.24": {
+    "wid": "34.9.24",
+    "page": 429,
+    "x": [
+      325,
+      286,
+      254,
+      120
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00021-c0027",
+    "note": "Original visually reviewed: detached dhal gap and lam bowl after kaf upright; stretch retained with kaf."
+  },
+  "5.33.24": {
+    "wid": "5.33.24",
+    "page": 113,
+    "x": [
+      337,
+      291,
+      258,
+      107
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00021-c0028",
+    "note": "Original visually reviewed: detached dhal gap and lam bowl after kaf upright; stretch retained with kaf."
+  },
+  "5.60.5": {
+    "wid": "5.60.5",
+    "page": 118,
+    "x": [
+      1278,
+      1243,
+      1214,
+      1153
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00021-c0029",
+    "note": "Original visually reviewed: detached dhal gap and lam bowl after kaf upright; stretch retained with kaf."
+  },
+  "8.53.0": {
+    "wid": "8.53.0",
+    "page": 184,
+    "x": [
+      1833,
+      1799,
+      1767,
+      1701
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00021-c0030",
+    "note": "Original visually reviewed: detached dhal gap and lam bowl after kaf upright; stretch retained with kaf."
+  },
+  "9.30.10": {
+    "wid": "9.30.10",
+    "page": 191,
+    "x": [
+      1098,
+      1045,
+      1018,
+      832
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00021-c0031",
+    "note": "Original visually reviewed: detached dhal gap and lam bowl after kaf upright; stretch retained with kaf. Shaded view: crop-edge ink contact/cut at tip or diacritic; conservative clipped-ink flag.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "16.13.9": {
+    "wid": "16.13.9",
+    "page": 268,
+    "x": [
+      1752,
+      1718,
+      1687,
+      1533
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00021-c0032",
+    "note": "Original visually reviewed: detached dhal gap and lam bowl after kaf upright; stretch retained with kaf. Shaded view: crop-edge ink contact/cut at tip or diacritic; conservative clipped-ink flag.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "23.7.3": {
+    "wid": "23.7.3",
+    "page": 342,
+    "x": [
+      1361,
+      1321,
+      1290,
+      1217
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00021-c0033",
+    "note": "Original visually reviewed: detached dhal gap and lam bowl after kaf upright; stretch retained with kaf."
+  },
+  "30.38.7": {
+    "wid": "30.38.7",
+    "page": 408,
+    "x": [
+      904,
+      870,
+      842,
+      774
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00021-c0034",
+    "note": "Original visually reviewed: detached dhal gap and lam bowl after kaf upright; stretch retained with kaf."
+  },
+  "2.74.5": {
+    "wid": "2.74.5",
+    "page": 11,
+    "x": [
+      237,
+      200,
+      173,
+      111
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00021-c0035",
+    "note": "Original visually reviewed: detached dhal gap and lam bowl after kaf upright; stretch retained with kaf. Kaf left tip clipped at immutable edge; visible body retained.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "3.13.25": {
+    "wid": "3.13.25",
+    "page": 51,
+    "x": [
+      844,
+      803,
+      772,
+      645
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00021-c0036",
+    "note": "Original visually reviewed: detached dhal gap and lam bowl after kaf upright; stretch retained with kaf. Shaded view: crop-edge ink contact/cut at tip or diacritic; conservative clipped-ink flag.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "3.24.0": {
+    "wid": "3.24.0",
+    "page": 53,
+    "x": [
+      1815,
+      1776,
+      1747,
+      1683
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00021-c0037",
+    "note": "Original visually reviewed: detached dhal gap and lam bowl after kaf upright; stretch retained with kaf."
+  },
+  "3.112.20": {
+    "wid": "3.112.20",
+    "page": 64,
+    "x": [
+      338,
+      289,
+      260,
+      115
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00021-c0038",
+    "note": "Original visually reviewed: detached dhal gap and lam bowl after kaf upright; stretch retained with kaf. Shaded view: crop-edge ink contact/cut at tip or diacritic; conservative clipped-ink flag.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "4.114.18": {
+    "wid": "4.114.18",
+    "page": 97,
+    "x": [
+      292,
+      251,
+      220,
+      122
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00021-c0039",
+    "note": "Original visually reviewed: detached dhal gap and lam bowl after kaf upright; stretch retained with kaf. Shaded view: crop-edge ink contact/cut at tip or diacritic; conservative clipped-ink flag.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "9.36.18": {
+    "wid": "9.36.18",
+    "page": 192,
+    "x": [
+      1216,
+      1177,
+      1147,
+      997
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00021-c0040",
+    "note": "Original visually reviewed: detached dhal gap and lam bowl after kaf upright; stretch retained with kaf. Shaded view: crop-edge ink contact/cut at tip or diacritic; conservative clipped-ink flag.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "12.38.14": {
+    "wid": "12.38.14",
+    "page": 240,
+    "x": [
+      1023,
+      985,
+      952,
+      823
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00021-c0041",
+    "note": "Original visually reviewed: detached dhal gap and lam bowl after kaf upright; stretch retained with kaf. Shaded view: crop-edge ink contact/cut at tip or diacritic; conservative clipped-ink flag.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "14.18.18": {
+    "wid": "14.18.18",
+    "page": 257,
+    "x": [
+      1045,
+      1012,
+      978,
+      819
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00021-c0042",
+    "note": "Original visually reviewed: detached dhal gap and lam bowl after kaf upright; stretch retained with kaf."
+  },
+  "19.34.0": {
+    "wid": "19.34.0",
+    "page": 307,
+    "x": [
+      1172,
+      1135,
+      1104,
+      989
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00021-c0043",
+    "note": "Original visually reviewed: detached dhal gap and lam bowl after kaf upright; stretch retained with kaf. Shaded view: crop-edge ink contact/cut at tip or diacritic; conservative clipped-ink flag.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "23.15.3": {
+    "wid": "23.15.3",
+    "page": 342,
+    "x": [
+      252,
+      209,
+      183,
+      87
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00021-c0044",
+    "note": "Original visually reviewed: detached dhal gap and lam bowl after kaf upright; stretch retained with kaf. Shaded view: crop-edge ink contact/cut at tip or diacritic; conservative clipped-ink flag.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "26.121.2": {
+    "wid": "26.121.2",
+    "page": 372,
+    "x": [
+      741,
+      703,
+      673,
+      604
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00021-c0045",
+    "note": "Original visually reviewed: detached dhal gap and lam bowl after kaf upright; stretch retained with kaf."
+  },
+  "33.59.11": {
+    "wid": "33.59.11",
+    "page": 426,
+    "x": [
+      1217,
+      1180,
+      1147,
+      1077
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00021-c0046",
+    "note": "Original visually reviewed: detached dhal gap and lam bowl after kaf upright; stretch retained with kaf."
+  },
+  "35.11.30": {
+    "wid": "35.11.30",
+    "page": 435,
+    "x": [
+      756,
+      725,
+      696,
+      633
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00021-c0047",
+    "note": "Original visually reviewed: detached dhal gap and lam bowl after kaf upright; stretch retained with kaf. Shaded view: crop-edge ink contact/cut at tip or diacritic; conservative clipped-ink flag.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.2.0": {
+    "wid": "2.2.0",
+    "page": 2,
+    "x": [
+      1247,
+      1220,
+      1198,
+      1134
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00021-c0048",
+    "note": "Original visually reviewed: detached dhal gap and lam bowl after kaf upright; stretch retained with kaf."
+  },
+  "2.231.16": {
+    "wid": "2.231.16",
+    "page": 37,
+    "x": [
+      1853,
+      1812,
+      1784,
+      1722
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00021-c0049",
+    "note": "Original visually reviewed: detached dhal body gap; lam bowl separated after kaf upright, left stretch belongs to kaf."
+  },
+  "2.232.14": {
+    "wid": "2.232.14",
+    "page": 37,
+    "x": [
+      732,
+      689,
+      660,
+      597
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00021-c0050",
+    "note": "Original visually reviewed: detached dhal body gap; lam bowl separated after kaf upright, left stretch belongs to kaf."
+  },
+  "3.14.16": {
+    "wid": "3.14.16",
+    "page": 51,
+    "x": [
+      570,
+      530,
+      504,
+      341
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00021-c0051",
+    "note": "Original visually reviewed: detached dhal body gap; lam bowl separated after kaf upright, left stretch belongs to kaf. Shaded view shows crop-edge ink contact/cut at tip or diacritic; conservative clipped-ink flag.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "3.49.39": {
+    "wid": "3.49.39",
+    "page": 56,
+    "x": [
+      1250,
+      1209,
+      1180,
+      1112
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00021-c0052",
+    "note": "Original visually reviewed: detached dhal body gap; lam bowl separated after kaf upright, left stretch belongs to kaf."
+  },
+  "4.70.0": {
+    "wid": "4.70.0",
+    "page": 89,
+    "x": [
+      1097,
+      1051,
+      1017,
+      898
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00021-c0053",
+    "note": "Original visually reviewed: detached dhal body gap; lam bowl separated after kaf upright, left stretch belongs to kaf. Shaded view shows crop-edge ink contact/cut at tip or diacritic; conservative clipped-ink flag.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "5.54.28": {
+    "wid": "5.54.28",
+    "page": 117,
+    "x": [
+      955,
+      919,
+      890,
+      824
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00021-c0054",
+    "note": "Original visually reviewed: detached dhal body gap; lam bowl separated after kaf upright, left stretch belongs to kaf."
+  },
+  "5.58.7": {
+    "wid": "5.58.7",
+    "page": 118,
+    "x": [
+      646,
+      608,
+      580,
+      435
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00021-c0055",
+    "note": "Original visually reviewed: detached dhal body gap; lam bowl separated after kaf upright, left stretch belongs to kaf."
+  },
+  "7.26.11": {
+    "wid": "7.26.11",
+    "page": 153,
+    "x": [
+      718,
+      683,
+      650,
+      581
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00021-c0056",
+    "note": "Original visually reviewed: detached dhal body gap; lam bowl separated after kaf upright, left stretch belongs to kaf."
+  },
+  "7.26.13": {
+    "wid": "7.26.13",
+    "page": 153,
+    "x": [
+      406,
+      368,
+      341,
+      208
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00021-c0057",
+    "note": "Original visually reviewed: detached dhal body gap; lam bowl separated after kaf upright, left stretch belongs to kaf. Shaded view shows crop-edge ink contact/cut at tip or diacritic; conservative clipped-ink flag.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "8.51.0": {
+    "wid": "8.51.0",
+    "page": 183,
+    "x": [
+      276,
+      240,
+      207,
+      120
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00021-c0058",
+    "note": "Original visually reviewed: detached dhal body gap; lam bowl separated after kaf upright, left stretch belongs to kaf. Shaded view shows crop-edge ink contact/cut at tip or diacritic; conservative clipped-ink flag.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "10.67.11": {
+    "wid": "10.67.11",
+    "page": 216,
+    "x": [
+      219,
+      184,
+      150,
+      63
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00021-c0059",
+    "note": "Original visually reviewed: detached dhal body gap; lam bowl separated after kaf upright, left stretch belongs to kaf. Shaded view shows crop-edge ink contact/cut at tip or diacritic; conservative clipped-ink flag.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "11.65.7": {
+    "wid": "11.65.7",
+    "page": 229,
+    "x": [
+      1469,
+      1428,
+      1396,
+      1234
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00021-c0060",
+    "note": "Original visually reviewed: detached dhal body gap; lam bowl separated after kaf upright, left stretch belongs to kaf. Shaded view shows crop-edge ink contact/cut at tip or diacritic; conservative clipped-ink flag.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "16.107.0": {
+    "wid": "16.107.0",
+    "page": 279,
+    "x": [
+      1821,
+      1785,
+      1750,
+      1612
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00021-c0061",
+    "note": "Original visually reviewed: detached dhal body gap; lam bowl separated after kaf upright, left stretch belongs to kaf."
+  },
+  "22.12.10": {
+    "wid": "22.12.10",
+    "page": 333,
+    "x": [
+      1411,
+      1371,
+      1347,
+      1213
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00021-c0062",
+    "note": "Original visually reviewed: detached dhal body gap; lam bowl separated after kaf upright, left stretch belongs to kaf. Shaded view shows crop-edge ink contact/cut at tip or diacritic; conservative clipped-ink flag.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "22.62.0": {
+    "wid": "22.62.0",
+    "page": 339,
+    "x": [
+      1659,
+      1616,
+      1586,
+      1462
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00021-c0063",
+    "note": "Original visually reviewed: detached dhal body gap; lam bowl separated after kaf upright, left stretch belongs to kaf. Shaded view shows crop-edge ink contact/cut at tip or diacritic; conservative clipped-ink flag.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "26.139.4": {
+    "wid": "26.139.4",
+    "page": 373,
+    "x": [
+      1333,
+      1298,
+      1271,
+      1204
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00021-c0064",
+    "note": "Original visually reviewed: detached dhal body gap; lam bowl separated after kaf upright, left stretch belongs to kaf."
+  },
+  "26.174.2": {
+    "wid": "26.174.2",
+    "page": 374,
+    "x": [
+      774,
+      742,
+      711,
+      644
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00021-c0065",
+    "note": "Original visually reviewed: detached dhal body gap; lam bowl separated after kaf upright, left stretch belongs to kaf."
+  },
+  "35.32.17": {
+    "wid": "35.32.17",
+    "page": 438,
+    "x": [
+      477,
+      439,
+      408,
+      225
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00021-c0066",
+    "note": "Original visually reviewed: detached dhal body gap; lam bowl separated after kaf upright, left stretch belongs to kaf. Shaded view shows crop-edge ink contact/cut at tip or diacritic; conservative clipped-ink flag.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "42.23.0": {
+    "wid": "42.23.0",
+    "page": 486,
+    "x": [
+      1834,
+      1802,
+      1775,
+      1708
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00021-c0067",
+    "note": "Original visually reviewed: detached dhal body gap; lam bowl separated after kaf upright, left stretch belongs to kaf."
+  },
+  "42.33.10": {
+    "wid": "42.33.10",
+    "page": 487,
+    "x": [
+      924,
+      890,
+      865,
+      801
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00021-c0068",
+    "note": "Original visually reviewed: detached dhal body gap; lam bowl separated after kaf upright, left stretch belongs to kaf."
+  },
+  "47.28.0": {
+    "wid": "47.28.0",
+    "page": 509,
+    "x": [
+      1302,
+      1257,
+      1228,
+      1094
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00021-c0069",
+    "note": "Original visually reviewed: detached dhal body gap; lam bowl separated after kaf upright, left stretch belongs to kaf. Shaded view shows crop-edge ink contact/cut at tip or diacritic; conservative clipped-ink flag.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "48.12.11": {
+    "wid": "48.12.11",
+    "page": 512,
+    "x": [
+      1233,
+      1199,
+      1173,
+      1059
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00021-c0070",
+    "note": "Original visually reviewed: detached dhal body gap; lam bowl separated after kaf upright, left stretch belongs to kaf. Shaded view shows crop-edge ink contact/cut at tip or diacritic; conservative clipped-ink flag.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "75.40.1": {
+    "wid": "75.40.1",
+    "page": 578,
+    "x": [
+      962,
+      931,
+      906,
+      843
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00021-c0071",
+    "note": "Original visually reviewed: detached dhal body gap; lam bowl separated after kaf upright, left stretch belongs to kaf. Shaded view shows crop-edge ink contact/cut at tip or diacritic; conservative clipped-ink flag.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "79.26.2": {
+    "wid": "79.26.2",
+    "page": 584,
+    "x": [
+      1566,
+      1531,
+      1502,
+      1439
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00021-c0072",
+    "note": "Original visually reviewed: detached dhal body gap; lam bowl separated after kaf upright, left stretch belongs to kaf."
+  },
+  "100.7.2": {
+    "wid": "100.7.2",
+    "page": 599,
+    "x": [
+      1005,
+      974,
+      940,
+      865
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00021-c0073",
+    "note": "Original visually reviewed: detached dhal body gap; lam bowl separated after kaf upright, left stretch belongs to kaf."
+  },
+  "98.8.17": {
+    "wid": "98.8.17",
+    "page": 599,
+    "x": [
+      800,
+      760,
+      732,
+      665
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00021-c0074",
+    "note": "Original visually reviewed: detached dhal body gap; lam bowl separated after kaf upright, left stretch belongs to kaf."
+  }
+}

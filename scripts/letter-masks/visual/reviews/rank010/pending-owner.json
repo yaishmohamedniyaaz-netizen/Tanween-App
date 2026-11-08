@@ -1,0 +1,16 @@
+[
+  {
+    "wid": "4.58.21",
+    "page": 87,
+    "cluster": "s00010-c0067",
+    "status": "withheld-missing-target",
+    "reviewFlags": [
+      "missing-target-ink"
+    ],
+    "reason": "Actual image inspection: detached initial alif carrier wholly absent within immutable body. Only merged paired-lam and final ha bodies remain; no invented target slot.",
+    "evidence": "representatives-original-012.png",
+    "image": "scripts/letter-masks/visual/reviews/rank010/representatives-original-012.png",
+    "observer": "cloud-ranks008_011",
+    "sha256": "6e4e0367940b5546f8349f7a4a2fb12a890a9bf6ebcfab188fdcf951b3f1aa64"
+  }
+]

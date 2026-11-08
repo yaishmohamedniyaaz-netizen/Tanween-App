@@ -1,0 +1,19 @@
+{
+  "22.58.14": {
+    "wid": "22.58.14",
+    "page": 339,
+    "x": [
+      585,
+      568,
+      526,
+      480
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00010-c0012",
+    "note": "Manually corrected after shaded inspection: detached alif gap at568 and left-lam/ha baseline valley at526. All paired lam body retained together; clipped wasl mark flagged. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  }
+}

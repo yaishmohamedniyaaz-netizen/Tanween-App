@@ -1,0 +1,629 @@
+{
+  "41.12.12": {
+    "wid": "41.12.12",
+    "page": 478,
+    "x": [
+      1408,
+      1390,
+      1365,
+      1311,
+      1290,
+      1242
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00087-c0001",
+    "note": "Detached carrier gap; lam/dal joining turn, dal/nun gap, compact nun left shoulder; merged ya-alif body retained. Right wasla clipped.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "16.107.4": {
+    "wid": "16.107.4",
+    "page": 279,
+    "x": [
+      770,
+      750,
+      721,
+      678,
+      648,
+      564
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00087-c0002",
+    "note": "Detached carrier gap; lam/dal joining turn, dal/nun gap, compact nun shoulder; merged ya-alif retained. Right wasla clipped.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "24.14.6": {
+    "wid": "24.14.6",
+    "page": 351,
+    "x": [
+      1751,
+      1733,
+      1707,
+      1666,
+      1644,
+      1601
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00087-c0003",
+    "note": "Body division at carrier gap, lam/dal turn, dal/nun gap and nun shoulder. Right wasla clipped.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.204.7": {
+    "wid": "2.204.7",
+    "page": 32,
+    "x": [
+      673,
+      655,
+      621,
+      579,
+      554,
+      491
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00087-c0004",
+    "note": "Body division at carrier gap, lam/dal turn, dal/nun gap and nun shoulder. Right wasla clipped.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "3.56.7": {
+    "wid": "3.56.7",
+    "page": 57,
+    "x": [
+      782,
+      760,
+      734,
+      695,
+      668,
+      563
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00087-c0005",
+    "note": "Compact nun owns tooth; broad merged ya-alif owns left connector. Lam/dal overlap moderate ambiguity; right wasla clipped.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "3.145.13": {
+    "wid": "3.145.13",
+    "page": 68,
+    "x": [
+      1617,
+      1590,
+      1566,
+      1522,
+      1497,
+      1436
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00087-c0006",
+    "note": "Body division at carrier gap, lam/dal turn, dal/nun gap and nun shoulder. Right wasla clipped.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "5.41.60": {
+    "wid": "5.41.60",
+    "page": 114,
+    "x": [
+      1824,
+      1805,
+      1773,
+      1725,
+      1700,
+      1629
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00087-c0007",
+    "note": "Body division at detached carrier gap, lam/dal joining turn, dal/nun gap, compact nun shoulder; merged ya-alif retained. Right wasla mark clipped; moderate joining ambiguity.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "9.74.36": {
+    "wid": "9.74.36",
+    "page": 199,
+    "x": [
+      1239,
+      1217,
+      1190,
+      1145,
+      1120,
+      1055
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00087-c0008",
+    "note": "Body division at detached carrier gap, lam/dal joining turn, dal/nun gap, compact nun shoulder; merged ya-alif retained. Right wasla mark clipped; moderate joining ambiguity.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "28.42.3": {
+    "wid": "28.42.3",
+    "page": 390,
+    "x": [
+      513,
+      494,
+      468,
+      426,
+      405,
+      354
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00087-c0009",
+    "note": "Body division at detached carrier gap, lam/dal joining turn, dal/nun gap, compact nun shoulder; merged ya-alif retained. Right wasla mark clipped; moderate joining ambiguity.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "79.38.2": {
+    "wid": "79.38.2",
+    "page": 584,
+    "x": [
+      675,
+      654,
+      628,
+      591,
+      572,
+      527
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00087-c0010",
+    "note": "Body division at detached carrier gap, lam/dal joining turn, dal/nun gap, compact nun shoulder; merged ya-alif retained. Right wasla mark clipped; moderate joining ambiguity.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "4.77.39": {
+    "wid": "4.77.39",
+    "page": 90,
+    "x": [
+      258,
+      236,
+      209,
+      170,
+      148,
+      106
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00087-c0011",
+    "note": "Body division at detached carrier gap, lam/dal joining turn, dal/nun gap, compact nun shoulder; merged ya-alif retained. Right wasla mark clipped; moderate joining ambiguity.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "6.130.20": {
+    "wid": "6.130.20",
+    "page": 144,
+    "x": [
+      278,
+      255,
+      232,
+      189,
+      169,
+      118
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00087-c0012",
+    "note": "Body division at detached carrier gap, lam/dal joining turn, dal/nun gap, compact nun shoulder; merged ya-alif retained. Right wasla mark clipped; moderate joining ambiguity.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "11.15.4": {
+    "wid": "11.15.4",
+    "page": 223,
+    "x": [
+      1829,
+      1806,
+      1778,
+      1734,
+      1713,
+      1661
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00087-c0013",
+    "note": "Body division at carrier gap, lam/dal turn, dal/nun gap and nun shoulder. Broad merged ya-alif retained; right wasla clipped; moderate join ambiguity.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "13.26.8": {
+    "wid": "13.26.8",
+    "page": 252,
+    "x": [
+      1628,
+      1609,
+      1581,
+      1541,
+      1523,
+      1478
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00087-c0014",
+    "note": "Body division at carrier gap, lam/dal turn, dal/nun gap and nun shoulder. Broad merged ya-alif retained; right wasla clipped; moderate join ambiguity.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "33.57.8": {
+    "wid": "33.57.8",
+    "page": 426,
+    "x": [
+      1075,
+      1056,
+      1027,
+      982,
+      961,
+      888
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00087-c0015",
+    "note": "Body division at carrier gap, lam/dal turn, dal/nun gap and nun shoulder. Broad merged ya-alif retained; right wasla clipped; moderate join ambiguity.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "46.20.10": {
+    "wid": "46.20.10",
+    "page": 504,
+    "x": [
+      1519,
+      1497,
+      1469,
+      1427,
+      1406,
+      1361
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00087-c0016",
+    "note": "Body division at carrier gap, lam/dal turn, dal/nun gap and nun shoulder. Broad merged ya-alif retained; right wasla clipped; moderate join ambiguity.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.86.4": {
+    "wid": "2.86.4",
+    "page": 13,
+    "x": [
+      1560,
+      1541,
+      1511,
+      1466,
+      1444,
+      1392
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00087-c0017",
+    "note": "Body division at carrier gap, lam/dal turn, dal/nun gap and nun shoulder. Broad merged ya-alif retained; right wasla clipped; moderate join ambiguity.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.200.17": {
+    "wid": "2.200.17",
+    "page": 31,
+    "x": [
+      1125,
+      1105,
+      1074,
+      1028,
+      1002,
+      908
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00087-c0018",
+    "note": "Body division at carrier gap, lam/dal turn, dal/nun gap and nun shoulder. Broad merged ya-alif retained; right wasla clipped; moderate join ambiguity.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.217.49": {
+    "wid": "2.217.49",
+    "page": 34,
+    "x": [
+      1414,
+      1389,
+      1368,
+      1320,
+      1296,
+      1212
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00087-c0019",
+    "note": "Body division at carrier gap, lam/dal turn, dal/nun gap and nun shoulder. Broad merged ya-alif retained; right wasla clipped; moderate join ambiguity.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "4.74.7": {
+    "wid": "4.74.7",
+    "page": 89,
+    "x": [
+      1198,
+      1176,
+      1149,
+      1098,
+      1071,
+      977
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00087-c0020",
+    "note": "Body division at carrier gap, lam/dal turn, dal/nun gap and nun shoulder. Broad merged ya-alif retained; right wasla clipped; moderate join ambiguity.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "9.55.12": {
+    "wid": "9.55.12",
+    "page": 196,
+    "x": [
+      1379,
+      1358,
+      1330,
+      1287,
+      1262,
+      1196
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00087-c0021",
+    "note": "Body division at carrier gap, lam/dal turn, dal/nun gap and nun shoulder. Broad merged ya-alif retained; right wasla clipped; moderate join ambiguity.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "10.64.4": {
+    "wid": "10.64.4",
+    "page": 216,
+    "x": [
+      1545,
+      1525,
+      1499,
+      1458,
+      1436,
+      1361
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00087-c0022",
+    "note": "Body division at carrier gap, lam/dal turn, dal/nun gap and nun shoulder. Broad merged ya-alif retained; right wasla clipped; moderate join ambiguity.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "12.101.15": {
+    "wid": "12.101.15",
+    "page": 247,
+    "x": [
+      819,
+      798,
+      771,
+      725,
+      701,
+      642
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00087-c0023",
+    "note": "Body division at carrier gap, lam/dal turn, dal/nun gap and nun shoulder. Broad merged ya-alif retained; right wasla clipped; moderate join ambiguity.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "22.15.8": {
+    "wid": "22.15.8",
+    "page": 333,
+    "x": [
+      1119,
+      1104,
+      1072,
+      1031,
+      1010,
+      937
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00087-c0024",
+    "note": "Body division at carrier gap, lam/dal turn, dal/nun gap and nun shoulder. Broad merged ya-alif retained; right wasla clipped; moderate join ambiguity.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "23.33.12": {
+    "wid": "23.33.12",
+    "page": 344,
+    "x": [
+      273,
+      253,
+      225,
+      184,
+      160,
+      111
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00087-c0025",
+    "note": "Body division at carrier gap, lam/dal turn, dal/nun gap and nun shoulder. Broad merged ya-alif retained; right wasla clipped; moderate join ambiguity.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "3.45.16": {
+    "wid": "3.45.16",
+    "page": 55,
+    "x": [
+      1107,
+      1087,
+      1060,
+      1020,
+      997,
+      935
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00087-c0026",
+    "note": "Body division at carrier gap, lam/dal turn, dal/nun gap and nun shoulder. Broad merged ya-alif retained; right wasla clipped; moderate join ambiguity.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "4.134.4": {
+    "wid": "4.134.4",
+    "page": 99,
+    "x": [
+      511,
+      487,
+      459,
+      414,
+      385,
+      319
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00087-c0027",
+    "note": "Body division at carrier gap, lam/dal turn, dal/nun gap and nun shoulder. Broad merged ya-alif retained; right wasla clipped; moderate join ambiguity.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "4.134.8": {
+    "wid": "4.134.8",
+    "page": 99,
+    "x": [
+      1521,
+      1499,
+      1469,
+      1422,
+      1395,
+      1319
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00087-c0028",
+    "note": "Body division at carrier gap, lam/dal turn, dal/nun gap and nun shoulder. Broad merged ya-alif retained; right wasla clipped; moderate join ambiguity.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "6.29.5": {
+    "wid": "6.29.5",
+    "page": 131,
+    "x": [
+      529,
+      509,
+      479,
+      436,
+      416,
+      374
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00087-c0029",
+    "note": "Body division at carrier gap, lam/dal turn, dal/nun gap and nun shoulder. Broad merged ya-alif retained; right wasla clipped; moderate join ambiguity.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "9.69.27": {
+    "wid": "9.69.27",
+    "page": 198,
+    "x": [
+      250,
+      229,
+      201,
+      158,
+      136,
+      74
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00087-c0030",
+    "note": "Body division at carrier gap, lam/dal turn, dal/nun gap and nun shoulder. Broad merged ya-alif retained; right wasla clipped; moderate join ambiguity.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "10.70.2": {
+    "wid": "10.70.2",
+    "page": 216,
+    "x": [
+      1031,
+      1011,
+      980,
+      935,
+      911,
+      803
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00087-c0031",
+    "note": "Body division at carrier gap, lam/dal turn, dal/nun gap and nun shoulder. Broad merged ya-alif retained; right wasla clipped; moderate join ambiguity.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "35.5.9": {
+    "wid": "35.5.9",
+    "page": 435,
+    "x": [
+      319,
+      299,
+      269,
+      229,
+      204,
+      75
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00087-c0032",
+    "note": "Body division at carrier gap, lam/dal turn, dal/nun gap and nun shoulder. Broad merged ya-alif retained; right wasla clipped; moderate join ambiguity.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "39.10.10": {
+    "wid": "39.10.10",
+    "page": 459,
+    "x": [
+      585,
+      567,
+      538,
+      491,
+      469,
+      390
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00087-c0033",
+    "note": "Body division at carrier gap, lam/dal turn, dal/nun gap and nun shoulder. Broad merged ya-alif retained; right wasla clipped; moderate join ambiguity.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  }
+}

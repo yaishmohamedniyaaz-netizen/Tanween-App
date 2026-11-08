@@ -1,0 +1,3153 @@
+{
+  "2.185.9": {
+    "wid": "2.185.9",
+    "page": 28,
+    "x": [
+      1531,
+      1509,
+      1440
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00020-c0001",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review."
+  },
+  "3.39.18": {
+    "wid": "3.39.18",
+    "page": 55,
+    "x": [
+      998,
+      973,
+      911
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0001",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "3.100.6": {
+    "wid": "3.100.6",
+    "page": 62,
+    "x": [
+      1666,
+      1642,
+      1582
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0001",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "3.112.8": {
+    "wid": "3.112.8",
+    "page": 64,
+    "x": [
+      790,
+      768,
+      705
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00020-c0001",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review."
+  },
+  "3.112.15": {
+    "wid": "3.112.15",
+    "page": 64,
+    "x": [
+      1392,
+      1369,
+      1306
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00020-c0001",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review."
+  },
+  "3.157.8": {
+    "wid": "3.157.8",
+    "page": 70,
+    "x": [
+      1331,
+      1307,
+      1242
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0001",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "3.174.2": {
+    "wid": "3.174.2",
+    "page": 73,
+    "x": [
+      1375,
+      1352,
+      1287
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00020-c0001",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review."
+  },
+  "4.12.83": {
+    "wid": "4.12.83",
+    "page": 79,
+    "x": [
+      892,
+      866,
+      799
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0001",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "4.43.29": {
+    "wid": "4.43.29",
+    "page": 85,
+    "x": [
+      1492,
+      1470,
+      1405
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00020-c0001",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review."
+  },
+  "4.141.22": {
+    "wid": "4.141.22",
+    "page": 101,
+    "x": [
+      1281,
+      1258,
+      1192
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0001",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "5.4.10": {
+    "wid": "5.4.10",
+    "page": 107,
+    "x": [
+      1860,
+      1837,
+      1772
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0001",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "5.6.31": {
+    "wid": "5.6.31",
+    "page": 108,
+    "x": [
+      417,
+      391,
+      328
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0001",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "5.112.13": {
+    "wid": "5.112.13",
+    "page": 126,
+    "x": [
+      1283,
+      1259,
+      1193
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0001",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "5.114.9": {
+    "wid": "5.114.9",
+    "page": 127,
+    "x": [
+      430,
+      407,
+      342
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0001",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "7.27.8": {
+    "wid": "7.27.8",
+    "page": 153,
+    "x": [
+      1005,
+      981,
+      919
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0001",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "7.37.13": {
+    "wid": "7.37.13",
+    "page": 154,
+    "x": [
+      903,
+      881,
+      818
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0001",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "8.11.7": {
+    "wid": "8.11.7",
+    "page": 178,
+    "x": [
+      1593,
+      1570,
+      1503
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0001",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "10.27.10": {
+    "wid": "10.27.10",
+    "page": 212,
+    "x": [
+      196,
+      175,
+      109
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0001",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "10.27.18": {
+    "wid": "10.27.18",
+    "page": 212,
+    "x": [
+      552,
+      531,
+      466
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0001",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "11.114.5": {
+    "wid": "11.114.5",
+    "page": 234,
+    "x": [
+      193,
+      169,
+      105
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0001",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "12.32.17": {
+    "wid": "12.32.17",
+    "page": 239,
+    "x": [
+      1827,
+      1803,
+      1737
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0001",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "13.33.22": {
+    "wid": "13.33.22",
+    "page": 253,
+    "x": [
+      1608,
+      1580,
+      1519
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00020-c0001",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review."
+  },
+  "14.36.4": {
+    "wid": "14.36.4",
+    "page": 260,
+    "x": [
+      398,
+      375,
+      311
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0001",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "15.14.4": {
+    "wid": "15.14.4",
+    "page": 262,
+    "x": [
+      1006,
+      982,
+      917
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0001",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "15.87.3": {
+    "wid": "15.87.3",
+    "page": 266,
+    "x": [
+      771,
+      750,
+      688
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0001",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "15.98.4": {
+    "wid": "15.98.4",
+    "page": 267,
+    "x": [
+      1844,
+      1821,
+      1757
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0001",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "16.81.8": {
+    "wid": "16.81.8",
+    "page": 276,
+    "x": [
+      1831,
+      1807,
+      1738
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0001",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "17.69.10": {
+    "wid": "17.69.10",
+    "page": 289,
+    "x": [
+      1406,
+      1383,
+      1319
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0001",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "17.103.3": {
+    "wid": "17.103.3",
+    "page": 292,
+    "x": [
+      408,
+      385,
+      321
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00020-c0001",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review."
+  },
+  "17.111.17": {
+    "wid": "17.111.17",
+    "page": 293,
+    "x": [
+      831,
+      808,
+      744
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0001",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "20.78.4": {
+    "wid": "20.78.4",
+    "page": 317,
+    "x": [
+      1324,
+      1303,
+      1239
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00020-c0001",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review."
+  },
+  "21.21.3": {
+    "wid": "21.21.3",
+    "page": 323,
+    "x": [
+      813,
+      788,
+      726
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0001",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "24.2.24": {
+    "wid": "24.2.24",
+    "page": 350,
+    "x": [
+      1404,
+      1381,
+      1318
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0001",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "26.4.4": {
+    "wid": "26.4.4",
+    "page": 367,
+    "x": [
+      653,
+      632,
+      573
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00020-c0001",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review."
+  },
+  "26.168.3": {
+    "wid": "26.168.3",
+    "page": 374,
+    "x": [
+      567,
+      546,
+      485
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00020-c0001",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review."
+  },
+  "27.40.4": {
+    "wid": "27.40.4",
+    "page": 380,
+    "x": [
+      700,
+      678,
+      621
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0001",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "30.7.2": {
+    "wid": "30.7.2",
+    "page": 405,
+    "x": [
+      1243,
+      1221,
+      1156
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0001",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "32.26.7": {
+    "wid": "32.26.7",
+    "page": 417,
+    "x": [
+      446,
+      425,
+      356
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00020-c0001",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review."
+  },
+  "33.47.4": {
+    "wid": "33.47.4",
+    "page": 424,
+    "x": [
+      1818,
+      1797,
+      1730
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0001",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "34.20.8": {
+    "wid": "34.20.8",
+    "page": 430,
+    "x": [
+      1667,
+      1643,
+      1576
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0001",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "41.25.19": {
+    "wid": "41.25.19",
+    "page": 479,
+    "x": [
+      840,
+      817,
+      752
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00020-c0001",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review."
+  },
+  "42.13.2": {
+    "wid": "42.13.2",
+    "page": 484,
+    "x": [
+      1412,
+      1388,
+      1320
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0001",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "44.33.1": {
+    "wid": "44.33.1",
+    "page": 497,
+    "x": [
+      1072,
+      1050,
+      981
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00020-c0001",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review."
+  },
+  "45.18.4": {
+    "wid": "45.18.4",
+    "page": 500,
+    "x": [
+      910,
+      887,
+      821
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00020-c0001",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review."
+  },
+  "48.29.15": {
+    "wid": "48.29.15",
+    "page": 515,
+    "x": [
+      906,
+      882,
+      816
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0001",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "49.12.5": {
+    "wid": "49.12.5",
+    "page": 517,
+    "x": [
+      975,
+      953,
+      896
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0001",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "51.17.2": {
+    "wid": "51.17.2",
+    "page": 521,
+    "x": [
+      1403,
+      1380,
+      1317
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0001",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "52.44.3": {
+    "wid": "52.44.3",
+    "page": 525,
+    "x": [
+      1848,
+      1826,
+      1767
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0001",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "56.14.1": {
+    "wid": "56.14.1",
+    "page": 534,
+    "x": [
+      400,
+      378,
+      319
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00020-c0001",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review."
+  },
+  "58.17.6": {
+    "wid": "58.17.6",
+    "page": 544,
+    "x": [
+      309,
+      284,
+      215
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0001",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "72.23.2": {
+    "wid": "72.23.2",
+    "page": 573,
+    "x": [
+      1829,
+      1807,
+      1743
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0001",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "98.2.1": {
+    "wid": "98.2.1",
+    "page": 598,
+    "x": [
+      981,
+      958,
+      894
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0001",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "4.53.3": {
+    "wid": "4.53.3",
+    "page": 87,
+    "x": [
+      1443,
+      1422,
+      1359
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0002",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "4.153.7": {
+    "wid": "4.153.7",
+    "page": 102,
+    "x": [
+      767,
+      744,
+      673
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0002",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "7.201.6": {
+    "wid": "7.201.6",
+    "page": 176,
+    "x": [
+      827,
+      804,
+      734
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0002",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "7.205.14": {
+    "wid": "7.205.14",
+    "page": 176,
+    "x": [
+      1261,
+      1239,
+      1172
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00020-c0002",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review."
+  },
+  "9.1.7": {
+    "wid": "9.1.7",
+    "page": 187,
+    "x": [
+      655,
+      633,
+      569
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00020-c0002",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review."
+  },
+  "9.3.12": {
+    "wid": "9.3.12",
+    "page": 187,
+    "x": [
+      517,
+      495,
+      431
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0002",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "9.4.3": {
+    "wid": "9.4.3",
+    "page": 187,
+    "x": [
+      967,
+      946,
+      880
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0002",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "10.45.7": {
+    "wid": "10.45.7",
+    "page": 214,
+    "x": [
+      1665,
+      1643,
+      1575
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0002",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "11.47.17": {
+    "wid": "11.47.17",
+    "page": 227,
+    "x": [
+      978,
+      958,
+      894
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0002",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "11.81.11": {
+    "wid": "11.81.11",
+    "page": 230,
+    "x": [
+      1845,
+      1820,
+      1757
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00020-c0002",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review."
+  },
+  "13.34.10": {
+    "wid": "13.34.10",
+    "page": 253,
+    "x": [
+      761,
+      742,
+      675
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00020-c0002",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review."
+  },
+  "15.55.5": {
+    "wid": "15.55.5",
+    "page": 265,
+    "x": [
+      1572,
+      1550,
+      1486
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0002",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "16.72.13": {
+    "wid": "16.72.13",
+    "page": 274,
+    "x": [
+      169,
+      148,
+      83
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00020-c0002",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review."
+  },
+  "19.58.5": {
+    "wid": "19.58.5",
+    "page": 309,
+    "x": [
+      1402,
+      1383,
+      1323
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00020-c0002",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review."
+  },
+  "22.5.6": {
+    "wid": "22.5.6",
+    "page": 332,
+    "x": [
+      1679,
+      1657,
+      1591
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0002",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "24.58.21": {
+    "wid": "24.58.21",
+    "page": 357,
+    "x": [
+      427,
+      407,
+      343
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0002",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "27.82.7": {
+    "wid": "27.82.7",
+    "page": 384,
+    "x": [
+      820,
+      799,
+      730
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0002",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "35.3.12": {
+    "wid": "35.3.12",
+    "page": 434,
+    "x": [
+      1843,
+      1824,
+      1761
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0002",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "39.16.4": {
+    "wid": "39.16.4",
+    "page": 460,
+    "x": [
+      402,
+      382,
+      314
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00020-c0002",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review."
+  },
+  "43.12.6": {
+    "wid": "43.12.6",
+    "page": 490,
+    "x": [
+      1708,
+      1685,
+      1620
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00020-c0002",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review."
+  },
+  "51.36.5": {
+    "wid": "51.36.5",
+    "page": 522,
+    "x": [
+      1501,
+      1479,
+      1415
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00020-c0002",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review."
+  },
+  "72.6.3": {
+    "wid": "72.6.3",
+    "page": 572,
+    "x": [
+      755,
+      733,
+      672
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0002",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.101.11": {
+    "wid": "2.101.11",
+    "page": 15,
+    "x": [
+      852,
+      826,
+      761
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0003",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.155.2": {
+    "wid": "2.155.2",
+    "page": 24,
+    "x": [
+      669,
+      642,
+      584
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00020-c0003",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review."
+  },
+  "2.155.6": {
+    "wid": "2.155.6",
+    "page": 24,
+    "x": [
+      1598,
+      1573,
+      1511
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00020-c0003",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review."
+  },
+  "2.210.8": {
+    "wid": "2.210.8",
+    "page": 32,
+    "x": [
+      467,
+      442,
+      380
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00020-c0003",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review."
+  },
+  "2.231.32": {
+    "wid": "2.231.32",
+    "page": 37,
+    "x": [
+      825,
+      797,
+      739
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00020-c0003",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review."
+  },
+  "2.279.5": {
+    "wid": "2.279.5",
+    "page": 47,
+    "x": [
+      1411,
+      1384,
+      1325
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00020-c0003",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review."
+  },
+  "3.10.9": {
+    "wid": "3.10.9",
+    "page": 51,
+    "x": [
+      1808,
+      1783,
+      1722
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00020-c0003",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review."
+  },
+  "3.60.5": {
+    "wid": "3.60.5",
+    "page": 57,
+    "x": [
+      600,
+      574,
+      515
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00020-c0003",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review."
+  },
+  "3.81.31": {
+    "wid": "3.81.31",
+    "page": 60,
+    "x": [
+      672,
+      643,
+      584
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0003",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "3.116.9": {
+    "wid": "3.116.9",
+    "page": 65,
+    "x": [
+      1817,
+      1787,
+      1724
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0003",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "3.125.12": {
+    "wid": "3.125.12",
+    "page": 66,
+    "x": [
+      787,
+      759,
+      699
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0003",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "3.127.2": {
+    "wid": "3.127.2",
+    "page": 66,
+    "x": [
+      1813,
+      1785,
+      1723
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00020-c0003",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review."
+  },
+  "5.20.20": {
+    "wid": "5.20.20",
+    "page": 111,
+    "x": [
+      1051,
+      1027,
+      966
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0003",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "6.128.7": {
+    "wid": "6.128.7",
+    "page": 144,
+    "x": [
+      918,
+      891,
+      830
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0003",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "26.136.7": {
+    "wid": "26.136.7",
+    "page": 372,
+    "x": [
+      670,
+      644,
+      582
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0003",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "30.25.11": {
+    "wid": "30.25.11",
+    "page": 407,
+    "x": [
+      1690,
+      1666,
+      1608
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0003",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "33.23.0": {
+    "wid": "33.23.0",
+    "page": 421,
+    "x": [
+      1825,
+      1801,
+      1740
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0003",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "38.48.6": {
+    "wid": "38.48.6",
+    "page": 456,
+    "x": [
+      878,
+      852,
+      794
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00020-c0003",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review."
+  },
+  "46.29.4": {
+    "wid": "46.29.4",
+    "page": 506,
+    "x": [
+      1222,
+      1197,
+      1138
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0003",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "3.112.11": {
+    "wid": "3.112.11",
+    "page": 64,
+    "x": [
+      373,
+      354,
+      290
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00020-c0004",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review."
+  },
+  "3.124.10": {
+    "wid": "3.124.10",
+    "page": 66,
+    "x": [
+      487,
+      467,
+      404
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0004",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "4.3.10": {
+    "wid": "4.3.10",
+    "page": 77,
+    "x": [
+      1464,
+      1443,
+      1376
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00020-c0004",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review."
+  },
+  "6.128.11": {
+    "wid": "6.128.11",
+    "page": 144,
+    "x": [
+      1813,
+      1792,
+      1724
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0004",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "8.9.8": {
+    "wid": "8.9.8",
+    "page": 178,
+    "x": [
+      1849,
+      1830,
+      1763
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0004",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "33.32.4": {
+    "wid": "33.32.4",
+    "page": 422,
+    "x": [
+      1305,
+      1284,
+      1213
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00020-c0004",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review."
+  },
+  "40.13.6": {
+    "wid": "40.13.6",
+    "page": 468,
+    "x": [
+      1672,
+      1650,
+      1585
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00020-c0004",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review."
+  },
+  "40.21.26": {
+    "wid": "40.21.26",
+    "page": 469,
+    "x": [
+      1207,
+      1188,
+      1121
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00020-c0004",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review."
+  },
+  "40.64.12": {
+    "wid": "40.64.12",
+    "page": 474,
+    "x": [
+      211,
+      191,
+      124
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0004",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "41.2.1": {
+    "wid": "41.2.1",
+    "page": 477,
+    "x": [
+      1301,
+      1282,
+      1216
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00020-c0004",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review."
+  },
+  "46.18.11": {
+    "wid": "46.18.11",
+    "page": 504,
+    "x": [
+      947,
+      928,
+      863
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0004",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "49.7.9": {
+    "wid": "49.7.9",
+    "page": 516,
+    "x": [
+      503,
+      485,
+      421
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0004",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "53.30.2": {
+    "wid": "53.30.2",
+    "page": 527,
+    "x": [
+      1126,
+      1106,
+      1047
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00020-c0004",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review."
+  },
+  "56.13.1": {
+    "wid": "56.13.1",
+    "page": 534,
+    "x": [
+      1075,
+      1055,
+      988
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0004",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "57.10.23": {
+    "wid": "57.10.23",
+    "page": 538,
+    "x": [
+      1032,
+      1011,
+      946
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0004",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "73.20.12": {
+    "wid": "73.20.12",
+    "page": 575,
+    "x": [
+      1858,
+      1837,
+      1769
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0004",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "76.1.5": {
+    "wid": "76.1.5",
+    "page": 578,
+    "x": [
+      1166,
+      1147,
+      1083
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0004",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "3.188.15": {
+    "wid": "3.188.15",
+    "page": 75,
+    "x": [
+      1555,
+      1531,
+      1463
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00020-c0005",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review."
+  },
+  "4.46.0": {
+    "wid": "4.46.0",
+    "page": 86,
+    "x": [
+      1817,
+      1793,
+      1727
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0005",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "4.69.10": {
+    "wid": "4.69.10",
+    "page": 89,
+    "x": [
+      1823,
+      1798,
+      1730
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00020-c0005",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review."
+  },
+  "4.73.3": {
+    "wid": "4.73.3",
+    "page": 89,
+    "x": [
+      723,
+      698,
+      633
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0005",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "4.92.54": {
+    "wid": "4.92.54",
+    "page": 93,
+    "x": [
+      611,
+      585,
+      513
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0005",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "8.26.15": {
+    "wid": "8.26.15",
+    "page": 180,
+    "x": [
+      1840,
+      1818,
+      1751
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0005",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "8.32.13": {
+    "wid": "8.32.13",
+    "page": 180,
+    "x": [
+      436,
+      412,
+      347
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0005",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "8.65.19": {
+    "wid": "8.65.19",
+    "page": 185,
+    "x": [
+      187,
+      165,
+      101
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0005",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "9.1.1": {
+    "wid": "9.1.1",
+    "page": 187,
+    "x": [
+      1638,
+      1614,
+      1547
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0005",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "9.6.2": {
+    "wid": "9.6.2",
+    "page": 187,
+    "x": [
+      1548,
+      1526,
+      1462
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0005",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "10.31.3": {
+    "wid": "10.31.3",
+    "page": 212,
+    "x": [
+      1823,
+      1799,
+      1738
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0005",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "12.100.27": {
+    "wid": "12.100.27",
+    "page": 247,
+    "x": [
+      1833,
+      1809,
+      1746
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0005",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "38.62.8": {
+    "wid": "38.62.8",
+    "page": 457,
+    "x": [
+      855,
+      834,
+      774
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0005",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence. Enlarged review: ink contacts crop edge with possible clipping; conservative flag.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "72.6.7": {
+    "wid": "72.6.7",
+    "page": 572,
+    "x": [
+      1827,
+      1807,
+      1746
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0005",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "3.39.13": {
+    "wid": "3.39.13",
+    "page": 55,
+    "x": [
+      195,
+      173,
+      109
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00020-c0006",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review."
+  },
+  "4.83.3": {
+    "wid": "4.83.3",
+    "page": 91,
+    "x": [
+      408,
+      385,
+      314
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0006",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "5.49.30": {
+    "wid": "5.49.30",
+    "page": 116,
+    "x": [
+      1104,
+      1080,
+      1012
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0006",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "5.57.10": {
+    "wid": "5.57.10",
+    "page": 117,
+    "x": [
+      561,
+      538,
+      477
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0006",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "5.94.6": {
+    "wid": "5.94.6",
+    "page": 123,
+    "x": [
+      572,
+      548,
+      484
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00020-c0006",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review."
+  },
+  "5.115.15": {
+    "wid": "5.115.15",
+    "page": 127,
+    "x": [
+      627,
+      602,
+      537
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0006",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "6.85.5": {
+    "wid": "6.85.5",
+    "page": 138,
+    "x": [
+      764,
+      740,
+      672
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00020-c0006",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review."
+  },
+  "20.128.6": {
+    "wid": "20.128.6",
+    "page": 321,
+    "x": [
+      596,
+      572,
+      506
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0006",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "30.8.17": {
+    "wid": "30.8.17",
+    "page": 405,
+    "x": [
+      442,
+      419,
+      349
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0006",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "36.80.3": {
+    "wid": "36.80.3",
+    "page": 445,
+    "x": [
+      1147,
+      1123,
+      1050
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0006",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "39.6.10": {
+    "wid": "39.6.10",
+    "page": 459,
+    "x": [
+      1800,
+      1778,
+      1712
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00020-c0006",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review."
+  },
+  "46.9.4": {
+    "wid": "46.9.4",
+    "page": 503,
+    "x": [
+      411,
+      386,
+      317
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0006",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "56.40.1": {
+    "wid": "56.40.1",
+    "page": 535,
+    "x": [
+      1310,
+      1288,
+      1227
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0006",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "57.20.30": {
+    "wid": "57.20.30",
+    "page": 540,
+    "x": [
+      1825,
+      1802,
+      1736
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0006",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "5.19.9": {
+    "wid": "5.19.9",
+    "page": 111,
+    "x": [
+      990,
+      967,
+      899
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00020-c0007",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review."
+  },
+  "12.68.10": {
+    "wid": "12.68.10",
+    "page": 243,
+    "x": [
+      1812,
+      1789,
+      1720
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0007",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "16.73.9": {
+    "wid": "16.73.9",
+    "page": 275,
+    "x": [
+      530,
+      508,
+      440
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0007",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "17.85.10": {
+    "wid": "17.85.10",
+    "page": 290,
+    "x": [
+      1505,
+      1483,
+      1418
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0007",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "19.45.6": {
+    "wid": "19.45.6",
+    "page": 308,
+    "x": [
+      409,
+      386,
+      318
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0007",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "40.33.5": {
+    "wid": "40.33.5",
+    "page": 470,
+    "x": [
+      1603,
+      1580,
+      1512
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0007",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "40.49.11": {
+    "wid": "40.49.11",
+    "page": 472,
+    "x": [
+      644,
+      619,
+      546
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0007",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "41.23.7": {
+    "wid": "41.23.7",
+    "page": 479,
+    "x": [
+      1830,
+      1807,
+      1739
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0007",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "42.21.5": {
+    "wid": "42.21.5",
+    "page": 485,
+    "x": [
+      428,
+      405,
+      333
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00020-c0007",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review."
+  },
+  "44.31.5": {
+    "wid": "44.31.5",
+    "page": 497,
+    "x": [
+      1558,
+      1535,
+      1469
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0007",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "46.27.4": {
+    "wid": "46.27.4",
+    "page": 505,
+    "x": [
+      1281,
+      1259,
+      1187
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0007",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence. Enlarged review: ink contacts crop edge with possible clipping; conservative flag.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "60.1.15": {
+    "wid": "60.1.15",
+    "page": 549,
+    "x": [
+      824,
+      803,
+      738
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0007",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "3.159.2": {
+    "wid": "3.159.2",
+    "page": 71,
+    "x": [
+      186,
+      164,
+      101
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00020-c0008",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review."
+  },
+  "3.162.7": {
+    "wid": "3.162.7",
+    "page": 71,
+    "x": [
+      1186,
+      1164,
+      1095
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00020-c0008",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review."
+  },
+  "4.44.6": {
+    "wid": "4.44.6",
+    "page": 85,
+    "x": [
+      204,
+      182,
+      116
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0008",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "7.38.32": {
+    "wid": "7.38.32",
+    "page": 155,
+    "x": [
+      1462,
+      1439,
+      1375
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0008",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "9.120.6": {
+    "wid": "9.120.6",
+    "page": 206,
+    "x": [
+      1826,
+      1805,
+      1741
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0008",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "10.106.14": {
+    "wid": "10.106.14",
+    "page": 220,
+    "x": [
+      625,
+      602,
+      533
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0008",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "12.33.15": {
+    "wid": "12.33.15",
+    "page": 239,
+    "x": [
+      439,
+      419,
+      355
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00020-c0008",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review."
+  },
+  "38.24.9": {
+    "wid": "38.24.9",
+    "page": 454,
+    "x": [
+      535,
+      515,
+      456
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00020-c0008",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review."
+  },
+  "45.17.2": {
+    "wid": "45.17.2",
+    "page": 500,
+    "x": [
+      414,
+      391,
+      323
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0008",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "59.8.9": {
+    "wid": "59.8.9",
+    "page": 546,
+    "x": [
+      1426,
+      1404,
+      1337
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0008",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "63.10.19": {
+    "wid": "63.10.19",
+    "page": 555,
+    "x": [
+      821,
+      800,
+      728
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00020-c0008",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review."
+  },
+  "3.103.23": {
+    "wid": "3.103.23",
+    "page": 63,
+    "x": [
+      387,
+      365,
+      301
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00020-c0009",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review."
+  },
+  "10.92.9": {
+    "wid": "10.92.9",
+    "page": 219,
+    "x": [
+      1171,
+      1147,
+      1085
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0009",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "10.93.7": {
+    "wid": "10.93.7",
+    "page": 219,
+    "x": [
+      468,
+      446,
+      388
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0009",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "11.61.15": {
+    "wid": "11.61.15",
+    "page": 228,
+    "x": [
+      373,
+      352,
+      290
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0009",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "11.92.5": {
+    "wid": "11.92.5",
+    "page": 232,
+    "x": [
+      196,
+      177,
+      114
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0009",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "12.80.15": {
+    "wid": "12.80.15",
+    "page": 245,
+    "x": [
+      1612,
+      1582,
+      1523
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0009",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "27.64.7": {
+    "wid": "27.64.7",
+    "page": 383,
+    "x": [
+      675,
+      654,
+      595
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0009",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "36.51.5": {
+    "wid": "36.51.5",
+    "page": 443,
+    "x": [
+      1075,
+      1054,
+      988
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0009",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "72.1.6": {
+    "wid": "72.1.6",
+    "page": 572,
+    "x": [
+      1053,
+      1031,
+      966
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0009",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.260.19": {
+    "wid": "2.260.19",
+    "page": 44,
+    "x": [
+      225,
+      202,
+      135
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00020-c0010",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review."
+  },
+  "5.16.9": {
+    "wid": "5.16.9",
+    "page": 110,
+    "x": [
+      819,
+      792,
+      717
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0010",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "14.37.22": {
+    "wid": "14.37.22",
+    "page": 260,
+    "x": [
+      1153,
+      1131,
+      1061
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0010",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "27.39.2": {
+    "wid": "27.39.2",
+    "page": 380,
+    "x": [
+      1486,
+      1463,
+      1401
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0010",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "37.168.4": {
+    "wid": "37.168.4",
+    "page": 452,
+    "x": [
+      671,
+      647,
+      583
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0010",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "41.24.9": {
+    "wid": "41.24.9",
+    "page": 479,
+    "x": [
+      1255,
+      1231,
+      1164
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0010",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "59.2.20": {
+    "wid": "59.2.20",
+    "page": 545,
+    "x": [
+      1498,
+      1477,
+      1412
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0010",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "59.13.5": {
+    "wid": "59.13.5",
+    "page": 547,
+    "x": [
+      792,
+      766,
+      697
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0010",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.59.13": {
+    "wid": "2.59.13",
+    "page": 9,
+    "x": [
+      190,
+      167,
+      110
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0011",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.267.11": {
+    "wid": "2.267.11",
+    "page": 45,
+    "x": [
+      1663,
+      1641,
+      1579
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0011",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "4.141.7": {
+    "wid": "4.141.7",
+    "page": 101,
+    "x": [
+      658,
+      634,
+      571
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0011",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "7.96.9": {
+    "wid": "7.96.9",
+    "page": 163,
+    "x": [
+      1796,
+      1772,
+      1711
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0011",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "45.16.8": {
+    "wid": "45.16.8",
+    "page": 500,
+    "x": [
+      414,
+      394,
+      336
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00020-c0011",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review."
+  },
+  "3.171.2": {
+    "wid": "3.171.2",
+    "page": 72,
+    "x": [
+      1146,
+      1122,
+      1061
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00020-c0012",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review."
+  },
+  "4.51.6": {
+    "wid": "4.51.6",
+    "page": 86,
+    "x": [
+      1816,
+      1791,
+      1720
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0012",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "7.71.23": {
+    "wid": "7.71.23",
+    "page": 159,
+    "x": [
+      206,
+      183,
+      125
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0012",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "7.130.6": {
+    "wid": "7.130.6",
+    "page": 165,
+    "x": [
+      1310,
+      1284,
+      1218
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00020-c0012",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review."
+  },
+  "61.13.3": {
+    "wid": "61.13.3",
+    "page": 552,
+    "x": [
+      1835,
+      1810,
+      1753
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0012",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "25.31.5": {
+    "wid": "25.31.5",
+    "page": 362,
+    "x": [
+      1189,
+      1163,
+      1093
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0013",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "38.11.4": {
+    "wid": "38.11.4",
+    "page": 453,
+    "x": [
+      1081,
+      1059,
+      999
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0013",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "40.83.7": {
+    "wid": "40.83.7",
+    "page": 476,
+    "x": [
+      1828,
+      1804,
+      1736
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0013",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "24.34.6": {
+    "wid": "24.34.6",
+    "page": 354,
+    "x": [
+      467,
+      447,
+      385
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0014",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "37.112.3": {
+    "wid": "37.112.3",
+    "page": 450,
+    "x": [
+      159,
+      141,
+      84
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0014",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "12.67.14": {
+    "wid": "12.67.14",
+    "page": 243,
+    "x": [
+      1066,
+      1043,
+      895
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00020-c0015",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review."
+  },
+  "6.137.3": {
+    "wid": "6.137.3",
+    "page": 145,
+    "x": [
+      1465,
+      1442,
+      1277
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0016",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "9.3.1": {
+    "wid": "9.3.1",
+    "page": 187,
+    "x": [
+      638,
+      617,
+      474
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0017",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "16.106.19": {
+    "wid": "16.106.19",
+    "page": 279,
+    "x": [
+      1307,
+      1285,
+      1127
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0018",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "9.101.2": {
+    "wid": "9.101.2",
+    "page": 203,
+    "x": [
+      618,
+      594,
+      407
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0019",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "9.123.6": {
+    "wid": "9.123.6",
+    "page": 207,
+    "x": [
+      596,
+      579,
+      430
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0020",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "16.26.8": {
+    "wid": "16.26.8",
+    "page": 269,
+    "x": [
+      1209,
+      1189,
+      1034
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0021",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "34.9.20": {
+    "wid": "34.9.20",
+    "page": 429,
+    "x": [
+      946,
+      917,
+      773
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0022",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "40.47.17": {
+    "wid": "40.47.17",
+    "page": 472,
+    "x": [
+      427,
+      405,
+      267
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0023",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "56.39.1": {
+    "wid": "56.39.1",
+    "page": 535,
+    "x": [
+      231,
+      210,
+      71
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0024",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "29.34.7": {
+    "wid": "29.34.7",
+    "page": 400,
+    "x": [
+      1148,
+      1123,
+      976
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0025",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "32.21.1": {
+    "wid": "32.21.1",
+    "page": 417,
+    "x": [
+      1420,
+      1399,
+      1249
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0026",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "39.66.4": {
+    "wid": "39.66.4",
+    "page": 465,
+    "x": [
+      1479,
+      1455,
+      1307
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0027",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "62.11.14": {
+    "wid": "62.11.14",
+    "page": 554,
+    "x": [
+      1383,
+      1369,
+      1300
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0028",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "58.2.16": {
+    "wid": "58.2.16",
+    "page": 542,
+    "x": [
+      777,
+      756,
+      691
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00020-c0029",
+    "note": "Fresh cloud visual carry check: cut follows left edge of right meem body and leaves connector with noon; destination requires sheet review. Immutable crop edge clips diacritic or body ink; retained visible bodies only, low confidence.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  }
+}

@@ -1,0 +1,664 @@
+{
+  "6.98.3": {
+    "wid": "6.98.3",
+    "page": 140,
+    "x": [
+      1098,
+      1065,
+      1010
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00016-c0001",
+    "note": "Manual visual neck separates mim loop and nun stem; shadda and kasra do not shift body boundary. Right kasra clipped by immutable crop.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "27.19.2": {
+    "wid": "27.19.2",
+    "page": 378,
+    "x": [
+      1171,
+      1137,
+      1086
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00016-c0002",
+    "note": "Manual visual neck separates mim loop and nun stem; shadda and kasra do not shift body boundary. Right kasra clipped by immutable crop.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "13.32.3": {
+    "wid": "13.32.3",
+    "page": 253,
+    "x": [
+      1829,
+      1794,
+      1739
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00016-c0003",
+    "note": "Manual visual neck separates mim loop and nun stem; shadda and kasra do not shift body boundary. Right kasra clipped by immutable crop.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "34.46.13": {
+    "wid": "34.46.13",
+    "page": 433,
+    "x": [
+      1861,
+      1826,
+      1770
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00016-c0004",
+    "note": "Manual visual neck separates mim loop and nun stem; shadda and kasra do not shift body boundary. Right kasra clipped by immutable crop.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "63.10.4": {
+    "wid": "63.10.4",
+    "page": 555,
+    "x": [
+      1805,
+      1774,
+      1716
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00016-c0005",
+    "note": "Manual visual neck separates mim loop and nun stem; shadda and kasra do not shift body boundary. Right kasra clipped by immutable crop.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "5.66.8": {
+    "wid": "5.66.8",
+    "page": 119,
+    "x": [
+      817,
+      783,
+      729
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00016-c0006",
+    "note": "Manual visual neck separates mim loop and nun stem; shadda and kasra do not shift body boundary. Right kasra clipped by immutable crop.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "33.4.4": {
+    "wid": "33.4.4",
+    "page": 418,
+    "x": [
+      500,
+      465,
+      410
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00016-c0007",
+    "note": "Manual visual neck separates mim loop and nun stem; shadda and kasra do not shift body boundary."
+  },
+  "49.11.6": {
+    "wid": "49.11.6",
+    "page": 516,
+    "x": [
+      340,
+      304,
+      250
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00016-c0008",
+    "note": "Manual visual neck separates mim loop and nun stem; shadda and kasra do not shift body boundary. Right kasra clipped by immutable crop.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "42.41.7": {
+    "wid": "42.41.7",
+    "page": 487,
+    "x": [
+      1072,
+      1037,
+      989
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00016-c0009",
+    "note": "Manual visual neck separates mim loop and nun stem; shadda and kasra do not shift body boundary."
+  },
+  "46.35.19": {
+    "wid": "46.35.19",
+    "page": 506,
+    "x": [
+      1646,
+      1610,
+      1554
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00016-c0010",
+    "note": "Manual visual neck separates mim loop and nun stem; shadda and kasra do not shift body boundary. Right kasra clipped by immutable crop.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "19.98.3": {
+    "wid": "19.98.3",
+    "page": 312,
+    "x": [
+      1837,
+      1799,
+      1744
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00016-c0011",
+    "note": "Manual visual neck separates mim loop and nun stem; shadda and kasra do not shift body boundary. Right kasra clipped by immutable crop.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "34.54.8": {
+    "wid": "34.54.8",
+    "page": 434,
+    "x": [
+      1211,
+      1177,
+      1127
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00016-c0012",
+    "note": "Manual visual neck separates mim loop and nun stem; shadda and kasra do not shift body boundary."
+  },
+  "75.37.3": {
+    "wid": "75.37.3",
+    "page": 578,
+    "x": [
+      1551,
+      1525,
+      1474
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00016-c0013",
+    "note": "Manual visual joining neck, keeping nun bowl intact; marks ignored for inner border. Right kasra clipped at immutable box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "38.71.7": {
+    "wid": "38.71.7",
+    "page": 457,
+    "x": [
+      1159,
+      1128,
+      1078
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00016-c0014",
+    "note": "Manual visual joining neck, keeping nun bowl intact; marks ignored for inner border."
+  },
+  "2.178.27": {
+    "wid": "2.178.27",
+    "page": 27,
+    "x": [
+      1015,
+      980,
+      926
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00016-c0015",
+    "note": "Manual visual joining neck, keeping nun bowl intact; marks ignored for inner border."
+  },
+  "7.152.6": {
+    "wid": "7.152.6",
+    "page": 169,
+    "x": [
+      1056,
+      1017,
+      959
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00016-c0016",
+    "note": "Manual visual joining neck, keeping nun bowl intact; marks ignored for inner border. Right kasra clipped at immutable box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "17.58.1": {
+    "wid": "17.58.1",
+    "page": 287,
+    "x": [
+      1701,
+      1663,
+      1609
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00016-c0017",
+    "note": "Manual visual joining neck, keeping nun bowl intact; marks ignored for inner border. Right kasra clipped at immutable box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "34.5.8": {
+    "wid": "34.5.8",
+    "page": 428,
+    "x": [
+      1475,
+      1439,
+      1383
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00016-c0018",
+    "note": "Manual visual joining neck, keeping nun bowl intact; marks ignored for inner border. Right kasra clipped at immutable box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "52.40.4": {
+    "wid": "52.40.4",
+    "page": 525,
+    "x": [
+      1312,
+      1284,
+      1234
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00016-c0019",
+    "note": "Manual visual joining neck, keeping nun bowl intact; marks ignored for inner border."
+  },
+  "16.53.2": {
+    "wid": "16.53.2",
+    "page": 272,
+    "x": [
+      176,
+      140,
+      88
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00016-c0020",
+    "note": "Manual visual joining neck, keeping nun bowl intact; marks ignored for inner border. Right kasra clipped at immutable box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "39.6.1": {
+    "wid": "39.6.1",
+    "page": 459,
+    "x": [
+      1566,
+      1532,
+      1472
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00016-c0021",
+    "note": "Manual visual joining neck, keeping nun bowl intact; marks ignored for inner border."
+  },
+  "7.105.12": {
+    "wid": "7.105.12",
+    "page": 164,
+    "x": [
+      1669,
+      1634,
+      1578
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00016-c0022",
+    "note": "Manual visual joining neck, keeping nun bowl intact; marks ignored for inner border. Right kasra clipped at immutable box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "14.16.0": {
+    "wid": "14.16.0",
+    "page": 257,
+    "x": [
+      783,
+      748,
+      701
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00016-c0023",
+    "note": "Manual visual joining neck, keeping nun bowl intact; marks ignored for inner border."
+  },
+  "42.47.14": {
+    "wid": "42.47.14",
+    "page": 488,
+    "x": [
+      1830,
+      1798,
+      1741
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00016-c0024",
+    "note": "Manual visual joining neck, keeping nun bowl intact; marks ignored for inner border. Right kasra clipped at immutable box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "65.8.1": {
+    "wid": "65.8.1",
+    "page": 559,
+    "x": [
+      344,
+      312,
+      261
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00016-c0025",
+    "note": "Manual visual joining neck between mim head and nun; stretched connector divided inside visible neck. Right ink clipped at immutable box; both target bodies visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.221.20": {
+    "wid": "2.221.20",
+    "page": 35,
+    "x": [
+      1074,
+      1047,
+      990
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00016-c0026",
+    "note": "Manual visual joining neck between mim head and nun; stretched connector divided inside visible neck. Right ink clipped at immutable box; both target bodies visible. Mim loop partly cropped on right, still present.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "3.91.22": {
+    "wid": "3.91.22",
+    "page": 61,
+    "x": [
+      546,
+      511,
+      464
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00016-c0027",
+    "note": "Manual visual joining neck between mim head and nun; stretched connector divided inside visible neck."
+  },
+  "18.90.12": {
+    "wid": "18.90.12",
+    "page": 303,
+    "x": [
+      203,
+      165,
+      106
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00016-c0028",
+    "note": "Manual visual joining neck between mim head and nun; stretched connector divided inside visible neck."
+  },
+  "28.46.16": {
+    "wid": "28.46.16",
+    "page": 391,
+    "x": [
+      1244,
+      1214,
+      1160
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00016-c0029",
+    "note": "Manual visual joining neck between mim head and nun; stretched connector divided inside visible neck. Right ink clipped at immutable box; both target bodies visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.198.6": {
+    "wid": "2.198.6",
+    "page": 31,
+    "x": [
+      1274,
+      1241,
+      1187
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00016-c0030",
+    "note": "Manual visual joining neck between mim head and nun; stretched connector divided inside visible neck. Right ink clipped at immutable box; both target bodies visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "3.22.9": {
+    "wid": "3.22.9",
+    "page": 52,
+    "x": [
+      778,
+      743,
+      612
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00016-c0031",
+    "note": "Manual visual joining neck between mim head and nun; stretched connector divided inside visible neck."
+  },
+  "3.64.22": {
+    "wid": "3.64.22",
+    "page": 58,
+    "x": [
+      1448,
+      1409,
+      1360
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00016-c0032",
+    "note": "Manual visual joining neck between mim head and nun; stretched connector divided inside visible neck. Right ink clipped at immutable box; both target bodies visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "5.60.4": {
+    "wid": "5.60.4",
+    "page": 118,
+    "x": [
+      1384,
+      1343,
+      1292
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00016-c0033",
+    "note": "Manual visual joining neck between mim head and nun; stretched connector divided inside visible neck."
+  },
+  "7.73.16": {
+    "wid": "7.73.16",
+    "page": 159,
+    "x": [
+      238,
+      202,
+      112
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00016-c0034",
+    "note": "Manual visual joining neck between mim head and nun; stretched connector divided inside visible neck. Right ink clipped at immutable box; both target bodies visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "7.82.8": {
+    "wid": "7.82.8",
+    "page": 161,
+    "x": [
+      199,
+      156,
+      93
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00016-c0035",
+    "note": "Manual visual joining neck between mim head and nun; stretched connector divided inside visible neck."
+  },
+  "7.85.16": {
+    "wid": "7.85.16",
+    "page": 161,
+    "x": [
+      281,
+      247,
+      92
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00016-c0036",
+    "note": "Manual visual joining neck between mim head and nun; stretched connector divided inside visible neck. Right ink clipped at immutable box; both target bodies visible.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "10.59.6": {
+    "wid": "10.59.6",
+    "page": 215,
+    "x": [
+      495,
+      462,
+      278
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00016-c0037",
+    "note": "Manual visible mim-to-nun joining neck, preserving full visible nun bowl. Right ink clipped by immutable crop; both target bodies remain present.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "16.37.12": {
+    "wid": "16.37.12",
+    "page": 271,
+    "x": [
+      722,
+      684,
+      624
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00016-c0038",
+    "note": "Manual visible mim-to-nun joining neck, preserving full visible nun bowl."
+  },
+  "21.2.4": {
+    "wid": "21.2.4",
+    "page": 322,
+    "x": [
+      1152,
+      1117,
+      1063
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00016-c0039",
+    "note": "Manual visible mim-to-nun joining neck, preserving full visible nun bowl. Right ink clipped by immutable crop; both target bodies remain present.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "21.34.3": {
+    "wid": "21.34.3",
+    "page": 324,
+    "x": [
+      367,
+      334,
+      280
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00016-c0040",
+    "note": "Manual visible mim-to-nun joining neck, preserving full visible nun bowl. Right ink clipped by immutable crop; both target bodies remain present.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "28.60.2": {
+    "wid": "28.60.2",
+    "page": 393,
+    "x": [
+      1485,
+      1452,
+      1404
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00016-c0041",
+    "note": "Manual visible mim-to-nun joining neck, preserving full visible nun bowl. Right ink clipped by immutable crop; both target bodies remain present.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "30.39.14": {
+    "wid": "30.39.14",
+    "page": 408,
+    "x": [
+      354,
+      326,
+      280
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00016-c0042",
+    "note": "Manual visible mim-to-nun joining neck, preserving full visible nun bowl. Right ink clipped by immutable crop; both target bodies remain present. Mim loop partially cropped on right, not wholly absent.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "32.3.14": {
+    "wid": "32.3.14",
+    "page": 415,
+    "x": [
+      1267,
+      1235,
+      1177
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00016-c0043",
+    "note": "Manual visible mim-to-nun joining neck, preserving full visible nun bowl. Right ink clipped by immutable crop; both target bodies remain present. Mim loop partially cropped on right, not wholly absent.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "37.7.1": {
+    "wid": "37.7.1",
+    "page": 446,
+    "x": [
+      1870,
+      1834,
+      1783
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00016-c0044",
+    "note": "Manual visible mim-to-nun joining neck, preserving full visible nun bowl. Right ink clipped by immutable crop; both target bodies remain present.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  }
+}

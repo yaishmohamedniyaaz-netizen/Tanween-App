@@ -1,0 +1,117 @@
+{
+  "16.23.3": {
+    "wid": "16.23.3",
+    "page": 269,
+    "x": [
+      1269,
+      1255,
+      1218,
+      1172
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00010-c0030",
+    "note": "Carried from visually decided 40.20.11; destination requires sheet review."
+  },
+  "31.27.18": {
+    "wid": "31.27.18",
+    "page": 413,
+    "x": [
+      1127,
+      1115,
+      1078,
+      1031
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00010-c0030",
+    "note": "Carried from visually decided 40.20.11; destination requires sheet review."
+  },
+  "31.34.1": {
+    "wid": "31.34.1",
+    "page": 414,
+    "x": [
+      1297,
+      1284,
+      1247,
+      1202
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00010-c0030",
+    "note": "Carried from visually decided 40.20.11; destination requires sheet review."
+  },
+  "35.28.14": {
+    "wid": "35.28.14",
+    "page": 437,
+    "x": [
+      1662,
+      1648,
+      1608,
+      1559
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00010-c0030",
+    "note": "Carried from visually decided 40.20.11; destination requires sheet review."
+  },
+  "40.28.32": {
+    "wid": "40.28.32",
+    "page": 470,
+    "x": [
+      1504,
+      1491,
+      1452,
+      1397
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00010-c0030",
+    "note": "Carried from visually decided 40.20.11; destination requires sheet review."
+  },
+  "42.5.15": {
+    "wid": "42.5.15",
+    "page": 483,
+    "x": [
+      1414,
+      1400,
+      1360,
+      1303
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00010-c0030",
+    "note": "Carried from visually decided 40.20.11; destination requires sheet review."
+  },
+  "66.6.16": {
+    "wid": "66.6.16",
+    "page": 560,
+    "x": [
+      1503,
+      1488,
+      1449,
+      1401
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00010-c0030",
+    "note": "Carried from visually decided 40.20.11; destination requires sheet review."
+  },
+  "40.20.11": {
+    "wid": "40.20.11",
+    "page": 469,
+    "x": [
+      1533,
+      1518,
+      1478,
+      1426
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00010-c0030",
+    "note": "Manually located detached alif gap and baseline valley between merged double-lam and final ha body. Paired lam target kept intact; shadda and other marks do not drive divisions. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  }
+}

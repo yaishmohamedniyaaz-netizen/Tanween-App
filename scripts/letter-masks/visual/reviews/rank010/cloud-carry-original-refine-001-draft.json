@@ -1,0 +1,77 @@
+{
+  "16.23.3": {
+    "wid": "16.23.3",
+    "page": 269,
+    "x": null,
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00010-c0030",
+    "note": "Carried from visually decided 40.20.11; destination requires sheet review."
+  },
+  "31.27.18": {
+    "wid": "31.27.18",
+    "page": 413,
+    "x": null,
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00010-c0030",
+    "note": "Carried from visually decided 40.20.11; destination requires sheet review."
+  },
+  "31.34.1": {
+    "wid": "31.34.1",
+    "page": 414,
+    "x": null,
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00010-c0030",
+    "note": "Carried from visually decided 40.20.11; destination requires sheet review."
+  },
+  "35.28.14": {
+    "wid": "35.28.14",
+    "page": 437,
+    "x": null,
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00010-c0030",
+    "note": "Carried from visually decided 40.20.11; destination requires sheet review."
+  },
+  "40.28.32": {
+    "wid": "40.28.32",
+    "page": 470,
+    "x": null,
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00010-c0030",
+    "note": "Carried from visually decided 40.20.11; destination requires sheet review."
+  },
+  "42.5.15": {
+    "wid": "42.5.15",
+    "page": 483,
+    "x": null,
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00010-c0030",
+    "note": "Carried from visually decided 40.20.11; destination requires sheet review."
+  },
+  "66.6.16": {
+    "wid": "66.6.16",
+    "page": 560,
+    "x": null,
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00010-c0030",
+    "note": "Carried from visually decided 40.20.11; destination requires sheet review."
+  },
+  "40.20.11": {
+    "wid": "40.20.11",
+    "page": 469,
+    "x": null,
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00010-c0030",
+    "note": "Manually located detached alif gap and baseline valley between merged double-lam and final ha body. Paired lam target kept intact; shadda and other marks do not drive divisions. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  }
+}

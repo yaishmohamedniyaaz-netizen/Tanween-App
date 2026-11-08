@@ -1,0 +1,218 @@
+{
+  "46.18.5": {
+    "wid": "46.18.5",
+    "page": 504,
+    "x": [
+      1668,
+      1636,
+      1594
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00088-c0001",
+    "note": "Fa loop left edge anchors cut; folded ya return overlaps beneath fa. Stack uncertainty; right kasra clipped.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "28.36.14": {
+    "wid": "28.36.14",
+    "page": 390,
+    "x": [
+      1035,
+      1007,
+      956
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00088-c0002",
+    "note": "Fa loop left edge anchors cut; folded ya return overlaps beneath fa. Stack uncertainty; right kasra clipped.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "43.4.1": {
+    "wid": "43.4.1",
+    "page": 489,
+    "x": [
+      798,
+      768,
+      724
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00088-c0003",
+    "note": "Fa loop left edge anchors useful vertical cut; folded final ya return crosses underneath fa. Low confidence for stacked body overlap; marks do not move cut."
+  },
+  "41.40.3": {
+    "wid": "41.40.3",
+    "page": 481,
+    "x": [
+      962,
+      932,
+      883
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00088-c0004",
+    "note": "Fa loop left edge anchors useful vertical cut; folded final ya return crosses underneath fa. Low confidence for stacked body overlap; marks do not move cut."
+  },
+  "2.235.39": {
+    "wid": "2.235.39",
+    "page": 38,
+    "x": [
+      1070,
+      1039,
+      984
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00088-c0005",
+    "note": "Fa loop left edge anchors cut; folded ya return overlaps beneath fa. Stack uncertainty; right kasra clipped.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "22.28.6": {
+    "wid": "22.28.6",
+    "page": 335,
+    "x": [
+      763,
+      733,
+      682
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00088-c0006",
+    "note": "Fa loop left edge anchors cut; folded ya return overlaps beneath fa. Stack uncertainty; right kasra clipped.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.203.2": {
+    "wid": "2.203.2",
+    "page": 32,
+    "x": [
+      1195,
+      1167,
+      1115
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00088-c0007",
+    "note": "Fa loop left edge anchors cut; folded ya return overlaps beneath fa. Stack uncertainty; right kasra clipped.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "7.71.9": {
+    "wid": "7.71.9",
+    "page": 159,
+    "x": [
+      1391,
+      1364,
+      1246
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00088-c0008",
+    "note": "Compact fa loop at right; very broad ya bowl extends left and returns below fa. Stack uncertainty, whole broad bowl retained."
+  },
+  "22.52.13": {
+    "wid": "22.52.13",
+    "page": 338,
+    "x": [
+      1381,
+      1351,
+      1304
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00088-c0009",
+    "note": "Fa loop left edge anchors useful vertical cut; folded final ya return crosses underneath fa. Low confidence for stacked body overlap; marks do not move cut."
+  },
+  "11.87.12": {
+    "wid": "11.87.12",
+    "page": 231,
+    "x": [
+      731,
+      700,
+      650
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00088-c0010",
+    "note": "Fa loop left edge anchors useful vertical cut; folded final ya return crosses underneath fa. Low confidence for stacked body overlap; marks do not move cut. Shaded review: right kasra tip appears clipped flush at immutable edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "67.10.8": {
+    "wid": "67.10.8",
+    "page": 562,
+    "x": [
+      369,
+      345,
+      305
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00088-c0011",
+    "note": "Fa loop left edge anchors cut; folded ya return overlaps beneath fa. Stack uncertainty; right kasra clipped.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.19.10": {
+    "wid": "2.19.10",
+    "page": 4,
+    "x": [
+      740,
+      711,
+      669
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00088-c0012",
+    "note": "Fa loop left edge anchors useful vertical cut; folded final ya return crosses underneath fa. Low confidence for stacked body overlap; marks do not move cut."
+  },
+  "34.38.2": {
+    "wid": "34.38.2",
+    "page": 432,
+    "x": [
+      204,
+      177,
+      105
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00088-c0013",
+    "note": "Fa loop left edge anchors useful vertical cut; final ya broad bowl and return cross underneath fa. Low confidence for stacked body overlap; marks do not move cut."
+  },
+  "40.4.2": {
+    "wid": "40.4.2",
+    "page": 467,
+    "x": [
+      958,
+      929,
+      884
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00088-c0014",
+    "note": "Fa loop left edge anchors useful vertical cut; final ya broad bowl and return cross underneath fa. Low confidence for stacked body overlap; marks do not move cut."
+  },
+  "95.4.3": {
+    "wid": "95.4.3",
+    "page": 597,
+    "x": [
+      1364,
+      1337,
+      1298
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00088-c0015",
+    "note": "Fa loop left edge anchors useful vertical cut; final ya broad bowl and return cross underneath fa. Low confidence for stacked body overlap; marks do not move cut."
+  }
+}
