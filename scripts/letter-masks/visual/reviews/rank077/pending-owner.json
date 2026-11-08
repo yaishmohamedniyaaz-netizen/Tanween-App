@@ -1,0 +1,10 @@
+[
+  {
+    "wid": "27.40.25",
+    "page": 380,
+    "cluster": "s00077-c0035",
+    "status": "withheld-missing-target",
+    "reason": "The immutable crop contains mim and small upper marks, but the alif carrier body is entirely outside the right edge. No target slot invented.",
+    "evidence": "scripts/letter-masks/visual/reviews/rank077/representatives-original-006.png"
+  }
+]

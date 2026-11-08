@@ -1,0 +1,352 @@
+{
+  "1": [
+    1055,
+    "low",
+    "Fa loop overlaps ya hook; divide at the left edge of the upper fa core, retaining the broad ya bowl."
+  ],
+  "2": [
+    1016,
+    "low",
+    "Fa loop overhangs ya; split at upper fa core left edge, leaving ya the long lower bowl."
+  ],
+  "3": [
+    1795,
+    "low",
+    "Stacked fa and ya cannot be isolated vertically; upper fa core remains on right."
+  ],
+  "4": [
+    1147,
+    "low",
+    "Old dashed line is far left of fa core; move division to the upper loop's left edge."
+  ],
+  "5": [
+    718,
+    "low",
+    "Fa loop above ya hook; narrow right core, broad left bowl."
+  ],
+  "6": [
+    1806,
+    "low",
+    "Stacked upper fa loop and final ya; cut near fa left core, ignoring displaced dot."
+  ],
+  "7": [
+    1730,
+    "low",
+    "Stacked fa loop over ya; cut at left edge of upper loop."
+  ],
+  "8": [
+    1286,
+    "low",
+    "Fa core overhangs ya return; preserve full left bowl."
+  ],
+  "9": [
+    115,
+    "low",
+    "Compact stacked fi; left edge of fa loop gives useful core separation."
+  ],
+  "10": [
+    1303,
+    "low",
+    "Fa loop above ya shoulder; marks do not set the cut."
+  ],
+  "11": [
+    1538,
+    "low",
+    "Stacked fi; border at left edge of fa core, not the lower tail."
+  ],
+  "12": [
+    1207,
+    "low",
+    "Right fa core over broad ya bowl; boundary follows upper loop left edge."
+  ],
+  "13": [
+    557,
+    "low",
+    "Compact stacked fi; border follows fa loop's left edge."
+  ],
+  "14": [
+    1031,
+    "low",
+    "Shift old hint right to the upper fa core; broad ya bowl retained."
+  ],
+  "15": [
+    1787,
+    "low",
+    "Fa overlaps ya hook; use upper loop left edge for core separation."
+  ],
+  "16": [
+    148,
+    "low",
+    "Old hint left of upper fa; move boundary to fa core."
+  ],
+  "17": [
+    496,
+    "low",
+    "Dashed hint crosses broad ya bowl; use left edge of upper fa loop."
+  ],
+  "18": [
+    1492,
+    "low",
+    "Compact stacked form; fa loop kept right, ya bowl left."
+  ],
+  "19": [
+    1082,
+    "low",
+    "Old hint cuts ya bowl; move to left edge of fa upper loop."
+  ],
+  "20": [
+    942,
+    "low",
+    "Fa core lies well right of old hint; lower ya extends underneath."
+  ],
+  "21": [
+    1814,
+    "low",
+    "Boundary follows upper fa core rather than bowl centre."
+  ],
+  "22": [
+    1482,
+    "low",
+    "Stacked fi; keep compact fa core right and long ya bowl left."
+  ],
+  "23": [
+    605,
+    "low",
+    "Old hint left of loop; divide by upper fa core edge."
+  ],
+  "24": [
+    1396,
+    "low",
+    "Fa overhangs ya hook; cut near left edge of fa loop."
+  ],
+  "25": [
+    1349,
+    "low",
+    "Fa loop's left edge defines compact right slot above the overlapping ya."
+  ],
+  "26": [
+    1796,
+    "low",
+    "Dashed hint crosses ya bowl; move right to fa core."
+  ],
+  "27": [
+    1469,
+    "low",
+    "Fa core remains right; wide bowl and hook remain ya despite vertical overlap."
+  ],
+  "28": [
+    142,
+    "low",
+    "Stacked upper loop; use core edge rather than dot or lower return."
+  ],
+  "29": [
+    1671,
+    "low",
+    "Old hint far left; boundary at left of upper fa loop."
+  ],
+  "30": [
+    1388,
+    "low",
+    "Fa upper core over ya; divide at core's left edge."
+  ],
+  "31": [
+    220,
+    "low",
+    "Old hint in ya bowl; move to fa loop's left edge."
+  ],
+  "32": [
+    379,
+    "low",
+    "Upper fa and lower ya overlap; preserve right loop as fa core."
+  ],
+  "33": [
+    1589,
+    "low",
+    "Boundary at upper fa core left edge; whole bowl remains the ya target."
+  ],
+  "34": [
+    445,
+    "low",
+    "Use left edge of fa loop despite overlapping ya hook."
+  ],
+  "35": [
+    835,
+    "low",
+    "Old hint too far left; move border under upper fa core edge."
+  ],
+  "36": [
+    1077,
+    "low",
+    "Compact stacked fi; do not follow displaced dot or diacritic."
+  ],
+  "37": [
+    148,
+    "low",
+    "Upper fa core overlaps ya; cut at fa's left loop edge."
+  ],
+  "38": [
+    777,
+    "low",
+    "Fa loop starts just right of old line; broad ya returns below."
+  ],
+  "39": [
+    1266,
+    "low",
+    "Compact stacked fa/ya; border follows upper loop's left edge."
+  ],
+  "40": [
+    1215,
+    "low",
+    "Fa loop sits above hook; split by visible loop core."
+  ],
+  "41": [
+    542,
+    "low",
+    "Greatly stretched ya bowl keeps nearly all width; fa is only compact upper right core."
+  ],
+  "42": [
+    1119,
+    "low",
+    "Old hint lies left of fa; move to upper loop edge."
+  ],
+  "43": [
+    145,
+    "low",
+    "Fa upper loop slightly left of old line; preserve core despite ya overlap."
+  ],
+  "44": [
+    853,
+    "low",
+    "Old line crosses fa loop; move to loop's left edge."
+  ],
+  "45": [
+    1172,
+    "low",
+    "Dashed line lies in ya bowl; boundary belongs near upper fa core."
+  ],
+  "46": [
+    180,
+    "low",
+    "Elongated ya owns nearly all lower stretch; compact fa core remains right."
+  ],
+  "47": [
+    1805,
+    "low",
+    "Old line cuts ya bowl; move to upper fa loop's left side."
+  ],
+  "48": [
+    416,
+    "low",
+    "Very wide ya bowl; compact upper right fa determines boundary."
+  ],
+  "49": [
+    442,
+    "low",
+    "Large stretched ya bowl; far-left old hint rejected, upper fa core kept compact."
+  ],
+  "50": [
+    196,
+    "low",
+    "Long ya tail owns width; fa begins at upper loop's left edge."
+  ],
+  "51": [
+    662,
+    "low",
+    "Stretched ya; border near fa upper loop instead of lower-bowl midpoint."
+  ],
+  "52": [
+    1383,
+    "low",
+    "Compact stacked fi; border at upper fa core left edge."
+  ],
+  "53": [
+    1543,
+    "low",
+    "Fa upper core and ya hook overlap; preserve broad left bowl."
+  ],
+  "54": [
+    649,
+    "low",
+    "Shaded self-check showed657 cut through fa loop; moved to upper-loop left edge649."
+  ],
+  "55": [
+    1785,
+    "low",
+    "Very long ya bowl keeps stretch; compact fa upper core determines split."
+  ],
+  "56": [
+    400,
+    "low",
+    "Narrow stacked fi; fa loop begins at the chosen boundary."
+  ],
+  "57": [
+    519,
+    "low",
+    "Broad ya with fa above right hook; keep upper fa core right."
+  ],
+  "58": [
+    604,
+    "low",
+    "Thin upright fa above hooked ya; loop edge is a doubtful vertical division."
+  ],
+  "59": [
+    937,
+    "low",
+    "Stretched lower ya bowl; border moved near upper fa, not midpoint."
+  ],
+  "60": [
+    173,
+    "low",
+    "Long ya bowl with compact fa loop over right end; cut at fa core left edge."
+  ],
+  "61": [
+    631,
+    "low",
+    "Long ya stretch left of compact fa; border set by fa loop core."
+  ],
+  "62": [
+    876,
+    "low",
+    "Very wide ya bowl; upper-right fa remains compact rather than sharing equal width."
+  ],
+  "63": [
+    932,
+    "low",
+    "Narrow stacked fi; upper fa and lower ya overlap at chosen core division."
+  ],
+  "64": [
+    175,
+    "low",
+    "Long lower bowl belongs to ya; cut at fa core's left side."
+  ],
+  "65": [
+    922,
+    "low",
+    "Extreme final ya stretch retained fully left; fa uses compact right core."
+  ],
+  "66": [
+    341,
+    "low",
+    "Compact stacked form; fa core slightly left of old dashed hint."
+  ],
+  "67": [
+    972,
+    "low",
+    "Very long ya tail retained left; compact upper fa begins near 972."
+  ],
+  "68": [
+    175,
+    "low",
+    "Stretched ya bowl and fa overlap; split at fa loop's left core."
+  ],
+  "69": [
+    846,
+    "low",
+    "Narrow stacked fi; boundary placed at upper fa loop's left edge."
+  ],
+  "70": [
+    249,
+    "low",
+    "Fa core overlaps ya hook; tall left crop intrusion makes this drawing additionally uncertain."
+  ]
+}

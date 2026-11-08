@@ -1,0 +1,17 @@
+{
+  "status": "reviewed",
+  "rank": 78,
+  "words": 100,
+  "representatives": 51,
+  "copies": 49,
+  "withheld": 0,
+  "observer": "continue76_100",
+  "at": "2026-11-08T09:04:55.255788+00:00",
+  "checks": [
+    "exact-app-N+1",
+    "min2px",
+    "inward-immutable-box",
+    "coverage"
+  ],
+  "note": "All original, shaded representative, and copy sheets actually viewed. No test scoring."
+}

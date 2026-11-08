@@ -1,0 +1,902 @@
+{
+  "18.30.6": {
+    "wid": "18.30.6",
+    "page": 297,
+    "x": [
+      1415,
+      1352
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00007-c0001",
+    "note": "Actually viewed single app merged lam-alif target; entire visible ligature retained as one span, no inner cut. Visible fatha or carrier clipped at immutable crop edge; owner keep-inside-box decision, flag review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "6.113.4": {
+    "wid": "6.113.4",
+    "page": 142,
+    "x": [
+      789,
+      724
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00007-c0002",
+    "note": "Actually viewed single app merged lam-alif target; entire visible ligature retained as one span, no inner cut. Visible fatha or carrier clipped at immutable crop edge; owner keep-inside-box decision, flag review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "23.117.15": {
+    "wid": "23.117.15",
+    "page": 349,
+    "x": [
+      371,
+      303
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00007-c0003",
+    "note": "Actually viewed single app merged lam-alif target; entire visible ligature retained as one span, no inner cut. Visible fatha or carrier clipped at immutable crop edge; owner keep-inside-box decision, flag review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "75.11.1": {
+    "wid": "75.11.1",
+    "page": 577,
+    "x": [
+      1386,
+      1329
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00007-c0004",
+    "note": "Actually viewed single app merged lam-alif target; entire visible ligature retained as one span, no inner cut. Visible fatha or carrier clipped at immutable crop edge; owner keep-inside-box decision, flag review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "5.87.14": {
+    "wid": "5.87.14",
+    "page": 122,
+    "x": [
+      1821,
+      1756
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00007-c0005",
+    "note": "Actually viewed single app merged lam-alif target; entire visible ligature retained as one span, no inner cut. Visible fatha or carrier clipped at immutable crop edge; owner keep-inside-box decision, flag review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "26.226.3": {
+    "wid": "26.226.3",
+    "page": 376,
+    "x": [
+      856,
+      794
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00007-c0006",
+    "note": "Actually viewed single app merged lam-alif target; entire visible ligature retained as one span, no inner cut."
+  },
+  "37.92.2": {
+    "wid": "37.92.2",
+    "page": 449,
+    "x": [
+      1003,
+      943
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00007-c0007",
+    "note": "Actually viewed single app merged lam-alif target; entire visible ligature retained as one span, no inner cut. Visible fatha or carrier clipped at immutable crop edge; owner keep-inside-box decision, flag review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "4.19.3": {
+    "wid": "4.19.3",
+    "page": 80,
+    "x": [
+      1579,
+      1515
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00007-c0008",
+    "note": "Actually viewed single app merged lam-alif target; entire visible ligature retained as one span, no inner cut. Visible fatha or carrier clipped at immutable crop edge; owner keep-inside-box decision, flag review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "8.59.6": {
+    "wid": "8.59.6",
+    "page": 184,
+    "x": [
+      591,
+      529
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00007-c0009",
+    "note": "Actually viewed single app merged lam-alif target; entire visible ligature retained as one span, no inner cut. Visible fatha or carrier clipped at immutable crop edge; owner keep-inside-box decision, flag review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "16.62.10": {
+    "wid": "16.62.10",
+    "page": 273,
+    "x": [
+      444,
+      382
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00007-c0010",
+    "note": "Actually viewed single app merged lam-alif target; entire visible ligature retained as one span, no inner cut. Visible fatha or carrier clipped at immutable crop edge; owner keep-inside-box decision, flag review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "28.57.23": {
+    "wid": "28.57.23",
+    "page": 392,
+    "x": [
+      1466,
+      1403
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00007-c0011",
+    "note": "Actually viewed single app merged lam-alif target; entire visible ligature retained as one span, no inner cut. Visible fatha or carrier clipped at immutable crop edge; owner keep-inside-box decision, flag review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "61.2.6": {
+    "wid": "61.2.6",
+    "page": 551,
+    "x": [
+      608,
+      545
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00007-c0012",
+    "note": "Actually viewed single app merged lam-alif target; entire visible ligature retained as one span, no inner cut."
+  },
+  "5.103.19": {
+    "wid": "5.103.19",
+    "page": 124,
+    "x": [
+      557,
+      494
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00007-c0013",
+    "note": "Actually viewed single app merged lam-alif target; entire visible ligature retained as one span, no inner cut. Visible fatha or carrier clipped at immutable crop edge; owner keep-inside-box decision, flag review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "21.103.0": {
+    "wid": "21.103.0",
+    "page": 331,
+    "x": [
+      1356,
+      1288
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00007-c0014",
+    "note": "Actually viewed single app merged lam-alif target; entire visible ligature retained as one span, no inner cut."
+  },
+  "39.3.27": {
+    "wid": "39.3.27",
+    "page": 458,
+    "x": [
+      862,
+      796
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00007-c0015",
+    "note": "Actually viewed single app merged lam-alif target; entire visible ligature retained as one span, no inner cut. Visible fatha or carrier clipped at immutable crop edge; owner keep-inside-box decision, flag review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "25.22.3": {
+    "wid": "25.22.3",
+    "page": 362,
+    "x": [
+      1087,
+      1023
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00007-c0016",
+    "note": "Actually viewed single app merged lam-alif target; entire visible ligature retained as one span, no inner cut. Visible fatha or carrier clipped at immutable crop edge; owner keep-inside-box decision, flag review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "38.60.3": {
+    "wid": "38.60.3",
+    "page": 456,
+    "x": [
+      1515,
+      1456
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00007-c0017",
+    "note": "Actually viewed single app merged lam-alif target; entire visible ligature retained as one span, no inner cut. Visible fatha or carrier clipped at immutable crop edge; owner keep-inside-box decision, flag review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "13.1.13": {
+    "wid": "13.1.13",
+    "page": 249,
+    "x": [
+      1297,
+      1233
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00007-c0018",
+    "note": "Actually viewed single app merged lam-alif target; entire visible ligature retained as one span, no inner cut. Visible fatha or carrier clipped at immutable crop edge; owner keep-inside-box decision, flag review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "33.13.6": {
+    "wid": "33.13.6",
+    "page": 419,
+    "x": [
+      1294,
+      1229
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00007-c0019",
+    "note": "Actually viewed single app merged lam-alif target; entire visible ligature retained as one span, no inner cut. Visible fatha or carrier clipped at immutable crop edge; owner keep-inside-box decision, flag review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "7.182.6": {
+    "wid": "7.182.6",
+    "page": 174,
+    "x": [
+      1057,
+      995
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00007-c0020",
+    "note": "Actually viewed single app merged lam-alif target; entire visible ligature retained as one span, no inner cut. Visible fatha or carrier clipped at immutable crop edge; owner keep-inside-box decision, flag review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "49.14.18": {
+    "wid": "49.14.18",
+    "page": 517,
+    "x": [
+      1583,
+      1522
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00007-c0021",
+    "note": "Actually viewed single app merged lam-alif target; entire visible ligature retained as one span, no inner cut. Visible fatha or carrier clipped at immutable crop edge; owner keep-inside-box decision, flag review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "5.41.2": {
+    "wid": "5.41.2",
+    "page": 114,
+    "x": [
+      1823,
+      1751
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00007-c0022",
+    "note": "Actually viewed single app merged lam-alif target; entire visible ligature retained as one span, no inner cut. Visible fatha or carrier clipped at immutable crop edge; owner keep-inside-box decision, flag review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "6.61.15": {
+    "wid": "6.61.15",
+    "page": 135,
+    "x": [
+      1495,
+      1431
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00007-c0023",
+    "note": "Actually viewed single app merged lam-alif target; entire visible ligature retained as one span, no inner cut. Visible fatha or carrier clipped at immutable crop edge; owner keep-inside-box decision, flag review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "36.9.10": {
+    "wid": "36.9.10",
+    "page": 440,
+    "x": [
+      769,
+      708
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00007-c0024",
+    "note": "Actually viewed single app merged lam-alif target; entire visible ligature retained as one span, no inner cut. Visible fatha or carrier clipped at immutable crop edge; owner keep-inside-box decision, flag review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "7.198.10": {
+    "wid": "7.198.10",
+    "page": 176,
+    "x": [
+      1009,
+      946
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00007-c0025",
+    "note": "Actually viewed single app merged lam-alif target; entire visible ligature retained as one span, no inner cut. Visible fatha or carrier clipped at immutable crop edge; owner keep-inside-box decision, flag review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "8.58.11": {
+    "wid": "8.58.11",
+    "page": 184,
+    "x": [
+      596,
+      532
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00007-c0026",
+    "note": "Actually viewed single app merged lam-alif target; entire visible ligature retained as one span, no inner cut."
+  },
+  "10.18.18": {
+    "wid": "10.18.18",
+    "page": 210,
+    "x": [
+      845,
+      791
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00007-c0027",
+    "note": "Actually viewed single app merged lam-alif target; entire visible ligature retained as one span, no inner cut. Visible fatha or carrier clipped at immutable crop edge; owner keep-inside-box decision, flag review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "7.146.20": {
+    "wid": "7.146.20",
+    "page": 168,
+    "x": [
+      988,
+      926
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00007-c0028",
+    "note": "Actually viewed single app merged lam-alif target; entire visible ligature retained as one span, no inner cut. Visible fatha or carrier clipped at immutable crop edge; owner keep-inside-box decision, flag review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "9.101.11": {
+    "wid": "9.101.11",
+    "page": 203,
+    "x": [
+      411,
+      351
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00007-c0029",
+    "note": "Actually viewed single app merged lam-alif target; entire visible ligature retained as one span, no inner cut. Visible fatha or carrier clipped at immutable crop edge; owner keep-inside-box decision, flag review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "18.39.8": {
+    "wid": "18.39.8",
+    "page": 298,
+    "x": [
+      904,
+      840
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00007-c0030",
+    "note": "Actually viewed single app merged lam-alif target; entire visible ligature retained as one span, no inner cut. Visible fatha or carrier clipped at immutable crop edge; owner keep-inside-box decision, flag review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "25.58.4": {
+    "wid": "25.58.4",
+    "page": 365,
+    "x": [
+      1421,
+      1359
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00007-c0031",
+    "note": "Actually viewed single app merged lam-alif target; entire visible ligature retained as one span, no inner cut. Visible fatha or carrier clipped at immutable crop edge; owner keep-inside-box decision, flag review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "4.87.9": {
+    "wid": "4.87.9",
+    "page": 92,
+    "x": [
+      449,
+      388
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00007-c0032",
+    "note": "Actually viewed single app merged lam-alif target; entire visible ligature retained as one span, no inner cut. Visible fatha or carrier clipped at immutable crop edge; owner keep-inside-box decision, flag review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "6.71.6": {
+    "wid": "6.71.6",
+    "page": 136,
+    "x": [
+      1738,
+      1673
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00007-c0033",
+    "note": "Actually viewed single app merged lam-alif target; entire visible ligature retained as one span, no inner cut. Visible fatha or carrier clipped at immutable crop edge; owner keep-inside-box decision, flag review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "9.79.8": {
+    "wid": "9.79.8",
+    "page": 199,
+    "x": [
+      516,
+      456
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00007-c0034",
+    "note": "Actually viewed single app merged lam-alif target; entire visible ligature retained as one span, no inner cut. Visible fatha or carrier clipped at immutable crop edge; owner keep-inside-box decision, flag review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "33.37.32": {
+    "wid": "33.37.32",
+    "page": 423,
+    "x": [
+      1036,
+      970
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00007-c0035",
+    "note": "Actually viewed single app merged lam-alif target; entire visible ligature retained as one span, no inner cut. Visible fatha or carrier clipped at immutable crop edge; owner keep-inside-box decision, flag review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "34.42.1": {
+    "wid": "34.42.1",
+    "page": 433,
+    "x": [
+      301,
+      241
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00007-c0036",
+    "note": "Actually viewed single app merged lam-alif target; entire visible ligature retained as one span, no inner cut. Visible fatha or carrier clipped at immutable crop edge; owner keep-inside-box decision, flag review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "36.75.0": {
+    "wid": "36.75.0",
+    "page": 445,
+    "x": [
+      494,
+      428
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00007-c0037",
+    "note": "Actually viewed single app merged lam-alif target; entire visible ligature retained as one span, no inner cut."
+  },
+  "7.202.5": {
+    "wid": "7.202.5",
+    "page": 176,
+    "x": [
+      1838,
+      1777
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00007-c0038",
+    "note": "Actually viewed single app merged lam-alif target; entire visible ligature retained as one span, no inner cut. Visible fatha or carrier clipped at immutable crop edge; owner keep-inside-box decision, flag review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "8.39.2": {
+    "wid": "8.39.2",
+    "page": 181,
+    "x": [
+      1820,
+      1755
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00007-c0039",
+    "note": "Actually viewed single app merged lam-alif target; entire visible ligature retained as one span, no inner cut."
+  },
+  "12.37.1": {
+    "wid": "12.37.1",
+    "page": 239,
+    "x": [
+      1206,
+      1149
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00007-c0040",
+    "note": "Actually viewed single app merged lam-alif target; entire visible ligature retained as one span, no inner cut. Visible fatha or carrier clipped at immutable crop edge; owner keep-inside-box decision, flag review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "16.107.9": {
+    "wid": "16.107.9",
+    "page": 279,
+    "x": [
+      1490,
+      1423
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00007-c0041",
+    "note": "Actually viewed single app merged lam-alif target; entire visible ligature retained as one span, no inner cut. Visible fatha or carrier clipped at immutable crop edge; owner keep-inside-box decision, flag review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "30.30.20": {
+    "wid": "30.30.20",
+    "page": 407,
+    "x": [
+      1855,
+      1791
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00007-c0042",
+    "note": "Actually viewed single app merged lam-alif target; entire visible ligature retained as one span, no inner cut. Visible fatha or carrier clipped at immutable crop edge; owner keep-inside-box decision, flag review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.80.21": {
+    "wid": "2.80.21",
+    "page": 12,
+    "x": [
+      1481,
+      1421
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00007-c0043",
+    "note": "Actually viewed single app merged lam-alif target; entire visible ligature retained as one span, no inner cut. Visible fatha or carrier clipped at immutable crop edge; owner keep-inside-box decision, flag review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "9.10.0": {
+    "wid": "9.10.0",
+    "page": 188,
+    "x": [
+      372,
+      304
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00007-c0044",
+    "note": "Actually viewed single app merged lam-alif target; entire visible ligature retained as one span, no inner cut."
+  },
+  "13.33.16": {
+    "wid": "13.33.16",
+    "page": 253,
+    "x": [
+      770,
+      703
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00007-c0045",
+    "note": "Actually viewed single app merged lam-alif target; entire visible ligature retained as one span, no inner cut. Visible fatha or carrier clipped at immutable crop edge; owner keep-inside-box decision, flag review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.100.8": {
+    "wid": "2.100.8",
+    "page": 15,
+    "x": [
+      1813,
+      1756
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00007-c0046",
+    "note": "Actually viewed single app merged lam-alif target; entire visible ligature retained as one span, no inner cut. Visible fatha or carrier clipped at immutable crop edge; owner keep-inside-box decision, flag review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.124.15": {
+    "wid": "2.124.15",
+    "page": 19,
+    "x": [
+      173,
+      119
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00007-c0047",
+    "note": "Actually viewed single app merged lam-alif target; entire visible ligature retained as one span, no inner cut. Visible fatha or carrier clipped at immutable crop edge; owner keep-inside-box decision, flag review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.170.17": {
+    "wid": "2.170.17",
+    "page": 26,
+    "x": [
+      815,
+      756
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00007-c0048",
+    "note": "Actually viewed single app merged lam-alif target; entire visible ligature retained as one span, no inner cut. Visible fatha or carrier clipped at immutable crop edge; owner keep-inside-box decision, flag review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "7.95.16": {
+    "wid": "7.95.16",
+    "page": 162,
+    "x": [
+      569,
+      510
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00007-c0049",
+    "note": "Actually viewed single app merged lam-alif target; entire visible ligature retained as one span, no inner cut. Visible fatha or carrier clipped at immutable crop edge; owner keep-inside-box decision, flag review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "12.90.19": {
+    "wid": "12.90.19",
+    "page": 246,
+    "x": [
+      583,
+      517
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00007-c0050",
+    "note": "Actually viewed single app merged lam-alif target; entire visible ligature retained as one span, no inner cut. Visible fatha or carrier clipped at immutable crop edge; owner keep-inside-box decision, flag review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "26.202.3": {
+    "wid": "26.202.3",
+    "page": 375,
+    "x": [
+      828,
+      766
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00007-c0051",
+    "note": "Actually viewed single app merged lam-alif target; entire visible ligature retained as one span, no inner cut. Visible fatha or carrier clipped at immutable crop edge; owner keep-inside-box decision, flag review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "3.32.8": {
+    "wid": "3.32.8",
+    "page": 54,
+    "x": [
+      319,
+      262
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00007-c0052",
+    "note": "Actually viewed single app merged lam-alif target; entire visible ligature retained as one span, no inner cut. Visible fatha or carrier clipped at immutable crop edge; owner keep-inside-box decision, flag review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "4.144.3": {
+    "wid": "4.144.3",
+    "page": 101,
+    "x": [
+      1823,
+      1766
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00007-c0053",
+    "note": "Actually viewed single app merged lam-alif target; entire visible ligature retained as one span, no inner cut. Visible fatha or carrier clipped at immutable crop edge; owner keep-inside-box decision, flag review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "10.89.9": {
+    "wid": "10.89.9",
+    "page": 219,
+    "x": [
+      1581,
+      1527
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00007-c0054",
+    "note": "Actually viewed single app merged lam-alif target; entire visible ligature retained as one span, no inner cut. Visible fatha or carrier clipped at immutable crop edge; owner keep-inside-box decision, flag review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "10.96.6": {
+    "wid": "10.96.6",
+    "page": 219,
+    "x": [
+      409,
+      355
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00007-c0055",
+    "note": "Actually viewed single app merged lam-alif target; entire visible ligature retained as one span, no inner cut."
+  },
+  "17.107.4": {
+    "wid": "17.107.4",
+    "page": 293,
+    "x": [
+      1395,
+      1349
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00007-c0056",
+    "note": "Actually viewed single app merged lam-alif target; entire visible ligature retained as one span, no inner cut. Visible fatha or carrier clipped at immutable crop edge; owner keep-inside-box decision, flag review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "41.40.5": {
+    "wid": "41.40.5",
+    "page": 481,
+    "x": [
+      675,
+      613
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00007-c0057",
+    "note": "Actually viewed single app merged lam-alif target; entire visible ligature retained as one span, no inner cut. Visible fatha or carrier clipped at immutable crop edge; owner keep-inside-box decision, flag review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.2.2": {
+    "wid": "2.2.2",
+    "page": 2,
+    "x": [
+      848,
+      802
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00007-c0058",
+    "note": "Actually viewed single app merged lam-alif target; entire visible ligature retained as one span, no inner cut. Visible fatha or carrier clipped at immutable crop edge; owner keep-inside-box decision, flag review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "5.106.35": {
+    "wid": "5.106.35",
+    "page": 125,
+    "x": [
+      1070,
+      1005
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00007-c0059",
+    "note": "Actually viewed single app merged lam-alif target; entire visible ligature retained as one span, no inner cut."
+  },
+  "35.36.5": {
+    "wid": "35.36.5",
+    "page": 438,
+    "x": [
+      1507,
+      1455
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00007-c0060",
+    "note": "Actually viewed single app merged lam-alif target; entire visible ligature retained as one span, no inner cut. Visible fatha or carrier clipped at immutable crop edge; owner keep-inside-box decision, flag review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "39.69.13": {
+    "wid": "39.69.13",
+    "page": 466,
+    "x": [
+      420,
+      371
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00007-c0061",
+    "note": "Actually viewed single app merged lam-alif target; entire visible ligature retained as one span, no inner cut."
+  },
+  "96.19.1": {
+    "wid": "96.19.1",
+    "page": 597,
+    "x": [
+      1023,
+      966
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00007-c0062",
+    "note": "Actually viewed single app merged lam-alif target; entire visible ligature retained as one span, no inner cut. Visible fatha or carrier clipped at immutable crop edge; owner keep-inside-box decision, flag review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  }
+}

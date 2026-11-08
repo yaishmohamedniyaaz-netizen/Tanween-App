@@ -1,0 +1,16 @@
+{
+  "42.17.0": {
+    "wid": "42.17.0",
+    "page": 485,
+    "x": [
+      1655,
+      1635,
+      1584,
+      1550
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00006-c0006",
+    "note": "Manually exclude neighbouring right ink at x1680: own alif/wasla ends at 1655. Alif gap 1635, ha stem 1584. Low confidence due neighbouring ink ownership."
+  }
+}

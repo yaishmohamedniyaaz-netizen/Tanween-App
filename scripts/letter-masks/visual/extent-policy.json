@@ -1,0 +1,1 @@
+{"policy":"strict-body-bounds","ownerInstruction":"Keep inside the box; flag the clipped ink for review","date":"2026-11-07","requirements":["ceil(body.left) <= left < right <= floor(body.right)","Visible main-ink clipping receives low confidence and reviewFlags clipped-ink","No artwork, page data or approved-border changes"]}

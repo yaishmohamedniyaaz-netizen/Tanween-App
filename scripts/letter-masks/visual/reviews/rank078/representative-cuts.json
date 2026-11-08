@@ -1,0 +1,806 @@
+{
+  "2.9.6": {
+    "wid": "2.9.6",
+    "page": 3,
+    "x": [
+      487,
+      470,
+      394
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00078-c0001",
+    "note": "Visible gap between initial alif carrier and the complete merged lam-alif target; no split inside lam-alif. Lower hamza/kasra ink is clipped by the right immutable edge; retain box and flag review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "7.5.6": {
+    "wid": "7.5.6",
+    "page": 151,
+    "x": [
+      702,
+      680,
+      594
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00078-c0002",
+    "note": "Visible gap between initial alif carrier and the complete merged lam-alif target; no split inside lam-alif. Lower hamza/kasra ink is clipped by the right immutable edge; retain box and flag review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "6.145.11": {
+    "wid": "6.145.11",
+    "page": 147,
+    "x": [
+      555,
+      529,
+      445
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00078-c0003",
+    "note": "Visible gap between initial alif carrier and the complete merged lam-alif target; no split inside lam-alif. Lower hamza/kasra ink is clipped by the right immutable edge; retain box and flag review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "18.50.6": {
+    "wid": "18.50.6",
+    "page": 299,
+    "x": [
+      1378,
+      1354,
+      1278
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00078-c0004",
+    "note": "Visible gap between initial alif carrier and the complete merged lam-alif target; no split inside lam-alif. Lower hamza/kasra ink is clipped by the right immutable edge; retain box and flag review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "4.29.8": {
+    "wid": "4.29.8",
+    "page": 83,
+    "x": [
+      301,
+      279,
+      201
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00078-c0005",
+    "note": "Visible gap between initial alif carrier and the complete merged lam-alif target; no split inside lam-alif. Lower hamza/kasra ink is clipped by the right immutable edge; retain box and flag review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "5.73.11": {
+    "wid": "5.73.11",
+    "page": 120,
+    "x": [
+      1694,
+      1673,
+      1587
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00078-c0006",
+    "note": "Visible gap between initial alif carrier and the complete merged lam-alif target; no split inside lam-alif. Lower hamza/kasra ink is clipped by the right immutable edge; retain box and flag review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "8.31.14": {
+    "wid": "8.31.14",
+    "page": 180,
+    "x": [
+      198,
+      179,
+      99
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00078-c0007",
+    "note": "Visible gap between initial alif carrier and the complete merged lam-alif target; no split inside lam-alif. Lower hamza/kasra ink is clipped by the right immutable edge; retain box and flag review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "12.66.11": {
+    "wid": "12.66.11",
+    "page": 243,
+    "x": [
+      209,
+      191,
+      112
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00078-c0008",
+    "note": "Visible gap between initial alif carrier and the complete merged lam-alif target; no split inside lam-alif. Lower hamza/kasra ink is clipped by the right immutable edge; retain box and flag review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "38.70.3": {
+    "wid": "38.70.3",
+    "page": 457,
+    "x": [
+      1069,
+      1049,
+      977
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00078-c0009",
+    "note": "Visible gap between initial alif carrier and the complete merged lam-alif target; no split inside lam-alif. Lower hamza/kasra ink is clipped by the right immutable edge; retain box and flag review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "2.235.21": {
+    "wid": "2.235.21",
+    "page": 38,
+    "x": [
+      1008,
+      988,
+      896
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00078-c0010",
+    "note": "Visible gap between initial alif carrier and the complete merged lam-alif target; no split inside lam-alif. Lower hamza/kasra ink is clipped by the right immutable edge; retain box and flag review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "2.237.13": {
+    "wid": "2.237.13",
+    "page": 38,
+    "x": [
+      896,
+      871,
+      779
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00078-c0011",
+    "note": "Visible gap between initial alif carrier and the complete merged lam-alif target; no split inside lam-alif. Lower hamza/kasra ink is clipped by the right immutable edge; retain box and flag review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "3.28.16": {
+    "wid": "3.28.16",
+    "page": 53,
+    "x": [
+      721,
+      703,
+      624
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00078-c0012",
+    "note": "Visible gap between initial alif carrier and the complete merged lam-alif target; no split inside lam-alif. Lower hamza/kasra ink is clipped by the right immutable edge; retain box and flag review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "3.147.3": {
+    "wid": "3.147.3",
+    "page": 68,
+    "x": [
+      1810,
+      1789,
+      1700
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00078-c0013",
+    "note": "Visible gap between initial alif carrier and the complete merged lam-alif target; no split inside lam-alif. Lower hamza/kasra ink is clipped by the right immutable edge; retain box and flag review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "4.19.16": {
+    "wid": "4.19.16",
+    "page": 80,
+    "x": [
+      793,
+      772,
+      677
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00078-c0014",
+    "note": "Visible gap between initial alif carrier and the complete merged lam-alif target; no split inside lam-alif. Lower hamza/kasra ink is clipped by the right immutable edge; retain box and flag review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "6.23.4": {
+    "wid": "6.23.4",
+    "page": 130,
+    "x": [
+      539,
+      516,
+      435
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00078-c0015",
+    "note": "Visible gap between initial alif carrier and the complete merged lam-alif target; no split inside lam-alif. Lower hamza/kasra ink is clipped by the right immutable edge; retain box and flag review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "6.26.7": {
+    "wid": "6.26.7",
+    "page": 130,
+    "x": [
+      1583,
+      1565,
+      1482
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00078-c0016",
+    "note": "Visible gap between initial alif carrier and the complete merged lam-alif target; no split inside lam-alif. Lower hamza/kasra ink is clipped by the right immutable edge; retain box and flag review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "6.158.2": {
+    "wid": "6.158.2",
+    "page": 150,
+    "x": [
+      1476,
+      1455,
+      1367
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00078-c0017",
+    "note": "Visible gap between initial alif carrier and the complete merged lam-alif target; no split inside lam-alif. Lower hamza/kasra ink is clipped by the right immutable edge; retain box and flag review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "9.52.4": {
+    "wid": "9.52.4",
+    "page": 195,
+    "x": [
+      972,
+      952,
+      860
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00078-c0018",
+    "note": "Visible gap between initial alif carrier and the complete merged lam-alif target; no split inside lam-alif. Lower hamza/kasra ink is clipped by the right immutable edge; retain box and flag review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "28.19.20": {
+    "wid": "28.19.20",
+    "page": 387,
+    "x": [
+      189,
+      169,
+      92
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00078-c0019",
+    "note": "Visible gap between initial alif carrier and the complete merged lam-alif target; no split inside lam-alif. Lower hamza/kasra ink is clipped by the right immutable edge; retain box and flag review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "34.43.20": {
+    "wid": "34.43.20",
+    "page": 433,
+    "x": [
+      1405,
+      1387,
+      1296
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00078-c0020",
+    "note": "Visible gap between initial alif carrier and the complete merged lam-alif target; no split inside lam-alif. Lower hamza/kasra ink is clipped by the right immutable edge; retain box and flag review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "74.39.0": {
+    "wid": "74.39.0",
+    "page": 576,
+    "x": [
+      1135,
+      1114,
+      1046
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00078-c0021",
+    "note": "Visible gap between initial alif carrier and the complete merged lam-alif target; no split inside lam-alif. Lower hamza/kasra ink is clipped by the right immutable edge; retain box and flag review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "2.78.5": {
+    "wid": "2.78.5",
+    "page": 12,
+    "x": [
+      643,
+      623,
+      541
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00078-c0022",
+    "note": "Visible gap between initial alif carrier and the complete merged lam-alif target; no split inside lam-alif. Lower hamza/kasra ink is clipped by the right immutable edge; retain box and flag review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "2.80.4": {
+    "wid": "2.80.4",
+    "page": 12,
+    "x": [
+      892,
+      870,
+      777
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00078-c0023",
+    "note": "Visible gap between initial alif carrier and the complete merged lam-alif target; no split inside lam-alif. Lower hamza/kasra ink is clipped by the right immutable edge; retain box and flag review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "2.229.15": {
+    "wid": "2.229.15",
+    "page": 36,
+    "x": [
+      955,
+      933,
+      843
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00078-c0024",
+    "note": "Visible gap between initial alif carrier and the complete merged lam-alif target; no split inside lam-alif. Lower hamza/kasra ink is clipped by the right immutable edge; retain box and flag review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "2.269.13": {
+    "wid": "2.269.13",
+    "page": 45,
+    "x": [
+      795,
+      772,
+      682
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00078-c0025",
+    "note": "Visible gap between initial alif carrier and the complete merged lam-alif target; no split inside lam-alif. Lower hamza/kasra ink is clipped by the right immutable edge; retain box and flag review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "3.24.6": {
+    "wid": "3.24.6",
+    "page": 53,
+    "x": [
+      842,
+      821,
+      733
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00078-c0026",
+    "note": "Visible gap between initial alif carrier and the complete merged lam-alif target; no split inside lam-alif. Lower hamza/kasra ink is clipped by the right immutable edge; retain box and flag review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "3.69.9": {
+    "wid": "3.69.9",
+    "page": 58,
+    "x": [
+      1371,
+      1350,
+      1260
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00078-c0027",
+    "note": "Visible gap between initial alif carrier and the complete merged lam-alif target; no split inside lam-alif. Lower hamza/kasra ink is clipped by the right immutable edge; retain box and flag review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "6.38.9": {
+    "wid": "6.38.9",
+    "page": 132,
+    "x": [
+      576,
+      553,
+      471
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00078-c0028",
+    "note": "Visible gap between initial alif carrier and the complete merged lam-alif target; no split inside lam-alif. Lower hamza/kasra ink is clipped by the right immutable edge; retain box and flag review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "6.80.13": {
+    "wid": "6.80.13",
+    "page": 137,
+    "x": [
+      1838,
+      1812,
+      1730
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00078-c0029",
+    "note": "Visible gap between initial alif carrier and the complete merged lam-alif target; no split inside lam-alif. Lower hamza/kasra ink is clipped by the right immutable edge; retain box and flag review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "7.82.4": {
+    "wid": "7.82.4",
+    "page": 161,
+    "x": [
+      948,
+      926,
+      843
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00078-c0030",
+    "note": "Visible gap between initial alif carrier and the complete merged lam-alif target; no split inside lam-alif. Lower hamza/kasra ink is clipped by the right immutable edge; retain box and flag review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "9.54.6": {
+    "wid": "9.54.6",
+    "page": 195,
+    "x": [
+      1830,
+      1806,
+      1719
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00078-c0031",
+    "note": "Visible gap between initial alif carrier and the complete merged lam-alif target; no split inside lam-alif. Lower hamza/kasra ink is clipped by the right immutable edge; retain box and flag review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "9.110.8": {
+    "wid": "9.110.8",
+    "page": 204,
+    "x": [
+      1494,
+      1471,
+      1388
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00078-c0032",
+    "note": "Visible gap between initial alif carrier and the complete merged lam-alif target; no split inside lam-alif. Lower hamza/kasra ink is clipped by the right immutable edge; retain box and flag review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "10.35.22": {
+    "wid": "10.35.22",
+    "page": 213,
+    "x": [
+      1336,
+      1317,
+      1235
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00078-c0033",
+    "note": "Visible gap between initial alif carrier and the complete merged lam-alif target; no split inside lam-alif. Lower hamza/kasra ink is clipped by the right immutable edge; retain box and flag review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "12.76.20": {
+    "wid": "12.76.20",
+    "page": 244,
+    "x": [
+      1375,
+      1338,
+      1249
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00078-c0034",
+    "note": "Visible gap between initial alif carrier and the complete merged lam-alif target; no split inside lam-alif."
+  },
+  "14.22.18": {
+    "wid": "14.22.18",
+    "page": 258,
+    "x": [
+      490,
+      469,
+      389
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00078-c0035",
+    "note": "Visible gap between initial alif carrier and the complete merged lam-alif target; no split inside lam-alif. Lower hamza/kasra ink is clipped by the right immutable edge; retain box and flag review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "15.31.0": {
+    "wid": "15.31.0",
+    "page": 263,
+    "x": [
+      1440,
+      1401,
+      1321
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00078-c0036",
+    "note": "Visible gap between initial alif carrier and the complete merged lam-alif target; no split inside lam-alif."
+  },
+  "15.59.0": {
+    "wid": "15.59.0",
+    "page": 265,
+    "x": [
+      466,
+      441,
+      352
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00078-c0037",
+    "note": "Visible gap between initial alif carrier and the complete merged lam-alif target; no split inside lam-alif."
+  },
+  "16.2.15": {
+    "wid": "16.2.15",
+    "page": 267,
+    "x": [
+      1173,
+      1152,
+      1063
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00078-c0038",
+    "note": "Visible gap between initial alif carrier and the complete merged lam-alif target; no split inside lam-alif. Lower hamza/kasra ink is clipped by the right immutable edge; retain box and flag review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "16.33.2": {
+    "wid": "16.33.2",
+    "page": 270,
+    "x": [
+      869,
+      850,
+      775
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00078-c0039",
+    "note": "Visible gap between initial alif carrier and the complete merged lam-alif target; no split inside lam-alif. Lower hamza/kasra ink is clipped by the right immutable edge; retain box and flag review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "17.61.6": {
+    "wid": "17.61.6",
+    "page": 288,
+    "x": [
+      382,
+      360,
+      286
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00078-c0040",
+    "note": "Visible gap between initial alif carrier and the complete merged lam-alif target; no split inside lam-alif. Lower hamza/kasra ink is clipped by the right immutable edge; retain box and flag review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "17.94.8": {
+    "wid": "17.94.8",
+    "page": 291,
+    "x": [
+      1605,
+      1588,
+      1501
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00078-c0041",
+    "note": "Visible gap between initial alif carrier and the complete merged lam-alif target; no split inside lam-alif. Lower hamza/kasra ink is clipped by the right immutable edge; retain box and flag review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "18.24.0": {
+    "wid": "18.24.0",
+    "page": 296,
+    "x": [
+      1022,
+      989,
+      900
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00078-c0042",
+    "note": "Visible gap between initial alif carrier and the complete merged lam-alif target; no split inside lam-alif."
+  },
+  "18.49.17": {
+    "wid": "18.49.17",
+    "page": 299,
+    "x": [
+      1029,
+      1010,
+      931
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00078-c0043",
+    "note": "Visible gap between initial alif carrier and the complete merged lam-alif target; no split inside lam-alif. Lower hamza/kasra ink is clipped by the right immutable edge; retain box and flag review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "19.93.6": {
+    "wid": "19.93.6",
+    "page": 311,
+    "x": [
+      1254,
+      1237,
+      1144
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00078-c0044",
+    "note": "Visible gap between initial alif carrier and the complete merged lam-alif target; no split inside lam-alif. Lower hamza/kasra ink is clipped by the right immutable edge; retain box and flag review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "21.25.12": {
+    "wid": "21.25.12",
+    "page": 324,
+    "x": [
+      1848,
+      1824,
+      1742
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00078-c0045",
+    "note": "Visible gap between initial alif carrier and the complete merged lam-alif target; no split inside lam-alif. Lower hamza/kasra ink is clipped by the right immutable edge; retain box and flag review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "21.87.16": {
+    "wid": "21.87.16",
+    "page": 329,
+    "x": [
+      863,
+      841,
+      753
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00078-c0046",
+    "note": "Visible gap between initial alif carrier and the complete merged lam-alif target; no split inside lam-alif. Lower hamza/kasra ink is clipped by the right immutable edge; retain box and flag review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "22.52.8": {
+    "wid": "22.52.8",
+    "page": 338,
+    "x": [
+      414,
+      394,
+      313
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00078-c0047",
+    "note": "Visible gap between initial alif carrier and the complete merged lam-alif target; no split inside lam-alif. Lower hamza/kasra ink is clipped by the right immutable edge; retain box and flag review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "25.20.5": {
+    "wid": "25.20.5",
+    "page": 361,
+    "x": [
+      679,
+      657,
+      575
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00078-c0048",
+    "note": "Visible gap between initial alif carrier and the complete merged lam-alif target; no split inside lam-alif. Lower hamza/kasra ink is clipped by the right immutable edge; retain box and flag review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "27.68.9": {
+    "wid": "27.68.9",
+    "page": 383,
+    "x": [
+      854,
+      833,
+      754
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00078-c0049",
+    "note": "Visible gap between initial alif carrier and the complete merged lam-alif target; no split inside lam-alif. Lower hamza/kasra ink is clipped by the right immutable edge; retain box and flag review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "29.29.13": {
+    "wid": "29.29.13",
+    "page": 399,
+    "x": [
+      201,
+      183,
+      103
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00078-c0050",
+    "note": "Visible gap between initial alif carrier and the complete merged lam-alif target; no split inside lam-alif. Lower hamza/kasra ink is clipped by the right immutable edge; retain box and flag review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "54.34.4": {
+    "wid": "54.34.4",
+    "page": 530,
+    "x": [
+      1483,
+      1465,
+      1383
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00078-c0051",
+    "note": "Visible gap between initial alif carrier and the complete merged lam-alif target; no split inside lam-alif. Lower hamza/kasra ink is clipped by the right immutable edge; retain box and flag review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  }
+}

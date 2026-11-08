@@ -1,0 +1,125 @@
+[
+  {
+    "wid": "4.59.16",
+    "page": 87,
+    "cluster": "s00005-c0068",
+    "reason": "Owner requires borders inside box and clipped-ink flags; the entire alif body is missing so no honest target slot is available. Withheld, not awaiting policy.",
+    "image": "scripts/letter-masks/visual/reviews/rank005/representatives-original-012.png",
+    "observer": "blind_test",
+    "status": "withheld-missing-target",
+    "reviewFlags": [
+      "clipped-ink",
+      "missing-target"
+    ]
+  },
+  {
+    "wid": "3.167.9",
+    "page": 72,
+    "cluster": "s00005-c0077",
+    "status": "withheld-missing-target",
+    "reason": "Alif body wholly absent from immutable crop; no honest target span can be placed.",
+    "reviewFlags": [
+      "clipped-ink",
+      "missing-target"
+    ]
+  },
+  {
+    "wid": "33.37.46",
+    "page": 423,
+    "cluster": "s00005-c0084",
+    "status": "withheld-missing-target",
+    "reason": "Entire alif body lies outside immutable box; cannot place honest target span.",
+    "reviewFlags": [
+      "clipped-ink",
+      "missing-target"
+    ]
+  },
+  {
+    "wid": "33.38.19",
+    "page": 423,
+    "cluster": "s00005-c0085",
+    "status": "withheld-missing-target",
+    "reason": "Entire alif body lies outside immutable box; no honest alif span can be placed.",
+    "reviewFlags": [
+      "clipped-ink",
+      "missing-target"
+    ]
+  },
+  {
+    "wid": "35.3.10",
+    "page": 434,
+    "cluster": "s00005-c0086",
+    "status": "withheld-missing-target",
+    "reason": "Entire alif body lies outside immutable box; no honest alif span can be placed.",
+    "reviewFlags": [
+      "clipped-ink",
+      "missing-target"
+    ]
+  },
+  {
+    "wid": "35.11.32",
+    "page": 435,
+    "cluster": "s00005-c0087",
+    "status": "withheld-missing-target",
+    "reason": "Entire alif body lies outside immutable box; no honest alif span can be placed.",
+    "reviewFlags": [
+      "clipped-ink",
+      "missing-target"
+    ]
+  },
+  {
+    "wid": "57.10.6",
+    "page": 538,
+    "cluster": "s00005-c0089",
+    "status": "withheld-missing-target",
+    "reason": "Entire alif body lies outside immutable box; no honest alif span can be placed.",
+    "reviewFlags": [
+      "clipped-ink",
+      "missing-target"
+    ]
+  },
+  {
+    "wid": "57.5.5",
+    "page": 538,
+    "cluster": "s00005-c0090",
+    "status": "withheld-missing-target",
+    "reason": "Entire alif body lies outside immutable box; no honest alif span can be placed.",
+    "reviewFlags": [
+      "clipped-ink",
+      "missing-target"
+    ]
+  },
+  {
+    "wid": "61.11.6",
+    "page": 552,
+    "cluster": "s00005-c0092",
+    "status": "withheld-missing-target",
+    "reason": "Entire alif body is outside immutable crop; no honest target span.",
+    "reviewFlags": [
+      "clipped-ink",
+      "missing-target"
+    ]
+  },
+  {
+    "wid": "62.11.12",
+    "page": 554,
+    "cluster": "s00005-c0093",
+    "status": "withheld-missing-target",
+    "reason": "Entire alif body is outside immutable crop; no honest target span.",
+    "reviewFlags": [
+      "clipped-ink",
+      "missing-target"
+    ]
+  },
+  {
+    "wid": "10.85.2",
+    "page": 218,
+    "cluster": "s00005-c0068",
+    "status": "withheld-missing-target",
+    "reason": "Original viewed individually: whole alif body is outside immutable box; no honest target span.",
+    "reviewFlags": [
+      "clipped-ink",
+      "missing-target"
+    ]
+  }
+]

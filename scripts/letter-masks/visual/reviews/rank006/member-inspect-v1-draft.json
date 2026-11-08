@@ -1,0 +1,50 @@
+{
+  "40.64.15": {
+    "wid": "40.64.15",
+    "page": 474,
+    "x": [
+      1282,
+      1267,
+      1214,
+      1162
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00006-c0001",
+    "note": "X-warp from visually decided 60.13.7; destination requires sheet review. Visible right attached mark clipped by immutable body; keep inside box and flag review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "11.34.10": {
+    "wid": "11.34.10",
+    "page": 225,
+    "x": [
+      702,
+      684,
+      636,
+      592
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00006-c0003",
+    "note": "X-warp from visually decided 57.25.19; destination requires sheet review. Visible right attached mark clipped by immutable body; keep inside box and flag review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "63.11.2": {
+    "wid": "63.11.2",
+    "page": 555,
+    "x": [
+      1656,
+      1633,
+      1586,
+      1550
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00006-c0003",
+    "note": "X-warp from visually decided 57.25.19; destination requires sheet review."
+  }
+}

@@ -1,0 +1,562 @@
+{
+  "8.6.10": {
+    "wid": "8.6.10",
+    "page": 177,
+    "x": [
+      1827,
+      1797,
+      1752,
+      1688
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00074-c0001",
+    "note": "Detached waw separated at body gap; ha head retained and bridge/tail allocated to left mim."
+  },
+  "21.23.4": {
+    "wid": "21.23.4",
+    "page": 323,
+    "x": [
+      785,
+      755,
+      714,
+      652
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00074-c0002",
+    "note": "Detached waw separated at body gap; ha head retained and bridge/tail allocated to left mim."
+  },
+  "46.19.6": {
+    "wid": "46.19.6",
+    "page": 504,
+    "x": [
+      227,
+      198,
+      154,
+      98
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00074-c0003",
+    "note": "Detached waw separated at body gap; ha head retained and bridge/tail allocated to left mim."
+  },
+  "9.57.9": {
+    "wid": "9.57.9",
+    "page": 196,
+    "x": [
+      1209,
+      1181,
+      1136,
+      1068
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00074-c0004",
+    "note": "Detached waw separated at body gap; ha head retained and bridge/tail allocated to left mim."
+  },
+  "5.61.7": {
+    "wid": "5.61.7",
+    "page": 118,
+    "x": [
+      1320,
+      1292,
+      1250,
+      1197
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00074-c0005",
+    "note": "Detached waw separated at body gap; ha head retained and bridge/tail allocated to left mim."
+  },
+  "6.31.17": {
+    "wid": "6.31.17",
+    "page": 131,
+    "x": [
+      735,
+      707,
+      662,
+      609
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00074-c0006",
+    "note": "Detached waw separated at body gap; ha head retained and bridge/tail allocated to left mim."
+  },
+  "9.125.10": {
+    "wid": "9.125.10",
+    "page": 207,
+    "x": [
+      1170,
+      1140,
+      1095,
+      1022
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00074-c0007",
+    "note": "Detached waw separated at body gap; ha head retained and bridge/tail allocated to left mim."
+  },
+  "28.11.7": {
+    "wid": "28.11.7",
+    "page": 386,
+    "x": [
+      656,
+      627,
+      586,
+      529
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00074-c0008",
+    "note": "Detached waw separated at body gap; ha head retained and bridge/tail allocated to left mim."
+  },
+  "45.22.10": {
+    "wid": "45.22.10",
+    "page": 500,
+    "x": [
+      727,
+      696,
+      648,
+      593
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00074-c0009",
+    "note": "Detached waw separated at body gap; ha head retained and bridge/tail allocated to left mim."
+  },
+  "8.33.10": {
+    "wid": "8.33.10",
+    "page": 180,
+    "x": [
+      758,
+      727,
+      684,
+      616
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00074-c0010",
+    "note": "Detached waw separated at body gap; ha head retained and bridge/tail allocated to left mim."
+  },
+  "8.56.9": {
+    "wid": "8.56.9",
+    "page": 184,
+    "x": [
+      1828,
+      1799,
+      1757,
+      1704
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00074-c0011",
+    "note": "Detached waw separated at body gap; ha head retained and bridge/tail allocated to left mim."
+  },
+  "13.13.12": {
+    "wid": "13.13.12",
+    "page": 250,
+    "x": [
+      1535,
+      1499,
+      1456,
+      1388
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00074-c0012",
+    "note": "Detached waw separated at body gap; ha head retained and bridge/tail allocated to left mim."
+  },
+  "16.113.7": {
+    "wid": "16.113.7",
+    "page": 280,
+    "x": [
+      252,
+      219,
+      175,
+      113
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00074-c0013",
+    "note": "Detached waw separated at body gap; ha head retained and bridge/tail allocated to left mim."
+  },
+  "21.102.3": {
+    "wid": "21.102.3",
+    "page": 331,
+    "x": [
+      1049,
+      1016,
+      975,
+      903
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00074-c0014",
+    "note": "Detached waw separated at body gap; ha head retained and bridge/tail allocated to left mim."
+  },
+  "28.9.15": {
+    "wid": "28.9.15",
+    "page": 386,
+    "x": [
+      1067,
+      1038,
+      992,
+      927
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00074-c0015",
+    "note": "Detached waw separated at body gap; ha head retained and bridge/tail allocated to left mim."
+  },
+  "36.75.3": {
+    "wid": "36.75.3",
+    "page": 445,
+    "x": [
+      1586,
+      1556,
+      1512,
+      1441
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00074-c0016",
+    "note": "Detached waw separated at body gap; ha head retained and bridge/tail allocated to left mim."
+  },
+  "39.69.12": {
+    "wid": "39.69.12",
+    "page": 466,
+    "x": [
+      573,
+      546,
+      505,
+      452
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00074-c0017",
+    "note": "Detached waw separated at body gap; ha head retained and bridge/tail allocated to left mim."
+  },
+  "4.18.17": {
+    "wid": "4.18.17",
+    "page": 80,
+    "x": [
+      570,
+      537,
+      487,
+      415
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00074-c0018",
+    "note": "Detached waw separated at body gap; ha head retained and bridge/tail allocated to left mim."
+  },
+  "6.26.0": {
+    "wid": "6.26.0",
+    "page": 130,
+    "x": [
+      1081,
+      1053,
+      1007,
+      955
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00074-c0019",
+    "note": "Detached waw separated at body gap; ha head retained and bridge/tail allocated to left mim."
+  },
+  "7.191.5": {
+    "wid": "7.191.5",
+    "page": 175,
+    "x": [
+      391,
+      361,
+      326,
+      297
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00074-c0020",
+    "note": "Detached waw separated at body gap; ha head retained and bridge/tail allocated to left mim. Stacked ha-mim shares horizontal extent; cut favours principal body positions."
+  },
+  "9.48.14": {
+    "wid": "9.48.14",
+    "page": 195,
+    "x": [
+      925,
+      895,
+      850,
+      767
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00074-c0021",
+    "note": "Detached waw separated at body gap; ha head retained and bridge/tail allocated to left mim."
+  },
+  "9.124.16": {
+    "wid": "9.124.16",
+    "page": 207,
+    "x": [
+      568,
+      536,
+      500,
+      450
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00074-c0022",
+    "note": "Detached waw separated at body gap; ha head retained and bridge/tail allocated to left mim."
+  },
+  "27.5.5": {
+    "wid": "27.5.5",
+    "page": 377,
+    "x": [
+      1842,
+      1810,
+      1774,
+      1717
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00074-c0023",
+    "note": "Detached waw separated at body gap; ha head retained and bridge/tail allocated to left mim."
+  },
+  "29.2.7": {
+    "wid": "29.2.7",
+    "page": 396,
+    "x": [
+      327,
+      295,
+      253,
+      190
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00074-c0024",
+    "note": "Detached waw separated at body gap; ha head retained and bridge/tail allocated to left mim."
+  },
+  "30.7.5": {
+    "wid": "30.7.5",
+    "page": 405,
+    "x": [
+      791,
+      760,
+      722,
+      674
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00074-c0025",
+    "note": "Waw gap and ha-mim body junction read from ruler; mim keeps final tail and any joining stretch. "
+  },
+  "32.15.12": {
+    "wid": "32.15.12",
+    "page": 416,
+    "x": [
+      1639,
+      1604,
+      1562,
+      1497
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00074-c0026",
+    "note": "Waw gap and ha-mim body junction read from ruler; mim keeps final tail and any joining stretch. "
+  },
+  "43.75.3": {
+    "wid": "43.75.3",
+    "page": 495,
+    "x": [
+      226,
+      197,
+      157,
+      111
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00074-c0027",
+    "note": "Waw gap and ha-mim body junction read from ruler; mim keeps final tail and any joining stretch. "
+  },
+  "68.19.5": {
+    "wid": "68.19.5",
+    "page": 565,
+    "x": [
+      1846,
+      1819,
+      1783,
+      1738
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00074-c0028",
+    "note": "Waw gap and ha-mim body junction read from ruler; mim keeps final tail and any joining stretch. "
+  },
+  "2.161.4": {
+    "wid": "2.161.4",
+    "page": 24,
+    "x": [
+      214,
+      184,
+      146,
+      111
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00074-c0029",
+    "note": "Waw gap and ha-mim body junction read from ruler; mim keeps final tail and any joining stretch. Overlapping stack: vertical cut follows principal ha head and mim body; uncertain shared region."
+  },
+  "7.95.15": {
+    "wid": "7.95.15",
+    "page": 162,
+    "x": [
+      706,
+      674,
+      626,
+      576
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00074-c0030",
+    "note": "Waw gap and ha-mim body junction read from ruler; mim keeps final tail and any joining stretch. "
+  },
+  "10.47.9": {
+    "wid": "10.47.9",
+    "page": 214,
+    "x": [
+      176,
+      148,
+      110,
+      80
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00074-c0031",
+    "note": "Waw gap and ha-mim body junction read from ruler; mim keeps final tail and any joining stretch. Overlapping stack: vertical cut follows principal ha head and mim body; uncertain shared region."
+  },
+  "11.15.10": {
+    "wid": "11.15.10",
+    "page": 223,
+    "x": [
+      673,
+      646,
+      611,
+      551
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00074-c0032",
+    "note": "Waw gap and ha-mim body junction read from ruler; mim keeps final tail and any joining stretch. "
+  },
+  "12.58.6": {
+    "wid": "12.58.6",
+    "page": 242,
+    "x": [
+      904,
+      880,
+      830,
+      775
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00074-c0033",
+    "note": "Waw gap and ha-mim body junction read from ruler; mim keeps final tail and any joining stretch. "
+  },
+  "16.48.15": {
+    "wid": "16.48.15",
+    "page": 272,
+    "x": [
+      437,
+      414,
+      370,
+      318
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00074-c0034",
+    "note": "Waw gap and ha-mim body junction read from ruler; mim keeps final tail and any joining stretch. "
+  },
+  "18.104.6": {
+    "wid": "18.104.6",
+    "page": 304,
+    "x": [
+      564,
+      532,
+      495,
+      467
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00074-c0035",
+    "note": "Waw gap and ha-mim body junction read from ruler; mim keeps final tail and any joining stretch. Overlapping stack: vertical cut follows principal ha head and mim body; uncertain shared region."
+  },
+  "19.39.6": {
+    "wid": "19.39.6",
+    "page": 308,
+    "x": [
+      830,
+      800,
+      762,
+      729
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00074-c0036",
+    "note": "Waw gap and ha-mim body junction read from ruler; mim keeps final tail and any joining stretch. Overlapping stack: vertical cut follows principal ha head and mim body; uncertain shared region."
+  },
+  "19.39.9": {
+    "wid": "19.39.9",
+    "page": 308,
+    "x": [
+      463,
+      429,
+      384,
+      358
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00074-c0037",
+    "note": "Waw gap and ha-mim body junction read from ruler; mim keeps final tail and any joining stretch. Overlapping stack: vertical cut follows principal ha head and mim body; uncertain shared region."
+  },
+  "21.2.9": {
+    "wid": "21.2.9",
+    "page": 322,
+    "x": [
+      213,
+      179,
+      142,
+      112
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00074-c0038",
+    "note": "Waw gap and ha-mim body junction read from ruler; mim keeps final tail and any joining stretch. Overlapping stack: vertical cut follows principal ha head and mim body; uncertain shared region."
+  },
+  "23.62.9": {
+    "wid": "23.62.9",
+    "page": 346,
+    "x": [
+      640,
+      611,
+      576,
+      526
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00074-c0039",
+    "note": "Waw gap and ha-mim body junction read from ruler; mim keeps final tail and any joining stretch. "
+  },
+  "23.104.3": {
+    "wid": "23.104.3",
+    "page": 348,
+    "x": [
+      807,
+      777,
+      735,
+      679
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00074-c0040",
+    "note": "Waw gap and ha-mim body junction read from ruler; mim keeps final tail and any joining stretch. "
+  }
+}

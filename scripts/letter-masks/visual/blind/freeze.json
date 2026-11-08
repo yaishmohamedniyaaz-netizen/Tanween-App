@@ -1,0 +1,37 @@
+{
+  "frozenAt": "2026-11-06T18:14:39.809448+00:00",
+  "decisionsSha256": "766e716327f6ee1b0e2823ad8786b5b2181954b27c3939aa5aaa0954b969e046",
+  "decisionFile": "scripts/letter-masks/visual/blind/decisions.jsonl",
+  "count": 30,
+  "confidence": {
+    "high": 16,
+    "low": 12,
+    "medium": 2
+  },
+  "outerFallbacks": 0,
+  "outerClamps": 0,
+  "manualInteriorDecisions": 30,
+  "originalImagesViewed": 30,
+  "shadedImagesViewed": 33,
+  "trainingImagesViewed": 12,
+  "totalImagesViewedByThisAnnotator": 75,
+  "trainingExamples": [
+    "scripts/letter-masks/visual/training/p001-1.1.0.png",
+    "scripts/letter-masks/visual/training/p001-1.1.1.png",
+    "scripts/letter-masks/visual/training/p001-1.5.1.png",
+    "scripts/letter-masks/visual/training/p001-1.2.2.png",
+    "scripts/letter-masks/visual/training/p001-1.4.1.png",
+    "scripts/letter-masks/visual/training/p002-2.3.1.png",
+    "scripts/letter-masks/visual/training/p002-2.4.7.png",
+    "scripts/letter-masks/visual/training/p002-2.5.3.png",
+    "scripts/letter-masks/visual/training/p002-2.4.1.png",
+    "scripts/letter-masks/visual/training/p030-2.194.1.png",
+    "scripts/letter-masks/visual/training/p002-2.4.2.png",
+    "scripts/letter-masks/visual/training/p134-6.59.15.png"
+  ],
+  "answersSeen": false,
+  "scored": false,
+  "oldGuessInteriorsSeen": false,
+  "maxReviewPasses": 2,
+  "blindness": "Only page and wid were extracted from all-approvals metadata. Sorted unique regular pages [1::2] selected the held-out 30. No hidden cut fields, held-out public approvals, prior handbacks, test scores or worst-word images were read."
+}

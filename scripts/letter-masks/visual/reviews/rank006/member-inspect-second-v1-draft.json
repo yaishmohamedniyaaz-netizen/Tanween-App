@@ -1,0 +1,19 @@
+{
+  "16.114.3": {
+    "wid": "16.114.3",
+    "page": 280,
+    "x": [
+      564,
+      547,
+      501,
+      457
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00006-c0030",
+    "note": "X-warp from visually decided 58.13.11; destination requires sheet review. Visible right attached mark clipped by immutable body; keep inside box and flag review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  }
+}

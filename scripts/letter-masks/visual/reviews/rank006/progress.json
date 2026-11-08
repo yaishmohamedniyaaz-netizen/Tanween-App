@@ -1,0 +1,19 @@
+{
+  "rank": 6,
+  "eligible": 663,
+  "decided": 660,
+  "withheld": 3,
+  "status": "visually-complete-with-3-missing-target-exceptions",
+  "representativesDecided": 87,
+  "copyDestinationsViewed": 573,
+  "confidence": {
+    "medium": 65,
+    "low": 595
+  },
+  "reviewFlags": {
+    "clipped-ink": 580
+  },
+  "at": "2026-11-07T09:38:14.007361+00:00",
+  "validation": "Exact app target count, >=2px ordered widths, immutable inward body bounds, hidden IDs excluded.",
+  "note": "All 90 representative crops and all573 carry destinations actually viewed; corrections individually re-rendered and viewed. Canonical file unique by wid; superseded history archived."
+}

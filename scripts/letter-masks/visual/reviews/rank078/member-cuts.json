@@ -1,0 +1,780 @@
+{
+  "2.210.2": {
+    "wid": "2.210.2",
+    "page": 32,
+    "x": [
+      1249,
+      1231,
+      1139
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00078-c0001",
+    "note": "X-warp from visually decided 2.9.6; destination requires sheet review. Right-edge lower mark or left-edge mark is visibly clipped by immutable crop; retain box and review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "3.111.2": {
+    "wid": "3.111.2",
+    "page": 64,
+    "x": [
+      449,
+      431,
+      344
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00078-c0001",
+    "note": "X-warp from visually decided 2.9.6; destination requires sheet review. Right-edge lower mark or left-edge mark is visibly clipped by immutable crop; retain box and review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "4.62.13": {
+    "wid": "4.62.13",
+    "page": 88,
+    "x": [
+      228,
+      210,
+      121
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00078-c0001",
+    "note": "X-warp from visually decided 2.9.6; destination requires sheet review. Right-edge lower mark or left-edge mark is visibly clipped by immutable crop; retain box and review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "5.59.6": {
+    "wid": "5.59.6",
+    "page": 118,
+    "x": [
+      445,
+      430,
+      344
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00078-c0001",
+    "note": "X-warp from visually decided 2.9.6; destination requires sheet review. Right-edge lower mark or left-edge mark is visibly clipped by immutable crop; retain box and review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "9.74.17": {
+    "wid": "9.74.17",
+    "page": 199,
+    "x": [
+      878,
+      860,
+      768
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00078-c0001",
+    "note": "X-warp from visually decided 2.9.6; destination requires sheet review. Right-edge lower mark or left-edge mark is visibly clipped by immutable crop; retain box and review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "9.118.20": {
+    "wid": "9.118.20",
+    "page": 206,
+    "x": [
+      1614,
+      1598,
+      1506
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00078-c0001",
+    "note": "X-warp from visually decided 2.9.6; destination requires sheet review. Right-edge lower mark or left-edge mark is visibly clipped by immutable crop; retain box and review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "53.23.2": {
+    "wid": "53.23.2",
+    "page": 526,
+    "x": [
+      1282,
+      1266,
+      1178
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00078-c0001",
+    "note": "X-warp from visually decided 2.9.6; destination requires sheet review. Right-edge lower mark or left-edge mark is visibly clipped by immutable crop; retain box and review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "74.56.2": {
+    "wid": "74.56.2",
+    "page": 577,
+    "x": [
+      1519,
+      1503,
+      1418
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00078-c0001",
+    "note": "X-warp from visually decided 2.9.6; destination requires sheet review. Right-edge lower mark or left-edge mark is visibly clipped by immutable crop; retain box and review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "4.117.4": {
+    "wid": "4.117.4",
+    "page": 97,
+    "x": [
+      892,
+      869,
+      780
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00078-c0002",
+    "note": "X-warp from visually decided 7.5.6; destination requires sheet review. Right-edge lower mark or left-edge mark is visibly clipped by immutable crop; retain box and review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "10.19.3": {
+    "wid": "10.19.3",
+    "page": 210,
+    "x": [
+      1586,
+      1564,
+      1478
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00078-c0002",
+    "note": "X-warp from visually decided 7.5.6; destination requires sheet review. Right-edge lower mark or left-edge mark is visibly clipped by immutable crop; retain box and review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "17.23.4": {
+    "wid": "17.23.4",
+    "page": 284,
+    "x": [
+      1012,
+      988,
+      907
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00078-c0002",
+    "note": "X-warp from visually decided 7.5.6; destination requires sheet review. Right-edge lower mark or left-edge mark is visibly clipped by immutable crop; retain box and review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "18.55.10": {
+    "wid": "18.55.10",
+    "page": 300,
+    "x": [
+      666,
+      642,
+      559
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00078-c0002",
+    "note": "X-warp from visually decided 7.5.6; destination requires sheet review. Right-edge lower mark or left-edge mark is visibly clipped by immutable crop; retain box and review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "45.25.8": {
+    "wid": "45.25.8",
+    "page": 501,
+    "x": [
+      866,
+      843,
+      766
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00078-c0002",
+    "note": "X-warp from visually decided 7.5.6; destination requires sheet review. Right-edge lower mark or left-edge mark is visibly clipped by immutable crop; retain box and review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "46.17.25": {
+    "wid": "46.17.25",
+    "page": 504,
+    "x": [
+      1631,
+      1607,
+      1523
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00078-c0002",
+    "note": "X-warp from visually decided 7.5.6; destination requires sheet review. Right-edge lower mark or left-edge mark is visibly clipped by immutable crop; retain box and review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "7.11.10": {
+    "wid": "7.11.10",
+    "page": 151,
+    "x": [
+      1293,
+      1267,
+      1185
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00078-c0003",
+    "note": "X-warp from visually decided 6.145.11; destination requires sheet review. Right-edge lower mark or left-edge mark is visibly clipped by immutable crop; retain box and review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "7.89.20": {
+    "wid": "7.89.20",
+    "page": 162,
+    "x": [
+      440,
+      414,
+      331
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00078-c0003",
+    "note": "X-warp from visually decided 6.145.11; destination requires sheet review. Right-edge lower mark or left-edge mark is visibly clipped by immutable crop; retain box and review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "20.116.6": {
+    "wid": "20.116.6",
+    "page": 320,
+    "x": [
+      556,
+      530,
+      452
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00078-c0003",
+    "note": "X-warp from visually decided 6.145.11; destination requires sheet review. Right-edge lower mark or left-edge mark is visibly clipped by immutable crop; retain box and review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "25.4.5": {
+    "wid": "25.4.5",
+    "page": 360,
+    "x": [
+      341,
+      318,
+      236
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00078-c0003",
+    "note": "X-warp from visually decided 6.145.11; destination requires sheet review. Right-edge lower mark or left-edge mark is visibly clipped by immutable crop; retain box and review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "7.126.3": {
+    "wid": "7.126.3",
+    "page": 165,
+    "x": [
+      535,
+      513,
+      421
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00078-c0004",
+    "note": "X-warp from visually decided 18.50.6; destination requires sheet review. Right-edge lower mark or left-edge mark is visibly clipped by immutable crop; retain box and review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "12.40.22": {
+    "wid": "12.40.22",
+    "page": 240,
+    "x": [
+      1344,
+      1321,
+      1237
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00078-c0004",
+    "note": "X-warp from visually decided 18.50.6; destination requires sheet review. Right-edge lower mark or left-edge mark is visibly clipped by immutable crop; retain box and review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "17.59.5": {
+    "wid": "17.59.5",
+    "page": 288,
+    "x": [
+      974,
+      953,
+      880
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00078-c0004",
+    "note": "X-warp from visually decided 18.50.6; destination requires sheet review. Right-edge lower mark or left-edge mark is visibly clipped by immutable crop; retain box and review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "17.67.8": {
+    "wid": "17.67.8",
+    "page": 289,
+    "x": [
+      599,
+      577,
+      505
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00078-c0004",
+    "note": "X-warp from visually decided 18.50.6; destination requires sheet review. Right-edge lower mark or left-edge mark is visibly clipped by immutable crop; retain box and review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "2.34.6": {
+    "wid": "2.34.6",
+    "page": 6,
+    "x": [
+      1410,
+      1388,
+      1309
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00078-c0005",
+    "note": "X-warp from visually decided 4.29.8; destination requires sheet review. Right-edge lower mark or left-edge mark is visibly clipped by immutable crop; retain box and review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "2.267.20": {
+    "wid": "2.267.20",
+    "page": 45,
+    "x": [
+      1558,
+      1535,
+      1453
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00078-c0005",
+    "note": "X-warp from visually decided 4.29.8; destination requires sheet review. Right-edge lower mark or left-edge mark is visibly clipped by immutable crop; retain box and review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "4.113.12": {
+    "wid": "4.113.12",
+    "page": 96,
+    "x": [
+      1083,
+      1061,
+      974
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00078-c0005",
+    "note": "X-warp from visually decided 4.29.8; destination requires sheet review. Right-edge lower mark or left-edge mark is visibly clipped by immutable crop; retain box and review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "3.7.43": {
+    "wid": "3.7.43",
+    "page": 50,
+    "x": [
+      1832,
+      1812,
+      1732
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00078-c0006",
+    "note": "X-warp from visually decided 5.73.11; destination requires sheet review. Right-edge lower mark or left-edge mark is visibly clipped by immutable crop; retain box and review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "6.111.15": {
+    "wid": "6.111.15",
+    "page": 142,
+    "x": [
+      807,
+      786,
+      697
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00078-c0006",
+    "note": "X-warp from visually decided 5.73.11; destination requires sheet review. Right-edge lower mark or left-edge mark is visibly clipped by immutable crop; retain box and review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "22.40.6": {
+    "wid": "22.40.6",
+    "page": 337,
+    "x": [
+      331,
+      311,
+      229
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00078-c0006",
+    "note": "X-warp from visually decided 5.73.11; destination requires sheet review. Right-edge lower mark or left-edge mark is visibly clipped by immutable crop; retain box and review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "23.83.9": {
+    "wid": "23.83.9",
+    "page": 347,
+    "x": [
+      1853,
+      1833,
+      1745
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00078-c0007",
+    "note": "X-warp from visually decided 8.31.14; destination requires sheet review. Right-edge lower mark or left-edge mark is visibly clipped by immutable crop; retain box and review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "24.6.7": {
+    "wid": "24.6.7",
+    "page": 350,
+    "x": [
+      401,
+      380,
+      307
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00078-c0007",
+    "note": "X-warp from visually decided 8.31.14; destination requires sheet review. Right-edge lower mark or left-edge mark is visibly clipped by immutable crop; retain box and review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "33.22.15": {
+    "wid": "33.22.15",
+    "page": 420,
+    "x": [
+      840,
+      821,
+      736
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00078-c0007",
+    "note": "X-warp from visually decided 8.31.14; destination requires sheet review. Right-edge lower mark or left-edge mark is visibly clipped by immutable crop; retain box and review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "2.282.95": {
+    "wid": "2.282.95",
+    "page": 48,
+    "x": [
+      540,
+      520,
+      425
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00078-c0008",
+    "note": "X-warp from visually decided 12.66.11; destination requires sheet review. Right-edge lower mark or left-edge mark is visibly clipped by immutable crop; retain box and review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "7.20.17": {
+    "wid": "7.20.17",
+    "page": 152,
+    "x": [
+      853,
+      838,
+      754
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00078-c0008",
+    "note": "X-warp from visually decided 12.66.11; destination requires sheet review. Right-edge lower mark or left-edge mark is visibly clipped by immutable crop; retain box and review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "9.32.8": {
+    "wid": "9.32.8",
+    "page": 192,
+    "x": [
+      174,
+      157,
+      82
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00078-c0008",
+    "note": "X-warp from visually decided 12.66.11; destination requires sheet review. Right-edge lower mark or left-edge mark is visibly clipped by immutable crop; retain box and review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "20.14.5": {
+    "wid": "20.14.5",
+    "page": 313,
+    "x": [
+      293,
+      273,
+      194
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00078-c0009",
+    "note": "X-warp from visually decided 38.70.3; destination requires sheet review. Right-edge lower mark or left-edge mark is visibly clipped by immutable crop; retain box and review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "29.24.4": {
+    "wid": "29.24.4",
+    "page": 399,
+    "x": [
+      937,
+      917,
+      841
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00078-c0009",
+    "note": "X-warp from visually decided 38.70.3; destination requires sheet review. Right-edge lower mark or left-edge mark is visibly clipped by immutable crop; retain box and review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "38.74.0": {
+    "wid": "38.74.0",
+    "page": 457,
+    "x": [
+      1466,
+      1436,
+      1362
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00078-c0009",
+    "note": "X-warp from visually decided 38.70.3; destination requires sheet review."
+  },
+  "4.92.19": {
+    "wid": "4.92.19",
+    "page": 93,
+    "x": [
+      1591,
+      1572,
+      1474
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00078-c0010",
+    "note": "X-warp from visually decided 2.235.21; destination requires sheet review. Right-edge lower mark or left-edge mark is visibly clipped by immutable crop; retain box and review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "12.40.4": {
+    "wid": "12.40.4",
+    "page": 240,
+    "x": [
+      1017,
+      994,
+      910
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00078-c0011",
+    "note": "X-warp from visually decided 2.237.13; destination requires sheet review. Right-edge lower mark or left-edge mark is visibly clipped by immutable crop; retain box and review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "12.25.17": {
+    "wid": "12.25.17",
+    "page": 238,
+    "x": [
+      733,
+      715,
+      629
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00078-c0012",
+    "note": "X-warp from visually decided 3.28.16; destination requires sheet review. Right-edge lower mark or left-edge mark is visibly clipped by immutable crop; retain box and review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "7.94.6": {
+    "wid": "7.94.6",
+    "page": 162,
+    "x": [
+      201,
+      180,
+      91
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00078-c0013",
+    "note": "X-warp from visually decided 3.147.3; destination requires sheet review. Right-edge lower mark or left-edge mark is visibly clipped by immutable crop; retain box and review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "33.53.7": {
+    "wid": "33.53.7",
+    "page": 425,
+    "x": [
+      372,
+      352,
+      261
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00078-c0014",
+    "note": "X-warp from visually decided 4.19.16; destination requires sheet review. Right-edge lower mark or left-edge mark is visibly clipped by immutable crop; retain box and review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "6.25.29": {
+    "wid": "6.25.29",
+    "page": 130,
+    "x": [
+      1825,
+      1804,
+      1722
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00078-c0015",
+    "note": "X-warp from visually decided 6.23.4; destination requires sheet review. Right-edge lower mark or left-edge mark is visibly clipped by immutable crop; retain box and review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "81.29.2": {
+    "wid": "81.29.2",
+    "page": 586,
+    "x": [
+      1133,
+      1115,
+      1033
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00078-c0016",
+    "note": "X-warp from visually decided 6.26.7; destination requires sheet review. Right-edge lower mark or left-edge mark is visibly clipped by immutable crop; retain box and review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "27.56.4": {
+    "wid": "27.56.4",
+    "page": 382,
+    "x": [
+      854,
+      833,
+      753
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00078-c0017",
+    "note": "X-warp from visually decided 6.158.2; destination requires sheet review. Right-edge lower mark or left-edge mark is visibly clipped by immutable crop; retain box and review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "65.1.18": {
+    "wid": "65.1.18",
+    "page": 558,
+    "x": [
+      1374,
+      1338,
+      1248
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00078-c0018",
+    "note": "X-warp from visually decided 9.52.4; destination requires sheet review."
+  },
+  "33.6.18": {
+    "wid": "33.6.18",
+    "page": 418,
+    "x": [
+      939,
+      918,
+      835
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00078-c0019",
+    "note": "X-warp from visually decided 28.19.20; destination requires sheet review. Right-edge lower mark or left-edge mark is visibly clipped by immutable crop; retain box and review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "76.30.2": {
+    "wid": "76.30.2",
+    "page": 580,
+    "x": [
+      1463,
+      1444,
+      1355
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00078-c0020",
+    "note": "X-warp from visually decided 34.43.20; destination requires sheet review. Right-edge lower mark or left-edge mark is visibly clipped by immutable crop; retain box and review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "85.8.3": {
+    "wid": "85.8.3",
+    "page": 590,
+    "x": [
+      1681,
+      1664,
+      1579
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00078-c0021",
+    "note": "X-warp from visually decided 74.39.0; destination requires sheet review. Right-edge lower mark or left-edge mark is visibly clipped by immutable crop; retain box and review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  }
+}

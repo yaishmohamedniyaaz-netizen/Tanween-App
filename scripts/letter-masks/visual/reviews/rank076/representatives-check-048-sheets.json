@@ -1,0 +1,35 @@
+[
+  {
+    "image": "representatives-check-009.png",
+    "words": [
+      "10.71.26",
+      "11.28.14",
+      "17.5.5",
+      "18.20.3",
+      "20.81.9",
+      "22.78.9"
+    ],
+    "stage": "check"
+  },
+  {
+    "image": "representatives-check-010.png",
+    "words": [
+      "23.105.4",
+      "24.10.3",
+      "24.58.31",
+      "33.5.15",
+      "33.43.3",
+      "39.71.19"
+    ],
+    "stage": "check"
+  },
+  {
+    "image": "representatives-check-011.png",
+    "words": [
+      "40.32.3",
+      "65.11.2",
+      "82.10.1"
+    ],
+    "stage": "check"
+  }
+]

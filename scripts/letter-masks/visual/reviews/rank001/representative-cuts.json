@@ -1,0 +1,912 @@
+{
+  "33.66.3": {
+    "wid": "33.66.3",
+    "page": 427,
+    "x": [
+      1081,
+      1055,
+      1018
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00001-c0001",
+    "note": "Fa loop overlaps ya hook; divide at the left edge of the upper fa core, retaining the broad ya bowl."
+  },
+  "22.70.6": {
+    "wid": "22.70.6",
+    "page": 340,
+    "x": [
+      1045,
+      1016,
+      976
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00001-c0002",
+    "note": "Fa loop overhangs ya; split at upper fa core left edge, leaving ya the long lower bowl."
+  },
+  "40.72.0": {
+    "wid": "40.72.0",
+    "page": 475,
+    "x": [
+      1823,
+      1795,
+      1758
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00001-c0003",
+    "note": "Stacked fa and ya cannot be isolated vertically; upper fa core remains on right."
+  },
+  "5.110.17": {
+    "wid": "5.110.17",
+    "page": 126,
+    "x": [
+      1177,
+      1147,
+      1114
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00001-c0004",
+    "note": "Old dashed line is far left of fa core; move division to the upper loop's left edge."
+  },
+  "7.185.2": {
+    "wid": "7.185.2",
+    "page": 174,
+    "x": [
+      749,
+      718,
+      682
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00001-c0005",
+    "note": "Fa loop above ya hook; narrow right core, broad left bowl."
+  },
+  "7.205.2": {
+    "wid": "7.205.2",
+    "page": 176,
+    "x": [
+      1833,
+      1806,
+      1771
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00001-c0006",
+    "note": "Stacked upper fa loop and final ya; cut near fa left core, ignoring displaced dot."
+  },
+  "42.53.5": {
+    "wid": "42.53.5",
+    "page": 489,
+    "x": [
+      1761,
+      1730,
+      1691
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00001-c0007",
+    "note": "Stacked fa loop over ya; cut at left edge of upper loop."
+  },
+  "17.67.3": {
+    "wid": "17.67.3",
+    "page": 289,
+    "x": [
+      1312,
+      1286,
+      1251
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00001-c0008",
+    "note": "Fa core overhangs ya return; preserve full left bowl."
+  },
+  "37.108.2": {
+    "wid": "37.108.2",
+    "page": 450,
+    "x": [
+      143,
+      115,
+      81
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00001-c0009",
+    "note": "Compact stacked fi; left edge of fa loop gives useful core separation."
+  },
+  "43.39.6": {
+    "wid": "43.39.6",
+    "page": 492,
+    "x": [
+      1335,
+      1303,
+      1266
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00001-c0010",
+    "note": "Fa loop above ya shoulder; marks do not set the cut."
+  },
+  "6.38.3": {
+    "wid": "6.38.3",
+    "page": 132,
+    "x": [
+      1565,
+      1538,
+      1506
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00001-c0011",
+    "note": "Stacked fi; border at left edge of fa core, not the lower tail."
+  },
+  "9.125.2": {
+    "wid": "9.125.2",
+    "page": 207,
+    "x": [
+      1235,
+      1207,
+      1172
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00001-c0012",
+    "note": "Right fa core over broad ya bowl; boundary follows upper loop left edge."
+  },
+  "22.46.21": {
+    "wid": "22.46.21",
+    "page": 337,
+    "x": [
+      585,
+      557,
+      520
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00001-c0013",
+    "note": "Compact stacked fi; border follows fa loop's left edge."
+  },
+  "2.17.13": {
+    "wid": "2.17.13",
+    "page": 4,
+    "x": [
+      1059,
+      1031,
+      999
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00001-c0014",
+    "note": "Shift old hint right to the upper fa core; broad ya bowl retained."
+  },
+  "7.69.19": {
+    "wid": "7.69.19",
+    "page": 159,
+    "x": [
+      1817,
+      1787,
+      1753
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00001-c0015",
+    "note": "Fa overlaps ya hook; use upper loop left edge for core separation."
+  },
+  "3.190.1": {
+    "wid": "3.190.1",
+    "page": 75,
+    "x": [
+      180,
+      148,
+      116
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00001-c0016",
+    "note": "Old hint left of upper fa; move boundary to fa core."
+  },
+  "22.31.18": {
+    "wid": "22.31.18",
+    "page": 336,
+    "x": [
+      522,
+      496,
+      456
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00001-c0017",
+    "note": "Dashed hint crosses broad ya bowl; use left edge of upper fa loop."
+  },
+  "100.10.2": {
+    "wid": "100.10.2",
+    "page": 600,
+    "x": [
+      1520,
+      1492,
+      1458
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00001-c0018",
+    "note": "Compact stacked form; fa loop kept right, ya bowl left."
+  },
+  "35.11.27": {
+    "wid": "35.11.27",
+    "page": 435,
+    "x": [
+      1111,
+      1082,
+      1042
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00001-c0019",
+    "note": "Old hint cuts ya bowl; move to left edge of fa upper loop."
+  },
+  "9.38.24": {
+    "wid": "9.38.24",
+    "page": 193,
+    "x": [
+      968,
+      942,
+      903
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00001-c0020",
+    "note": "Fa core lies well right of old hint; lower ya extends underneath."
+  },
+  "16.13.8": {
+    "wid": "16.13.8",
+    "page": 268,
+    "x": [
+      1841,
+      1814,
+      1775
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00001-c0021",
+    "note": "Boundary follows upper fa core rather than bowl centre."
+  },
+  "30.37.10": {
+    "wid": "30.37.10",
+    "page": 408,
+    "x": [
+      1510,
+      1482,
+      1441
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00001-c0022",
+    "note": "Stacked fi; keep compact fa core right and long ya bowl left."
+  },
+  "32.10.3": {
+    "wid": "32.10.3",
+    "page": 415,
+    "x": [
+      634,
+      605,
+      568
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00001-c0023",
+    "note": "Old hint left of loop; divide by upper fa core edge."
+  },
+  "20.67.1": {
+    "wid": "20.67.1",
+    "page": 316,
+    "x": [
+      1422,
+      1396,
+      1360
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00001-c0024",
+    "note": "Fa overhangs ya hook; cut near left edge of fa loop."
+  },
+  "3.154.65": {
+    "wid": "3.154.65",
+    "page": 70,
+    "x": [
+      1381,
+      1349,
+      1315
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00001-c0025",
+    "note": "Fa loop's left edge defines compact right slot above the overlapping ya."
+  },
+  "7.136.3": {
+    "wid": "7.136.3",
+    "page": 166,
+    "x": [
+      1824,
+      1796,
+      1761
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00001-c0026",
+    "note": "Dashed hint crosses ya bowl; move right to fa core."
+  },
+  "28.6.2": {
+    "wid": "28.6.2",
+    "page": 386,
+    "x": [
+      1494,
+      1469,
+      1433
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00001-c0027",
+    "note": "Fa core remains right; wide bowl and hook remain ya despite vertical overlap."
+  },
+  "46.15.37": {
+    "wid": "46.15.37",
+    "page": 504,
+    "x": [
+      172,
+      142,
+      100
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00001-c0028",
+    "note": "Stacked upper loop; use core edge rather than dot or lower return."
+  },
+  "27.5.6": {
+    "wid": "27.5.6",
+    "page": 377,
+    "x": [
+      1698,
+      1671,
+      1639
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00001-c0029",
+    "note": "Old hint far left; boundary at left of upper fa loop."
+  },
+  "3.152.11": {
+    "wid": "3.152.11",
+    "page": 69,
+    "x": [
+      1420,
+      1388,
+      1356
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00001-c0030",
+    "note": "Fa upper core over ya; divide at core's left edge."
+  },
+  "5.48.37": {
+    "wid": "5.48.37",
+    "page": 116,
+    "x": [
+      247,
+      220,
+      189
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00001-c0031",
+    "note": "Old hint in ya bowl; move to fa loop's left edge."
+  },
+  "62.10.4": {
+    "wid": "62.10.4",
+    "page": 554,
+    "x": [
+      404,
+      379,
+      343
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00001-c0032",
+    "note": "Upper fa and lower ya overlap; preserve right loop as fa core."
+  },
+  "4.46.17": {
+    "wid": "4.46.17",
+    "page": 86,
+    "x": [
+      1620,
+      1589,
+      1551
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00001-c0033",
+    "note": "Boundary at upper fa core left edge; whole bowl remains the ya target."
+  },
+  "26.225.3": {
+    "wid": "26.225.3",
+    "page": 376,
+    "x": [
+      471,
+      445,
+      411
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00001-c0034",
+    "note": "Use left edge of fa loop despite overlapping ya hook."
+  },
+  "61.4.5": {
+    "wid": "61.4.5",
+    "page": 551,
+    "x": [
+      865,
+      835,
+      796
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00001-c0035",
+    "note": "Old hint too far left; move border under upper fa core edge."
+  },
+  "2.240.17": {
+    "wid": "2.240.17",
+    "page": 39,
+    "x": [
+      1104,
+      1077,
+      1041
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00001-c0036",
+    "note": "Compact stacked fi; do not follow displaced dot or diacritic."
+  },
+  "12.21.17": {
+    "wid": "12.21.17",
+    "page": 237,
+    "x": [
+      174,
+      148,
+      109
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00001-c0037",
+    "note": "Upper fa core overlaps ya; cut at fa's left loop edge."
+  },
+  "24.36.0": {
+    "wid": "24.36.0",
+    "page": 354,
+    "x": [
+      802,
+      777,
+      737
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00001-c0038",
+    "note": "Fa loop starts just right of old line; broad ya returns below."
+  },
+  "58.7.6": {
+    "wid": "58.7.6",
+    "page": 543,
+    "x": [
+      1294,
+      1266,
+      1236
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00001-c0039",
+    "note": "Compact stacked fa/ya; border follows upper loop's left edge."
+  },
+  "2.218.6": {
+    "wid": "2.218.6",
+    "page": 34,
+    "x": [
+      1246,
+      1215,
+      1183
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00001-c0040",
+    "note": "Fa loop sits above hook; split by visible loop core."
+  },
+  "9.40.13": {
+    "wid": "9.40.13",
+    "page": 193,
+    "x": [
+      570,
+      542,
+      413
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00001-c0041",
+    "note": "Greatly stretched ya bowl keeps nearly all width; fa is only compact upper right core."
+  },
+  "9.99.21": {
+    "wid": "9.99.21",
+    "page": 202,
+    "x": [
+      1147,
+      1119,
+      1088
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00001-c0042",
+    "note": "Old hint lies left of fa; move to upper loop edge."
+  },
+  "27.63.2": {
+    "wid": "27.63.2",
+    "page": 382,
+    "x": [
+      173,
+      145,
+      111
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00001-c0043",
+    "note": "Fa upper loop slightly left of old line; preserve core despite ya overlap."
+  },
+  "2.23.2": {
+    "wid": "2.23.2",
+    "page": 4,
+    "x": [
+      885,
+      853,
+      823
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00001-c0044",
+    "note": "Old line crosses fa loop; move to loop's left edge."
+  },
+  "22.15.7": {
+    "wid": "22.15.7",
+    "page": 333,
+    "x": [
+      1199,
+      1172,
+      1135
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00001-c0045",
+    "note": "Dashed line lies in ya bowl; boundary belongs near upper fa core."
+  },
+  "6.59.9": {
+    "wid": "6.59.9",
+    "page": 134,
+    "x": [
+      207,
+      180,
+      98
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00001-c0046",
+    "note": "Elongated ya owns nearly all lower stretch; compact fa core remains right."
+  },
+  "10.3.7": {
+    "wid": "10.3.7",
+    "page": 208,
+    "x": [
+      1827,
+      1805,
+      1770
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00001-c0047",
+    "note": "Old line cuts ya bowl; move to upper fa loop's left side."
+  },
+  "29.20.2": {
+    "wid": "29.20.2",
+    "page": 398,
+    "x": [
+      442,
+      416,
+      323
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00001-c0048",
+    "note": "Very wide ya bowl; compact upper right fa determines boundary."
+  },
+  "33.12.4": {
+    "wid": "33.12.4",
+    "page": 419,
+    "x": [
+      471,
+      442,
+      322
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00001-c0049",
+    "note": "Large stretched ya bowl; far-left old hint rejected, upper fa core kept compact."
+  },
+  "43.18.2": {
+    "wid": "43.18.2",
+    "page": 490,
+    "x": [
+      225,
+      196,
+      97
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00001-c0050",
+    "note": "Long ya tail owns width; fa begins at upper loop's left edge."
+  },
+  "22.55.4": {
+    "wid": "22.55.4",
+    "page": 338,
+    "x": [
+      690,
+      662,
+      555
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00001-c0051",
+    "note": "Stretched ya; border near fa upper loop instead of lower-bowl midpoint."
+  },
+  "41.16.10": {
+    "wid": "41.16.10",
+    "page": 478,
+    "x": [
+      1411,
+      1383,
+      1347
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00001-c0052",
+    "note": "Compact stacked fi; border at upper fa core left edge."
+  },
+  "2.244.1": {
+    "wid": "2.244.1",
+    "page": 39,
+    "x": [
+      1569,
+      1543,
+      1507
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00001-c0053",
+    "note": "Fa upper core and ya hook overlap; preserve broad left bowl."
+  },
+  "3.13.9": {
+    "wid": "3.13.9",
+    "page": 51,
+    "x": [
+      676,
+      649,
+      505
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00001-c0054",
+    "note": "Shaded self-check showed657 cut through fa loop; moved to upper-loop left edge649."
+  },
+  "3.22.4": {
+    "wid": "3.22.4",
+    "page": 52,
+    "x": [
+      1812,
+      1785,
+      1667
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00001-c0055",
+    "note": "Very long ya bowl keeps stretch; compact fa upper core determines split."
+  },
+  "22.20.3": {
+    "wid": "22.20.3",
+    "page": 334,
+    "x": [
+      430,
+      400,
+      371
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00001-c0056",
+    "note": "Narrow stacked fi; fa loop begins at the chosen boundary."
+  },
+  "42.20.18": {
+    "wid": "42.20.18",
+    "page": 485,
+    "x": [
+      549,
+      519,
+      479
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00001-c0057",
+    "note": "Broad ya with fa above right hook; keep upper fa core right."
+  },
+  "45.13.3": {
+    "wid": "45.13.3",
+    "page": 499,
+    "x": [
+      631,
+      604,
+      575
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00001-c0058",
+    "note": "Thin upright fa above hooked ya; loop edge is a doubtful vertical division."
+  },
+  "58.11.7": {
+    "wid": "58.11.7",
+    "page": 543,
+    "x": [
+      960,
+      937,
+      835
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00001-c0059",
+    "note": "Stretched lower ya bowl; border moved near upper fa, not midpoint."
+  },
+  "70.4.4": {
+    "wid": "70.4.4",
+    "page": 568,
+    "x": [
+      197,
+      173,
+      108
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00001-c0060",
+    "note": "Long ya bowl with compact fa loop over right end; cut at fa core left edge."
+  },
+  "10.61.27": {
+    "wid": "10.61.27",
+    "page": 215,
+    "x": [
+      651,
+      631,
+      528
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00001-c0061",
+    "note": "Long ya stretch left of compact fa; border set by fa loop core."
+  },
+  "11.85.11": {
+    "wid": "11.85.11",
+    "page": 231,
+    "x": [
+      903,
+      876,
+      773
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00001-c0062",
+    "note": "Very wide ya bowl; upper-right fa remains compact rather than sharing equal width."
+  },
+  "39.68.5": {
+    "wid": "39.68.5",
+    "page": 466,
+    "x": [
+      957,
+      932,
+      900
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00001-c0063",
+    "note": "Narrow stacked fi; upper fa and lower ya overlap at chosen core division."
+  },
+  "77.41.2": {
+    "wid": "77.41.2",
+    "page": 581,
+    "x": [
+      199,
+      175,
+      100
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00001-c0064",
+    "note": "Long lower bowl belongs to ya; cut at fa core's left side."
+  },
+  "2.60.25": {
+    "wid": "2.60.25",
+    "page": 9,
+    "x": [
+      948,
+      922,
+      773
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00001-c0065",
+    "note": "Extreme final ya stretch retained fully left; fa uses compact right core."
+  },
+  "4.97.12": {
+    "wid": "4.97.12",
+    "page": 94,
+    "x": [
+      369,
+      341,
+      312
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00001-c0066",
+    "note": "Compact stacked form; fa core slightly left of old dashed hint."
+  },
+  "2.273.9": {
+    "wid": "2.273.9",
+    "page": 46,
+    "x": [
+      999,
+      972,
+      821
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00001-c0067",
+    "note": "Very long ya tail retained left; compact upper fa begins near 972."
+  },
+  "7.56.2": {
+    "wid": "7.56.2",
+    "page": 157,
+    "x": [
+      203,
+      175,
+      116
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00001-c0068",
+    "note": "Stretched ya bowl and fa overlap; split at fa loop's left core."
+  },
+  "34.24.14": {
+    "wid": "34.24.14",
+    "page": 431,
+    "x": [
+      866,
+      846,
+      809
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00001-c0069",
+    "note": "Narrow stacked fi; boundary placed at upper fa loop's left edge."
+  },
+  "47.15.37": {
+    "wid": "47.15.37",
+    "page": 508,
+    "x": [
+      278,
+      249,
+      214
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00001-c0070",
+    "note": "Fa core overlaps ya hook; tall left crop intrusion makes this drawing additionally uncertain."
+  }
+}

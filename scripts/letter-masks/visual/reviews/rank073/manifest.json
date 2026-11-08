@@ -1,0 +1,8445 @@
+{
+  "rank": 73,
+  "spelling": "عَن",
+  "groupsSha256": "dc57f6e59f522502d388588905836065ccff43e7d53c19d7daac9c7d59abc84b",
+  "excludedHiddenIds": [],
+  "clusters": [
+    {
+      "unitVariant": 0,
+      "shapeFeatureKind": "baseline-skeleton",
+      "count": 14,
+      "memberIds": [
+        "8.47.10",
+        "16.125.17",
+        "18.17.5",
+        "18.83.1",
+        "20.83.2",
+        "27.44.9",
+        "28.11.5",
+        "28.78.25",
+        "31.33.9",
+        "34.15.7",
+        "38.26.14",
+        "42.34.5",
+        "46.5.15",
+        "55.39.3"
+      ],
+      "representative": {
+        "wid": "34.15.7",
+        "page": 430,
+        "body": [
+          508,
+          97,
+          609,
+          211
+        ],
+        "band": [
+          508,
+          45,
+          609,
+          244.5
+        ],
+        "region": [
+          499,
+          45,
+          614,
+          244.5
+        ],
+        "unitVariant": 0,
+        "skeletonExtraction": {
+          "components": 1,
+          "expected": 1,
+          "bodyInkCoverage": 0.84317
+        },
+        "shapeFeatureKind": "baseline-skeleton",
+        "shapeComparisonBox": [
+          510,
+          144,
+          608,
+          210
+        ],
+        "inkBox": [
+          510,
+          99,
+          608,
+          210
+        ],
+        "units": [
+          {
+            "start": 0,
+            "end": 2,
+            "primary": "ع",
+            "show": "عَ",
+            "silent": false,
+            "tid": "34.15.7@r0"
+          },
+          {
+            "start": 2,
+            "end": 3,
+            "primary": "ن",
+            "show": "ن",
+            "silent": false,
+            "tid": "34.15.7@r2"
+          }
+        ]
+      },
+      "minimumPairCorrelation": 0.896478,
+      "maximumPairAspectRatio": 1.090948,
+      "reviewStatus": "unreviewed",
+      "borders": null,
+      "id": "s00073-c0001"
+    },
+    {
+      "unitVariant": 0,
+      "shapeFeatureKind": "baseline-skeleton",
+      "count": 11,
+      "memberIds": [
+        "2.217.40",
+        "4.29.12",
+        "4.160.10",
+        "7.22.18",
+        "9.29.25",
+        "10.88.14",
+        "10.101.10",
+        "27.81.4",
+        "38.26.20",
+        "63.2.4",
+        "84.19.2"
+      ],
+      "representative": {
+        "wid": "84.19.2",
+        "page": 589,
+        "body": [
+          1377,
+          2273,
+          1482,
+          2394
+        ],
+        "band": [
+          1377,
+          2242.5,
+          1482,
+          2441.5
+        ],
+        "region": [
+          1369,
+          2242.5,
+          1490,
+          2441.5
+        ],
+        "unitVariant": 0,
+        "skeletonExtraction": {
+          "components": 1,
+          "expected": 1,
+          "bodyInkCoverage": 0.818433
+        },
+        "shapeFeatureKind": "baseline-skeleton",
+        "shapeComparisonBox": [
+          1379,
+          2328,
+          1480,
+          2392
+        ],
+        "inkBox": [
+          1379,
+          2276,
+          1480,
+          2392
+        ],
+        "units": [
+          {
+            "start": 0,
+            "end": 2,
+            "primary": "ع",
+            "show": "عَ",
+            "silent": false,
+            "tid": "84.19.2@r0"
+          },
+          {
+            "start": 2,
+            "end": 3,
+            "primary": "ن",
+            "show": "ن",
+            "silent": false,
+            "tid": "84.19.2@r2"
+          }
+        ]
+      },
+      "minimumPairCorrelation": 0.911216,
+      "maximumPairAspectRatio": 1.107929,
+      "reviewStatus": "unreviewed",
+      "borders": null,
+      "id": "s00073-c0002"
+    },
+    {
+      "unitVariant": 0,
+      "shapeFeatureKind": "baseline-skeleton",
+      "count": 9,
+      "memberIds": [
+        "6.117.6",
+        "6.153.10",
+        "18.28.23",
+        "18.101.5",
+        "21.39.11",
+        "31.33.15",
+        "42.30.8",
+        "47.34.4",
+        "107.5.2"
+      ],
+      "representative": {
+        "wid": "6.153.10",
+        "page": 149,
+        "body": [
+          1313,
+          1090,
+          1419,
+          1204
+        ],
+        "band": [
+          1313,
+          1040,
+          1419,
+          1249.5
+        ],
+        "region": [
+          1302.5,
+          1040,
+          1428,
+          1249.5
+        ],
+        "unitVariant": 0,
+        "skeletonExtraction": {
+          "components": 1,
+          "expected": 1,
+          "bodyInkCoverage": 0.827129
+        },
+        "shapeFeatureKind": "baseline-skeleton",
+        "shapeComparisonBox": [
+          1315,
+          1139,
+          1417,
+          1203
+        ],
+        "inkBox": [
+          1315,
+          1093,
+          1417,
+          1203
+        ],
+        "units": [
+          {
+            "start": 0,
+            "end": 2,
+            "primary": "ع",
+            "show": "عَ",
+            "silent": false,
+            "tid": "6.153.10@r0"
+          },
+          {
+            "start": 2,
+            "end": 3,
+            "primary": "ن",
+            "show": "ن",
+            "silent": false,
+            "tid": "6.153.10@r2"
+          }
+        ]
+      },
+      "minimumPairCorrelation": 0.920841,
+      "maximumPairAspectRatio": 1.106015,
+      "reviewStatus": "unreviewed",
+      "borders": null,
+      "id": "s00073-c0003"
+    },
+    {
+      "unitVariant": 0,
+      "shapeFeatureKind": "baseline-skeleton",
+      "count": 9,
+      "memberIds": [
+        "2.142.6",
+        "5.63.4",
+        "5.91.12",
+        "6.116.7",
+        "9.9.6",
+        "16.94.13",
+        "18.70.5",
+        "18.76.3",
+        "58.16.4"
+      ],
+      "representative": {
+        "wid": "9.9.6",
+        "page": 188,
+        "body": [
+          1735,
+          1268,
+          1836,
+          1383
+        ],
+        "band": [
+          1735,
+          1225.5,
+          1836,
+          1421
+        ],
+        "region": [
+          1731,
+          1225.5,
+          1836,
+          1421
+        ],
+        "unitVariant": 0,
+        "skeletonExtraction": {
+          "components": 1,
+          "expected": 1,
+          "bodyInkCoverage": 0.838953
+        },
+        "shapeFeatureKind": "baseline-skeleton",
+        "shapeComparisonBox": [
+          1737,
+          1315,
+          1835,
+          1381
+        ],
+        "inkBox": [
+          1737,
+          1271,
+          1835,
+          1381
+        ],
+        "units": [
+          {
+            "start": 0,
+            "end": 2,
+            "primary": "ع",
+            "show": "عَ",
+            "silent": false,
+            "tid": "9.9.6@r0"
+          },
+          {
+            "start": 2,
+            "end": 3,
+            "primary": "ن",
+            "show": "ن",
+            "silent": false,
+            "tid": "9.9.6@r2"
+          }
+        ]
+      },
+      "minimumPairCorrelation": 0.91485,
+      "maximumPairAspectRatio": 1.081967,
+      "reviewStatus": "unreviewed",
+      "borders": null,
+      "id": "s00073-c0004"
+    },
+    {
+      "unitVariant": 1,
+      "shapeFeatureKind": "baseline-skeleton",
+      "count": 8,
+      "memberIds": [
+        "2.123.5",
+        "2.130.2",
+        "4.46.5",
+        "5.13.9",
+        "9.114.6",
+        "10.61.22",
+        "16.111.5",
+        "83.15.2"
+      ],
+      "representative": {
+        "wid": "4.46.5",
+        "page": 86,
+        "body": [
+          741,
+          295,
+          849,
+          400
+        ],
+        "band": [
+          741,
+          237,
+          849,
+          437.5
+        ],
+        "region": [
+          733.5,
+          237,
+          853.5,
+          437.5
+        ],
+        "unitVariant": 1,
+        "skeletonExtraction": {
+          "components": 1,
+          "expected": 1,
+          "bodyInkCoverage": 0.836694
+        },
+        "shapeFeatureKind": "baseline-skeleton",
+        "shapeComparisonBox": [
+          743,
+          333,
+          848,
+          398
+        ],
+        "inkBox": [
+          743,
+          297,
+          848,
+          398
+        ],
+        "units": [
+          {
+            "start": 0,
+            "end": 2,
+            "primary": "ع",
+            "show": "عَ",
+            "silent": false,
+            "tid": "4.46.5@r0"
+          },
+          {
+            "start": 2,
+            "end": 3,
+            "primary": "ن",
+            "show": "ن",
+            "silent": true,
+            "tid": "4.46.5@r2"
+          }
+        ]
+      },
+      "minimumPairCorrelation": 0.91545,
+      "maximumPairAspectRatio": 1.082651,
+      "reviewStatus": "unreviewed",
+      "borders": null,
+      "id": "s00073-c0005"
+    },
+    {
+      "unitVariant": 1,
+      "shapeFeatureKind": "baseline-skeleton",
+      "count": 8,
+      "memberIds": [
+        "2.48.5",
+        "5.79.3",
+        "7.154.2",
+        "7.166.2",
+        "9.120.10",
+        "9.120.16",
+        "44.41.4",
+        "53.29.1"
+      ],
+      "representative": {
+        "wid": "7.154.2",
+        "page": 169,
+        "body": [
+          1171,
+          1870,
+          1277,
+          1974
+        ],
+        "band": [
+          1171,
+          1802.5,
+          1277,
+          2016
+        ],
+        "region": [
+          1164.5,
+          1802.5,
+          1283.5,
+          2016
+        ],
+        "unitVariant": 1,
+        "skeletonExtraction": {
+          "components": 1,
+          "expected": 1,
+          "bodyInkCoverage": 0.830585
+        },
+        "shapeFeatureKind": "baseline-skeleton",
+        "shapeComparisonBox": [
+          1173,
+          1909,
+          1274,
+          1973
+        ],
+        "inkBox": [
+          1173,
+          1873,
+          1274,
+          1973
+        ],
+        "units": [
+          {
+            "start": 0,
+            "end": 2,
+            "primary": "ع",
+            "show": "عَ",
+            "silent": false,
+            "tid": "7.154.2@r0"
+          },
+          {
+            "start": 2,
+            "end": 3,
+            "primary": "ن",
+            "show": "ن",
+            "silent": true,
+            "tid": "7.154.2@r2"
+          }
+        ]
+      },
+      "minimumPairCorrelation": 0.890701,
+      "maximumPairAspectRatio": 1.063158,
+      "reviewStatus": "unreviewed",
+      "borders": null,
+      "id": "s00073-c0006"
+    },
+    {
+      "unitVariant": 0,
+      "shapeFeatureKind": "baseline-skeleton",
+      "count": 8,
+      "memberIds": [
+        "9.34.13",
+        "14.30.4",
+        "21.39.7",
+        "22.9.3",
+        "23.71.13",
+        "30.53.4",
+        "34.23.11",
+        "43.36.2"
+      ],
+      "representative": {
+        "wid": "9.34.13",
+        "page": 192,
+        "body": [
+          489,
+          1071,
+          598,
+          1183
+        ],
+        "band": [
+          489,
+          1026,
+          598,
+          1226
+        ],
+        "region": [
+          479,
+          1026,
+          611,
+          1226
+        ],
+        "unitVariant": 0,
+        "skeletonExtraction": {
+          "components": 1,
+          "expected": 1,
+          "bodyInkCoverage": 0.838997
+        },
+        "shapeFeatureKind": "baseline-skeleton",
+        "shapeComparisonBox": [
+          491,
+          1115,
+          595,
+          1181
+        ],
+        "inkBox": [
+          491,
+          1074,
+          595,
+          1182
+        ],
+        "units": [
+          {
+            "start": 0,
+            "end": 2,
+            "primary": "ع",
+            "show": "عَ",
+            "silent": false,
+            "tid": "9.34.13@r0"
+          },
+          {
+            "start": 2,
+            "end": 3,
+            "primary": "ن",
+            "show": "ن",
+            "silent": false,
+            "tid": "9.34.13@r2"
+          }
+        ]
+      },
+      "minimumPairCorrelation": 0.890127,
+      "maximumPairAspectRatio": 1.071463,
+      "reviewStatus": "unreviewed",
+      "borders": null,
+      "id": "s00073-c0007"
+    },
+    {
+      "unitVariant": 0,
+      "shapeFeatureKind": "baseline-skeleton",
+      "count": 8,
+      "memberIds": [
+        "2.217.11",
+        "2.217.33",
+        "3.99.5",
+        "14.3.7",
+        "20.124.2",
+        "21.42.9",
+        "68.42.2",
+        "72.17.4"
+      ],
+      "representative": {
+        "wid": "14.3.7",
+        "page": 255,
+        "body": [
+          428,
+          1700,
+          529,
+          1809
+        ],
+        "band": [
+          428,
+          1654,
+          529,
+          1847.5
+        ],
+        "region": [
+          420.5,
+          1654,
+          541,
+          1847.5
+        ],
+        "unitVariant": 0,
+        "skeletonExtraction": {
+          "components": 1,
+          "expected": 1,
+          "bodyInkCoverage": 0.809927
+        },
+        "shapeFeatureKind": "baseline-skeleton",
+        "shapeComparisonBox": [
+          431,
+          1741,
+          527,
+          1808
+        ],
+        "inkBox": [
+          430,
+          1703,
+          528,
+          1808
+        ],
+        "units": [
+          {
+            "start": 0,
+            "end": 2,
+            "primary": "ع",
+            "show": "عَ",
+            "silent": false,
+            "tid": "14.3.7@r0"
+          },
+          {
+            "start": 2,
+            "end": 3,
+            "primary": "ن",
+            "show": "ن",
+            "silent": false,
+            "tid": "14.3.7@r2"
+          }
+        ]
+      },
+      "minimumPairCorrelation": 0.898208,
+      "maximumPairAspectRatio": 1.072858,
+      "reviewStatus": "unreviewed",
+      "borders": null,
+      "id": "s00073-c0008"
+    },
+    {
+      "unitVariant": 0,
+      "shapeFeatureKind": "baseline-skeleton",
+      "count": 7,
+      "memberIds": [
+        "9.66.8",
+        "15.51.1",
+        "33.8.2",
+        "39.8.24",
+        "47.1.3",
+        "47.32.4",
+        "53.29.4"
+      ],
+      "representative": {
+        "wid": "33.8.2",
+        "page": 419,
+        "body": [
+          1176,
+          461,
+          1285,
+          582
+        ],
+        "band": [
+          1176,
+          433.5,
+          1285,
+          631.5
+        ],
+        "region": [
+          1170.5,
+          433.5,
+          1292.5,
+          631.5
+        ],
+        "unitVariant": 0,
+        "skeletonExtraction": {
+          "components": 1,
+          "expected": 1,
+          "bodyInkCoverage": 0.839691
+        },
+        "shapeFeatureKind": "baseline-skeleton",
+        "shapeComparisonBox": [
+          1178,
+          516,
+          1283,
+          581
+        ],
+        "inkBox": [
+          1178,
+          464,
+          1283,
+          581
+        ],
+        "units": [
+          {
+            "start": 0,
+            "end": 2,
+            "primary": "ع",
+            "show": "عَ",
+            "silent": false,
+            "tid": "33.8.2@r0"
+          },
+          {
+            "start": 2,
+            "end": 3,
+            "primary": "ن",
+            "show": "ن",
+            "silent": false,
+            "tid": "33.8.2@r2"
+          }
+        ]
+      },
+      "minimumPairCorrelation": 0.92757,
+      "maximumPairAspectRatio": 1.079404,
+      "reviewStatus": "unreviewed",
+      "borders": null,
+      "id": "s00073-c0009"
+    },
+    {
+      "unitVariant": 0,
+      "shapeFeatureKind": "baseline-skeleton",
+      "count": 5,
+      "memberIds": [
+        "4.153.31",
+        "6.156.11",
+        "16.88.3",
+        "31.6.7",
+        "54.37.2"
+      ],
+      "representative": {
+        "wid": "6.156.11",
+        "page": 149,
+        "body": [
+          738,
+          2091,
+          847,
+          2210
+        ],
+        "band": [
+          738,
+          2051.5,
+          847,
+          2252.5
+        ],
+        "region": [
+          730,
+          2051.5,
+          852,
+          2252.5
+        ],
+        "unitVariant": 0,
+        "skeletonExtraction": {
+          "components": 1,
+          "expected": 1,
+          "bodyInkCoverage": 0.822038
+        },
+        "shapeFeatureKind": "baseline-skeleton",
+        "shapeComparisonBox": [
+          740,
+          2143,
+          845,
+          2208
+        ],
+        "inkBox": [
+          740,
+          2094,
+          845,
+          2208
+        ],
+        "units": [
+          {
+            "start": 0,
+            "end": 2,
+            "primary": "ع",
+            "show": "عَ",
+            "silent": false,
+            "tid": "6.156.11@r0"
+          },
+          {
+            "start": 2,
+            "end": 3,
+            "primary": "ن",
+            "show": "ن",
+            "silent": false,
+            "tid": "6.156.11@r2"
+          }
+        ]
+      },
+      "minimumPairCorrelation": 0.930582,
+      "maximumPairAspectRatio": 1.05673,
+      "reviewStatus": "unreviewed",
+      "borders": null,
+      "id": "s00073-c0010"
+    },
+    {
+      "unitVariant": 0,
+      "shapeFeatureKind": "baseline-skeleton",
+      "count": 5,
+      "memberIds": [
+        "7.45.2",
+        "8.36.6",
+        "11.53.9",
+        "22.25.4",
+        "24.37.6"
+      ],
+      "representative": {
+        "wid": "8.36.6",
+        "page": 181,
+        "body": [
+          1198,
+          1075,
+          1296,
+          1186
+        ],
+        "band": [
+          1198,
+          1030.5,
+          1296,
+          1232
+        ],
+        "region": [
+          1192.5,
+          1030.5,
+          1304,
+          1232
+        ],
+        "unitVariant": 0,
+        "skeletonExtraction": {
+          "components": 1,
+          "expected": 1,
+          "bodyInkCoverage": 0.816092
+        },
+        "shapeFeatureKind": "baseline-skeleton",
+        "shapeComparisonBox": [
+          1200,
+          1125,
+          1294,
+          1185
+        ],
+        "inkBox": [
+          1200,
+          1078,
+          1294,
+          1185
+        ],
+        "units": [
+          {
+            "start": 0,
+            "end": 2,
+            "primary": "ع",
+            "show": "عَ",
+            "silent": false,
+            "tid": "8.36.6@r0"
+          },
+          {
+            "start": 2,
+            "end": 3,
+            "primary": "ن",
+            "show": "ن",
+            "silent": false,
+            "tid": "8.36.6@r2"
+          }
+        ]
+      },
+      "minimumPairCorrelation": 0.928268,
+      "maximumPairAspectRatio": 1.089855,
+      "reviewStatus": "unreviewed",
+      "borders": null,
+      "id": "s00073-c0011"
+    },
+    {
+      "unitVariant": 0,
+      "shapeFeatureKind": "baseline-skeleton",
+      "count": 4,
+      "memberIds": [
+        "4.167.4",
+        "5.60.24",
+        "11.19.2",
+        "68.7.6"
+      ],
+      "representative": {
+        "wid": "4.167.4",
+        "page": 104,
+        "body": [
+          1233,
+          1876,
+          1351,
+          1992
+        ],
+        "band": [
+          1233,
+          1826.5,
+          1351,
+          2028
+        ],
+        "region": [
+          1226.5,
+          1826.5,
+          1359.5,
+          2028
+        ],
+        "unitVariant": 0,
+        "skeletonExtraction": {
+          "components": 1,
+          "expected": 1,
+          "bodyInkCoverage": 0.827569
+        },
+        "shapeFeatureKind": "baseline-skeleton",
+        "shapeComparisonBox": [
+          1235,
+          1926,
+          1349,
+          1991
+        ],
+        "inkBox": [
+          1235,
+          1878,
+          1349,
+          1991
+        ],
+        "units": [
+          {
+            "start": 0,
+            "end": 2,
+            "primary": "ع",
+            "show": "عَ",
+            "silent": false,
+            "tid": "4.167.4@r0"
+          },
+          {
+            "start": 2,
+            "end": 3,
+            "primary": "ن",
+            "show": "ن",
+            "silent": false,
+            "tid": "4.167.4@r2"
+          }
+        ]
+      },
+      "minimumPairCorrelation": 0.927554,
+      "maximumPairAspectRatio": 1.045562,
+      "reviewStatus": "unreviewed",
+      "borders": null,
+      "id": "s00073-c0012"
+    },
+    {
+      "unitVariant": 1,
+      "shapeFeatureKind": "baseline-skeleton",
+      "count": 4,
+      "memberIds": [
+        "12.23.5",
+        "12.26.3",
+        "12.30.8",
+        "12.51.24"
+      ],
+      "representative": {
+        "wid": "12.51.24",
+        "page": 241,
+        "body": [
+          1255,
+          2685,
+          1354,
+          2799
+        ],
+        "band": [
+          1255,
+          2646.5,
+          1354,
+          2841.5
+        ],
+        "region": [
+          1250.5,
+          2646.5,
+          1354.5,
+          2841.5
+        ],
+        "unitVariant": 1,
+        "skeletonExtraction": {
+          "components": 1,
+          "expected": 1,
+          "bodyInkCoverage": 0.811864
+        },
+        "shapeFeatureKind": "baseline-skeleton",
+        "shapeComparisonBox": [
+          1257,
+          2739,
+          1353,
+          2798
+        ],
+        "inkBox": [
+          1257,
+          2688,
+          1353,
+          2798
+        ],
+        "units": [
+          {
+            "start": 0,
+            "end": 2,
+            "primary": "ع",
+            "show": "عَ",
+            "silent": false,
+            "tid": "12.51.24@r0"
+          },
+          {
+            "start": 2,
+            "end": 3,
+            "primary": "ن",
+            "show": "ن",
+            "silent": true,
+            "tid": "12.51.24@r2"
+          }
+        ]
+      },
+      "minimumPairCorrelation": 0.920145,
+      "maximumPairAspectRatio": 1.084746,
+      "reviewStatus": "unreviewed",
+      "borders": null,
+      "id": "s00073-c0013"
+    },
+    {
+      "unitVariant": 0,
+      "shapeFeatureKind": "baseline-skeleton",
+      "count": 4,
+      "memberIds": [
+        "7.86.6",
+        "38.32.5",
+        "46.16.8",
+        "63.9.8"
+      ],
+      "representative": {
+        "wid": "63.9.8",
+        "page": 555,
+        "body": [
+          902,
+          1885,
+          1006,
+          1994
+        ],
+        "band": [
+          902,
+          1828,
+          1006,
+          2030.5
+        ],
+        "region": [
+          897.5,
+          1828,
+          1011,
+          2030.5
+        ],
+        "unitVariant": 0,
+        "skeletonExtraction": {
+          "components": 1,
+          "expected": 1,
+          "bodyInkCoverage": 0.819733
+        },
+        "shapeFeatureKind": "baseline-skeleton",
+        "shapeComparisonBox": [
+          904,
+          1931,
+          1005,
+          1992
+        ],
+        "inkBox": [
+          904,
+          1887,
+          1005,
+          1992
+        ],
+        "units": [
+          {
+            "start": 0,
+            "end": 2,
+            "primary": "ع",
+            "show": "عَ",
+            "silent": false,
+            "tid": "63.9.8@r0"
+          },
+          {
+            "start": 2,
+            "end": 3,
+            "primary": "ن",
+            "show": "ن",
+            "silent": false,
+            "tid": "63.9.8@r2"
+          }
+        ]
+      },
+      "minimumPairCorrelation": 0.915371,
+      "maximumPairAspectRatio": 1.109515,
+      "reviewStatus": "unreviewed",
+      "borders": null,
+      "id": "s00073-c0014"
+    },
+    {
+      "unitVariant": 0,
+      "shapeFeatureKind": "baseline-skeleton",
+      "count": 3,
+      "memberIds": [
+        "2.233.36",
+        "4.4.7",
+        "5.54.6"
+      ],
+      "representative": {
+        "wid": "5.54.6",
+        "page": 117,
+        "body": [
+          999,
+          1488,
+          1090,
+          1591
+        ],
+        "band": [
+          999,
+          1441.5,
+          1090,
+          1639.5
+        ],
+        "region": [
+          991,
+          1441.5,
+          1095,
+          1639.5
+        ],
+        "unitVariant": 0,
+        "skeletonExtraction": {
+          "components": 1,
+          "expected": 1,
+          "bodyInkCoverage": 0.788911
+        },
+        "shapeFeatureKind": "baseline-skeleton",
+        "shapeComparisonBox": [
+          1001,
+          1536,
+          1090,
+          1589
+        ],
+        "inkBox": [
+          1001,
+          1491,
+          1090,
+          1590
+        ],
+        "units": [
+          {
+            "start": 0,
+            "end": 2,
+            "primary": "ع",
+            "show": "عَ",
+            "silent": false,
+            "tid": "5.54.6@r0"
+          },
+          {
+            "start": 2,
+            "end": 3,
+            "primary": "ن",
+            "show": "ن",
+            "silent": false,
+            "tid": "5.54.6@r2"
+          }
+        ]
+      },
+      "minimumPairCorrelation": 0.919829,
+      "maximumPairAspectRatio": 1.044792,
+      "reviewStatus": "unreviewed",
+      "borders": null,
+      "id": "s00073-c0015"
+    },
+    {
+      "unitVariant": 1,
+      "shapeFeatureKind": "baseline-skeleton",
+      "count": 3,
+      "memberIds": [
+        "12.51.6",
+        "24.43.30",
+        "47.38.14"
+      ],
+      "representative": {
+        "wid": "12.51.6",
+        "page": 241,
+        "body": [
+          828,
+          2293,
+          936,
+          2400
+        ],
+        "band": [
+          828,
+          2251,
+          936,
+          2440.5
+        ],
+        "region": [
+          821,
+          2251,
+          940.5,
+          2440.5
+        ],
+        "unitVariant": 1,
+        "skeletonExtraction": {
+          "components": 1,
+          "expected": 1,
+          "bodyInkCoverage": 0.817558
+        },
+        "shapeFeatureKind": "baseline-skeleton",
+        "shapeComparisonBox": [
+          830,
+          2336,
+          934,
+          2399
+        ],
+        "inkBox": [
+          830,
+          2296,
+          934,
+          2399
+        ],
+        "units": [
+          {
+            "start": 0,
+            "end": 2,
+            "primary": "ع",
+            "show": "عَ",
+            "silent": false,
+            "tid": "12.51.6@r0"
+          },
+          {
+            "start": 2,
+            "end": 3,
+            "primary": "ن",
+            "show": "ن",
+            "silent": true,
+            "tid": "12.51.6@r2"
+          }
+        ]
+      },
+      "minimumPairCorrelation": 0.943256,
+      "maximumPairAspectRatio": 1.058382,
+      "reviewStatus": "unreviewed",
+      "borders": null,
+      "id": "s00073-c0016"
+    },
+    {
+      "unitVariant": 0,
+      "shapeFeatureKind": "baseline-skeleton",
+      "count": 2,
+      "memberIds": [
+        "4.149.7",
+        "5.77.20"
+      ],
+      "representative": {
+        "wid": "4.149.7",
+        "page": 102,
+        "body": [
+          115,
+          286,
+          231,
+          398
+        ],
+        "band": [
+          115,
+          234,
+          231,
+          434
+        ],
+        "region": [
+          115,
+          234,
+          235,
+          434
+        ],
+        "unitVariant": 0,
+        "skeletonExtraction": {
+          "components": 1,
+          "expected": 1,
+          "bodyInkCoverage": 0.828035
+        },
+        "shapeFeatureKind": "baseline-skeleton",
+        "shapeComparisonBox": [
+          117,
+          332,
+          230,
+          396
+        ],
+        "inkBox": [
+          117,
+          289,
+          230,
+          396
+        ],
+        "units": [
+          {
+            "start": 0,
+            "end": 2,
+            "primary": "ع",
+            "show": "عَ",
+            "silent": false,
+            "tid": "4.149.7@r0"
+          },
+          {
+            "start": 2,
+            "end": 3,
+            "primary": "ن",
+            "show": "ن",
+            "silent": false,
+            "tid": "4.149.7@r2"
+          }
+        ]
+      },
+      "minimumPairCorrelation": 0.936491,
+      "maximumPairAspectRatio": 1.052584,
+      "reviewStatus": "unreviewed",
+      "borders": null,
+      "id": "s00073-c0017"
+    },
+    {
+      "unitVariant": 0,
+      "shapeFeatureKind": "baseline-skeleton",
+      "count": 1,
+      "memberIds": [
+        "5.15.14"
+      ],
+      "representative": {
+        "wid": "5.15.14",
+        "page": 110,
+        "body": [
+          110,
+          1080,
+          332,
+          1194
+        ],
+        "band": [
+          110,
+          1032,
+          332,
+          1242
+        ],
+        "region": [
+          110,
+          1032,
+          343.5,
+          1242
+        ],
+        "unitVariant": 0,
+        "skeletonExtraction": {
+          "components": 1,
+          "expected": 1,
+          "bodyInkCoverage": 0.868611
+        },
+        "shapeFeatureKind": "baseline-skeleton",
+        "shapeComparisonBox": [
+          112,
+          1127,
+          330,
+          1192
+        ],
+        "inkBox": [
+          112,
+          1083,
+          330,
+          1193
+        ],
+        "units": [
+          {
+            "start": 0,
+            "end": 2,
+            "primary": "ع",
+            "show": "عَ",
+            "silent": false,
+            "tid": "5.15.14@r0"
+          },
+          {
+            "start": 2,
+            "end": 3,
+            "primary": "ن",
+            "show": "ن",
+            "silent": false,
+            "tid": "5.15.14@r2"
+          }
+        ]
+      },
+      "minimumPairCorrelation": 1.0,
+      "maximumPairAspectRatio": 1.0,
+      "reviewStatus": "unreviewed",
+      "borders": null,
+      "id": "s00073-c0018"
+    },
+    {
+      "unitVariant": 1,
+      "shapeFeatureKind": "baseline-skeleton",
+      "count": 1,
+      "memberIds": [
+        "12.32.7"
+      ],
+      "representative": {
+        "wid": "12.32.7",
+        "page": 239,
+        "body": [
+          101,
+          676,
+          190,
+          783
+        ],
+        "band": [
+          101,
+          617,
+          190,
+          813.5
+        ],
+        "region": [
+          101,
+          617,
+          195.5,
+          813.5
+        ],
+        "unitVariant": 1,
+        "skeletonExtraction": {
+          "components": 1,
+          "expected": 1,
+          "bodyInkCoverage": 0.810897
+        },
+        "shapeFeatureKind": "baseline-skeleton",
+        "shapeComparisonBox": [
+          102,
+          720,
+          188,
+          781
+        ],
+        "inkBox": [
+          102,
+          678,
+          188,
+          781
+        ],
+        "units": [
+          {
+            "start": 0,
+            "end": 2,
+            "primary": "ع",
+            "show": "عَ",
+            "silent": false,
+            "tid": "12.32.7@r0"
+          },
+          {
+            "start": 2,
+            "end": 3,
+            "primary": "ن",
+            "show": "ن",
+            "silent": true,
+            "tid": "12.32.7@r2"
+          }
+        ]
+      },
+      "minimumPairCorrelation": 1.0,
+      "maximumPairAspectRatio": 1.0,
+      "reviewStatus": "unreviewed",
+      "borders": null,
+      "id": "s00073-c0019"
+    },
+    {
+      "unitVariant": 0,
+      "shapeFeatureKind": "baseline-skeleton",
+      "count": 1,
+      "memberIds": [
+        "53.30.10"
+      ],
+      "representative": {
+        "wid": "53.30.10",
+        "page": 527,
+        "body": [
+          84,
+          678,
+          162,
+          788
+        ],
+        "band": [
+          84,
+          634,
+          162,
+          835.5
+        ],
+        "region": [
+          84,
+          634,
+          173.5,
+          835.5
+        ],
+        "unitVariant": 0,
+        "skeletonExtraction": {
+          "components": 1,
+          "expected": 1,
+          "bodyInkCoverage": 0.825444
+        },
+        "shapeFeatureKind": "baseline-skeleton",
+        "shapeComparisonBox": [
+          86,
+          723,
+          162,
+          786
+        ],
+        "inkBox": [
+          86,
+          681,
+          162,
+          786
+        ],
+        "units": [
+          {
+            "start": 0,
+            "end": 2,
+            "primary": "ع",
+            "show": "عَ",
+            "silent": false,
+            "tid": "53.30.10@r0"
+          },
+          {
+            "start": 2,
+            "end": 3,
+            "primary": "ن",
+            "show": "ن",
+            "silent": false,
+            "tid": "53.30.10@r2"
+          }
+        ]
+      },
+      "minimumPairCorrelation": 1.0,
+      "maximumPairAspectRatio": 1.0,
+      "reviewStatus": "unreviewed",
+      "borders": null,
+      "id": "s00073-c0020"
+    }
+  ],
+  "words": {
+    "8.47.10": {
+      "page": 183,
+      "body": [
+        1727,
+        706,
+        1820,
+        812
+      ],
+      "band": [
+        1727,
+        649.5,
+        1820,
+        851
+      ],
+      "region": [
+        1722.5,
+        649.5,
+        1820,
+        851
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.82367
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        1729,
+        750,
+        1820,
+        811
+      ],
+      "inkBox": [
+        1728,
+        708,
+        1820,
+        811
+      ],
+      "wid": "8.47.10",
+      "cluster": "s00073-c0001",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "8.47.10@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "8.47.10@r2"
+        }
+      ]
+    },
+    "16.125.17": {
+      "page": 281,
+      "body": [
+        1156,
+        2074,
+        1259,
+        2199
+      ],
+      "band": [
+        1156,
+        2040.5,
+        1259,
+        2247.5
+      ],
+      "region": [
+        1150.5,
+        2040.5,
+        1260,
+        2247.5
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.830468
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        1158,
+        2133,
+        1258,
+        2198
+      ],
+      "inkBox": [
+        1158,
+        2077,
+        1258,
+        2198
+      ],
+      "wid": "16.125.17",
+      "cluster": "s00073-c0001",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "16.125.17@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "16.125.17@r2"
+        }
+      ]
+    },
+    "18.17.5": {
+      "page": 295,
+      "body": [
+        556,
+        478,
+        665,
+        586
+      ],
+      "band": [
+        556,
+        441.5,
+        665,
+        632.5
+      ],
+      "region": [
+        553,
+        441.5,
+        675.75,
+        632.5
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.785842
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        558,
+        525,
+        649,
+        584
+      ],
+      "inkBox": [
+        556,
+        478,
+        665,
+        584
+      ],
+      "wid": "18.17.5",
+      "cluster": "s00073-c0001",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "18.17.5@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "18.17.5@r2"
+        }
+      ]
+    },
+    "18.83.1": {
+      "page": 302,
+      "body": [
+        1728,
+        2884,
+        1820,
+        2998
+      ],
+      "band": [
+        1728,
+        2848,
+        1820,
+        3036
+      ],
+      "region": [
+        1720,
+        2848,
+        1820,
+        3036
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.831069
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        1730,
+        2935,
+        1819,
+        2997
+      ],
+      "inkBox": [
+        1730,
+        2886,
+        1819,
+        2997
+      ],
+      "wid": "18.83.1",
+      "cluster": "s00073-c0001",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "18.83.1@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "18.83.1@r2"
+        }
+      ]
+    },
+    "20.83.2": {
+      "page": 317,
+      "body": [
+        93,
+        1468,
+        193,
+        1579
+      ],
+      "band": [
+        93,
+        1432,
+        193,
+        1633.5
+      ],
+      "region": [
+        93,
+        1432,
+        196.5,
+        1633.5
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.828437
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        95,
+        1513,
+        191,
+        1578
+      ],
+      "inkBox": [
+        94,
+        1470,
+        192,
+        1578
+      ],
+      "wid": "20.83.2",
+      "cluster": "s00073-c0001",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "20.83.2@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "20.83.2@r2"
+        }
+      ]
+    },
+    "27.44.9": {
+      "page": 380,
+      "body": [
+        109,
+        2490,
+        199,
+        2589
+      ],
+      "band": [
+        109,
+        2421.5,
+        199,
+        2632.5
+      ],
+      "region": [
+        109,
+        2421.5,
+        199.5,
+        2632.5
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.818011
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        110,
+        2528,
+        197,
+        2587
+      ],
+      "inkBox": [
+        110,
+        2492,
+        198,
+        2588
+      ],
+      "wid": "27.44.9",
+      "cluster": "s00073-c0001",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "27.44.9@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "27.44.9@r2"
+        }
+      ]
+    },
+    "28.11.5": {
+      "page": 386,
+      "body": [
+        851,
+        2079,
+        949,
+        2189
+      ],
+      "band": [
+        851,
+        2023.5,
+        949,
+        2229
+      ],
+      "region": [
+        846,
+        2023.5,
+        952,
+        2229
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.839094
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        853,
+        2123,
+        948,
+        2188
+      ],
+      "inkBox": [
+        853,
+        2082,
+        948,
+        2188
+      ],
+      "wid": "28.11.5",
+      "cluster": "s00073-c0001",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "28.11.5@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "28.11.5@r2"
+        }
+      ]
+    },
+    "28.78.25": {
+      "page": 395,
+      "body": [
+        1436,
+        483,
+        1535,
+        595
+      ],
+      "band": [
+        1436,
+        435.5,
+        1535,
+        636.5
+      ],
+      "region": [
+        1431.5,
+        435.5,
+        1535.5,
+        636.5
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.83839
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        1438,
+        529,
+        1533,
+        593
+      ],
+      "inkBox": [
+        1437,
+        485,
+        1533,
+        593
+      ],
+      "wid": "28.78.25",
+      "cluster": "s00073-c0001",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "28.78.25@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "28.78.25@r2"
+        }
+      ]
+    },
+    "31.33.9": {
+      "page": 414,
+      "body": [
+        1738,
+        1879,
+        1833,
+        1998
+      ],
+      "band": [
+        1738,
+        1838.5,
+        1833,
+        2025.9197021484374
+      ],
+      "region": [
+        1734,
+        1838.5,
+        1833,
+        2025.9197021484374
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.826487
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        1740,
+        1934,
+        1833,
+        1996
+      ],
+      "inkBox": [
+        1740,
+        1882,
+        1833,
+        1996
+      ],
+      "wid": "31.33.9",
+      "cluster": "s00073-c0001",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "31.33.9@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "31.33.9@r2"
+        }
+      ]
+    },
+    "34.15.7": {
+      "page": 430,
+      "body": [
+        508,
+        97,
+        609,
+        211
+      ],
+      "band": [
+        508,
+        45,
+        609,
+        244.5
+      ],
+      "region": [
+        499,
+        45,
+        614,
+        244.5
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.84317
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        510,
+        144,
+        608,
+        210
+      ],
+      "inkBox": [
+        510,
+        99,
+        608,
+        210
+      ],
+      "wid": "34.15.7",
+      "cluster": "s00073-c0001",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "34.15.7@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "34.15.7@r2"
+        }
+      ]
+    },
+    "38.26.14": {
+      "page": 454,
+      "body": [
+        849,
+        2697,
+        941,
+        2803
+      ],
+      "band": [
+        849,
+        2645.273327636719,
+        941,
+        2853.5
+      ],
+      "region": [
+        844,
+        2645.273327636719,
+        946,
+        2853.5
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.82696
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        851,
+        2742,
+        940,
+        2802
+      ],
+      "inkBox": [
+        851,
+        2700,
+        940,
+        2802
+      ],
+      "wid": "38.26.14",
+      "cluster": "s00073-c0001",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "38.26.14@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "38.26.14@r2"
+        }
+      ]
+    },
+    "42.34.5": {
+      "page": 487,
+      "body": [
+        761,
+        472,
+        859,
+        581
+      ],
+      "band": [
+        761,
+        427,
+        859,
+        632.5
+      ],
+      "region": [
+        759.5,
+        427,
+        864,
+        632.5
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.739296
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        764,
+        518,
+        857,
+        579
+      ],
+      "inkBox": [
+        761,
+        472,
+        857,
+        580
+      ],
+      "wid": "42.34.5",
+      "cluster": "s00073-c0001",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "42.34.5@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "42.34.5@r2"
+        }
+      ]
+    },
+    "46.5.15": {
+      "page": 502,
+      "body": [
+        740,
+        2884,
+        828,
+        2988
+      ],
+      "band": [
+        740,
+        2829.5,
+        828,
+        3016
+      ],
+      "region": [
+        735,
+        2829.5,
+        828.5,
+        3016
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.79932
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        743,
+        2933,
+        826,
+        2986
+      ],
+      "inkBox": [
+        742,
+        2886,
+        826,
+        2986
+      ],
+      "wid": "46.5.15",
+      "cluster": "s00073-c0001",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "46.5.15@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "46.5.15@r2"
+        }
+      ]
+    },
+    "55.39.3": {
+      "page": 532,
+      "body": [
+        236,
+        2675,
+        326,
+        2786
+      ],
+      "band": [
+        236,
+        2625,
+        326,
+        2828
+      ],
+      "region": [
+        233.5,
+        2625,
+        340.25,
+        2828
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.813812
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        238,
+        2726,
+        326,
+        2784
+      ],
+      "inkBox": [
+        238,
+        2678,
+        326,
+        2784
+      ],
+      "wid": "55.39.3",
+      "cluster": "s00073-c0001",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "55.39.3@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "55.39.3@r2"
+        }
+      ]
+    },
+    "2.217.40": {
+      "page": 34,
+      "body": [
+        1520,
+        1496,
+        1624,
+        1607
+      ],
+      "band": [
+        1520,
+        1440,
+        1624,
+        1642.5
+      ],
+      "region": [
+        1512.5,
+        1440,
+        1631,
+        1642.5
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.816543
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        1522,
+        1541,
+        1623,
+        1605
+      ],
+      "inkBox": [
+        1522,
+        1499,
+        1623,
+        1605
+      ],
+      "wid": "2.217.40",
+      "cluster": "s00073-c0002",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "2.217.40@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "2.217.40@r2"
+        }
+      ]
+    },
+    "4.29.12": {
+      "page": 83,
+      "body": [
+        1153,
+        879,
+        1260,
+        993
+      ],
+      "band": [
+        1153,
+        827,
+        1260,
+        1041.5
+      ],
+      "region": [
+        1145.5,
+        827,
+        1265.5,
+        1041.5
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.837486
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        1155,
+        926,
+        1258,
+        991
+      ],
+      "inkBox": [
+        1155,
+        881,
+        1258,
+        991
+      ],
+      "wid": "4.29.12",
+      "cluster": "s00073-c0002",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "4.29.12@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "4.29.12@r2"
+        }
+      ]
+    },
+    "4.160.10": {
+      "page": 103,
+      "body": [
+        420,
+        1892,
+        529,
+        1998
+      ],
+      "band": [
+        420,
+        1840.5,
+        529,
+        2046.5
+      ],
+      "region": [
+        416.5,
+        1840.5,
+        535.5,
+        2046.5
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.807314
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        422,
+        1934,
+        527,
+        1996
+      ],
+      "inkBox": [
+        422,
+        1894,
+        527,
+        1996
+      ],
+      "wid": "4.160.10",
+      "cluster": "s00073-c0002",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "4.160.10@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "4.160.10@r2"
+        }
+      ]
+    },
+    "7.22.18": {
+      "page": 152,
+      "body": [
+        1729,
+        2904,
+        1826,
+        3012
+      ],
+      "band": [
+        1729,
+        2855.5,
+        1826,
+        3033
+      ],
+      "region": [
+        1725.5,
+        2855.5,
+        1826,
+        3033
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.796445
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        1731,
+        2952,
+        1825,
+        3010
+      ],
+      "inkBox": [
+        1731,
+        2907,
+        1826,
+        3010
+      ],
+      "wid": "7.22.18",
+      "cluster": "s00073-c0002",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "7.22.18@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "7.22.18@r2"
+        }
+      ]
+    },
+    "9.29.25": {
+      "page": 191,
+      "body": [
+        684,
+        1477,
+        790,
+        1591
+      ],
+      "band": [
+        684,
+        1439,
+        790,
+        1639.5
+      ],
+      "region": [
+        673,
+        1439,
+        807,
+        1639.5
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.828891
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        686,
+        1525,
+        790,
+        1590
+      ],
+      "inkBox": [
+        686,
+        1480,
+        790,
+        1590
+      ],
+      "wid": "9.29.25",
+      "cluster": "s00073-c0002",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "9.29.25@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "9.29.25@r2"
+        }
+      ]
+    },
+    "10.88.14": {
+      "page": 218,
+      "body": [
+        1132,
+        2681,
+        1238,
+        2794
+      ],
+      "band": [
+        1132,
+        2619.5,
+        1238,
+        2827
+      ],
+      "region": [
+        1126.5,
+        2619.5,
+        1248,
+        2827
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.830769
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        1135,
+        2728,
+        1236,
+        2793
+      ],
+      "inkBox": [
+        1135,
+        2684,
+        1236,
+        2793
+      ],
+      "wid": "10.88.14",
+      "cluster": "s00073-c0002",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "10.88.14@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "10.88.14@r2"
+        }
+      ]
+    },
+    "10.101.10": {
+      "page": 220,
+      "body": [
+        721,
+        1281,
+        827,
+        1400
+      ],
+      "band": [
+        721,
+        1233.5,
+        827,
+        1434.5
+      ],
+      "region": [
+        717,
+        1233.5,
+        827,
+        1434.5
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.826112
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        723,
+        1334,
+        826,
+        1399
+      ],
+      "inkBox": [
+        723,
+        1284,
+        826,
+        1399
+      ],
+      "wid": "10.101.10",
+      "cluster": "s00073-c0002",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "10.101.10@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "10.101.10@r2"
+        }
+      ]
+    },
+    "27.81.4": {
+      "page": 384,
+      "body": [
+        483,
+        677,
+        582,
+        784
+      ],
+      "band": [
+        483,
+        630.5,
+        582,
+        823.5
+      ],
+      "region": [
+        478.5,
+        630.5,
+        583,
+        823.5
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.830155
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        485,
+        721,
+        581,
+        782
+      ],
+      "inkBox": [
+        485,
+        679,
+        581,
+        782
+      ],
+      "wid": "27.81.4",
+      "cluster": "s00073-c0002",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "27.81.4@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "27.81.4@r2"
+        }
+      ]
+    },
+    "38.26.20": {
+      "page": 454,
+      "body": [
+        1722,
+        2900,
+        1821,
+        3006
+      ],
+      "band": [
+        1722,
+        2853.5,
+        1821,
+        3038
+      ],
+      "region": [
+        1718.5,
+        2853.5,
+        1821,
+        3038
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.810573
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        1724,
+        2943,
+        1819,
+        3004
+      ],
+      "inkBox": [
+        1724,
+        2902,
+        1819,
+        3005
+      ],
+      "wid": "38.26.20",
+      "cluster": "s00073-c0002",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "38.26.20@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "38.26.20@r2"
+        }
+      ]
+    },
+    "63.2.4": {
+      "page": 554,
+      "body": [
+        864,
+        2082,
+        974,
+        2199
+      ],
+      "band": [
+        864,
+        2028,
+        974,
+        2240
+      ],
+      "region": [
+        861,
+        2028,
+        979.5,
+        2240
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.830244
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        866,
+        2128,
+        973,
+        2198
+      ],
+      "inkBox": [
+        866,
+        2083,
+        973,
+        2198
+      ],
+      "wid": "63.2.4",
+      "cluster": "s00073-c0002",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "63.2.4@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "63.2.4@r2"
+        }
+      ]
+    },
+    "84.19.2": {
+      "page": 589,
+      "body": [
+        1377,
+        2273,
+        1482,
+        2394
+      ],
+      "band": [
+        1377,
+        2242.5,
+        1482,
+        2441.5
+      ],
+      "region": [
+        1369,
+        2242.5,
+        1490,
+        2441.5
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.818433
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        1379,
+        2328,
+        1480,
+        2392
+      ],
+      "inkBox": [
+        1379,
+        2276,
+        1480,
+        2392
+      ],
+      "wid": "84.19.2",
+      "cluster": "s00073-c0002",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "84.19.2@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "84.19.2@r2"
+        }
+      ]
+    },
+    "6.117.6": {
+      "page": 142,
+      "body": [
+        1248,
+        2692,
+        1357,
+        2800
+      ],
+      "band": [
+        1248,
+        2641,
+        1357,
+        2845
+      ],
+      "region": [
+        1243,
+        2641,
+        1358,
+        2845
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.826607
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        1250,
+        2735,
+        1356,
+        2798
+      ],
+      "inkBox": [
+        1250,
+        2695,
+        1356,
+        2798
+      ],
+      "wid": "6.117.6",
+      "cluster": "s00073-c0003",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "6.117.6@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "6.117.6@r2"
+        }
+      ]
+    },
+    "6.153.10": {
+      "page": 149,
+      "body": [
+        1313,
+        1090,
+        1419,
+        1204
+      ],
+      "band": [
+        1313,
+        1040,
+        1419,
+        1249.5
+      ],
+      "region": [
+        1302.5,
+        1040,
+        1428,
+        1249.5
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.827129
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        1315,
+        1139,
+        1417,
+        1203
+      ],
+      "inkBox": [
+        1315,
+        1093,
+        1417,
+        1203
+      ],
+      "wid": "6.153.10",
+      "cluster": "s00073-c0003",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "6.153.10@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "6.153.10@r2"
+        }
+      ]
+    },
+    "18.28.23": {
+      "page": 297,
+      "body": [
+        833,
+        474,
+        942,
+        593
+      ],
+      "band": [
+        833,
+        429.5,
+        942,
+        638
+      ],
+      "region": [
+        826.5,
+        429.5,
+        946,
+        638
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.848688
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        835,
+        529,
+        939,
+        591
+      ],
+      "inkBox": [
+        835,
+        477,
+        939,
+        591
+      ],
+      "wid": "18.28.23",
+      "cluster": "s00073-c0003",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "18.28.23@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "18.28.23@r2"
+        }
+      ]
+    },
+    "18.101.5": {
+      "page": 304,
+      "body": [
+        952,
+        700,
+        1053,
+        808
+      ],
+      "band": [
+        952,
+        660.5,
+        1053,
+        853.5
+      ],
+      "region": [
+        943.5,
+        660.5,
+        1058.5,
+        853.5
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.85026
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        954,
+        747,
+        1052,
+        806
+      ],
+      "inkBox": [
+        954,
+        703,
+        1052,
+        807
+      ],
+      "wid": "18.101.5",
+      "cluster": "s00073-c0003",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "18.101.5@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "18.101.5@r2"
+        }
+      ]
+    },
+    "21.39.11": {
+      "page": 325,
+      "body": [
+        530,
+        1080,
+        637,
+        1194
+      ],
+      "band": [
+        530,
+        1037.5,
+        637,
+        1244.5
+      ],
+      "region": [
+        528,
+        1037.5,
+        638,
+        1244.5
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.811758
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        532,
+        1133,
+        636,
+        1192
+      ],
+      "inkBox": [
+        532,
+        1083,
+        636,
+        1193
+      ],
+      "wid": "21.39.11",
+      "cluster": "s00073-c0003",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "21.39.11@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "21.39.11@r2"
+        }
+      ]
+    },
+    "31.33.15": {
+      "page": 414,
+      "body": [
+        896,
+        1877,
+        1011,
+        1996
+      ],
+      "band": [
+        896,
+        1838.5,
+        1011,
+        2025.9197021484374
+      ],
+      "region": [
+        892,
+        1838.5,
+        1014.4984130859375,
+        2025.9197021484374
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.833427
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        898,
+        1931,
+        999,
+        1994
+      ],
+      "inkBox": [
+        897,
+        1880,
+        999,
+        1995
+      ],
+      "wid": "31.33.15",
+      "cluster": "s00073-c0003",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "31.33.15@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "31.33.15@r2"
+        }
+      ]
+    },
+    "42.30.8": {
+      "page": 486,
+      "body": [
+        985,
+        2695,
+        1089,
+        2805
+      ],
+      "band": [
+        985,
+        2648,
+        1089,
+        2850
+      ],
+      "region": [
+        976.5,
+        2648,
+        1095.5,
+        2850
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.808671
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        987,
+        2744,
+        1086,
+        2803
+      ],
+      "inkBox": [
+        985,
+        2695,
+        1086,
+        2804
+      ],
+      "wid": "42.30.8",
+      "cluster": "s00073-c0003",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "42.30.8@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "42.30.8@r2"
+        }
+      ]
+    },
+    "47.34.4": {
+      "page": 510,
+      "body": [
+        641,
+        1283,
+        744,
+        1394
+      ],
+      "band": [
+        641,
+        1229,
+        744,
+        1442
+      ],
+      "region": [
+        636.5,
+        1229,
+        744.5,
+        1442
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.810318
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        643,
+        1331,
+        742,
+        1393
+      ],
+      "inkBox": [
+        643,
+        1285,
+        742,
+        1393
+      ],
+      "wid": "47.34.4",
+      "cluster": "s00073-c0003",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "47.34.4@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "47.34.4@r2"
+        }
+      ]
+    },
+    "107.5.2": {
+      "page": 602,
+      "body": [
+        648,
+        1880,
+        750,
+        1999
+      ],
+      "band": [
+        648,
+        1840.5,
+        750,
+        2042.5
+      ],
+      "region": [
+        639.5,
+        1840.5,
+        753,
+        2042.5
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.803507
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        650,
+        1939,
+        748,
+        1997
+      ],
+      "inkBox": [
+        650,
+        1883,
+        748,
+        1998
+      ],
+      "wid": "107.5.2",
+      "cluster": "s00073-c0003",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "107.5.2@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "107.5.2@r2"
+        }
+      ]
+    },
+    "2.142.6": {
+      "page": 22,
+      "body": [
+        522,
+        70,
+        619,
+        182
+      ],
+      "band": [
+        522,
+        45,
+        619,
+        228.5
+      ],
+      "region": [
+        516.5,
+        45,
+        623,
+        228.5
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.80126
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        524,
+        119,
+        617,
+        180
+      ],
+      "inkBox": [
+        524,
+        72,
+        617,
+        180
+      ],
+      "wid": "2.142.6",
+      "cluster": "s00073-c0004",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "2.142.6@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "2.142.6@r2"
+        }
+      ]
+    },
+    "5.63.4": {
+      "page": 118,
+      "body": [
+        1433,
+        1890,
+        1535,
+        1999
+      ],
+      "band": [
+        1433,
+        1837.5,
+        1535,
+        2031
+      ],
+      "region": [
+        1430.5,
+        1837.5,
+        1580.25,
+        2031
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.8346
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        1436,
+        1936,
+        1534,
+        1997
+      ],
+      "inkBox": [
+        1435,
+        1892,
+        1534,
+        1997
+      ],
+      "wid": "5.63.4",
+      "cluster": "s00073-c0004",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "5.63.4@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "5.63.4@r2"
+        }
+      ]
+    },
+    "5.91.12": {
+      "page": 123,
+      "body": [
+        1490,
+        661,
+        1583,
+        778
+      ],
+      "band": [
+        1490,
+        617,
+        1583,
+        817.5
+      ],
+      "region": [
+        1485,
+        617,
+        1584,
+        817.5
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.811851
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        1492,
+        718,
+        1581,
+        777
+      ],
+      "inkBox": [
+        1492,
+        664,
+        1581,
+        777
+      ],
+      "wid": "5.91.12",
+      "cluster": "s00073-c0004",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "5.91.12@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "5.91.12@r2"
+        }
+      ]
+    },
+    "6.116.7": {
+      "page": 142,
+      "body": [
+        527,
+        2288,
+        631,
+        2399
+      ],
+      "band": [
+        527,
+        2242,
+        631,
+        2444
+      ],
+      "region": [
+        519.5,
+        2242,
+        636,
+        2444
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.824289
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        529,
+        2332,
+        629,
+        2397
+      ],
+      "inkBox": [
+        529,
+        2291,
+        629,
+        2398
+      ],
+      "wid": "6.116.7",
+      "cluster": "s00073-c0004",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "6.116.7@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "6.116.7@r2"
+        }
+      ]
+    },
+    "9.9.6": {
+      "page": 188,
+      "body": [
+        1735,
+        1268,
+        1836,
+        1383
+      ],
+      "band": [
+        1735,
+        1225.5,
+        1836,
+        1421
+      ],
+      "region": [
+        1731,
+        1225.5,
+        1836,
+        1421
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.838953
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        1737,
+        1315,
+        1835,
+        1381
+      ],
+      "inkBox": [
+        1737,
+        1271,
+        1835,
+        1381
+      ],
+      "wid": "9.9.6",
+      "cluster": "s00073-c0004",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "9.9.6@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "9.9.6@r2"
+        }
+      ]
+    },
+    "16.94.13": {
+      "page": 278,
+      "body": [
+        853,
+        271,
+        955,
+        388
+      ],
+      "band": [
+        853,
+        229.5,
+        955,
+        429
+      ],
+      "region": [
+        843.5,
+        229.5,
+        958.5,
+        429
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.807649
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        855,
+        325,
+        954,
+        387
+      ],
+      "inkBox": [
+        855,
+        274,
+        954,
+        387
+      ],
+      "wid": "16.94.13",
+      "cluster": "s00073-c0004",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "16.94.13@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "16.94.13@r2"
+        }
+      ]
+    },
+    "18.70.5": {
+      "page": 301,
+      "body": [
+        1013,
+        1868,
+        1116,
+        1987
+      ],
+      "band": [
+        1013,
+        1818,
+        1116,
+        2016
+      ],
+      "region": [
+        1009.5,
+        1818,
+        1122,
+        2016
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.853004
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        1015,
+        1921,
+        1115,
+        1986
+      ],
+      "inkBox": [
+        1015,
+        1871,
+        1115,
+        1986
+      ],
+      "wid": "18.70.5",
+      "cluster": "s00073-c0004",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "18.70.5@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "18.70.5@r2"
+        }
+      ]
+    },
+    "18.76.3": {
+      "page": 302,
+      "body": [
+        1498,
+        272,
+        1598,
+        383
+      ],
+      "band": [
+        1498,
+        237.5,
+        1598,
+        433.5
+      ],
+      "region": [
+        1495,
+        237.5,
+        1603,
+        433.5
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.850425
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        1500,
+        318,
+        1597,
+        382
+      ],
+      "inkBox": [
+        1500,
+        275,
+        1597,
+        382
+      ],
+      "wid": "18.76.3",
+      "cluster": "s00073-c0004",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "18.76.3@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "18.76.3@r2"
+        }
+      ]
+    },
+    "58.16.4": {
+      "page": 544,
+      "body": [
+        525,
+        1471,
+        626,
+        1587
+      ],
+      "band": [
+        525,
+        1431,
+        626,
+        1629.5
+      ],
+      "region": [
+        525,
+        1431,
+        632.5,
+        1629.5
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.818076
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        527,
+        1524,
+        624,
+        1585
+      ],
+      "inkBox": [
+        527,
+        1474,
+        624,
+        1585
+      ],
+      "wid": "58.16.4",
+      "cluster": "s00073-c0004",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "58.16.4@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "58.16.4@r2"
+        }
+      ]
+    },
+    "2.123.5": {
+      "page": 19,
+      "body": [
+        1337,
+        1301,
+        1436,
+        1405
+      ],
+      "band": [
+        1337,
+        1240.5,
+        1436,
+        1449
+      ],
+      "region": [
+        1332,
+        1240.5,
+        1444.75,
+        1449
+      ],
+      "unitVariant": 1,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.815929
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        1339,
+        1342,
+        1433,
+        1403
+      ],
+      "inkBox": [
+        1339,
+        1303,
+        1436,
+        1403
+      ],
+      "wid": "2.123.5",
+      "cluster": "s00073-c0005",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "2.123.5@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": true,
+          "tid": "2.123.5@r2"
+        }
+      ]
+    },
+    "2.130.2": {
+      "page": 20,
+      "body": [
+        115,
+        1067,
+        218,
+        1177
+      ],
+      "band": [
+        115,
+        1028.5,
+        218,
+        1219.5
+      ],
+      "region": [
+        115,
+        1028.5,
+        258.75,
+        1219.5
+      ],
+      "unitVariant": 1,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.809077
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        117,
+        1108,
+        217,
+        1175
+      ],
+      "inkBox": [
+        117,
+        1070,
+        218,
+        1175
+      ],
+      "wid": "2.130.2",
+      "cluster": "s00073-c0005",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "2.130.2@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": true,
+          "tid": "2.130.2@r2"
+        }
+      ]
+    },
+    "4.46.5": {
+      "page": 86,
+      "body": [
+        741,
+        295,
+        849,
+        400
+      ],
+      "band": [
+        741,
+        237,
+        849,
+        437.5
+      ],
+      "region": [
+        733.5,
+        237,
+        853.5,
+        437.5
+      ],
+      "unitVariant": 1,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.836694
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        743,
+        333,
+        848,
+        398
+      ],
+      "inkBox": [
+        743,
+        297,
+        848,
+        398
+      ],
+      "wid": "4.46.5",
+      "cluster": "s00073-c0005",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "4.46.5@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": true,
+          "tid": "4.46.5@r2"
+        }
+      ]
+    },
+    "5.13.9": {
+      "page": 109,
+      "body": [
+        1022,
+        2493,
+        1129,
+        2602
+      ],
+      "band": [
+        1022,
+        2442,
+        1129,
+        2641.5
+      ],
+      "region": [
+        1014,
+        2442,
+        1130,
+        2641.5
+      ],
+      "unitVariant": 1,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.851403
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        1024,
+        2536,
+        1128,
+        2601
+      ],
+      "inkBox": [
+        1024,
+        2496,
+        1128,
+        2601
+      ],
+      "wid": "5.13.9",
+      "cluster": "s00073-c0005",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "5.13.9@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": true,
+          "tid": "5.13.9@r2"
+        }
+      ]
+    },
+    "9.114.6": {
+      "page": 205,
+      "body": [
+        808,
+        1251,
+        918,
+        1370
+      ],
+      "band": [
+        808,
+        1219.5,
+        918,
+        1402.5
+      ],
+      "region": [
+        796.5,
+        1219.5,
+        918,
+        1402.5
+      ],
+      "unitVariant": 1,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.824455
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        810,
+        1304,
+        909,
+        1368
+      ],
+      "inkBox": [
+        810,
+        1254,
+        909,
+        1368
+      ],
+      "wid": "9.114.6",
+      "cluster": "s00073-c0005",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "9.114.6@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": true,
+          "tid": "9.114.6@r2"
+        }
+      ]
+    },
+    "10.61.22": {
+      "page": 215,
+      "body": [
+        1268,
+        2688,
+        1365,
+        2799
+      ],
+      "band": [
+        1268,
+        2641,
+        1365,
+        2832
+      ],
+      "region": [
+        1261,
+        2641,
+        1370.5,
+        2832
+      ],
+      "unitVariant": 1,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.817591
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        1270,
+        2734,
+        1364,
+        2797
+      ],
+      "inkBox": [
+        1270,
+        2690,
+        1364,
+        2797
+      ],
+      "wid": "10.61.22",
+      "cluster": "s00073-c0005",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "10.61.22@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": true,
+          "tid": "10.61.22@r2"
+        }
+      ]
+    },
+    "16.111.5": {
+      "page": 280,
+      "body": [
+        688,
+        75,
+        785,
+        188
+      ],
+      "band": [
+        688,
+        45,
+        785,
+        242
+      ],
+      "region": [
+        682,
+        45,
+        790,
+        242
+      ],
+      "unitVariant": 1,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.816754
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        690,
+        128,
+        782,
+        187
+      ],
+      "inkBox": [
+        690,
+        78,
+        783,
+        187
+      ],
+      "wid": "16.111.5",
+      "cluster": "s00073-c0005",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "16.111.5@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": true,
+          "tid": "16.111.5@r2"
+        }
+      ]
+    },
+    "83.15.2": {
+      "page": 588,
+      "body": [
+        1745,
+        875,
+        1841,
+        979
+      ],
+      "band": [
+        1745,
+        824.5,
+        1841,
+        1030
+      ],
+      "region": [
+        1742.5,
+        824.5,
+        1841,
+        1030
+      ],
+      "unitVariant": 1,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.835125
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        1747,
+        918,
+        1840,
+        978
+      ],
+      "inkBox": [
+        1747,
+        878,
+        1840,
+        978
+      ],
+      "wid": "83.15.2",
+      "cluster": "s00073-c0005",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "83.15.2@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": true,
+          "tid": "83.15.2@r2"
+        }
+      ]
+    },
+    "2.48.5": {
+      "page": 7,
+      "body": [
+        523,
+        2689,
+        621,
+        2809
+      ],
+      "band": [
+        523,
+        2653.5,
+        621,
+        2854
+      ],
+      "region": [
+        517.5,
+        2653.5,
+        624.5,
+        2854
+      ],
+      "unitVariant": 1,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.818028
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        525,
+        2744,
+        620,
+        2808
+      ],
+      "inkBox": [
+        525,
+        2692,
+        620,
+        2808
+      ],
+      "wid": "2.48.5",
+      "cluster": "s00073-c0006",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "2.48.5@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": true,
+          "tid": "2.48.5@r2"
+        }
+      ]
+    },
+    "5.79.3": {
+      "page": 121,
+      "body": [
+        899,
+        1070,
+        1000,
+        1185
+      ],
+      "band": [
+        899,
+        1006.5,
+        1000,
+        1231.5
+      ],
+      "region": [
+        889.5,
+        1006.5,
+        1008,
+        1231.5
+      ],
+      "unitVariant": 1,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.832196
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        902,
+        1120,
+        999,
+        1183
+      ],
+      "inkBox": [
+        902,
+        1073,
+        999,
+        1184
+      ],
+      "wid": "5.79.3",
+      "cluster": "s00073-c0006",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "5.79.3@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": true,
+          "tid": "5.79.3@r2"
+        }
+      ]
+    },
+    "7.154.2": {
+      "page": 169,
+      "body": [
+        1171,
+        1870,
+        1277,
+        1974
+      ],
+      "band": [
+        1171,
+        1802.5,
+        1277,
+        2016
+      ],
+      "region": [
+        1164.5,
+        1802.5,
+        1283.5,
+        2016
+      ],
+      "unitVariant": 1,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.830585
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        1173,
+        1909,
+        1274,
+        1973
+      ],
+      "inkBox": [
+        1173,
+        1873,
+        1274,
+        1973
+      ],
+      "wid": "7.154.2",
+      "cluster": "s00073-c0006",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "7.154.2@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": true,
+          "tid": "7.154.2@r2"
+        }
+      ]
+    },
+    "7.166.2": {
+      "page": 172,
+      "body": [
+        1318,
+        892,
+        1407,
+        997
+      ],
+      "band": [
+        1318,
+        852.5,
+        1407,
+        1043
+      ],
+      "region": [
+        1312.5,
+        852.5,
+        1410,
+        1043
+      ],
+      "unitVariant": 1,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.79889
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        1320,
+        938,
+        1407,
+        996
+      ],
+      "inkBox": [
+        1320,
+        895,
+        1407,
+        996
+      ],
+      "wid": "7.166.2",
+      "cluster": "s00073-c0006",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "7.166.2@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": true,
+          "tid": "7.166.2@r2"
+        }
+      ]
+    },
+    "9.120.10": {
+      "page": 206,
+      "body": [
+        981,
+        1076,
+        1078,
+        1193
+      ],
+      "band": [
+        981,
+        1032.5,
+        1078,
+        1226
+      ],
+      "region": [
+        976,
+        1032.5,
+        1085.5,
+        1226
+      ],
+      "unitVariant": 1,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.807356
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        983,
+        1129,
+        1077,
+        1191
+      ],
+      "inkBox": [
+        983,
+        1079,
+        1077,
+        1191
+      ],
+      "wid": "9.120.10",
+      "cluster": "s00073-c0006",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "9.120.10@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": true,
+          "tid": "9.120.10@r2"
+        }
+      ]
+    },
+    "9.120.16": {
+      "page": 206,
+      "body": [
+        1731,
+        1285,
+        1830,
+        1397
+      ],
+      "band": [
+        1731,
+        1226,
+        1830,
+        1430
+      ],
+      "region": [
+        1725,
+        1226,
+        1830,
+        1430
+      ],
+      "unitVariant": 1,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.809245
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        1733,
+        1333,
+        1829,
+        1395
+      ],
+      "inkBox": [
+        1733,
+        1287,
+        1829,
+        1395
+      ],
+      "wid": "9.120.16",
+      "cluster": "s00073-c0006",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "9.120.16@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": true,
+          "tid": "9.120.16@r2"
+        }
+      ]
+    },
+    "44.41.4": {
+      "page": 498,
+      "body": [
+        1715,
+        266,
+        1813,
+        372
+      ],
+      "band": [
+        1715,
+        218.5,
+        1813,
+        422.5
+      ],
+      "region": [
+        1710,
+        218.5,
+        1813,
+        422.5
+      ],
+      "unitVariant": 1,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.838803
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        1718,
+        311,
+        1812,
+        371
+      ],
+      "inkBox": [
+        1718,
+        268,
+        1812,
+        371
+      ],
+      "wid": "44.41.4",
+      "cluster": "s00073-c0006",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "44.41.4@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": true,
+          "tid": "44.41.4@r2"
+        }
+      ]
+    },
+    "53.29.1": {
+      "page": 527,
+      "body": [
+        1101,
+        483,
+        1195,
+        592
+      ],
+      "band": [
+        1101,
+        432.5,
+        1195,
+        634
+      ],
+      "region": [
+        1097.5,
+        432.5,
+        1197.5,
+        634
+      ],
+      "unitVariant": 1,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.83315
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        1103,
+        530,
+        1193,
+        590
+      ],
+      "inkBox": [
+        1103,
+        486,
+        1194,
+        590
+      ],
+      "wid": "53.29.1",
+      "cluster": "s00073-c0006",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "53.29.1@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": true,
+          "tid": "53.29.1@r2"
+        }
+      ]
+    },
+    "9.34.13": {
+      "page": 192,
+      "body": [
+        489,
+        1071,
+        598,
+        1183
+      ],
+      "band": [
+        489,
+        1026,
+        598,
+        1226
+      ],
+      "region": [
+        479,
+        1026,
+        611,
+        1226
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.838997
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        491,
+        1115,
+        595,
+        1181
+      ],
+      "inkBox": [
+        491,
+        1074,
+        595,
+        1182
+      ],
+      "wid": "9.34.13",
+      "cluster": "s00073-c0007",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "9.34.13@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "9.34.13@r2"
+        }
+      ]
+    },
+    "14.30.4": {
+      "page": 259,
+      "body": [
+        461,
+        1486,
+        562,
+        1605
+      ],
+      "band": [
+        461,
+        1451,
+        562,
+        1644
+      ],
+      "region": [
+        453.5,
+        1451,
+        570,
+        1644
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.80463
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        464,
+        1540,
+        560,
+        1603
+      ],
+      "inkBox": [
+        463,
+        1489,
+        560,
+        1604
+      ],
+      "wid": "14.30.4",
+      "cluster": "s00073-c0007",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "14.30.4@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "14.30.4@r2"
+        }
+      ]
+    },
+    "21.39.7": {
+      "page": 325,
+      "body": [
+        1313,
+        1079,
+        1414,
+        1190
+      ],
+      "band": [
+        1313,
+        1037.5,
+        1414,
+        1244.5
+      ],
+      "region": [
+        1307,
+        1037.5,
+        1417.5,
+        1244.5
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.802997
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        1315,
+        1127,
+        1414,
+        1188
+      ],
+      "inkBox": [
+        1315,
+        1082,
+        1414,
+        1189
+      ],
+      "wid": "21.39.7",
+      "cluster": "s00073-c0007",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "21.39.7@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "21.39.7@r2"
+        }
+      ]
+    },
+    "22.9.3": {
+      "page": 333,
+      "body": [
+        542,
+        678,
+        648,
+        794
+      ],
+      "band": [
+        542,
+        620,
+        648,
+        833
+      ],
+      "region": [
+        541.5,
+        620,
+        648,
+        833
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.82684
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        544,
+        726,
+        647,
+        793
+      ],
+      "inkBox": [
+        544,
+        681,
+        648,
+        793
+      ],
+      "wid": "22.9.3",
+      "cluster": "s00073-c0007",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "22.9.3@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "22.9.3@r2"
+        }
+      ]
+    },
+    "23.71.13": {
+      "page": 346,
+      "body": [
+        98,
+        2294,
+        208,
+        2408
+      ],
+      "band": [
+        98,
+        2250.5,
+        208,
+        2445
+      ],
+      "region": [
+        98,
+        2250.5,
+        212,
+        2445
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.815135
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        100,
+        2340,
+        203,
+        2407
+      ],
+      "inkBox": [
+        100,
+        2296,
+        203,
+        2407
+      ],
+      "wid": "23.71.13",
+      "cluster": "s00073-c0007",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "23.71.13@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "23.71.13@r2"
+        }
+      ]
+    },
+    "30.53.4": {
+      "page": 410,
+      "body": [
+        761,
+        480,
+        866,
+        594
+      ],
+      "band": [
+        761,
+        438.5,
+        866,
+        642.5
+      ],
+      "region": [
+        714.5,
+        438.5,
+        885.75,
+        642.5
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.839812
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        763,
+        528,
+        865,
+        592
+      ],
+      "inkBox": [
+        762,
+        483,
+        866,
+        592
+      ],
+      "wid": "30.53.4",
+      "cluster": "s00073-c0007",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "30.53.4@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "30.53.4@r2"
+        }
+      ]
+    },
+    "34.23.11": {
+      "page": 431,
+      "body": [
+        95,
+        89,
+        201,
+        214
+      ],
+      "band": [
+        95,
+        45,
+        201,
+        247.5
+      ],
+      "region": [
+        95,
+        45,
+        205,
+        247.5
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.844746
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        97,
+        144,
+        200,
+        212
+      ],
+      "inkBox": [
+        97,
+        92,
+        200,
+        212
+      ],
+      "wid": "34.23.11",
+      "cluster": "s00073-c0007",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "34.23.11@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "34.23.11@r2"
+        }
+      ]
+    },
+    "43.36.2": {
+      "page": 492,
+      "body": [
+        968,
+        498,
+        1073,
+        609
+      ],
+      "band": [
+        968,
+        453,
+        1073,
+        653
+      ],
+      "region": [
+        964,
+        453,
+        1077.5,
+        653
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.830058
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        970,
+        543,
+        1071,
+        607
+      ],
+      "inkBox": [
+        970,
+        501,
+        1071,
+        607
+      ],
+      "wid": "43.36.2",
+      "cluster": "s00073-c0007",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "43.36.2@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "43.36.2@r2"
+        }
+      ]
+    },
+    "2.217.11": {
+      "page": 34,
+      "body": [
+        414,
+        683,
+        513,
+        799
+      ],
+      "band": [
+        414,
+        631.5,
+        513,
+        845
+      ],
+      "region": [
+        411.5,
+        631.5,
+        519.5,
+        845
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.814939
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        416,
+        732,
+        510,
+        798
+      ],
+      "inkBox": [
+        416,
+        686,
+        510,
+        798
+      ],
+      "wid": "2.217.11",
+      "cluster": "s00073-c0008",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "2.217.11@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "2.217.11@r2"
+        }
+      ]
+    },
+    "2.217.33": {
+      "page": 34,
+      "body": [
+        1341,
+        1292,
+        1437,
+        1403
+      ],
+      "band": [
+        1341,
+        1238,
+        1437,
+        1440
+      ],
+      "region": [
+        1329,
+        1238,
+        1446.5,
+        1440
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.798986
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        1343,
+        1337,
+        1435,
+        1401
+      ],
+      "inkBox": [
+        1343,
+        1295,
+        1435,
+        1401
+      ],
+      "wid": "2.217.33",
+      "cluster": "s00073-c0008",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "2.217.33@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "2.217.33@r2"
+        }
+      ]
+    },
+    "3.99.5": {
+      "page": 62,
+      "body": [
+        123,
+        2283,
+        223,
+        2388
+      ],
+      "band": [
+        123,
+        2239.5,
+        223,
+        2433
+      ],
+      "region": [
+        123,
+        2239.5,
+        274.25,
+        2433
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.806527
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        125,
+        2321,
+        220,
+        2386
+      ],
+      "inkBox": [
+        125,
+        2286,
+        221,
+        2386
+      ],
+      "wid": "3.99.5",
+      "cluster": "s00073-c0008",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "3.99.5@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "3.99.5@r2"
+        }
+      ]
+    },
+    "14.3.7": {
+      "page": 255,
+      "body": [
+        428,
+        1700,
+        529,
+        1809
+      ],
+      "band": [
+        428,
+        1654,
+        529,
+        1847.5
+      ],
+      "region": [
+        420.5,
+        1654,
+        541,
+        1847.5
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.809927
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        431,
+        1741,
+        527,
+        1808
+      ],
+      "inkBox": [
+        430,
+        1703,
+        528,
+        1808
+      ],
+      "wid": "14.3.7",
+      "cluster": "s00073-c0008",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "14.3.7@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "14.3.7@r2"
+        }
+      ]
+    },
+    "20.124.2": {
+      "page": 320,
+      "body": [
+        93,
+        2491,
+        199,
+        2610
+      ],
+      "band": [
+        93,
+        2454.5,
+        199,
+        2657
+      ],
+      "region": [
+        93,
+        2454.5,
+        199,
+        2657
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.820178
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        95,
+        2540,
+        196,
+        2608
+      ],
+      "inkBox": [
+        94,
+        2494,
+        196,
+        2608
+      ],
+      "wid": "20.124.2",
+      "cluster": "s00073-c0008",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "20.124.2@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "20.124.2@r2"
+        }
+      ]
+    },
+    "21.42.9": {
+      "page": 325,
+      "body": [
+        1261,
+        2081,
+        1364,
+        2201
+      ],
+      "band": [
+        1261,
+        2047,
+        1364,
+        2244.5
+      ],
+      "region": [
+        1256.5,
+        2047,
+        1373,
+        2244.5
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.805081
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        1263,
+        2133,
+        1363,
+        2199
+      ],
+      "inkBox": [
+        1263,
+        2083,
+        1363,
+        2199
+      ],
+      "wid": "21.42.9",
+      "cluster": "s00073-c0008",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "21.42.9@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "21.42.9@r2"
+        }
+      ]
+    },
+    "68.42.2": {
+      "page": 565,
+      "body": [
+        1403,
+        2880,
+        1496,
+        2987
+      ],
+      "band": [
+        1403,
+        2839.5,
+        1496,
+        3013
+      ],
+      "region": [
+        1398,
+        2839.5,
+        1502.5,
+        3013
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.83166
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        1406,
+        2923,
+        1495,
+        2986
+      ],
+      "inkBox": [
+        1405,
+        2881,
+        1495,
+        2986
+      ],
+      "wid": "68.42.2",
+      "cluster": "s00073-c0008",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "68.42.2@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "68.42.2@r2"
+        }
+      ]
+    },
+    "72.17.4": {
+      "page": 573,
+      "body": [
+        1287,
+        695,
+        1388,
+        807
+      ],
+      "band": [
+        1287,
+        652,
+        1388,
+        849
+      ],
+      "region": [
+        1284,
+        652,
+        1407.75,
+        849
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.814362
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        1289,
+        742,
+        1386,
+        806
+      ],
+      "inkBox": [
+        1289,
+        697,
+        1388,
+        806
+      ],
+      "wid": "72.17.4",
+      "cluster": "s00073-c0008",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "72.17.4@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "72.17.4@r2"
+        }
+      ]
+    },
+    "9.66.8": {
+      "page": 197,
+      "body": [
+        1040,
+        1680,
+        1141,
+        1788
+      ],
+      "band": [
+        1040,
+        1628.5,
+        1141,
+        1840.5
+      ],
+      "region": [
+        1035,
+        1628.5,
+        1149,
+        1840.5
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.814838
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        1043,
+        1729,
+        1139,
+        1787
+      ],
+      "inkBox": [
+        1042,
+        1683,
+        1139,
+        1787
+      ],
+      "wid": "9.66.8",
+      "cluster": "s00073-c0009",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "9.66.8@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "9.66.8@r2"
+        }
+      ]
+    },
+    "15.51.1": {
+      "page": 264,
+      "body": [
+        669,
+        2896,
+        773,
+        3002
+      ],
+      "band": [
+        669,
+        2838,
+        773,
+        3042
+      ],
+      "region": [
+        666.5,
+        2838,
+        777,
+        3042
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.808903
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        671,
+        2939,
+        772,
+        3000
+      ],
+      "inkBox": [
+        671,
+        2898,
+        772,
+        3000
+      ],
+      "wid": "15.51.1",
+      "cluster": "s00073-c0009",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "15.51.1@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "15.51.1@r2"
+        }
+      ]
+    },
+    "33.8.2": {
+      "page": 419,
+      "body": [
+        1176,
+        461,
+        1285,
+        582
+      ],
+      "band": [
+        1176,
+        433.5,
+        1285,
+        631.5
+      ],
+      "region": [
+        1170.5,
+        433.5,
+        1292.5,
+        631.5
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.839691
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        1178,
+        516,
+        1283,
+        581
+      ],
+      "inkBox": [
+        1178,
+        464,
+        1283,
+        581
+      ],
+      "wid": "33.8.2",
+      "cluster": "s00073-c0009",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "33.8.2@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "33.8.2@r2"
+        }
+      ]
+    },
+    "39.8.24": {
+      "page": 459,
+      "body": [
+        1519,
+        1880,
+        1628,
+        1990
+      ],
+      "band": [
+        1519,
+        1822.5,
+        1628,
+        2041.5
+      ],
+      "region": [
+        1516,
+        1822.5,
+        1644.75,
+        2041.5
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.83832
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        1521,
+        1927,
+        1626,
+        1989
+      ],
+      "inkBox": [
+        1521,
+        1882,
+        1628,
+        1989
+      ],
+      "wid": "39.8.24",
+      "cluster": "s00073-c0009",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "39.8.24@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "39.8.24@r2"
+        }
+      ]
+    },
+    "47.1.3": {
+      "page": 507,
+      "body": [
+        1217,
+        247,
+        1313,
+        353
+      ],
+      "band": [
+        1217,
+        222,
+        1313,
+        404
+      ],
+      "region": [
+        1212,
+        222,
+        1319,
+        404
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.821871
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        1220,
+        294,
+        1311,
+        352
+      ],
+      "inkBox": [
+        1219,
+        250,
+        1311,
+        352
+      ],
+      "wid": "47.1.3",
+      "cluster": "s00073-c0009",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "47.1.3@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "47.1.3@r2"
+        }
+      ]
+    },
+    "47.32.4": {
+      "page": 510,
+      "body": [
+        1301,
+        678,
+        1400,
+        784
+      ],
+      "band": [
+        1301,
+        628.5,
+        1400,
+        834.5
+      ],
+      "region": [
+        1295.5,
+        628.5,
+        1405.5,
+        834.5
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.804507
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        1303,
+        723,
+        1398,
+        783
+      ],
+      "inkBox": [
+        1303,
+        680,
+        1398,
+        783
+      ],
+      "wid": "47.32.4",
+      "cluster": "s00073-c0009",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "47.32.4@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "47.32.4@r2"
+        }
+      ]
+    },
+    "53.29.4": {
+      "page": 527,
+      "body": [
+        771,
+        476,
+        868,
+        587
+      ],
+      "band": [
+        771,
+        432.5,
+        868,
+        634
+      ],
+      "region": [
+        765.5,
+        432.5,
+        872,
+        634
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.828655
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        773,
+        528,
+        866,
+        586
+      ],
+      "inkBox": [
+        773,
+        479,
+        866,
+        586
+      ],
+      "wid": "53.29.4",
+      "cluster": "s00073-c0009",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "53.29.4@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "53.29.4@r2"
+        }
+      ]
+    },
+    "4.153.31": {
+      "page": 102,
+      "body": [
+        1265,
+        2497,
+        1372,
+        2610
+      ],
+      "band": [
+        1265,
+        2449,
+        1372,
+        2647.5
+      ],
+      "region": [
+        1258,
+        2449,
+        1376,
+        2647.5
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.820513
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        1267,
+        2545,
+        1370,
+        2608
+      ],
+      "inkBox": [
+        1267,
+        2500,
+        1370,
+        2608
+      ],
+      "wid": "4.153.31",
+      "cluster": "s00073-c0010",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "4.153.31@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "4.153.31@r2"
+        }
+      ]
+    },
+    "6.156.11": {
+      "page": 149,
+      "body": [
+        738,
+        2091,
+        847,
+        2210
+      ],
+      "band": [
+        738,
+        2051.5,
+        847,
+        2252.5
+      ],
+      "region": [
+        730,
+        2051.5,
+        852,
+        2252.5
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.822038
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        740,
+        2143,
+        845,
+        2208
+      ],
+      "inkBox": [
+        740,
+        2094,
+        845,
+        2208
+      ],
+      "wid": "6.156.11",
+      "cluster": "s00073-c0010",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "6.156.11@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "6.156.11@r2"
+        }
+      ]
+    },
+    "16.88.3": {
+      "page": 277,
+      "body": [
+        996,
+        66,
+        1094,
+        178
+      ],
+      "band": [
+        996,
+        45,
+        1094,
+        228
+      ],
+      "region": [
+        986,
+        45,
+        1103,
+        228
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.823411
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        999,
+        116,
+        1092,
+        176
+      ],
+      "inkBox": [
+        998,
+        69,
+        1092,
+        176
+      ],
+      "wid": "16.88.3",
+      "cluster": "s00073-c0010",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "16.88.3@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "16.88.3@r2"
+        }
+      ]
+    },
+    "31.6.7": {
+      "page": 411,
+      "body": [
+        1542,
+        1258,
+        1654,
+        1385
+      ],
+      "band": [
+        1542,
+        1220.5,
+        1654,
+        1423
+      ],
+      "region": [
+        1536,
+        1220.5,
+        1658.5,
+        1423
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.827426
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        1544,
+        1319,
+        1644,
+        1383
+      ],
+      "inkBox": [
+        1544,
+        1261,
+        1644,
+        1383
+      ],
+      "wid": "31.6.7",
+      "cluster": "s00073-c0010",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "31.6.7@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "31.6.7@r2"
+        }
+      ]
+    },
+    "54.37.2": {
+      "page": 530,
+      "body": [
+        999,
+        1300,
+        1097,
+        1410
+      ],
+      "band": [
+        999,
+        1251,
+        1097,
+        1458
+      ],
+      "region": [
+        995,
+        1251,
+        1104.5,
+        1458
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.823708
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        1001,
+        1350,
+        1096,
+        1408
+      ],
+      "inkBox": [
+        1001,
+        1303,
+        1096,
+        1408
+      ],
+      "wid": "54.37.2",
+      "cluster": "s00073-c0010",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "54.37.2@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "54.37.2@r2"
+        }
+      ]
+    },
+    "7.45.2": {
+      "page": 156,
+      "body": [
+        550,
+        476,
+        641,
+        578
+      ],
+      "band": [
+        550,
+        429.5,
+        641,
+        615
+      ],
+      "region": [
+        545,
+        429.5,
+        648,
+        615
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.826319
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        552,
+        520,
+        640,
+        577
+      ],
+      "inkBox": [
+        552,
+        479,
+        640,
+        577
+      ],
+      "wid": "7.45.2",
+      "cluster": "s00073-c0011",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "7.45.2@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "7.45.2@r2"
+        }
+      ]
+    },
+    "8.36.6": {
+      "page": 181,
+      "body": [
+        1198,
+        1075,
+        1296,
+        1186
+      ],
+      "band": [
+        1198,
+        1030.5,
+        1296,
+        1232
+      ],
+      "region": [
+        1192.5,
+        1030.5,
+        1304,
+        1232
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.816092
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        1200,
+        1125,
+        1294,
+        1185
+      ],
+      "inkBox": [
+        1200,
+        1078,
+        1294,
+        1185
+      ],
+      "wid": "8.36.6",
+      "cluster": "s00073-c0011",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "8.36.6@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "8.36.6@r2"
+        }
+      ]
+    },
+    "11.53.9": {
+      "page": 227,
+      "body": [
+        1221,
+        2890,
+        1320,
+        3005
+      ],
+      "band": [
+        1221,
+        2855.5,
+        1320,
+        3027
+      ],
+      "region": [
+        1216.5,
+        2855.5,
+        1322,
+        3027
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.833238
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        1223,
+        2941,
+        1320,
+        3004
+      ],
+      "inkBox": [
+        1223,
+        2893,
+        1320,
+        3004
+      ],
+      "wid": "11.53.9",
+      "cluster": "s00073-c0011",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "11.53.9@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "11.53.9@r2"
+        }
+      ]
+    },
+    "22.25.4": {
+      "page": 335,
+      "body": [
+        710,
+        267,
+        813,
+        386
+      ],
+      "band": [
+        710,
+        222,
+        813,
+        423
+      ],
+      "region": [
+        704.5,
+        222,
+        818,
+        423
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.809077
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        712,
+        319,
+        811,
+        385
+      ],
+      "inkBox": [
+        712,
+        270,
+        811,
+        385
+      ],
+      "wid": "22.25.4",
+      "cluster": "s00073-c0011",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "22.25.4@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "22.25.4@r2"
+        }
+      ]
+    },
+    "24.37.6": {
+      "page": 355,
+      "body": [
+        879,
+        78,
+        975,
+        196
+      ],
+      "band": [
+        879,
+        45,
+        975,
+        242
+      ],
+      "region": [
+        872.5,
+        45,
+        972.25,
+        242
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.803095
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        881,
+        131,
+        973,
+        195
+      ],
+      "inkBox": [
+        881,
+        81,
+        975,
+        195
+      ],
+      "wid": "24.37.6",
+      "cluster": "s00073-c0011",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "24.37.6@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "24.37.6@r2"
+        }
+      ]
+    },
+    "4.167.4": {
+      "page": 104,
+      "body": [
+        1233,
+        1876,
+        1351,
+        1992
+      ],
+      "band": [
+        1233,
+        1826.5,
+        1351,
+        2028
+      ],
+      "region": [
+        1226.5,
+        1826.5,
+        1359.5,
+        2028
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.827569
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        1235,
+        1926,
+        1349,
+        1991
+      ],
+      "inkBox": [
+        1235,
+        1878,
+        1349,
+        1991
+      ],
+      "wid": "4.167.4",
+      "cluster": "s00073-c0012",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "4.167.4@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "4.167.4@r2"
+        }
+      ]
+    },
+    "5.60.24": {
+      "page": 118,
+      "body": [
+        1358,
+        1081,
+        1460,
+        1195
+      ],
+      "band": [
+        1358,
+        1037,
+        1460,
+        1238.5
+      ],
+      "region": [
+        1351.5,
+        1037,
+        1466.5,
+        1238.5
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.806047
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        1360,
+        1136,
+        1458,
+        1194
+      ],
+      "inkBox": [
+        1360,
+        1084,
+        1458,
+        1194
+      ],
+      "wid": "5.60.24",
+      "cluster": "s00073-c0012",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "5.60.24@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "5.60.24@r2"
+        }
+      ]
+    },
+    "11.19.2": {
+      "page": 223,
+      "body": [
+        1723,
+        2918,
+        1831,
+        3024
+      ],
+      "band": [
+        1723,
+        2861.5,
+        1831,
+        3054
+      ],
+      "region": [
+        1720,
+        2861.5,
+        1831,
+        3054
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.828271
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        1725,
+        2960,
+        1831,
+        3022
+      ],
+      "inkBox": [
+        1725,
+        2921,
+        1831,
+        3022
+      ],
+      "wid": "11.19.2",
+      "cluster": "s00073-c0012",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "11.19.2@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "11.19.2@r2"
+        }
+      ]
+    },
+    "68.7.6": {
+      "page": 564,
+      "body": [
+        1317,
+        2076,
+        1425,
+        2197
+      ],
+      "band": [
+        1317,
+        2039,
+        1425,
+        2247
+      ],
+      "region": [
+        1312,
+        2039,
+        1430,
+        2247
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.83238
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        1319,
+        2134,
+        1423,
+        2196
+      ],
+      "inkBox": [
+        1319,
+        2079,
+        1425,
+        2196
+      ],
+      "wid": "68.7.6",
+      "cluster": "s00073-c0012",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "68.7.6@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "68.7.6@r2"
+        }
+      ]
+    },
+    "12.23.5": {
+      "page": 238,
+      "body": [
+        926,
+        70,
+        1023,
+        182
+      ],
+      "band": [
+        926,
+        45,
+        1023,
+        215
+      ],
+      "region": [
+        918.5,
+        45,
+        1028.5,
+        215
+      ],
+      "unitVariant": 1,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.834633
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        928,
+        119,
+        1021,
+        181
+      ],
+      "inkBox": [
+        928,
+        73,
+        1022,
+        181
+      ],
+      "wid": "12.23.5",
+      "cluster": "s00073-c0013",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "12.23.5@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": true,
+          "tid": "12.23.5@r2"
+        }
+      ]
+    },
+    "12.26.3": {
+      "page": 238,
+      "body": [
+        922,
+        1476,
+        1025,
+        1592
+      ],
+      "band": [
+        922,
+        1428.5,
+        1025,
+        1631.5
+      ],
+      "region": [
+        916,
+        1428.5,
+        1028,
+        1631.5
+      ],
+      "unitVariant": 1,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.814187
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        924,
+        1525,
+        1024,
+        1590
+      ],
+      "inkBox": [
+        924,
+        1479,
+        1024,
+        1590
+      ],
+      "wid": "12.26.3",
+      "cluster": "s00073-c0013",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "12.26.3@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": true,
+          "tid": "12.26.3@r2"
+        }
+      ]
+    },
+    "12.30.8": {
+      "page": 238,
+      "body": [
+        1722,
+        2887,
+        1824,
+        2996
+      ],
+      "band": [
+        1722,
+        2832,
+        1824,
+        3026
+      ],
+      "region": [
+        1717.5,
+        2832,
+        1824,
+        3026
+      ],
+      "unitVariant": 1,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.837028
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        1724,
+        2933,
+        1823,
+        2994
+      ],
+      "inkBox": [
+        1724,
+        2889,
+        1823,
+        2994
+      ],
+      "wid": "12.30.8",
+      "cluster": "s00073-c0013",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "12.30.8@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": true,
+          "tid": "12.30.8@r2"
+        }
+      ]
+    },
+    "12.51.24": {
+      "page": 241,
+      "body": [
+        1255,
+        2685,
+        1354,
+        2799
+      ],
+      "band": [
+        1255,
+        2646.5,
+        1354,
+        2841.5
+      ],
+      "region": [
+        1250.5,
+        2646.5,
+        1354.5,
+        2841.5
+      ],
+      "unitVariant": 1,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.811864
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        1257,
+        2739,
+        1353,
+        2798
+      ],
+      "inkBox": [
+        1257,
+        2688,
+        1353,
+        2798
+      ],
+      "wid": "12.51.24",
+      "cluster": "s00073-c0013",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "12.51.24@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": true,
+          "tid": "12.51.24@r2"
+        }
+      ]
+    },
+    "7.86.6": {
+      "page": 161,
+      "body": [
+        1733,
+        2078,
+        1840,
+        2196
+      ],
+      "band": [
+        1733,
+        2027,
+        1840,
+        2232.5
+      ],
+      "region": [
+        1725.5,
+        2027,
+        1840,
+        2232.5
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.813089
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        1735,
+        2129,
+        1838,
+        2194
+      ],
+      "inkBox": [
+        1735,
+        2081,
+        1838,
+        2195
+      ],
+      "wid": "7.86.6",
+      "cluster": "s00073-c0014",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "7.86.6@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "7.86.6@r2"
+        }
+      ]
+    },
+    "38.32.5": {
+      "page": 455,
+      "body": [
+        1188,
+        1299,
+        1296,
+        1414
+      ],
+      "band": [
+        1188,
+        1257,
+        1296,
+        1450
+      ],
+      "region": [
+        1177.5,
+        1257,
+        1308.5,
+        1450
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.831467
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        1190,
+        1348,
+        1291,
+        1412
+      ],
+      "inkBox": [
+        1190,
+        1302,
+        1296,
+        1412
+      ],
+      "wid": "38.32.5",
+      "cluster": "s00073-c0014",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "38.32.5@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "38.32.5@r2"
+        }
+      ]
+    },
+    "46.16.8": {
+      "page": 504,
+      "body": [
+        624,
+        1094,
+        723,
+        1207
+      ],
+      "band": [
+        624,
+        1053.5,
+        723,
+        1248.5
+      ],
+      "region": [
+        619,
+        1053.5,
+        724.5,
+        1248.5
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.840827
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        626,
+        1141,
+        723,
+        1206
+      ],
+      "inkBox": [
+        626,
+        1097,
+        723,
+        1206
+      ],
+      "wid": "46.16.8",
+      "cluster": "s00073-c0014",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "46.16.8@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "46.16.8@r2"
+        }
+      ]
+    },
+    "63.9.8": {
+      "page": 555,
+      "body": [
+        902,
+        1885,
+        1006,
+        1994
+      ],
+      "band": [
+        902,
+        1828,
+        1006,
+        2030.5
+      ],
+      "region": [
+        897.5,
+        1828,
+        1011,
+        2030.5
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.819733
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        904,
+        1931,
+        1005,
+        1992
+      ],
+      "inkBox": [
+        904,
+        1887,
+        1005,
+        1992
+      ],
+      "wid": "63.9.8",
+      "cluster": "s00073-c0014",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "63.9.8@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "63.9.8@r2"
+        }
+      ]
+    },
+    "2.233.36": {
+      "page": 37,
+      "body": [
+        1275,
+        2483,
+        1374,
+        2587
+      ],
+      "band": [
+        1275,
+        2430,
+        1374,
+        2639.5
+      ],
+      "region": [
+        1266,
+        2430,
+        1376,
+        2639.5
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.840045
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        1277,
+        2527,
+        1373,
+        2586
+      ],
+      "inkBox": [
+        1277,
+        2486,
+        1373,
+        2586
+      ],
+      "wid": "2.233.36",
+      "cluster": "s00073-c0015",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "2.233.36@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "2.233.36@r2"
+        }
+      ]
+    },
+    "4.4.7": {
+      "page": 77,
+      "body": [
+        674,
+        1657,
+        780,
+        1767
+      ],
+      "band": [
+        674,
+        1592.5,
+        780,
+        1809.5
+      ],
+      "region": [
+        670,
+        1592.5,
+        781.5,
+        1809.5
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.812047
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        676,
+        1705,
+        778,
+        1765
+      ],
+      "inkBox": [
+        676,
+        1660,
+        778,
+        1766
+      ],
+      "wid": "4.4.7",
+      "cluster": "s00073-c0015",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "4.4.7@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "4.4.7@r2"
+        }
+      ]
+    },
+    "5.54.6": {
+      "page": 117,
+      "body": [
+        999,
+        1488,
+        1090,
+        1591
+      ],
+      "band": [
+        999,
+        1441.5,
+        1090,
+        1639.5
+      ],
+      "region": [
+        991,
+        1441.5,
+        1095,
+        1639.5
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.788911
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        1001,
+        1536,
+        1090,
+        1589
+      ],
+      "inkBox": [
+        1001,
+        1491,
+        1090,
+        1590
+      ],
+      "wid": "5.54.6",
+      "cluster": "s00073-c0015",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "5.54.6@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "5.54.6@r2"
+        }
+      ]
+    },
+    "12.51.6": {
+      "page": 241,
+      "body": [
+        828,
+        2293,
+        936,
+        2400
+      ],
+      "band": [
+        828,
+        2251,
+        936,
+        2440.5
+      ],
+      "region": [
+        821,
+        2251,
+        940.5,
+        2440.5
+      ],
+      "unitVariant": 1,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.817558
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        830,
+        2336,
+        934,
+        2399
+      ],
+      "inkBox": [
+        830,
+        2296,
+        934,
+        2399
+      ],
+      "wid": "12.51.6",
+      "cluster": "s00073-c0016",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "12.51.6@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": true,
+          "tid": "12.51.6@r2"
+        }
+      ]
+    },
+    "24.43.30": {
+      "page": 355,
+      "body": [
+        1456,
+        2888,
+        1560,
+        3004
+      ],
+      "band": [
+        1456,
+        2834.5,
+        1560,
+        3033
+      ],
+      "region": [
+        1453,
+        2834.5,
+        1562,
+        3033
+      ],
+      "unitVariant": 1,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.788291
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        1458,
+        2945,
+        1558,
+        3003
+      ],
+      "inkBox": [
+        1458,
+        2891,
+        1558,
+        3003
+      ],
+      "wid": "24.43.30",
+      "cluster": "s00073-c0016",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "24.43.30@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": true,
+          "tid": "24.43.30@r2"
+        }
+      ]
+    },
+    "47.38.14": {
+      "page": 510,
+      "body": [
+        1364,
+        2689,
+        1468,
+        2801
+      ],
+      "band": [
+        1364,
+        2633.5,
+        1468,
+        2842
+      ],
+      "region": [
+        1357.5,
+        2633.5,
+        1473,
+        2842
+      ],
+      "unitVariant": 1,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.823753
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        1366,
+        2737,
+        1467,
+        2799
+      ],
+      "inkBox": [
+        1366,
+        2691,
+        1467,
+        2799
+      ],
+      "wid": "47.38.14",
+      "cluster": "s00073-c0016",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "47.38.14@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": true,
+          "tid": "47.38.14@r2"
+        }
+      ]
+    },
+    "4.149.7": {
+      "page": 102,
+      "body": [
+        115,
+        286,
+        231,
+        398
+      ],
+      "band": [
+        115,
+        234,
+        231,
+        434
+      ],
+      "region": [
+        115,
+        234,
+        235,
+        434
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.828035
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        117,
+        332,
+        230,
+        396
+      ],
+      "inkBox": [
+        117,
+        289,
+        230,
+        396
+      ],
+      "wid": "4.149.7",
+      "cluster": "s00073-c0017",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "4.149.7@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "4.149.7@r2"
+        }
+      ]
+    },
+    "5.77.20": {
+      "page": 121,
+      "body": [
+        1162,
+        465,
+        1269,
+        582
+      ],
+      "band": [
+        1162,
+        413,
+        1269,
+        629
+      ],
+      "region": [
+        1156,
+        413,
+        1277.5,
+        629
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.834296
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        1164,
+        518,
+        1268,
+        580
+      ],
+      "inkBox": [
+        1164,
+        467,
+        1268,
+        580
+      ],
+      "wid": "5.77.20",
+      "cluster": "s00073-c0017",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "5.77.20@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "5.77.20@r2"
+        }
+      ]
+    },
+    "5.15.14": {
+      "page": 110,
+      "body": [
+        110,
+        1080,
+        332,
+        1194
+      ],
+      "band": [
+        110,
+        1032,
+        332,
+        1242
+      ],
+      "region": [
+        110,
+        1032,
+        343.5,
+        1242
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.868611
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        112,
+        1127,
+        330,
+        1192
+      ],
+      "inkBox": [
+        112,
+        1083,
+        330,
+        1193
+      ],
+      "wid": "5.15.14",
+      "cluster": "s00073-c0018",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "5.15.14@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "5.15.14@r2"
+        }
+      ]
+    },
+    "12.32.7": {
+      "page": 239,
+      "body": [
+        101,
+        676,
+        190,
+        783
+      ],
+      "band": [
+        101,
+        617,
+        190,
+        813.5
+      ],
+      "region": [
+        101,
+        617,
+        195.5,
+        813.5
+      ],
+      "unitVariant": 1,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.810897
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        102,
+        720,
+        188,
+        781
+      ],
+      "inkBox": [
+        102,
+        678,
+        188,
+        781
+      ],
+      "wid": "12.32.7",
+      "cluster": "s00073-c0019",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "12.32.7@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": true,
+          "tid": "12.32.7@r2"
+        }
+      ]
+    },
+    "53.30.10": {
+      "page": 527,
+      "body": [
+        84,
+        678,
+        162,
+        788
+      ],
+      "band": [
+        84,
+        634,
+        162,
+        835.5
+      ],
+      "region": [
+        84,
+        634,
+        173.5,
+        835.5
+      ],
+      "unitVariant": 0,
+      "skeletonExtraction": {
+        "components": 1,
+        "expected": 1,
+        "bodyInkCoverage": 0.825444
+      },
+      "shapeFeatureKind": "baseline-skeleton",
+      "shapeComparisonBox": [
+        86,
+        723,
+        162,
+        786
+      ],
+      "inkBox": [
+        86,
+        681,
+        162,
+        786
+      ],
+      "wid": "53.30.10",
+      "cluster": "s00073-c0020",
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ع",
+          "show": "عَ",
+          "silent": false,
+          "tid": "53.30.10@r0"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "primary": "ن",
+          "show": "ن",
+          "silent": false,
+          "tid": "53.30.10@r2"
+        }
+      ]
+    }
+  }
+}

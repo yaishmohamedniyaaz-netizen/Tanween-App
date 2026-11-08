@@ -1,0 +1,654 @@
+{
+  "52.38.0": {
+    "wid": "52.38.0",
+    "page": 525,
+    "x": [
+      964,
+      948,
+      909
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00077-c0001",
+    "note": "Manually placed in visible gap between right alif carrier and left mim body."
+  },
+  "9.16.0": {
+    "wid": "9.16.0",
+    "page": 189,
+    "x": [
+      1690,
+      1672,
+      1617
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00077-c0002",
+    "note": "Manually placed in visible gap between right alif carrier and left mim body."
+  },
+  "52.39.0": {
+    "wid": "52.39.0",
+    "page": 525,
+    "x": [
+      966,
+      947,
+      911
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00077-c0003",
+    "note": "Manually placed in visible gap between right alif carrier and left mim body."
+  },
+  "68.41.0": {
+    "wid": "68.41.0",
+    "page": 565,
+    "x": [
+      1381,
+      1368,
+      1334
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00077-c0004",
+    "note": "Manually placed in visible gap between right alif carrier and left mim body."
+  },
+  "10.38.0": {
+    "wid": "10.38.0",
+    "page": 213,
+    "x": [
+      1075,
+      1060,
+      1023
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00077-c0005",
+    "note": "Manually placed in visible gap between right alif carrier and left mim body."
+  },
+  "25.17.12": {
+    "wid": "25.17.12",
+    "page": 361,
+    "x": [
+      1600,
+      1579,
+      1540
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00077-c0006",
+    "note": "Manually placed in visible gap between right alif carrier and left mim body. Right edge clips ink; borders retained inside immutable word box for owner review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "44.37.2": {
+    "wid": "44.37.2",
+    "page": 497,
+    "x": [
+      1689,
+      1669,
+      1635
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00077-c0007",
+    "note": "Manually placed in visible gap between right alif carrier and left mim body. Right edge clips ink; borders retained inside immutable word box for owner review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "46.8.0": {
+    "wid": "46.8.0",
+    "page": 503,
+    "x": [
+      1372,
+      1350,
+      1300
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00077-c0008",
+    "note": "Manually placed in visible gap between right alif carrier and left mim body."
+  },
+  "72.10.8": {
+    "wid": "72.10.8",
+    "page": 572,
+    "x": [
+      1384,
+      1365,
+      1302
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00077-c0009",
+    "note": "Manually placed in visible gap between right alif carrier and left mim body. Right edge clips ink; borders retained inside immutable word box for owner review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "7.195.4": {
+    "wid": "7.195.4",
+    "page": 175,
+    "x": [
+      432,
+      414,
+      355
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00077-c0010",
+    "note": "Manually placed in visible gap between right alif carrier and left mim body."
+  },
+  "24.50.5": {
+    "wid": "24.50.5",
+    "page": 356,
+    "x": [
+      427,
+      414,
+      377
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00077-c0011",
+    "note": "Manually placed in visible gap between right alif carrier and left mim body. Right edge clips ink; borders retained inside immutable word box for owner review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "25.15.3": {
+    "wid": "25.15.3",
+    "page": 361,
+    "x": [
+      1426,
+      1408,
+      1348
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00077-c0012",
+    "note": "Manually placed in visible gap between right alif carrier and left mim body. Right edge clips ink; borders retained inside immutable word box for owner review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "29.4.0": {
+    "wid": "29.4.0",
+    "page": 396,
+    "x": [
+      832,
+      813,
+      776
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00077-c0013",
+    "note": "Manually placed in visible gap between right alif carrier and left mim body."
+  },
+  "52.35.0": {
+    "wid": "52.35.0",
+    "page": 525,
+    "x": [
+      1669,
+      1649,
+      1615
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00077-c0014",
+    "note": "Manually placed in visible gap between right alif carrier and left mim body."
+  },
+  "53.24.0": {
+    "wid": "53.24.0",
+    "page": 526,
+    "x": [
+      862,
+      843,
+      804
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00077-c0015",
+    "note": "Manually placed in visible gap between right alif carrier and left mim body."
+  },
+  "56.64.2": {
+    "wid": "56.64.2",
+    "page": 536,
+    "x": [
+      1204,
+      1189,
+      1153
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00077-c0016",
+    "note": "Manually placed in visible gap between right alif carrier and left mim body."
+  },
+  "67.17.0": {
+    "wid": "67.17.0",
+    "page": 563,
+    "x": [
+      1497,
+      1480,
+      1443
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00077-c0017",
+    "note": "Manually placed in visible gap between right alif carrier and left mim body."
+  },
+  "2.6.6": {
+    "wid": "2.6.6",
+    "page": 3,
+    "x": [
+      470,
+      447,
+      413
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00077-c0018",
+    "note": "Manually placed in visible gap between right alif carrier and left mim body."
+  },
+  "2.80.16": {
+    "wid": "2.80.16",
+    "page": 12,
+    "x": [
+      395,
+      379,
+      341
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00077-c0019",
+    "note": "Manually placed in visible gap between right alif carrier and left mim body."
+  },
+  "2.108.0": {
+    "wid": "2.108.0",
+    "page": 17,
+    "x": [
+      1168,
+      1148,
+      1111
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00077-c0020",
+    "note": "Manually placed in visible gap between right alif carrier and left mim body."
+  },
+  "7.193.9": {
+    "wid": "7.193.9",
+    "page": 175,
+    "x": [
+      1844,
+      1823,
+      1785
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00077-c0021",
+    "note": "Manually placed in visible gap between right alif carrier and left mim body. Right edge clips ink; borders retained inside immutable word box for owner review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "11.35.0": {
+    "wid": "11.35.0",
+    "page": 225,
+    "x": [
+      765,
+      744,
+      678
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00077-c0022",
+    "note": "Manually placed in visible gap between right alif carrier and left mim body."
+  },
+  "20.86.16": {
+    "wid": "20.86.16",
+    "page": 317,
+    "x": [
+      1613,
+      1593,
+      1559
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00077-c0023",
+    "note": "Manually placed in visible gap between right alif carrier and left mim body."
+  },
+  "21.43.0": {
+    "wid": "21.43.0",
+    "page": 325,
+    "x": [
+      192,
+      171,
+      108
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00077-c0024",
+    "note": "Manually placed in visible gap between right alif carrier and left mim body."
+  },
+  "21.55.3": {
+    "wid": "21.55.3",
+    "page": 326,
+    "x": [
+      1460,
+      1444,
+      1385
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00077-c0025",
+    "note": "Manually placed in visible gap between right alif carrier and left mim body. Right edge clips ink; borders retained inside immutable word box for owner review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "3.142.0": {
+    "wid": "3.142.0",
+    "page": 68,
+    "x": [
+      201,
+      180,
+      120
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00077-c0026",
+    "note": "Manually placed in visible gap between right alif carrier and left mim body."
+  },
+  "4.54.0": {
+    "wid": "4.54.0",
+    "page": 87,
+    "x": [
+      180,
+      159,
+      99
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00077-c0027",
+    "note": "Manually placed in visible gap between right alif carrier and left mim body."
+  },
+  "6.144.16": {
+    "wid": "6.144.16",
+    "page": 147,
+    "x": [
+      1819,
+      1800,
+      1759
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00077-c0028",
+    "note": "Manually placed in visible gap between right alif carrier and left mim body. Right edge clips ink; borders retained inside immutable word box for owner review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "11.13.0": {
+    "wid": "11.13.0",
+    "page": 223,
+    "x": [
+      1825,
+      1816,
+      1773
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00077-c0029",
+    "note": "Manually placed in visible gap between right alif carrier and left mim body. Right edge clips ink; borders retained inside immutable word box for owner review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "13.33.13": {
+    "wid": "13.33.13",
+    "page": 253,
+    "x": [
+      1180,
+      1162,
+      1127
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00077-c0030",
+    "note": "Manually placed in visible gap between right alif carrier and left mim body. Right edge clips ink; borders retained inside immutable word box for owner review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "16.59.11": {
+    "wid": "16.59.11",
+    "page": 273,
+    "x": [
+      1862,
+      1849,
+      1796
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00077-c0031",
+    "note": "Manually placed in visible gap between right alif carrier and left mim body."
+  },
+  "23.70.0": {
+    "wid": "23.70.0",
+    "page": 346,
+    "x": [
+      1677,
+      1659,
+      1595
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00077-c0032",
+    "note": "Manually placed in visible gap between right alif carrier and left mim body."
+  },
+  "23.72.0": {
+    "wid": "23.72.0",
+    "page": 346,
+    "x": [
+      1101,
+      1086,
+      1025
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00077-c0033",
+    "note": "Manually placed in visible gap between right alif carrier and left mim body. Right edge clips ink; borders retained inside immutable word box for owner review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "26.136.4": {
+    "wid": "26.136.4",
+    "page": 372,
+    "x": [
+      970,
+      956,
+      902
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00077-c0034",
+    "note": "Manually placed in visible gap between right alif carrier and left mim body."
+  },
+  "35.40.13": {
+    "wid": "35.40.13",
+    "page": 439,
+    "x": [
+      753,
+      733,
+      683
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00077-c0036",
+    "note": "Manually placed in visible gap between right alif carrier and left mim body. Right edge clips ink; borders retained inside immutable word box for owner review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "35.40.18": {
+    "wid": "35.40.18",
+    "page": 439,
+    "x": [
+      1826,
+      1808,
+      1753
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00077-c0037",
+    "note": "Manually placed in visible gap between right alif carrier and left mim body."
+  },
+  "36.10.3": {
+    "wid": "36.10.3",
+    "page": 440,
+    "x": [
+      1314,
+      1300,
+      1240
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00077-c0038",
+    "note": "Manually placed in visible gap between right alif carrier and left mim body. Right edge clips ink; borders retained inside immutable word box for owner review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "37.156.0": {
+    "wid": "37.156.0",
+    "page": 452,
+    "x": [
+      685,
+      673,
+      642
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00077-c0039",
+    "note": "Manually placed in visible gap between right alif carrier and left mim body."
+  },
+  "38.9.0": {
+    "wid": "38.9.0",
+    "page": 453,
+    "x": [
+      1683,
+      1670,
+      1609
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00077-c0040",
+    "note": "Manually placed in visible gap between right alif carrier and left mim body."
+  },
+  "38.75.10": {
+    "wid": "38.75.10",
+    "page": 457,
+    "x": [
+      298,
+      284,
+      249
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00077-c0041",
+    "note": "Manually placed in visible gap between right alif carrier and left mim body. Right edge clips ink; borders retained inside immutable word box for owner review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "43.21.0": {
+    "wid": "43.21.0",
+    "page": 490,
+    "x": [
+      361,
+      346,
+      318
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00077-c0042",
+    "note": "Manually placed in visible gap between right alif carrier and left mim body."
+  },
+  "46.4.12": {
+    "wid": "46.4.12",
+    "page": 502,
+    "x": [
+      786,
+      774,
+      740
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00077-c0043",
+    "note": "Manually placed in visible gap between right alif carrier and left mim body. Right edge clips ink; borders retained inside immutable word box for owner review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "52.30.0": {
+    "wid": "52.30.0",
+    "page": 524,
+    "x": [
+      997,
+      979,
+      940
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00077-c0044",
+    "note": "Manually placed in visible gap between right alif carrier and left mim body."
+  },
+  "56.72.3": {
+    "wid": "56.72.3",
+    "page": 536,
+    "x": [
+      181,
+      165,
+      102
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00077-c0045",
+    "note": "Manually placed in visible gap between right alif carrier and left mim body. Right edge clips ink; borders retained inside immutable word box for owner review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "63.6.4": {
+    "wid": "63.6.4",
+    "page": 555,
+    "x": [
+      1253,
+      1235,
+      1194
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00077-c0046",
+    "note": "Manually placed in visible gap between right alif carrier and left mim body. Right edge clips ink; borders retained inside immutable word box for owner review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  },
+  "72.25.6": {
+    "wid": "72.25.6",
+    "page": 573,
+    "x": [
+      1485,
+      1470,
+      1408
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00077-c0047",
+    "note": "Manually placed in visible gap between right alif carrier and left mim body. Right edge clips ink; borders retained inside immutable word box for owner review.",
+    "reviewFlags": [
+      "clipped-ink-at-immutable-box"
+    ]
+  }
+}

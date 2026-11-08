@@ -1,0 +1,1187 @@
+{
+  "62.4.2": {
+    "wid": "62.4.2",
+    "page": 553,
+    "x": [
+      790,
+      775,
+      728,
+      696
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00005-c0001",
+    "note": "Alif is detached; combined lam retains both uprights; ha cut follows its visible shoulder, excluding the lam bowl."
+  },
+  "3.75.32": {
+    "wid": "3.75.32",
+    "page": 59,
+    "x": [
+      1107,
+      1090,
+      1043,
+      1001
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00005-c0002",
+    "note": "Clear alif gap and final ha shoulder; the lower kasra does not set the border."
+  },
+  "6.144.28": {
+    "wid": "6.144.28",
+    "page": 147,
+    "x": [
+      1115,
+      1098,
+      1047,
+      1011
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00005-c0003",
+    "note": "Separate alif and ha shoulder establish the combined lam span; keep both lam uprights together."
+  },
+  "22.36.5": {
+    "wid": "22.36.5",
+    "page": 336,
+    "x": [
+      1874,
+      1858,
+      1808,
+      1771
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00005-c0004",
+    "note": "Alif gap is clear; ha retains its loop up to the shoulder, with the adjoining bowl in combined lam."
+  },
+  "6.164.2": {
+    "wid": "6.164.2",
+    "page": 150,
+    "x": [
+      1478,
+      1463,
+      1413,
+      1382
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00005-c0005",
+    "note": "Combined lam span begins at the detached alif gap and ends just after the ha shoulder."
+  },
+  "2.218.8": {
+    "wid": "2.218.8",
+    "page": 34,
+    "x": [
+      940,
+      920,
+      876,
+      839
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00005-c0006",
+    "note": "Clear alif gap and ha shoulder; compact loop remains separate from both lam stems."
+  },
+  "7.99.6": {
+    "wid": "7.99.6",
+    "page": 163,
+    "x": [
+      1533,
+      1515,
+      1465,
+      1431
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00005-c0007",
+    "note": "Clear detached alif gap; ha ends at its shoulder and the combined lam keeps both stems and bowl."
+  },
+  "6.40.10": {
+    "wid": "6.40.10",
+    "page": 132,
+    "x": [
+      215,
+      198,
+      150,
+      111
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00005-c0008",
+    "note": "Alif separates cleanly; ha shoulder fixes the left boundary of combined lam independent of lower kasra."
+  },
+  "16.87.2": {
+    "wid": "16.87.2",
+    "page": 276,
+    "x": [
+      1728,
+      1710,
+      1658,
+      1626
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00005-c0009",
+    "note": "Two clear body divisions: detached alif gap and ha shoulder."
+  },
+  "14.28.6": {
+    "wid": "14.28.6",
+    "page": 259,
+    "x": [
+      325,
+      308,
+      264,
+      231
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00005-c0010",
+    "note": "Ha loop and two lam stems have distinct positions; neighboring mark is ignored."
+  },
+  "58.22.48": {
+    "wid": "58.22.48",
+    "page": 545,
+    "x": [
+      752,
+      735,
+      686,
+      653
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00005-c0011",
+    "note": "Clear alif gap; final ha ends near its upright shoulder rather than inside lam bowl."
+  },
+  "91.13.5": {
+    "wid": "91.13.5",
+    "page": 595,
+    "x": [
+      1689,
+      1672,
+      1624,
+      1592
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00005-c0012",
+    "note": "Clear alif gap and ha shoulder; preserve the app combined lam target."
+  },
+  "49.13.14": {
+    "wid": "49.13.14",
+    "page": 517,
+    "x": [
+      616,
+      596,
+      553,
+      517
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00005-c0013",
+    "note": "Clear detached alif gap; ha loop ends near its upright shoulder."
+  },
+  "5.3.9": {
+    "wid": "5.3.9",
+    "page": 107,
+    "x": [
+      190,
+      172,
+      126,
+      93
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00005-c0014",
+    "note": "Both body divisions are clear: alif gap and ha shoulder before the combined lam bowl."
+  },
+  "10.68.21": {
+    "wid": "10.68.21",
+    "page": 216,
+    "x": [
+      273,
+      257,
+      213,
+      175
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00005-c0015",
+    "note": "Alif gap is clear and the ha boundary follows its narrow shoulder rather than the lower lam curve."
+  },
+  "16.106.20": {
+    "wid": "16.106.20",
+    "page": 279,
+    "x": [
+      1110,
+      1093,
+      1044,
+      1005
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00005-c0016",
+    "note": "Clear alif gap and final ha shoulder; retain both lam stems in one target."
+  },
+  "49.8.2": {
+    "wid": "49.8.2",
+    "page": 516,
+    "x": [
+      1541,
+      1526,
+      1478,
+      1447
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00005-c0017",
+    "note": "Clear alif gap; final ha loop ends at its upright shoulder."
+  },
+  "3.39.14": {
+    "wid": "3.39.14",
+    "page": 55,
+    "x": [
+      1820,
+      1802,
+      1757,
+      1722
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00005-c0018",
+    "note": "Clear detached alif and ha shoulder establish the app combined lam span."
+  },
+  "3.171.3": {
+    "wid": "3.171.3",
+    "page": 72,
+    "x": [
+      1047,
+      1029,
+      981,
+      946
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00005-c0019",
+    "note": "Distinct alif gap and ha shoulder; upper marks do not shift the body divisions."
+  },
+  "14.12.14": {
+    "wid": "14.12.14",
+    "page": 257,
+    "x": [
+      772,
+      755,
+      708,
+      674
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00005-c0020",
+    "note": "The app combined lam owns both stems; ha ends just after its upright shoulder."
+  },
+  "33.19.33": {
+    "wid": "33.19.33",
+    "page": 420,
+    "x": [
+      1023,
+      1006,
+      958,
+      924
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00005-c0021",
+    "note": "Clear alif gap and final loop shoulder despite the taller upper marks."
+  },
+  "46.28.6": {
+    "wid": "46.28.6",
+    "page": 505,
+    "x": [
+      594,
+      578,
+      532,
+      500
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00005-c0022",
+    "note": "Clear detached alif; ha loop separated at its shoulder before the lam bowl."
+  },
+  "9.109.6": {
+    "wid": "9.109.6",
+    "page": 204,
+    "x": [
+      1316,
+      1297,
+      1248,
+      1215
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00005-c0023",
+    "note": "Both body boundaries are clear; keep the two lam uprights together."
+  },
+  "11.64.3": {
+    "wid": "11.64.3",
+    "page": 229,
+    "x": [
+      659,
+      643,
+      594,
+      557
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00005-c0024",
+    "note": "Clear alif gap and ha shoulder; lower kasra remains attached without pulling the division."
+  },
+  "14.3.9": {
+    "wid": "14.3.9",
+    "page": 255,
+    "x": [
+      201,
+      185,
+      133,
+      99
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00005-c0025",
+    "note": "Alif gap is clear; ha shoulder sets the left combined-lam border."
+  },
+  "16.114.8": {
+    "wid": "16.114.8",
+    "page": 280,
+    "x": [
+      1128,
+      1109,
+      1058,
+      1024
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00005-c0026",
+    "note": "Clear alif gap and ha shoulder, with a broad combined lam bowl."
+  },
+  "4.167.6": {
+    "wid": "4.167.6",
+    "page": 104,
+    "x": [
+      991,
+      971,
+      925,
+      890
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00005-c0027",
+    "note": "Detached alif gap and compact ha shoulder are clear despite upper-mark overhangs."
+  },
+  "36.74.3": {
+    "wid": "36.74.3",
+    "page": 445,
+    "x": [
+      1580,
+      1569,
+      1516,
+      1477
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00005-c0028",
+    "note": "Distinct alif gap and ha shoulder; all core strokes retain their ordered target positions."
+  },
+  "9.36.10": {
+    "wid": "9.36.10",
+    "page": 192,
+    "x": [
+      1228,
+      1211,
+      1164,
+      1132
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00005-c0029",
+    "note": "Clear detached alif and final ha loop; retain the combined lam stems together."
+  },
+  "9.60.13": {
+    "wid": "9.60.13",
+    "page": 196,
+    "x": [
+      625,
+      608,
+      560,
+      524
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00005-c0030",
+    "note": "Clear alif gap; ha ends at its upright shoulder rather than inside the lam bowl."
+  },
+  "29.23.3": {
+    "wid": "29.23.3",
+    "page": 398,
+    "x": [
+      533,
+      516,
+      464,
+      430
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00005-c0031",
+    "note": "Clear detached alif gap and right shoulder of final ha; combined lam bowl retained."
+  },
+  "58.10.14": {
+    "wid": "58.10.14",
+    "page": 543,
+    "x": [
+      1315,
+      1300,
+      1249,
+      1218
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00005-c0032",
+    "note": "Alif separated at visible gap; ha shoulder marks joined body boundary."
+  },
+  "65.3.8": {
+    "wid": "65.3.8",
+    "page": 558,
+    "x": [
+      793,
+      775,
+      723,
+      689
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00005-c0033",
+    "note": "Separate alif and compact final ha with clear upright shoulder."
+  },
+  "6.145.27": {
+    "wid": "6.145.27",
+    "page": 147,
+    "x": [
+      1335,
+      1318,
+      1270,
+      1244
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00005-c0034",
+    "note": "Clear alif gap and final ha shoulder; lam bowl stays whole."
+  },
+  "8.55.4": {
+    "wid": "8.55.4",
+    "page": 184,
+    "x": [
+      1219,
+      1203,
+      1152,
+      1121
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00005-c0035",
+    "note": "Detached alif and ha right shoulder distinguish all three app targets."
+  },
+  "30.17.1": {
+    "wid": "30.17.1",
+    "page": 406,
+    "x": [
+      683,
+      667,
+      618,
+      589
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00005-c0036",
+    "note": "Clear detached alif gap and narrow final ha upright transition."
+  },
+  "46.8.10": {
+    "wid": "46.8.10",
+    "page": 503,
+    "x": [
+      1663,
+      1647,
+      1598,
+      1567
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00005-c0037",
+    "note": "Alif detached; final ha right upright ends before the full lam bowl."
+  },
+  "9.99.12": {
+    "wid": "9.99.12",
+    "page": 202,
+    "x": [
+      1150,
+      1130,
+      1084,
+      1054
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00005-c0038",
+    "note": "Clear detached alif gap and ha shoulder define three targets."
+  },
+  "22.32.4": {
+    "wid": "22.32.4",
+    "page": 336,
+    "x": [
+      948,
+      921,
+      879,
+      838
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00005-c0039",
+    "note": "Compact final ha shoulder and detached alif are visually clear."
+  },
+  "39.43.4": {
+    "wid": "39.43.4",
+    "page": 463,
+    "x": [
+      431,
+      414,
+      368,
+      328
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00005-c0040",
+    "note": "Ha shoulder boundary preserves broad combined lam bowl and separate alif."
+  },
+  "62.10.9": {
+    "wid": "62.10.9",
+    "page": 554,
+    "x": [
+      1266,
+      1251,
+      1197,
+      1167
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00005-c0041",
+    "note": "Clear alif gap and final ha shoulder; the bowl stays with lam."
+  },
+  "2.75.10": {
+    "wid": "2.75.10",
+    "page": 11,
+    "x": [
+      1285,
+      1263,
+      1211,
+      1176
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00005-c0042",
+    "note": "Visible alif gap and final ha upright transition."
+  },
+  "3.10.10": {
+    "wid": "3.10.10",
+    "page": 51,
+    "x": [
+      1711,
+      1694,
+      1652,
+      1613
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00005-c0043",
+    "note": "Clear detached alif and compact ha shoulder around the combined lam bowl."
+  },
+  "4.75.6": {
+    "wid": "4.75.6",
+    "page": 90,
+    "x": [
+      1015,
+      999,
+      952,
+      922
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00005-c0044",
+    "note": "Alif gap and ha shoulder remain clear in the compact form."
+  },
+  "24.48.3": {
+    "wid": "24.48.3",
+    "page": 356,
+    "x": [
+      460,
+      444,
+      398,
+      363
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00005-c0045",
+    "note": "Separate alif and final ha right upright give unambiguous targets."
+  },
+  "61.5.11": {
+    "wid": "61.5.11",
+    "page": 551,
+    "x": [
+      664,
+      647,
+      592,
+      557
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00005-c0046",
+    "note": "Broad ha shoulder ends before the combined lam bowl; alif is detached."
+  },
+  "66.10.20": {
+    "wid": "66.10.20",
+    "page": 561,
+    "x": [
+      1616,
+      1601,
+      1548,
+      1512
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00005-c0047",
+    "note": "Visible detached alif gap and ha upright transition."
+  },
+  "104.6.1": {
+    "wid": "104.6.1",
+    "page": 601,
+    "x": [
+      893,
+      877,
+      829,
+      795
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00005-c0048",
+    "note": "Alif gap and narrow final ha shoulder are clear."
+  },
+  "4.114.21": {
+    "wid": "4.114.21",
+    "page": 97,
+    "x": [
+      1286,
+      1269,
+      1223,
+      1183
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00005-c0049",
+    "note": "Alif gap and ha right shoulder are clear; combined lam bowl preserved."
+  },
+  "29.10.9": {
+    "wid": "29.10.9",
+    "page": 397,
+    "x": [
+      370,
+      353,
+      304,
+      269
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00005-c0050",
+    "note": "Detached alif and final ha shoulder define clear divisions."
+  },
+  "33.17.20": {
+    "wid": "33.17.20",
+    "page": 420,
+    "x": [
+      203,
+      188,
+      144,
+      110
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00005-c0051",
+    "note": "Compact ha upright and separate alif define the three app targets."
+  },
+  "61.14.5": {
+    "wid": "61.14.5",
+    "page": 552,
+    "x": [
+      1644,
+      1619,
+      1573,
+      1542
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00005-c0052",
+    "note": "Ha shoulder separates from full lam bowl; alif gap remains clear."
+  },
+  "71.25.10": {
+    "wid": "71.25.10",
+    "page": 571,
+    "x": [
+      1825,
+      1810,
+      1758,
+      1725
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00005-c0053",
+    "note": "Detached alif gap and final ha shoulder remain distinct in bold form."
+  },
+  "2.101.16": {
+    "wid": "2.101.16",
+    "page": 15,
+    "x": [
+      1498,
+      1477,
+      1429,
+      1397
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00005-c0054",
+    "note": "Clear alif gap and ha upright transition beside lam bowl."
+  },
+  "2.161.9": {
+    "wid": "2.161.9",
+    "page": 24,
+    "x": [
+      1084,
+      1064,
+      1019,
+      984
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00005-c0055",
+    "note": "Clear alif gap and final ha shoulder; combined lam bowl stays intact."
+  },
+  "4.100.4": {
+    "wid": "4.100.4",
+    "page": 94,
+    "x": [
+      1129,
+      1113,
+      1065,
+      1035
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00005-c0056",
+    "note": "Distinct alif gap and compact ha upright transition."
+  },
+  "8.52.8": {
+    "wid": "8.52.8",
+    "page": 183,
+    "x": [
+      226,
+      207,
+      157,
+      119
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00005-c0057",
+    "note": "Separate alif and final ha shoulder separate the three targets."
+  },
+  "18.21.6": {
+    "wid": "18.21.6",
+    "page": 296,
+    "x": [
+      454,
+      439,
+      394,
+      362
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00005-c0058",
+    "note": "Slanted alif remains separate; ha shoulder gives a clear join boundary."
+  },
+  "19.48.5": {
+    "wid": "19.48.5",
+    "page": 308,
+    "x": [
+      771,
+      752,
+      701,
+      665
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00005-c0059",
+    "note": "Detached alif and final ha shoulder are visible."
+  },
+  "39.64.2": {
+    "wid": "39.64.2",
+    "page": 465,
+    "x": [
+      772,
+      755,
+      702,
+      666
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00005-c0060",
+    "note": "Broad ha shoulder and detached alif bound the combined lam body."
+  },
+  "45.10.14": {
+    "wid": "45.10.14",
+    "page": 499,
+    "x": [
+      1217,
+      1197,
+      1154,
+      1126
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00005-c0061",
+    "note": "Compact ha shoulder and detached alif give clear app target divisions."
+  },
+  "51.51.3": {
+    "wid": "51.51.3",
+    "page": 522,
+    "x": [
+      1406,
+      1388,
+      1339,
+      1309
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00005-c0062",
+    "note": "Bold ha shoulder and separated alif preserve full lam bowl."
+  },
+  "59.23.16": {
+    "wid": "59.23.16",
+    "page": 548,
+    "x": [
+      821,
+      806,
+      753,
+      720
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00005-c0063",
+    "note": "Distinct ha upright transition and broad alif gap."
+  },
+  "2.60.22": {
+    "wid": "2.60.22",
+    "page": 9,
+    "x": [
+      1347,
+      1332,
+      1292,
+      1264
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00005-c0064",
+    "note": "Short compact ha shoulder and detached alif are clear."
+  },
+  "2.265.6": {
+    "wid": "2.265.6",
+    "page": 45,
+    "x": [
+      220,
+      201,
+      155,
+      117
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00005-c0065",
+    "note": "Clear alif gap and final ha upright transition."
+  },
+  "3.52.14": {
+    "wid": "3.52.14",
+    "page": 56,
+    "x": [
+      1596,
+      1578,
+      1533,
+      1498
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00005-c0066",
+    "note": "Ha shoulder retains its core; combined lam and separate alif remain clear."
+  },
+  "3.79.17": {
+    "wid": "3.79.17",
+    "page": 60,
+    "x": [
+      1651,
+      1632,
+      1584,
+      1546
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00005-c0067",
+    "note": "Clear alif gap and final ha shoulder preserve all three target bodies."
+  },
+  "4.94.7": {
+    "wid": "4.94.7",
+    "page": 93,
+    "x": [
+      753,
+      734,
+      692,
+      662
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00005-c0069",
+    "note": "Detached alif and final ha upright transition are clear."
+  },
+  "31.22.4": {
+    "wid": "31.22.4",
+    "page": 413,
+    "x": [
+      1483,
+      1468,
+      1420,
+      1388
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00005-c0070",
+    "note": "Alif is detached and ha shoulder bounds full combined lam bowl."
+  },
+  "39.20.15": {
+    "wid": "39.20.15",
+    "page": 460,
+    "x": [
+      1220,
+      1203,
+      1156,
+      1121
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00005-c0071",
+    "note": "Pause mark ignored; visible body has clear alif gap and ha shoulder."
+  },
+  "45.6.9": {
+    "wid": "45.6.9",
+    "page": 499,
+    "x": [
+      1823,
+      1810,
+      1764,
+      1735
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00005-c0072",
+    "note": "Clear detached alif gap and final ha upright transition."
+  },
+  "48.23.10": {
+    "wid": "48.23.10",
+    "page": 513,
+    "x": [
+      581,
+      566,
+      517,
+      483
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00005-c0073",
+    "note": "Detached alif gap and ha shoulder separate clear bodies."
+  },
+  "1.1.1": {
+    "wid": "1.1.1",
+    "page": 1,
+    "x": [
+      1126,
+      1119,
+      1085,
+      1059
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00005-c0074",
+    "note": "Alif stem is clipped at the immutable right edge; retained inward endpoint and visible gap; clipped ink requires review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.195.3": {
+    "wid": "2.195.3",
+    "page": 30,
+    "x": [
+      958,
+      935,
+      891,
+      864
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00005-c0075",
+    "note": "Detached alif and final ha shoulder; full combined lam bowl retained."
+  },
+  "2.244.3": {
+    "wid": "2.244.3",
+    "page": 39,
+    "x": [
+      1256,
+      1240,
+      1192,
+      1159
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00005-c0076",
+    "note": "Detached alif gap; ha shoulder separates combined lam target."
+  },
+  "5.18.5": {
+    "wid": "5.18.5",
+    "page": 111,
+    "x": [
+      654,
+      635,
+      587,
+      557
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00005-c0079",
+    "note": "Clear alif gap and final ha shoulder."
+  },
+  "9.38.11": {
+    "wid": "9.38.11",
+    "page": 193,
+    "x": [
+      440,
+      425,
+      374,
+      344
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00005-c0080",
+    "note": "Detached alif and ha shoulder; preserve combined lam bowl."
+  },
+  "11.73.6": {
+    "wid": "11.73.6",
+    "page": 230,
+    "x": [
+      189,
+      174,
+      117,
+      81
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00005-c0081",
+    "note": "Detached alif gap and ha shoulder; elongated combined lam bowl retained."
+  },
+  "12.38.17": {
+    "wid": "12.38.17",
+    "page": 240,
+    "x": [
+      526,
+      510,
+      456,
+      424
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00005-c0082",
+    "note": "Clear detached alif gap and final ha upright transition."
+  },
+  "28.71.14": {
+    "wid": "28.71.14",
+    "page": 394,
+    "x": [
+      1466,
+      1452,
+      1404,
+      1376
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00005-c0083",
+    "note": "Clear detached alif gap and final ha shoulder."
+  },
+  "4.82.8": {
+    "wid": "4.82.8",
+    "page": 91,
+    "x": [
+      429,
+      421,
+      376,
+      344
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00005-c0078",
+    "note": "Partial alif body survives at right edge; inward box endpoint retains visible stem; clipped ink requires review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "39.17.7": {
+    "wid": "39.17.7",
+    "page": 460,
+    "x": [
+      529,
+      516,
+      471,
+      441
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00005-c0088",
+    "note": "Detached alif gap and ha shoulder are clear."
+  },
+  "60.10.49": {
+    "wid": "60.10.49",
+    "page": 550,
+    "x": [
+      1496,
+      1478,
+      1432,
+      1394
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00005-c0091",
+    "note": "Clear alif gap and final ha shoulder; pause sign ignored."
+  },
+  "65.5.2": {
+    "wid": "65.5.2",
+    "page": 558,
+    "x": [
+      345,
+      338,
+      280,
+      255
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00005-c0094",
+    "note": "Partial alif body is clipped at right box edge; inward endpoint preserves surviving upright, review clipped ink.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  }
+}

@@ -1,0 +1,242 @@
+{
+  "3.19.13": {
+    "ends": [
+      1656,
+      1599
+    ],
+    "fallback": false,
+    "clamped": false
+  },
+  "3.20.10": {
+    "ends": [
+      823,
+      683
+    ],
+    "fallback": false,
+    "clamped": false
+  },
+  "3.22.1": {
+    "ends": [
+      887,
+      741
+    ],
+    "fallback": false,
+    "clamped": false
+  },
+  "4.155.11": {
+    "ends": [
+      1288,
+      1115
+    ],
+    "fallback": false,
+    "clamped": false
+  },
+  "4.161.12": {
+    "ends": [
+      857,
+      695
+    ],
+    "fallback": false,
+    "clamped": false
+  },
+  "4.162.20": {
+    "ends": [
+      1384,
+      1178
+    ],
+    "fallback": false,
+    "clamped": false
+  },
+  "7.56.0": {
+    "ends": [
+      620,
+      513
+    ],
+    "fallback": false,
+    "clamped": false
+  },
+  "7.57.8": {
+    "ends": [
+      814,
+      679
+    ],
+    "fallback": false,
+    "clamped": false
+  },
+  "7.57.11": {
+    "ends": [
+      339,
+      125
+    ],
+    "fallback": false,
+    "clamped": false
+  },
+  "8.1.13": {
+    "ends": [
+      762,
+      666
+    ],
+    "fallback": false,
+    "clamped": false
+  },
+  "8.2.11": {
+    "ends": [
+      1082,
+      881
+    ],
+    "fallback": false,
+    "clamped": false
+  },
+  "8.2.13": {
+    "ends": [
+      648,
+      463
+    ],
+    "fallback": false,
+    "clamped": false
+  },
+  "16.91.12": {
+    "ends": [
+      855,
+      754
+    ],
+    "fallback": false,
+    "clamped": false
+  },
+  "16.92.29": {
+    "ends": [
+      813,
+      658
+    ],
+    "fallback": false,
+    "clamped": false
+  },
+  "16.92.31": {
+    "ends": [
+      536,
+      279
+    ],
+    "fallback": false,
+    "clamped": false
+  },
+  "20.78.0": {
+    "ends": [
+      521,
+      295
+    ],
+    "fallback": false,
+    "clamped": false
+  },
+  "20.83.4": {
+    "ends": [
+      1634,
+      1401
+    ],
+    "fallback": false,
+    "clamped": false
+  },
+  "20.86.8": {
+    "ends": [
+      1632,
+      1539
+    ],
+    "fallback": false,
+    "clamped": false
+  },
+  "23.97.1": {
+    "ends": [
+      1702,
+      1583
+    ],
+    "fallback": false,
+    "clamped": false
+  },
+  "23.97.6": {
+    "ends": [
+      936,
+      629
+    ],
+    "fallback": false,
+    "clamped": false
+  },
+  "23.102.5": {
+    "ends": [
+      886,
+      472
+    ],
+    "fallback": false,
+    "clamped": false
+  },
+  "35.12.21": {
+    "ends": [
+      919,
+      804
+    ],
+    "fallback": false,
+    "clamped": false
+  },
+  "35.13.23": {
+    "ends": [
+      1392,
+      1184
+    ],
+    "fallback": false,
+    "clamped": false
+  },
+  "35.14.12": {
+    "ends": [
+      1434,
+      1180
+    ],
+    "fallback": false,
+    "clamped": false
+  },
+  "43.35.0": {
+    "ends": [
+      468,
+      212
+    ],
+    "fallback": false,
+    "clamped": false
+  },
+  "43.37.2": {
+    "ends": [
+      738,
+      635
+    ],
+    "fallback": false,
+    "clamped": false
+  },
+  "43.46.10": {
+    "ends": [
+      1843,
+      1730
+    ],
+    "fallback": false,
+    "clamped": false
+  },
+  "76.29.8": {
+    "ends": [
+      486,
+      260
+    ],
+    "fallback": false,
+    "clamped": false
+  },
+  "76.30.8": {
+    "ends": [
+      717,
+      621
+    ],
+    "fallback": false,
+    "clamped": false
+  },
+  "77.3.1": {
+    "ends": [
+      351,
+      240
+    ],
+    "fallback": false,
+    "clamped": false
+  }
+}

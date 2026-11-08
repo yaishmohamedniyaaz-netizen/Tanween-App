@@ -1,0 +1,1592 @@
+[
+  {
+    "index": 1,
+    "wid": "3.19.13",
+    "page": 52,
+    "body": [
+      1597,
+      1272,
+      1656,
+      1357
+    ],
+    "band": [
+      1597,
+      1215.5,
+      1656,
+      1423.5
+    ],
+    "text": "مَا",
+    "units": [
+      {
+        "start": 0,
+        "end": 3,
+        "primary": "م",
+        "show": "مَا",
+        "silent": false,
+        "tid": "3.19.13@r0"
+      }
+    ],
+    "image": "01_3.19.13_review2.png"
+  },
+  {
+    "index": 2,
+    "wid": "3.20.10",
+    "page": 52,
+    "body": [
+      681,
+      1645,
+      823,
+      1778
+    ],
+    "band": [
+      681,
+      1621.5,
+      823,
+      1810.5
+    ],
+    "text": "أُوتُواْ",
+    "units": [
+      {
+        "start": 0,
+        "end": 2,
+        "primary": "ء",
+        "show": "أُ",
+        "silent": false,
+        "tid": "3.20.10@r0"
+      },
+      {
+        "start": 2,
+        "end": 3,
+        "primary": "و",
+        "show": "و",
+        "silent": false,
+        "tid": "3.20.10@r2"
+      },
+      {
+        "start": 3,
+        "end": 5,
+        "primary": "ت",
+        "show": "تُ",
+        "silent": false,
+        "tid": "3.20.10@r3"
+      },
+      {
+        "start": 5,
+        "end": 8,
+        "primary": "و",
+        "show": "واْ",
+        "silent": false,
+        "tid": "3.20.10@r5"
+      }
+    ],
+    "image": "02_3.20.10_review2.png"
+  },
+  {
+    "index": 3,
+    "wid": "3.22.1",
+    "page": 52,
+    "body": [
+      739,
+      2655,
+      887,
+      2794
+    ],
+    "band": [
+      739,
+      2626,
+      887,
+      2831
+    ],
+    "text": "ٱلَّذِينَ",
+    "units": [
+      {
+        "start": 0,
+        "end": 1,
+        "primary": "ٱ",
+        "show": "ٱ",
+        "silent": false,
+        "tid": "3.22.1@r0"
+      },
+      {
+        "start": 1,
+        "end": 4,
+        "primary": "ل",
+        "show": "لَّ",
+        "silent": false,
+        "tid": "3.22.1@r1"
+      },
+      {
+        "start": 4,
+        "end": 6,
+        "primary": "ذ",
+        "show": "ذِ",
+        "silent": false,
+        "tid": "3.22.1@r4"
+      },
+      {
+        "start": 6,
+        "end": 7,
+        "primary": "ي",
+        "show": "ي",
+        "silent": false,
+        "tid": "3.22.1@r6"
+      },
+      {
+        "start": 7,
+        "end": 9,
+        "primary": "ن",
+        "show": "نَ",
+        "silent": false,
+        "tid": "3.22.1@r7"
+      }
+    ],
+    "image": "03_3.22.1_review2.png"
+  },
+  {
+    "index": 4,
+    "wid": "4.155.11",
+    "page": 103,
+    "body": [
+      1112,
+      253,
+      1289,
+      397
+    ],
+    "band": [
+      1112,
+      224,
+      1289,
+      436
+    ],
+    "text": "قُلُوبُنَا",
+    "units": [
+      {
+        "start": 0,
+        "end": 2,
+        "primary": "ق",
+        "show": "قُ",
+        "silent": false,
+        "tid": "4.155.11@r0"
+      },
+      {
+        "start": 2,
+        "end": 4,
+        "primary": "ل",
+        "show": "لُ",
+        "silent": false,
+        "tid": "4.155.11@r2"
+      },
+      {
+        "start": 4,
+        "end": 5,
+        "primary": "و",
+        "show": "و",
+        "silent": false,
+        "tid": "4.155.11@r4"
+      },
+      {
+        "start": 5,
+        "end": 7,
+        "primary": "ب",
+        "show": "بُ",
+        "silent": false,
+        "tid": "4.155.11@r5"
+      },
+      {
+        "start": 7,
+        "end": 10,
+        "primary": "ن",
+        "show": "نَا",
+        "silent": false,
+        "tid": "4.155.11@r7"
+      }
+    ],
+    "image": "04_4.155.11_review2.png"
+  },
+  {
+    "index": 5,
+    "wid": "4.161.12",
+    "page": 103,
+    "body": [
+      693,
+      2278,
+      858,
+      2395
+    ],
+    "band": [
+      693,
+      2243.5,
+      858,
+      2442.5
+    ],
+    "text": "عَذَابًا",
+    "units": [
+      {
+        "start": 0,
+        "end": 2,
+        "primary": "ع",
+        "show": "عَ",
+        "silent": false,
+        "tid": "4.161.12@r0"
+      },
+      {
+        "start": 2,
+        "end": 5,
+        "primary": "ذ",
+        "show": "ذَا",
+        "silent": false,
+        "tid": "4.161.12@r2"
+      },
+      {
+        "start": 5,
+        "end": 8,
+        "primary": "ب",
+        "show": "بًا",
+        "silent": false,
+        "tid": "4.161.12@r5"
+      }
+    ],
+    "image": "05_4.161.12_review2.png"
+  },
+  {
+    "index": 6,
+    "wid": "4.162.20",
+    "page": 103,
+    "body": [
+      1177,
+      2883,
+      1384,
+      3014
+    ],
+    "band": [
+      1177,
+      2843.5,
+      1384,
+      3031
+    ],
+    "text": "وَٱلۡيَوۡمِ",
+    "units": [
+      {
+        "start": 0,
+        "end": 2,
+        "primary": "و",
+        "show": "وَ",
+        "silent": false,
+        "tid": "4.162.20@r0"
+      },
+      {
+        "start": 2,
+        "end": 3,
+        "primary": "ٱ",
+        "show": "ٱ",
+        "silent": false,
+        "tid": "4.162.20@r2"
+      },
+      {
+        "start": 3,
+        "end": 5,
+        "primary": "ل",
+        "show": "لۡ",
+        "silent": false,
+        "tid": "4.162.20@r3"
+      },
+      {
+        "start": 5,
+        "end": 7,
+        "primary": "ي",
+        "show": "يَ",
+        "silent": false,
+        "tid": "4.162.20@r5"
+      },
+      {
+        "start": 7,
+        "end": 9,
+        "primary": "و",
+        "show": "وۡ",
+        "silent": false,
+        "tid": "4.162.20@r7"
+      },
+      {
+        "start": 9,
+        "end": 11,
+        "primary": "م",
+        "show": "مِ",
+        "silent": false,
+        "tid": "4.162.20@r9"
+      }
+    ],
+    "image": "06_4.162.20_review2.png"
+  },
+  {
+    "index": 7,
+    "wid": "7.56.0",
+    "page": 157,
+    "body": [
+      510,
+      1862,
+      630,
+      1979
+    ],
+    "band": [
+      510,
+      1812,
+      630,
+      2017
+    ],
+    "text": "وَلَا",
+    "units": [
+      {
+        "start": 0,
+        "end": 2,
+        "primary": "و",
+        "show": "وَ",
+        "silent": false,
+        "tid": "7.56.0@r0"
+      },
+      {
+        "start": 2,
+        "end": 5,
+        "primary": "ل",
+        "show": "لَا",
+        "silent": false,
+        "tid": "7.56.0@r2"
+      }
+    ],
+    "image": "07_7.56.0_review2.png"
+  },
+  {
+    "index": 8,
+    "wid": "7.57.11",
+    "page": 157,
+    "body": [
+      123,
+      2465,
+      341,
+      2583
+    ],
+    "band": [
+      123,
+      2425,
+      341,
+      2630.5
+    ],
+    "text": "سَحَابٗا",
+    "units": [
+      {
+        "start": 0,
+        "end": 2,
+        "primary": "س",
+        "show": "سَ",
+        "silent": false,
+        "tid": "7.57.11@r0"
+      },
+      {
+        "start": 2,
+        "end": 5,
+        "primary": "ح",
+        "show": "حَا",
+        "silent": false,
+        "tid": "7.57.11@r2"
+      },
+      {
+        "start": 5,
+        "end": 8,
+        "primary": "ب",
+        "show": "بٗا",
+        "silent": false,
+        "tid": "7.57.11@r5"
+      }
+    ],
+    "image": "08_7.57.11_review2.png"
+  },
+  {
+    "index": 9,
+    "wid": "7.57.8",
+    "page": 157,
+    "body": [
+      676,
+      2455,
+      816,
+      2583
+    ],
+    "band": [
+      676,
+      2425,
+      816,
+      2630.5
+    ],
+    "text": "حَتَّىٰٓ",
+    "units": [
+      {
+        "start": 0,
+        "end": 2,
+        "primary": "ح",
+        "show": "حَ",
+        "silent": false,
+        "tid": "7.57.8@r0"
+      },
+      {
+        "start": 2,
+        "end": 5,
+        "primary": "ت",
+        "show": "تَّ",
+        "silent": false,
+        "tid": "7.57.8@r2"
+      },
+      {
+        "start": 5,
+        "end": 8,
+        "primary": "ى",
+        "show": "ىٰٓ",
+        "silent": false,
+        "tid": "7.57.8@r5"
+      }
+    ],
+    "image": "09_7.57.8_review2.png"
+  },
+  {
+    "index": 10,
+    "wid": "8.1.13",
+    "page": 177,
+    "body": [
+      664,
+      671,
+      762,
+      769
+    ],
+    "band": [
+      664,
+      619.5,
+      762,
+      828
+    ],
+    "text": "ٱللَّهَ",
+    "units": [
+      {
+        "start": 0,
+        "end": 1,
+        "primary": "ٱ",
+        "show": "ٱ",
+        "silent": false,
+        "tid": "8.1.13@r0"
+      },
+      {
+        "start": 1,
+        "end": 5,
+        "primary": "ل",
+        "show": "للَّ",
+        "silent": false,
+        "tid": "8.1.13@r1"
+      },
+      {
+        "start": 5,
+        "end": 7,
+        "primary": "ه",
+        "show": "هَ",
+        "silent": false,
+        "tid": "8.1.13@r5"
+      }
+    ],
+    "image": "10_8.1.13_review2.png"
+  },
+  {
+    "index": 11,
+    "wid": "8.2.11",
+    "page": 177,
+    "body": [
+      879,
+      1059,
+      1084,
+      1187
+    ],
+    "band": [
+      879,
+      1027,
+      1084,
+      1234.5
+    ],
+    "text": "ءَايَٰتُهُۥ",
+    "units": [
+      {
+        "start": 0,
+        "end": 3,
+        "primary": "ء",
+        "show": "ءَا",
+        "silent": false,
+        "tid": "8.2.11@r0"
+      },
+      {
+        "start": 3,
+        "end": 6,
+        "primary": "ي",
+        "show": "يَٰ",
+        "silent": false,
+        "tid": "8.2.11@r3"
+      },
+      {
+        "start": 6,
+        "end": 8,
+        "primary": "ت",
+        "show": "تُ",
+        "silent": false,
+        "tid": "8.2.11@r6"
+      },
+      {
+        "start": 8,
+        "end": 11,
+        "primary": "ه",
+        "show": "هُۥ",
+        "silent": false,
+        "tid": "8.2.11@r8"
+      }
+    ],
+    "image": "11_8.2.11_review2.png"
+  },
+  {
+    "index": 12,
+    "wid": "8.2.13",
+    "page": 177,
+    "body": [
+      461,
+      1065,
+      648,
+      1196
+    ],
+    "band": [
+      461,
+      1027,
+      648,
+      1234.5
+    ],
+    "text": "إِيمَٰنٗا",
+    "units": [
+      {
+        "start": 0,
+        "end": 2,
+        "primary": "ء",
+        "show": "إِ",
+        "silent": false,
+        "tid": "8.2.13@r0"
+      },
+      {
+        "start": 2,
+        "end": 3,
+        "primary": "ي",
+        "show": "ي",
+        "silent": false,
+        "tid": "8.2.13@r2"
+      },
+      {
+        "start": 3,
+        "end": 6,
+        "primary": "م",
+        "show": "مَٰ",
+        "silent": false,
+        "tid": "8.2.13@r3"
+      },
+      {
+        "start": 6,
+        "end": 9,
+        "primary": "ن",
+        "show": "نٗا",
+        "silent": false,
+        "tid": "8.2.13@r6"
+      }
+    ],
+    "image": "12_8.2.13_review2.png"
+  },
+  {
+    "index": 13,
+    "wid": "16.91.12",
+    "page": 277,
+    "body": [
+      752,
+      1672,
+      855,
+      1773
+    ],
+    "band": [
+      752,
+      1629.5,
+      855,
+      1833
+    ],
+    "text": "ٱللَّهَ",
+    "units": [
+      {
+        "start": 0,
+        "end": 1,
+        "primary": "ٱ",
+        "show": "ٱ",
+        "silent": false,
+        "tid": "16.91.12@r0"
+      },
+      {
+        "start": 1,
+        "end": 5,
+        "primary": "ل",
+        "show": "للَّ",
+        "silent": false,
+        "tid": "16.91.12@r1"
+      },
+      {
+        "start": 5,
+        "end": 7,
+        "primary": "ه",
+        "show": "هَ",
+        "silent": false,
+        "tid": "16.91.12@r5"
+      }
+    ],
+    "image": "13_16.91.12_review2.png"
+  },
+  {
+    "index": 14,
+    "wid": "16.92.29",
+    "page": 277,
+    "body": [
+      656,
+      2453,
+      813,
+      2585
+    ],
+    "band": [
+      656,
+      2443,
+      813,
+      2637
+    ],
+    "text": "كُنتُمۡ",
+    "units": [
+      {
+        "start": 0,
+        "end": 2,
+        "primary": "ك",
+        "show": "كُ",
+        "silent": false,
+        "tid": "16.92.29@r0"
+      },
+      {
+        "start": 2,
+        "end": 3,
+        "primary": "ن",
+        "show": "ن",
+        "silent": false,
+        "tid": "16.92.29@r2"
+      },
+      {
+        "start": 3,
+        "end": 5,
+        "primary": "ت",
+        "show": "تُ",
+        "silent": false,
+        "tid": "16.92.29@r3"
+      },
+      {
+        "start": 5,
+        "end": 7,
+        "primary": "م",
+        "show": "مۡ",
+        "silent": false,
+        "tid": "16.92.29@r5"
+      }
+    ],
+    "image": "14_16.92.29_review2.png"
+  },
+  {
+    "index": 15,
+    "wid": "16.92.31",
+    "page": 277,
+    "body": [
+      277,
+      2465,
+      539,
+      2604
+    ],
+    "band": [
+      277,
+      2443,
+      539,
+      2637
+    ],
+    "text": "تَخۡتَلِفُونَ",
+    "units": [
+      {
+        "start": 0,
+        "end": 2,
+        "primary": "ت",
+        "show": "تَ",
+        "silent": false,
+        "tid": "16.92.31@r0"
+      },
+      {
+        "start": 2,
+        "end": 4,
+        "primary": "خ",
+        "show": "خۡ",
+        "silent": false,
+        "tid": "16.92.31@r2"
+      },
+      {
+        "start": 4,
+        "end": 6,
+        "primary": "ت",
+        "show": "تَ",
+        "silent": false,
+        "tid": "16.92.31@r4"
+      },
+      {
+        "start": 6,
+        "end": 8,
+        "primary": "ل",
+        "show": "لِ",
+        "silent": false,
+        "tid": "16.92.31@r6"
+      },
+      {
+        "start": 8,
+        "end": 10,
+        "primary": "ف",
+        "show": "فُ",
+        "silent": false,
+        "tid": "16.92.31@r8"
+      },
+      {
+        "start": 10,
+        "end": 11,
+        "primary": "و",
+        "show": "و",
+        "silent": false,
+        "tid": "16.92.31@r10"
+      },
+      {
+        "start": 11,
+        "end": 13,
+        "primary": "ن",
+        "show": "نَ",
+        "silent": false,
+        "tid": "16.92.31@r11"
+      }
+    ],
+    "image": "15_16.92.31_review2.png"
+  },
+  {
+    "index": 16,
+    "wid": "20.78.0",
+    "page": 317,
+    "body": [
+      293,
+      241,
+      542,
+      412
+    ],
+    "band": [
+      293,
+      224.5,
+      542,
+      428
+    ],
+    "text": "فَأَتۡبَعَهُمۡ",
+    "units": [
+      {
+        "start": 0,
+        "end": 2,
+        "primary": "ف",
+        "show": "فَ",
+        "silent": false,
+        "tid": "20.78.0@r0"
+      },
+      {
+        "start": 2,
+        "end": 4,
+        "primary": "ء",
+        "show": "أَ",
+        "silent": false,
+        "tid": "20.78.0@r2"
+      },
+      {
+        "start": 4,
+        "end": 6,
+        "primary": "ت",
+        "show": "تۡ",
+        "silent": false,
+        "tid": "20.78.0@r4"
+      },
+      {
+        "start": 6,
+        "end": 8,
+        "primary": "ب",
+        "show": "بَ",
+        "silent": false,
+        "tid": "20.78.0@r6"
+      },
+      {
+        "start": 8,
+        "end": 10,
+        "primary": "ع",
+        "show": "عَ",
+        "silent": false,
+        "tid": "20.78.0@r8"
+      },
+      {
+        "start": 10,
+        "end": 12,
+        "primary": "ه",
+        "show": "هُ",
+        "silent": false,
+        "tid": "20.78.0@r10"
+      },
+      {
+        "start": 12,
+        "end": 14,
+        "primary": "م",
+        "show": "مۡ",
+        "silent": false,
+        "tid": "20.78.0@r12"
+      }
+    ],
+    "image": "16_20.78.0_review2.png"
+  },
+  {
+    "index": 17,
+    "wid": "20.83.4",
+    "page": 317,
+    "body": [
+      1399,
+      1675,
+      1634,
+      1791
+    ],
+    "band": [
+      1399,
+      1633.5,
+      1634,
+      1832
+    ],
+    "text": "يَٰمُوسَىٰ",
+    "units": [
+      {
+        "start": 0,
+        "end": 3,
+        "primary": "ي",
+        "show": "يَٰ",
+        "silent": false,
+        "tid": "20.83.4@r0"
+      },
+      {
+        "start": 3,
+        "end": 5,
+        "primary": "م",
+        "show": "مُ",
+        "silent": false,
+        "tid": "20.83.4@r3"
+      },
+      {
+        "start": 5,
+        "end": 6,
+        "primary": "و",
+        "show": "و",
+        "silent": false,
+        "tid": "20.83.4@r5"
+      },
+      {
+        "start": 6,
+        "end": 8,
+        "primary": "س",
+        "show": "سَ",
+        "silent": false,
+        "tid": "20.83.4@r6"
+      },
+      {
+        "start": 8,
+        "end": 10,
+        "primary": "ى",
+        "show": "ىٰ",
+        "silent": false,
+        "tid": "20.83.4@r8"
+      }
+    ],
+    "image": "17_20.83.4_review2.png"
+  },
+  {
+    "index": 18,
+    "wid": "20.86.8",
+    "page": 317,
+    "body": [
+      1537,
+      2256,
+      1632,
+      2419
+    ],
+    "band": [
+      1537,
+      2235.5,
+      1632,
+      2434
+    ],
+    "text": "أَلَمۡ",
+    "units": [
+      {
+        "start": 0,
+        "end": 2,
+        "primary": "ء",
+        "show": "أَ",
+        "silent": false,
+        "tid": "20.86.8@r0"
+      },
+      {
+        "start": 2,
+        "end": 4,
+        "primary": "ل",
+        "show": "لَ",
+        "silent": false,
+        "tid": "20.86.8@r2"
+      },
+      {
+        "start": 4,
+        "end": 6,
+        "primary": "م",
+        "show": "مۡ",
+        "silent": false,
+        "tid": "20.86.8@r4"
+      }
+    ],
+    "image": "18_20.86.8_review2.png"
+  },
+  {
+    "index": 19,
+    "wid": "23.102.5",
+    "page": 348,
+    "body": [
+      470,
+      2476,
+      886,
+      2607
+    ],
+    "band": [
+      470,
+      2435.5,
+      886,
+      2639
+    ],
+    "text": "ٱلۡمُفۡلِحُونَ",
+    "units": [
+      {
+        "start": 0,
+        "end": 1,
+        "primary": "ٱ",
+        "show": "ٱ",
+        "silent": false,
+        "tid": "23.102.5@r0"
+      },
+      {
+        "start": 1,
+        "end": 3,
+        "primary": "ل",
+        "show": "لۡ",
+        "silent": false,
+        "tid": "23.102.5@r1"
+      },
+      {
+        "start": 3,
+        "end": 5,
+        "primary": "م",
+        "show": "مُ",
+        "silent": false,
+        "tid": "23.102.5@r3"
+      },
+      {
+        "start": 5,
+        "end": 7,
+        "primary": "ف",
+        "show": "فۡ",
+        "silent": false,
+        "tid": "23.102.5@r5"
+      },
+      {
+        "start": 7,
+        "end": 9,
+        "primary": "ل",
+        "show": "لِ",
+        "silent": false,
+        "tid": "23.102.5@r7"
+      },
+      {
+        "start": 9,
+        "end": 11,
+        "primary": "ح",
+        "show": "حُ",
+        "silent": false,
+        "tid": "23.102.5@r9"
+      },
+      {
+        "start": 11,
+        "end": 12,
+        "primary": "و",
+        "show": "و",
+        "silent": false,
+        "tid": "23.102.5@r11"
+      },
+      {
+        "start": 12,
+        "end": 14,
+        "primary": "ن",
+        "show": "نَ",
+        "silent": false,
+        "tid": "23.102.5@r12"
+      }
+    ],
+    "image": "19_23.102.5_review2.png"
+  },
+  {
+    "index": 20,
+    "wid": "23.97.1",
+    "page": 348,
+    "body": [
+      1581,
+      1468,
+      1702,
+      1612
+    ],
+    "band": [
+      1581,
+      1441,
+      1702,
+      1633
+    ],
+    "text": "رَّبِّ",
+    "units": [
+      {
+        "start": 0,
+        "end": 3,
+        "primary": "ر",
+        "show": "رَّ",
+        "silent": false,
+        "tid": "23.97.1@r0"
+      },
+      {
+        "start": 3,
+        "end": 6,
+        "primary": "ب",
+        "show": "بِّ",
+        "silent": false,
+        "tid": "23.97.1@r3"
+      }
+    ],
+    "image": "20_23.97.1_review2.png"
+  },
+  {
+    "index": 21,
+    "wid": "23.97.6",
+    "page": 348,
+    "body": [
+      627,
+      1462,
+      936,
+      1611
+    ],
+    "band": [
+      627,
+      1441,
+      936,
+      1633
+    ],
+    "text": "ٱلشَّيَٰطِينِ",
+    "units": [
+      {
+        "start": 0,
+        "end": 1,
+        "primary": "ٱ",
+        "show": "ٱ",
+        "silent": false,
+        "tid": "23.97.6@r0"
+      },
+      {
+        "start": 1,
+        "end": 2,
+        "primary": "ل",
+        "show": "ل",
+        "silent": true,
+        "tid": "23.97.6@r1"
+      },
+      {
+        "start": 2,
+        "end": 5,
+        "primary": "ش",
+        "show": "شَّ",
+        "silent": false,
+        "tid": "23.97.6@r2"
+      },
+      {
+        "start": 5,
+        "end": 8,
+        "primary": "ي",
+        "show": "يَٰ",
+        "silent": false,
+        "tid": "23.97.6@r5"
+      },
+      {
+        "start": 8,
+        "end": 10,
+        "primary": "ط",
+        "show": "طِ",
+        "silent": false,
+        "tid": "23.97.6@r8"
+      },
+      {
+        "start": 10,
+        "end": 11,
+        "primary": "ي",
+        "show": "ي",
+        "silent": false,
+        "tid": "23.97.6@r10"
+      },
+      {
+        "start": 11,
+        "end": 13,
+        "primary": "ن",
+        "show": "نِ",
+        "silent": false,
+        "tid": "23.97.6@r11"
+      }
+    ],
+    "image": "21_23.97.6_review2.png"
+  },
+  {
+    "index": 22,
+    "wid": "35.12.21",
+    "page": 436,
+    "body": [
+      802,
+      490,
+      919,
+      590
+    ],
+    "band": [
+      802,
+      419,
+      919,
+      616
+    ],
+    "text": "فِيهِ",
+    "units": [
+      {
+        "start": 0,
+        "end": 2,
+        "primary": "ف",
+        "show": "فِ",
+        "silent": false,
+        "tid": "35.12.21@r0"
+      },
+      {
+        "start": 2,
+        "end": 3,
+        "primary": "ي",
+        "show": "ي",
+        "silent": false,
+        "tid": "35.12.21@r2"
+      },
+      {
+        "start": 3,
+        "end": 5,
+        "primary": "ه",
+        "show": "هِ",
+        "silent": false,
+        "tid": "35.12.21@r3"
+      }
+    ],
+    "image": "22_35.12.21_review2.png"
+  },
+  {
+    "index": 23,
+    "wid": "35.13.23",
+    "page": 436,
+    "body": [
+      1182,
+      1261,
+      1394,
+      1398
+    ],
+    "band": [
+      1182,
+      1231.5,
+      1394,
+      1420
+    ],
+    "text": "دُونِهِۦ",
+    "units": [
+      {
+        "start": 0,
+        "end": 2,
+        "primary": "د",
+        "show": "دُ",
+        "silent": false,
+        "tid": "35.13.23@r0"
+      },
+      {
+        "start": 2,
+        "end": 3,
+        "primary": "و",
+        "show": "و",
+        "silent": false,
+        "tid": "35.13.23@r2"
+      },
+      {
+        "start": 3,
+        "end": 5,
+        "primary": "ن",
+        "show": "نِ",
+        "silent": false,
+        "tid": "35.13.23@r3"
+      },
+      {
+        "start": 5,
+        "end": 8,
+        "primary": "ه",
+        "show": "هِۦ",
+        "silent": false,
+        "tid": "35.13.23@r5"
+      }
+    ],
+    "image": "23_35.13.23_review2.png"
+  },
+  {
+    "index": 24,
+    "wid": "35.14.12",
+    "page": 436,
+    "body": [
+      1178,
+      1655,
+      1434,
+      1792
+    ],
+    "band": [
+      1178,
+      1616,
+      1434,
+      1831
+    ],
+    "text": "يَكۡفُرُونَ",
+    "units": [
+      {
+        "start": 0,
+        "end": 2,
+        "primary": "ي",
+        "show": "يَ",
+        "silent": false,
+        "tid": "35.14.12@r0"
+      },
+      {
+        "start": 2,
+        "end": 4,
+        "primary": "ك",
+        "show": "كۡ",
+        "silent": false,
+        "tid": "35.14.12@r2"
+      },
+      {
+        "start": 4,
+        "end": 6,
+        "primary": "ف",
+        "show": "فُ",
+        "silent": false,
+        "tid": "35.14.12@r4"
+      },
+      {
+        "start": 6,
+        "end": 8,
+        "primary": "ر",
+        "show": "رُ",
+        "silent": false,
+        "tid": "35.14.12@r6"
+      },
+      {
+        "start": 8,
+        "end": 9,
+        "primary": "و",
+        "show": "و",
+        "silent": false,
+        "tid": "35.14.12@r8"
+      },
+      {
+        "start": 9,
+        "end": 11,
+        "primary": "ن",
+        "show": "نَ",
+        "silent": false,
+        "tid": "35.14.12@r9"
+      }
+    ],
+    "image": "24_35.14.12_review2.png"
+  },
+  {
+    "index": 25,
+    "wid": "43.35.0",
+    "page": 492,
+    "body": [
+      210,
+      45,
+      496,
+      206
+    ],
+    "band": [
+      210,
+      45,
+      496,
+      247
+    ],
+    "text": "وَزُخۡرُفٗاۚ",
+    "units": [
+      {
+        "start": 0,
+        "end": 2,
+        "primary": "و",
+        "show": "وَ",
+        "silent": false,
+        "tid": "43.35.0@r0"
+      },
+      {
+        "start": 2,
+        "end": 4,
+        "primary": "ز",
+        "show": "زُ",
+        "silent": false,
+        "tid": "43.35.0@r2"
+      },
+      {
+        "start": 4,
+        "end": 6,
+        "primary": "خ",
+        "show": "خۡ",
+        "silent": false,
+        "tid": "43.35.0@r4"
+      },
+      {
+        "start": 6,
+        "end": 8,
+        "primary": "ر",
+        "show": "رُ",
+        "silent": false,
+        "tid": "43.35.0@r6"
+      },
+      {
+        "start": 8,
+        "end": 12,
+        "primary": "ف",
+        "show": "فٗاۚ",
+        "silent": false,
+        "tid": "43.35.0@r8"
+      }
+    ],
+    "image": "25_43.35.0_review2.png"
+  },
+  {
+    "index": 26,
+    "wid": "43.37.2",
+    "page": 492,
+    "body": [
+      633,
+      703,
+      739,
+      831
+    ],
+    "band": [
+      633,
+      653,
+      739,
+      859
+    ],
+    "text": "عَنِ",
+    "units": [
+      {
+        "start": 0,
+        "end": 2,
+        "primary": "ع",
+        "show": "عَ",
+        "silent": false,
+        "tid": "43.37.2@r0"
+      },
+      {
+        "start": 2,
+        "end": 4,
+        "primary": "ن",
+        "show": "نِ",
+        "silent": false,
+        "tid": "43.37.2@r2"
+      }
+    ],
+    "image": "26_43.37.2_review2.png"
+  },
+  {
+    "index": 27,
+    "wid": "43.46.10",
+    "page": 492,
+    "body": [
+      1728,
+      2915,
+      1844,
+      3036
+    ],
+    "band": [
+      1728,
+      2861,
+      1844,
+      3066
+    ],
+    "text": "رَبِّ",
+    "units": [
+      {
+        "start": 0,
+        "end": 2,
+        "primary": "ر",
+        "show": "رَ",
+        "silent": false,
+        "tid": "43.46.10@r0"
+      },
+      {
+        "start": 2,
+        "end": 5,
+        "primary": "ب",
+        "show": "بِّ",
+        "silent": false,
+        "tid": "43.46.10@r2"
+      }
+    ],
+    "image": "27_43.46.10_review2.png"
+  },
+  {
+    "index": 28,
+    "wid": "76.29.8",
+    "page": 580,
+    "body": [
+      258,
+      665,
+      489,
+      802
+    ],
+    "band": [
+      258,
+      623,
+      489,
+      823.5
+    ],
+    "text": "سَبِيلٗا",
+    "units": [
+      {
+        "start": 0,
+        "end": 2,
+        "primary": "س",
+        "show": "سَ",
+        "silent": false,
+        "tid": "76.29.8@r0"
+      },
+      {
+        "start": 2,
+        "end": 4,
+        "primary": "ب",
+        "show": "بِ",
+        "silent": false,
+        "tid": "76.29.8@r2"
+      },
+      {
+        "start": 4,
+        "end": 5,
+        "primary": "ي",
+        "show": "ي",
+        "silent": false,
+        "tid": "76.29.8@r4"
+      },
+      {
+        "start": 5,
+        "end": 8,
+        "primary": "ل",
+        "show": "لٗا",
+        "silent": false,
+        "tid": "76.29.8@r5"
+      }
+    ],
+    "image": "28_76.29.8_review2.png"
+  },
+  {
+    "index": 29,
+    "wid": "76.30.8",
+    "page": 580,
+    "body": [
+      619,
+      870,
+      717,
+      979
+    ],
+    "band": [
+      619,
+      823.5,
+      717,
+      1028
+    ],
+    "text": "كَانَ",
+    "units": [
+      {
+        "start": 0,
+        "end": 3,
+        "primary": "ك",
+        "show": "كَا",
+        "silent": false,
+        "tid": "76.30.8@r0"
+      },
+      {
+        "start": 3,
+        "end": 5,
+        "primary": "ن",
+        "show": "نَ",
+        "silent": false,
+        "tid": "76.30.8@r3"
+      }
+    ],
+    "image": "29_76.30.8_review2.png"
+  },
+  {
+    "index": 30,
+    "wid": "77.3.1",
+    "page": 580,
+    "body": [
+      239,
+      1680,
+      352,
+      1798
+    ],
+    "band": [
+      239,
+      1663,
+      352,
+      1832
+    ],
+    "text": "نَشۡرٗا",
+    "units": [
+      {
+        "start": 0,
+        "end": 2,
+        "primary": "ن",
+        "show": "نَ",
+        "silent": false,
+        "tid": "77.3.1@r0"
+      },
+      {
+        "start": 2,
+        "end": 4,
+        "primary": "ش",
+        "show": "شۡ",
+        "silent": false,
+        "tid": "77.3.1@r2"
+      },
+      {
+        "start": 4,
+        "end": 7,
+        "primary": "ر",
+        "show": "رٗا",
+        "silent": false,
+        "tid": "77.3.1@r4"
+      }
+    ],
+    "image": "30_77.3.1_review2.png"
+  }
+]

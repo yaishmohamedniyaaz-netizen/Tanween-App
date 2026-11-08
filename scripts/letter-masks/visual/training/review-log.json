@@ -1,0 +1,883 @@
+{
+  "reviewer": "Codex visual style subagent",
+  "method": "Each named PNG opened with view_image(detail=original); five separate images per tool batch. Notes written after visual inspection.",
+  "imageCount": 95,
+  "batches": [
+    {
+      "images": [
+        "p001-1.1.0.png",
+        "p001-1.1.1.png",
+        "p001-1.1.2.png",
+        "p001-1.1.3.png",
+        "p001-1.2.0.png"
+      ],
+      "examinedAt": "2026-11-06T18:05:32.894Z",
+      "notes": "All five inspected: right stem bounds; long stretch assigned left; stacked rahman/rahim has inevitably shared vertical cuts."
+    },
+    {
+      "images": [
+        "p001-1.2.1.png",
+        "p001-1.2.2.png",
+        "p001-1.2.3.png",
+        "p001-1.3.0.png",
+        "p001-1.3.1.png"
+      ],
+      "examinedAt": "2026-11-06T18:05:47.805Z",
+      "notes": "All five inspected: rab final ba owns whole bowl, alamin ayn owns long join; rahman/rahim variants differ substantially in relative widths."
+    },
+    {
+      "images": [
+        "p001-1.4.0.png",
+        "p001-1.4.1.png",
+        "p001-1.4.2.png",
+        "p001-1.5.0.png",
+        "p001-1.5.1.png"
+      ],
+      "examinedAt": "2026-11-06T18:06:03.248Z",
+      "notes": "All five inspected: malik/iyyaka merged alifs; yawm waw tail overlaps mim; final din nun whole bowl; nabud stretched ba."
+    },
+    {
+      "images": [
+        "p001-1.5.2.png",
+        "p001-1.5.3.png",
+        "p001-1.6.0.png",
+        "p001-1.6.1.png",
+        "p001-1.6.2.png"
+      ],
+      "examinedAt": "2026-11-06T18:06:11.666Z",
+      "notes": "All five inspected: nasta'in sin/tah stretch; ihdina na merged; sirat sad/ra overlap; mustaqim equal-ish intervals retain target slots despite overhang."
+    },
+    {
+      "images": [
+        "p001-1.7.0.png",
+        "p001-1.7.1.png",
+        "p001-1.7.2.png",
+        "p001-1.7.3.png",
+        "p001-1.7.4.png"
+      ],
+      "examinedAt": "2026-11-06T18:06:21.261Z",
+      "notes": "All five inspected: sirat overlap repeated; alladhin 1.7.1 has unusually thin dhal slot and broader preceding lam, a question not a universal rule; an'amta final ta broad; alayhim ha/mim forms."
+    },
+    {
+      "images": [
+        "p001-1.7.5.png",
+        "p001-1.7.6.png",
+        "p001-1.7.7.png",
+        "p001-1.7.8.png",
+        "p002-2.1.0.png"
+      ],
+      "examinedAt": "2026-11-06T18:06:30.698Z",
+      "notes": "All five inspected: maghdub disjoint waw overlapping final ba; second alayhim different mim shape; wala has merged la target; dallin merged long alif span; alif-lam-mim separate targets."
+    },
+    {
+      "images": [
+        "p002-2.2.0.png",
+        "p002-2.2.1.png",
+        "p002-2.2.2.png",
+        "p002-2.2.3.png",
+        "p002-2.2.4.png"
+      ],
+      "examinedAt": "2026-11-06T18:06:39.264Z",
+      "notes": "All five inspected: dhalika kaf bowl; kitab stretched kaf; la single target full ligature; rayb and fih ignore supra-word pause marks for cuts."
+    },
+    {
+      "images": [
+        "p002-2.2.5.png",
+        "p002-2.2.6.png",
+        "p002-2.3.0.png",
+        "p002-2.3.1.png",
+        "p002-2.3.2.png"
+      ],
+      "examinedAt": "2026-11-06T18:06:54.129Z",
+      "notes": "All five inspected: huda final maqsura whole bowl; muttaqin silently separate lams; alladhin 2.3.0 clearer dhal than 1.7.1; yuminun hamza/waw core; bilghayb separate initial alif."
+    },
+    {
+      "images": [
+        "p002-2.3.3.png",
+        "p002-2.3.4.png",
+        "p002-2.3.5.png",
+        "p002-2.3.6.png",
+        "p002-2.3.7.png"
+      ],
+      "examinedAt": "2026-11-06T18:07:09.858Z",
+      "notes": "All five inspected: yuqimun stacked mim; salat silent lam/waw separate; wamimma stacked mims with final alif apparently outside approved left outer; razaqnahum na carrier plus small alif; yunfiqun narrow nun bridge."
+    },
+    {
+      "images": [
+        "p002-2.4.0.png",
+        "p002-2.4.1.png",
+        "p002-2.4.2.png",
+        "p002-2.4.3.png",
+        "p002-2.4.4.png"
+      ],
+      "examinedAt": "2026-11-06T18:07:17.170Z",
+      "notes": "All five inspected: repeated alladhin/yuminun differ slightly; bima stacked ba/mim narrow ba; unzila isolated final lam; ilayka lam narrow adjacent tall stem."
+    },
+    {
+      "images": [
+        "p002-2.4.5.png",
+        "p002-2.4.6.png",
+        "p002-2.4.7.png",
+        "p002-2.4.8.png",
+        "p002-2.4.9.png"
+      ],
+      "examinedAt": "2026-11-06T18:07:24.823Z",
+      "notes": "All five inspected: wama complete merged ma; unzila repeated geometry; min clear mim-core/nun-bowl split; qablika ba bridge owns stretch; bilakhirah has separate lam/alif crossing split between cores."
+    },
+    {
+      "images": [
+        "p002-2.4.10.png",
+        "p002-2.4.11.png",
+        "p002-2.5.0.png",
+        "p002-2.5.1.png",
+        "p002-2.5.2.png"
+      ],
+      "examinedAt": "2026-11-06T18:07:32.811Z",
+      "notes": "All five inspected: hum stacked ha/mim; yuqinun narrow bridge; ulaika silent waw own span; ala lam/maqsura overlap forces split through bowl; second huda similar clean boundary."
+    },
+    {
+      "images": [
+        "p002-2.5.3.png",
+        "p002-2.5.4.png",
+        "p002-2.5.5.png",
+        "p002-2.5.6.png",
+        "p002-2.5.7.png"
+      ],
+      "examinedAt": "2026-11-06T18:07:43.429Z",
+      "notes": "All five inspected: min has silent nun still own bowl; rabbihim punctuation excluded from cuts; waulaika silent waw span unusually narrow compared ulaika, question; hum distinct tail; muflihun stacked lam/ha."
+    },
+    {
+      "images": [
+        "p030-2.193.10.png",
+        "p030-2.194.1.png",
+        "p030-2.196.40.png",
+        "p072-3.167.19.png",
+        "p072-3.169.10.png"
+      ],
+      "examinedAt": "2026-11-06T18:08:03.935Z",
+      "notes": "All five inspected: fala ligature left upper ink exceeds approved outer; haram stacked lam/ha head; fama fa/mim stacked; yawmaidhin hamza on carrier bridge; inda balanced core separation."
+    },
+    {
+      "images": [
+        "p072-3.173.11.png",
+        "p134-6.53.13.png",
+        "p134-6.59.15.png",
+        "p134-6.59.16.png",
+        "p176-7.197.7.png"
+      ],
+      "examinedAt": "2026-11-06T18:08:25.991Z",
+      "notes": "All five inspected: imanan merged carriers; bialam separate hamza alif; warqatin qaf retains much long lower stroke (caution against universal stretch transfer); illa/wala ligature single la targets."
+    },
+    {
+      "images": [
+        "p176-7.203.9.png",
+        "p176-7.205.8.png",
+        "p191-9.27.3.png",
+        "p191-9.30.10.png",
+        "p191-9.30.22.png"
+      ],
+      "examinedAt": "2026-11-06T18:08:38.173Z",
+      "notes": "All five inspected: attabi' final ayn returns below prior target spans; two regular min examples maintain mim core/bowl split; dhalika huge kaf tail; yufakun stretched kaf owns entire twin horizontal core."
+    },
+    {
+      "images": [
+        "p307-19.26.14.png",
+        "p307-19.30.2.png",
+        "p307-19.38.1.png",
+        "p323-21.12.0.png",
+        "p323-21.15.7.png"
+      ],
+      "examinedAt": "2026-11-06T18:08:58.927Z",
+      "notes": "All five inspected: falan fa/lam/nun; abd core joins; bihim alternative descending ha form; falamma complete merged ma; khamidin kh/mim overlapping head and explicit final nun bowl."
+    },
+    {
+      "images": [
+        "p323-21.22.4.png",
+        "p423-33.37.41.png",
+        "p423-33.38.11.png",
+        "p423-33.39.8.png",
+        "p470-40.27.0.png"
+      ],
+      "examinedAt": "2026-11-06T18:09:10.579Z",
+      "notes": "All five inspected: illa repeated; qadaw app final target includes waw+alif; Allah merged lam target; repeated illa; waqala merged qa alif plus separate lam."
+    },
+    {
+      "images": [
+        "p470-40.27.4.png",
+        "p470-40.31.4.png",
+        "p500-45.14.8.png",
+        "p500-45.15.4.png",
+        "p500-45.18.12.png"
+      ],
+      "examinedAt": "2026-11-06T18:09:35.748Z",
+      "notes": "All five inspected: birabbi overlapping ra/ba/ya; waad merged ayn/alif; Allah same merged target shape; waman waw overlaps min but nuclei separated; yalamun stretches assigned following cores."
+    }
+  ],
+  "words": [
+    {
+      "wid": "1.1.0",
+      "page": 1,
+      "image": "p001-1.1.0.png",
+      "examinedAt": "2026-11-06T18:05:32.894Z",
+      "sha256": "d8ecdc67365a801eb7922cdcc3f219d55d0b4c8d7e5c799b6b6c9a1e0d92bfff"
+    },
+    {
+      "wid": "1.1.1",
+      "page": 1,
+      "image": "p001-1.1.1.png",
+      "examinedAt": "2026-11-06T18:05:32.894Z",
+      "sha256": "3e624a051ad4c3cb1c47eaaaa1fac9b73df3af1b148e0f504c19056d32281379"
+    },
+    {
+      "wid": "1.1.2",
+      "page": 1,
+      "image": "p001-1.1.2.png",
+      "examinedAt": "2026-11-06T18:05:32.894Z",
+      "sha256": "b12562d010ce1d49576ceac63d848b67f8536261cf09ab569609696dd9f536e4"
+    },
+    {
+      "wid": "1.1.3",
+      "page": 1,
+      "image": "p001-1.1.3.png",
+      "examinedAt": "2026-11-06T18:05:32.894Z",
+      "sha256": "50a543d883a20d67c73c6d3ceda3242dbd1503b647f7da12cc499cb673a0411d"
+    },
+    {
+      "wid": "1.2.0",
+      "page": 1,
+      "image": "p001-1.2.0.png",
+      "examinedAt": "2026-11-06T18:05:32.894Z",
+      "sha256": "417f950126f48ef03e815d60713fdd804fa77eee975f05ba7b4152cdb364f039"
+    },
+    {
+      "wid": "1.2.1",
+      "page": 1,
+      "image": "p001-1.2.1.png",
+      "examinedAt": "2026-11-06T18:05:47.805Z",
+      "sha256": "df17e97f76eb85e0734b71be6f7d18f8239d3c651f22ca5560bd4c583288e434"
+    },
+    {
+      "wid": "1.2.2",
+      "page": 1,
+      "image": "p001-1.2.2.png",
+      "examinedAt": "2026-11-06T18:05:47.805Z",
+      "sha256": "e482fd934cdd185e687d1123b68f525b132bd9560c16ddc68c81eb2e101803b9"
+    },
+    {
+      "wid": "1.2.3",
+      "page": 1,
+      "image": "p001-1.2.3.png",
+      "examinedAt": "2026-11-06T18:05:47.805Z",
+      "sha256": "5564566e700149529f48dc58b95bd3c5e2d944897e2430d5f32c2b8b26531352"
+    },
+    {
+      "wid": "1.3.0",
+      "page": 1,
+      "image": "p001-1.3.0.png",
+      "examinedAt": "2026-11-06T18:05:47.805Z",
+      "sha256": "7fa3aa4adb3a5f2907edf5a4df678fdd3c10d88cd6c8bc0b791d5d690a8eeb2d"
+    },
+    {
+      "wid": "1.3.1",
+      "page": 1,
+      "image": "p001-1.3.1.png",
+      "examinedAt": "2026-11-06T18:05:47.805Z",
+      "sha256": "d35cedfcea6607f10d19a070d9a7c5683d812723f8bc7cfdcbbb59e6b177cb0a"
+    },
+    {
+      "wid": "1.4.0",
+      "page": 1,
+      "image": "p001-1.4.0.png",
+      "examinedAt": "2026-11-06T18:06:03.248Z",
+      "sha256": "4b5a5ea7422f702933849d3fbbdb710e50c833a772e61098511219943168816f"
+    },
+    {
+      "wid": "1.4.1",
+      "page": 1,
+      "image": "p001-1.4.1.png",
+      "examinedAt": "2026-11-06T18:06:03.248Z",
+      "sha256": "530fc649f44c3df2bc71e0ae11397a762179be2676af67d7b744f7ebc1785c1d"
+    },
+    {
+      "wid": "1.4.2",
+      "page": 1,
+      "image": "p001-1.4.2.png",
+      "examinedAt": "2026-11-06T18:06:03.248Z",
+      "sha256": "fe9413f1951219b5c445ea9838a0f9a05d48401037eebf214cf0060644e19f4a"
+    },
+    {
+      "wid": "1.5.0",
+      "page": 1,
+      "image": "p001-1.5.0.png",
+      "examinedAt": "2026-11-06T18:06:03.248Z",
+      "sha256": "004597d27baedda3d6bbc12933e03723b45aad0febd7e7d32d83788edc246d8a"
+    },
+    {
+      "wid": "1.5.1",
+      "page": 1,
+      "image": "p001-1.5.1.png",
+      "examinedAt": "2026-11-06T18:06:03.248Z",
+      "sha256": "24f993bfa4fbda570570f33c0934c5af5d5f22fd4704c3728bca8d26212e95cb"
+    },
+    {
+      "wid": "1.5.2",
+      "page": 1,
+      "image": "p001-1.5.2.png",
+      "examinedAt": "2026-11-06T18:06:11.666Z",
+      "sha256": "8e20042342828f083f7ef5735da8f1e090691c7d168dd0c30c59cbbe6fb4e852"
+    },
+    {
+      "wid": "1.5.3",
+      "page": 1,
+      "image": "p001-1.5.3.png",
+      "examinedAt": "2026-11-06T18:06:11.666Z",
+      "sha256": "5982ec748eb2f3ade3910cc969d562f1e760de5f66f550e585df71d8e03435f8"
+    },
+    {
+      "wid": "1.6.0",
+      "page": 1,
+      "image": "p001-1.6.0.png",
+      "examinedAt": "2026-11-06T18:06:11.666Z",
+      "sha256": "57e36b67e7420185dfb41d4f7aa4a3d84b01bc8dd3627d69b34b5e4fb2e1c11c"
+    },
+    {
+      "wid": "1.6.1",
+      "page": 1,
+      "image": "p001-1.6.1.png",
+      "examinedAt": "2026-11-06T18:06:11.666Z",
+      "sha256": "730ed1b77a830f0e7b8f588028618c62a4f9de9c5cc5e07d12d319f36a411e08"
+    },
+    {
+      "wid": "1.6.2",
+      "page": 1,
+      "image": "p001-1.6.2.png",
+      "examinedAt": "2026-11-06T18:06:11.666Z",
+      "sha256": "66c4721832c0c47fb51fbecac0e129a3f62b3f878d5df4c45afc05ef79483bc2"
+    },
+    {
+      "wid": "1.7.0",
+      "page": 1,
+      "image": "p001-1.7.0.png",
+      "examinedAt": "2026-11-06T18:06:21.261Z",
+      "sha256": "74d1f335c3746355997ee51f3c81e5f57da4b1c8633d1cad64623eac565634d7"
+    },
+    {
+      "wid": "1.7.1",
+      "page": 1,
+      "image": "p001-1.7.1.png",
+      "examinedAt": "2026-11-06T18:06:21.261Z",
+      "sha256": "bff1872a3e374c2d03dc92ad8c032d7fae53a42160434cee054bddb4206b6ef8"
+    },
+    {
+      "wid": "1.7.2",
+      "page": 1,
+      "image": "p001-1.7.2.png",
+      "examinedAt": "2026-11-06T18:06:21.261Z",
+      "sha256": "d750cd6fc2b20107d212bee68335c1dc3d7b470b412e3b78109982dcd88af9ed"
+    },
+    {
+      "wid": "1.7.3",
+      "page": 1,
+      "image": "p001-1.7.3.png",
+      "examinedAt": "2026-11-06T18:06:21.261Z",
+      "sha256": "593ab93e7398ef9044760c761c9ed8eaed5b2ff850f9f6c6c2447d4094abad9e"
+    },
+    {
+      "wid": "1.7.4",
+      "page": 1,
+      "image": "p001-1.7.4.png",
+      "examinedAt": "2026-11-06T18:06:21.261Z",
+      "sha256": "90a5cb6c12d73a2903db3f8f7ec07930ae686c11969dc26d72a6c793a238595e"
+    },
+    {
+      "wid": "1.7.5",
+      "page": 1,
+      "image": "p001-1.7.5.png",
+      "examinedAt": "2026-11-06T18:06:30.698Z",
+      "sha256": "213f322768087863fb2100cd220baf88be4dd7f0cc1898e8972925829a2abb7b"
+    },
+    {
+      "wid": "1.7.6",
+      "page": 1,
+      "image": "p001-1.7.6.png",
+      "examinedAt": "2026-11-06T18:06:30.698Z",
+      "sha256": "bfb247a9d2d3e75faf904a53c23a0985ed4bafc3d415a5bc0468bd2e58b089f0"
+    },
+    {
+      "wid": "1.7.7",
+      "page": 1,
+      "image": "p001-1.7.7.png",
+      "examinedAt": "2026-11-06T18:06:30.698Z",
+      "sha256": "365c13d553148daac6f18fcaec0055103dd002323a8f1fb67ec49a6d11b0e482"
+    },
+    {
+      "wid": "1.7.8",
+      "page": 1,
+      "image": "p001-1.7.8.png",
+      "examinedAt": "2026-11-06T18:06:30.698Z",
+      "sha256": "ce8353a6a5c2eae26348b10567ce192757229419a92d5654c0d65b383caf8eda"
+    },
+    {
+      "wid": "2.1.0",
+      "page": 2,
+      "image": "p002-2.1.0.png",
+      "examinedAt": "2026-11-06T18:06:30.698Z",
+      "sha256": "401cb4beb28d2fd3c9305ea8a784f60f8f1436b54048836b34f30cec9c5f8ddf"
+    },
+    {
+      "wid": "2.2.0",
+      "page": 2,
+      "image": "p002-2.2.0.png",
+      "examinedAt": "2026-11-06T18:06:39.264Z",
+      "sha256": "4e0ae223f2bcabc53571bc7b1717be3f904ec0b929358814c7505c2bcb048c36"
+    },
+    {
+      "wid": "2.2.1",
+      "page": 2,
+      "image": "p002-2.2.1.png",
+      "examinedAt": "2026-11-06T18:06:39.264Z",
+      "sha256": "0d77afb78a3b6f35ba7c0cb3a1b3082d3d8b5824612e34cb5112594f6e8cde31"
+    },
+    {
+      "wid": "2.2.2",
+      "page": 2,
+      "image": "p002-2.2.2.png",
+      "examinedAt": "2026-11-06T18:06:39.264Z",
+      "sha256": "7b82065a4c1166bc02e956dbc79891b347cfa883ce909d3ca222194357122f46"
+    },
+    {
+      "wid": "2.2.3",
+      "page": 2,
+      "image": "p002-2.2.3.png",
+      "examinedAt": "2026-11-06T18:06:39.264Z",
+      "sha256": "695362144c9e1c22fbfb7b04e336d6be0f51ad7670a56c3fad79db4c02207f2c"
+    },
+    {
+      "wid": "2.2.4",
+      "page": 2,
+      "image": "p002-2.2.4.png",
+      "examinedAt": "2026-11-06T18:06:39.264Z",
+      "sha256": "1e7138d1dc6a15fd697ed86776d80e92929fa5ef164d6d35190cdf04049045f3"
+    },
+    {
+      "wid": "2.2.5",
+      "page": 2,
+      "image": "p002-2.2.5.png",
+      "examinedAt": "2026-11-06T18:06:54.129Z",
+      "sha256": "5041670555a1ebe0424c3da30f1ac25c533f347fef1bfdc671b3aa36e5d9f4ef"
+    },
+    {
+      "wid": "2.2.6",
+      "page": 2,
+      "image": "p002-2.2.6.png",
+      "examinedAt": "2026-11-06T18:06:54.129Z",
+      "sha256": "715522b8f4037911cf1209126fb335749e749cc672a89cb43977e307bf7af28e"
+    },
+    {
+      "wid": "2.3.0",
+      "page": 2,
+      "image": "p002-2.3.0.png",
+      "examinedAt": "2026-11-06T18:06:54.129Z",
+      "sha256": "679be4a7c8e8742b7160efee04675d84934ae0d3b5abaac23a9ab45c343289ef"
+    },
+    {
+      "wid": "2.3.1",
+      "page": 2,
+      "image": "p002-2.3.1.png",
+      "examinedAt": "2026-11-06T18:06:54.129Z",
+      "sha256": "30ba219edf5d4a37d4b313b501009df79e5faf912800348a9cce9f460b712cb3"
+    },
+    {
+      "wid": "2.3.2",
+      "page": 2,
+      "image": "p002-2.3.2.png",
+      "examinedAt": "2026-11-06T18:06:54.129Z",
+      "sha256": "f5761ecdac58221c711fa6ef6362ac87cb146ecc1c7c2496d8cbf667be64341d"
+    },
+    {
+      "wid": "2.3.3",
+      "page": 2,
+      "image": "p002-2.3.3.png",
+      "examinedAt": "2026-11-06T18:07:09.858Z",
+      "sha256": "c525bce030101f418ca565af2766805be0fa14d35d95300ebfdd996c11131ce1"
+    },
+    {
+      "wid": "2.3.4",
+      "page": 2,
+      "image": "p002-2.3.4.png",
+      "examinedAt": "2026-11-06T18:07:09.858Z",
+      "sha256": "4523f6427eecb8b2a4188d31e2de8f1586b94c22769000d27c1a690dbd4259d2"
+    },
+    {
+      "wid": "2.3.5",
+      "page": 2,
+      "image": "p002-2.3.5.png",
+      "examinedAt": "2026-11-06T18:07:09.858Z",
+      "sha256": "5053f072b05e085c7795725691604b7b3ea27b8bb920aaa2655c708576e1fa45"
+    },
+    {
+      "wid": "2.3.6",
+      "page": 2,
+      "image": "p002-2.3.6.png",
+      "examinedAt": "2026-11-06T18:07:09.858Z",
+      "sha256": "8bf89e690cd96d6839a12d26e32e558218ccc1fc3c3079564c2e0cce30818a2b"
+    },
+    {
+      "wid": "2.3.7",
+      "page": 2,
+      "image": "p002-2.3.7.png",
+      "examinedAt": "2026-11-06T18:07:09.858Z",
+      "sha256": "1f022f265021a03a730864dfb3c9ac10059d3be19699fd55d24b9ce214d4f26c"
+    },
+    {
+      "wid": "2.4.0",
+      "page": 2,
+      "image": "p002-2.4.0.png",
+      "examinedAt": "2026-11-06T18:07:17.170Z",
+      "sha256": "94ee684396def45effd399634ec04b315ecd72accd41b5296c52bcdca03eaaf1"
+    },
+    {
+      "wid": "2.4.1",
+      "page": 2,
+      "image": "p002-2.4.1.png",
+      "examinedAt": "2026-11-06T18:07:17.170Z",
+      "sha256": "1b5d7e6671c3a61ec29527ce7442809f0177fda27fd5456307dcbcae2cc3afad"
+    },
+    {
+      "wid": "2.4.2",
+      "page": 2,
+      "image": "p002-2.4.2.png",
+      "examinedAt": "2026-11-06T18:07:17.170Z",
+      "sha256": "19536352500780420845c94e7d5ec2cc8063884a59db92622f2e3f7df30fbdf0"
+    },
+    {
+      "wid": "2.4.3",
+      "page": 2,
+      "image": "p002-2.4.3.png",
+      "examinedAt": "2026-11-06T18:07:17.170Z",
+      "sha256": "1788ce25e9c248ec374db4562ace1142b2d01308f8b3ac9ead1b6bda5706a7e5"
+    },
+    {
+      "wid": "2.4.4",
+      "page": 2,
+      "image": "p002-2.4.4.png",
+      "examinedAt": "2026-11-06T18:07:17.170Z",
+      "sha256": "dc5b6d99bc54d2f2c065e4aea93ff9ec6123179f0828607bfb956ac47461c101"
+    },
+    {
+      "wid": "2.4.5",
+      "page": 2,
+      "image": "p002-2.4.5.png",
+      "examinedAt": "2026-11-06T18:07:24.823Z",
+      "sha256": "76afc12f32227d0db0a3a2817d7ca2e28cb4ae240f0545c86e2779e5e5b249a0"
+    },
+    {
+      "wid": "2.4.6",
+      "page": 2,
+      "image": "p002-2.4.6.png",
+      "examinedAt": "2026-11-06T18:07:24.823Z",
+      "sha256": "8476ce6fdcabc34b22162c6fef5da58b351fef7e0f6082e2a331f19d5d4fefe7"
+    },
+    {
+      "wid": "2.4.7",
+      "page": 2,
+      "image": "p002-2.4.7.png",
+      "examinedAt": "2026-11-06T18:07:24.823Z",
+      "sha256": "d6738c2cc95695afc8a8d3e744fe97740a45f8c5175b106f420cfbcc591a4756"
+    },
+    {
+      "wid": "2.4.8",
+      "page": 2,
+      "image": "p002-2.4.8.png",
+      "examinedAt": "2026-11-06T18:07:24.823Z",
+      "sha256": "84ecc8346921b89bd84ed651cd2dd9f6caf6ff9d6d2f7e607e5a191291e3dd9b"
+    },
+    {
+      "wid": "2.4.9",
+      "page": 2,
+      "image": "p002-2.4.9.png",
+      "examinedAt": "2026-11-06T18:07:24.823Z",
+      "sha256": "a867ab30d4af7e5c8c9622044fd0d7d2afbad3ce44c5f9c7eeb09a02682c5c0a"
+    },
+    {
+      "wid": "2.4.10",
+      "page": 2,
+      "image": "p002-2.4.10.png",
+      "examinedAt": "2026-11-06T18:07:32.811Z",
+      "sha256": "a0990a126886d7dc51dfad8d963d4cdd9896b7c3afda08a32f55e4735d4fd86d"
+    },
+    {
+      "wid": "2.4.11",
+      "page": 2,
+      "image": "p002-2.4.11.png",
+      "examinedAt": "2026-11-06T18:07:32.811Z",
+      "sha256": "a391958cc3d34a48d822da5426288b764273a1890d5b2464c3038067e841cb53"
+    },
+    {
+      "wid": "2.5.0",
+      "page": 2,
+      "image": "p002-2.5.0.png",
+      "examinedAt": "2026-11-06T18:07:32.811Z",
+      "sha256": "70467d17a11a7ef2788d2055ad3efcf96d0017fda832811de902b1bbcb91b41d"
+    },
+    {
+      "wid": "2.5.1",
+      "page": 2,
+      "image": "p002-2.5.1.png",
+      "examinedAt": "2026-11-06T18:07:32.811Z",
+      "sha256": "510b0a1669f537dd8f4e0840fb206f5bf54d70a3c72b1d5c3de70182d446ecbe"
+    },
+    {
+      "wid": "2.5.2",
+      "page": 2,
+      "image": "p002-2.5.2.png",
+      "examinedAt": "2026-11-06T18:07:32.811Z",
+      "sha256": "62913b29fa1b252ebd74d0ed7b50defcebf093a63a43e1ed9ee9a6c5f591ede5"
+    },
+    {
+      "wid": "2.5.3",
+      "page": 2,
+      "image": "p002-2.5.3.png",
+      "examinedAt": "2026-11-06T18:07:43.429Z",
+      "sha256": "5e1fe8fa60c0e9c158e3d9dfcef25f585e0b3712635b7a380a48b0931554c9e2"
+    },
+    {
+      "wid": "2.5.4",
+      "page": 2,
+      "image": "p002-2.5.4.png",
+      "examinedAt": "2026-11-06T18:07:43.429Z",
+      "sha256": "07b1b619b9038d3020404ccb5c232cd33da22bca65b0b7cd1076e54e837f89e7"
+    },
+    {
+      "wid": "2.5.5",
+      "page": 2,
+      "image": "p002-2.5.5.png",
+      "examinedAt": "2026-11-06T18:07:43.429Z",
+      "sha256": "ef5d707e2ea8ecff645b7e3ae91d440ebc18b7a9e67281f90854deffd2d7c4fb"
+    },
+    {
+      "wid": "2.5.6",
+      "page": 2,
+      "image": "p002-2.5.6.png",
+      "examinedAt": "2026-11-06T18:07:43.429Z",
+      "sha256": "336f15090091853aefd360fa9501f9e7029d5e736bcfdff4bebf2afd27bb5957"
+    },
+    {
+      "wid": "2.5.7",
+      "page": 2,
+      "image": "p002-2.5.7.png",
+      "examinedAt": "2026-11-06T18:07:43.429Z",
+      "sha256": "7e2200fea0c7012592aaaadddfc01628995b29a683e9a1b8dd4b96b566de2561"
+    },
+    {
+      "wid": "2.193.10",
+      "page": 30,
+      "image": "p030-2.193.10.png",
+      "examinedAt": "2026-11-06T18:08:03.935Z",
+      "sha256": "19f80ba6a7338d2d82289f2cf003a1e9bd608db8647c65a26d4e13a3f513e819"
+    },
+    {
+      "wid": "2.194.1",
+      "page": 30,
+      "image": "p030-2.194.1.png",
+      "examinedAt": "2026-11-06T18:08:03.935Z",
+      "sha256": "9aa2b527cfb66bd1ab76de612c11bc20e666307e6b47e26b6cf672adcfa1b1e6"
+    },
+    {
+      "wid": "2.196.40",
+      "page": 30,
+      "image": "p030-2.196.40.png",
+      "examinedAt": "2026-11-06T18:08:03.935Z",
+      "sha256": "d602ad8db749b0e2b64805e539bb22a25e1e07576396020e20e7ec77c767f521"
+    },
+    {
+      "wid": "3.167.19",
+      "page": 72,
+      "image": "p072-3.167.19.png",
+      "examinedAt": "2026-11-06T18:08:03.935Z",
+      "sha256": "197fe7bafa11a0096c17f411b9ffea3d80a17cb8410f912086d2c81aa41f618d"
+    },
+    {
+      "wid": "3.169.10",
+      "page": 72,
+      "image": "p072-3.169.10.png",
+      "examinedAt": "2026-11-06T18:08:03.935Z",
+      "sha256": "5c7316b6c9ec6fe32147c6e0aab8dcda766912c3e337a16924ee170ef7b98a7b"
+    },
+    {
+      "wid": "3.173.11",
+      "page": 72,
+      "image": "p072-3.173.11.png",
+      "examinedAt": "2026-11-06T18:08:25.991Z",
+      "sha256": "1d932ed23c86753ec032d0ef287b1d048871e0f9be658c8e225cc09e69cd1621"
+    },
+    {
+      "wid": "6.53.13",
+      "page": 134,
+      "image": "p134-6.53.13.png",
+      "examinedAt": "2026-11-06T18:08:25.991Z",
+      "sha256": "56b42566ee9a593e01d0c24709f5a3cd1504cccbdd72846d0beea315ef7c2850"
+    },
+    {
+      "wid": "6.59.15",
+      "page": 134,
+      "image": "p134-6.59.15.png",
+      "examinedAt": "2026-11-06T18:08:25.991Z",
+      "sha256": "1a16bbd43e8d06c793bc163c9088a35d8f08d9342a2addeedef3b1e45461610e"
+    },
+    {
+      "wid": "6.59.16",
+      "page": 134,
+      "image": "p134-6.59.16.png",
+      "examinedAt": "2026-11-06T18:08:25.991Z",
+      "sha256": "d4f304e8c3d6fb8141cf693af00fa10ff97a221d1571c05146f327a17c518c73"
+    },
+    {
+      "wid": "7.197.7",
+      "page": 176,
+      "image": "p176-7.197.7.png",
+      "examinedAt": "2026-11-06T18:08:25.991Z",
+      "sha256": "d551dc5922c25f85dd06f3d5c18c04843fdb795dac98b2b3883c2f685c3ff77e"
+    },
+    {
+      "wid": "7.203.9",
+      "page": 176,
+      "image": "p176-7.203.9.png",
+      "examinedAt": "2026-11-06T18:08:38.173Z",
+      "sha256": "f9d9fdcfe9ea188673ec31dc7a936071a50887e7de39ac323d026adc53aee05b"
+    },
+    {
+      "wid": "7.205.8",
+      "page": 176,
+      "image": "p176-7.205.8.png",
+      "examinedAt": "2026-11-06T18:08:38.173Z",
+      "sha256": "6a7bd35d28db1f8886582c427debd1b5bea8d954e283bcfb1fac8bc12c62ab8a"
+    },
+    {
+      "wid": "9.27.3",
+      "page": 191,
+      "image": "p191-9.27.3.png",
+      "examinedAt": "2026-11-06T18:08:38.173Z",
+      "sha256": "502cd7a86f111079c58dfc0d1c964bed4a43314a5954fbfb7e6743a3ddb811ad"
+    },
+    {
+      "wid": "9.30.10",
+      "page": 191,
+      "image": "p191-9.30.10.png",
+      "examinedAt": "2026-11-06T18:08:38.173Z",
+      "sha256": "276be828e6f5277545728cc7329285a9d0565edd395033b8af1df360400863cc"
+    },
+    {
+      "wid": "9.30.22",
+      "page": 191,
+      "image": "p191-9.30.22.png",
+      "examinedAt": "2026-11-06T18:08:38.173Z",
+      "sha256": "33cccfd728416a0b9169ac733ab767082c26f2e70d385f117d7534bd011dc0b9"
+    },
+    {
+      "wid": "19.26.14",
+      "page": 307,
+      "image": "p307-19.26.14.png",
+      "examinedAt": "2026-11-06T18:08:58.927Z",
+      "sha256": "09bc8e5d5b23ee5064b6df6e7a116740590a5c367166fec49e8e31b24f1eb8b7"
+    },
+    {
+      "wid": "19.30.2",
+      "page": 307,
+      "image": "p307-19.30.2.png",
+      "examinedAt": "2026-11-06T18:08:58.927Z",
+      "sha256": "38c7961c75310219becdda0c052522c5e693ce1984a64b712af19161b7a69547"
+    },
+    {
+      "wid": "19.38.1",
+      "page": 307,
+      "image": "p307-19.38.1.png",
+      "examinedAt": "2026-11-06T18:08:58.927Z",
+      "sha256": "3dcb5de117a4a0f09f9c0badf02c0c341c430f5d089f7718efc6ad71243d0364"
+    },
+    {
+      "wid": "21.12.0",
+      "page": 323,
+      "image": "p323-21.12.0.png",
+      "examinedAt": "2026-11-06T18:08:58.927Z",
+      "sha256": "e610816d49ba8c733168a5e8477f5be792febb3e83a5a1a64d9e868adeee3c69"
+    },
+    {
+      "wid": "21.15.7",
+      "page": 323,
+      "image": "p323-21.15.7.png",
+      "examinedAt": "2026-11-06T18:08:58.927Z",
+      "sha256": "6dad8d1edc56166cf5205da3a636a4f2526664221b9eb073244785e3f495b593"
+    },
+    {
+      "wid": "21.22.4",
+      "page": 323,
+      "image": "p323-21.22.4.png",
+      "examinedAt": "2026-11-06T18:09:10.579Z",
+      "sha256": "2ca5ba6d48d37ec320ec416e7544063d9663b546a8e3dc8536e9528dbe9d0805"
+    },
+    {
+      "wid": "33.37.41",
+      "page": 423,
+      "image": "p423-33.37.41.png",
+      "examinedAt": "2026-11-06T18:09:10.579Z",
+      "sha256": "7cab30b0ff4c7fbc20bf4a7dd5011013eb996859d73a4be57b004d3299a7ac55"
+    },
+    {
+      "wid": "33.38.11",
+      "page": 423,
+      "image": "p423-33.38.11.png",
+      "examinedAt": "2026-11-06T18:09:10.579Z",
+      "sha256": "472b55f0619a6fd00c5330dc86b3a3b31e0dc62728d9aaf2991a0da57c7be8d7"
+    },
+    {
+      "wid": "33.39.8",
+      "page": 423,
+      "image": "p423-33.39.8.png",
+      "examinedAt": "2026-11-06T18:09:10.579Z",
+      "sha256": "b3989b755d554018cc0b11a160981825f4ba20f37878200e457c617aaefb8b93"
+    },
+    {
+      "wid": "40.27.0",
+      "page": 470,
+      "image": "p470-40.27.0.png",
+      "examinedAt": "2026-11-06T18:09:10.579Z",
+      "sha256": "5c3d5c6153a74cbac03982262a29d5a89d20a52ddbb4d3ff97b64d914ec26f88"
+    },
+    {
+      "wid": "40.27.4",
+      "page": 470,
+      "image": "p470-40.27.4.png",
+      "examinedAt": "2026-11-06T18:09:35.748Z",
+      "sha256": "54a008d78db1647d4e570fb3537c9347f53e54abe907a1dfaaebfe52e11892be"
+    },
+    {
+      "wid": "40.31.4",
+      "page": 470,
+      "image": "p470-40.31.4.png",
+      "examinedAt": "2026-11-06T18:09:35.748Z",
+      "sha256": "d6256a47730ac094904fb7614a254babdc699cc26bcfdce1e5417f480a27eb21"
+    },
+    {
+      "wid": "45.14.8",
+      "page": 500,
+      "image": "p500-45.14.8.png",
+      "examinedAt": "2026-11-06T18:09:35.748Z",
+      "sha256": "17e60c2222644aa21cc511cb8942c15e1c6db33075375344217b4c10d7efa85e"
+    },
+    {
+      "wid": "45.15.4",
+      "page": 500,
+      "image": "p500-45.15.4.png",
+      "examinedAt": "2026-11-06T18:09:35.748Z",
+      "sha256": "073e868082c8fa3a7a087190628b8bc8252253f030ca7f90ef5d4d37f9976bde"
+    },
+    {
+      "wid": "45.18.12",
+      "page": 500,
+      "image": "p500-45.18.12.png",
+      "examinedAt": "2026-11-06T18:09:35.748Z",
+      "sha256": "cb137d663e34767f2fcf479556c3d6c444741aa62b2b46e3e6f60a808c7385bd"
+    }
+  ]
+}

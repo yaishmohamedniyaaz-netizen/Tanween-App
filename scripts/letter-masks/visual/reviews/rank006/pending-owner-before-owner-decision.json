@@ -1,0 +1,128 @@
+[
+  {
+    "wid": "39.35.1",
+    "page": 462,
+    "cluster": "s00006-c0073",
+    "proposedCuts": [
+      1458,
+      1446,
+      1395,
+      1355
+    ],
+    "status": "pending-owner",
+    "reason": "Initial alif is truncated or absent within the immutable body crop. Cannot supply its actual ink extent without changing body policy. Proposed slot is withdrawn; no annotation accepted.",
+    "evidence": "scripts/letter-masks/visual/reviews/rank006/representatives-original-013.png"
+  },
+  {
+    "wid": "4.5.6",
+    "page": 77,
+    "cluster": "s00006-c0078",
+    "proposedCuts": [
+      312,
+      306,
+      260,
+      224
+    ],
+    "status": "pending-owner",
+    "reason": "Initial alif is truncated or absent within the immutable body crop. Cannot supply its actual ink extent without changing body policy. Proposed slot is withdrawn; no annotation accepted.",
+    "evidence": "scripts/letter-masks/visual/reviews/rank006/representatives-original-013.png"
+  },
+  {
+    "wid": "4.95.27",
+    "page": 94,
+    "cluster": "s00006-c0079",
+    "proposedCuts": [
+      183,
+      174,
+      140,
+      104
+    ],
+    "status": "pending-owner",
+    "reason": "Initial alif is truncated or absent within the immutable body crop. Cannot supply its actual ink extent without changing body policy. Proposed slot is withdrawn; no annotation accepted.",
+    "evidence": "scripts/letter-masks/visual/reviews/rank006/representatives-original-014.png"
+  },
+  {
+    "wid": "34.27.9",
+    "page": 431,
+    "cluster": "s00006-c0082",
+    "proposedCuts": [
+      177,
+      170,
+      123,
+      87
+    ],
+    "status": "pending-owner",
+    "reason": "Initial alif is truncated or absent within the immutable body crop. Cannot supply its actual ink extent without changing body policy. Proposed slot is withdrawn; no annotation accepted.",
+    "evidence": "scripts/letter-masks/visual/reviews/rank006/representatives-original-014.png"
+  },
+  {
+    "wid": "39.4.13",
+    "page": 458,
+    "cluster": "s00006-c0083",
+    "proposedCuts": [
+      878,
+      869,
+      820,
+      780
+    ],
+    "status": "pending-owner",
+    "reason": "Initial alif is truncated or absent within the immutable body crop. Cannot supply its actual ink extent without changing body policy. Proposed slot is withdrawn; no annotation accepted.",
+    "evidence": "scripts/letter-masks/visual/reviews/rank006/representatives-original-014.png"
+  },
+  {
+    "wid": "39.45.2",
+    "page": 463,
+    "cluster": "s00006-c0086",
+    "proposedCuts": [
+      749,
+      735,
+      687,
+      648
+    ],
+    "status": "pending-owner",
+    "reason": "Initial alif is truncated or absent within the immutable body crop. Cannot supply its actual ink extent without changing body policy. Proposed slot is withdrawn; no annotation accepted.",
+    "evidence": "scripts/letter-masks/visual/reviews/rank006/representatives-original-015.png"
+  },
+  {
+    "wid": "40.33.11",
+    "page": 470,
+    "cluster": "s00006-c0087",
+    "proposedCuts": [
+      709,
+      707,
+      670,
+      634
+    ],
+    "status": "pending-owner",
+    "reason": "Initial alif is truncated or absent within the immutable body crop. Cannot supply its actual ink extent without changing body policy. Proposed slot is withdrawn; no annotation accepted.",
+    "evidence": "scripts/letter-masks/visual/reviews/rank006/representatives-original-015.png"
+  },
+  {
+    "wid": "47.10.12",
+    "page": 507,
+    "cluster": "s00006-c0088",
+    "proposedCuts": [
+      978,
+      973,
+      930,
+      896
+    ],
+    "status": "pending-owner",
+    "reason": "Initial alif is truncated or absent within the immutable body crop. Cannot supply its actual ink extent without changing body policy. Proposed slot is withdrawn; no annotation accepted.",
+    "evidence": "scripts/letter-masks/visual/reviews/rank006/representatives-original-015.png"
+  },
+  {
+    "wid": "47.34.13",
+    "page": 510,
+    "cluster": "s00006-c0089",
+    "proposedCuts": [
+      1256,
+      1246,
+      1205,
+      1161
+    ],
+    "status": "pending-owner",
+    "reason": "Initial alif is truncated or absent within the immutable body crop. Cannot supply its actual ink extent without changing body policy. Proposed slot is withdrawn; no annotation accepted.",
+    "evidence": "scripts/letter-masks/visual/reviews/rank006/representatives-original-015.png"
+  }
+]

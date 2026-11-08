@@ -1,0 +1,20 @@
+{
+  "rank": 1,
+  "words": 1098,
+  "representatives": 70,
+  "visuallyCheckedCopies": 1028,
+  "confidenceCounts": {
+    "low": 1098
+  },
+  "auditEvents": 68,
+  "auditedUniqueWords": 1098,
+  "excludedHiddenIds": [],
+  "endpointConflictsRemaining": 0,
+  "completedAt": "2026-11-06T18:27:57.953721+00:00",
+  "explicitOuterEdgeCaveatWords": [
+    "16.49.3",
+    "19.54.1",
+    "19.56.1",
+    "47.15.37"
+  ]
+}

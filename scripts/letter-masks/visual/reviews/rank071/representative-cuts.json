@@ -1,0 +1,206 @@
+{
+  "66.6.17": {
+    "wid": "66.6.17",
+    "page": 560,
+    "x": [
+      1382,
+      1314
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00071-c0001",
+    "note": "Single app merged mim-alif target; retain full body span without inner division."
+  },
+  "10.80.7": {
+    "wid": "10.80.7",
+    "page": 218,
+    "x": [
+      1216,
+      1151
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00071-c0002",
+    "note": "Single app merged mim-alif target; retain full body span without inner division."
+  },
+  "60.11.13": {
+    "wid": "60.11.13",
+    "page": 550,
+    "x": [
+      1423,
+      1362
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00071-c0003",
+    "note": "Single app merged mim-alif target; retain full body span without inner division."
+  },
+  "14.12.11": {
+    "wid": "14.12.11",
+    "page": 257,
+    "x": [
+      1312,
+      1246
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00071-c0004",
+    "note": "Single app merged mim-alif target; retain full body span without inner division."
+  },
+  "66.1.4": {
+    "wid": "66.1.4",
+    "page": 560,
+    "x": [
+      1288,
+      1222
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00071-c0005",
+    "note": "Single app merged mim-alif target; retain full body span without inner division."
+  },
+  "5.104.5": {
+    "wid": "5.104.5",
+    "page": 125,
+    "x": [
+      1057,
+      991
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00071-c0006",
+    "note": "Single app merged mim-alif target; retain full body span without inner division."
+  },
+  "3.152.16": {
+    "wid": "3.152.16",
+    "page": 69,
+    "x": [
+      411,
+      338
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00071-c0007",
+    "note": "Single app merged mim-alif target; no inner cut, full body retained."
+  },
+  "4.61.5": {
+    "wid": "4.61.5",
+    "page": 88,
+    "x": [
+      396,
+      314
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00071-c0008",
+    "note": "Single app merged mim-alif target; no inner cut, full body retained."
+  },
+  "5.67.3": {
+    "wid": "5.67.3",
+    "page": 119,
+    "x": [
+      563,
+      495
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00071-c0009",
+    "note": "Single app merged mim-alif target; no inner cut, full body retained."
+  },
+  "21.6.0": {
+    "wid": "21.6.0",
+    "page": 322,
+    "x": [
+      1640,
+      1568
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00071-c0010",
+    "note": "Single app merged mim-alif target; no inner cut, full body retained."
+  },
+  "4.19.14": {
+    "wid": "4.19.14",
+    "page": 80,
+    "x": [
+      1272,
+      1189
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00071-c0011",
+    "note": "Single app merged mim-alif target; no inner cut, full body retained."
+  },
+  "111.2.0": {
+    "wid": "111.2.0",
+    "page": 603,
+    "x": [
+      844,
+      776
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00071-c0012",
+    "note": "Single app merged mim-alif target; no inner cut, full body retained."
+  },
+  "38.86.1": {
+    "wid": "38.86.1",
+    "page": 458,
+    "x": [
+      1219,
+      1160
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00071-c0013",
+    "note": "Single app merged mim-alif target; no inner cut, full body retained."
+  },
+  "60.10.42": {
+    "wid": "60.10.42",
+    "page": 550,
+    "x": [
+      825,
+      761
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00071-c0014",
+    "note": "Single app merged mim-alif target; no inner cut, full body retained."
+  },
+  "2.137.3": {
+    "wid": "2.137.3",
+    "page": 21,
+    "x": [
+      1288,
+      1215
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00071-c0015",
+    "note": "Single app merged mim-alif target; no inner cut, full body retained."
+  },
+  "3.179.6": {
+    "wid": "3.179.6",
+    "page": 73,
+    "x": [
+      231,
+      118
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00071-c0016",
+    "note": "Single app merged mim-alif target; no inner cut, full body retained."
+  },
+  "80.23.3": {
+    "wid": "80.23.3",
+    "page": 585,
+    "x": [
+      1731,
+      1686
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00071-c0017",
+    "note": "Single app merged mim-alif target; no inner cut, full body retained."
+  }
+}

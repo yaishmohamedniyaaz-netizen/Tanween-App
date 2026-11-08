@@ -12,6 +12,7 @@ npm-debug.log*
 !.env.example
 tmp-*
 *.tsbuildinfo
+/.venv-letter-borders-visual/
 
 # Generated single-file preview (npm run preview:artifact)
 docs/tahqeeq-preview.html

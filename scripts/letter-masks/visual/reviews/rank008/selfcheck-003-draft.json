@@ -1,0 +1,350 @@
+{
+  "42.33.8": {
+    "wid": "42.33.8",
+    "page": 487,
+    "x": [
+      1070,
+      1054,
+      1006
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00008-c0049",
+    "note": "Manually located gap between detached alif carrier and nun bowl from original ruler image; marks do not displace division. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "61.4.0": {
+    "wid": "61.4.0",
+    "page": 551,
+    "x": [
+      198,
+      165,
+      115
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00008-c0050",
+    "note": "Manually located gap between detached alif carrier and nun bowl from original ruler image; marks do not displace division."
+  },
+  "68.7.0": {
+    "wid": "68.7.0",
+    "page": 564,
+    "x": [
+      481,
+      450,
+      398
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00008-c0051",
+    "note": "Manually located gap between detached alif carrier and nun bowl from original ruler image; marks do not displace division."
+  },
+  "68.34.0": {
+    "wid": "68.34.0",
+    "page": 565,
+    "x": [
+      997,
+      967,
+      921
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00008-c0052",
+    "note": "Manually located gap between detached alif carrier and nun bowl from original ruler image; marks do not displace division."
+  },
+  "92.12.0": {
+    "wid": "92.12.0",
+    "page": 595,
+    "x": [
+      275,
+      253,
+      207
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00008-c0053",
+    "note": "Manually located gap between detached alif carrier and nun bowl from original ruler image; marks do not displace division. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "92.4.0": {
+    "wid": "92.4.0",
+    "page": 595,
+    "x": [
+      1851,
+      1835,
+      1793
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00008-c0054",
+    "note": "Manually located gap between detached alif carrier and nun bowl from original ruler image; marks do not displace division. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "98.6.0": {
+    "wid": "98.6.0",
+    "page": 598,
+    "x": [
+      1435,
+      1407,
+      1356
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00008-c0055",
+    "note": "Manually located gap between detached alif carrier and nun bowl from original ruler image; marks do not displace division."
+  },
+  "2.190.8": {
+    "wid": "2.190.8",
+    "page": 29,
+    "x": [
+      1363,
+      1343,
+      1175
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00008-c0056",
+    "note": "Manually located gap between detached alif carrier and nun bowl from original ruler image; marks do not displace division. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.199.8": {
+    "wid": "2.199.8",
+    "page": 31,
+    "x": [
+      997,
+      978,
+      809
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00008-c0057",
+    "note": "Manually located gap between detached alif carrier and nun bowl from original ruler image; marks do not displace division. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.237.30": {
+    "wid": "2.237.30",
+    "page": 38,
+    "x": [
+      1023,
+      1006,
+      957
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00008-c0058",
+    "note": "Manually located gap between detached alif carrier and nun bowl from original ruler image; marks do not displace division. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.243.17": {
+    "wid": "2.243.17",
+    "page": 39,
+    "x": [
+      833,
+      815,
+      670
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00008-c0059",
+    "note": "Manually located gap between detached alif carrier and nun bowl from original ruler image; marks do not displace division. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.277.0": {
+    "wid": "2.277.0",
+    "page": 47,
+    "x": [
+      1810,
+      1783,
+      1730
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00008-c0060",
+    "note": "Manually located gap between detached alif carrier and nun bowl from original ruler image; marks do not displace division."
+  },
+  "3.19.0": {
+    "wid": "3.19.0",
+    "page": 52,
+    "x": [
+      652,
+      623,
+      575
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00008-c0061",
+    "note": "Manually located gap between detached alif carrier and nun bowl from original ruler image; marks do not displace division."
+  },
+  "3.45.4": {
+    "wid": "3.45.4",
+    "page": 55,
+    "x": [
+      1285,
+      1268,
+      1220
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00008-c0062",
+    "note": "Manually located gap between detached alif carrier and nun bowl from original ruler image; marks do not displace division. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "3.77.0": {
+    "wid": "3.77.0",
+    "page": 59,
+    "x": [
+      206,
+      178,
+      122
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00008-c0063",
+    "note": "Manually located gap between detached alif carrier and nun bowl from original ruler image; marks do not displace division."
+  },
+  "3.90.0": {
+    "wid": "3.90.0",
+    "page": 61,
+    "x": [
+      355,
+      328,
+      276
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00008-c0064",
+    "note": "Manually located gap between detached alif carrier and nun bowl from original ruler image; marks do not displace division."
+  },
+  "3.155.17": {
+    "wid": "3.155.17",
+    "page": 70,
+    "x": [
+      990,
+      973,
+      921
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00008-c0065",
+    "note": "Manually located gap between detached alif carrier and nun bowl from original ruler image; marks do not displace division. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "3.159.26": {
+    "wid": "3.159.26",
+    "page": 71,
+    "x": [
+      1389,
+      1372,
+      1317
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00008-c0066",
+    "note": "Manually located gap between detached alif carrier and nun bowl from original ruler image; marks do not displace division. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "3.177.0": {
+    "wid": "3.177.0",
+    "page": 73,
+    "x": [
+      1470,
+      1440,
+      1387
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00008-c0067",
+    "note": "Manually located gap between detached alif carrier and nun bowl from original ruler image; marks do not displace division."
+  },
+  "4.43.43": {
+    "wid": "4.43.43",
+    "page": 85,
+    "x": [
+      189,
+      170,
+      112
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00008-c0068",
+    "note": "Manually located gap between detached alif carrier and nun bowl from original ruler image; marks do not displace division. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "4.97.0": {
+    "wid": "4.97.0",
+    "page": 94,
+    "x": [
+      822,
+      792,
+      748
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00008-c0069",
+    "note": "Manually located gap between detached alif carrier and nun bowl from original ruler image; marks do not displace division."
+  },
+  "4.137.0": {
+    "wid": "4.137.0",
+    "page": 100,
+    "x": [
+      1237,
+      1200,
+      1144
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00008-c0070",
+    "note": "Manually located gap between detached alif carrier and nun bowl from original ruler image; marks do not displace division."
+  },
+  "5.42.22": {
+    "wid": "5.42.22",
+    "page": 115,
+    "x": [
+      1819,
+      1800,
+      1748
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00008-c0071",
+    "note": "Manually located gap between detached alif carrier and nun bowl from original ruler image; marks do not displace division. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "5.69.0": {
+    "wid": "5.69.0",
+    "page": 119,
+    "x": [
+      1669,
+      1636,
+      1580
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00008-c0072",
+    "note": "Manually located gap between detached alif carrier and nun bowl from original ruler image; marks do not displace division."
+  }
+}

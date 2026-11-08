@@ -1,0 +1,652 @@
+{
+  "37.6.0": {
+    "wid": "37.6.0",
+    "page": 446,
+    "x": [
+      1442,
+      1414,
+      1363
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00072-c0001",
+    "note": "Clear detached alif gap; nun-alif is one merged app target."
+  },
+  "15.52.6": {
+    "wid": "15.52.6",
+    "page": 265,
+    "x": [
+      918,
+      904,
+      851
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00072-c0002",
+    "note": "Cut in the visible alif gap; moved left three pixels after self-check to retain upright tip."
+  },
+  "73.5.0": {
+    "wid": "73.5.0",
+    "page": 574,
+    "x": [
+      715,
+      686,
+      646
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00072-c0003",
+    "note": "Clear detached alif gap; nun-alif is one merged app target."
+  },
+  "5.82.16": {
+    "wid": "5.82.16",
+    "page": 121,
+    "x": [
+      1092,
+      1078,
+      1005
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00072-c0004",
+    "note": "Clear detached alif gap; nun-alif is one merged app target."
+  },
+  "7.75.18": {
+    "wid": "7.75.18",
+    "page": 160,
+    "x": [
+      746,
+      726,
+      659
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00072-c0005",
+    "note": "Clear detached alif gap; nun-alif is one merged app target."
+  },
+  "12.36.23": {
+    "wid": "12.36.23",
+    "page": 239,
+    "x": [
+      549,
+      531,
+      474
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00072-c0006",
+    "note": "Clear detached alif gap; nun-alif is one merged app target."
+  },
+  "37.31.4": {
+    "wid": "37.31.4",
+    "page": 447,
+    "x": [
+      581,
+      564,
+      522
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00072-c0007",
+    "note": "Detached alif gap separates alif-hamza carrier from merged nun-alif body."
+  },
+  "7.172.21": {
+    "wid": "7.172.21",
+    "page": 173,
+    "x": [
+      1594,
+      1576,
+      1521
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00072-c0008",
+    "note": "Detached alif gap separates alif-hamza carrier from merged nun-alif body."
+  },
+  "12.78.11": {
+    "wid": "12.78.11",
+    "page": 244,
+    "x": [
+      1065,
+      1044,
+      986
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00072-c0009",
+    "note": "Detached alif gap separates alif-hamza carrier from merged nun-alif body."
+  },
+  "29.33.15": {
+    "wid": "29.33.15",
+    "page": 400,
+    "x": [
+      1055,
+      1037,
+      985
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00072-c0010",
+    "note": "Detached alif gap separates alif-hamza carrier from merged nun-alif body."
+  },
+  "29.34.0": {
+    "wid": "29.34.0",
+    "page": 400,
+    "x": [
+      792,
+      764,
+      680
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00072-c0011",
+    "note": "Detached alif gap separates alif-hamza carrier from merged nun-alif body."
+  },
+  "44.5.3": {
+    "wid": "44.5.3",
+    "page": 496,
+    "x": [
+      1390,
+      1374,
+      1327
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00072-c0012",
+    "note": "Detached alif gap separates alif-hamza carrier from merged nun-alif body."
+  },
+  "76.3.0": {
+    "wid": "76.3.0",
+    "page": 578,
+    "x": [
+      1521,
+      1497,
+      1448
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00072-c0013",
+    "note": "Detached alif gap separates alif-hamza carrier from merged nun-alif body."
+  },
+  "68.31.2": {
+    "wid": "68.31.2",
+    "page": 565,
+    "x": [
+      723,
+      710,
+      663
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00072-c0014",
+    "note": "Detached alif gap separates alif-hamza carrier from merged nun-alif body."
+  },
+  "2.14.11": {
+    "wid": "2.14.11",
+    "page": 3,
+    "x": [
+      214,
+      198,
+      148
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00072-c0015",
+    "note": "Detached alif gap separates alif-hamza carrier from merged nun-alif body."
+  },
+  "2.156.5": {
+    "wid": "2.156.5",
+    "page": 24,
+    "x": [
+      717,
+      706,
+      651
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00072-c0016",
+    "note": "Detached alif gap separates alif-hamza carrier from merged nun-alif body."
+  },
+  "4.157.1": {
+    "wid": "4.157.1",
+    "page": 103,
+    "x": [
+      1004,
+      987,
+      939
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00072-c0017",
+    "note": "Detached alif gap separates alif-hamza carrier from merged nun-alif body."
+  },
+  "18.84.0": {
+    "wid": "18.84.0",
+    "page": 303,
+    "x": [
+      1827,
+      1815,
+      1768
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00072-c0018",
+    "note": "Detached alif gap separates alif-hamza carrier from merged nun-alif body."
+  },
+  "19.7.1": {
+    "wid": "19.7.1",
+    "page": 305,
+    "x": [
+      1808,
+      1792,
+      1742
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00072-c0019",
+    "note": "Visible detached alif gap; merged nun-alif retains its full body. Clipped edge mark retained within immutable word box."
+  },
+  "37.80.0": {
+    "wid": "37.80.0",
+    "page": 449,
+    "x": [
+      1154,
+      1126,
+      1091
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00072-c0020",
+    "note": "Visible detached alif gap; merged nun-alif retains its full body. Clipped edge mark retained within immutable word box."
+  },
+  "5.14.3": {
+    "wid": "5.14.3",
+    "page": 110,
+    "x": [
+      1094,
+      1077,
+      994
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00072-c0021",
+    "note": "Visible detached alif gap; merged nun-alif retains its full body. Clipped edge mark retained within immutable word box."
+  },
+  "5.24.2": {
+    "wid": "5.24.2",
+    "page": 112,
+    "x": [
+      1395,
+      1382,
+      1310
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00072-c0022",
+    "note": "Visible detached alif gap; merged nun-alif retains its full body. Clipped edge mark retained within immutable word box."
+  },
+  "7.5.9": {
+    "wid": "7.5.9",
+    "page": 151,
+    "x": [
+      362,
+      345,
+      285
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00072-c0023",
+    "note": "Visible detached alif gap; merged nun-alif retains its full body. Clipped edge mark retained within immutable word box."
+  },
+  "11.81.2": {
+    "wid": "11.81.2",
+    "page": 230,
+    "x": [
+      1632,
+      1615,
+      1571
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00072-c0024",
+    "note": "Visible detached alif gap; merged nun-alif retains its full body. Clipped edge mark retained within immutable word box."
+  },
+  "11.121.7": {
+    "wid": "11.121.7",
+    "page": 235,
+    "x": [
+      1220,
+      1204,
+      1158
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00072-c0025",
+    "note": "Cut visually selected in detached alif gap; nun-alif remains merged."
+  },
+  "11.122.1": {
+    "wid": "11.122.1",
+    "page": 235,
+    "x": [
+      414,
+      398,
+      352
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00072-c0026",
+    "note": "Cut visually selected in detached alif gap; nun-alif remains merged."
+  },
+  "12.17.2": {
+    "wid": "12.17.2",
+    "page": 237,
+    "x": [
+      643,
+      620,
+      575
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00072-c0027",
+    "note": "Cut visually selected in detached alif gap; nun-alif remains merged."
+  },
+  "15.9.0": {
+    "wid": "15.9.0",
+    "page": 262,
+    "x": [
+      1312,
+      1279,
+      1221
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00072-c0028",
+    "note": "Cut visually selected in detached alif gap; nun-alif remains merged."
+  },
+  "15.95.0": {
+    "wid": "15.95.0",
+    "page": 267,
+    "x": [
+      1285,
+      1255,
+      1205
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00072-c0029",
+    "note": "Cut visually selected in detached alif gap; nun-alif remains merged."
+  },
+  "19.40.0": {
+    "wid": "19.40.0",
+    "page": 308,
+    "x": [
+      1686,
+      1658,
+      1614
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00072-c0030",
+    "note": "Cut visually selected in detached alif gap; nun-alif remains merged."
+  },
+  "20.48.0": {
+    "wid": "20.48.0",
+    "page": 314,
+    "x": [
+      1448,
+      1418,
+      1364
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00072-c0031",
+    "note": "Cut visually selected in detached alif gap; nun-alif remains merged."
+  },
+  "21.14.2": {
+    "wid": "21.14.2",
+    "page": 323,
+    "x": [
+      1106,
+      1090,
+      1047
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00072-c0032",
+    "note": "Cut visually selected in detached alif gap; nun-alif remains merged."
+  },
+  "21.104.13": {
+    "wid": "21.104.13",
+    "page": 331,
+    "x": [
+      642,
+      625,
+      576
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00072-c0033",
+    "note": "Cut visually selected in detached alif gap; nun-alif remains merged."
+  },
+  "26.51.0": {
+    "wid": "26.51.0",
+    "page": 369,
+    "x": [
+      1229,
+      1203,
+      1168
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00072-c0034",
+    "note": "Cut visually selected in detached alif gap; nun-alif remains merged."
+  },
+  "26.61.6": {
+    "wid": "26.61.6",
+    "page": 370,
+    "x": [
+      713,
+      696,
+      643
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00072-c0035",
+    "note": "Cut visually selected in detached alif gap; nun-alif remains merged."
+  },
+  "32.12.14": {
+    "wid": "32.12.14",
+    "page": 416,
+    "x": [
+      476,
+      454,
+      403
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00072-c0036",
+    "note": "Cut visually selected in detached alif gap; nun-alif remains merged."
+  },
+  "36.12.0": {
+    "wid": "36.12.0",
+    "page": 440,
+    "x": [
+      1157,
+      1128,
+      1067
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00072-c0037",
+    "note": "Cut visually selected in detached alif gap; nun-alif remains merged."
+  },
+  "36.18.1": {
+    "wid": "36.18.1",
+    "page": 441,
+    "x": [
+      1672,
+      1653,
+      1585
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00072-c0038",
+    "note": "Cut visually selected in detached alif gap; nun-alif remains merged."
+  },
+  "37.34.0": {
+    "wid": "37.34.0",
+    "page": 447,
+    "x": [
+      1678,
+      1645,
+      1599
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00072-c0039",
+    "note": "Cut visually selected in detached alif gap; nun-alif remains merged."
+  },
+  "37.63.0": {
+    "wid": "37.63.0",
+    "page": 448,
+    "x": [
+      1489,
+      1461,
+      1407
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00072-c0040",
+    "note": "Cut visually selected in detached alif gap; nun-alif remains merged."
+  },
+  "37.105.3": {
+    "wid": "37.105.3",
+    "page": 450,
+    "x": [
+      1410,
+      1384,
+      1336
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00072-c0041",
+    "note": "Cut visually selected in detached alif gap; nun-alif remains merged."
+  },
+  "43.3.0": {
+    "wid": "43.3.0",
+    "page": 489,
+    "x": [
+      779,
+      752,
+      707
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00072-c0042",
+    "note": "Cut visually selected in detached alif gap; nun-alif remains merged."
+  },
+  "44.15.0": {
+    "wid": "44.15.0",
+    "page": 496,
+    "x": [
+      761,
+      739,
+      699
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00072-c0043",
+    "note": "Cut visually selected in detached alif gap; nun-alif remains merged."
+  },
+  "48.1.0": {
+    "wid": "48.1.0",
+    "page": 511,
+    "x": [
+      1822,
+      1806,
+      1762
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00072-c0044",
+    "note": "Cut visually selected in detached alif gap; nun-alif remains merged."
+  },
+  "49.13.2": {
+    "wid": "49.13.2",
+    "page": 517,
+    "x": [
+      1147,
+      1131,
+      1073
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00072-c0045",
+    "note": "Cut visually selected in detached alif gap; nun-alif remains merged."
+  },
+  "52.26.1": {
+    "wid": "52.26.1",
+    "page": 524,
+    "x": [
+      1522,
+      1508,
+      1454
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00072-c0046",
+    "note": "Cut visually selected in detached alif gap; nun-alif remains merged."
+  },
+  "54.27.0": {
+    "wid": "54.27.0",
+    "page": 529,
+    "x": [
+      1511,
+      1480,
+      1438
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00072-c0047",
+    "note": "Cut visually selected in detached alif gap; nun-alif remains merged."
+  },
+  "54.49.0": {
+    "wid": "54.49.0",
+    "page": 530,
+    "x": [
+      877,
+      842,
+      792
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00072-c0048",
+    "note": "Cut visually selected in detached alif gap; nun-alif remains merged."
+  },
+  "76.23.0": {
+    "wid": "76.23.0",
+    "page": 579,
+    "x": [
+      174,
+      149,
+      106
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00072-c0049",
+    "note": "Cut visually selected in detached alif gap; nun-alif remains merged."
+  },
+  "77.44.0": {
+    "wid": "77.44.0",
+    "page": 581,
+    "x": [
+      1226,
+      1201,
+      1156
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00072-c0050",
+    "note": "Cut visually selected in detached alif gap; nun-alif remains merged."
+  }
+}
