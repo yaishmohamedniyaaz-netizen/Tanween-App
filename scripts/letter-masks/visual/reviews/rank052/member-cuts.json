@@ -1,0 +1,1386 @@
+{
+  "11.77.10": {
+    "wid": "11.77.10",
+    "page": 230,
+    "x": [
+      217,
+      178,
+      76
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0001",
+    "note": "X-warp from visually decided 46.24.6; destination requires sheet review."
+  },
+  "17.62.2": {
+    "wid": "17.62.2",
+    "page": 288,
+    "x": [
+      381,
+      343,
+      255
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0001",
+    "note": "X-warp from visually decided 46.24.6; destination requires sheet review."
+  },
+  "20.117.3": {
+    "wid": "20.117.3",
+    "page": 320,
+    "x": [
+      1226,
+      1188,
+      1101
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0001",
+    "note": "X-warp from visually decided 46.24.6; destination requires sheet review."
+  },
+  "28.15.30": {
+    "wid": "28.15.30",
+    "page": 387,
+    "x": [
+      1349,
+      1311,
+      1223
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0001",
+    "note": "X-warp from visually decided 46.24.6; destination requires sheet review."
+  },
+  "36.48.2": {
+    "wid": "36.48.2",
+    "page": 443,
+    "x": [
+      912,
+      874,
+      786
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0001",
+    "note": "X-warp from visually decided 46.24.6; destination requires sheet review."
+  },
+  "37.106.1": {
+    "wid": "37.106.1",
+    "page": 450,
+    "x": [
+      315,
+      279,
+      202
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00052-c0001",
+    "note": "X-warp from visually decided 46.24.6; destination requires sheet review. Fatha partially clipped at right immutable edge, visually confirmed.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "43.13.15": {
+    "wid": "43.13.15",
+    "page": 490,
+    "x": [
+      1356,
+      1318,
+      1220
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0001",
+    "note": "X-warp from visually decided 46.24.6; destination requires sheet review."
+  },
+  "43.31.3": {
+    "wid": "43.31.3",
+    "page": 491,
+    "x": [
+      1593,
+      1556,
+      1469
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0001",
+    "note": "X-warp from visually decided 46.24.6; destination requires sheet review."
+  },
+  "45.20.0": {
+    "wid": "45.20.0",
+    "page": 500,
+    "x": [
+      1664,
+      1627,
+      1538
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0001",
+    "note": "X-warp from visually decided 46.24.6; destination requires sheet review."
+  },
+  "45.34.7": {
+    "wid": "45.34.7",
+    "page": 502,
+    "x": [
+      762,
+      725,
+      645
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0001",
+    "note": "X-warp from visually decided 46.24.6; destination requires sheet review."
+  },
+  "14.35.5": {
+    "wid": "14.35.5",
+    "page": 260,
+    "x": [
+      1119,
+      1082,
+      976
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0002",
+    "note": "X-warp from visually decided 37.60.1; destination requires sheet review."
+  },
+  "18.54.3": {
+    "wid": "18.54.3",
+    "page": 300,
+    "x": [
+      1358,
+      1320,
+      1222
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0002",
+    "note": "X-warp from visually decided 37.60.1; destination requires sheet review."
+  },
+  "18.78.1": {
+    "wid": "18.78.1",
+    "page": 302,
+    "x": [
+      537,
+      499,
+      399
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0002",
+    "note": "X-warp from visually decided 37.60.1; destination requires sheet review."
+  },
+  "21.97.15": {
+    "wid": "21.97.15",
+    "page": 330,
+    "x": [
+      599,
+      561,
+      459
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0002",
+    "note": "X-warp from visually decided 37.60.1; destination requires sheet review."
+  },
+  "27.71.2": {
+    "wid": "27.71.2",
+    "page": 383,
+    "x": [
+      1354,
+      1317,
+      1222
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0002",
+    "note": "X-warp from visually decided 37.60.1; destination requires sheet review."
+  },
+  "34.29.2": {
+    "wid": "34.29.2",
+    "page": 431,
+    "x": [
+      1342,
+      1299,
+      1187
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0002",
+    "note": "X-warp from visually decided 37.60.1; destination requires sheet review."
+  },
+  "35.12.3": {
+    "wid": "35.12.3",
+    "page": 436,
+    "x": [
+      1211,
+      1174,
+      1076
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0002",
+    "note": "X-warp from visually decided 37.60.1; destination requires sheet review."
+  },
+  "36.52.6": {
+    "wid": "36.52.6",
+    "page": 443,
+    "x": [
+      712,
+      673,
+      573
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0002",
+    "note": "X-warp from visually decided 37.60.1; destination requires sheet review."
+  },
+  "38.4.7": {
+    "wid": "38.4.7",
+    "page": 453,
+    "x": [
+      783,
+      747,
+      652
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0002",
+    "note": "X-warp from visually decided 37.60.1; destination requires sheet review."
+  },
+  "3.191.15": {
+    "wid": "3.191.15",
+    "page": 75,
+    "x": [
+      1385,
+      1344,
+      1253
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0003",
+    "note": "X-warp from visually decided 7.169.8; destination requires sheet review."
+  },
+  "17.41.3": {
+    "wid": "17.41.3",
+    "page": 286,
+    "x": [
+      1430,
+      1392,
+      1311
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0003",
+    "note": "X-warp from visually decided 7.169.8; destination requires sheet review."
+  },
+  "18.62.10": {
+    "wid": "18.62.10",
+    "page": 301,
+    "x": [
+      1825,
+      1786,
+      1696
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0003",
+    "note": "X-warp from visually decided 7.169.8; destination requires sheet review."
+  },
+  "41.50.9": {
+    "wid": "41.50.9",
+    "page": 482,
+    "x": [
+      1606,
+      1565,
+      1482
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0003",
+    "note": "X-warp from visually decided 7.169.8; destination requires sheet review."
+  },
+  "45.29.0": {
+    "wid": "45.29.0",
+    "page": 501,
+    "x": [
+      1450,
+      1413,
+      1335
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0003",
+    "note": "X-warp from visually decided 7.169.8; destination requires sheet review."
+  },
+  "50.2.8": {
+    "wid": "50.2.8",
+    "page": 518,
+    "x": [
+      1402,
+      1366,
+      1283
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0003",
+    "note": "X-warp from visually decided 7.169.8; destination requires sheet review."
+  },
+  "50.22.5": {
+    "wid": "50.22.5",
+    "page": 519,
+    "x": [
+      1350,
+      1314,
+      1238
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0003",
+    "note": "X-warp from visually decided 7.169.8; destination requires sheet review."
+  },
+  "3.138.0": {
+    "wid": "3.138.0",
+    "page": 67,
+    "x": [
+      1651,
+      1608,
+      1518
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0004",
+    "note": "X-warp from visually decided 21.24.8; destination requires sheet review."
+  },
+  "18.98.1": {
+    "wid": "18.98.1",
+    "page": 304,
+    "x": [
+      1714,
+      1680,
+      1603
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0004",
+    "note": "X-warp from visually decided 21.24.8; destination requires sheet review."
+  },
+  "38.6.9": {
+    "wid": "38.6.9",
+    "page": 453,
+    "x": [
+      731,
+      696,
+      616
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0004",
+    "note": "X-warp from visually decided 21.24.8; destination requires sheet review."
+  },
+  "38.39.0": {
+    "wid": "38.39.0",
+    "page": 455,
+    "x": [
+      197,
+      157,
+      75
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0004",
+    "note": "X-warp from visually decided 21.24.8; destination requires sheet review."
+  },
+  "38.57.0": {
+    "wid": "38.57.0",
+    "page": 456,
+    "x": [
+      210,
+      172,
+      92
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0004",
+    "note": "X-warp from visually decided 21.24.8; destination requires sheet review."
+  },
+  "50.32.0": {
+    "wid": "50.32.0",
+    "page": 519,
+    "x": [
+      1032,
+      996,
+      921
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0004",
+    "note": "X-warp from visually decided 21.24.8; destination requires sheet review."
+  },
+  "56.95.1": {
+    "wid": "56.95.1",
+    "page": 537,
+    "x": [
+      1590,
+      1551,
+      1470
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0004",
+    "note": "X-warp from visually decided 21.24.8; destination requires sheet review."
+  },
+  "11.72.9": {
+    "wid": "11.72.9",
+    "page": 230,
+    "x": [
+      205,
+      162,
+      75
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0005",
+    "note": "X-warp from visually decided 38.54.1; destination requires sheet review."
+  },
+  "19.23.9": {
+    "wid": "19.23.9",
+    "page": 306,
+    "x": [
+      1195,
+      1154,
+      1071
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0005",
+    "note": "X-warp from visually decided 38.54.1; destination requires sheet review."
+  },
+  "23.63.5": {
+    "wid": "23.63.5",
+    "page": 346,
+    "x": [
+      1205,
+      1163,
+      1071
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00052-c0005",
+    "note": "X-warp from visually decided 38.54.1; destination requires sheet review. Fatha partially clipped at right immutable edge, visually confirmed.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "27.16.14": {
+    "wid": "27.16.14",
+    "page": 378,
+    "x": [
+      1192,
+      1149,
+      1054
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0005",
+    "note": "X-warp from visually decided 38.54.1; destination requires sheet review."
+  },
+  "38.53.0": {
+    "wid": "38.53.0",
+    "page": 456,
+    "x": [
+      694,
+      655,
+      577
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0005",
+    "note": "X-warp from visually decided 38.54.1; destination requires sheet review."
+  },
+  "43.61.7": {
+    "wid": "43.61.7",
+    "page": 494,
+    "x": [
+      451,
+      408,
+      321
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0005",
+    "note": "X-warp from visually decided 38.54.1; destination requires sheet review."
+  },
+  "106.3.2": {
+    "wid": "106.3.2",
+    "page": 602,
+    "x": [
+      1204,
+      1161,
+      1071
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0005",
+    "note": "X-warp from visually decided 38.54.1; destination requires sheet review."
+  },
+  "12.19.8": {
+    "wid": "12.19.8",
+    "page": 237,
+    "x": [
+      804,
+      768,
+      691
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0006",
+    "note": "X-warp from visually decided 53.56.0; destination requires sheet review."
+  },
+  "43.52.4": {
+    "wid": "43.52.4",
+    "page": 493,
+    "x": [
+      669,
+      631,
+      553
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0006",
+    "note": "X-warp from visually decided 53.56.0; destination requires sheet review."
+  },
+  "53.59.1": {
+    "wid": "53.59.1",
+    "page": 528,
+    "x": [
+      1117,
+      1080,
+      1004
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0006",
+    "note": "X-warp from visually decided 53.56.0; destination requires sheet review."
+  },
+  "54.8.5": {
+    "wid": "54.8.5",
+    "page": 529,
+    "x": [
+      889,
+      852,
+      777
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0006",
+    "note": "X-warp from visually decided 53.56.0; destination requires sheet review."
+  },
+  "56.56.0": {
+    "wid": "56.56.0",
+    "page": 536,
+    "x": [
+      1352,
+      1314,
+      1244
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0006",
+    "note": "X-warp from visually decided 53.56.0; destination requires sheet review."
+  },
+  "61.6.28": {
+    "wid": "61.6.28",
+    "page": 552,
+    "x": [
+      1268,
+      1236,
+      1163
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0006",
+    "note": "X-warp from visually decided 53.56.0; destination requires sheet review."
+  },
+  "76.22.1": {
+    "wid": "76.22.1",
+    "page": 579,
+    "x": [
+      1418,
+      1382,
+      1309
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0006",
+    "note": "X-warp from visually decided 53.56.0; destination requires sheet review."
+  },
+  "7.203.15": {
+    "wid": "7.203.15",
+    "page": 176,
+    "x": [
+      856,
+      818,
+      698
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0007",
+    "note": "X-warp from visually decided 7.51.14; destination requires sheet review."
+  },
+  "9.35.11": {
+    "wid": "9.35.11",
+    "page": 192,
+    "x": [
+      1456,
+      1416,
+      1301
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0007",
+    "note": "X-warp from visually decided 7.51.14; destination requires sheet review."
+  },
+  "17.89.4": {
+    "wid": "17.89.4",
+    "page": 291,
+    "x": [
+      1369,
+      1333,
+      1229
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0007",
+    "note": "X-warp from visually decided 7.51.14; destination requires sheet review."
+  },
+  "21.59.3": {
+    "wid": "21.59.3",
+    "page": 327,
+    "x": [
+      1248,
+      1214,
+      1113
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0007",
+    "note": "X-warp from visually decided 7.51.14; destination requires sheet review."
+  },
+  "45.11.0": {
+    "wid": "45.11.0",
+    "page": 499,
+    "x": [
+      245,
+      211,
+      109
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0007",
+    "note": "X-warp from visually decided 7.51.14; destination requires sheet review."
+  },
+  "87.18.1": {
+    "wid": "87.18.1",
+    "page": 592,
+    "x": [
+      1833,
+      1797,
+      1692
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0007",
+    "note": "X-warp from visually decided 7.51.14; destination requires sheet review."
+  },
+  "6.30.8": {
+    "wid": "6.30.8",
+    "page": 131,
+    "x": [
+      248,
+      211,
+      126
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0008",
+    "note": "X-warp from visually decided 46.7.11; destination requires sheet review."
+  },
+  "6.153.1": {
+    "wid": "6.153.1",
+    "page": 149,
+    "x": [
+      1683,
+      1643,
+      1555
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0008",
+    "note": "X-warp from visually decided 46.7.11; destination requires sheet review."
+  },
+  "10.48.2": {
+    "wid": "10.48.2",
+    "page": 214,
+    "x": [
+      934,
+      897,
+      813
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0008",
+    "note": "X-warp from visually decided 46.7.11; destination requires sheet review."
+  },
+  "17.9.1": {
+    "wid": "17.9.1",
+    "page": 283,
+    "x": [
+      1323,
+      1283,
+      1192
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0008",
+    "note": "X-warp from visually decided 46.7.11; destination requires sheet review."
+  },
+  "18.49.10": {
+    "wid": "18.49.10",
+    "page": 299,
+    "x": [
+      624,
+      585,
+      496
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0008",
+    "note": "X-warp from visually decided 46.7.11; destination requires sheet review."
+  },
+  "25.53.4": {
+    "wid": "25.53.4",
+    "page": 364,
+    "x": [
+      1590,
+      1552,
+      1464
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0008",
+    "note": "X-warp from visually decided 46.7.11; destination requires sheet review."
+  },
+  "2.25.19": {
+    "wid": "2.25.19",
+    "page": 5,
+    "x": [
+      1504,
+      1464,
+      1358
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0009",
+    "note": "X-warp from visually decided 3.62.1; destination requires sheet review."
+  },
+  "2.79.7": {
+    "wid": "2.79.7",
+    "page": 12,
+    "x": [
+      1489,
+      1444,
+      1336
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0009",
+    "note": "X-warp from visually decided 3.62.1; destination requires sheet review."
+  },
+  "6.78.5": {
+    "wid": "6.78.5",
+    "page": 137,
+    "x": [
+      524,
+      486,
+      385
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0009",
+    "note": "X-warp from visually decided 3.62.1; destination requires sheet review."
+  },
+  "7.109.6": {
+    "wid": "7.109.6",
+    "page": 164,
+    "x": [
+      422,
+      382,
+      281
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0009",
+    "note": "X-warp from visually decided 3.62.1; destination requires sheet review."
+  },
+  "43.64.6": {
+    "wid": "43.64.6",
+    "page": 494,
+    "x": [
+      787,
+      748,
+      642
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0009",
+    "note": "X-warp from visually decided 3.62.1; destination requires sheet review."
+  },
+  "10.76.7": {
+    "wid": "10.76.7",
+    "page": 217,
+    "x": [
+      752,
+      716,
+      624
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0010",
+    "note": "X-warp from visually decided 5.41.34; destination requires sheet review."
+  },
+  "14.52.0": {
+    "wid": "14.52.0",
+    "page": 261,
+    "x": [
+      841,
+      805,
+      714
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0010",
+    "note": "X-warp from visually decided 5.41.34; destination requires sheet review."
+  },
+  "16.116.6": {
+    "wid": "16.116.6",
+    "page": 280,
+    "x": [
+      1545,
+      1508,
+      1412
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0010",
+    "note": "X-warp from visually decided 5.41.34; destination requires sheet review."
+  },
+  "17.88.9": {
+    "wid": "17.88.9",
+    "page": 291,
+    "x": [
+      439,
+      404,
+      313
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0010",
+    "note": "X-warp from visually decided 5.41.34; destination requires sheet review."
+  },
+  "46.34.7": {
+    "wid": "46.34.7",
+    "page": 506,
+    "x": [
+      1658,
+      1620,
+      1529
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0010",
+    "note": "X-warp from visually decided 5.41.34; destination requires sheet review."
+  },
+  "6.76.7": {
+    "wid": "6.76.7",
+    "page": 137,
+    "x": [
+      788,
+      746,
+      658
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0011",
+    "note": "X-warp from visually decided 7.172.24; destination requires sheet review."
+  },
+  "10.37.2": {
+    "wid": "10.37.2",
+    "page": 213,
+    "x": [
+      970,
+      934,
+      852
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0011",
+    "note": "X-warp from visually decided 7.172.24; destination requires sheet review."
+  },
+  "19.36.5": {
+    "wid": "19.36.5",
+    "page": 307,
+    "x": [
+      1538,
+      1503,
+      1413
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0011",
+    "note": "X-warp from visually decided 7.172.24; destination requires sheet review."
+  },
+  "43.30.4": {
+    "wid": "43.30.4",
+    "page": 491,
+    "x": [
+      1207,
+      1168,
+      1074
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0011",
+    "note": "X-warp from visually decided 7.172.24; destination requires sheet review."
+  },
+  "67.25.2": {
+    "wid": "67.25.2",
+    "page": 563,
+    "x": [
+      643,
+      607,
+      521
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0011",
+    "note": "X-warp from visually decided 7.172.24; destination requires sheet review."
+  },
+  "21.106.2": {
+    "wid": "21.106.2",
+    "page": 331,
+    "x": [
+      467,
+      429,
+      316
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0012",
+    "note": "X-warp from visually decided 44.11.2; destination requires sheet review."
+  },
+  "25.7.2": {
+    "wid": "25.7.2",
+    "page": 360,
+    "x": [
+      1691,
+      1654,
+      1549
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0012",
+    "note": "X-warp from visually decided 44.11.2; destination requires sheet review."
+  },
+  "25.30.6": {
+    "wid": "25.30.6",
+    "page": 362,
+    "x": [
+      1153,
+      1111,
+      1002
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0012",
+    "note": "X-warp from visually decided 44.11.2; destination requires sheet review."
+  },
+  "28.15.11": {
+    "wid": "28.15.11",
+    "page": 387,
+    "x": [
+      1029,
+      990,
+      885
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0012",
+    "note": "X-warp from visually decided 44.11.2; destination requires sheet review."
+  },
+  "38.61.5": {
+    "wid": "38.61.5",
+    "page": 456,
+    "x": [
+      1229,
+      1192,
+      1083
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0012",
+    "note": "X-warp from visually decided 44.11.2; destination requires sheet review."
+  },
+  "7.123.9": {
+    "wid": "7.123.9",
+    "page": 165,
+    "x": [
+      676,
+      641,
+      549
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0013",
+    "note": "X-warp from visually decided 27.68.2; destination requires sheet review."
+  },
+  "24.16.11": {
+    "wid": "24.16.11",
+    "page": 351,
+    "x": [
+      627,
+      593,
+      504
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0013",
+    "note": "X-warp from visually decided 27.68.2; destination requires sheet review."
+  },
+  "31.11.0": {
+    "wid": "31.11.0",
+    "page": 411,
+    "x": [
+      944,
+      906,
+      808
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0013",
+    "note": "X-warp from visually decided 27.68.2; destination requires sheet review."
+  },
+  "36.61.2": {
+    "wid": "36.61.2",
+    "page": 444,
+    "x": [
+      1848,
+      1809,
+      1716
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0013",
+    "note": "X-warp from visually decided 27.68.2; destination requires sheet review."
+  },
+  "8.32.5": {
+    "wid": "8.32.5",
+    "page": 180,
+    "x": [
+      221,
+      180,
+      91
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0014",
+    "note": "X-warp from visually decided 27.76.1; destination requires sheet review."
+  },
+  "21.62.3": {
+    "wid": "21.62.3",
+    "page": 327,
+    "x": [
+      1831,
+      1790,
+      1686
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0014",
+    "note": "X-warp from visually decided 27.76.1; destination requires sheet review."
+  },
+  "21.63.4": {
+    "wid": "21.63.4",
+    "page": 327,
+    "x": [
+      1831,
+      1792,
+      1684
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0014",
+    "note": "X-warp from visually decided 27.76.1; destination requires sheet review."
+  },
+  "23.83.4": {
+    "wid": "23.83.4",
+    "page": 347,
+    "x": [
+      666,
+      624,
+      531
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0014",
+    "note": "X-warp from visually decided 27.76.1; destination requires sheet review."
+  },
+  "3.51.5": {
+    "wid": "3.51.5",
+    "page": 56,
+    "x": [
+      1817,
+      1777,
+      1682
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0015",
+    "note": "X-warp from visually decided 22.78.23; destination requires sheet review."
+  },
+  "6.77.5": {
+    "wid": "6.77.5",
+    "page": 137,
+    "x": [
+      244,
+      204,
+      104
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0015",
+    "note": "X-warp from visually decided 22.78.23; destination requires sheet review."
+  },
+  "27.40.19": {
+    "wid": "27.40.19",
+    "page": 380,
+    "x": [
+      241,
+      202,
+      107
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0015",
+    "note": "X-warp from visually decided 22.78.23; destination requires sheet review."
+  },
+  "21.38.2": {
+    "wid": "21.38.2",
+    "page": 325,
+    "x": [
+      436,
+      397,
+      309
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0016",
+    "note": "X-warp from visually decided 38.49.0; destination requires sheet review."
+  },
+  "33.22.5": {
+    "wid": "33.22.5",
+    "page": 420,
+    "x": [
+      853,
+      817,
+      729
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0016",
+    "note": "X-warp from visually decided 38.49.0; destination requires sheet review."
+  },
+  "44.50.1": {
+    "wid": "44.50.1",
+    "page": 498,
+    "x": [
+      818,
+      779,
+      686
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0016",
+    "note": "X-warp from visually decided 38.49.0; destination requires sheet review."
+  },
+  "27.13.5": {
+    "wid": "27.13.5",
+    "page": 377,
+    "x": [
+      787,
+      750,
+      658
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0017",
+    "note": "X-warp from visually decided 10.2.23; destination requires sheet review."
+  },
+  "38.59.0": {
+    "wid": "38.59.0",
+    "page": 456,
+    "x": [
+      1843,
+      1811,
+      1712
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0017",
+    "note": "X-warp from visually decided 10.2.23; destination requires sheet review."
+  },
+  "3.125.7": {
+    "wid": "3.125.7",
+    "page": 66,
+    "x": [
+      1810,
+      1771,
+      1687
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0018",
+    "note": "X-warp from visually decided 67.21.1; destination requires sheet review."
+  },
+  "77.38.0": {
+    "wid": "77.38.0",
+    "page": 581,
+    "x": [
+      1396,
+      1361,
+      1283
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0018",
+    "note": "X-warp from visually decided 67.21.1; destination requires sheet review."
+  },
+  "67.27.8": {
+    "wid": "67.27.8",
+    "page": 564,
+    "x": [
+      381,
+      345,
+      271
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0019",
+    "note": "X-warp from visually decided 2.126.5; destination requires sheet review."
+  },
+  "6.136.9": {
+    "wid": "6.136.9",
+    "page": 145,
+    "x": [
+      1249,
+      1211,
+      1076
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0020",
+    "note": "X-warp from visually decided 5.31.17; destination requires sheet review."
+  },
+  "12.31.25": {
+    "wid": "12.31.25",
+    "page": 239,
+    "x": [
+      873,
+      839,
+      747
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0021",
+    "note": "X-warp from visually decided 12.3.8; destination requires sheet review."
+  },
+  "30.58.4": {
+    "wid": "30.58.4",
+    "page": 410,
+    "x": [
+      1544,
+      1503,
+      1391
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0022",
+    "note": "X-warp from visually decided 12.93.2; destination requires sheet review."
+  },
+  "21.103.6": {
+    "wid": "21.103.6",
+    "page": 331,
+    "x": [
+      1374,
+      1340,
+      1221
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0023",
+    "note": "X-warp from visually decided 15.41.1; destination requires sheet review."
+  },
+  "38.5.5": {
+    "wid": "38.5.5",
+    "page": 453,
+    "x": [
+      1060,
+      1022,
+      948
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0024",
+    "note": "X-warp from visually decided 18.24.15; destination requires sheet review."
+  },
+  "59.21.2": {
+    "wid": "59.21.2",
+    "page": 548,
+    "x": [
+      225,
+      190,
+      118
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0025",
+    "note": "X-warp from visually decided 37.20.2; destination requires sheet review."
+  },
+  "77.35.0": {
+    "wid": "77.35.0",
+    "page": 581,
+    "x": [
+      1849,
+      1813,
+      1732
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00052-c0026",
+    "note": "X-warp from visually decided 39.27.4; destination requires sheet review."
+  },
+  "83.17.2": {
+    "wid": "83.17.2",
+    "page": 588,
+    "x": [
+      1838,
+      1807,
+      1728
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00052-c0027",
+    "note": "X-warp from visually decided 51.14.2; destination requires sheet review."
+  }
+}

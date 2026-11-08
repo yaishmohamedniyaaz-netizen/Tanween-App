@@ -1,0 +1,798 @@
+{
+  "10.23.13": {
+    "wid": "10.23.13",
+    "page": 211,
+    "x": [
+      892,
+      853,
+      833,
+      791
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00100-c0001",
+    "note": "Manual ayn left-shoulder and lam left-stem anchors. Stacked maqsura bowl curls under lam and overlaps x spans; horizontal borders cannot separate the complete bowl, so low confidence retained. Marks do not move cuts."
+  },
+  "39.53.4": {
+    "wid": "39.53.4",
+    "page": 464,
+    "x": [
+      943,
+      904,
+      887,
+      838
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00100-c0002",
+    "note": "Manual ayn left-shoulder and lam left-stem anchors. Stacked maqsura bowl curls under lam and overlaps x spans; horizontal borders cannot separate the complete bowl, so low confidence retained. Marks do not move cuts."
+  },
+  "3.144.14": {
+    "wid": "3.144.14",
+    "page": 68,
+    "x": [
+      1564,
+      1524,
+      1505,
+      1459
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00100-c0003",
+    "note": "Manual ayn left-shoulder and lam left-stem anchors. Stacked maqsura bowl curls under lam and overlaps x spans; horizontal borders cannot separate the complete bowl, so low confidence retained. Marks do not move cuts."
+  },
+  "3.149.8": {
+    "wid": "3.149.8",
+    "page": 69,
+    "x": [
+      1376,
+      1334,
+      1316,
+      1271
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00100-c0004",
+    "note": "Manual ayn left-shoulder and lam left-stem anchors. Stacked maqsura bowl curls under lam and overlaps x spans; horizontal borders cannot separate the complete bowl, so low confidence retained. Marks do not move cuts."
+  },
+  "5.46.1": {
+    "wid": "5.46.1",
+    "page": 116,
+    "x": [
+      1632,
+      1594,
+      1581,
+      1539
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00100-c0005",
+    "note": "Manual ayn left-shoulder and lam left-stem anchors. Stacked maqsura bowl curls under lam and overlaps x spans; horizontal borders cannot separate the complete bowl, so low confidence retained. Marks do not move cuts."
+  },
+  "6.24.3": {
+    "wid": "6.24.3",
+    "page": 130,
+    "x": [
+      655,
+      618,
+      600,
+      555
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00100-c0006",
+    "note": "Manual ayn left-shoulder and lam left-stem anchors. Stacked maqsura bowl curls under lam and overlaps x spans; horizontal borders cannot separate the complete bowl, so low confidence retained. Marks do not move cuts."
+  },
+  "6.37.11": {
+    "wid": "6.37.11",
+    "page": 132,
+    "x": [
+      1669,
+      1630,
+      1612,
+      1569
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00100-c0007",
+    "note": "Manual ayn left-shoulder and lam left-stem anchors. Stacked maqsura bowl curls under lam and overlaps x spans; horizontal borders cannot isolate complete bowl. Low confidence; marks do not move cuts."
+  },
+  "6.65.3": {
+    "wid": "6.65.3",
+    "page": 135,
+    "x": [
+      824,
+      789,
+      769,
+      728
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00100-c0008",
+    "note": "Ayn right edge visibly clipped; fixed box retained. Stacked maqsura bowl overlaps lam horizontally; low confidence.",
+    "reviewFlags": [
+      "ink-clipped-by-existing-word-box"
+    ]
+  },
+  "7.172.10": {
+    "wid": "7.172.10",
+    "page": 173,
+    "x": [
+      1834,
+      1795,
+      1775,
+      1732
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00100-c0009",
+    "note": "Manual ayn left-shoulder and lam left-stem anchors. Stacked maqsura bowl curls under lam and overlaps x spans; horizontal borders cannot isolate complete bowl. Low confidence; marks do not move cuts."
+  },
+  "10.88.18": {
+    "wid": "10.88.18",
+    "page": 218,
+    "x": [
+      504,
+      469,
+      450,
+      405
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00100-c0010",
+    "note": "Manual ayn left-shoulder and lam left-stem anchors. Stacked maqsura bowl curls under lam and overlaps x spans; horizontal borders cannot isolate complete bowl. Low confidence; marks do not move cuts."
+  },
+  "12.5.5": {
+    "wid": "12.5.5",
+    "page": 236,
+    "x": [
+      1010,
+      971,
+      952,
+      902
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00100-c0011",
+    "note": "Manual ayn left-shoulder and lam left-stem anchors. Stacked maqsura bowl curls under lam and overlaps x spans; horizontal borders cannot isolate complete bowl. Low confidence; marks do not move cuts."
+  },
+  "12.6.15": {
+    "wid": "12.6.15",
+    "page": 236,
+    "x": [
+      1039,
+      1000,
+      977,
+      931
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00100-c0012",
+    "note": "Manual ayn left-shoulder and lam left-stem anchors. Stacked maqsura bowl curls under lam and overlaps x spans; horizontal borders cannot isolate complete bowl. Low confidence; marks do not move cuts."
+  },
+  "12.64.7": {
+    "wid": "12.64.7",
+    "page": 243,
+    "x": [
+      547,
+      511,
+      490,
+      445
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00100-c0013",
+    "note": "Manual ayn left-shoulder and lam left-stem anchors. Stacked maqsura bowl curls under lam and overlaps x spans; horizontal borders cannot isolate complete bowl. Low confidence; marks do not move cuts."
+  },
+  "15.54.2": {
+    "wid": "15.54.2",
+    "page": 265,
+    "x": [
+      257,
+      221,
+      205,
+      161
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00100-c0014",
+    "note": "Manual ayn left-shoulder and lam left-stem anchors. Stacked maqsura bowl curls under lam and overlaps x spans; horizontal borders cannot isolate complete bowl. Low confidence; marks do not move cuts."
+  },
+  "17.88.5": {
+    "wid": "17.88.5",
+    "page": 291,
+    "x": [
+      1003,
+      964,
+      945,
+      906
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00100-c0015",
+    "note": "Manual ayn left-shoulder and lam left-stem anchors. Stacked maqsura bowl curls under lam and overlaps x spans; horizontal borders cannot isolate complete bowl. Low confidence; marks do not move cuts."
+  },
+  "18.64.6": {
+    "wid": "18.64.6",
+    "page": 301,
+    "x": [
+      470,
+      428,
+      409,
+      360
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00100-c0016",
+    "note": "Manual ayn left-shoulder and lam left-stem anchors. Stacked maqsura bowl curls under lam and overlaps x spans; horizontal borders cannot isolate complete bowl. Low confidence; marks do not move cuts."
+  },
+  "20.84.3": {
+    "wid": "20.84.3",
+    "page": 317,
+    "x": [
+      794,
+      754,
+      737,
+      694
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00100-c0017",
+    "note": "Manual ayn left-shoulder and lam left-stem anchors. Stacked maqsura bowl curls under lam and overlaps x spans; horizontal borders cannot isolate complete bowl. Low confidence; marks do not move cuts."
+  },
+  "21.69.5": {
+    "wid": "21.69.5",
+    "page": 327,
+    "x": [
+      639,
+      602,
+      579,
+      529
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00100-c0018",
+    "note": "Manual ayn left-shoulder and lam left-stem anchors. Stacked maqsura bowl curls under lam and overlaps x spans; horizontal borders cannot isolate complete bowl. Low confidence; marks do not move cuts."
+  },
+  "23.66.6": {
+    "wid": "23.66.6",
+    "page": 346,
+    "x": [
+      1297,
+      1255,
+      1235,
+      1186
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00100-c0019",
+    "note": "Manual ayn left-shoulder and lam left-stem anchors. Stacked maqsura bowl curls under lam and overlaps x spans; horizontal borders cannot isolate complete bowl. Low confidence; marks do not move cuts."
+  },
+  "24.61.13": {
+    "wid": "24.61.13",
+    "page": 358,
+    "x": [
+      876,
+      840,
+      825,
+      778
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00100-c0020",
+    "note": "Manual ayn left-shoulder and lam left-stem anchors. Stacked maqsura bowl curls under lam and overlaps x spans; horizontal borders cannot isolate complete bowl. Low confidence; marks do not move cuts."
+  },
+  "29.34.2": {
+    "wid": "29.34.2",
+    "page": 400,
+    "x": [
+      339,
+      300,
+      282,
+      240
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00100-c0021",
+    "note": "Manual ayn left-shoulder and lam left-stem anchors. Stacked maqsura bowl curls under lam and overlaps x spans; horizontal borders cannot isolate complete bowl. Low confidence; marks do not move cuts."
+  },
+  "59.5.7": {
+    "wid": "59.5.7",
+    "page": 546,
+    "x": [
+      1819,
+      1779,
+      1761,
+      1717
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00100-c0022",
+    "note": "Manual ayn left-shoulder and lam left-stem anchors. Stacked maqsura bowl curls under lam and overlaps x spans; horizontal borders cannot isolate complete bowl. Low confidence; marks do not move cuts."
+  },
+  "3.84.8": {
+    "wid": "3.84.8",
+    "page": 61,
+    "x": [
+      530,
+      490,
+      463,
+      417
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00100-c0023",
+    "note": "Manual ayn left-shoulder and lam left-stem anchors. Stacked maqsura bowl curls under lam and overlaps x spans; horizontal borders cannot isolate complete bowl. Low confidence; marks do not move cuts."
+  },
+  "3.153.4": {
+    "wid": "3.153.4",
+    "page": 69,
+    "x": [
+      465,
+      421,
+      395,
+      351
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00100-c0024",
+    "note": "Manual ayn left-shoulder and lam left-stem anchors. Stacked maqsura bowl curls under lam and overlaps x spans; horizontal borders cannot isolate complete bowl. Low confidence; marks do not move cuts."
+  },
+  "4.47.16": {
+    "wid": "4.47.16",
+    "page": 86,
+    "x": [
+      1814,
+      1776,
+      1752,
+      1706
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00100-c0025",
+    "note": "Manual ayn left-shoulder and lam left-stem anchors. Stacked maqsura bowl curls under lam and overlaps x spans; horizontal borders cannot isolate complete bowl. Low confidence; marks do not move cuts."
+  },
+  "4.135.9": {
+    "wid": "4.135.9",
+    "page": 100,
+    "x": [
+      1712,
+      1667,
+      1641,
+      1596
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00100-c0026",
+    "note": "Manual ayn left-shoulder and lam left-stem anchors. Stacked maqsura bowl curls under lam and overlaps x spans; horizontal borders cannot isolate complete bowl. Low confidence; marks do not move cuts."
+  },
+  "5.8.12": {
+    "wid": "5.8.12",
+    "page": 108,
+    "x": [
+      227,
+      185,
+      158,
+      113
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00100-c0027",
+    "note": "Manual ayn left-shoulder and lam left-stem anchors. Stacked maqsura bowl curls under lam and overlaps x spans; horizontal borders cannot isolate complete bowl. Low confidence; marks do not move cuts."
+  },
+  "5.21.10": {
+    "wid": "5.21.10",
+    "page": 111,
+    "x": [
+      409,
+      372,
+      348,
+      306
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00100-c0028",
+    "note": "Manual ayn left-shoulder and lam left-stem anchors. Stacked maqsura bowl curls under lam and overlaps x spans; horizontal borders cannot isolate complete bowl. Low confidence; marks do not move cuts."
+  },
+  "5.107.2": {
+    "wid": "5.107.2",
+    "page": 125,
+    "x": [
+      196,
+      158,
+      141,
+      103
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00100-c0029",
+    "note": "Manual ayn left-shoulder and lam left-stem anchors. Stacked maqsura bowl curls under lam and overlaps x spans; horizontal borders cannot isolate complete bowl. Low confidence; marks do not move cuts."
+  },
+  "6.71.11": {
+    "wid": "6.71.11",
+    "page": 136,
+    "x": [
+      957,
+      916,
+      889,
+      847
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00100-c0030",
+    "note": "Manual ayn left-shoulder and lam left-stem anchors. Stacked maqsura bowl curls under lam and overlaps x spans; horizontal borders cannot isolate complete bowl. Low confidence; marks do not move cuts."
+  },
+  "6.130.16": {
+    "wid": "6.130.16",
+    "page": 144,
+    "x": [
+      1070,
+      1031,
+      1008,
+      961
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00100-c0031",
+    "note": "Manual ayn left-shoulder and lam left-stem anchors. Stacked maqsura bowl curls under lam and overlaps x spans; horizontal borders cannot isolate complete bowl. Low confidence; marks do not move cuts."
+  },
+  "6.139.9": {
+    "wid": "6.139.9",
+    "page": 146,
+    "x": [
+      889,
+      848,
+      832,
+      780
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00100-c0032",
+    "note": "Manual ayn left-shoulder and lam left-stem anchors. Stacked maqsura bowl curls under lam and overlaps x spans; horizontal borders cannot isolate complete bowl. Low confidence; marks do not move cuts."
+  },
+  "7.105.1": {
+    "wid": "7.105.1",
+    "page": 164,
+    "x": [
+      1624,
+      1581,
+      1560,
+      1520
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00100-c0033",
+    "note": "Manual ayn left-shoulder and lam left-stem anchors. Stacked maqsura bowl curls under lam and overlaps x spans; horizontal borders cannot isolate complete bowl. Low confidence; marks do not move cuts."
+  },
+  "9.84.2": {
+    "wid": "9.84.2",
+    "page": 200,
+    "x": [
+      999,
+      963,
+      945,
+      895
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00100-c0034",
+    "note": "Manual ayn left-shoulder and lam left-stem anchors. Stacked maqsura bowl curls under lam and overlaps x spans; horizontal borders cannot isolate complete bowl. Low confidence; marks do not move cuts."
+  },
+  "12.21.25": {
+    "wid": "12.21.25",
+    "page": 237,
+    "x": [
+      229,
+      188,
+      159,
+      111
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00100-c0035",
+    "note": "Ayn right body tip appears clipped at immutable edge; stacked maqsura overlaps lam horizontally, low confidence.",
+    "reviewFlags": [
+      "ink-clipped-by-existing-word-box"
+    ]
+  },
+  "17.99.9": {
+    "wid": "17.99.9",
+    "page": 292,
+    "x": [
+      737,
+      697,
+      680,
+      633
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00100-c0036",
+    "note": "Manual ayn left-shoulder and lam left-stem anchors. Stacked maqsura bowl curls under lam and overlaps x spans; horizontal borders cannot isolate complete bowl. Low confidence; marks do not move cuts."
+  },
+  "18.6.3": {
+    "wid": "18.6.3",
+    "page": 294,
+    "x": [
+      1849,
+      1811,
+      1792,
+      1745
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00100-c0037",
+    "note": "Manual ayn left-shoulder and lam left-stem anchors. Stacked maqsura bowl curls under lam and overlaps x spans; horizontal borders cannot isolate complete bowl. Low confidence; marks do not move cuts."
+  },
+  "21.61.3": {
+    "wid": "21.61.3",
+    "page": 327,
+    "x": [
+      1834,
+      1794,
+      1774,
+      1725
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00100-c0038",
+    "note": "Manual ayn left-shoulder and lam left-stem anchors. Stacked maqsura bowl curls under lam and overlaps x spans; horizontal borders cannot isolate complete bowl. Low confidence; marks do not move cuts."
+  },
+  "23.6.1": {
+    "wid": "23.6.1",
+    "page": 342,
+    "x": [
+      201,
+      157,
+      136,
+      83
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00100-c0039",
+    "note": "Manual ayn left-shoulder and lam left-stem anchors. Stacked maqsura bowl curls under lam and overlaps x spans; horizontal borders cannot isolate complete bowl. Low confidence; marks do not move cuts."
+  },
+  "23.95.1": {
+    "wid": "23.95.1",
+    "page": 348,
+    "x": [
+      1215,
+      1175,
+      1153,
+      1106
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00100-c0040",
+    "note": "Manual ayn left-shoulder and lam left-stem anchors. Stacked maqsura bowl curls under lam and overlaps x spans; horizontal borders cannot isolate complete bowl. Low confidence; marks do not move cuts."
+  },
+  "24.62.9": {
+    "wid": "24.62.9",
+    "page": 359,
+    "x": [
+      1829,
+      1789,
+      1774,
+      1731
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00100-c0041",
+    "note": "Manual ayn left-shoulder and lam left-stem anchors. Stacked maqsura bowl curls under lam and overlaps x spans; horizontal borders cannot isolate complete bowl. Low confidence; marks do not move cuts."
+  },
+  "28.12.8": {
+    "wid": "28.12.8",
+    "page": 386,
+    "x": [
+      1819,
+      1779,
+      1759,
+      1715
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00100-c0042",
+    "note": "Manual ayn left-shoulder and lam left-stem anchors. Stacked maqsura bowl curls under lam and overlaps x spans; horizontal borders cannot isolate complete bowl. Low confidence; marks do not move cuts."
+  },
+  "31.15.2": {
+    "wid": "31.15.2",
+    "page": 412,
+    "x": [
+      791,
+      752,
+      734,
+      685
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00100-c0043",
+    "note": "Manual ayn left-shoulder and lam left-stem anchors. Stacked maqsura bowl curls under lam and overlaps x spans; horizontal borders cannot isolate complete bowl. Low confidence; marks do not move cuts."
+  },
+  "36.7.3": {
+    "wid": "36.7.3",
+    "page": 440,
+    "x": [
+      409,
+      369,
+      351,
+      302
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00100-c0044",
+    "note": "Manual ayn left-shoulder and lam left-stem anchors. Stacked maqsura bowl curls under lam and overlaps x spans; horizontal borders cannot isolate complete bowl. Low confidence; marks do not move cuts."
+  },
+  "36.65.2": {
+    "wid": "36.65.2",
+    "page": 444,
+    "x": [
+      1844,
+      1806,
+      1790,
+      1747
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00100-c0045",
+    "note": "Manual ayn left-shoulder and lam left-stem anchors. Stacked maqsura bowl curls under lam and overlaps x spans; horizontal borders cannot isolate complete bowl. Low confidence; marks do not move cuts."
+  },
+  "36.66.3": {
+    "wid": "36.66.3",
+    "page": 444,
+    "x": [
+      718,
+      677,
+      653,
+      607
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00100-c0046",
+    "note": "Manual ayn left-shoulder and lam left-stem anchors. Stacked maqsura bowl curls under lam and overlaps x spans; horizontal borders cannot isolate complete bowl. Low confidence; marks do not move cuts."
+  },
+  "36.81.6": {
+    "wid": "36.81.6",
+    "page": 445,
+    "x": [
+      1615,
+      1582,
+      1561,
+      1514
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00100-c0047",
+    "note": "Ayn right body and fatha visibly clipped at immutable right edge. Stacked maqsura overlaps lam; horizontal divisions remain low confidence.",
+    "reviewFlags": [
+      "ink-clipped-by-existing-word-box"
+    ]
+  },
+  "37.109.1": {
+    "wid": "37.109.1",
+    "page": 450,
+    "x": [
+      1260,
+      1221,
+      1204,
+      1163
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00100-c0048",
+    "note": "Manual ayn left-shoulder and lam left-stem anchors. Stacked maqsura bowl curls under lam and overlaps x spans; horizontal borders cannot isolate complete bowl. Low confidence; marks do not move cuts."
+  },
+  "43.22.5": {
+    "wid": "43.22.5",
+    "page": 490,
+    "x": [
+      1299,
+      1264,
+      1244,
+      1198
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00100-c0049",
+    "note": "Manual ayn left-shoulder and lam left-stem anchors. Stacked maqsura bowl curls under lam and overlaps x spans; horizontal borders cannot isolate complete bowl. Low confidence; marks do not move cuts."
+  },
+  "46.33.12": {
+    "wid": "46.33.12",
+    "page": 506,
+    "x": [
+      813,
+      777,
+      756,
+      712
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00100-c0050",
+    "note": "Ayn right body and fatha clipped at immutable right edge. Stacked maqsura overlaps lam; horizontal divisions low confidence.",
+    "reviewFlags": [
+      "ink-clipped-by-existing-word-box"
+    ]
+  },
+  "47.25.3": {
+    "wid": "47.25.3",
+    "page": 509,
+    "x": [
+      442,
+      400,
+      377,
+      333
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00100-c0051",
+    "note": "Manual ayn left-shoulder and lam left-stem anchors. Stacked maqsura bowl curls under lam and overlaps x spans; horizontal borders cannot isolate complete bowl. Low confidence; marks do not move cuts."
+  },
+  "60.9.12": {
+    "wid": "60.9.12",
+    "page": 550,
+    "x": [
+      1290,
+      1252,
+      1234,
+      1193
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00100-c0052",
+    "note": "Manual ayn left-shoulder and lam left-stem anchors. Stacked maqsura bowl curls under lam and overlaps x spans; horizontal borders cannot isolate complete bowl. Low confidence; marks do not move cuts."
+  },
+  "69.17.1": {
+    "wid": "69.17.1",
+    "page": 567,
+    "x": [
+      1470,
+      1428,
+      1413,
+      1369
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00100-c0053",
+    "note": "Manual ayn left-shoulder and lam left-stem anchors. Stacked maqsura bowl curls under lam and overlaps x spans; horizontal borders cannot isolate complete bowl. Low confidence; marks do not move cuts."
+  },
+  "70.30.1": {
+    "wid": "70.30.1",
+    "page": 569,
+    "x": [
+      198,
+      159,
+      138,
+      93
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00100-c0054",
+    "note": "Manual ayn left-shoulder and lam left-stem anchors. Stacked maqsura bowl curls under lam and overlaps x spans; horizontal borders cannot isolate complete bowl. Low confidence; marks do not move cuts."
+  },
+  "75.4.2": {
+    "wid": "75.4.2",
+    "page": 577,
+    "x": [
+      787,
+      750,
+      735,
+      692
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00100-c0055",
+    "note": "Manual ayn left-shoulder and lam left-stem anchors. Stacked maqsura bowl curls under lam and overlaps x spans; horizontal borders cannot isolate complete bowl. Low confidence; marks do not move cuts."
+  },
+  "75.40.3": {
+    "wid": "75.40.3",
+    "page": 578,
+    "x": [
+      691,
+      655,
+      639,
+      600
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00100-c0056",
+    "note": "Manual ayn left-shoulder and lam left-stem anchors. Stacked maqsura bowl curls under lam and overlaps x spans; horizontal borders cannot isolate complete bowl. Low confidence; marks do not move cuts."
+  }
+}

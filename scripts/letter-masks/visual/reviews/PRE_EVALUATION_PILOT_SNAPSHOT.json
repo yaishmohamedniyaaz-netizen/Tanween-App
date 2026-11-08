@@ -1,0 +1,13 @@
+{
+  "at": "2026-11-08T12:08:00.285603+00:00",
+  "purpose": "Final pilot saved before single frozen-test evaluation; no answer access",
+  "pilotDecisions": 22616,
+  "reviewedWithheld": 32,
+  "unresolved": 0,
+  "completedRanks": 100,
+  "sha256": {
+    "scripts/letter-masks/visual/decisions.jsonl": "3943882572fbf8e403f1e63034031459d7679db3e8d43ba80c05ad2912e9f1b8",
+    "scripts/letter-masks/visual/blind/decisions.jsonl": "766e716327f6ee1b0e2823ad8786b5b2181954b27c3939aa5aaa0954b969e046",
+    "scripts/letter-masks/visual/checkpoint-a-audit.json": "8216cea601d4c975ffbf94cfda4c9c144221f6d5f6129575bd770286e91379d6"
+  }
+}

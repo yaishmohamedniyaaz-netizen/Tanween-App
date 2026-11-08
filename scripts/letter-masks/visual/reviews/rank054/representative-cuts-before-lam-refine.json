@@ -1,0 +1,479 @@
+{
+  "12.83.3": {
+    "wid": "12.83.3",
+    "page": 245,
+    "x": [
+      638,
+      620,
+      536,
+      499
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00054-c0001",
+    "note": "Visual joins separate right lam stem, central kaf body, and left mim body/tail; connecting stretches assigned to left target."
+  },
+  "17.69.18": {
+    "wid": "17.69.18",
+    "page": 289,
+    "x": [
+      1847,
+      1837,
+      1773,
+      1721
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00054-c0002",
+    "note": "Visual joins separate right lam stem, central kaf body, and left mim body/tail; connecting stretches assigned to left target. Kaf diagonal and final mim overlap horizontally; principal-body cuts retained."
+  },
+  "60.4.2": {
+    "wid": "60.4.2",
+    "page": 549,
+    "x": [
+      1644,
+      1632,
+      1563,
+      1525
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00054-c0003",
+    "note": "Visual joins separate right lam stem, central kaf body, and left mim body/tail; connecting stretches assigned to left target. Kaf diagonal and final mim overlap horizontally; principal-body cuts retained. Visible edge ink clipped; immutable bounds retained.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "11.34.7": {
+    "wid": "11.34.7",
+    "page": 225,
+    "x": [
+      1036,
+      1021,
+      954,
+      917
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00054-c0004",
+    "note": "Visual joins separate right lam stem, central kaf body, and left mim body/tail; connecting stretches assigned to left target."
+  },
+  "57.8.1": {
+    "wid": "57.8.1",
+    "page": 538,
+    "x": [
+      1695,
+      1684,
+      1623,
+      1574
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00054-c0005",
+    "note": "Visual joins separate right lam stem, central kaf body, and left mim body/tail; connecting stretches assigned to left target. Kaf diagonal and final mim overlap horizontally; principal-body cuts retained. Visible edge ink clipped; immutable bounds retained.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "58.11.5": {
+    "wid": "58.11.5",
+    "page": 543,
+    "x": [
+      1373,
+      1364,
+      1282,
+      1248
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00054-c0006",
+    "note": "Visual joins separate right lam stem, central kaf body, and left mim body/tail; connecting stretches assigned to left target. Kaf diagonal and final mim overlap horizontally; principal-body cuts retained. Visible edge ink clipped; immutable bounds retained.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "65.6.21": {
+    "wid": "65.6.21",
+    "page": 559,
+    "x": [
+      1501,
+      1487,
+      1426,
+      1374
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00054-c0007",
+    "note": "Direct visual principal lam stem, kaf diagonal/return, final mim body. Stacked diagonal overlaps final mim; low vertical-cut certainty.  Visible tail or attached mark truncated at immutable edge; flag, do not extend.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "69.12.1": {
+    "wid": "69.12.1",
+    "page": 567,
+    "x": [
+      1438,
+      1427,
+      1373,
+      1325
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00054-c0008",
+    "note": "Direct visual principal lam stem, kaf diagonal/return, final mim body. Stacked diagonal overlaps final mim; low vertical-cut certainty.  Visible tail or attached mark truncated at immutable edge; flag, do not extend.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "5.19.6": {
+    "wid": "5.19.6",
+    "page": 111,
+    "x": [
+      1452,
+      1441,
+      1354,
+      1314
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00054-c0009",
+    "note": "Direct visual principal lam stem, kaf diagonal/return, final mim body.  Visible tail or attached mark truncated at immutable edge; flag, do not extend.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "6.119.1": {
+    "wid": "6.119.1",
+    "page": 143,
+    "x": [
+      1695,
+      1682,
+      1600,
+      1558
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00054-c0010",
+    "note": "Direct visual principal lam stem, kaf diagonal/return, final mim body. "
+  },
+  "9.38.4": {
+    "wid": "9.38.4",
+    "page": 193,
+    "x": [
+      1556,
+      1545,
+      1484,
+      1432
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00054-c0011",
+    "note": "Direct visual principal lam stem, kaf diagonal/return, final mim body. Stacked diagonal overlaps final mim; low vertical-cut certainty.  Visible tail or attached mark truncated at immutable edge; flag, do not extend.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "11.64.4": {
+    "wid": "11.64.4",
+    "page": 229,
+    "x": [
+      541,
+      502,
+      331,
+      294
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00054-c0012",
+    "note": "Direct visual principal lam stem, kaf diagonal/return, final mim body. Stacked diagonal overlaps final mim; low vertical-cut certainty. Clipped immutable-edge ink flagged. Visible tail or attached mark truncated at immutable edge; flag, do not extend.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "12.9.6": {
+    "wid": "12.9.6",
+    "page": 236,
+    "x": [
+      963,
+      952,
+      875,
+      839
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00054-c0013",
+    "note": "Direct visual principal lam stem, kaf diagonal/return, final mim body.  Visible tail or attached mark truncated at immutable edge; flag, do not extend.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "20.53.6": {
+    "wid": "20.53.6",
+    "page": 315,
+    "x": [
+      703,
+      693,
+      619,
+      581
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00054-c0014",
+    "note": "Direct visual principal lam stem, kaf diagonal/return, final mim body. "
+  },
+  "26.162.1": {
+    "wid": "26.162.1",
+    "page": 374,
+    "x": [
+      1577,
+      1567,
+      1491,
+      1456
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00054-c0015",
+    "note": "Direct visual principal lam stem, kaf diagonal/return, final mim body.  Visible tail or attached mark truncated at immutable edge; flag, do not extend.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "43.62.4": {
+    "wid": "43.62.4",
+    "page": 494,
+    "x": [
+      555,
+      547,
+      480,
+      429
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00054-c0016",
+    "note": "Direct visual principal lam stem, kaf diagonal/return, final mim body. Stacked diagonal overlaps final mim; low vertical-cut certainty.  Visible tail or attached mark truncated at immutable edge; flag, do not extend.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "44.18.6": {
+    "wid": "44.18.6",
+    "page": 496,
+    "x": [
+      733,
+      723,
+      653,
+      595
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00054-c0017",
+    "note": "Direct visual principal lam stem, kaf diagonal/return, final mim body. Stacked diagonal overlaps final mim; low vertical-cut certainty. Clipped immutable-edge ink flagged. Visible tail or attached mark truncated at immutable edge; flag, do not extend.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "55.31.1": {
+    "wid": "55.31.1",
+    "page": 532,
+    "x": [
+      875,
+      867,
+      786,
+      750
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00054-c0018",
+    "note": "Direct visual principal lam stem, kaf diagonal/return, final mim body. Stacked diagonal overlaps final mim; low vertical-cut certainty. Clipped immutable-edge ink flagged. Visible tail or attached mark truncated at immutable edge; flag, do not extend.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "61.12.1": {
+    "wid": "61.12.1",
+    "page": 552,
+    "x": [
+      1688,
+      1679,
+      1618,
+      1566
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00054-c0019",
+    "note": "Visually selected principal lam stem, kaf diagonal/return, final mim body. Stacked/overlapping strokes limit vertical separation. "
+  },
+  "2.168.13": {
+    "wid": "2.168.13",
+    "page": 25,
+    "x": [
+      1120,
+      1111,
+      1018,
+      979
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00054-c0020",
+    "note": "Visually selected principal lam stem, kaf diagonal/return, final mim body. Stacked/overlapping strokes limit vertical separation. Clipped immutable-edge mark/body flagged.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.187.1": {
+    "wid": "2.187.1",
+    "page": 29,
+    "x": [
+      1670,
+      1627,
+      1485,
+      1446
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00054-c0021",
+    "note": "Visually selected principal lam stem, kaf diagonal/return, final mim body. Stacked/overlapping strokes limit vertical separation. "
+  },
+  "2.247.7": {
+    "wid": "2.247.7",
+    "page": 40,
+    "x": [
+      905,
+      858,
+      697,
+      655
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00054-c0022",
+    "note": "Visually selected principal lam stem, kaf diagonal/return, final mim body. Stacked/overlapping strokes limit vertical separation. Clipped immutable-edge mark/body flagged.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "3.31.9": {
+    "wid": "3.31.9",
+    "page": 54,
+    "x": [
+      991,
+      980,
+      921,
+      871
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00054-c0023",
+    "note": "Visually selected principal lam stem, kaf diagonal/return, final mim body. Stacked/overlapping strokes limit vertical separation. Clipped immutable-edge mark/body flagged.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "4.4.6": {
+    "wid": "4.4.6",
+    "page": 77,
+    "x": [
+      905,
+      892,
+      825,
+      786
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00054-c0024",
+    "note": "Visually selected principal lam stem, kaf diagonal/return, final mim body. "
+  },
+  "4.5.7": {
+    "wid": "4.5.7",
+    "page": 77,
+    "x": [
+      218,
+      209,
+      151,
+      107
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00054-c0025",
+    "note": "Visually selected principal lam stem, kaf diagonal/return, final mim body. Stacked/overlapping strokes limit vertical separation. Clipped immutable-edge mark/body flagged.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "4.26.3": {
+    "wid": "4.26.3",
+    "page": 82,
+    "x": [
+      1115,
+      1106,
+      1019,
+      980
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00054-c0026",
+    "note": "Visually selected principal lam stem, kaf diagonal/return, final mim body. Stacked/overlapping strokes limit vertical separation. Clipped immutable-edge mark/body flagged.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "4.91.28": {
+    "wid": "4.91.28",
+    "page": 92,
+    "x": [
+      992,
+      980,
+      907,
+      865
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00054-c0027",
+    "note": "Visually selected principal lam stem, kaf diagonal/return, final mim body. "
+  },
+  "4.176.43": {
+    "wid": "4.176.43",
+    "page": 106,
+    "x": [
+      1550,
+      1505,
+      1340,
+      1299
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00054-c0028",
+    "note": "Visually selected principal lam stem, kaf diagonal/return, final mim body. Stacked/overlapping strokes limit vertical separation. Clipped immutable-edge mark/body flagged.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "5.76.8": {
+    "wid": "5.76.8",
+    "page": 120,
+    "x": [
+      1617,
+      1594,
+      1427,
+      1387
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00054-c0029",
+    "note": "Visually selected principal lam stem, kaf diagonal/return, final mim body. Stacked/overlapping strokes limit vertical separation. "
+  },
+  "12.98.3": {
+    "wid": "12.98.3",
+    "page": 247,
+    "x": [
+      1543,
+      1538,
+      1439,
+      1397
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00054-c0030",
+    "note": "Visually selected principal lam stem, kaf diagonal/return, final mim body. "
+  }
+}

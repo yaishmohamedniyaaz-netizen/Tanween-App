@@ -1,0 +1,531 @@
+{
+  "46.24.6": {
+    "wid": "46.24.6",
+    "page": 505,
+    "x": [
+      608,
+      570,
+      482
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00052-c0001",
+    "note": "Visual cut at left side of compact ha body; joining stretch belongs with left dhal/alif app target. The terminal alif remains merged in the second app slot."
+  },
+  "37.60.1": {
+    "wid": "37.60.1",
+    "page": 448,
+    "x": [
+      850,
+      811,
+      708
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00052-c0002",
+    "note": "Visual cut at left side of compact ha body; joining stretch belongs with left dhal/alif app target. The terminal alif remains merged in the second app slot."
+  },
+  "7.169.8": {
+    "wid": "7.169.8",
+    "page": 172,
+    "x": [
+      970,
+      931,
+      849
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00052-c0003",
+    "note": "Visual cut at left side of compact ha body; joining stretch belongs with left dhal/alif app target. The terminal alif remains merged in the second app slot."
+  },
+  "21.24.8": {
+    "wid": "21.24.8",
+    "page": 323,
+    "x": [
+      540,
+      500,
+      415
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00052-c0004",
+    "note": "Visual cut at left side of compact ha body; joining stretch belongs with left dhal/alif app target. The terminal alif remains merged in the second app slot."
+  },
+  "38.54.1": {
+    "wid": "38.54.1",
+    "page": 456,
+    "x": [
+      1347,
+      1309,
+      1226
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00052-c0005",
+    "note": "Visual cut at left side of compact ha body; joining stretch belongs with left dhal/alif app target. The terminal alif remains merged in the second app slot."
+  },
+  "53.56.0": {
+    "wid": "53.56.0",
+    "page": 528,
+    "x": [
+      1845,
+      1808,
+      1732
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00052-c0006",
+    "note": "Visual cut at left side of compact ha body; joining stretch belongs with left dhal/alif app target. The terminal alif remains merged in the second app slot."
+  },
+  "7.51.14": {
+    "wid": "7.51.14",
+    "page": 156,
+    "x": [
+      1411,
+      1374,
+      1261
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00052-c0007",
+    "note": "Visual cut at left side of compact ha body; joining stretch belongs with left dhal/alif app target. Terminal alif remains merged in the second app slot."
+  },
+  "46.7.11": {
+    "wid": "46.7.11",
+    "page": 503,
+    "x": [
+      221,
+      184,
+      105
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00052-c0008",
+    "note": "Visual cut at left side of compact ha body; joining stretch belongs with left dhal/alif app target. Terminal alif remains merged in the second app slot."
+  },
+  "3.62.1": {
+    "wid": "3.62.1",
+    "page": 58,
+    "x": [
+      1757,
+      1720,
+      1624
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00052-c0009",
+    "note": "Visual cut at left side of compact ha body; joining stretch belongs with left dhal/alif app target. Terminal alif remains merged in the second app slot."
+  },
+  "5.41.34": {
+    "wid": "5.41.34",
+    "page": 114,
+    "x": [
+      1226,
+      1186,
+      1086
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00052-c0010",
+    "note": "Visual cut at left side of compact ha body; joining stretch belongs with left dhal/alif app target. Terminal alif remains merged in the second app slot."
+  },
+  "7.172.24": {
+    "wid": "7.172.24",
+    "page": 173,
+    "x": [
+      1176,
+      1137,
+      1048
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00052-c0011",
+    "note": "Visual cut at left side of compact ha body; joining stretch belongs with left dhal/alif app target. Terminal alif remains merged in the second app slot."
+  },
+  "44.11.2": {
+    "wid": "44.11.2",
+    "page": 496,
+    "x": [
+      1616,
+      1576,
+      1456
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00052-c0012",
+    "note": "Visual cut at left side of compact ha body; joining stretch belongs with left dhal/alif app target. Terminal alif remains merged in the second app slot."
+  },
+  "27.68.2": {
+    "wid": "27.68.2",
+    "page": 383,
+    "x": [
+      1813,
+      1780,
+      1695
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00052-c0013",
+    "note": "Visual cut at left side of compact ha body; joining stretch belongs with left dhal/alif app target. Terminal alif remains merged in the second app slot."
+  },
+  "27.76.1": {
+    "wid": "27.76.1",
+    "page": 383,
+    "x": [
+      475,
+      439,
+      342
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00052-c0014",
+    "note": "Visual cut at left side of compact ha body; joining stretch belongs with left dhal/alif app target. Terminal alif remains merged in the second app slot."
+  },
+  "22.78.23": {
+    "wid": "22.78.23",
+    "page": 341,
+    "x": [
+      1158,
+      1120,
+      1023
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00052-c0015",
+    "note": "Visual cut at left side of compact ha body; joining stretch belongs with left dhal/alif app target. Terminal alif remains merged in the second app slot."
+  },
+  "38.49.0": {
+    "wid": "38.49.0",
+    "page": 456,
+    "x": [
+      355,
+      319,
+      235
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00052-c0016",
+    "note": "Visual cut at left side of compact ha body; joining stretch belongs with left dhal/alif app target. Terminal alif remains merged in the second app slot."
+  },
+  "10.2.23": {
+    "wid": "10.2.23",
+    "page": 208,
+    "x": [
+      243,
+      207,
+      113
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00052-c0017",
+    "note": "Visual cut at left side of compact ha body; joining stretch belongs with left dhal/alif app target. Terminal alif remains merged in the second app slot."
+  },
+  "67.21.1": {
+    "wid": "67.21.1",
+    "page": 563,
+    "x": [
+      1544,
+      1508,
+      1427
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00052-c0018",
+    "note": "Visual cut at left side of compact ha body; joining stretch belongs with left dhal/alif app target. Terminal alif remains merged in the second app slot."
+  },
+  "2.126.5": {
+    "wid": "2.126.5",
+    "page": 19,
+    "x": [
+      676,
+      639,
+      563
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00052-c0019",
+    "note": "Visual cut at left side of compact ha body; joining stretch belongs with left dhal/alif app target. Terminal alif remains merged in the second app slot."
+  },
+  "5.31.17": {
+    "wid": "5.31.17",
+    "page": 112,
+    "x": [
+      309,
+      269,
+      120
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00052-c0020",
+    "note": "Visual cut at left side of compact ha body; joining stretch belongs with left dhal/alif app target. Terminal alif remains merged in the second app slot."
+  },
+  "12.3.8": {
+    "wid": "12.3.8",
+    "page": 235,
+    "x": [
+      1299,
+      1264,
+      1163
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00052-c0021",
+    "note": "Visual cut at left side of compact ha body; joining stretch belongs with left dhal/alif app target. Terminal alif remains merged in the second app slot."
+  },
+  "12.93.2": {
+    "wid": "12.93.2",
+    "page": 246,
+    "x": [
+      1263,
+      1223,
+      1101
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00052-c0022",
+    "note": "Visual cut at left side of compact ha body; joining stretch belongs with left dhal/alif app target. Terminal alif remains merged in the second app slot."
+  },
+  "15.41.1": {
+    "wid": "15.41.1",
+    "page": 264,
+    "x": [
+      564,
+      530,
+      408
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00052-c0023",
+    "note": "Visual cut at left side of compact ha body; joining stretch belongs with left dhal/alif app target. Terminal alif remains merged in the second app slot."
+  },
+  "18.24.15": {
+    "wid": "18.24.15",
+    "page": 296,
+    "x": [
+      367,
+      331,
+      259
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00052-c0024",
+    "note": "Visual cut at left side of compact ha body; joining stretch belongs with left dhal/alif app target. Terminal alif remains merged in the second app slot."
+  },
+  "37.20.2": {
+    "wid": "37.20.2",
+    "page": 446,
+    "x": [
+      185,
+      150,
+      78
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00052-c0025",
+    "note": "Visual cut at left side of compact ha body; joining stretch belongs with left dhal/alif app target. Terminal alif remains merged in the second app slot."
+  },
+  "39.27.4": {
+    "wid": "39.27.4",
+    "page": 461,
+    "x": [
+      1834,
+      1799,
+      1718
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00052-c0026",
+    "note": "Visual cut at left side of compact ha body; joining stretch belongs with left dhal/alif app target. Terminal alif remains merged in the second app slot."
+  },
+  "51.14.2": {
+    "wid": "51.14.2",
+    "page": 521,
+    "x": [
+      1652,
+      1621,
+      1536
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00052-c0027",
+    "note": "Visual cut at left side of compact ha body; joining stretch belongs with left dhal/alif app target. Terminal alif remains merged in the second app slot. Ha outer right is clipped by immutable box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "5.119.2": {
+    "wid": "5.119.2",
+    "page": 127,
+    "x": [
+      292,
+      260,
+      202
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00052-c0028",
+    "note": "Visual cut at left side of compact ha body; joining stretch belongs with left dhal/alif app target. Terminal alif remains merged in the second app slot."
+  },
+  "6.19.12": {
+    "wid": "6.19.12",
+    "page": 130,
+    "x": [
+      189,
+      158,
+      102
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00052-c0029",
+    "note": "Visual cut at left side of compact ha body; joining stretch belongs with left dhal/alif app target. Terminal alif remains merged in the second app slot."
+  },
+  "10.77.7": {
+    "wid": "10.77.7",
+    "page": 217,
+    "x": [
+      461,
+      426,
+      355
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00052-c0030",
+    "note": "Visual cut at left side of compact ha body; joining stretch belongs with left dhal/alif app target. Terminal alif remains merged in the second app slot."
+  },
+  "12.15.13": {
+    "wid": "12.15.13",
+    "page": 237,
+    "x": [
+      1097,
+      1066,
+      948
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00052-c0031",
+    "note": "Visual cut at left side of compact ha body; joining stretch belongs with left dhal/alif app target. Terminal alif remains merged in the second app slot. Ha outer right is clipped by immutable box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "12.100.9": {
+    "wid": "12.100.9",
+    "page": 247,
+    "x": [
+      1168,
+      1128,
+      1038
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00052-c0032",
+    "note": "Visual cut at left side of compact ha body; joining stretch belongs with left dhal/alif app target. Terminal alif remains merged in the second app slot."
+  },
+  "26.34.4": {
+    "wid": "26.34.4",
+    "page": 368,
+    "x": [
+      394,
+      361,
+      295
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00052-c0033",
+    "note": "Visual cut at left side of compact ha body; joining stretch belongs with left dhal/alif app target. Terminal alif remains merged in the second app slot."
+  },
+  "27.28.2": {
+    "wid": "27.28.2",
+    "page": 379,
+    "x": [
+      306,
+      270,
+      117
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00052-c0034",
+    "note": "Visual cut at left side of compact ha body; joining stretch belongs with left dhal/alif app target. Terminal alif remains merged in the second app slot. Ha fatha is clipped by immutable box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "32.28.2": {
+    "wid": "32.28.2",
+    "page": 417,
+    "x": [
+      1322,
+      1285,
+      1188
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00052-c0035",
+    "note": "Visual cut at left side of compact ha body; joining stretch belongs with left dhal/alif app target. Terminal alif remains merged in the second app slot."
+  },
+  "37.21.0": {
+    "wid": "37.21.0",
+    "page": 446,
+    "x": [
+      1430,
+      1397,
+      1329
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00052-c0036",
+    "note": "Visual cut at left side of compact ha body; joining stretch belongs with left dhal/alif app target. Terminal alif remains merged in the second app slot."
+  },
+  "37.61.1": {
+    "wid": "37.61.1",
+    "page": 448,
+    "x": [
+      1672,
+      1638,
+      1547
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00052-c0037",
+    "note": "Visual cut at left side of compact ha body; joining stretch belongs with left dhal/alif app target. Terminal alif remains merged in the second app slot."
+  },
+  "38.42.2": {
+    "wid": "38.42.2",
+    "page": 455,
+    "x": [
+      881,
+      846,
+      778
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00052-c0038",
+    "note": "Visual cut at left side of compact ha body; joining stretch belongs with left dhal/alif app target. Terminal alif remains merged in the second app slot."
+  },
+  "50.23.2": {
+    "wid": "50.23.2",
+    "page": 519,
+    "x": [
+      1361,
+      1327,
+      1250
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00052-c0039",
+    "note": "Visual cut at left side of compact ha body; joining stretch belongs with left dhal/alif app target. Terminal alif remains merged in the second app slot."
+  },
+  "67.20.1": {
+    "wid": "67.20.1",
+    "page": 563,
+    "x": [
+      365,
+      332,
+      266
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00052-c0040",
+    "note": "Visual cut at left side of compact ha body; joining stretch belongs with left dhal/alif app target. Terminal alif remains merged in the second app slot."
+  }
+}

@@ -1,0 +1,672 @@
+{
+  "9.94.29": {
+    "wid": "9.94.29",
+    "page": 202,
+    "x": [
+      842,
+      823,
+      789,
+      741,
+      711,
+      681,
+      620
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00097-c0001",
+    "note": "Exact six targets located visually: compact ta/ayn/mim bodies, lam upright, waw loop and final nun bowl. Thin stretch preceding mim assigned to the left mim; detached lower waw return may cross the nun span."
+  },
+  "10.41.14": {
+    "wid": "10.41.14",
+    "page": 213,
+    "x": [
+      729,
+      710,
+      675,
+      622,
+      593,
+      556,
+      501
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00097-c0002",
+    "note": "Exact six targets located visually: compact ta/ayn/mim bodies, lam upright, waw loop and final nun bowl. Thin stretch preceding mim assigned to the left mim; detached lower waw return may cross the nun span."
+  },
+  "6.60.21": {
+    "wid": "6.60.21",
+    "page": 135,
+    "x": [
+      1240,
+      1217,
+      1182,
+      1128,
+      1098,
+      1062,
+      1006
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00097-c0003",
+    "note": "Exact six targets located visually: compact ta/ayn/mim bodies, lam upright, waw loop and final nun bowl. Thin stretch preceding mim assigned to the left mim; detached lower waw return may cross the nun span."
+  },
+  "8.72.43": {
+    "wid": "8.72.43",
+    "page": 186,
+    "x": [
+      938,
+      917,
+      882,
+      812,
+      783,
+      744,
+      686
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00097-c0004",
+    "note": "Exact six targets located visually: compact ta/ayn/mim bodies, lam upright, waw loop and final nun bowl. Thin stretch preceding mim assigned to the left mim; detached lower waw return may cross the nun span."
+  },
+  "60.3.11": {
+    "wid": "60.3.11",
+    "page": 549,
+    "x": [
+      812,
+      791,
+      755,
+      709,
+      681,
+      644,
+      586
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00097-c0005",
+    "note": "Exact six targets located visually: compact ta/ayn/mim bodies, lam upright, waw loop and final nun bowl. Thin stretch preceding mim assigned to the left mim; detached lower waw return may cross the nun span."
+  },
+  "10.61.10": {
+    "wid": "10.61.10",
+    "page": 215,
+    "x": [
+      1726,
+      1707,
+      1670,
+      1615,
+      1590,
+      1554,
+      1496
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00097-c0006",
+    "note": "Exact six targets located visually: compact ta/ayn/mim bodies, lam upright, waw loop and final nun bowl. Thin stretch preceding mim assigned to the left mim; detached lower waw return may cross the nun span."
+  },
+  "62.8.17": {
+    "wid": "62.8.17",
+    "page": 553,
+    "x": [
+      499,
+      480,
+      448,
+      412,
+      384,
+      352,
+      293
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00097-c0007",
+    "note": "Exact six targets located visually: compact ta/ayn/mim bodies, lam upright, waw loop and final nun bowl. Thin stretch preceding mim assigned to the left mim; detached lower waw return may cross the nun span. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "3.98.11": {
+    "wid": "3.98.11",
+    "page": 62,
+    "x": [
+      1637,
+      1620,
+      1590,
+      1528,
+      1500,
+      1458,
+      1400
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00097-c0008",
+    "note": "Exact six targets located visually: compact ta/ayn/mim bodies, lam upright, waw loop and final nun bowl. Thin stretch preceding mim assigned to the left mim; detached lower waw return may cross the nun span. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "3.180.28": {
+    "wid": "3.180.28",
+    "page": 73,
+    "x": [
+      662,
+      643,
+      608,
+      568,
+      540,
+      499,
+      443
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00097-c0009",
+    "note": "Exact six targets located visually: compact ta/ayn/mim bodies, lam upright, waw loop and final nun bowl. Thin stretch preceding mim assigned to the left mim; detached lower waw return may cross the nun span."
+  },
+  "11.123.15": {
+    "wid": "11.123.15",
+    "page": 235,
+    "x": [
+      493,
+      473,
+      440,
+      382,
+      359,
+      313,
+      255
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00097-c0010",
+    "note": "Exact six targets located visually: compact ta/ayn/mim bodies, lam upright, waw loop and final nun bowl. Thin stretch preceding mim assigned to the left mim; detached lower waw return may cross the nun span."
+  },
+  "24.53.16": {
+    "wid": "24.53.16",
+    "page": 356,
+    "x": [
+      541,
+      522,
+      481,
+      415,
+      387,
+      344,
+      284
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00097-c0011",
+    "note": "Exact six targets located visually: compact ta/ayn/mim bodies, lam upright, waw loop and final nun bowl. Thin stretch preceding mim assigned to the left mim; detached lower waw return may cross the nun span."
+  },
+  "49.18.9": {
+    "wid": "49.18.9",
+    "page": 517,
+    "x": [
+      519,
+      509,
+      465,
+      397,
+      373,
+      338,
+      280
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00097-c0012",
+    "note": "Exact six targets located visually: compact ta/ayn/mim bodies, lam upright, waw loop and final nun bowl. Thin stretch preceding mim assigned to the left mim; detached lower waw return may cross the nun span."
+  },
+  "2.74.36": {
+    "wid": "2.74.36",
+    "page": 11,
+    "x": [
+      347,
+      328,
+      295,
+      237,
+      215,
+      171,
+      113
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00097-c0013",
+    "note": "Exact six targets located visually: compact ta/ayn/mim bodies, lam upright, waw loop and final nun bowl. Thin stretch preceding mim assigned to the left mim; detached lower waw return may cross the nun span."
+  },
+  "2.271.18": {
+    "wid": "2.271.18",
+    "page": 46,
+    "x": [
+      1529,
+      1510,
+      1475,
+      1399,
+      1379,
+      1335,
+      1282
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00097-c0014",
+    "note": "Exact six targets located visually: compact ta/ayn/mim bodies, lam upright, waw loop and final nun bowl. Thin stretch preceding mim assigned to the left mim; detached lower waw return may cross the nun span."
+  },
+  "3.153.24": {
+    "wid": "3.153.24",
+    "page": 69,
+    "x": [
+      571,
+      550,
+      512,
+      438,
+      412,
+      361,
+      297
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00097-c0015",
+    "note": "Exact six targets located visually: compact ta/ayn/mim bodies, lam upright, waw loop and final nun bowl. Thin stretch preceding mim assigned to the left mim; detached lower waw return may cross the nun span."
+  },
+  "23.51.9": {
+    "wid": "23.51.9",
+    "page": 345,
+    "x": [
+      1860,
+      1841,
+      1802,
+      1759,
+      1735,
+      1693,
+      1634
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00097-c0016",
+    "note": "Exact six targets located visually: compact ta/ayn/mim bodies, lam upright, waw loop and final nun bowl. Thin stretch preceding mim assigned to the left mim; detached lower waw return may cross the nun span. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "27.93.10": {
+    "wid": "27.93.10",
+    "page": 385,
+    "x": [
+      464,
+      447,
+      418,
+      378,
+      351,
+      317,
+      266
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00097-c0017",
+    "note": "Exact six targets located visually: compact ta/ayn/mim bodies, lam upright, waw loop and final nun bowl. Thin stretch preceding mim assigned to the left mim; detached lower waw return may cross the nun span."
+  },
+  "33.2.10": {
+    "wid": "33.2.10",
+    "page": 418,
+    "x": [
+      1179,
+      1165,
+      1123,
+      1057,
+      1033,
+      992,
+      935
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00097-c0018",
+    "note": "Exact six targets located visually: compact ta/ayn/mim bodies, lam upright, waw loop and final nun bowl. Thin stretch preceding mim assigned to the left mim; detached lower waw return may cross the nun span."
+  },
+  "2.110.15": {
+    "wid": "2.110.15",
+    "page": 17,
+    "x": [
+      690,
+      674,
+      639,
+      584,
+      558,
+      515,
+      329
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00097-c0019",
+    "note": "Exact six targets located visually: compact ta/ayn/mim bodies, lam upright, waw loop and final nun bowl. Thin stretch preceding mim assigned to the left mim; detached lower waw return may cross the nun span."
+  },
+  "2.233.62": {
+    "wid": "2.233.62",
+    "page": 37,
+    "x": [
+      585,
+      565,
+      534,
+      512,
+      482,
+      454,
+      404
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00097-c0020",
+    "note": "Exact six targets located visually: compact ta/ayn/mim bodies, lam upright, waw loop and final nun bowl. Thin stretch preceding mim assigned to the left mim; detached lower waw return may cross the nun span."
+  },
+  "2.265.25": {
+    "wid": "2.265.25",
+    "page": 45,
+    "x": [
+      1555,
+      1535,
+      1500,
+      1418,
+      1394,
+      1351,
+      1298
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00097-c0021",
+    "note": "Exact six targets located visually: compact ta/ayn/mim bodies, lam upright, waw loop and final nun bowl. Thin stretch preceding mim assigned to the left mim; detached lower waw return may cross the nun span. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "3.99.18": {
+    "wid": "3.99.18",
+    "page": 62,
+    "x": [
+      1492,
+      1474,
+      1438,
+      1398,
+      1370,
+      1329,
+      1268
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00097-c0022",
+    "note": "Exact six targets located visually: compact ta/ayn/mim bodies, lam upright, waw loop and final nun bowl. Thin stretch preceding mim assigned to the left mim; detached lower waw return may cross the nun span."
+  },
+  "4.94.37": {
+    "wid": "4.94.37",
+    "page": 93,
+    "x": [
+      899,
+      875,
+      838,
+      750,
+      736,
+      696,
+      537
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00097-c0023",
+    "note": "Exact six targets located visually: compact ta/ayn/mim bodies, lam upright, waw loop and final nun bowl. Thin stretch preceding mim assigned to the left mim; detached lower waw return may cross the nun span."
+  },
+  "4.128.27": {
+    "wid": "4.128.27",
+    "page": 99,
+    "x": [
+      1685,
+      1664,
+      1628,
+      1560,
+      1535,
+      1494,
+      1351
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00097-c0024",
+    "note": "Exact six targets located visually: compact ta/ayn/mim bodies, lam upright, waw loop and final nun bowl. Thin stretch preceding mim assigned to the left mim; detached lower waw return may cross the nun span. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "5.8.25": {
+    "wid": "5.8.25",
+    "page": 108,
+    "x": [
+      1349,
+      1324,
+      1285,
+      1195,
+      1167,
+      1122,
+      968
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00097-c0025",
+    "note": "Exact six targets located visually: compact ta/ayn/mim bodies, lam upright, waw loop and final nun bowl. Thin stretch preceding mim assigned to the left mim; detached lower waw return may cross the nun span."
+  },
+  "9.16.23": {
+    "wid": "9.16.23",
+    "page": 189,
+    "x": [
+      1152,
+      1133,
+      1099,
+      1036,
+      1004,
+      951,
+      792
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00097-c0026",
+    "note": "Exact six targets located visually: compact ta/ayn/mim bodies, lam upright, waw loop and final nun bowl. Thin stretch preceding mim assigned to the left mim; detached lower waw return may cross the nun span."
+  },
+  "9.105.15": {
+    "wid": "9.105.15",
+    "page": 203,
+    "x": [
+      1297,
+      1279,
+      1244,
+      1187,
+      1162,
+      1120,
+      1063
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00097-c0027",
+    "note": "Exact six targets located visually: compact ta/ayn/mim bodies, lam upright, waw loop and final nun bowl. Thin stretch preceding mim assigned to the left mim; detached lower waw return may cross the nun span."
+  },
+  "10.23.24": {
+    "wid": "10.23.24",
+    "page": 211,
+    "x": [
+      537,
+      515,
+      484,
+      440,
+      417,
+      384,
+      250
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00097-c0028",
+    "note": "Exact six targets located visually: compact ta/ayn/mim bodies, lam upright, waw loop and final nun bowl. Thin stretch preceding mim assigned to the left mim; detached lower waw return may cross the nun span."
+  },
+  "11.92.13": {
+    "wid": "11.92.13",
+    "page": 232,
+    "x": [
+      371,
+      344,
+      309,
+      244,
+      213,
+      172,
+      113
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00097-c0029",
+    "note": "Exact six targets located visually: compact ta/ayn/mim bodies, lam upright, waw loop and final nun bowl. Thin stretch preceding mim assigned to the left mim; detached lower waw return may cross the nun span."
+  },
+  "11.112.10": {
+    "wid": "11.112.10",
+    "page": 234,
+    "x": [
+      1589,
+      1568,
+      1534,
+      1475,
+      1453,
+      1409,
+      1263
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00097-c0030",
+    "note": "Exact six targets located visually: compact ta/ayn/mim bodies, lam upright, waw loop and final nun bowl. Thin stretch preceding mim assigned to the left mim; detached lower waw return may cross the nun span."
+  },
+  "16.32.11": {
+    "wid": "16.32.11",
+    "page": 270,
+    "x": [
+      1606,
+      1590,
+      1557,
+      1501,
+      1477,
+      1440,
+      1391
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00097-c0031",
+    "note": "Exact six targets located visually: compact ta/ayn/mim bodies, lam upright, waw loop and final nun bowl. Thin stretch preceding mim assigned to the left mim; detached lower waw return may cross the nun span."
+  },
+  "24.28.20": {
+    "wid": "24.28.20",
+    "page": 353,
+    "x": [
+      372,
+      348,
+      314,
+      263,
+      241,
+      201,
+      94
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00097-c0032",
+    "note": "Exact six targets located visually: compact ta/ayn/mim bodies, lam upright, waw loop and final nun bowl. Thin stretch preceding mim assigned to the left mim; detached lower waw return may cross the nun span. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "34.11.10": {
+    "wid": "34.11.10",
+    "page": 429,
+    "x": [
+      348,
+      330,
+      293,
+      253,
+      230,
+      175,
+      120
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00097-c0033",
+    "note": "Exact six targets located visually: compact ta/ayn/mim bodies, lam upright, waw loop and final nun bowl. Thin stretch preceding mim assigned to the left mim; detached lower waw return may cross the nun span."
+  },
+  "37.39.5": {
+    "wid": "37.39.5",
+    "page": 447,
+    "x": [
+      371,
+      351,
+      320,
+      251,
+      228,
+      187,
+      95
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00097-c0034",
+    "note": "Exact six targets located visually: compact ta/ayn/mim bodies, lam upright, waw loop and final nun bowl. Thin stretch preceding mim assigned to the left mim; detached lower waw return may cross the nun span. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "41.22.19": {
+    "wid": "41.22.19",
+    "page": 479,
+    "x": [
+      328,
+      310,
+      277,
+      220,
+      195,
+      157,
+      101
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00097-c0035",
+    "note": "Exact six targets located visually: compact ta/ayn/mim bodies, lam upright, waw loop and final nun bowl. Thin stretch preceding mim assigned to the left mim; detached lower waw return may cross the nun span."
+  },
+  "43.72.6": {
+    "wid": "43.72.6",
+    "page": 494,
+    "x": [
+      1828,
+      1804,
+      1767,
+      1698,
+      1677,
+      1631,
+      1488
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00097-c0036",
+    "note": "Exact six targets located visually: compact ta/ayn/mim bodies, lam upright, waw loop and final nun bowl. Thin stretch preceding mim assigned to the left mim; detached lower waw return may cross the nun span. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "45.28.13": {
+    "wid": "45.28.13",
+    "page": 501,
+    "x": [
+      1833,
+      1815,
+      1782,
+      1740,
+      1720,
+      1687,
+      1631
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00097-c0037",
+    "note": "Exact six targets located visually: compact ta/ayn/mim bodies, lam upright, waw loop and final nun bowl. Thin stretch preceding mim assigned to the left mim; detached lower waw return may cross the nun span."
+  },
+  "57.4.34": {
+    "wid": "57.4.34",
+    "page": 538,
+    "x": [
+      306,
+      288,
+      257,
+      229,
+      206,
+      170,
+      118
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00097-c0038",
+    "note": "Exact six targets located visually: compact ta/ayn/mim bodies, lam upright, waw loop and final nun bowl. Thin stretch preceding mim assigned to the left mim; detached lower waw return may cross the nun span."
+  }
+}

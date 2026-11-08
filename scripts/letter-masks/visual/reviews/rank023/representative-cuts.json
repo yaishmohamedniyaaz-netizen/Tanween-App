@@ -1,0 +1,854 @@
+{
+  "3.120.0": {
+    "wid": "3.120.0",
+    "page": 65,
+    "x": [
+      1811,
+      1789,
+      1737
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00023-c0001",
+    "note": "Original visually reviewed: detached alif and noon gap sets cut, not hamza/kasra. Clipped hamza/kasra at immutable right edge; both bodies present.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "7.176.13": {
+    "wid": "7.176.13",
+    "page": 173,
+    "x": [
+      1259,
+      1244,
+      1191
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00023-c0002",
+    "note": "Original visually reviewed: detached alif and noon gap sets cut, not hamza/kasra. Clipped hamza/kasra at immutable right edge; both bodies present.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "7.77.11": {
+    "wid": "7.77.11",
+    "page": 160,
+    "x": [
+      475,
+      456,
+      397
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00023-c0003",
+    "note": "Original visually reviewed: detached alif and noon gap sets cut, not hamza/kasra. Clipped hamza/kasra at immutable right edge; both bodies present.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "8.65.6": {
+    "wid": "8.65.6",
+    "page": 185,
+    "x": [
+      1093,
+      1076,
+      1025
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00023-c0004",
+    "note": "Original visually reviewed: detached alif and noon gap sets cut, not hamza/kasra. Clipped hamza/kasra at immutable right edge; both bodies present.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "49.6.3": {
+    "wid": "49.6.3",
+    "page": 516,
+    "x": [
+      918,
+      903,
+      851
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00023-c0005",
+    "note": "Original visually reviewed: detached alif and noon gap sets cut, not hamza/kasra. Clipped hamza/kasra at immutable right edge; both bodies present.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "8.29.3": {
+    "wid": "8.29.3",
+    "page": 180,
+    "x": [
+      357,
+      338,
+      292
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00023-c0006",
+    "note": "Original visually reviewed: detached alif and noon gap sets cut, not hamza/kasra. Clipped hamza/kasra at immutable right edge; both bodies present.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "9.62.9": {
+    "wid": "9.62.9",
+    "page": 197,
+    "x": [
+      1517,
+      1500,
+      1450
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00023-c0007",
+    "note": "Original visually reviewed: detached alif and noon gap sets cut, not hamza/kasra. Clipped hamza/kasra at immutable right edge; both bodies present.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.93.24": {
+    "wid": "2.93.24",
+    "page": 14,
+    "x": [
+      817,
+      797,
+      747
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00023-c0008",
+    "note": "Original visually reviewed: detached alif and noon gap sets cut, not hamza/kasra. Clipped hamza/kasra at immutable right edge; both bodies present.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "3.125.1": {
+    "wid": "3.125.1",
+    "page": 66,
+    "x": [
+      1274,
+      1257,
+      1205
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00023-c0009",
+    "note": "Original visually reviewed: detached alif and noon gap sets cut, not hamza/kasra. Clipped hamza/kasra at immutable right edge; both bodies present.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "8.19.0": {
+    "wid": "8.19.0",
+    "page": 179,
+    "x": [
+      1303,
+      1271,
+      1220
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00023-c0010",
+    "note": "Original visually reviewed: detached alif and noon gap sets cut, not hamza/kasra."
+  },
+  "3.168.13": {
+    "wid": "3.168.13",
+    "page": 72,
+    "x": [
+      1580,
+      1561,
+      1509
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00023-c0011",
+    "note": "Original visually reviewed: detached alif and noon gap sets cut, not hamza/kasra. Clipped hamza/kasra at immutable right edge; both bodies present.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "26.154.7": {
+    "wid": "26.154.7",
+    "page": 373,
+    "x": [
+      1127,
+      1110,
+      1061
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00023-c0012",
+    "note": "Original visually reviewed: detached alif and noon gap sets cut, not hamza/kasra. Clipped hamza/kasra at immutable right edge; both bodies present.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "12.26.9": {
+    "wid": "12.26.9",
+    "page": 238,
+    "x": [
+      1577,
+      1559,
+      1503
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00023-c0013",
+    "note": "Original visually reviewed: detached alif and noon gap sets cut, not hamza/kasra. Clipped hamza/kasra at immutable right edge; both bodies present.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "20.104.8": {
+    "wid": "20.104.8",
+    "page": 319,
+    "x": [
+      1346,
+      1330,
+      1278
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00023-c0014",
+    "note": "Original visually reviewed: detached alif and noon gap sets cut, not hamza/kasra. Clipped hamza/kasra at immutable right edge; both bodies present.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "44.36.2": {
+    "wid": "44.36.2",
+    "page": 497,
+    "x": [
+      897,
+      881,
+      827
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00023-c0015",
+    "note": "Original visually reviewed: detached alif and noon gap sets cut, not hamza/kasra. Clipped hamza/kasra at immutable right edge; both bodies present.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "36.23.4": {
+    "wid": "36.23.4",
+    "page": 441,
+    "x": [
+      153,
+      137,
+      81
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00023-c0016",
+    "note": "Original visually reviewed: detached alif and noon gap sets cut, not hamza/kasra. Clipped hamza/kasra at immutable right edge; both bodies present.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.111.15": {
+    "wid": "2.111.15",
+    "page": 17,
+    "x": [
+      511,
+      493,
+      442
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00023-c0017",
+    "note": "Original visually reviewed: detached alif and noon gap sets cut, not hamza/kasra. Clipped hamza/kasra at immutable right edge; both bodies present.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.278.10": {
+    "wid": "2.278.10",
+    "page": 47,
+    "x": [
+      1136,
+      1116,
+      1068
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00023-c0018",
+    "note": "Original visually reviewed: detached alif and noon gap sets cut, not hamza/kasra. Clipped hamza/kasra at immutable right edge; both bodies present.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "26.40.3": {
+    "wid": "26.40.3",
+    "page": 369,
+    "x": [
+      1331,
+      1310,
+      1270
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00023-c0019",
+    "note": "Original visually reviewed: detached alif and noon gap sets cut, not hamza/kasra. Clipped hamza/kasra at immutable right edge; both bodies present.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "34.9.11": {
+    "wid": "34.9.11",
+    "page": 429,
+    "x": [
+      738,
+      721,
+      668
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00023-c0020",
+    "note": "Original visually reviewed: detached alif and noon gap sets cut, not hamza/kasra. Clipped hamza/kasra at immutable right edge; both bodies present.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "3.139.6": {
+    "wid": "3.139.6",
+    "page": 67,
+    "x": [
+      656,
+      636,
+      585
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00023-c0021",
+    "note": "Original visually reviewed: detached alif and noon gap sets cut, not hamza/kasra. Clipped hamza/kasra at immutable right edge; both bodies present.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "14.11.3": {
+    "wid": "14.11.3",
+    "page": 257,
+    "x": [
+      1235,
+      1219,
+      1169
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00023-c0022",
+    "note": "Original visually reviewed: detached alif and noon gap sets cut, not hamza/kasra. Clipped hamza/kasra at immutable right edge; both bodies present.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.180.6": {
+    "wid": "2.180.6",
+    "page": 27,
+    "x": [
+      1047,
+      1028,
+      972
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00023-c0023",
+    "note": "Original visually reviewed: detached alif and noon gap sets cut, not hamza/kasra. Clipped hamza/kasra at immutable right edge; both bodies present.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "60.2.0": {
+    "wid": "60.2.0",
+    "page": 549,
+    "x": [
+      186,
+      158,
+      105
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00023-c0024",
+    "note": "Original visually reviewed: detached alif and noon gap sets cut, not hamza/kasra. Clipped hamza/kasra at immutable right edge; both bodies present.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "6.133.4": {
+    "wid": "6.133.4",
+    "page": 145,
+    "x": [
+      414,
+      396,
+      343
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00023-c0025",
+    "note": "Visual detached alif/noon body gap; full target bodies. Crop-edge marks or body-tip clipped; immutable crop retained.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "16.43.11": {
+    "wid": "16.43.11",
+    "page": 272,
+    "x": [
+      1659,
+      1642,
+      1588
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00023-c0026",
+    "note": "Visual detached alif/noon body gap; full target bodies. Crop-edge marks or body-tip clipped; immutable crop retained.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "17.54.7": {
+    "wid": "17.54.7",
+    "page": 287,
+    "x": [
+      303,
+      285,
+      235
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00023-c0027",
+    "note": "Visual detached alif/noon body gap; full target bodies. Crop-edge marks or body-tip clipped; immutable crop retained.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "21.36.4": {
+    "wid": "21.36.4",
+    "page": 325,
+    "x": [
+      960,
+      945,
+      814
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00023-c0028",
+    "note": "Visual detached alif/noon body gap; full target bodies. Crop-edge marks or body-tip clipped; immutable crop retained.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "34.29.4": {
+    "wid": "34.29.4",
+    "page": 431,
+    "x": [
+      972,
+      953,
+      902
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00023-c0029",
+    "note": "Visual detached alif/noon body gap; full target bodies. Crop-edge marks or body-tip clipped; immutable crop retained.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "3.75.4": {
+    "wid": "3.75.4",
+    "page": 59,
+    "x": [
+      581,
+      562,
+      513
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00023-c0030",
+    "note": "Visual detached alif/noon body gap; full target bodies. Crop-edge marks or body-tip clipped; immutable crop retained.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "3.93.21": {
+    "wid": "3.93.21",
+    "page": 62,
+    "x": [
+      731,
+      712,
+      661
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00023-c0031",
+    "note": "Visual detached alif/noon body gap; full target bodies. Crop-edge marks or body-tip clipped; immutable crop retained.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "4.31.0": {
+    "wid": "4.31.0",
+    "page": 83,
+    "x": [
+      1453,
+      1417,
+      1367
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00023-c0032",
+    "note": "Visual detached alif/noon body gap; full target bodies."
+  },
+  "8.41.15": {
+    "wid": "8.41.15",
+    "page": 182,
+    "x": [
+      182,
+      166,
+      120
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00023-c0033",
+    "note": "Visual detached alif/noon body gap; full target bodies. Crop-edge marks or body-tip clipped; immutable crop retained.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "11.88.3": {
+    "wid": "11.88.3",
+    "page": 231,
+    "x": [
+      164,
+      145,
+      95
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00023-c0034",
+    "note": "Visual detached alif/noon body gap; full target bodies. Crop-edge marks or body-tip clipped; immutable crop retained.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "12.77.1": {
+    "wid": "12.77.1",
+    "page": 244,
+    "x": [
+      409,
+      387,
+      336
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00023-c0035",
+    "note": "Visual detached alif/noon body gap; full target bodies. Crop-edge marks or body-tip clipped; immutable crop retained.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "15.7.4": {
+    "wid": "15.7.4",
+    "page": 262,
+    "x": [
+      360,
+      345,
+      293
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00023-c0036",
+    "note": "Visual detached alif/noon body gap; full target bodies. Crop-edge marks or body-tip clipped; immutable crop retained.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "20.103.2": {
+    "wid": "20.103.2",
+    "page": 319,
+    "x": [
+      1650,
+      1634,
+      1580
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00023-c0037",
+    "note": "Visual detached alif/noon body gap; full target bodies. Crop-edge marks or body-tip clipped; immutable crop retained.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "21.7.10": {
+    "wid": "21.7.10",
+    "page": 322,
+    "x": [
+      1504,
+      1487,
+      1435
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00023-c0038",
+    "note": "Visual detached alif/noon body gap; full target bodies. Crop-edge marks or body-tip clipped; immutable crop retained.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "21.63.6": {
+    "wid": "21.63.6",
+    "page": 327,
+    "x": [
+      1350,
+      1332,
+      1283
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00023-c0039",
+    "note": "Fresh visual gap correction keeps noon body intact; clipped crop-edge hamza/kasra.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "22.5.2": {
+    "wid": "22.5.2",
+    "page": 332,
+    "x": [
+      411,
+      393,
+      340
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00023-c0040",
+    "note": "Visual detached alif/noon body gap; full target bodies. Crop-edge marks or body-tip clipped; immutable crop retained.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "22.41.1": {
+    "wid": "22.41.1",
+    "page": 337,
+    "x": [
+      1293,
+      1282,
+      1225
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00023-c0041",
+    "note": "Visual detached alif/noon body gap; full target bodies. Crop-edge marks or body-tip clipped; immutable crop retained.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "25.42.0": {
+    "wid": "25.42.0",
+    "page": 363,
+    "x": [
+      384,
+      363,
+      315
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00023-c0042",
+    "note": "Visual detached alif/noon body gap; full target bodies."
+  },
+  "26.41.8": {
+    "wid": "26.41.8",
+    "page": 369,
+    "x": [
+      1059,
+      1041,
+      992
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00023-c0043",
+    "note": "Visual detached alif/noon body gap; full target bodies. Crop-edge marks or body-tip clipped; immutable crop retained.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "28.57.1": {
+    "wid": "28.57.1",
+    "page": 392,
+    "x": [
+      168,
+      154,
+      108
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00023-c0044",
+    "note": "Visual detached alif/noon body gap; full target bodies. Crop-edge marks or body-tip clipped; immutable crop retained.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "29.29.19": {
+    "wid": "29.29.19",
+    "page": 399,
+    "x": [
+      929,
+      914,
+      857
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00023-c0045",
+    "note": "Visual detached alif/noon body gap; full target bodies. Crop-edge marks or body-tip clipped; immutable crop retained.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "32.28.4": {
+    "wid": "32.28.4",
+    "page": 417,
+    "x": [
+      930,
+      915,
+      860
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00023-c0046",
+    "note": "Visual detached alif/noon body gap; full target bodies. Crop-edge marks or body-tip clipped; immutable crop retained.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "33.16.4": {
+    "wid": "33.16.4",
+    "page": 420,
+    "x": [
+      1228,
+      1209,
+      1159
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00023-c0047",
+    "note": "Visual detached alif/noon body gap; full target bodies. Crop-edge marks or body-tip clipped; immutable crop retained.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "37.102.21": {
+    "wid": "37.102.21",
+    "page": 449,
+    "x": [
+      940,
+      924,
+      874
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00023-c0048",
+    "note": "Visual detached alif/noon body gap; full target bodies. Crop-edge marks or body-tip clipped; immutable crop retained.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "39.7.0": {
+    "wid": "39.7.0",
+    "page": 459,
+    "x": [
+      600,
+      569,
+      518
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00023-c0049",
+    "note": "Visual detached alif/noon body gap; full target bodies."
+  },
+  "43.81.1": {
+    "wid": "43.81.1",
+    "page": 495,
+    "x": [
+      897,
+      879,
+      830
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00023-c0050",
+    "note": "Visual detached alif/noon body gap; full target bodies. Crop-edge marks or body-tip clipped; immutable crop retained.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "47.22.2": {
+    "wid": "47.22.2",
+    "page": 509,
+    "x": [
+      770,
+      752,
+      702
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00023-c0051",
+    "note": "Visual detached alif/noon body gap; full target bodies. Crop-edge marks or body-tip clipped; immutable crop retained.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "56.92.1": {
+    "wid": "56.92.1",
+    "page": 537,
+    "x": [
+      375,
+      355,
+      306
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00023-c0052",
+    "note": "Visual detached alif/noon body gap; full target bodies. Crop-edge marks or body-tip clipped; immutable crop retained.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "87.9.1": {
+    "wid": "87.9.1",
+    "page": 591,
+    "x": [
+      1323,
+      1308,
+      1261
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00023-c0053",
+    "note": "Visual detached alif/noon body gap; full target bodies. Crop-edge marks or body-tip clipped; immutable crop retained.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "96.11.1": {
+    "wid": "96.11.1",
+    "page": 597,
+    "x": [
+      774,
+      759,
+      716
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00023-c0054",
+    "note": "Visual detached alif/noon body gap; full target bodies. Crop-edge marks or body-tip clipped; immutable crop retained.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  }
+}

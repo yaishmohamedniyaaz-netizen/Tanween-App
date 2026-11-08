@@ -1,0 +1,1054 @@
+{
+  "5.87.9": {
+    "wid": "5.87.9",
+    "page": 122,
+    "x": [
+      928,
+      912,
+      835,
+      798
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00054-c0001",
+    "note": "X-warp from visually decided 12.83.3; destination requires sheet review."
+  },
+  "7.10.5": {
+    "wid": "7.10.5",
+    "page": 151,
+    "x": [
+      1268,
+      1253,
+      1165,
+      1128
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00054-c0001",
+    "note": "X-warp from visually decided 12.83.3; destination requires sheet review."
+  },
+  "8.7.6": {
+    "wid": "8.7.6",
+    "page": 177,
+    "x": [
+      1829,
+      1811,
+      1723,
+      1685
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00054-c0001",
+    "note": "X-warp from visually decided 12.83.3; destination requires sheet review. Actual immutable-box context reviewed by cloud-ranks012-017-context-review: lam fatha tip clipped, target bodies intact; fixed box retained. See CARRY_CLIPPING_REVIEW.md.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "33.71.1": {
+    "wid": "33.71.1",
+    "page": 427,
+    "x": [
+      1830,
+      1814,
+      1727,
+      1689
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00054-c0001",
+    "note": "X-warp from visually decided 12.83.3; destination requires sheet review."
+  },
+  "43.10.6": {
+    "wid": "43.10.6",
+    "page": 489,
+    "x": [
+      1369,
+      1352,
+      1267,
+      1231
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00054-c0001",
+    "note": "X-warp from visually decided 12.83.3; destination requires sheet review. Actual immutable-box context reviewed by cloud-ranks012-017-context-review: lam fatha tip clipped, target bodies intact; fixed box retained. See CARRY_CLIPPING_REVIEW.md.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "7.39.5": {
+    "wid": "7.39.5",
+    "page": 155,
+    "x": [
+      738,
+      723,
+      659,
+      606
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00054-c0002",
+    "note": "X-warp from visually decided 17.69.18; destination requires sheet review."
+  },
+  "7.68.4": {
+    "wid": "7.68.4",
+    "page": 159,
+    "x": [
+      970,
+      957,
+      890,
+      841
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00054-c0002",
+    "note": "X-warp from visually decided 17.69.18; destination requires sheet review."
+  },
+  "43.73.0": {
+    "wid": "43.73.0",
+    "page": 494,
+    "x": [
+      1305,
+      1290,
+      1222,
+      1165
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00054-c0002",
+    "note": "X-warp from visually decided 17.69.18; destination requires sheet review."
+  },
+  "76.22.3": {
+    "wid": "76.22.3",
+    "page": 579,
+    "x": [
+      1184,
+      1170,
+      1107,
+      1059
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00054-c0002",
+    "note": "X-warp from visually decided 17.69.18; destination requires sheet review."
+  },
+  "3.13.2": {
+    "wid": "3.13.2",
+    "page": 51,
+    "x": [
+      1808,
+      1794,
+      1720,
+      1675
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00054-c0003",
+    "note": "X-warp from visually decided 60.4.2; destination requires sheet review."
+  },
+  "5.21.7": {
+    "wid": "5.21.7",
+    "page": 111,
+    "x": [
+      859,
+      845,
+      769,
+      729
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00054-c0003",
+    "note": "X-warp from visually decided 60.4.2; destination requires sheet review. Actual immutable-box context reviewed by cloud-ranks012-017-context-review: lam fatha tip clipped, target bodies intact; fixed box retained. See CARRY_CLIPPING_REVIEW.md.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "5.89.41": {
+    "wid": "5.89.41",
+    "page": 122,
+    "x": [
+      1092,
+      1080,
+      1006,
+      966
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00054-c0003",
+    "note": "X-warp from visually decided 60.4.2; destination requires sheet review."
+  },
+  "6.142.13": {
+    "wid": "6.142.13",
+    "page": 146,
+    "x": [
+      681,
+      668,
+      595,
+      558
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00054-c0003",
+    "note": "X-warp from visually decided 60.4.2; destination requires sheet review."
+  },
+  "3.173.8": {
+    "wid": "3.173.8",
+    "page": 72,
+    "x": [
+      533,
+      517,
+      453,
+      419
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00054-c0004",
+    "note": "X-warp from visually decided 11.34.7; destination requires sheet review. Actual immutable-box context reviewed by cloud-ranks012-017-context-review: lam fatha tip clipped, target bodies intact; fixed box retained. See CARRY_CLIPPING_REVIEW.md.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "4.141.5": {
+    "wid": "4.141.5",
+    "page": 101,
+    "x": [
+      950,
+      935,
+      864,
+      829
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00054-c0004",
+    "note": "X-warp from visually decided 11.34.7; destination requires sheet review."
+  },
+  "11.25.6": {
+    "wid": "11.25.6",
+    "page": 224,
+    "x": [
+      753,
+      736,
+      663,
+      626
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00054-c0004",
+    "note": "X-warp from visually decided 11.34.7; destination requires sheet review."
+  },
+  "37.92.1": {
+    "wid": "37.92.1",
+    "page": 449,
+    "x": [
+      1133,
+      1118,
+      1060,
+      1010
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00054-c0005",
+    "note": "X-warp from visually decided 57.8.1; destination requires sheet review. Actual immutable-box context reviewed by cloud-ranks012-017-context-review: lam fatha tip clipped, target bodies intact; fixed box retained. See CARRY_CLIPPING_REVIEW.md.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "71.2.3": {
+    "wid": "71.2.3",
+    "page": 570,
+    "x": [
+      966,
+      950,
+      895,
+      848
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00054-c0005",
+    "note": "X-warp from visually decided 57.8.1; destination requires sheet review."
+  },
+  "77.39.2": {
+    "wid": "77.39.2",
+    "page": 581,
+    "x": [
+      1843,
+      1827,
+      1772,
+      1727
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00054-c0005",
+    "note": "X-warp from visually decided 57.8.1; destination requires sheet review. Actual immutable-box context reviewed by cloud-ranks012-017-context-review: lam fatha tip clipped, target bodies intact; fixed box retained. See CARRY_CLIPPING_REVIEW.md.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "3.126.5": {
+    "wid": "3.126.5",
+    "page": 66,
+    "x": [
+      948,
+      939,
+      858,
+      822
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00054-c0006",
+    "note": "X-warp from visually decided 58.11.5; destination requires sheet review."
+  },
+  "6.50.12": {
+    "wid": "6.50.12",
+    "page": 133,
+    "x": [
+      525,
+      515,
+      437,
+      401
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00054-c0006",
+    "note": "X-warp from visually decided 58.11.5; destination requires sheet review. Actual immutable-box context reviewed by cloud-ranks012-017-context-review: lam fatha tip clipped, target bodies intact; fixed box retained. See CARRY_CLIPPING_REVIEW.md.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "16.81.12": {
+    "wid": "16.81.12",
+    "page": 276,
+    "x": [
+      827,
+      818,
+      732,
+      694
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00054-c0006",
+    "note": "X-warp from visually decided 58.11.5; destination requires sheet review."
+  },
+  "37.25.1": {
+    "wid": "37.25.1",
+    "page": 447,
+    "x": [
+      1773,
+      1762,
+      1706,
+      1655
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00054-c0007",
+    "note": "X-warp from visually decided 65.6.21; destination requires sheet review."
+  },
+  "68.39.9": {
+    "wid": "68.39.9",
+    "page": 565,
+    "x": [
+      1063,
+      1049,
+      993,
+      944
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00054-c0007",
+    "note": "X-warp from visually decided 65.6.21; destination requires sheet review. Actual immutable-box context reviewed by cloud-ranks012-017-context-review: lam fatha tip clipped, target bodies intact; fixed box retained. See CARRY_CLIPPING_REVIEW.md.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "71.13.1": {
+    "wid": "71.13.1",
+    "page": 571,
+    "x": [
+      811,
+      800,
+      741,
+      691
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00054-c0007",
+    "note": "X-warp from visually decided 65.6.21; destination requires sheet review."
+  },
+  "60.6.2": {
+    "wid": "60.6.2",
+    "page": 550,
+    "x": [
+      1598,
+      1587,
+      1528,
+      1478
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00054-c0008",
+    "note": "X-warp from visually decided 69.12.1; destination requires sheet review."
+  },
+  "66.2.3": {
+    "wid": "66.2.3",
+    "page": 560,
+    "x": [
+      1001,
+      989,
+      928,
+      875
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00054-c0008",
+    "note": "X-warp from visually decided 69.12.1; destination requires sheet review."
+  },
+  "72.21.4": {
+    "wid": "72.21.4",
+    "page": 573,
+    "x": [
+      986,
+      975,
+      915,
+      866
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00054-c0008",
+    "note": "X-warp from visually decided 69.12.1; destination requires sheet review."
+  },
+  "3.103.30": {
+    "wid": "3.103.30",
+    "page": 63,
+    "x": [
+      896,
+      884,
+      803,
+      760
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00054-c0009",
+    "note": "X-warp from visually decided 5.19.6; destination requires sheet review."
+  },
+  "4.19.5": {
+    "wid": "4.19.5",
+    "page": 80,
+    "x": [
+      1315,
+      1301,
+      1214,
+      1173
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00054-c0009",
+    "note": "X-warp from visually decided 5.19.6; destination requires sheet review. Actual immutable-box context reviewed by cloud-ranks012-017-context-review: lam fatha tip clipped, target bodies intact; fixed box retained. See CARRY_CLIPPING_REVIEW.md.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "5.96.1": {
+    "wid": "5.96.1",
+    "page": 124,
+    "x": [
+      1668,
+      1654,
+      1571,
+      1529
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00054-c0010",
+    "note": "X-warp from visually decided 6.119.1; destination requires sheet review."
+  },
+  "11.14.2": {
+    "wid": "11.14.2",
+    "page": 223,
+    "x": [
+      1307,
+      1295,
+      1210,
+      1168
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00054-c0010",
+    "note": "X-warp from visually decided 6.119.1; destination requires sheet review."
+  },
+  "15.20.1": {
+    "wid": "15.20.1",
+    "page": 263,
+    "x": [
+      342,
+      331,
+      274,
+      224
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00054-c0011",
+    "note": "X-warp from visually decided 9.38.4; destination requires sheet review."
+  },
+  "68.37.1": {
+    "wid": "68.37.1",
+    "page": 565,
+    "x": [
+      1848,
+      1839,
+      1786,
+      1739
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00054-c0011",
+    "note": "X-warp from visually decided 9.38.4; destination requires sheet review."
+  },
+  "8.9.4": {
+    "wid": "8.9.4",
+    "page": 178,
+    "x": [
+      826,
+      794,
+      642,
+      608
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00054-c0012",
+    "note": "X-warp from visually decided 11.64.4; destination requires sheet review."
+  },
+  "9.95.2": {
+    "wid": "9.95.2",
+    "page": 202,
+    "x": [
+      1674,
+      1634,
+      1450,
+      1408
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00054-c0012",
+    "note": "X-warp from visually decided 11.64.4; destination requires sheet review. Actual immutable-box context reviewed by cloud-ranks012-017-context-review: lam fatha tip clipped, target bodies intact; fixed box retained. See CARRY_CLIPPING_REVIEW.md.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "12.18.8": {
+    "wid": "12.18.8",
+    "page": 237,
+    "x": [
+      1059,
+      1049,
+      979,
+      951
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00054-c0013",
+    "note": "X-warp from visually decided 12.9.6; destination requires sheet review."
+  },
+  "64.17.6": {
+    "wid": "64.17.6",
+    "page": 557,
+    "x": [
+      1015,
+      1002,
+      923,
+      889
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00054-c0013",
+    "note": "X-warp from visually decided 12.9.6; destination requires sheet review."
+  },
+  "9.7.16": {
+    "wid": "9.7.16",
+    "page": 188,
+    "x": [
+      1514,
+      1503,
+      1418,
+      1377
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00054-c0014",
+    "note": "X-warp from visually decided 20.53.6; destination requires sheet review."
+  },
+  "11.27.22": {
+    "wid": "11.27.22",
+    "page": 224,
+    "x": [
+      1395,
+      1384,
+      1297,
+      1253
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00054-c0014",
+    "note": "X-warp from visually decided 20.53.6; destination requires sheet review."
+  },
+  "2.75.3": {
+    "wid": "2.75.3",
+    "page": 11,
+    "x": [
+      934,
+      924,
+      847,
+      810
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00054-c0015",
+    "note": "X-warp from visually decided 26.162.1; destination requires sheet review. Actual immutable-box context reviewed by cloud-ranks012-017-context-review: lam fatha tip clipped, target bodies intact; fixed box retained. See CARRY_CLIPPING_REVIEW.md.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "26.143.1": {
+    "wid": "26.143.1",
+    "page": 373,
+    "x": [
+      729,
+      718,
+      636,
+      600
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00054-c0015",
+    "note": "X-warp from visually decided 26.162.1; destination requires sheet review."
+  },
+  "16.66.1": {
+    "wid": "16.66.1",
+    "page": 274,
+    "x": [
+      987,
+      973,
+      918,
+      873
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00054-c0016",
+    "note": "X-warp from visually decided 43.62.4; destination requires sheet review."
+  },
+  "22.49.5": {
+    "wid": "22.49.5",
+    "page": 338,
+    "x": [
+      929,
+      914,
+      858,
+      809
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00054-c0016",
+    "note": "X-warp from visually decided 43.62.4; destination requires sheet review."
+  },
+  "22.36.6": {
+    "wid": "22.36.6",
+    "page": 336,
+    "x": [
+      1757,
+      1740,
+      1680,
+      1629
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00054-c0017",
+    "note": "X-warp from visually decided 44.18.6; destination requires sheet review. Actual immutable-box context reviewed by cloud-ranks012-017-context-review: lam fatha tip clipped, target bodies intact; fixed box retained. See CARRY_CLIPPING_REVIEW.md.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "26.166.3": {
+    "wid": "26.166.3",
+    "page": 374,
+    "x": [
+      366,
+      350,
+      297,
+      245
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00054-c0017",
+    "note": "X-warp from visually decided 44.18.6; destination requires sheet review. Actual immutable-box context reviewed by cloud-ranks012-017-context-review: lam fatha tip clipped, target bodies intact; fixed box retained. See CARRY_CLIPPING_REVIEW.md.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "14.21.9": {
+    "wid": "14.21.9",
+    "page": 258,
+    "x": [
+      1520,
+      1512,
+      1427,
+      1394
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00054-c0018",
+    "note": "X-warp from visually decided 55.31.1; destination requires sheet review."
+  },
+  "60.2.3": {
+    "wid": "60.2.3",
+    "page": 549,
+    "x": [
+      1375,
+      1365,
+      1289,
+      1251
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00054-c0018",
+    "note": "X-warp from visually decided 55.31.1; destination requires sheet review."
+  },
+  "4.90.33": {
+    "wid": "4.90.33",
+    "page": 92,
+    "x": [
+      868,
+      855,
+      795,
+      741
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00054-c0019",
+    "note": "X-warp from visually decided 61.12.1; destination requires sheet review."
+  },
+  "10.35.26": {
+    "wid": "10.35.26",
+    "page": 213,
+    "x": [
+      852,
+      839,
+      782,
+      730
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00054-c0019",
+    "note": "X-warp from visually decided 61.12.1; destination requires sheet review. Actual immutable-box context reviewed by cloud-ranks012-017-context-review: lam fatha tip clipped, target bodies intact; fixed box retained. See CARRY_CLIPPING_REVIEW.md.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "7.79.9": {
+    "wid": "7.79.9",
+    "page": 160,
+    "x": [
+      1149,
+      1138,
+      1040,
+      998
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00054-c0020",
+    "note": "X-warp from visually decided 2.168.13; destination requires sheet review. Actual immutable-box context reviewed by cloud-ranks012-017-context-review: lam fatha tip clipped, target bodies intact; fixed box retained. See CARRY_CLIPPING_REVIEW.md.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.208.12": {
+    "wid": "2.208.12",
+    "page": 32,
+    "x": [
+      1659,
+      1617,
+      1467,
+      1430
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00054-c0021",
+    "note": "X-warp from visually decided 2.187.1; destination requires sheet review. Actual immutable-box context reviewed by cloud-ranks012-017-context-review: lam fatha tip clipped, target bodies intact; fixed box retained. See CARRY_CLIPPING_REVIEW.md.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "4.12.36": {
+    "wid": "4.12.36",
+    "page": 79,
+    "x": [
+      1401,
+      1351,
+      1176,
+      1140
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00054-c0022",
+    "note": "X-warp from visually decided 2.247.7; destination requires sheet review. Actual immutable-box context reviewed by cloud-ranks012-017-context-review: lam fatha tip clipped, target bodies intact; fixed box retained. See CARRY_CLIPPING_REVIEW.md.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "4.75.1": {
+    "wid": "4.75.1",
+    "page": 90,
+    "x": [
+      1704,
+      1690,
+      1633,
+      1585
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00054-c0023",
+    "note": "X-warp from visually decided 3.31.9; destination requires sheet review."
+  },
+  "5.3.41": {
+    "wid": "5.3.41",
+    "page": 107,
+    "x": [
+      685,
+      673,
+      604,
+      564
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00054-c0024",
+    "note": "X-warp from visually decided 4.4.6; destination requires sheet review. Actual immutable-box context reviewed by cloud-ranks012-017-context-review: lam fatha tip clipped, target bodies intact; fixed box retained. See CARRY_CLIPPING_REVIEW.md.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "4.11.61": {
+    "wid": "4.11.61",
+    "page": 78,
+    "x": [
+      233,
+      215,
+      161,
+      113
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00054-c0025",
+    "note": "X-warp from visually decided 4.5.7; destination requires sheet review. Actual immutable-box context reviewed by cloud-ranks012-017-context-review: lam fatha tip clipped, target bodies intact; fixed box retained. See CARRY_CLIPPING_REVIEW.md.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "5.101.18": {
+    "wid": "5.101.18",
+    "page": 124,
+    "x": [
+      1459,
+      1450,
+      1365,
+      1328
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00054-c0026",
+    "note": "X-warp from visually decided 4.26.3; destination requires sheet review."
+  },
+  "5.101.9": {
+    "wid": "5.101.9",
+    "page": 124,
+    "x": [
+      1277,
+      1261,
+      1188,
+      1148
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00054-c0027",
+    "note": "X-warp from visually decided 4.91.28; destination requires sheet review."
+  },
+  "7.73.21": {
+    "wid": "7.73.21",
+    "page": 159,
+    "x": [
+      1081,
+      1039,
+      874,
+      837
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00054-c0028",
+    "note": "X-warp from visually decided 4.176.43; destination requires sheet review."
+  },
+  "16.5.2": {
+    "wid": "16.5.2",
+    "page": 267,
+    "x": [
+      1593,
+      1569,
+      1376,
+      1333
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00054-c0029",
+    "note": "X-warp from visually decided 5.76.8; destination requires sheet review."
+  },
+  "29.17.16": {
+    "wid": "29.17.16",
+    "page": 398,
+    "x": [
+      1148,
+      1137,
+      1055,
+      1013
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00054-c0030",
+    "note": "X-warp from visually decided 12.98.3; destination requires sheet review."
+  },
+  "33.53.51": {
+    "wid": "33.53.51",
+    "page": 425,
+    "x": [
+      1819,
+      1784,
+      1611,
+      1577
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00054-c0031",
+    "note": "X-warp from visually decided 14.45.7; destination requires sheet review."
+  },
+  "28.12.12": {
+    "wid": "28.12.12",
+    "page": 386,
+    "x": [
+      1111,
+      1072,
+      906,
+      875
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00054-c0032",
+    "note": "X-warp from visually decided 16.13.2; destination requires sheet review."
+  },
+  "36.60.10": {
+    "wid": "36.60.10",
+    "page": 444,
+    "x": [
+      1174,
+      1159,
+      1088,
+      1029
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00054-c0033",
+    "note": "X-warp from visually decided 16.92.25; destination requires sheet review. Actual immutable-box context reviewed by cloud-ranks012-017-context-review: lam fatha tip clipped, target bodies intact; fixed box retained. See CARRY_CLIPPING_REVIEW.md.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "33.53.10": {
+    "wid": "33.53.10",
+    "page": 425,
+    "x": [
+      1559,
+      1540,
+      1463,
+      1422
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00054-c0034",
+    "note": "X-warp from visually decided 26.107.1; destination requires sheet review."
+  },
+  "35.6.2": {
+    "wid": "35.6.2",
+    "page": 435,
+    "x": [
+      598,
+      582,
+      533,
+      485
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00054-c0035",
+    "note": "X-warp from visually decided 33.13.8; destination requires sheet review. Actual immutable-box context reviewed by cloud-ranks012-017-context-review: lam fatha tip clipped, target bodies intact; fixed box retained. See CARRY_CLIPPING_REVIEW.md.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "33.49.13": {
+    "wid": "33.49.13",
+    "page": 424,
+    "x": [
+      1029,
+      1015,
+      937,
+      894
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00054-c0036",
+    "note": "X-warp from visually decided 33.21.2; destination requires sheet review. Actual immutable-box context reviewed by cloud-ranks012-017-context-review: lam fatha tip clipped, target bodies intact; fixed box retained. See CARRY_CLIPPING_REVIEW.md.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "58.18.8": {
+    "wid": "58.18.8",
+    "page": 544,
+    "x": [
+      960,
+      949,
+      890,
+      840
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00054-c0037",
+    "note": "Actually inspected enlarged own mim tail: left edge840 excludes neighboring ink and marginal non-target mark; internal stacked boundaries remain low confidence. Actual immutable-box context reviewed by cloud-ranks012-017-context-review: lam fatha tip clipped, target bodies intact; fixed box retained. See CARRY_CLIPPING_REVIEW.md.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "68.36.1": {
+    "wid": "68.36.1",
+    "page": 565,
+    "x": [
+      760,
+      748,
+      695,
+      651
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00054-c0038",
+    "note": "X-warp from visually decided 57.10.1; destination requires sheet review."
+  },
+  "68.39.1": {
+    "wid": "68.39.1",
+    "page": 565,
+    "x": [
+      365,
+      352,
+      307,
+      261
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00054-c0039",
+    "note": "X-warp from visually decided 68.38.1; destination requires sheet review. Actual immutable-box context reviewed by cloud-ranks012-017-context-review: lam fatha tip clipped, target bodies intact; fixed box retained. See CARRY_CLIPPING_REVIEW.md.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  }
+}

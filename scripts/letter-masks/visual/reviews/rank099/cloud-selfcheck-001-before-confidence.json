@@ -1,0 +1,395 @@
+{
+  "26.145.9": {
+    "wid": "26.145.9",
+    "page": 373,
+    "x": [
+      1642,
+      1615,
+      1534
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00099-c0001",
+    "note": "Manual cut in visible gap between upper ra and ba bodies; ra lower return overlaps ba horizontally. Marks follow their carriers."
+  },
+  "14.36.0": {
+    "wid": "14.36.0",
+    "page": 260,
+    "x": [
+      1070,
+      1039,
+      955
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00099-c0002",
+    "note": "Manual cut in visible gap between upper ra and ba bodies; ra lower return overlaps ba horizontally. Marks follow their carriers."
+  },
+  "26.164.9": {
+    "wid": "26.164.9",
+    "page": 374,
+    "x": [
+      694,
+      666,
+      573
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00099-c0003",
+    "note": "Manual cut in visible gap between upper ra and ba bodies; ra lower return overlaps ba horizontally. Marks follow their carriers. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "10.10.12": {
+    "wid": "10.10.12",
+    "page": 209,
+    "x": [
+      1859,
+      1827,
+      1738
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00099-c0004",
+    "note": "Manual cut in visible gap between upper ra and ba bodies; ra lower return overlaps ba horizontally. Marks follow their carriers. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "12.33.1": {
+    "wid": "12.33.1",
+    "page": 239,
+    "x": [
+      1122,
+      1090,
+      1002
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00099-c0005",
+    "note": "Manual cut in visible gap between upper ra and ba bodies; ra lower return overlaps ba horizontally. Marks follow their carriers. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "26.180.9": {
+    "wid": "26.180.9",
+    "page": 374,
+    "x": [
+      1118,
+      1093,
+      1014
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00099-c0006",
+    "note": "Manual cut in visible gap between upper ra and ba bodies; ra lower return overlaps ba horizontally. Marks follow their carriers. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "37.180.2": {
+    "wid": "37.180.2",
+    "page": 452,
+    "x": [
+      952,
+      929,
+      846
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00099-c0007",
+    "note": "Manual cut in visible gap between upper ra and ba bodies; ra lower return overlaps ba horizontally. Marks follow their carriers."
+  },
+  "19.4.12": {
+    "wid": "19.4.12",
+    "page": 305,
+    "x": [
+      264,
+      237,
+      138
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00099-c0008",
+    "note": "Manual cut in visible gap between upper ra and ba bodies; ra lower return overlaps ba horizontally. Marks follow their carriers."
+  },
+  "6.45.7": {
+    "wid": "6.45.7",
+    "page": 133,
+    "x": [
+      626,
+      596,
+      511
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00099-c0009",
+    "note": "Manual cut in visible gap between upper ra and ba bodies; ra lower return overlaps ba horizontally. Marks follow their carriers. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "19.10.1": {
+    "wid": "19.10.1",
+    "page": 305,
+    "x": [
+      1303,
+      1277,
+      1180
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00099-c0010",
+    "note": "Manual cut in visible gap between upper ra and ba bodies; ra lower return overlaps ba horizontally. Marks follow their carriers."
+  },
+  "20.84.7": {
+    "wid": "20.84.7",
+    "page": 317,
+    "x": [
+      1840,
+      1815,
+      1722
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00099-c0011",
+    "note": "Manual cut in visible gap between upper ra and ba bodies; ra lower return overlaps ba horizontally. Marks follow their carriers."
+  },
+  "23.39.1": {
+    "wid": "23.39.1",
+    "page": 344,
+    "x": [
+      226,
+      195,
+      111
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00099-c0012",
+    "note": "Manual cut in visible gap between upper ra and ba bodies; ra lower return overlaps ba horizontally. Marks follow their carriers. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "26.109.9": {
+    "wid": "26.109.9",
+    "page": 371,
+    "x": [
+      992,
+      962,
+      874
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00099-c0013",
+    "note": "Manual cut in visible gap between upper ra and ba bodies; ra lower return overlaps ba horizontally. Marks follow their carriers."
+  },
+  "37.182.2": {
+    "wid": "37.182.2",
+    "page": 452,
+    "x": [
+      659,
+      629,
+      551
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00099-c0014",
+    "note": "Manual cut in visible gap between upper ra and ba bodies; ra lower return overlaps ba horizontally. Marks follow their carriers."
+  },
+  "38.79.1": {
+    "wid": "38.79.1",
+    "page": 457,
+    "x": [
+      1406,
+      1380,
+      1298
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00099-c0015",
+    "note": "Manual cut in visible gap between upper ra and ba bodies; ra lower return overlaps ba horizontally. Marks follow their carriers. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "3.40.1": {
+    "wid": "3.40.1",
+    "page": 55,
+    "x": [
+      221,
+      192,
+      110
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00099-c0016",
+    "note": "Manual cut in visible gap between upper ra and ba bodies; ra lower return overlaps ba horizontally. Marks follow their carriers. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "45.36.2": {
+    "wid": "45.36.2",
+    "page": 502,
+    "x": [
+      1525,
+      1501,
+      1420
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00099-c0017",
+    "note": "Manual cut in visible gap between upper ra and ba bodies; ra lower return overlaps ba horizontally. Marks follow their carriers."
+  },
+  "43.82.1": {
+    "wid": "43.82.1",
+    "page": 495,
+    "x": [
+      1142,
+      1121,
+      1044
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00099-c0018",
+    "note": "Manual cut in visible gap between upper ra and ba bodies; ra lower return overlaps ba horizontally. Marks follow their carriers."
+  },
+  "1.2.2": {
+    "wid": "1.2.2",
+    "page": 1,
+    "x": [
+      1133,
+      1115,
+      982
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00099-c0019",
+    "note": "Manual cut in visible gap between upper ra and ba bodies; ra lower return overlaps ba horizontally. Marks follow their carriers."
+  },
+  "5.25.1": {
+    "wid": "5.25.1",
+    "page": 112,
+    "x": [
+      214,
+      191,
+      108
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00099-c0020",
+    "note": "Manual cut in visible gap between upper ra and ba bodies; ra lower return overlaps ba horizontally. Marks follow their carriers. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "11.45.4": {
+    "wid": "11.45.4",
+    "page": 226,
+    "x": [
+      352,
+      322,
+      177
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00099-c0021",
+    "note": "Manual cut in visible gap between upper ra and ba bodies; ra lower return overlaps ba horizontally. Marks follow their carriers."
+  },
+  "21.22.9": {
+    "wid": "21.22.9",
+    "page": 323,
+    "x": [
+      337,
+      312,
+      234
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00099-c0022",
+    "note": "Manual cut in visible gap between upper ra and ba bodies; ra lower return overlaps ba horizontally. Marks follow their carriers. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "23.26.1": {
+    "wid": "23.26.1",
+    "page": 343,
+    "x": [
+      412,
+      389,
+      310
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00099-c0023",
+    "note": "Manual cut in visible gap between upper ra and ba bodies; ra lower return overlaps ba horizontally. Marks follow their carriers. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "27.44.18": {
+    "wid": "27.44.18",
+    "page": 380,
+    "x": [
+      398,
+      368,
+      200
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00099-c0024",
+    "note": "Manual cut in visible gap between upper ra and ba bodies; ra lower return overlaps ba horizontally. Marks follow their carriers. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "29.30.1": {
+    "wid": "29.30.1",
+    "page": 399,
+    "x": [
+      1471,
+      1443,
+      1292
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00099-c0025",
+    "note": "Manual cut in visible gap between upper ra and ba bodies; ra lower return overlaps ba horizontally. Marks follow their carriers."
+  },
+  "39.75.15": {
+    "wid": "39.75.15",
+    "page": 467,
+    "x": [
+      614,
+      589,
+      500
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00099-c0026",
+    "note": "Manual cut in visible gap between upper ra and ba bodies; ra lower return overlaps ba horizontally. Marks follow their carriers. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "45.36.6": {
+    "wid": "45.36.6",
+    "page": 502,
+    "x": [
+      762,
+      736,
+      617
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00099-c0027",
+    "note": "Manual cut in visible gap between upper ra and ba bodies; ra lower return overlaps ba horizontally. Marks follow their carriers. Visible carrier or attached mark clipped by immutable crop; kept inside box for owner review.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  }
+}

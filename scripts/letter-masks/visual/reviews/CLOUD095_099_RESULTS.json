@@ -1,0 +1,103 @@
+{
+  "observer": "cloud-ranks095_100",
+  "ranks": [
+    {
+      "rank": 95,
+      "accepted": 83,
+      "manifestWords": 83,
+      "representatives": 39,
+      "withheld": [],
+      "confidence": {
+        "high": 83
+      },
+      "uniqueImagesReviewedThisAgent": 17,
+      "auditEventsThisAgent": 24,
+      "uniqueWordsReviewedThisAgent": 83,
+      "shadedWordsReviewedThisAgent": 83,
+      "newAcceptedThisAgent": 83,
+      "uniqueWordsInOriginalImages": 39
+    },
+    {
+      "rank": 96,
+      "accepted": 82,
+      "manifestWords": 82,
+      "representatives": 24,
+      "withheld": [],
+      "confidence": {
+        "high": 36,
+        "low": 46
+      },
+      "uniqueImagesReviewedThisAgent": 14,
+      "auditEventsThisAgent": 18,
+      "uniqueWordsReviewedThisAgent": 82,
+      "shadedWordsReviewedThisAgent": 82,
+      "newAcceptedThisAgent": 82,
+      "uniqueWordsInOriginalImages": 24
+    },
+    {
+      "rank": 97,
+      "accepted": 82,
+      "manifestWords": 82,
+      "representatives": 38,
+      "withheld": [],
+      "confidence": {
+        "high": 59,
+        "low": 23
+      },
+      "uniqueImagesReviewedThisAgent": 22,
+      "auditEventsThisAgent": 29,
+      "uniqueWordsReviewedThisAgent": 82,
+      "shadedWordsReviewedThisAgent": 82,
+      "newAcceptedThisAgent": 82,
+      "uniqueWordsInOriginalImages": 38
+    },
+    {
+      "rank": 98,
+      "accepted": 81,
+      "manifestWords": 81,
+      "representatives": 23,
+      "withheld": [],
+      "confidence": {
+        "low": 72,
+        "medium": 9
+      },
+      "uniqueImagesReviewedThisAgent": 11,
+      "auditEventsThisAgent": 11,
+      "uniqueWordsReviewedThisAgent": 81,
+      "shadedWordsReviewedThisAgent": 81,
+      "newAcceptedThisAgent": 81,
+      "uniqueWordsInOriginalImages": 23
+    },
+    {
+      "rank": 99,
+      "accepted": 80,
+      "manifestWords": 80,
+      "representatives": 27,
+      "withheld": [],
+      "confidence": {
+        "high": 33,
+        "low": 47
+      },
+      "uniqueImagesReviewedThisAgent": 13,
+      "auditEventsThisAgent": 13,
+      "uniqueWordsReviewedThisAgent": 80,
+      "shadedWordsReviewedThisAgent": 80,
+      "newAcceptedThisAgent": 80,
+      "uniqueWordsInOriginalImages": 27
+    }
+  ],
+  "geometry": "PASS: exact app N+1 integers, descending by >=2 px, inside immutable word boxes",
+  "excludedTestIds": "PASS",
+  "ownAuditImageHashes": "PASS",
+  "frozenBlindPredictionSHA256": "766e716327f6ee1b0e2823ad8786b5b2181954b27c3939aa5aaa0954b969e046",
+  "firstAuditAt": "2026-11-08T11:37:19.541394+00:00",
+  "lastAuditAt": "2026-11-08T11:49:42.467920+00:00",
+  "auditWindowSeconds": 742.926526,
+  "tokens": "Not available from session tooling; not estimated",
+  "checkpoint": "Owned ranks095\u2013099 complete. Rank100 handed to agent079 before any actual review or annotations; global Checkpoint A gate/evaluation remains parent responsibility.",
+  "scopedTests": {
+    "command": "node --experimental-strip-types --test scripts/letter-borders.test.mjs scripts/border-queue.test.mjs",
+    "passed": 10,
+    "failed": 0
+  }
+}

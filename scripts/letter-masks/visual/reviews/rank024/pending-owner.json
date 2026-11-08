@@ -1,0 +1,13 @@
+[
+  {
+    "wid": "30.41.5",
+    "status": "withheld-missing-target",
+    "reason": "Ba upright/head entirely absent beyond immutable right crop; only long joining baseline and meem-alif remain. Do not invent ba slot from connector.",
+    "image": "scripts/letter-masks/visual/reviews/rank024/representatives-original-007.png",
+    "observer": "cloud-ranks018_025",
+    "reviewFlags": [
+      "clipped-ink",
+      "missing-target"
+    ]
+  }
+]

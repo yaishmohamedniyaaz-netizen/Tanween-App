@@ -1,0 +1,784 @@
+{
+  "21.89.4": {
+    "wid": "21.89.4",
+    "page": 329,
+    "x": [
+      1376,
+      1348,
+      1263
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00099-c0001",
+    "note": "Carried from visually decided 26.145.9; destination requires sheet review. Actual destination reviewed: cut separates upper ra and ba bodies; ra lower return crosses ba span."
+  },
+  "23.98.2": {
+    "wid": "23.98.2",
+    "page": 348,
+    "x": [
+      1836,
+      1804,
+      1716
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00099-c0001",
+    "note": "Carried from visually decided 26.145.9; destination requires sheet review. Actual destination reviewed: cut separates upper ra and ba bodies; ra lower return crosses ba span."
+  },
+  "23.99.6": {
+    "wid": "23.99.6",
+    "page": 348,
+    "x": [
+      214,
+      186,
+      100
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00099-c0001",
+    "note": "Carried from visually decided 26.145.9; destination requires sheet review. Actual destination reviewed: cut separates upper ra and ba bodies; ra lower return crosses ba span. Fatha visibly reaches and clips immutable right edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "26.16.5": {
+    "wid": "26.16.5",
+    "page": 367,
+    "x": [
+      1374,
+      1346,
+      1255
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00099-c0001",
+    "note": "Carried from visually decided 26.145.9; destination requires sheet review. Actual destination reviewed: cut separates upper ra and ba bodies; ra lower return crosses ba span. Fatha visibly reaches and clips immutable right edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "26.169.0": {
+    "wid": "26.169.0",
+    "page": 374,
+    "x": [
+      1845,
+      1815,
+      1734
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00099-c0001",
+    "note": "Carried from visually decided 26.145.9; destination requires sheet review. Actual destination reviewed: cut separates upper ra and ba bodies; ra lower return crosses ba span."
+  },
+  "27.8.12": {
+    "wid": "27.8.12",
+    "page": 377,
+    "x": [
+      191,
+      164,
+      86
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00099-c0001",
+    "note": "Carried from visually decided 26.145.9; destination requires sheet review. Actual destination reviewed: cut separates upper ra and ba bodies; ra lower return crosses ba span. Fatha visibly reaches and clips immutable right edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "28.24.7": {
+    "wid": "28.24.7",
+    "page": 388,
+    "x": [
+      1814,
+      1785,
+      1695
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00099-c0001",
+    "note": "Carried from visually decided 26.145.9; destination requires sheet review. Actual destination reviewed: cut separates upper ra and ba bodies; ra lower return crosses ba span. Fatha visibly reaches and clips immutable right edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "14.35.3": {
+    "wid": "14.35.3",
+    "page": 260,
+    "x": [
+      1481,
+      1451,
+      1362
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00099-c0002",
+    "note": "Carried from visually decided 14.36.0; destination requires sheet review. Actual destination reviewed: cut separates upper ra and ba bodies; ra lower return crosses ba span. Fatha visibly reaches and clips immutable right edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "14.40.0": {
+    "wid": "14.40.0",
+    "page": 260,
+    "x": [
+      1853,
+      1819,
+      1728
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00099-c0002",
+    "note": "Carried from visually decided 14.36.0; destination requires sheet review. Actual destination reviewed: cut separates upper ra and ba bodies; ra lower return crosses ba span. Fatha visibly reaches and clips immutable right edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "26.83.0": {
+    "wid": "26.83.0",
+    "page": 370,
+    "x": [
+      1663,
+      1627,
+      1543
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00099-c0002",
+    "note": "Carried from visually decided 14.36.0; destination requires sheet review. Actual destination reviewed: cut separates upper ra and ba bodies; ra lower return crosses ba span."
+  },
+  "26.117.1": {
+    "wid": "26.117.1",
+    "page": 372,
+    "x": [
+      1854,
+      1823,
+      1745
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00099-c0002",
+    "note": "Carried from visually decided 14.36.0; destination requires sheet review. Actual destination reviewed: cut separates upper ra and ba bodies; ra lower return crosses ba span. Fatha visibly reaches and clips immutable right edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "28.33.1": {
+    "wid": "28.33.1",
+    "page": 389,
+    "x": [
+      1056,
+      1026,
+      943
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00099-c0002",
+    "note": "Carried from visually decided 14.36.0; destination requires sheet review. Actual destination reviewed: cut separates upper ra and ba bodies; ra lower return crosses ba span."
+  },
+  "66.11.9": {
+    "wid": "66.11.9",
+    "page": 561,
+    "x": [
+      1638,
+      1604,
+      1518
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00099-c0002",
+    "note": "Carried from visually decided 14.36.0; destination requires sheet review. Actual destination reviewed: cut separates upper ra and ba bodies; ra lower return crosses ba span. Fatha visibly reaches and clips immutable right edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "6.162.7": {
+    "wid": "6.162.7",
+    "page": 150,
+    "x": [
+      1847,
+      1824,
+      1737
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00099-c0003",
+    "note": "Carried from visually decided 26.164.9; destination requires sheet review. Actual destination reviewed: cut separates upper ra and ba bodies; ra lower return crosses ba span. Fatha visibly reaches and clips immutable right edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "28.16.1": {
+    "wid": "28.16.1",
+    "page": 387,
+    "x": [
+      1549,
+      1524,
+      1438
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00099-c0003",
+    "note": "Carried from visually decided 26.164.9; destination requires sheet review. Actual destination reviewed: cut separates upper ra and ba bodies; ra lower return crosses ba span."
+  },
+  "28.21.5": {
+    "wid": "28.21.5",
+    "page": 387,
+    "x": [
+      1069,
+      1046,
+      959
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00099-c0003",
+    "note": "Carried from visually decided 26.164.9; destination requires sheet review. Actual destination reviewed: cut separates upper ra and ba bodies; ra lower return crosses ba span."
+  },
+  "44.7.0": {
+    "wid": "44.7.0",
+    "page": 496,
+    "x": [
+      1186,
+      1156,
+      1065
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00099-c0003",
+    "note": "Carried from visually decided 26.164.9; destination requires sheet review. Actual destination reviewed: cut separates upper ra and ba bodies; ra lower return crosses ba span."
+  },
+  "63.10.11": {
+    "wid": "63.10.11",
+    "page": 555,
+    "x": [
+      617,
+      592,
+      492
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00099-c0003",
+    "note": "Carried from visually decided 26.164.9; destination requires sheet review. Actual destination reviewed: cut separates upper ra and ba bodies; ra lower return crosses ba span."
+  },
+  "3.35.4": {
+    "wid": "3.35.4",
+    "page": 54,
+    "x": [
+      685,
+      654,
+      569
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00099-c0004",
+    "note": "Carried from visually decided 10.10.12; destination requires sheet review. Actual destination reviewed: cut separates upper ra and ba bodies; ra lower return crosses ba span. Fatha visibly reaches and clips immutable right edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "3.36.3": {
+    "wid": "3.36.3",
+    "page": 54,
+    "x": [
+      1402,
+      1371,
+      1292
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00099-c0004",
+    "note": "Carried from visually decided 10.10.12; destination requires sheet review. Actual destination reviewed: cut separates upper ra and ba bodies; ra lower return crosses ba span. Fatha visibly reaches and clips immutable right edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "3.38.5": {
+    "wid": "3.38.5",
+    "page": 55,
+    "x": [
+      938,
+      905,
+      825
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00099-c0004",
+    "note": "Carried from visually decided 10.10.12; destination requires sheet review. Actual destination reviewed: cut separates upper ra and ba bodies; ra lower return crosses ba span. Fatha visibly reaches and clips immutable right edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "7.151.1": {
+    "wid": "7.151.1",
+    "page": 169,
+    "x": [
+      1189,
+      1157,
+      1063
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00099-c0004",
+    "note": "Carried from visually decided 10.10.12; destination requires sheet review. Actual destination reviewed: cut separates upper ra and ba bodies; ra lower return crosses ba span. Fatha visibly reaches and clips immutable right edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "3.41.1": {
+    "wid": "3.41.1",
+    "page": 55,
+    "x": [
+      658,
+      628,
+      539
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00099-c0005",
+    "note": "Carried from visually decided 12.33.1; destination requires sheet review. Actual destination reviewed: cut separates upper ra and ba bodies; ra lower return crosses ba span. Fatha visibly reaches and clips immutable right edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "3.47.1": {
+    "wid": "3.47.1",
+    "page": 56,
+    "x": [
+      1652,
+      1621,
+      1536
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00099-c0005",
+    "note": "Carried from visually decided 12.33.1; destination requires sheet review. Actual destination reviewed: cut separates upper ra and ba bodies; ra lower return crosses ba span. Fatha visibly reaches and clips immutable right edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "15.36.1": {
+    "wid": "15.36.1",
+    "page": 264,
+    "x": [
+      1381,
+      1349,
+      1259
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00099-c0005",
+    "note": "Carried from visually decided 12.33.1; destination requires sheet review. Actual destination reviewed: cut separates upper ra and ba bodies; ra lower return crosses ba span. Fatha visibly reaches and clips immutable right edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "43.82.4": {
+    "wid": "43.82.4",
+    "page": 495,
+    "x": [
+      466,
+      429,
+      351
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00099-c0005",
+    "note": "Carried from visually decided 12.33.1; destination requires sheet review. Actual destination reviewed: cut separates upper ra and ba bodies; ra lower return crosses ba span. Fatha visibly reaches and clips immutable right edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.126.3": {
+    "wid": "2.126.3",
+    "page": 19,
+    "x": [
+      971,
+      943,
+      864
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00099-c0006",
+    "note": "Carried from visually decided 26.180.9; destination requires sheet review. Actual destination reviewed: cut separates upper ra and ba bodies; ra lower return crosses ba span."
+  },
+  "12.101.0": {
+    "wid": "12.101.0",
+    "page": 247,
+    "x": [
+      220,
+      193,
+      100
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00099-c0006",
+    "note": "Carried from visually decided 26.180.9; destination requires sheet review. Actual destination reviewed: cut separates upper ra and ba bodies; ra lower return crosses ba span."
+  },
+  "26.192.2": {
+    "wid": "26.192.2",
+    "page": 375,
+    "x": [
+      951,
+      926,
+      848
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00099-c0006",
+    "note": "Carried from visually decided 26.180.9; destination requires sheet review. Actual destination reviewed: cut separates upper ra and ba bodies; ra lower return crosses ba span."
+  },
+  "37.100.0": {
+    "wid": "37.100.0",
+    "page": 449,
+    "x": [
+      762,
+      739,
+      663
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00099-c0006",
+    "note": "Carried from visually decided 26.180.9; destination requires sheet review. Actual destination reviewed: cut separates upper ra and ba bodies; ra lower return crosses ba span."
+  },
+  "7.155.10": {
+    "wid": "7.155.10",
+    "page": 169,
+    "x": [
+      1712,
+      1685,
+      1595
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00099-c0007",
+    "note": "Carried from visually decided 37.180.2; destination requires sheet review. Actual destination reviewed: cut separates upper ra and ba bodies; ra lower return crosses ba span. Fatha visibly reaches and clips immutable right edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "20.125.1": {
+    "wid": "20.125.1",
+    "page": 320,
+    "x": [
+      1365,
+      1337,
+      1236
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00099-c0007",
+    "note": "Carried from visually decided 37.180.2; destination requires sheet review. Actual destination reviewed: cut separates upper ra and ba bodies; ra lower return crosses ba span. Fatha visibly reaches and clips immutable right edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "26.48.0": {
+    "wid": "26.48.0",
+    "page": 369,
+    "x": [
+      1861,
+      1838,
+      1760
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00099-c0007",
+    "note": "Carried from visually decided 37.180.2; destination requires sheet review. Actual destination reviewed: cut separates upper ra and ba bodies; ra lower return crosses ba span. Fatha visibly reaches and clips immutable right edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "40.65.12": {
+    "wid": "40.65.12",
+    "page": 474,
+    "x": [
+      871,
+      846,
+      760
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00099-c0007",
+    "note": "Carried from visually decided 37.180.2; destination requires sheet review. Actual destination reviewed: cut separates upper ra and ba bodies; ra lower return crosses ba span. Fatha visibly reaches and clips immutable right edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "7.122.0": {
+    "wid": "7.122.0",
+    "page": 165,
+    "x": [
+      949,
+      923,
+      834
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00099-c0008",
+    "note": "Carried from visually decided 19.4.12; destination requires sheet review. Actual destination reviewed: cut separates upper ra and ba bodies; ra lower return crosses ba span."
+  },
+  "27.19.5": {
+    "wid": "27.19.5",
+    "page": 378,
+    "x": [
+      728,
+      701,
+      615
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00099-c0008",
+    "note": "Carried from visually decided 19.4.12; destination requires sheet review. Actual destination reviewed: cut separates upper ra and ba bodies; ra lower return crosses ba span. Fatha visibly reaches and clips immutable right edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "27.44.26": {
+    "wid": "27.44.26",
+    "page": 380,
+    "x": [
+      652,
+      626,
+      532
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00099-c0008",
+    "note": "Carried from visually decided 19.4.12; destination requires sheet review. Actual destination reviewed: cut separates upper ra and ba bodies; ra lower return crosses ba span."
+  },
+  "19.4.1": {
+    "wid": "19.4.1",
+    "page": 305,
+    "x": [
+      702,
+      665,
+      564
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00099-c0009",
+    "note": "Carried from visually decided 6.45.7; destination requires sheet review. Actual destination reviewed: cut separates upper ra and ba bodies; ra lower return crosses ba span."
+  },
+  "19.8.1": {
+    "wid": "19.8.1",
+    "page": 305,
+    "x": [
+      1505,
+      1472,
+      1375
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00099-c0009",
+    "note": "Carried from visually decided 6.45.7; destination requires sheet review. Actual destination reviewed: cut separates upper ra and ba bodies; ra lower return crosses ba span. Fatha visibly reaches and clips immutable right edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.260.3": {
+    "wid": "2.260.3",
+    "page": 44,
+    "x": [
+      1310,
+      1285,
+      1192
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00099-c0010",
+    "note": "Carried from visually decided 19.10.1; destination requires sheet review. Actual destination reviewed: cut separates upper ra and ba bodies; ra lower return crosses ba span. Fatha visibly reaches and clips immutable right edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "20.25.1": {
+    "wid": "20.25.1",
+    "page": 313,
+    "x": [
+      1843,
+      1819,
+      1740
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00099-c0010",
+    "note": "Carried from visually decided 19.10.1; destination requires sheet review. Actual destination reviewed: cut separates upper ra and ba bodies; ra lower return crosses ba span. Fatha visibly reaches and clips immutable right edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "11.47.1": {
+    "wid": "11.47.1",
+    "page": 227,
+    "x": [
+      1694,
+      1670,
+      1581
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00099-c0011",
+    "note": "Carried from visually decided 20.84.7; destination requires sheet review. Actual destination reviewed: cut separates upper ra and ba bodies; ra lower return crosses ba span."
+  },
+  "23.94.0": {
+    "wid": "23.94.0",
+    "page": 348,
+    "x": [
+      978,
+      949,
+      855
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00099-c0011",
+    "note": "Carried from visually decided 20.84.7; destination requires sheet review. Actual destination reviewed: cut separates upper ra and ba bodies; ra lower return crosses ba span. Fatha visibly reaches and clips immutable right edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "26.12.1": {
+    "wid": "26.12.1",
+    "page": 367,
+    "x": [
+      485,
+      457,
+      377
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00099-c0012",
+    "note": "Carried from visually decided 23.39.1; destination requires sheet review. Actual destination reviewed: cut separates upper ra and ba bodies; ra lower return crosses ba span. Fatha visibly reaches and clips immutable right edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "46.15.21": {
+    "wid": "46.15.21",
+    "page": 504,
+    "x": [
+      1345,
+      1317,
+      1233
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00099-c0012",
+    "note": "Carried from visually decided 23.39.1; destination requires sheet review. Actual destination reviewed: cut separates upper ra and ba bodies; ra lower return crosses ba span."
+  },
+  "19.6.6": {
+    "wid": "19.6.6",
+    "page": 305,
+    "x": [
+      1017,
+      989,
+      890
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00099-c0013",
+    "note": "Carried from visually decided 26.109.9; destination requires sheet review. Actual destination reviewed: cut separates upper ra and ba bodies; ra lower return crosses ba span."
+  },
+  "26.127.9": {
+    "wid": "26.127.9",
+    "page": 372,
+    "x": [
+      1130,
+      1102,
+      1020
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00099-c0013",
+    "note": "Carried from visually decided 26.109.9; destination requires sheet review. Actual destination reviewed: cut separates upper ra and ba bodies; ra lower return crosses ba span."
+  },
+  "15.39.1": {
+    "wid": "15.39.1",
+    "page": 264,
+    "x": [
+      276,
+      248,
+      174
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00099-c0014",
+    "note": "Carried from visually decided 37.182.2; destination requires sheet review. Actual destination reviewed: cut separates upper ra and ba bodies; ra lower return crosses ba span. Fatha visibly reaches and clips immutable right edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "38.35.1": {
+    "wid": "38.35.1",
+    "page": 455,
+    "x": [
+      341,
+      315,
+      238
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00099-c0014",
+    "note": "Carried from visually decided 37.182.2; destination requires sheet review. Actual destination reviewed: cut separates upper ra and ba bodies; ra lower return crosses ba span. Fatha visibly reaches and clips immutable right edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "21.112.1": {
+    "wid": "21.112.1",
+    "page": 331,
+    "x": [
+      1820,
+      1798,
+      1715
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00099-c0015",
+    "note": "Carried from visually decided 38.79.1; destination requires sheet review. Actual destination reviewed: cut separates upper ra and ba bodies; ra lower return crosses ba span."
+  },
+  "28.17.1": {
+    "wid": "28.17.1",
+    "page": 387,
+    "x": [
+      1045,
+      1019,
+      935
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00099-c0015",
+    "note": "Carried from visually decided 38.79.1; destination requires sheet review. Actual destination reviewed: cut separates upper ra and ba bodies; ra lower return crosses ba span. Fatha visibly reaches and clips immutable right edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "7.143.7": {
+    "wid": "7.143.7",
+    "page": 167,
+    "x": [
+      1528,
+      1500,
+      1411
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00099-c0016",
+    "note": "Carried from visually decided 3.40.1; destination requires sheet review. Actual destination reviewed: cut separates upper ra and ba bodies; ra lower return crosses ba span."
+  },
+  "71.5.1": {
+    "wid": "71.5.1",
+    "page": 570,
+    "x": [
+      1576,
+      1555,
+      1479
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00099-c0018",
+    "note": "Carried from visually decided 43.82.1; destination requires sheet review. Actual destination reviewed: cut separates upper ra and ba bodies; ra lower return crosses ba span. Fatha visibly reaches and clips immutable right edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  }
+}

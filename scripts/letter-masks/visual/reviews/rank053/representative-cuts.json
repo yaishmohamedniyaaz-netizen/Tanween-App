@@ -1,0 +1,945 @@
+{
+  "12.60.4": {
+    "wid": "12.60.4",
+    "page": 242,
+    "x": [
+      192,
+      156,
+      104
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00053-c0001",
+    "note": "Visual cut at joining baseline immediately right of lam ascender; whole lam-alif ligature belongs to left app slot, fa bowl and dot to right."
+  },
+  "14.47.0": {
+    "wid": "14.47.0",
+    "page": 261,
+    "x": [
+      1664,
+      1627,
+      1567
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00053-c0002",
+    "note": "Visual cut at joining baseline immediately right of lam ascender; whole lam-alif ligature belongs to left app slot, fa bowl and dot to right."
+  },
+  "24.28.5": {
+    "wid": "24.28.5",
+    "page": 353,
+    "x": [
+      1069,
+      1034,
+      979
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00053-c0003",
+    "note": "Visual cut at joining baseline immediately right of lam ascender; whole lam-alif ligature belongs to left app slot, fa bowl and dot to right."
+  },
+  "32.17.0": {
+    "wid": "32.17.0",
+    "page": 416,
+    "x": [
+      1410,
+      1374,
+      1316
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00053-c0004",
+    "note": "Visual cut at joining baseline immediately right of lam ascender; whole lam-alif ligature belongs to left app slot, fa bowl and dot to right."
+  },
+  "35.8.15": {
+    "wid": "35.8.15",
+    "page": 435,
+    "x": [
+      623,
+      587,
+      529
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00053-c0005",
+    "note": "Visual cut at joining baseline immediately right of lam ascender; whole lam-alif ligature belongs to left app slot, fa bowl and dot to right."
+  },
+  "3.175.5": {
+    "wid": "3.175.5",
+    "page": 73,
+    "x": [
+      1348,
+      1312,
+      1258
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00053-c0006",
+    "note": "Visual cut at joining baseline immediately right of lam ascender; whole lam-alif ligature belongs to left app slot, fa bowl and dot to right. Fa fatha clipped at right immutable edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "18.22.22": {
+    "wid": "18.22.22",
+    "page": 296,
+    "x": [
+      943,
+      907,
+      852
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00053-c0007",
+    "note": "Visual cut at joining baseline immediately right of lam ascender; whole lam-alif ligature belongs to left app slot, fa bowl and dot to right."
+  },
+  "40.40.3": {
+    "wid": "40.40.3",
+    "page": 471,
+    "x": [
+      682,
+      647,
+      593
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00053-c0008",
+    "note": "Visual cut at joining baseline immediately right of lam ascender; whole lam-alif ligature belongs to left app slot, fa bowl and dot to right."
+  },
+  "2.86.6": {
+    "wid": "2.86.6",
+    "page": 13,
+    "x": [
+      1129,
+      1094,
+      1033
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00053-c0009",
+    "note": "Visual cut at joining baseline immediately right of lam ascender; whole lam-alif ligature belongs to left app slot, fa bowl and dot to right."
+  },
+  "2.229.28": {
+    "wid": "2.229.28",
+    "page": 36,
+    "x": [
+      890,
+      854,
+      795
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00053-c0010",
+    "note": "Visual cut at joining baseline immediately right of lam ascender; whole lam-alif ligature belongs to left app slot, fa bowl and dot to right."
+  },
+  "2.229.37": {
+    "wid": "2.229.37",
+    "page": 36,
+    "x": [
+      1288,
+      1251,
+      1198
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00053-c0011",
+    "note": "Visual cut at joining baseline immediately right of lam ascender; whole lam-alif ligature belongs to left app slot, fa bowl and dot to right."
+  },
+  "3.60.3": {
+    "wid": "3.60.3",
+    "page": 57,
+    "x": [
+      813,
+      779,
+      726
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00053-c0012",
+    "note": "Visual cut at joining baseline immediately right of lam ascender; whole lam-alif ligature belongs to left app slot, fa bowl and dot to right."
+  },
+  "4.65.0": {
+    "wid": "4.65.0",
+    "page": 88,
+    "x": [
+      797,
+      760,
+      703
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00053-c0013",
+    "note": "Visual separation of fa bowl/dot on right and lam-alif ligature on left; joining stretch assigned to left target."
+  },
+  "6.136.17": {
+    "wid": "6.136.17",
+    "page": 145,
+    "x": [
+      840,
+      813,
+      696
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00053-c0014",
+    "note": "Shaded review corrected fa cut left to contain bowl and dot; elongated join assigned to lam-alif."
+  },
+  "17.33.15": {
+    "wid": "17.33.15",
+    "page": 285,
+    "x": [
+      604,
+      568,
+      512
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00053-c0015",
+    "note": "Visual separation of fa bowl/dot on right and lam-alif ligature on left; joining stretch assigned to left target."
+  },
+  "25.52.0": {
+    "wid": "25.52.0",
+    "page": 364,
+    "x": [
+      842,
+      807,
+      754
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00053-c0016",
+    "note": "Visual separation of fa bowl/dot on right and lam-alif ligature on left; joining stretch assigned to left target."
+  },
+  "28.28.7": {
+    "wid": "28.28.7",
+    "page": 388,
+    "x": [
+      1566,
+      1529,
+      1473
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00053-c0017",
+    "note": "Visual separation of fa bowl/dot on right and lam-alif ligature on left; joining stretch assigned to left target. Fa fatha clipped at immutable right edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "33.32.8": {
+    "wid": "33.32.8",
+    "page": 422,
+    "x": [
+      676,
+      638,
+      581
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00053-c0018",
+    "note": "Shaded review corrected cut right of lam ascender, preserving whole lam-alif in left slot."
+  },
+  "43.61.3": {
+    "wid": "43.61.3",
+    "page": 494,
+    "x": [
+      1243,
+      1210,
+      1154
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00053-c0019",
+    "note": "Visual separation of fa bowl/dot on right and lam-alif ligature on left; joining stretch assigned to left target. Fa fatha clipped at immutable right edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.132.11": {
+    "wid": "2.132.11",
+    "page": 20,
+    "x": [
+      551,
+      514,
+      457
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00053-c0020",
+    "note": "Visual separation of fa bowl/dot on right and lam-alif ligature on left; joining stretch assigned to left target."
+  },
+  "2.187.56": {
+    "wid": "2.187.56",
+    "page": 29,
+    "x": [
+      1333,
+      1302,
+      1221
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00053-c0021",
+    "note": "Shaded review moved boundary left to keep fa dot with its bowl; long baseline belongs to left lam-alif slot."
+  },
+  "2.193.10": {
+    "wid": "2.193.10",
+    "page": 30,
+    "x": [
+      1283,
+      1250,
+      1191
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00053-c0022",
+    "note": "Visual separation of fa bowl/dot on right and lam-alif ligature on left; joining stretch assigned to left target."
+  },
+  "2.232.5": {
+    "wid": "2.232.5",
+    "page": 37,
+    "x": [
+      846,
+      809,
+      753
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00053-c0023",
+    "note": "Visual separation of fa bowl/dot on right and lam-alif ligature on left; joining stretch assigned to left target."
+  },
+  "3.160.3": {
+    "wid": "3.160.3",
+    "page": 71,
+    "x": [
+      1830,
+      1795,
+      1736
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00053-c0024",
+    "note": "Visual separation of fa bowl/dot on right and lam-alif ligature on left; joining stretch assigned to left target."
+  },
+  "4.46.34": {
+    "wid": "4.46.34",
+    "page": 86,
+    "x": [
+      414,
+      380,
+      330
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00053-c0025",
+    "note": "Visual separation of fa bowl/dot on right and lam-alif ligature on left; joining stretch assigned to left target."
+  },
+  "4.129.8": {
+    "wid": "4.129.8",
+    "page": 99,
+    "x": [
+      1024,
+      992,
+      891
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00053-c0026",
+    "note": "Shaded review moved boundary left to keep fa dot with its bowl; long baseline belongs to left lam-alif slot."
+  },
+  "5.3.36": {
+    "wid": "5.3.36",
+    "page": 107,
+    "x": [
+      1853,
+      1820,
+      1768
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00053-c0027",
+    "note": "Visual separation of fa bowl/dot on right and lam-alif ligature on left; joining stretch assigned to left target."
+  },
+  "6.48.9": {
+    "wid": "6.48.9",
+    "page": 133,
+    "x": [
+      1820,
+      1784,
+      1730
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00053-c0028",
+    "note": "Visual separation of fa bowl/dot on right and lam-alif ligature on left; joining stretch assigned to left target. Fa fatha clipped at immutable right edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "6.114.19": {
+    "wid": "6.114.19",
+    "page": 142,
+    "x": [
+      1814,
+      1784,
+      1725
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00053-c0029",
+    "note": "Visual separation of fa bowl/dot on right and lam-alif ligature on left; joining stretch assigned to left target."
+  },
+  "9.28.6": {
+    "wid": "9.28.6",
+    "page": 191,
+    "x": [
+      1651,
+      1616,
+      1559
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00053-c0030",
+    "note": "Visual separation of fa bowl/dot on right and lam-alif ligature on left; joining stretch assigned to left target."
+  },
+  "9.36.21": {
+    "wid": "9.36.21",
+    "page": 192,
+    "x": [
+      595,
+      560,
+      499
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00053-c0031",
+    "note": "Visual separation of fa bowl/dot on right and lam-alif ligature on left; joining stretch assigned to left target."
+  },
+  "10.94.18": {
+    "wid": "10.94.18",
+    "page": 219,
+    "x": [
+      1332,
+      1301,
+      1250
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00053-c0032",
+    "note": "Visual separation of fa bowl/dot on right and lam-alif ligature on left; joining stretch assigned to left target."
+  },
+  "11.109.0": {
+    "wid": "11.109.0",
+    "page": 234,
+    "x": [
+      1830,
+      1796,
+      1741
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00053-c0033",
+    "note": "Visual separation of fa bowl/dot on right and lam-alif ligature on left; joining stretch assigned to left target. Fa fatha clipped at immutable right edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "14.22.23": {
+    "wid": "14.22.23",
+    "page": 258,
+    "x": [
+      1356,
+      1323,
+      1265
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00053-c0034",
+    "note": "Visual separation of fa bowl/dot on right and lam-alif ligature on left; joining stretch assigned to left target. Fa fatha clipped at immutable right edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "16.1.3": {
+    "wid": "16.1.3",
+    "page": 267,
+    "x": [
+      1496,
+      1463,
+      1411
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00053-c0035",
+    "note": "Visual separation of fa bowl/dot on right and lam-alif ligature on left; joining stretch assigned to left target."
+  },
+  "18.70.3": {
+    "wid": "18.70.3",
+    "page": 301,
+    "x": [
+      1462,
+      1427,
+      1369
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00053-c0036",
+    "note": "Visual separation of fa bowl/dot on right and lam-alif ligature on left; joining stretch assigned to left target."
+  },
+  "18.76.6": {
+    "wid": "18.76.6",
+    "page": 302,
+    "x": [
+      1134,
+      1098,
+      1042
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00053-c0037",
+    "note": "Visual separation of fa bowl/dot on right and lam-alif ligature on left; joining stretch assigned to left target."
+  },
+  "30.39.8": {
+    "wid": "30.39.8",
+    "page": 408,
+    "x": [
+      1191,
+      1155,
+      1093
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00053-c0038",
+    "note": "Visual separation of fa bowl/dot on right and lam-alif ligature on left; joining stretch assigned to left target. Fa fatha clipped at immutable right edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "31.15.11": {
+    "wid": "31.15.11",
+    "page": 412,
+    "x": [
+      1466,
+      1427,
+      1369
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00053-c0039",
+    "note": "Visual separation of fa bowl/dot on right and lam-alif ligature on left; joining stretch assigned to left target."
+  },
+  "75.31.0": {
+    "wid": "75.31.0",
+    "page": 578,
+    "x": [
+      515,
+      486,
+      440
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00053-c0040",
+    "note": "Visual separation of fa bowl/dot on right and lam-alif ligature on left; joining stretch assigned to left target."
+  },
+  "87.6.1": {
+    "wid": "87.6.1",
+    "page": 591,
+    "x": [
+      1854,
+      1824,
+      1771
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00053-c0041",
+    "note": "Visual separation of fa bowl/dot on right and lam-alif ligature on left; joining stretch assigned to left target."
+  },
+  "2.102.32": {
+    "wid": "2.102.32",
+    "page": 16,
+    "x": [
+      397,
+      362,
+      299
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00053-c0042",
+    "note": "Visual separation of fa bowl/dot on right and lam-alif ligature on left; joining stretch assigned to left target."
+  },
+  "2.150.23": {
+    "wid": "2.150.23",
+    "page": 23,
+    "x": [
+      1644,
+      1604,
+      1548
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00053-c0043",
+    "note": "Visual separation of fa bowl/dot on right and lam-alif ligature on left; joining stretch assigned to left target. Fa fatha clipped at immutable right edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.158.11": {
+    "wid": "2.158.11",
+    "page": 24,
+    "x": [
+      980,
+      946,
+      866
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00053-c0044",
+    "note": "Visual separation of fa bowl/dot on right and lam-alif ligature on left; joining stretch assigned to left target."
+  },
+  "2.197.7": {
+    "wid": "2.197.7",
+    "page": 31,
+    "x": [
+      377,
+      342,
+      285
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00053-c0045",
+    "note": "Visual separation of fa bowl/dot on right and lam-alif ligature on left; joining stretch assigned to left target."
+  },
+  "2.233.40": {
+    "wid": "2.233.40",
+    "page": 37,
+    "x": [
+      667,
+      641,
+      582
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00053-c0046",
+    "note": "Visual separation of fa bowl/dot on right and lam-alif ligature on left; joining stretch assigned to left target. Fa outer bowl and fatha clipped at immutable right edge; visible body retained.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "4.20.9": {
+    "wid": "4.20.9",
+    "page": 81,
+    "x": [
+      1236,
+      1203,
+      1129
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00053-c0047",
+    "note": "Visual separation of fa bowl/dot on right and lam-alif ligature on left; joining stretch assigned to left target."
+  },
+  "4.23.33": {
+    "wid": "4.23.33",
+    "page": 81,
+    "x": [
+      1809,
+      1775,
+      1665
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00053-c0048",
+    "note": "Visual separation of fa bowl/dot on right and lam-alif ligature on left; joining stretch assigned to left target."
+  },
+  "4.140.14": {
+    "wid": "4.140.14",
+    "page": 100,
+    "x": [
+      205,
+      177,
+      94
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00053-c0049",
+    "note": "Visual separation of fa bowl/dot on right and lam-alif ligature on left; joining stretch assigned to left target."
+  },
+  "6.35.24": {
+    "wid": "6.35.24",
+    "page": 131,
+    "x": [
+      1015,
+      973,
+      913
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00053-c0050",
+    "note": "Visual separation of fa bowl/dot on right and lam-alif ligature on left; joining stretch assigned to left target."
+  },
+  "7.186.3": {
+    "wid": "7.186.3",
+    "page": 174,
+    "x": [
+      250,
+      222,
+      84
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00053-c0051",
+    "note": "Visual separation of fa bowl/dot on right and lam-alif ligature on left; joining stretch assigned to left target. Fa fatha clipped at immutable right edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "8.15.8": {
+    "wid": "8.15.8",
+    "page": 178,
+    "x": [
+      1469,
+      1432,
+      1378
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00053-c0052",
+    "note": "Visual separation of fa bowl/dot on right and lam-alif ligature on left; joining stretch assigned to left target."
+  },
+  "12.69.11": {
+    "wid": "12.69.11",
+    "page": 243,
+    "x": [
+      1394,
+      1367,
+      1282
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00053-c0053",
+    "note": "Visual separation of fa bowl/dot on right and lam-alif ligature on left; joining stretch assigned to left target."
+  },
+  "13.11.26": {
+    "wid": "13.11.26",
+    "page": 250,
+    "x": [
+      1056,
+      1021,
+      967
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00053-c0054",
+    "note": "Visual separation of fa bowl/dot on right and lam-alif ligature on left; joining stretch assigned to left target."
+  },
+  "17.56.6": {
+    "wid": "17.56.6",
+    "page": 287,
+    "x": [
+      184,
+      145,
+      89
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00053-c0055",
+    "note": "Visual separation of fa bowl/dot on right and lam-alif ligature on left; joining stretch assigned to left target."
+  },
+  "18.105.8": {
+    "wid": "18.105.8",
+    "page": 304,
+    "x": [
+      1354,
+      1319,
+      1265
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00053-c0056",
+    "note": "Visual separation of fa bowl/dot on right and lam-alif ligature on left; joining stretch assigned to left target."
+  },
+  "21.40.4": {
+    "wid": "21.40.4",
+    "page": 325,
+    "x": [
+      212,
+      164,
+      108
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00053-c0057",
+    "note": "Visual separation of fa bowl/dot on right and lam-alif ligature on left; joining stretch assigned to left target."
+  },
+  "21.94.6": {
+    "wid": "21.94.6",
+    "page": 330,
+    "x": [
+      555,
+      526,
+      435
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00053-c0058",
+    "note": "Visual separation of fa bowl/dot on right and lam-alif ligature on left; joining stretch assigned to left target."
+  },
+  "25.9.6": {
+    "wid": "25.9.6",
+    "page": 360,
+    "x": [
+      649,
+      619,
+      505
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00053-c0059",
+    "note": "Visual separation of fa bowl/dot on right and lam-alif ligature on left; joining stretch assigned to left target."
+  },
+  "28.84.9": {
+    "wid": "28.84.9",
+    "page": 395,
+    "x": [
+      242,
+      211,
+      119
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00053-c0060",
+    "note": "Shaded review moved boundary left to keep fa dot with its bowl; long baseline belongs to left lam-alif slot."
+  },
+  "31.23.2": {
+    "wid": "31.23.2",
+    "page": 413,
+    "x": [
+      644,
+      624,
+      568
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00053-c0061",
+    "note": "Visual separation of fa bowl/dot on right and lam-alif ligature on left; joining stretch assigned to left target. Fa outer bowl and fatha clipped at immutable right edge; visible target retained.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "35.2.11": {
+    "wid": "35.2.11",
+    "page": 434,
+    "x": [
+      1540,
+      1505,
+      1449
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00053-c0062",
+    "note": "Visual separation of fa bowl/dot on right and lam-alif ligature on left; joining stretch assigned to left target."
+  },
+  "36.50.0": {
+    "wid": "36.50.0",
+    "page": 443,
+    "x": [
+      1668,
+      1631,
+      1578
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00053-c0063",
+    "note": "Visual separation of fa bowl/dot on right and lam-alif ligature on left; joining stretch assigned to left target."
+  },
+  "46.13.7": {
+    "wid": "46.13.7",
+    "page": 503,
+    "x": [
+      1330,
+      1301,
+      1227
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00053-c0064",
+    "note": "Visual separation of fa bowl/dot on right and lam-alif ligature on left; joining stretch assigned to left target."
+  },
+  "46.8.6": {
+    "wid": "46.8.6",
+    "page": 503,
+    "x": [
+      490,
+      456,
+      404
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00053-c0065",
+    "note": "Visual separation of fa bowl/dot on right and lam-alif ligature on left; joining stretch assigned to left target."
+  },
+  "47.13.11": {
+    "wid": "47.13.11",
+    "page": 508,
+    "x": [
+      1142,
+      1107,
+      1050
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00053-c0066",
+    "note": "Visual separation of fa bowl/dot on right and lam-alif ligature on left; joining stretch assigned to left target."
+  },
+  "55.35.6": {
+    "wid": "55.35.6",
+    "page": 532,
+    "x": [
+      1223,
+      1189,
+      1136
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00053-c0067",
+    "note": "Visual separation of fa bowl/dot on right and lam-alif ligature on left; joining stretch assigned to left target."
+  },
+  "68.8.0": {
+    "wid": "68.8.0",
+    "page": 564,
+    "x": [
+      312,
+      284,
+      232
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00053-c0068",
+    "note": "Visual separation of fa bowl/dot on right and lam-alif ligature on left; joining stretch assigned to left target."
+  },
+  "72.26.2": {
+    "wid": "72.26.2",
+    "page": 573,
+    "x": [
+      226,
+      197,
+      116
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00053-c0069",
+    "note": "Visual separation of fa bowl/dot on right and lam-alif ligature on left; joining stretch assigned to left target."
+  },
+  "93.10.2": {
+    "wid": "93.10.2",
+    "page": 596,
+    "x": [
+      1309,
+      1272,
+      1217
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00053-c0070",
+    "note": "Visual separation of fa bowl/dot on right and lam-alif ligature on left; joining stretch assigned to left target."
+  }
+}

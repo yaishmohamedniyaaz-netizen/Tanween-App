@@ -1,0 +1,634 @@
+{
+  "6.93.38": {
+    "wid": "6.93.38",
+    "page": 139,
+    "x": [
+      1111,
+      1096,
+      1015
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00024-c0001",
+    "note": "Visual ba-body junction; long connector belongs left meem-alif unit. Clipped edge marks retained in immutable crop. Refined after shaded review to retain full upper ba hook on right.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "32.19.9": {
+    "wid": "32.19.9",
+    "page": 416,
+    "x": [
+      1256,
+      1240,
+      1163
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00024-c0002",
+    "note": "Visual ba-body junction; long connector belongs left meem-alif unit. Clipped edge marks retained in immutable crop. Refined after shaded review to retain full upper ba hook on right.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "4.135.34": {
+    "wid": "4.135.34",
+    "page": 100,
+    "x": [
+      938,
+      924,
+      841
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00024-c0003",
+    "note": "Visual ba-body junction; long connector belongs left meem-alif unit. Clipped edge marks retained in immutable crop. Refined after shaded review to retain full upper ba hook on right.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "7.137.18": {
+    "wid": "7.137.18",
+    "page": 166,
+    "x": [
+      1023,
+      1008,
+      914
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00024-c0004",
+    "note": "Visual ba-body junction; long connector belongs left meem-alif unit. Refined after shaded review to retain full upper ba hook on right."
+  },
+  "48.10.18": {
+    "wid": "48.10.18",
+    "page": 512,
+    "x": [
+      513,
+      498,
+      422
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00024-c0005",
+    "note": "Visual ba-body junction; long connector belongs left meem-alif unit. Clipped edge marks retained in immutable crop. Refined after shaded review to retain full upper ba hook on right.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "5.8.24": {
+    "wid": "5.8.24",
+    "page": 108,
+    "x": [
+      1492,
+      1478,
+      1372
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00024-c0006",
+    "note": "Visual ba-body junction; long connector belongs left meem-alif unit. Refined after shaded review to retain full upper ba hook on right."
+  },
+  "6.129.5": {
+    "wid": "6.129.5",
+    "page": 144,
+    "x": [
+      1818,
+      1803,
+      1720
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00024-c0007",
+    "note": "Visual ba-body junction; long connector belongs left meem-alif unit. Clipped edge marks retained in immutable crop. Refined after shaded review to retain full upper ba hook on right.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "10.74.12": {
+    "wid": "10.74.12",
+    "page": 217,
+    "x": [
+      1341,
+      1327,
+      1259
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00024-c0008",
+    "note": "Visual ba-body junction; long connector belongs left meem-alif unit. Clipped edge marks retained in immutable crop. Refined after shaded review to retain full upper ba hook on right.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "33.9.18": {
+    "wid": "33.9.18",
+    "page": 419,
+    "x": [
+      1832,
+      1816,
+      1738
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00024-c0009",
+    "note": "Visual ba-body junction; long connector belongs left meem-alif unit. Clipped edge marks retained in immutable crop. Refined after shaded review to retain full upper ba hook on right.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "46.8.14": {
+    "wid": "46.8.14",
+    "page": 503,
+    "x": [
+      1149,
+      1133,
+      1059
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00024-c0010",
+    "note": "Visual ba-body junction; long connector belongs left meem-alif unit. Refined after shaded review to retain full upper ba hook on right."
+  },
+  "64.8.7": {
+    "wid": "64.8.7",
+    "page": 556,
+    "x": [
+      860,
+      845,
+      765
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00024-c0011",
+    "note": "Visual ba-body junction; long connector belongs left meem-alif unit. Clipped edge marks retained in immutable crop. Refined after shaded review to retain full upper ba hook on right.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "7.96.15": {
+    "wid": "7.96.15",
+    "page": 163,
+    "x": [
+      462,
+      448,
+      370
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00024-c0012",
+    "note": "Visual ba-body junction; long connector belongs left meem-alif unit. Clipped edge marks retained in immutable crop. Refined after shaded review to retain full upper ba hook on right.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "62.8.15": {
+    "wid": "62.8.15",
+    "page": 553,
+    "x": [
+      716,
+      701,
+      634
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00024-c0013",
+    "note": "Visual ba-body junction; long connector belongs left meem-alif unit. Clipped edge marks retained in immutable crop. Refined after shaded review to retain full upper ba hook on right.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "10.18.17": {
+    "wid": "10.18.17",
+    "page": 210,
+    "x": [
+      983,
+      970,
+      874
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00024-c0014",
+    "note": "Visual ba-body junction; long connector belongs left meem-alif unit. Refined after shaded review to retain full upper ba hook on right."
+  },
+  "10.70.10": {
+    "wid": "10.70.10",
+    "page": 216,
+    "x": [
+      967,
+      949,
+      850
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00024-c0015",
+    "note": "Visual ba-body junction; long connector belongs left meem-alif unit. Clipped edge marks retained in immutable crop. Refined after shaded review to retain full upper ba hook on right.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "8.35.10": {
+    "wid": "8.35.10",
+    "page": 181,
+    "x": [
+      1821,
+      1806,
+      1706
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00024-c0016",
+    "note": "Visual ba-body junction; long connector belongs left meem-alif unit. Clipped edge marks retained in immutable crop. Refined after shaded review to retain full upper ba hook on right.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "41.40.23": {
+    "wid": "41.40.23",
+    "page": 481,
+    "x": [
+      1727,
+      1715,
+      1641
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00024-c0017",
+    "note": "Visual ba-body junction; long connector belongs left meem-alif unit. Refined after shaded review to retain full upper ba hook on right."
+  },
+  "6.124.26": {
+    "wid": "6.124.26",
+    "page": 143,
+    "x": [
+      784,
+      768,
+      687
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00024-c0018",
+    "note": "Visual ba-body junction; long connector belongs left meem-alif unit. Clipped edge marks retained in immutable crop. Refined after shaded review to retain full upper ba hook on right.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "41.17.11": {
+    "wid": "41.17.11",
+    "page": 478,
+    "x": [
+      626,
+      612,
+      537
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00024-c0019",
+    "note": "Visual ba-body junction; long connector belongs left meem-alif unit. Clipped edge marks retained in immutable crop. Refined after shaded review to retain full upper ba hook on right.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "20.15.8": {
+    "wid": "20.15.8",
+    "page": 313,
+    "x": [
+      956,
+      941,
+      854
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00024-c0021",
+    "note": "Visual ba-body junction; long connector belongs left meem-alif unit. Clipped edge marks retained in immutable crop. Refined after shaded review to retain full upper ba hook on right.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "58.11.27": {
+    "wid": "58.11.27",
+    "page": 543,
+    "x": [
+      724,
+      710,
+      643
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00024-c0022",
+    "note": "Visual ba-body junction; long connector belongs left meem-alif unit. Clipped edge marks retained in immutable crop. Refined after shaded review to retain full upper ba hook on right.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "3.49.31": {
+    "wid": "3.49.31",
+    "page": 56,
+    "x": [
+      858,
+      846,
+      759
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00024-c0024",
+    "note": "Visual ba-body junction; long connector belongs left meem-alif unit. Clipped edge marks retained in immutable crop. Refined after shaded review to retain full upper ba hook on right.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "6.159.16": {
+    "wid": "6.159.16",
+    "page": 150,
+    "x": [
+      521,
+      500,
+      465
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00024-c0020",
+    "note": "Compact stacked ba–mim confirmed in wider artwork, no absent body. Principal body split at left of upper ba hook; overlapping lower meem wedge cannot be separated perfectly by vertical border. Clipped kasra at right; neighboring top mark.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.225.8": {
+    "wid": "2.225.8",
+    "page": 36,
+    "x": [
+      421,
+      400,
+      367
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00024-c0023",
+    "note": "Compact stacked ba–mim confirmed in wider artwork, no absent body. Principal body split at left of upper ba hook; overlapping lower meem wedge cannot be separated perfectly by vertical border. Clipped kasra at right.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "4.47.5": {
+    "wid": "4.47.5",
+    "page": 86,
+    "x": [
+      312,
+      289,
+      250
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00024-c0025",
+    "note": "Compact stacked ba–mim, principal upper hook split, overlapping lower wedge cannot perfectly separate vertically. Clipped crop-edge marks or partial ba body retained inside immutable box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "16.112.21": {
+    "wid": "16.112.21",
+    "page": 280,
+    "x": [
+      1271,
+      1256,
+      1165
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00024-c0026",
+    "note": "Visual left edge of ba head; connector belongs left meem-alif unit. Clipped crop-edge marks or partial ba body retained inside immutable box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.96.23": {
+    "wid": "2.96.23",
+    "page": 15,
+    "x": [
+      812,
+      800,
+      709
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00024-c0027",
+    "note": "Visual left edge of ba head; connector belongs left meem-alif unit."
+  },
+  "2.271.17": {
+    "wid": "2.271.17",
+    "page": 46,
+    "x": [
+      1657,
+      1642,
+      1545
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00024-c0028",
+    "note": "Visual left edge of ba head; connector belongs left meem-alif unit. Clipped crop-edge marks or partial ba body retained inside immutable box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "5.14.22": {
+    "wid": "5.14.22",
+    "page": 110,
+    "x": [
+      1827,
+      1816,
+      1703
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00024-c0029",
+    "note": "Visual left edge of ba head; connector belongs left meem-alif unit."
+  },
+  "12.19.14": {
+    "wid": "12.19.14",
+    "page": 237,
+    "x": [
+      1478,
+      1467,
+      1380
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00024-c0030",
+    "note": "Visual left edge of ba head; connector belongs left meem-alif unit."
+  },
+  "40.84.8": {
+    "wid": "40.84.8",
+    "page": 476,
+    "x": [
+      448,
+      434,
+      339
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00024-c0031",
+    "note": "Visual left edge of ba head; connector belongs left meem-alif unit. Clipped crop-edge marks or partial ba body retained inside immutable box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "58.13.22": {
+    "wid": "58.13.22",
+    "page": 544,
+    "x": [
+      1289,
+      1282,
+      1213
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00024-c0032",
+    "note": "Visual left edge of ba head; connector belongs left meem-alif unit. Clipped crop-edge marks or partial ba body retained inside immutable box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.61.55": {
+    "wid": "2.61.55",
+    "page": 9,
+    "x": [
+      1146,
+      1123,
+      1074
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00024-c0033",
+    "note": "Compact stacked ba–mim, principal upper hook split, overlapping lower wedge cannot perfectly separate vertically. Clipped crop-edge marks or partial ba body retained inside immutable box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.255.38": {
+    "wid": "2.255.38",
+    "page": 42,
+    "x": [
+      204,
+      190,
+      116
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00024-c0034",
+    "note": "Visual left edge of ba head; connector belongs left meem-alif unit. Clipped crop-edge marks or partial ba body retained inside immutable box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "3.167.31": {
+    "wid": "3.167.31",
+    "page": 72,
+    "x": [
+      1192,
+      1170,
+      1128
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00024-c0035",
+    "note": "Compact stacked ba–mim, principal upper hook split, overlapping lower wedge cannot perfectly separate vertically. Clipped crop-edge marks or partial ba body retained inside immutable box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "3.180.27": {
+    "wid": "3.180.27",
+    "page": 73,
+    "x": [
+      739,
+      715,
+      672
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00024-c0036",
+    "note": "Compact stacked ba–mim, principal upper hook split, overlapping lower wedge cannot perfectly separate vertically. Clipped crop-edge marks or partial ba body retained inside immutable box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "4.62.4": {
+    "wid": "4.62.4",
+    "page": 88,
+    "x": [
+      297,
+      280,
+      122
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00024-c0037",
+    "note": "Visual left edge of ba head; connector belongs left meem-alif unit. Clipped crop-edge marks or partial ba body retained inside immutable box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "7.155.18": {
+    "wid": "7.155.18",
+    "page": 169,
+    "x": [
+      302,
+      278,
+      248
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00024-c0038",
+    "note": "Compact stacked ba–mim, principal upper hook split, overlapping lower wedge cannot perfectly separate vertically. Clipped crop-edge marks or partial ba body retained inside immutable box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "16.101.7": {
+    "wid": "16.101.7",
+    "page": 278,
+    "x": [
+      1840,
+      1827,
+      1710
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00024-c0039",
+    "note": "Visual left edge of ba head; connector belongs left meem-alif unit. Clipped crop-edge marks or partial ba body retained inside immutable box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "27.85.3": {
+    "wid": "27.85.3",
+    "page": 384,
+    "x": [
+      1147,
+      1133,
+      1062
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00024-c0040",
+    "note": "Visual left edge of ba head; connector belongs left meem-alif unit. Clipped crop-edge marks or partial ba body retained inside immutable box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "50.45.2": {
+    "wid": "50.45.2",
+    "page": 520,
+    "x": [
+      362,
+      350,
+      290
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00024-c0042",
+    "note": "Visual left edge of ba head; connector belongs left meem-alif unit. Clipped crop-edge marks or partial ba body retained inside immutable box.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  }
+}

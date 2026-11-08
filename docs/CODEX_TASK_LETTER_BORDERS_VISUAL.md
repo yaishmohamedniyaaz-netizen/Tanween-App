@@ -167,3 +167,7 @@ Rank033 also completed211 words with full visual evidence. Rank035 initialized n
 ### Cloud progress snapshot — 2026-11-08 11:41 UTC
 
 Saved aggregate:20,533 pilot decisions;27 reviewed withheld exceptions;2,088 unresolved words;83 of100 complete ranks. Rank035 completed205/205 (62 representative originals,143 carried words),36 actual-view events with SHA verification;112low,89high,4medium. The first-pass nun/waw refinements and destination66.8.26 correction are preserved separately; all final shaded spans were reopened. No missing-target exception in rank035. Geometry/count/coverage and every rank035 audit hash pass. Cumulative audit totals2,933 actual-view events and2,852 distinct paths include prior sessions. Roughly52minutes cloud elapsed wall time since10:50; parallel review times overlap. Exact token usage unavailable. Full gate remains incomplete(exit2); no hidden answers inspected or scoring performed.
+
+## Complete pilot gate before evaluation —2026-11-08 12:07UTC
+
+All100ranks now complete:22,616pilot decisions,32 separately withheld absent-target exceptions,zero unresolved,all22,648pilot words visually reviewed. Canonical total22,637 includes21frozen non-pilot test words. No evaluation has yet run at this snapshot. Final independent integrity audit is being completed before the single guarded evaluation. Scoped tests passed10/10; build emitted22,577guesses and omitted60existing-approved decisions. Frozen SHA unchanged. Rank054 context reconciliation and every carry review are saved; borders and source boxes remain immutable.

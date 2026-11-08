@@ -1,0 +1,82 @@
+[
+  {
+    "image": "cloud-selfcheck-001-001.png",
+    "words": [
+      "9.94.29",
+      "10.41.14",
+      "6.60.21",
+      "8.72.43",
+      "60.3.11",
+      "10.61.10"
+    ],
+    "stage": "cloud-selfcheck-001"
+  },
+  {
+    "image": "cloud-selfcheck-001-002.png",
+    "words": [
+      "62.8.17",
+      "3.98.11",
+      "3.180.28",
+      "11.123.15",
+      "24.53.16",
+      "49.18.9"
+    ],
+    "stage": "cloud-selfcheck-001"
+  },
+  {
+    "image": "cloud-selfcheck-001-003.png",
+    "words": [
+      "2.74.36",
+      "2.271.18",
+      "3.153.24",
+      "23.51.9",
+      "27.93.10",
+      "33.2.10"
+    ],
+    "stage": "cloud-selfcheck-001"
+  },
+  {
+    "image": "cloud-selfcheck-001-004.png",
+    "words": [
+      "2.110.15",
+      "2.233.62",
+      "2.265.25",
+      "3.99.18",
+      "4.94.37",
+      "4.128.27"
+    ],
+    "stage": "cloud-selfcheck-001"
+  },
+  {
+    "image": "cloud-selfcheck-001-005.png",
+    "words": [
+      "5.8.25",
+      "9.16.23",
+      "9.105.15",
+      "10.23.24",
+      "11.92.13",
+      "11.112.10"
+    ],
+    "stage": "cloud-selfcheck-001"
+  },
+  {
+    "image": "cloud-selfcheck-001-006.png",
+    "words": [
+      "16.32.11",
+      "24.28.20",
+      "34.11.10",
+      "37.39.5",
+      "41.22.19",
+      "43.72.6"
+    ],
+    "stage": "cloud-selfcheck-001"
+  },
+  {
+    "image": "cloud-selfcheck-001-007.png",
+    "words": [
+      "45.28.13",
+      "57.4.34"
+    ],
+    "stage": "cloud-selfcheck-001"
+  }
+]

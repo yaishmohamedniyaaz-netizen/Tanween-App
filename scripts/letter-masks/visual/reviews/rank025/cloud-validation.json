@@ -1,0 +1,25 @@
+{
+  "rank": 25,
+  "eligible": 253,
+  "annotated": 253,
+  "withheld": 0,
+  "representatives": 19,
+  "carried": 234,
+  "confidence": {
+    "high": 102,
+    "low": 151
+  },
+  "source": {
+    "visual-copy": 234,
+    "visual": 19
+  },
+  "clipped": 151,
+  "auditEvents": 18,
+  "uniqueImages": 18,
+  "started": "2026-11-08T11:46:46.022455+00:00",
+  "finished": "2026-11-08T11:53:00.519473+00:00",
+  "geometryPassed": true,
+  "imageHashesPassed": true,
+  "testIdsExcluded": true,
+  "tokens": "unavailable"
+}

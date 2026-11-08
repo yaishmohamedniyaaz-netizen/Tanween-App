@@ -1,0 +1,742 @@
+{
+  "4.134.10": {
+    "wid": "4.134.10",
+    "page": 99,
+    "x": [
+      994,
+      958,
+      906,
+      850
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00093-c0001",
+    "note": "Detached principal-body gaps around merged kaf-alif; upper kaf diagonal and low waw tail overhang adjacent spans, leaving moderate uncertainty."
+  },
+  "33.52.19": {
+    "wid": "33.52.19",
+    "page": 425,
+    "x": [
+      901,
+      869,
+      817,
+      763
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00093-c0002",
+    "note": "Detached principal-body gaps around merged kaf-alif; upper kaf diagonal and low waw tail overhang adjacent spans, leaving moderate uncertainty."
+  },
+  "4.30.8": {
+    "wid": "4.30.8",
+    "page": 83,
+    "x": [
+      909,
+      872,
+      677,
+      624
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00093-c0003",
+    "note": "Clear detached gaps; long merged kaf-alif retained whole, waw return overlaps left span."
+  },
+  "4.85.16": {
+    "wid": "4.85.16",
+    "page": 91,
+    "x": [
+      1811,
+      1776,
+      1722,
+      1669
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00093-c0004",
+    "note": "Detached principal-body gaps around merged kaf-alif; upper kaf diagonal and low waw tail overhang adjacent spans, leaving moderate uncertainty."
+  },
+  "4.131.28": {
+    "wid": "4.131.28",
+    "page": 99,
+    "x": [
+      874,
+      844,
+      790,
+      739
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00093-c0005",
+    "note": "Detached head gaps; upper kaf diagonal and right waw body cut by immutable right edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "4.158.4": {
+    "wid": "4.158.4",
+    "page": 103,
+    "x": [
+      729,
+      694,
+      648,
+      597
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00093-c0006",
+    "note": "Detached principal-body gaps around merged kaf-alif; upper kaf diagonal and low waw tail overhang adjacent spans, leaving moderate uncertainty."
+  },
+  "4.169.6": {
+    "wid": "4.169.6",
+    "page": 104,
+    "x": [
+      1827,
+      1789,
+      1734,
+      1680
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00093-c0007",
+    "note": "Detached head gaps; right waw fatha appears cut at fixed edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "33.59.17": {
+    "wid": "33.59.17",
+    "page": 426,
+    "x": [
+      317,
+      283,
+      231,
+      101
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00093-c0008",
+    "note": "Detached core gaps; broad final nun remains full-width, kaf diagonal and waw tail overlap adjacent spans. Shaded review: left nun tip reaches/crosses immutable edge and appears clipped; owner review needed.",
+    "reviewFlags": [
+      "ink-clipped-by-existing-word-box"
+    ]
+  },
+  "33.69.12": {
+    "wid": "33.69.12",
+    "page": 427,
+    "x": [
+      889,
+      854,
+      807,
+      751
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00093-c0009",
+    "note": "Detached gaps around merged kaf-alif core; diagonal and low waw return overlap spans, moderate uncertainty."
+  },
+  "33.73.11": {
+    "wid": "33.73.11",
+    "page": 427,
+    "x": [
+      1021,
+      988,
+      940,
+      888
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00093-c0010",
+    "note": "Detached gaps around merged kaf-alif core; diagonal and low waw return overlap spans, moderate uncertainty."
+  },
+  "65.9.3": {
+    "wid": "65.9.3",
+    "page": 559,
+    "x": [
+      855,
+      825,
+      778,
+      728
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00093-c0011",
+    "note": "Detached gaps around merged kaf-alif core; diagonal and low waw return overlap spans, moderate uncertainty."
+  },
+  "76.22.5": {
+    "wid": "76.22.5",
+    "page": 579,
+    "x": [
+      895,
+      860,
+      819,
+      769
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00093-c0012",
+    "note": "Detached gaps around merged kaf-alif core; diagonal and low waw return overlap spans, moderate uncertainty."
+  },
+  "4.17.16": {
+    "wid": "4.17.16",
+    "page": 80,
+    "x": [
+      316,
+      282,
+      228,
+      121
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00093-c0013",
+    "note": "Detached core gaps; broad nun retained; kaf diagonal overlaps waw span. Shaded review: left nun tip reaches/crosses immutable edge and appears clipped; owner review needed.",
+    "reviewFlags": [
+      "ink-clipped-by-existing-word-box"
+    ]
+  },
+  "4.39.11": {
+    "wid": "4.39.11",
+    "page": 85,
+    "x": [
+      1323,
+      1287,
+      1229,
+      1175
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00093-c0014",
+    "note": "Detached principal-body gaps; merged kaf-alif core retained, upper diagonal and waw lower return overlap adjacent spans."
+  },
+  "4.99.6": {
+    "wid": "4.99.6",
+    "page": 94,
+    "x": [
+      896,
+      860,
+      818,
+      704
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00093-c0015",
+    "note": "Detached core gaps and broad nun; right waw fatha clipped.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "4.126.7": {
+    "wid": "4.126.7",
+    "page": 98,
+    "x": [
+      944,
+      910,
+      718,
+      585
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00093-c0016",
+    "note": "Clear gaps, long merged kaf-alif and broad final nun retained. Shaded review: left nun tip reaches/crosses immutable edge and appears clipped; owner review needed.",
+    "reviewFlags": [
+      "ink-clipped-by-existing-word-box"
+    ]
+  },
+  "17.67.15": {
+    "wid": "17.67.15",
+    "page": 289,
+    "x": [
+      1389,
+      1356,
+      1311,
+      1263
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00093-c0017",
+    "note": "Detached core gaps; right waw fatha clipped.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "18.54.9": {
+    "wid": "18.54.9",
+    "page": 300,
+    "x": [
+      241,
+      216,
+      161,
+      110
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00093-c0018",
+    "note": "Detached principal-body gaps; merged kaf-alif core retained, upper diagonal and waw lower return overlap adjacent spans."
+  },
+  "19.13.4": {
+    "wid": "19.13.4",
+    "page": 306,
+    "x": [
+      1137,
+      1098,
+      1047,
+      906
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00093-c0019",
+    "note": "Detached principal-body gaps around merged kaf-alif; upper diagonal and waw tail overlap adjacent spans, moderate uncertainty."
+  },
+  "25.67.7": {
+    "wid": "25.67.7",
+    "page": 365,
+    "x": [
+      1148,
+      1117,
+      922,
+      865
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00093-c0020",
+    "note": "Clear detached gaps, long merged kaf-alif retained whole."
+  },
+  "2.34.10": {
+    "wid": "2.34.10",
+    "page": 6,
+    "x": [
+      676,
+      648,
+      601,
+      554
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00093-c0021",
+    "note": "Detached principal-body gaps around merged kaf-alif; upper diagonal and waw tail overlap adjacent spans, moderate uncertainty. Shaded review: fatha reaches/crosses fixed edge and appears clipped.",
+    "reviewFlags": [
+      "ink-clipped-by-existing-word-box"
+    ]
+  },
+  "4.92.56": {
+    "wid": "4.92.56",
+    "page": 93,
+    "x": [
+      364,
+      324,
+      271,
+      122
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00093-c0022",
+    "note": "Detached core gaps; full broad nun, upper kaf diagonal overlaps waw span."
+  },
+  "4.96.4": {
+    "wid": "4.96.4",
+    "page": 94,
+    "x": [
+      1621,
+      1582,
+      1534,
+      1486
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00093-c0023",
+    "note": "Detached core gaps; waw right body appears clipped at fixed edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "4.113.28": {
+    "wid": "4.113.28",
+    "page": 96,
+    "x": [
+      1294,
+      1254,
+      1199,
+      1045
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00093-c0024",
+    "note": "Detached core gaps, broad final nun remains full-width; upper diagonal/waw tail overlap."
+  },
+  "4.147.7": {
+    "wid": "4.147.7",
+    "page": 101,
+    "x": [
+      1069,
+      1033,
+      978,
+      922
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00093-c0025",
+    "note": "Detached principal-body gaps around merged kaf-alif; diagonal and low return overlap adjacent spans, moderate uncertainty."
+  },
+  "11.42.9": {
+    "wid": "11.42.9",
+    "page": 226,
+    "x": [
+      410,
+      377,
+      210,
+      99
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00093-c0026",
+    "note": "Clear detached gaps; long merged kaf-alif and broad nun retain full bodies. Shaded review: left nun tip reaches/crosses immutable edge and appears clipped; owner review needed.",
+    "reviewFlags": [
+      "ink-clipped-by-existing-word-box"
+    ]
+  },
+  "17.5.14": {
+    "wid": "17.5.14",
+    "page": 282,
+    "x": [
+      1834,
+      1809,
+      1756,
+      1618
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00093-c0027",
+    "note": "Detached principal-body gaps around merged kaf-alif; diagonal and low return overlap adjacent spans, moderate uncertainty. Shaded review: left nun tip reaches/crosses immutable edge and appears clipped; owner review needed.",
+    "reviewFlags": [
+      "ink-clipped-by-existing-word-box"
+    ]
+  },
+  "17.11.5": {
+    "wid": "17.11.5",
+    "page": 283,
+    "x": [
+      818,
+      783,
+      728,
+      673
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00093-c0028",
+    "note": "Detached principal-body gaps around merged kaf-alif; diagonal and low return overlap adjacent spans, moderate uncertainty."
+  },
+  "17.27.5": {
+    "wid": "17.27.5",
+    "page": 284,
+    "x": [
+      1114,
+      1080,
+      1026,
+      973
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00093-c0029",
+    "note": "Detached principal-body gaps around merged kaf-alif; diagonal and low return overlap adjacent spans, moderate uncertainty."
+  },
+  "18.28.27": {
+    "wid": "18.28.27",
+    "page": 297,
+    "x": [
+      274,
+      236,
+      181,
+      91
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00093-c0030",
+    "note": "Detached core gaps with broad nun; upper kaf diagonal and low waw tail overlap adjacent spans. Shaded review: left nun tip reaches/crosses immutable edge and appears clipped; owner review needed.",
+    "reviewFlags": [
+      "ink-clipped-by-existing-word-box"
+    ]
+  },
+  "18.45.17": {
+    "wid": "18.45.17",
+    "page": 298,
+    "x": [
+      1042,
+      1012,
+      968,
+      919
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00093-c0031",
+    "note": "Detached core gaps; merged kaf-alif upper diagonal overlaps waw span and low waw return overlaps left span, moderate uncertainty."
+  },
+  "18.82.7": {
+    "wid": "18.82.7",
+    "page": 302,
+    "x": [
+      306,
+      275,
+      231,
+      117
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00093-c0032",
+    "note": "Detached core gaps and broad nun; right waw fatha clipped.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "19.54.8": {
+    "wid": "19.54.8",
+    "page": 309,
+    "x": [
+      1431,
+      1399,
+      1353,
+      1302
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00093-c0033",
+    "note": "Detached core gaps; merged kaf-alif upper diagonal overlaps waw span and low waw return overlaps left span, moderate uncertainty."
+  },
+  "19.55.0": {
+    "wid": "19.55.0",
+    "page": 309,
+    "x": [
+      828,
+      797,
+      750,
+      694
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00093-c0034",
+    "note": "Detached core gaps; merged kaf-alif upper diagonal overlaps waw span and low waw return overlaps left span, moderate uncertainty. Shaded review: fatha reaches/crosses fixed edge and appears clipped.",
+    "reviewFlags": [
+      "ink-clipped-by-existing-word-box"
+    ]
+  },
+  "19.55.5": {
+    "wid": "19.55.5",
+    "page": 309,
+    "x": [
+      1566,
+      1533,
+      1484,
+      1426
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00093-c0035",
+    "note": "Detached core gaps; merged kaf-alif upper diagonal overlaps waw span and low waw return overlaps left span, moderate uncertainty."
+  },
+  "25.26.4": {
+    "wid": "25.26.4",
+    "page": 362,
+    "x": [
+      597,
+      571,
+      402,
+      346
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00093-c0036",
+    "note": "Clear detached gaps; broad merged kaf-alif retained whole."
+  },
+  "25.29.7": {
+    "wid": "25.29.7",
+    "page": 362,
+    "x": [
+      1823,
+      1794,
+      1611,
+      1468
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00093-c0037",
+    "note": "Clear detached gaps, long merged kaf-alif and broad nun retained."
+  },
+  "25.54.9": {
+    "wid": "25.54.9",
+    "page": 364,
+    "x": [
+      1447,
+      1420,
+      1371,
+      1317
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00093-c0038",
+    "note": "Detached core gaps; right waw body and fatha clipped by immutable edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "25.55.9": {
+    "wid": "25.55.9",
+    "page": 364,
+    "x": [
+      1127,
+      1097,
+      1049,
+      992
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00093-c0039",
+    "note": "Detached core gaps; upper kaf diagonal clipped by immutable edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "33.9.16": {
+    "wid": "33.9.16",
+    "page": 419,
+    "x": [
+      510,
+      478,
+      280,
+      227
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00093-c0040",
+    "note": "Clear detached gaps; long merged kaf-alif retained whole."
+  },
+  "33.25.12": {
+    "wid": "33.25.12",
+    "page": 421,
+    "x": [
+      1825,
+      1789,
+      1733,
+      1597
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00093-c0041",
+    "note": "Detached core gaps with broad nun retained; upper kaf diagonal and low waw return overlap adjacent spans, moderate uncertainty."
+  },
+  "33.27.7": {
+    "wid": "33.27.7",
+    "page": 421,
+    "x": [
+      749,
+      718,
+      671,
+      531
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00093-c0042",
+    "note": "Detached core gaps with broad nun retained; upper kaf diagonal and low waw return overlap adjacent spans, moderate uncertainty."
+  },
+  "33.30.11": {
+    "wid": "33.30.11",
+    "page": 421,
+    "x": [
+      1126,
+      1090,
+      1042,
+      900
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00093-c0043",
+    "note": "Upper kaf diagonal reaches and appears clipped at fixed right edge; compact kaf overlap remains uncertain.",
+    "reviewFlags": [
+      "ink-clipped-by-existing-word-box"
+    ]
+  },
+  "33.37.44": {
+    "wid": "33.37.44",
+    "page": 423,
+    "x": [
+      731,
+      694,
+      636,
+      522
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00093-c0044",
+    "note": "Manual visual cuts at waw head gap and kaf-alif/nun gap; retain whole nun bowl. Compact kaf diagonal and lower waw return overlap adjoining spans, leaving moderate uncertainty."
+  },
+  "33.51.31": {
+    "wid": "33.51.31",
+    "page": 425,
+    "x": [
+      1400,
+      1367,
+      1180,
+      1128
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00093-c0045",
+    "note": "Manual visual cuts at waw head gap and kaf-alif/nun gap; retain whole nun bowl. Compact kaf diagonal and lower waw return overlap adjoining spans, leaving moderate uncertainty."
+  },
+  "48.5.13": {
+    "wid": "48.5.13",
+    "page": 511,
+    "x": [
+      1539,
+      1510,
+      1459,
+      1408
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00093-c0046",
+    "note": "Upper kaf diagonal appears clipped at fixed right edge; compact overlap remains uncertain.",
+    "reviewFlags": [
+      "ink-clipped-by-existing-word-box"
+    ]
+  },
+  "48.14.10": {
+    "wid": "48.14.10",
+    "page": 512,
+    "x": [
+      781,
+      749,
+      543,
+      403
+    ],
+    "confidence": "high",
+    "source": "visual",
+    "cluster": "s00093-c0047",
+    "note": "Manual visual cuts at waw head gap and kaf-alif/nun gap; retain whole nun bowl. Compact kaf diagonal and lower waw return overlap adjoining spans, leaving moderate uncertainty."
+  },
+  "48.19.3": {
+    "wid": "48.19.3",
+    "page": 513,
+    "x": [
+      1309,
+      1279,
+      1220,
+      1163
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00093-c0048",
+    "note": "Manual visual cuts at waw head gap and kaf-alif/nun gap; retain whole nun bowl. Compact kaf diagonal and lower waw return overlap adjoining spans, leaving moderate uncertainty."
+  },
+  "48.26.23": {
+    "wid": "48.26.23",
+    "page": 514,
+    "x": [
+      1123,
+      1080,
+      1030,
+      876
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00093-c0049",
+    "note": "Manually selected body gaps; compact kaf upper diagonal and lower waw return overlap adjoining horizontal spans, leaving moderate uncertainty."
+  }
+}

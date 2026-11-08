@@ -14,6 +14,8 @@ SEED = 20261107
 
 
 def main():
+    if (ag.HERE/'contact/checkpoint-a-manifest.json').exists():
+        raise SystemExit('Checkpoint images already saved; preserve reviewed evidence.')
     report = audit()
     if not report['complete']:
         raise SystemExit('Pilot incomplete: no checkpoint artifacts generated.')
@@ -33,6 +35,16 @@ def main():
                     pilot.add(wid)
     eligible = sorted(pilot & set(decisions))
     selected = random.Random(SEED).sample(eligible, 200)
+    # The grouping manifest contains only pilot clusters, while 21 frozen
+    # test words are outside the pilot. Their preexisting blind metadata has
+    # artwork boxes and exact app units, never approval border coordinates.
+    blind_meta = {m['wid']: m for m in ag.read(ag.HERE/'blind/word-metadata.json')}
+    for row in result['worst']:
+        wid = row['wid']
+        if wid not in byword:
+            meta = blind_meta[wid]
+            byword[wid] = (dict(unitVariants=[meta['units']]),
+                           dict(id=row['cluster'], memberIds=[wid], unitVariant=0))
     out = ag.HERE/'contact'
     out.mkdir(exist_ok=True)
     ag.pr.HERE = out

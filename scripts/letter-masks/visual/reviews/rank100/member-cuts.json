@@ -1,0 +1,358 @@
+{
+  "18.11.1": {
+    "wid": "18.11.1",
+    "page": 294,
+    "x": [
+      579,
+      536,
+      512,
+      466
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00100-c0001",
+    "note": "X-warp from visually decided 10.23.13; destination requires sheet review. Actual shaded carry review: ayn shoulder and lam upright anchors checked; maqsura lower bowl overlaps the lam x span, so complete body isolation remains uncertain."
+  },
+  "43.23.15": {
+    "wid": "43.23.15",
+    "page": 491,
+    "x": [
+      1327,
+      1288,
+      1266,
+      1222
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00100-c0001",
+    "note": "X-warp from visually decided 10.23.13; destination requires sheet review. Actual shaded carry review: ayn shoulder and lam upright anchors checked; maqsura lower bowl overlaps the lam x span, so complete body isolation remains uncertain."
+  },
+  "57.27.2": {
+    "wid": "57.27.2",
+    "page": 541,
+    "x": [
+      563,
+      516,
+      494,
+      446
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00100-c0001",
+    "note": "X-warp from visually decided 10.23.13; destination requires sheet review. Actual shaded carry review: ayn shoulder and lam upright anchors checked; maqsura lower bowl overlaps the lam x span, so complete body isolation remains uncertain."
+  },
+  "18.21.27": {
+    "wid": "18.21.27",
+    "page": 296,
+    "x": [
+      215,
+      176,
+      157,
+      107
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00100-c0002",
+    "note": "X-warp from visually decided 39.53.4; destination requires sheet review. Actual shaded carry review: ayn shoulder and lam upright anchors checked; maqsura lower bowl overlaps the lam x span, so complete body isolation remains uncertain."
+  },
+  "56.61.0": {
+    "wid": "56.61.0",
+    "page": 536,
+    "x": [
+      1824,
+      1784,
+      1763,
+      1717
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00100-c0002",
+    "note": "X-warp from visually decided 39.53.4; destination requires sheet review. Actual shaded carry review: ayn shoulder and lam upright anchors checked; maqsura lower bowl overlaps the lam x span, so complete body isolation remains uncertain."
+  },
+  "38.6.6": {
+    "wid": "38.6.6",
+    "page": 453,
+    "x": [
+      1196,
+      1158,
+      1140,
+      1096
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00100-c0003",
+    "note": "X-warp from visually decided 3.144.14; destination requires sheet review. Actual shaded carry review: ayn shoulder and lam upright anchors checked; maqsura lower bowl overlaps the lam x span, so complete body isolation remains uncertain."
+  },
+  "37.70.1": {
+    "wid": "37.70.1",
+    "page": 448,
+    "x": [
+      787,
+      742,
+      726,
+      680
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00100-c0004",
+    "note": "X-warp from visually decided 3.149.8; destination requires sheet review. Actual shaded carry review: ayn shoulder and lam upright anchors checked; maqsura lower bowl overlaps the lam x span, so complete body isolation remains uncertain."
+  },
+  "6.130.22": {
+    "wid": "6.130.22",
+    "page": 144,
+    "x": [
+      1515,
+      1473,
+      1456,
+      1412
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00100-c0005",
+    "note": "X-warp from visually decided 5.46.1; destination requires sheet review. Actual shaded carry review: ayn shoulder and lam upright anchors checked; maqsura lower bowl overlaps the lam x span, so complete body isolation remains uncertain."
+  },
+  "7.37.32": {
+    "wid": "7.37.32",
+    "page": 154,
+    "x": [
+      1117,
+      1078,
+      1058,
+      1012
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00100-c0006",
+    "note": "X-warp from visually decided 6.24.3; destination requires sheet review. Actual shaded carry review: ayn shoulder and lam upright anchors checked; maqsura lower bowl overlaps the lam x span, so complete body isolation remains uncertain."
+  },
+  "7.138.8": {
+    "wid": "7.138.8",
+    "page": 167,
+    "x": [
+      225,
+      183,
+      162,
+      121
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00100-c0007",
+    "note": "X-warp from visually decided 6.37.11; destination requires sheet review. Actual shaded carry review: ayn shoulder and lam upright anchors checked; maqsura lower bowl overlaps the lam x span, so complete body isolation remains uncertain. Ayn rightmost tip is clipped at the immutable right box edge; no expansion.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "9.17.8": {
+    "wid": "9.17.8",
+    "page": 189,
+    "x": [
+      747,
+      708,
+      685,
+      640
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00100-c0008",
+    "note": "X-warp from visually decided 6.65.3; destination requires sheet review. Actual shaded carry review: ayn shoulder and lam upright anchors checked; maqsura lower bowl overlaps the lam x span, so complete body isolation remains uncertain."
+  },
+  "54.12.5": {
+    "wid": "54.12.5",
+    "page": 529,
+    "x": [
+      705,
+      665,
+      644,
+      601
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00100-c0009",
+    "note": "X-warp from visually decided 7.172.10; destination requires sheet review. Actual shaded carry review: ayn shoulder and lam upright anchors checked; maqsura lower bowl overlaps the lam x span, so complete body isolation remains uncertain."
+  },
+  "17.46.16": {
+    "wid": "17.46.16",
+    "page": 286,
+    "x": [
+      580,
+      544,
+      522,
+      477
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00100-c0010",
+    "note": "X-warp from visually decided 10.88.18; destination requires sheet review. Actual shaded carry review: ayn shoulder and lam upright anchors checked; maqsura lower bowl overlaps the lam x span, so complete body isolation remains uncertain."
+  },
+  "43.22.8": {
+    "wid": "43.22.8",
+    "page": 490,
+    "x": [
+      878,
+      839,
+      819,
+      773
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00100-c0011",
+    "note": "X-warp from visually decided 12.5.5; destination requires sheet review. Actual shaded carry review: ayn shoulder and lam upright anchors checked; maqsura lower bowl overlaps the lam x span, so complete body isolation remains uncertain."
+  },
+  "59.9.18": {
+    "wid": "59.9.18",
+    "page": 546,
+    "x": [
+      1138,
+      1098,
+      1074,
+      1032
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00100-c0012",
+    "note": "X-warp from visually decided 12.6.15; destination requires sheet review. Actual shaded carry review: ayn shoulder and lam upright anchors checked; maqsura lower bowl overlaps the lam x span, so complete body isolation remains uncertain."
+  },
+  "43.23.18": {
+    "wid": "43.23.18",
+    "page": 491,
+    "x": [
+      933,
+      896,
+      873,
+      829
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00100-c0013",
+    "note": "X-warp from visually decided 12.64.7; destination requires sheet review. Actual shaded carry review: ayn shoulder and lam upright anchors checked; maqsura lower bowl overlaps the lam x span, so complete body isolation remains uncertain."
+  },
+  "70.41.0": {
+    "wid": "70.41.0",
+    "page": 570,
+    "x": [
+      598,
+      566,
+      549,
+      515
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00100-c0014",
+    "note": "X-warp from visually decided 15.54.2; destination requires sheet review. Actual shaded carry review: ayn shoulder and lam upright anchors checked; maqsura lower bowl overlaps the lam x span, so complete body isolation remains uncertain."
+  },
+  "18.94.13": {
+    "wid": "18.94.13",
+    "page": 303,
+    "x": [
+      716,
+      682,
+      662,
+      624
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00100-c0015",
+    "note": "X-warp from visually decided 17.88.5; destination requires sheet review. Actual shaded carry review: ayn shoulder and lam upright anchors checked; maqsura lower bowl overlaps the lam x span, so complete body isolation remains uncertain."
+  },
+  "18.66.5": {
+    "wid": "18.66.5",
+    "page": 301,
+    "x": [
+      1832,
+      1792,
+      1771,
+      1725
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00100-c0016",
+    "note": "X-warp from visually decided 18.64.6; destination requires sheet review. Actual shaded carry review: ayn shoulder and lam upright anchors checked; maqsura lower bowl overlaps the lam x span, so complete body isolation remains uncertain."
+  },
+  "24.27.11": {
+    "wid": "24.27.11",
+    "page": 352,
+    "x": [
+      1568,
+      1526,
+      1510,
+      1466
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00100-c0017",
+    "note": "X-warp from visually decided 20.84.3; destination requires sheet review. Actual shaded carry review: ayn shoulder and lam upright anchors checked; maqsura lower bowl overlaps the lam x span, so complete body isolation remains uncertain. Ayn rightmost tip is clipped at the immutable right box edge; no expansion.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "28.27.8": {
+    "wid": "28.27.8",
+    "page": 388,
+    "x": [
+      315,
+      278,
+      254,
+      204
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00100-c0018",
+    "note": "X-warp from visually decided 21.69.5; destination requires sheet review. Actual shaded carry review: ayn shoulder and lam upright anchors checked; maqsura lower bowl overlaps the lam x span, so complete body isolation remains uncertain."
+  },
+  "24.45.19": {
+    "wid": "24.45.19",
+    "page": 356,
+    "x": [
+      887,
+      849,
+      830,
+      783
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00100-c0019",
+    "note": "X-warp from visually decided 23.66.6; destination requires sheet review. Actual shaded carry review: ayn shoulder and lam upright anchors checked; maqsura lower bowl overlaps the lam x span, so complete body isolation remains uncertain."
+  },
+  "24.61.61": {
+    "wid": "24.61.61",
+    "page": 358,
+    "x": [
+      481,
+      444,
+      426,
+      382
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00100-c0020",
+    "note": "X-warp from visually decided 24.61.13; destination requires sheet review. Actual shaded carry review: ayn shoulder and lam upright anchors checked; maqsura lower bowl overlaps the lam x span, so complete body isolation remains uncertain."
+  },
+  "37.130.1": {
+    "wid": "37.130.1",
+    "page": 451,
+    "x": [
+      883,
+      846,
+      828,
+      787
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00100-c0021",
+    "note": "X-warp from visually decided 29.34.2; destination requires sheet review. Actual shaded carry review: ayn shoulder and lam upright anchors checked; maqsura lower bowl overlaps the lam x span, so complete body isolation remains uncertain."
+  },
+  "60.12.6": {
+    "wid": "60.12.6",
+    "page": 551,
+    "x": [
+      645,
+      605,
+      585,
+      541
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00100-c0022",
+    "note": "X-warp from visually decided 59.5.7; destination requires sheet review. Actual shaded carry review: ayn shoulder and lam upright anchors checked; maqsura lower bowl overlaps the lam x span, so complete body isolation remains uncertain."
+  }
+}

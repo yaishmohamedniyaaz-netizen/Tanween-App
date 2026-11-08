@@ -1,0 +1,795 @@
+{
+  "33.9.19": {
+    "wid": "33.9.19",
+    "page": 419,
+    "x": [
+      1721,
+      1702,
+      1668,
+      1617,
+      1589,
+      1556,
+      1500
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00097-c0001",
+    "note": "Carried from visually decided 9.94.29; destination requires sheet review. Actual carried word reviewed: all six body spans visible; returning waw descender crosses nun region. Fatha visibly clips immutable crop edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "48.11.35": {
+    "wid": "48.11.35",
+    "page": 512,
+    "x": [
+      311,
+      291,
+      257,
+      218,
+      194,
+      164,
+      113
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00097-c0001",
+    "note": "Carried from visually decided 9.94.29; destination requires sheet review. Actual carried word reviewed: all six body spans visible; returning waw descender crosses nun region."
+  },
+  "63.11.10": {
+    "wid": "63.11.10",
+    "page": 555,
+    "x": [
+      511,
+      492,
+      454,
+      407,
+      377,
+      348,
+      288
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00097-c0001",
+    "note": "Carried from visually decided 9.94.29; destination requires sheet review. Actual carried word reviewed: all six body spans visible; returning waw descender crosses nun region. Fatha visibly clips immutable crop edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "64.2.9": {
+    "wid": "64.2.9",
+    "page": 556,
+    "x": [
+      1172,
+      1153,
+      1119,
+      1076,
+      1046,
+      1016,
+      960
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00097-c0001",
+    "note": "Carried from visually decided 9.94.29; destination requires sheet review. Actual carried word reviewed: all six body spans visible; returning waw descender crosses nun region."
+  },
+  "64.8.8": {
+    "wid": "64.8.8",
+    "page": 556,
+    "x": [
+      757,
+      738,
+      706,
+      656,
+      626,
+      595,
+      536
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00097-c0001",
+    "note": "Carried from visually decided 9.94.29; destination requires sheet review. Actual carried word reviewed: all six body spans visible; returning waw descender crosses nun region."
+  },
+  "2.234.23": {
+    "wid": "2.234.23",
+    "page": 38,
+    "x": [
+      512,
+      493,
+      461,
+      405,
+      374,
+      340,
+      287
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00097-c0002",
+    "note": "Carried from visually decided 10.41.14; destination requires sheet review. Actual carried word reviewed: all six body spans visible; returning waw descender crosses nun region."
+  },
+  "7.43.35": {
+    "wid": "7.43.35",
+    "page": 155,
+    "x": [
+      504,
+      486,
+      452,
+      399,
+      371,
+      336,
+      287
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00097-c0002",
+    "note": "Carried from visually decided 10.41.14; destination requires sheet review. Actual carried word reviewed: all six body spans visible; returning waw descender crosses nun region."
+  },
+  "31.15.28": {
+    "wid": "31.15.28",
+    "page": 412,
+    "x": [
+      1548,
+      1527,
+      1492,
+      1435,
+      1408,
+      1370,
+      1317
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00097-c0002",
+    "note": "Carried from visually decided 10.41.14; destination requires sheet review. Actual carried word reviewed: all six body spans visible; returning waw descender crosses nun region."
+  },
+  "36.54.10": {
+    "wid": "36.54.10",
+    "page": 443,
+    "x": [
+      520,
+      500,
+      462,
+      409,
+      377,
+      338,
+      284
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00097-c0002",
+    "note": "Carried from visually decided 10.41.14; destination requires sheet review. Actual carried word reviewed: all six body spans visible; returning waw descender crosses nun region."
+  },
+  "48.24.17": {
+    "wid": "48.24.17",
+    "page": 514,
+    "x": [
+      797,
+      778,
+      744,
+      693,
+      667,
+      629,
+      582
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00097-c0002",
+    "note": "Carried from visually decided 10.41.14; destination requires sheet review. Actual carried word reviewed: all six body spans visible; returning waw descender crosses nun region."
+  },
+  "5.105.18": {
+    "wid": "5.105.18",
+    "page": 125,
+    "x": [
+      1241,
+      1217,
+      1185,
+      1121,
+      1084,
+      1050,
+      990
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00097-c0003",
+    "note": "Carried from visually decided 6.60.21; destination requires sheet review. Actual carried word reviewed: all six body spans visible; returning waw descender crosses nun region. Fatha visibly clips immutable crop edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "7.129.21": {
+    "wid": "7.129.21",
+    "page": 165,
+    "x": [
+      1300,
+      1276,
+      1240,
+      1180,
+      1148,
+      1114,
+      1053
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00097-c0003",
+    "note": "Carried from visually decided 6.60.21; destination requires sheet review. Actual carried word reviewed: all six body spans visible; returning waw descender crosses nun region. Fatha visibly clips immutable crop edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "32.14.13": {
+    "wid": "32.14.13",
+    "page": 416,
+    "x": [
+      847,
+      820,
+      782,
+      721,
+      688,
+      653,
+      591
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00097-c0003",
+    "note": "Carried from visually decided 6.60.21; destination requires sheet review. Actual carried word reviewed: all six body spans visible; returning waw descender crosses nun region."
+  },
+  "34.25.8": {
+    "wid": "34.25.8",
+    "page": 431,
+    "x": [
+      583,
+      562,
+      524,
+      473,
+      437,
+      404,
+      348
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00097-c0003",
+    "note": "Carried from visually decided 6.60.21; destination requires sheet review. Actual carried word reviewed: all six body spans visible; returning waw descender crosses nun region. Fatha visibly clips immutable crop edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.237.33": {
+    "wid": "2.237.33",
+    "page": 38,
+    "x": [
+      721,
+      701,
+      667,
+      606,
+      576,
+      547,
+      493
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00097-c0004",
+    "note": "Carried from visually decided 8.72.43; destination requires sheet review. Actual carried word reviewed: all six body spans visible; returning waw descender crosses nun region."
+  },
+  "26.188.4": {
+    "wid": "26.188.4",
+    "page": 375,
+    "x": [
+      751,
+      731,
+      696,
+      629,
+      599,
+      564,
+      507
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00097-c0004",
+    "note": "Carried from visually decided 8.72.43; destination requires sheet review. Actual carried word reviewed: all six body spans visible; returning waw descender crosses nun region."
+  },
+  "27.90.12": {
+    "wid": "27.90.12",
+    "page": 385,
+    "x": [
+      1501,
+      1480,
+      1442,
+      1379,
+      1351,
+      1317,
+      1264
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00097-c0004",
+    "note": "Carried from visually decided 8.72.43; destination requires sheet review. Actual carried word reviewed: all six body spans visible; returning waw descender crosses nun region."
+  },
+  "29.8.20": {
+    "wid": "29.8.20",
+    "page": 397,
+    "x": [
+      519,
+      499,
+      463,
+      397,
+      367,
+      336,
+      278
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00097-c0004",
+    "note": "Carried from visually decided 8.72.43; destination requires sheet review. Actual carried word reviewed: all six body spans visible; returning waw descender crosses nun region."
+  },
+  "37.96.3": {
+    "wid": "37.96.3",
+    "page": 449,
+    "x": [
+      1183,
+      1163,
+      1130,
+      1086,
+      1061,
+      1029,
+      978
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00097-c0005",
+    "note": "Carried from visually decided 60.3.11; destination requires sheet review. Actual carried word reviewed: all six body spans visible; returning waw descender crosses nun region. Fatha visibly clips immutable crop edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "45.29.10": {
+    "wid": "45.29.10",
+    "page": 501,
+    "x": [
+      1601,
+      1580,
+      1542,
+      1497,
+      1470,
+      1435,
+      1381
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00097-c0005",
+    "note": "Carried from visually decided 60.3.11; destination requires sheet review. Actual carried word reviewed: all six body spans visible; returning waw descender crosses nun region."
+  },
+  "57.10.35": {
+    "wid": "57.10.35",
+    "page": 538,
+    "x": [
+      913,
+      891,
+      858,
+      814,
+      780,
+      745,
+      686
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00097-c0005",
+    "note": "Carried from visually decided 60.3.11; destination requires sheet review. Actual carried word reviewed: all six body spans visible; returning waw descender crosses nun region."
+  },
+  "58.13.23": {
+    "wid": "58.13.23",
+    "page": 544,
+    "x": [
+      1205,
+      1186,
+      1154,
+      1104,
+      1077,
+      1045,
+      989
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00097-c0005",
+    "note": "Carried from visually decided 60.3.11; destination requires sheet review. Actual carried word reviewed: all six body spans visible; returning waw descender crosses nun region."
+  },
+  "2.85.48": {
+    "wid": "2.85.48",
+    "page": 13,
+    "x": [
+      1186,
+      1167,
+      1125,
+      1063,
+      1029,
+      994,
+      929
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00097-c0006",
+    "note": "Carried from visually decided 10.61.10; destination requires sheet review. Actual carried word reviewed: all six body spans visible; returning waw descender crosses nun region. Fatha visibly clips immutable crop edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "4.135.35": {
+    "wid": "4.135.35",
+    "page": 100,
+    "x": [
+      827,
+      807,
+      768,
+      718,
+      688,
+      657,
+      597
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00097-c0006",
+    "note": "Carried from visually decided 10.61.10; destination requires sheet review. Actual carried word reviewed: all six body spans visible; returning waw descender crosses nun region."
+  },
+  "31.29.23": {
+    "wid": "31.29.23",
+    "page": 414,
+    "x": [
+      1719,
+      1698,
+      1657,
+      1608,
+      1579,
+      1547,
+      1488
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00097-c0006",
+    "note": "Carried from visually decided 10.61.10; destination requires sheet review. Actual carried word reviewed: all six body spans visible; returning waw descender crosses nun region. Fatha visibly clips immutable crop edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "16.93.16": {
+    "wid": "16.93.16",
+    "page": 277,
+    "x": [
+      506,
+      487,
+      457,
+      412,
+      380,
+      349,
+      289
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00097-c0007",
+    "note": "Carried from visually decided 62.8.17; destination requires sheet review. Actual carried word reviewed: all six body spans visible; returning waw descender crosses nun region."
+  },
+  "58.11.28": {
+    "wid": "58.11.28",
+    "page": 543,
+    "x": [
+      633,
+      617,
+      583,
+      552,
+      519,
+      488,
+      433
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00097-c0007",
+    "note": "Carried from visually decided 62.8.17; destination requires sheet review. Actual carried word reviewed: all six body spans visible; returning waw descender crosses nun region."
+  },
+  "66.7.10": {
+    "wid": "66.7.10",
+    "page": 560,
+    "x": [
+      481,
+      462,
+      430,
+      392,
+      363,
+      332,
+      278
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00097-c0007",
+    "note": "Carried from visually decided 62.8.17; destination requires sheet review. Actual carried word reviewed: all six body spans visible; returning waw descender crosses nun region. Fatha visibly clips immutable crop edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.140.29": {
+    "wid": "2.140.29",
+    "page": 21,
+    "x": [
+      1476,
+      1458,
+      1426,
+      1368,
+      1330,
+      1292,
+      1234
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00097-c0008",
+    "note": "Carried from visually decided 3.98.11; destination requires sheet review. Actual carried word reviewed: all six body spans visible; returning waw descender crosses nun region."
+  },
+  "3.156.34": {
+    "wid": "3.156.34",
+    "page": 70,
+    "x": [
+      1549,
+      1533,
+      1501,
+      1444,
+      1410,
+      1374,
+      1315
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00097-c0008",
+    "note": "Carried from visually decided 3.98.11; destination requires sheet review. Actual carried word reviewed: all six body spans visible; returning waw descender crosses nun region."
+  },
+  "10.14.9": {
+    "wid": "10.14.9",
+    "page": 209,
+    "x": [
+      506,
+      485,
+      444,
+      394,
+      351,
+      313,
+      249
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00097-c0009",
+    "note": "Carried from visually decided 3.180.28; destination requires sheet review. Actual carried word reviewed: all six body spans visible; returning waw descender crosses nun region. Fatha visibly clips immutable crop edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "58.3.19": {
+    "wid": "58.3.19",
+    "page": 542,
+    "x": [
+      1462,
+      1444,
+      1412,
+      1368,
+      1336,
+      1303,
+      1248
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00097-c0009",
+    "note": "Carried from visually decided 3.180.28; destination requires sheet review. Actual carried word reviewed: all six body spans visible; returning waw descender crosses nun region."
+  },
+  "27.84.12": {
+    "wid": "27.84.12",
+    "page": 384,
+    "x": [
+      323,
+      301,
+      271,
+      216,
+      190,
+      151,
+      103
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00097-c0010",
+    "note": "Carried from visually decided 11.123.15; destination requires sheet review. Actual carried word reviewed: all six body spans visible; returning waw descender crosses nun region."
+  },
+  "29.55.12": {
+    "wid": "29.55.12",
+    "page": 403,
+    "x": [
+      303,
+      284,
+      250,
+      201,
+      172,
+      138,
+      88
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00097-c0010",
+    "note": "Carried from visually decided 11.123.15; destination requires sheet review. Actual carried word reviewed: all six body spans visible; returning waw descender crosses nun region."
+  },
+  "22.68.6": {
+    "wid": "22.68.6",
+    "page": 340,
+    "x": [
+      860,
+      844,
+      807,
+      734,
+      706,
+      671,
+      611
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00097-c0011",
+    "note": "Carried from visually decided 24.53.16; destination requires sheet review. Actual carried word reviewed: all six body spans visible; returning waw descender crosses nun region. Fatha visibly clips immutable crop edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "26.216.6": {
+    "wid": "26.216.6",
+    "page": 376,
+    "x": [
+      1560,
+      1542,
+      1510,
+      1454,
+      1426,
+      1394,
+      1344
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00097-c0011",
+    "note": "Carried from visually decided 24.53.16; destination requires sheet review. Actual carried word reviewed: all six body spans visible; returning waw descender crosses nun region."
+  },
+  "16.28.18": {
+    "wid": "16.28.18",
+    "page": 270,
+    "x": [
+      1157,
+      1141,
+      1108,
+      1039,
+      1009,
+      981,
+      925
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00097-c0012",
+    "note": "Carried from visually decided 49.18.9; destination requires sheet review. Actual carried word reviewed: all six body spans visible; returning waw descender crosses nun region."
+  },
+  "52.16.11": {
+    "wid": "52.16.11",
+    "page": 524,
+    "x": [
+      501,
+      486,
+      444,
+      382,
+      352,
+      322,
+      264
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00097-c0012",
+    "note": "Carried from visually decided 49.18.9; destination requires sheet review. Actual carried word reviewed: all six body spans visible; returning waw descender crosses nun region."
+  },
+  "2.149.16": {
+    "wid": "2.149.16",
+    "page": 23,
+    "x": [
+      1390,
+      1371,
+      1343,
+      1291,
+      1258,
+      1223,
+      1174
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00097-c0013",
+    "note": "Carried from visually decided 2.74.36; destination requires sheet review. Actual carried word reviewed: all six body spans visible; returning waw descender crosses nun region. Fatha visibly clips immutable crop edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "2.283.30": {
+    "wid": "2.283.30",
+    "page": 49,
+    "x": [
+      1204,
+      1186,
+      1153,
+      1080,
+      1050,
+      1013,
+      960
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00097-c0014",
+    "note": "Carried from visually decided 2.271.18; destination requires sheet review. Actual carried word reviewed: all six body spans visible; returning waw descender crosses nun region."
+  },
+  "59.18.16": {
+    "wid": "59.18.16",
+    "page": 548,
+    "x": [
+      378,
+      358,
+      321,
+      250,
+      221,
+      175,
+      113
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00097-c0015",
+    "note": "Carried from visually decided 3.153.24; destination requires sheet review. Actual carried word reviewed: all six body spans visible; returning waw descender crosses nun region. Fatha visibly clips immutable crop edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "41.40.24": {
+    "wid": "41.40.24",
+    "page": 481,
+    "x": [
+      1629,
+      1611,
+      1577,
+      1533,
+      1504,
+      1468,
+      1412
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00097-c0016",
+    "note": "Carried from visually decided 23.51.9; destination requires sheet review. Actual carried word reviewed: all six body spans visible; returning waw descender crosses nun region. Fatha visibly clips immutable crop edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "52.19.5": {
+    "wid": "52.19.5",
+    "page": 524,
+    "x": [
+      1672,
+      1654,
+      1624,
+      1578,
+      1548,
+      1514,
+      1458
+    ],
+    "confidence": "high",
+    "source": "visual-copy",
+    "cluster": "s00097-c0017",
+    "note": "Carried from visually decided 27.93.10; destination requires sheet review. Actual carried word reviewed: all six body spans visible; returning waw descender crosses nun region."
+  },
+  "77.43.5": {
+    "wid": "77.43.5",
+    "page": 581,
+    "x": [
+      1606,
+      1592,
+      1554,
+      1496,
+      1470,
+      1434,
+      1382
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00097-c0018",
+    "note": "Carried from visually decided 33.2.10; destination requires sheet review. Actual carried word reviewed: all six body spans visible; returning waw descender crosses nun region. Fatha visibly clips immutable crop edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  }
+}

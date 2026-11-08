@@ -1,0 +1,238 @@
+{
+  "observer": "cloud-ranks079_100",
+  "ownedRanks": [
+    79,
+    80,
+    81,
+    82,
+    83,
+    84,
+    85,
+    86,
+    87,
+    88,
+    89,
+    90,
+    91,
+    92,
+    93,
+    94,
+    100
+  ],
+  "status": "delegated ranks complete; global Checkpoint A pending parent gate and evaluation",
+  "accepted": 1521,
+  "withheldCount": 6,
+  "sourceCounts": {
+    "visual-copy": 897,
+    "visual": 624
+  },
+  "confidenceCounts": {
+    "low": 1056,
+    "high": 113,
+    "medium": 352
+  },
+  "actualReviewedImageStates": 299,
+  "auditStart": "2026-11-08T10:52:27.412267+00:00",
+  "auditEnd": "2026-11-08T11:59:49.944857+00:00",
+  "auditWindowSeconds": 4042.53259,
+  "timeNote": "Timestamped audit window only; excludes setup and final reporting and is not measured active annotation time.",
+  "tokens": null,
+  "tokenNote": "Per-agent token usage unavailable; no estimate claimed.",
+  "rankValidation": [
+    {
+      "rank": 79,
+      "accepted": 96,
+      "withheld": 3,
+      "images": 22,
+      "geometry": "passed",
+      "auditHashes": "passed"
+    },
+    {
+      "rank": 80,
+      "accepted": 98,
+      "withheld": 0,
+      "images": 15,
+      "geometry": "passed",
+      "auditHashes": "passed"
+    },
+    {
+      "rank": 81,
+      "accepted": 98,
+      "withheld": 0,
+      "images": 16,
+      "geometry": "passed",
+      "auditHashes": "passed"
+    },
+    {
+      "rank": 82,
+      "accepted": 97,
+      "withheld": 0,
+      "images": 16,
+      "geometry": "passed",
+      "auditHashes": "passed"
+    },
+    {
+      "rank": 83,
+      "accepted": 96,
+      "withheld": 0,
+      "images": 12,
+      "geometry": "passed",
+      "auditHashes": "passed"
+    },
+    {
+      "rank": 84,
+      "accepted": 95,
+      "withheld": 0,
+      "images": 17,
+      "geometry": "passed",
+      "auditHashes": "passed"
+    },
+    {
+      "rank": 85,
+      "accepted": 91,
+      "withheld": 0,
+      "images": 13,
+      "geometry": "passed",
+      "auditHashes": "passed"
+    },
+    {
+      "rank": 86,
+      "accepted": 89,
+      "withheld": 0,
+      "images": 13,
+      "geometry": "passed",
+      "auditHashes": "passed"
+    },
+    {
+      "rank": 87,
+      "accepted": 88,
+      "withheld": 0,
+      "images": 15,
+      "geometry": "passed",
+      "auditHashes": "passed"
+    },
+    {
+      "rank": 88,
+      "accepted": 86,
+      "withheld": 0,
+      "images": 9,
+      "geometry": "passed",
+      "auditHashes": "passed"
+    },
+    {
+      "rank": 89,
+      "accepted": 86,
+      "withheld": 0,
+      "images": 23,
+      "geometry": "passed",
+      "auditHashes": "passed"
+    },
+    {
+      "rank": 90,
+      "accepted": 85,
+      "withheld": 0,
+      "images": 24,
+      "geometry": "passed",
+      "auditHashes": "passed"
+    },
+    {
+      "rank": 91,
+      "accepted": 85,
+      "withheld": 0,
+      "images": 11,
+      "geometry": "passed",
+      "auditHashes": "passed"
+    },
+    {
+      "rank": 92,
+      "accepted": 85,
+      "withheld": 0,
+      "images": 16,
+      "geometry": "passed",
+      "auditHashes": "passed"
+    },
+    {
+      "rank": 93,
+      "accepted": 84,
+      "withheld": 0,
+      "images": 20,
+      "geometry": "passed",
+      "auditHashes": "passed"
+    },
+    {
+      "rank": 94,
+      "accepted": 81,
+      "withheld": 3,
+      "images": 26,
+      "geometry": "passed",
+      "auditHashes": "passed"
+    },
+    {
+      "rank": 100,
+      "accepted": 81,
+      "withheld": 0,
+      "images": 31,
+      "geometry": "passed",
+      "auditHashes": "passed"
+    }
+  ],
+  "withheld": [
+    {
+      "wid": "24.43.2",
+      "page": 355,
+      "cluster": "s00079-c0047",
+      "status": "withheld-missing-target",
+      "reason": "Immutable right edge omits the alif body; only marginal trace below clipped hamza survives. No useful target body to allocate without inventing a slot. Original representatives-original-008.png actually reviewed."
+    },
+    {
+      "wid": "37.168.1",
+      "page": 452,
+      "cluster": "s00079-c0051",
+      "status": "withheld-missing-target",
+      "reason": "Alif stem body entirely outside immutable right edge; only clipped hamza above nun remains. Original representatives-original-009.png actually reviewed; no fabricated slot."
+    },
+    {
+      "wid": "58.7.2",
+      "page": 543,
+      "cluster": "s00079-c0054",
+      "status": "withheld-missing-target",
+      "reason": "Alif body absent from immutable right crop apart from tiny marginal trace; clipped hamza above survives. Original representatives-original-009.png actually reviewed; no fabricated slot."
+    },
+    {
+      "wid": "22.11.1",
+      "page": 333,
+      "cluster": "s00094-c0035",
+      "status": "withheld-missing-target",
+      "reason": "Original006 actually reviewed: initial alif target body absent from fixed crop; only partial wasla and negligible edge trace, no defensible body slot. Entire word withheld; box immutable."
+    },
+    {
+      "wid": "30.30.19",
+      "page": 407,
+      "cluster": "s00094-c0038",
+      "status": "withheld-missing-target",
+      "reason": "Original007 actually reviewed: initial alif and wasla entirely absent from fixed crop; lam/nun-alif/sin remain. Entire word withheld rather than inventing an alif slot."
+    },
+    {
+      "wid": "34.36.10",
+      "page": 432,
+      "cluster": "s00094-c0041",
+      "status": "withheld-missing-target",
+      "reason": "Original007 actually reviewed: initial alif body absent apart from negligible anti-aliased edge trace; partial wasla remains. No defensible full target body slot, entire word withheld within immutable box."
+    }
+  ],
+  "blindSha256": "766e716327f6ee1b0e2823ad8786b5b2181954b27c3939aa5aaa0954b969e046",
+  "limitations": [
+    "Rank100 all low confidence: stacked maqsura lower bowl overlaps the lam x span; upright/shoulder anchors cannot isolate the entire lower bowl.",
+    "Clipped ink remains inside immutable word boxes and is flagged low; three rank094 partial alif bodies use the existing right box edge with checked 3 or 5 pixel spans.",
+    "Horizontal cuts remain uncertain for connected curves and long joins; notes retain uncertainty."
+  ],
+  "safety": "No hidden answers, evaluator, global generation, commits, pushes, deployment, or edits to src/artwork/page data/approved borders. No edits to delegated-away ranks095–099.",
+  "confidenceAssessment": {
+    "practicality": "Moderate: all owned rank words accounted for; six absent-body exceptions require owner policy.",
+    "dataSafety": "High: exact fixed-box geometry and SHA checks passed; blind file unchanged.",
+    "visualCertainty": "Mixed by annotation confidence; rank100 and clipped/stacked cases remain low."
+  },
+  "remaining": [
+    "Parent global pilot gate, guarded one-time frozen evaluation if gate passes, metrics/worst images/seeded contact sheets, task-document reconciliation, scoped tests and branch-only commit/push."
+  ]
+}

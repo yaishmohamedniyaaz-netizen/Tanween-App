@@ -1,0 +1,767 @@
+{
+  "13.1.12": {
+    "wid": "13.1.12",
+    "page": 249,
+    "x": [
+      1485,
+      1471,
+      1447,
+      1394,
+      1304
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00094-c0001",
+    "note": "Manual carrier gap, lam left stem/turn, merged nun-alif body and detached sin gap; curved lam/nun join leaves moderate uncertainty."
+  },
+  "3.21.14": {
+    "wid": "3.21.14",
+    "page": 52,
+    "x": [
+      645,
+      620,
+      602,
+      544,
+      456
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00094-c0002",
+    "note": "Manual carrier gap, lam left stem/turn, merged nun-alif body and detached sin gap; curved lam/nun join leaves moderate uncertainty. Wasla and/or initial alif visibly clipped at immutable right edge.",
+    "reviewFlags": [
+      "ink-clipped-by-existing-word-box"
+    ]
+  },
+  "27.73.5": {
+    "wid": "27.73.5",
+    "page": 383,
+    "x": [
+      1415,
+      1399,
+      1377,
+      1325,
+      1242
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00094-c0003",
+    "note": "Manual carrier gap, lam left stem/turn, merged nun-alif body and detached sin gap; curved lam/nun join leaves moderate uncertainty. Wasla and/or initial alif visibly clipped at immutable right edge.",
+    "reviewFlags": [
+      "ink-clipped-by-existing-word-box"
+    ]
+  },
+  "2.204.1": {
+    "wid": "2.204.1",
+    "page": 32,
+    "x": [
+      1815,
+      1792,
+      1774,
+      1691,
+      1603
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00094-c0004",
+    "note": "Manual carrier gap, lam left stem/turn, merged nun-alif body and detached sin gap; curved lam/nun join leaves moderate uncertainty. Wasla and/or initial alif visibly clipped at immutable right edge.",
+    "reviewFlags": [
+      "ink-clipped-by-existing-word-box"
+    ]
+  },
+  "4.58.11": {
+    "wid": "4.58.11",
+    "page": 87,
+    "x": [
+      1834,
+      1814,
+      1793,
+      1743,
+      1658
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00094-c0005",
+    "note": "Manual carrier gap, lam left stem/turn, merged nun-alif body and detached sin gap; curved lam/nun join leaves moderate uncertainty. Wasla and/or initial alif visibly clipped at immutable right edge.",
+    "reviewFlags": [
+      "ink-clipped-by-existing-word-box"
+    ]
+  },
+  "7.144.5": {
+    "wid": "7.144.5",
+    "page": 168,
+    "x": [
+      804,
+      785,
+      766,
+      710,
+      616
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00094-c0006",
+    "note": "Manual carrier gap, lam left stem/turn, merged nun-alif body and detached sin gap; curved lam/nun join leaves moderate uncertainty. Wasla and/or initial alif visibly clipped at immutable right edge.",
+    "reviewFlags": [
+      "ink-clipped-by-existing-word-box"
+    ]
+  },
+  "10.92.10": {
+    "wid": "10.92.10",
+    "page": 219,
+    "x": [
+      1069,
+      1045,
+      1021,
+      965,
+      879
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00094-c0007",
+    "note": "Manual carrier gap, lam left stem/turn, merged nun-alif body and detached sin gap; curved lam/nun join leaves uncertainty; wasla appears clipped at fixed right edge. Wasla and/or initial alif visibly clipped at immutable right edge.",
+    "reviewFlags": [
+      "ink-clipped-by-existing-word-box"
+    ]
+  },
+  "12.38.20": {
+    "wid": "12.38.20",
+    "page": 240,
+    "x": [
+      1816,
+      1798,
+      1780,
+      1710,
+      1619
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00094-c0008",
+    "note": "Manual carrier gap, lam left stem/turn, merged nun-alif body and detached sin gap; curved lam/nun join leaves uncertainty; wasla appears clipped at fixed right edge. Wasla and/or initial alif visibly clipped at immutable right edge.",
+    "reviewFlags": [
+      "ink-clipped-by-existing-word-box"
+    ]
+  },
+  "12.38.23": {
+    "wid": "12.38.23",
+    "page": 240,
+    "x": [
+      1114,
+      1091,
+      1066,
+      1011,
+      925
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00094-c0009",
+    "note": "Manual carrier gap, lam left stem/turn, merged nun-alif body and detached sin gap; curved lam/nun join leaves uncertainty; wasla appears clipped at fixed right edge. Wasla and/or initial alif visibly clipped at immutable right edge.",
+    "reviewFlags": [
+      "ink-clipped-by-existing-word-box"
+    ]
+  },
+  "31.6.1": {
+    "wid": "31.6.1",
+    "page": 411,
+    "x": [
+      1105,
+      1085,
+      1064,
+      1006,
+      922
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00094-c0010",
+    "note": "Manual carrier gap, lam left stem/turn, merged nun-alif body and detached sin gap; curved lam/nun join leaves uncertainty; wasla appears clipped at fixed right edge. Wasla and/or initial alif visibly clipped at immutable right edge.",
+    "reviewFlags": [
+      "ink-clipped-by-existing-word-box"
+    ]
+  },
+  "2.94.11": {
+    "wid": "2.94.11",
+    "page": 15,
+    "x": [
+      1649,
+      1627,
+      1608,
+      1515,
+      1428
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00094-c0011",
+    "note": "Manual carrier gap, lam left stem/turn, merged nun-alif body and detached sin gap; curved lam/nun join leaves uncertainty; wasla appears clipped at fixed right edge. Wasla and/or initial alif visibly clipped at immutable right edge.",
+    "reviewFlags": [
+      "ink-clipped-by-existing-word-box"
+    ]
+  },
+  "2.96.2": {
+    "wid": "2.96.2",
+    "page": 15,
+    "x": [
+      985,
+      963,
+      948,
+      867,
+      780
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00094-c0012",
+    "note": "Manual carrier gap, lam left stem/turn, merged nun-alif body and detached sin gap; curved lam/nun join leaves uncertainty; wasla appears clipped at fixed right edge. Wasla and/or initial alif visibly clipped at immutable right edge.",
+    "reviewFlags": [
+      "ink-clipped-by-existing-word-box"
+    ]
+  },
+  "2.207.1": {
+    "wid": "2.207.1",
+    "page": 32,
+    "x": [
+      1814,
+      1794,
+      1776,
+      1684,
+      1597
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00094-c0013",
+    "note": "Manual detached carrier gap and sin gap; compact lam stem/turn ends beside nun shoulder, merged nun-alif retained; curved join moderately uncertain."
+  },
+  "2.243.22": {
+    "wid": "2.243.22",
+    "page": 39,
+    "x": [
+      1810,
+      1790,
+      1774,
+      1685,
+      1594
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00094-c0014",
+    "note": "Manual detached carrier gap and sin gap; compact lam stem/turn ends beside nun shoulder, merged nun-alif retained; curved join moderately uncertain. Wasla and/or initial alif visibly clipped at immutable right edge.",
+    "reviewFlags": [
+      "ink-clipped-by-existing-word-box"
+    ]
+  },
+  "3.9.3": {
+    "wid": "3.9.3",
+    "page": 50,
+    "x": [
+      1829,
+      1809,
+      1788,
+      1725,
+      1644
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00094-c0015",
+    "note": "Manual detached carrier gap and sin gap; compact lam stem/turn ends beside nun shoulder, merged nun-alif retained; curved join moderately uncertain. Wasla and/or initial alif visibly clipped at immutable right edge.",
+    "reviewFlags": [
+      "ink-clipped-by-existing-word-box"
+    ]
+  },
+  "3.97.11": {
+    "wid": "3.97.11",
+    "page": 62,
+    "x": [
+      689,
+      669,
+      650,
+      588,
+      504
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00094-c0016",
+    "note": "Manual detached carrier gap and sin gap; compact lam stem/turn ends beside nun shoulder, merged nun-alif retained; curved join moderately uncertain. Wasla and/or initial alif visibly clipped at immutable right edge.",
+    "reviewFlags": [
+      "ink-clipped-by-existing-word-box"
+    ]
+  },
+  "5.82.2": {
+    "wid": "5.82.2",
+    "page": 121,
+    "x": [
+      1152,
+      1132,
+      1110,
+      1035,
+      945
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00094-c0017",
+    "note": "Manual detached carrier gap and sin gap; compact lam stem/turn ends beside nun shoulder, merged nun-alif retained; curved join moderately uncertain. Wasla and/or initial alif visibly clipped at immutable right edge.",
+    "reviewFlags": [
+      "ink-clipped-by-existing-word-box"
+    ]
+  },
+  "9.34.10": {
+    "wid": "9.34.10",
+    "page": 192,
+    "x": [
+      1630,
+      1598,
+      1580,
+      1475,
+      1380
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00094-c0018",
+    "note": "Manual detached carrier gap and sin gap; compact lam stem/turn ends beside nun shoulder, merged nun-alif retained; curved join moderately uncertain. Wasla and/or initial alif visibly clipped at immutable right edge.",
+    "reviewFlags": [
+      "ink-clipped-by-existing-word-box"
+    ]
+  },
+  "10.60.14": {
+    "wid": "10.60.14",
+    "page": 215,
+    "x": [
+      740,
+      719,
+      703,
+      623,
+      533
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00094-c0019",
+    "note": "Manual carrier and sin gaps; compact lam stem/turn beside merged nun-alif shoulder; curved join uncertain. Wasla clipped at immutable right edge. Wasla and/or initial alif visibly clipped at immutable right edge.",
+    "reviewFlags": [
+      "ink-clipped-by-existing-word-box"
+    ]
+  },
+  "12.103.2": {
+    "wid": "12.103.2",
+    "page": 247,
+    "x": [
+      1235,
+      1217,
+      1199,
+      1094,
+      996
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00094-c0020",
+    "note": "Manual carrier and sin gaps; compact lam stem/turn beside merged nun-alif shoulder; curved join uncertain. Wasla clipped at immutable right edge. Wasla and/or initial alif visibly clipped at immutable right edge.",
+    "reviewFlags": [
+      "ink-clipped-by-existing-word-box"
+    ]
+  },
+  "22.3.1": {
+    "wid": "22.3.1",
+    "page": 332,
+    "x": [
+      1515,
+      1499,
+      1477,
+      1417,
+      1322
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00094-c0021",
+    "note": "Manual carrier and sin gaps; compact lam stem/turn beside merged nun-alif shoulder; curved join uncertain. Wasla clipped at immutable right edge. Wasla and/or initial alif visibly clipped at immutable right edge.",
+    "reviewFlags": [
+      "ink-clipped-by-existing-word-box"
+    ]
+  },
+  "22.27.2": {
+    "wid": "22.27.2",
+    "page": 335,
+    "x": [
+      1138,
+      1118,
+      1102,
+      1004,
+      910
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00094-c0022",
+    "note": "Manual carrier and sin gaps; compact lam stem/turn beside merged nun-alif shoulder; curved join uncertain. Wasla clipped at immutable right edge. Wasla and/or initial alif visibly clipped at immutable right edge.",
+    "reviewFlags": [
+      "ink-clipped-by-existing-word-box"
+    ]
+  },
+  "114.1.3": {
+    "wid": "114.1.3",
+    "page": 604,
+    "x": [
+      1368,
+      1348,
+      1328,
+      1239,
+      1146
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00094-c0023",
+    "note": "Manual carrier and sin gaps; compact lam stem/turn beside merged nun-alif shoulder; curved join uncertain. Wasla clipped at immutable right edge. Wasla and/or initial alif visibly clipped at immutable right edge.",
+    "reviewFlags": [
+      "ink-clipped-by-existing-word-box"
+    ]
+  },
+  "2.8.1": {
+    "wid": "2.8.1",
+    "page": 3,
+    "x": [
+      320,
+      302,
+      287,
+      229,
+      146
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00094-c0024",
+    "note": "Manual carrier and sin gaps; compact lam stem/turn beside merged nun-alif shoulder; curved join uncertain. Wasla clipped at immutable right edge. Wasla and/or initial alif visibly clipped at immutable right edge.",
+    "reviewFlags": [
+      "ink-clipped-by-existing-word-box"
+    ]
+  },
+  "2.143.7": {
+    "wid": "2.143.7",
+    "page": 22,
+    "x": [
+      1467,
+      1447,
+      1428,
+      1344,
+      1249
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00094-c0025",
+    "note": "Manual carrier gap and detached sin gap; compact lam stem/turn beside merged nun-alif shoulder; curved join uncertain. Wasla clipped at immutable right edge. Wasla and/or initial alif visibly clipped at immutable right edge.",
+    "reviewFlags": [
+      "ink-clipped-by-existing-word-box"
+    ]
+  },
+  "2.165.1": {
+    "wid": "2.165.1",
+    "page": 25,
+    "x": [
+      1814,
+      1791,
+      1772,
+      1709,
+      1619
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00094-c0026",
+    "note": "Manual carrier gap and detached sin gap; compact lam stem/turn beside merged nun-alif shoulder; curved join uncertain. Wasla clipped at immutable right edge. Wasla and/or initial alif visibly clipped at immutable right edge.",
+    "reviewFlags": [
+      "ink-clipped-by-existing-word-box"
+    ]
+  },
+  "2.188.13": {
+    "wid": "2.188.13",
+    "page": 29,
+    "x": [
+      1620,
+      1598,
+      1582,
+      1498,
+      1412
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00094-c0027",
+    "note": "Manual carrier gap and detached sin gap; compact lam stem/turn beside merged nun-alif shoulder; curved join uncertain. Wasla clipped at immutable right edge. Wasla and/or initial alif visibly clipped at immutable right edge.",
+    "reviewFlags": [
+      "ink-clipped-by-existing-word-box"
+    ]
+  },
+  "2.200.11": {
+    "wid": "2.200.11",
+    "page": 31,
+    "x": [
+      498,
+      477,
+      460,
+      305,
+      216
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00094-c0028",
+    "note": "Manual carrier gap and detached sin gap; compact lam stem/turn beside merged nun-alif shoulder; curved join uncertain. Wasla clipped at immutable right edge. Wasla and/or initial alif visibly clipped at immutable right edge.",
+    "reviewFlags": [
+      "ink-clipped-by-existing-word-box"
+    ]
+  },
+  "2.213.15": {
+    "wid": "2.213.15",
+    "page": 33,
+    "x": [
+      322,
+      299,
+      282,
+      198,
+      112
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00094-c0029",
+    "note": "Manual carrier gap and detached sin gap; compact lam stem/turn beside merged nun-alif shoulder; curved join uncertain. Wasla clipped at immutable right edge. Wasla and/or initial alif visibly clipped at immutable right edge.",
+    "reviewFlags": [
+      "ink-clipped-by-existing-word-box"
+    ]
+  },
+  "3.68.2": {
+    "wid": "3.68.2",
+    "page": 58,
+    "x": [
+      286,
+      266,
+      250,
+      189,
+      102
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00094-c0030",
+    "note": "Manual carrier gap and detached sin gap; compact lam stem/turn beside merged nun-alif shoulder; curved join uncertain. Wasla clipped at immutable right edge. Wasla and/or initial alif visibly clipped at immutable right edge.",
+    "reviewFlags": [
+      "ink-clipped-by-existing-word-box"
+    ]
+  },
+  "5.49.31": {
+    "wid": "5.49.31",
+    "page": 116,
+    "x": [
+      998,
+      984,
+      960,
+      902,
+      806
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00094-c0032",
+    "note": "Manual carrier and sin gaps; compact lam turn beside nun shoulder; curved join uncertain. Wasla clipping where flagged. Wasla and/or initial alif visibly clipped at immutable right edge.",
+    "reviewFlags": [
+      "ink-clipped-by-existing-word-box"
+    ]
+  },
+  "16.38.15": {
+    "wid": "16.38.15",
+    "page": 271,
+    "x": [
+      866,
+      848,
+      832,
+      772,
+      680
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00094-c0033",
+    "note": "Manual carrier and sin gaps; compact lam turn beside nun shoulder; curved join uncertain. Wasla clipping where flagged. Wasla and/or initial alif visibly clipped at immutable right edge.",
+    "reviewFlags": [
+      "ink-clipped-by-existing-word-box"
+    ]
+  },
+  "17.89.11": {
+    "wid": "17.89.11",
+    "page": 291,
+    "x": [
+      274,
+      256,
+      235,
+      171,
+      83
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00094-c0034",
+    "note": "Manual carrier and sin gaps; compact lam turn beside nun shoulder; curved join uncertain. Wasla clipping where flagged. Wasla and/or initial alif visibly clipped at immutable right edge.",
+    "reviewFlags": [
+      "ink-clipped-by-existing-word-box"
+    ]
+  },
+  "29.10.12": {
+    "wid": "29.10.12",
+    "page": 397,
+    "x": [
+      1640,
+      1621,
+      1609,
+      1508,
+      1429
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00094-c0036",
+    "note": "Manual carrier and sin gaps; compact lam turn beside nun shoulder; curved join uncertain. Wasla clipping where flagged. Wasla and/or initial alif visibly clipped at immutable right edge.",
+    "reviewFlags": [
+      "ink-clipped-by-existing-word-box"
+    ]
+  },
+  "31.20.18": {
+    "wid": "31.20.18",
+    "page": 413,
+    "x": [
+      857,
+      838,
+      821,
+      760,
+      667
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00094-c0039",
+    "note": "Manual carrier and sin gaps; compact lam turn beside nun shoulder; curved join uncertain. Wasla clipping where flagged. Wasla and/or initial alif visibly clipped at immutable right edge.",
+    "reviewFlags": [
+      "ink-clipped-by-existing-word-box"
+    ]
+  },
+  "35.28.1": {
+    "wid": "35.28.1",
+    "page": 437,
+    "x": [
+      929,
+      910,
+      892,
+      831,
+      739
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00094-c0042",
+    "note": "Manual carrier and sin gaps; compact lam turn beside nun shoulder; curved join uncertain. Wasla clipping where flagged. Wasla and/or initial alif visibly clipped at immutable right edge.",
+    "reviewFlags": [
+      "ink-clipped-by-existing-word-box"
+    ]
+  },
+  "38.26.8": {
+    "wid": "38.26.8",
+    "page": 454,
+    "x": [
+      280,
+      264,
+      247,
+      193,
+      110
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00094-c0043",
+    "note": "Manual carrier and sin gaps; compact lam turn beside nun shoulder; curved join uncertain. Wasla clipping where flagged. Wasla and/or initial alif visibly clipped at immutable right edge.",
+    "reviewFlags": [
+      "ink-clipped-by-existing-word-box"
+    ]
+  },
+  "40.59.8": {
+    "wid": "40.59.8",
+    "page": 474,
+    "x": [
+      334,
+      311,
+      292,
+      221,
+      125
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00094-c0044",
+    "note": "Manual carrier and sin gaps; compact lam turn beside nun shoulder; curved join uncertain. Wasla clipping where flagged."
+  },
+  "40.61.14": {
+    "wid": "40.61.14",
+    "page": 474,
+    "x": [
+      319,
+      299,
+      278,
+      214,
+      124
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00094-c0045",
+    "note": "Manual carrier and sin gaps; compact lam turn beside nun shoulder; curved join uncertain. Wasla clipping where flagged. Wasla and/or initial alif visibly clipped at immutable right edge.",
+    "reviewFlags": [
+      "ink-clipped-by-existing-word-box"
+    ]
+  },
+  "114.5.4": {
+    "wid": "114.5.4",
+    "page": 604,
+    "x": [
+      853,
+      832,
+      813,
+      693,
+      527
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00094-c0046",
+    "note": "Manual carrier and sin gaps; compact lam turn beside nun shoulder; curved join uncertain. Wasla clipping where flagged. Wasla and/or initial alif visibly clipped at immutable right edge.",
+    "reviewFlags": [
+      "ink-clipped-by-existing-word-box"
+    ]
+  },
+  "4.161.7": {
+    "wid": "4.161.7",
+    "page": 103,
+    "x": [
+      262,
+      259,
+      237,
+      192,
+      119
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00094-c0031",
+    "note": "Actual original shows partial initial alif body at fixed right edge. Outer border uses immutable body right edge because projection end omitted partial alif; no expansion outside box. Most alif and wasla clipped; curved lam/nun join uncertain. Wasla and/or initial alif visibly clipped at immutable right edge.",
+    "reviewFlags": [
+      "ink-clipped-by-existing-word-box"
+    ]
+  },
+  "30.6.8": {
+    "wid": "30.6.8",
+    "page": 405,
+    "x": [
+      639,
+      634,
+      610,
+      563,
+      475
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00094-c0037",
+    "note": "Actual original shows partial initial alif body at fixed right edge. Outer border uses immutable body right edge because projection end omitted partial alif; no expansion outside box. Most alif and wasla clipped; curved lam/nun join uncertain. Wasla and/or initial alif visibly clipped at immutable right edge.",
+    "reviewFlags": [
+      "ink-clipped-by-existing-word-box"
+    ]
+  },
+  "34.28.9": {
+    "wid": "34.28.9",
+    "page": 431,
+    "x": [
+      846,
+      841,
+      814,
+      758,
+      671
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00094-c0040",
+    "note": "Actual original shows partial initial alif body at fixed right edge. Outer border uses immutable body right edge because projection end omitted partial alif; no expansion outside box. Most alif and wasla clipped; curved lam/nun join uncertain. Wasla and/or initial alif visibly clipped at immutable right edge.",
+    "reviewFlags": [
+      "ink-clipped-by-existing-word-box"
+    ]
+  }
+}

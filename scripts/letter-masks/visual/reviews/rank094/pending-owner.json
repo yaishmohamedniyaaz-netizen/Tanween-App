@@ -1,0 +1,23 @@
+[
+  {
+    "wid": "22.11.1",
+    "page": 333,
+    "cluster": "s00094-c0035",
+    "status": "withheld-missing-target",
+    "reason": "Original006 actually reviewed: initial alif target body absent from fixed crop; only partial wasla and negligible edge trace, no defensible body slot. Entire word withheld; box immutable."
+  },
+  {
+    "wid": "30.30.19",
+    "page": 407,
+    "cluster": "s00094-c0038",
+    "status": "withheld-missing-target",
+    "reason": "Original007 actually reviewed: initial alif and wasla entirely absent from fixed crop; lam/nun-alif/sin remain. Entire word withheld rather than inventing an alif slot."
+  },
+  {
+    "wid": "34.36.10",
+    "page": 432,
+    "cluster": "s00094-c0041",
+    "status": "withheld-missing-target",
+    "reason": "Original007 actually reviewed: initial alif body absent apart from negligible anti-aliased edge trace; partial wasla remains. No defensible full target body slot, entire word withheld within immutable box."
+  }
+]

@@ -1,0 +1,10 @@
+[
+  {
+    "wid": "33.71.4",
+    "status": "withheld-missing-target",
+    "reason": "Actual original and wider red-box context show initial lam upright/head entirely beyond immutable right edge. Only connector/base continues inside; no principal lam body slot invented.",
+    "observer": "cloud-root-20261108",
+    "image": "scripts/letter-masks/visual/reviews/rank054/root-33.71.4-context.png",
+    "sha256": "5bcb5cbe041811c9409f77288176072b403bfaa2a2f13fab4b0b5860aec5d266"
+  }
+]

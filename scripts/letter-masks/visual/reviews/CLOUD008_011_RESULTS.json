@@ -1,0 +1,86 @@
+{
+  "observer": "cloud-ranks008_011",
+  "ranks": [
+    {
+      "rank": 8,
+      "accepted": 609,
+      "manifestWords": 609,
+      "withheld": [],
+      "confidence": {
+        "low": 482,
+        "high": 127
+      },
+      "uniqueImagesReviewedThisAgent": 65,
+      "auditEventsThisAgent": 80,
+      "uniqueWordsReviewedThisAgent": 489,
+      "shadedWordsReviewedThisAgent": 489,
+      "newAcceptedThisAgent": 489,
+      "uniqueWordsInOriginalImages": 133
+    },
+    {
+      "rank": 9,
+      "accepted": 604,
+      "manifestWords": 604,
+      "withheld": [],
+      "confidence": {
+        "low": 400,
+        "high": 203,
+        "medium": 1
+      },
+      "uniqueImagesReviewedThisAgent": 60,
+      "auditEventsThisAgent": 81,
+      "uniqueWordsReviewedThisAgent": 604,
+      "shadedWordsReviewedThisAgent": 604,
+      "newAcceptedThisAgent": 604,
+      "uniqueWordsInOriginalImages": 103
+    },
+    {
+      "rank": 10,
+      "accepted": 564,
+      "manifestWords": 565,
+      "withheld": [
+        "4.58.21"
+      ],
+      "confidence": {
+        "low": 544,
+        "high": 20
+      },
+      "uniqueImagesReviewedThisAgent": 53,
+      "auditEventsThisAgent": 73,
+      "uniqueWordsReviewedThisAgent": 565,
+      "shadedWordsReviewedThisAgent": 564,
+      "newAcceptedThisAgent": 564,
+      "uniqueWordsInOriginalImages": 81
+    },
+    {
+      "rank": 11,
+      "accepted": 562,
+      "manifestWords": 562,
+      "withheld": [],
+      "confidence": {
+        "low": 527,
+        "high": 35
+      },
+      "uniqueImagesReviewedThisAgent": 79,
+      "auditEventsThisAgent": 95,
+      "uniqueWordsReviewedThisAgent": 562,
+      "shadedWordsReviewedThisAgent": 562,
+      "newAcceptedThisAgent": 562,
+      "uniqueWordsInOriginalImages": 185
+    }
+  ],
+  "geometry": "PASS: exact app N+1 integers, descending by >=2 px, inside immutable word boxes",
+  "excludedTestIds": "PASS",
+  "ownAuditImageHashes": "PASS",
+  "frozenBlindPredictionSHA256": "766e716327f6ee1b0e2823ad8786b5b2181954b27c3939aa5aaa0954b969e046",
+  "firstAuditAt": "2026-11-08T10:51:12.126302+00:00",
+  "lastAuditAt": "2026-11-08T11:33:41.788817+00:00",
+  "auditWindowSeconds": 2549.662515,
+  "tokens": "Not available from session tooling; not estimated",
+  "checkpoint": "Owned ranks complete; global Checkpoint A gate/evaluation remains parent responsibility.",
+  "scopedTests": {
+    "command": "node --experimental-strip-types --test scripts/letter-borders.test.mjs scripts/border-queue.test.mjs",
+    "passed": 10,
+    "failed": 0
+  }
+}
