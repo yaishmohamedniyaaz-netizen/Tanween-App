@@ -1,0 +1,68 @@
+[
+  {
+    "image": "scripts/letter-masks/visual/candidate-v2/images/original-01.png",
+    "words": [
+      "13.6.14",
+      "8.11.17",
+      "9.27.6",
+      "42.29.11"
+    ],
+    "phase": "original",
+    "sha256": "76cb0dbe0f7d90291691d9c17532086f2ce653b428cd8c0db60a5e7a0328798b"
+  },
+  {
+    "image": "scripts/letter-masks/visual/candidate-v2/images/original-02.png",
+    "words": [
+      "20.72.3",
+      "31.17.9",
+      "12.9.6",
+      "12.18.8"
+    ],
+    "phase": "original",
+    "sha256": "08fb20e228027df341c809af5f3d5bbc533a584198d9388638827d79d0eddfa4"
+  },
+  {
+    "image": "scripts/letter-masks/visual/candidate-v2/images/original-03.png",
+    "words": [
+      "64.17.6",
+      "11.64.4",
+      "8.9.4",
+      "9.95.2"
+    ],
+    "phase": "original",
+    "sha256": "99840d579876065cb166b7b35604b668e13fcb0a2f169603d6aa9f9ff2412582"
+  },
+  {
+    "image": "scripts/letter-masks/visual/candidate-v2/images/original-04.png",
+    "words": [
+      "23.77.10",
+      "16.64.9",
+      "24.37.16",
+      "11.116.23"
+    ],
+    "phase": "original",
+    "sha256": "28c4f0972950b0faefd613adcd8be96d2f4237b95b8d6032976d0e102938d9e1"
+  },
+  {
+    "image": "scripts/letter-masks/visual/candidate-v2/images/original-05.png",
+    "words": [
+      "6.139.15",
+      "9.108.15",
+      "53.36.1",
+      "24.13.6"
+    ],
+    "phase": "original",
+    "sha256": "68ac05e8a9ddda2f78dd4aa3767115f525b7a8f41d2e787680f4b3a249b11358"
+  },
+  {
+    "image": "scripts/letter-masks/visual/candidate-v2/images/original-06.png",
+    "words": [
+      "60.8.5",
+      "24.35.29",
+      "4.102.20",
+      "7.46.14"
+    ],
+    "phase": "original",
+    "sha256": "46945682d938487ffb508a842e2eddc5a36746a0652e169add55034d48ead9a8"
+  }
+]

@@ -1,0 +1,104 @@
+[
+  {
+    "image": "scripts/letter-masks/visual/candidate-v2/images/candidate-v1-01.png",
+    "words": [
+      "13.6.14",
+      "8.11.17",
+      "9.27.6",
+      "42.29.11"
+    ],
+    "phase": "candidate-v1",
+    "sha256": "3ff7115e2c383e55731cd299cf3a421830acedd191e0e9e65ce4c671cbb523c1",
+    "decisionDigests": {
+      "13.6.14": "727fe774433c5be1bb9972e39b0053a789fdd87a35d6aae5795f9ce33f223aa9",
+      "8.11.17": "8104b7e123f0e6a0323790edc31dcd1dafd9faad365daeaa612e4d444471fa2a",
+      "9.27.6": "8079664794e364857d55784fe5642736015f53b8e41f98e2a1010b3f5fbbfc9f",
+      "42.29.11": "37bf355d56de7328bf31359bacec9b20b3bca65921f76861351dd57e10addc2b"
+    }
+  },
+  {
+    "image": "scripts/letter-masks/visual/candidate-v2/images/candidate-v1-02.png",
+    "words": [
+      "20.72.3",
+      "31.17.9",
+      "12.9.6",
+      "12.18.8"
+    ],
+    "phase": "candidate-v1",
+    "sha256": "aa7149fba2e6676e3ef515656a80af73943cf56c7d6f2a34b2175416b523bd93",
+    "decisionDigests": {
+      "20.72.3": "88163a975ba5a45cbe40f910a96fed15b37c9d068fae4ff1f5069a0d27bce267",
+      "31.17.9": "a6c3abedfcdcefd05464d85c3d5cd7c3ef8ad2865e3b2ad03ba1ec32b6cb843f",
+      "12.9.6": "d89960d3eb2273d54745999b1cf3a35427c0ca466177d3f66487e2b1fe54bb7a",
+      "12.18.8": "efcebfc9757e454bff4b519f6c4655e174f0895f10d920f2738f1b3b62c028f2"
+    }
+  },
+  {
+    "image": "scripts/letter-masks/visual/candidate-v2/images/candidate-v1-03.png",
+    "words": [
+      "64.17.6",
+      "11.64.4",
+      "8.9.4",
+      "9.95.2"
+    ],
+    "phase": "candidate-v1",
+    "sha256": "b89ddf7096633466ee62315f5f43fb1328f02ad1ad230afc08261d07d1fd249d",
+    "decisionDigests": {
+      "64.17.6": "63c1d72f9b2d6b2f4639e4c79e3b9ee91a518fdcd0071cdbe099ae27c47da06e",
+      "11.64.4": "f4374c3e96c6252460fe233d73342aac36ae73c387b3ce26e84f1b632a372460",
+      "8.9.4": "8e72997d903ef0415e9eb68d884eddd00e1859eae6fc2d2481964177a37b153b",
+      "9.95.2": "ab6a476b6b365c84eb76744340510fe7d558f94363df72878a598082054da683"
+    }
+  },
+  {
+    "image": "scripts/letter-masks/visual/candidate-v2/images/candidate-v1-04.png",
+    "words": [
+      "23.77.10",
+      "16.64.9",
+      "24.37.16",
+      "11.116.23"
+    ],
+    "phase": "candidate-v1",
+    "sha256": "44af379c32a50ed91ece978f4914aaaf0372326ee7c78b2417010dfafd00802f",
+    "decisionDigests": {
+      "23.77.10": "6c010f7a16f0b2844655160e4d6683134d8306b97eb6463e990580e3b4939eb0",
+      "16.64.9": "d2c3c26ea3b8366bfc62e9c1920f459cc1fe405fefeee5c337b021797d412731",
+      "24.37.16": "6d3ca094fa0a7f12f73b7f758c5168fe6d2be2eb1e6399e16ab18222cbbd3a89",
+      "11.116.23": "da585eaa750cc2fb2d8e1bd49915565dbab88746b61a0ed491c010f88dd16432"
+    }
+  },
+  {
+    "image": "scripts/letter-masks/visual/candidate-v2/images/candidate-v1-05.png",
+    "words": [
+      "6.139.15",
+      "9.108.15",
+      "53.36.1",
+      "24.13.6"
+    ],
+    "phase": "candidate-v1",
+    "sha256": "98516e031ca9aee4337b3fd3321ec476d14558402423a3d11d5d956a162515fe",
+    "decisionDigests": {
+      "6.139.15": "939d41e51d03d0782842d81cfcf00ed9f449d3d80fe201a08fbfcdeb69a51a03",
+      "9.108.15": "bac468c928c008a4c1a56ae8c11e40794e33d32095bc63784ccd0c8b2e554812",
+      "53.36.1": "5a1c0fdfcb59a5838ed1a6ccd451252939a7167939f3ea0dee0c3a01cd7d2811",
+      "24.13.6": "b718051b7b65e0e423096d428fab6db7944fbefee2f165cd878934256595a09c"
+    }
+  },
+  {
+    "image": "scripts/letter-masks/visual/candidate-v2/images/candidate-v1-06.png",
+    "words": [
+      "60.8.5",
+      "24.35.29",
+      "4.102.20",
+      "7.46.14"
+    ],
+    "phase": "candidate-v1",
+    "sha256": "aba243f49c5cb6ceaea601ee1f8d26abdd9005bf4b6cc451a6e557164e342df2",
+    "decisionDigests": {
+      "60.8.5": "527c0bae5eda07e0efb0976c5557082d1941880d0418cecd5511ec694dd2af7d",
+      "24.35.29": "e7bb0ee1766d7dea1727cd5218a0e47454ec1b97ce3d06e60346aa79facf9fa5",
+      "4.102.20": "3892822f5b7001f00bffad034836175cbe84163d31cae13386f677b65fa165aa",
+      "7.46.14": "c2c7441b607974d050a5dec478b22474215801f4b9eabfcd58b200b611757cd7"
+    }
+  }
+]

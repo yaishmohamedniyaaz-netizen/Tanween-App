@@ -1,0 +1,297 @@
+{
+  "createdAtUtc": "2026-11-08T14:44:03.034845+00:00",
+  "method": "visual-v2-candidate",
+  "ownerApproved": false,
+  "scope": "24 targeted existing-pilot words; no B/C expansion",
+  "candidateSha256": "67d39931e1b8aec5368ff2c5cdb050e1baaed56d5c6fab541d4591e01302e58f",
+  "images": [
+    {
+      "image": "scripts/letter-masks/visual/candidate-v2/images/comparison-13.6.14.png",
+      "words": [
+        "13.6.14"
+      ],
+      "phase": "final-owner-comparison-generated",
+      "sha256": "3ac6dfc747de38b673aa6678d6402141339cea2e4c3d080541f45fb7e6db2090",
+      "decisionDigests": {
+        "13.6.14": "727fe774433c5be1bb9972e39b0053a789fdd87a35d6aae5795f9ce33f223aa9"
+      },
+      "viewClaim": false
+    },
+    {
+      "image": "scripts/letter-masks/visual/candidate-v2/images/comparison-8.11.17.png",
+      "words": [
+        "8.11.17"
+      ],
+      "phase": "final-owner-comparison-generated",
+      "sha256": "890207e56a51240987a1e19c509e90e5a5e4509be1d6a0141628a3e8130fa942",
+      "decisionDigests": {
+        "8.11.17": "8104b7e123f0e6a0323790edc31dcd1dafd9faad365daeaa612e4d444471fa2a"
+      },
+      "viewClaim": false
+    },
+    {
+      "image": "scripts/letter-masks/visual/candidate-v2/images/comparison-9.27.6.png",
+      "words": [
+        "9.27.6"
+      ],
+      "phase": "final-owner-comparison-generated",
+      "sha256": "171bd59fe9f4209eae1a0490c78f022a91126a38d1d414a390f2307b0f1bbac6",
+      "decisionDigests": {
+        "9.27.6": "8079664794e364857d55784fe5642736015f53b8e41f98e2a1010b3f5fbbfc9f"
+      },
+      "viewClaim": false
+    },
+    {
+      "image": "scripts/letter-masks/visual/candidate-v2/images/comparison-42.29.11.png",
+      "words": [
+        "42.29.11"
+      ],
+      "phase": "final-owner-comparison-generated",
+      "sha256": "cde5d68a9a3afaecd05ddf6d51d584eaccfd9f120d97df916012f81e56c519b2",
+      "decisionDigests": {
+        "42.29.11": "37bf355d56de7328bf31359bacec9b20b3bca65921f76861351dd57e10addc2b"
+      },
+      "viewClaim": false
+    },
+    {
+      "image": "scripts/letter-masks/visual/candidate-v2/images/comparison-20.72.3.png",
+      "words": [
+        "20.72.3"
+      ],
+      "phase": "final-owner-comparison-generated",
+      "sha256": "86f05ff00ef6f8f2832a8e7a08d8570c7eedd79ced787f24a2c767ecfd38da5a",
+      "decisionDigests": {
+        "20.72.3": "88163a975ba5a45cbe40f910a96fed15b37c9d068fae4ff1f5069a0d27bce267"
+      },
+      "viewClaim": false
+    },
+    {
+      "image": "scripts/letter-masks/visual/candidate-v2/images/comparison-31.17.9.png",
+      "words": [
+        "31.17.9"
+      ],
+      "phase": "final-owner-comparison-generated",
+      "sha256": "7d9024cfb0e974a25e8f9b98fd9eba842b6e67ec4092fe2d7b5f81f2498ae314",
+      "decisionDigests": {
+        "31.17.9": "a6c3abedfcdcefd05464d85c3d5cd7c3ef8ad2865e3b2ad03ba1ec32b6cb843f"
+      },
+      "viewClaim": false
+    },
+    {
+      "image": "scripts/letter-masks/visual/candidate-v2/images/comparison-12.9.6.png",
+      "words": [
+        "12.9.6"
+      ],
+      "phase": "final-owner-comparison-generated",
+      "sha256": "3ef17fd5a5e2cada690d274b714a4444cf33a5210be297747739b30a2fe52225",
+      "decisionDigests": {
+        "12.9.6": "aff526e8e37cc478b5b0ad8e4859f9c46ba74bd54abae499426760d293c5adaf"
+      },
+      "viewClaim": false
+    },
+    {
+      "image": "scripts/letter-masks/visual/candidate-v2/images/comparison-12.18.8.png",
+      "words": [
+        "12.18.8"
+      ],
+      "phase": "final-owner-comparison-generated",
+      "sha256": "5398f58549d63bf02f6e5b84d42ddcef2895888b13a0021c5ab6ed2028a24adb",
+      "decisionDigests": {
+        "12.18.8": "efcebfc9757e454bff4b519f6c4655e174f0895f10d920f2738f1b3b62c028f2"
+      },
+      "viewClaim": false
+    },
+    {
+      "image": "scripts/letter-masks/visual/candidate-v2/images/comparison-64.17.6.png",
+      "words": [
+        "64.17.6"
+      ],
+      "phase": "final-owner-comparison-generated",
+      "sha256": "40697f7c020c31de85e4b08199336a507580e78a46cd26546fec09ca7a0e6152",
+      "decisionDigests": {
+        "64.17.6": "63c1d72f9b2d6b2f4639e4c79e3b9ee91a518fdcd0071cdbe099ae27c47da06e"
+      },
+      "viewClaim": false
+    },
+    {
+      "image": "scripts/letter-masks/visual/candidate-v2/images/comparison-11.64.4.png",
+      "words": [
+        "11.64.4"
+      ],
+      "phase": "final-owner-comparison-generated",
+      "sha256": "93168780f59da4c470acd1d46342c064da48f77ff6e5a5eda0e6e64ca1a45e0f",
+      "decisionDigests": {
+        "11.64.4": "f4374c3e96c6252460fe233d73342aac36ae73c387b3ce26e84f1b632a372460"
+      },
+      "viewClaim": false
+    },
+    {
+      "image": "scripts/letter-masks/visual/candidate-v2/images/comparison-8.9.4.png",
+      "words": [
+        "8.9.4"
+      ],
+      "phase": "final-owner-comparison-generated",
+      "sha256": "9b3d51f006636bedf03d69846bf299370c183d020760673e10f214eb8d3fa788",
+      "decisionDigests": {
+        "8.9.4": "8e72997d903ef0415e9eb68d884eddd00e1859eae6fc2d2481964177a37b153b"
+      },
+      "viewClaim": false
+    },
+    {
+      "image": "scripts/letter-masks/visual/candidate-v2/images/comparison-9.95.2.png",
+      "words": [
+        "9.95.2"
+      ],
+      "phase": "final-owner-comparison-generated",
+      "sha256": "29e2049214977e0628add6b480a732f299a89b6b3eefa5b52b272e9adec60ab7",
+      "decisionDigests": {
+        "9.95.2": "ab6a476b6b365c84eb76744340510fe7d558f94363df72878a598082054da683"
+      },
+      "viewClaim": false
+    },
+    {
+      "image": "scripts/letter-masks/visual/candidate-v2/images/comparison-23.77.10.png",
+      "words": [
+        "23.77.10"
+      ],
+      "phase": "final-owner-comparison-generated",
+      "sha256": "1960f2a3897ba6ce9f98ba196a8f7a84cec9be3ac43d88b8a869b98df792a4b1",
+      "decisionDigests": {
+        "23.77.10": "6c010f7a16f0b2844655160e4d6683134d8306b97eb6463e990580e3b4939eb0"
+      },
+      "viewClaim": false
+    },
+    {
+      "image": "scripts/letter-masks/visual/candidate-v2/images/comparison-16.64.9.png",
+      "words": [
+        "16.64.9"
+      ],
+      "phase": "final-owner-comparison-generated",
+      "sha256": "a7b50e15138cf019e56832d350172d082f92bb8ef3e32b46e14681b5dcf6ea10",
+      "decisionDigests": {
+        "16.64.9": "d2c3c26ea3b8366bfc62e9c1920f459cc1fe405fefeee5c337b021797d412731"
+      },
+      "viewClaim": false
+    },
+    {
+      "image": "scripts/letter-masks/visual/candidate-v2/images/comparison-24.37.16.png",
+      "words": [
+        "24.37.16"
+      ],
+      "phase": "final-owner-comparison-generated",
+      "sha256": "27e11d72068d09c93c4d09f8e1008b905a6907551f84ebe66a7bb20b79fa729c",
+      "decisionDigests": {
+        "24.37.16": "6d3ca094fa0a7f12f73b7f758c5168fe6d2be2eb1e6399e16ab18222cbbd3a89"
+      },
+      "viewClaim": false
+    },
+    {
+      "image": "scripts/letter-masks/visual/candidate-v2/images/comparison-11.116.23.png",
+      "words": [
+        "11.116.23"
+      ],
+      "phase": "final-owner-comparison-generated",
+      "sha256": "6e89d362d50a768914e91de6f93c5884d6f2a50dc12071287da476f79616c2c5",
+      "decisionDigests": {
+        "11.116.23": "b73236b6f01e30fd4d4f71dcb9184dab8c26360f6f8e23b29c84dbda3bc65844"
+      },
+      "viewClaim": false
+    },
+    {
+      "image": "scripts/letter-masks/visual/candidate-v2/images/comparison-6.139.15.png",
+      "words": [
+        "6.139.15"
+      ],
+      "phase": "final-owner-comparison-generated",
+      "sha256": "02d916f959823c80b4d4cb6697ab097764db43d3cfe9074f1268d13740ffe211",
+      "decisionDigests": {
+        "6.139.15": "88fce20910de0cc18cbea7fbcbb2bee9a2e09ca77829d1b512503f9fdfad8e16"
+      },
+      "viewClaim": false
+    },
+    {
+      "image": "scripts/letter-masks/visual/candidate-v2/images/comparison-9.108.15.png",
+      "words": [
+        "9.108.15"
+      ],
+      "phase": "final-owner-comparison-generated",
+      "sha256": "3d4602839a855afc3d20916e2880f63c6ab4cbc107a3bf961b6c3fa801e43c88",
+      "decisionDigests": {
+        "9.108.15": "bac468c928c008a4c1a56ae8c11e40794e33d32095bc63784ccd0c8b2e554812"
+      },
+      "viewClaim": false
+    },
+    {
+      "image": "scripts/letter-masks/visual/candidate-v2/images/comparison-53.36.1.png",
+      "words": [
+        "53.36.1"
+      ],
+      "phase": "final-owner-comparison-generated",
+      "sha256": "470ade1fb6f0d48524f96b8613d9ebf9b6a57f86a1d9115b25918873e7452718",
+      "decisionDigests": {
+        "53.36.1": "5a1c0fdfcb59a5838ed1a6ccd451252939a7167939f3ea0dee0c3a01cd7d2811"
+      },
+      "viewClaim": false
+    },
+    {
+      "image": "scripts/letter-masks/visual/candidate-v2/images/comparison-24.13.6.png",
+      "words": [
+        "24.13.6"
+      ],
+      "phase": "final-owner-comparison-generated",
+      "sha256": "96c83e7f6276031c5e5bf94f1c44209d913a0a4c7b11404ec3d699900367f41e",
+      "decisionDigests": {
+        "24.13.6": "b718051b7b65e0e423096d428fab6db7944fbefee2f165cd878934256595a09c"
+      },
+      "viewClaim": false
+    },
+    {
+      "image": "scripts/letter-masks/visual/candidate-v2/images/comparison-60.8.5.png",
+      "words": [
+        "60.8.5"
+      ],
+      "phase": "final-owner-comparison-generated",
+      "sha256": "dc8017b389ccfe657ec8b07c9d0df55fd1ccb9d22d9ddb4cd2acf7e168e313e7",
+      "decisionDigests": {
+        "60.8.5": "527c0bae5eda07e0efb0976c5557082d1941880d0418cecd5511ec694dd2af7d"
+      },
+      "viewClaim": false
+    },
+    {
+      "image": "scripts/letter-masks/visual/candidate-v2/images/comparison-24.35.29.png",
+      "words": [
+        "24.35.29"
+      ],
+      "phase": "final-owner-comparison-generated",
+      "sha256": "f806b012e2fea250fe0714db4a5dd3aa47b6254bb6765d989f744ea2e9ad97dc",
+      "decisionDigests": {
+        "24.35.29": "e7bb0ee1766d7dea1727cd5218a0e47454ec1b97ce3d06e60346aa79facf9fa5"
+      },
+      "viewClaim": false
+    },
+    {
+      "image": "scripts/letter-masks/visual/candidate-v2/images/comparison-4.102.20.png",
+      "words": [
+        "4.102.20"
+      ],
+      "phase": "final-owner-comparison-generated",
+      "sha256": "751b6d0e98d4d01886f555ec43c92396e0c8ba7bf4ee541cc82cbb8091db4567",
+      "decisionDigests": {
+        "4.102.20": "3892822f5b7001f00bffad034836175cbe84163d31cae13386f677b65fa165aa"
+      },
+      "viewClaim": false
+    },
+    {
+      "image": "scripts/letter-masks/visual/candidate-v2/images/comparison-7.46.14.png",
+      "words": [
+        "7.46.14"
+      ],
+      "phase": "final-owner-comparison-generated",
+      "sha256": "3db0d9818bc37d5edc7d29eb4dbc73c0ba13015b795e9cb472128c10985efae7",
+      "decisionDigests": {
+        "7.46.14": "c2c7441b607974d050a5dec478b22474215801f4b9eabfcd58b200b611757cd7"
+      },
+      "viewClaim": false
+    }
+  ]
+}

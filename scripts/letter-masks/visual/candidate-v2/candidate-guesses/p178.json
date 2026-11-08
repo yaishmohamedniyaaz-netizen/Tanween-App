@@ -1,0 +1,42 @@
+{
+  "page": 178,
+  "ruleVersion": "qpc-hafs-v1-targets-4.0.0",
+  "method": "visual-v2-candidate",
+  "ownerApproved": false,
+  "words": {
+    "8.11.17": {
+      "tids": [
+        "8.11.17@r0",
+        "8.11.17@r2",
+        "8.11.17@r4"
+      ],
+      "x": [
+        1270,
+        1227,
+        1204,
+        1163
+      ],
+      "confidence": "low",
+      "source": "visual",
+      "reviewFlags": [
+        "stacked-overlap"
+      ]
+    },
+    "8.9.4": {
+      "tids": [
+        "8.9.4@r0",
+        "8.9.4@r2",
+        "8.9.4@r4"
+      ],
+      "x": [
+        826,
+        794,
+        642,
+        608
+      ],
+      "confidence": "medium",
+      "source": "visual",
+      "reviewFlags": []
+    }
+  }
+}

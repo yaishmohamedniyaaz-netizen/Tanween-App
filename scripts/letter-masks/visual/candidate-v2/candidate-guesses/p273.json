@@ -1,0 +1,26 @@
+{
+  "page": 273,
+  "ruleVersion": "qpc-hafs-v1-targets-4.0.0",
+  "method": "visual-v2-candidate",
+  "ownerApproved": false,
+  "words": {
+    "16.64.9": {
+      "tids": [
+        "16.64.9@r0",
+        "16.64.9@r2",
+        "16.64.9@r3"
+      ],
+      "x": [
+        1414,
+        1384,
+        1338,
+        1306
+      ],
+      "confidence": "low",
+      "source": "visual",
+      "reviewFlags": [
+        "clipped-ink"
+      ]
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "words": 24,
+  "confidence": {
+    "low": 19,
+    "medium": 5
+  },
+  "clipping": {
+    "none-observed": 13,
+    "mark-tip": 11
+  },
+  "changed": 20,
+  "packetImages": 24,
+  "packetPixelsReproduced": true,
+  "exactAppTargetWords": 24,
+  "exportPages": 23,
+  "historicalTreeUnchanged": true,
+  "frozenPredictionsUnchanged": true
+}

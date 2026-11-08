@@ -1,0 +1,368 @@
+{
+  "13.6.14": {
+    "wid": "13.6.14",
+    "page": 250,
+    "x": [
+      454,
+      419,
+      396,
+      357
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0002",
+    "note": "Visually chosen ain body/lam division and left edge of upright lam; maqsura return overlaps lam span, consistent with approved 2.5.1 stacked treatment."
+  },
+  "8.11.17": {
+    "wid": "8.11.17",
+    "page": 178,
+    "x": [
+      1270,
+      1233,
+      1206,
+      1163
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00017-c0002",
+    "note": "X-warp from visually decided 13.6.14; destination visually checked on members-after00097-001.png."
+  },
+  "9.27.6": {
+    "wid": "9.27.6",
+    "page": 191,
+    "x": [
+      920,
+      885,
+      863,
+      825
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00017-c0002",
+    "note": "X-warp from visually decided 13.6.14; destination visually checked on members-after00097-001.png. Visibly clipped right ink at immutable crop edge; all three target bodies remain present.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "42.29.11": {
+    "wid": "42.29.11",
+    "page": 486,
+    "x": [
+      432,
+      397,
+      373,
+      325
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00017-c0027",
+    "note": "Visually chosen ain/lam transition and left side of upright lam; overlapping maqsura return retained under middle span, following approved stacked treatment."
+  },
+  "20.72.3": {
+    "wid": "20.72.3",
+    "page": 316,
+    "x": [
+      611,
+      580,
+      556,
+      508
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00017-c0027",
+    "note": "X-warp from visually decided 42.29.11; destination visually checked on members-after00097-008.png."
+  },
+  "31.17.9": {
+    "wid": "31.17.9",
+    "page": 412,
+    "x": [
+      766,
+      732,
+      709,
+      660
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00017-c0027",
+    "note": "X-warp from visually decided 42.29.11; destination visually checked on members-after00097-009.png."
+  },
+  "12.9.6": {
+    "wid": "12.9.6",
+    "page": 236,
+    "x": [
+      963,
+      952,
+      875,
+      839
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00054-c0013",
+    "note": "Direct visual principal lam stem, kaf diagonal/return, final mim body.  Visible tail or attached mark truncated at immutable edge; flag, do not extend.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "12.18.8": {
+    "wid": "12.18.8",
+    "page": 237,
+    "x": [
+      1059,
+      1049,
+      979,
+      951
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00054-c0013",
+    "note": "X-warp from visually decided 12.9.6; destination visually checked on members-after00072-002.png."
+  },
+  "64.17.6": {
+    "wid": "64.17.6",
+    "page": 557,
+    "x": [
+      1015,
+      1002,
+      923,
+      889
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00054-c0013",
+    "note": "X-warp from visually decided 12.9.6; destination visually checked on members-after00072-002.png."
+  },
+  "11.64.4": {
+    "wid": "11.64.4",
+    "page": 229,
+    "x": [
+      541,
+      502,
+      331,
+      294
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00054-c0012",
+    "note": "Direct visual principal lam stem, kaf diagonal/return, final mim body. Stacked diagonal overlaps final mim; low vertical-cut certainty. Clipped immutable-edge ink flagged. Visible tail or attached mark truncated at immutable edge; flag, do not extend.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "8.9.4": {
+    "wid": "8.9.4",
+    "page": 178,
+    "x": [
+      826,
+      794,
+      642,
+      608
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00054-c0012",
+    "note": "X-warp from visually decided 11.64.4; destination visually checked on members-after00072-002.png."
+  },
+  "9.95.2": {
+    "wid": "9.95.2",
+    "page": 202,
+    "x": [
+      1674,
+      1634,
+      1450,
+      1408
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00054-c0012",
+    "note": "X-warp from visually decided 11.64.4; destination visually checked on members-after00072-002.png. Actual immutable-box context reviewed by cloud-ranks012-017-context-review: lam fatha tip clipped, target bodies intact; fixed box retained. See CARRY_CLIPPING_REVIEW.md.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "23.77.10": {
+    "wid": "23.77.10",
+    "page": 347,
+    "x": [
+      1660,
+      1635,
+      1626,
+      1558
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00082-c0005",
+    "note": "Visual cuts after fa loop and at left of ya tooth; long joining strokes retained with the left letter. Curved join boundaries remain moderately uncertain. Kasra is clipped at immutable right box edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "16.64.9": {
+    "wid": "16.64.9",
+    "page": 273,
+    "x": [
+      1414,
+      1387,
+      1378,
+      1306
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00082-c0005",
+    "note": "X-warp from visually decided 23.77.10; destination visually checked on members-after00036-001.png. Actual destination shows fa loop, ya tooth and ha core supported by spans; joining boundaries moderately uncertain. Kasra clipped at immutable right word edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "24.37.16": {
+    "wid": "24.37.16",
+    "page": 355,
+    "x": [
+      1050,
+      1025,
+      1015,
+      948
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00082-c0005",
+    "note": "X-warp from visually decided 23.77.10; destination visually checked on members-after00036-001.png. Actual destination shows fa loop, ya tooth and ha core supported by spans; joining boundaries moderately uncertain. Kasra clipped at immutable right word edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "11.116.23": {
+    "wid": "11.116.23",
+    "page": 234,
+    "x": [
+      1307,
+      1281,
+      1223,
+      1170
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00082-c0013",
+    "note": "Visual cuts after fa loop and at left of ya tooth; long joining strokes retained with the left letter. Curved join boundaries remain moderately uncertain. Kasra is clipped at immutable right box edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "6.139.15": {
+    "wid": "6.139.15",
+    "page": 146,
+    "x": [
+      1430,
+      1405,
+      1341,
+      1280
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00082-c0013",
+    "note": "X-warp from visually decided 11.116.23; destination visually checked on members-after00036-002.png. Actual destination shows fa loop, ya tooth and ha core supported by spans; joining boundaries moderately uncertain."
+  },
+  "9.108.15": {
+    "wid": "9.108.15",
+    "page": 204,
+    "x": [
+      1111,
+      1089,
+      1028,
+      972
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00082-c0013",
+    "note": "X-warp from visually decided 11.116.23; destination visually checked on members-after00036-002.png. Actual destination shows fa loop, ya tooth and ha core supported by spans; joining boundaries moderately uncertain."
+  },
+  "53.36.1": {
+    "wid": "53.36.1",
+    "page": 527,
+    "x": [
+      674,
+      651,
+      615
+    ],
+    "confidence": "low",
+    "source": "visual",
+    "cluster": "s00086-c0012",
+    "note": "Lam turn/mim shoulder; clipped right fatha.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "24.13.6": {
+    "wid": "24.13.6",
+    "page": 351,
+    "x": [
+      928,
+      903,
+      865
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00086-c0012",
+    "note": "Actually reviewed destination shaded span: lam turn/mim shoulder division preserves mim bowl and tail; moderate join ambiguity. Right fatha ink clipped at immutable box edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "60.8.5": {
+    "wid": "60.8.5",
+    "page": 550,
+    "x": [
+      989,
+      964,
+      927
+    ],
+    "confidence": "medium",
+    "source": "visual-copy",
+    "cluster": "s00086-c0012",
+    "note": "Actually reviewed destination shaded span: lam turn/mim shoulder division preserves mim bowl and tail; moderate join ambiguity."
+  },
+  "24.35.29": {
+    "wid": "24.35.29",
+    "page": 354,
+    "x": [
+      616,
+      584,
+      533
+    ],
+    "confidence": "medium",
+    "source": "visual",
+    "cluster": "s00086-c0007",
+    "note": "Lam short turn ends at mim shoulder; mim bowl/tail kept whole, moderate join ambiguity."
+  },
+  "4.102.20": {
+    "wid": "4.102.20",
+    "page": 95,
+    "x": [
+      426,
+      400,
+      354
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00086-c0007",
+    "note": "Actually reviewed destination shaded span: lam turn/mim shoulder division preserves mim bowl and tail; moderate join ambiguity. Right fatha ink clipped at immutable box edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  },
+  "7.46.14": {
+    "wid": "7.46.14",
+    "page": 156,
+    "x": [
+      1848,
+      1827,
+      1782
+    ],
+    "confidence": "low",
+    "source": "visual-copy",
+    "cluster": "s00086-c0007",
+    "note": "Actually reviewed destination shaded span: lam turn/mim shoulder division preserves mim bowl and tail; moderate join ambiguity. Right fatha ink clipped at immutable box edge.",
+    "reviewFlags": [
+      "clipped-ink"
+    ]
+  }
+}

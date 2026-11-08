@@ -1,0 +1,10 @@
+{
+  "recordedAt": "2026-11-08T15:56:18.490804+00:00",
+  "observer": "cloud-root-improvement-20261108",
+  "phase": "linux-arabic-smoke",
+  "actualViewedPath": "/tmp/tahqeeq-cloud-font-review/synthetic-labels.png",
+  "archivedImage": "scripts/letter-masks/visual/candidate-v2/images/linux-arabic-smoke.png",
+  "sha256": "308137538c6f98e6aceee7853fffc4fb80474d89cbedff54d66991aa815bf570",
+  "raqm": true,
+  "note": "Actually reopened the Linux smoke image after resume: joined Arabic, lam-alif and combined marks visible. Archive is an identical byte copy; no separate view of archive claimed."
+}

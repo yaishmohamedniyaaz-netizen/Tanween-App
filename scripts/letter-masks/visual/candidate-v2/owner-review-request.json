@@ -1,0 +1,746 @@
+[
+  {
+    "wid": "13.6.14",
+    "page": 250,
+    "units": [
+      {
+        "start": 0,
+        "end": 2,
+        "primary": "ع",
+        "show": "عَ",
+        "silent": false,
+        "tid": "13.6.14@r0"
+      },
+      {
+        "start": 2,
+        "end": 4,
+        "primary": "ل",
+        "show": "لَ",
+        "silent": false,
+        "tid": "13.6.14@r2"
+      },
+      {
+        "start": 4,
+        "end": 6,
+        "primary": "ى",
+        "show": "ىٰ",
+        "silent": false,
+        "tid": "13.6.14@r4"
+      }
+    ],
+    "originalImage": "images/original-01.png",
+    "status": "awaiting-owner-reference",
+    "note": "Unapproved targeted method-development case; not a random blind holdout. No reference border supplied."
+  },
+  {
+    "wid": "8.11.17",
+    "page": 178,
+    "units": [
+      {
+        "start": 0,
+        "end": 2,
+        "primary": "ع",
+        "show": "عَ",
+        "silent": false,
+        "tid": "8.11.17@r0"
+      },
+      {
+        "start": 2,
+        "end": 4,
+        "primary": "ل",
+        "show": "لَ",
+        "silent": false,
+        "tid": "8.11.17@r2"
+      },
+      {
+        "start": 4,
+        "end": 6,
+        "primary": "ى",
+        "show": "ىٰ",
+        "silent": false,
+        "tid": "8.11.17@r4"
+      }
+    ],
+    "originalImage": "images/original-01.png",
+    "status": "awaiting-owner-reference",
+    "note": "Unapproved targeted method-development case; not a random blind holdout. No reference border supplied."
+  },
+  {
+    "wid": "9.27.6",
+    "page": 191,
+    "units": [
+      {
+        "start": 0,
+        "end": 2,
+        "primary": "ع",
+        "show": "عَ",
+        "silent": false,
+        "tid": "9.27.6@r0"
+      },
+      {
+        "start": 2,
+        "end": 4,
+        "primary": "ل",
+        "show": "لَ",
+        "silent": false,
+        "tid": "9.27.6@r2"
+      },
+      {
+        "start": 4,
+        "end": 6,
+        "primary": "ى",
+        "show": "ىٰ",
+        "silent": false,
+        "tid": "9.27.6@r4"
+      }
+    ],
+    "originalImage": "images/original-01.png",
+    "status": "awaiting-owner-reference",
+    "note": "Unapproved targeted method-development case; not a random blind holdout. No reference border supplied."
+  },
+  {
+    "wid": "42.29.11",
+    "page": 486,
+    "units": [
+      {
+        "start": 0,
+        "end": 2,
+        "primary": "ع",
+        "show": "عَ",
+        "silent": false,
+        "tid": "42.29.11@r0"
+      },
+      {
+        "start": 2,
+        "end": 4,
+        "primary": "ل",
+        "show": "لَ",
+        "silent": false,
+        "tid": "42.29.11@r2"
+      },
+      {
+        "start": 4,
+        "end": 6,
+        "primary": "ى",
+        "show": "ىٰ",
+        "silent": false,
+        "tid": "42.29.11@r4"
+      }
+    ],
+    "originalImage": "images/original-01.png",
+    "status": "awaiting-owner-reference",
+    "note": "Unapproved targeted method-development case; not a random blind holdout. No reference border supplied."
+  },
+  {
+    "wid": "20.72.3",
+    "page": 316,
+    "units": [
+      {
+        "start": 0,
+        "end": 2,
+        "primary": "ع",
+        "show": "عَ",
+        "silent": false,
+        "tid": "20.72.3@r0"
+      },
+      {
+        "start": 2,
+        "end": 4,
+        "primary": "ل",
+        "show": "لَ",
+        "silent": false,
+        "tid": "20.72.3@r2"
+      },
+      {
+        "start": 4,
+        "end": 6,
+        "primary": "ى",
+        "show": "ىٰ",
+        "silent": false,
+        "tid": "20.72.3@r4"
+      }
+    ],
+    "originalImage": "images/original-02.png",
+    "status": "awaiting-owner-reference",
+    "note": "Unapproved targeted method-development case; not a random blind holdout. No reference border supplied."
+  },
+  {
+    "wid": "31.17.9",
+    "page": 412,
+    "units": [
+      {
+        "start": 0,
+        "end": 2,
+        "primary": "ع",
+        "show": "عَ",
+        "silent": false,
+        "tid": "31.17.9@r0"
+      },
+      {
+        "start": 2,
+        "end": 4,
+        "primary": "ل",
+        "show": "لَ",
+        "silent": false,
+        "tid": "31.17.9@r2"
+      },
+      {
+        "start": 4,
+        "end": 6,
+        "primary": "ى",
+        "show": "ىٰ",
+        "silent": false,
+        "tid": "31.17.9@r4"
+      }
+    ],
+    "originalImage": "images/original-02.png",
+    "status": "awaiting-owner-reference",
+    "note": "Unapproved targeted method-development case; not a random blind holdout. No reference border supplied."
+  },
+  {
+    "wid": "12.9.6",
+    "page": 236,
+    "units": [
+      {
+        "start": 0,
+        "end": 2,
+        "primary": "ل",
+        "show": "لَ",
+        "silent": false,
+        "tid": "12.9.6@r0"
+      },
+      {
+        "start": 2,
+        "end": 4,
+        "primary": "ك",
+        "show": "كُ",
+        "silent": false,
+        "tid": "12.9.6@r2"
+      },
+      {
+        "start": 4,
+        "end": 6,
+        "primary": "م",
+        "show": "مۡ",
+        "silent": false,
+        "tid": "12.9.6@r4"
+      }
+    ],
+    "originalImage": "images/original-02.png",
+    "status": "awaiting-owner-reference",
+    "note": "Unapproved targeted method-development case; not a random blind holdout. No reference border supplied."
+  },
+  {
+    "wid": "12.18.8",
+    "page": 237,
+    "units": [
+      {
+        "start": 0,
+        "end": 2,
+        "primary": "ل",
+        "show": "لَ",
+        "silent": false,
+        "tid": "12.18.8@r0"
+      },
+      {
+        "start": 2,
+        "end": 4,
+        "primary": "ك",
+        "show": "كُ",
+        "silent": false,
+        "tid": "12.18.8@r2"
+      },
+      {
+        "start": 4,
+        "end": 6,
+        "primary": "م",
+        "show": "مۡ",
+        "silent": false,
+        "tid": "12.18.8@r4"
+      }
+    ],
+    "originalImage": "images/original-02.png",
+    "status": "awaiting-owner-reference",
+    "note": "Unapproved targeted method-development case; not a random blind holdout. No reference border supplied."
+  },
+  {
+    "wid": "64.17.6",
+    "page": 557,
+    "units": [
+      {
+        "start": 0,
+        "end": 2,
+        "primary": "ل",
+        "show": "لَ",
+        "silent": false,
+        "tid": "64.17.6@r0"
+      },
+      {
+        "start": 2,
+        "end": 4,
+        "primary": "ك",
+        "show": "كُ",
+        "silent": false,
+        "tid": "64.17.6@r2"
+      },
+      {
+        "start": 4,
+        "end": 6,
+        "primary": "م",
+        "show": "مۡ",
+        "silent": false,
+        "tid": "64.17.6@r4"
+      }
+    ],
+    "originalImage": "images/original-03.png",
+    "status": "awaiting-owner-reference",
+    "note": "Unapproved targeted method-development case; not a random blind holdout. No reference border supplied."
+  },
+  {
+    "wid": "11.64.4",
+    "page": 229,
+    "units": [
+      {
+        "start": 0,
+        "end": 2,
+        "primary": "ل",
+        "show": "لَ",
+        "silent": false,
+        "tid": "11.64.4@r0"
+      },
+      {
+        "start": 2,
+        "end": 4,
+        "primary": "ك",
+        "show": "كُ",
+        "silent": false,
+        "tid": "11.64.4@r2"
+      },
+      {
+        "start": 4,
+        "end": 6,
+        "primary": "م",
+        "show": "مۡ",
+        "silent": false,
+        "tid": "11.64.4@r4"
+      }
+    ],
+    "originalImage": "images/original-03.png",
+    "status": "awaiting-owner-reference",
+    "note": "Unapproved targeted method-development case; not a random blind holdout. No reference border supplied."
+  },
+  {
+    "wid": "8.9.4",
+    "page": 178,
+    "units": [
+      {
+        "start": 0,
+        "end": 2,
+        "primary": "ل",
+        "show": "لَ",
+        "silent": false,
+        "tid": "8.9.4@r0"
+      },
+      {
+        "start": 2,
+        "end": 4,
+        "primary": "ك",
+        "show": "كُ",
+        "silent": false,
+        "tid": "8.9.4@r2"
+      },
+      {
+        "start": 4,
+        "end": 6,
+        "primary": "م",
+        "show": "مۡ",
+        "silent": false,
+        "tid": "8.9.4@r4"
+      }
+    ],
+    "originalImage": "images/original-03.png",
+    "status": "awaiting-owner-reference",
+    "note": "Unapproved targeted method-development case; not a random blind holdout. No reference border supplied."
+  },
+  {
+    "wid": "9.95.2",
+    "page": 202,
+    "units": [
+      {
+        "start": 0,
+        "end": 2,
+        "primary": "ل",
+        "show": "لَ",
+        "silent": false,
+        "tid": "9.95.2@r0"
+      },
+      {
+        "start": 2,
+        "end": 4,
+        "primary": "ك",
+        "show": "كُ",
+        "silent": false,
+        "tid": "9.95.2@r2"
+      },
+      {
+        "start": 4,
+        "end": 6,
+        "primary": "م",
+        "show": "مۡ",
+        "silent": false,
+        "tid": "9.95.2@r4"
+      }
+    ],
+    "originalImage": "images/original-03.png",
+    "status": "awaiting-owner-reference",
+    "note": "Unapproved targeted method-development case; not a random blind holdout. No reference border supplied."
+  },
+  {
+    "wid": "23.77.10",
+    "page": 347,
+    "units": [
+      {
+        "start": 0,
+        "end": 2,
+        "primary": "ف",
+        "show": "فِ",
+        "silent": false,
+        "tid": "23.77.10@r0"
+      },
+      {
+        "start": 2,
+        "end": 3,
+        "primary": "ي",
+        "show": "ي",
+        "silent": false,
+        "tid": "23.77.10@r2"
+      },
+      {
+        "start": 3,
+        "end": 5,
+        "primary": "ه",
+        "show": "هِ",
+        "silent": false,
+        "tid": "23.77.10@r3"
+      }
+    ],
+    "originalImage": "images/original-04.png",
+    "status": "awaiting-owner-reference",
+    "note": "Unapproved targeted method-development case; not a random blind holdout. No reference border supplied."
+  },
+  {
+    "wid": "16.64.9",
+    "page": 273,
+    "units": [
+      {
+        "start": 0,
+        "end": 2,
+        "primary": "ف",
+        "show": "فِ",
+        "silent": false,
+        "tid": "16.64.9@r0"
+      },
+      {
+        "start": 2,
+        "end": 3,
+        "primary": "ي",
+        "show": "ي",
+        "silent": false,
+        "tid": "16.64.9@r2"
+      },
+      {
+        "start": 3,
+        "end": 5,
+        "primary": "ه",
+        "show": "هِ",
+        "silent": false,
+        "tid": "16.64.9@r3"
+      }
+    ],
+    "originalImage": "images/original-04.png",
+    "status": "awaiting-owner-reference",
+    "note": "Unapproved targeted method-development case; not a random blind holdout. No reference border supplied."
+  },
+  {
+    "wid": "24.37.16",
+    "page": 355,
+    "units": [
+      {
+        "start": 0,
+        "end": 2,
+        "primary": "ف",
+        "show": "فِ",
+        "silent": false,
+        "tid": "24.37.16@r0"
+      },
+      {
+        "start": 2,
+        "end": 3,
+        "primary": "ي",
+        "show": "ي",
+        "silent": false,
+        "tid": "24.37.16@r2"
+      },
+      {
+        "start": 3,
+        "end": 5,
+        "primary": "ه",
+        "show": "هِ",
+        "silent": false,
+        "tid": "24.37.16@r3"
+      }
+    ],
+    "originalImage": "images/original-04.png",
+    "status": "awaiting-owner-reference",
+    "note": "Unapproved targeted method-development case; not a random blind holdout. No reference border supplied."
+  },
+  {
+    "wid": "11.116.23",
+    "page": 234,
+    "units": [
+      {
+        "start": 0,
+        "end": 2,
+        "primary": "ف",
+        "show": "فِ",
+        "silent": false,
+        "tid": "11.116.23@r0"
+      },
+      {
+        "start": 2,
+        "end": 3,
+        "primary": "ي",
+        "show": "ي",
+        "silent": false,
+        "tid": "11.116.23@r2"
+      },
+      {
+        "start": 3,
+        "end": 5,
+        "primary": "ه",
+        "show": "هِ",
+        "silent": false,
+        "tid": "11.116.23@r3"
+      }
+    ],
+    "originalImage": "images/original-04.png",
+    "status": "awaiting-owner-reference",
+    "note": "Unapproved targeted method-development case; not a random blind holdout. No reference border supplied."
+  },
+  {
+    "wid": "6.139.15",
+    "page": 146,
+    "units": [
+      {
+        "start": 0,
+        "end": 2,
+        "primary": "ف",
+        "show": "فِ",
+        "silent": false,
+        "tid": "6.139.15@r0"
+      },
+      {
+        "start": 2,
+        "end": 3,
+        "primary": "ي",
+        "show": "ي",
+        "silent": false,
+        "tid": "6.139.15@r2"
+      },
+      {
+        "start": 3,
+        "end": 5,
+        "primary": "ه",
+        "show": "هِ",
+        "silent": false,
+        "tid": "6.139.15@r3"
+      }
+    ],
+    "originalImage": "images/original-05.png",
+    "status": "awaiting-owner-reference",
+    "note": "Unapproved targeted method-development case; not a random blind holdout. No reference border supplied."
+  },
+  {
+    "wid": "9.108.15",
+    "page": 204,
+    "units": [
+      {
+        "start": 0,
+        "end": 2,
+        "primary": "ف",
+        "show": "فِ",
+        "silent": false,
+        "tid": "9.108.15@r0"
+      },
+      {
+        "start": 2,
+        "end": 3,
+        "primary": "ي",
+        "show": "ي",
+        "silent": false,
+        "tid": "9.108.15@r2"
+      },
+      {
+        "start": 3,
+        "end": 5,
+        "primary": "ه",
+        "show": "هِ",
+        "silent": false,
+        "tid": "9.108.15@r3"
+      }
+    ],
+    "originalImage": "images/original-05.png",
+    "status": "awaiting-owner-reference",
+    "note": "Unapproved targeted method-development case; not a random blind holdout. No reference border supplied."
+  },
+  {
+    "wid": "53.36.1",
+    "page": 527,
+    "units": [
+      {
+        "start": 0,
+        "end": 2,
+        "primary": "ل",
+        "show": "لَ",
+        "silent": false,
+        "tid": "53.36.1@r0"
+      },
+      {
+        "start": 2,
+        "end": 4,
+        "primary": "م",
+        "show": "مۡ",
+        "silent": false,
+        "tid": "53.36.1@r2"
+      }
+    ],
+    "originalImage": "images/original-05.png",
+    "status": "awaiting-owner-reference",
+    "note": "Unapproved targeted method-development case; not a random blind holdout. No reference border supplied."
+  },
+  {
+    "wid": "24.13.6",
+    "page": 351,
+    "units": [
+      {
+        "start": 0,
+        "end": 2,
+        "primary": "ل",
+        "show": "لَ",
+        "silent": false,
+        "tid": "24.13.6@r0"
+      },
+      {
+        "start": 2,
+        "end": 4,
+        "primary": "م",
+        "show": "مۡ",
+        "silent": false,
+        "tid": "24.13.6@r2"
+      }
+    ],
+    "originalImage": "images/original-05.png",
+    "status": "awaiting-owner-reference",
+    "note": "Unapproved targeted method-development case; not a random blind holdout. No reference border supplied."
+  },
+  {
+    "wid": "60.8.5",
+    "page": 550,
+    "units": [
+      {
+        "start": 0,
+        "end": 2,
+        "primary": "ل",
+        "show": "لَ",
+        "silent": false,
+        "tid": "60.8.5@r0"
+      },
+      {
+        "start": 2,
+        "end": 4,
+        "primary": "م",
+        "show": "مۡ",
+        "silent": false,
+        "tid": "60.8.5@r2"
+      }
+    ],
+    "originalImage": "images/original-06.png",
+    "status": "awaiting-owner-reference",
+    "note": "Unapproved targeted method-development case; not a random blind holdout. No reference border supplied."
+  },
+  {
+    "wid": "24.35.29",
+    "page": 354,
+    "units": [
+      {
+        "start": 0,
+        "end": 2,
+        "primary": "ل",
+        "show": "لَ",
+        "silent": false,
+        "tid": "24.35.29@r0"
+      },
+      {
+        "start": 2,
+        "end": 4,
+        "primary": "م",
+        "show": "مۡ",
+        "silent": false,
+        "tid": "24.35.29@r2"
+      }
+    ],
+    "originalImage": "images/original-06.png",
+    "status": "awaiting-owner-reference",
+    "note": "Unapproved targeted method-development case; not a random blind holdout. No reference border supplied."
+  },
+  {
+    "wid": "4.102.20",
+    "page": 95,
+    "units": [
+      {
+        "start": 0,
+        "end": 2,
+        "primary": "ل",
+        "show": "لَ",
+        "silent": false,
+        "tid": "4.102.20@r0"
+      },
+      {
+        "start": 2,
+        "end": 4,
+        "primary": "م",
+        "show": "مۡ",
+        "silent": false,
+        "tid": "4.102.20@r2"
+      }
+    ],
+    "originalImage": "images/original-06.png",
+    "status": "awaiting-owner-reference",
+    "note": "Unapproved targeted method-development case; not a random blind holdout. No reference border supplied."
+  },
+  {
+    "wid": "7.46.14",
+    "page": 156,
+    "units": [
+      {
+        "start": 0,
+        "end": 2,
+        "primary": "ل",
+        "show": "لَ",
+        "silent": false,
+        "tid": "7.46.14@r0"
+      },
+      {
+        "start": 2,
+        "end": 4,
+        "primary": "م",
+        "show": "مۡ",
+        "silent": false,
+        "tid": "7.46.14@r2"
+      }
+    ],
+    "originalImage": "images/original-06.png",
+    "status": "awaiting-owner-reference",
+    "note": "Unapproved targeted method-development case; not a random blind holdout. No reference border supplied."
+  }
+]

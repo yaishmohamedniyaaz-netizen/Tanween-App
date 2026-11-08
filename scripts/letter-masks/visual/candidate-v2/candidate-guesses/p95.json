@@ -1,0 +1,24 @@
+{
+  "page": 95,
+  "ruleVersion": "qpc-hafs-v1-targets-4.0.0",
+  "method": "visual-v2-candidate",
+  "ownerApproved": false,
+  "words": {
+    "4.102.20": {
+      "tids": [
+        "4.102.20@r0",
+        "4.102.20@r2"
+      ],
+      "x": [
+        426,
+        397,
+        354
+      ],
+      "confidence": "low",
+      "source": "visual",
+      "reviewFlags": [
+        "clipped-ink"
+      ]
+    }
+  }
+}

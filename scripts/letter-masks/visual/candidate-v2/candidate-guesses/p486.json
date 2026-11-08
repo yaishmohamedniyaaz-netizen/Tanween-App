@@ -1,0 +1,26 @@
+{
+  "page": 486,
+  "ruleVersion": "qpc-hafs-v1-targets-4.0.0",
+  "method": "visual-v2-candidate",
+  "ownerApproved": false,
+  "words": {
+    "42.29.11": {
+      "tids": [
+        "42.29.11@r0",
+        "42.29.11@r2",
+        "42.29.11@r4"
+      ],
+      "x": [
+        432,
+        395,
+        373,
+        325
+      ],
+      "confidence": "low",
+      "source": "visual",
+      "reviewFlags": [
+        "stacked-overlap"
+      ]
+    }
+  }
+}

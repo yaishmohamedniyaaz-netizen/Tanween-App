@@ -1,0 +1,781 @@
+{
+  "kind": "Coordinate differences only; not accuracy metrics",
+  "rows": [
+    {
+      "wid": "13.6.14",
+      "rank": 17,
+      "role": "representative",
+      "before": [
+        454,
+        419,
+        396,
+        357
+      ],
+      "after": [
+        454,
+        414,
+        394,
+        357
+      ],
+      "beforeWidths": [
+        35,
+        23,
+        39
+      ],
+      "afterWidths": [
+        40,
+        20,
+        37
+      ],
+      "maxBorderMovementSourcePx": 5,
+      "beforeConfidence": "low",
+      "afterConfidence": "low",
+      "clipping": "none-observed",
+      "changed": true,
+      "image": "scripts/letter-masks/visual/candidate-v2/images/comparison-13.6.14.png"
+    },
+    {
+      "wid": "8.11.17",
+      "rank": 17,
+      "role": "member",
+      "before": [
+        1270,
+        1233,
+        1206,
+        1163
+      ],
+      "after": [
+        1270,
+        1227,
+        1204,
+        1163
+      ],
+      "beforeWidths": [
+        37,
+        27,
+        43
+      ],
+      "afterWidths": [
+        43,
+        23,
+        41
+      ],
+      "maxBorderMovementSourcePx": 6,
+      "beforeConfidence": "low",
+      "afterConfidence": "low",
+      "clipping": "none-observed",
+      "changed": true,
+      "image": "scripts/letter-masks/visual/candidate-v2/images/comparison-8.11.17.png"
+    },
+    {
+      "wid": "9.27.6",
+      "rank": 17,
+      "role": "member",
+      "before": [
+        920,
+        885,
+        863,
+        825
+      ],
+      "after": [
+        920,
+        882,
+        862,
+        825
+      ],
+      "beforeWidths": [
+        35,
+        22,
+        38
+      ],
+      "afterWidths": [
+        38,
+        20,
+        37
+      ],
+      "maxBorderMovementSourcePx": 3,
+      "beforeConfidence": "low",
+      "afterConfidence": "low",
+      "clipping": "none-observed",
+      "changed": true,
+      "image": "scripts/letter-masks/visual/candidate-v2/images/comparison-9.27.6.png"
+    },
+    {
+      "wid": "42.29.11",
+      "rank": 17,
+      "role": "representative",
+      "before": [
+        432,
+        397,
+        373,
+        325
+      ],
+      "after": [
+        432,
+        395,
+        373,
+        325
+      ],
+      "beforeWidths": [
+        35,
+        24,
+        48
+      ],
+      "afterWidths": [
+        37,
+        22,
+        48
+      ],
+      "maxBorderMovementSourcePx": 2,
+      "beforeConfidence": "low",
+      "afterConfidence": "low",
+      "clipping": "none-observed",
+      "changed": true,
+      "image": "scripts/letter-masks/visual/candidate-v2/images/comparison-42.29.11.png"
+    },
+    {
+      "wid": "20.72.3",
+      "rank": 17,
+      "role": "member",
+      "before": [
+        611,
+        580,
+        556,
+        508
+      ],
+      "after": [
+        611,
+        578,
+        551,
+        508
+      ],
+      "beforeWidths": [
+        31,
+        24,
+        48
+      ],
+      "afterWidths": [
+        33,
+        27,
+        43
+      ],
+      "maxBorderMovementSourcePx": 5,
+      "beforeConfidence": "low",
+      "afterConfidence": "low",
+      "clipping": "none-observed",
+      "changed": true,
+      "image": "scripts/letter-masks/visual/candidate-v2/images/comparison-20.72.3.png"
+    },
+    {
+      "wid": "31.17.9",
+      "rank": 17,
+      "role": "member",
+      "before": [
+        766,
+        732,
+        709,
+        660
+      ],
+      "after": [
+        766,
+        731,
+        707,
+        660
+      ],
+      "beforeWidths": [
+        34,
+        23,
+        49
+      ],
+      "afterWidths": [
+        35,
+        24,
+        47
+      ],
+      "maxBorderMovementSourcePx": 2,
+      "beforeConfidence": "low",
+      "afterConfidence": "low",
+      "clipping": "none-observed",
+      "changed": true,
+      "image": "scripts/letter-masks/visual/candidate-v2/images/comparison-31.17.9.png"
+    },
+    {
+      "wid": "12.9.6",
+      "rank": 54,
+      "role": "representative",
+      "before": [
+        963,
+        952,
+        875,
+        839
+      ],
+      "after": [
+        963,
+        929,
+        890,
+        839
+      ],
+      "beforeWidths": [
+        11,
+        77,
+        36
+      ],
+      "afterWidths": [
+        34,
+        39,
+        51
+      ],
+      "maxBorderMovementSourcePx": 23,
+      "beforeConfidence": "low",
+      "afterConfidence": "low",
+      "clipping": "mark-tip",
+      "changed": true,
+      "image": "scripts/letter-masks/visual/candidate-v2/images/comparison-12.9.6.png"
+    },
+    {
+      "wid": "12.18.8",
+      "rank": 54,
+      "role": "member",
+      "before": [
+        1059,
+        1049,
+        979,
+        951
+      ],
+      "after": [
+        1059,
+        1037,
+        990,
+        951
+      ],
+      "beforeWidths": [
+        10,
+        70,
+        28
+      ],
+      "afterWidths": [
+        22,
+        47,
+        39
+      ],
+      "maxBorderMovementSourcePx": 12,
+      "beforeConfidence": "low",
+      "afterConfidence": "low",
+      "clipping": "none-observed",
+      "changed": true,
+      "image": "scripts/letter-masks/visual/candidate-v2/images/comparison-12.18.8.png"
+    },
+    {
+      "wid": "64.17.6",
+      "rank": 54,
+      "role": "member",
+      "before": [
+        1015,
+        1002,
+        923,
+        889
+      ],
+      "after": [
+        1015,
+        987,
+        940,
+        889
+      ],
+      "beforeWidths": [
+        13,
+        79,
+        34
+      ],
+      "afterWidths": [
+        28,
+        47,
+        51
+      ],
+      "maxBorderMovementSourcePx": 17,
+      "beforeConfidence": "low",
+      "afterConfidence": "low",
+      "clipping": "none-observed",
+      "changed": true,
+      "image": "scripts/letter-masks/visual/candidate-v2/images/comparison-64.17.6.png"
+    },
+    {
+      "wid": "11.64.4",
+      "rank": 54,
+      "role": "representative",
+      "before": [
+        541,
+        502,
+        331,
+        294
+      ],
+      "after": [
+        541,
+        502,
+        331,
+        294
+      ],
+      "beforeWidths": [
+        39,
+        171,
+        37
+      ],
+      "afterWidths": [
+        39,
+        171,
+        37
+      ],
+      "maxBorderMovementSourcePx": 0,
+      "beforeConfidence": "low",
+      "afterConfidence": "low",
+      "clipping": "mark-tip",
+      "changed": false,
+      "image": "scripts/letter-masks/visual/candidate-v2/images/comparison-11.64.4.png"
+    },
+    {
+      "wid": "8.9.4",
+      "rank": 54,
+      "role": "member",
+      "before": [
+        826,
+        794,
+        642,
+        608
+      ],
+      "after": [
+        826,
+        794,
+        642,
+        608
+      ],
+      "beforeWidths": [
+        32,
+        152,
+        34
+      ],
+      "afterWidths": [
+        32,
+        152,
+        34
+      ],
+      "maxBorderMovementSourcePx": 0,
+      "beforeConfidence": "low",
+      "afterConfidence": "medium",
+      "clipping": "none-observed",
+      "changed": false,
+      "image": "scripts/letter-masks/visual/candidate-v2/images/comparison-8.9.4.png"
+    },
+    {
+      "wid": "9.95.2",
+      "rank": 54,
+      "role": "member",
+      "before": [
+        1674,
+        1634,
+        1450,
+        1408
+      ],
+      "after": [
+        1674,
+        1634,
+        1450,
+        1408
+      ],
+      "beforeWidths": [
+        40,
+        184,
+        42
+      ],
+      "afterWidths": [
+        40,
+        184,
+        42
+      ],
+      "maxBorderMovementSourcePx": 0,
+      "beforeConfidence": "low",
+      "afterConfidence": "low",
+      "clipping": "mark-tip",
+      "changed": false,
+      "image": "scripts/letter-masks/visual/candidate-v2/images/comparison-9.95.2.png"
+    },
+    {
+      "wid": "23.77.10",
+      "rank": 82,
+      "role": "representative",
+      "before": [
+        1660,
+        1635,
+        1626,
+        1558
+      ],
+      "after": [
+        1660,
+        1635,
+        1596,
+        1558
+      ],
+      "beforeWidths": [
+        25,
+        9,
+        68
+      ],
+      "afterWidths": [
+        25,
+        39,
+        38
+      ],
+      "maxBorderMovementSourcePx": 30,
+      "beforeConfidence": "low",
+      "afterConfidence": "low",
+      "clipping": "mark-tip",
+      "changed": true,
+      "image": "scripts/letter-masks/visual/candidate-v2/images/comparison-23.77.10.png"
+    },
+    {
+      "wid": "16.64.9",
+      "rank": 82,
+      "role": "member",
+      "before": [
+        1414,
+        1387,
+        1378,
+        1306
+      ],
+      "after": [
+        1414,
+        1384,
+        1338,
+        1306
+      ],
+      "beforeWidths": [
+        27,
+        9,
+        72
+      ],
+      "afterWidths": [
+        30,
+        46,
+        32
+      ],
+      "maxBorderMovementSourcePx": 40,
+      "beforeConfidence": "low",
+      "afterConfidence": "low",
+      "clipping": "mark-tip",
+      "changed": true,
+      "image": "scripts/letter-masks/visual/candidate-v2/images/comparison-16.64.9.png"
+    },
+    {
+      "wid": "24.37.16",
+      "rank": 82,
+      "role": "member",
+      "before": [
+        1050,
+        1025,
+        1015,
+        948
+      ],
+      "after": [
+        1050,
+        1024,
+        982,
+        948
+      ],
+      "beforeWidths": [
+        25,
+        10,
+        67
+      ],
+      "afterWidths": [
+        26,
+        42,
+        34
+      ],
+      "maxBorderMovementSourcePx": 33,
+      "beforeConfidence": "low",
+      "afterConfidence": "low",
+      "clipping": "mark-tip",
+      "changed": true,
+      "image": "scripts/letter-masks/visual/candidate-v2/images/comparison-24.37.16.png"
+    },
+    {
+      "wid": "11.116.23",
+      "rank": 82,
+      "role": "representative",
+      "before": [
+        1307,
+        1281,
+        1223,
+        1170
+      ],
+      "after": [
+        1307,
+        1281,
+        1204,
+        1170
+      ],
+      "beforeWidths": [
+        26,
+        58,
+        53
+      ],
+      "afterWidths": [
+        26,
+        77,
+        34
+      ],
+      "maxBorderMovementSourcePx": 19,
+      "beforeConfidence": "low",
+      "afterConfidence": "low",
+      "clipping": "mark-tip",
+      "changed": true,
+      "image": "scripts/letter-masks/visual/candidate-v2/images/comparison-11.116.23.png"
+    },
+    {
+      "wid": "6.139.15",
+      "rank": 82,
+      "role": "member",
+      "before": [
+        1430,
+        1405,
+        1341,
+        1280
+      ],
+      "after": [
+        1430,
+        1405,
+        1317,
+        1280
+      ],
+      "beforeWidths": [
+        25,
+        64,
+        61
+      ],
+      "afterWidths": [
+        25,
+        88,
+        37
+      ],
+      "maxBorderMovementSourcePx": 24,
+      "beforeConfidence": "low",
+      "afterConfidence": "medium",
+      "clipping": "none-observed",
+      "changed": true,
+      "image": "scripts/letter-masks/visual/candidate-v2/images/comparison-6.139.15.png"
+    },
+    {
+      "wid": "9.108.15",
+      "rank": 82,
+      "role": "member",
+      "before": [
+        1111,
+        1089,
+        1028,
+        972
+      ],
+      "after": [
+        1111,
+        1089,
+        1008,
+        972
+      ],
+      "beforeWidths": [
+        22,
+        61,
+        56
+      ],
+      "afterWidths": [
+        22,
+        81,
+        36
+      ],
+      "maxBorderMovementSourcePx": 20,
+      "beforeConfidence": "low",
+      "afterConfidence": "medium",
+      "clipping": "none-observed",
+      "changed": true,
+      "image": "scripts/letter-masks/visual/candidate-v2/images/comparison-9.108.15.png"
+    },
+    {
+      "wid": "53.36.1",
+      "rank": 86,
+      "role": "representative",
+      "before": [
+        674,
+        651,
+        615
+      ],
+      "after": [
+        674,
+        648,
+        615
+      ],
+      "beforeWidths": [
+        23,
+        36
+      ],
+      "afterWidths": [
+        26,
+        33
+      ],
+      "maxBorderMovementSourcePx": 3,
+      "beforeConfidence": "low",
+      "afterConfidence": "low",
+      "clipping": "mark-tip",
+      "changed": true,
+      "image": "scripts/letter-masks/visual/candidate-v2/images/comparison-53.36.1.png"
+    },
+    {
+      "wid": "24.13.6",
+      "rank": 86,
+      "role": "member",
+      "before": [
+        928,
+        903,
+        865
+      ],
+      "after": [
+        928,
+        900,
+        865
+      ],
+      "beforeWidths": [
+        25,
+        38
+      ],
+      "afterWidths": [
+        28,
+        35
+      ],
+      "maxBorderMovementSourcePx": 3,
+      "beforeConfidence": "low",
+      "afterConfidence": "low",
+      "clipping": "mark-tip",
+      "changed": true,
+      "image": "scripts/letter-masks/visual/candidate-v2/images/comparison-24.13.6.png"
+    },
+    {
+      "wid": "60.8.5",
+      "rank": 86,
+      "role": "member",
+      "before": [
+        989,
+        964,
+        927
+      ],
+      "after": [
+        989,
+        960,
+        927
+      ],
+      "beforeWidths": [
+        25,
+        37
+      ],
+      "afterWidths": [
+        29,
+        33
+      ],
+      "maxBorderMovementSourcePx": 4,
+      "beforeConfidence": "medium",
+      "afterConfidence": "medium",
+      "clipping": "none-observed",
+      "changed": true,
+      "image": "scripts/letter-masks/visual/candidate-v2/images/comparison-60.8.5.png"
+    },
+    {
+      "wid": "24.35.29",
+      "rank": 86,
+      "role": "representative",
+      "before": [
+        616,
+        584,
+        533
+      ],
+      "after": [
+        616,
+        584,
+        533
+      ],
+      "beforeWidths": [
+        32,
+        51
+      ],
+      "afterWidths": [
+        32,
+        51
+      ],
+      "maxBorderMovementSourcePx": 0,
+      "beforeConfidence": "medium",
+      "afterConfidence": "medium",
+      "clipping": "none-observed",
+      "changed": false,
+      "image": "scripts/letter-masks/visual/candidate-v2/images/comparison-24.35.29.png"
+    },
+    {
+      "wid": "4.102.20",
+      "rank": 86,
+      "role": "member",
+      "before": [
+        426,
+        400,
+        354
+      ],
+      "after": [
+        426,
+        397,
+        354
+      ],
+      "beforeWidths": [
+        26,
+        46
+      ],
+      "afterWidths": [
+        29,
+        43
+      ],
+      "maxBorderMovementSourcePx": 3,
+      "beforeConfidence": "low",
+      "afterConfidence": "low",
+      "clipping": "mark-tip",
+      "changed": true,
+      "image": "scripts/letter-masks/visual/candidate-v2/images/comparison-4.102.20.png"
+    },
+    {
+      "wid": "7.46.14",
+      "rank": 86,
+      "role": "member",
+      "before": [
+        1848,
+        1827,
+        1782
+      ],
+      "after": [
+        1848,
+        1819,
+        1782
+      ],
+      "beforeWidths": [
+        21,
+        45
+      ],
+      "afterWidths": [
+        29,
+        37
+      ],
+      "maxBorderMovementSourcePx": 8,
+      "beforeConfidence": "low",
+      "afterConfidence": "low",
+      "clipping": "mark-tip",
+      "changed": true,
+      "image": "scripts/letter-masks/visual/candidate-v2/images/comparison-7.46.14.png"
+    }
+  ],
+  "beforeConfidence": {
+    "low": 22,
+    "medium": 2
+  },
+  "afterConfidence": {
+    "low": 19,
+    "medium": 5
+  }
+}

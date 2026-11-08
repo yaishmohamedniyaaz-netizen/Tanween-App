@@ -1,0 +1,15 @@
+[
+  {
+    "image": "scripts/letter-masks/visual/candidate-v2/images/candidate-v3-01.png",
+    "words": [
+      "11.116.23",
+      "6.139.15"
+    ],
+    "phase": "candidate-v3",
+    "sha256": "c4bc0139433d6f7e18a6289971dcca336af8107dd6854b6e46a514e74c8fb25f",
+    "decisionDigests": {
+      "11.116.23": "b73236b6f01e30fd4d4f71dcb9184dab8c26360f6f8e23b29c84dbda3bc65844",
+      "6.139.15": "88fce20910de0cc18cbea7fbcbb2bee9a2e09ca77829d1b512503f9fdfad8e16"
+    }
+  }
+]
