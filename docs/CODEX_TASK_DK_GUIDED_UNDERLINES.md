@@ -178,3 +178,36 @@ Report the same numbers.
 - Append the report to this file.
 - Claude then wires `public/letter-bars-dk/` into the app (status `ok` only), shows the
   owner, and later can switch on letter colouring from `public/letter-ink-dk/`.
+
+---
+
+## Checkpoint 1b (added by Claude, 9 November 2026): new bar rule, then a fresh measure
+
+**Why Checkpoint 1 scored 70%.** The letter labels were mostly right; the step that turns
+labels into bars was wrong. `dkguide.bars()` used only each letter's lowest ink, so
+upright letters (ا ل) and letters above a join (م in مِن) got end-point bars, and stacked
+letters got overlapping bars that cannot be read at one height.
+
+**The fix is in `scripts/letter-masks/dk_guided/bars_v2.py`** (`bars_v2(result)`):
+whole letter body (marks ignored; a letter written on its own is a body, not a mark),
+only columns with real ink, and **bars never overlap**. Claude's check on your frozen 300
+(`review-v2/`): 20 of 24 earlier wrong/unsure words now right; 12 of 12 earlier right
+words still right. Claude graded its own fix, so this needs your independent check.
+
+### Do
+1. **Keep the labels, replace the bars.** Rerun all 604 pages with `bars_v2` instead of
+   `bars` (computer only). Keep every self-check except: drop `order` (v2 bars are
+   ordered by construction) and keep `narrow-bar`, `coverage`, `fit`, `error`.
+   Write `public/letter-bars-dk/` again, `"method": "dk-guided-v2"`.
+2. **Re-check your 89 wrong/unsure words** from the frozen 300 with v2 bars (4 sheets).
+3. **Fresh accuracy:** a new random 300 of `ok` words, seed **20261112**, excluding every
+   word reviewed before. Same verdict rules as section 8, with one change: since bars no
+   longer overlap, "overlapping extents" is no longer a reason for `unsure`.
+4. Report: old vs new ok-rate, the 89 re-check, the fresh 300 (`ok` / `wrong` / `unsure`),
+   the top failure patterns. Push `codex/dk-guided-underlines`. **Stop.**
+
+Budget: about 16 sheets of 24 words in total. If the fresh 300 is below 90%, stop after
+the first 100 words and report, to save tokens.
+
+**Do not** fix label errors (wrong colours) in this round; just tag them `label-wrong`
+in the note, so we know how many remain.
