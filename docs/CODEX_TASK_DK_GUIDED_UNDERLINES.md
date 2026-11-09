@@ -178,3 +178,45 @@ Report the same numbers.
 - Append the report to this file.
 - Claude then wires `public/letter-bars-dk/` into the app (status `ok` only), shows the
   owner, and later can switch on letter colouring from `public/letter-ink-dk/`.
+
+## Execution log — 9 November 2026 (Checkpoint 1 in progress)
+
+Created `codex/dk-guided-underlines` from `claude/criterion-bar` at
+`a957b63061d935166ee5eb061cdb8639c8e31bd0`. The required eight-word setup sheet was
+actually opened alongside `pilot-sheets/r0.jpg`; letter-body assignments and bars
+visually match. Preserved the generated image, observer/hash audit and installed
+package versions in `scripts/letter-masks/dk_guided/setup-evidence/`.
+
+Implemented the atomic, resumable page runner, body-only area diagnostics,
+page-coordinate bars, colour run-length exports, conservative pending status,
+full-run percentile finalization, saved-output check sheets, and exact app-target
+validation. The original labeling algorithm is unchanged; `dkguide.py` additionally
+returns its body/mark classification and alignment scale for self-checks.
+
+Eight batch regression tests pass. Pages 1–2 contain 65 artwork letter words;
+all 65 emitted target lists match the current app dumper. Thresholds remain the
+specified values (12 body pixels, 3px minimum bar, size ratio 0.35–2.8, 97% coverage,
+90th fit percentile); no tuning on random words has occurred. The full 604-page
+run is underway, using five workers on the available CPUs (four-CPU quota).
+
+`review/progress.json` records completed pages. To resume generation:
+
+```sh
+.venv-letter-borders-visual/bin/python scripts/letter-masks/dk_guided/run_all.py --workers 5
+```
+
+After generation, run `run_all.py --finalize`, `validate_batch.py`, then
+`check_sheet.py` with the same interpreter. `continue_checkpoint1.py` monitors
+completed pages and performs these three preparation steps automatically; it
+**does not perform visual review or write verdicts**. Do not launch a second
+monitor or overwrite an existing sample/sheet manifest. Actual image review must
+follow before any accuracy claim or Checkpoint 1 completion report.
+
+Exact token telemetry is unavailable in this execution interface. `tokensUsed`
+is recorded as null; no estimate will be presented as real measured token usage.
+The requested measured per-100-word token rate is therefore unavailable, not zero.
+
+Current confidence: practicality 85/100 (runner tested, full run pending), data
+safety 95/100 (isolated outputs; protected source assets untouched), visual
+certainty 78/100 for reproducing the pilot only. Full-run accuracy is unmeasured.
+**Checkpoint 1 is not yet complete.** No Checkpoint 2 work or deployment authorized.
