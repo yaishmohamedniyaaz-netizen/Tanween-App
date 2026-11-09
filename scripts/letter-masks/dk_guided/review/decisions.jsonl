@@ -364,3 +364,351 @@
 {"note": "", "page": 61, "verdict": "ok", "wid": "3.86.6"}
 {"note": "", "page": 5, "verdict": "ok", "wid": "2.28.3"}
 {"note": "", "page": 77, "verdict": "ok", "wid": "4.1.11"}
+{"page": 353, "wid": "24.31.52", "verdict": "wrong", "note": "Nun bar crosses the mim body while the mim bar is reduced to an endpoint."}
+{"page": 212, "wid": "10.30.11", "verdict": "ok", "note": ""}
+{"page": 548, "wid": "59.22.2", "verdict": "ok", "note": ""}
+{"page": 438, "wid": "35.36.2", "verdict": "ok", "note": ""}
+{"page": 376, "wid": "26.216.1", "verdict": "ok", "note": ""}
+{"page": 218, "wid": "10.88.13", "verdict": "unsure", "note": "Overlapping spans obscure an individual extent."}
+{"page": 385, "wid": "27.89.7", "verdict": "ok", "note": ""}
+{"page": 273, "wid": "16.64.13", "verdict": "ok", "note": ""}
+{"page": 386, "wid": "28.10.1", "verdict": "ok", "note": ""}
+{"page": 471, "wid": "40.39.10", "verdict": "unsure", "note": "Overlapping spans obscure an individual extent."}
+{"page": 169, "wid": "7.150.38", "verdict": "unsure", "note": "Overlapping spans obscure an individual extent."}
+{"page": 414, "wid": "31.32.2", "verdict": "unsure", "note": "Overlapping spans obscure an individual extent."}
+{"page": 522, "wid": "51.39.3", "verdict": "ok", "note": ""}
+{"page": 469, "wid": "40.22.1", "verdict": "ok", "note": ""}
+{"page": 266, "wid": "15.85.1", "verdict": "ok", "note": ""}
+{"page": 213, "wid": "10.34.5", "verdict": "ok", "note": ""}
+{"page": 576, "wid": "74.31.42", "verdict": "wrong", "note": "Nun has a tiny endpoint bar while the sin bar extends under its body."}
+{"page": 246, "wid": "12.94.9", "verdict": "ok", "note": ""}
+{"page": 185, "wid": "8.67.15", "verdict": "ok", "note": ""}
+{"page": 197, "wid": "9.67.0", "verdict": "wrong", "note": "Initial alif stem is assigned to the following blue span; its own bar is a tiny endpoint."}
+{"page": 247, "wid": "12.102.5", "verdict": "ok", "note": ""}
+{"page": 313, "wid": "20.21.1", "verdict": "ok", "note": ""}
+{"page": 83, "wid": "4.27.10", "verdict": "unsure", "note": "Overlapping spans obscure an individual extent."}
+{"page": 90, "wid": "4.75.23", "verdict": "ok", "note": ""}
+{"page": 362, "wid": "25.25.1", "verdict": "wrong", "note": "Initial ta bar is a tiny endpoint while shin spans its body."}
+{"page": 560, "wid": "66.5.15", "verdict": "ok", "note": ""}
+{"page": 64, "wid": "3.110.19", "verdict": "ok", "note": ""}
+{"page": 100, "wid": "4.140.17", "verdict": "wrong", "note": "Middle ta bar is reduced to a junction while the preceding bar crosses its body."}
+{"page": 224, "wid": "11.24.4", "verdict": "ok", "note": ""}
+{"page": 454, "wid": "38.26.17", "verdict": "ok", "note": ""}
+{"page": 287, "wid": "17.57.12", "verdict": "unsure", "note": "Overlapping spans obscure an individual extent."}
+{"page": 554, "wid": "62.11.17", "verdict": "ok", "note": ""}
+{"page": 220, "wid": "10.101.1", "verdict": "ok", "note": ""}
+{"page": 108, "wid": "5.6.34", "verdict": "ok", "note": ""}
+{"page": 259, "wid": "14.27.9", "verdict": "ok", "note": ""}
+{"page": 545, "wid": "58.22.42", "verdict": "ok", "note": ""}
+{"page": 507, "wid": "47.1.5", "verdict": "ok", "note": ""}
+{"page": 103, "wid": "4.157.0", "verdict": "ok", "note": ""}
+{"page": 159, "wid": "7.69.11", "verdict": "ok", "note": ""}
+{"page": 38, "wid": "2.236.14", "verdict": "wrong", "note": "Lam bar is a tiny endpoint beneath the neighbouring maqsura rather than its stem."}
+{"page": 101, "wid": "4.141.16", "verdict": "ok", "note": ""}
+{"page": 320, "wid": "20.120.3", "verdict": "ok", "note": ""}
+{"page": 416, "wid": "32.20.5", "verdict": "unsure", "note": "Overlapping spans obscure an individual extent."}
+{"page": 175, "wid": "7.189.20", "verdict": "ok", "note": ""}
+{"page": 261, "wid": "14.48.4", "verdict": "wrong", "note": "Lam extent is absorbed into the alif span; its own bar is a small endpoint."}
+{"page": 575, "wid": "74.8.2", "verdict": "wrong", "note": "Fa bar is a tiny endpoint while ya spans beneath the fa body."}
+{"page": 358, "wid": "24.61.73", "verdict": "unsure", "note": "Overlapping spans obscure an individual extent."}
+{"page": 164, "wid": "7.111.2", "verdict": "ok", "note": ""}
+{"page": 89, "wid": "4.66.24", "verdict": "wrong", "note": "Ha body is largely absorbed into the lam span; ha bar lies beneath the joining stroke."}
+{"page": 257, "wid": "14.18.10", "verdict": "wrong", "note": "Mim bar spans beneath the preceding ya and waw bodies."}
+{"page": 61, "wid": "3.91.5", "verdict": "ok", "note": ""}
+{"page": 337, "wid": "22.46.10", "verdict": "ok", "note": ""}
+{"page": 27, "wid": "2.177.11", "verdict": "ok", "note": ""}
+{"page": 371, "wid": "26.106.6", "verdict": "ok", "note": ""}
+{"page": 35, "wid": "2.224.13", "verdict": "ok", "note": ""}
+{"page": 525, "wid": "52.33.1", "verdict": "unsure", "note": "Overlapping spans obscure an individual extent."}
+{"page": 236, "wid": "12.8.0", "verdict": "ok", "note": ""}
+{"page": 297, "wid": "18.29.25", "verdict": "ok", "note": ""}
+{"page": 537, "wid": "56.94.1", "verdict": "ok", "note": ""}
+{"page": 452, "wid": "37.158.8", "verdict": "ok", "note": ""}
+{"page": 208, "wid": "10.4.7", "verdict": "ok", "note": ""}
+{"page": 542, "wid": "58.5.6", "verdict": "ok", "note": ""}
+{"page": 231, "wid": "11.88.14", "verdict": "ok", "note": ""}
+{"page": 514, "wid": "48.26.3", "verdict": "ok", "note": ""}
+{"page": 21, "wid": "2.136.4", "verdict": "ok", "note": ""}
+{"page": 326, "wid": "21.56.1", "verdict": "ok", "note": ""}
+{"page": 7, "wid": "2.43.0", "verdict": "wrong", "note": "Initial waw has no distinguishable own bar; its body is assigned to the following blue span."}
+{"page": 341, "wid": "22.76.3", "verdict": "ok", "note": ""}
+{"page": 379, "wid": "27.28.6", "verdict": "ok", "note": ""}
+{"page": 483, "wid": "42.7.9", "verdict": "unsure", "note": "Overlapping spans obscure an individual extent."}
+{"page": 224, "wid": "11.27.23", "verdict": "ok", "note": ""}
+{"page": 413, "wid": "31.23.8", "verdict": "ok", "note": ""}
+{"page": 72, "wid": "3.172.5", "verdict": "ok", "note": ""}
+{"page": 53, "wid": "3.29.13", "verdict": "ok", "note": ""}
+{"page": 15, "wid": "2.94.8", "verdict": "ok", "note": ""}
+{"page": 538, "wid": "57.8.0", "verdict": "ok", "note": ""}
+{"page": 69, "wid": "3.152.22", "verdict": "wrong", "note": "Ra bar is truncated and the neighbouring ya span crosses much of its curved body."}
+{"page": 168, "wid": "7.148.16", "verdict": "ok", "note": ""}
+{"page": 104, "wid": "4.170.11", "verdict": "ok", "note": ""}
+{"page": 484, "wid": "42.14.29", "verdict": "wrong", "note": "Ra bar is shortened while the ya span extends under its left curve."}
+{"page": 78, "wid": "4.11.39", "verdict": "ok", "note": ""}
+{"page": 25, "wid": "2.165.12", "verdict": "ok", "note": ""}
+{"page": 282, "wid": "17.7.7", "verdict": "ok", "note": ""}
+{"page": 187, "wid": "9.4.0", "verdict": "ok", "note": ""}
+{"page": 476, "wid": "40.78.24", "verdict": "ok", "note": ""}
+{"page": 43, "wid": "2.257.6", "verdict": "unsure", "note": "Overlapping spans obscure an individual extent."}
+{"page": 546, "wid": "59.8.7", "verdict": "ok", "note": ""}
+{"page": 279, "wid": "16.103.6", "verdict": "wrong", "note": "Initial ba is reduced to an endpoint bar while shin spans its body."}
+{"page": 220, "wid": "10.102.4", "verdict": "ok", "note": ""}
+{"page": 272, "wid": "16.53.3", "verdict": "ok", "note": ""}
+{"page": 388, "wid": "28.23.4", "verdict": "ok", "note": ""}
+{"page": 469, "wid": "40.25.11", "verdict": "unsure", "note": "Overlapping spans obscure an individual extent."}
+{"page": 89, "wid": "4.69.0", "verdict": "ok", "note": ""}
+{"page": 520, "wid": "50.36.10", "verdict": "wrong", "note": "Fa bar is a tiny endpoint while ya spans its body."}
+{"page": 99, "wid": "4.129.5", "verdict": "ok", "note": ""}
+{"page": 41, "wid": "2.252.3", "verdict": "wrong", "note": "Initial ta bar is a tiny endpoint while the following lam span covers its body."}
+{"page": 123, "wid": "5.91.6", "verdict": "ok", "note": ""}
+{"page": 470, "wid": "40.28.23", "verdict": "ok", "note": ""}
+{"page": 265, "wid": "15.64.2", "verdict": "ok", "note": ""}
+{"page": 290, "wid": "17.82.8", "verdict": "ok", "note": ""}
+{"page": 379, "wid": "27.25.2", "verdict": "wrong", "note": "Initial lam is absorbed into the following span and has no distinguishable own bar."}
+{"page": 123, "wid": "5.94.11", "verdict": "ok", "note": ""}
+{"page": 97, "wid": "4.114.24", "verdict": "ok", "note": ""}
+{"page": 446, "wid": "37.24.2", "verdict": "ok", "note": ""}
+{"page": 230, "wid": "11.78.14", "verdict": "ok", "note": ""}
+{"page": 495, "wid": "43.85.11", "verdict": "ok", "note": ""}
+{"page": 145, "wid": "6.136.9", "verdict": "ok", "note": ""}
+{"page": 254, "wid": "13.41.2", "verdict": "ok", "note": ""}
+{"page": 226, "wid": "11.41.8", "verdict": "wrong", "note": "Ba bar is shortened while the final ya span crosses its body."}
+{"page": 90, "wid": "4.78.12", "verdict": "unsure", "note": "Overlapping spans obscure an individual extent."}
+{"page": 579, "wid": "76.23.2", "verdict": "ok", "note": ""}
+{"page": 277, "wid": "16.93.10", "verdict": "ok", "note": ""}
+{"page": 223, "wid": "11.17.21", "verdict": "wrong", "note": "Mim bar is hidden beneath a nun bar spanning the whole word."}
+{"page": 505, "wid": "46.23.2", "verdict": "unsure", "note": "Overlapping spans obscure an individual extent."}
+{"page": 73, "wid": "3.179.19", "verdict": "ok", "note": ""}
+{"page": 226, "wid": "11.41.3", "verdict": "ok", "note": ""}
+{"page": 446, "wid": "37.22.3", "verdict": "unsure", "note": "Overlapping spans obscure an individual extent."}
+{"page": 580, "wid": "76.26.6", "verdict": "ok", "note": ""}
+{"page": 27, "wid": "2.178.29", "verdict": "wrong", "note": "Ha bar is reduced to a small endpoint beneath the adjacent span."}
+{"page": 280, "wid": "16.112.0", "verdict": "ok", "note": ""}
+{"page": 44, "wid": "2.262.9", "verdict": "ok", "note": ""}
+{"page": 430, "wid": "34.18.10", "verdict": "ok", "note": ""}
+{"page": 93, "wid": "4.92.12", "verdict": "wrong", "note": "An interior target owns only dots; its bar is not beneath a distinct letter body."}
+{"page": 416, "wid": "32.19.9", "verdict": "ok", "note": ""}
+{"page": 373, "wid": "26.140.3", "verdict": "unsure", "note": "Overlapping spans obscure an individual extent."}
+{"page": 564, "wid": "67.29.7", "verdict": "ok", "note": ""}
+{"page": 495, "wid": "43.89.2", "verdict": "ok", "note": ""}
+{"page": 492, "wid": "43.45.11", "verdict": "ok", "note": ""}
+{"page": 159, "wid": "7.69.2", "verdict": "ok", "note": ""}
+{"page": 301, "wid": "18.65.8", "verdict": "ok", "note": ""}
+{"page": 114, "wid": "5.40.1", "verdict": "ok", "note": ""}
+{"page": 278, "wid": "16.98.5", "verdict": "wrong", "note": "Mim has no distinguishable own bar; nun spans the whole word."}
+{"page": 550, "wid": "60.11.11", "verdict": "ok", "note": ""}
+{"page": 265, "wid": "15.65.2", "verdict": "ok", "note": ""}
+{"page": 298, "wid": "18.45.5", "verdict": "ok", "note": ""}
+{"page": 40, "wid": "2.246.49", "verdict": "ok", "note": ""}
+{"page": 70, "wid": "3.155.2", "verdict": "unsure", "note": "Overlapping spans obscure an individual extent."}
+{"page": 368, "wid": "26.35.0", "verdict": "wrong", "note": "Ra bar is shortened while the neighbouring ya span crosses its curve."}
+{"page": 152, "wid": "7.18.6", "verdict": "wrong", "note": "Initial ta bar is a tiny endpoint while ba spans the body."}
+{"page": 336, "wid": "22.34.14", "verdict": "ok", "note": ""}
+{"page": 408, "wid": "30.34.2", "verdict": "unsure", "note": "Overlapping spans obscure an individual extent."}
+{"page": 366, "wid": "25.71.2", "verdict": "ok", "note": ""}
+{"page": 286, "wid": "17.47.5", "verdict": "ok", "note": ""}
+{"page": 97, "wid": "4.114.12", "verdict": "ok", "note": ""}
+{"page": 453, "wid": "38.8.7", "verdict": "wrong", "note": "Fa bar is a tiny endpoint while ya spans its body."}
+{"page": 593, "wid": "89.11.2", "verdict": "wrong", "note": "Fa bar is a tiny endpoint while ya spans its body."}
+{"page": 532, "wid": "55.38.1", "verdict": "ok", "note": ""}
+{"page": 563, "wid": "67.21.9", "verdict": "wrong", "note": "Fa bar is a tiny endpoint while ya spans its body."}
+{"page": 132, "wid": "6.39.14", "verdict": "wrong", "note": "Lam bar is a tiny endpoint rather than beneath its stem."}
+{"page": 460, "wid": "39.16.10", "verdict": "wrong", "note": "Initial ya bar is a tiny endpoint while kha spans its body."}
+{"page": 581, "wid": "77.33.2", "verdict": "ok", "note": ""}
+{"page": 369, "wid": "26.40.2", "verdict": "ok", "note": ""}
+{"page": 533, "wid": "55.61.2", "verdict": "ok", "note": ""}
+{"page": 88, "wid": "4.64.10", "verdict": "ok", "note": ""}
+{"page": 30, "wid": "2.191.17", "verdict": "unsure", "note": "Overlapping spans obscure an individual extent."}
+{"page": 4, "wid": "2.21.10", "verdict": "ok", "note": ""}
+{"page": 570, "wid": "70.42.4", "verdict": "ok", "note": ""}
+{"page": 454, "wid": "38.22.2", "verdict": "wrong", "note": "Lam bar is a tiny endpoint rather than beneath its stem."}
+{"page": 296, "wid": "18.22.12", "verdict": "ok", "note": ""}
+{"page": 435, "wid": "35.7.12", "verdict": "wrong", "note": "Kaf bar is displaced toward the right mark while ba spans much of its body."}
+{"page": 72, "wid": "3.167.10", "verdict": "ok", "note": ""}
+{"page": 485, "wid": "42.20.21", "verdict": "ok", "note": ""}
+{"page": 464, "wid": "39.51.10", "verdict": "ok", "note": ""}
+{"page": 166, "wid": "7.133.4", "verdict": "unsure", "note": "Overlapping spans obscure an individual extent."}
+{"page": 22, "wid": "2.143.22", "verdict": "wrong", "note": "Initial alif/lam extents are absorbed into the following span; lam has no distinct own bar."}
+{"page": 512, "wid": "48.11.16", "verdict": "ok", "note": ""}
+{"page": 267, "wid": "16.4.7", "verdict": "ok", "note": ""}
+{"page": 235, "wid": "12.4.2", "verdict": "ok", "note": ""}
+{"page": 235, "wid": "12.2.2", "verdict": "wrong", "note": "Ra bar is shortened while the hamza span crosses its left curve."}
+{"page": 488, "wid": "42.48.1", "verdict": "ok", "note": ""}
+{"page": 196, "wid": "9.55.3", "verdict": "ok", "note": ""}
+{"page": 132, "wid": "6.38.3", "verdict": "wrong", "note": "Fa bar is a tiny endpoint while ya spans its body."}
+{"page": 304, "wid": "18.101.3", "verdict": "wrong", "note": "Fa bar is a tiny endpoint while ya spans its body."}
+{"page": 155, "wid": "7.43.19", "verdict": "ok", "note": ""}
+{"page": 508, "wid": "47.19.3", "verdict": "ok", "note": ""}
+{"page": 505, "wid": "46.26.13", "verdict": "ok", "note": ""}
+{"page": 193, "wid": "9.38.6", "verdict": "ok", "note": ""}
+{"page": 149, "wid": "6.156.3", "verdict": "ok", "note": ""}
+{"page": 287, "wid": "17.50.3", "verdict": "ok", "note": ""}
+{"page": 602, "wid": "107.3.4", "verdict": "unsure", "note": "Overlapping spans obscure an individual extent."}
+{"page": 233, "wid": "11.102.10", "verdict": "ok", "note": ""}
+{"page": 453, "wid": "38.8.2", "verdict": "ok", "note": ""}
+{"page": 459, "wid": "39.8.5", "verdict": "ok", "note": ""}
+{"page": 469, "wid": "40.19.1", "verdict": "ok", "note": ""}
+{"page": 330, "wid": "21.95.2", "verdict": "ok", "note": ""}
+{"page": 145, "wid": "6.133.5", "verdict": "wrong", "note": "Initial ya bar is a tiny endpoint while shin spans its body."}
+{"page": 344, "wid": "23.42.1", "verdict": "ok", "note": ""}
+{"page": 140, "wid": "6.101.16", "verdict": "ok", "note": ""}
+{"page": 72, "wid": "3.172.13", "verdict": "ok", "note": ""}
+{"page": 565, "wid": "68.35.1", "verdict": "wrong", "note": "Initial alif stem is assigned to the following blue span; its own bar is displaced."}
+{"page": 486, "wid": "42.23.4", "verdict": "ok", "note": ""}
+{"page": 333, "wid": "22.12.2", "verdict": "ok", "note": ""}
+{"page": 268, "wid": "16.9.3", "verdict": "ok", "note": ""}
+{"page": 18, "wid": "2.114.19", "verdict": "ok", "note": ""}
+{"page": 237, "wid": "12.20.4", "verdict": "ok", "note": ""}
+{"page": 194, "wid": "9.42.5", "verdict": "ok", "note": ""}
+{"page": 47, "wid": "2.279.12", "verdict": "unsure", "note": "Overlapping spans obscure an individual extent."}
+{"page": 27, "wid": "2.177.45", "verdict": "ok", "note": ""}
+{"page": 110, "wid": "5.14.15", "verdict": "ok", "note": ""}
+{"page": 426, "wid": "33.57.13", "verdict": "ok", "note": ""}
+{"page": 273, "wid": "16.60.6", "verdict": "ok", "note": ""}
+{"page": 38, "wid": "2.235.22", "verdict": "ok", "note": ""}
+{"page": 498, "wid": "44.57.0", "verdict": "ok", "note": ""}
+{"page": 526, "wid": "53.2.3", "verdict": "ok", "note": ""}
+{"page": 480, "wid": "41.35.10", "verdict": "ok", "note": ""}
+{"page": 378, "wid": "27.16.10", "verdict": "wrong", "note": "Mim has no distinguishable own bar; nun spans the whole word."}
+{"page": 548, "wid": "59.24.11", "verdict": "wrong", "note": "Fa bar is a tiny endpoint while ya spans its body."}
+{"page": 584, "wid": "79.21.1", "verdict": "ok", "note": ""}
+{"page": 228, "wid": "11.59.11", "verdict": "ok", "note": ""}
+{"page": 382, "wid": "27.62.13", "verdict": "ok", "note": ""}
+{"page": 569, "wid": "70.38.5", "verdict": "ok", "note": ""}
+{"page": 148, "wid": "6.150.19", "verdict": "ok", "note": ""}
+{"page": 499, "wid": "45.12.6", "verdict": "unsure", "note": "Overlapping spans obscure an individual extent."}
+{"page": 219, "wid": "10.93.14", "verdict": "ok", "note": ""}
+{"page": 483, "wid": "42.4.9", "verdict": "unsure", "note": "Overlapping spans obscure an individual extent."}
+{"page": 168, "wid": "7.148.4", "verdict": "ok", "note": ""}
+{"page": 211, "wid": "10.23.6", "verdict": "wrong", "note": "Lam extent is absorbed into the alif span; its own bar is a tiny endpoint."}
+{"page": 187, "wid": "9.1.3", "verdict": "ok", "note": ""}
+{"page": 405, "wid": "30.9.15", "verdict": "ok", "note": ""}
+{"page": 211, "wid": "10.23.22", "verdict": "ok", "note": ""}
+{"page": 397, "wid": "29.10.30", "verdict": "unsure", "note": "Overlapping spans obscure an individual extent."}
+{"page": 70, "wid": "3.156.12", "verdict": "wrong", "note": "Lam extent is absorbed into the alif span; its own bar is a tiny endpoint."}
+{"page": 116, "wid": "5.48.25", "verdict": "ok", "note": ""}
+{"page": 255, "wid": "14.5.5", "verdict": "ok", "note": ""}
+{"page": 504, "wid": "46.17.15", "verdict": "ok", "note": ""}
+{"page": 438, "wid": "35.37.0", "verdict": "ok", "note": ""}
+{"page": 101, "wid": "4.141.3", "verdict": "ok", "note": ""}
+{"page": 130, "wid": "6.27.13", "verdict": "ok", "note": ""}
+{"page": 200, "wid": "9.80.6", "verdict": "ok", "note": ""}
+{"page": 295, "wid": "18.17.8", "verdict": "ok", "note": ""}
+{"page": 385, "wid": "27.93.5", "verdict": "unsure", "note": "Overlapping spans obscure an individual extent."}
+{"page": 333, "wid": "22.14.5", "verdict": "unsure", "note": "Overlapping spans obscure an individual extent."}
+{"page": 415, "wid": "32.5.7", "verdict": "wrong", "note": "Ra bar is almost entirely hidden beneath a jim span crossing its curve."}
+{"page": 572, "wid": "72.13.2", "verdict": "ok", "note": ""}
+{"page": 590, "wid": "85.2.1", "verdict": "unsure", "note": "Overlapping spans obscure an individual extent."}
+{"page": 14, "wid": "2.89.4", "verdict": "ok", "note": ""}
+{"page": 45, "wid": "2.267.13", "verdict": "ok", "note": ""}
+{"page": 157, "wid": "7.57.12", "verdict": "ok", "note": ""}
+{"page": 145, "wid": "6.137.7", "verdict": "ok", "note": ""}
+{"page": 166, "wid": "7.137.15", "verdict": "wrong", "note": "Lam bar is a tiny endpoint beneath the neighbouring maqsura."}
+{"page": 458, "wid": "39.3.26", "verdict": "ok", "note": ""}
+{"page": 163, "wid": "7.102.1", "verdict": "ok", "note": ""}
+{"page": 462, "wid": "39.37.5", "verdict": "ok", "note": ""}
+{"page": 353, "wid": "24.28.6", "verdict": "unsure", "note": "Overlapping spans obscure an individual extent."}
+{"page": 567, "wid": "69.19.1", "verdict": "ok", "note": ""}
+{"page": 209, "wid": "10.7.0", "verdict": "ok", "note": ""}
+{"page": 168, "wid": "7.147.5", "verdict": "ok", "note": ""}
+{"page": 319, "wid": "20.113.12", "verdict": "wrong", "note": "Lam body is assigned to the blue ha span; its own bar is a tiny endpoint."}
+{"page": 398, "wid": "29.19.12", "verdict": "wrong", "note": "Initial ya bar is a tiny endpoint while sin spans its body."}
+{"page": 485, "wid": "42.20.12", "verdict": "ok", "note": ""}
+{"page": 522, "wid": "51.43.5", "verdict": "unsure", "note": "Overlapping spans obscure an individual extent."}
+{"page": 318, "wid": "20.92.4", "verdict": "ok", "note": ""}
+{"page": 289, "wid": "17.69.21", "verdict": "wrong", "note": "Initial ta bar is a tiny endpoint while ba spans its body."}
+{"page": 453, "wid": "38.6.0", "verdict": "unsure", "note": "Overlapping spans obscure an individual extent."}
+{"page": 500, "wid": "45.21.5", "verdict": "ok", "note": ""}
+{"page": 367, "wid": "26.4.2", "verdict": "ok", "note": ""}
+{"page": 567, "wid": "69.14.1", "verdict": "wrong", "note": "Lam body is absorbed into the alif span; its own bar is a tiny endpoint."}
+{"page": 19, "wid": "2.120.5", "verdict": "ok", "note": ""}
+{"page": 238, "wid": "12.30.0", "verdict": "ok", "note": ""}
+{"page": 5, "wid": "2.25.19", "verdict": "ok", "note": ""}
+{"page": 111, "wid": "5.18.22", "verdict": "ok", "note": ""}
+{"page": 569, "wid": "70.37.2", "verdict": "ok", "note": ""}
+{"page": 216, "wid": "10.69.7", "verdict": "ok", "note": ""}
+{"page": 187, "wid": "9.3.18", "verdict": "ok", "note": ""}
+{"page": 89, "wid": "4.68.2", "verdict": "ok", "note": ""}
+{"page": 189, "wid": "9.19.21", "verdict": "unsure", "note": "Overlapping spans obscure an individual extent."}
+{"page": 478, "wid": "41.14.17", "verdict": "ok", "note": ""}
+{"page": 124, "wid": "5.98.1", "verdict": "ok", "note": ""}
+{"page": 563, "wid": "67.19.7", "verdict": "ok", "note": ""}
+{"page": 24, "wid": "2.154.10", "verdict": "ok", "note": ""}
+{"page": 157, "wid": "7.53.26", "verdict": "ok", "note": ""}
+{"page": 419, "wid": "33.12.2", "verdict": "wrong", "note": "Initial alif stem is absorbed into the following blue span; its own bar is an endpoint."}
+{"page": 308, "wid": "19.50.4", "verdict": "ok", "note": ""}
+{"page": 401, "wid": "29.40.1", "verdict": "ok", "note": ""}
+{"page": 590, "wid": "85.7.4", "verdict": "unsure", "note": "Overlapping spans obscure an individual extent."}
+{"page": 59, "wid": "3.72.11", "verdict": "ok", "note": ""}
+{"page": 322, "wid": "21.1.1", "verdict": "ok", "note": ""}
+{"page": 388, "wid": "28.25.7", "verdict": "ok", "note": ""}
+{"page": 507, "wid": "47.6.0", "verdict": "unsure", "note": "Overlapping spans obscure an individual extent."}
+{"page": 194, "wid": "9.44.3", "verdict": "ok", "note": ""}
+{"page": 116, "wid": "5.49.28", "verdict": "ok", "note": ""}
+{"page": 27, "wid": "2.178.36", "verdict": "ok", "note": ""}
+{"page": 58, "wid": "3.64.26", "verdict": "unsure", "note": "Overlapping spans obscure an individual extent."}
+{"page": 573, "wid": "72.21.7", "verdict": "ok", "note": ""}
+{"page": 430, "wid": "34.22.4", "verdict": "ok", "note": ""}
+{"page": 257, "wid": "14.11.9", "verdict": "ok", "note": ""}
+{"page": 375, "wid": "26.200.4", "verdict": "ok", "note": ""}
+{"page": 510, "wid": "47.33.8", "verdict": "unsure", "note": "Overlapping spans obscure an individual extent."}
+{"page": 44, "wid": "2.261.15", "verdict": "ok", "note": ""}
+{"page": 576, "wid": "74.37.0", "verdict": "ok", "note": ""}
+{"page": 131, "wid": "6.35.11", "verdict": "wrong", "note": "Lam extent is absorbed into the alif span; its own bar is a tiny endpoint."}
+{"page": 459, "wid": "39.7.11", "verdict": "wrong", "note": "Initial ta bar is a tiny endpoint while shin spans its body."}
+{"page": 378, "wid": "27.21.0", "verdict": "wrong", "note": "Initial lam is absorbed into the following span and has no distinguishable own bar."}
+{"page": 437, "wid": "35.29.4", "verdict": "ok", "note": ""}
+{"page": 508, "wid": "47.12.21", "verdict": "wrong", "note": "Ha body is largely absorbed into lam; ha bar lies beneath the joining stroke."}
+{"page": 172, "wid": "7.164.4", "verdict": "wrong", "note": "Lam has no distinguishable own bar; mim spans the whole word."}
+{"page": 216, "wid": "10.65.0", "verdict": "ok", "note": ""}
+{"page": 80, "wid": "4.19.20", "verdict": "ok", "note": ""}
+{"page": 411, "wid": "31.10.3", "verdict": "ok", "note": ""}
+{"page": 373, "wid": "26.139.6", "verdict": "ok", "note": ""}
+{"page": 2, "wid": "2.3.5", "verdict": "wrong", "note": "Middle bar is displaced into the gap rather than beneath its body."}
+{"page": 2, "wid": "2.4.10", "verdict": "ok", "note": ""}
+{"page": 3, "wid": "2.6.0", "verdict": "wrong", "note": "Initial alif stem is assigned to nun while its own bar lies under the hamza."}
+{"page": 4, "wid": "2.22.22", "verdict": "unsure", "note": "Overlapping spans obscure an individual extent."}
+{"page": 4, "wid": "2.22.8", "verdict": "wrong", "note": "Neighbouring ink inside the crop stretches nun bar across adjacent letters."}
+{"page": 4, "wid": "2.23.1", "verdict": "ok", "note": ""}
+{"page": 4, "wid": "2.23.18", "verdict": "ok", "note": ""}
+{"page": 5, "wid": "2.25.12", "verdict": "unsure", "note": "Overlapping spans obscure an individual extent."}
+{"page": 5, "wid": "2.25.9", "verdict": "ok", "note": ""}
+{"page": 5, "wid": "2.26.0", "verdict": "ok", "note": ""}
+{"page": 5, "wid": "2.26.17", "verdict": "ok", "note": ""}
+{"page": 5, "wid": "2.26.19", "verdict": "wrong", "note": "Alif is absorbed into the mim span; its own bar is an endpoint under waw."}
+{"page": 5, "wid": "2.26.20", "verdict": "unsure", "note": "Overlapping spans obscure an individual extent."}
+{"page": 5, "wid": "2.26.21", "verdict": "ok", "note": ""}
+{"page": 5, "wid": "2.26.22", "verdict": "wrong", "note": "Final target span extends across the neighbouring curved body."}
+{"page": 5, "wid": "2.26.23", "verdict": "ok", "note": ""}
+{"page": 5, "wid": "2.26.29", "verdict": "ok", "note": ""}
+{"page": 5, "wid": "2.26.30", "verdict": "ok", "note": ""}
+{"page": 5, "wid": "2.26.33", "verdict": "ok", "note": ""}
+{"page": 5, "wid": "2.28.12", "verdict": "wrong", "note": "Initial ta bar is displaced beneath the ra tail."}
+{"page": 5, "wid": "2.28.2", "verdict": "ok", "note": ""}
+{"page": 5, "wid": "2.28.4", "verdict": "ok", "note": ""}
+{"page": 5, "wid": "2.28.5", "verdict": "unsure", "note": "Overlapping spans obscure an individual extent."}
+{"page": 5, "wid": "2.29.14", "verdict": "ok", "note": ""}
+{"page": 5, "wid": "2.29.2", "verdict": "wrong", "note": "Lam bar lies beneath the qaf loop while kha owns its stem."}
+{"page": 5, "wid": "2.29.7", "verdict": "ok", "note": ""}
+{"page": 6, "wid": "2.30.2", "verdict": "wrong", "note": "Initial ra has no distinct bar; blue span owns both ra and ba."}
+{"page": 6, "wid": "2.31.2", "verdict": "wrong", "note": "Lam span is absorbed into alif; its bar is a tiny endpoint."}
+{"page": 6, "wid": "2.36.12", "verdict": "ok", "note": ""}
+{"page": 6, "wid": "2.36.9", "verdict": "wrong", "note": "Initial ba bar is a tiny endpoint while ayn spans its body."}
+{"page": 7, "wid": "2.40.6", "verdict": "ok", "note": ""}
+{"page": 7, "wid": "2.47.6", "verdict": "ok", "note": ""}
+{"page": 8, "wid": "2.50.8", "verdict": "ok", "note": ""}
+{"page": 8, "wid": "2.51.8", "verdict": "wrong", "note": "Mim has no distinct bar; nun spans the whole word."}
+{"page": 8, "wid": "2.54.1", "verdict": "unsure", "note": "Overlapping spans obscure an individual extent."}
+{"page": 8, "wid": "2.54.25", "verdict": "wrong", "note": "Lam bar is displaced beneath ra rather than its stem."}
+{"page": 8, "wid": "2.55.1", "verdict": "ok", "note": ""}
+{"page": 8, "wid": "2.55.12", "verdict": "ok", "note": ""}
+{"page": 8, "wid": "2.56.0", "verdict": "unsure", "note": "Overlapping spans obscure an individual extent."}
+{"page": 8, "wid": "2.56.2", "verdict": "ok", "note": ""}
+{"page": 8, "wid": "2.56.6", "verdict": "wrong", "note": "Initial ta bar is a tiny endpoint while shin spans its body."}
+{"page": 8, "wid": "2.57.1", "verdict": "ok", "note": ""}
+{"page": 8, "wid": "2.57.6", "verdict": "unsure", "note": "Overlapping spans obscure an individual extent."}
+{"page": 9, "wid": "2.58.16", "verdict": "wrong", "note": "Lam bar is an endpoint while kaf spans both bodies."}
+{"page": 9, "wid": "2.59.10", "verdict": "ok", "note": ""}
+{"page": 9, "wid": "2.60.0", "verdict": "wrong", "note": "Alif bar is displaced beneath dhal while waw owns its stem."}
+{"page": 9, "wid": "2.60.10", "verdict": "ok", "note": ""}
+{"page": 9, "wid": "2.60.13", "verdict": "ok", "note": ""}
