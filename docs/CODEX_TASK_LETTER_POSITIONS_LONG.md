@@ -1,5 +1,7 @@
 # Codex long task: find a better way to locate every letter (research and build)
 
+> **Superseded (9 November 2026)** by `docs/CODEX_TASK_DIGITALKHATT_LETTER_COLOUR.md`: the app will colour the mistaken letter itself using the DigitalKhatt font, instead of underlines. **Do not continue this task.** Its code and data stay for reference.
+
 Status: ready to hand over (8 November 2026).
 Base branch: `claude/criterion-bar`. Work on a new branch `codex/letter-positions-research`.
 **Never push to `main`.** Never change `src/`, the artwork, the page data, the letter units or the approved borders.

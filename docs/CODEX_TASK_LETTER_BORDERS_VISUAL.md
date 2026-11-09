@@ -1,5 +1,7 @@
 # Codex task: letter borders by looking, word by word (visual round)
 
+> **Superseded (9 November 2026)** by `docs/CODEX_TASK_DIGITALKHATT_LETTER_COLOUR.md`: the app will colour the mistaken letter itself using the DigitalKhatt font, instead of underlines. **Do not continue this task.** Its code and data stay for reference.
+
 Status: ready to hand over (6 November 2026).
 Base branch: `claude/criterion-bar`. Work on a new branch `codex/letter-borders-visual`.
 **Never push to `main`** (a push to main deploys the live app).
