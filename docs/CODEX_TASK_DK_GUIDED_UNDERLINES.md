@@ -252,7 +252,7 @@ they are **not claimed to be exclusive under the original buggy combination**.
 Each frozen sample records its exact eligible pool and completed pages.
 
 A check-only rerun over the same **98 pages / 12,412 words** changed the preliminary
-non-fit acceptance count from **8,061 (64.94%)** to **12,037 (96.98%)**. These are
+non-fit acceptance count from **8,061 (64.95%)** to **12,037 (96.98%)**. These are
 acceptance rates, not accuracy, and exclude the pending global fit cutoff. All
 exported words stay `review` with `fit-pending` until full-run finalization. Final
 old/new rates will be reported over the complete corpus after the fit threshold.

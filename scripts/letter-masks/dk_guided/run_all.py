@@ -61,7 +61,12 @@ def finalize():
  assert all((RAW/f'p{p}.json').exists() and (BARS/f'p{p}.json').exists() for p in range(1,605)),'Full run required'
  fits=[]
  for p in range(1,605):fits.extend(v['fit'] for v in json.loads((RAW/f'p{p}.json').read_text())['words'].values() if 'fit' in v)
- cutoff=float(np.percentile(fits,90));counts=Counter();failures=Counter()
+ cutoff=float(np.percentile(fits,90));counts=Counter();failures=Counter();old_counts=Counter();new_counts=Counter()
+ reviewed={}
+ decisions=HERE/'review/decisions.jsonl'
+ if decisions.exists():reviewed.update({r['wid']:r['verdict'] for r in [json.loads(line) for line in decisions.read_text().splitlines()]})
+ for rp in (HERE/'calibration').glob('*-review.json'):
+  reviewed.update({r['wid']:r['verdict'] for r in json.loads(rp.read_text())['decisions']})
  for p in range(1,605):
   bp=BARS/f'p{p}.json';b=json.loads(bp.read_text());m=json.loads((RAW/f'p{p}.json').read_text())
   for wid,w in b['words'].items():
@@ -69,9 +74,15 @@ def finalize():
    w.setdefault('originalChecks',w['checks'][:])
    policy=json.loads((HERE/'calibration/active-checks.json').read_text())
    checks=apply_checks(w,m['words'][wid],policy)
-   if m['words'][wid].get('fit',0)>cutoff:checks.append('fit')
+   poor_fit=m['words'][wid].get('fit',0)>cutoff
+   if poor_fit:checks.append('fit')
+   old_checks=[c for c in w['originalChecks'] if c not in ('fit','fit-pending')]
+   old_counts['review' if old_checks or poor_fit else 'ok']+=1
+   new_counts['review' if checks else 'ok']+=1
+   if reviewed.get(wid) in ('wrong','unsure'):checks.append('visual-'+reviewed[wid])
    w['checks']=checks;w['status']='review' if checks else 'ok';counts[w['status']]+=1;failures.update(checks)
   atomic(bp,b)
+ atomic(HERE/'calibration/acceptance-full-fit.json',dict(oldAutomatic=dict(old_counts),newAutomatic=dict(new_counts),afterKnownVisualFailures=dict(counts),fit=cutoff,note='Same corpus and fit threshold; acceptance rates, not accuracy.'))
  atomic(BARS/'index.json',dict(ruleVersion=RULE,method=METHOD,pages=list(range(1,605)),counts=dict(counts),thresholds=dict(TH,fit=cutoff,disabled=policy['disabled'],orderRequiresDefinedCentres=True),failedChecks=dict(failures),fitPopulation=len(fits)))
 if __name__=='__main__':
  a=argparse.ArgumentParser();a.add_argument('--force',action='store_true');a.add_argument('--pages',default='1:604');a.add_argument('--workers',type=int,default=len(os.sched_getaffinity(0)));a.add_argument('--finalize',action='store_true');args=a.parse_args()
