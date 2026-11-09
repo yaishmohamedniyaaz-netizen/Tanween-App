@@ -29,6 +29,7 @@ def main():
  excluded={'2.112.16','2.89.12','2.174.20','2.107.0',
            '2.93.20','2.58.16','3.16.2','6.109.8','83.25.1','2.7.2'}
  excluded.update(wid for _,wid in json.loads((HERE/'rand48.json').read_text()))
+ for approved in (G.REPO/'public/letter-borders').glob('p*.json'):excluded.update(json.loads(approved.read_text())['words'].keys())
  for sample in (HERE/'calibration').glob('*-sample.json'):
   excluded.update(wid for _,wid in json.loads(sample.read_text())['words'])
  reviewed=HERE/'review/decisions.jsonl'
@@ -72,6 +73,7 @@ def main():
    path=target/f'{phase}-{start//24+1:03}.png'
    if path.exists():
     with Image.open(path) as saved:assert saved.size==out.size and saved.convert('RGB').tobytes()==out.tobytes(),'Existing sheet differs; stop rather than overwrite'
-   else:out.save(path);manifest.append(dict(phase=phase,image=str(path.relative_to(G.REPO)),words=batch,sha256=hashlib.sha256(path.read_bytes()).hexdigest()))
+   else:out.save(path)
+   manifest.append(dict(phase=phase,image=str(path.relative_to(G.REPO)),words=batch,sha256=hashlib.sha256(path.read_bytes()).hexdigest()))
  atomic(target/'manifest.json',manifest);atomic(target/'sample.json',samples)
 if __name__=='__main__':main()

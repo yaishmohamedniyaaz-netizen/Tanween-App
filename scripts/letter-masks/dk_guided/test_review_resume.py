@@ -9,6 +9,7 @@ class ResumeTests(unittest.TestCase):
   self.tmp=tempfile.TemporaryDirectory();self.root=Path(self.tmp.name);self.here=self.root/'visual';self.here.mkdir();(self.here/'rand48.json').write_text(json.dumps([[3,'w3']]));self.bars=self.root/'bars';self.bars.mkdir()
   (self.bars/'index.json').write_text(json.dumps({'pages':list(range(1,605))}))
   for p in range(1,605):(self.bars/f'p{p}.json').write_text(json.dumps({'words':{f'w{p}':{'status':'review' if p<=10 else 'ok'}}}))
+  approved=self.root/'public/letter-borders';approved.mkdir(parents=True);(approved/'p1.json').write_text(json.dumps({'words':{'w4':{}}}))
   self.patches=[patch.object(C,'HERE',self.here),patch.object(C,'BARS',self.bars),patch.object(C.G,'REPO',self.root),patch.object(C,'tile',lambda p,wid:Image.new('RGB',(8,8),(p%255,10,20)))]
   for item in self.patches:item.start()
  def tearDown(self):
@@ -19,12 +20,13 @@ class ResumeTests(unittest.TestCase):
   (self.here/'review/decisions.jsonl').write_text(json.dumps({'wid':first})+'\n');C.main()
   self.assertEqual((self.here/'review/sample.json').read_bytes(),sample)
   eligible=json.loads((self.here/'review/eligible-status-ok.json').read_text())
-  self.assertTrue(all(page>2 and wid!='w3' for page,wid in eligible))
+  self.assertTrue(all(page>2 and wid not in ('w3','w4') for page,wid in eligible))
  def test_partial_sheet_run_reuses_identical_images(self):
-  C.main();path=self.here/'review/random-ok-001.png';before=path.stat().st_mtime_ns
+  C.main();path=self.here/'review/random-ok-001.png';before=path.stat().st_mtime_ns;manifest=(self.here/'review/manifest.json').read_bytes()
   (self.here/'review/manifest.json').unlink()
   (self.here/'review/decisions.jsonl').write_text(json.dumps({'wid':'w1'})+'\n');C.main()
   self.assertEqual(path.stat().st_mtime_ns,before)
+  self.assertEqual((self.here/'review/manifest.json').read_bytes(),manifest)
  def test_existing_evidence_tampering_is_rejected(self):
   C.main();path=self.here/'review/random-ok-001.png';path.write_bytes(b'tampered')
   with self.assertRaises(AssertionError):C.main()
