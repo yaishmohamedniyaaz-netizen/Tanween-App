@@ -51,6 +51,9 @@ def main(complete=False,finish=False):
  if (OUT/'sample.json').exists():
   sample=read(OUT/'sample.json');eligible=read(OUT/'eligible.json');excluded=set(read(OUT/'excluded.json'));frozen=read(OUT/'frozen-predictions.json')
   assert __import__('random').Random(20261112).sample(eligible,300)==sample['fresh300'];assert all(w not in excluded for _,w in sample['fresh300'])
+  if (OUT/'prior-visual-reviewed-ids.json').exists():
+   assert set(read(OUT/'prior-visual-reviewed-ids.json')['words'])<=excluded
+   assert read(OUT/'sample-provenance.json')['priorVisualIdsSha256']==R.sha(OUT/'prior-visual-reviewed-ids.json')
   assert len(sample['recheck89'])==89 and len(sample['fresh300'])==300
   for wid,w in frozen.items():
    actual=read(R.BARS/f'p{w["page"]}.json')['words'][wid];assert w['bars']==actual['bars'] and w['tids']==actual['tids']

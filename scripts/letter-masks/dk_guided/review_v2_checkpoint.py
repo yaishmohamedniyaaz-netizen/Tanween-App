@@ -58,6 +58,8 @@ def prepare():
  prior=[json.loads(l) for l in (HERE/'review/decisions.jsonl').read_text().splitlines()];old={r['wid']:r for r in prior}
  original=read(HERE/'review/sample.json')['random-ok'];recheck=[case for case in original if old[case[1]]['verdict']!='ok'];assert len(recheck)==89
  excluded=set(read(HERE/'review/sample-provenance.json')['excludedIds'])|set(old)
+ earlier_visual=OUT/'prior-visual-reviewed-ids.json'
+ if earlier_visual.exists():excluded.update(read(earlier_visual)['words'])
  for f in (HERE/'review-v2').glob('*.json'):excluded.update(row[1] for row in read(f))
  eligible=[]
  for p in range(1,605):
@@ -68,7 +70,7 @@ def prepare():
  snapshots={}
  for p,wid in recheck+sample['fresh300']:snapshots[wid]=dict(page=p,**read(BARS/f'p{p}.json')['words'][wid])
  atomic(OUT/'frozen-predictions.json',snapshots)
- atomic(OUT/'sample-provenance.json',dict(seed=20261112,eligibleWords=len(eligible),excludedWords=len(excluded),v1Commit=R.BASE,barsRuleSha256=R.sha(HERE/'bars_v2.py'),labelSourceSha256=R.sha(HERE/'dkguide.py'),sampleSha256=hashlib.sha256(R.V1.encode(sample)).hexdigest(),samplingNote='Fresh excludes all earlier recorded reviews, prior pilot/owner/approved exclusions and Claude review-v2 examples. The 89 are diagnostic reuse, never fresh accuracy.'))
+ atomic(OUT/'sample-provenance.json',dict(seed=20261112,eligibleWords=len(eligible),excludedWords=len(excluded),v1Commit=R.BASE,barsRuleSha256=R.sha(HERE/'bars_v2.py'),labelSourceSha256=R.sha(HERE/'dkguide.py'),sampleSha256=hashlib.sha256(R.V1.encode(sample)).hexdigest(),priorVisualIdsSha256=R.sha(earlier_visual) if earlier_visual.exists() else None,samplingNote='Fresh excludes all earlier recorded DK reviews, prior pilot/owner/approved exclusions, Claude review-v2 examples and the conservative earlier visual-border annotation/audit ID union. The 89 are diagnostic reuse, never fresh accuracy.'))
  # The sample file is the completion marker for this atomic-file bundle.
  atomic(target,sample)
  return sample
@@ -88,7 +90,7 @@ def sheets(phase):
   if known:
    assert known['words']==batch and R.sha(path)==known['sha256'];continue
   tiles=[tile(p,wid) for p,wid in batch];cw=max(t.width for t in tiles);ch=max(t.height for t in tiles)
-  out=Image.new('RGB',(cw*4,ch*6),'white')
+  out=Image.new('RGB',(cw*4,ch*((len(tiles)+3)//4)),'white')
   for j,t in enumerate(tiles):out.paste(t,((j%4)*cw,(j//4)*ch))
   if path.exists():
    with Image.open(path) as previous:assert previous.size==out.size and previous.convert('RGB').tobytes()==out.tobytes()

@@ -41,11 +41,12 @@ class SampleTests(unittest.TestCase):
    (here/'review/sample.json').write_text(json.dumps({'random-ok':[[i,f'w{i}'] for i in range(1,301)]}))
    (here/'review/sample-provenance.json').write_text(json.dumps({'excludedIds':['w301']}))
    (here/'review-v2/example.json').write_text(json.dumps([[500,'w500','ok','']]))
+   (out/'prior-visual-reviewed-ids.json').write_text(json.dumps({'words':['w501']}))
    for name in ['bars_v2.py','dkguide.py']:(here/name).write_text('fixture')
    with patch.object(C,'OUT',out),patch.object(C,'BARS',bars),patch.object(C,'HERE',here):
     sample=C.prepare();self.assertEqual(len(sample['recheck89']),89)
     self.assertEqual(len(sample['fresh300']),300)
-    self.assertTrue(all(int(w[1:])>300 and w not in ('w301','w500') for _,w in sample['fresh300']))
+    self.assertTrue(all(int(w[1:])>300 and w not in ('w301','w500','w501') for _,w in sample['fresh300']))
  def test_frozen_sample_is_reused_without_reading_new_eligibility(self):
   with tempfile.TemporaryDirectory() as d:
    root=Path(d);(root/'sample.json').write_text('{"saved":true}')
