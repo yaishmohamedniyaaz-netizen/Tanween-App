@@ -1,0 +1,3469 @@
+{
+  "predictions": [
+    {
+      "wid": "1.1.0",
+      "page": 1,
+      "tids": [
+        "1.1.0@r0",
+        "1.1.0@r2",
+        "1.1.0@r4"
+      ],
+      "bars": [
+        [
+          1264.25,
+          1295.0
+        ],
+        [
+          1173.188,
+          1295.0
+        ],
+        [
+          1126.688,
+          1215.812
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "1.1.1",
+      "page": 1,
+      "tids": [
+        "1.1.1@r0",
+        "1.1.1@r1",
+        "1.1.1@r5"
+      ],
+      "bars": [
+        [
+          1118.948,
+          1126.0
+        ],
+        [
+          1079.99,
+          1126.0
+        ],
+        [
+          1058.74,
+          1092.385
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "1.1.2",
+      "page": 1,
+      "tids": [
+        "1.1.2@r0",
+        "1.1.2@r1",
+        "1.1.2@r2",
+        "1.1.2@r5",
+        "1.1.2@r7",
+        "1.1.2@r10"
+      ],
+      "bars": [
+        [
+          1044.5,
+          1053.75
+        ],
+        [
+          1029.083,
+          1053.75
+        ],
+        [
+          999.792,
+          1038.333
+        ],
+        [
+          981.292,
+          1021.375
+        ],
+        [
+          953.542,
+          987.458
+        ],
+        [
+          924.25,
+          965.875
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "1.1.3",
+      "page": 1,
+      "tids": [
+        "1.1.3@r0",
+        "1.1.3@r1",
+        "1.1.3@r2",
+        "1.1.3@r5",
+        "1.1.3@r7",
+        "1.1.3@r8"
+      ],
+      "bars": [
+        [
+          905.708,
+          914.354
+        ],
+        [
+          874.583,
+          914.354
+        ],
+        [
+          853.833,
+          890.146
+        ],
+        [
+          826.167,
+          865.938
+        ],
+        [
+          803.688,
+          843.458
+        ],
+        [
+          767.375,
+          814.062
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "1.2.0",
+      "page": 1,
+      "tids": [
+        "1.2.0@r0",
+        "1.2.0@r1",
+        "1.2.0@r3",
+        "1.2.0@r5",
+        "1.2.0@r7"
+      ],
+      "bars": [
+        [
+          1404.5,
+          1434.0
+        ],
+        [
+          1362.312,
+          1434.0
+        ],
+        [
+          1317.781,
+          1381.062
+        ],
+        [
+          1280.281,
+          1341.219
+        ],
+        [
+          1226.375,
+          1306.062
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "1.2.1",
+      "page": 1,
+      "tids": [
+        "1.2.1@r0",
+        "1.2.1@r2",
+        "1.2.1@r5"
+      ],
+      "bars": [
+        [
+          1183.438,
+          1208.948
+        ],
+        [
+          1176.031,
+          1208.948
+        ],
+        [
+          1149.698,
+          1179.323
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "1.2.2",
+      "page": 1,
+      "tids": [
+        "1.2.2@r0",
+        "1.2.2@r2"
+      ],
+      "bars": [
+        [
+          1083.875,
+          1132.25
+        ],
+        [
+          1001.458,
+          1076.708
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "1.2.3",
+      "page": 1,
+      "tids": [
+        "1.2.3@r0",
+        "1.2.3@r1",
+        "1.2.3@r3",
+        "1.2.3@r6",
+        "1.2.3@r8",
+        "1.2.3@r10",
+        "1.2.3@r11"
+      ],
+      "bars": [
+        [
+          931.25,
+          968.75
+        ],
+        [
+          893.75,
+          968.75
+        ],
+        [
+          852.5,
+          927.5
+        ],
+        [
+          800.0,
+          845.0
+        ],
+        [
+          728.75,
+          822.5
+        ],
+        [
+          702.5,
+          788.75
+        ],
+        [
+          653.75,
+          736.25
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "1.3.0",
+      "page": 1,
+      "tids": [
+        "1.3.0@r0",
+        "1.3.0@r1",
+        "1.3.0@r2",
+        "1.3.0@r5",
+        "1.3.0@r7",
+        "1.3.0@r10"
+      ],
+      "bars": [
+        [
+          1514.5,
+          1523.667
+        ],
+        [
+          1489.292,
+          1523.667
+        ],
+        [
+          1450.333,
+          1507.625
+        ],
+        [
+          1418.25,
+          1480.125
+        ],
+        [
+          1381.583,
+          1438.875
+        ],
+        [
+          1331.167,
+          1377.0
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "1.3.1",
+      "page": 1,
+      "tids": [
+        "1.3.1@r0",
+        "1.3.1@r1",
+        "1.3.1@r2",
+        "1.3.1@r5",
+        "1.3.1@r7",
+        "1.3.1@r8"
+      ],
+      "bars": [
+        [
+          1314.75,
+          1323.875
+        ],
+        [
+          1262.281,
+          1323.875
+        ],
+        [
+          1232.625,
+          1289.656
+        ],
+        [
+          1202.969,
+          1255.438
+        ],
+        [
+          1168.75,
+          1225.781
+        ],
+        [
+          1125.406,
+          1189.281
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "1.4.0",
+      "page": 1,
+      "tids": [
+        "1.4.0@r0",
+        "1.4.0@r3",
+        "1.4.0@r5"
+      ],
+      "bars": [
+        [
+          933.562,
+          966.188
+        ],
+        [
+          882.812,
+          935.375
+        ],
+        [
+          835.688,
+          895.5
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "1.4.1",
+      "page": 1,
+      "tids": [
+        "1.4.1@r0",
+        "1.4.1@r2",
+        "1.4.1@r4"
+      ],
+      "bars": [
+        [
+          784.333,
+          813.0
+        ],
+        [
+          755.688,
+          798.083
+        ],
+        [
+          722.458,
+          762.562
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "1.4.2",
+      "page": 1,
+      "tids": [
+        "1.4.2@r0",
+        "1.4.2@r1",
+        "1.4.2@r2",
+        "1.4.2@r5",
+        "1.4.2@r6"
+      ],
+      "bars": [
+        [
+          686.333,
+          713.083
+        ],
+        [
+          650.667,
+          713.083
+        ],
+        [
+          603.854,
+          664.042
+        ],
+        [
+          570.417,
+          630.604
+        ],
+        [
+          539.208,
+          594.938
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "1.5.0",
+      "page": 1,
+      "tids": [
+        "1.5.0@r0",
+        "1.5.0@r2",
+        "1.5.0@r6"
+      ],
+      "bars": [
+        [
+          1493.438,
+          1515.0
+        ],
+        [
+          1473.281,
+          1515.0
+        ],
+        [
+          1403.406,
+          1459.844
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "1.5.1",
+      "page": 1,
+      "tids": [
+        "1.5.1@r0",
+        "1.5.1@r2",
+        "1.5.1@r4",
+        "1.5.1@r6"
+      ],
+      "bars": [
+        [
+          1355.75,
+          1385.938
+        ],
+        [
+          1335.625,
+          1385.938
+        ],
+        [
+          1281.958,
+          1327.24
+        ],
+        [
+          1245.062,
+          1300.406
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "1.5.2",
+      "page": 1,
+      "tids": [
+        "1.5.2@r0",
+        "1.5.2@r2",
+        "1.5.2@r4",
+        "1.5.2@r8"
+      ],
+      "bars": [
+        [
+          1190.75,
+          1227.365
+        ],
+        [
+          1169.552,
+          1223.51
+        ],
+        [
+          1146.427,
+          1227.365
+        ],
+        [
+          1061.635,
+          1140.646
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "1.5.3",
+      "page": 1,
+      "tids": [
+        "1.5.3@r0",
+        "1.5.3@r2",
+        "1.5.3@r4",
+        "1.5.3@r6",
+        "1.5.3@r8",
+        "1.5.3@r9"
+      ],
+      "bars": [
+        [
+          1003.146,
+          1041.531
+        ],
+        [
+          940.333,
+          1041.531
+        ],
+        [
+          919.396,
+          957.781
+        ],
+        [
+          849.604,
+          922.885
+        ],
+        [
+          814.708,
+          877.521
+        ],
+        [
+          741.427,
+          832.156
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "1.6.0",
+      "page": 1,
+      "tids": [
+        "1.6.0@r0",
+        "1.6.0@r1",
+        "1.6.0@r3",
+        "1.6.0@r5"
+      ],
+      "bars": [
+        [
+          549.958,
+          556.083
+        ],
+        [
+          509.125,
+          552.0
+        ],
+        [
+          466.25,
+          521.375
+        ],
+        [
+          421.333,
+          490.75
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "1.6.1",
+      "page": 1,
+      "tids": [
+        "1.6.1@r0",
+        "1.6.1@r1",
+        "1.6.1@r2",
+        "1.6.1@r5",
+        "1.6.1@r8"
+      ],
+      "bars": [
+        [
+          1512.167,
+          1521.583
+        ],
+        [
+          1453.312,
+          1521.583
+        ],
+        [
+          1432.125,
+          1490.979
+        ],
+        [
+          1380.333,
+          1420.354
+        ],
+        [
+          1319.125,
+          1396.812
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "1.6.2",
+      "page": 1,
+      "tids": [
+        "1.6.2@r0",
+        "1.6.2@r1",
+        "1.6.2@r3",
+        "1.6.2@r5",
+        "1.6.2@r7",
+        "1.6.2@r9",
+        "1.6.2@r11",
+        "1.6.2@r12"
+      ],
+      "bars": [
+        [
+          1291.146,
+          1300.083
+        ],
+        [
+          1258.375,
+          1300.083
+        ],
+        [
+          1213.688,
+          1279.229
+        ],
+        [
+          1186.875,
+          1258.375
+        ],
+        [
+          1154.104,
+          1207.729
+        ],
+        [
+          1112.396,
+          1180.917
+        ],
+        [
+          1088.562,
+          1154.104
+        ],
+        [
+          1037.917,
+          1118.354
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "1.7.0",
+      "page": 1,
+      "tids": [
+        "1.7.0@r0",
+        "1.7.0@r2",
+        "1.7.0@r5"
+      ],
+      "bars": [
+        [
+          838.031,
+          889.5
+        ],
+        [
+          801.812,
+          870.438
+        ],
+        [
+          748.438,
+          824.688
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "1.7.1",
+      "page": 1,
+      "tids": [
+        "1.7.1@r0",
+        "1.7.1@r1",
+        "1.7.1@r4",
+        "1.7.1@r6",
+        "1.7.1@r7"
+      ],
+      "bars": [
+        [
+          711.698,
+          734.865
+        ],
+        [
+          685.635,
+          734.865
+        ],
+        [
+          666.812,
+          689.979
+        ],
+        [
+          633.51,
+          675.5
+        ],
+        [
+          616.135,
+          659.573
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "1.7.2",
+      "page": 1,
+      "tids": [
+        "1.7.2@r0",
+        "1.7.2@r2",
+        "1.7.2@r4",
+        "1.7.2@r6",
+        "1.7.2@r8"
+      ],
+      "bars": [
+        [
+          584.854,
+          595.427
+        ],
+        [
+          540.448,
+          595.427
+        ],
+        [
+          508.729,
+          565.823
+        ],
+        [
+          472.781,
+          529.875
+        ],
+        [
+          417.802,
+          483.354
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "1.7.3",
+      "page": 1,
+      "tids": [
+        "1.7.3@r0",
+        "1.7.3@r2",
+        "1.7.3@r4",
+        "1.7.3@r6",
+        "1.7.3@r8"
+      ],
+      "bars": [
+        [
+          1323.792,
+          1364.812
+        ],
+        [
+          1314.469,
+          1364.812
+        ],
+        [
+          1279.042,
+          1320.062
+        ],
+        [
+          1251.073,
+          1301.417
+        ],
+        [
+          1206.323,
+          1277.177
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "1.7.4",
+      "page": 1,
+      "tids": [
+        "1.7.4@r0",
+        "1.7.4@r2",
+        "1.7.4@r4"
+      ],
+      "bars": [
+        [
+          1164.688,
+          1201.25
+        ],
+        [
+          1139.094,
+          1163.469
+        ],
+        [
+          1104.969,
+          1143.969
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "1.7.5",
+      "page": 1,
+      "tids": [
+        "1.7.5@r0",
+        "1.7.5@r1",
+        "1.7.5@r3",
+        "1.7.5@r5",
+        "1.7.5@r7",
+        "1.7.5@r9",
+        "1.7.5@r10"
+      ],
+      "bars": [
+        [
+          1068.75,
+          1098.75
+        ],
+        [
+          1016.25,
+          1098.75
+        ],
+        [
+          967.5,
+          1031.25
+        ],
+        [
+          918.75,
+          1012.5
+        ],
+        [
+          903.75,
+          971.25
+        ],
+        [
+          840.0,
+          907.5
+        ],
+        [
+          783.75,
+          870.0
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "1.7.6",
+      "page": 1,
+      "tids": [
+        "1.7.6@r0",
+        "1.7.6@r2",
+        "1.7.6@r4",
+        "1.7.6@r6",
+        "1.7.6@r8"
+      ],
+      "bars": [
+        [
+          692.75,
+          736.5
+        ],
+        [
+          676.083,
+          738.583
+        ],
+        [
+          644.833,
+          688.583
+        ],
+        [
+          611.5,
+          667.75
+        ],
+        [
+          559.417,
+          640.667
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "1.7.7",
+      "page": 1,
+      "tids": [
+        "1.7.7@r0",
+        "1.7.7@r2"
+      ],
+      "bars": [
+        [
+          1171.375,
+          1198.094
+        ],
+        [
+          1139.708,
+          1165.438
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "1.7.8",
+      "page": 1,
+      "tids": [
+        "1.7.8@r0",
+        "1.7.8@r1",
+        "1.7.8@r2",
+        "1.7.8@r7",
+        "1.7.8@r10",
+        "1.7.8@r11"
+      ],
+      "bars": [
+        [
+          1056.125,
+          1094.917
+        ],
+        [
+          1056.125,
+          1094.917
+        ],
+        [
+          975.771,
+          1050.583
+        ],
+        [
+          934.208,
+          995.167
+        ],
+        [
+          903.729,
+          975.771
+        ],
+        [
+          862.167,
+          934.208
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "2.1.0",
+      "page": 2,
+      "tids": [
+        "2.1.0@r0",
+        "2.1.0@r1",
+        "2.1.0@r3"
+      ],
+      "bars": [
+        [
+          1471.458,
+          1479.917
+        ],
+        [
+          1436.417,
+          1479.917
+        ],
+        [
+          1386.875,
+          1442.458
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "2.2.0",
+      "page": 2,
+      "tids": [
+        "2.2.0@r0",
+        "2.2.0@r3",
+        "2.2.0@r5"
+      ],
+      "bars": [
+        [
+          1215.875,
+          1246.5
+        ],
+        [
+          1192.906,
+          1246.5
+        ],
+        [
+          1136.25,
+          1202.094
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "2.2.1",
+      "page": 2,
+      "tids": [
+        "2.2.1@r0",
+        "2.2.1@r1",
+        "2.2.1@r3",
+        "2.2.1@r5",
+        "2.2.1@r8"
+      ],
+      "bars": [
+        [
+          1094.458,
+          1121.833
+        ],
+        [
+          1009.292,
+          1121.833
+        ],
+        [
+          948.458,
+          1057.958
+        ],
+        [
+          911.958,
+          969.75
+        ],
+        [
+          860.25,
+          933.25
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "2.2.2",
+      "page": 2,
+      "tids": [
+        "2.2.2@r0"
+      ],
+      "bars": [
+        [
+          819.0,
+          844.333
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "2.2.3",
+      "page": 2,
+      "tids": [
+        "2.2.3@r0",
+        "2.2.3@r2",
+        "2.2.3@r4"
+      ],
+      "bars": [
+        [
+          762.906,
+          800.01
+        ],
+        [
+          725.802,
+          741.5
+        ],
+        [
+          688.698,
+          740.073
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "2.2.4",
+      "page": 2,
+      "tids": [
+        "2.2.4@r0",
+        "2.2.4@r2",
+        "2.2.4@r3"
+      ],
+      "bars": [
+        [
+          653.188,
+          675.0
+        ],
+        [
+          614.542,
+          659.812
+        ],
+        [
+          593.562,
+          627.792
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "2.2.5",
+      "page": 2,
+      "tids": [
+        "2.2.5@r0",
+        "2.2.5@r2",
+        "2.2.5@r4"
+      ],
+      "bars": [
+        [
+          536.646,
+          578.938
+        ],
+        [
+          503.417,
+          532.115
+        ],
+        [
+          453.573,
+          506.438
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "2.2.6",
+      "page": 2,
+      "tids": [
+        "2.2.6@r0",
+        "2.2.6@r3",
+        "2.2.6@r5",
+        "2.2.6@r7",
+        "2.2.6@r10",
+        "2.2.6@r12",
+        "2.2.6@r13"
+      ],
+      "bars": [
+        [
+          1504.625,
+          1520.0
+        ],
+        [
+          1496.833,
+          1520.0
+        ],
+        [
+          1457.875,
+          1494.885
+        ],
+        [
+          1424.76,
+          1473.458
+        ],
+        [
+          1403.333,
+          1448.135
+        ],
+        [
+          1393.594,
+          1428.656
+        ],
+        [
+          1352.688,
+          1401.385
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "2.3.0",
+      "page": 2,
+      "tids": [
+        "2.3.0@r0",
+        "2.3.0@r1",
+        "2.3.0@r4",
+        "2.3.0@r6",
+        "2.3.0@r7"
+      ],
+      "bars": [
+        [
+          1201.5,
+          1212.0
+        ],
+        [
+          1171.5,
+          1212.0
+        ],
+        [
+          1153.5,
+          1174.5
+        ],
+        [
+          1119.0,
+          1161.0
+        ],
+        [
+          1099.5,
+          1143.0
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "2.3.1",
+      "page": 2,
+      "tids": [
+        "2.3.1@r0",
+        "2.3.1@r2",
+        "2.3.1@r4",
+        "2.3.1@r6",
+        "2.3.1@r8",
+        "2.3.1@r9"
+      ],
+      "bars": [
+        [
+          1059.979,
+          1093.0
+        ],
+        [
+          1043.198,
+          1093.0
+        ],
+        [
+          1007.771,
+          1043.198
+        ],
+        [
+          981.667,
+          1026.417
+        ],
+        [
+          968.615,
+          1000.312
+        ],
+        [
+          933.188,
+          985.396
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "2.3.2",
+      "page": 2,
+      "tids": [
+        "2.3.2@r0",
+        "2.3.2@r2",
+        "2.3.2@r3",
+        "2.3.2@r5",
+        "2.3.2@r7",
+        "2.3.2@r9"
+      ],
+      "bars": [
+        [
+          898.625,
+          920.0
+        ],
+        [
+          892.75,
+          920.0
+        ],
+        [
+          851.625,
+          906.458
+        ],
+        [
+          822.25,
+          871.208
+        ],
+        [
+          790.917,
+          839.875
+        ],
+        [
+          763.5,
+          794.833
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "2.3.3",
+      "page": 2,
+      "tids": [
+        "2.3.3@r0",
+        "2.3.3@r2",
+        "2.3.3@r4",
+        "2.3.3@r6",
+        "2.3.3@r7",
+        "2.3.3@r9",
+        "2.3.3@r10"
+      ],
+      "bars": [
+        [
+          719.167,
+          741.052
+        ],
+        [
+          697.281,
+          741.052
+        ],
+        [
+          675.396,
+          715.188
+        ],
+        [
+          651.521,
+          693.302
+        ],
+        [
+          629.635,
+          671.417
+        ],
+        [
+          607.75,
+          643.562
+        ],
+        [
+          571.938,
+          623.667
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "2.3.4",
+      "page": 2,
+      "tids": [
+        "2.3.4@r0",
+        "2.3.4@r1",
+        "2.3.4@r2",
+        "2.3.4@r5",
+        "2.3.4@r7",
+        "2.3.4@r9"
+      ],
+      "bars": [
+        [
+          554.865,
+          563.562
+        ],
+        [
+          530.51,
+          549.646
+        ],
+        [
+          495.719,
+          539.208
+        ],
+        [
+          464.406,
+          506.156
+        ],
+        [
+          445.271,
+          487.021
+        ],
+        [
+          417.438,
+          474.844
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "2.3.5",
+      "page": 2,
+      "tids": [
+        "2.3.5@r0",
+        "2.3.5@r2",
+        "2.3.5@r4"
+      ],
+      "bars": [
+        [
+          1500.188,
+          1528.833
+        ],
+        [
+          1473.833,
+          1492.167
+        ],
+        [
+          1441.75,
+          1480.708
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "2.3.6",
+      "page": 2,
+      "tids": [
+        "2.3.6@r0",
+        "2.3.6@r2",
+        "2.3.6@r4",
+        "2.3.6@r6",
+        "2.3.6@r9",
+        "2.3.6@r11"
+      ],
+      "bars": [
+        [
+          1404.75,
+          1428.25
+        ],
+        [
+          1379.292,
+          1430.208
+        ],
+        [
+          1353.833,
+          1400.833
+        ],
+        [
+          1334.25,
+          1373.417
+        ],
+        [
+          1297.042,
+          1342.083
+        ],
+        [
+          1265.708,
+          1328.375
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "2.3.7",
+      "page": 2,
+      "tids": [
+        "2.3.7@r0",
+        "2.3.7@r2",
+        "2.3.7@r3",
+        "2.3.7@r5",
+        "2.3.7@r7",
+        "2.3.7@r8"
+      ],
+      "bars": [
+        [
+          1216.5,
+          1243.0
+        ],
+        [
+          1203.083,
+          1243.0
+        ],
+        [
+          1182.0,
+          1216.5
+        ],
+        [
+          1143.667,
+          1187.75
+        ],
+        [
+          1118.75,
+          1157.083
+        ],
+        [
+          1078.5,
+          1139.833
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "2.4.0",
+      "page": 2,
+      "tids": [
+        "2.4.0@r0",
+        "2.4.0@r2",
+        "2.4.0@r3",
+        "2.4.0@r6",
+        "2.4.0@r8",
+        "2.4.0@r9"
+      ],
+      "bars": [
+        [
+          908.625,
+          923.625
+        ],
+        [
+          889.875,
+          923.625
+        ],
+        [
+          863.625,
+          918.0
+        ],
+        [
+          839.25,
+          869.25
+        ],
+        [
+          807.375,
+          854.25
+        ],
+        [
+          777.375,
+          831.75
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "2.4.1",
+      "page": 2,
+      "tids": [
+        "2.4.1@r0",
+        "2.4.1@r2",
+        "2.4.1@r4",
+        "2.4.1@r6",
+        "2.4.1@r8",
+        "2.4.1@r9"
+      ],
+      "bars": [
+        [
+          730.917,
+          767.0
+        ],
+        [
+          715.583,
+          767.0
+        ],
+        [
+          679.167,
+          717.5
+        ],
+        [
+          654.25,
+          696.417
+        ],
+        [
+          638.917,
+          671.5
+        ],
+        [
+          602.5,
+          658.083
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "2.4.2",
+      "page": 2,
+      "tids": [
+        "2.4.2@r0",
+        "2.4.2@r2"
+      ],
+      "bars": [
+        [
+          561.542,
+          584.0
+        ],
+        [
+          535.562,
+          574.979
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "2.4.3",
+      "page": 2,
+      "tids": [
+        "2.4.3@r0",
+        "2.4.3@r2",
+        "2.4.3@r3",
+        "2.4.3@r5"
+      ],
+      "bars": [
+        [
+          488.312,
+          506.104
+        ],
+        [
+          461.625,
+          503.562
+        ],
+        [
+          434.938,
+          469.25
+        ],
+        [
+          404.438,
+          455.271
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "2.4.4",
+      "page": 2,
+      "tids": [
+        "2.4.4@r0",
+        "2.4.4@r2",
+        "2.4.4@r4",
+        "2.4.4@r6"
+      ],
+      "bars": [
+        [
+          1502.5,
+          1526.562
+        ],
+        [
+          1483.25,
+          1526.562
+        ],
+        [
+          1452.771,
+          1492.875
+        ],
+        [
+          1398.229,
+          1462.396
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "2.4.5",
+      "page": 2,
+      "tids": [
+        "2.4.5@r0",
+        "2.4.5@r2"
+      ],
+      "bars": [
+        [
+          1347.875,
+          1383.875
+        ],
+        [
+          1310.75,
+          1377.125
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "2.4.6",
+      "page": 2,
+      "tids": [
+        "2.4.6@r0",
+        "2.4.6@r2",
+        "2.4.6@r3",
+        "2.4.6@r5"
+      ],
+      "bars": [
+        [
+          1268.104,
+          1284.583
+        ],
+        [
+          1244.562,
+          1282.229
+        ],
+        [
+          1219.844,
+          1253.979
+        ],
+        [
+          1192.771,
+          1239.854
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "2.4.7",
+      "page": 2,
+      "tids": [
+        "2.4.7@r0",
+        "2.4.7@r2"
+      ],
+      "bars": [
+        [
+          1157.552,
+          1179.802
+        ],
+        [
+          1112.125,
+          1151.99
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "2.4.8",
+      "page": 2,
+      "tids": [
+        "2.4.8@r0",
+        "2.4.8@r2",
+        "2.4.8@r4",
+        "2.4.8@r6"
+      ],
+      "bars": [
+        [
+          1064.562,
+          1103.625
+        ],
+        [
+          1050.5,
+          1103.625
+        ],
+        [
+          1006.75,
+          1052.062
+        ],
+        [
+          972.375,
+          1030.188
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "2.4.9",
+      "page": 2,
+      "tids": [
+        "2.4.9@r0",
+        "2.4.9@r2",
+        "2.4.9@r4",
+        "2.4.9@r5",
+        "2.4.9@r7",
+        "2.4.9@r9",
+        "2.4.9@r11",
+        "2.4.9@r13"
+      ],
+      "bars": [
+        [
+          944.76,
+          961.458
+        ],
+        [
+          908.979,
+          961.458
+        ],
+        [
+          906.594,
+          961.458
+        ],
+        [
+          858.885,
+          923.292
+        ],
+        [
+          851.729,
+          885.125
+        ],
+        [
+          818.333,
+          861.271
+        ],
+        [
+          801.635,
+          849.344
+        ],
+        [
+          751.542,
+          818.333
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "2.4.10",
+      "page": 2,
+      "tids": [
+        "2.4.10@r0",
+        "2.4.10@r2"
+      ],
+      "bars": [
+        [
+          721.719,
+          748.719
+        ],
+        [
+          688.812,
+          718.344
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "2.4.11",
+      "page": 2,
+      "tids": [
+        "2.4.11@r0",
+        "2.4.11@r2",
+        "2.4.11@r3",
+        "2.4.11@r5",
+        "2.4.11@r7",
+        "2.4.11@r8"
+      ],
+      "bars": [
+        [
+          652.281,
+          681.781
+        ],
+        [
+          633.844,
+          667.031
+        ],
+        [
+          595.125,
+          632.0
+        ],
+        [
+          578.531,
+          617.25
+        ],
+        [
+          565.625,
+          598.812
+        ],
+        [
+          523.219,
+          574.844
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "2.5.0",
+      "page": 2,
+      "tids": [
+        "2.5.0@r0",
+        "2.5.0@r2",
+        "2.5.0@r4",
+        "2.5.0@r8",
+        "2.5.0@r10"
+      ],
+      "bars": [
+        [
+          1357.458,
+          1391.104
+        ],
+        [
+          1341.625,
+          1391.104
+        ],
+        [
+          1319.854,
+          1373.292
+        ],
+        [
+          1276.312,
+          1327.771
+        ],
+        [
+          1222.875,
+          1298.083
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "2.5.1",
+      "page": 2,
+      "tids": [
+        "2.5.1@r0",
+        "2.5.1@r2",
+        "2.5.1@r4"
+      ],
+      "bars": [
+        [
+          1184.875,
+          1214.969
+        ],
+        [
+          1160.354,
+          1182.646
+        ],
+        [
+          1128.031,
+          1168.156
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "2.5.2",
+      "page": 2,
+      "tids": [
+        "2.5.2@r0",
+        "2.5.2@r2",
+        "2.5.2@r4"
+      ],
+      "bars": [
+        [
+          1069.333,
+          1116.0
+        ],
+        [
+          1032.667,
+          1064.333
+        ],
+        [
+          977.667,
+          1036.0
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "2.5.3",
+      "page": 2,
+      "tids": [
+        "2.5.3@r0",
+        "2.5.3@r3"
+      ],
+      "bars": [
+        [
+          933.792,
+          966.375
+        ],
+        [
+          893.542,
+          931.875
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "2.5.4",
+      "page": 2,
+      "tids": [
+        "2.5.4@r0",
+        "2.5.4@r3",
+        "2.5.4@r6",
+        "2.5.4@r8"
+      ],
+      "bars": [
+        [
+          859.542,
+          882.354
+        ],
+        [
+          827.604,
+          862.583
+        ],
+        [
+          795.667,
+          838.25
+        ],
+        [
+          765.25,
+          812.396
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "2.5.5",
+      "page": 2,
+      "tids": [
+        "2.5.5@r0",
+        "2.5.5@r2",
+        "2.5.5@r4",
+        "2.5.5@r6",
+        "2.5.5@r10",
+        "2.5.5@r12"
+      ],
+      "bars": [
+        [
+          711.708,
+          747.177
+        ],
+        [
+          711.708,
+          749.542
+        ],
+        [
+          669.146,
+          723.531
+        ],
+        [
+          652.594,
+          699.885
+        ],
+        [
+          605.302,
+          662.052
+        ],
+        [
+          543.823,
+          636.042
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "2.5.6",
+      "page": 2,
+      "tids": [
+        "2.5.6@r0",
+        "2.5.6@r2"
+      ],
+      "bars": [
+        [
+          1183.615,
+          1225.969
+        ],
+        [
+          1139.031,
+          1175.812
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "2.5.7",
+      "page": 2,
+      "tids": [
+        "2.5.7@r0",
+        "2.5.7@r1",
+        "2.5.7@r3",
+        "2.5.7@r5",
+        "2.5.7@r7",
+        "2.5.7@r9",
+        "2.5.7@r11",
+        "2.5.7@r12"
+      ],
+      "bars": [
+        [
+          1094.75,
+          1125.688
+        ],
+        [
+          1094.75,
+          1125.688
+        ],
+        [
+          1043.188,
+          1105.062
+        ],
+        [
+          1008.812,
+          1070.688
+        ],
+        [
+          974.438,
+          1050.062
+        ],
+        [
+          929.75,
+          1012.25
+        ],
+        [
+          902.25,
+          964.125
+        ],
+        [
+          830.062,
+          926.312
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "2.193.10",
+      "page": 30,
+      "tids": [
+        "2.193.10@r0",
+        "2.193.10@r2"
+      ],
+      "bars": [
+        [
+          1245.594,
+          1282.594
+        ],
+        [
+          1205.125,
+          1237.5
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "2.194.1",
+      "page": 30,
+      "tids": [
+        "2.194.1@r0",
+        "2.194.1@r1",
+        "2.194.1@r3",
+        "2.194.1@r5",
+        "2.194.1@r8"
+      ],
+      "bars": [
+        [
+          233.75,
+          246.292
+        ],
+        [
+          188.958,
+          231.958
+        ],
+        [
+          156.708,
+          201.5
+        ],
+        [
+          135.208,
+          171.042
+        ],
+        [
+          110.125,
+          153.125
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "2.196.40",
+      "page": 30,
+      "tids": [
+        "2.196.40@r0",
+        "2.196.40@r2"
+      ],
+      "bars": [
+        [
+          1790.125,
+          1814.594
+        ],
+        [
+          1767.344,
+          1791.812
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "3.167.19",
+      "page": 72,
+      "tids": [
+        "3.167.19@r0",
+        "3.167.19@r2",
+        "3.167.19@r4",
+        "3.167.19@r6",
+        "3.167.19@r8"
+      ],
+      "bars": [
+        [
+          1793.448,
+          1828.0
+        ],
+        [
+          1741.938,
+          1804.646
+        ],
+        [
+          1708.344,
+          1732.979
+        ],
+        [
+          1672.51,
+          1726.26
+        ],
+        [
+          1634.438,
+          1701.625
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "3.169.10",
+      "page": 72,
+      "tids": [
+        "3.169.10@r0",
+        "3.169.10@r2",
+        "3.169.10@r3"
+      ],
+      "bars": [
+        [
+          982.573,
+          1024.479
+        ],
+        [
+          954.635,
+          1008.958
+        ],
+        [
+          900.312,
+          963.948
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "3.173.11",
+      "page": 72,
+      "tids": [
+        "3.173.11@r0",
+        "3.173.11@r2",
+        "3.173.11@r3",
+        "3.173.11@r6"
+      ],
+      "bars": [
+        [
+          1496.281,
+          1549.0
+        ],
+        [
+          1452.312,
+          1510.938
+        ],
+        [
+          1372.75,
+          1452.312
+        ],
+        [
+          1372.75,
+          1433.469
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "6.53.13",
+      "page": 134,
+      "tids": [
+        "6.53.13@r0",
+        "6.53.13@r2",
+        "6.53.13@r4",
+        "6.53.13@r6",
+        "6.53.13@r8"
+      ],
+      "bars": [
+        [
+          978.917,
+          1023.0
+        ],
+        [
+          999.75,
+          1023.0
+        ],
+        [
+          941.417,
+          991.417
+        ],
+        [
+          893.5,
+          943.5
+        ],
+        [
+          841.417,
+          918.5
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "6.59.15",
+      "page": 134,
+      "tids": [
+        "6.59.15@r0",
+        "6.59.15@r2",
+        "6.59.15@r4",
+        "6.59.15@r6"
+      ],
+      "bars": [
+        [
+          909.333,
+          967.333
+        ],
+        [
+          868.25,
+          923.833
+        ],
+        [
+          798.167,
+          848.917
+        ],
+        [
+          754.667,
+          853.75
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "6.59.16",
+      "page": 134,
+      "tids": [
+        "6.59.16@r0",
+        "6.59.16@r2"
+      ],
+      "bars": [
+        [
+          705.354,
+          726.0
+        ],
+        [
+          649.208,
+          682.438
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "7.197.7",
+      "page": 176,
+      "tids": [
+        "7.197.7@r0",
+        "7.197.7@r2"
+      ],
+      "bars": [
+        [
+          157.323,
+          198.917
+        ],
+        [
+          129.594,
+          157.323
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "7.203.9",
+      "page": 176,
+      "tids": [
+        "7.203.9@r0",
+        "7.203.9@r2",
+        "7.203.9@r5",
+        "7.203.9@r7"
+      ],
+      "bars": [
+        [
+          1572.292,
+          1584.125
+        ],
+        [
+          1526.438,
+          1560.458
+        ],
+        [
+          1505.729,
+          1532.354
+        ],
+        [
+          1462.833,
+          1514.604
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "7.205.8",
+      "page": 176,
+      "tids": [
+        "7.205.8@r0",
+        "7.205.8@r2"
+      ],
+      "bars": [
+        [
+          548.094,
+          573.719
+        ],
+        [
+          503.25,
+          555.781
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "9.27.3",
+      "page": 191,
+      "tids": [
+        "9.27.3@r0",
+        "9.27.3@r2"
+      ],
+      "bars": [
+        [
+          1356.75,
+          1378.417
+        ],
+        [
+          1318.833,
+          1363.25
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "9.30.10",
+      "page": 191,
+      "tids": [
+        "9.30.10@r0",
+        "9.30.10@r3",
+        "9.30.10@r5"
+      ],
+      "bars": [
+        [
+          996.771,
+          1098.062
+        ],
+        [
+          961.021,
+          1098.062
+        ],
+        [
+          847.812,
+          969.958
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "9.30.22",
+      "page": 191,
+      "tids": [
+        "9.30.22@r0",
+        "9.30.22@r2",
+        "9.30.22@r4",
+        "9.30.22@r6",
+        "9.30.22@r8",
+        "9.30.22@r9"
+      ],
+      "bars": [
+        [
+          1396.75,
+          1520.0
+        ],
+        [
+          1347.531,
+          1520.0
+        ],
+        [
+          1260.031,
+          1369.406
+        ],
+        [
+          1167.062,
+          1298.312
+        ],
+        [
+          1128.781,
+          1227.219
+        ],
+        [
+          1035.812,
+          1156.125
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "19.26.14",
+      "page": 307,
+      "tids": [
+        "19.26.14@r0",
+        "19.26.14@r2",
+        "19.26.14@r4"
+      ],
+      "bars": [
+        [
+          1039.74,
+          1081.302
+        ],
+        [
+          1006.49,
+          1031.427
+        ],
+        [
+          970.469,
+          1014.802
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "19.30.2",
+      "page": 307,
+      "tids": [
+        "19.30.2@r0",
+        "19.30.2@r2",
+        "19.30.2@r4"
+      ],
+      "bars": [
+        [
+          974.0,
+          1029.5
+        ],
+        [
+          948.5,
+          987.5
+        ],
+        [
+          909.5,
+          959.0
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "19.38.1",
+      "page": 307,
+      "tids": [
+        "19.38.1@r0",
+        "19.38.1@r2",
+        "19.38.1@r4"
+      ],
+      "bars": [
+        [
+          212.531,
+          234.469
+        ],
+        [
+          183.281,
+          208.875
+        ],
+        [
+          136.969,
+          183.281
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "21.12.0",
+      "page": 323,
+      "tids": [
+        "21.12.0@r0",
+        "21.12.0@r2",
+        "21.12.0@r4"
+      ],
+      "bars": [
+        [
+          1303.833,
+          1347.062
+        ],
+        [
+          1236.396,
+          1295.188
+        ],
+        [
+          1236.396,
+          1277.896
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "21.15.7",
+      "page": 323,
+      "tids": [
+        "21.15.7@r0",
+        "21.15.7@r3",
+        "21.15.7@r5",
+        "21.15.7@r7",
+        "21.15.7@r8"
+      ],
+      "bars": [
+        [
+          770.906,
+          834.875
+        ],
+        [
+          720.844,
+          782.031
+        ],
+        [
+          673.562,
+          748.656
+        ],
+        [
+          637.406,
+          706.938
+        ],
+        [
+          590.125,
+          681.906
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "21.22.4",
+      "page": 323,
+      "tids": [
+        "21.22.4@r0",
+        "21.22.4@r2"
+      ],
+      "bars": [
+        [
+          1120.719,
+          1157.0
+        ],
+        [
+          1085.521,
+          1116.177
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "33.37.41",
+      "page": 423,
+      "tids": [
+        "33.37.41@r0",
+        "33.37.41@r2",
+        "33.37.41@r4"
+      ],
+      "bars": [
+        [
+          1171.375,
+          1216.656
+        ],
+        [
+          1122.156,
+          1173.344
+        ],
+        [
+          1080.812,
+          1153.656
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "33.38.11",
+      "page": 423,
+      "tids": [
+        "33.38.11@r0",
+        "33.38.11@r1",
+        "33.38.11@r5"
+      ],
+      "bars": [
+        [
+          230.25,
+          242.333
+        ],
+        [
+          175.875,
+          242.333
+        ],
+        [
+          146.875,
+          196.417
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "33.39.8",
+      "page": 423,
+      "tids": [
+        "33.39.8@r0",
+        "33.39.8@r2"
+      ],
+      "bars": [
+        [
+          395.5,
+          430.0
+        ],
+        [
+          367.875,
+          391.25
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "40.27.0",
+      "page": 470,
+      "tids": [
+        "40.27.0@r0",
+        "40.27.0@r2",
+        "40.27.0@r5"
+      ],
+      "bars": [
+        [
+          1763.375,
+          1819.885
+        ],
+        [
+          1706.865,
+          1759.729
+        ],
+        [
+          1663.115,
+          1743.323
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "40.27.4",
+      "page": 470,
+      "tids": [
+        "40.27.4@r0",
+        "40.27.4@r2",
+        "40.27.4@r4",
+        "40.27.4@r7"
+      ],
+      "bars": [
+        [
+          1047.688,
+          1072.0
+        ],
+        [
+          1028.594,
+          1072.0
+        ],
+        [
+          955.156,
+          1022.719
+        ],
+        [
+          950.75,
+          1009.5
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "40.31.4",
+      "page": 470,
+      "tids": [
+        "40.31.4@r0",
+        "40.31.4@r2",
+        "40.31.4@r5"
+      ],
+      "bars": [
+        [
+          1765.75,
+          1823.719
+        ],
+        [
+          1721.031,
+          1765.75
+        ],
+        [
+          1682.938,
+          1747.531
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "45.14.8",
+      "page": 500,
+      "tids": [
+        "45.14.8@r0",
+        "45.14.8@r1",
+        "45.14.8@r5"
+      ],
+      "bars": [
+        [
+          409.406,
+          424.438
+        ],
+        [
+          362.0,
+          424.438
+        ],
+        [
+          336.562,
+          381.656
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "45.15.4",
+      "page": 500,
+      "tids": [
+        "45.15.4@r0",
+        "45.15.4@r2",
+        "45.15.4@r4"
+      ],
+      "bars": [
+        [
+          1785.49,
+          1832.312
+        ],
+        [
+          1732.208,
+          1766.115
+        ],
+        [
+          1696.688,
+          1749.969
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "45.18.12",
+      "page": 500,
+      "tids": [
+        "45.18.12@r0",
+        "45.18.12@r2",
+        "45.18.12@r4",
+        "45.18.12@r6",
+        "45.18.12@r8",
+        "45.18.12@r9"
+      ],
+      "bars": [
+        [
+          1335.031,
+          1391.0
+        ],
+        [
+          1357.281,
+          1391.0
+        ],
+        [
+          1296.094,
+          1326.688
+        ],
+        [
+          1240.469,
+          1310.0
+        ],
+        [
+          1209.875,
+          1268.281
+        ],
+        [
+          1143.125,
+          1229.344
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-sequence",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    }
+  ]
+}

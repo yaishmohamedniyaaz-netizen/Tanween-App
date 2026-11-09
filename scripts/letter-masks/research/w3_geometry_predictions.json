@@ -1,0 +1,3469 @@
+{
+  "predictions": [
+    {
+      "wid": "1.1.0",
+      "page": 1,
+      "tids": [
+        "1.1.0@r0",
+        "1.1.0@r2",
+        "1.1.0@r4"
+      ],
+      "bars": [
+        [
+          1233.25,
+          1295.0
+        ],
+        [
+          1179.0,
+          1295.0
+        ],
+        [
+          1126.688,
+          1206.125
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "1.1.1",
+      "page": 1,
+      "tids": [
+        "1.1.1@r0",
+        "1.1.1@r1",
+        "1.1.1@r5"
+      ],
+      "bars": [
+        [
+          1104.781,
+          1126.0
+        ],
+        [
+          1080.875,
+          1116.292
+        ],
+        [
+          1058.74,
+          1088.844
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "1.1.2",
+      "page": 1,
+      "tids": [
+        "1.1.2@r0",
+        "1.1.2@r1",
+        "1.1.2@r2",
+        "1.1.2@r5",
+        "1.1.2@r7",
+        "1.1.2@r10"
+      ],
+      "bars": [
+        [
+          1027.542,
+          1053.75
+        ],
+        [
+          1010.583,
+          1053.75
+        ],
+        [
+          992.083,
+          1038.333
+        ],
+        [
+          970.5,
+          1027.542
+        ],
+        [
+          950.458,
+          987.458
+        ],
+        [
+          924.25,
+          962.792
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "1.1.3",
+      "page": 1,
+      "tids": [
+        "1.1.3@r0",
+        "1.1.3@r1",
+        "1.1.3@r2",
+        "1.1.3@r5",
+        "1.1.3@r7",
+        "1.1.3@r8"
+      ],
+      "bars": [
+        [
+          888.417,
+          914.354
+        ],
+        [
+          874.583,
+          912.625
+        ],
+        [
+          843.458,
+          897.062
+        ],
+        [
+          815.792,
+          883.229
+        ],
+        [
+          800.229,
+          853.833
+        ],
+        [
+          767.375,
+          819.25
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "1.2.0",
+      "page": 1,
+      "tids": [
+        "1.2.0@r0",
+        "1.2.0@r1",
+        "1.2.0@r3",
+        "1.2.0@r5",
+        "1.2.0@r7"
+      ],
+      "bars": [
+        [
+          1392.781,
+          1434.0
+        ],
+        [
+          1362.312,
+          1432.625
+        ],
+        [
+          1317.781,
+          1409.188
+        ],
+        [
+          1284.969,
+          1369.344
+        ],
+        [
+          1226.375,
+          1299.031
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "1.2.1",
+      "page": 1,
+      "tids": [
+        "1.2.1@r0",
+        "1.2.1@r2",
+        "1.2.1@r5"
+      ],
+      "bars": [
+        [
+          1191.667,
+          1208.948
+        ],
+        [
+          1168.625,
+          1203.188
+        ],
+        [
+          1149.698,
+          1176.031
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "1.2.2",
+      "page": 1,
+      "tids": [
+        "1.2.2@r0",
+        "1.2.2@r2"
+      ],
+      "bars": [
+        [
+          1062.375,
+          1130.458
+        ],
+        [
+          990.708,
+          1064.167
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "1.2.3",
+      "page": 1,
+      "tids": [
+        "1.2.3@r0",
+        "1.2.3@r1",
+        "1.2.3@r3",
+        "1.2.3@r6",
+        "1.2.3@r8",
+        "1.2.3@r10",
+        "1.2.3@r11"
+      ],
+      "bars": [
+        [
+          912.5,
+          968.75
+        ],
+        [
+          905.0,
+          968.75
+        ],
+        [
+          848.75,
+          946.25
+        ],
+        [
+          800.0,
+          931.25
+        ],
+        [
+          747.5,
+          886.25
+        ],
+        [
+          713.75,
+          830.0
+        ],
+        [
+          646.25,
+          807.5
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "1.3.0",
+      "page": 1,
+      "tids": [
+        "1.3.0@r0",
+        "1.3.0@r1",
+        "1.3.0@r2",
+        "1.3.0@r5",
+        "1.3.0@r7",
+        "1.3.0@r10"
+      ],
+      "bars": [
+        [
+          1496.167,
+          1523.667
+        ],
+        [
+          1484.708,
+          1523.667
+        ],
+        [
+          1436.583,
+          1505.333
+        ],
+        [
+          1402.208,
+          1491.583
+        ],
+        [
+          1379.292,
+          1454.917
+        ],
+        [
+          1333.458,
+          1377.0
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "1.3.1",
+      "page": 1,
+      "tids": [
+        "1.3.1@r0",
+        "1.3.1@r1",
+        "1.3.1@r2",
+        "1.3.1@r5",
+        "1.3.1@r7",
+        "1.3.1@r8"
+      ],
+      "bars": [
+        [
+          1287.375,
+          1323.875
+        ],
+        [
+          1260.0,
+          1323.875
+        ],
+        [
+          1223.5,
+          1303.344
+        ],
+        [
+          1196.125,
+          1280.531
+        ],
+        [
+          1168.75,
+          1234.906
+        ],
+        [
+          1125.406,
+          1189.281
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "1.4.0",
+      "page": 1,
+      "tids": [
+        "1.4.0@r0",
+        "1.4.0@r3",
+        "1.4.0@r5"
+      ],
+      "bars": [
+        [
+          935.375,
+          966.188
+        ],
+        [
+          884.625,
+          962.562
+        ],
+        [
+          837.5,
+          906.375
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "1.4.1",
+      "page": 1,
+      "tids": [
+        "1.4.1@r0",
+        "1.4.1@r2",
+        "1.4.1@r4"
+      ],
+      "bars": [
+        [
+          778.604,
+          813.0
+        ],
+        [
+          751.104,
+          813.0
+        ],
+        [
+          722.458,
+          754.542
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "1.4.2",
+      "page": 1,
+      "tids": [
+        "1.4.2@r0",
+        "1.4.2@r1",
+        "1.4.2@r2",
+        "1.4.2@r5",
+        "1.4.2@r6"
+      ],
+      "bars": [
+        [
+          664.042,
+          713.083
+        ],
+        [
+          646.208,
+          710.854
+        ],
+        [
+          599.396,
+          684.104
+        ],
+        [
+          563.729,
+          641.75
+        ],
+        [
+          539.208,
+          588.25
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "1.5.0",
+      "page": 1,
+      "tids": [
+        "1.5.0@r0",
+        "1.5.0@r2",
+        "1.5.0@r6"
+      ],
+      "bars": [
+        [
+          1478.656,
+          1515.0
+        ],
+        [
+          1438.344,
+          1512.25
+        ],
+        [
+          1403.406,
+          1454.469
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "1.5.1",
+      "page": 1,
+      "tids": [
+        "1.5.1@r0",
+        "1.5.1@r2",
+        "1.5.1@r4",
+        "1.5.1@r6"
+      ],
+      "bars": [
+        [
+          1350.719,
+          1385.938
+        ],
+        [
+          1317.177,
+          1384.26
+        ],
+        [
+          1285.312,
+          1350.719
+        ],
+        [
+          1245.062,
+          1303.76
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "1.5.2",
+      "page": 1,
+      "tids": [
+        "1.5.2@r0",
+        "1.5.2@r2",
+        "1.5.2@r4",
+        "1.5.2@r8"
+      ],
+      "bars": [
+        [
+          1184.969,
+          1227.365
+        ],
+        [
+          1138.719,
+          1225.438
+        ],
+        [
+          1104.031,
+          1188.823
+        ],
+        [
+          1061.635,
+          1121.375
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "1.5.3",
+      "page": 1,
+      "tids": [
+        "1.5.3@r0",
+        "1.5.3@r2",
+        "1.5.3@r4",
+        "1.5.3@r6",
+        "1.5.3@r8",
+        "1.5.3@r9"
+      ],
+      "bars": [
+        [
+          971.74,
+          1041.531
+        ],
+        [
+          961.271,
+          1041.531
+        ],
+        [
+          898.458,
+          1020.594
+        ],
+        [
+          842.625,
+          971.74
+        ],
+        [
+          800.75,
+          919.396
+        ],
+        [
+          741.427,
+          832.156
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "1.6.0",
+      "page": 1,
+      "tids": [
+        "1.6.0@r0",
+        "1.6.0@r1",
+        "1.6.0@r3",
+        "1.6.0@r5"
+      ],
+      "bars": [
+        [
+          543.833,
+          552.0
+        ],
+        [
+          507.083,
+          552.0
+        ],
+        [
+          456.042,
+          535.667
+        ],
+        [
+          421.333,
+          486.667
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "1.6.1",
+      "page": 1,
+      "tids": [
+        "1.6.1@r0",
+        "1.6.1@r1",
+        "1.6.1@r2",
+        "1.6.1@r5",
+        "1.6.1@r8"
+      ],
+      "bars": [
+        [
+          1479.208,
+          1521.583
+        ],
+        [
+          1448.604,
+          1500.396
+        ],
+        [
+          1401.521,
+          1493.333
+        ],
+        [
+          1363.854,
+          1460.375
+        ],
+        [
+          1319.125,
+          1382.688
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "1.6.2",
+      "page": 1,
+      "tids": [
+        "1.6.2@r0",
+        "1.6.2@r1",
+        "1.6.2@r3",
+        "1.6.2@r5",
+        "1.6.2@r7",
+        "1.6.2@r9",
+        "1.6.2@r11",
+        "1.6.2@r12"
+      ],
+      "bars": [
+        [
+          1261.354,
+          1300.083
+        ],
+        [
+          1258.375,
+          1300.083
+        ],
+        [
+          1219.646,
+          1279.229
+        ],
+        [
+          1183.896,
+          1273.271
+        ],
+        [
+          1148.146,
+          1252.417
+        ],
+        [
+          1112.396,
+          1219.646
+        ],
+        [
+          1076.646,
+          1189.854
+        ],
+        [
+          1037.917,
+          1166.021
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "1.7.0",
+      "page": 1,
+      "tids": [
+        "1.7.0@r0",
+        "1.7.0@r2",
+        "1.7.0@r5"
+      ],
+      "bars": [
+        [
+          857.094,
+          889.5
+        ],
+        [
+          801.812,
+          887.594
+        ],
+        [
+          748.438,
+          826.594
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "1.7.1",
+      "page": 1,
+      "tids": [
+        "1.7.1@r0",
+        "1.7.1@r1",
+        "1.7.1@r4",
+        "1.7.1@r6",
+        "1.7.1@r7"
+      ],
+      "bars": [
+        [
+          713.146,
+          734.865
+        ],
+        [
+          689.979,
+          734.865
+        ],
+        [
+          666.812,
+          716.042
+        ],
+        [
+          637.854,
+          698.667
+        ],
+        [
+          616.135,
+          661.021
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "1.7.2",
+      "page": 1,
+      "tids": [
+        "1.7.2@r0",
+        "1.7.2@r2",
+        "1.7.2@r4",
+        "1.7.2@r6",
+        "1.7.2@r8"
+      ],
+      "bars": [
+        [
+          559.479,
+          595.427
+        ],
+        [
+          534.104,
+          595.427
+        ],
+        [
+          493.927,
+          574.281
+        ],
+        [
+          462.208,
+          544.677
+        ],
+        [
+          417.802,
+          481.24
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "1.7.3",
+      "page": 1,
+      "tids": [
+        "1.7.3@r0",
+        "1.7.3@r2",
+        "1.7.3@r4",
+        "1.7.3@r6",
+        "1.7.3@r8"
+      ],
+      "bars": [
+        [
+          1327.521,
+          1364.812
+        ],
+        [
+          1299.552,
+          1362.948
+        ],
+        [
+          1279.042,
+          1344.302
+        ],
+        [
+          1243.615,
+          1312.604
+        ],
+        [
+          1206.323,
+          1264.125
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "1.7.4",
+      "page": 1,
+      "tids": [
+        "1.7.4@r0",
+        "1.7.4@r2",
+        "1.7.4@r4"
+      ],
+      "bars": [
+        [
+          1170.781,
+          1201.25
+        ],
+        [
+          1130.562,
+          1196.375
+        ],
+        [
+          1104.969,
+          1148.844
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "1.7.5",
+      "page": 1,
+      "tids": [
+        "1.7.5@r0",
+        "1.7.5@r1",
+        "1.7.5@r3",
+        "1.7.5@r5",
+        "1.7.5@r7",
+        "1.7.5@r9",
+        "1.7.5@r10"
+      ],
+      "bars": [
+        [
+          1038.75,
+          1098.75
+        ],
+        [
+          1020.0,
+          1076.25
+        ],
+        [
+          975.0,
+          1072.5
+        ],
+        [
+          930.0,
+          1053.75
+        ],
+        [
+          873.75,
+          1008.75
+        ],
+        [
+          828.75,
+          971.25
+        ],
+        [
+          783.75,
+          900.0
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "1.7.6",
+      "page": 1,
+      "tids": [
+        "1.7.6@r0",
+        "1.7.6@r2",
+        "1.7.6@r4",
+        "1.7.6@r6",
+        "1.7.6@r8"
+      ],
+      "bars": [
+        [
+          699.0,
+          736.5
+        ],
+        [
+          667.75,
+          736.5
+        ],
+        [
+          646.917,
+          717.75
+        ],
+        [
+          603.167,
+          649.0
+        ],
+        [
+          559.417,
+          626.083
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "1.7.7",
+      "page": 1,
+      "tids": [
+        "1.7.7@r0",
+        "1.7.7@r2"
+      ],
+      "bars": [
+        [
+          1163.458,
+          1198.094
+        ],
+        [
+          1139.708,
+          1186.219
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "1.7.8",
+      "page": 1,
+      "tids": [
+        "1.7.8@r0",
+        "1.7.8@r1",
+        "1.7.8@r2",
+        "1.7.8@r7",
+        "1.7.8@r10",
+        "1.7.8@r11"
+      ],
+      "bars": [
+        [
+          1053.354,
+          1094.917
+        ],
+        [
+          1031.188,
+          1075.521
+        ],
+        [
+          984.083,
+          1069.979
+        ],
+        [
+          950.833,
+          1050.583
+        ],
+        [
+          898.188,
+          1003.479
+        ],
+        [
+          862.167,
+          928.667
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "2.1.0",
+      "page": 2,
+      "tids": [
+        "2.1.0@r0",
+        "2.1.0@r1",
+        "2.1.0@r3"
+      ],
+      "bars": [
+        [
+          1448.5,
+          1479.917
+        ],
+        [
+          1423.125,
+          1458.167
+        ],
+        [
+          1386.875,
+          1431.583
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "2.2.0",
+      "page": 2,
+      "tids": [
+        "2.2.0@r0",
+        "2.2.0@r3",
+        "2.2.0@r5"
+      ],
+      "bars": [
+        [
+          1218.938,
+          1246.5
+        ],
+        [
+          1177.594,
+          1246.5
+        ],
+        [
+          1134.719,
+          1192.906
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "2.2.1",
+      "page": 2,
+      "tids": [
+        "2.2.1@r0",
+        "2.2.1@r1",
+        "2.2.1@r3",
+        "2.2.1@r5",
+        "2.2.1@r8"
+      ],
+      "bars": [
+        [
+          1067.083,
+          1121.833
+        ],
+        [
+          1024.5,
+          1106.625
+        ],
+        [
+          966.708,
+          1088.375
+        ],
+        [
+          918.042,
+          1036.667
+        ],
+        [
+          854.167,
+          951.5
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "2.2.2",
+      "page": 2,
+      "tids": [
+        "2.2.2@r0"
+      ],
+      "bars": [
+        [
+          819.0,
+          844.333
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "2.2.3",
+      "page": 2,
+      "tids": [
+        "2.2.3@r0",
+        "2.2.3@r2",
+        "2.2.3@r4"
+      ],
+      "bars": [
+        [
+          765.76,
+          800.01
+        ],
+        [
+          721.521,
+          794.302
+        ],
+        [
+          688.698,
+          737.219
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "2.2.4",
+      "page": 2,
+      "tids": [
+        "2.2.4@r0",
+        "2.2.4@r2",
+        "2.2.4@r3"
+      ],
+      "bars": [
+        [
+          645.458,
+          675.0
+        ],
+        [
+          615.646,
+          675.0
+        ],
+        [
+          593.562,
+          626.688
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "2.2.5",
+      "page": 2,
+      "tids": [
+        "2.2.5@r0",
+        "2.2.5@r2",
+        "2.2.5@r4"
+      ],
+      "bars": [
+        [
+          541.177,
+          578.938
+        ],
+        [
+          503.417,
+          562.323
+        ],
+        [
+          453.573,
+          510.969
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "2.2.6",
+      "page": 2,
+      "tids": [
+        "2.2.6@r0",
+        "2.2.6@r3",
+        "2.2.6@r5",
+        "2.2.6@r7",
+        "2.2.6@r10",
+        "2.2.6@r12",
+        "2.2.6@r13"
+      ],
+      "bars": [
+        [
+          1500.729,
+          1520.0
+        ],
+        [
+          1492.938,
+          1520.0
+        ],
+        [
+          1461.771,
+          1520.0
+        ],
+        [
+          1436.448,
+          1500.729
+        ],
+        [
+          1405.281,
+          1483.198
+        ],
+        [
+          1385.802,
+          1455.927
+        ],
+        [
+          1350.74,
+          1434.5
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "2.3.0",
+      "page": 2,
+      "tids": [
+        "2.3.0@r0",
+        "2.3.0@r1",
+        "2.3.0@r4",
+        "2.3.0@r6",
+        "2.3.0@r7"
+      ],
+      "bars": [
+        [
+          1194.0,
+          1212.0
+        ],
+        [
+          1177.5,
+          1212.0
+        ],
+        [
+          1149.0,
+          1195.5
+        ],
+        [
+          1128.0,
+          1183.5
+        ],
+        [
+          1099.5,
+          1140.0
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "2.3.1",
+      "page": 2,
+      "tids": [
+        "2.3.1@r0",
+        "2.3.1@r2",
+        "2.3.1@r4",
+        "2.3.1@r6",
+        "2.3.1@r8",
+        "2.3.1@r9"
+      ],
+      "bars": [
+        [
+          1058.115,
+          1093.0
+        ],
+        [
+          1043.198,
+          1093.0
+        ],
+        [
+          1018.958,
+          1089.812
+        ],
+        [
+          983.531,
+          1063.708
+        ],
+        [
+          964.885,
+          1033.875
+        ],
+        [
+          933.188,
+          996.583
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "2.3.2",
+      "page": 2,
+      "tids": [
+        "2.3.2@r0",
+        "2.3.2@r2",
+        "2.3.2@r3",
+        "2.3.2@r5",
+        "2.3.2@r7",
+        "2.3.2@r9"
+      ],
+      "bars": [
+        [
+          892.75,
+          920.0
+        ],
+        [
+          892.75,
+          920.0
+        ],
+        [
+          841.833,
+          916.25
+        ],
+        [
+          810.5,
+          875.125
+        ],
+        [
+          785.042,
+          859.458
+        ],
+        [
+          763.5,
+          792.875
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "2.3.3",
+      "page": 2,
+      "tids": [
+        "2.3.3@r0",
+        "2.3.3@r2",
+        "2.3.3@r4",
+        "2.3.3@r6",
+        "2.3.3@r7",
+        "2.3.3@r9",
+        "2.3.3@r10"
+      ],
+      "bars": [
+        [
+          715.188,
+          741.052
+        ],
+        [
+          711.208,
+          741.052
+        ],
+        [
+          679.375,
+          741.052
+        ],
+        [
+          655.5,
+          723.146
+        ],
+        [
+          639.583,
+          705.24
+        ],
+        [
+          601.781,
+          675.396
+        ],
+        [
+          571.938,
+          655.5
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "2.3.4",
+      "page": 2,
+      "tids": [
+        "2.3.4@r0",
+        "2.3.4@r1",
+        "2.3.4@r2",
+        "2.3.4@r5",
+        "2.3.4@r7",
+        "2.3.4@r9"
+      ],
+      "bars": [
+        [
+          539.208,
+          563.562
+        ],
+        [
+          530.51,
+          563.562
+        ],
+        [
+          502.677,
+          549.646
+        ],
+        [
+          473.104,
+          539.208
+        ],
+        [
+          447.01,
+          518.333
+        ],
+        [
+          417.438,
+          474.844
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "2.3.5",
+      "page": 2,
+      "tids": [
+        "2.3.5@r0",
+        "2.3.5@r2",
+        "2.3.5@r4"
+      ],
+      "bars": [
+        [
+          1501.333,
+          1528.833
+        ],
+        [
+          1470.396,
+          1520.812
+        ],
+        [
+          1441.75,
+          1479.562
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "2.3.6",
+      "page": 2,
+      "tids": [
+        "2.3.6@r0",
+        "2.3.6@r2",
+        "2.3.6@r4",
+        "2.3.6@r6",
+        "2.3.6@r9",
+        "2.3.6@r11"
+      ],
+      "bars": [
+        [
+          1394.958,
+          1430.208
+        ],
+        [
+          1375.375,
+          1430.208
+        ],
+        [
+          1347.958,
+          1420.417
+        ],
+        [
+          1328.375,
+          1394.958
+        ],
+        [
+          1299.0,
+          1369.5
+        ],
+        [
+          1265.708,
+          1328.375
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "2.3.7",
+      "page": 2,
+      "tids": [
+        "2.3.7@r0",
+        "2.3.7@r2",
+        "2.3.7@r3",
+        "2.3.7@r5",
+        "2.3.7@r7",
+        "2.3.7@r8"
+      ],
+      "bars": [
+        [
+          1214.583,
+          1243.0
+        ],
+        [
+          1199.25,
+          1243.0
+        ],
+        [
+          1170.5,
+          1243.0
+        ],
+        [
+          1149.417,
+          1212.667
+        ],
+        [
+          1109.167,
+          1183.917
+        ],
+        [
+          1078.5,
+          1149.417
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "2.4.0",
+      "page": 2,
+      "tids": [
+        "2.4.0@r0",
+        "2.4.0@r2",
+        "2.4.0@r3",
+        "2.4.0@r6",
+        "2.4.0@r8",
+        "2.4.0@r9"
+      ],
+      "bars": [
+        [
+          904.875,
+          923.625
+        ],
+        [
+          889.875,
+          923.625
+        ],
+        [
+          863.625,
+          923.625
+        ],
+        [
+          831.75,
+          891.75
+        ],
+        [
+          813.0,
+          873.0
+        ],
+        [
+          777.375,
+          831.75
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "2.4.1",
+      "page": 2,
+      "tids": [
+        "2.4.1@r0",
+        "2.4.1@r2",
+        "2.4.1@r4",
+        "2.4.1@r6",
+        "2.4.1@r8",
+        "2.4.1@r9"
+      ],
+      "bars": [
+        [
+          730.917,
+          767.0
+        ],
+        [
+          717.5,
+          767.0
+        ],
+        [
+          688.75,
+          765.417
+        ],
+        [
+          671.5,
+          729.0
+        ],
+        [
+          631.25,
+          711.75
+        ],
+        [
+          602.5,
+          669.583
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "2.4.2",
+      "page": 2,
+      "tids": [
+        "2.4.2@r0",
+        "2.4.2@r2"
+      ],
+      "bars": [
+        [
+          550.792,
+          584.0
+        ],
+        [
+          534.667,
+          575.875
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "2.4.3",
+      "page": 2,
+      "tids": [
+        "2.4.3@r0",
+        "2.4.3@r2",
+        "2.4.3@r3",
+        "2.4.3@r5"
+      ],
+      "bars": [
+        [
+          475.604,
+          506.104
+        ],
+        [
+          460.354,
+          504.833
+        ],
+        [
+          428.583,
+          469.25
+        ],
+        [
+          404.438,
+          443.833
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "2.4.4",
+      "page": 2,
+      "tids": [
+        "2.4.4@r0",
+        "2.4.4@r2",
+        "2.4.4@r4",
+        "2.4.4@r6"
+      ],
+      "bars": [
+        [
+          1502.5,
+          1526.562
+        ],
+        [
+          1464.0,
+          1526.562
+        ],
+        [
+          1431.917,
+          1496.083
+        ],
+        [
+          1398.229,
+          1451.167
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "2.4.5",
+      "page": 2,
+      "tids": [
+        "2.4.5@r0",
+        "2.4.5@r2"
+      ],
+      "bars": [
+        [
+          1347.875,
+          1383.875
+        ],
+        [
+          1310.75,
+          1369.25
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "2.4.6",
+      "page": 2,
+      "tids": [
+        "2.4.6@r0",
+        "2.4.6@r2",
+        "2.4.6@r3",
+        "2.4.6@r5"
+      ],
+      "bars": [
+        [
+          1255.156,
+          1284.583
+        ],
+        [
+          1242.208,
+          1283.406
+        ],
+        [
+          1213.958,
+          1255.156
+        ],
+        [
+          1192.771,
+          1229.26
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "2.4.7",
+      "page": 2,
+      "tids": [
+        "2.4.7@r0",
+        "2.4.7@r2"
+      ],
+      "bars": [
+        [
+          1144.573,
+          1179.802
+        ],
+        [
+          1113.979,
+          1174.24
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "2.4.8",
+      "page": 2,
+      "tids": [
+        "2.4.8@r0",
+        "2.4.8@r2",
+        "2.4.8@r4",
+        "2.4.8@r6"
+      ],
+      "bars": [
+        [
+          1064.562,
+          1103.625
+        ],
+        [
+          1042.688,
+          1100.5
+        ],
+        [
+          1006.75,
+          1073.938
+        ],
+        [
+          972.375,
+          1025.5
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "2.4.9",
+      "page": 2,
+      "tids": [
+        "2.4.9@r0",
+        "2.4.9@r2",
+        "2.4.9@r4",
+        "2.4.9@r5",
+        "2.4.9@r7",
+        "2.4.9@r9",
+        "2.4.9@r11",
+        "2.4.9@r13"
+      ],
+      "bars": [
+        [
+          932.833,
+          961.458
+        ],
+        [
+          930.448,
+          961.458
+        ],
+        [
+          906.594,
+          961.458
+        ],
+        [
+          904.208,
+          956.688
+        ],
+        [
+          844.573,
+          923.292
+        ],
+        [
+          813.562,
+          885.125
+        ],
+        [
+          794.479,
+          880.354
+        ],
+        [
+          751.542,
+          851.729
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "2.4.10",
+      "page": 2,
+      "tids": [
+        "2.4.10@r0",
+        "2.4.10@r2"
+      ],
+      "bars": [
+        [
+          719.188,
+          748.719
+        ],
+        [
+          688.812,
+          719.188
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "2.4.11",
+      "page": 2,
+      "tids": [
+        "2.4.11@r0",
+        "2.4.11@r2",
+        "2.4.11@r3",
+        "2.4.11@r5",
+        "2.4.11@r7",
+        "2.4.11@r8"
+      ],
+      "bars": [
+        [
+          648.594,
+          681.781
+        ],
+        [
+          637.531,
+          681.781
+        ],
+        [
+          609.875,
+          678.094
+        ],
+        [
+          578.531,
+          655.969
+        ],
+        [
+          556.406,
+          626.469
+        ],
+        [
+          523.219,
+          593.281
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "2.5.0",
+      "page": 2,
+      "tids": [
+        "2.5.0@r0",
+        "2.5.0@r2",
+        "2.5.0@r4",
+        "2.5.0@r8",
+        "2.5.0@r10"
+      ],
+      "bars": [
+        [
+          1351.521,
+          1391.104
+        ],
+        [
+          1329.75,
+          1389.125
+        ],
+        [
+          1290.167,
+          1371.312
+        ],
+        [
+          1260.479,
+          1335.688
+        ],
+        [
+          1222.875,
+          1280.271
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "2.5.1",
+      "page": 2,
+      "tids": [
+        "2.5.1@r0",
+        "2.5.1@r2",
+        "2.5.1@r4"
+      ],
+      "bars": [
+        [
+          1189.333,
+          1214.969
+        ],
+        [
+          1159.24,
+          1207.167
+        ],
+        [
+          1128.031,
+          1168.156
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "2.5.2",
+      "page": 2,
+      "tids": [
+        "2.5.2@r0",
+        "2.5.2@r2",
+        "2.5.2@r4"
+      ],
+      "bars": [
+        [
+          1074.333,
+          1116.0
+        ],
+        [
+          1032.667,
+          1099.333
+        ],
+        [
+          977.667,
+          1041.0
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "2.5.3",
+      "page": 2,
+      "tids": [
+        "2.5.3@r0",
+        "2.5.3@r3"
+      ],
+      "bars": [
+        [
+          933.792,
+          966.375
+        ],
+        [
+          893.542,
+          960.625
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "2.5.4",
+      "page": 2,
+      "tids": [
+        "2.5.4@r0",
+        "2.5.4@r3",
+        "2.5.4@r6",
+        "2.5.4@r8"
+      ],
+      "bars": [
+        [
+          851.938,
+          882.354
+        ],
+        [
+          824.562,
+          880.833
+        ],
+        [
+          794.146,
+          858.021
+        ],
+        [
+          765.25,
+          807.833
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "2.5.5",
+      "page": 2,
+      "tids": [
+        "2.5.5@r0",
+        "2.5.5@r2",
+        "2.5.5@r4",
+        "2.5.5@r6",
+        "2.5.5@r10",
+        "2.5.5@r12"
+      ],
+      "bars": [
+        [
+          711.708,
+          749.542
+        ],
+        [
+          709.344,
+          749.542
+        ],
+        [
+          657.323,
+          740.083
+        ],
+        [
+          617.125,
+          699.885
+        ],
+        [
+          600.573,
+          664.417
+        ],
+        [
+          543.823,
+          631.312
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "2.5.6",
+      "page": 2,
+      "tids": [
+        "2.5.6@r0",
+        "2.5.6@r2"
+      ],
+      "bars": [
+        [
+          1182.5,
+          1225.969
+        ],
+        [
+          1139.031,
+          1184.729
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "2.5.7",
+      "page": 2,
+      "tids": [
+        "2.5.7@r0",
+        "2.5.7@r1",
+        "2.5.7@r3",
+        "2.5.7@r5",
+        "2.5.7@r7",
+        "2.5.7@r9",
+        "2.5.7@r11",
+        "2.5.7@r12"
+      ],
+      "bars": [
+        [
+          1087.875,
+          1125.688
+        ],
+        [
+          1094.75,
+          1125.688
+        ],
+        [
+          1050.062,
+          1105.062
+        ],
+        [
+          1005.375,
+          1098.188
+        ],
+        [
+          974.438,
+          1084.438
+        ],
+        [
+          916.0,
+          1050.062
+        ],
+        [
+          881.625,
+          1001.938
+        ],
+        [
+          819.75,
+          964.125
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "2.193.10",
+      "page": 30,
+      "tids": [
+        "2.193.10@r0",
+        "2.193.10@r2"
+      ],
+      "bars": [
+        [
+          1246.75,
+          1282.594
+        ],
+        [
+          1205.125,
+          1267.562
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "2.194.1",
+      "page": 30,
+      "tids": [
+        "2.194.1@r0",
+        "2.194.1@r1",
+        "2.194.1@r3",
+        "2.194.1@r5",
+        "2.194.1@r8"
+      ],
+      "bars": [
+        [
+          221.208,
+          246.292
+        ],
+        [
+          192.542,
+          244.5
+        ],
+        [
+          172.833,
+          231.958
+        ],
+        [
+          135.208,
+          205.083
+        ],
+        [
+          110.125,
+          156.708
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "2.196.40",
+      "page": 30,
+      "tids": [
+        "2.196.40@r0",
+        "2.196.40@r2"
+      ],
+      "bars": [
+        [
+          1799.406,
+          1824.719
+        ],
+        [
+          1768.188,
+          1801.938
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "3.167.19",
+      "page": 72,
+      "tids": [
+        "3.167.19@r0",
+        "3.167.19@r2",
+        "3.167.19@r4",
+        "3.167.19@r6",
+        "3.167.19@r8"
+      ],
+      "bars": [
+        [
+          1777.771,
+          1828.0
+        ],
+        [
+          1759.854,
+          1828.0
+        ],
+        [
+          1712.823,
+          1802.406
+        ],
+        [
+          1679.229,
+          1732.979
+        ],
+        [
+          1634.438,
+          1712.823
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "3.169.10",
+      "page": 72,
+      "tids": [
+        "3.169.10@r0",
+        "3.169.10@r2",
+        "3.169.10@r3"
+      ],
+      "bars": [
+        [
+          993.438,
+          1024.479
+        ],
+        [
+          943.771,
+          1021.375
+        ],
+        [
+          900.312,
+          962.396
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "3.173.11",
+      "page": 72,
+      "tids": [
+        "3.173.11@r0",
+        "3.173.11@r2",
+        "3.173.11@r3",
+        "3.173.11@r6"
+      ],
+      "bars": [
+        [
+          1502.562,
+          1549.0
+        ],
+        [
+          1456.5,
+          1549.0
+        ],
+        [
+          1414.625,
+          1508.844
+        ],
+        [
+          1372.75,
+          1439.75
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "6.53.13",
+      "page": 134,
+      "tids": [
+        "6.53.13@r0",
+        "6.53.13@r2",
+        "6.53.13@r4",
+        "6.53.13@r6",
+        "6.53.13@r8"
+      ],
+      "bars": [
+        [
+          976.833,
+          1023.0
+        ],
+        [
+          968.5,
+          1023.0
+        ],
+        [
+          914.333,
+          997.667
+        ],
+        [
+          883.083,
+          949.75
+        ],
+        [
+          841.417,
+          906.0
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "6.59.15",
+      "page": 134,
+      "tids": [
+        "6.59.15@r0",
+        "6.59.15@r2",
+        "6.59.15@r4",
+        "6.59.15@r6"
+      ],
+      "bars": [
+        [
+          909.333,
+          967.333
+        ],
+        [
+          858.583,
+          962.5
+        ],
+        [
+          812.667,
+          914.167
+        ],
+        [
+          754.667,
+          844.083
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "6.59.16",
+      "page": 134,
+      "tids": [
+        "6.59.16@r0",
+        "6.59.16@r2"
+      ],
+      "bars": [
+        [
+          705.354,
+          726.0
+        ],
+        [
+          649.208,
+          717.958
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "7.197.7",
+      "page": 176,
+      "tids": [
+        "7.197.7@r0",
+        "7.197.7@r2"
+      ],
+      "bars": [
+        [
+          157.323,
+          198.917
+        ],
+        [
+          129.594,
+          187.573
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "7.203.9",
+      "page": 176,
+      "tids": [
+        "7.203.9@r0",
+        "7.203.9@r2",
+        "7.203.9@r5",
+        "7.203.9@r7"
+      ],
+      "bars": [
+        [
+          1544.188,
+          1584.125
+        ],
+        [
+          1520.521,
+          1579.688
+        ],
+        [
+          1493.896,
+          1551.583
+        ],
+        [
+          1462.833,
+          1511.646
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "7.205.8",
+      "page": 176,
+      "tids": [
+        "7.205.8@r0",
+        "7.205.8@r2"
+      ],
+      "bars": [
+        [
+          558.344,
+          590.375
+        ],
+        [
+          503.25,
+          568.594
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "9.27.3",
+      "page": 191,
+      "tids": [
+        "9.27.3@r0",
+        "9.27.3@r2"
+      ],
+      "bars": [
+        [
+          1367.583,
+          1404.0
+        ],
+        [
+          1318.833,
+          1392.5
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "9.30.10",
+      "page": 191,
+      "tids": [
+        "9.30.10@r0",
+        "9.30.10@r3",
+        "9.30.10@r5"
+      ],
+      "bars": [
+        [
+          1011.667,
+          1098.062
+        ],
+        [
+          922.292,
+          1077.208
+        ],
+        [
+          847.812,
+          958.042
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "9.30.22",
+      "page": 191,
+      "tids": [
+        "9.30.22@r0",
+        "9.30.22@r2",
+        "9.30.22@r4",
+        "9.30.22@r6",
+        "9.30.22@r8",
+        "9.30.22@r9"
+      ],
+      "bars": [
+        [
+          1418.625,
+          1520.0
+        ],
+        [
+          1358.469,
+          1520.0
+        ],
+        [
+          1281.906,
+          1484.25
+        ],
+        [
+          1194.406,
+          1402.219
+        ],
+        [
+          1139.719,
+          1331.125
+        ],
+        [
+          1035.812,
+          1156.125
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "19.26.14",
+      "page": 307,
+      "tids": [
+        "19.26.14@r0",
+        "19.26.14@r2",
+        "19.26.14@r4"
+      ],
+      "bars": [
+        [
+          1045.281,
+          1081.302
+        ],
+        [
+          1010.646,
+          1070.219
+        ],
+        [
+          970.469,
+          1017.573
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "19.30.2",
+      "page": 307,
+      "tids": [
+        "19.30.2@r0",
+        "19.30.2@r2",
+        "19.30.2@r4"
+      ],
+      "bars": [
+        [
+          993.5,
+          1032.5
+        ],
+        [
+          951.5,
+          1022.0
+        ],
+        [
+          909.5,
+          966.5
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "19.38.1",
+      "page": 307,
+      "tids": [
+        "19.38.1@r0",
+        "19.38.1@r2",
+        "19.38.1@r4"
+      ],
+      "bars": [
+        [
+          205.219,
+          234.469
+        ],
+        [
+          183.281,
+          232.031
+        ],
+        [
+          136.969,
+          182.062
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "21.12.0",
+      "page": 323,
+      "tids": [
+        "21.12.0@r0",
+        "21.12.0@r2",
+        "21.12.0@r4"
+      ],
+      "bars": [
+        [
+          1319.396,
+          1347.062
+        ],
+        [
+          1272.708,
+          1345.333
+        ],
+        [
+          1236.396,
+          1284.812
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "21.15.7",
+      "page": 323,
+      "tids": [
+        "21.15.7@r0",
+        "21.15.7@r3",
+        "21.15.7@r5",
+        "21.15.7@r7",
+        "21.15.7@r8"
+      ],
+      "bars": [
+        [
+          773.688,
+          834.875
+        ],
+        [
+          745.875,
+          829.312
+        ],
+        [
+          693.031,
+          787.594
+        ],
+        [
+          642.969,
+          754.219
+        ],
+        [
+          590.125,
+          681.906
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "21.22.4",
+      "page": 323,
+      "tids": [
+        "21.22.4@r0",
+        "21.22.4@r2"
+      ],
+      "bars": [
+        [
+          1116.177,
+          1157.0
+        ],
+        [
+          1085.521,
+          1149.104
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "33.37.41",
+      "page": 423,
+      "tids": [
+        "33.37.41@r0",
+        "33.37.41@r2",
+        "33.37.41@r4"
+      ],
+      "bars": [
+        [
+          1189.094,
+          1248.156
+        ],
+        [
+          1139.875,
+          1228.469
+        ],
+        [
+          1080.812,
+          1159.562
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "33.38.11",
+      "page": 423,
+      "tids": [
+        "33.38.11@r0",
+        "33.38.11@r1",
+        "33.38.11@r5"
+      ],
+      "bars": [
+        [
+          209.708,
+          242.333
+        ],
+        [
+          179.5,
+          221.792
+        ],
+        [
+          146.875,
+          190.375
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "33.39.8",
+      "page": 423,
+      "tids": [
+        "33.39.8@r0",
+        "33.39.8@r2"
+      ],
+      "bars": [
+        [
+          392.312,
+          430.0
+        ],
+        [
+          367.875,
+          421.0
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "40.27.0",
+      "page": 470,
+      "tids": [
+        "40.27.0@r0",
+        "40.27.0@r2",
+        "40.27.0@r5"
+      ],
+      "bars": [
+        [
+          1774.312,
+          1819.885
+        ],
+        [
+          1732.385,
+          1810.771
+        ],
+        [
+          1663.115,
+          1734.208
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "40.27.4",
+      "page": 470,
+      "tids": [
+        "40.27.4@r0",
+        "40.27.4@r2",
+        "40.27.4@r4",
+        "40.27.4@r7"
+      ],
+      "bars": [
+        [
+          1038.875,
+          1072.0
+        ],
+        [
+          1010.969,
+          1072.0
+        ],
+        [
+          978.656,
+          1040.344
+        ],
+        [
+          955.156,
+          997.75
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "40.31.4",
+      "page": 470,
+      "tids": [
+        "40.31.4@r0",
+        "40.31.4@r2",
+        "40.31.4@r5"
+      ],
+      "bars": [
+        [
+          1772.375,
+          1823.719
+        ],
+        [
+          1737.594,
+          1812.125
+        ],
+        [
+          1682.938,
+          1747.531
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "45.14.8",
+      "page": 500,
+      "tids": [
+        "45.14.8@r0",
+        "45.14.8@r1",
+        "45.14.8@r5"
+      ],
+      "bars": [
+        [
+          395.531,
+          424.438
+        ],
+        [
+          366.625,
+          407.094
+        ],
+        [
+          336.562,
+          377.031
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "45.15.4",
+      "page": 500,
+      "tids": [
+        "45.15.4@r0",
+        "45.15.4@r2",
+        "45.15.4@r4"
+      ],
+      "bars": [
+        [
+          1785.49,
+          1832.312
+        ],
+        [
+          1740.281,
+          1822.625
+        ],
+        [
+          1696.688,
+          1749.969
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    },
+    {
+      "wid": "45.18.12",
+      "page": 500,
+      "tids": [
+        "45.18.12@r0",
+        "45.18.12@r2",
+        "45.18.12@r4",
+        "45.18.12@r6",
+        "45.18.12@r8",
+        "45.18.12@r9"
+      ],
+      "bars": [
+        [
+          1337.812,
+          1391.0
+        ],
+        [
+          1329.469,
+          1391.0
+        ],
+        [
+          1284.969,
+          1387.875
+        ],
+        [
+          1240.469,
+          1337.812
+        ],
+        [
+          1198.75,
+          1298.875
+        ],
+        [
+          1143.125,
+          1234.906
+        ]
+      ],
+      "reason": null,
+      "confidence": "low",
+      "method": "w3-geometry",
+      "diagnostics": {
+        "abstentionReason": null,
+        "supervision": "see run labelType; no genuine artwork 2-D truth",
+        "maskThreshold": 0.5
+      }
+    }
+  ]
+}

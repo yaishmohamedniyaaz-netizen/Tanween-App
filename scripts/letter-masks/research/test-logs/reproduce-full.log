@@ -1,0 +1,231 @@
+Looking in indexes: https://download.pytorch.org/whl/cpu
+Requirement already satisfied: torch==2.15.0+cpu in ./tmp/letter-positions/.venv-w2/lib/python3.12/site-packages (2.15.0+cpu)
+Requirement already satisfied: filelock in ./tmp/letter-positions/.venv-w2/lib/python3.12/site-packages (from torch==2.15.0+cpu) (4.2.4)
+Requirement already satisfied: typing-extensions>=4.13.0 in ./tmp/letter-positions/.venv-w2/lib/python3.12/site-packages (from torch==2.15.0+cpu) (4.16.0)
+Requirement already satisfied: setuptools>=77.0.3 in ./tmp/letter-positions/.venv-w2/lib/python3.12/site-packages (from torch==2.15.0+cpu) (78.1.0)
+Requirement already satisfied: sympy>=1.13.3 in ./tmp/letter-positions/.venv-w2/lib/python3.12/site-packages (from torch==2.15.0+cpu) (1.14.0)
+Requirement already satisfied: networkx>=2.5.1 in ./tmp/letter-positions/.venv-w2/lib/python3.12/site-packages (from torch==2.15.0+cpu) (3.7)
+Requirement already satisfied: jinja2 in ./tmp/letter-positions/.venv-w2/lib/python3.12/site-packages (from torch==2.15.0+cpu) (3.1.6)
+Requirement already satisfied: fsspec>=0.8.5 in ./tmp/letter-positions/.venv-w2/lib/python3.12/site-packages (from torch==2.15.0+cpu) (2026.9.0)
+Requirement already satisfied: mpmath<1.4,>=1.1.0 in ./tmp/letter-positions/.venv-w2/lib/python3.12/site-packages (from sympy>=1.13.3->torch==2.15.0+cpu) (1.3.0)
+Requirement already satisfied: MarkupSafe>=2.0 in ./tmp/letter-positions/.venv-w2/lib/python3.12/site-packages (from jinja2->torch==2.15.0+cpu) (3.0.3)
+
+[notice] A new release of pip is available: 25.0.1 -> 26.3
+[notice] To update, run: python -m pip install --upgrade pip
+Requirement already satisfied: numpy==2.3.5 in ./tmp/letter-positions/.venv-w2/lib/python3.12/site-packages (from -r scripts/letter-masks/research/requirements.txt (line 1)) (2.3.5)
+Requirement already satisfied: Pillow==13.0.0 in ./tmp/letter-positions/.venv-w2/lib/python3.12/site-packages (from -r scripts/letter-masks/research/requirements.txt (line 2)) (13.0.0)
+Requirement already satisfied: scipy==1.17.0 in ./tmp/letter-positions/.venv-w2/lib/python3.12/site-packages (from -r scripts/letter-masks/research/requirements.txt (line 3)) (1.17.0)
+Requirement already satisfied: uharfbuzz==0.57.0 in ./tmp/letter-positions/.venv-w2/lib/python3.12/site-packages (from -r scripts/letter-masks/research/requirements.txt (line 4)) (0.57.0)
+Requirement already satisfied: freetype-py==2.5.1 in ./tmp/letter-positions/.venv-w2/lib/python3.12/site-packages (from -r scripts/letter-masks/research/requirements.txt (line 5)) (2.5.1)
+Requirement already satisfied: scikit-image==0.26.0 in ./tmp/letter-positions/.venv-w2/lib/python3.12/site-packages (from -r scripts/letter-masks/research/requirements.txt (line 6)) (0.26.0)
+Requirement already satisfied: brotli==1.2.1 in ./tmp/letter-positions/.venv-w2/lib/python3.12/site-packages (from -r scripts/letter-masks/research/requirements.txt (line 7)) (1.2.1)
+Requirement already satisfied: fonttools==4.61.1 in ./tmp/letter-positions/.venv-w2/lib/python3.12/site-packages (from -r scripts/letter-masks/research/requirements.txt (line 8)) (4.61.1)
+Requirement already satisfied: networkx>=3.0 in ./tmp/letter-positions/.venv-w2/lib/python3.12/site-packages (from scikit-image==0.26.0->-r scripts/letter-masks/research/requirements.txt (line 6)) (3.7)
+Requirement already satisfied: imageio!=2.35.0,>=2.33 in ./tmp/letter-positions/.venv-w2/lib/python3.12/site-packages (from scikit-image==0.26.0->-r scripts/letter-masks/research/requirements.txt (line 6)) (2.38.1)
+Requirement already satisfied: tifffile>=2022.8.12 in ./tmp/letter-positions/.venv-w2/lib/python3.12/site-packages (from scikit-image==0.26.0->-r scripts/letter-masks/research/requirements.txt (line 6)) (2026.11.8)
+Requirement already satisfied: packaging>=21 in ./tmp/letter-positions/.venv-w2/lib/python3.12/site-packages (from scikit-image==0.26.0->-r scripts/letter-masks/research/requirements.txt (line 6)) (26.3)
+Requirement already satisfied: lazy-loader>=0.4 in ./tmp/letter-positions/.venv-w2/lib/python3.12/site-packages (from scikit-image==0.26.0->-r scripts/letter-masks/research/requirements.txt (line 6)) (0.6)
+
+[notice] A new release of pip is available: 25.0.1 -> 26.3
+[notice] To update, run: python -m pip install --upgrade pip
+3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]
+2.15.0+cpu 2.3.5 13.0.0 1.17.0
+95 development words, 77881 semantic word units
+Cloning into 'tmp/letter-positions/w1/oldmadinafont'...
+Cloning into 'tmp/letter-positions/w1/amiri'...
+HEAD is now at 6e19182 Adjust mark anchors for Yeh, Hah and Lam
+HEAD is now at d3d0c5cb6f Fix build with glyphsets v1
+{
+  "oldmadina": {
+    "words": 95,
+    "abstained": 4,
+    "mean_iou_affine": 0.2953741791440155,
+    "mean_iou_2d": 0.8784604359368751
+  },
+  "amiri": {
+    "words": 95,
+    "abstained": 0,
+    "mean_iou_affine": 0.23528789266003183,
+    "mean_iou_2d": 0.8586926808398998
+  }
+}
+page 3 complete 1 /100
+page 4 complete 2 /100
+page 14 complete 3 /100
+page 17 complete 4 /100
+page 20 complete 6 /100
+page 38 complete 7 /100
+page 39 complete 8 /100
+page 42 complete 9 /100
+page 65 complete 10 /100
+page 67 complete 11 /100
+page 87 complete 12 /100
+page 91 complete 13 /100
+page 94 complete 14 /100
+page 99 complete 15 /100
+page 111 complete 16 /100
+page 127 complete 17 /100
+page 131 complete 18 /100
+page 133 complete 19 /100
+page 139 complete 20 /100
+page 140 complete 22 /100
+page 141 complete 23 /100
+page 152 complete 24 /100
+page 156 complete 26 /100
+page 158 complete 27 /100
+page 177 complete 28 /100
+page 181 complete 29 /100
+page 182 complete 30 /100
+page 185 complete 31 /100
+page 187 complete 32 /100
+page 201 complete 33 /100
+page 202 complete 34 /100
+page 206 complete 35 /100
+page 209 complete 36 /100
+page 211 complete 37 /100
+page 216 complete 38 /100
+page 219 complete 39 /100
+page 230 complete 40 /100
+page 242 complete 41 /100
+page 243 complete 42 /100
+page 244 complete 43 /100
+page 245 complete 44 /100
+page 249 complete 45 /100
+page 250 complete 46 /100
+page 262 complete 47 /100
+page 270 complete 48 /100
+page 271 complete 49 /100
+page 292 complete 50 /100
+page 297 complete 51 /100
+page 298 complete 52 /100
+page 301 complete 53 /100
+page 302 complete 54 /100
+page 306 complete 55 /100
+page 311 complete 56 /100
+page 318 complete 57 /100
+page 330 complete 58 /100
+page 333 complete 59 /100
+page 344 complete 60 /100
+page 346 complete 61 /100
+page 351 complete 62 /100
+page 359 complete 63 /100
+page 373 complete 64 /100
+page 374 complete 65 /100
+page 375 complete 67 /100
+page 420 complete 68 /100
+page 427 complete 69 /100
+page 430 complete 70 /100
+page 445 complete 71 /100
+page 446 complete 72 /100
+page 454 complete 73 /100
+page 461 complete 74 /100
+page 464 complete 75 /100
+page 470 complete 76 /100
+page 477 complete 78 /100
+page 478 complete 79 /100
+page 483 complete 80 /100
+page 487 complete 81 /100
+page 503 complete 82 /100
+page 504 complete 83 /100
+page 505 complete 84 /100
+page 511 complete 85 /100
+page 516 complete 86 /100
+page 521 complete 87 /100
+page 525 complete 90 /100
+page 542 complete 91 /100
+page 544 complete 93 /100
+page 546 complete 94 /100
+page 549 complete 95 /100
+page 551 complete 96 /100
+page 553 complete 98 /100
+page 554 complete 99 /100
+page 560 complete 100 /100
+DONE 100 emitted 100 seconds 41.50689697265625
+{"epoch": 1, "loss": 3.9904510915279388, "elapsed_s": 2.4759680239999398, "train": {"cer": 1.0, "edit_errors": 2905, "characters": 2905, "exact_lines": 0, "lines": 40}, "validation": {"cer": 1.0, "edit_errors": 465, "characters": 465, "exact_lines": 0, "lines": 6}}
+{"epoch": 10, "loss": 3.2508795082569124, "elapsed_s": 23.209047391000013, "train": {"cer": 1.0, "edit_errors": 2905, "characters": 2905, "exact_lines": 0, "lines": 40}, "validation": {"cer": 1.0, "edit_errors": 465, "characters": 465, "exact_lines": 0, "lines": 6}}
+{"epoch": 20, "loss": 2.7124198734760285, "elapsed_s": 45.113765763999936, "train": {"cer": 0.8519793459552496, "edit_errors": 2475, "characters": 2905, "exact_lines": 0, "lines": 40}, "validation": {"cer": 0.8709677419354839, "edit_errors": 405, "characters": 465, "exact_lines": 0, "lines": 6}}
+{"epoch": 30, "loss": 1.3648766800761223, "elapsed_s": 66.91401703800011, "train": {"cer": 0.33803786574870914, "edit_errors": 982, "characters": 2905, "exact_lines": 0, "lines": 40}, "validation": {"cer": 0.421505376344086, "edit_errors": 196, "characters": 465, "exact_lines": 0, "lines": 6}}
+{"epoch": 40, "loss": 0.5628500714898109, "elapsed_s": 88.24461059300006, "train": {"cer": 0.13287435456110155, "edit_errors": 386, "characters": 2905, "exact_lines": 1, "lines": 40}, "validation": {"cer": 0.34838709677419355, "edit_errors": 162, "characters": 465, "exact_lines": 0, "lines": 6}}
+{"epoch": 50, "loss": 0.20000749845057725, "elapsed_s": 109.73709383000005, "train": {"cer": 0.019621342512908778, "edit_errors": 57, "characters": 2905, "exact_lines": 16, "lines": 40}, "validation": {"cer": 0.30752688172043013, "edit_errors": 143, "characters": 465, "exact_lines": 0, "lines": 6}}
+{"epoch": 60, "loss": 0.07711702706292271, "elapsed_s": 132.00308360200006, "train": {"cer": 0.001376936316695353, "edit_errors": 4, "characters": 2905, "exact_lines": 37, "lines": 40}, "validation": {"cer": 0.30752688172043013, "edit_errors": 143, "characters": 465, "exact_lines": 0, "lines": 6}}
+{"epoch": 70, "loss": 0.038584320014342664, "elapsed_s": 155.47948857699998, "train": {"cer": 0.00034423407917383823, "edit_errors": 1, "characters": 2905, "exact_lines": 39, "lines": 40}, "validation": {"cer": 0.3053763440860215, "edit_errors": 142, "characters": 465, "exact_lines": 0, "lines": 6}}
+{"epoch": 80, "loss": 0.02324019230436534, "elapsed_s": 177.407836115, "train": {"cer": 0.00034423407917383823, "edit_errors": 1, "characters": 2905, "exact_lines": 39, "lines": 40}, "validation": {"cer": 0.2989247311827957, "edit_errors": 139, "characters": 465, "exact_lines": 0, "lines": 6}}
+{"epoch": 90, "loss": 0.015117690933402627, "elapsed_s": 200.53850529800025, "train": {"cer": 0.0, "edit_errors": 0, "characters": 2905, "exact_lines": 40, "lines": 40}, "validation": {"cer": 0.2946236559139785, "edit_errors": 137, "characters": 465, "exact_lines": 0, "lines": 6}}
+{"epoch": 100, "loss": 0.010500907618552446, "elapsed_s": 225.16479418999984, "train": {"cer": 0.0, "edit_errors": 0, "characters": 2905, "exact_lines": 40, "lines": 40}, "validation": {"cer": 0.2989247311827957, "edit_errors": 139, "characters": 465, "exact_lines": 0, "lines": 6}}
+{"epoch": 110, "loss": 0.00764990514726378, "elapsed_s": 248.21444790600003, "train": {"cer": 0.0, "edit_errors": 0, "characters": 2905, "exact_lines": 40, "lines": 40}, "validation": {"cer": 0.28817204301075267, "edit_errors": 134, "characters": 465, "exact_lines": 0, "lines": 6}}
+{"epoch": 120, "loss": 0.005680612003197893, "elapsed_s": 271.08023160000016, "train": {"cer": 0.0, "edit_errors": 0, "characters": 2905, "exact_lines": 40, "lines": 40}, "validation": {"cer": 0.2903225806451613, "edit_errors": 135, "characters": 465, "exact_lines": 0, "lines": 6}}
+{"epoch": 130, "loss": 0.004302305213059299, "elapsed_s": 294.27871841399997, "train": {"cer": 0.0, "edit_errors": 0, "characters": 2905, "exact_lines": 40, "lines": 40}, "validation": {"cer": 0.2860215053763441, "edit_errors": 133, "characters": 465, "exact_lines": 0, "lines": 6}}
+{"epoch": 140, "loss": 0.0033274750894634053, "elapsed_s": 316.76528178700005, "train": {"cer": 0.0, "edit_errors": 0, "characters": 2905, "exact_lines": 40, "lines": 40}, "validation": {"cer": 0.2860215053763441, "edit_errors": 133, "characters": 465, "exact_lines": 0, "lines": 6}}
+{"epoch": 150, "loss": 0.0025870595389278607, "elapsed_s": 338.1153296250002, "train": {"cer": 0.0, "edit_errors": 0, "characters": 2905, "exact_lines": 40, "lines": 40}, "validation": {"cer": 0.28817204301075267, "edit_errors": 134, "characters": 465, "exact_lines": 0, "lines": 6}}
+{"epoch": 160, "loss": 0.0020407896547112612, "elapsed_s": 360.68808977899994, "train": {"cer": 0.0, "edit_errors": 0, "characters": 2905, "exact_lines": 40, "lines": 40}, "validation": {"cer": 0.2903225806451613, "edit_errors": 135, "characters": 465, "exact_lines": 0, "lines": 6}}
+{"epoch": 170, "loss": 0.0016092700447188691, "elapsed_s": 384.2338049130001, "train": {"cer": 0.0, "edit_errors": 0, "characters": 2905, "exact_lines": 40, "lines": 40}, "validation": {"cer": 0.2860215053763441, "edit_errors": 133, "characters": 465, "exact_lines": 0, "lines": 6}}
+{"epoch": 180, "loss": 0.0012757825446897187, "elapsed_s": 407.0464655600001, "train": {"cer": 0.0, "edit_errors": 0, "characters": 2905, "exact_lines": 40, "lines": 40}, "validation": {"cer": 0.2838709677419355, "edit_errors": 132, "characters": 465, "exact_lines": 0, "lines": 6}}
+{"run": "primary", "train": {"cer": 0.0, "edit_errors": 0, "characters": 2905, "exact_lines": 40, "lines": 40}, "validation": {"cer": 0.2838709677419355, "edit_errors": 132, "characters": 465, "exact_lines": 0, "lines": 6}, "prediction_sha256": "b93d5045617db3b92906d1bffcd37f30a9f2a0436ebb763790f8807e9981fdc3", "model_tensor_sha256": "4ecc35de838a061ea19f2d25125272e7ff3cc48ef4dc5594bda00a3fadf31f8e"}
+{'oldmadina': (91, 95), 'amiri': (95, 95)}
+False 1 {'words': 65, 'letters': 289, 'emptyUnitMasks': 289, 'inkPixelAccuracy': 0.31880611846541507, 'BCE': 0.6638714272042159} {'words': 30, 'letters': 100, 'emptyUnitMasks': 100, 'inkPixelAccuracy': 0.4094782478696367, 'BCE': 0.6721783966360957}
+False 10 {'words': 65, 'letters': 289, 'emptyUnitMasks': 52, 'inkPixelAccuracy': 0.5042055577243851, 'BCE': 0.5624698383961273} {'words': 30, 'letters': 100, 'emptyUnitMasks': 4, 'inkPixelAccuracy': 0.6092091493496786, 'BCE': 0.5613398035193814}
+False 30 {'words': 65, 'letters': 289, 'emptyUnitMasks': 0, 'inkPixelAccuracy': 0.6830748482805125, 'BCE': 0.692098513097924} {'words': 30, 'letters': 100, 'emptyUnitMasks': 0, 'inkPixelAccuracy': 0.7589325758708327, 'BCE': 0.6922680937165693}
+False 60 {'words': 65, 'letters': 289, 'emptyUnitMasks': 0, 'inkPixelAccuracy': 0.7577456790999751, 'BCE': 0.32424066470592583} {'words': 30, 'letters': 100, 'emptyUnitMasks': 0, 'inkPixelAccuracy': 0.8300194348931081, 'BCE': 0.3241142828306829}
+True 1 {'words': 65, 'letters': 289, 'emptyUnitMasks': 253, 'inkPixelAccuracy': 0.3104659828938496, 'BCE': 0.6698163162212418} {'words': 30, 'letters': 100, 'emptyUnitMasks': 90, 'inkPixelAccuracy': 0.38481088354014054, 'BCE': 0.6791044398077178}
+True 10 {'words': 65, 'letters': 289, 'emptyUnitMasks': 30, 'inkPixelAccuracy': 0.46761543102530434, 'BCE': 0.537825722684476} {'words': 30, 'letters': 100, 'emptyUnitMasks': 3, 'inkPixelAccuracy': 0.5359545522499626, 'BCE': 0.591853285642809}
+True 30 {'words': 65, 'letters': 289, 'emptyUnitMasks': 0, 'inkPixelAccuracy': 0.6924796820101501, 'BCE': 0.41869315819354197} {'words': 30, 'letters': 100, 'emptyUnitMasks': 0, 'inkPixelAccuracy': 0.6878457168485573, 'BCE': 0.5043315956942321}
+True 60 {'words': 65, 'letters': 289, 'emptyUnitMasks': 0, 'inkPixelAccuracy': 0.8199950314085956, 'BCE': 0.2527158773646761} {'words': 30, 'letters': 100, 'emptyUnitMasks': 0, 'inkPixelAccuracy': 0.7492151293167888, 'BCE': 0.41358302876764513}
+True 1 {'words': 65, 'letters': 289, 'emptyUnitMasks': 107, 'inkPixelAccuracy': 0.27699897079178054, 'BCE': 0.6888982861224532} {'words': 30, 'letters': 100, 'emptyUnitMasks': 19, 'inkPixelAccuracy': 0.3369711466586934, 'BCE': 0.6919998528019452}
+True 10 {'words': 65, 'letters': 289, 'emptyUnitMasks': 44, 'inkPixelAccuracy': 0.534939844554069, 'BCE': 0.5222085816461595} {'words': 30, 'letters': 100, 'emptyUnitMasks': 5, 'inkPixelAccuracy': 0.6209448348034086, 'BCE': 0.6199807573407925}
+True 30 {'words': 65, 'letters': 289, 'emptyUnitMasks': 0, 'inkPixelAccuracy': 0.6358022500621074, 'BCE': 0.4303600096734655} {'words': 30, 'letters': 100, 'emptyUnitMasks': 0, 'inkPixelAccuracy': 0.6651218418298699, 'BCE': 0.5490165033067566}
+True 60 {'words': 65, 'letters': 289, 'emptyUnitMasks': 0, 'inkPixelAccuracy': 0.7527415977570359, 'BCE': 0.3323751941063475} {'words': 30, 'letters': 100, 'emptyUnitMasks': 0, 'inkPixelAccuracy': 0.7243235162206608, 'BCE': 0.5995749822950073}
+{'geometry': {'train': {'requestedWords': 65, 'scoredWords': 65, 'abstainedOrInvalidWords': 0, 'requestedLetters': 289, 'scoredLetters': 289, 'shortBarContainedCount': 91, 'shortBarContained': 0.314878892733564, 'shortBarContainedIncludingAbstentionsAsMisses': 0.314878892733564, 'centreInside': 0.6747404844290658, 'wholeWordBarsContained': 0.046153846153846156, 'borderWords': 0, 'innerBorders': 0, 'bordersWithin2': None, 'medianBorderErrorPx': None, 'wholeWordBordersWithin2': None, 'exactWords': 0, 'structurallyInvalidWords': 0}, 'validation': {'requestedWords': 30, 'scoredWords': 30, 'abstainedOrInvalidWords': 0, 'requestedLetters': 100, 'scoredLetters': 100, 'shortBarContainedCount': 47, 'shortBarContained': 0.47, 'shortBarContainedIncludingAbstentionsAsMisses': 0.47, 'centreInside': 0.77, 'wholeWordBarsContained': 0.13333333333333333, 'borderWords': 0, 'innerBorders': 0, 'bordersWithin2': None, 'medianBorderErrorPx': None, 'wholeWordBordersWithin2': None, 'exactWords': 0, 'structurallyInvalidWords': 0}}, 'sequence': {'train': {'requestedWords': 65, 'scoredWords': 65, 'abstainedOrInvalidWords': 0, 'requestedLetters': 289, 'scoredLetters': 289, 'shortBarContainedCount': 149, 'shortBarContained': 0.5155709342560554, 'shortBarContainedIncludingAbstentionsAsMisses': 0.5155709342560554, 'centreInside': 0.7993079584775087, 'wholeWordBarsContained': 0.23076923076923078, 'borderWords': 0, 'innerBorders': 0, 'bordersWithin2': None, 'medianBorderErrorPx': None, 'wholeWordBordersWithin2': None, 'exactWords': 0, 'structurallyInvalidWords': 0}, 'validation': {'requestedWords': 30, 'scoredWords': 30, 'abstainedOrInvalidWords': 0, 'requestedLetters': 100, 'scoredLetters': 100, 'shortBarContainedCount': 53, 'shortBarContained': 0.53, 'shortBarContainedIncludingAbstentionsAsMisses': 0.53, 'centreInside': 0.74, 'wholeWordBarsContained': 0.3, 'borderWords': 0, 'innerBorders': 0, 'bordersWithin2': None, 'medianBorderErrorPx': None, 'wholeWordBordersWithin2': None, 'exactWords': 0, 'structurallyInvalidWords': 0}}, 'synthetic-sequence': {'train': {'requestedWords': 65, 'scoredWords': 65, 'abstainedOrInvalidWords': 0, 'requestedLetters': 289, 'scoredLetters': 289, 'shortBarContainedCount': 135, 'shortBarContained': 0.4671280276816609, 'shortBarContainedIncludingAbstentionsAsMisses': 0.4671280276816609, 'centreInside': 0.7577854671280276, 'wholeWordBarsContained': 0.12307692307692308, 'borderWords': 0, 'innerBorders': 0, 'bordersWithin2': None, 'medianBorderErrorPx': None, 'wholeWordBordersWithin2': None, 'exactWords': 0, 'structurallyInvalidWords': 0}, 'validation': {'requestedWords': 30, 'scoredWords': 30, 'abstainedOrInvalidWords': 0, 'requestedLetters': 100, 'scoredLetters': 100, 'shortBarContainedCount': 50, 'shortBarContained': 0.5, 'shortBarContainedIncludingAbstentionsAsMisses': 0.5, 'centreInside': 0.71, 'wholeWordBarsContained': 0.13333333333333333, 'borderWords': 0, 'innerBorders': 0, 'bordersWithin2': None, 'medianBorderErrorPx': None, 'wholeWordBordersWithin2': None, 'exactWords': 0, 'structurallyInvalidWords': 0}}}
+{'status': 'agreement audit complete', 'eligibleWords': 91, 'thresholdArtworkPx': 8.108108108108107, 'agreementWords': 10, 'agreements': [{'wid': '1.1.1', 'maxSupportEndpointDifferenceArtworkPx': 5.0090000000000146}, {'wid': '1.2.1', 'maxSupportEndpointDifferenceArtworkPx': 6.923000000000002}, {'wid': '1.4.1', 'maxSupportEndpointDifferenceArtworkPx': 7.9640000000000555}, {'wid': '1.7.4', 'maxSupportEndpointDifferenceArtworkPx': 6.277000000000044}, {'wid': '19.26.14', 'maxSupportEndpointDifferenceArtworkPx': 5.0}, {'wid': '2.196.40', 'maxSupportEndpointDifferenceArtworkPx': 7.2000000000000455}, {'wid': '2.4.10', 'maxSupportEndpointDifferenceArtworkPx': 4.0}, {'wid': '2.4.7', 'maxSupportEndpointDifferenceArtworkPx': 3.0}, {'wid': '45.14.8', 'maxSupportEndpointDifferenceArtworkPx': 5.771999999999991}, {'wid': '9.27.3', 'maxSupportEndpointDifferenceArtworkPx': 5.678000000000111}], 'trainedPseudoWords': 0, 'reason': 'Endpoint agreement is not independently verified 2-D ownership; low-confidence errors may correlate.'}
+{'status': 'agreement audit complete', 'eligibleWords': 91, 'thresholdArtworkPx': 8.108108108108107, 'agreementWords': 10, 'agreements': [{'wid': '1.1.1', 'maxSupportEndpointDifferenceArtworkPx': 5.0090000000000146}, {'wid': '1.2.1', 'maxSupportEndpointDifferenceArtworkPx': 6.923000000000002}, {'wid': '1.4.1', 'maxSupportEndpointDifferenceArtworkPx': 7.9640000000000555}, {'wid': '1.7.4', 'maxSupportEndpointDifferenceArtworkPx': 6.277000000000044}, {'wid': '19.26.14', 'maxSupportEndpointDifferenceArtworkPx': 5.0}, {'wid': '2.196.40', 'maxSupportEndpointDifferenceArtworkPx': 7.2000000000000455}, {'wid': '2.4.10', 'maxSupportEndpointDifferenceArtworkPx': 4.0}, {'wid': '2.4.7', 'maxSupportEndpointDifferenceArtworkPx': 3.0}, {'wid': '45.14.8', 'maxSupportEndpointDifferenceArtworkPx': 5.771999999999991}, {'wid': '9.27.3', 'maxSupportEndpointDifferenceArtworkPx': 5.678000000000111}], 'trainedPseudoWords': 0, 'reason': 'Endpoint agreement is not independently verified 2-D ownership; low-confidence errors may correlate.'}
+{'artworkWords': 77433, 'semanticUnitRecords': 77881, 'top100Words': 22648, 'families': 6068, 'approvedPilotExcluded': 39, 'withheld': 32, 'proposals': 22577, 'new2dProposals': 100, 'historicalProposals': 22477, 'new2dAbstentions': 0, 'highWords': 0, 'highCorpusCoverage': 0, 'freshHeldoutWords': 0, 'randomReviewWords': 200}
+first-guess-reference 0.7712082262210797 0.92
+method-A-reference 0.8431876606683805 0.94
+W1-oldmadina 0.7792553191489362 0.8494623655913979
+W1-Amiri 0.7917737789203085 0.87
+W2-CTC 0.8431876606683805 0.9
+W3-geometry 0.35475578406169667 0.47
+W3-sequence 0.519280205655527 0.53
+W3-synthetic-sequence 0.4755784061696658 0.5
+Staged 0 trusted words; preserved 77308 legacy public guesses
+PASS: wrong IDs/page, escaped/nonfinite/empty bars and invalid cuts rejected before scoring; denominators retained
+PASS: repeated-label CTC path, corpus inventory, BMP ranges, 95 app mappings, 11 silent targets, frozen historical allowlist
+.....
+----------------------------------------------------------------------
+Ran 5 tests in 0.017s
+
+OK
+{
+  "reconstructed": true,
+  "originalFileEquality": "not established; original digests unavailable",
+  "development": {
+    "oldmadina": {
+      "words": 95,
+      "emitted": 91,
+      "sha256": "53d3a5b6fce6a567c019ed5a049ba6ea6f3eb791ea9925faa6265df382e79104"
+    },
+    "amiri": {
+      "words": 95,
+      "emitted": 95,
+      "sha256": "d5f974e7bcb5f17fe15f351d8dd6aa411be27245fee703d43177fe908a91255c"
+    }
+  },
+  "top100": {
+    "words": 100,
+    "emitted": 100,
+    "sha256": "05a1ea14410c1f23a2d4a262717efc1fbaeb7966dbfd70e6ad84fea6553b3af9",
+    "approvedOverlap": 0,
+    "withheldOverlap": 0,
+    "structureErrors": 0
+  }
+}
+.....
+----------------------------------------------------------------------
+Ran 5 tests in 1.845s
+
+OK
+......
+----------------------------------------------------------------------
+Ran 6 tests in 0.008s
+
+OK
+{'status': 'passed', 'reconstructed': True, 'artworkWords': 77433, 'semanticUnitRecords': 77881, 'proposals': 22577, 'targets': 59005, 'families': 6068, 'new2d': 100, 'historical': 22477, 'approvedPilotExcluded': 39, 'withheld': 32, 'contactImagesChecked': 15, 'rootActualViewsChecked': 15, 'freshHeldoutWords': 0, 'stagedTrustedWords': 0, 'publicGuessFilesPreserved': True, 'protectedPathsChanged': 0, 'independentCurrentAppDumpEqual': True}

@@ -1,0 +1,23 @@
+{
+  "status": "pass",
+  "scope": "two fresh reconstruction executions; not old file recovery",
+  "artifactsCompared": 15,
+  "differentArtifacts": [],
+  "hashes": {
+    "scripts/letter-masks/contact/w3-geometry-stacked-masks.png": "230daa5e7ceae54f59af478b2aa76db42476466b78b4669eb2fcdf751d4219a6",
+    "scripts/letter-masks/contact/w3-sequence-stacked-masks.png": "edb4472a79a86a03446bb0d442d85ebce305cdf93850f13946d3c67a10bb3f3d",
+    "scripts/letter-masks/contact/w3-synthetic-sequence-stacked-masks.png": "198e2733785c54162f2de8612303af2a17b19d1d75a558420f3ca2794594636d",
+    "scripts/letter-masks/contact/w3-synthetic-validation.png": "ed7b1e89615b9fe76ab13769181293f72eca5a8024f2b2107eff0fbb5b23252b",
+    "scripts/letter-masks/contact/w3-validation.png": "d386b0eef55b921c92417020fade9058206179a1da356974e6bb285c9f33489c",
+    "scripts/letter-masks/research/w3_geometry_predictions.json": "75e5eb1335f4da4a6c7c5cf9c7425a6d47317ef00694ab654e8545fce19ceefa",
+    "scripts/letter-masks/research/w3_predictions.json": "640cb23ba7e6f1689876e58a20d24191443d92815aab8995c41e99854002dac0",
+    "scripts/letter-masks/research/w3_shared_metrics.json": "da4df7fb32d3bfc923cf6a4c532797c49eb5d8fddf4e63548d159b00470941f4",
+    "scripts/letter-masks/research/w3_synthetic-sequence_predictions.json": "c3f1492ff10d7429275cd583c6181abaa05bbeb39450a8fc4c272755449cc91e",
+    "scripts/letter-masks/research/w3_synthetic_audit.json": "cbed0395259936cbc6e63dce58847f5469feb662a4d31e15a89d28655d229ceb",
+    "tmp/letter-positions/w3/geometry.pt": "9df1561e0f8e2f35cdc0e10a92c60bd9a09b4a2c81beed139953bf1a4e1463a4",
+    "tmp/letter-positions/w3/sequence.pt": "b6a636f4a22f7d32a62e93db6305f6e8cae265f2f7b4e22db7d56bf921041aee",
+    "tmp/letter-positions/w3/synthetic-sequence.pt": "6e2b4bd3fac9ff804085b977bae4b28cda388397c6012b370f22760bbade7dfb",
+    "w3_metrics.json#without-seconds": "f9257108a3ac069ec61f8a177b577684296750b5ab5bbd536647083dfe4193d8",
+    "w3_synthetic_metrics.json#without-seconds": "f556656055fe5e2fa4a532b8ddfd191a138b4bba36374c39b7ccff529c279804"
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "status": "agreement audit complete",
+  "eligibleWords": 91,
+  "thresholdArtworkPx": 8.108108108108107,
+  "agreementWords": 10,
+  "agreements": [
+    {
+      "wid": "1.1.1",
+      "maxSupportEndpointDifferenceArtworkPx": 5.0090000000000146
+    },
+    {
+      "wid": "1.2.1",
+      "maxSupportEndpointDifferenceArtworkPx": 6.923000000000002
+    },
+    {
+      "wid": "1.4.1",
+      "maxSupportEndpointDifferenceArtworkPx": 7.9640000000000555
+    },
+    {
+      "wid": "1.7.4",
+      "maxSupportEndpointDifferenceArtworkPx": 6.277000000000044
+    },
+    {
+      "wid": "19.26.14",
+      "maxSupportEndpointDifferenceArtworkPx": 5.0
+    },
+    {
+      "wid": "2.196.40",
+      "maxSupportEndpointDifferenceArtworkPx": 7.2000000000000455
+    },
+    {
+      "wid": "2.4.10",
+      "maxSupportEndpointDifferenceArtworkPx": 4.0
+    },
+    {
+      "wid": "2.4.7",
+      "maxSupportEndpointDifferenceArtworkPx": 3.0
+    },
+    {
+      "wid": "45.14.8",
+      "maxSupportEndpointDifferenceArtworkPx": 5.771999999999991
+    },
+    {
+      "wid": "9.27.3",
+      "maxSupportEndpointDifferenceArtworkPx": 5.678000000000111
+    }
+  ],
+  "trainedPseudoWords": 0,
+  "reason": "Endpoint agreement is not independently verified 2-D ownership; low-confidence errors may correlate."
+}

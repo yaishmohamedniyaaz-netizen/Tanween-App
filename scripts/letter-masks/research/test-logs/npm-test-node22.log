@@ -1,0 +1,3005 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> tahqeeq@0.1.0 test
+> node scripts/build-question-index.mjs --check && node --test --experimental-strip-types scripts/mushaf-page-gesture.test.mjs scripts/mark-input.test.mjs scripts/page-finder.test.mjs scripts/word-finding-summary.test.mjs scripts/cluster-geometry.test.mjs scripts/selection-units.test.mjs scripts/tile-glyph.test.mjs scripts/letter-borders.test.mjs scripts/border-queue.test.mjs scripts/criterion-bar.test.mjs scripts/selector-layout.test.mjs scripts/selector-contract.test.mjs scripts/target-migration.test.mjs scripts/mistake-display.test.mjs scripts/letter-fit.test.mjs scripts/judging-ledger.test.mjs scripts/phrase-evidence.test.mjs scripts/session-save-controller.test.mjs scripts/hint-banner.test.mjs scripts/judge-workspace.test.mjs scripts/judge-assignments.test.mjs scripts/adu-raagu.test.mjs scripts/visual-controls.test.mjs scripts/participant-roster.test.mjs scripts/roster-draft.test.mjs scripts/roster-queue.test.mjs scripts/judge-records-workbook.test.mjs scripts/final-results.test.mjs scripts/results-review.test.mjs scripts/results-list.test.mjs scripts/question-bank.test.mjs scripts/question-evidence.test.mjs scripts/printed-basmala.test.mjs scripts/question-page.test.mjs scripts/question-deck.test.mjs scripts/competition-lifecycle.test.mjs scripts/competition-workspace.test.mjs scripts/device-preferences.test.mjs scripts/settings-guide.test.mjs scripts/mushaf-fit.test.mjs scripts/mushaf-geometry.test.mjs scripts/mushaf-spread.test.mjs scripts/offline-mushaf.test.mjs scripts/pwa-shell.test.mjs scripts/solid-mushaf.test.mjs scripts/recitation-audio.test.mjs scripts/recitation-replay.test.mjs scripts/tilawa-prototype.test.mjs scripts/mobile-judge-deck.test.mjs
+
+Verified 6236 ayahs against 8820 recitation lines
+TAP version 13
+# Subtest: Adu and Raagu is a whole-recitation criterion, never a page target
+ok 1 - Adu and Raagu is a whole-recitation criterion, never a page target
+  ---
+  duration_ms: 2.153026
+  type: 'test'
+  ...
+# Subtest: Fasaha and Adu and Raagu are optional; Jali and Khafi are not
+ok 2 - Fasaha and Adu and Raagu are optional; Jali and Khafi are not
+  ---
+  duration_ms: 3.277389
+  type: 'test'
+  ...
+# Subtest: a competition that judges neither optional criterion still totals 100
+ok 3 - a competition that judges neither optional criterion still totals 100
+  ---
+  duration_ms: 0.648423
+  type: 'test'
+  ...
+# Subtest: records saved before Adu and Raagu keep their exact criteria and totals
+ok 4 - records saved before Adu and Raagu keep their exact criteria and totals
+  ---
+  duration_ms: 0.362493
+  type: 'test'
+  ...
+# Subtest: a raw pre-Adu and Raagu config still yields a usable assignment
+ok 5 - a raw pre-Adu and Raagu config still yields a usable assignment
+  ---
+  duration_ms: 0.810311
+  type: 'test'
+  ...
+# Subtest: live unmarked impressions start at zero while history retains full marks
+ok 6 - live unmarked impressions start at zero while history retains full marks
+  ---
+  duration_ms: 0.502018
+  type: 'test'
+  ...
+# Subtest: required impression marks distinguish notes and explicit zero
+ok 7 - required impression marks distinguish notes and explicit zero
+  ---
+  duration_ms: 0.246413
+  type: 'test'
+  ...
+# Subtest: completion uses the same required-entry rule at every boundary
+ok 8 - completion uses the same required-entry rule at every boundary
+  ---
+  duration_ms: 0.590198
+  type: 'test'
+  ...
+# Subtest: impression marks are clamped to the criterion allocation
+ok 9 - impression marks are clamped to the criterion allocation
+  ---
+  duration_ms: 0.488177
+  type: 'test'
+  ...
+# Subtest: a saved impression survives a reopened session unchanged
+ok 10 - a saved impression survives a reopened session unchanged
+  ---
+  duration_ms: 0.694301
+  type: 'test'
+  ...
+# Subtest: section scoring keeps an Adu and Raagu judge to their own criterion
+ok 11 - section scoring keeps an Adu and Raagu judge to their own criterion
+  ---
+  duration_ms: 0.366499
+  type: 'test'
+  ...
+# Subtest: the panel covers exactly the criteria in use and allows four seats
+ok 12 - the panel covers exactly the criteria in use and allows four seats
+  ---
+  duration_ms: 0.253512
+  type: 'test'
+  ...
+# Subtest: an assignment cannot own a criterion the competition switched off
+ok 13 - an assignment cannot own a criterion the competition switched off
+  ---
+  duration_ms: 0.458575
+  type: 'test'
+  ...
+# Subtest: readiness checks the marks of the criteria actually in use
+ok 14 - readiness checks the marks of the criteria actually in use
+  ---
+  duration_ms: 1.075361
+  type: 'test'
+  ...
+# Subtest: final results and the workbook only carry the criteria judged
+ok 15 - final results and the workbook only carry the criteria judged
+  ---
+  duration_ms: 1.7273
+  type: 'test'
+  ...
+# Subtest: setup can switch an optional criterion off and warns about the panel
+ok 16 - setup can switch an optional criterion off and warns about the panel
+  ---
+  duration_ms: 0.225672
+  type: 'test'
+  ...
+# Subtest: a whole-recitation criterion stops at 20 marks
+ok 17 - a whole-recitation criterion stops at 20 marks
+  ---
+  duration_ms: 0.186484
+  type: 'test'
+  ...
+# Subtest: the mark list runs from full marks down to zero
+ok 18 - the mark list runs from full marks down to zero
+  ---
+  duration_ms: 0.232502
+  type: 'test'
+  ...
+# Subtest: both input styles accept deliberate focused wheel input without hover activation
+ok 19 - both input styles accept deliberate focused wheel input without hover activation
+  ---
+  duration_ms: 0.269346
+  type: 'test'
+  ...
+# Subtest: Adu and Raagu has one home in the rail, inside its score row
+ok 20 - Adu and Raagu has one home in the rail, inside its score row
+  ---
+  duration_ms: 1.025288
+  type: 'test'
+  ...
+# Subtest: the judging rail sits on the left unless the judge chose otherwise
+ok 21 - the judging rail sits on the left unless the judge chose otherwise
+  ---
+  duration_ms: 0.162368
+  type: 'test'
+  ...
+# Subtest: the criterion is written Adu / Raagu
+ok 22 - the criterion is written Adu / Raagu
+  ---
+  duration_ms: 0.163681
+  type: 'test'
+  ...
+# Subtest: marking a letter twice replaces the mark instead of stacking one
+ok 23 - marking a letter twice replaces the mark instead of stacking one
+  ---
+  duration_ms: 0.302465
+  type: 'test'
+  ...
+# Subtest: mistake details name the kalimah and where it sits
+ok 24 - mistake details name the kalimah and where it sits
+  ---
+  duration_ms: 0.184481
+  type: 'test'
+  ...
+# Subtest: the opened mark fits one evidence line and never spells out its category
+ok 25 - the opened mark fits one evidence line and never spells out its category
+  ---
+  duration_ms: 0.819876
+  type: 'test'
+  ...
+# Subtest: holding a word is neutral; only a criterion colours the page
+ok 26 - holding a word is neutral; only a criterion colours the page
+  ---
+  duration_ms: 2.891322
+  type: 'test'
+  ...
+# Subtest: the mark bar carries its criterion's colour across the portal
+ok 27 - the mark bar carries its criterion's colour across the portal
+  ---
+  duration_ms: 0.214536
+  type: 'test'
+  ...
+# Subtest: the finish checkpoint reviews assigned category scores and exact remarks
+ok 28 - the finish checkpoint reviews assigned category scores and exact remarks
+  ---
+  duration_ms: 0.28552
+  type: 'test'
+  ...
+# Subtest: the finish checkpoint focuses its primary action and contains keyboard focus
+ok 29 - the finish checkpoint focuses its primary action and contains keyboard focus
+  ---
+  duration_ms: 0.193344
+  type: 'test'
+  ...
+# Subtest: Adu and Raagu ruler keeps readable ink and a neutral uncommitted state
+ok 30 - Adu and Raagu ruler keeps readable ink and a neutral uncommitted state
+  ---
+  duration_ms: 0.853765
+  type: 'test'
+  ...
+# Subtest: the mark bar opens on a press and commits when the press ends
+ok 31 - the mark bar opens on a press and commits when the press ends
+  ---
+  duration_ms: 0.248225
+  type: 'test'
+  ...
+# Subtest: the mark ruler labels every whole mark and exposes half marks as minor ticks
+ok 32 - the mark ruler labels every whole mark and exposes half marks as minor ticks
+  ---
+  duration_ms: 1.120057
+  type: 'test'
+  ...
+# Subtest: the ruler uses a large numbered bubble and disables easing while dragging
+ok 33 - the ruler uses a large numbered bubble and disables easing while dragging
+  ---
+  duration_ms: 0.585631
+  type: 'test'
+  ...
+# Subtest: the Finish recovery remains available across repeated invalid saves
+ok 34 - the Finish recovery remains available across repeated invalid saves
+  ---
+  duration_ms: 0.856259
+  type: 'test'
+  ...
+# Subtest: the ruler snaps to half marks and commits only when the pointer is released
+ok 35 - the ruler snaps to half marks and commits only when the pointer is released
+  ---
+  duration_ms: 0.18989
+  type: 'test'
+  ...
+# Subtest: the quiet ruler stays neutral until a mark is set or previewed
+ok 36 - the quiet ruler stays neutral until a mark is set or previewed
+  ---
+  duration_ms: 0.419987
+  type: 'test'
+  ...
+# Subtest: the alternate input uses a floating tray without moving the score columns
+ok 37 - the alternate input uses a floating tray without moving the score columns
+  ---
+  duration_ms: 1.592942
+  type: 'test'
+  ...
+# Subtest: Adu and Raagu defaults to half-mark increments
+ok 38 - Adu and Raagu defaults to half-mark increments
+  ---
+  duration_ms: 0.113127
+  type: 'test'
+  ...
+# Subtest: marked words are counted per record and per mark, most-marked first
+ok 39 - marked words are counted per record and per mark, most-marked first
+  ---
+  duration_ms: 6.238253
+  type: 'test'
+  ...
+# Subtest: the same record exported twice counts once, at its newest revision
+ok 40 - the same record exported twice counts once, at its newest revision
+  ---
+  duration_ms: 0.366099
+  type: 'test'
+  ...
+# Subtest: words with approved borders for today's rules are skipped; old-rule borders are not
+ok 41 - words with approved borders for today's rules are skipped; old-rule borders are not
+  ---
+  duration_ms: 1.394531
+  type: 'test'
+  ...
+# Subtest: phrase evidence and marks without a page are ignored
+ok 42 - phrase evidence and marks without a page are ignored
+  ---
+  duration_ms: 0.328703
+  type: 'test'
+  ...
+# Subtest: state backups give their saved records and the live session
+ok 43 - state backups give their saved records and the live session
+  ---
+  duration_ms: 0.568596
+  type: 'test'
+  ...
+# Subtest: the shipped approved borders load and use today's rules
+ok 44 - the shipped approved borders load and use today's rules
+  ---
+  duration_ms: 6.687913
+  type: 'test'
+  ...
+# Subtest: uses contextual RTL caret boundaries as disjoint ownership cells
+ok 45 - uses contextual RTL caret boundaries as disjoint ownership cells
+  ---
+  duration_ms: 1.955786
+  type: 'test'
+  ...
+# Subtest: falls back to positive disjoint cells when a ligature hides carets
+ok 46 - falls back to positive disjoint cells when a ligature hides carets
+  ---
+  duration_ms: 0.484783
+  type: 'test'
+  ...
+# Subtest: supports left-to-right words without reversing ownership
+ok 47 - supports left-to-right words without reversing ownership
+  ---
+  duration_ms: 0.543269
+  type: 'test'
+  ...
+# Subtest: can force measured ligatures into distinct semantic regions
+ok 48 - can force measured ligatures into distinct semantic regions
+  ---
+  duration_ms: 0.281414
+  type: 'test'
+  ...
+# Subtest: legacy competition identity becomes a non-live draft
+ok 49 - legacy competition identity becomes a non-live draft
+  ---
+  duration_ms: 2.540456
+  type: 'test'
+  ...
+# Subtest: new competitions default to ten lines while explicit seven-line policies stay unchanged
+ok 50 - new competitions default to ten lines while explicit seven-line policies stay unchanged
+  ---
+  duration_ms: 0.424233
+  type: 'test'
+  ...
+# Subtest: official start readiness names every incomplete section
+ok 51 - official start readiness names every incomplete section
+  ---
+  duration_ms: 1.015964
+  type: 'test'
+  ...
+# Subtest: a Tahqeeq question set must be checked and frozen before start
+ok 52 - a Tahqeeq question set must be checked and frozen before start
+  ---
+  duration_ms: 0.409873
+  type: 'test'
+  ...
+# Subtest: participant entry settings normalize duplicate institutions without inventing defaults
+ok 53 - participant entry settings normalize duplicate institutions without inventing defaults
+  ---
+  duration_ms: 0.310787
+  type: 'test'
+  ...
+# Subtest: an unapplied roster draft blocks official start
+ok 54 - an unapplied roster draft blocks official start
+  ---
+  duration_ms: 0.275024
+  type: 'test'
+  ...
+# Subtest: every participant must map to exactly one active division
+ok 55 - every participant must map to exactly one active division
+  ---
+  duration_ms: 0.488318
+  type: 'test'
+  ...
+# Subtest: the live competition snapshot is detached and versioned
+ok 56 - the live competition snapshot is detached and versioned
+  ---
+  duration_ms: 0.451775
+  type: 'test'
+  ...
+# Subtest: the built-in sample is complete, clearly marked, and ready to test
+ok 57 - the built-in sample is complete, clearly marked, and ready to test
+  ---
+  duration_ms: 1.220324
+  type: 'test'
+  ...
+# Subtest: the reducer gates official judging behind a live frozen competition
+ok 58 - the reducer gates official judging behind a live frozen competition
+  ---
+  duration_ms: 1.037805
+  type: 'test'
+  ...
+# Subtest: Prepared survives normalization without creating a judging event
+ok 59 - Prepared survives normalization without creating a judging event
+  ---
+  duration_ms: 0.813396
+  type: 'test'
+  ...
+# Subtest: opening Tahqeeq remains a free Mushaf instead of auto-starting a session
+ok 60 - opening Tahqeeq remains a free Mushaf instead of auto-starting a session
+  ---
+  duration_ms: 1.193766
+  type: 'test'
+  ...
+# Subtest: competition preparation is a dedicated task workspace
+ok 61 - competition preparation is a dedicated task workspace
+  ---
+  duration_ms: 0.813126
+  type: 'test'
+  ...
+# Subtest: general settings remain separate from competition setup
+ok 62 - general settings remain separate from competition setup
+  ---
+  duration_ms: 0.499345
+  type: 'test'
+  ...
+# Subtest: question preparation exposes the ayah rule without pretending drafts are official
+ok 63 - question preparation exposes the ayah rule without pretending drafts are official
+  ---
+  duration_ms: 0.308694
+  type: 'test'
+  ...
+# Subtest: judging hit targets remain disabled outside an active reciter session
+ok 64 - judging hit targets remain disabled outside an active reciter session
+  ---
+  duration_ms: 0.307201
+  type: 'test'
+  ...
+# Subtest: the live handoff uses quiet status text and two focused screens
+ok 65 - the live handoff uses quiet status text and two focused screens
+  ---
+  duration_ms: 0.432496
+  type: 'test'
+  ...
+# Subtest: a draw opens a locked, recoverable Prepared Mushaf before judging
+ok 66 - a draw opens a locked, recoverable Prepared Mushaf before judging
+  ---
+  duration_ms: 0.33277
+  type: 'test'
+  ...
+# Subtest: finishing exposes the desktop next-reciter action and retains compact queue handoff
+ok 67 - finishing exposes the desktop next-reciter action and retains compact queue handoff
+  ---
+  duration_ms: 0.248204
+  type: 'test'
+  ...
+# Subtest: the prepared (Ready) reciter cannot be marked Not here from the queue
+ok 68 - the prepared (Ready) reciter cannot be marked Not here from the queue
+  ---
+  duration_ms: 0.408581
+  type: 'test'
+  ...
+# Subtest: a finger on the criterion bar never counts as a second finger on the page
+ok 69 - a finger on the criterion bar never counts as a second finger on the page
+  ---
+  duration_ms: 1.254575
+  type: 'test'
+  ...
+# Subtest: the bar is shown only with two or more pinpoint criteria and not in word-first order
+ok 70 - the bar is shown only with two or more pinpoint criteria and not in word-first order
+  ---
+  duration_ms: 0.242397
+  type: 'test'
+  ...
+# Subtest: a criterion chosen first arms the tray, a slide to a letter marks it, and nothing chosen shakes the island
+ok 71 - a criterion chosen first arms the tray, a slide to a letter marks it, and nothing chosen shakes the island
+  ---
+  duration_ms: 0.251019
+  type: 'test'
+  ...
+# Subtest: no word tint with the island: only the Mushaf frame shows the chosen colour
+ok 72 - no word tint with the island: only the Mushaf frame shows the chosen colour
+  ---
+  duration_ms: 0.152284
+  type: 'test'
+  ...
+# Subtest: drag and hold: lift on a letter marks, lift on the word keeps the tray, anywhere else cancels
+ok 73 - drag and hold: lift on a letter marks, lift on the word keeps the tray, anywhere else cancels
+  ---
+  duration_ms: 0.519363
+  type: 'test'
+  ...
+# Subtest: the settings opener is its own button in the bottom-right corner
+ok 74 - the settings opener is its own button in the bottom-right corner
+  ---
+  duration_ms: 0.175548
+  type: 'test'
+  ...
+# Subtest: keys 1 · 2 · 3 stay out of text fields and other dialogs, but work with the letter tray open
+ok 75 - keys 1 · 2 · 3 stay out of text fields and other dialogs, but work with the letter tray open
+  ---
+  duration_ms: 0.240854
+  type: 'test'
+  ...
+# Subtest: pen only ignores finger touches on the page; the tray keeps clear of the bar column
+ok 76 - pen only ignores finger touches on the page; the tray keeps clear of the bar column
+  ---
+  duration_ms: 0.152465
+  type: 'test'
+  ...
+# Subtest: with the bar on, the tray shows letters only by default; a setting brings the criteria back
+ok 77 - with the bar on, the tray shows letters only by default; a setting brings the criteria back
+  ---
+  duration_ms: 0.385386
+  type: 'test'
+  ...
+# Subtest: the scorecard rows can be the criterion buttons; the island is then not shown
+ok 78 - the scorecard rows can be the criterion buttons; the island is then not shown
+  ---
+  duration_ms: 0.492224
+  type: 'test'
+  ...
+# Subtest: a word whose marked letters all have underlines drops its count circle
+ok 79 - a word whose marked letters all have underlines drops its count circle
+  ---
+  duration_ms: 0.162239
+  type: 'test'
+  ...
+# Subtest: tashkeel is opt-in and survives a device preference round trip
+ok 80 - tashkeel is opt-in and survives a device preference round trip
+  ---
+  duration_ms: 22.377935
+  type: 'test'
+  ...
+# Subtest: device preferences normalize invalid values without losing valid choices
+ok 81 - device preferences normalize invalid values without losing valid choices
+  ---
+  duration_ms: 1.180306
+  type: 'test'
+  ...
+# Subtest: Fit and Two pages are fresh-device defaults while saved choices remain explicit
+ok 82 - Fit and Two pages are fresh-device defaults while saved choices remain explicit
+  ---
+  duration_ms: 8.656008
+  type: 'test'
+  ...
+# Subtest: legacy device keys migrate into the versioned settings object
+ok 83 - legacy device keys migrate into the versioned settings object
+  ---
+  duration_ms: 0.349033
+  type: 'test'
+  ...
+# Subtest: the version-one focus boolean migrates without losing other preferences
+ok 84 - the version-one focus boolean migrates without losing other preferences
+  ---
+  duration_ms: 0.369003
+  type: 'test'
+  ...
+# Subtest: the version-two combined shade migrates to Shade + fade
+ok 85 - the version-two combined shade migrates to Shade + fade
+  ---
+  duration_ms: 1.031917
+  type: 'test'
+  ...
+# Subtest: the version-three settings migrate with the horizontal input default
+ok 86 - the version-three settings migrate with the horizontal input default
+  ---
+  duration_ms: 0.304408
+  type: 'test'
+  ...
+# Subtest: the retired vertical preference migrates to explicit step buttons
+ok 87 - the retired vertical preference migrates to explicit step buttons
+  ---
+  duration_ms: 0.195137
+  type: 'test'
+  ...
+# Subtest: writing settings keeps the rollback-compatible legacy keys in sync
+ok 88 - writing settings keeps the rollback-compatible legacy keys in sync
+  ---
+  duration_ms: 0.540434
+  type: 'test'
+  ...
+# Subtest: unavailable storage never prevents an in-memory preference change
+ok 89 - unavailable storage never prevents an in-memory preference change
+  ---
+  duration_ms: 0.677005
+  type: 'test'
+  ...
+# Subtest: slim score preference defaults off and preserves other device settings
+ok 90 - slim score preference defaults off and preserves other device settings
+  ---
+  duration_ms: 0.327021
+  type: 'test'
+  ...
+# Subtest: marking preferences: owner defaults, invalid values fall back, the old mixed order becomes criterion first
+ok 91 - marking preferences: owner defaults, invalid values fall back, the old mixed order becomes criterion first
+  ---
+  duration_ms: 0.376594
+  type: 'test'
+  ...
+# Subtest: criterion choice: a tap chooses for one mark, tap again turns it off, a hold keeps it until release
+ok 92 - criterion choice: a tap chooses for one mark, tap again turns it off, a hold keeps it until release
+  ---
+  duration_ms: 0.291258
+  type: 'test'
+  ...
+# Subtest: keys 1 · 2 · 3 follow the bar's visible order
+ok 93 - keys 1 · 2 · 3 follow the bar's visible order
+  ---
+  duration_ms: 0.206133
+  type: 'test'
+  ...
+# Subtest: three judge-owned sections combine only when every category is present
+ok 94 - three judge-owned sections combine only when every category is present
+  ---
+  duration_ms: 5.852836
+  type: 'test'
+  ...
+# Subtest: missing and competing judge sections never resolve silently
+ok 95 - missing and competing judge sections never resolve silently
+  ---
+  duration_ms: 0.701421
+  type: 'test'
+  ...
+# Subtest: finalization rejects participants without ranking identity fields
+ok 96 - finalization rejects participants without ranking identity fields
+  ---
+  duration_ms: 0.190079
+  type: 'test'
+  ...
+# Subtest: equal percentages retain equal places inside the same age and category
+ok 97 - equal percentages retain equal places inside the same age and category
+  ---
+  duration_ms: 0.862759
+  type: 'test'
+  ...
+# Subtest: placements use final percentage, then Jali, then Khafi, and stop there
+ok 98 - placements use final percentage, then Jali, then Khafi, and stop there
+  ---
+  duration_ms: 0.833927
+  type: 'test'
+  ...
+# Subtest: a corrected final records a new revision reason and manifest
+ok 99 - a corrected final records a new revision reason and manifest
+  ---
+  duration_ms: 0.426697
+  type: 'test'
+  ...
+# Subtest: final workbook preserves requested participant fields and verified fixed totals
+ok 100 - final workbook preserves requested participant fields and verified fixed totals
+  ---
+  duration_ms: 778.183583
+  type: 'test'
+  ...
+# Subtest: final workbook groups split-responsibility marks under their responsible judges
+ok 101 - final workbook groups split-responsibility marks under their responsible judges
+  ---
+  duration_ms: 70.586134
+  type: 'test'
+  ...
+# Subtest: frozen setup creates one to four judge groups with enabled criteria only
+ok 102 - frozen setup creates one to four judge groups with enabled criteria only
+  ---
+  duration_ms: 328.310252
+  type: 'test'
+  ...
+# Subtest: setup additions leave missing marks blank and preserve frozen judge attribution
+ok 103 - setup additions leave missing marks blank and preserve frozen judge attribution
+  ---
+  duration_ms: 25.050216
+  type: 'test'
+  ...
+# Subtest: long institution and judge names wrap without enlarging ordinary rows
+ok 104 - long institution and judge names wrap without enlarging ordinary rows
+  ---
+  duration_ms: 44.185098
+  type: 'test'
+  ...
+# Subtest: final workbook orders numeric age groups from youngest to oldest
+ok 105 - final workbook orders numeric age groups from youngest to oldest
+  ---
+  duration_ms: 18.556527
+  type: 'test'
+  ...
+# Subtest: judge packages and full backups reject incomplete files
+ok 106 - judge packages and full backups reject incomplete files
+  ---
+  duration_ms: 1.691597
+  type: 'test'
+  ...
+# Subtest: the UI retains old final revisions and validates imported competition records
+ok 107 - the UI retains old final revisions and validates imported competition records
+  ---
+  duration_ms: 0.527646
+  type: 'test'
+  ...
+# Subtest: first-use marking guidance overlays the measured viewport instead of taking stage space
+ok 108 - first-use marking guidance overlays the measured viewport instead of taking stage space
+  ---
+  duration_ms: 1.1155
+  type: 'test'
+  ...
+# Subtest: the coach retires immediately after the first successful mark
+ok 109 - the coach retires immediately after the first successful mark
+  ---
+  duration_ms: 0.171362
+  type: 'test'
+  ...
+# Subtest: dismissal and a new reciter safely re-read the existing retirement key
+ok 110 - dismissal and a new reciter safely re-read the existing retirement key
+  ---
+  duration_ms: 0.184792
+  type: 'test'
+  ...
+# Subtest: the guide remains replayable from More controls
+ok 111 - the guide remains replayable from More controls
+  ---
+  duration_ms: 0.117332
+  type: 'test'
+  ...
+# Subtest: the two common panel presets cover every category exactly once
+ok 112 - the two common panel presets cover every category exactly once
+  ---
+  duration_ms: 2.038928
+  type: 'test'
+  ...
+# Subtest: custom panels reject missing, duplicated, and empty assignments
+ok 113 - custom panels reject missing, duplicated, and empty assignments
+  ---
+  duration_ms: 0.246643
+  type: 'test'
+  ...
+# Subtest: invalid stored panels fall back to the legacy one-judge meaning
+ok 114 - invalid stored panels fall back to the legacy one-judge meaning
+  ---
+  duration_ms: 0.389353
+  type: 'test'
+  ...
+# Subtest: a session assignment is a detached immutable snapshot
+ok 115 - a session assignment is a detached immutable snapshot
+  ---
+  duration_ms: 0.480887
+  type: 'test'
+  ...
+# Subtest: section scoring includes only assigned categories
+ok 116 - section scoring includes only assigned categories
+  ---
+  duration_ms: 0.520135
+  type: 'test'
+  ...
+# Subtest: all seven possible device assignments retain the standard order
+ok 117 - all seven possible device assignments retain the standard order
+  ---
+  duration_ms: 0.482971
+  type: 'test'
+  ...
+# Subtest: the saved-state reducer independently rejects unassigned categories
+ok 118 - the saved-state reducer independently rejects unassigned categories
+  ---
+  duration_ms: 0.382963
+  type: 'test'
+  ...
+# Subtest: setup derives judge count, requires a device role, and freezes active settings
+ok 119 - setup derives judge count, requires a device role, and freezes active settings
+  ---
+  duration_ms: 0.364606
+  type: 'test'
+  ...
+# Subtest: the reciter handoff freezes the device assignment before Ready
+ok 120 - the reciter handoff freezes the device assignment before Ready
+  ---
+  duration_ms: 0.46914
+  type: 'test'
+  ...
+# Subtest: scores stay scoped without the unwanted live wording
+ok 121 - scores stay scoped without the unwanted live wording
+  ---
+  duration_ms: 0.535948
+  type: 'test'
+  ...
+# Subtest: interface labels never print a raw storage id
+ok 122 - interface labels never print a raw storage id
+  ---
+  duration_ms: 0.374691
+  type: 'test'
+  ...
+# Subtest: interface labels follow the canonical category order
+ok 123 - interface labels follow the canonical category order
+  ---
+  duration_ms: 0.161807
+  type: 'test'
+  ...
+# Subtest: an empty selection produces an empty label the caller can replace
+ok 124 - an empty selection produces an empty label the caller can replace
+  ---
+  duration_ms: 0.089932
+  type: 'test'
+  ...
+# Subtest: export labels stay plain ASCII so saved records remain comparable
+ok 125 - export labels stay plain ASCII so saved records remain comparable
+  ---
+  duration_ms: 0.137933
+  type: 'test'
+  ...
+# Subtest: the setup summary uses the interface labels, not raw ids
+ok 126 - the setup summary uses the interface labels, not raw ids
+  ---
+  duration_ms: 0.461779
+  type: 'test'
+  ...
+# Subtest: only exports keep the plain ASCII criterion spellings
+ok 127 - only exports keep the plain ASCII criterion spellings
+  ---
+  duration_ms: 1.382302
+  type: 'test'
+  ...
+# Subtest: judge-record workbook is formatted, verified, and ordered youngest first
+ok 128 - judge-record workbook is formatted, verified, and ordered youngest first
+  ---
+  duration_ms: 787.789282
+  type: 'test'
+  ...
+# Subtest: More controls is a nonmodal controls popover rather than an ARIA menu
+ok 129 - More controls is a nonmodal controls popover rather than an ARIA menu
+  ---
+  duration_ms: 1.017306
+  type: 'test'
+  ...
+# Subtest: live Mushaf sizing has native and discrete input paths plus Fit
+ok 130 - live Mushaf sizing has native and discrete input paths plus Fit
+  ---
+  duration_ms: 0.220485
+  type: 'test'
+  ...
+# Subtest: the desktop workbench uses the researched canvas, rail, and safe scroll canvas
+ok 131 - the desktop workbench uses the researched canvas, rail, and safe scroll canvas
+  ---
+  duration_ms: 0.352919
+  type: 'test'
+  ...
+# Subtest: the wide judge workspace spends recovered chrome height on a larger Fit canvas
+ok 132 - the wide judge workspace spends recovered chrome height on a larger Fit canvas
+  ---
+  duration_ms: 5.022811
+  type: 'test'
+  ...
+# Subtest: the live More controls expose the persisted scorecard side preference
+ok 133 - the live More controls expose the persisted scorecard side preference
+  ---
+  duration_ms: 0.253863
+  type: 'test'
+  ...
+# Subtest: the live More controls select one persisted Adu and Raagu input style
+ok 134 - the live More controls select one persisted Adu and Raagu input style
+  ---
+  duration_ms: 0.377756
+  type: 'test'
+  ...
+# Subtest: the current score is reconstructed from the action history
+ok 135 - the current score is reconstructed from the action history
+  ---
+  duration_ms: 2.130913
+  type: 'test'
+  ...
+# Subtest: undo keeps evidence and restore returns the exact adjusted mark
+ok 136 - undo keeps evidence and restore returns the exact adjusted mark
+  ---
+  duration_ms: 0.243768
+  type: 'test'
+  ...
+# Subtest: old mistake snapshots receive a deterministic readable history
+ok 137 - old mistake snapshots receive a deterministic readable history
+  ---
+  duration_ms: 0.433587
+  type: 'test'
+  ...
+# Subtest: the app backs up old data and requires a reason to reopen
+ok 138 - the app backs up old data and requires a reason to reopen
+  ---
+  duration_ms: 5.796123
+  type: 'test'
+  ...
+# Subtest: marking a letter again under another criterion corrects it in place
+ok 139 - marking a letter again under another criterion corrects it in place
+  ---
+  duration_ms: 3.375904
+  type: 'test'
+  ...
+# Subtest: a correction deducts once, not twice
+ok 140 - a correction deducts once, not twice
+  ---
+  duration_ms: 0.326059
+  type: 'test'
+  ...
+# Subtest: correcting a letter that is no longer marked changes nothing
+ok 141 - correcting a letter that is no longer marked changes nothing
+  ---
+  duration_ms: 0.223589
+  type: 'test'
+  ...
+# Subtest: a correction can be undone like any other mistake
+ok 142 - a correction can be undone like any other mistake
+  ---
+  duration_ms: 0.134077
+  type: 'test'
+  ...
+# Subtest: version 1 ledgers replay unchanged
+ok 143 - version 1 ledgers replay unchanged
+  ---
+  duration_ms: 0.336725
+  type: 'test'
+  ...
+# Subtest: a correction is the letter's latest event, so it can be undone from the log
+ok 144 - a correction is the letter's latest event, so it can be undone from the log
+  ---
+  duration_ms: 0.851873
+  type: 'test'
+  ...
+# Subtest: two judges marking the same letter stay two separate findings
+ok 145 - two judges marking the same letter stay two separate findings
+  ---
+  duration_ms: 0.569527
+  type: 'test'
+  ...
+# Subtest: a letter bar spans that letter's approved borders inside the word region
+ok 146 - a letter bar spans that letter's approved borders inside the word region
+  ---
+  duration_ms: 5.823724
+  type: 'test'
+  ...
+# Subtest: no bar without an approved border: unknown word, other letter units, or old rules
+ok 147 - no bar without an approved border: unknown word, other letter units, or old rules
+  ---
+  duration_ms: 0.164883
+  type: 'test'
+  ...
+# Subtest: the shipped borders match the app's current letters and sit inside each word
+ok 148 - the shipped borders match the app's current letters and sit inside each word
+  ---
+  duration_ms: 61.145056
+  type: 'test'
+  ...
+# Subtest: guessed underlines: approved first, then guesses by the prototype switch
+ok 149 - guessed underlines: approved first, then guesses by the prototype switch
+  ---
+  duration_ms: 0.385096
+  type: 'test'
+  ...
+# Subtest: defaults match the 13 Oct 2026 review
+ok 150 - defaults match the 13 Oct 2026 review
+  ---
+  duration_ms: 10.877836
+  type: 'test'
+  ...
+# Subtest: every letter the tray can show has measured ink
+ok 151 - every letter the tray can show has measured ink
+  ---
+  duration_ms: 0.331758
+  type: 'test'
+  ...
+# Subtest: optical fit puts each letter's ink centre on the tile centre
+ok 152 - optical fit puts each letter's ink centre on the tile centre
+  ---
+  duration_ms: 0.464463
+  type: 'test'
+  ...
+# Subtest: optical fit lifts tailed letters, e.g. ع by about 9px
+ok 153 - optical fit lifts tailed letters, e.g. ع by about 9px
+  ---
+  duration_ms: 0.134958
+  type: 'test'
+  ...
+# Subtest: lift-tailed moves only tailed letters, all by one amount
+ok 154 - lift-tailed moves only tailed letters, all by one amount
+  ---
+  duration_ms: 0.72086
+  type: 'test'
+  ...
+# Subtest: shared baseline uses one size and one shift for every letter
+ok 155 - shared baseline uses one size and one shift for every letter
+  ---
+  duration_ms: 0.207285
+  type: 'test'
+  ...
+# Subtest: unknown glyphs are left where the font puts them
+ok 156 - unknown glyphs are left where the font puts them
+  ---
+  duration_ms: 0.276837
+  type: 'test'
+  ...
+# Subtest: every tile letter stays inside the 40px tile after the optical fit
+ok 157 - every tile letter stays inside the 40px tile after the optical fit
+  ---
+  duration_ms: 0.187025
+  type: 'test'
+  ...
+# Subtest: the shared controller clamps and snaps every committed mark
+ok 158 - the shared controller clamps and snaps every committed mark
+  ---
+  duration_ms: 1.286532
+  type: 'test'
+  ...
+# Subtest: horizontal position maps to the same shared half-mark values
+ok 159 - horizontal position maps to the same shared half-mark values
+  ---
+  duration_ms: 0.20414
+  type: 'test'
+  ...
+# Subtest: an unmarked stepper starts from the maximum only after a deliberate step
+ok 160 - an unmarked stepper starts from the maximum only after a deliberate step
+  ---
+  duration_ms: 0.18399
+  type: 'test'
+  ...
+# Subtest: subsequent stepper adjustments use the committed value and clamp at limits
+ok 161 - subsequent stepper adjustments use the committed value and clamp at limits
+  ---
+  duration_ms: 0.161558
+  type: 'test'
+  ...
+# Subtest: a press that wanders less than the tap slop is still a tap
+ok 162 - a press that wanders less than the tap slop is still a tap
+  ---
+  duration_ms: 0.228216
+  type: 'test'
+  ...
+# Subtest: releasing far above or below the ruler and its box cancels
+ok 163 - releasing far above or below the ruler and its box cancels
+  ---
+  duration_ms: 0.23827
+  type: 'test'
+  ...
+# Subtest: only left and right choose the mark, and past either end is that end
+ok 164 - only left and right choose the mark, and past either end is that end
+  ---
+  duration_ms: 0.245421
+  type: 'test'
+  ...
+# Subtest: page 199 carried hamza uses the semantic label and preserves exact Quran evidence
+ok 165 - page 199 carried hamza uses the semantic label and preserves exact Quran evidence
+  ---
+  duration_ms: 1.196319
+  type: 'test'
+  ...
+# Subtest: every carried-hamza family keeps one primary label and its distinct full form
+ok 166 - every carried-hamza family keeps one primary label and its distinct full form
+  ---
+  duration_ms: 0.234194
+  type: 'test'
+  ...
+# Subtest: ordinary, legacy, empty, and decomposed evidence use deterministic fallbacks
+ok 167 - ordinary, legacy, empty, and decomposed evidence use deterministic fallbacks
+  ---
+  duration_ms: 0.31269
+  type: 'test'
+  ...
+# Subtest: records statistics group semantic letters but preserve stable locations
+ok 168 - records statistics group semantic letters but preserve stable locations
+  ---
+  duration_ms: 0.95201
+  type: 'test'
+  ...
+# Subtest: compact and review surfaces share the semantic display helper
+ok 169 - compact and review surfaces share the semantic display helper
+  ---
+  duration_ms: 0.549258
+  type: 'test'
+  ...
+# Subtest: exports retain immutable full-form snapshots
+ok 170 - exports retain immutable full-form snapshots
+  ---
+  duration_ms: 0.169088
+  type: 'test'
+  ...
+# Subtest: CSS locks scrolling, Arabic ink, and shared score alignment
+ok 171 - CSS locks scrolling, Arabic ink, and shared score alignment
+  ---
+  duration_ms: 1.667152
+  type: 'test'
+  ...
+# Subtest: the mobile judge deck defaults on and keeps an exact emergency opt-out
+ok 172 - the mobile judge deck defaults on and keeps an exact emergency opt-out
+  ---
+  duration_ms: 0.904981
+  type: 'test'
+  ...
+# Subtest: one to four assignment criteria render in canonical order without abbreviations
+ok 173 - one to four assignment criteria render in canonical order without abbreviations
+  ---
+  duration_ms: 0.717666
+  type: 'test'
+  ...
+# Subtest: criterion chips keep colour in blocks while Adu and Raagu shows awarded marks
+ok 174 - criterion chips keep colour in blocks while Adu and Raagu shows awarded marks
+  ---
+  duration_ms: 0.189389
+  type: 'test'
+  ...
+# Subtest: mistake copy is unambiguous and elapsed timestamps are stable
+ok 175 - mistake copy is unambiguous and elapsed timestamps are stable
+  ---
+  duration_ms: 0.126035
+  type: 'test'
+  ...
+# Subtest: the last-action strip follows the latest live ledger action and retires on Undo
+ok 176 - the last-action strip follows the latest live ledger action and retires on Undo
+  ---
+  duration_ms: 0.243579
+  type: 'test'
+  ...
+# Subtest: last-action feedback uses the five-second window and a pre-mounted atomic status
+ok 177 - last-action feedback uses the five-second window and a pre-mounted atomic status
+  ---
+  duration_ms: 2.524842
+  type: 'test'
+  ...
+# Subtest: the portrait deck reuses the existing score, mistake, notes and judge components
+ok 178 - the portrait deck reuses the existing score, mistake, notes and judge components
+  ---
+  duration_ms: 1.91068
+  type: 'test'
+  ...
+# Subtest: portrait sheets expose explicit close controls and the score ruler clears the sheet layer
+ok 179 - portrait sheets expose explicit close controls and the score ruler clears the sheet layer
+  ---
+  duration_ms: 1.87722
+  type: 'test'
+  ...
+# Subtest: prepared portrait mode shares the live dock footprint without covering the Mushaf
+ok 180 - prepared portrait mode shares the live dock footprint without covering the Mushaf
+  ---
+  duration_ms: 4.582608
+  type: 'test'
+  ...
+# Subtest: the optional raised comparison moves only the complete single-page group
+ok 181 - the optional raised comparison moves only the complete single-page group
+  ---
+  duration_ms: 5.876842
+  type: 'test'
+  ...
+# Subtest: mobile Finish removes duplicate score copy and aligns numeric content inside the existing grid
+ok 182 - mobile Finish removes duplicate score copy and aligns numeric content inside the existing grid
+  ---
+  duration_ms: 6.251443
+  type: 'test'
+  ...
+# Subtest: phone portrait reciter queue stays inside the PWA safe area
+ok 183 - phone portrait reciter queue stays inside the PWA safe area
+  ---
+  duration_ms: 2.642015
+  type: 'test'
+  ...
+# Subtest: phone portrait Finish is a bounded sheet rather than a full-screen panel
+ok 184 - phone portrait Finish is a bounded sheet rather than a full-screen panel
+  ---
+  duration_ms: 1.514937
+  type: 'test'
+  ...
+# Subtest: phone portrait shares Return with the header without reserving a paper row
+ok 185 - phone portrait shares Return with the header without reserving a paper row
+  ---
+  duration_ms: 3.893886
+  type: 'test'
+  ...
+# Subtest: full-page Fit respects the print maximum and both frame axes
+ok 186 - full-page Fit respects the print maximum and both frame axes
+  ---
+  duration_ms: 0.705067
+  type: 'test'
+  ...
+# Subtest: two-page spread Fit is width- or height-limited without changing either page ratio
+ok 187 - two-page spread Fit is width- or height-limited without changing either page ratio
+  ---
+  duration_ms: 0.118474
+  type: 'test'
+  ...
+# Subtest: Fit retains clearance and rejects unusable measurements
+ok 188 - Fit retains clearance and rejects unusable measurements
+  ---
+  duration_ms: 0.151032
+  type: 'test'
+  ...
+# Subtest: stored view scales remain uniform magnifications of Fit
+ok 189 - stored view scales remain uniform magnifications of Fit
+  ---
+  duration_ms: 0.44871
+  type: 'test'
+  ...
+# Subtest: stable desktop mode stays aligned with the existing responsive boundary
+ok 190 - stable desktop mode stays aligned with the existing responsive boundary
+  ---
+  duration_ms: 0.199614
+  type: 'test'
+  ...
+# Subtest: page scale uses compact surface reference without changing desktop geometry
+ok 191 - page scale uses compact surface reference without changing desktop geometry
+  ---
+  duration_ms: 0.985168
+  type: 'test'
+  ...
+# Subtest: line fitting accounts for ink beyond both sides of advance boxes
+ok 192 - line fitting accounts for ink beyond both sides of advance boxes
+  ---
+  duration_ms: 0.261975
+  type: 'test'
+  ...
+# Subtest: empty and unavailable geometry does not create invalid CSS
+ok 193 - empty and unavailable geometry does not create invalid CSS
+  ---
+  duration_ms: 0.116402
+  type: 'test'
+  ...
+# Subtest: a short word wins over neighboring touch padding, with forgiving gap taps
+ok 194 - a short word wins over neighboring touch padding, with forgiving gap taps
+  ---
+  duration_ms: 0.227304
+  type: 'test'
+  ...
+# Subtest: touch: left goes back, once on release
+ok 195 - touch: left goes back, once on release
+  ---
+  duration_ms: 1.841307
+  type: 'test'
+  ...
+# Subtest: touch: right advances, once on release
+ok 196 - touch: right advances, once on release
+  ---
+  duration_ms: 0.109882
+  type: 'test'
+  ...
+# Subtest: pen: left goes back, once on release
+ok 197 - pen: left goes back, once on release
+  ---
+  duration_ms: 0.075321
+  type: 'test'
+  ...
+# Subtest: pen: right advances, once on release
+ok 198 - pen: right advances, once on release
+  ---
+  duration_ms: 0.069452
+  type: 'test'
+  ...
+# Subtest: ineligible input {"pointerType":"mouse"} never begins
+ok 199 - ineligible input {"pointerType":"mouse"} never begins
+  ---
+  duration_ms: 0.160586
+  type: 'test'
+  ...
+# Subtest: ineligible input {"pointerType":""} never begins
+ok 200 - ineligible input {"pointerType":""} never begins
+  ---
+  duration_ms: 0.092166
+  type: 'test'
+  ...
+# Subtest: ineligible input {"pointerType":"unknown"} never begins
+ok 201 - ineligible input {"pointerType":"unknown"} never begins
+  ---
+  duration_ms: 0.180766
+  type: 'test'
+  ...
+# Subtest: ineligible input {"button":2} never begins
+ok 202 - ineligible input {"button":2} never begins
+  ---
+  duration_ms: 0.066468
+  type: 'test'
+  ...
+# Subtest: ineligible input {"button":5} never begins
+ok 203 - ineligible input {"button":5} never begins
+  ---
+  duration_ms: 0.825534
+  type: 'test'
+  ...
+# Subtest: ineligible input {"button":-1} never begins
+ok 204 - ineligible input {"button":-1} never begins
+  ---
+  duration_ms: 0.26555
+  type: 'test'
+  ...
+# Subtest: ineligible input {"isPrimary":false} never begins
+ok 205 - ineligible input {"isPrimary":false} never begins
+  ---
+  duration_ms: 0.154127
+  type: 'test'
+  ...
+# Subtest: ineligible input {"width":0} never begins
+ok 206 - ineligible input {"width":0} never begins
+  ---
+  duration_ms: 0.049442
+  type: 'test'
+  ...
+# Subtest: tap, small drift and reversal below release distance do nothing
+ok 207 - tap, small drift and reversal below release distance do nothing
+  ---
+  duration_ms: 0.148548
+  type: 'test'
+  ...
+# Subtest: vertical and diagonal intent cannot later become a page turn
+ok 208 - vertical and diagonal intent cannot later become a page turn
+  ---
+  duration_ms: 0.094188
+  type: 'test'
+  ...
+# Subtest: final diagonal release rejects a previously horizontal drag
+ok 209 - final diagonal release rejects a previously horizontal drag
+  ---
+  duration_ms: 0.062892
+  type: 'test'
+  ...
+# Subtest: stale page, zoom or session generation cannot navigate
+ok 210 - stale page, zoom or session generation cannot navigate
+  ---
+  duration_ms: 0.053449
+  type: 'test'
+  ...
+# Subtest: another pointer cannot move, end or replace the owner
+ok 211 - another pointer cannot move, end or replace the owner
+  ---
+  duration_ms: 0.087508
+  type: 'test'
+  ...
+# Subtest: threshold is in screen pixels and bounded for phone and wide spreads
+ok 212 - threshold is in screen pixels and bounded for phone and wide spreads
+  ---
+  duration_ms: 0.071085
+  type: 'test'
+  ...
+# Subtest: two-page view keeps the selected page on the right and the following page on the left
+ok 213 - two-page view keeps the selected page on the right and the following page on the left
+  ---
+  duration_ms: 1.208337
+  type: 'test'
+  ...
+# Subtest: spread navigation moves by a complete visible pair and clamps the Quran boundaries
+ok 214 - spread navigation moves by a complete visible pair and clamps the Quran boundaries
+  ---
+  duration_ms: 0.144683
+  type: 'test'
+  ...
+# Subtest: compact screens render one page without destroying the stored desktop preference
+ok 215 - compact screens render one page without destroying the stored desktop preference
+  ---
+  duration_ms: 0.144733
+  type: 'test'
+  ...
+# Subtest: range labels and evidence lookup cover both visible pages
+ok 216 - range labels and evidence lookup cover both visible pages
+  ---
+  duration_ms: 0.12889
+  type: 'test'
+  ...
+# Subtest: the renderer loads and swaps both page assets as one spread
+ok 217 - the renderer loads and swaps both page assets as one spread
+  ---
+  duration_ms: 1.833286
+  type: 'test'
+  ...
+# Subtest: view choice lives beside live size controls and not in Settings
+ok 218 - view choice lives beside live size controls and not in Settings
+  ---
+  duration_ms: 0.133517
+  type: 'test'
+  ...
+# Subtest: question focus is a device view control and stays range-aware in both page layouts
+ok 219 - question focus is a device view control and stays range-aware in both page layouts
+  ---
+  duration_ms: 0.362944
+  type: 'test'
+  ...
+# Subtest: the offline Mushaf manifest covers every immutable page and font once
+ok 220 - the offline Mushaf manifest covers every immutable page and font once
+  ---
+  duration_ms: 11.35661
+  type: 'test'
+  ...
+# Subtest: a page is ready only when matching-version data and font are both cached
+ok 221 - a page is ready only when matching-version data and font are both cached
+  ---
+  duration_ms: 0.672499
+  type: 'test'
+  ...
+# Subtest: ordinary shell releases retain current Mushaf data and font caches
+ok 222 - ordinary shell releases retain current Mushaf data and font caches
+  ---
+  duration_ms: 0.395702
+  type: 'test'
+  ...
+# Subtest: intent prefetch and judging protection stay attached to existing navigation
+ok 223 - intent prefetch and judging protection stay attached to existing navigation
+  ---
+  duration_ms: 0.391035
+  type: 'test'
+  ...
+# Subtest: installed-app download is explicit and displays the measured artwork size
+ok 224 - installed-app download is explicit and displays the measured artwork size
+  ---
+  duration_ms: 0.145685
+  type: 'test'
+  ...
+# Subtest: a number finds the page, the surah and the juz
+ok 225 - a number finds the page, the surah and the juz
+  ---
+  duration_ms: 1.961234
+  type: 'test'
+  ...
+# Subtest: Latin names forgive spelling and the article
+ok 226 - Latin names forgive spelling and the article
+  ---
+  duration_ms: 0.555707
+  type: 'test'
+  ...
+# Subtest: Arabic names match with or without vowel marks and the article
+ok 227 - Arabic names match with or without vowel marks and the article
+  ---
+  duration_ms: 0.527656
+  type: 'test'
+  ...
+# Subtest: juz uses the Mushaf's own juz table
+ok 228 - juz uses the Mushaf's own juz table
+  ---
+  duration_ms: 0.144773
+  type: 'test'
+  ...
+# Subtest: the question page leads the empty list
+ok 229 - the question page leads the empty list
+  ---
+  duration_ms: 0.570048
+  type: 'test'
+  ...
+# Subtest: an exact Arabic name comes first, so Enter opens that surah
+ok 230 - an exact Arabic name comes first, so Enter opens that surah
+  ---
+  duration_ms: 0.915195
+  type: 'test'
+  ...
+# Subtest: common other spellings, a page prefix and Persian digits
+ok 231 - common other spellings, a page prefix and Persian digits
+  ---
+  duration_ms: 0.330476
+  type: 'test'
+  ...
+# Subtest: the requested participant columns parse into stable typed entries
+ok 232 - the requested participant columns parse into stable typed entries
+  ---
+  duration_ms: 2.009935
+  type: 'test'
+  ...
+# Subtest: duplicates and unknown competition values cannot silently enter the roster
+ok 233 - duplicates and unknown competition values cannot silently enter the roster
+  ---
+  duration_ms: 0.437133
+  type: 'test'
+  ...
+# Subtest: legacy island or class data migrates into Institution
+ok 234 - legacy island or class data migrates into Institution
+  ---
+  duration_ms: 0.199624
+  type: 'test'
+  ...
+# Subtest: template contact columns default off and remember the organizer's choice
+ok 235 - template contact columns default off and remember the organizer's choice
+  ---
+  duration_ms: 0.675894
+  type: 'test'
+  ...
+# Subtest: the competition workbook round-trips with a V7 native table and supplied numbering
+ok 236 - the competition workbook round-trips with a V7 native table and supplied numbering
+  ---
+  duration_ms: 205.800121
+  type: 'test'
+  ...
+# Subtest: unused V7 starter rows do not become participant drafts
+ok 237 - unused V7 starter rows do not become participant drafts
+  ---
+  duration_ms: 27.899525
+  type: 'test'
+  ...
+# Subtest: V7 generates four starter rows only for selected Categories
+ok 238 - V7 generates four starter rows only for selected Categories
+  ---
+  duration_ms: 52.577609
+  type: 'test'
+  ...
+# Subtest: a completed V7 starter row imports without the remaining starter rows
+ok 239 - a completed V7 starter row imports without the remaining starter rows
+  ---
+  duration_ms: 47.753268
+  type: 'test'
+  ...
+# Subtest: automatic numbering templates omit the participant-number column
+ok 240 - automatic numbering templates omit the participant-number column
+  ---
+  duration_ms: 14.405273
+  type: 'test'
+  ...
+# Subtest: participant templates can omit Institution and include Phone without shifting validation
+ok 241 - participant templates can omit Institution and include Phone without shifting validation
+  ---
+  duration_ms: 39.968742
+  type: 'test'
+  ...
+# Subtest: the separate sample workbook contains fictional, importable participants
+ok 242 - the separate sample workbook contains fictional, importable participants
+  ---
+  duration_ms: 28.373853
+  type: 'test'
+  ...
+# Subtest: settings opens one recoverable editor instead of applying imports immediately
+ok 243 - settings opens one recoverable editor instead of applying imports immediately
+  ---
+  duration_ms: 0.663255
+  type: 'test'
+  ...
+# Subtest: every reviewed word and letter validates against the exact Arabic catalogue
+ok 244 - every reviewed word and letter validates against the exact Arabic catalogue
+  ---
+  duration_ms: 22.848268
+  type: 'test'
+  ...
+# Subtest: damaged source, offset, identity, version and Quran coordinates are rejected
+ok 245 - damaged source, offset, identity, version and Quran coordinates are rejected
+  ---
+  duration_ms: 1.477362
+  type: 'test'
+  ...
+# Subtest: explicit occurrences have distinct targets without inferring a repeat rule
+ok 246 - explicit occurrences have distinct targets without inferring a repeat rule
+  ---
+  duration_ms: 0.326921
+  type: 'test'
+  ...
+# Subtest: a new identity cannot stack a second active deduction on the same phrase letter
+ok 247 - a new identity cannot stack a second active deduction on the same phrase letter
+  ---
+  duration_ms: 5.864493
+  type: 'test'
+  ...
+# Subtest: ledger projection owns its nested target and corrects without adding a deduction
+ok 248 - ledger projection owns its nested target and corrects without adding a deduction
+  ---
+  duration_ms: 4.603915
+  type: 'test'
+  ...
+# Subtest: reader round trips preserve exact evidence, completed totals and normalization
+ok 249 - reader round trips preserve exact evidence, completed totals and normalization
+  ---
+  duration_ms: 7.427642
+  type: 'test'
+  ...
+# Subtest: old readers reject new files and new readers reject downgraded or disguised phrase files
+ok 250 - old readers reject new files and new readers reject downgraded or disguised phrase files
+  ---
+  duration_ms: 1.306832
+  type: 'test'
+  ...
+# Subtest: identity conflicts, stale caches and impossible phrase corrections fail closed
+ok 251 - identity conflicts, stale caches and impossible phrase corrections fail closed
+  ---
+  duration_ms: 23.437274
+  type: 'test'
+  ...
+# Subtest: legacy Quran formats remain readable by both generations
+ok 252 - legacy Quran formats remain readable by both generations
+  ---
+  duration_ms: 7.757287
+  type: 'test'
+  ...
+# Subtest: file-import entry points accept validated phrase evidence and retain its targets
+ok 253 - file-import entry points accept validated phrase evidence and retain its targets
+  ---
+  duration_ms: 5.203332
+  type: 'test'
+  ...
+# Subtest: imported conflict copies retain original phrase identity through backup and reopen
+ok 254 - imported conflict copies retain original phrase identity through backup and reopen
+  ---
+  duration_ms: 1.492304
+  type: 'test'
+  ...
+# Subtest: Quran migration never requests a page for phrase evidence
+ok 255 - Quran migration never requests a page for phrase evidence
+  ---
+  duration_ms: 0.555887
+  type: 'test'
+  ...
+# Subtest: JSON and workbook readers retain Arabic without invented Quran references
+ok 256 - JSON and workbook readers retain Arabic without invented Quran references
+  ---
+  duration_ms: 580.100263
+  type: 'test'
+  ...
+# Subtest: phrase evidence saved under rule 2.0.0 still loads after the 4.0.0 rule change
+ok 257 - phrase evidence saved under rule 2.0.0 still loads after the 4.0.0 rule change
+  ---
+  duration_ms: 2.099177
+  type: 'test'
+  ...
+# Subtest: all 112 printed Basmalas retain their exact per-surah addresses and artwork
+ok 258 - all 112 printed Basmalas retain their exact per-surah addresses and artwork
+  ---
+  duration_ms: 129.819841
+  type: 'test'
+  ...
+# Subtest: wrong semantic identity disables supplemental input
+ok 259 - wrong semantic identity disables supplemental input
+  ---
+  duration_ms: 1.084735
+  type: 'test'
+  ...
+# Subtest: surah ornaments follow opening ayah, including the preceding page
+ok 260 - surah ornaments follow opening ayah, including the preceding page
+  ---
+  duration_ms: 2.445325
+  type: 'test'
+  ...
+# Subtest: the production manifest supplies a complete standalone Tanween identity
+ok 261 - the production manifest supplies a complete standalone Tanween identity
+  ---
+  duration_ms: 0.779146
+  type: 'test'
+  ...
+# Subtest: the app icons are real PNGs at every declared platform size
+ok 262 - the app icons are real PNGs at every declared platform size
+  ---
+  duration_ms: 1.759547
+  type: 'test'
+  ...
+# Subtest: the document exposes manifest, theme and platform icon metadata
+ok 263 - the document exposes manifest, theme and platform icon metadata
+  ---
+  duration_ms: 0.226233
+  type: 'test'
+  ...
+# Subtest: install capture is one-shot, actionable, and hidden in standalone display
+ok 264 - install capture is one-shot, actionable, and hidden in standalone display
+  ---
+  duration_ms: 0.26472
+  type: 'test'
+  ...
+# Subtest: the captured browser prompt is consumed once and standalone mode retires it
+ok 265 - the captured browser prompt is consumed once and standalone mode retires it
+  ---
+  duration_ms: 78.826762
+  type: 'test'
+  ...
+# Subtest: service-worker updates never reload an active recitation automatically
+ok 266 - service-worker updates never reload an active recitation automatically
+  ---
+  duration_ms: 0.278279
+  type: 'test'
+  ...
+# Subtest: the worker precaches a generated application shell and scopes cache cleanup
+ok 267 - the worker precaches a generated application shell and scopes cache cleanup
+  ---
+  duration_ms: 0.289055
+  type: 'test'
+  ...
+# Subtest: the production worker receives the exact hashed Vite application assets
+ok 268 - the production worker receives the exact hashed Vite application assets
+  ---
+  duration_ms: 28.979954
+  type: 'test'
+  ...
+# Subtest: all 604 pages produce one stable boundary for every ayah
+ok 269 - all 604 pages produce one stable boundary for every ayah
+  ---
+  duration_ms: 5.325811
+  type: 'test'
+  ...
+# Subtest: seven printed lines resolve to the first complete ayah ending
+ok 270 - seven printed lines resolve to the first complete ayah ending
+  ---
+  duration_ms: 4.690627
+  type: 'test'
+  ...
+# Subtest: the resolver crosses pages and reports extensions without hiding them
+ok 271 - the resolver crosses pages and reports extensions without hiding them
+  ---
+  duration_ms: 0.276717
+  type: 'test'
+  ...
+# Subtest: invalid and Quran-end starts fail explicitly
+ok 272 - invalid and Quran-end starts fail explicitly
+  ---
+  duration_ms: 0.133466
+  type: 'test'
+  ...
+# Subtest: every possible seven-line start resolves deterministically or reports the Quran end
+ok 273 - every possible seven-line start resolves deterministically or reports the Quran end
+  ---
+  duration_ms: 38.935104
+  type: 'test'
+  ...
+# Subtest: every possible ten-line start resolves deterministically or reports the Quran end
+ok 274 - every possible ten-line start resolves deterministically or reports the Quran end
+  ---
+  duration_ms: 38.687277
+  type: 'test'
+  ...
+# Subtest: division limits use exact ayah-level juz and surah boundaries
+ok 275 - division limits use exact ayah-level juz and surah boundaries
+  ---
+  duration_ms: 0.460427
+  type: 'test'
+  ...
+# Subtest: drafts retain exact provenance and become stale instead of silently changing
+ok 276 - drafts retain exact provenance and become stale instead of silently changing
+  ---
+  duration_ms: 0.668132
+  type: 'test'
+  ...
+# Subtest: the sample competition includes normal, cross-page, and extended draft fixtures
+ok 277 - the sample competition includes normal, cross-page, and extended draft fixtures
+  ---
+  duration_ms: 134.322696
+  type: 'test'
+  ...
+# Subtest: question tiles are filtered by division and muqarrar before a session can start
+ok 278 - question tiles are filtered by division and muqarrar before a session can start
+  ---
+  duration_ms: 134.452348
+  type: 'test'
+  ...
+# Subtest: the same seed cuts the same board every time
+ok 279 - the same seed cuts the same board every time
+  ---
+  duration_ms: 1.785465
+  type: 'test'
+  ...
+# Subtest: a different seed cuts a different board
+ok 280 - a different seed cuts a different board
+  ---
+  duration_ms: 1.487848
+  type: 'test'
+  ...
+# Subtest: shuffling moves positions without inventing or losing questions
+ok 281 - shuffling moves positions without inventing or losing questions
+  ---
+  duration_ms: 0.189739
+  type: 'test'
+  ...
+# Subtest: positions really are shuffled, not left in pool order
+ok 282 - positions really are shuffled, not left in pool order
+  ---
+  duration_ms: 0.145594
+  type: 'test'
+  ...
+# Subtest: a deck records what it needs to be reconstructed
+ok 283 - a deck records what it needs to be reconstructed
+  ---
+  duration_ms: 0.221195
+  type: 'test'
+  ...
+# Subtest: a completed board advances to a separately recorded cycle
+ok 284 - a completed board advances to a separately recorded cycle
+  ---
+  duration_ms: 0.231731
+  type: 'test'
+  ...
+# Subtest: legacy boards and draws gain cycle-one identity without changing evidence
+ok 285 - legacy boards and draws gain cycle-one identity without changing evidence
+  ---
+  duration_ms: 0.608235
+  type: 'test'
+  ...
+# Subtest: a replacement draw links to the revealed draw instead of overwriting it
+ok 286 - a replacement draw links to the revealed draw instead of overwriting it
+  ---
+  duration_ms: 0.321453
+  type: 'test'
+  ...
+# Subtest: a smaller pool gives a shorter board, never padded blanks
+ok 287 - a smaller pool gives a shorter board, never padded blanks
+  ---
+  duration_ms: 0.310696
+  type: 'test'
+  ...
+# Subtest: a larger pool is trimmed to the board size
+ok 288 - a larger pool is trimmed to the board size
+  ---
+  duration_ms: 0.416102
+  type: 'test'
+  ...
+# Subtest: the fingerprint ignores pool order but catches a changed pool
+ok 289 - the fingerprint ignores pool order but catches a changed pool
+  ---
+  duration_ms: 0.266542
+  type: 'test'
+  ...
+# Subtest: a deck goes stale when its pool changes underneath it
+ok 290 - a deck goes stale when its pool changes underneath it
+  ---
+  duration_ms: 1.011217
+  type: 'test'
+  ...
+# Subtest: a deck cut by an older generator is stale
+ok 291 - a deck cut by an older generator is stale
+  ---
+  duration_ms: 0.137772
+  type: 'test'
+  ...
+# Subtest: divisions and muqarrar sides never share a board
+ok 292 - divisions and muqarrar sides never share a board
+  ---
+  duration_ms: 0.082321
+  type: 'test'
+  ...
+# Subtest: a drawn number is spent for the rest of the session
+ok 293 - a drawn number is spent for the rest of the session
+  ---
+  duration_ms: 0.210339
+  type: 'test'
+  ...
+# Subtest: another division's draws do not spend this board
+ok 294 - another division's draws do not spend this board
+  ---
+  duration_ms: 0.119756
+  type: 'test'
+  ...
+# Subtest: draws from a re-cut deck do not spend the new one
+ok 295 - draws from a re-cut deck do not spend the new one
+  ---
+  duration_ms: 0.111144
+  type: 'test'
+  ...
+# Subtest: a position resolves to exactly one question
+ok 296 - a position resolves to exactly one question
+  ---
+  duration_ms: 0.083123
+  type: 'test'
+  ...
+# Subtest: a position outside the board resolves to nothing
+ok 297 - a position outside the board resolves to nothing
+  ---
+  duration_ms: 0.076783
+  type: 'test'
+  ...
+# Subtest: the board is exhausted only once every number is spent
+ok 298 - the board is exhausted only once every number is spent
+  ---
+  duration_ms: 0.120747
+  type: 'test'
+  ...
+# Subtest: no two positions hold the same question
+ok 299 - no two positions hold the same question
+  ---
+  duration_ms: 0.093378
+  type: 'test'
+  ...
+# Subtest: an empty pool produces an empty, immediately exhausted board
+ok 300 - an empty pool produces an empty, immediately exhausted board
+  ---
+  duration_ms: 0.0818
+  type: 'test'
+  ...
+# Subtest: the board renders positions and nothing that names a passage
+ok 301 - the board renders positions and nothing that names a passage
+  ---
+  duration_ms: 0.370144
+  type: 'test'
+  ...
+# Subtest: the draw board keeps large choices, a centred fallback, and a visibly spent state
+ok 302 - the draw board keeps large choices, a centred fallback, and a visibly spent state
+  ---
+  duration_ms: 1.627684
+  type: 'test'
+  ...
+# Subtest: a position is only resolved to a question when one is pressed
+ok 303 - a position is only resolved to a question when one is pressed
+  ---
+  duration_ms: 0.825564
+  type: 'test'
+  ...
+# Subtest: a missing judge assignment cannot reveal or spend a question
+ok 304 - a missing judge assignment cannot reveal or spend a question
+  ---
+  duration_ms: 0.375181
+  type: 'test'
+  ...
+# Subtest: a versioned question keeps the full immutable range and strips unknown input
+ok 305 - a versioned question keeps the full immutable range and strips unknown input
+  ---
+  duration_ms: 2.556089
+  type: 'test'
+  ...
+# Subtest: page 598 renders only the recorded physical rows while retaining structural rows
+ok 306 - page 598 renders only the recorded physical rows while retaining structural rows
+  ---
+  duration_ms: 1.71364
+  type: 'test'
+  ...
+# Subtest: a surah-opening basmala belongs to the question without changing its recitation-line count
+ok 307 - a surah-opening basmala belongs to the question without changing its recitation-line count
+  ---
+  duration_ms: 1.264409
+  type: 'test'
+  ...
+# Subtest: shade segments include only outside ayah portions on mixed boundary lines
+ok 308 - shade segments include only outside ayah portions on mixed boundary lines
+  ---
+  duration_ms: 3.220526
+  type: 'test'
+  ...
+# Subtest: cross-page evidence cuts page 603 and 604 at the exact recorded lines
+ok 309 - cross-page evidence cuts page 603 and 604 at the exact recorded lines
+  ---
+  duration_ms: 0.640402
+  type: 'test'
+  ...
+# Subtest: judge-source consensus is explicit and deterministic
+ok 310 - judge-source consensus is explicit and deterministic
+  ---
+  duration_ms: 0.943537
+  type: 'test'
+  ...
+# Subtest: question conflicts never invent one Quran span or change score finalization
+ok 311 - question conflicts never invent one Quran span or change score finalization
+  ---
+  duration_ms: 0.748301
+  type: 'test'
+  ...
+# Subtest: legacy injected ranges and mismatched question context never become exact evidence
+ok 312 - legacy injected ranges and mismatched question context never become exact evidence
+  ---
+  duration_ms: 0.515899
+  type: 'test'
+  ...
+# Subtest: import inspection validates the session-started fallback before it becomes evidence
+ok 313 - import inspection validates the session-started fallback before it becomes evidence
+  ---
+  duration_ms: 0.648674
+  type: 'test'
+  ...
+# Subtest: matching ranges with different source provenance are not merged
+ok 314 - matching ranges with different source provenance are not merged
+  ---
+  duration_ms: 0.489189
+  type: 'test'
+  ...
+# Subtest: the active Mushaf contract is captured in every fixture
+ok 315 - the active Mushaf contract is captured in every fixture
+  ---
+  duration_ms: 0.175568
+  type: 'test'
+  ...
+# Subtest: a prepared question opens on its own starting page
+ok 316 - a prepared question opens on its own starting page
+  ---
+  duration_ms: 1.077705
+  type: 'test'
+  ...
+# Subtest: a manual question leaves the current page alone
+ok 317 - a manual question leaves the current page alone
+  ---
+  duration_ms: 0.121228
+  type: 'test'
+  ...
+# Subtest: a missing question leaves the current page alone
+ok 318 - a missing question leaves the current page alone
+  ---
+  duration_ms: 0.128969
+  type: 'test'
+  ...
+# Subtest: a page outside the Mushaf is refused rather than clamped
+ok 319 - a page outside the Mushaf is refused rather than clamped
+  ---
+  duration_ms: 0.092396
+  type: 'test'
+  ...
+# Subtest: the first and last pages are both accepted
+ok 320 - the first and last pages are both accepted
+  ---
+  duration_ms: 0.153045
+  type: 'test'
+  ...
+# Subtest: a non-integer page is refused
+ok 321 - a non-integer page is refused
+  ---
+  duration_ms: 0.101309
+  type: 'test'
+  ...
+# Subtest: the return control appears only after every visible page leaves the question span
+ok 322 - the return control appears only after every visible page leaves the question span
+  ---
+  duration_ms: 0.250819
+  type: 'test'
+  ...
+# Subtest: no session means nothing to open
+ok 323 - no session means nothing to open
+  ---
+  duration_ms: 0.112074
+  type: 'test'
+  ...
+# Subtest: the same session and question stays on one key, so a refresh keeps the judge's page
+ok 324 - the same session and question stays on one key, so a refresh keeps the judge's page
+  ---
+  duration_ms: 0.266812
+  type: 'test'
+  ...
+# Subtest: re-judging the same passage in a new session reopens it
+ok 325 - re-judging the same passage in a new session reopens it
+  ---
+  duration_ms: 0.411064
+  type: 'test'
+  ...
+# Subtest: changing the question inside one session reopens the page
+ok 326 - changing the question inside one session reopens the page
+  ---
+  duration_ms: 0.165814
+  type: 'test'
+  ...
+# Subtest: a session without a question still produces a stable key
+ok 327 - a session without a question still produces a stable key
+  ---
+  duration_ms: 0.071415
+  type: 'test'
+  ...
+# Subtest: recording format selection prefers compressed browser-native audio
+ok 328 - recording format selection prefers compressed browser-native audio
+  ---
+  duration_ms: 7.073412
+  type: 'test'
+  ...
+# Subtest: recording time uses a stable judge-readable clock
+ok 329 - recording time uses a stable judge-readable clock
+  ---
+  duration_ms: 0.237759
+  type: 'test'
+  ...
+# Subtest: audio uses a separate device vault and never the judging save record
+ok 330 - audio uses a separate device vault and never the judging save record
+  ---
+  duration_ms: 0.357986
+  type: 'test'
+  ...
+# Subtest: phase one recording is opt-in and restricted to Practice
+ok 331 - phase one recording is opt-in and restricted to Practice
+  ---
+  duration_ms: 0.142079
+  type: 'test'
+  ...
+# Subtest: pause recording closes a segment and resume acquires a fresh microphone stream
+ok 332 - pause recording closes a segment and resume acquires a fresh microphone stream
+  ---
+  duration_ms: 0.249106
+  type: 'test'
+  ...
+# Subtest: live recording exposes mic level evidence instead of a decorative pulse
+ok 333 - live recording exposes mic level evidence instead of a decorative pulse
+  ---
+  duration_ms: 0.20411
+  type: 'test'
+  ...
+# Subtest: replay explicitly restores audible element volume
+ok 334 - replay explicitly restores audible element volume
+  ---
+  duration_ms: 0.161608
+  type: 'test'
+  ...
+# Subtest: review requires every saved chunk in order, without changing part numbering
+ok 335 - review requires every saved chunk in order, without changing part numbering
+  ---
+  duration_ms: 0.45529
+  type: 'test'
+  ...
+# Subtest: a final write that fails after Stop cannot label a truncated recording ready
+ok 336 - a final write that fails after Stop cannot label a truncated recording ready
+  ---
+  duration_ms: 0.437023
+  type: 'test'
+  ...
+# Subtest: failed timing writes describe unsaved drafts and partially persisted suggestions accurately
+ok 337 - failed timing writes describe unsaved drafts and partially persisted suggestions accurately
+  ---
+  duration_ms: 4.533336
+  type: 'test'
+  ...
+# Subtest: timings reject nonfinite, reversed, empty and out-of-media intervals
+ok 338 - timings reject nonfinite, reversed, empty and out-of-media intervals
+  ---
+  duration_ms: 6.054453
+  type: 'test'
+  ...
+# Subtest: media identity binds source, bytes, segment, decoded clock and frozen question
+ok 339 - media identity binds source, bytes, segment, decoded clock and frozen question
+  ---
+  duration_ms: 0.237869
+  type: 'test'
+  ...
+# Subtest: context matching crosses only adjacent eligible ayahs
+ok 340 - context matching crosses only adjacent eligible ayahs
+  ---
+  duration_ms: 0.672329
+  type: 'test'
+  ...
+# Subtest: optional context provenance preserves legacy records and suggested status
+ok 341 - optional context provenance preserves legacy records and suggested status
+  ---
+  duration_ms: 0.441279
+  type: 'test'
+  ...
+# Subtest: review revisions supersede timings without losing repeated occurrences or history
+ok 342 - review revisions supersede timings without losing repeated occurrences or history
+  ---
+  duration_ms: 5.000253
+  type: 'test'
+  ...
+# Subtest: playback never invents focus for gaps, ambiguous overlaps, suggestions or grouped model words
+ok 343 - playback never invents focus for gaps, ambiguous overlaps, suggestions or grouped model words
+  ---
+  duration_ms: 0.28564
+  type: 'test'
+  ...
+# Subtest: PCM review container preserves sample duration at 44.1 and 48 kHz without segment drift
+ok 344 - PCM review container preserves sample duration at 44.1 and 48 kHz without segment drift
+  ---
+  duration_ms: 22.502097
+  type: 'test'
+  ...
+# Subtest: CTC decoding keeps acoustic frames, blank separation and unknown speech
+ok 345 - CTC decoding keeps acoustic frames, blank separation and unknown speech
+  ---
+  duration_ms: 0.80977
+  type: 'test'
+  ...
+# Subtest: unique contexts provide provisional offsets and retain repeated occurrences
+ok 346 - unique contexts provide provisional offsets and retain repeated occurrences
+  ---
+  duration_ms: 0.593573
+  type: 'test'
+  ...
+# Subtest: ambiguous phrases, missing words and wrong words do not become authoritative matches
+ok 347 - ambiguous phrases, missing words and wrong words do not become authoritative matches
+  ---
+  duration_ms: 0.556448
+  type: 'test'
+  ...
+# Subtest: status words are the agreed ones
+ok 348 - status words are the agreed ones
+  ---
+  duration_ms: 1.281033
+  type: 'test'
+  ...
+# Subtest: no judge result is "Awaiting marks", a complete result is "Ready"
+ok 349 - no judge result is "Awaiting marks", a complete result is "Ready"
+  ---
+  duration_ms: 22.017296
+  type: 'test'
+  ...
+# Subtest: a partly received result names the criteria still awaited, by short name
+ok 350 - a partly received result names the criteria still awaited, by short name
+  ---
+  duration_ms: 6.541148
+  type: 'test'
+  ...
+# Subtest: a result that matches the official result is "Official"
+ok 351 - a result that matches the official result is "Official"
+  ---
+  duration_ms: 1.005318
+  type: 'test'
+  ...
+# Subtest: anything a person must resolve is "Check needed", with the reason on the second line
+ok 352 - anything a person must resolve is "Check needed", with the reason on the second line
+  ---
+  duration_ms: 0.321883
+  type: 'test'
+  ...
+# Subtest: absent is "Absent", unless saved results exist, which needs a check
+ok 353 - absent is "Absent", unless saved results exist, which needs a check
+  ---
+  duration_ms: 0.329354
+  type: 'test'
+  ...
+# Subtest: list layout keeps the agreed column rhythm and status colours
+ok 354 - list layout keeps the agreed column rhythm and status colours
+  ---
+  duration_ms: 0.500516
+  type: 'test'
+  ...
+# Subtest: participant result keeps the judging frame, the facing page and the read-only look
+ok 355 - participant result keeps the judging frame, the facing page and the read-only look
+  ---
+  duration_ms: 1.485925
+  type: 'test'
+  ...
+# Subtest: an applied Official or Absent filter keeps its button even when its count drops to 0
+ok 356 - an applied Official or Absent filter keeps its button even when its count drops to 0
+  ---
+  duration_ms: 0.894285
+  type: 'test'
+  ...
+# Subtest: identity readiness and preview share finalization's exact score seam
+ok 357 - identity readiness and preview share finalization's exact score seam
+  ---
+  duration_ms: 9.213267
+  type: 'test'
+  ...
+# Subtest: complete, missing, conflicting, and incomplete candidates classify safely
+ok 358 - complete, missing, conflicting, and incomplete candidates classify safely
+  ---
+  duration_ms: 0.499074
+  type: 'test'
+  ...
+# Subtest: current final preserves a source choice made among pre-existing alternatives
+ok 359 - current final preserves a source choice made among pre-existing alternatives
+  ---
+  duration_ms: 0.438895
+  type: 'test'
+  ...
+# Subtest: missing, revised, and newer final sources return to review
+ok 360 - missing, revised, and newer final sources return to review
+  ---
+  duration_ms: 0.472945
+  type: 'test'
+  ...
+# Subtest: active competition and retained-history scopes stay explicit
+ok 361 - active competition and retained-history scopes stay explicit
+  ---
+  duration_ms: 0.236577
+  type: 'test'
+  ...
+# Subtest: summaries, filters, and numeric participant ordering agree
+ok 362 - summaries, filters, and numeric participant ordering agree
+  ---
+  duration_ms: 31.949191
+  type: 'test'
+  ...
+# Subtest: review pagination uses the 50-item boundary and clamps pages
+ok 363 - review pagination uses the 50-item boundary and clamps pages
+  ---
+  duration_ms: 0.376914
+  type: 'test'
+  ...
+# Subtest: Results UI retains the reviewed navigation, tabs, audit, and export contracts
+ok 364 - Results UI retains the reviewed navigation, tabs, audit, and export contracts
+  ---
+  duration_ms: 24.261736
+  type: 'test'
+  ...
+# Subtest: automatic numbering uses two digits below 100 and three at 100
+ok 365 - automatic numbering uses two digits below 100 and three at 100
+  ---
+  duration_ms: 0.98589
+  type: 'test'
+  ...
+# Subtest: invalid imported rows stay in the draft with field-level errors
+ok 366 - invalid imported rows stay in the draft with field-level errors
+  ---
+  duration_ms: 1.21092
+  type: 'test'
+  ...
+# Subtest: V1 age group and category rows map to current division ids
+ok 367 - V1 age group and category rows map to current division ids
+  ---
+  duration_ms: 0.262976
+  type: 'test'
+  ...
+# Subtest: V3 Category and Muqarrar start headers map without changing internal ids
+ok 368 - V3 Category and Muqarrar start headers map without changing internal ids
+  ---
+  duration_ms: 0.24449
+  type: 'test'
+  ...
+# Subtest: spreadsheet paste recognizes V3 headers and quoted multiline cells
+ok 369 - spreadsheet paste recognizes V3 headers and quoted multiline cells
+  ---
+  duration_ms: 0.452846
+  type: 'test'
+  ...
+# Subtest: legacy Age Group plus Category paste still treats Category as recitation type
+ok 370 - legacy Age Group plus Category paste still treats Category as recitation type
+  ---
+  duration_ms: 0.573853
+  type: 'test'
+  ...
+# Subtest: a headerless paste can be mapped without losing its first participant
+ok 371 - a headerless paste can be mapped without losing its first participant
+  ---
+  duration_ms: 0.12906
+  type: 'test'
+  ...
+# Subtest: editing an applied roster preserves participant ids
+ok 372 - editing an applied roster preserves participant ids
+  ---
+  duration_ms: 0.290166
+  type: 'test'
+  ...
+# Subtest: supplied numbers reject case-insensitive duplicates
+ok 373 - supplied numbers reject case-insensitive duplicates
+  ---
+  duration_ms: 8.802674
+  type: 'test'
+  ...
+# Subtest: new rows inherit only explicit entry defaults
+ok 374 - new rows inherit only explicit entry defaults
+  ---
+  duration_ms: 0.392136
+  type: 'test'
+  ...
+# Subtest: entry defaults fill blanks in one category without overwriting values
+ok 375 - entry defaults fill blanks in one category without overwriting values
+  ---
+  duration_ms: 1.157862
+  type: 'test'
+  ...
+# Subtest: one imported category mapping repairs every identical raw value
+ok 376 - one imported category mapping repairs every identical raw value
+  ---
+  duration_ms: 0.430253
+  type: 'test'
+  ...
+# Subtest: the roster splits into the blocks a session is actually run in
+ok 377 - the roster splits into the blocks a session is actually run in
+  ---
+  duration_ms: 2.089252
+  type: 'test'
+  ...
+# Subtest: groups appear in the order the roster calls them
+ok 378 - groups appear in the order the roster calls them
+  ---
+  duration_ms: 0.187907
+  type: 'test'
+  ...
+# Subtest: each block counts what is done and what is left
+ok 379 - each block counts what is done and what is left
+  ---
+  duration_ms: 0.175979
+  type: 'test'
+  ...
+# Subtest: participants matching no division are kept, not dropped
+ok 380 - participants matching no division are kept, not dropped
+  ---
+  duration_ms: 0.378166
+  type: 'test'
+  ...
+# Subtest: the active block is the one holding the current reciter
+ok 381 - the active block is the one holding the current reciter
+  ---
+  duration_ms: 0.201216
+  type: 'test'
+  ...
+# Subtest: with nobody selected the active block is the first still waiting
+ok 382 - with nobody selected the active block is the first still waiting
+  ---
+  duration_ms: 0.161157
+  type: 'test'
+  ...
+# Subtest: a finished roster still reports a block rather than nothing
+ok 383 - a finished roster still reports a block rather than nothing
+  ---
+  duration_ms: 0.136491
+  type: 'test'
+  ...
+# Subtest: an empty roster has no active block
+ok 384 - an empty roster has no active block
+  ---
+  duration_ms: 0.110282
+  type: 'test'
+  ...
+# Subtest: search covers number, name and school
+ok 385 - search covers number, name and school
+  ---
+  duration_ms: 0.386148
+  type: 'test'
+  ...
+# Subtest: an empty search matches everyone
+ok 386 - an empty search matches everyone
+  ---
+  duration_ms: 0.438805
+  type: 'test'
+  ...
+# Subtest: search ignores case and stray spacing
+ok 387 - search ignores case and stray spacing
+  ---
+  duration_ms: 0.200705
+  type: 'test'
+  ...
+# Subtest: ordinary participant numbers keep a two-digit minimum without roster-width padding
+ok 388 - ordinary participant numbers keep a two-digit minimum without roster-width padding
+  ---
+  duration_ms: 0.222407
+  type: 'test'
+  ...
+# Subtest: legacy alphanumeric participant numbers are preserved as entered
+ok 389 - legacy alphanumeric participant numbers are preserved as entered
+  ---
+  duration_ms: 0.099476
+  type: 'test'
+  ...
+# Subtest: participant context does not repeat a category already in the division name
+ok 390 - participant context does not repeat a category already in the division name
+  ---
+  duration_ms: 0.6864
+  type: 'test'
+  ...
+# Subtest: search filters entries but keeps the real group status totals
+ok 391 - search filters entries but keeps the real group status totals
+  ---
+  duration_ms: 0.318698
+  type: 'test'
+  ...
+# Subtest: search appears only once the queue outgrows the screen
+ok 392 - search appears only once the queue outgrows the screen
+  ---
+  duration_ms: 0.14934
+  type: 'test'
+  ...
+# Subtest: the running-order context stays fixed while only the participant list scrolls
+ok 393 - the running-order context stays fixed while only the participant list scrolls
+  ---
+  duration_ms: 1.955996
+  type: 'test'
+  ...
+# Subtest: somebody marked away is no longer waiting
+ok 394 - somebody marked away is no longer waiting
+  ---
+  duration_ms: 0.147246
+  type: 'test'
+  ...
+# Subtest: a block counts waiting, away and judged separately
+ok 395 - a block counts waiting, away and judged separately
+  ---
+  duration_ms: 0.133166
+  type: 'test'
+  ...
+# Subtest: a block with only absent people left is no longer waiting on anyone
+ok 396 - a block with only absent people left is no longer waiting on anyone
+  ---
+  duration_ms: 0.12285
+  type: 'test'
+  ...
+# Subtest: the queue puts waiting first, then away, then judged
+ok 397 - the queue puts waiting first, then away, then judged
+  ---
+  duration_ms: 0.155188
+  type: 'test'
+  ...
+# Subtest: ordering is stable inside each state
+ok 398 - ordering is stable inside each state
+  ---
+  duration_ms: 0.197029
+  type: 'test'
+  ...
+# Subtest: marking somebody away never removes them from their block
+ok 399 - marking somebody away never removes them from their block
+  ---
+  duration_ms: 0.188578
+  type: 'test'
+  ...
+# Subtest: the next block becomes active once everyone here is judged or away
+ok 400 - the next block becomes active once everyone here is judged or away
+  ---
+  duration_ms: 0.123962
+  type: 'test'
+  ...
+# Subtest: Allah exposes alif, one lam locus, and ha without losing source ink
+ok 401 - Allah exposes alif, one lam locus, and ha without losing source ink
+  ---
+  duration_ms: 4.188109
+  type: 'test'
+  ...
+# Subtest: attached waw and written-lam prefixes stay outside the Allah lam locus
+ok 402 - attached waw and written-lam prefixes stay outside the Allah lam locus
+  ---
+  duration_ms: 0.427609
+  type: 'test'
+  ...
+# Subtest: madd and silent plural alifs belong to their audible host target
+ok 403 - madd and silent plural alifs belong to their audible host target
+  ---
+  duration_ms: 1.285981
+  type: 'test'
+  ...
+# Subtest: crowded tashkeel remains exact evidence but not crowded rail ink
+ok 404 - crowded tashkeel remains exact evidence but not crowded rail ink
+  ---
+  duration_ms: 0.332218
+  type: 'test'
+  ...
+# Subtest: hamza-on-carrier remains one hamza locus with transparent metadata
+ok 405 - hamza-on-carrier remains one hamza locus with transparent metadata
+  ---
+  duration_ms: 0.206684
+  type: 'test'
+  ...
+# Subtest: the KFGQPC tatweel plus combining hamza is a real hamza locus
+ok 406 - the KFGQPC tatweel plus combining hamza is a real hamza locus
+  ---
+  duration_ms: 0.139776
+  type: 'test'
+  ...
+# Subtest: legacy ordinal and grapheme ids resolve after a many-to-one merge
+ok 407 - legacy ordinal and grapheme ids resolve after a many-to-one merge
+  ---
+  duration_ms: 0.47631
+  type: 'test'
+  ...
+# Subtest: ayah ornaments never become judging targets
+ok 408 - ayah ornaments never become judging targets
+  ---
+  duration_ms: 0.161808
+  type: 'test'
+  ...
+# Subtest: all 604 pages produce ordered, source-complete, alias-safe targets
+ok 409 - all 604 pages produce ordered, source-complete, alias-safe targets
+  ---
+  duration_ms: 3216.667832
+  type: 'test'
+  ...
+# Subtest: a lam before a sun letter is its own silent target
+ok 410 - a lam before a sun letter is its own silent target
+  ---
+  duration_ms: 0.906633
+  type: 'test'
+  ...
+# Subtest: complete idgham inside a word and round-zero letters are silent targets
+ok 411 - complete idgham inside a word and round-zero letters are silent targets
+  ---
+  duration_ms: 0.352758
+  type: 'test'
+  ...
+# Subtest: a final nun whose sound the next word takes is a silent target
+ok 412 - a final nun whose sound the next word takes is a silent target
+  ---
+  duration_ms: 0.358767
+  type: 'test'
+  ...
+# Subtest: a nun kept as ghunna (no shadda on the next letter) stays a target
+ok 413 - a nun kept as ghunna (no shadda on the next letter) stays a target
+  ---
+  duration_ms: 0.189188
+  type: 'test'
+  ...
+# Subtest: the pinpoint path is Jali, then Khafi, then Fasaha
+ok 414 - the pinpoint path is Jali, then Khafi, then Fasaha
+  ---
+  duration_ms: 1.261485
+  type: 'test'
+  ...
+# Subtest: whole-recitation criteria never enter the letter tray
+ok 415 - whole-recitation criteria never enter the letter tray
+  ---
+  duration_ms: 1.337526
+  type: 'test'
+  ...
+# Subtest: the selector is one connected, letter-only runway
+ok 416 - the selector is one connected, letter-only runway
+  ---
+  duration_ms: 0.316055
+  type: 'test'
+  ...
+# Subtest: assigned categories filter the tray and one category gets a fixed action
+ok 417 - assigned categories filter the tray and one category gets a fixed action
+  ---
+  duration_ms: 0.134298
+  type: 'test'
+  ...
+# Subtest: an upward runway keeps Jali physically nearest to the source
+ok 418 - an upward runway keeps Jali physically nearest to the source
+  ---
+  duration_ms: 0.5376
+  type: 'test'
+  ...
+# Subtest: opening a word never implies a target or enables a category
+ok 419 - opening a word never implies a target or enables a category
+  ---
+  duration_ms: 0.207215
+  type: 'test'
+  ...
+# Subtest: the rail shows clean primary ink while retaining exact source evidence
+ok 420 - the rail shows clean primary ink while retaining exact source evidence
+  ---
+  duration_ms: 0.191912
+  type: 'test'
+  ...
+# Subtest: tap-open letters retain a single-row scrollable rail
+ok 421 - tap-open letters retain a single-row scrollable rail
+  ---
+  duration_ms: 2.871131
+  type: 'test'
+  ...
+# Subtest: touch targets cannot flex-shrink below 44px
+ok 422 - touch targets cannot flex-shrink below 44px
+  ---
+  duration_ms: 0.651167
+  type: 'test'
+  ...
+# Subtest: one target is centered and category rings inherit their exposed corners
+ok 423 - one target is centered and category rings inherit their exposed corners
+  ---
+  duration_ms: 1.3331
+  type: 'test'
+  ...
+# Subtest: tray keyboard input is isolated from page navigation
+ok 424 - tray keyboard input is isolated from page navigation
+  ---
+  duration_ms: 0.157392
+  type: 'test'
+  ...
+# Subtest: legacy browser state receives a non-destructive one-time backup
+ok 425 - legacy browser state receives a non-destructive one-time backup
+  ---
+  duration_ms: 0.178443
+  type: 'test'
+  ...
+# Subtest: short words keep a compact picker without squeezing categories
+ok 426 - short words keep a compact picker without squeezing categories
+  ---
+  duration_ms: 1.300913
+  type: 'test'
+  ...
+# Subtest: one target gets one centered compact surface
+ok 427 - one target gets one centered compact surface
+  ---
+  duration_ms: 0.164752
+  type: 'test'
+  ...
+# Subtest: every typical unit keeps its full 44px target
+ok 428 - every typical unit keeps its full 44px target
+  ---
+  duration_ms: 0.125744
+  type: 'test'
+  ...
+# Subtest: desktop rails fit every target in the longest source words
+ok 429 - desktop rails fit every target in the longest source words
+  ---
+  duration_ms: 0.214916
+  type: 'test'
+  ...
+# Subtest: every selector surface stays inside a narrow viewport
+ok 430 - every selector surface stays inside a narrow viewport
+  ---
+  duration_ms: 0.312649
+  type: 'test'
+  ...
+# Subtest: invalid unit counts degrade to one compact unit
+ok 431 - invalid unit counts degrade to one compact unit
+  ---
+  duration_ms: 0.17028
+  type: 'test'
+  ...
+# Subtest: a centered callout points directly back to its source
+ok 432 - a centered callout points directly back to its source
+  ---
+  duration_ms: 3.022545
+  type: 'test'
+  ...
+# Subtest: edge callouts clamp the surface and preserve a corner-safe pointer
+ok 433 - edge callouts clamp the surface and preserve a corner-safe pointer
+  ---
+  duration_ms: 0.168478
+  type: 'test'
+  ...
+# Subtest: a narrow picker remains centered inside its wider category stack
+ok 434 - a narrow picker remains centered inside its wider category stack
+  ---
+  duration_ms: 0.29233
+  type: 'test'
+  ...
+# Subtest: vertical placement chooses room and clamps the entire runway
+ok 435 - vertical placement chooses room and clamps the entire runway
+  ---
+  duration_ms: 0.398506
+  type: 'test'
+  ...
+# Subtest: measured tray heights stay attached for every judge assignment
+ok 436 - measured tray heights stay attached for every judge assignment
+  ---
+  duration_ms: 0.361422
+  type: 'test'
+  ...
+# Subtest: panned visual viewports contain the entire tray and preserve its pointer
+ok 437 - panned visual viewports contain the entire tray and preserve its pointer
+  ---
+  duration_ms: 0.153345
+  type: 'test'
+  ...
+# Subtest: rapid updates serialize saves and preserve all ledger entries in the latest snapshot
+ok 438 - rapid updates serialize saves and preserve all ledger entries in the latest snapshot
+  ---
+  duration_ms: 12.485971
+  type: 'test'
+  ...
+# Subtest: initial mount and StrictMode effect replay do not create a needless save
+ok 439 - initial mount and StrictMode effect replay do not create a needless save
+  ---
+  duration_ms: 0.983015
+  type: 'test'
+  ...
+# Subtest: failed saves retain newer work and retry it against the last committed checkpoint
+ok 440 - failed saves retain newer work and retry it against the last committed checkpoint
+  ---
+  duration_ms: 2.61138
+  type: 'test'
+  ...
+# Subtest: another tab never replaces this tab in memory or becomes its write checkpoint
+ok 441 - another tab never replaces this tab in memory or becomes its write checkpoint
+  ---
+  duration_ms: 1.587414
+  type: 'test'
+  ...
+# Subtest: focus inspection waits for this tab’s own save before comparing checkpoints
+ok 442 - focus inspection waits for this tab’s own save before comparing checkpoints
+  ---
+  duration_ms: 0.702352
+  type: 'test'
+  ...
+# Subtest: a focus check overlapping a later save rechecks instead of reporting a false conflict
+ok 443 - a focus check overlapping a later save rechecks instead of reporting a false conflict
+  ---
+  duration_ms: 0.85006
+  type: 'test'
+  ...
+# Subtest: a post-commit legacy conflict stops queued saves but keeps both saved and unsaved work
+ok 444 - a post-commit legacy conflict stops queued saves but keeps both saved and unsaved work
+  ---
+  duration_ms: 0.570499
+  type: 'test'
+  ...
+# Subtest: the Settings guide uses isolated versioned completion state
+ok 445 - the Settings guide uses isolated versioned completion state
+  ---
+  duration_ms: 0.736903
+  type: 'test'
+  ...
+# Subtest: unavailable browser storage never blocks Settings
+ok 446 - unavailable browser storage never blocks Settings
+  ---
+  duration_ms: 0.236368
+  type: 'test'
+  ...
+# Subtest: the guide is a replayable two-step dialog, not permanent Settings copy
+ok 447 - the guide is a replayable two-step dialog, not permanent Settings copy
+  ---
+  duration_ms: 0.717836
+  type: 'test'
+  ...
+# Subtest: the source Mushaf selects one whole kalimah before exact rail choice
+ok 448 - the source Mushaf selects one whole kalimah before exact rail choice
+  ---
+  duration_ms: 1.22396
+  type: 'test'
+  ...
+# Subtest: shared Mushaf geometry protects Arabic ink and cartouche titles
+ok 449 - shared Mushaf geometry protects Arabic ink and cartouche titles
+  ---
+  duration_ms: 25.624469
+  type: 'test'
+  ...
+# Subtest: permanent mistake washes stay translucent in both themes
+ok 450 - permanent mistake washes stay translucent in both themes
+  ---
+  duration_ms: 0.590338
+  type: 'test'
+  ...
+# Subtest: portrait Mushaf density is one scoped adjustment, not mobile spacing
+ok 451 - portrait Mushaf density is one scoped adjustment, not mobile spacing
+  ---
+  duration_ms: 1.598961
+  type: 'test'
+  ...
+# Subtest: compact header reserves stable controls while the reciter name truncates
+ok 452 - compact header reserves stable controls while the reciter name truncates
+  ---
+  duration_ms: 0.670115
+  type: 'test'
+  ...
+# Subtest: compact live controls expose 44px targets without enlarging their visual surfaces
+ok 453 - compact live controls expose 44px targets without enlarging their visual surfaces
+  ---
+  duration_ms: 2.518083
+  type: 'test'
+  ...
+# Subtest: desktop Fit is owned by a measured frame instead of another viewport guess
+ok 454 - desktop Fit is owned by a measured frame instead of another viewport guess
+  ---
+  duration_ms: 2.055933
+  type: 'test'
+  ...
+# Subtest: QCF page fonts are loaded before a page is declared ready
+ok 455 - QCF page fonts are loaded before a page is declared ready
+  ---
+  duration_ms: 0.144632
+  type: 'test'
+  ...
+# Subtest: V1 page data cannot collide with legacy cached V2 assets
+ok 456 - V1 page data cannot collide with legacy cached V2 assets
+  ---
+  duration_ms: 0.321864
+  type: 'test'
+  ...
+# Subtest: all 604 pages use fixed KFGQPC V1 1405H glyph and QUL line metadata
+ok 457 - all 604 pages use fixed KFGQPC V1 1405H glyph and QUL line metadata
+  ---
+  duration_ms: 138.605539
+  type: 'test'
+  ...
+# Subtest: opening and closing Mushaf pages preserve their authoritative structures
+ok 458 - opening and closing Mushaf pages preserve their authoritative structures
+  ---
+  duration_ms: 1.06804
+  type: 'test'
+  ...
+# Subtest: many-to-one V1 ids migrate to one stable target without mutable fields
+ok 459 - many-to-one V1 ids migrate to one stable target without mutable fields
+  ---
+  duration_ms: 7.09976
+  type: 'test'
+  ...
+# Subtest: active and historical records are both included and deduplicated by id
+ok 460 - active and historical records are both included and deduplicated by id
+  ---
+  duration_ms: 0.632841
+  type: 'test'
+  ...
+# Subtest: an unknown or ambiguous legacy id remains explicitly unresolved
+ok 461 - an unknown or ambiguous legacy id remains explicitly unresolved
+  ---
+  duration_ms: 0.302275
+  type: 'test'
+  ...
+# Subtest: fully migrated V2 evidence is idempotent and performs no page load
+ok 462 - fully migrated V2 evidence is idempotent and performs no page load
+  ---
+  duration_ms: 0.281324
+  type: 'test'
+  ...
+# Subtest: current V2 evidence missing display fields is hydrated non-destructively
+ok 463 - current V2 evidence missing display fields is hydrated non-destructively
+  ---
+  duration_ms: 0.609226
+  type: 'test'
+  ...
+# Subtest: pre-navigation mistakes use the bundled page 604 fallback
+ok 464 - pre-navigation mistakes use the bundled page 604 fallback
+  ---
+  duration_ms: 0.371256
+  type: 'test'
+  ...
+# Subtest: a page-load failure rejects before any partial state can be dispatched
+ok 465 - a page-load failure rejects before any partial state can be dispatched
+  ---
+  duration_ms: 0.508007
+  type: 'test'
+  ...
+# Subtest: a saved mark on the sounded letter after a silent lam keeps its own letter
+ok 466 - a saved mark on the sounded letter after a silent lam keeps its own letter
+  ---
+  duration_ms: 0.339669
+  type: 'test'
+  ...
+# Subtest: a mark saved while the lam was merged into the ra moves back to the ra
+ok 467 - a mark saved while the lam was merged into the ra moves back to the ra
+  ---
+  duration_ms: 0.43519
+  type: 'test'
+  ...
+# Subtest: Tilawa stays behind an explicit prototype query and More actions
+ok 468 - Tilawa stays behind an explicit prototype query and More actions
+  ---
+  duration_ms: 1.268155
+  type: 'test'
+  ...
+# Subtest: tracking opens as a non-modal dock with reachable pause and close controls
+ok 469 - tracking opens as a non-modal dock with reachable pause and close controls
+  ---
+  duration_ms: 0.252891
+  type: 'test'
+  ...
+# Subtest: prototype uses the published pinned SDK and on-device model contract
+ok 470 - prototype uses the published pinned SDK and on-device model contract
+  ---
+  duration_ms: 0.161638
+  type: 'test'
+  ...
+# Subtest: Sites serves fixed Tilawa v0.2.0 assets without bundling local model files
+ok 471 - Sites serves fixed Tilawa v0.2.0 assets without bundling local model files
+  ---
+  duration_ms: 0.175398
+  type: 'test'
+  ...
+# Subtest: the hosted Tilawa route streams the pinned release before static assets
+ok 472 - the hosted Tilawa route streams the pinned release before static assets
+  ---
+  duration_ms: 24.680531
+  type: 'test'
+  ...
+# Subtest: live prototype sends 16 kHz chunks and consumes ayah and word progress
+ok 473 - live prototype sends 16 kHz chunks and consumes ayah and word progress
+  ---
+  duration_ms: 0.179774
+  type: 'test'
+  ...
+# Subtest: prototype coalesces inference backlog and follows confirmed ayahs in the Mushaf
+ok 474 - prototype coalesces inference backlog and follows confirmed ayahs in the Mushaf
+  ---
+  duration_ms: 0.264789
+  type: 'test'
+  ...
+# Subtest: word progress maps its one-based count onto the latest printed Mushaf word
+ok 475 - word progress maps its one-based count onto the latest printed Mushaf word
+  ---
+  duration_ms: 0.235837
+  type: 'test'
+  ...
+# Subtest: every Tilawa progress address resolves to the pinned 6,236-ayah Mushaf corpus
+ok 476 - every Tilawa progress address resolves to the pinned 6,236-ayah Mushaf corpus # SKIP local Tilawa release assets are not installed
+  ---
+  duration_ms: 0.334803
+  type: 'test'
+  ...
+# Subtest: the live word cursor stays visual-only and clears when listening stops
+ok 477 - the live word cursor stays visual-only and clears when listening stops
+  ---
+  duration_ms: 0.690215
+  type: 'test'
+  ...
+# Subtest: conservative cursor ignores weak, out-of-range, backward, and unsupported jumps
+ok 478 - conservative cursor ignores weak, out-of-range, backward, and unsupported jumps
+  ---
+  duration_ms: 0.555697
+  type: 'test'
+  ...
+# Subtest: conservative cursor confirms an adjacent ayah only after prefix evidence
+ok 479 - conservative cursor confirms an adjacent ayah only after prefix evidence
+  ---
+  duration_ms: 0.187967
+  type: 'test'
+  ...
+# Subtest: a dagger alif after a haraka gets its own short stroke on joining letters
+ok 480 - a dagger alif after a haraka gets its own short stroke on joining letters
+  ---
+  duration_ms: 6.878184
+  type: 'test'
+  ...
+# Subtest: kaf gets a longer tatweel so the dagger alif clears its top stroke
+ok 481 - kaf gets a longer tatweel so the dagger alif clears its top stroke
+  ---
+  duration_ms: 0.181658
+  type: 'test'
+  ...
+# Subtest: ain, ghain and kaf keep the fatha clear of a madd alif
+ok 482 - ain, ghain and kaf keep the fatha clear of a madd alif
+  ---
+  duration_ms: 0.23121
+  type: 'test'
+  ...
+# Subtest: ya-hamza with a kasra shows its joined form so the kasra is not hidden
+ok 483 - ya-hamza with a kasra shows its joined form so the kasra is not hidden
+  ---
+  duration_ms: 0.245931
+  type: 'test'
+  ...
+# Subtest: hamza on a tatweel is shown as a plain hamza
+ok 484 - hamza on a tatweel is shown as a plain hamza
+  ---
+  duration_ms: 0.150861
+  type: 'test'
+  ...
+# Subtest: letters that do not join forward keep the dagger alif as written
+ok 485 - letters that do not join forward keep the dagger alif as written
+  ---
+  duration_ms: 0.148709
+  type: 'test'
+  ...
+# Subtest: a dagger alif with no haraka before it is left alone
+ok 486 - a dagger alif with no haraka before it is left alone
+  ---
+  duration_ms: 0.2112
+  type: 'test'
+  ...
+# Subtest: pause signs are not part of the letter and are left off the tile
+ok 487 - pause signs are not part of the letter and are left off the tile
+  ---
+  duration_ms: 0.180014
+  type: 'test'
+  ...
+# Subtest: other signs that belong to the letter stay
+ok 488 - other signs that belong to the letter stay
+  ---
+  duration_ms: 0.400118
+  type: 'test'
+  ...
+# Subtest: alif-hamza with the open tanween keeps the tanween above (joined form)
+ok 489 - alif-hamza with the open tanween keeps the tanween above (joined form)
+  ---
+  duration_ms: 0.470562
+  type: 'test'
+  ...
+# Subtest: the judge strip keeps criteria semantic while showing only the judge name
+ok 490 - the judge strip keeps criteria semantic while showing only the judge name
+  ---
+  duration_ms: 0.954774
+  type: 'test'
+  ...
+# Subtest: the compact Results control centers its icon without hidden text layout
+ok 491 - the compact Results control centers its icon without hidden text layout
+  ---
+  duration_ms: 0.546834
+  type: 'test'
+  ...
+# Subtest: category swatches are square while score rows stay neutral
+ok 492 - category swatches are square while score rows stay neutral
+  ---
+  duration_ms: 2.295526
+  type: 'test'
+  ...
+# Subtest: counts distinct active findings, not deduction sizes or repeated aliases
+ok 493 - counts distinct active findings, not deduction sizes or repeated aliases
+  ---
+  duration_ms: 1.765596
+  type: 'test'
+  ...
+# Subtest: summary follows editable judge scope, legacy ownership and pinpoint criteria
+ok 494 - summary follows editable judge scope, legacy ownership and pinpoint criteria
+  ---
+  duration_ms: 0.299461
+  type: 'test'
+  ...
+# Subtest: add, recategorise and undo update counts without modifying evidence
+ok 495 - add, recategorise and undo update counts without modifying evidence
+  ---
+  duration_ms: 0.367621
+  type: 'test'
+  ...
+# Subtest: small and later-line words keep their attached circle
+ok 496 - small and later-line words keep their attached circle
+  ---
+  duration_ms: 0.407209
+  type: 'test'
+  ...
+# Subtest: zero and single findings have no circle
+ok 497 - zero and single findings have no circle
+  ---
+  duration_ms: 0.261665
+  type: 'test'
+  ...
+# Subtest: multi-digit totals remain circular and grow only as needed
+ok 498 - multi-digit totals remain circular and grow only as needed
+  ---
+  duration_ms: 0.162349
+  type: 'test'
+  ...
+1..498
+# tests 498
+# suites 0
+# pass 497
+# fail 0
+# cancelled 0
+# skipped 1
+# todo 0
+# duration_ms 4888.323476

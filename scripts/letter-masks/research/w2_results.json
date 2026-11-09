@@ -1,0 +1,4484 @@
+{
+  "counts": {
+    "pages": 604,
+    "all_rows": 9046,
+    "ayah_rows": 8820,
+    "letter_words": 77433,
+    "geometry_rows": 8820
+  },
+  "seed": 20261108,
+  "torch": "2.15.0+cpu",
+  "training_lines": 40,
+  "validation_lines": 6,
+  "training_words": 344,
+  "vocabulary": 68,
+  "validation_unseen_classes": [],
+  "validation_unseen_occurrences": 0,
+  "parameters": 108213,
+  "history": [
+    {
+      "epoch": 1,
+      "loss": 3.9904510915279388,
+      "elapsed_s": 2.4759680239999398,
+      "train": {
+        "cer": 1.0,
+        "edit_errors": 2905,
+        "characters": 2905,
+        "exact_lines": 0,
+        "lines": 40
+      },
+      "validation": {
+        "cer": 1.0,
+        "edit_errors": 465,
+        "characters": 465,
+        "exact_lines": 0,
+        "lines": 6
+      }
+    },
+    {
+      "epoch": 10,
+      "loss": 3.2508795082569124,
+      "elapsed_s": 23.209047391000013,
+      "train": {
+        "cer": 1.0,
+        "edit_errors": 2905,
+        "characters": 2905,
+        "exact_lines": 0,
+        "lines": 40
+      },
+      "validation": {
+        "cer": 1.0,
+        "edit_errors": 465,
+        "characters": 465,
+        "exact_lines": 0,
+        "lines": 6
+      }
+    },
+    {
+      "epoch": 20,
+      "loss": 2.7124198734760285,
+      "elapsed_s": 45.113765763999936,
+      "train": {
+        "cer": 0.8519793459552496,
+        "edit_errors": 2475,
+        "characters": 2905,
+        "exact_lines": 0,
+        "lines": 40
+      },
+      "validation": {
+        "cer": 0.8709677419354839,
+        "edit_errors": 405,
+        "characters": 465,
+        "exact_lines": 0,
+        "lines": 6
+      }
+    },
+    {
+      "epoch": 30,
+      "loss": 1.3648766800761223,
+      "elapsed_s": 66.91401703800011,
+      "train": {
+        "cer": 0.33803786574870914,
+        "edit_errors": 982,
+        "characters": 2905,
+        "exact_lines": 0,
+        "lines": 40
+      },
+      "validation": {
+        "cer": 0.421505376344086,
+        "edit_errors": 196,
+        "characters": 465,
+        "exact_lines": 0,
+        "lines": 6
+      }
+    },
+    {
+      "epoch": 40,
+      "loss": 0.5628500714898109,
+      "elapsed_s": 88.24461059300006,
+      "train": {
+        "cer": 0.13287435456110155,
+        "edit_errors": 386,
+        "characters": 2905,
+        "exact_lines": 1,
+        "lines": 40
+      },
+      "validation": {
+        "cer": 0.34838709677419355,
+        "edit_errors": 162,
+        "characters": 465,
+        "exact_lines": 0,
+        "lines": 6
+      }
+    },
+    {
+      "epoch": 50,
+      "loss": 0.20000749845057725,
+      "elapsed_s": 109.73709383000005,
+      "train": {
+        "cer": 0.019621342512908778,
+        "edit_errors": 57,
+        "characters": 2905,
+        "exact_lines": 16,
+        "lines": 40
+      },
+      "validation": {
+        "cer": 0.30752688172043013,
+        "edit_errors": 143,
+        "characters": 465,
+        "exact_lines": 0,
+        "lines": 6
+      }
+    },
+    {
+      "epoch": 60,
+      "loss": 0.07711702706292271,
+      "elapsed_s": 132.00308360200006,
+      "train": {
+        "cer": 0.001376936316695353,
+        "edit_errors": 4,
+        "characters": 2905,
+        "exact_lines": 37,
+        "lines": 40
+      },
+      "validation": {
+        "cer": 0.30752688172043013,
+        "edit_errors": 143,
+        "characters": 465,
+        "exact_lines": 0,
+        "lines": 6
+      }
+    },
+    {
+      "epoch": 70,
+      "loss": 0.038584320014342664,
+      "elapsed_s": 155.47948857699998,
+      "train": {
+        "cer": 0.00034423407917383823,
+        "edit_errors": 1,
+        "characters": 2905,
+        "exact_lines": 39,
+        "lines": 40
+      },
+      "validation": {
+        "cer": 0.3053763440860215,
+        "edit_errors": 142,
+        "characters": 465,
+        "exact_lines": 0,
+        "lines": 6
+      }
+    },
+    {
+      "epoch": 80,
+      "loss": 0.02324019230436534,
+      "elapsed_s": 177.407836115,
+      "train": {
+        "cer": 0.00034423407917383823,
+        "edit_errors": 1,
+        "characters": 2905,
+        "exact_lines": 39,
+        "lines": 40
+      },
+      "validation": {
+        "cer": 0.2989247311827957,
+        "edit_errors": 139,
+        "characters": 465,
+        "exact_lines": 0,
+        "lines": 6
+      }
+    },
+    {
+      "epoch": 90,
+      "loss": 0.015117690933402627,
+      "elapsed_s": 200.53850529800025,
+      "train": {
+        "cer": 0.0,
+        "edit_errors": 0,
+        "characters": 2905,
+        "exact_lines": 40,
+        "lines": 40
+      },
+      "validation": {
+        "cer": 0.2946236559139785,
+        "edit_errors": 137,
+        "characters": 465,
+        "exact_lines": 0,
+        "lines": 6
+      }
+    },
+    {
+      "epoch": 100,
+      "loss": 0.010500907618552446,
+      "elapsed_s": 225.16479418999984,
+      "train": {
+        "cer": 0.0,
+        "edit_errors": 0,
+        "characters": 2905,
+        "exact_lines": 40,
+        "lines": 40
+      },
+      "validation": {
+        "cer": 0.2989247311827957,
+        "edit_errors": 139,
+        "characters": 465,
+        "exact_lines": 0,
+        "lines": 6
+      }
+    },
+    {
+      "epoch": 110,
+      "loss": 0.00764990514726378,
+      "elapsed_s": 248.21444790600003,
+      "train": {
+        "cer": 0.0,
+        "edit_errors": 0,
+        "characters": 2905,
+        "exact_lines": 40,
+        "lines": 40
+      },
+      "validation": {
+        "cer": 0.28817204301075267,
+        "edit_errors": 134,
+        "characters": 465,
+        "exact_lines": 0,
+        "lines": 6
+      }
+    },
+    {
+      "epoch": 120,
+      "loss": 0.005680612003197893,
+      "elapsed_s": 271.08023160000016,
+      "train": {
+        "cer": 0.0,
+        "edit_errors": 0,
+        "characters": 2905,
+        "exact_lines": 40,
+        "lines": 40
+      },
+      "validation": {
+        "cer": 0.2903225806451613,
+        "edit_errors": 135,
+        "characters": 465,
+        "exact_lines": 0,
+        "lines": 6
+      }
+    },
+    {
+      "epoch": 130,
+      "loss": 0.004302305213059299,
+      "elapsed_s": 294.27871841399997,
+      "train": {
+        "cer": 0.0,
+        "edit_errors": 0,
+        "characters": 2905,
+        "exact_lines": 40,
+        "lines": 40
+      },
+      "validation": {
+        "cer": 0.2860215053763441,
+        "edit_errors": 133,
+        "characters": 465,
+        "exact_lines": 0,
+        "lines": 6
+      }
+    },
+    {
+      "epoch": 140,
+      "loss": 0.0033274750894634053,
+      "elapsed_s": 316.76528178700005,
+      "train": {
+        "cer": 0.0,
+        "edit_errors": 0,
+        "characters": 2905,
+        "exact_lines": 40,
+        "lines": 40
+      },
+      "validation": {
+        "cer": 0.2860215053763441,
+        "edit_errors": 133,
+        "characters": 465,
+        "exact_lines": 0,
+        "lines": 6
+      }
+    },
+    {
+      "epoch": 150,
+      "loss": 0.0025870595389278607,
+      "elapsed_s": 338.1153296250002,
+      "train": {
+        "cer": 0.0,
+        "edit_errors": 0,
+        "characters": 2905,
+        "exact_lines": 40,
+        "lines": 40
+      },
+      "validation": {
+        "cer": 0.28817204301075267,
+        "edit_errors": 134,
+        "characters": 465,
+        "exact_lines": 0,
+        "lines": 6
+      }
+    },
+    {
+      "epoch": 160,
+      "loss": 0.0020407896547112612,
+      "elapsed_s": 360.68808977899994,
+      "train": {
+        "cer": 0.0,
+        "edit_errors": 0,
+        "characters": 2905,
+        "exact_lines": 40,
+        "lines": 40
+      },
+      "validation": {
+        "cer": 0.2903225806451613,
+        "edit_errors": 135,
+        "characters": 465,
+        "exact_lines": 0,
+        "lines": 6
+      }
+    },
+    {
+      "epoch": 170,
+      "loss": 0.0016092700447188691,
+      "elapsed_s": 384.2338049130001,
+      "train": {
+        "cer": 0.0,
+        "edit_errors": 0,
+        "characters": 2905,
+        "exact_lines": 40,
+        "lines": 40
+      },
+      "validation": {
+        "cer": 0.2860215053763441,
+        "edit_errors": 133,
+        "characters": 465,
+        "exact_lines": 0,
+        "lines": 6
+      }
+    },
+    {
+      "epoch": 180,
+      "loss": 0.0012757825446897187,
+      "elapsed_s": 407.0464655600001,
+      "train": {
+        "cer": 0.0,
+        "edit_errors": 0,
+        "characters": 2905,
+        "exact_lines": 40,
+        "lines": 40
+      },
+      "validation": {
+        "cer": 0.2838709677419355,
+        "edit_errors": 132,
+        "characters": 465,
+        "exact_lines": 0,
+        "lines": 6
+      }
+    }
+  ],
+  "train": {
+    "cer": 0.0,
+    "edit_errors": 0,
+    "characters": 2905,
+    "exact_lines": 40,
+    "lines": 40
+  },
+  "validation": {
+    "cer": 0.2838709677419355,
+    "edit_errors": 132,
+    "characters": 465,
+    "exact_lines": 0,
+    "lines": 6
+  },
+  "aligned_words": 95,
+  "abstained_words": 0,
+  "line_ids_train": [
+    [
+      1,
+      2
+    ],
+    [
+      1,
+      3
+    ],
+    [
+      1,
+      4
+    ],
+    [
+      1,
+      5
+    ],
+    [
+      1,
+      6
+    ],
+    [
+      1,
+      7
+    ],
+    [
+      1,
+      8
+    ],
+    [
+      2,
+      3
+    ],
+    [
+      2,
+      4
+    ],
+    [
+      2,
+      5
+    ],
+    [
+      2,
+      6
+    ],
+    [
+      2,
+      7
+    ],
+    [
+      2,
+      8
+    ],
+    [
+      30,
+      5
+    ],
+    [
+      30,
+      13
+    ],
+    [
+      72,
+      4
+    ],
+    [
+      72,
+      8
+    ],
+    [
+      72,
+      15
+    ],
+    [
+      134,
+      2
+    ],
+    [
+      134,
+      14
+    ],
+    [
+      176,
+      2
+    ],
+    [
+      176,
+      10
+    ],
+    [
+      176,
+      13
+    ],
+    [
+      191,
+      1
+    ],
+    [
+      191,
+      10
+    ],
+    [
+      191,
+      12
+    ],
+    [
+      307,
+      2
+    ],
+    [
+      307,
+      6
+    ],
+    [
+      307,
+      14
+    ],
+    [
+      323,
+      2
+    ],
+    [
+      323,
+      5
+    ],
+    [
+      323,
+      12
+    ],
+    [
+      423,
+      7
+    ],
+    [
+      423,
+      8
+    ],
+    [
+      423,
+      10
+    ],
+    [
+      470,
+      3
+    ],
+    [
+      470,
+      13
+    ],
+    [
+      500,
+      1
+    ],
+    [
+      500,
+      3
+    ],
+    [
+      500,
+      9
+    ]
+  ],
+  "line_ids_validation": [
+    [
+      3,
+      1
+    ],
+    [
+      3,
+      2
+    ],
+    [
+      3,
+      3
+    ],
+    [
+      3,
+      4
+    ],
+    [
+      3,
+      5
+    ],
+    [
+      3,
+      6
+    ]
+  ],
+  "metrics": {
+    "train65": {
+      "metricStatus": "development-only historic vertical-span proxy; no 2-D ground truth or fresh heldout yet",
+      "overall": {
+        "requestedWords": 65,
+        "scoredWords": 65,
+        "abstainedOrInvalidWords": 0,
+        "requestedLetters": 289,
+        "scoredLetters": 289,
+        "shortBarContainedCount": 238,
+        "shortBarContained": 0.8235294117647058,
+        "shortBarContainedIncludingAbstentionsAsMisses": 0.8235294117647058,
+        "centreInside": 0.972318339100346,
+        "wholeWordBarsContained": 0.4461538461538462,
+        "borderWords": 65,
+        "innerBorders": 224,
+        "bordersWithin2": 0.7455357142857143,
+        "medianBorderErrorPx": 1.038220000000015,
+        "wholeWordBordersWithin2": 0.35384615384615387,
+        "exactWords": 0,
+        "structurallyInvalidWords": 0
+      },
+      "byConfidence": {
+        "low": {
+          "requestedWords": 65,
+          "scoredWords": 65,
+          "abstainedOrInvalidWords": 0,
+          "requestedLetters": 289,
+          "scoredLetters": 289,
+          "shortBarContainedCount": 238,
+          "shortBarContained": 0.8235294117647058,
+          "shortBarContainedIncludingAbstentionsAsMisses": 0.8235294117647058,
+          "centreInside": 0.972318339100346,
+          "wholeWordBarsContained": 0.4461538461538462,
+          "borderWords": 65,
+          "innerBorders": 224,
+          "bordersWithin2": 0.7455357142857143,
+          "medianBorderErrorPx": 1.038220000000015,
+          "wholeWordBordersWithin2": 0.35384615384615387,
+          "exactWords": 0,
+          "structurallyInvalidWords": 0
+        }
+      },
+      "stackedRisk": {
+        "requestedWords": 8,
+        "scoredWords": 8,
+        "abstainedOrInvalidWords": 0,
+        "requestedLetters": 29,
+        "scoredLetters": 29,
+        "shortBarContainedCount": 24,
+        "shortBarContained": 0.8275862068965517,
+        "shortBarContainedIncludingAbstentionsAsMisses": 0.8275862068965517,
+        "centreInside": 1.0,
+        "wholeWordBarsContained": 0.5,
+        "borderWords": 8,
+        "innerBorders": 21,
+        "bordersWithin2": 0.7142857142857143,
+        "medianBorderErrorPx": 1.5527666666666566,
+        "wholeWordBordersWithin2": 0.375,
+        "exactWords": 0,
+        "structurallyInvalidWords": 0
+      },
+      "nonStackedRisk": {
+        "requestedWords": 57,
+        "scoredWords": 57,
+        "abstainedOrInvalidWords": 0,
+        "requestedLetters": 260,
+        "scoredLetters": 260,
+        "shortBarContainedCount": 214,
+        "shortBarContained": 0.823076923076923,
+        "shortBarContainedIncludingAbstentionsAsMisses": 0.823076923076923,
+        "centreInside": 0.9692307692307692,
+        "wholeWordBarsContained": 0.43859649122807015,
+        "borderWords": 57,
+        "innerBorders": 203,
+        "bordersWithin2": 0.7487684729064039,
+        "medianBorderErrorPx": 0.9903666666666914,
+        "wholeWordBordersWithin2": 0.3508771929824561,
+        "exactWords": 0,
+        "structurallyInvalidWords": 0
+      },
+      "rows": [
+        {
+          "wid": "1.1.0",
+          "page": 1,
+          "stackedRisk": true,
+          "confidence": "low",
+          "letters": 3,
+          "status": "scored",
+          "shortBarContained": 2,
+          "centreInside": 3,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.7945133333333343,
+            7.952286666666675
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "1.1.1",
+          "page": 1,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 3,
+          "status": "scored",
+          "shortBarContained": 3,
+          "centreInside": 3,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.2794733333333428,
+            2.4688866666666702
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "1.1.2",
+          "page": 1,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 6,
+          "status": "scored",
+          "shortBarContained": 5,
+          "centreInside": 6,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            1.0456200000000082,
+            1.1001333333333423,
+            0.9037866666666635,
+            2.2853666666666634,
+            0.5041866666666625
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "1.1.3",
+          "page": 1,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 6,
+          "status": "scored",
+          "shortBarContained": 5,
+          "centreInside": 6,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.9474466666666687,
+            0.7661466666666653,
+            1.1090133333333287,
+            2.5495466666666697,
+            0.5586999999999966
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "1.2.0",
+          "page": 1,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 5,
+          "status": "scored",
+          "shortBarContained": 4,
+          "centreInside": 5,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.9010733333333383,
+            3.604540000000014,
+            6.434053333333348,
+            1.94891333333335
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "1.2.1",
+          "page": 1,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 3,
+          "status": "scored",
+          "shortBarContained": 3,
+          "centreInside": 3,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.4743400000000005,
+            0.1245666666666936
+          ],
+          "allBordersWithin2": true,
+          "exactWord": false
+        },
+        {
+          "wid": "1.2.2",
+          "page": 1,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 2,
+          "status": "scored",
+          "shortBarContained": 2,
+          "centreInside": 2,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            2.0823600000000018
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "1.2.3",
+          "page": 1,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 7,
+          "status": "scored",
+          "shortBarContained": 5,
+          "centreInside": 7,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.1660066666666671,
+            0.22421999999999798,
+            5.494993333333344,
+            0.8273200000000104,
+            1.373439999999996,
+            3.6208199999999935
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "1.3.0",
+          "page": 1,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 6,
+          "status": "scored",
+          "shortBarContained": 6,
+          "centreInside": 6,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.6684666666666756,
+            0.843600000000018,
+            0.9903666666666914,
+            0.5458733333333248,
+            1.7015066666666447
+          ],
+          "allBordersWithin2": true,
+          "exactWord": false
+        },
+        {
+          "wid": "1.3.1",
+          "page": 1,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 6,
+          "status": "scored",
+          "shortBarContained": 6,
+          "centreInside": 6,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.44671333333331403,
+            0.7922933333333306,
+            0.20769333333335757,
+            0.00813999999997577,
+            0.7397533333333391
+          ],
+          "allBordersWithin2": true,
+          "exactWord": false
+        },
+        {
+          "wid": "1.4.0",
+          "page": 1,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 3,
+          "status": "scored",
+          "shortBarContained": 1,
+          "centreInside": 3,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            3.7340400000000082,
+            0.050813333333337596
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "1.4.1",
+          "page": 1,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 3,
+          "status": "scored",
+          "shortBarContained": 2,
+          "centreInside": 3,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            2.211120000000014,
+            2.1659799999999874
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "1.4.2",
+          "page": 1,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 5,
+          "status": "scored",
+          "shortBarContained": 4,
+          "centreInside": 5,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.009866666666657694,
+            1.1716666666666666,
+            0.22742666666667297,
+            6.837353333333346
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "1.5.0",
+          "page": 1,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 3,
+          "status": "scored",
+          "shortBarContained": 2,
+          "centreInside": 3,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            1.3805933333333285,
+            0.05944666666666308
+          ],
+          "allBordersWithin2": true,
+          "exactWord": false
+        },
+        {
+          "wid": "1.5.1",
+          "page": 1,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 4,
+          "status": "scored",
+          "shortBarContained": 3,
+          "centreInside": 4,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            1.4363400000000228,
+            3.087773333333341,
+            3.0192000000000023
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "1.5.2",
+          "page": 1,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 4,
+          "status": "scored",
+          "shortBarContained": 3,
+          "centreInside": 4,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            3.0110600000000267,
+            0.26812666666666396,
+            0.4859333333333401
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "1.5.3",
+          "page": 1,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 6,
+          "status": "scored",
+          "shortBarContained": 5,
+          "centreInside": 5,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            5.453306666666654,
+            2.4918266666666606,
+            0.7177999999999921,
+            0.8056133333333242,
+            2.2014999999999887
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "1.6.0",
+          "page": 1,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 4,
+          "status": "scored",
+          "shortBarContained": 3,
+          "centreInside": 3,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            1.7814266666666618,
+            0.6003866666666731,
+            0.1953599999999934
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "1.6.1",
+          "page": 1,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 5,
+          "status": "scored",
+          "shortBarContained": 5,
+          "centreInside": 5,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.6566266666666752,
+            0.3877599999999726,
+            3.776466666666653,
+            1.4698866666666814
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "1.6.2",
+          "page": 1,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 8,
+          "status": "scored",
+          "shortBarContained": 7,
+          "centreInside": 8,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.5579599999999861,
+            4.276706666666659,
+            3.6778000000000204,
+            0.015293333333308207,
+            2.9481599999999997,
+            1.8815733333333158,
+            0.11568666666667923
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "1.7.0",
+          "page": 1,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 3,
+          "status": "scored",
+          "shortBarContained": 1,
+          "centreInside": 3,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            3.815686666666679,
+            2.619846666666662
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "1.7.1",
+          "page": 1,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 5,
+          "status": "scored",
+          "shortBarContained": 2,
+          "centreInside": 4,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.8657999999999978,
+            5.756706666666658,
+            1.8287866666666637,
+            4.540393333333343
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "1.7.2",
+          "page": 1,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 5,
+          "status": "scored",
+          "shortBarContained": 3,
+          "centreInside": 5,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            1.262193333333324,
+            3.648940000000002,
+            1.842353333333346,
+            3.1812599999999978
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "1.7.3",
+          "page": 1,
+          "stackedRisk": true,
+          "confidence": "low",
+          "letters": 5,
+          "status": "scored",
+          "shortBarContained": 4,
+          "centreInside": 5,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            2.1001199999999747,
+            2.3070733333333497,
+            1.947433333333329,
+            2.8941399999999873
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "1.7.4",
+          "page": 1,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 3,
+          "status": "scored",
+          "shortBarContained": 3,
+          "centreInside": 3,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.8083266666666774,
+            0.05821333333335891
+          ],
+          "allBordersWithin2": true,
+          "exactWord": false
+        },
+        {
+          "wid": "1.7.5",
+          "page": 1,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 7,
+          "status": "scored",
+          "shortBarContained": 7,
+          "centreInside": 7,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.44893333333331764,
+            0.3241200000000193,
+            0.7905666666666767,
+            3.6565866666666555,
+            0.3838133333333432,
+            2.155866666666669
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "1.7.6",
+          "page": 1,
+          "stackedRisk": true,
+          "confidence": "low",
+          "letters": 5,
+          "status": "scored",
+          "shortBarContained": 4,
+          "centreInside": 5,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            1.1854800000000099,
+            1.7343133333333207,
+            2.4274466666666688,
+            1.5527666666666566
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "1.7.7",
+          "page": 1,
+          "stackedRisk": true,
+          "confidence": "low",
+          "letters": 2,
+          "status": "scored",
+          "shortBarContained": 2,
+          "centreInside": 2,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            1.6413199999999992
+          ],
+          "allBordersWithin2": true,
+          "exactWord": false
+        },
+        {
+          "wid": "1.7.8",
+          "page": 1,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 6,
+          "status": "scored",
+          "shortBarContained": 3,
+          "centreInside": 4,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.3756733333333114,
+            6.566760000000017,
+            5.892126666666653,
+            0.8038866666666703,
+            1.4383133333333376
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "2.1.0",
+          "page": 2,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 3,
+          "status": "scored",
+          "shortBarContained": 3,
+          "centreInside": 3,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.8130133333333455,
+            3.913859999999991
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "2.2.0",
+          "page": 2,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 3,
+          "status": "scored",
+          "shortBarContained": 2,
+          "centreInside": 3,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            1.665,
+            0.036753333333305514
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "2.2.1",
+          "page": 2,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 5,
+          "status": "scored",
+          "shortBarContained": 4,
+          "centreInside": 5,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.10261333333331853,
+            4.691353333333335,
+            3.131186666666657,
+            0.4000933333333228
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "2.2.2",
+          "page": 2,
+          "stackedRisk": true,
+          "confidence": "low",
+          "letters": 1,
+          "status": "scored",
+          "shortBarContained": 1,
+          "centreInside": 1,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [],
+          "allBordersWithin2": true,
+          "exactWord": false
+        },
+        {
+          "wid": "2.2.3",
+          "page": 2,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 3,
+          "status": "scored",
+          "shortBarContained": 3,
+          "centreInside": 3,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.4469600000000029,
+            1.2545466666666698
+          ],
+          "allBordersWithin2": true,
+          "exactWord": false
+        },
+        {
+          "wid": "2.2.4",
+          "page": 2,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 3,
+          "status": "scored",
+          "shortBarContained": 3,
+          "centreInside": 3,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.7012733333333238,
+            0.8616066666666795
+          ],
+          "allBordersWithin2": true,
+          "exactWord": false
+        },
+        {
+          "wid": "2.2.5",
+          "page": 2,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 3,
+          "status": "scored",
+          "shortBarContained": 3,
+          "centreInside": 3,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.1815466666666642,
+            3.3452933333333363
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "2.2.6",
+          "page": 2,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 7,
+          "status": "scored",
+          "shortBarContained": 7,
+          "centreInside": 7,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.2002933333333082,
+            1.252573333333327,
+            0.05007333333332705,
+            0.48568666666667926,
+            1.0194733333333428,
+            0.9326466666666541
+          ],
+          "allBordersWithin2": true,
+          "exactWord": false
+        },
+        {
+          "wid": "2.3.0",
+          "page": 2,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 5,
+          "status": "scored",
+          "shortBarContained": 4,
+          "centreInside": 5,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.07695999999997488,
+            0.1001466666666541,
+            0.14257333333332706,
+            0.005673333333311348
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "2.3.1",
+          "page": 2,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 6,
+          "status": "scored",
+          "shortBarContained": 6,
+          "centreInside": 6,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.2910666666666824,
+            1.7518266666666886,
+            0.185,
+            0.8825733333333271,
+            0.8401466666666542
+          ],
+          "allBordersWithin2": true,
+          "exactWord": false
+        },
+        {
+          "wid": "2.3.2",
+          "page": 2,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 6,
+          "status": "scored",
+          "shortBarContained": 3,
+          "centreInside": 5,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            1.6186266666666695,
+            0.2718266666666606,
+            0.4489333333333457,
+            3.1141666666666667,
+            4.366739999999994
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "2.3.3",
+          "page": 2,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 7,
+          "status": "scored",
+          "shortBarContained": 7,
+          "centreInside": 7,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            1.067573333333327,
+            0.5318133333333208,
+            1.169693333333324,
+            0.36038000000000314,
+            0.74,
+            1.370233333333321
+          ],
+          "allBordersWithin2": true,
+          "exactWord": false
+        },
+        {
+          "wid": "2.3.4",
+          "page": 2,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 6,
+          "status": "scored",
+          "shortBarContained": 6,
+          "centreInside": 6,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.32757333333332705,
+            0.6610666666666544,
+            1.337426666666673,
+            0.3411399999999954,
+            1.6341666666666668
+          ],
+          "allBordersWithin2": true,
+          "exactWord": false
+        },
+        {
+          "wid": "2.3.5",
+          "page": 2,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 3,
+          "status": "scored",
+          "shortBarContained": 2,
+          "centreInside": 3,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            3.240213333333325,
+            0.34730666666664245
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "2.3.6",
+          "page": 2,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 6,
+          "status": "scored",
+          "shortBarContained": 4,
+          "centreInside": 6,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            3.477506666666656,
+            1.1139466666666855,
+            1.3909533333333077,
+            2.9091866666666903,
+            1.326326666666655
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "2.3.7",
+          "page": 2,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 6,
+          "status": "scored",
+          "shortBarContained": 5,
+          "centreInside": 6,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.5046800000000121,
+            1.898346666666645,
+            0.10853333333334679,
+            0.652186666666668,
+            1.900073333333327
+          ],
+          "allBordersWithin2": true,
+          "exactWord": false
+        },
+        {
+          "wid": "2.4.0",
+          "page": 2,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 6,
+          "status": "scored",
+          "shortBarContained": 5,
+          "centreInside": 6,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            1.2274133333333332,
+            0.3075933333333228,
+            0.27207333333332145,
+            0.7696000000000012,
+            0.16206000000000964
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "2.4.1",
+          "page": 2,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 6,
+          "status": "scored",
+          "shortBarContained": 6,
+          "centreInside": 6,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.5490799999999998,
+            0.32979333333333066,
+            1.2254399999999903,
+            1.3285466666666585,
+            0.6388666666666746
+          ],
+          "allBordersWithin2": true,
+          "exactWord": false
+        },
+        {
+          "wid": "2.4.2",
+          "page": 2,
+          "stackedRisk": true,
+          "confidence": "low",
+          "letters": 2,
+          "status": "scored",
+          "shortBarContained": 0,
+          "centreInside": 2,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            1.934606666666657
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "2.4.3",
+          "page": 2,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 4,
+          "status": "scored",
+          "shortBarContained": 2,
+          "centreInside": 3,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            3.0584200000000004,
+            4.59342666666667,
+            1.2547933333333308
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "2.4.4",
+          "page": 2,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 4,
+          "status": "scored",
+          "shortBarContained": 3,
+          "centreInside": 4,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            1.6548866666666815,
+            1.1753666666666913,
+            0.15021999999998115
+          ],
+          "allBordersWithin2": true,
+          "exactWord": false
+        },
+        {
+          "wid": "2.4.5",
+          "page": 2,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 2,
+          "status": "scored",
+          "shortBarContained": 2,
+          "centreInside": 2,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            1.0073866666666815
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "2.4.6",
+          "page": 2,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 4,
+          "status": "scored",
+          "shortBarContained": 2,
+          "centreInside": 3,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            2.239239999999994,
+            2.366026666666691,
+            1.5448733333333136
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "2.4.7",
+          "page": 2,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 2,
+          "status": "scored",
+          "shortBarContained": 2,
+          "centreInside": 2,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            1.6109799999999874
+          ],
+          "allBordersWithin2": true,
+          "exactWord": false
+        },
+        {
+          "wid": "2.4.8",
+          "page": 2,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 4,
+          "status": "scored",
+          "shortBarContained": 4,
+          "centreInside": 4,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            1.0308200000000216,
+            0.5786800000000009,
+            1.4027933333333082
+          ],
+          "allBordersWithin2": true,
+          "exactWord": false
+        },
+        {
+          "wid": "2.4.9",
+          "page": 2,
+          "stackedRisk": true,
+          "confidence": "low",
+          "letters": 8,
+          "status": "scored",
+          "shortBarContained": 8,
+          "centreInside": 8,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            1.1615533333333201,
+            0.5816399999999871,
+            0.46175999999998946,
+            0.7454266666666786,
+            1.3132533333333223,
+            2.4846733333333284,
+            0.5044333333333233
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "2.4.10",
+          "page": 2,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 2,
+          "status": "scored",
+          "shortBarContained": 2,
+          "centreInside": 2,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.3954066666666548
+          ],
+          "allBordersWithin2": true,
+          "exactWord": false
+        },
+        {
+          "wid": "2.4.11",
+          "page": 2,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 6,
+          "status": "scored",
+          "shortBarContained": 4,
+          "centreInside": 6,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.921793333333325,
+            2.313733333333332,
+            0.13221333333331964,
+            3.5290600000000043,
+            1.8741733333333226
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "2.5.0",
+          "page": 2,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 5,
+          "status": "scored",
+          "shortBarContained": 4,
+          "centreInside": 5,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.5841066666666515,
+            3.463939999999974,
+            1.269839999999978,
+            0.6008799999999808
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "2.5.1",
+          "page": 2,
+          "stackedRisk": true,
+          "confidence": "low",
+          "letters": 3,
+          "status": "scored",
+          "shortBarContained": 3,
+          "centreInside": 3,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.3712333333333603,
+            0.15687999999999191
+          ],
+          "allBordersWithin2": true,
+          "exactWord": false
+        },
+        {
+          "wid": "2.5.2",
+          "page": 2,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 3,
+          "status": "scored",
+          "shortBarContained": 3,
+          "centreInside": 3,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.26245333333335263,
+            0.5924933333333441
+          ],
+          "allBordersWithin2": true,
+          "exactWord": false
+        },
+        {
+          "wid": "2.5.3",
+          "page": 2,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 2,
+          "status": "scored",
+          "shortBarContained": 2,
+          "centreInside": 2,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            2.061886666666676
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "2.5.4",
+          "page": 2,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 4,
+          "status": "scored",
+          "shortBarContained": 3,
+          "centreInside": 4,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            2.637113333333341,
+            0.6139533333333415,
+            0.6092666666666734
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "2.5.5",
+          "page": 2,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 6,
+          "status": "scored",
+          "shortBarContained": 5,
+          "centreInside": 6,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            1.7232133333333308,
+            0.9183399999999893,
+            1.3667800000000132,
+            0.3542133333333421,
+            1.7054533333333302
+          ],
+          "allBordersWithin2": true,
+          "exactWord": false
+        },
+        {
+          "wid": "2.5.6",
+          "page": 2,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 2,
+          "status": "scored",
+          "shortBarContained": 2,
+          "centreInside": 2,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            2.0229133333333387
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "2.5.7",
+          "page": 2,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 8,
+          "status": "scored",
+          "shortBarContained": 8,
+          "centreInside": 8,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.41834666666664516,
+            0.4659533333333078,
+            0.13541999999999463,
+            0.49678666666666915,
+            0.7989533333333414,
+            1.9183266666666774,
+            1.1822733333333348
+          ],
+          "allBordersWithin2": true,
+          "exactWord": false
+        }
+      ]
+    },
+    "validation30": {
+      "metricStatus": "development-only historic vertical-span proxy; no 2-D ground truth or fresh heldout yet",
+      "overall": {
+        "requestedWords": 30,
+        "scoredWords": 30,
+        "abstainedOrInvalidWords": 0,
+        "requestedLetters": 100,
+        "scoredLetters": 100,
+        "shortBarContainedCount": 90,
+        "shortBarContained": 0.9,
+        "shortBarContainedIncludingAbstentionsAsMisses": 0.9,
+        "centreInside": 1.0,
+        "wholeWordBarsContained": 0.7333333333333333,
+        "borderWords": 30,
+        "innerBorders": 70,
+        "bordersWithin2": 0.5857142857142857,
+        "medianBorderErrorPx": 1.8058466666666733,
+        "wholeWordBordersWithin2": 0.3,
+        "exactWords": 0,
+        "structurallyInvalidWords": 0
+      },
+      "byConfidence": {
+        "low": {
+          "requestedWords": 30,
+          "scoredWords": 30,
+          "abstainedOrInvalidWords": 0,
+          "requestedLetters": 100,
+          "scoredLetters": 100,
+          "shortBarContainedCount": 90,
+          "shortBarContained": 0.9,
+          "shortBarContainedIncludingAbstentionsAsMisses": 0.9,
+          "centreInside": 1.0,
+          "wholeWordBarsContained": 0.7333333333333333,
+          "borderWords": 30,
+          "innerBorders": 70,
+          "bordersWithin2": 0.5857142857142857,
+          "medianBorderErrorPx": 1.8058466666666733,
+          "wholeWordBordersWithin2": 0.3,
+          "exactWords": 0,
+          "structurallyInvalidWords": 0
+        }
+      },
+      "stackedRisk": {
+        "requestedWords": 5,
+        "scoredWords": 5,
+        "abstainedOrInvalidWords": 0,
+        "requestedLetters": 10,
+        "scoredLetters": 10,
+        "shortBarContainedCount": 9,
+        "shortBarContained": 0.9,
+        "shortBarContainedIncludingAbstentionsAsMisses": 0.9,
+        "centreInside": 1.0,
+        "wholeWordBarsContained": 0.8,
+        "borderWords": 5,
+        "innerBorders": 5,
+        "bordersWithin2": 0.8,
+        "medianBorderErrorPx": 1.8073266666666663,
+        "wholeWordBordersWithin2": 0.4,
+        "exactWords": 0,
+        "structurallyInvalidWords": 0
+      },
+      "nonStackedRisk": {
+        "requestedWords": 25,
+        "scoredWords": 25,
+        "abstainedOrInvalidWords": 0,
+        "requestedLetters": 90,
+        "scoredLetters": 90,
+        "shortBarContainedCount": 81,
+        "shortBarContained": 0.9,
+        "shortBarContainedIncludingAbstentionsAsMisses": 0.9,
+        "centreInside": 1.0,
+        "wholeWordBarsContained": 0.72,
+        "borderWords": 25,
+        "innerBorders": 65,
+        "bordersWithin2": 0.5692307692307692,
+        "medianBorderErrorPx": 1.8043666666666802,
+        "wholeWordBordersWithin2": 0.28,
+        "exactWords": 0,
+        "structurallyInvalidWords": 0
+      },
+      "rows": [
+        {
+          "wid": "2.193.10",
+          "page": 30,
+          "stackedRisk": true,
+          "confidence": "low",
+          "letters": 2,
+          "status": "scored",
+          "shortBarContained": 2,
+          "centreInside": 2,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            1.8073266666666663
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "2.194.1",
+          "page": 30,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 5,
+          "status": "scored",
+          "shortBarContained": 5,
+          "centreInside": 5,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.23729333333333064,
+            0.49407333333332987,
+            0.029846666666668967,
+            0.2720733333333355
+          ],
+          "allBordersWithin2": true,
+          "exactWord": false
+        },
+        {
+          "wid": "2.196.40",
+          "page": 30,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 2,
+          "status": "scored",
+          "shortBarContained": 2,
+          "centreInside": 2,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            1.282666666666678
+          ],
+          "allBordersWithin2": true,
+          "exactWord": false
+        },
+        {
+          "wid": "3.167.19",
+          "page": 72,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 5,
+          "status": "scored",
+          "shortBarContained": 4,
+          "centreInside": 5,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.07202666666664603,
+            4.470340000000012,
+            2.0700266666666796,
+            0.8667866666666411
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "3.169.10",
+          "page": 72,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 3,
+          "status": "scored",
+          "shortBarContained": 3,
+          "centreInside": 3,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.8477933333333363,
+            0.011346666666678782
+          ],
+          "allBordersWithin2": true,
+          "exactWord": false
+        },
+        {
+          "wid": "3.173.11",
+          "page": 72,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 4,
+          "status": "scored",
+          "shortBarContained": 4,
+          "centreInside": 4,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            2.0125533333333596,
+            3.31939333333336,
+            2.0342600000000175
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "6.53.13",
+          "page": 134,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 5,
+          "status": "scored",
+          "shortBarContained": 4,
+          "centreInside": 5,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            3.228373333333325,
+            1.1859733333333315,
+            1.9042666666666734,
+            2.8852600000000006
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "6.59.15",
+          "page": 134,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 4,
+          "status": "scored",
+          "shortBarContained": 3,
+          "centreInside": 4,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            5.364506666666679,
+            3.397340000000006,
+            3.8186466666666656
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "6.59.16",
+          "page": 134,
+          "stackedRisk": true,
+          "confidence": "low",
+          "letters": 2,
+          "status": "scored",
+          "shortBarContained": 2,
+          "centreInside": 2,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.7005333333333412
+          ],
+          "allBordersWithin2": true,
+          "exactWord": false
+        },
+        {
+          "wid": "7.197.7",
+          "page": 176,
+          "stackedRisk": true,
+          "confidence": "low",
+          "letters": 2,
+          "status": "scored",
+          "shortBarContained": 2,
+          "centreInside": 2,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.49333333333333335
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "7.203.9",
+          "page": 176,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 4,
+          "status": "scored",
+          "shortBarContained": 4,
+          "centreInside": 4,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.13813333333331987,
+            1.802886666666659,
+            2.19015333333331
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "7.205.8",
+          "page": 176,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 2,
+          "status": "scored",
+          "shortBarContained": 2,
+          "centreInside": 2,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            1.6161600000000051
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "9.27.3",
+          "page": 191,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 2,
+          "status": "scored",
+          "shortBarContained": 2,
+          "centreInside": 2,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.8194266666666393
+          ],
+          "allBordersWithin2": true,
+          "exactWord": false
+        },
+        {
+          "wid": "9.30.10",
+          "page": 191,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 3,
+          "status": "scored",
+          "shortBarContained": 3,
+          "centreInside": 3,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            2.795473333333354,
+            1.403286666666658
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "9.30.22",
+          "page": 191,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 6,
+          "status": "scored",
+          "shortBarContained": 4,
+          "centreInside": 6,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            1.9526133333333187,
+            3.6583133333333095,
+            8.424406666666671,
+            5.090706666666647,
+            1.415620000000008
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "19.26.14",
+          "page": 307,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 3,
+          "status": "scored",
+          "shortBarContained": 3,
+          "centreInside": 3,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.09126666666663975,
+            2.2165466666666642
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "19.30.2",
+          "page": 307,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 3,
+          "status": "scored",
+          "shortBarContained": 3,
+          "centreInside": 3,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.915626666666664,
+            2.5769266666666675
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "19.38.1",
+          "page": 307,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 3,
+          "status": "scored",
+          "shortBarContained": 3,
+          "centreInside": 3,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            1.676099999999997,
+            2.337660000000001
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "21.12.0",
+          "page": 323,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 3,
+          "status": "scored",
+          "shortBarContained": 2,
+          "centreInside": 3,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            1.8043666666666802,
+            2.3450600000000152
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "21.15.7",
+          "page": 323,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 5,
+          "status": "scored",
+          "shortBarContained": 5,
+          "centreInside": 5,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.7641733333333226,
+            1.3596266666666528,
+            1.6455133333333456,
+            2.403520000000007
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "21.22.4",
+          "page": 323,
+          "stackedRisk": true,
+          "confidence": "low",
+          "letters": 2,
+          "status": "scored",
+          "shortBarContained": 2,
+          "centreInside": 2,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            1.9684000000000046
+          ],
+          "allBordersWithin2": true,
+          "exactWord": false
+        },
+        {
+          "wid": "33.37.41",
+          "page": 423,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 3,
+          "status": "scored",
+          "shortBarContained": 3,
+          "centreInside": 3,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.6919000000000157,
+            0.5133133333333095
+          ],
+          "allBordersWithin2": true,
+          "exactWord": false
+        },
+        {
+          "wid": "33.38.11",
+          "page": 423,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 3,
+          "status": "scored",
+          "shortBarContained": 3,
+          "centreInside": 3,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.21460000000000112,
+            1.3944066666666646
+          ],
+          "allBordersWithin2": true,
+          "exactWord": false
+        },
+        {
+          "wid": "33.39.8",
+          "page": 423,
+          "stackedRisk": true,
+          "confidence": "low",
+          "letters": 2,
+          "status": "scored",
+          "shortBarContained": 1,
+          "centreInside": 2,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            2.510079999999997
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "40.27.0",
+          "page": 470,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 3,
+          "status": "scored",
+          "shortBarContained": 3,
+          "centreInside": 3,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            2.632426666666673,
+            2.6773200000000106
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "40.27.4",
+          "page": 470,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 4,
+          "status": "scored",
+          "shortBarContained": 2,
+          "centreInside": 4,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            3.4264466666666857,
+            3.250079999999983,
+            1.9962733333333238
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "40.31.4",
+          "page": 470,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 3,
+          "status": "scored",
+          "shortBarContained": 3,
+          "centreInside": 3,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            2.666466666666653,
+            2.02858666666665
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "45.14.8",
+          "page": 500,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 3,
+          "status": "scored",
+          "shortBarContained": 3,
+          "centreInside": 3,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.11248000000000427,
+            0.9304266666666645
+          ],
+          "allBordersWithin2": true,
+          "exactWord": false
+        },
+        {
+          "wid": "45.15.4",
+          "page": 500,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 3,
+          "status": "scored",
+          "shortBarContained": 2,
+          "centreInside": 3,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            4.862293333333331,
+            0.13936666666668013
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "45.18.12",
+          "page": 500,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 6,
+          "status": "scored",
+          "shortBarContained": 6,
+          "centreInside": 6,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            1.8889733333333092,
+            0.8218933333333598,
+            0.685240000000005,
+            0.16945999999997488,
+            3.7998999999999934
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        }
+      ]
+    },
+    "development95": {
+      "metricStatus": "development-only historic vertical-span proxy; no 2-D ground truth or fresh heldout yet",
+      "overall": {
+        "requestedWords": 95,
+        "scoredWords": 95,
+        "abstainedOrInvalidWords": 0,
+        "requestedLetters": 389,
+        "scoredLetters": 389,
+        "shortBarContainedCount": 328,
+        "shortBarContained": 0.8431876606683805,
+        "shortBarContainedIncludingAbstentionsAsMisses": 0.8431876606683805,
+        "centreInside": 0.9794344473007712,
+        "wholeWordBarsContained": 0.5368421052631579,
+        "borderWords": 95,
+        "innerBorders": 294,
+        "bordersWithin2": 0.7074829931972789,
+        "medianBorderErrorPx": 1.1857266666666706,
+        "wholeWordBordersWithin2": 0.3368421052631579,
+        "exactWords": 0,
+        "structurallyInvalidWords": 0
+      },
+      "byConfidence": {
+        "low": {
+          "requestedWords": 95,
+          "scoredWords": 95,
+          "abstainedOrInvalidWords": 0,
+          "requestedLetters": 389,
+          "scoredLetters": 389,
+          "shortBarContainedCount": 328,
+          "shortBarContained": 0.8431876606683805,
+          "shortBarContainedIncludingAbstentionsAsMisses": 0.8431876606683805,
+          "centreInside": 0.9794344473007712,
+          "wholeWordBarsContained": 0.5368421052631579,
+          "borderWords": 95,
+          "innerBorders": 294,
+          "bordersWithin2": 0.7074829931972789,
+          "medianBorderErrorPx": 1.1857266666666706,
+          "wholeWordBordersWithin2": 0.3368421052631579,
+          "exactWords": 0,
+          "structurallyInvalidWords": 0
+        }
+      },
+      "stackedRisk": {
+        "requestedWords": 13,
+        "scoredWords": 13,
+        "abstainedOrInvalidWords": 0,
+        "requestedLetters": 39,
+        "scoredLetters": 39,
+        "shortBarContainedCount": 33,
+        "shortBarContained": 0.8461538461538461,
+        "shortBarContainedIncludingAbstentionsAsMisses": 0.8461538461538461,
+        "centreInside": 1.0,
+        "wholeWordBarsContained": 0.6153846153846154,
+        "borderWords": 13,
+        "innerBorders": 26,
+        "bordersWithin2": 0.7307692307692307,
+        "medianBorderErrorPx": 1.5970433333333278,
+        "wholeWordBordersWithin2": 0.38461538461538464,
+        "exactWords": 0,
+        "structurallyInvalidWords": 0
+      },
+      "nonStackedRisk": {
+        "requestedWords": 82,
+        "scoredWords": 82,
+        "abstainedOrInvalidWords": 0,
+        "requestedLetters": 350,
+        "scoredLetters": 350,
+        "shortBarContainedCount": 295,
+        "shortBarContained": 0.8428571428571429,
+        "shortBarContainedIncludingAbstentionsAsMisses": 0.8428571428571429,
+        "centreInside": 0.9771428571428571,
+        "wholeWordBarsContained": 0.524390243902439,
+        "borderWords": 82,
+        "innerBorders": 268,
+        "bordersWithin2": 0.7052238805970149,
+        "medianBorderErrorPx": 1.173516666666679,
+        "wholeWordBordersWithin2": 0.32926829268292684,
+        "exactWords": 0,
+        "structurallyInvalidWords": 0
+      },
+      "rows": [
+        {
+          "wid": "1.1.0",
+          "page": 1,
+          "stackedRisk": true,
+          "confidence": "low",
+          "letters": 3,
+          "status": "scored",
+          "shortBarContained": 2,
+          "centreInside": 3,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.7945133333333343,
+            7.952286666666675
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "1.1.1",
+          "page": 1,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 3,
+          "status": "scored",
+          "shortBarContained": 3,
+          "centreInside": 3,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.2794733333333428,
+            2.4688866666666702
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "1.1.2",
+          "page": 1,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 6,
+          "status": "scored",
+          "shortBarContained": 5,
+          "centreInside": 6,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            1.0456200000000082,
+            1.1001333333333423,
+            0.9037866666666635,
+            2.2853666666666634,
+            0.5041866666666625
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "1.1.3",
+          "page": 1,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 6,
+          "status": "scored",
+          "shortBarContained": 5,
+          "centreInside": 6,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.9474466666666687,
+            0.7661466666666653,
+            1.1090133333333287,
+            2.5495466666666697,
+            0.5586999999999966
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "1.2.0",
+          "page": 1,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 5,
+          "status": "scored",
+          "shortBarContained": 4,
+          "centreInside": 5,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.9010733333333383,
+            3.604540000000014,
+            6.434053333333348,
+            1.94891333333335
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "1.2.1",
+          "page": 1,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 3,
+          "status": "scored",
+          "shortBarContained": 3,
+          "centreInside": 3,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.4743400000000005,
+            0.1245666666666936
+          ],
+          "allBordersWithin2": true,
+          "exactWord": false
+        },
+        {
+          "wid": "1.2.2",
+          "page": 1,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 2,
+          "status": "scored",
+          "shortBarContained": 2,
+          "centreInside": 2,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            2.0823600000000018
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "1.2.3",
+          "page": 1,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 7,
+          "status": "scored",
+          "shortBarContained": 5,
+          "centreInside": 7,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.1660066666666671,
+            0.22421999999999798,
+            5.494993333333344,
+            0.8273200000000104,
+            1.373439999999996,
+            3.6208199999999935
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "1.3.0",
+          "page": 1,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 6,
+          "status": "scored",
+          "shortBarContained": 6,
+          "centreInside": 6,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.6684666666666756,
+            0.843600000000018,
+            0.9903666666666914,
+            0.5458733333333248,
+            1.7015066666666447
+          ],
+          "allBordersWithin2": true,
+          "exactWord": false
+        },
+        {
+          "wid": "1.3.1",
+          "page": 1,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 6,
+          "status": "scored",
+          "shortBarContained": 6,
+          "centreInside": 6,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.44671333333331403,
+            0.7922933333333306,
+            0.20769333333335757,
+            0.00813999999997577,
+            0.7397533333333391
+          ],
+          "allBordersWithin2": true,
+          "exactWord": false
+        },
+        {
+          "wid": "1.4.0",
+          "page": 1,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 3,
+          "status": "scored",
+          "shortBarContained": 1,
+          "centreInside": 3,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            3.7340400000000082,
+            0.050813333333337596
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "1.4.1",
+          "page": 1,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 3,
+          "status": "scored",
+          "shortBarContained": 2,
+          "centreInside": 3,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            2.211120000000014,
+            2.1659799999999874
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "1.4.2",
+          "page": 1,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 5,
+          "status": "scored",
+          "shortBarContained": 4,
+          "centreInside": 5,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.009866666666657694,
+            1.1716666666666666,
+            0.22742666666667297,
+            6.837353333333346
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "1.5.0",
+          "page": 1,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 3,
+          "status": "scored",
+          "shortBarContained": 2,
+          "centreInside": 3,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            1.3805933333333285,
+            0.05944666666666308
+          ],
+          "allBordersWithin2": true,
+          "exactWord": false
+        },
+        {
+          "wid": "1.5.1",
+          "page": 1,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 4,
+          "status": "scored",
+          "shortBarContained": 3,
+          "centreInside": 4,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            1.4363400000000228,
+            3.087773333333341,
+            3.0192000000000023
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "1.5.2",
+          "page": 1,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 4,
+          "status": "scored",
+          "shortBarContained": 3,
+          "centreInside": 4,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            3.0110600000000267,
+            0.26812666666666396,
+            0.4859333333333401
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "1.5.3",
+          "page": 1,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 6,
+          "status": "scored",
+          "shortBarContained": 5,
+          "centreInside": 5,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            5.453306666666654,
+            2.4918266666666606,
+            0.7177999999999921,
+            0.8056133333333242,
+            2.2014999999999887
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "1.6.0",
+          "page": 1,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 4,
+          "status": "scored",
+          "shortBarContained": 3,
+          "centreInside": 3,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            1.7814266666666618,
+            0.6003866666666731,
+            0.1953599999999934
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "1.6.1",
+          "page": 1,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 5,
+          "status": "scored",
+          "shortBarContained": 5,
+          "centreInside": 5,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.6566266666666752,
+            0.3877599999999726,
+            3.776466666666653,
+            1.4698866666666814
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "1.6.2",
+          "page": 1,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 8,
+          "status": "scored",
+          "shortBarContained": 7,
+          "centreInside": 8,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.5579599999999861,
+            4.276706666666659,
+            3.6778000000000204,
+            0.015293333333308207,
+            2.9481599999999997,
+            1.8815733333333158,
+            0.11568666666667923
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "1.7.0",
+          "page": 1,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 3,
+          "status": "scored",
+          "shortBarContained": 1,
+          "centreInside": 3,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            3.815686666666679,
+            2.619846666666662
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "1.7.1",
+          "page": 1,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 5,
+          "status": "scored",
+          "shortBarContained": 2,
+          "centreInside": 4,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.8657999999999978,
+            5.756706666666658,
+            1.8287866666666637,
+            4.540393333333343
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "1.7.2",
+          "page": 1,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 5,
+          "status": "scored",
+          "shortBarContained": 3,
+          "centreInside": 5,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            1.262193333333324,
+            3.648940000000002,
+            1.842353333333346,
+            3.1812599999999978
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "1.7.3",
+          "page": 1,
+          "stackedRisk": true,
+          "confidence": "low",
+          "letters": 5,
+          "status": "scored",
+          "shortBarContained": 4,
+          "centreInside": 5,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            2.1001199999999747,
+            2.3070733333333497,
+            1.947433333333329,
+            2.8941399999999873
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "1.7.4",
+          "page": 1,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 3,
+          "status": "scored",
+          "shortBarContained": 3,
+          "centreInside": 3,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.8083266666666774,
+            0.05821333333335891
+          ],
+          "allBordersWithin2": true,
+          "exactWord": false
+        },
+        {
+          "wid": "1.7.5",
+          "page": 1,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 7,
+          "status": "scored",
+          "shortBarContained": 7,
+          "centreInside": 7,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.44893333333331764,
+            0.3241200000000193,
+            0.7905666666666767,
+            3.6565866666666555,
+            0.3838133333333432,
+            2.155866666666669
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "1.7.6",
+          "page": 1,
+          "stackedRisk": true,
+          "confidence": "low",
+          "letters": 5,
+          "status": "scored",
+          "shortBarContained": 4,
+          "centreInside": 5,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            1.1854800000000099,
+            1.7343133333333207,
+            2.4274466666666688,
+            1.5527666666666566
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "1.7.7",
+          "page": 1,
+          "stackedRisk": true,
+          "confidence": "low",
+          "letters": 2,
+          "status": "scored",
+          "shortBarContained": 2,
+          "centreInside": 2,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            1.6413199999999992
+          ],
+          "allBordersWithin2": true,
+          "exactWord": false
+        },
+        {
+          "wid": "1.7.8",
+          "page": 1,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 6,
+          "status": "scored",
+          "shortBarContained": 3,
+          "centreInside": 4,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.3756733333333114,
+            6.566760000000017,
+            5.892126666666653,
+            0.8038866666666703,
+            1.4383133333333376
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "2.1.0",
+          "page": 2,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 3,
+          "status": "scored",
+          "shortBarContained": 3,
+          "centreInside": 3,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.8130133333333455,
+            3.913859999999991
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "2.2.0",
+          "page": 2,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 3,
+          "status": "scored",
+          "shortBarContained": 2,
+          "centreInside": 3,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            1.665,
+            0.036753333333305514
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "2.2.1",
+          "page": 2,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 5,
+          "status": "scored",
+          "shortBarContained": 4,
+          "centreInside": 5,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.10261333333331853,
+            4.691353333333335,
+            3.131186666666657,
+            0.4000933333333228
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "2.2.2",
+          "page": 2,
+          "stackedRisk": true,
+          "confidence": "low",
+          "letters": 1,
+          "status": "scored",
+          "shortBarContained": 1,
+          "centreInside": 1,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [],
+          "allBordersWithin2": true,
+          "exactWord": false
+        },
+        {
+          "wid": "2.2.3",
+          "page": 2,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 3,
+          "status": "scored",
+          "shortBarContained": 3,
+          "centreInside": 3,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.4469600000000029,
+            1.2545466666666698
+          ],
+          "allBordersWithin2": true,
+          "exactWord": false
+        },
+        {
+          "wid": "2.2.4",
+          "page": 2,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 3,
+          "status": "scored",
+          "shortBarContained": 3,
+          "centreInside": 3,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.7012733333333238,
+            0.8616066666666795
+          ],
+          "allBordersWithin2": true,
+          "exactWord": false
+        },
+        {
+          "wid": "2.2.5",
+          "page": 2,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 3,
+          "status": "scored",
+          "shortBarContained": 3,
+          "centreInside": 3,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.1815466666666642,
+            3.3452933333333363
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "2.2.6",
+          "page": 2,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 7,
+          "status": "scored",
+          "shortBarContained": 7,
+          "centreInside": 7,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.2002933333333082,
+            1.252573333333327,
+            0.05007333333332705,
+            0.48568666666667926,
+            1.0194733333333428,
+            0.9326466666666541
+          ],
+          "allBordersWithin2": true,
+          "exactWord": false
+        },
+        {
+          "wid": "2.3.0",
+          "page": 2,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 5,
+          "status": "scored",
+          "shortBarContained": 4,
+          "centreInside": 5,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.07695999999997488,
+            0.1001466666666541,
+            0.14257333333332706,
+            0.005673333333311348
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "2.3.1",
+          "page": 2,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 6,
+          "status": "scored",
+          "shortBarContained": 6,
+          "centreInside": 6,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.2910666666666824,
+            1.7518266666666886,
+            0.185,
+            0.8825733333333271,
+            0.8401466666666542
+          ],
+          "allBordersWithin2": true,
+          "exactWord": false
+        },
+        {
+          "wid": "2.3.2",
+          "page": 2,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 6,
+          "status": "scored",
+          "shortBarContained": 3,
+          "centreInside": 5,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            1.6186266666666695,
+            0.2718266666666606,
+            0.4489333333333457,
+            3.1141666666666667,
+            4.366739999999994
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "2.3.3",
+          "page": 2,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 7,
+          "status": "scored",
+          "shortBarContained": 7,
+          "centreInside": 7,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            1.067573333333327,
+            0.5318133333333208,
+            1.169693333333324,
+            0.36038000000000314,
+            0.74,
+            1.370233333333321
+          ],
+          "allBordersWithin2": true,
+          "exactWord": false
+        },
+        {
+          "wid": "2.3.4",
+          "page": 2,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 6,
+          "status": "scored",
+          "shortBarContained": 6,
+          "centreInside": 6,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.32757333333332705,
+            0.6610666666666544,
+            1.337426666666673,
+            0.3411399999999954,
+            1.6341666666666668
+          ],
+          "allBordersWithin2": true,
+          "exactWord": false
+        },
+        {
+          "wid": "2.3.5",
+          "page": 2,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 3,
+          "status": "scored",
+          "shortBarContained": 2,
+          "centreInside": 3,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            3.240213333333325,
+            0.34730666666664245
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "2.3.6",
+          "page": 2,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 6,
+          "status": "scored",
+          "shortBarContained": 4,
+          "centreInside": 6,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            3.477506666666656,
+            1.1139466666666855,
+            1.3909533333333077,
+            2.9091866666666903,
+            1.326326666666655
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "2.3.7",
+          "page": 2,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 6,
+          "status": "scored",
+          "shortBarContained": 5,
+          "centreInside": 6,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.5046800000000121,
+            1.898346666666645,
+            0.10853333333334679,
+            0.652186666666668,
+            1.900073333333327
+          ],
+          "allBordersWithin2": true,
+          "exactWord": false
+        },
+        {
+          "wid": "2.4.0",
+          "page": 2,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 6,
+          "status": "scored",
+          "shortBarContained": 5,
+          "centreInside": 6,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            1.2274133333333332,
+            0.3075933333333228,
+            0.27207333333332145,
+            0.7696000000000012,
+            0.16206000000000964
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "2.4.1",
+          "page": 2,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 6,
+          "status": "scored",
+          "shortBarContained": 6,
+          "centreInside": 6,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.5490799999999998,
+            0.32979333333333066,
+            1.2254399999999903,
+            1.3285466666666585,
+            0.6388666666666746
+          ],
+          "allBordersWithin2": true,
+          "exactWord": false
+        },
+        {
+          "wid": "2.4.2",
+          "page": 2,
+          "stackedRisk": true,
+          "confidence": "low",
+          "letters": 2,
+          "status": "scored",
+          "shortBarContained": 0,
+          "centreInside": 2,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            1.934606666666657
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "2.4.3",
+          "page": 2,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 4,
+          "status": "scored",
+          "shortBarContained": 2,
+          "centreInside": 3,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            3.0584200000000004,
+            4.59342666666667,
+            1.2547933333333308
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "2.4.4",
+          "page": 2,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 4,
+          "status": "scored",
+          "shortBarContained": 3,
+          "centreInside": 4,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            1.6548866666666815,
+            1.1753666666666913,
+            0.15021999999998115
+          ],
+          "allBordersWithin2": true,
+          "exactWord": false
+        },
+        {
+          "wid": "2.4.5",
+          "page": 2,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 2,
+          "status": "scored",
+          "shortBarContained": 2,
+          "centreInside": 2,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            1.0073866666666815
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "2.4.6",
+          "page": 2,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 4,
+          "status": "scored",
+          "shortBarContained": 2,
+          "centreInside": 3,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            2.239239999999994,
+            2.366026666666691,
+            1.5448733333333136
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "2.4.7",
+          "page": 2,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 2,
+          "status": "scored",
+          "shortBarContained": 2,
+          "centreInside": 2,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            1.6109799999999874
+          ],
+          "allBordersWithin2": true,
+          "exactWord": false
+        },
+        {
+          "wid": "2.4.8",
+          "page": 2,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 4,
+          "status": "scored",
+          "shortBarContained": 4,
+          "centreInside": 4,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            1.0308200000000216,
+            0.5786800000000009,
+            1.4027933333333082
+          ],
+          "allBordersWithin2": true,
+          "exactWord": false
+        },
+        {
+          "wid": "2.4.9",
+          "page": 2,
+          "stackedRisk": true,
+          "confidence": "low",
+          "letters": 8,
+          "status": "scored",
+          "shortBarContained": 8,
+          "centreInside": 8,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            1.1615533333333201,
+            0.5816399999999871,
+            0.46175999999998946,
+            0.7454266666666786,
+            1.3132533333333223,
+            2.4846733333333284,
+            0.5044333333333233
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "2.4.10",
+          "page": 2,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 2,
+          "status": "scored",
+          "shortBarContained": 2,
+          "centreInside": 2,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.3954066666666548
+          ],
+          "allBordersWithin2": true,
+          "exactWord": false
+        },
+        {
+          "wid": "2.4.11",
+          "page": 2,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 6,
+          "status": "scored",
+          "shortBarContained": 4,
+          "centreInside": 6,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.921793333333325,
+            2.313733333333332,
+            0.13221333333331964,
+            3.5290600000000043,
+            1.8741733333333226
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "2.5.0",
+          "page": 2,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 5,
+          "status": "scored",
+          "shortBarContained": 4,
+          "centreInside": 5,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.5841066666666515,
+            3.463939999999974,
+            1.269839999999978,
+            0.6008799999999808
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "2.5.1",
+          "page": 2,
+          "stackedRisk": true,
+          "confidence": "low",
+          "letters": 3,
+          "status": "scored",
+          "shortBarContained": 3,
+          "centreInside": 3,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.3712333333333603,
+            0.15687999999999191
+          ],
+          "allBordersWithin2": true,
+          "exactWord": false
+        },
+        {
+          "wid": "2.5.2",
+          "page": 2,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 3,
+          "status": "scored",
+          "shortBarContained": 3,
+          "centreInside": 3,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.26245333333335263,
+            0.5924933333333441
+          ],
+          "allBordersWithin2": true,
+          "exactWord": false
+        },
+        {
+          "wid": "2.5.3",
+          "page": 2,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 2,
+          "status": "scored",
+          "shortBarContained": 2,
+          "centreInside": 2,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            2.061886666666676
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "2.5.4",
+          "page": 2,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 4,
+          "status": "scored",
+          "shortBarContained": 3,
+          "centreInside": 4,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            2.637113333333341,
+            0.6139533333333415,
+            0.6092666666666734
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "2.5.5",
+          "page": 2,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 6,
+          "status": "scored",
+          "shortBarContained": 5,
+          "centreInside": 6,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            1.7232133333333308,
+            0.9183399999999893,
+            1.3667800000000132,
+            0.3542133333333421,
+            1.7054533333333302
+          ],
+          "allBordersWithin2": true,
+          "exactWord": false
+        },
+        {
+          "wid": "2.5.6",
+          "page": 2,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 2,
+          "status": "scored",
+          "shortBarContained": 2,
+          "centreInside": 2,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            2.0229133333333387
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "2.5.7",
+          "page": 2,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 8,
+          "status": "scored",
+          "shortBarContained": 8,
+          "centreInside": 8,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.41834666666664516,
+            0.4659533333333078,
+            0.13541999999999463,
+            0.49678666666666915,
+            0.7989533333333414,
+            1.9183266666666774,
+            1.1822733333333348
+          ],
+          "allBordersWithin2": true,
+          "exactWord": false
+        },
+        {
+          "wid": "2.193.10",
+          "page": 30,
+          "stackedRisk": true,
+          "confidence": "low",
+          "letters": 2,
+          "status": "scored",
+          "shortBarContained": 2,
+          "centreInside": 2,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            1.8073266666666663
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "2.194.1",
+          "page": 30,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 5,
+          "status": "scored",
+          "shortBarContained": 5,
+          "centreInside": 5,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.23729333333333064,
+            0.49407333333332987,
+            0.029846666666668967,
+            0.2720733333333355
+          ],
+          "allBordersWithin2": true,
+          "exactWord": false
+        },
+        {
+          "wid": "2.196.40",
+          "page": 30,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 2,
+          "status": "scored",
+          "shortBarContained": 2,
+          "centreInside": 2,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            1.282666666666678
+          ],
+          "allBordersWithin2": true,
+          "exactWord": false
+        },
+        {
+          "wid": "3.167.19",
+          "page": 72,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 5,
+          "status": "scored",
+          "shortBarContained": 4,
+          "centreInside": 5,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.07202666666664603,
+            4.470340000000012,
+            2.0700266666666796,
+            0.8667866666666411
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "3.169.10",
+          "page": 72,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 3,
+          "status": "scored",
+          "shortBarContained": 3,
+          "centreInside": 3,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.8477933333333363,
+            0.011346666666678782
+          ],
+          "allBordersWithin2": true,
+          "exactWord": false
+        },
+        {
+          "wid": "3.173.11",
+          "page": 72,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 4,
+          "status": "scored",
+          "shortBarContained": 4,
+          "centreInside": 4,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            2.0125533333333596,
+            3.31939333333336,
+            2.0342600000000175
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "6.53.13",
+          "page": 134,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 5,
+          "status": "scored",
+          "shortBarContained": 4,
+          "centreInside": 5,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            3.228373333333325,
+            1.1859733333333315,
+            1.9042666666666734,
+            2.8852600000000006
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "6.59.15",
+          "page": 134,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 4,
+          "status": "scored",
+          "shortBarContained": 3,
+          "centreInside": 4,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            5.364506666666679,
+            3.397340000000006,
+            3.8186466666666656
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "6.59.16",
+          "page": 134,
+          "stackedRisk": true,
+          "confidence": "low",
+          "letters": 2,
+          "status": "scored",
+          "shortBarContained": 2,
+          "centreInside": 2,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.7005333333333412
+          ],
+          "allBordersWithin2": true,
+          "exactWord": false
+        },
+        {
+          "wid": "7.197.7",
+          "page": 176,
+          "stackedRisk": true,
+          "confidence": "low",
+          "letters": 2,
+          "status": "scored",
+          "shortBarContained": 2,
+          "centreInside": 2,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.49333333333333335
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "7.203.9",
+          "page": 176,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 4,
+          "status": "scored",
+          "shortBarContained": 4,
+          "centreInside": 4,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.13813333333331987,
+            1.802886666666659,
+            2.19015333333331
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "7.205.8",
+          "page": 176,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 2,
+          "status": "scored",
+          "shortBarContained": 2,
+          "centreInside": 2,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            1.6161600000000051
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "9.27.3",
+          "page": 191,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 2,
+          "status": "scored",
+          "shortBarContained": 2,
+          "centreInside": 2,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.8194266666666393
+          ],
+          "allBordersWithin2": true,
+          "exactWord": false
+        },
+        {
+          "wid": "9.30.10",
+          "page": 191,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 3,
+          "status": "scored",
+          "shortBarContained": 3,
+          "centreInside": 3,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            2.795473333333354,
+            1.403286666666658
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "9.30.22",
+          "page": 191,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 6,
+          "status": "scored",
+          "shortBarContained": 4,
+          "centreInside": 6,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            1.9526133333333187,
+            3.6583133333333095,
+            8.424406666666671,
+            5.090706666666647,
+            1.415620000000008
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "19.26.14",
+          "page": 307,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 3,
+          "status": "scored",
+          "shortBarContained": 3,
+          "centreInside": 3,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.09126666666663975,
+            2.2165466666666642
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "19.30.2",
+          "page": 307,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 3,
+          "status": "scored",
+          "shortBarContained": 3,
+          "centreInside": 3,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.915626666666664,
+            2.5769266666666675
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "19.38.1",
+          "page": 307,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 3,
+          "status": "scored",
+          "shortBarContained": 3,
+          "centreInside": 3,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            1.676099999999997,
+            2.337660000000001
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "21.12.0",
+          "page": 323,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 3,
+          "status": "scored",
+          "shortBarContained": 2,
+          "centreInside": 3,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            1.8043666666666802,
+            2.3450600000000152
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "21.15.7",
+          "page": 323,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 5,
+          "status": "scored",
+          "shortBarContained": 5,
+          "centreInside": 5,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.7641733333333226,
+            1.3596266666666528,
+            1.6455133333333456,
+            2.403520000000007
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "21.22.4",
+          "page": 323,
+          "stackedRisk": true,
+          "confidence": "low",
+          "letters": 2,
+          "status": "scored",
+          "shortBarContained": 2,
+          "centreInside": 2,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            1.9684000000000046
+          ],
+          "allBordersWithin2": true,
+          "exactWord": false
+        },
+        {
+          "wid": "33.37.41",
+          "page": 423,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 3,
+          "status": "scored",
+          "shortBarContained": 3,
+          "centreInside": 3,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.6919000000000157,
+            0.5133133333333095
+          ],
+          "allBordersWithin2": true,
+          "exactWord": false
+        },
+        {
+          "wid": "33.38.11",
+          "page": 423,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 3,
+          "status": "scored",
+          "shortBarContained": 3,
+          "centreInside": 3,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.21460000000000112,
+            1.3944066666666646
+          ],
+          "allBordersWithin2": true,
+          "exactWord": false
+        },
+        {
+          "wid": "33.39.8",
+          "page": 423,
+          "stackedRisk": true,
+          "confidence": "low",
+          "letters": 2,
+          "status": "scored",
+          "shortBarContained": 1,
+          "centreInside": 2,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            2.510079999999997
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "40.27.0",
+          "page": 470,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 3,
+          "status": "scored",
+          "shortBarContained": 3,
+          "centreInside": 3,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            2.632426666666673,
+            2.6773200000000106
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "40.27.4",
+          "page": 470,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 4,
+          "status": "scored",
+          "shortBarContained": 2,
+          "centreInside": 4,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            3.4264466666666857,
+            3.250079999999983,
+            1.9962733333333238
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "40.31.4",
+          "page": 470,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 3,
+          "status": "scored",
+          "shortBarContained": 3,
+          "centreInside": 3,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            2.666466666666653,
+            2.02858666666665
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "45.14.8",
+          "page": 500,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 3,
+          "status": "scored",
+          "shortBarContained": 3,
+          "centreInside": 3,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            0.11248000000000427,
+            0.9304266666666645
+          ],
+          "allBordersWithin2": true,
+          "exactWord": false
+        },
+        {
+          "wid": "45.15.4",
+          "page": 500,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 3,
+          "status": "scored",
+          "shortBarContained": 2,
+          "centreInside": 3,
+          "allBarsContained": false,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            4.862293333333331,
+            0.13936666666668013
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        },
+        {
+          "wid": "45.18.12",
+          "page": 500,
+          "stackedRisk": false,
+          "confidence": "low",
+          "letters": 6,
+          "status": "scored",
+          "shortBarContained": 6,
+          "centreInside": 6,
+          "allBarsContained": true,
+          "structureErrors": [],
+          "innerBorderErrors": [
+            1.8889733333333092,
+            0.8218933333333598,
+            0.685240000000005,
+            0.16945999999997488,
+            3.7998999999999934
+          ],
+          "allBordersWithin2": false,
+          "exactWord": false
+        }
+      ]
+    }
+  },
+  "raw_peak_centres": {
+    "train65": {
+      "inside": 276,
+      "total": 289,
+      "rate": 0.9550173010380623
+    },
+    "validation30": {
+      "inside": 92,
+      "total": 100,
+      "rate": 0.92
+    },
+    "development95": {
+      "inside": 368,
+      "total": 389,
+      "rate": 0.9460154241645244
+    }
+  },
+  "reconstructed": true,
+  "run": "primary",
+  "model_tensor_sha256": "4ecc35de838a061ea19f2d25125272e7ff3cc48ef4dc5594bda00a3fadf31f8e",
+  "prediction_sha256": "b93d5045617db3b92906d1bffcd37f30a9f2a0436ebb763790f8807e9981fdc3",
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]"
+}

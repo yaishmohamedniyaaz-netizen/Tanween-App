@@ -129,3 +129,22 @@ On the development data, and at checkpoints on the fresh held-out words:
 - Contact sheets of 200 random words with seed 20261108, plus stacked-letter examples, under `scripts/letter-masks/contact/`.
 - Append the results, cost (honest counts), what failed and open questions to the end of this file.
 - Push `codex/letter-positions-research` at every checkpoint. **Not main.**
+
+
+## Checkpoint 1 hand-back — 9 November 2026
+
+**Stopped at Checkpoint 1.** Full research verdict, provenance, metrics, images, counts and questions: [`scripts/letter-masks/research/CHECKPOINT_1.md`](../scripts/letter-masks/research/CHECKPOINT_1.md). Source baseline was `1166bedebe53c710607dee23647f2f479a5ed732`; work is on `codex/letter-positions-research` only. These are faithfully reconstructed and newly executed experiments, not recovered original lost output files.
+
+- W1 genuine 2-D font-mask registration: Old Madina 293/376 (77.9%) contained bars among emitted development targets, 293/389 (75.3%) with abstentions counted as misses; Amiri 308/389 (79.2%). High outline overlap does not prove ownership.
+- W2 real 40-line CRNN/CTC feasibility: 328/389 (84.3%) development bars, 97.9% centres in historic spans; 0% training CER, 28.4% separate text-validation CER. Geometry scores are from training lines and exposed development approvals.
+- W3 weak geometry/conditioned/synthetic U-Nets: 47%, 53%, 50% regular-development bar containment. Weak spans and synthetic glyphs do not establish true artwork ownership. Bounded augmentation only; zero unverified pseudo-label words trained.
+- W4 W1/CTC agreement: 92.1% on 31 words or 90.6% on 32 words. Tighter subsets are too small and exposed to certify 95%. All proposals remain low. High coverage: 0/77,433.
+- W5 primary-source/licence report found no verified reusable 1405 per-letter mask source; restrictive or unresolved assets were not imported.
+- Owner review: 22,577 proposals over the top 100 spellings/6,068 strict families, including 100 newly inferred representatives and 22,477 clearly marked historical suggestions. Excludes 39 approved pilot words and 32 missing-body words. No blind family propagation. All 200 seeded random pilot-word views plus 100 new-representative views were opened.
+- Every accuracy number is a historic vertical-span proxy, not true 2-D ink-ownership truth. All 125 old approvals are exposed; fresh heldout count is zero. The future batch splitter is implemented/tested but not run on an invented batch.
+- **Preservation exception:** later instruction required retaining existing public guess maps. All 605 files/77,308 legacy entries remain unchanged. The empty trusted research export is staged separately under `research/validated-guesses/`, not installed into the app.
+- Verification: full bounded one-command reproduction passed; deterministic duplicate prototype runs plus third integrated run matched prediction/artifact hashes. Node 22.18 full suite: 497 pass, 1 optional skip, 0 fail. Build passed with existing large-chunk warning. Protected source, scripture, artwork, page data, units and approvals unchanged.
+- Rebuild cost: three W1 190-case development passes plus three 100-representative passes; three CTC fits/21,600 line updates; nine U-Net fits/4,860 updates; 760 synthetic render attempts including readiness audits (744 accepted). Renderer test probes and setup/review work are additional. No GPU or paid OCR/inference API; token/dollar total unavailable. Full timings are in the linked report.
+- Failures/limits: lost original workspace, unavailable original commit/large files, interrupted initial publication, later reconstructed-workspace loss recovered from a verified new archive; font correspondence failures, CTC overfit, weak segmentation labels and no fresh ownership test. Nothing reached the 95% gate.
+
+Recommendation: do not scale trusted output yet. Obtain a new owner-reviewed batch and true stacked/ligature ownership examples; freeze 15% before any retraining. Decide whether to pursue anchored/topology-preserving W1 plus CTC centre proposals. Public-map replacement and overlapping app bars remain separate future decisions. Await owner instruction before Checkpoint 2; never push to main.

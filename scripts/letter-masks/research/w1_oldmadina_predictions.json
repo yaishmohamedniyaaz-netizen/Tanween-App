@@ -1,0 +1,4086 @@
+{
+  "predictions": [
+    {
+      "wid": "1.1.0",
+      "page": 1,
+      "tids": [
+        "1.1.0@r0",
+        "1.1.0@r2",
+        "1.1.0@r4"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          1277.0,
+          1295.0
+        ],
+        [
+          1200.0,
+          1277.0
+        ],
+        [
+          1126.0,
+          1202.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 9,
+        "baseline": 29,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.29528897523069453,
+        "iou_2d": 0.9117915904936015,
+        "fold_fraction": 0.011075268817204302,
+        "rms_flow_px": 4.673114776611328
+      }
+    },
+    {
+      "wid": "1.1.1",
+      "page": 1,
+      "tids": [
+        "1.1.1@r0",
+        "1.1.1@r1",
+        "1.1.1@r5"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          1120.0,
+          1126.0
+        ],
+        [
+          1089.0,
+          1117.0
+        ],
+        [
+          1059.0,
+          1090.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 3,
+        "baseline": 55,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.30610594419733117,
+        "iou_2d": 0.9523809523809523,
+        "fold_fraction": 0.0016368286445012788,
+        "rms_flow_px": 3.956976890563965
+      }
+    },
+    {
+      "wid": "1.1.2",
+      "page": 1,
+      "tids": [
+        "1.1.2@r0",
+        "1.1.2@r1",
+        "1.1.2@r2",
+        "1.1.2@r5",
+        "1.1.2@r7",
+        "1.1.2@r10"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          1045.0,
+          1054.0
+        ],
+        [
+          1028.0,
+          1038.0
+        ],
+        [
+          997.0,
+          1030.0
+        ],
+        [
+          975.0,
+          1009.0
+        ],
+        [
+          962.0,
+          988.0
+        ],
+        [
+          927.0,
+          966.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 32,
+        "baseline": 55,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.2594371997254633,
+        "iou_2d": 0.8625418060200669,
+        "fold_fraction": 0.0064886314886314885,
+        "rms_flow_px": 5.6148481369018555
+      }
+    },
+    {
+      "wid": "1.1.3",
+      "page": 1,
+      "tids": [
+        "1.1.3@r0",
+        "1.1.3@r1",
+        "1.1.3@r2",
+        "1.1.3@r5",
+        "1.1.3@r7",
+        "1.1.3@r8"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          905.0,
+          914.0
+        ],
+        [
+          884.0,
+          898.0
+        ],
+        [
+          838.0,
+          884.0
+        ],
+        [
+          821.0,
+          860.0
+        ],
+        [
+          803.0,
+          823.0
+        ],
+        [
+          768.0,
+          797.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 13,
+        "baseline": 55,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.20725734639358862,
+        "iou_2d": 0.8110516934046346,
+        "fold_fraction": 0.020883534136546186,
+        "rms_flow_px": 5.253705024719238
+      }
+    },
+    {
+      "wid": "1.2.0",
+      "page": 1,
+      "tids": [
+        "1.2.0@r0",
+        "1.2.0@r1",
+        "1.2.0@r3",
+        "1.2.0@r5",
+        "1.2.0@r7"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          1425.0,
+          1433.0
+        ],
+        [
+          1356.0,
+          1379.0
+        ],
+        [
+          1339.0,
+          1415.0
+        ],
+        [
+          1291.0,
+          1341.0
+        ],
+        [
+          1227.0,
+          1292.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 48,
+        "baseline": 61,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.26788844621513946,
+        "iou_2d": 0.733316733067729,
+        "fold_fraction": 0.016082474226804123,
+        "rms_flow_px": 4.781938076019287
+      }
+    },
+    {
+      "wid": "1.2.1",
+      "page": 1,
+      "tids": [
+        "1.2.1@r0",
+        "1.2.1@r2",
+        "1.2.1@r5"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          1196.0,
+          1209.0
+        ],
+        [
+          1179.0,
+          1203.0
+        ],
+        [
+          1150.0,
+          1180.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 9,
+        "baseline": 55,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.3366440146366963,
+        "iou_2d": 0.949166004765687,
+        "fold_fraction": 0.004583151462243562,
+        "rms_flow_px": 3.3093087673187256
+      }
+    },
+    {
+      "wid": "1.2.2",
+      "page": 1,
+      "tids": [
+        "1.2.2@r0",
+        "1.2.2@r2"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          1082.0,
+          1130.0
+        ],
+        [
+          993.0,
+          1070.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 0,
+        "baseline": 36,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.0860595957491144,
+        "iou_2d": 0.6716196136701337,
+        "fold_fraction": 0.008930232558139534,
+        "rms_flow_px": 6.208929538726807
+      }
+    },
+    {
+      "wid": "1.2.3",
+      "page": 1,
+      "tids": [
+        "1.2.3@r0",
+        "1.2.3@r1",
+        "1.2.3@r3",
+        "1.2.3@r6",
+        "1.2.3@r8",
+        "1.2.3@r10",
+        "1.2.3@r11"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          934.0,
+          951.0
+        ],
+        [
+          897.0,
+          937.0
+        ],
+        [
+          835.0,
+          897.0
+        ],
+        [
+          790.0,
+          830.0
+        ],
+        [
+          732.0,
+          790.0
+        ],
+        [
+          691.0,
+          732.0
+        ],
+        [
+          651.0,
+          692.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 32,
+        "baseline": 58,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.17681322810973318,
+        "iou_2d": 0.758995962787432,
+        "fold_fraction": 0.013725490196078431,
+        "rms_flow_px": 5.145119667053223
+      }
+    },
+    {
+      "wid": "1.3.0",
+      "page": 1,
+      "tids": [
+        "1.3.0@r0",
+        "1.3.0@r1",
+        "1.3.0@r2",
+        "1.3.0@r5",
+        "1.3.0@r7",
+        "1.3.0@r10"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          1516.0,
+          1524.0
+        ],
+        [
+          1492.0,
+          1507.0
+        ],
+        [
+          1455.0,
+          1491.0
+        ],
+        [
+          1416.0,
+          1476.0
+        ],
+        [
+          1380.0,
+          1433.0
+        ],
+        [
+          1334.0,
+          1377.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 32,
+        "baseline": 55,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.26220614828209765,
+        "iou_2d": 0.909756735547999,
+        "fold_fraction": 0.016993006993006994,
+        "rms_flow_px": 9.8994722366333
+      }
+    },
+    {
+      "wid": "1.3.1",
+      "page": 1,
+      "tids": [
+        "1.3.1@r0",
+        "1.3.1@r1",
+        "1.3.1@r2",
+        "1.3.1@r5",
+        "1.3.1@r7",
+        "1.3.1@r8"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          1313.0,
+          1324.0
+        ],
+        [
+          1278.0,
+          1305.0
+        ],
+        [
+          1227.0,
+          1280.0
+        ],
+        [
+          1198.0,
+          1239.0
+        ],
+        [
+          1171.0,
+          1198.0
+        ],
+        [
+          1124.0,
+          1156.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 13,
+        "baseline": 55,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.18261734947752528,
+        "iou_2d": 0.859338061465721,
+        "fold_fraction": 0.013299992752047546,
+        "rms_flow_px": 4.526076793670654
+      }
+    },
+    {
+      "wid": "1.4.0",
+      "page": 1,
+      "tids": [
+        "1.4.0@r0",
+        "1.4.0@r3",
+        "1.4.0@r5"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          922.0,
+          966.0
+        ],
+        [
+          899.0,
+          923.0
+        ],
+        [
+          836.0,
+          905.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 9,
+        "baseline": 44,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.511267193444542,
+        "iou_2d": 0.9572396274343776,
+        "fold_fraction": 0.0016265452179570592,
+        "rms_flow_px": 2.8995680809020996
+      }
+    },
+    {
+      "wid": "1.4.1",
+      "page": 1,
+      "tids": [
+        "1.4.1@r0",
+        "1.4.1@r2",
+        "1.4.1@r4"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          792.0,
+          811.0
+        ],
+        [
+          761.0,
+          798.0
+        ],
+        [
+          723.0,
+          755.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 27,
+        "baseline": 40,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.25806451612903225,
+        "iou_2d": 0.8063991323210412,
+        "fold_fraction": 0.008458498023715415,
+        "rms_flow_px": 4.540103435516357
+      }
+    },
+    {
+      "wid": "1.4.2",
+      "page": 1,
+      "tids": [
+        "1.4.2@r0",
+        "1.4.2@r1",
+        "1.4.2@r2",
+        "1.4.2@r5",
+        "1.4.2@r6"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          685.0,
+          711.0
+        ],
+        [
+          659.0,
+          680.0
+        ],
+        [
+          608.0,
+          661.0
+        ],
+        [
+          574.0,
+          607.0
+        ],
+        [
+          539.0,
+          574.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 22,
+        "baseline": 55,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.17546610907823662,
+        "iou_2d": 0.7940038684719536,
+        "fold_fraction": 0.019413418433249754,
+        "rms_flow_px": 4.477442264556885
+      }
+    },
+    {
+      "wid": "1.5.0",
+      "page": 1,
+      "tids": [
+        "1.5.0@r0",
+        "1.5.0@r2",
+        "1.5.0@r6"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          1501.0,
+          1515.0
+        ],
+        [
+          1473.0,
+          1498.0
+        ],
+        [
+          1404.0,
+          1461.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 0,
+        "baseline": 49,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.1597502014504432,
+        "iou_2d": 0.9132329635499208,
+        "fold_fraction": 0.009958258795468097,
+        "rms_flow_px": 11.952737808227539
+      }
+    },
+    {
+      "wid": "1.5.1",
+      "page": 1,
+      "tids": [
+        "1.5.1@r0",
+        "1.5.1@r2",
+        "1.5.1@r4",
+        "1.5.1@r6"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          1362.0,
+          1386.0
+        ],
+        [
+          1326.0,
+          1363.0
+        ],
+        [
+          1296.0,
+          1328.0
+        ],
+        [
+          1245.0,
+          1297.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 15,
+        "baseline": 59,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.2620380739081747,
+        "iou_2d": 0.8734363502575423,
+        "fold_fraction": 0.005771450557906887,
+        "rms_flow_px": 5.49371862411499
+      }
+    },
+    {
+      "wid": "1.5.2",
+      "page": 1,
+      "tids": [
+        "1.5.2@r0",
+        "1.5.2@r2",
+        "1.5.2@r4",
+        "1.5.2@r8"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          1191.0,
+          1227.0
+        ],
+        [
+          1169.0,
+          1193.0
+        ],
+        [
+          1137.0,
+          1166.0
+        ],
+        [
+          1062.0,
+          1122.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 0,
+        "baseline": 49,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.10478325859491779,
+        "iou_2d": 0.9512624779800353,
+        "fold_fraction": 0.016744564112985166,
+        "rms_flow_px": 11.30002498626709
+      }
+    },
+    {
+      "wid": "1.5.3",
+      "page": 1,
+      "tids": [
+        "1.5.3@r0",
+        "1.5.3@r2",
+        "1.5.3@r4",
+        "1.5.3@r6",
+        "1.5.3@r8",
+        "1.5.3@r9"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          1019.0,
+          1042.0
+        ],
+        [
+          937.0,
+          1019.0
+        ],
+        [
+          892.0,
+          941.0
+        ],
+        [
+          837.0,
+          898.0
+        ],
+        [
+          794.0,
+          829.0
+        ],
+        [
+          743.0,
+          794.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 32,
+        "baseline": 57,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.18350824587706147,
+        "iou_2d": 0.7812303170270838,
+        "fold_fraction": 0.00715969027045225,
+        "rms_flow_px": 7.31356143951416
+      }
+    },
+    {
+      "wid": "1.6.0",
+      "page": 1,
+      "tids": [
+        "1.6.0@r0",
+        "1.6.0@r1",
+        "1.6.0@r3",
+        "1.6.0@r5"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          544.0,
+          553.0
+        ],
+        [
+          497.0,
+          536.0
+        ],
+        [
+          456.0,
+          500.0
+        ],
+        [
+          420.0,
+          448.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 5,
+        "baseline": 55,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.3795938104448743,
+        "iou_2d": 0.9427439683111272,
+        "fold_fraction": 0.0060738581146744415,
+        "rms_flow_px": 3.2480175495147705
+      }
+    },
+    {
+      "wid": "1.6.1",
+      "page": 1,
+      "tids": [
+        "1.6.1@r0",
+        "1.6.1@r1",
+        "1.6.1@r2",
+        "1.6.1@r5",
+        "1.6.1@r8"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          1512.0,
+          1521.0
+        ],
+        [
+          1484.0,
+          1502.0
+        ],
+        [
+          1432.0,
+          1486.0
+        ],
+        [
+          1382.0,
+          1412.0
+        ],
+        [
+          1316.0,
+          1381.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 9,
+        "baseline": 55,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.2674003569303986,
+        "iou_2d": 0.884514435695538,
+        "fold_fraction": 0.002827866125490718,
+        "rms_flow_px": 5.880546569824219
+      }
+    },
+    {
+      "wid": "1.6.2",
+      "page": 1,
+      "tids": [
+        "1.6.2@r0",
+        "1.6.2@r1",
+        "1.6.2@r3",
+        "1.6.2@r5",
+        "1.6.2@r7",
+        "1.6.2@r9",
+        "1.6.2@r11",
+        "1.6.2@r12"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          1291.0,
+          1301.0
+        ],
+        [
+          1254.0,
+          1278.0
+        ],
+        [
+          1210.0,
+          1258.0
+        ],
+        [
+          1160.0,
+          1211.0
+        ],
+        [
+          1125.0,
+          1163.0
+        ],
+        [
+          1092.0,
+          1126.0
+        ],
+        [
+          1063.0,
+          1093.0
+        ],
+        [
+          1037.0,
+          1058.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 32,
+        "baseline": 55,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.17698678761585487,
+        "iou_2d": 0.864957264957265,
+        "fold_fraction": 0.006448641179180101,
+        "rms_flow_px": 8.063467025756836
+      }
+    },
+    {
+      "wid": "1.7.0",
+      "page": 1,
+      "tids": [
+        "1.7.0@r0",
+        "1.7.0@r2",
+        "1.7.0@r5"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          835.0,
+          888.0
+        ],
+        [
+          804.0,
+          831.0
+        ],
+        [
+          747.0,
+          805.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 4,
+        "baseline": 48,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.2001761726491962,
+        "iou_2d": 0.8819286256643888,
+        "fold_fraction": 0.006458022851465474,
+        "rms_flow_px": 6.152822971343994
+      }
+    },
+    {
+      "wid": "1.7.1",
+      "page": 1,
+      "tids": [
+        "1.7.1@r0",
+        "1.7.1@r1",
+        "1.7.1@r4",
+        "1.7.1@r6",
+        "1.7.1@r7"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          726.0,
+          735.0
+        ],
+        [
+          705.0,
+          717.0
+        ],
+        [
+          671.0,
+          709.0
+        ],
+        [
+          655.0,
+          678.0
+        ],
+        [
+          618.0,
+          658.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 22,
+        "baseline": 69,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.11741528762805359,
+        "iou_2d": 0.8372844827586207,
+        "fold_fraction": 0.004355699114178046,
+        "rms_flow_px": 11.732954025268555
+      }
+    },
+    {
+      "wid": "1.7.2",
+      "page": 1,
+      "tids": [
+        "1.7.2@r0",
+        "1.7.2@r2",
+        "1.7.2@r4",
+        "1.7.2@r6",
+        "1.7.2@r8"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          584.0,
+          595.0
+        ],
+        [
+          559.0,
+          578.0
+        ],
+        [
+          526.0,
+          562.0
+        ],
+        [
+          483.0,
+          528.0
+        ],
+        [
+          417.0,
+          484.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 15,
+        "baseline": 67,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.35552105569571124,
+        "iou_2d": 0.754193351631595,
+        "fold_fraction": 0.01176320706641753,
+        "rms_flow_px": 3.5998029708862305
+      }
+    },
+    {
+      "wid": "1.7.3",
+      "page": 1,
+      "tids": [
+        "1.7.3@r0",
+        "1.7.3@r2",
+        "1.7.3@r4",
+        "1.7.3@r6",
+        "1.7.3@r8"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          1332.0,
+          1365.0
+        ],
+        [
+          1310.0,
+          1337.0
+        ],
+        [
+          1277.0,
+          1311.0
+        ],
+        [
+          1252.0,
+          1285.0
+        ],
+        [
+          1207.0,
+          1240.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 37,
+        "baseline": 59,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.29697986577181207,
+        "iou_2d": 0.8860332294911735,
+        "fold_fraction": 0.003434999245055111,
+        "rms_flow_px": 6.867102146148682
+      }
+    },
+    {
+      "wid": "1.7.4",
+      "page": 1,
+      "tids": [
+        "1.7.4@r0",
+        "1.7.4@r2",
+        "1.7.4@r4"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          1164.0,
+          1199.0
+        ],
+        [
+          1137.0,
+          1165.0
+        ],
+        [
+          1105.0,
+          1137.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 17,
+        "baseline": 53,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.2857142857142857,
+        "iou_2d": 0.7820443482963764,
+        "fold_fraction": 0.007122507122507123,
+        "rms_flow_px": 3.501735210418701
+      }
+    },
+    {
+      "wid": "1.7.5",
+      "page": 1,
+      "tids": [
+        "1.7.5@r0",
+        "1.7.5@r1",
+        "1.7.5@r3",
+        "1.7.5@r5",
+        "1.7.5@r7",
+        "1.7.5@r9",
+        "1.7.5@r10"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          1065.0,
+          1079.0
+        ],
+        [
+          1034.0,
+          1065.0
+        ],
+        [
+          986.0,
+          1038.0
+        ],
+        [
+          948.0,
+          988.0
+        ],
+        [
+          863.0,
+          951.0
+        ],
+        [
+          847.0,
+          872.0
+        ],
+        [
+          778.0,
+          847.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 41,
+        "baseline": 55,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.26765873015873015,
+        "iou_2d": 0.8514984095094592,
+        "fold_fraction": 0.01322553897180763,
+        "rms_flow_px": 7.591190338134766
+      }
+    },
+    {
+      "wid": "1.7.6",
+      "page": 1,
+      "tids": [
+        "1.7.6@r0",
+        "1.7.6@r2",
+        "1.7.6@r4",
+        "1.7.6@r6",
+        "1.7.6@r8"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          704.0,
+          738.0
+        ],
+        [
+          677.0,
+          709.0
+        ],
+        [
+          641.0,
+          679.0
+        ],
+        [
+          620.0,
+          650.0
+        ],
+        [
+          562.0,
+          612.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 37,
+        "baseline": 59,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.21793665725932895,
+        "iou_2d": 0.92122360584732,
+        "fold_fraction": 0.009388489208633093,
+        "rms_flow_px": 8.815852165222168
+      }
+    },
+    {
+      "wid": "1.7.7",
+      "page": 1,
+      "tids": [
+        "1.7.7@r0",
+        "1.7.7@r2"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          1162.0,
+          1195.0
+        ],
+        [
+          1140.0,
+          1166.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 0,
+        "baseline": 58,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.4370015948963317,
+        "iou_2d": 0.8755580357142857,
+        "fold_fraction": 0.0015560640732265446,
+        "rms_flow_px": 4.113592147827148
+      }
+    },
+    {
+      "wid": "1.7.8",
+      "page": 1,
+      "tids": [
+        "1.7.8@r0",
+        "1.7.8@r1",
+        "1.7.8@r2",
+        "1.7.8@r7",
+        "1.7.8@r10",
+        "1.7.8@r11"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          1087.0,
+          1096.0
+        ],
+        [
+          1051.0,
+          1076.0
+        ],
+        [
+          952.0,
+          1059.0
+        ],
+        [
+          916.0,
+          938.0
+        ],
+        [
+          899.0,
+          922.0
+        ],
+        [
+          861.0,
+          900.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 24,
+        "baseline": 57,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.15142205926072738,
+        "iou_2d": 0.8979118329466357,
+        "fold_fraction": 0.012917632426931992,
+        "rms_flow_px": 10.498160362243652
+      }
+    },
+    {
+      "wid": "2.1.0",
+      "page": 2,
+      "tids": [
+        "2.1.0@r0",
+        "2.1.0@r1",
+        "2.1.0@r3"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          1472.0,
+          1480.0
+        ],
+        [
+          1434.0,
+          1458.0
+        ],
+        [
+          1388.0,
+          1428.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 6,
+        "baseline": 60,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.15849731663685152,
+        "iou_2d": 0.7809579439252337,
+        "fold_fraction": 0.009506928778601353,
+        "rms_flow_px": 7.114464282989502
+      }
+    },
+    {
+      "wid": "2.2.0",
+      "page": 2,
+      "tids": [
+        "2.2.0@r0",
+        "2.2.0@r3",
+        "2.2.0@r5"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          1223.0,
+          1247.0
+        ],
+        [
+          1198.0,
+          1221.0
+        ],
+        [
+          1135.0,
+          1206.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 7,
+        "baseline": 55,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.26685684647302904,
+        "iou_2d": 0.9225239616613419,
+        "fold_fraction": 0.005747126436781609,
+        "rms_flow_px": 4.548403263092041
+      }
+    },
+    {
+      "wid": "2.2.1",
+      "page": 2,
+      "tids": [
+        "2.2.1@r0",
+        "2.2.1@r1",
+        "2.2.1@r3",
+        "2.2.1@r5",
+        "2.2.1@r8"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          1095.0,
+          1123.0
+        ],
+        [
+          1062.0,
+          1091.0
+        ],
+        [
+          986.0,
+          1062.0
+        ],
+        [
+          934.0,
+          988.0
+        ],
+        [
+          857.0,
+          936.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 15,
+        "baseline": 55,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.18596449982367463,
+        "iou_2d": 0.7912301125339543,
+        "fold_fraction": 0.023269324853228964,
+        "rms_flow_px": 4.5990424156188965
+      }
+    },
+    {
+      "wid": "2.2.2",
+      "page": 2,
+      "tids": [
+        "2.2.2@r0"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          819.0,
+          843.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 0,
+        "baseline": 58,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.5515873015873016,
+        "iou_2d": 0.9718875502008032,
+        "fold_fraction": 0.0011160714285714285,
+        "rms_flow_px": 2.304245948791504
+      }
+    },
+    {
+      "wid": "2.2.3",
+      "page": 2,
+      "tids": [
+        "2.2.3@r0",
+        "2.2.3@r2",
+        "2.2.3@r4"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          756.0,
+          794.0
+        ],
+        [
+          749.0,
+          773.0
+        ],
+        [
+          690.0,
+          750.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 8,
+        "baseline": 76,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.31173848439821694,
+        "iou_2d": 0.7927199191102123,
+        "fold_fraction": 0.01019053938761968,
+        "rms_flow_px": 4.114334583282471
+      }
+    },
+    {
+      "wid": "2.2.4",
+      "page": 2,
+      "tids": [
+        "2.2.4@r0",
+        "2.2.4@r2",
+        "2.2.4@r3"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          651.0,
+          675.0
+        ],
+        [
+          637.0,
+          656.0
+        ],
+        [
+          594.0,
+          632.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 12,
+        "baseline": 74,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.3851239669421488,
+        "iou_2d": 0.9625868519508284,
+        "fold_fraction": 0.008968087584439786,
+        "rms_flow_px": 3.1562411785125732
+      }
+    },
+    {
+      "wid": "2.2.5",
+      "page": 2,
+      "tids": [
+        "2.2.5@r0",
+        "2.2.5@r2",
+        "2.2.5@r4"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "reason": "missing_glyph_clusters",
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [
+          3
+        ],
+        "empty_units": [],
+        "overlapping_unit_pixels": 5,
+        "baseline": 52,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.22210498549195462,
+        "iou_2d": 0.9046862589356632,
+        "fold_fraction": 0.023645320197044337,
+        "rms_flow_px": 6.879146099090576
+      }
+    },
+    {
+      "wid": "2.2.6",
+      "page": 2,
+      "tids": [
+        "2.2.6@r0",
+        "2.2.6@r3",
+        "2.2.6@r5",
+        "2.2.6@r7",
+        "2.2.6@r10",
+        "2.2.6@r12",
+        "2.2.6@r13"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          1503.0,
+          1520.0
+        ],
+        [
+          1488.0,
+          1509.0
+        ],
+        [
+          1459.0,
+          1489.0
+        ],
+        [
+          1438.0,
+          1462.0
+        ],
+        [
+          1415.0,
+          1440.0
+        ],
+        [
+          1393.0,
+          1416.0
+        ],
+        [
+          1352.0,
+          1389.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 37,
+        "baseline": 55,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.2896174863387978,
+        "iou_2d": 0.8752205697000252,
+        "fold_fraction": 0.0072708509241016985,
+        "rms_flow_px": 5.768990993499756
+      }
+    },
+    {
+      "wid": "2.3.0",
+      "page": 2,
+      "tids": [
+        "2.3.0@r0",
+        "2.3.0@r1",
+        "2.3.0@r4",
+        "2.3.0@r6",
+        "2.3.0@r7"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          1203.0,
+          1212.0
+        ],
+        [
+          1184.0,
+          1195.0
+        ],
+        [
+          1151.0,
+          1187.0
+        ],
+        [
+          1137.0,
+          1160.0
+        ],
+        [
+          1101.0,
+          1139.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 22,
+        "baseline": 69,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.24949381327334083,
+        "iou_2d": 0.8348450491307634,
+        "fold_fraction": 0.0033022533022533025,
+        "rms_flow_px": 9.867436408996582
+      }
+    },
+    {
+      "wid": "2.3.1",
+      "page": 2,
+      "tids": [
+        "2.3.1@r0",
+        "2.3.1@r2",
+        "2.3.1@r4",
+        "2.3.1@r6",
+        "2.3.1@r8",
+        "2.3.1@r9"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          1072.0,
+          1093.0
+        ],
+        [
+          1035.0,
+          1076.0
+        ],
+        [
+          1023.0,
+          1056.0
+        ],
+        [
+          995.0,
+          1024.0
+        ],
+        [
+          968.0,
+          1000.0
+        ],
+        [
+          933.0,
+          972.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 48,
+        "baseline": 49,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.3125602312881465,
+        "iou_2d": 0.8978436657681941,
+        "fold_fraction": 0.010821273039194123,
+        "rms_flow_px": 5.751554489135742
+      }
+    },
+    {
+      "wid": "2.3.2",
+      "page": 2,
+      "tids": [
+        "2.3.2@r0",
+        "2.3.2@r2",
+        "2.3.2@r3",
+        "2.3.2@r5",
+        "2.3.2@r7",
+        "2.3.2@r9"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          898.0,
+          920.0
+        ],
+        [
+          889.0,
+          902.0
+        ],
+        [
+          863.0,
+          880.0
+        ],
+        [
+          838.0,
+          866.0
+        ],
+        [
+          817.0,
+          843.0
+        ],
+        [
+          758.0,
+          807.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 20,
+        "baseline": 59,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.3421933451466824,
+        "iou_2d": 0.9593589009730967,
+        "fold_fraction": 0.007917817118726652,
+        "rms_flow_px": 5.618290424346924
+      }
+    },
+    {
+      "wid": "2.3.3",
+      "page": 2,
+      "tids": [
+        "2.3.3@r0",
+        "2.3.3@r2",
+        "2.3.3@r4",
+        "2.3.3@r6",
+        "2.3.3@r7",
+        "2.3.3@r9",
+        "2.3.3@r10"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          706.0,
+          739.0
+        ],
+        [
+          697.0,
+          715.0
+        ],
+        [
+          673.0,
+          698.0
+        ],
+        [
+          654.0,
+          678.0
+        ],
+        [
+          631.0,
+          659.0
+        ],
+        [
+          602.0,
+          636.0
+        ],
+        [
+          571.0,
+          609.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 37,
+        "baseline": 51,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.25126000592943964,
+        "iou_2d": 0.8681741640606206,
+        "fold_fraction": 0.011493782722513089,
+        "rms_flow_px": 5.482435703277588
+      }
+    },
+    {
+      "wid": "2.3.4",
+      "page": 2,
+      "tids": [
+        "2.3.4@r0",
+        "2.3.4@r1",
+        "2.3.4@r2",
+        "2.3.4@r5",
+        "2.3.4@r7",
+        "2.3.4@r9"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          555.0,
+          564.0
+        ],
+        [
+          533.0,
+          549.0
+        ],
+        [
+          482.0,
+          535.0
+        ],
+        [
+          459.0,
+          484.0
+        ],
+        [
+          429.0,
+          463.0
+        ],
+        [
+          418.0,
+          439.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 31,
+        "baseline": 59,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.4154549231408392,
+        "iou_2d": 0.9145755472504005,
+        "fold_fraction": 0.0052803483941208495,
+        "rms_flow_px": 3.4339687824249268
+      }
+    },
+    {
+      "wid": "2.3.5",
+      "page": 2,
+      "tids": [
+        "2.3.5@r0",
+        "2.3.5@r2",
+        "2.3.5@r4"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          1497.0,
+          1528.0
+        ],
+        [
+          1475.0,
+          1506.0
+        ],
+        [
+          1442.0,
+          1478.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 4,
+        "baseline": 44,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.27278382581648525,
+        "iou_2d": 0.8781176470588236,
+        "fold_fraction": 0.02590051457975986,
+        "rms_flow_px": 5.81235408782959
+      }
+    },
+    {
+      "wid": "2.3.6",
+      "page": 2,
+      "tids": [
+        "2.3.6@r0",
+        "2.3.6@r2",
+        "2.3.6@r4",
+        "2.3.6@r6",
+        "2.3.6@r9",
+        "2.3.6@r11"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          1395.0,
+          1424.0
+        ],
+        [
+          1368.0,
+          1399.0
+        ],
+        [
+          1356.0,
+          1378.0
+        ],
+        [
+          1324.0,
+          1357.0
+        ],
+        [
+          1301.0,
+          1331.0
+        ],
+        [
+          1265.0,
+          1302.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 22,
+        "baseline": 51,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.28513994124014225,
+        "iou_2d": 0.9036144578313253,
+        "fold_fraction": 0.00882752376641014,
+        "rms_flow_px": 6.008358955383301
+      }
+    },
+    {
+      "wid": "2.3.7",
+      "page": 2,
+      "tids": [
+        "2.3.7@r0",
+        "2.3.7@r2",
+        "2.3.7@r3",
+        "2.3.7@r5",
+        "2.3.7@r7",
+        "2.3.7@r8"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          1227.0,
+          1243.0
+        ],
+        [
+          1208.0,
+          1234.0
+        ],
+        [
+          1180.0,
+          1209.0
+        ],
+        [
+          1142.0,
+          1181.0
+        ],
+        [
+          1110.0,
+          1147.0
+        ],
+        [
+          1078.0,
+          1119.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 37,
+        "baseline": 57,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.3305728088336784,
+        "iou_2d": 0.936988340362193,
+        "fold_fraction": 0.011005434782608696,
+        "rms_flow_px": 5.379599094390869
+      }
+    },
+    {
+      "wid": "2.4.0",
+      "page": 2,
+      "tids": [
+        "2.4.0@r0",
+        "2.4.0@r2",
+        "2.4.0@r3",
+        "2.4.0@r6",
+        "2.4.0@r8",
+        "2.4.0@r9"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          890.0,
+          924.0
+        ],
+        [
+          884.0,
+          893.0
+        ],
+        [
+          863.0,
+          875.0
+        ],
+        [
+          831.0,
+          868.0
+        ],
+        [
+          815.0,
+          839.0
+        ],
+        [
+          780.0,
+          819.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 22,
+        "baseline": 69,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.1592949783837712,
+        "iou_2d": 0.8866608544027899,
+        "fold_fraction": 0.0035317460317460317,
+        "rms_flow_px": 11.209117889404297
+      }
+    },
+    {
+      "wid": "2.4.1",
+      "page": 2,
+      "tids": [
+        "2.4.1@r0",
+        "2.4.1@r2",
+        "2.4.1@r4",
+        "2.4.1@r6",
+        "2.4.1@r8",
+        "2.4.1@r9"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          745.0,
+          767.0
+        ],
+        [
+          712.0,
+          749.0
+        ],
+        [
+          691.0,
+          727.0
+        ],
+        [
+          663.0,
+          693.0
+        ],
+        [
+          631.0,
+          667.0
+        ],
+        [
+          601.0,
+          639.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 48,
+        "baseline": 49,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.30297482837528605,
+        "iou_2d": 0.9361861861861862,
+        "fold_fraction": 0.00920406732117812,
+        "rms_flow_px": 6.546360015869141
+      }
+    },
+    {
+      "wid": "2.4.2",
+      "page": 2,
+      "tids": [
+        "2.4.2@r0",
+        "2.4.2@r2"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          571.0,
+          584.0
+        ],
+        [
+          536.0,
+          569.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 4,
+        "baseline": 57,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.26742656729504605,
+        "iou_2d": 0.908256880733945,
+        "fold_fraction": 0.011716669625421623,
+        "rms_flow_px": 4.634851455688477
+      }
+    },
+    {
+      "wid": "2.4.3",
+      "page": 2,
+      "tids": [
+        "2.4.3@r0",
+        "2.4.3@r2",
+        "2.4.3@r3",
+        "2.4.3@r5"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          488.0,
+          505.0
+        ],
+        [
+          473.0,
+          489.0
+        ],
+        [
+          431.0,
+          465.0
+        ],
+        [
+          403.0,
+          443.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 7,
+        "baseline": 76,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.5283018867924528,
+        "iou_2d": 0.9535330261136713,
+        "fold_fraction": 0.003821444395214887,
+        "rms_flow_px": 2.6242141723632812
+      }
+    },
+    {
+      "wid": "2.4.4",
+      "page": 2,
+      "tids": [
+        "2.4.4@r0",
+        "2.4.4@r2",
+        "2.4.4@r4",
+        "2.4.4@r6"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          1502.0,
+          1525.0
+        ],
+        [
+          1489.0,
+          1500.0
+        ],
+        [
+          1459.0,
+          1485.0
+        ],
+        [
+          1399.0,
+          1461.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 14,
+        "baseline": 55,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.23056595463554283,
+        "iou_2d": 0.7615062761506276,
+        "fold_fraction": 0.008606472892187179,
+        "rms_flow_px": 5.963557243347168
+      }
+    },
+    {
+      "wid": "2.4.5",
+      "page": 2,
+      "tids": [
+        "2.4.5@r0",
+        "2.4.5@r2"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          1347.0,
+          1382.0
+        ],
+        [
+          1311.0,
+          1351.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 0,
+        "baseline": 57,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.4139344262295082,
+        "iou_2d": 0.8042578356002366,
+        "fold_fraction": 0.0009093915343915343,
+        "rms_flow_px": 2.69014310836792
+      }
+    },
+    {
+      "wid": "2.4.6",
+      "page": 2,
+      "tids": [
+        "2.4.6@r0",
+        "2.4.6@r2",
+        "2.4.6@r3",
+        "2.4.6@r5"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          1268.0,
+          1284.0
+        ],
+        [
+          1255.0,
+          1269.0
+        ],
+        [
+          1221.0,
+          1255.0
+        ],
+        [
+          1191.0,
+          1231.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 7,
+        "baseline": 76,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.3313550939663699,
+        "iou_2d": 0.9448462929475587,
+        "fold_fraction": 0.0025196656833824977,
+        "rms_flow_px": 3.7698333263397217
+      }
+    },
+    {
+      "wid": "2.4.7",
+      "page": 2,
+      "tids": [
+        "2.4.7@r0",
+        "2.4.7@r2"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          1154.0,
+          1180.0
+        ],
+        [
+          1112.0,
+          1152.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 3,
+        "baseline": 22,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.34593023255813954,
+        "iou_2d": 0.9667300380228137,
+        "fold_fraction": 0.011527798044651977,
+        "rms_flow_px": 4.55468225479126
+      }
+    },
+    {
+      "wid": "2.4.8",
+      "page": 2,
+      "tids": [
+        "2.4.8@r0",
+        "2.4.8@r2",
+        "2.4.8@r4",
+        "2.4.8@r6"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          1078.0,
+          1103.0
+        ],
+        [
+          1056.0,
+          1080.0
+        ],
+        [
+          1030.0,
+          1056.0
+        ],
+        [
+          974.0,
+          1041.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 16,
+        "baseline": 52,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.4102108768035516,
+        "iou_2d": 0.8796653796653797,
+        "fold_fraction": 0.006825396825396826,
+        "rms_flow_px": 3.967590093612671
+      }
+    },
+    {
+      "wid": "2.4.9",
+      "page": 2,
+      "tids": [
+        "2.4.9@r0",
+        "2.4.9@r2",
+        "2.4.9@r4",
+        "2.4.9@r5",
+        "2.4.9@r7",
+        "2.4.9@r9",
+        "2.4.9@r11",
+        "2.4.9@r13"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          927.0,
+          959.0
+        ],
+        [
+          910.0,
+          933.0
+        ],
+        [
+          902.0,
+          915.0
+        ],
+        [
+          861.0,
+          882.0
+        ],
+        [
+          846.0,
+          884.0
+        ],
+        [
+          814.0,
+          856.0
+        ],
+        [
+          772.0,
+          805.0
+        ],
+        [
+          756.0,
+          785.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 33,
+        "baseline": 66,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.302656685747835,
+        "iou_2d": 0.8570807048074831,
+        "fold_fraction": 0.00453606851494533,
+        "rms_flow_px": 6.351931095123291
+      }
+    },
+    {
+      "wid": "2.4.10",
+      "page": 2,
+      "tids": [
+        "2.4.10@r0",
+        "2.4.10@r2"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          718.0,
+          749.0
+        ],
+        [
+          689.0,
+          719.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 6,
+        "baseline": 52,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.14711976792374637,
+        "iou_2d": 0.9125235997482694,
+        "fold_fraction": 0.016602809706257982,
+        "rms_flow_px": 7.702080249786377
+      }
+    },
+    {
+      "wid": "2.4.11",
+      "page": 2,
+      "tids": [
+        "2.4.11@r0",
+        "2.4.11@r2",
+        "2.4.11@r3",
+        "2.4.11@r5",
+        "2.4.11@r7",
+        "2.4.11@r8"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          661.0,
+          681.0
+        ],
+        [
+          630.0,
+          664.0
+        ],
+        [
+          613.0,
+          634.0
+        ],
+        [
+          591.0,
+          616.0
+        ],
+        [
+          559.0,
+          596.0
+        ],
+        [
+          524.0,
+          565.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 55,
+        "baseline": 49,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.2808444096950743,
+        "iou_2d": 0.9215686274509803,
+        "fold_fraction": 0.00516795865633075,
+        "rms_flow_px": 7.84113073348999
+      }
+    },
+    {
+      "wid": "2.5.0",
+      "page": 2,
+      "tids": [
+        "2.5.0@r0",
+        "2.5.0@r2",
+        "2.5.0@r4",
+        "2.5.0@r8",
+        "2.5.0@r10"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          1376.0,
+          1391.0
+        ],
+        [
+          1340.0,
+          1376.0
+        ],
+        [
+          1311.0,
+          1345.0
+        ],
+        [
+          1292.0,
+          1319.0
+        ],
+        [
+          1223.0,
+          1288.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 11,
+        "baseline": 76,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.38345997526064673,
+        "iou_2d": 0.8787952392518824,
+        "fold_fraction": 0.0023593466424682396,
+        "rms_flow_px": 3.364767551422119
+      }
+    },
+    {
+      "wid": "2.5.1",
+      "page": 2,
+      "tids": [
+        "2.5.1@r0",
+        "2.5.1@r2",
+        "2.5.1@r4"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          1179.0,
+          1213.0
+        ],
+        [
+          1160.0,
+          1184.0
+        ],
+        [
+          1129.0,
+          1178.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 37,
+        "baseline": 51,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.5729813664596274,
+        "iou_2d": 0.9634146341463414,
+        "fold_fraction": 0.006174899866488652,
+        "rms_flow_px": 2.335420608520508
+      }
+    },
+    {
+      "wid": "2.5.2",
+      "page": 2,
+      "tids": [
+        "2.5.2@r0",
+        "2.5.2@r2",
+        "2.5.2@r4"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "reason": "missing_glyph_clusters",
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [
+          3
+        ],
+        "empty_units": [],
+        "overlapping_unit_pixels": 5,
+        "baseline": 52,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.2332875457875458,
+        "iou_2d": 0.8891995805662356,
+        "fold_fraction": 0.019417475728155338,
+        "rms_flow_px": 6.352834701538086
+      }
+    },
+    {
+      "wid": "2.5.3",
+      "page": 2,
+      "tids": [
+        "2.5.3@r0",
+        "2.5.3@r3"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          935.0,
+          967.0
+        ],
+        [
+          895.0,
+          931.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 3,
+        "baseline": 36,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.21662125340599456,
+        "iou_2d": 0.9619741100323624,
+        "fold_fraction": 0.013501144164759725,
+        "rms_flow_px": 6.769801616668701
+      }
+    },
+    {
+      "wid": "2.5.4",
+      "page": 2,
+      "tids": [
+        "2.5.4@r0",
+        "2.5.4@r3",
+        "2.5.4@r6",
+        "2.5.4@r8"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          850.0,
+          882.0
+        ],
+        [
+          828.0,
+          866.0
+        ],
+        [
+          804.0,
+          835.0
+        ],
+        [
+          765.0,
+          803.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 18,
+        "baseline": 81,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.21645021645021645,
+        "iou_2d": 0.9021796916533759,
+        "fold_fraction": 0.0075262822554953805,
+        "rms_flow_px": 8.571913719177246
+      }
+    },
+    {
+      "wid": "2.5.5",
+      "page": 2,
+      "tids": [
+        "2.5.5@r0",
+        "2.5.5@r2",
+        "2.5.5@r4",
+        "2.5.5@r6",
+        "2.5.5@r10",
+        "2.5.5@r12"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          711.0,
+          747.0
+        ],
+        [
+          701.0,
+          715.0
+        ],
+        [
+          667.0,
+          701.0
+        ],
+        [
+          635.0,
+          668.0
+        ],
+        [
+          617.0,
+          643.0
+        ],
+        [
+          543.0,
+          611.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 11,
+        "baseline": 76,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.25920587079019786,
+        "iou_2d": 0.8599959241899328,
+        "fold_fraction": 0.0013895869674481862,
+        "rms_flow_px": 5.5742926597595215
+      }
+    },
+    {
+      "wid": "2.5.6",
+      "page": 2,
+      "tids": [
+        "2.5.6@r0",
+        "2.5.6@r2"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          1181.0,
+          1226.0
+        ],
+        [
+          1139.0,
+          1183.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 6,
+        "baseline": 52,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.6648002986188877,
+        "iou_2d": 0.9695712309820194,
+        "fold_fraction": 0.00034614053305642093,
+        "rms_flow_px": 2.3362324237823486
+      }
+    },
+    {
+      "wid": "2.5.7",
+      "page": 2,
+      "tids": [
+        "2.5.7@r0",
+        "2.5.7@r1",
+        "2.5.7@r3",
+        "2.5.7@r5",
+        "2.5.7@r7",
+        "2.5.7@r9",
+        "2.5.7@r11",
+        "2.5.7@r12"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          1099.0,
+          1125.0
+        ],
+        [
+          1070.0,
+          1105.0
+        ],
+        [
+          1023.0,
+          1074.0
+        ],
+        [
+          987.0,
+          1025.0
+        ],
+        [
+          955.0,
+          989.0
+        ],
+        [
+          896.0,
+          956.0
+        ],
+        [
+          864.0,
+          902.0
+        ],
+        [
+          830.0,
+          877.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 48,
+        "baseline": 55,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.18580846634281747,
+        "iou_2d": 0.7359176256814052,
+        "fold_fraction": 0.024193151022419316,
+        "rms_flow_px": 5.335421085357666
+      }
+    },
+    {
+      "wid": "2.193.10",
+      "page": 30,
+      "tids": [
+        "2.193.10@r0",
+        "2.193.10@r2"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          1257.0,
+          1283.0
+        ],
+        [
+          1205.0,
+          1259.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 5,
+        "baseline": 57,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.4390170812106683,
+        "iou_2d": 0.9557041370664437,
+        "fold_fraction": 0.0036036036036036037,
+        "rms_flow_px": 3.8858108520507812
+      }
+    },
+    {
+      "wid": "2.194.1",
+      "page": 30,
+      "tids": [
+        "2.194.1@r0",
+        "2.194.1@r1",
+        "2.194.1@r3",
+        "2.194.1@r5",
+        "2.194.1@r8"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          240.0,
+          246.0
+        ],
+        [
+          194.0,
+          218.0
+        ],
+        [
+          186.0,
+          240.0
+        ],
+        [
+          136.0,
+          181.0
+        ],
+        [
+          111.0,
+          141.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 46,
+        "baseline": 61,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.16857456484240238,
+        "iou_2d": 0.901824034334764,
+        "fold_fraction": 0.0029950669485553204,
+        "rms_flow_px": 9.943732261657715
+      }
+    },
+    {
+      "wid": "2.196.40",
+      "page": 30,
+      "tids": [
+        "2.196.40@r0",
+        "2.196.40@r2"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          1804.0,
+          1825.0
+        ],
+        [
+          1768.0,
+          1806.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 4,
+        "baseline": 53,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.37214316515739543,
+        "iou_2d": 0.8679588128407026,
+        "fold_fraction": 0.008084780946137878,
+        "rms_flow_px": 4.1617584228515625
+      }
+    },
+    {
+      "wid": "3.167.19",
+      "page": 72,
+      "tids": [
+        "3.167.19@r0",
+        "3.167.19@r2",
+        "3.167.19@r4",
+        "3.167.19@r6",
+        "3.167.19@r8"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          1802.0,
+          1828.0
+        ],
+        [
+          1760.0,
+          1809.0
+        ],
+        [
+          1725.0,
+          1761.0
+        ],
+        [
+          1700.0,
+          1733.0
+        ],
+        [
+          1632.0,
+          1691.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 39,
+        "baseline": 45,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.23746023978468314,
+        "iou_2d": 0.9624271649588105,
+        "fold_fraction": 0.011295681063122924,
+        "rms_flow_px": 8.382742881774902
+      }
+    },
+    {
+      "wid": "3.169.10",
+      "page": 72,
+      "tids": [
+        "3.169.10@r0",
+        "3.169.10@r2",
+        "3.169.10@r3"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          983.0,
+          1024.0
+        ],
+        [
+          953.0,
+          985.0
+        ],
+        [
+          901.0,
+          955.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 12,
+        "baseline": 50,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.3373027686811551,
+        "iou_2d": 0.9462947543713572,
+        "fold_fraction": 0.005201342281879195,
+        "rms_flow_px": 4.4160895347595215
+      }
+    },
+    {
+      "wid": "3.173.11",
+      "page": 72,
+      "tids": [
+        "3.173.11@r0",
+        "3.173.11@r2",
+        "3.173.11@r3",
+        "3.173.11@r6"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "reason": "missing_glyph_clusters",
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [
+          7
+        ],
+        "empty_units": [],
+        "overlapping_unit_pixels": 16,
+        "baseline": 51,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.2149330447720817,
+        "iou_2d": 0.9381858902575588,
+        "fold_fraction": 0.00853372028745163,
+        "rms_flow_px": 10.586040496826172
+      }
+    },
+    {
+      "wid": "6.53.13",
+      "page": 134,
+      "tids": [
+        "6.53.13@r0",
+        "6.53.13@r2",
+        "6.53.13@r4",
+        "6.53.13@r6",
+        "6.53.13@r8"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          999.0,
+          1023.0
+        ],
+        [
+          964.0,
+          991.0
+        ],
+        [
+          914.0,
+          953.0
+        ],
+        [
+          884.0,
+          920.0
+        ],
+        [
+          841.0,
+          886.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 22,
+        "baseline": 68,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.3318428184281843,
+        "iou_2d": 0.9621509824198552,
+        "fold_fraction": 0.003654970760233918,
+        "rms_flow_px": 6.5906572341918945
+      }
+    },
+    {
+      "wid": "6.59.15",
+      "page": 134,
+      "tids": [
+        "6.59.15@r0",
+        "6.59.15@r2",
+        "6.59.15@r4",
+        "6.59.15@r6"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          919.0,
+          964.0
+        ],
+        [
+          865.0,
+          916.0
+        ],
+        [
+          816.0,
+          884.0
+        ],
+        [
+          755.0,
+          825.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 5,
+        "baseline": 52,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.13596009975062345,
+        "iou_2d": 0.8704976056631272,
+        "fold_fraction": 0.008212954333643989,
+        "rms_flow_px": 12.409364700317383
+      }
+    },
+    {
+      "wid": "6.59.16",
+      "page": 134,
+      "tids": [
+        "6.59.16@r0",
+        "6.59.16@r2"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          705.0,
+          726.0
+        ],
+        [
+          650.0,
+          686.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 0,
+        "baseline": 65,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.34929936305732484,
+        "iou_2d": 0.9531129900076863,
+        "fold_fraction": 0.003048780487804878,
+        "rms_flow_px": 5.550889015197754
+      }
+    },
+    {
+      "wid": "7.197.7",
+      "page": 176,
+      "tids": [
+        "7.197.7@r0",
+        "7.197.7@r2"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          155.0,
+          195.0
+        ],
+        [
+          129.0,
+          162.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 0,
+        "baseline": 58,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.34674097407317667,
+        "iou_2d": 0.9054855448480356,
+        "fold_fraction": 0.0010107616386229859,
+        "rms_flow_px": 5.354949951171875
+      }
+    },
+    {
+      "wid": "7.203.9",
+      "page": 176,
+      "tids": [
+        "7.203.9@r0",
+        "7.203.9@r2",
+        "7.203.9@r5",
+        "7.203.9@r7"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          1572.0,
+          1584.0
+        ],
+        [
+          1537.0,
+          1562.0
+        ],
+        [
+          1499.0,
+          1539.0
+        ],
+        [
+          1463.0,
+          1536.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 10,
+        "baseline": 67,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.4768300873069174,
+        "iou_2d": 0.9148936170212766,
+        "fold_fraction": 0.003481113956466069,
+        "rms_flow_px": 3.0679426193237305
+      }
+    },
+    {
+      "wid": "7.205.8",
+      "page": 176,
+      "tids": [
+        "7.205.8@r0",
+        "7.205.8@r2"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          556.0,
+          592.0
+        ],
+        [
+          503.0,
+          552.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 3,
+        "baseline": 38,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.27674979887369267,
+        "iou_2d": 0.9216300940438872,
+        "fold_fraction": 0.00981029810298103,
+        "rms_flow_px": 5.638393878936768
+      }
+    },
+    {
+      "wid": "9.27.3",
+      "page": 191,
+      "tids": [
+        "9.27.3@r0",
+        "9.27.3@r2"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          1369.0,
+          1404.0
+        ],
+        [
+          1319.0,
+          1367.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 3,
+        "baseline": 51,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.5296427169218688,
+        "iou_2d": 0.9481641468682506,
+        "fold_fraction": 0.0027891955372871405,
+        "rms_flow_px": 3.0361647605895996
+      }
+    },
+    {
+      "wid": "9.30.10",
+      "page": 191,
+      "tids": [
+        "9.30.10@r0",
+        "9.30.10@r3",
+        "9.30.10@r5"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          1006.0,
+          1097.0
+        ],
+        [
+          967.0,
+          1008.0
+        ],
+        [
+          853.0,
+          976.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 7,
+        "baseline": 55,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.14424986459649755,
+        "iou_2d": 0.6611913357400722,
+        "fold_fraction": 0.021434045406648148,
+        "rms_flow_px": 7.224002838134766
+      }
+    },
+    {
+      "wid": "9.30.22",
+      "page": 191,
+      "tids": [
+        "9.30.22@r0",
+        "9.30.22@r2",
+        "9.30.22@r4",
+        "9.30.22@r6",
+        "9.30.22@r8",
+        "9.30.22@r9"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          1442.0,
+          1520.0
+        ],
+        [
+          1376.0,
+          1457.0
+        ],
+        [
+          1327.0,
+          1403.0
+        ],
+        [
+          1193.0,
+          1330.0
+        ],
+        [
+          1104.0,
+          1155.0
+        ],
+        [
+          1037.0,
+          1106.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 59,
+        "baseline": 64,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.14816944604178647,
+        "iou_2d": 0.7255691932914832,
+        "fold_fraction": 0.01979591836734694,
+        "rms_flow_px": 8.917380332946777
+      }
+    },
+    {
+      "wid": "19.26.14",
+      "page": 307,
+      "tids": [
+        "19.26.14@r0",
+        "19.26.14@r2",
+        "19.26.14@r4"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          1051.0,
+          1081.0
+        ],
+        [
+          1025.0,
+          1055.0
+        ],
+        [
+          971.0,
+          1019.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 12,
+        "baseline": 58,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.3574144486692015,
+        "iou_2d": 0.8944799098760796,
+        "fold_fraction": 0.005347876734088743,
+        "rms_flow_px": 4.878366947174072
+      }
+    },
+    {
+      "wid": "19.30.2",
+      "page": 307,
+      "tids": [
+        "19.30.2@r0",
+        "19.30.2@r2",
+        "19.30.2@r4"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          990.0,
+          1028.0
+        ],
+        [
+          961.0,
+          992.0
+        ],
+        [
+          910.0,
+          963.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 12,
+        "baseline": 59,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.5055007052186178,
+        "iou_2d": 0.802159660624759,
+        "fold_fraction": 0.0029906731549067317,
+        "rms_flow_px": 1.8618930578231812
+      }
+    },
+    {
+      "wid": "19.38.1",
+      "page": 307,
+      "tids": [
+        "19.38.1@r0",
+        "19.38.1@r2",
+        "19.38.1@r4"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          197.0,
+          234.0
+        ],
+        [
+          183.0,
+          209.0
+        ],
+        [
+          137.0,
+          177.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 18,
+        "baseline": 33,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.29987819732034104,
+        "iou_2d": 0.9030722630895716,
+        "fold_fraction": 0.01432699993851073,
+        "rms_flow_px": 5.729432106018066
+      }
+    },
+    {
+      "wid": "21.12.0",
+      "page": 323,
+      "tids": [
+        "21.12.0@r0",
+        "21.12.0@r2",
+        "21.12.0@r4"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          1321.0,
+          1347.0
+        ],
+        [
+          1297.0,
+          1323.0
+        ],
+        [
+          1239.0,
+          1298.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 7,
+        "baseline": 58,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.30731536576828844,
+        "iou_2d": 0.9065841305571187,
+        "fold_fraction": 0.00636693113919091,
+        "rms_flow_px": 6.207986354827881
+      }
+    },
+    {
+      "wid": "21.15.7",
+      "page": 323,
+      "tids": [
+        "21.15.7@r0",
+        "21.15.7@r3",
+        "21.15.7@r5",
+        "21.15.7@r7",
+        "21.15.7@r8"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          758.0,
+          836.0
+        ],
+        [
+          712.0,
+          759.0
+        ],
+        [
+          654.0,
+          714.0
+        ],
+        [
+          637.0,
+          662.0
+        ],
+        [
+          589.0,
+          641.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 26,
+        "baseline": 50,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.28479632816982214,
+        "iou_2d": 0.9443775100401607,
+        "fold_fraction": 0.0032802134586668624,
+        "rms_flow_px": 9.593862533569336
+      }
+    },
+    {
+      "wid": "21.22.4",
+      "page": 323,
+      "tids": [
+        "21.22.4@r0",
+        "21.22.4@r2"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          1141.0,
+          1157.0
+        ],
+        [
+          1076.0,
+          1123.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 0,
+        "baseline": 65,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.2094488188976378,
+        "iou_2d": 0.8570367619754921,
+        "fold_fraction": 0.013938871711693446,
+        "rms_flow_px": 6.276101112365723
+      }
+    },
+    {
+      "wid": "33.37.41",
+      "page": 423,
+      "tids": [
+        "33.37.41@r0",
+        "33.37.41@r2",
+        "33.37.41@r4"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          1215.0,
+          1249.0
+        ],
+        [
+          1129.0,
+          1217.0
+        ],
+        [
+          1080.0,
+          1136.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 28,
+        "baseline": 52,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.4142532651902328,
+        "iou_2d": 0.9478560655031243,
+        "fold_fraction": 0.008890328618219775,
+        "rms_flow_px": 4.999849319458008
+      }
+    },
+    {
+      "wid": "33.38.11",
+      "page": 423,
+      "tids": [
+        "33.38.11@r0",
+        "33.38.11@r1",
+        "33.38.11@r5"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          232.0,
+          242.0
+        ],
+        [
+          185.0,
+          222.0
+        ],
+        [
+          146.0,
+          186.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 3,
+        "baseline": 55,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.44582363589345747,
+        "iou_2d": 0.9577464788732394,
+        "fold_fraction": 0.002170677251302406,
+        "rms_flow_px": 3.441908359527588
+      }
+    },
+    {
+      "wid": "33.39.8",
+      "page": 423,
+      "tids": [
+        "33.39.8@r0",
+        "33.39.8@r2"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          414.0,
+          430.0
+        ],
+        [
+          369.0,
+          397.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 0,
+        "baseline": 65,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.22506839094752548,
+        "iou_2d": 0.6756867568675686,
+        "fold_fraction": 0.015040106951871657,
+        "rms_flow_px": 5.09080696105957
+      }
+    },
+    {
+      "wid": "40.27.0",
+      "page": 470,
+      "tids": [
+        "40.27.0@r0",
+        "40.27.0@r2",
+        "40.27.0@r5"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          1765.0,
+          1814.0
+        ],
+        [
+          1731.0,
+          1774.0
+        ],
+        [
+          1664.0,
+          1714.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 0,
+        "baseline": 59,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.41770851173146084,
+        "iou_2d": 0.9099951479864143,
+        "fold_fraction": 0.0029989868287740628,
+        "rms_flow_px": 3.916419744491577
+      }
+    },
+    {
+      "wid": "40.27.4",
+      "page": 470,
+      "tids": [
+        "40.27.4@r0",
+        "40.27.4@r2",
+        "40.27.4@r4",
+        "40.27.4@r7"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          1048.0,
+          1072.0
+        ],
+        [
+          996.0,
+          1038.0
+        ],
+        [
+          987.0,
+          1017.0
+        ],
+        [
+          952.0,
+          1004.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 25,
+        "baseline": 46,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.32358632552139327,
+        "iou_2d": 0.8262926664413653,
+        "fold_fraction": 0.004293916148019492,
+        "rms_flow_px": 5.638697147369385
+      }
+    },
+    {
+      "wid": "40.31.4",
+      "page": 470,
+      "tids": [
+        "40.31.4@r0",
+        "40.31.4@r2",
+        "40.31.4@r5"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "reason": "missing_glyph_clusters",
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [
+          6
+        ],
+        "empty_units": [],
+        "overlapping_unit_pixels": 0,
+        "baseline": 51,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.11355772255426234,
+        "iou_2d": 0.7252989301447451,
+        "fold_fraction": 0.007512229210342418,
+        "rms_flow_px": 12.983028411865234
+      }
+    },
+    {
+      "wid": "45.14.8",
+      "page": 500,
+      "tids": [
+        "45.14.8@r0",
+        "45.14.8@r1",
+        "45.14.8@r5"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          416.0,
+          425.0
+        ],
+        [
+          373.0,
+          407.0
+        ],
+        [
+          336.0,
+          375.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 3,
+        "baseline": 55,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.4536928487690504,
+        "iou_2d": 0.9550847457627119,
+        "fold_fraction": 0.0033121356650768416,
+        "rms_flow_px": 3.737186908721924
+      }
+    },
+    {
+      "wid": "45.15.4",
+      "page": 500,
+      "tids": [
+        "45.15.4@r0",
+        "45.15.4@r2",
+        "45.15.4@r4"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          1785.0,
+          1828.0
+        ],
+        [
+          1753.0,
+          1787.0
+        ],
+        [
+          1697.0,
+          1749.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 3,
+        "baseline": 42,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.41723009814612866,
+        "iou_2d": 0.8831437435367114,
+        "fold_fraction": 0.008014112903225807,
+        "rms_flow_px": 4.044273376464844
+      }
+    },
+    {
+      "wid": "45.18.12",
+      "page": 500,
+      "tids": [
+        "45.18.12@r0",
+        "45.18.12@r2",
+        "45.18.12@r4",
+        "45.18.12@r6",
+        "45.18.12@r8",
+        "45.18.12@r9"
+      ],
+      "confidence": "low",
+      "method": "w1-oldmadina-tvl1-2d",
+      "bars": [
+        [
+          1367.0,
+          1391.0
+        ],
+        [
+          1324.0,
+          1369.0
+        ],
+        [
+          1281.0,
+          1326.0
+        ],
+        [
+          1226.0,
+          1284.0
+        ],
+        [
+          1183.0,
+          1231.0
+        ],
+        [
+          1142.0,
+          1193.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 36,
+        "baseline": 59,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.3031733279775055,
+        "iou_2d": 0.8639861787340977,
+        "fold_fraction": 0.007464983838694783,
+        "rms_flow_px": 8.015625953674316
+      }
+    }
+  ]
+}

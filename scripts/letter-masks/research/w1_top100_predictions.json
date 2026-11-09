@@ -1,0 +1,4116 @@
+{
+  "method": "w1-amiri-tvl1-2d",
+  "scope": "100 representative words, not 6068 families; all unapproved",
+  "predictions": [
+    {
+      "wid": "33.66.3",
+      "page": 427,
+      "tids": [
+        "33.66.3@r0",
+        "33.66.3@r2"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          1055.0,
+          1078.0
+        ],
+        [
+          1021.0,
+          1069.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 30,
+        "baseline": 49,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.3051537070524412,
+        "iou_2d": 0.9653605905735377,
+        "fold_fraction": 0.011744456818872127,
+        "rms_flow_px": 3.7729668617248535
+      },
+      "spellingRank": 1,
+      "family": "s00001-c0001",
+      "spellingCount": 1098,
+      "familyCount": 65
+    },
+    {
+      "wid": "9.3.28",
+      "page": 187,
+      "tids": [
+        "9.3.28@r0",
+        "9.3.28@r1",
+        "9.3.28@r4",
+        "9.3.28@r6",
+        "9.3.28@r7"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          890.0,
+          900.0
+        ],
+        [
+          861.0,
+          876.0
+        ],
+        [
+          813.0,
+          870.0
+        ],
+        [
+          790.0,
+          814.0
+        ],
+        [
+          751.0,
+          797.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 53,
+        "baseline": 73,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.17521222410865875,
+        "iou_2d": 0.841726618705036,
+        "fold_fraction": 0.006389080480633099,
+        "rms_flow_px": 8.815384864807129
+      },
+      "spellingRank": 2,
+      "family": "s00002-c0001",
+      "spellingCount": 810,
+      "familyCount": 20
+    },
+    {
+      "wid": "60.4.43",
+      "page": 549,
+      "tids": [
+        "60.4.43@r0",
+        "60.4.43@r2"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          299.0,
+          332.0
+        ],
+        [
+          253.0,
+          296.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 18,
+        "baseline": 24,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.3200883002207506,
+        "iou_2d": 0.9413817166782973,
+        "fold_fraction": 0.006836397925506836,
+        "rms_flow_px": 4.211754322052002
+      },
+      "spellingRank": 3,
+      "family": "s00003-c0001",
+      "spellingCount": 728,
+      "familyCount": 46
+    },
+    {
+      "wid": "9.92.21",
+      "page": 201,
+      "tids": [
+        "9.92.21@r0"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          1227.0,
+          1278.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 0,
+        "baseline": 65,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.657624633431085,
+        "iou_2d": 0.9202952029520295,
+        "fold_fraction": 0.008926357550210762,
+        "rms_flow_px": 1.6091508865356445
+      },
+      "spellingRank": 4,
+      "family": "s00004-c0001",
+      "spellingCount": 714,
+      "familyCount": 55
+    },
+    {
+      "wid": "62.4.2",
+      "page": 553,
+      "tids": [
+        "62.4.2@r0",
+        "62.4.2@r1",
+        "62.4.2@r5"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          780.0,
+          789.0
+        ],
+        [
+          730.0,
+          770.0
+        ],
+        [
+          697.0,
+          737.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 21,
+        "baseline": 62,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.4330893118594436,
+        "iou_2d": 0.9493087557603687,
+        "fold_fraction": 0.004183316683316683,
+        "rms_flow_px": 3.9465150833129883
+      },
+      "spellingRank": 5,
+      "family": "s00005-c0001",
+      "spellingCount": 669,
+      "familyCount": 25
+    },
+    {
+      "wid": "60.13.7",
+      "page": 551,
+      "tids": [
+        "60.13.7@r0",
+        "60.13.7@r1",
+        "60.13.7@r5"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          434.0,
+          444.0
+        ],
+        [
+          381.0,
+          424.0
+        ],
+        [
+          345.0,
+          388.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 21,
+        "baseline": 62,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.5049058605144524,
+        "iou_2d": 0.9586273252084669,
+        "fold_fraction": 0.005446194225721785,
+        "rms_flow_px": 3.544908046722412
+      },
+      "spellingRank": 6,
+      "family": "s00006-c0001",
+      "spellingCount": 663,
+      "familyCount": 26
+    },
+    {
+      "wid": "18.30.6",
+      "page": 297,
+      "tids": [
+        "18.30.6@r0"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          1372.0,
+          1405.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 0,
+        "baseline": 65,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.5358904109589041,
+        "iou_2d": 0.9641255605381166,
+        "fold_fraction": 0.0029163021289005542,
+        "rms_flow_px": 2.8657846450805664
+      },
+      "spellingRank": 7,
+      "family": "s00007-c0001",
+      "spellingCount": 616,
+      "familyCount": 36
+    },
+    {
+      "wid": "58.1.14",
+      "page": 542,
+      "tids": [
+        "58.1.14@r0",
+        "58.1.14@r2"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          1224.0,
+          1239.0
+        ],
+        [
+          1170.0,
+          1218.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 0,
+        "baseline": 73,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.22242921013412817,
+        "iou_2d": 0.9526748971193416,
+        "fold_fraction": 0.00856283267762092,
+        "rms_flow_px": 6.722372531890869
+      },
+      "spellingRank": 8,
+      "family": "s00008-c0001",
+      "spellingCount": 609,
+      "familyCount": 31
+    },
+    {
+      "wid": "16.35.15",
+      "page": 271,
+      "tids": [
+        "16.35.15@r0",
+        "16.35.15@r2"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          1116.0,
+          1168.0
+        ],
+        [
+          1087.0,
+          1120.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 0,
+        "baseline": 65,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.5400346620450607,
+        "iou_2d": 0.9611687812379854,
+        "fold_fraction": 0.0070158749033830785,
+        "rms_flow_px": 2.5691120624542236
+      },
+      "spellingRank": 9,
+      "family": "s00009-c0001",
+      "spellingCount": 605,
+      "familyCount": 19
+    },
+    {
+      "wid": "13.11.12",
+      "page": 250,
+      "tids": [
+        "13.11.12@r0",
+        "13.11.12@r1",
+        "13.11.12@r5"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          1302.0,
+          1313.0
+        ],
+        [
+          1251.0,
+          1292.0
+        ],
+        [
+          1219.0,
+          1258.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 21,
+        "baseline": 62,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.4757221880762139,
+        "iou_2d": 0.9478862973760933,
+        "fold_fraction": 0.006746626686656672,
+        "rms_flow_px": 3.4304111003875732
+      },
+      "spellingRank": 10,
+      "family": "s00010-c0001",
+      "spellingCount": 567,
+      "familyCount": 23
+    },
+    {
+      "wid": "26.180.7",
+      "page": 374,
+      "tids": [
+        "26.180.7@r0",
+        "26.180.7@r2"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          1309.0,
+          1329.0
+        ],
+        [
+          1259.0,
+          1293.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 0,
+        "baseline": 73,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.2386100386100386,
+        "iou_2d": 0.9526257803892766,
+        "fold_fraction": 0.0031366294524189263,
+        "rms_flow_px": 6.4151105880737305
+      },
+      "spellingRank": 11,
+      "family": "s00011-c0001",
+      "spellingCount": 562,
+      "familyCount": 20
+    },
+    {
+      "wid": "36.76.7",
+      "page": 445,
+      "tids": [
+        "36.76.7@r0",
+        "36.76.7@r2"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          1158.0,
+          1208.0
+        ],
+        [
+          1115.0,
+          1165.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 0,
+        "baseline": 65,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.40572519083969466,
+        "iou_2d": 0.9245886654478976,
+        "fold_fraction": 0.0075046904315197,
+        "rms_flow_px": 3.1387758255004883
+      },
+      "spellingRank": 12,
+      "family": "s00012-c0001",
+      "spellingCount": 512,
+      "familyCount": 44
+    },
+    {
+      "wid": "12.76.21",
+      "page": 244,
+      "tids": [
+        "12.76.21@r0",
+        "12.76.21@r2"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          1227.0,
+          1238.0
+        ],
+        [
+          1172.0,
+          1216.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 0,
+        "baseline": 75,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.39294117647058824,
+        "iou_2d": 0.9582806573957017,
+        "fold_fraction": 0.005366591080876795,
+        "rms_flow_px": 3.321420431137085
+      },
+      "spellingRank": 13,
+      "family": "s00013-c0001",
+      "spellingCount": 461,
+      "familyCount": 34
+    },
+    {
+      "wid": "12.66.18",
+      "page": 243,
+      "tids": [
+        "12.66.18@r0",
+        "12.66.18@r3"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          761.0,
+          803.0
+        ],
+        [
+          693.0,
+          743.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 0,
+        "baseline": 65,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.47742663656884876,
+        "iou_2d": 0.9497264021887825,
+        "fold_fraction": 0.004884004884004884,
+        "rms_flow_px": 3.386514663696289
+      },
+      "spellingRank": 14,
+      "family": "s00014-c0001",
+      "spellingCount": 412,
+      "familyCount": 42
+    },
+    {
+      "wid": "10.90.25",
+      "page": 219,
+      "tids": [
+        "10.90.25@r0",
+        "10.90.25@r2"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          1674.0,
+          1710.0
+        ],
+        [
+          1628.0,
+          1673.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 18,
+        "baseline": 65,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.17732426303854876,
+        "iou_2d": 0.921808185705559,
+        "fold_fraction": 0.01134453781512605,
+        "rms_flow_px": 6.164412021636963
+      },
+      "spellingRank": 15,
+      "family": "s00015-c0001",
+      "spellingCount": 412,
+      "familyCount": 45
+    },
+    {
+      "wid": "6.98.3",
+      "page": 140,
+      "tids": [
+        "6.98.3@r0",
+        "6.98.3@r3"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          1059.0,
+          1097.0
+        ],
+        [
+          1011.0,
+          1057.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 18,
+        "baseline": 63,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.3558368495077356,
+        "iou_2d": 0.9422246220302376,
+        "fold_fraction": 0.011242138364779873,
+        "rms_flow_px": 4.068957805633545
+      },
+      "spellingRank": 16,
+      "family": "s00016-c0001",
+      "spellingCount": 372,
+      "familyCount": 34
+    },
+    {
+      "wid": "59.6.17",
+      "page": 546,
+      "tids": [
+        "59.6.17@r0",
+        "59.6.17@r2",
+        "59.6.17@r4"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          1042.0,
+          1082.0
+        ],
+        [
+          1019.0,
+          1048.0
+        ],
+        [
+          982.0,
+          1038.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 25,
+        "baseline": 65,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.38858695652173914,
+        "iou_2d": 0.9473684210526315,
+        "fold_fraction": 0.005455407969639468,
+        "rms_flow_px": 3.837766408920288
+      },
+      "spellingRank": 17,
+      "family": "s00017-c0001",
+      "spellingCount": 347,
+      "familyCount": 18
+    },
+    {
+      "wid": "8.36.10",
+      "page": 181,
+      "tids": [
+        "8.36.10@r0",
+        "8.36.10@r2"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          382.0,
+          439.0
+        ],
+        [
+          359.0,
+          423.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 6,
+        "baseline": 73,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.2298747763864043,
+        "iou_2d": 0.7659846547314578,
+        "fold_fraction": 0.01526946107784431,
+        "rms_flow_px": 4.144519329071045
+      },
+      "spellingRank": 18,
+      "family": "s00018-c0001",
+      "spellingCount": 337,
+      "familyCount": 8
+    },
+    {
+      "wid": "26.189.6",
+      "page": 375,
+      "tids": [
+        "26.189.6@r0",
+        "26.189.6@r3"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          865.0,
+          903.0
+        ],
+        [
+          805.0,
+          852.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 0,
+        "baseline": 65,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.20396744659206512,
+        "iou_2d": 0.9344322344322344,
+        "fold_fraction": 0.01070058550373511,
+        "rms_flow_px": 8.3367338180542
+      },
+      "spellingRank": 19,
+      "family": "s00019-c0001",
+      "spellingCount": 323,
+      "familyCount": 11
+    },
+    {
+      "wid": "26.187.3",
+      "page": 375,
+      "tids": [
+        "26.187.3@r0",
+        "26.187.3@r3"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          670.0,
+          709.0
+        ],
+        [
+          619.0,
+          669.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 18,
+        "baseline": 65,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.29615248852806214,
+        "iou_2d": 0.8854213107445386,
+        "fold_fraction": 0.010781490658273623,
+        "rms_flow_px": 5.889305591583252
+      },
+      "spellingRank": 20,
+      "family": "s00020-c0001",
+      "spellingCount": 281,
+      "familyCount": 53
+    },
+    {
+      "wid": "41.9.11",
+      "page": 477,
+      "tids": [
+        "41.9.11@r0",
+        "41.9.11@r3",
+        "41.9.11@r5"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          739.0,
+          769.0
+        ],
+        [
+          708.0,
+          733.0
+        ],
+        [
+          632.0,
+          714.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 18,
+        "baseline": 81,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.16143777269894036,
+        "iou_2d": 0.8120362737015664,
+        "fold_fraction": 0.012050842239521485,
+        "rms_flow_px": 6.502622127532959
+      },
+      "spellingRank": 21,
+      "family": "s00021-c0001",
+      "spellingCount": 264,
+      "familyCount": 22
+    },
+    {
+      "wid": "11.80.6",
+      "page": 230,
+      "tids": [
+        "11.80.6@r0",
+        "11.80.6@r2"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          1099.0,
+          1110.0
+        ],
+        [
+          1039.0,
+          1086.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 0,
+        "baseline": 75,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.19475357710651828,
+        "iou_2d": 0.8283712784588442,
+        "fold_fraction": 0.004927536231884058,
+        "rms_flow_px": 5.00579309463501
+      },
+      "spellingRank": 22,
+      "family": "s00022-c0001",
+      "spellingCount": 263,
+      "familyCount": 17
+    },
+    {
+      "wid": "3.120.0",
+      "page": 65,
+      "tids": [
+        "3.120.0@r0",
+        "3.120.0@r2"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          1788.0,
+          1811.0
+        ],
+        [
+          1738.0,
+          1781.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 0,
+        "baseline": 47,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.21357615894039736,
+        "iou_2d": 0.9605185621685327,
+        "fold_fraction": 0.002784764642472152,
+        "rms_flow_px": 6.9021782875061035
+      },
+      "spellingRank": 23,
+      "family": "s00023-c0001",
+      "spellingCount": 253,
+      "familyCount": 20
+    },
+    {
+      "wid": "6.93.38",
+      "page": 139,
+      "tids": [
+        "6.93.38@r0",
+        "6.93.38@r2"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          1078.0,
+          1111.0
+        ],
+        [
+          1021.0,
+          1107.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 13,
+        "baseline": 65,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.34462001504890893,
+        "iou_2d": 0.9083532219570406,
+        "fold_fraction": 0.012350877192982456,
+        "rms_flow_px": 3.089592695236206
+      },
+      "spellingRank": 24,
+      "family": "s00024-c0001",
+      "spellingCount": 253,
+      "familyCount": 15
+    },
+    {
+      "wid": "19.16.6",
+      "page": 306,
+      "tids": [
+        "19.16.6@r0",
+        "19.16.6@r2"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          1772.0,
+          1809.0
+        ],
+        [
+          1722.0,
+          1771.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 18,
+        "baseline": 64,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.4096325719960278,
+        "iou_2d": 0.9554140127388535,
+        "fold_fraction": 0.005952380952380952,
+        "rms_flow_px": 3.7240357398986816
+      },
+      "spellingRank": 25,
+      "family": "s00025-c0001",
+      "spellingCount": 253,
+      "familyCount": 40
+    },
+    {
+      "wid": "7.44.26",
+      "page": 156,
+      "tids": [
+        "7.44.26@r0",
+        "7.44.26@r2",
+        "7.44.26@r4"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          1559.0,
+          1594.0
+        ],
+        [
+          1537.0,
+          1564.0
+        ],
+        [
+          1506.0,
+          1553.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 25,
+        "baseline": 65,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.3142755681818182,
+        "iou_2d": 0.9373560571165361,
+        "fold_fraction": 0.00448796409628723,
+        "rms_flow_px": 5.32181978225708
+      },
+      "spellingRank": 26,
+      "family": "s00026-c0001",
+      "spellingCount": 242,
+      "familyCount": 17
+    },
+    {
+      "wid": "23.38.1",
+      "page": 344,
+      "tids": [
+        "23.38.1@r0",
+        "23.38.1@r2"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          391.0,
+          442.0
+        ],
+        [
+          339.0,
+          393.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 15,
+        "baseline": 72,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.42143534619032563,
+        "iou_2d": 0.9473883421650265,
+        "fold_fraction": 0.0077982412477186,
+        "rms_flow_px": 4.572225093841553
+      },
+      "spellingRank": 27,
+      "family": "s00027-c0001",
+      "spellingCount": 240,
+      "familyCount": 26
+    },
+    {
+      "wid": "63.1.12",
+      "page": 554,
+      "tids": [
+        "63.1.12@r0",
+        "63.1.12@r2",
+        "63.1.12@r3",
+        "63.1.12@r7"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          1385.0,
+          1435.0
+        ],
+        [
+          1380.0,
+          1391.0
+        ],
+        [
+          1322.0,
+          1367.0
+        ],
+        [
+          1289.0,
+          1330.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 21,
+        "baseline": 65,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.4394143710267771,
+        "iou_2d": 0.9487845173471796,
+        "fold_fraction": 0.006038500506585613,
+        "rms_flow_px": 4.178664207458496
+      },
+      "spellingRank": 28,
+      "family": "s00028-c0001",
+      "spellingCount": 239,
+      "familyCount": 19
+    },
+    {
+      "wid": "2.130.6",
+      "page": 20,
+      "tids": [
+        "2.130.6@r0",
+        "2.130.6@r2"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          1312.0,
+          1348.0
+        ],
+        [
+          1266.0,
+          1309.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 18,
+        "baseline": 65,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.44591484464902187,
+        "iou_2d": 0.9400773195876289,
+        "fold_fraction": 0.0046864899806076275,
+        "rms_flow_px": 3.467433452606201
+      },
+      "spellingRank": 29,
+      "family": "s00029-c0001",
+      "spellingCount": 223,
+      "familyCount": 28
+    },
+    {
+      "wid": "9.120.43",
+      "page": 206,
+      "tids": [
+        "9.120.43@r0",
+        "9.120.43@r2"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          1806.0,
+          1827.0
+        ],
+        [
+          1733.0,
+          1812.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 16,
+        "baseline": 30,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.1703131703131703,
+        "iou_2d": 0.8457831325301205,
+        "fold_fraction": 0.004509379509379509,
+        "rms_flow_px": 6.451104164123535
+      },
+      "spellingRank": 30,
+      "family": "s00030-c0001",
+      "spellingCount": 220,
+      "familyCount": 5
+    },
+    {
+      "wid": "41.9.0",
+      "page": 477,
+      "tids": [
+        "41.9.0@r0",
+        "41.9.0@r2"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          1039.0,
+          1065.0
+        ],
+        [
+          981.0,
+          1044.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 15,
+        "baseline": 72,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.43635191749919433,
+        "iou_2d": 0.9523630907726932,
+        "fold_fraction": 0.009486319050077439,
+        "rms_flow_px": 3.673417568206787
+      },
+      "spellingRank": 31,
+      "family": "s00031-c0001",
+      "spellingCount": 218,
+      "familyCount": 24
+    },
+    {
+      "wid": "52.45.4",
+      "page": 525,
+      "tids": [
+        "52.45.4@r0",
+        "52.45.4@r1",
+        "52.45.4@r4",
+        "52.45.4@r6"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          1626.0,
+          1636.0
+        ],
+        [
+          1600.0,
+          1613.0
+        ],
+        [
+          1556.0,
+          1607.0
+        ],
+        [
+          1496.0,
+          1550.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 25,
+        "baseline": 73,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.14459346186085498,
+        "iou_2d": 0.9380814886108437,
+        "fold_fraction": 0.007140744496556386,
+        "rms_flow_px": 8.402206420898438
+      },
+      "spellingRank": 32,
+      "family": "s00032-c0001",
+      "spellingCount": 216,
+      "familyCount": 14
+    },
+    {
+      "wid": "7.14.2",
+      "page": 152,
+      "tids": [
+        "7.14.2@r0",
+        "7.14.2@r2",
+        "7.14.2@r4"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          499.0,
+          516.0
+        ],
+        [
+          469.0,
+          487.0
+        ],
+        [
+          437.0,
+          487.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 19,
+        "baseline": 65,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.3390528483184626,
+        "iou_2d": 0.8975462763667671,
+        "fold_fraction": 0.0076002814919071075,
+        "rms_flow_px": 3.5996551513671875
+      },
+      "spellingRank": 33,
+      "family": "s00033-c0001",
+      "spellingCount": 211,
+      "familyCount": 13
+    },
+    {
+      "wid": "6.49.6",
+      "page": 133,
+      "tids": [
+        "6.49.6@r0",
+        "6.49.6@r3",
+        "6.49.6@r5"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          1167.0,
+          1200.0
+        ],
+        [
+          1133.0,
+          1153.0
+        ],
+        [
+          1092.0,
+          1139.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 13,
+        "baseline": 72,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.28182807399347115,
+        "iou_2d": 0.9168071950534008,
+        "fold_fraction": 0.014752750077104965,
+        "rms_flow_px": 7.552471160888672
+      },
+      "spellingRank": 34,
+      "family": "s00034-c0001",
+      "spellingCount": 209,
+      "familyCount": 7
+    },
+    {
+      "wid": "38.24.17",
+      "page": 454,
+      "tids": [
+        "38.24.17@r0",
+        "38.24.17@r3",
+        "38.24.17@r5",
+        "38.24.17@r7"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          1005.0,
+          1050.0
+        ],
+        [
+          951.0,
+          989.0
+        ],
+        [
+          923.0,
+          956.0
+        ],
+        [
+          875.0,
+          927.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 24,
+        "baseline": 72,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.32642715450738374,
+        "iou_2d": 0.8799654576856649,
+        "fold_fraction": 0.00548076215699257,
+        "rms_flow_px": 5.167740345001221
+      },
+      "spellingRank": 35,
+      "family": "s00035-c0001",
+      "spellingCount": 205,
+      "familyCount": 11
+    },
+    {
+      "wid": "24.19.9",
+      "page": 351,
+      "tids": [
+        "24.19.9@r0",
+        "24.19.9@r2",
+        "24.19.9@r4"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          498.0,
+          513.0
+        ],
+        [
+          474.0,
+          523.0
+        ],
+        [
+          427.0,
+          481.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 53,
+        "baseline": 72,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.364094404667197,
+        "iou_2d": 0.8290955906018668,
+        "fold_fraction": 0.009464328609176075,
+        "rms_flow_px": 3.956392526626587
+      },
+      "spellingRank": 36,
+      "family": "s00036-c0001",
+      "spellingCount": 205,
+      "familyCount": 13
+    },
+    {
+      "wid": "4.100.11",
+      "page": 94,
+      "tids": [
+        "4.100.11@r0",
+        "4.100.11@r2",
+        "4.100.11@r4"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          1786.0,
+          1829.0
+        ],
+        [
+          1750.0,
+          1786.0
+        ],
+        [
+          1704.0,
+          1748.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 18,
+        "baseline": 65,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.44004360465116277,
+        "iou_2d": 0.9232989690721649,
+        "fold_fraction": 0.006326588771729837,
+        "rms_flow_px": 3.5012717247009277
+      },
+      "spellingRank": 37,
+      "family": "s00037-c0001",
+      "spellingCount": 187,
+      "familyCount": 12
+    },
+    {
+      "wid": "5.22.3",
+      "page": 111,
+      "tids": [
+        "5.22.3@r0",
+        "5.22.3@r2",
+        "5.22.3@r3"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          548.0,
+          577.0
+        ],
+        [
+          509.0,
+          552.0
+        ],
+        [
+          478.0,
+          516.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 16,
+        "baseline": 65,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.24811273276295923,
+        "iou_2d": 0.944537253591714,
+        "fold_fraction": 0.012028368794326241,
+        "rms_flow_px": 5.118384838104248
+      },
+      "spellingRank": 38,
+      "family": "s00038-c0001",
+      "spellingCount": 183,
+      "familyCount": 10
+    },
+    {
+      "wid": "3.137.7",
+      "page": 67,
+      "tids": [
+        "3.137.7@r0",
+        "3.137.7@r1",
+        "3.137.7@r3",
+        "3.137.7@r5",
+        "3.137.7@r7"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          1462.0,
+          1473.0
+        ],
+        [
+          1411.0,
+          1439.0
+        ],
+        [
+          1401.0,
+          1435.0
+        ],
+        [
+          1333.0,
+          1372.0
+        ],
+        [
+          1244.0,
+          1323.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 21,
+        "baseline": 74,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.12936596218020022,
+        "iou_2d": 0.8715947108491318,
+        "fold_fraction": 0.008207673220080168,
+        "rms_flow_px": 12.4297456741333
+      },
+      "spellingRank": 39,
+      "family": "s00039-c0001",
+      "spellingCount": 180,
+      "familyCount": 10
+    },
+    {
+      "wid": "22.9.6",
+      "page": 333,
+      "tids": [
+        "22.9.6@r0",
+        "22.9.6@r2"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          229.0,
+          241.0
+        ],
+        [
+          165.0,
+          241.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 31,
+        "baseline": 72,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.13624161073825503,
+        "iou_2d": 0.7714922048997773,
+        "fold_fraction": 0.03506072874493927,
+        "rms_flow_px": 5.905138969421387
+      },
+      "spellingRank": 40,
+      "family": "s00040-c0001",
+      "spellingCount": 174,
+      "familyCount": 4
+    },
+    {
+      "wid": "19.93.4",
+      "page": 311,
+      "tids": [
+        "19.93.4@r0",
+        "19.93.4@r1",
+        "19.93.4@r2",
+        "19.93.4@r5",
+        "19.93.4@r8",
+        "19.93.4@r11"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          1826.0,
+          1836.0
+        ],
+        [
+          1796.0,
+          1812.0
+        ],
+        [
+          1728.0,
+          1801.0
+        ],
+        [
+          1667.0,
+          1734.0
+        ],
+        [
+          1614.0,
+          1677.0
+        ],
+        [
+          1541.0,
+          1614.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 39,
+        "baseline": 81,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.18831898165481092,
+        "iou_2d": 0.8394643159857603,
+        "fold_fraction": 0.00793860227822492,
+        "rms_flow_px": 8.332523345947266
+      },
+      "spellingRank": 41,
+      "family": "s00041-c0001",
+      "spellingCount": 174,
+      "familyCount": 11
+    },
+    {
+      "wid": "33.22.4",
+      "page": 420,
+      "tids": [
+        "33.22.4@r0",
+        "33.22.4@r3",
+        "33.22.4@r5"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          967.0,
+          1006.0
+        ],
+        [
+          932.0,
+          950.0
+        ],
+        [
+          878.0,
+          936.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 12,
+        "baseline": 72,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.24769639231610183,
+        "iou_2d": 0.9497135582431572,
+        "fold_fraction": 0.010817610062893081,
+        "rms_flow_px": 7.680588245391846
+      },
+      "spellingRank": 42,
+      "family": "s00042-c0001",
+      "spellingCount": 171,
+      "familyCount": 7
+    },
+    {
+      "wid": "21.94.4",
+      "page": 330,
+      "tids": [
+        "21.94.4@r0",
+        "21.94.4@r2",
+        "21.94.4@r4"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          828.0,
+          880.0
+        ],
+        [
+          793.0,
+          843.0
+        ],
+        [
+          740.0,
+          796.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 15,
+        "baseline": 72,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.3185958675849811,
+        "iou_2d": 0.9319822320932815,
+        "fold_fraction": 0.009801336146272856,
+        "rms_flow_px": 8.481487274169922
+      },
+      "spellingRank": 43,
+      "family": "s00043-c0001",
+      "spellingCount": 171,
+      "familyCount": 14
+    },
+    {
+      "wid": "18.74.2",
+      "page": 301,
+      "tids": [
+        "18.74.2@r0",
+        "18.74.2@r2"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          648.0,
+          664.0
+        ],
+        [
+          599.0,
+          644.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 0,
+        "baseline": 65,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.43528884908195253,
+        "iou_2d": 0.9413265306122449,
+        "fold_fraction": 0.008747547416612165,
+        "rms_flow_px": 3.3376481533050537
+      },
+      "spellingRank": 44,
+      "family": "s00044-c0001",
+      "spellingCount": 170,
+      "familyCount": 12
+    },
+    {
+      "wid": "42.37.0",
+      "page": 487,
+      "tids": [
+        "42.37.0@r0",
+        "42.37.0@r2",
+        "42.37.0@r3",
+        "42.37.0@r6",
+        "42.37.0@r8",
+        "42.37.0@r9"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          1382.0,
+          1428.0
+        ],
+        [
+          1379.0,
+          1390.0
+        ],
+        [
+          1352.0,
+          1366.0
+        ],
+        [
+          1307.0,
+          1358.0
+        ],
+        [
+          1285.0,
+          1309.0
+        ],
+        [
+          1244.0,
+          1291.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 53,
+        "baseline": 73,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.17118620497844528,
+        "iou_2d": 0.9333333333333333,
+        "fold_fraction": 0.01316909803031163,
+        "rms_flow_px": 11.180840492248535
+      },
+      "spellingRank": 45,
+      "family": "s00045-c0001",
+      "spellingCount": 163,
+      "familyCount": 7
+    },
+    {
+      "wid": "58.14.9",
+      "page": 544,
+      "tids": [
+        "58.14.9@r0"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          1278.0,
+          1327.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 0,
+        "baseline": 73,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.4993654822335025,
+        "iou_2d": 0.7910552061495457,
+        "fold_fraction": 0.007034431691965938,
+        "rms_flow_px": 2.396488904953003
+      },
+      "spellingRank": 46,
+      "family": "s00046-c0001",
+      "spellingCount": 162,
+      "familyCount": 24
+    },
+    {
+      "wid": "52.42.4",
+      "page": 525,
+      "tids": [
+        "52.42.4@r0",
+        "52.42.4@r2",
+        "52.42.4@r4",
+        "52.42.4@r6"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          792.0,
+          821.0
+        ],
+        [
+          756.0,
+          796.0
+        ],
+        [
+          708.0,
+          752.0
+        ],
+        [
+          674.0,
+          723.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 24,
+        "baseline": 72,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.3056898475269617,
+        "iou_2d": 0.9113107578898871,
+        "fold_fraction": 0.013214285714285715,
+        "rms_flow_px": 7.275142192840576
+      },
+      "spellingRank": 47,
+      "family": "s00047-c0001",
+      "spellingCount": 157,
+      "familyCount": 5
+    },
+    {
+      "wid": "2.133.3",
+      "page": 20,
+      "tids": [
+        "2.133.3@r0",
+        "2.133.3@r2"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          650.0,
+          667.0
+        ],
+        [
+          607.0,
+          639.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 0,
+        "baseline": 64,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.4616156547917712,
+        "iou_2d": 0.9652271452607964,
+        "fold_fraction": 0.006921045442127311,
+        "rms_flow_px": 2.9323692321777344
+      },
+      "spellingRank": 48,
+      "family": "s00048-c0001",
+      "spellingCount": 153,
+      "familyCount": 12
+    },
+    {
+      "wid": "16.28.17",
+      "page": 270,
+      "tids": [
+        "16.28.17@r0",
+        "16.28.17@r2",
+        "16.28.17@r3",
+        "16.28.17@r5"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          1270.0,
+          1318.0
+        ],
+        [
+          1240.0,
+          1273.0
+        ],
+        [
+          1206.0,
+          1246.0
+        ],
+        [
+          1179.0,
+          1216.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 42,
+        "baseline": 72,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.06351098246211476,
+        "iou_2d": 0.43435134429652833,
+        "fold_fraction": 0.013428483732351136,
+        "rms_flow_px": 8.610965728759766
+      },
+      "spellingRank": 49,
+      "family": "s00049-c0001",
+      "spellingCount": 150,
+      "familyCount": 7
+    },
+    {
+      "wid": "20.96.8",
+      "page": 318,
+      "tids": [
+        "20.96.8@r0",
+        "20.96.8@r3"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          599.0,
+          639.0
+        ],
+        [
+          546.0,
+          597.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 18,
+        "baseline": 64,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.2937720329024677,
+        "iou_2d": 0.9429951690821256,
+        "fold_fraction": 0.01055974006793679,
+        "rms_flow_px": 5.596560955047607
+      },
+      "spellingRank": 50,
+      "family": "s00050-c0001",
+      "spellingCount": 149,
+      "familyCount": 33
+    },
+    {
+      "wid": "2.237.0",
+      "page": 38,
+      "tids": [
+        "2.237.0@r0",
+        "2.237.0@r2",
+        "2.237.0@r4"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          1587.0,
+          1642.0
+        ],
+        [
+          1568.0,
+          1597.0
+        ],
+        [
+          1520.0,
+          1563.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 0,
+        "baseline": 65,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.10595331759769211,
+        "iou_2d": 0.9197388632872504,
+        "fold_fraction": 0.01177468442847877,
+        "rms_flow_px": 11.675788879394531
+      },
+      "spellingRank": 51,
+      "family": "s00051-c0001",
+      "spellingCount": 149,
+      "familyCount": 10
+    },
+    {
+      "wid": "46.24.6",
+      "page": 505,
+      "tids": [
+        "46.24.6@r0",
+        "46.24.6@r3"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          552.0,
+          607.0
+        ],
+        [
+          489.0,
+          563.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 17,
+        "baseline": 81,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.29590017825311943,
+        "iou_2d": 0.7698546806353498,
+        "fold_fraction": 0.007117241379310345,
+        "rms_flow_px": 4.2005414962768555
+      },
+      "spellingRank": 52,
+      "family": "s00052-c0001",
+      "spellingCount": 146,
+      "familyCount": 11
+    },
+    {
+      "wid": "12.60.4",
+      "page": 242,
+      "tids": [
+        "12.60.4@r0",
+        "12.60.4@r2"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          166.0,
+          192.0
+        ],
+        [
+          105.0,
+          171.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 17,
+        "baseline": 65,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.5448676565526146,
+        "iou_2d": 0.9503199096725631,
+        "fold_fraction": 0.008482142857142856,
+        "rms_flow_px": 2.9338889122009277
+      },
+      "spellingRank": 53,
+      "family": "s00053-c0001",
+      "spellingCount": 145,
+      "familyCount": 6
+    },
+    {
+      "wid": "12.83.3",
+      "page": 245,
+      "tids": [
+        "12.83.3@r0",
+        "12.83.3@r2",
+        "12.83.3@r4"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          592.0,
+          636.0
+        ],
+        [
+          526.0,
+          596.0
+        ],
+        [
+          502.0,
+          547.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 32,
+        "baseline": 72,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.07374711394811898,
+        "iou_2d": 0.6235598401128615,
+        "fold_fraction": 0.017257943991744653,
+        "rms_flow_px": 13.74748420715332
+      },
+      "spellingRank": 54,
+      "family": "s00054-c0001",
+      "spellingCount": 143,
+      "familyCount": 6
+    },
+    {
+      "wid": "23.64.6",
+      "page": 346,
+      "tids": [
+        "23.64.6@r0",
+        "23.64.6@r2"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          419.0,
+          467.0
+        ],
+        [
+          366.0,
+          425.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 19,
+        "baseline": 72,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.47366863905325446,
+        "iou_2d": 0.9322933952870893,
+        "fold_fraction": 0.010084033613445379,
+        "rms_flow_px": 3.541029691696167
+      },
+      "spellingRank": 55,
+      "family": "s00055-c0001",
+      "spellingCount": 143,
+      "familyCount": 14
+    },
+    {
+      "wid": "8.64.0",
+      "page": 185,
+      "tids": [
+        "8.64.0@r0",
+        "8.64.0@r4",
+        "8.64.0@r6",
+        "8.64.0@r9"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          624.0,
+          675.0
+        ],
+        [
+          600.0,
+          637.0
+        ],
+        [
+          543.0,
+          588.0
+        ],
+        [
+          511.0,
+          549.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 38,
+        "baseline": 81,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.21741732754750862,
+        "iou_2d": 0.8317757009345794,
+        "fold_fraction": 0.007868519576115236,
+        "rms_flow_px": 8.583436965942383
+      },
+      "spellingRank": 56,
+      "family": "s00056-c0001",
+      "spellingCount": 142,
+      "familyCount": 6
+    },
+    {
+      "wid": "51.30.4",
+      "page": 521,
+      "tids": [
+        "51.30.4@r0",
+        "51.30.4@r2",
+        "51.30.4@r5"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          965.0,
+          981.0
+        ],
+        [
+          934.0,
+          959.0
+        ],
+        [
+          870.0,
+          942.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 16,
+        "baseline": 73,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.17160913952357804,
+        "iou_2d": 0.9273703041144902,
+        "fold_fraction": 0.013322312442261876,
+        "rms_flow_px": 6.989230632781982
+      },
+      "spellingRank": 57,
+      "family": "s00057-c0001",
+      "spellingCount": 141,
+      "familyCount": 3
+    },
+    {
+      "wid": "42.10.6",
+      "page": 483,
+      "tids": [
+        "42.10.6@r0",
+        "42.10.6@r2",
+        "42.10.6@r4"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          1825.0,
+          1846.0
+        ],
+        [
+          1801.0,
+          1819.0
+        ],
+        [
+          1767.0,
+          1816.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 19,
+        "baseline": 65,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.19781931464174454,
+        "iou_2d": 0.9354139575205895,
+        "fold_fraction": 0.005714285714285714,
+        "rms_flow_px": 5.227782726287842
+      },
+      "spellingRank": 58,
+      "family": "s00058-c0001",
+      "spellingCount": 140,
+      "familyCount": 16
+    },
+    {
+      "wid": "46.9.19",
+      "page": 503,
+      "tids": [
+        "46.9.19@r0",
+        "46.9.19@r2"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          275.0,
+          326.0
+        ],
+        [
+          228.0,
+          279.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 0,
+        "baseline": 65,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.25518248175182484,
+        "iou_2d": 0.9370297029702971,
+        "fold_fraction": 0.00608670686190066,
+        "rms_flow_px": 7.383290767669678
+      },
+      "spellingRank": 59,
+      "family": "s00059-c0001",
+      "spellingCount": 134,
+      "familyCount": 12
+    },
+    {
+      "wid": "58.17.9",
+      "page": 544,
+      "tids": [
+        "58.17.9@r0",
+        "58.17.9@r2",
+        "58.17.9@r4",
+        "58.17.9@r8",
+        "58.17.9@r10"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          1651.0,
+          1669.0
+        ],
+        [
+          1597.0,
+          1644.0
+        ],
+        [
+          1571.0,
+          1608.0
+        ],
+        [
+          1545.0,
+          1579.0
+        ],
+        [
+          1454.0,
+          1544.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 27,
+        "baseline": 86,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.1346153846153846,
+        "iou_2d": 0.8160608622147084,
+        "fold_fraction": 0.010203094777562862,
+        "rms_flow_px": 8.439056396484375
+      },
+      "spellingRank": 60,
+      "family": "s00060-c0001",
+      "spellingCount": 133,
+      "familyCount": 8
+    },
+    {
+      "wid": "24.63.0",
+      "page": 359,
+      "tids": [
+        "24.63.0@r0"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          769.0,
+          803.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 0,
+        "baseline": 73,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.5641634980988594,
+        "iou_2d": 0.9631168831168831,
+        "fold_fraction": 0.005510204081632653,
+        "rms_flow_px": 2.4001166820526123
+      },
+      "spellingRank": 61,
+      "family": "s00061-c0001",
+      "spellingCount": 133,
+      "familyCount": 14
+    },
+    {
+      "wid": "39.24.5",
+      "page": 461,
+      "tids": [
+        "39.24.5@r0",
+        "39.24.5@r2",
+        "39.24.5@r4"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          1544.0,
+          1567.0
+        ],
+        [
+          1496.0,
+          1548.0
+        ],
+        [
+          1475.0,
+          1505.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 13,
+        "baseline": 65,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.29038915094339623,
+        "iou_2d": 0.9369085173501577,
+        "fold_fraction": 0.006904487917146145,
+        "rms_flow_px": 4.427371978759766
+      },
+      "spellingRank": 62,
+      "family": "s00062-c0001",
+      "spellingCount": 133,
+      "familyCount": 9
+    },
+    {
+      "wid": "8.41.18",
+      "page": 182,
+      "tids": [
+        "8.41.18@r0",
+        "8.41.18@r2",
+        "8.41.18@r3",
+        "8.41.18@r7"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          1314.0,
+          1340.0
+        ],
+        [
+          1304.0,
+          1318.0
+        ],
+        [
+          1246.0,
+          1291.0
+        ],
+        [
+          1209.0,
+          1254.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 36,
+        "baseline": 62,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.13367235742826009,
+        "iou_2d": 0.9525637510282424,
+        "fold_fraction": 0.006535947712418301,
+        "rms_flow_px": 9.509331703186035
+      },
+      "spellingRank": 63,
+      "family": "s00063-c0001",
+      "spellingCount": 131,
+      "familyCount": 12
+    },
+    {
+      "wid": "15.6.4",
+      "page": 262,
+      "tids": [
+        "15.6.4@r0",
+        "15.6.4@r2",
+        "15.6.4@r4",
+        "15.6.4@r6"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          205.0,
+          246.0
+        ],
+        [
+          177.0,
+          211.0
+        ],
+        [
+          134.0,
+          183.0
+        ],
+        [
+          90.0,
+          146.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 38,
+        "baseline": 65,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.09471671880431004,
+        "iou_2d": 0.8598870056497175,
+        "fold_fraction": 0.004817404817404817,
+        "rms_flow_px": 11.807903289794922
+      },
+      "spellingRank": 64,
+      "family": "s00064-c0001",
+      "spellingCount": 131,
+      "familyCount": 8
+    },
+    {
+      "wid": "10.14.5",
+      "page": 209,
+      "tids": [
+        "10.14.5@r0",
+        "10.14.5@r2"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          1230.0,
+          1269.0
+        ],
+        [
+          1177.0,
+          1229.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 18,
+        "baseline": 73,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.411525974025974,
+        "iou_2d": 0.8892938496583144,
+        "fold_fraction": 0.007909875359539789,
+        "rms_flow_px": 3.9124648571014404
+      },
+      "spellingRank": 65,
+      "family": "s00065-c0001",
+      "spellingCount": 131,
+      "familyCount": 26
+    },
+    {
+      "wid": "5.117.26",
+      "page": 127,
+      "tids": [
+        "5.117.26@r0",
+        "5.117.26@r2"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          1341.0,
+          1371.0
+        ],
+        [
+          1297.0,
+          1344.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 16,
+        "baseline": 72,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.22231270358306188,
+        "iou_2d": 0.8933572710951526,
+        "fold_fraction": 0.0167973124300112,
+        "rms_flow_px": 7.049619197845459
+      },
+      "spellingRank": 66,
+      "family": "s00066-c0001",
+      "spellingCount": 123,
+      "familyCount": 10
+    },
+    {
+      "wid": "6.34.0",
+      "page": 131,
+      "tids": [
+        "6.34.0@r0",
+        "6.34.0@r2",
+        "6.34.0@r4",
+        "6.34.0@r6"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          476.0,
+          520.0
+        ],
+        [
+          462.0,
+          480.0
+        ],
+        [
+          418.0,
+          466.0
+        ],
+        [
+          369.0,
+          424.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 26,
+        "baseline": 65,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.32314065890708227,
+        "iou_2d": 0.8704389212057113,
+        "fold_fraction": 0.005240346729708432,
+        "rms_flow_px": 5.83423376083374
+      },
+      "spellingRank": 67,
+      "family": "s00067-c0001",
+      "spellingCount": 122,
+      "familyCount": 11
+    },
+    {
+      "wid": "2.91.0",
+      "page": 14,
+      "tids": [
+        "2.91.0@r0",
+        "2.91.0@r2",
+        "2.91.0@r4"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          1602.0,
+          1659.0
+        ],
+        [
+          1591.0,
+          1622.0
+        ],
+        [
+          1534.0,
+          1585.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 0,
+        "baseline": 65,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.13467632412856495,
+        "iou_2d": 0.8099532398129593,
+        "fold_fraction": 0.0062740076824583865,
+        "rms_flow_px": 13.05001163482666
+      },
+      "spellingRank": 68,
+      "family": "s00068-c0001",
+      "spellingCount": 121,
+      "familyCount": 6
+    },
+    {
+      "wid": "62.2.8",
+      "page": 553,
+      "tids": [
+        "62.2.8@r0",
+        "62.2.8@r2",
+        "62.2.8@r4",
+        "62.2.8@r6",
+        "62.2.8@r8"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          1764.0,
+          1799.0
+        ],
+        [
+          1744.0,
+          1770.0
+        ],
+        [
+          1706.0,
+          1747.0
+        ],
+        [
+          1693.0,
+          1723.0
+        ],
+        [
+          1639.0,
+          1673.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 44,
+        "baseline": 65,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.4450209539014169,
+        "iou_2d": 0.8274061178811241,
+        "fold_fraction": 0.0038476587974435894,
+        "rms_flow_px": 2.549475908279419
+      },
+      "spellingRank": 69,
+      "family": "s00069-c0001",
+      "spellingCount": 120,
+      "familyCount": 8
+    },
+    {
+      "wid": "7.44.6",
+      "page": 156,
+      "tids": [
+        "7.44.6@r0",
+        "7.44.6@r2"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          789.0,
+          813.0
+        ],
+        [
+          747.0,
+          794.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 14,
+        "baseline": 65,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.5180487804878049,
+        "iou_2d": 0.9299401197604791,
+        "fold_fraction": 0.01207379503525548,
+        "rms_flow_px": 2.534472703933716
+      },
+      "spellingRank": 70,
+      "family": "s00070-c0001",
+      "spellingCount": 119,
+      "familyCount": 15
+    },
+    {
+      "wid": "66.6.17",
+      "page": 560,
+      "tids": [
+        "66.6.17@r0"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          1331.0,
+          1382.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 0,
+        "baseline": 65,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.24790841039189784,
+        "iou_2d": 0.8933493109646495,
+        "fold_fraction": 0.007859848484848485,
+        "rms_flow_px": 5.144859313964844
+      },
+      "spellingRank": 71,
+      "family": "s00071-c0001",
+      "spellingCount": 117,
+      "familyCount": 16
+    },
+    {
+      "wid": "37.6.0",
+      "page": 446,
+      "tids": [
+        "37.6.0@r0",
+        "37.6.0@r2"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          1412.0,
+          1441.0
+        ],
+        [
+          1367.0,
+          1409.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 0,
+        "baseline": 73,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.4597979797979798,
+        "iou_2d": 0.9379441023211748,
+        "fold_fraction": 0.008622249020198975,
+        "rms_flow_px": 2.6849536895751953
+      },
+      "spellingRank": 72,
+      "family": "s00072-c0001",
+      "spellingCount": 115,
+      "familyCount": 10
+    },
+    {
+      "wid": "34.15.7",
+      "page": 430,
+      "tids": [
+        "34.15.7@r0",
+        "34.15.7@r2"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          562.0,
+          605.0
+        ],
+        [
+          511.0,
+          558.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 20,
+        "baseline": 65,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.5205479452054794,
+        "iou_2d": 0.942318358291736,
+        "fold_fraction": 0.00401051939513478,
+        "rms_flow_px": 2.854822874069214
+      },
+      "spellingRank": 73,
+      "family": "s00073-c0001",
+      "spellingCount": 115,
+      "familyCount": 14
+    },
+    {
+      "wid": "8.6.10",
+      "page": 177,
+      "tids": [
+        "8.6.10@r0",
+        "8.6.10@r2",
+        "8.6.10@r4"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          1776.0,
+          1826.0
+        ],
+        [
+          1739.0,
+          1790.0
+        ],
+        [
+          1688.0,
+          1746.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 19,
+        "baseline": 72,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.38603831755120016,
+        "iou_2d": 0.953794527620031,
+        "fold_fraction": 0.00787128139830999,
+        "rms_flow_px": 5.444740295410156
+      },
+      "spellingRank": 74,
+      "family": "s00074-c0001",
+      "spellingCount": 110,
+      "familyCount": 12
+    },
+    {
+      "wid": "2.20.13",
+      "page": 4,
+      "tids": [
+        "2.20.13@r0",
+        "2.20.13@r2",
+        "2.20.13@r4"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          1760.0,
+          1806.0
+        ],
+        [
+          1745.0,
+          1765.0
+        ],
+        [
+          1695.0,
+          1744.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 12,
+        "baseline": 65,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.4430947979931344,
+        "iou_2d": 0.8040345821325648,
+        "fold_fraction": 0.00400351528171077,
+        "rms_flow_px": 2.6288259029388428
+      },
+      "spellingRank": 75,
+      "family": "s00075-c0001",
+      "spellingCount": 108,
+      "familyCount": 8
+    },
+    {
+      "wid": "7.59.16",
+      "page": 158,
+      "tids": [
+        "7.59.16@r0",
+        "7.59.16@r2",
+        "7.59.16@r4",
+        "7.59.16@r6",
+        "7.59.16@r8"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          1038.0,
+          1088.0
+        ],
+        [
+          1014.0,
+          1047.0
+        ],
+        [
+          1002.0,
+          1026.0
+        ],
+        [
+          928.0,
+          996.0
+        ],
+        [
+          886.0,
+          938.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 53,
+        "baseline": 72,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.10732067121519454,
+        "iou_2d": 0.6453092865052998,
+        "fold_fraction": 0.015695174390826565,
+        "rms_flow_px": 10.416828155517578
+      },
+      "spellingRank": 76,
+      "family": "s00076-c0001",
+      "spellingCount": 107,
+      "familyCount": 4
+    },
+    {
+      "wid": "52.38.0",
+      "page": 525,
+      "tids": [
+        "52.38.0@r0",
+        "52.38.0@r2"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          950.0,
+          963.0
+        ],
+        [
+          911.0,
+          938.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 0,
+        "baseline": 75,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.396479851783233,
+        "iou_2d": 0.8301158301158301,
+        "fold_fraction": 0.004841381067651931,
+        "rms_flow_px": 2.5820116996765137
+      },
+      "spellingRank": 77,
+      "family": "s00077-c0001",
+      "spellingCount": 103,
+      "familyCount": 6
+    },
+    {
+      "wid": "2.9.6",
+      "page": 3,
+      "tids": [
+        "2.9.6@r0",
+        "2.9.6@r2"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          473.0,
+          487.0
+        ],
+        [
+          422.0,
+          454.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 0,
+        "baseline": 73,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.3013698630136986,
+        "iou_2d": 0.9645472061657033,
+        "fold_fraction": 0.005011520737327189,
+        "rms_flow_px": 5.075419902801514
+      },
+      "spellingRank": 78,
+      "family": "s00078-c0001",
+      "spellingCount": 100,
+      "familyCount": 9
+    },
+    {
+      "wid": "2.244.5",
+      "page": 39,
+      "tids": [
+        "2.244.5@r0",
+        "2.244.5@r2"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          860.0,
+          871.0
+        ],
+        [
+          806.0,
+          852.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 0,
+        "baseline": 75,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.4289738430583501,
+        "iou_2d": 0.9347609561752988,
+        "fold_fraction": 0.009821057012068249,
+        "rms_flow_px": 3.6322600841522217
+      },
+      "spellingRank": 79,
+      "family": "s00079-c0001",
+      "spellingCount": 99,
+      "familyCount": 8
+    },
+    {
+      "wid": "4.59.13",
+      "page": 87,
+      "tids": [
+        "4.59.13@r0",
+        "4.59.13@r2",
+        "4.59.13@r4"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          1037.0,
+          1070.0
+        ],
+        [
+          978.0,
+          1032.0
+        ],
+        [
+          947.0,
+          967.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 11,
+        "baseline": 65,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.22928249933809902,
+        "iou_2d": 0.8043081416575393,
+        "fold_fraction": 0.005059178463680669,
+        "rms_flow_px": 6.4148640632629395
+      },
+      "spellingRank": 80,
+      "family": "s00080-c0001",
+      "spellingCount": 98,
+      "familyCount": 8
+    },
+    {
+      "wid": "48.5.15",
+      "page": 511,
+      "tids": [
+        "48.5.15@r0",
+        "48.5.15@r2",
+        "48.5.15@r3"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          1186.0,
+          1233.0
+        ],
+        [
+          1159.0,
+          1192.0
+        ],
+        [
+          1113.0,
+          1165.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 28,
+        "baseline": 65,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.08616647127784291,
+        "iou_2d": 0.9444926279271466,
+        "fold_fraction": 0.010666666666666666,
+        "rms_flow_px": 6.974697589874268
+      },
+      "spellingRank": 81,
+      "family": "s00081-c0001",
+      "spellingCount": 98,
+      "familyCount": 10
+    },
+    {
+      "wid": "4.82.10",
+      "page": 91,
+      "tids": [
+        "4.82.10@r0",
+        "4.82.10@r2",
+        "4.82.10@r3"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          1780.0,
+          1812.0
+        ],
+        [
+          1748.0,
+          1784.0
+        ],
+        [
+          1709.0,
+          1754.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 25,
+        "baseline": 40,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.2222222222222222,
+        "iou_2d": 0.8474795346833262,
+        "fold_fraction": 0.010209951107276388,
+        "rms_flow_px": 5.789394378662109
+      },
+      "spellingRank": 82,
+      "family": "s00082-c0001",
+      "spellingCount": 98,
+      "familyCount": 8
+    },
+    {
+      "wid": "39.49.15",
+      "page": 464,
+      "tids": [
+        "39.49.15@r0",
+        "39.49.15@r2"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          684.0,
+          700.0
+        ],
+        [
+          623.0,
+          687.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 16,
+        "baseline": 65,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.2631578947368421,
+        "iou_2d": 0.8492578849721707,
+        "fold_fraction": 0.012495323606434718,
+        "rms_flow_px": 4.960585117340088
+      },
+      "spellingRank": 83,
+      "family": "s00083-c0001",
+      "spellingCount": 96,
+      "familyCount": 13
+    },
+    {
+      "wid": "49.5.3",
+      "page": 516,
+      "tids": [
+        "49.5.3@r0",
+        "49.5.3@r2",
+        "49.5.3@r5"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          1303.0,
+          1363.0
+        ],
+        [
+          1274.0,
+          1306.0
+        ],
+        [
+          1241.0,
+          1298.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 18,
+        "baseline": 73,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.4859320046893318,
+        "iou_2d": 0.9380952380952381,
+        "fold_fraction": 0.00560398505603985,
+        "rms_flow_px": 3.6131479740142822
+      },
+      "spellingRank": 84,
+      "family": "s00084-c0001",
+      "spellingCount": 95,
+      "familyCount": 8
+    },
+    {
+      "wid": "10.68.14",
+      "page": 216,
+      "tids": [
+        "10.68.14@r0",
+        "10.68.14@r2"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          1852.0,
+          1873.0
+        ],
+        [
+          1800.0,
+          1851.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 0,
+        "baseline": 64,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.21721902017291067,
+        "iou_2d": 0.9613918017159199,
+        "fold_fraction": 0.00866286997673859,
+        "rms_flow_px": 6.367506980895996
+      },
+      "spellingRank": 85,
+      "family": "s00085-c0001",
+      "spellingCount": 91,
+      "familyCount": 11
+    },
+    {
+      "wid": "18.82.31",
+      "page": 302,
+      "tids": [
+        "18.82.31@r0",
+        "18.82.31@r2"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          1095.0,
+          1122.0
+        ],
+        [
+          1057.0,
+          1107.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 14,
+        "baseline": 67,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.3185053380782918,
+        "iou_2d": 0.8234597156398105,
+        "fold_fraction": 0.005060240963855421,
+        "rms_flow_px": 3.2345895767211914
+      },
+      "spellingRank": 86,
+      "family": "s00086-c0001",
+      "spellingCount": 89,
+      "familyCount": 12
+    },
+    {
+      "wid": "41.12.12",
+      "page": 478,
+      "tids": [
+        "41.12.12@r0",
+        "41.12.12@r1",
+        "41.12.12@r2",
+        "41.12.12@r5",
+        "41.12.12@r7"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          1397.0,
+          1407.0
+        ],
+        [
+          1367.0,
+          1381.0
+        ],
+        [
+          1318.0,
+          1374.0
+        ],
+        [
+          1279.0,
+          1308.0
+        ],
+        [
+          1246.0,
+          1292.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 48,
+        "baseline": 80,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.28155172413793106,
+        "iou_2d": 0.8907307961709082,
+        "fold_fraction": 0.0069036427732079905,
+        "rms_flow_px": 7.923618793487549
+      },
+      "spellingRank": 87,
+      "family": "s00087-c0001",
+      "spellingCount": 88,
+      "familyCount": 6
+    },
+    {
+      "wid": "46.18.5",
+      "page": 504,
+      "tids": [
+        "46.18.5@r0",
+        "46.18.5@r2"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          1636.0,
+          1668.0
+        ],
+        [
+          1604.0,
+          1659.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 30,
+        "baseline": 59,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.2454212454212454,
+        "iou_2d": 0.843520782396088,
+        "fold_fraction": 0.011746143057503506,
+        "rms_flow_px": 3.5357306003570557
+      },
+      "spellingRank": 88,
+      "family": "s00088-c0001",
+      "spellingCount": 86,
+      "familyCount": 17
+    },
+    {
+      "wid": "6.99.43",
+      "page": 140,
+      "tids": [
+        "6.99.43@r0",
+        "6.99.43@r2",
+        "6.99.43@r4",
+        "6.99.43@r6",
+        "6.99.43@r8",
+        "6.99.43@r9"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          1427.0,
+          1452.0
+        ],
+        [
+          1385.0,
+          1432.0
+        ],
+        [
+          1348.0,
+          1385.0
+        ],
+        [
+          1323.0,
+          1355.0
+        ],
+        [
+          1278.0,
+          1323.0
+        ],
+        [
+          1240.0,
+          1287.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 43,
+        "baseline": 72,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.21850754690365354,
+        "iou_2d": 0.8982578397212544,
+        "fold_fraction": 0.016557651594147946,
+        "rms_flow_px": 7.302389144897461
+      },
+      "spellingRank": 89,
+      "family": "s00089-c0001",
+      "spellingCount": 86,
+      "familyCount": 4
+    },
+    {
+      "wid": "6.109.10",
+      "page": 141,
+      "tids": [
+        "6.109.10@r0",
+        "6.109.10@r2",
+        "6.109.10@r5"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          1374.0,
+          1395.0
+        ],
+        [
+          1307.0,
+          1367.0
+        ],
+        [
+          1276.0,
+          1367.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 13,
+        "baseline": 73,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.1895131086142322,
+        "iou_2d": 0.8953359244863964,
+        "fold_fraction": 0.013193403298350824,
+        "rms_flow_px": 9.411100387573242
+      },
+      "spellingRank": 90,
+      "family": "s00090-c0001",
+      "spellingCount": 85,
+      "familyCount": 7
+    },
+    {
+      "wid": "2.112.4",
+      "page": 17,
+      "tids": [
+        "2.112.4@r0",
+        "2.112.4@r2",
+        "2.112.4@r5"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          571.0,
+          590.0
+        ],
+        [
+          547.0,
+          583.0
+        ],
+        [
+          513.0,
+          554.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 57,
+        "baseline": 59,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.5202226345083488,
+        "iou_2d": 0.963409192324855,
+        "fold_fraction": 0.004986149584487534,
+        "rms_flow_px": 2.5189154148101807
+      },
+      "spellingRank": 91,
+      "family": "s00091-c0001",
+      "spellingCount": 85,
+      "familyCount": 12
+    },
+    {
+      "wid": "40.28.0",
+      "page": 470,
+      "tids": [
+        "40.28.0@r0",
+        "40.28.0@r2",
+        "40.28.0@r5"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          847.0,
+          900.0
+        ],
+        [
+          813.0,
+          858.0
+        ],
+        [
+          745.0,
+          795.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 0,
+        "baseline": 65,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.4118213323065075,
+        "iou_2d": 0.9484173505275498,
+        "fold_fraction": 0.006179341338389158,
+        "rms_flow_px": 4.0335259437561035
+      },
+      "spellingRank": 92,
+      "family": "s00092-c0001",
+      "spellingCount": 85,
+      "familyCount": 9
+    },
+    {
+      "wid": "4.134.10",
+      "page": 99,
+      "tids": [
+        "4.134.10@r0",
+        "4.134.10@r2",
+        "4.134.10@r5"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          947.0,
+          993.0
+        ],
+        [
+          912.0,
+          947.0
+        ],
+        [
+          850.0,
+          898.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 0,
+        "baseline": 65,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.30046314164415283,
+        "iou_2d": 0.8990104034509008,
+        "fold_fraction": 0.007732414280664545,
+        "rms_flow_px": 6.565982818603516
+      },
+      "spellingRank": 93,
+      "family": "s00093-c0001",
+      "spellingCount": 84,
+      "familyCount": 5
+    },
+    {
+      "wid": "13.1.12",
+      "page": 249,
+      "tids": [
+        "13.1.12@r0",
+        "13.1.12@r1",
+        "13.1.12@r2",
+        "13.1.12@r6"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          1475.0,
+          1485.0
+        ],
+        [
+          1448.0,
+          1462.0
+        ],
+        [
+          1403.0,
+          1452.0
+        ],
+        [
+          1304.0,
+          1353.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 10,
+        "baseline": 73,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.11879342484324691,
+        "iou_2d": 0.9124879459980714,
+        "fold_fraction": 0.009747182455071581,
+        "rms_flow_px": 11.612948417663574
+      },
+      "spellingRank": 94,
+      "family": "s00094-c0001",
+      "spellingCount": 84,
+      "familyCount": 6
+    },
+    {
+      "wid": "18.43.6",
+      "page": 298,
+      "tids": [
+        "18.43.6@r0",
+        "18.43.6@r2",
+        "18.43.6@r3"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          1337.0,
+          1367.0
+        ],
+        [
+          1278.0,
+          1325.0
+        ],
+        [
+          1244.0,
+          1284.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 0,
+        "baseline": 72,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.28450968144909433,
+        "iou_2d": 0.9453032104637337,
+        "fold_fraction": 0.006028454304316373,
+        "rms_flow_px": 4.401844024658203
+      },
+      "spellingRank": 95,
+      "family": "s00095-c0001",
+      "spellingCount": 83,
+      "familyCount": 7
+    },
+    {
+      "wid": "2.253.30",
+      "page": 42,
+      "tids": [
+        "2.253.30@r0",
+        "2.253.30@r2",
+        "2.253.30@r4"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          1294.0,
+          1318.0
+        ],
+        [
+          1242.0,
+          1298.0
+        ],
+        [
+          1188.0,
+          1230.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 30,
+        "baseline": 65,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.15638185654008438,
+        "iou_2d": 0.7569750367107195,
+        "fold_fraction": 0.01690626177784957,
+        "rms_flow_px": 4.89909029006958
+      },
+      "spellingRank": 96,
+      "family": "s00096-c0001",
+      "spellingCount": 82,
+      "familyCount": 11
+    },
+    {
+      "wid": "9.94.29",
+      "page": 202,
+      "tids": [
+        "9.94.29@r0",
+        "9.94.29@r2",
+        "9.94.29@r4",
+        "9.94.29@r6",
+        "9.94.29@r8",
+        "9.94.29@r9"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          823.0,
+          842.0
+        ],
+        [
+          783.0,
+          829.0
+        ],
+        [
+          731.0,
+          788.0
+        ],
+        [
+          703.0,
+          737.0
+        ],
+        [
+          660.0,
+          703.0
+        ],
+        [
+          625.0,
+          671.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 61,
+        "baseline": 72,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.3528153955808981,
+        "iou_2d": 0.9011067475901464,
+        "fold_fraction": 0.008155673200744026,
+        "rms_flow_px": 4.700139999389648
+      },
+      "spellingRank": 97,
+      "family": "s00097-c0001",
+      "spellingCount": 82,
+      "familyCount": 6
+    },
+    {
+      "wid": "17.101.14",
+      "page": 292,
+      "tids": [
+        "17.101.14@r0",
+        "17.101.14@r2",
+        "17.101.14@r5"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          1812.0,
+          1830.0
+        ],
+        [
+          1779.0,
+          1807.0
+        ],
+        [
+          1750.0,
+          1799.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 27,
+        "baseline": 63,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.25294482331060136,
+        "iou_2d": 0.9379609544468547,
+        "fold_fraction": 0.004056795131845842,
+        "rms_flow_px": 4.631987571716309
+      },
+      "spellingRank": 98,
+      "family": "s00098-c0001",
+      "spellingCount": 81,
+      "familyCount": 12
+    },
+    {
+      "wid": "26.145.9",
+      "page": 373,
+      "tids": [
+        "26.145.9@r0",
+        "26.145.9@r2"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          1598.0,
+          1637.0
+        ],
+        [
+          1539.0,
+          1596.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 0,
+        "baseline": 65,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.329253849190683,
+        "iou_2d": 0.9139364303178484,
+        "fold_fraction": 0.007550426059756229,
+        "rms_flow_px": 3.3842692375183105
+      },
+      "spellingRank": 99,
+      "family": "s00099-c0001",
+      "spellingCount": 81,
+      "familyCount": 8
+    },
+    {
+      "wid": "10.23.13",
+      "page": 211,
+      "tids": [
+        "10.23.13@r0",
+        "10.23.13@r2",
+        "10.23.13@r4"
+      ],
+      "confidence": "low",
+      "method": "w1-amiri-tvl1-2d",
+      "bars": [
+        [
+          852.0,
+          888.0
+        ],
+        [
+          830.0,
+          857.0
+        ],
+        [
+          793.0,
+          851.0
+        ]
+      ],
+      "diagnostics": {
+        "ambiguous_clusters": [],
+        "missing_glyph_clusters": [],
+        "empty_units": [],
+        "overlapping_unit_pixels": 33,
+        "baseline": 65,
+        "cluster_level": "CHARACTERS",
+        "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels",
+        "iou_affine": 0.2515906680805938,
+        "iou_2d": 0.8657544378698225,
+        "fold_fraction": 0.006294964028776978,
+        "rms_flow_px": 5.217183589935303
+      },
+      "spellingRank": 100,
+      "family": "s00100-c0001",
+      "spellingCount": 81,
+      "familyCount": 4
+    }
+  ]
+}

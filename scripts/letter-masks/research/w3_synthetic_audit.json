@@ -1,0 +1,2492 @@
+{
+  "oldmadina": {
+    "accepted": 91,
+    "total": 95,
+    "items": [
+      {
+        "wid": "1.1.0",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 9,
+          "baseline": 29,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "1.1.1",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 3,
+          "baseline": 55,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "1.1.2",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 32,
+          "baseline": 55,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "1.1.3",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 13,
+          "baseline": 55,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "1.2.0",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 48,
+          "baseline": 61,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "1.2.1",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 9,
+          "baseline": 55,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "1.2.2",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 0,
+          "baseline": 36,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "1.2.3",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 32,
+          "baseline": 58,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "1.3.0",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 32,
+          "baseline": 55,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "1.3.1",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 13,
+          "baseline": 55,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "1.4.0",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 9,
+          "baseline": 44,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "1.4.1",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 27,
+          "baseline": 40,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "1.4.2",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 22,
+          "baseline": 55,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "1.5.0",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 0,
+          "baseline": 49,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "1.5.1",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 15,
+          "baseline": 59,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "1.5.2",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 0,
+          "baseline": 49,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "1.5.3",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 32,
+          "baseline": 57,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "1.6.0",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 5,
+          "baseline": 55,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "1.6.1",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 9,
+          "baseline": 55,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "1.6.2",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 32,
+          "baseline": 55,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "1.7.0",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 4,
+          "baseline": 48,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "1.7.1",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 22,
+          "baseline": 69,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "1.7.2",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 15,
+          "baseline": 67,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "1.7.3",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 37,
+          "baseline": 59,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "1.7.4",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 17,
+          "baseline": 53,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "1.7.5",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 41,
+          "baseline": 55,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "1.7.6",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 37,
+          "baseline": 59,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "1.7.7",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 0,
+          "baseline": 58,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "1.7.8",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 24,
+          "baseline": 57,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "2.1.0",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 6,
+          "baseline": 60,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "2.2.0",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 7,
+          "baseline": 55,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "2.2.1",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 15,
+          "baseline": 55,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "2.2.2",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 0,
+          "baseline": 58,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "2.2.3",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 8,
+          "baseline": 76,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "2.2.4",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 12,
+          "baseline": 74,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "2.2.5",
+        "accepted": false,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [
+            3
+          ],
+          "empty_units": [],
+          "overlapping_unit_pixels": 5,
+          "baseline": 52,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "2.2.6",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 37,
+          "baseline": 55,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "2.3.0",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 22,
+          "baseline": 69,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "2.3.1",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 48,
+          "baseline": 49,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "2.3.2",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 20,
+          "baseline": 59,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "2.3.3",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 37,
+          "baseline": 51,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "2.3.4",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 31,
+          "baseline": 59,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "2.3.5",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 4,
+          "baseline": 44,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "2.3.6",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 22,
+          "baseline": 51,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "2.3.7",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 37,
+          "baseline": 57,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "2.4.0",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 22,
+          "baseline": 69,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "2.4.1",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 48,
+          "baseline": 49,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "2.4.2",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 4,
+          "baseline": 57,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "2.4.3",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 7,
+          "baseline": 76,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "2.4.4",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 14,
+          "baseline": 55,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "2.4.5",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 0,
+          "baseline": 57,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "2.4.6",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 7,
+          "baseline": 76,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "2.4.7",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 3,
+          "baseline": 22,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "2.4.8",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 16,
+          "baseline": 52,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "2.4.9",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 33,
+          "baseline": 66,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "2.4.10",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 6,
+          "baseline": 52,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "2.4.11",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 55,
+          "baseline": 49,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "2.5.0",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 11,
+          "baseline": 76,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "2.5.1",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 37,
+          "baseline": 51,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "2.5.2",
+        "accepted": false,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [
+            3
+          ],
+          "empty_units": [],
+          "overlapping_unit_pixels": 5,
+          "baseline": 52,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "2.5.3",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 3,
+          "baseline": 36,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "2.5.4",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 18,
+          "baseline": 81,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "2.5.5",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 11,
+          "baseline": 76,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "2.5.6",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 6,
+          "baseline": 52,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "2.5.7",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 48,
+          "baseline": 55,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "2.193.10",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 5,
+          "baseline": 57,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "2.194.1",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 46,
+          "baseline": 61,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "2.196.40",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 4,
+          "baseline": 53,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "3.167.19",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 39,
+          "baseline": 45,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "3.169.10",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 12,
+          "baseline": 50,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "3.173.11",
+        "accepted": false,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [
+            7
+          ],
+          "empty_units": [],
+          "overlapping_unit_pixels": 16,
+          "baseline": 51,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "6.53.13",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 22,
+          "baseline": 68,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "6.59.15",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 5,
+          "baseline": 52,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "6.59.16",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 0,
+          "baseline": 65,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "7.197.7",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 0,
+          "baseline": 58,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "7.203.9",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 10,
+          "baseline": 67,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "7.205.8",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 3,
+          "baseline": 38,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "9.27.3",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 3,
+          "baseline": 51,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "9.30.10",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 7,
+          "baseline": 55,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "9.30.22",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 59,
+          "baseline": 64,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "19.26.14",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 12,
+          "baseline": 58,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "19.30.2",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 12,
+          "baseline": 59,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "19.38.1",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 18,
+          "baseline": 33,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "21.12.0",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 7,
+          "baseline": 58,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "21.15.7",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 26,
+          "baseline": 50,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "21.22.4",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 0,
+          "baseline": 65,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "33.37.41",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 28,
+          "baseline": 52,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "33.38.11",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 3,
+          "baseline": 55,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "33.39.8",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 0,
+          "baseline": 65,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "40.27.0",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 0,
+          "baseline": 59,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "40.27.4",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 25,
+          "baseline": 46,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "40.31.4",
+        "accepted": false,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [
+            6
+          ],
+          "empty_units": [],
+          "overlapping_unit_pixels": 0,
+          "baseline": 51,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "45.14.8",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 3,
+          "baseline": 55,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "45.15.4",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 3,
+          "baseline": 42,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "45.18.12",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 36,
+          "baseline": 59,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      }
+    ]
+  },
+  "amiri": {
+    "accepted": 95,
+    "total": 95,
+    "items": [
+      {
+        "wid": "1.1.0",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 20,
+          "baseline": 64,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "1.1.1",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 21,
+          "baseline": 62,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "1.1.2",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 42,
+          "baseline": 81,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "1.1.3",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 43,
+          "baseline": 73,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "1.2.0",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 68,
+          "baseline": 72,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "1.2.1",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 57,
+          "baseline": 59,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "1.2.2",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 0,
+          "baseline": 65,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "1.2.3",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 74,
+          "baseline": 81,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "1.3.0",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 42,
+          "baseline": 81,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "1.3.1",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 43,
+          "baseline": 73,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "1.4.0",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 35,
+          "baseline": 81,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "1.4.1",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 13,
+          "baseline": 65,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "1.4.2",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 53,
+          "baseline": 63,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "1.5.0",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 0,
+          "baseline": 73,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "1.5.1",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 46,
+          "baseline": 72,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "1.5.2",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 0,
+          "baseline": 73,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "1.5.3",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 64,
+          "baseline": 72,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "1.6.0",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 17,
+          "baseline": 65,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "1.6.1",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 30,
+          "baseline": 81,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "1.6.2",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 71,
+          "baseline": 72,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "1.7.0",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 20,
+          "baseline": 81,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "1.7.1",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 53,
+          "baseline": 73,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "1.7.2",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 42,
+          "baseline": 75,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "1.7.3",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 44,
+          "baseline": 65,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "1.7.4",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 33,
+          "baseline": 65,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "1.7.5",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 51,
+          "baseline": 72,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "1.7.6",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 44,
+          "baseline": 65,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "1.7.7",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 0,
+          "baseline": 65,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "1.7.8",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 32,
+          "baseline": 73,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "2.1.0",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 66,
+          "baseline": 61,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "2.2.0",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 18,
+          "baseline": 81,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "2.2.1",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 42,
+          "baseline": 81,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "2.2.2",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 0,
+          "baseline": 65,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "2.2.3",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 24,
+          "baseline": 98,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "2.2.4",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 25,
+          "baseline": 98,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "2.2.5",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 17,
+          "baseline": 73,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "2.2.6",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 108,
+          "baseline": 73,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "2.3.0",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 53,
+          "baseline": 73,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "2.3.1",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 43,
+          "baseline": 72,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "2.3.2",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 56,
+          "baseline": 65,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "2.3.3",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 51,
+          "baseline": 72,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "2.3.4",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 43,
+          "baseline": 73,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "2.3.5",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 6,
+          "baseline": 73,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "2.3.6",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 41,
+          "baseline": 81,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "2.3.7",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 58,
+          "baseline": 72,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "2.4.0",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 53,
+          "baseline": 73,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "2.4.1",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 43,
+          "baseline": 72,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "2.4.2",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 13,
+          "baseline": 65,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "2.4.3",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 27,
+          "baseline": 86,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "2.4.4",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 27,
+          "baseline": 65,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "2.4.5",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 0,
+          "baseline": 65,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "2.4.6",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 27,
+          "baseline": 86,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "2.4.7",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 18,
+          "baseline": 24,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "2.4.8",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 49,
+          "baseline": 65,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "2.4.9",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 44,
+          "baseline": 74,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "2.4.10",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 19,
+          "baseline": 72,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "2.4.11",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 41,
+          "baseline": 72,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "2.5.0",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 27,
+          "baseline": 86,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "2.5.1",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 25,
+          "baseline": 65,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "2.5.2",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 17,
+          "baseline": 73,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "2.5.3",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 18,
+          "baseline": 63,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "2.5.4",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 20,
+          "baseline": 113,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "2.5.5",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 27,
+          "baseline": 86,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "2.5.6",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 19,
+          "baseline": 72,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "2.5.7",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 64,
+          "baseline": 72,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "2.193.10",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 17,
+          "baseline": 65,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "2.194.1",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 58,
+          "baseline": 72,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "2.196.40",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 16,
+          "baseline": 65,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "3.167.19",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 39,
+          "baseline": 65,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "3.169.10",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 28,
+          "baseline": 65,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "3.173.11",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 35,
+          "baseline": 81,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "6.53.13",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 38,
+          "baseline": 75,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "6.59.15",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 15,
+          "baseline": 65,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "6.59.16",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 0,
+          "baseline": 73,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "7.197.7",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 0,
+          "baseline": 65,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "7.203.9",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 35,
+          "baseline": 75,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "7.205.8",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 18,
+          "baseline": 65,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "9.27.3",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 18,
+          "baseline": 73,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "9.30.10",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 18,
+          "baseline": 81,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "9.30.22",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 45,
+          "baseline": 72,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "19.26.14",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 23,
+          "baseline": 65,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "19.30.2",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 28,
+          "baseline": 72,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "19.38.1",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 20,
+          "baseline": 64,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "21.12.0",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 36,
+          "baseline": 73,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "21.15.7",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 52,
+          "baseline": 81,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "21.22.4",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 0,
+          "baseline": 73,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "33.37.41",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 26,
+          "baseline": 65,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "33.38.11",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 21,
+          "baseline": 62,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "33.39.8",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 0,
+          "baseline": 73,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "40.27.0",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 0,
+          "baseline": 65,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "40.27.4",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 54,
+          "baseline": 65,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "40.31.4",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 0,
+          "baseline": 65,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "45.14.8",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 21,
+          "baseline": 62,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "45.15.4",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 18,
+          "baseline": 65,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      },
+      {
+        "wid": "45.18.12",
+        "accepted": true,
+        "diagnostics": {
+          "ambiguous_clusters": [],
+          "missing_glyph_clusters": [],
+          "empty_units": [],
+          "overlapping_unit_pixels": 67,
+          "baseline": 72,
+          "cluster_level": "CHARACTERS",
+          "exact_scope": "glyph identity only; shared overlapping pixels excluded from categorical labels"
+        }
+      }
+    ]
+  }
+}

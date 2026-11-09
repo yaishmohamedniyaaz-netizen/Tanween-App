@@ -1,0 +1,8455 @@
+{
+  "predictions": [
+    {
+      "wid": "1.1.0",
+      "page": 1,
+      "tids": [
+        "1.1.0@r0",
+        "1.1.0@r2",
+        "1.1.0@r4"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          1280.221,
+          1295.0
+        ],
+        [
+          1212.239,
+          1280.221
+        ],
+        [
+          1125.0,
+          1212.239
+        ]
+      ],
+      "x": [
+        1295.0,
+        1280.221,
+        1212.239,
+        1125.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            2
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 1292.0442477876106,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            2,
+            4
+          ],
+          "silent": false,
+          "base_char_indices": [
+            2
+          ],
+          "center": 1268.3982300884957,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            4,
+            6
+          ],
+          "silent": false,
+          "base_char_indices": [
+            4
+          ],
+          "center": 1156.0796460176991,
+          "frames": 1
+        }
+      ]
+    },
+    {
+      "wid": "1.1.1",
+      "page": 1,
+      "tids": [
+        "1.1.1@r0",
+        "1.1.1@r1",
+        "1.1.1@r5"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          1119.133,
+          1126.0
+        ],
+        [
+          1094.009,
+          1119.133
+        ],
+        [
+          1057.0,
+          1094.009
+        ]
+      ],
+      "x": [
+        1126.0,
+        1119.133,
+        1094.009,
+        1057.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            1
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 1126.5221238938052,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            1,
+            5
+          ],
+          "silent": false,
+          "base_char_indices": [
+            1,
+            2
+          ],
+          "center": 1111.7433628318583,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            5,
+            7
+          ],
+          "silent": false,
+          "base_char_indices": [
+            5
+          ],
+          "center": 1076.274336283186,
+          "frames": 2
+        }
+      ]
+    },
+    {
+      "wid": "1.1.2",
+      "page": 1,
+      "tids": [
+        "1.1.2@r0",
+        "1.1.2@r1",
+        "1.1.2@r2",
+        "1.1.2@r5",
+        "1.1.2@r7",
+        "1.1.2@r10"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          1045.239,
+          1055.0
+        ],
+        [
+          1030.46,
+          1045.239
+        ],
+        [
+          1005.336,
+          1030.46
+        ],
+        [
+          978.735,
+          1005.336
+        ],
+        [
+          958.044,
+          978.735
+        ],
+        [
+          923.0,
+          958.044
+        ]
+      ],
+      "x": [
+        1055.0,
+        1045.239,
+        1030.46,
+        1005.336,
+        978.735,
+        958.044,
+        923.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            1
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 1049.6725663716813,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            1,
+            2
+          ],
+          "silent": true,
+          "base_char_indices": [
+            1
+          ],
+          "center": 1040.8053097345132,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            2,
+            5
+          ],
+          "silent": false,
+          "base_char_indices": [
+            2
+          ],
+          "center": 1020.1150442477876,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            5,
+            7
+          ],
+          "silent": false,
+          "base_char_indices": [
+            5
+          ],
+          "center": 990.5575221238938,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            7,
+            10
+          ],
+          "silent": false,
+          "base_char_indices": [
+            7
+          ],
+          "center": 966.9115044247787,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            10,
+            12
+          ],
+          "silent": false,
+          "base_char_indices": [
+            10
+          ],
+          "center": 949.1769911504425,
+          "frames": 1
+        }
+      ]
+    },
+    {
+      "wid": "1.1.3",
+      "page": 1,
+      "tids": [
+        "1.1.3@r0",
+        "1.1.3@r1",
+        "1.1.3@r2",
+        "1.1.3@r5",
+        "1.1.3@r7",
+        "1.1.3@r8"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          904.841,
+          915.0
+        ],
+        [
+          887.106,
+          904.841
+        ],
+        [
+          860.504,
+          887.106
+        ],
+        [
+          838.336,
+          860.504
+        ],
+        [
+          811.735,
+          838.336
+        ],
+        [
+          765.0,
+          811.735
+        ]
+      ],
+      "x": [
+        915.0,
+        904.841,
+        887.106,
+        860.504,
+        838.336,
+        811.735,
+        765.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            1
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 910.7522123893805,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            1,
+            2
+          ],
+          "silent": true,
+          "base_char_indices": [
+            1
+          ],
+          "center": 898.929203539823,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            2,
+            5
+          ],
+          "silent": false,
+          "base_char_indices": [
+            2
+          ],
+          "center": 875.283185840708,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            5,
+            7
+          ],
+          "silent": false,
+          "base_char_indices": [
+            5
+          ],
+          "center": 845.7256637168141,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            7,
+            8
+          ],
+          "silent": false,
+          "base_char_indices": [
+            7
+          ],
+          "center": 830.9469026548672,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            8,
+            10
+          ],
+          "silent": false,
+          "base_char_indices": [
+            8
+          ],
+          "center": 792.5221238938054,
+          "frames": 2
+        }
+      ]
+    },
+    {
+      "wid": "1.2.0",
+      "page": 1,
+      "tids": [
+        "1.2.0@r0",
+        "1.2.0@r1",
+        "1.2.0@r3",
+        "1.2.0@r5",
+        "1.2.0@r7"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          1423.653,
+          1434.0
+        ],
+        [
+          1392.613,
+          1423.653
+        ],
+        [
+          1327.084,
+          1392.613
+        ],
+        [
+          1271.901,
+          1327.084
+        ],
+        [
+          1225.0,
+          1271.901
+        ]
+      ],
+      "x": [
+        1434.0,
+        1423.653,
+        1392.613,
+        1327.084,
+        1271.901,
+        1225.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            1
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 1430.551094890511,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            1,
+            3
+          ],
+          "silent": false,
+          "base_char_indices": [
+            1
+          ],
+          "center": 1416.7554744525548,
+          "frames": 3
+        },
+        {
+          "unit_range": [
+            3,
+            5
+          ],
+          "silent": false,
+          "base_char_indices": [
+            3
+          ],
+          "center": 1368.4708029197081,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            5,
+            7
+          ],
+          "silent": false,
+          "base_char_indices": [
+            5
+          ],
+          "center": 1285.697080291971,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            7,
+            9
+          ],
+          "silent": false,
+          "base_char_indices": [
+            7
+          ],
+          "center": 1258.1058394160584,
+          "frames": 1
+        }
+      ]
+    },
+    {
+      "wid": "1.2.1",
+      "page": 1,
+      "tids": [
+        "1.2.1@r0",
+        "1.2.1@r2",
+        "1.2.1@r5"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          1202.923,
+          1210.0
+        ],
+        [
+          1180.505,
+          1202.923
+        ],
+        [
+          1147.0,
+          1180.505
+        ]
+      ],
+      "x": [
+        1210.0,
+        1202.923,
+        1180.505,
+        1147.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            2
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 1209.8211678832117,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            2,
+            5
+          ],
+          "silent": false,
+          "base_char_indices": [
+            2
+          ],
+          "center": 1196.0255474452554,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            5,
+            7
+          ],
+          "silent": false,
+          "base_char_indices": [
+            5
+          ],
+          "center": 1164.985401459854,
+          "frames": 2
+        }
+      ]
+    },
+    {
+      "wid": "1.2.2",
+      "page": 1,
+      "tids": [
+        "1.2.2@r0",
+        "1.2.2@r2"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          1092.558,
+          1135.0
+        ],
+        [
+          979.0,
+          1092.558
+        ]
+      ],
+      "x": [
+        1135.0,
+        1092.558,
+        979.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            2
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 1127.0474452554745,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            2,
+            5
+          ],
+          "silent": false,
+          "base_char_indices": [
+            2
+          ],
+          "center": 1058.0693430656934,
+          "frames": 1
+        }
+      ]
+    },
+    {
+      "wid": "1.2.3",
+      "page": 1,
+      "tids": [
+        "1.2.3@r0",
+        "1.2.3@r1",
+        "1.2.3@r3",
+        "1.2.3@r6",
+        "1.2.3@r8",
+        "1.2.3@r10",
+        "1.2.3@r11"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          956.327,
+          972.0
+        ],
+        [
+          933.909,
+          956.327
+        ],
+        [
+          875.277,
+          933.909
+        ],
+        [
+          816.646,
+          875.277
+        ],
+        [
+          780.432,
+          816.646
+        ],
+        [
+          737.321,
+          780.432
+        ],
+        [
+          628.0,
+          737.321
+        ]
+      ],
+      "x": [
+        972.0,
+        956.327,
+        933.909,
+        875.277,
+        816.646,
+        780.432,
+        737.321,
+        628.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            1
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 964.948905109489,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            1,
+            3
+          ],
+          "silent": false,
+          "base_char_indices": [
+            1
+          ],
+          "center": 947.7043795620439,
+          "frames": 3
+        },
+        {
+          "unit_range": [
+            3,
+            6
+          ],
+          "silent": false,
+          "base_char_indices": [
+            3
+          ],
+          "center": 920.1131386861315,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            6,
+            8
+          ],
+          "silent": false,
+          "base_char_indices": [
+            6
+          ],
+          "center": 830.441605839416,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            8,
+            10
+          ],
+          "silent": false,
+          "base_char_indices": [
+            8
+          ],
+          "center": 802.8503649635036,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            10,
+            11
+          ],
+          "silent": false,
+          "base_char_indices": [
+            10
+          ],
+          "center": 758.0145985401459,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            11,
+            13
+          ],
+          "silent": false,
+          "base_char_indices": [
+            11
+          ],
+          "center": 716.6277372262774,
+          "frames": 2
+        }
+      ]
+    },
+    {
+      "wid": "1.3.0",
+      "page": 1,
+      "tids": [
+        "1.3.0@r0",
+        "1.3.0@r1",
+        "1.3.0@r2",
+        "1.3.0@r5",
+        "1.3.0@r7",
+        "1.3.0@r10"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          1513.71,
+          1534.0
+        ],
+        [
+          1493.42,
+          1513.71
+        ],
+        [
+          1462.985,
+          1493.42
+        ],
+        [
+          1425.787,
+          1462.985
+        ],
+        [
+          1386.898,
+          1425.787
+        ],
+        [
+          1330.0,
+          1386.898
+        ]
+      ],
+      "x": [
+        1534.0,
+        1513.71,
+        1493.42,
+        1462.985,
+        1425.787,
+        1386.898,
+        1330.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            1
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 1523.8550295857988,
+          "frames": 3
+        },
+        {
+          "unit_range": [
+            1,
+            2
+          ],
+          "silent": true,
+          "base_char_indices": [
+            1
+          ],
+          "center": 1503.5650887573966,
+          "frames": 3
+        },
+        {
+          "unit_range": [
+            2,
+            5
+          ],
+          "silent": false,
+          "base_char_indices": [
+            2
+          ],
+          "center": 1483.275147928994,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            5,
+            7
+          ],
+          "silent": false,
+          "base_char_indices": [
+            5
+          ],
+          "center": 1442.6952662721894,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            7,
+            10
+          ],
+          "silent": false,
+          "base_char_indices": [
+            7
+          ],
+          "center": 1408.878698224852,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            10,
+            12
+          ],
+          "silent": false,
+          "base_char_indices": [
+            10
+          ],
+          "center": 1364.9171597633135,
+          "frames": 2
+        }
+      ]
+    },
+    {
+      "wid": "1.3.1",
+      "page": 1,
+      "tids": [
+        "1.3.1@r0",
+        "1.3.1@r1",
+        "1.3.1@r2",
+        "1.3.1@r5",
+        "1.3.1@r7",
+        "1.3.1@r8"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          1310.811,
+          1325.0
+        ],
+        [
+          1292.212,
+          1310.811
+        ],
+        [
+          1265.158,
+          1292.212
+        ],
+        [
+          1233.033,
+          1265.158
+        ],
+        [
+          1183.999,
+          1233.033
+        ],
+        [
+          1122.0,
+          1183.999
+        ]
+      ],
+      "x": [
+        1325.0,
+        1310.811,
+        1292.212,
+        1265.158,
+        1233.033,
+        1183.999,
+        1122.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            1
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 1317.5739644970415,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            1,
+            2
+          ],
+          "silent": true,
+          "base_char_indices": [
+            1
+          ],
+          "center": 1304.0473372781066,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            2,
+            5
+          ],
+          "silent": false,
+          "base_char_indices": [
+            2
+          ],
+          "center": 1280.3757396449705,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            5,
+            7
+          ],
+          "silent": false,
+          "base_char_indices": [
+            5
+          ],
+          "center": 1249.9408284023668,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            7,
+            8
+          ],
+          "silent": false,
+          "base_char_indices": [
+            7
+          ],
+          "center": 1216.1242603550295,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            8,
+            10
+          ],
+          "silent": false,
+          "base_char_indices": [
+            8
+          ],
+          "center": 1151.8727810650887,
+          "frames": 1
+        }
+      ]
+    },
+    {
+      "wid": "1.4.0",
+      "page": 1,
+      "tids": [
+        "1.4.0@r0",
+        "1.4.0@r3",
+        "1.4.0@r5"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          937.138,
+          989.0
+        ],
+        [
+          889.794,
+          937.138
+        ],
+        [
+          831.0,
+          889.794
+        ]
+      ],
+      "x": [
+        989.0,
+        937.138,
+        889.794,
+        831.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            3
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 962.5,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            3,
+            5
+          ],
+          "silent": false,
+          "base_char_indices": [
+            3
+          ],
+          "center": 911.7751479289941,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            5,
+            7
+          ],
+          "silent": false,
+          "base_char_indices": [
+            5
+          ],
+          "center": 867.8136094674556,
+          "frames": 1
+        }
+      ]
+    },
+    {
+      "wid": "1.4.1",
+      "page": 1,
+      "tids": [
+        "1.4.1@r0",
+        "1.4.1@r2",
+        "1.4.1@r4"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          790.036,
+          813.0
+        ],
+        [
+          756.219,
+          790.036
+        ],
+        [
+          719.0,
+          756.219
+        ]
+      ],
+      "x": [
+        813.0,
+        790.036,
+        756.219,
+        719.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            2
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 806.9437869822485,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            2,
+            4
+          ],
+          "silent": false,
+          "base_char_indices": [
+            2
+          ],
+          "center": 773.1272189349113,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            4,
+            6
+          ],
+          "silent": false,
+          "base_char_indices": [
+            4
+          ],
+          "center": 739.310650887574,
+          "frames": 1
+        }
+      ]
+    },
+    {
+      "wid": "1.4.2",
+      "page": 1,
+      "tids": [
+        "1.4.2@r0",
+        "1.4.2@r1",
+        "1.4.2@r2",
+        "1.4.2@r5",
+        "1.4.2@r6"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          697.04,
+          714.0
+        ],
+        [
+          676.75,
+          697.04
+        ],
+        [
+          653.078,
+          676.75
+        ],
+        [
+          597.281,
+          653.078
+        ],
+        [
+          516.0,
+          597.281
+        ]
+      ],
+      "x": [
+        714.0,
+        697.04,
+        676.75,
+        653.078,
+        597.281,
+        516.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            1
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 705.4940828402366,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            1,
+            2
+          ],
+          "silent": true,
+          "base_char_indices": [
+            1
+          ],
+          "center": 688.5857988165681,
+          "frames": 4
+        },
+        {
+          "unit_range": [
+            2,
+            5
+          ],
+          "silent": false,
+          "base_char_indices": [
+            2
+          ],
+          "center": 664.9142011834319,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            5,
+            6
+          ],
+          "silent": false,
+          "base_char_indices": [
+            5
+          ],
+          "center": 641.2426035502958,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            6,
+            8
+          ],
+          "silent": false,
+          "base_char_indices": [
+            6
+          ],
+          "center": 553.3195266272189,
+          "frames": 2
+        }
+      ]
+    },
+    {
+      "wid": "1.5.0",
+      "page": 1,
+      "tids": [
+        "1.5.0@r0",
+        "1.5.0@r2",
+        "1.5.0@r6"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          1497.403,
+          1515.0
+        ],
+        [
+          1462.759,
+          1497.403
+        ],
+        [
+          1402.0,
+          1462.759
+        ]
+      ],
+      "x": [
+        1515.0,
+        1497.403,
+        1462.759,
+        1402.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            2
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 1511.7005988023952,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            2,
+            6
+          ],
+          "silent": false,
+          "base_char_indices": [
+            2,
+            5
+          ],
+          "center": 1483.1057884231536,
+          "frames": 3
+        },
+        {
+          "unit_range": [
+            6,
+            8
+          ],
+          "silent": false,
+          "base_char_indices": [
+            6
+          ],
+          "center": 1442.4131736526947,
+          "frames": 2
+        }
+      ]
+    },
+    {
+      "wid": "1.5.1",
+      "page": 1,
+      "tids": [
+        "1.5.1@r0",
+        "1.5.1@r2",
+        "1.5.1@r4",
+        "1.5.1@r6"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          1368.177,
+          1388.0
+        ],
+        [
+          1338.482,
+          1368.177
+        ],
+        [
+          1297.24,
+          1338.482
+        ],
+        [
+          1243.0,
+          1297.24
+        ]
+      ],
+      "x": [
+        1388.0,
+        1368.177,
+        1338.482,
+        1297.24,
+        1243.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            2
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 1379.7245508982037,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            2,
+            4
+          ],
+          "silent": false,
+          "base_char_indices": [
+            2
+          ],
+          "center": 1356.62874251497,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            4,
+            6
+          ],
+          "silent": false,
+          "base_char_indices": [
+            4
+          ],
+          "center": 1320.3353293413174,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            6,
+            8
+          ],
+          "silent": false,
+          "base_char_indices": [
+            6
+          ],
+          "center": 1274.1437125748503,
+          "frames": 1
+        }
+      ]
+    },
+    {
+      "wid": "1.5.2",
+      "page": 1,
+      "tids": [
+        "1.5.2@r0",
+        "1.5.2@r2",
+        "1.5.2@r4",
+        "1.5.2@r8"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          1203.207,
+          1229.0
+        ],
+        [
+          1166.913,
+          1203.207
+        ],
+        [
+          1128.97,
+          1166.913
+        ],
+        [
+          1060.0,
+          1128.97
+        ]
+      ],
+      "x": [
+        1229.0,
+        1203.207,
+        1166.913,
+        1128.97,
+        1060.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            2
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 1221.3532934131736,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            2,
+            4
+          ],
+          "silent": false,
+          "base_char_indices": [
+            2
+          ],
+          "center": 1185.059880239521,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            4,
+            8
+          ],
+          "silent": false,
+          "base_char_indices": [
+            4,
+            7
+          ],
+          "center": 1148.7664670658683,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            8,
+            10
+          ],
+          "silent": false,
+          "base_char_indices": [
+            8
+          ],
+          "center": 1109.1736526946108,
+          "frames": 3
+        }
+      ]
+    },
+    {
+      "wid": "1.5.3",
+      "page": 1,
+      "tids": [
+        "1.5.3@r0",
+        "1.5.3@r2",
+        "1.5.3@r4",
+        "1.5.3@r6",
+        "1.5.3@r8",
+        "1.5.3@r9"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          1006.892,
+          1044.0
+        ],
+        [
+          954.102,
+          1006.892
+        ],
+        [
+          907.91,
+          954.102
+        ],
+        [
+          873.266,
+          907.91
+        ],
+        [
+          827.075,
+          873.266
+        ],
+        [
+          725.0,
+          827.075
+        ]
+      ],
+      "x": [
+        1044.0,
+        1006.892,
+        954.102,
+        907.91,
+        873.266,
+        827.075,
+        725.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            2
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 1029.9880239520958,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            2,
+            4
+          ],
+          "silent": false,
+          "base_char_indices": [
+            2
+          ],
+          "center": 983.7964071856287,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            4,
+            6
+          ],
+          "silent": false,
+          "base_char_indices": [
+            4
+          ],
+          "center": 924.4071856287426,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            6,
+            8
+          ],
+          "silent": false,
+          "base_char_indices": [
+            6
+          ],
+          "center": 891.4131736526947,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            8,
+            9
+          ],
+          "silent": false,
+          "base_char_indices": [
+            8
+          ],
+          "center": 855.1197604790419,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            9,
+            11
+          ],
+          "silent": false,
+          "base_char_indices": [
+            9
+          ],
+          "center": 799.0299401197606,
+          "frames": 1
+        }
+      ]
+    },
+    {
+      "wid": "1.6.0",
+      "page": 1,
+      "tids": [
+        "1.6.0@r0",
+        "1.6.0@r1",
+        "1.6.0@r3",
+        "1.6.0@r5"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          531.778,
+          593.0
+        ],
+        [
+          500.434,
+          531.778
+        ],
+        [
+          454.792,
+          500.434
+        ],
+        [
+          413.0,
+          454.792
+        ]
+      ],
+      "x": [
+        593.0,
+        531.778,
+        500.434,
+        454.792,
+        413.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            1
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 544.9760479041915,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            1,
+            3
+          ],
+          "silent": false,
+          "base_char_indices": [
+            1
+          ],
+          "center": 518.5808383233533,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            3,
+            5
+          ],
+          "silent": false,
+          "base_char_indices": [
+            3
+          ],
+          "center": 482.28742514970054,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            5,
+            8
+          ],
+          "silent": false,
+          "base_char_indices": [
+            5,
+            7
+          ],
+          "center": 427.2974051896206,
+          "frames": 3
+        }
+      ]
+    },
+    {
+      "wid": "1.6.1",
+      "page": 1,
+      "tids": [
+        "1.6.1@r0",
+        "1.6.1@r1",
+        "1.6.1@r2",
+        "1.6.1@r5",
+        "1.6.1@r8"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          1507.662,
+          1523.0
+        ],
+        [
+          1486.572,
+          1507.662
+        ],
+        [
+          1446.31,
+          1486.572
+        ],
+        [
+          1384.959,
+          1446.31
+        ],
+        [
+          1313.0,
+          1384.959
+        ]
+      ],
+      "x": [
+        1523.0,
+        1507.662,
+        1486.572,
+        1446.31,
+        1384.959,
+        1313.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            1
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 1515.3310344827587,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            1,
+            2
+          ],
+          "silent": true,
+          "base_char_indices": [
+            1
+          ],
+          "center": 1499.9931034482759,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            2,
+            5
+          ],
+          "silent": false,
+          "base_char_indices": [
+            2
+          ],
+          "center": 1473.151724137931,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            5,
+            8
+          ],
+          "silent": false,
+          "base_char_indices": [
+            5
+          ],
+          "center": 1419.4689655172415,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            8,
+            10
+          ],
+          "silent": false,
+          "base_char_indices": [
+            8
+          ],
+          "center": 1350.4482758620688,
+          "frames": 1
+        }
+      ]
+    },
+    {
+      "wid": "1.6.2",
+      "page": 1,
+      "tids": [
+        "1.6.2@r0",
+        "1.6.2@r1",
+        "1.6.2@r3",
+        "1.6.2@r5",
+        "1.6.2@r7",
+        "1.6.2@r9",
+        "1.6.2@r11",
+        "1.6.2@r12"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          1285.262,
+          1304.0
+        ],
+        [
+          1260.338,
+          1285.262
+        ],
+        [
+          1223.91,
+          1260.338
+        ],
+        [
+          1174.062,
+          1223.91
+        ],
+        [
+          1128.048,
+          1174.062
+        ],
+        [
+          1097.372,
+          1128.048
+        ],
+        [
+          1070.531,
+          1097.372
+        ],
+        [
+          1034.0,
+          1070.531
+        ]
+      ],
+      "x": [
+        1304.0,
+        1285.262,
+        1260.338,
+        1223.91,
+        1174.062,
+        1128.048,
+        1097.372,
+        1070.531,
+        1034.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            1
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 1292.9310344827586,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            1,
+            3
+          ],
+          "silent": false,
+          "base_char_indices": [
+            1
+          ],
+          "center": 1277.5931034482758,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            3,
+            5
+          ],
+          "silent": false,
+          "base_char_indices": [
+            3
+          ],
+          "center": 1243.0827586206897,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            5,
+            7
+          ],
+          "silent": false,
+          "base_char_indices": [
+            5
+          ],
+          "center": 1204.7379310344827,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            7,
+            9
+          ],
+          "silent": false,
+          "base_char_indices": [
+            7
+          ],
+          "center": 1143.3862068965518,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            9,
+            11
+          ],
+          "silent": false,
+          "base_char_indices": [
+            9
+          ],
+          "center": 1112.7103448275861,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            11,
+            12
+          ],
+          "silent": false,
+          "base_char_indices": [
+            11
+          ],
+          "center": 1082.0344827586207,
+          "frames": 3
+        },
+        {
+          "unit_range": [
+            12,
+            14
+          ],
+          "silent": false,
+          "base_char_indices": [
+            12
+          ],
+          "center": 1059.0275862068966,
+          "frames": 1
+        }
+      ]
+    },
+    {
+      "wid": "1.7.0",
+      "page": 1,
+      "tids": [
+        "1.7.0@r0",
+        "1.7.0@r2",
+        "1.7.0@r5"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          863.469,
+          912.0
+        ],
+        [
+          813.621,
+          863.469
+        ],
+        [
+          745.0,
+          813.621
+        ]
+      ],
+      "x": [
+        912.0,
+        863.469,
+        813.621,
+        745.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            2
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 882.6413793103447,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            2,
+            5
+          ],
+          "silent": false,
+          "base_char_indices": [
+            2
+          ],
+          "center": 844.2965517241379,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            5,
+            7
+          ],
+          "silent": false,
+          "base_char_indices": [
+            5
+          ],
+          "center": 782.9448275862069,
+          "frames": 1
+        }
+      ]
+    },
+    {
+      "wid": "1.7.1",
+      "page": 1,
+      "tids": [
+        "1.7.1@r0",
+        "1.7.1@r1",
+        "1.7.1@r4",
+        "1.7.1@r6",
+        "1.7.1@r7"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          723.51,
+          737.0
+        ],
+        [
+          704.338,
+          723.51
+        ],
+        [
+          679.414,
+          704.338
+        ],
+        [
+          656.407,
+          679.414
+        ],
+        [
+          614.0,
+          656.407
+        ]
+      ],
+      "x": [
+        737.0,
+        723.51,
+        704.338,
+        679.414,
+        656.407,
+        614.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            1
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 729.2620689655173,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            1,
+            4
+          ],
+          "silent": false,
+          "base_char_indices": [
+            1
+          ],
+          "center": 717.7586206896551,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            4,
+            6
+          ],
+          "silent": false,
+          "base_char_indices": [
+            4
+          ],
+          "center": 690.9172413793103,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            6,
+            7
+          ],
+          "silent": false,
+          "base_char_indices": [
+            6
+          ],
+          "center": 667.9103448275862,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            7,
+            9
+          ],
+          "silent": false,
+          "base_char_indices": [
+            7
+          ],
+          "center": 644.903448275862,
+          "frames": 1
+        }
+      ]
+    },
+    {
+      "wid": "1.7.2",
+      "page": 1,
+      "tids": [
+        "1.7.2@r0",
+        "1.7.2@r2",
+        "1.7.2@r4",
+        "1.7.2@r6",
+        "1.7.2@r8"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          575.883,
+          598.0
+        ],
+        [
+          545.207,
+          575.883
+        ],
+        [
+          514.531,
+          545.207
+        ],
+        [
+          478.103,
+          514.531
+        ],
+        [
+          411.0,
+          478.103
+        ]
+      ],
+      "x": [
+        598.0,
+        575.883,
+        545.207,
+        514.531,
+        478.103,
+        411.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            2
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 591.2206896551724,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            2,
+            4
+          ],
+          "silent": false,
+          "base_char_indices": [
+            2
+          ],
+          "center": 560.5448275862069,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            4,
+            6
+          ],
+          "silent": false,
+          "base_char_indices": [
+            4
+          ],
+          "center": 529.8689655172413,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            6,
+            8
+          ],
+          "silent": false,
+          "base_char_indices": [
+            6
+          ],
+          "center": 499.1931034482759,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            8,
+            10
+          ],
+          "silent": false,
+          "base_char_indices": [
+            8
+          ],
+          "center": 457.0137931034483,
+          "frames": 2
+        }
+      ]
+    },
+    {
+      "wid": "1.7.3",
+      "page": 1,
+      "tids": [
+        "1.7.3@r0",
+        "1.7.3@r2",
+        "1.7.3@r4",
+        "1.7.3@r6",
+        "1.7.3@r8"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          1339.514,
+          1368.0
+        ],
+        [
+          1309.353,
+          1339.514
+        ],
+        [
+          1285.895,
+          1309.353
+        ],
+        [
+          1255.733,
+          1285.895
+        ],
+        [
+          1205.0,
+          1255.733
+        ]
+      ],
+      "x": [
+        1368.0,
+        1339.514,
+        1309.353,
+        1285.895,
+        1255.733,
+        1205.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            2
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 1357.9462809917356,
+          "frames": 3
+        },
+        {
+          "unit_range": [
+            2,
+            4
+          ],
+          "silent": false,
+          "base_char_indices": [
+            2
+          ],
+          "center": 1321.0826446280992,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            4,
+            6
+          ],
+          "silent": false,
+          "base_char_indices": [
+            4
+          ],
+          "center": 1297.6239669421489,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            6,
+            8
+          ],
+          "silent": false,
+          "base_char_indices": [
+            6
+          ],
+          "center": 1274.1652892561983,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            8,
+            10
+          ],
+          "silent": false,
+          "base_char_indices": [
+            8
+          ],
+          "center": 1237.301652892562,
+          "frames": 1
+        }
+      ]
+    },
+    {
+      "wid": "1.7.4",
+      "page": 1,
+      "tids": [
+        "1.7.4@r0",
+        "1.7.4@r2",
+        "1.7.4@r4"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          1170.277,
+          1203.0
+        ],
+        [
+          1136.764,
+          1170.277
+        ],
+        [
+          1102.0,
+          1136.764
+        ]
+      ],
+      "x": [
+        1203.0,
+        1170.277,
+        1136.764,
+        1102.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            2
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 1190.3842975206612,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            2,
+            4
+          ],
+          "silent": false,
+          "base_char_indices": [
+            2
+          ],
+          "center": 1150.1694214876034,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            4,
+            6
+          ],
+          "silent": false,
+          "base_char_indices": [
+            4
+          ],
+          "center": 1123.3595041322315,
+          "frames": 1
+        }
+      ]
+    },
+    {
+      "wid": "1.7.5",
+      "page": 1,
+      "tids": [
+        "1.7.5@r0",
+        "1.7.5@r1",
+        "1.7.5@r3",
+        "1.7.5@r5",
+        "1.7.5@r7",
+        "1.7.5@r9",
+        "1.7.5@r10"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          1084.82,
+          1102.0
+        ],
+        [
+          1059.686,
+          1084.82
+        ],
+        [
+          1017.795,
+          1059.686
+        ],
+        [
+          964.176,
+          1017.795
+        ],
+        [
+          910.556,
+          964.176
+        ],
+        [
+          855.26,
+          910.556
+        ],
+        [
+          758.0,
+          855.26
+        ]
+      ],
+      "x": [
+        1102.0,
+        1084.82,
+        1059.686,
+        1017.795,
+        964.176,
+        910.556,
+        855.26,
+        758.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            1
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 1089.8471074380166,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            1,
+            3
+          ],
+          "silent": false,
+          "base_char_indices": [
+            1
+          ],
+          "center": 1079.7933884297522,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            3,
+            5
+          ],
+          "silent": false,
+          "base_char_indices": [
+            3
+          ],
+          "center": 1039.5785123966944,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            5,
+            7
+          ],
+          "silent": false,
+          "base_char_indices": [
+            5
+          ],
+          "center": 996.0123966942149,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            7,
+            9
+          ],
+          "silent": false,
+          "base_char_indices": [
+            7
+          ],
+          "center": 932.3388429752066,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            9,
+            10
+          ],
+          "silent": false,
+          "base_char_indices": [
+            9
+          ],
+          "center": 888.7727272727273,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            10,
+            12
+          ],
+          "silent": false,
+          "base_char_indices": [
+            10
+          ],
+          "center": 821.7479338842976,
+          "frames": 1
+        }
+      ]
+    },
+    {
+      "wid": "1.7.6",
+      "page": 1,
+      "tids": [
+        "1.7.6@r0",
+        "1.7.6@r2",
+        "1.7.6@r4",
+        "1.7.6@r6",
+        "1.7.6@r8"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          707.806,
+          741.0
+        ],
+        [
+          675.969,
+          707.806
+        ],
+        [
+          649.159,
+          675.969
+        ],
+        [
+          612.295,
+          649.159
+        ],
+        [
+          557.0,
+          612.295
+        ]
+      ],
+      "x": [
+        741.0,
+        707.806,
+        675.969,
+        649.159,
+        612.295,
+        557.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            2
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 724.5619834710743,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            2,
+            4
+          ],
+          "silent": false,
+          "base_char_indices": [
+            2
+          ],
+          "center": 691.0495867768595,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            4,
+            6
+          ],
+          "silent": false,
+          "base_char_indices": [
+            4
+          ],
+          "center": 660.8884297520661,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            6,
+            8
+          ],
+          "silent": false,
+          "base_char_indices": [
+            6
+          ],
+          "center": 637.4297520661157,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            8,
+            10
+          ],
+          "silent": false,
+          "base_char_indices": [
+            8
+          ],
+          "center": 587.1611570247934,
+          "frames": 1
+        }
+      ]
+    },
+    {
+      "wid": "1.7.7",
+      "page": 1,
+      "tids": [
+        "1.7.7@r0",
+        "1.7.7@r2"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          1172.654,
+          1199.0
+        ],
+        [
+          1120.0,
+          1172.654
+        ]
+      ],
+      "x": [
+        1199.0,
+        1172.654,
+        1120.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            2
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 1193.453488372093,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            2,
+            5
+          ],
+          "silent": false,
+          "base_char_indices": [
+            2,
+            4
+          ],
+          "center": 1151.8546511627908,
+          "frames": 5
+        }
+      ]
+    },
+    {
+      "wid": "1.7.8",
+      "page": 1,
+      "tids": [
+        "1.7.8@r0",
+        "1.7.8@r1",
+        "1.7.8@r2",
+        "1.7.8@r7",
+        "1.7.8@r10",
+        "1.7.8@r11"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          1082.523,
+          1098.0
+        ],
+        [
+          1035.378,
+          1082.523
+        ],
+        [
+          961.887,
+          1035.378
+        ],
+        [
+          914.741,
+          961.887
+        ],
+        [
+          891.169,
+          914.741
+        ],
+        [
+          848.0,
+          891.169
+        ]
+      ],
+      "x": [
+        1098.0,
+        1082.523,
+        1035.378,
+        961.887,
+        914.741,
+        891.169,
+        848.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            1
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 1090.843023255814,
+          "frames": 3
+        },
+        {
+          "unit_range": [
+            1,
+            2
+          ],
+          "silent": true,
+          "base_char_indices": [
+            1
+          ],
+          "center": 1074.203488372093,
+          "frames": 3
+        },
+        {
+          "unit_range": [
+            2,
+            7
+          ],
+          "silent": false,
+          "base_char_indices": [
+            2,
+            5
+          ],
+          "center": 996.5523255813954,
+          "frames": 4
+        },
+        {
+          "unit_range": [
+            7,
+            10
+          ],
+          "silent": false,
+          "base_char_indices": [
+            7
+          ],
+          "center": 927.2209302325582,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            10,
+            11
+          ],
+          "silent": false,
+          "base_char_indices": [
+            10
+          ],
+          "center": 902.2616279069767,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            11,
+            13
+          ],
+          "silent": false,
+          "base_char_indices": [
+            11
+          ],
+          "center": 880.0755813953489,
+          "frames": 1
+        }
+      ]
+    },
+    {
+      "wid": "19.26.14",
+      "page": 307,
+      "tids": [
+        "19.26.14@r0",
+        "19.26.14@r2",
+        "19.26.14@r4"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          1054.63,
+          1083.0
+        ],
+        [
+          1020.014,
+          1054.63
+        ],
+        [
+          966.0,
+          1020.014
+        ]
+      ],
+      "x": [
+        1083.0,
+        1054.63,
+        1020.014,
+        966.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            2
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 1068.8840579710145,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            2,
+            4
+          ],
+          "silent": false,
+          "base_char_indices": [
+            2
+          ],
+          "center": 1040.376811594203,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            4,
+            6
+          ],
+          "silent": false,
+          "base_char_indices": [
+            4
+          ],
+          "center": 999.6521739130435,
+          "frames": 2
+        }
+      ]
+    },
+    {
+      "wid": "19.30.2",
+      "page": 307,
+      "tids": [
+        "19.30.2@r0",
+        "19.30.2@r2",
+        "19.30.2@r4"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          998.712,
+          1035.0
+        ],
+        [
+          958.447,
+          998.712
+        ],
+        [
+          907.0,
+          958.447
+        ]
+      ],
+      "x": [
+        1035.0,
+        998.712,
+        958.447,
+        907.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            2
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 1018.84375,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            2,
+            4
+          ],
+          "silent": false,
+          "base_char_indices": [
+            2
+          ],
+          "center": 978.5793269230769,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            4,
+            6
+          ],
+          "silent": false,
+          "base_char_indices": [
+            4
+          ],
+          "center": 938.3149038461538,
+          "frames": 1
+        }
+      ]
+    },
+    {
+      "wid": "19.38.1",
+      "page": 307,
+      "tids": [
+        "19.38.1@r0",
+        "19.38.1@r2",
+        "19.38.1@r4"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          219.795,
+          235.0
+        ],
+        [
+          185.477,
+          219.795
+        ],
+        [
+          134.0,
+          185.477
+        ]
+      ],
+      "x": [
+        235.0,
+        219.795,
+        185.477,
+        134.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            2
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 232.66410256410268,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            2,
+            4
+          ],
+          "silent": false,
+          "base_char_indices": [
+            2
+          ],
+          "center": 206.92564102564097,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            4,
+            6
+          ],
+          "silent": false,
+          "base_char_indices": [
+            4
+          ],
+          "center": 164.02820512820517,
+          "frames": 1
+        }
+      ]
+    },
+    {
+      "wid": "2.1.0",
+      "page": 2,
+      "tids": [
+        "2.1.0@r0",
+        "2.1.0@r1",
+        "2.1.0@r3"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          1468.296,
+          1484.0
+        ],
+        [
+          1443.867,
+          1468.296
+        ],
+        [
+          1384.0,
+          1443.867
+        ]
+      ],
+      "x": [
+        1484.0,
+        1468.296,
+        1443.867,
+        1384.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            1
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 1473.5304054054054,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            1,
+            3
+          ],
+          "silent": false,
+          "base_char_indices": [
+            1
+          ],
+          "center": 1463.0608108108108,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            3,
+            5
+          ],
+          "silent": false,
+          "base_char_indices": [
+            3
+          ],
+          "center": 1424.6722972972973,
+          "frames": 1
+        }
+      ]
+    },
+    {
+      "wid": "2.193.10",
+      "page": 30,
+      "tids": [
+        "2.193.10@r0",
+        "2.193.10@r2"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          1254.327,
+          1285.0
+        ],
+        [
+          1190.0,
+          1254.327
+        ]
+      ],
+      "x": [
+        1285.0,
+        1254.327,
+        1190.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            2
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 1274.5175879396984,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            2,
+            5
+          ],
+          "silent": false,
+          "base_char_indices": [
+            2,
+            4
+          ],
+          "center": 1234.1356783919598,
+          "frames": 3
+        }
+      ]
+    },
+    {
+      "wid": "2.194.1",
+      "page": 30,
+      "tids": [
+        "2.194.1@r0",
+        "2.194.1@r1",
+        "2.194.1@r3",
+        "2.194.1@r5",
+        "2.194.1@r8"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          233.962,
+          258.0
+        ],
+        [
+          208.003,
+          233.962
+        ],
+        [
+          179.879,
+          208.003
+        ],
+        [
+          143.103,
+          179.879
+        ],
+        [
+          102.0,
+          143.103
+        ]
+      ],
+      "x": [
+        258.0,
+        233.962,
+        208.003,
+        179.879,
+        143.103,
+        102.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            1
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 249.105527638191,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            1,
+            3
+          ],
+          "silent": false,
+          "base_char_indices": [
+            1
+          ],
+          "center": 218.819095477387,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            3,
+            5
+          ],
+          "silent": false,
+          "base_char_indices": [
+            3
+          ],
+          "center": 197.1859296482412,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            5,
+            8
+          ],
+          "silent": false,
+          "base_char_indices": [
+            5,
+            7
+          ],
+          "center": 162.57286432160822,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            8,
+            10
+          ],
+          "silent": false,
+          "base_char_indices": [
+            8
+          ],
+          "center": 123.63316582914581,
+          "frames": 1
+        }
+      ]
+    },
+    {
+      "wid": "2.196.40",
+      "page": 30,
+      "tids": [
+        "2.196.40@r0",
+        "2.196.40@r2"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          1798.8,
+          1826.0
+        ],
+        [
+          1761.0,
+          1798.8
+        ]
+      ],
+      "x": [
+        1826.0,
+        1798.8,
+        1761.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            2
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 1822.290948275862,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            2,
+            5
+          ],
+          "silent": false,
+          "base_char_indices": [
+            2,
+            4
+          ],
+          "center": 1775.3096264367816,
+          "frames": 3
+        }
+      ]
+    },
+    {
+      "wid": "2.2.0",
+      "page": 2,
+      "tids": [
+        "2.2.0@r0",
+        "2.2.0@r3",
+        "2.2.0@r5"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          1225.75,
+          1263.0
+        ],
+        [
+          1190.851,
+          1225.75
+        ],
+        [
+          1132.0,
+          1190.851
+        ]
+      ],
+      "x": [
+        1263.0,
+        1225.75,
+        1190.851,
+        1132.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            3
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 1243.1993243243244,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            3,
+            5
+          ],
+          "silent": false,
+          "base_char_indices": [
+            3
+          ],
+          "center": 1208.3006756756756,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            5,
+            7
+          ],
+          "silent": false,
+          "base_char_indices": [
+            5
+          ],
+          "center": 1173.402027027027,
+          "frames": 1
+        }
+      ]
+    },
+    {
+      "wid": "2.2.1",
+      "page": 2,
+      "tids": [
+        "2.2.1@r0",
+        "2.2.1@r1",
+        "2.2.1@r3",
+        "2.2.1@r5",
+        "2.2.1@r8"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          1110.584,
+          1126.0
+        ],
+        [
+          1059.981,
+          1110.584
+        ],
+        [
+          986.694,
+          1059.981
+        ],
+        [
+          925.622,
+          986.694
+        ],
+        [
+          850.0,
+          925.622
+        ]
+      ],
+      "x": [
+        1126.0,
+        1110.584,
+        1059.981,
+        986.694,
+        925.622,
+        850.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            1
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 1117.5641891891892,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            1,
+            3
+          ],
+          "silent": false,
+          "base_char_indices": [
+            1
+          ],
+          "center": 1103.6047297297298,
+          "frames": 3
+        },
+        {
+          "unit_range": [
+            3,
+            5
+          ],
+          "silent": false,
+          "base_char_indices": [
+            3
+          ],
+          "center": 1016.3581081081081,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            5,
+            8
+          ],
+          "silent": false,
+          "base_char_indices": [
+            5
+          ],
+          "center": 957.0304054054054,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            8,
+            10
+          ],
+          "silent": false,
+          "base_char_indices": [
+            8
+          ],
+          "center": 894.2128378378378,
+          "frames": 1
+        }
+      ]
+    },
+    {
+      "wid": "2.2.2",
+      "page": 2,
+      "tids": [
+        "2.2.2@r0"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          801.0,
+          849.0
+        ]
+      ],
+      "x": [
+        849.0,
+        801.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            3
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0,
+            2
+          ],
+          "center": 831.3952702702702,
+          "frames": 3
+        }
+      ]
+    },
+    {
+      "wid": "2.2.3",
+      "page": 2,
+      "tids": [
+        "2.2.3@r0",
+        "2.2.3@r2",
+        "2.2.3@r4"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          773.812,
+          802.0
+        ],
+        [
+          738.914,
+          773.812
+        ],
+        [
+          681.0,
+          738.914
+        ]
+      ],
+      "x": [
+        802.0,
+        773.812,
+        738.914,
+        681.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            2
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 789.516891891892,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            2,
+            4
+          ],
+          "silent": false,
+          "base_char_indices": [
+            2
+          ],
+          "center": 758.108108108108,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            4,
+            7
+          ],
+          "silent": false,
+          "base_char_indices": [
+            4
+          ],
+          "center": 719.7195945945946,
+          "frames": 1
+        }
+      ]
+    },
+    {
+      "wid": "2.2.4",
+      "page": 2,
+      "tids": [
+        "2.2.4@r0",
+        "2.2.4@r2",
+        "2.2.4@r3"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          655.157,
+          675.0
+        ],
+        [
+          625.493,
+          655.157
+        ],
+        [
+          585.0,
+          625.493
+        ]
+      ],
+      "x": [
+        675.0,
+        655.157,
+        625.493,
+        585.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            2
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 670.8614864864865,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            2,
+            3
+          ],
+          "silent": false,
+          "base_char_indices": [
+            2
+          ],
+          "center": 639.4527027027027,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            3,
+            6
+          ],
+          "silent": false,
+          "base_char_indices": [
+            3
+          ],
+          "center": 611.5337837837837,
+          "frames": 2
+        }
+      ]
+    },
+    {
+      "wid": "2.2.5",
+      "page": 2,
+      "tids": [
+        "2.2.5@r0",
+        "2.2.5@r2",
+        "2.2.5@r4"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          541.736,
+          580.0
+        ],
+        [
+          515.562,
+          541.736
+        ],
+        [
+          451.0,
+          515.562
+        ]
+      ],
+      "x": [
+        580.0,
+        541.736,
+        515.562,
+        451.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            2
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 559.1858108108108,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            2,
+            4
+          ],
+          "silent": false,
+          "base_char_indices": [
+            2
+          ],
+          "center": 524.2871621621622,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            4,
+            5
+          ],
+          "silent": false,
+          "base_char_indices": [
+            4
+          ],
+          "center": 506.8378378378378,
+          "frames": 2
+        }
+      ]
+    },
+    {
+      "wid": "2.2.6",
+      "page": 2,
+      "tids": [
+        "2.2.6@r0",
+        "2.2.6@r3",
+        "2.2.6@r5",
+        "2.2.6@r7",
+        "2.2.6@r10",
+        "2.2.6@r12",
+        "2.2.6@r13"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          1506.188,
+          1520.0
+        ],
+        [
+          1488.922,
+          1506.188
+        ],
+        [
+          1468.203,
+          1488.922
+        ],
+        [
+          1444.031,
+          1468.203
+        ],
+        [
+          1418.133,
+          1444.031
+        ],
+        [
+          1388.781,
+          1418.133
+        ],
+        [
+          1349.0,
+          1388.781
+        ]
+      ],
+      "x": [
+        1520.0,
+        1506.188,
+        1488.922,
+        1468.203,
+        1444.031,
+        1418.133,
+        1388.781,
+        1349.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            3
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 1516.546875,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            3,
+            5
+          ],
+          "silent": false,
+          "base_char_indices": [
+            3
+          ],
+          "center": 1495.828125,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            5,
+            7
+          ],
+          "silent": false,
+          "base_char_indices": [
+            5
+          ],
+          "center": 1482.015625,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            7,
+            10
+          ],
+          "silent": false,
+          "base_char_indices": [
+            7
+          ],
+          "center": 1454.390625,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            10,
+            12
+          ],
+          "silent": false,
+          "base_char_indices": [
+            10
+          ],
+          "center": 1433.671875,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            12,
+            13
+          ],
+          "silent": false,
+          "base_char_indices": [
+            12
+          ],
+          "center": 1402.59375,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            13,
+            15
+          ],
+          "silent": false,
+          "base_char_indices": [
+            13
+          ],
+          "center": 1374.96875,
+          "frames": 2
+        }
+      ]
+    },
+    {
+      "wid": "2.3.0",
+      "page": 2,
+      "tids": [
+        "2.3.0@r0",
+        "2.3.0@r1",
+        "2.3.0@r4",
+        "2.3.0@r6",
+        "2.3.0@r7"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          1202.312,
+          1225.0
+        ],
+        [
+          1181.594,
+          1202.312
+        ],
+        [
+          1157.422,
+          1181.594
+        ],
+        [
+          1134.977,
+          1157.422
+        ],
+        [
+          1097.0,
+          1134.977
+        ]
+      ],
+      "x": [
+        1225.0,
+        1202.312,
+        1181.594,
+        1157.422,
+        1134.977,
+        1097.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            1
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 1209.21875,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            1,
+            4
+          ],
+          "silent": false,
+          "base_char_indices": [
+            1
+          ],
+          "center": 1195.40625,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            4,
+            6
+          ],
+          "silent": false,
+          "base_char_indices": [
+            4
+          ],
+          "center": 1167.78125,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            6,
+            7
+          ],
+          "silent": false,
+          "base_char_indices": [
+            6
+          ],
+          "center": 1147.0625,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            7,
+            9
+          ],
+          "silent": false,
+          "base_char_indices": [
+            7
+          ],
+          "center": 1122.890625,
+          "frames": 1
+        }
+      ]
+    },
+    {
+      "wid": "2.3.1",
+      "page": 2,
+      "tids": [
+        "2.3.1@r0",
+        "2.3.1@r2",
+        "2.3.1@r4",
+        "2.3.1@r6",
+        "2.3.1@r8",
+        "2.3.1@r9"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          1072.82,
+          1093.0
+        ],
+        [
+          1052.102,
+          1072.82
+        ],
+        [
+          1022.75,
+          1052.102
+        ],
+        [
+          998.578,
+          1022.75
+        ],
+        [
+          974.406,
+          998.578
+        ],
+        [
+          930.0,
+          974.406
+        ]
+      ],
+      "x": [
+        1093.0,
+        1072.82,
+        1052.102,
+        1022.75,
+        998.578,
+        974.406,
+        930.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            2
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 1081.453125,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            2,
+            4
+          ],
+          "silent": false,
+          "base_char_indices": [
+            2
+          ],
+          "center": 1064.1875,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            4,
+            6
+          ],
+          "silent": false,
+          "base_char_indices": [
+            4
+          ],
+          "center": 1040.015625,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            6,
+            8
+          ],
+          "silent": false,
+          "base_char_indices": [
+            6
+          ],
+          "center": 1005.484375,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            8,
+            9
+          ],
+          "silent": false,
+          "base_char_indices": [
+            8
+          ],
+          "center": 991.671875,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            9,
+            11
+          ],
+          "silent": false,
+          "base_char_indices": [
+            9
+          ],
+          "center": 957.140625,
+          "frames": 1
+        }
+      ]
+    },
+    {
+      "wid": "2.3.2",
+      "page": 2,
+      "tids": [
+        "2.3.2@r0",
+        "2.3.2@r2",
+        "2.3.2@r3",
+        "2.3.2@r5",
+        "2.3.2@r7",
+        "2.3.2@r9"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          898.438,
+          920.0
+        ],
+        [
+          882.898,
+          898.438
+        ],
+        [
+          862.18,
+          882.898
+        ],
+        [
+          829.375,
+          862.18
+        ],
+        [
+          798.297,
+          829.375
+        ],
+        [
+          748.0,
+          798.297
+        ]
+      ],
+      "x": [
+        920.0,
+        898.438,
+        882.898,
+        862.18,
+        829.375,
+        798.297,
+        748.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            2
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 908.796875,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            2,
+            3
+          ],
+          "silent": false,
+          "base_char_indices": [
+            2
+          ],
+          "center": 888.078125,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            3,
+            5
+          ],
+          "silent": false,
+          "base_char_indices": [
+            3
+          ],
+          "center": 877.71875,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            5,
+            7
+          ],
+          "silent": false,
+          "base_char_indices": [
+            5
+          ],
+          "center": 846.640625,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            7,
+            9
+          ],
+          "silent": false,
+          "base_char_indices": [
+            7
+          ],
+          "center": 812.109375,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            9,
+            11
+          ],
+          "silent": false,
+          "base_char_indices": [
+            9
+          ],
+          "center": 784.484375,
+          "frames": 1
+        }
+      ]
+    },
+    {
+      "wid": "2.3.3",
+      "page": 2,
+      "tids": [
+        "2.3.3@r0",
+        "2.3.3@r2",
+        "2.3.3@r4",
+        "2.3.3@r6",
+        "2.3.3@r7",
+        "2.3.3@r9",
+        "2.3.3@r10"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          722.328,
+          743.0
+        ],
+        [
+          698.156,
+          722.328
+        ],
+        [
+          672.258,
+          698.156
+        ],
+        [
+          651.539,
+          672.258
+        ],
+        [
+          636.0,
+          651.539
+        ],
+        [
+          613.555,
+          636.0
+        ],
+        [
+          568.0,
+          613.555
+        ]
+      ],
+      "x": [
+        743.0,
+        722.328,
+        698.156,
+        672.258,
+        651.539,
+        636.0,
+        613.555,
+        568.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            2
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 736.140625,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            2,
+            4
+          ],
+          "silent": false,
+          "base_char_indices": [
+            2
+          ],
+          "center": 708.515625,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            4,
+            6
+          ],
+          "silent": false,
+          "base_char_indices": [
+            4
+          ],
+          "center": 687.796875,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            6,
+            7
+          ],
+          "silent": false,
+          "base_char_indices": [
+            6
+          ],
+          "center": 656.71875,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            7,
+            9
+          ],
+          "silent": false,
+          "base_char_indices": [
+            7
+          ],
+          "center": 646.359375,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            9,
+            10
+          ],
+          "silent": false,
+          "base_char_indices": [
+            9
+          ],
+          "center": 625.640625,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            10,
+            12
+          ],
+          "silent": false,
+          "base_char_indices": [
+            10
+          ],
+          "center": 601.46875,
+          "frames": 2
+        }
+      ]
+    },
+    {
+      "wid": "2.3.4",
+      "page": 2,
+      "tids": [
+        "2.3.4@r0",
+        "2.3.4@r1",
+        "2.3.4@r2",
+        "2.3.4@r5",
+        "2.3.4@r7",
+        "2.3.4@r9"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          549.672,
+          566.0
+        ],
+        [
+          530.68,
+          549.672
+        ],
+        [
+          494.422,
+          530.68
+        ],
+        [
+          461.617,
+          494.422
+        ],
+        [
+          442.625,
+          461.617
+        ],
+        [
+          415.0,
+          442.625
+        ]
+      ],
+      "x": [
+        566.0,
+        549.672,
+        530.68,
+        494.422,
+        461.617,
+        442.625,
+        415.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            1
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 556.578125,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            1,
+            2
+          ],
+          "silent": true,
+          "base_char_indices": [
+            1
+          ],
+          "center": 542.765625,
+          "frames": 3
+        },
+        {
+          "unit_range": [
+            2,
+            5
+          ],
+          "silent": false,
+          "base_char_indices": [
+            2
+          ],
+          "center": 518.59375,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            5,
+            7
+          ],
+          "silent": false,
+          "base_char_indices": [
+            5
+          ],
+          "center": 470.25,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            7,
+            9
+          ],
+          "silent": false,
+          "base_char_indices": [
+            7
+          ],
+          "center": 452.984375,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            9,
+            11
+          ],
+          "silent": false,
+          "base_char_indices": [
+            9
+          ],
+          "center": 432.265625,
+          "frames": 1
+        }
+      ]
+    },
+    {
+      "wid": "2.3.5",
+      "page": 2,
+      "tids": [
+        "2.3.5@r0",
+        "2.3.5@r2",
+        "2.3.5@r4"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          1512.136,
+          1530.0
+        ],
+        [
+          1476.408,
+          1512.136
+        ],
+        [
+          1436.0,
+          1476.408
+        ]
+      ],
+      "x": [
+        1530.0,
+        1512.136,
+        1476.408,
+        1436.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            2
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 1526.4272151898733,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            2,
+            4
+          ],
+          "silent": false,
+          "base_char_indices": [
+            2
+          ],
+          "center": 1497.8449367088608,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            4,
+            8
+          ],
+          "silent": false,
+          "base_char_indices": [
+            4,
+            7
+          ],
+          "center": 1454.9715189873418,
+          "frames": 3
+        }
+      ]
+    },
+    {
+      "wid": "2.3.6",
+      "page": 2,
+      "tids": [
+        "2.3.6@r0",
+        "2.3.6@r2",
+        "2.3.6@r4",
+        "2.3.6@r6",
+        "2.3.6@r9",
+        "2.3.6@r11"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          1412.098,
+          1432.0
+        ],
+        [
+          1383.516,
+          1412.098
+        ],
+        [
+          1351.361,
+          1383.516
+        ],
+        [
+          1319.206,
+          1351.361
+        ],
+        [
+          1290.623,
+          1319.206
+        ],
+        [
+          1260.0,
+          1290.623
+        ]
+      ],
+      "x": [
+        1432.0,
+        1412.098,
+        1383.516,
+        1351.361,
+        1319.206,
+        1290.623,
+        1260.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            2
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 1426.389240506329,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            2,
+            4
+          ],
+          "silent": false,
+          "base_char_indices": [
+            2
+          ],
+          "center": 1397.8069620253164,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            4,
+            6
+          ],
+          "silent": false,
+          "base_char_indices": [
+            4
+          ],
+          "center": 1369.2246835443038,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            6,
+            9
+          ],
+          "silent": false,
+          "base_char_indices": [
+            6
+          ],
+          "center": 1333.496835443038,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            9,
+            11
+          ],
+          "silent": false,
+          "base_char_indices": [
+            9
+          ],
+          "center": 1304.9145569620252,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            11,
+            13
+          ],
+          "silent": false,
+          "base_char_indices": [
+            11
+          ],
+          "center": 1276.3322784810127,
+          "frames": 1
+        }
+      ]
+    },
+    {
+      "wid": "2.3.7",
+      "page": 2,
+      "tids": [
+        "2.3.7@r0",
+        "2.3.7@r2",
+        "2.3.7@r3",
+        "2.3.7@r5",
+        "2.3.7@r7",
+        "2.3.7@r8"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          1220.954,
+          1243.0
+        ],
+        [
+          1201.304,
+          1220.954
+        ],
+        [
+          1183.44,
+          1201.304
+        ],
+        [
+          1156.644,
+          1183.44
+        ],
+        [
+          1122.703,
+          1156.644
+        ],
+        [
+          1075.0,
+          1122.703
+        ]
+      ],
+      "x": [
+        1243.0,
+        1220.954,
+        1201.304,
+        1183.44,
+        1156.644,
+        1122.703,
+        1075.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            2
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 1237.0316455696202,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            2,
+            3
+          ],
+          "silent": false,
+          "base_char_indices": [
+            2
+          ],
+          "center": 1204.876582278481,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            3,
+            5
+          ],
+          "silent": false,
+          "base_char_indices": [
+            3
+          ],
+          "center": 1197.7310126582279,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            5,
+            7
+          ],
+          "silent": false,
+          "base_char_indices": [
+            5
+          ],
+          "center": 1169.1487341772151,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            7,
+            8
+          ],
+          "silent": false,
+          "base_char_indices": [
+            7
+          ],
+          "center": 1144.139240506329,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            8,
+            10
+          ],
+          "silent": false,
+          "base_char_indices": [
+            8
+          ],
+          "center": 1101.26582278481,
+          "frames": 2
+        }
+      ]
+    },
+    {
+      "wid": "2.4.0",
+      "page": 2,
+      "tids": [
+        "2.4.0@r0",
+        "2.4.0@r2",
+        "2.4.0@r3",
+        "2.4.0@r6",
+        "2.4.0@r8",
+        "2.4.0@r9"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          902.976,
+          940.0
+        ],
+        [
+          879.753,
+          902.976
+        ],
+        [
+          860.103,
+          879.753
+        ],
+        [
+          836.88,
+          860.103
+        ],
+        [
+          813.657,
+          836.88
+        ],
+        [
+          776.0,
+          813.657
+        ]
+      ],
+      "x": [
+        940.0,
+        902.976,
+        879.753,
+        860.103,
+        836.88,
+        813.657,
+        776.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            2
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 919.0537974683544,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            2,
+            3
+          ],
+          "silent": false,
+          "base_char_indices": [
+            2
+          ],
+          "center": 886.8987341772151,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            3,
+            6
+          ],
+          "silent": false,
+          "base_char_indices": [
+            3
+          ],
+          "center": 872.6075949367089,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            6,
+            8
+          ],
+          "silent": false,
+          "base_char_indices": [
+            6
+          ],
+          "center": 847.5981012658228,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            8,
+            9
+          ],
+          "silent": false,
+          "base_char_indices": [
+            8
+          ],
+          "center": 826.1613924050633,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            9,
+            11
+          ],
+          "silent": false,
+          "base_char_indices": [
+            9
+          ],
+          "center": 801.1518987341772,
+          "frames": 2
+        }
+      ]
+    },
+    {
+      "wid": "2.4.1",
+      "page": 2,
+      "tids": [
+        "2.4.1@r0",
+        "2.4.1@r2",
+        "2.4.1@r4",
+        "2.4.1@r6",
+        "2.4.1@r8",
+        "2.4.1@r9"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          745.774,
+          767.0
+        ],
+        [
+          724.337,
+          745.774
+        ],
+        [
+          693.968,
+          724.337
+        ],
+        [
+          665.386,
+          693.968
+        ],
+        [
+          638.59,
+          665.386
+        ],
+        [
+          599.0,
+          638.59
+        ]
+      ],
+      "x": [
+        767.0,
+        745.774,
+        724.337,
+        693.968,
+        665.386,
+        638.59,
+        599.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            2
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 754.7056962025316,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            2,
+            4
+          ],
+          "silent": false,
+          "base_char_indices": [
+            2
+          ],
+          "center": 736.8417721518988,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            4,
+            6
+          ],
+          "silent": false,
+          "base_char_indices": [
+            4
+          ],
+          "center": 711.8322784810127,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            6,
+            8
+          ],
+          "silent": false,
+          "base_char_indices": [
+            6
+          ],
+          "center": 676.1044303797468,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            8,
+            9
+          ],
+          "silent": false,
+          "base_char_indices": [
+            8
+          ],
+          "center": 654.6677215189873,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            9,
+            11
+          ],
+          "silent": false,
+          "base_char_indices": [
+            9
+          ],
+          "center": 622.5126582278482,
+          "frames": 2
+        }
+      ]
+    },
+    {
+      "wid": "2.4.10",
+      "page": 2,
+      "tids": [
+        "2.4.10@r0",
+        "2.4.10@r2"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          719.397,
+          750.0
+        ],
+        [
+          685.0,
+          719.397
+        ]
+      ],
+      "x": [
+        750.0,
+        719.397,
+        685.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            2
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 733.7262569832402,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            2,
+            4
+          ],
+          "silent": false,
+          "base_char_indices": [
+            2
+          ],
+          "center": 705.0670391061452,
+          "frames": 2
+        }
+      ]
+    },
+    {
+      "wid": "2.4.11",
+      "page": 2,
+      "tids": [
+        "2.4.11@r0",
+        "2.4.11@r2",
+        "2.4.11@r3",
+        "2.4.11@r5",
+        "2.4.11@r7",
+        "2.4.11@r8"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          665.263,
+          683.0
+        ],
+        [
+          641.38,
+          665.263
+        ],
+        [
+          609.536,
+          641.38
+        ],
+        [
+          577.693,
+          609.536
+        ],
+        [
+          555.402,
+          577.693
+        ],
+        [
+          522.0,
+          555.402
+        ]
+      ],
+      "x": [
+        683.0,
+        665.263,
+        641.38,
+        609.536,
+        577.693,
+        555.402,
+        522.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            2
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 673.2234636871508,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            2,
+            3
+          ],
+          "silent": false,
+          "base_char_indices": [
+            2
+          ],
+          "center": 657.3016759776535,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            3,
+            5
+          ],
+          "silent": false,
+          "base_char_indices": [
+            3
+          ],
+          "center": 625.4581005586592,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            5,
+            7
+          ],
+          "silent": false,
+          "base_char_indices": [
+            5
+          ],
+          "center": 593.6145251396648,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            7,
+            8
+          ],
+          "silent": false,
+          "base_char_indices": [
+            7
+          ],
+          "center": 561.7709497206704,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            8,
+            10
+          ],
+          "silent": false,
+          "base_char_indices": [
+            8
+          ],
+          "center": 549.0335195530727,
+          "frames": 1
+        }
+      ]
+    },
+    {
+      "wid": "2.4.2",
+      "page": 2,
+      "tids": [
+        "2.4.2@r0",
+        "2.4.2@r2"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          564.157,
+          584.0
+        ],
+        [
+          514.0,
+          564.157
+        ]
+      ],
+      "x": [
+        584.0,
+        564.157,
+        514.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            2
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 583.2120253164557,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            2,
+            6
+          ],
+          "silent": false,
+          "base_char_indices": [
+            2,
+            4
+          ],
+          "center": 545.1023206751054,
+          "frames": 3
+        }
+      ]
+    },
+    {
+      "wid": "2.4.3",
+      "page": 2,
+      "tids": [
+        "2.4.3@r0",
+        "2.4.3@r2",
+        "2.4.3@r3",
+        "2.4.3@r5"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          479.601,
+          507.0
+        ],
+        [
+          456.378,
+          479.601
+        ],
+        [
+          442.087,
+          456.378
+        ],
+        [
+          401.0,
+          442.087
+        ]
+      ],
+      "x": [
+        507.0,
+        479.601,
+        456.378,
+        442.087,
+        401.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            2
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 497.4651898734178,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            2,
+            3
+          ],
+          "silent": false,
+          "base_char_indices": [
+            2
+          ],
+          "center": 461.7373417721519,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            3,
+            5
+          ],
+          "silent": false,
+          "base_char_indices": [
+            3
+          ],
+          "center": 451.0189873417721,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            5,
+            7
+          ],
+          "silent": false,
+          "base_char_indices": [
+            5
+          ],
+          "center": 433.1550632911392,
+          "frames": 1
+        }
+      ]
+    },
+    {
+      "wid": "2.4.4",
+      "page": 2,
+      "tids": [
+        "2.4.4@r0",
+        "2.4.4@r2",
+        "2.4.4@r4",
+        "2.4.4@r6"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          1510.709,
+          1533.0
+        ],
+        [
+          1485.235,
+          1510.709
+        ],
+        [
+          1453.391,
+          1485.235
+        ],
+        [
+          1395.0,
+          1453.391
+        ]
+      ],
+      "x": [
+        1533.0,
+        1510.709,
+        1485.235,
+        1453.391,
+        1395.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            2
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 1523.4469273743016,
+          "frames": 3
+        },
+        {
+          "unit_range": [
+            2,
+            4
+          ],
+          "silent": false,
+          "base_char_indices": [
+            2
+          ],
+          "center": 1497.9720670391062,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            4,
+            6
+          ],
+          "silent": false,
+          "base_char_indices": [
+            4
+          ],
+          "center": 1472.4972067039107,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            6,
+            8
+          ],
+          "silent": false,
+          "base_char_indices": [
+            6
+          ],
+          "center": 1434.2849162011173,
+          "frames": 1
+        }
+      ]
+    },
+    {
+      "wid": "2.4.5",
+      "page": 2,
+      "tids": [
+        "2.4.5@r0",
+        "2.4.5@r2"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          1353.084,
+          1386.0
+        ],
+        [
+          1294.0,
+          1353.084
+        ]
+      ],
+      "x": [
+        1386.0,
+        1353.084,
+        1294.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            2
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 1380.1508379888269,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            2,
+            6
+          ],
+          "silent": false,
+          "base_char_indices": [
+            2,
+            4
+          ],
+          "center": 1326.0167597765362,
+          "frames": 3
+        }
+      ]
+    },
+    {
+      "wid": "2.4.6",
+      "page": 2,
+      "tids": [
+        "2.4.6@r0",
+        "2.4.6@r2",
+        "2.4.6@r3",
+        "2.4.6@r5"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          1263.922,
+          1286.0
+        ],
+        [
+          1246.408,
+          1263.922
+        ],
+        [
+          1235.263,
+          1246.408
+        ],
+        [
+          1189.0,
+          1235.263
+        ]
+      ],
+      "x": [
+        1286.0,
+        1263.922,
+        1246.408,
+        1235.263,
+        1189.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            2
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 1278.2513966480446,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            2,
+            3
+          ],
+          "silent": false,
+          "base_char_indices": [
+            2
+          ],
+          "center": 1249.5921787709497,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            3,
+            5
+          ],
+          "silent": false,
+          "base_char_indices": [
+            3
+          ],
+          "center": 1243.2234636871508,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            5,
+            7
+          ],
+          "silent": false,
+          "base_char_indices": [
+            5
+          ],
+          "center": 1227.3016759776538,
+          "frames": 2
+        }
+      ]
+    },
+    {
+      "wid": "2.4.7",
+      "page": 2,
+      "tids": [
+        "2.4.7@r0",
+        "2.4.7@r2"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          1152.469,
+          1182.0
+        ],
+        [
+          1109.0,
+          1152.469
+        ]
+      ],
+      "x": [
+        1182.0,
+        1152.469,
+        1109.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            2
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 1173.167597765363,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            2,
+            3
+          ],
+          "silent": false,
+          "base_char_indices": [
+            2
+          ],
+          "center": 1131.7709497206704,
+          "frames": 2
+        }
+      ]
+    },
+    {
+      "wid": "2.4.8",
+      "page": 2,
+      "tids": [
+        "2.4.8@r0",
+        "2.4.8@r2",
+        "2.4.8@r4",
+        "2.4.8@r6"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          1080.821,
+          1105.0
+        ],
+        [
+          1055.346,
+          1080.821
+        ],
+        [
+          1026.687,
+          1055.346
+        ],
+        [
+          971.0,
+          1026.687
+        ]
+      ],
+      "x": [
+        1105.0,
+        1080.821,
+        1055.346,
+        1026.687,
+        971.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            2
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 1096.7430167597765,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            2,
+            4
+          ],
+          "silent": false,
+          "base_char_indices": [
+            2
+          ],
+          "center": 1064.8994413407822,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            4,
+            6
+          ],
+          "silent": false,
+          "base_char_indices": [
+            4
+          ],
+          "center": 1045.7932960893854,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            6,
+            8
+          ],
+          "silent": false,
+          "base_char_indices": [
+            6
+          ],
+          "center": 1007.5810055865921,
+          "frames": 1
+        }
+      ]
+    },
+    {
+      "wid": "2.4.9",
+      "page": 2,
+      "tids": [
+        "2.4.9@r0",
+        "2.4.9@r2",
+        "2.4.9@r4",
+        "2.4.9@r5",
+        "2.4.9@r7",
+        "2.4.9@r9",
+        "2.4.9@r11",
+        "2.4.9@r13"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          940.709,
+          963.0
+        ],
+        [
+          913.642,
+          940.709
+        ],
+        [
+          896.128,
+          913.642
+        ],
+        [
+          877.022,
+          896.128
+        ],
+        [
+          856.324,
+          877.022
+        ],
+        [
+          826.073,
+          856.324
+        ],
+        [
+          791.045,
+          826.073
+        ],
+        [
+          750.0,
+          791.045
+        ]
+      ],
+      "x": [
+        963.0,
+        940.709,
+        913.642,
+        896.128,
+        877.022,
+        856.324,
+        826.073,
+        791.045,
+        750.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            2
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 956.631284916201,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            2,
+            4
+          ],
+          "silent": false,
+          "base_char_indices": [
+            2
+          ],
+          "center": 924.7877094972067,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            4,
+            5
+          ],
+          "silent": false,
+          "base_char_indices": [
+            4
+          ],
+          "center": 902.4972067039106,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            5,
+            7
+          ],
+          "silent": false,
+          "base_char_indices": [
+            5
+          ],
+          "center": 889.7597765363129,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            7,
+            9
+          ],
+          "silent": false,
+          "base_char_indices": [
+            7
+          ],
+          "center": 864.2849162011173,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            9,
+            11
+          ],
+          "silent": false,
+          "base_char_indices": [
+            9
+          ],
+          "center": 848.3631284916202,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            11,
+            13
+          ],
+          "silent": false,
+          "base_char_indices": [
+            11
+          ],
+          "center": 803.7821229050279,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            13,
+            15
+          ],
+          "silent": false,
+          "base_char_indices": [
+            13
+          ],
+          "center": 778.3072625698325,
+          "frames": 1
+        }
+      ]
+    },
+    {
+      "wid": "2.5.0",
+      "page": 2,
+      "tids": [
+        "2.5.0@r0",
+        "2.5.0@r2",
+        "2.5.0@r4",
+        "2.5.0@r8",
+        "2.5.0@r10"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          1381.368,
+          1393.0
+        ],
+        [
+          1360.043,
+          1381.368
+        ],
+        [
+          1325.148,
+          1360.043
+        ],
+        [
+          1284.436,
+          1325.148
+        ],
+        [
+          1219.0,
+          1284.436
+        ]
+      ],
+      "x": [
+        1393.0,
+        1381.368,
+        1360.043,
+        1325.148,
+        1284.436,
+        1219.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            2
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 1389.1227272727272,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            2,
+            4
+          ],
+          "silent": true,
+          "base_char_indices": [
+            2
+          ],
+          "center": 1373.6136363636363,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            4,
+            8
+          ],
+          "silent": false,
+          "base_char_indices": [
+            4
+          ],
+          "center": 1346.4727272727273,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            8,
+            10
+          ],
+          "silent": false,
+          "base_char_indices": [
+            8
+          ],
+          "center": 1303.8227272727272,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            10,
+            12
+          ],
+          "silent": false,
+          "base_char_indices": [
+            10
+          ],
+          "center": 1265.05,
+          "frames": 1
+        }
+      ]
+    },
+    {
+      "wid": "2.5.1",
+      "page": 2,
+      "tids": [
+        "2.5.1@r0",
+        "2.5.1@r2",
+        "2.5.1@r4"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          1187.505,
+          1217.0
+        ],
+        [
+          1160.364,
+          1187.505
+        ],
+        [
+          1126.0,
+          1160.364
+        ]
+      ],
+      "x": [
+        1217.0,
+        1187.505,
+        1160.364,
+        1126.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            2
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 1203.0136363636364,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            2,
+            4
+          ],
+          "silent": false,
+          "base_char_indices": [
+            2
+          ],
+          "center": 1171.9954545454545,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            4,
+            6
+          ],
+          "silent": false,
+          "base_char_indices": [
+            4
+          ],
+          "center": 1148.7318181818182,
+          "frames": 1
+        }
+      ]
+    },
+    {
+      "wid": "2.5.2",
+      "page": 2,
+      "tids": [
+        "2.5.2@r0",
+        "2.5.2@r2",
+        "2.5.2@r4"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          1075.064,
+          1118.0
+        ],
+        [
+          1026.598,
+          1075.064
+        ],
+        [
+          974.0,
+          1026.598
+        ]
+      ],
+      "x": [
+        1118.0,
+        1075.064,
+        1026.598,
+        974.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            2
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 1094.45,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            2,
+            4
+          ],
+          "silent": false,
+          "base_char_indices": [
+            2
+          ],
+          "center": 1055.6772727272728,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            4,
+            5
+          ],
+          "silent": false,
+          "base_char_indices": [
+            4
+          ],
+          "center": 997.5181818181818,
+          "frames": 2
+        }
+      ]
+    },
+    {
+      "wid": "2.5.3",
+      "page": 2,
+      "tids": [
+        "2.5.3@r0",
+        "2.5.3@r3"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          939.359,
+          967.0
+        ],
+        [
+          891.0,
+          939.359
+        ]
+      ],
+      "x": [
+        967.0,
+        939.359,
+        891.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            3
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 962.6227272727273,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            3,
+            4
+          ],
+          "silent": true,
+          "base_char_indices": [
+            3
+          ],
+          "center": 916.0954545454546,
+          "frames": 1
+        }
+      ]
+    },
+    {
+      "wid": "2.5.4",
+      "page": 2,
+      "tids": [
+        "2.5.4@r0",
+        "2.5.4@r3",
+        "2.5.4@r6",
+        "2.5.4@r8"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          865.691,
+          885.0
+        ],
+        [
+          840.489,
+          865.691
+        ],
+        [
+          809.47,
+          840.489
+        ],
+        [
+          755.0,
+          809.47
+        ]
+      ],
+      "x": [
+        885.0,
+        865.691,
+        840.489,
+        809.47,
+        755.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            3
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 877.3227272727273,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            3,
+            6
+          ],
+          "silent": false,
+          "base_char_indices": [
+            3
+          ],
+          "center": 854.0590909090909,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            6,
+            8
+          ],
+          "silent": false,
+          "base_char_indices": [
+            6
+          ],
+          "center": 826.9181818181818,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            8,
+            11
+          ],
+          "silent": false,
+          "base_char_indices": [
+            8
+          ],
+          "center": 792.0227272727273,
+          "frames": 1
+        }
+      ]
+    },
+    {
+      "wid": "2.5.5",
+      "page": 2,
+      "tids": [
+        "2.5.5@r0",
+        "2.5.5@r2",
+        "2.5.5@r4",
+        "2.5.5@r6",
+        "2.5.5@r10",
+        "2.5.5@r12"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          729.986,
+          751.0
+        ],
+        [
+          706.723,
+          729.986
+        ],
+        [
+          683.459,
+          706.723
+        ],
+        [
+          648.564,
+          683.459
+        ],
+        [
+          605.914,
+          648.564
+        ],
+        [
+          540.0,
+          605.914
+        ]
+      ],
+      "x": [
+        751.0,
+        729.986,
+        706.723,
+        683.459,
+        648.564,
+        605.914,
+        540.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            2
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 745.4954545454545,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            2,
+            4
+          ],
+          "silent": false,
+          "base_char_indices": [
+            2
+          ],
+          "center": 714.4772727272727,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            4,
+            6
+          ],
+          "silent": true,
+          "base_char_indices": [
+            4
+          ],
+          "center": 698.9681818181818,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            6,
+            10
+          ],
+          "silent": false,
+          "base_char_indices": [
+            6
+          ],
+          "center": 667.95,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            10,
+            12
+          ],
+          "silent": false,
+          "base_char_indices": [
+            10
+          ],
+          "center": 629.1772727272727,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            12,
+            14
+          ],
+          "silent": false,
+          "base_char_indices": [
+            12
+          ],
+          "center": 582.6500000000001,
+          "frames": 1
+        }
+      ]
+    },
+    {
+      "wid": "2.5.6",
+      "page": 2,
+      "tids": [
+        "2.5.6@r0",
+        "2.5.6@r2"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          1190.201,
+          1228.0
+        ],
+        [
+          1137.0,
+          1190.201
+        ]
+      ],
+      "x": [
+        1228.0,
+        1190.201,
+        1137.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            2
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 1210.554347826087,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            2,
+            4
+          ],
+          "silent": false,
+          "base_char_indices": [
+            2
+          ],
+          "center": 1169.8478260869565,
+          "frames": 2
+        }
+      ]
+    },
+    {
+      "wid": "2.5.7",
+      "page": 2,
+      "tids": [
+        "2.5.7@r0",
+        "2.5.7@r1",
+        "2.5.7@r3",
+        "2.5.7@r5",
+        "2.5.7@r7",
+        "2.5.7@r9",
+        "2.5.7@r11",
+        "2.5.7@r12"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          1111.696,
+          1128.0
+        ],
+        [
+          1089.889,
+          1111.696
+        ],
+        [
+          1056.451,
+          1089.889
+        ],
+        [
+          1023.014,
+          1056.451
+        ],
+        [
+          983.761,
+          1023.014
+        ],
+        [
+          951.777,
+          983.761
+        ],
+        [
+          919.793,
+          951.777
+        ],
+        [
+          814.0,
+          919.793
+        ]
+      ],
+      "x": [
+        1128.0,
+        1111.696,
+        1089.889,
+        1056.451,
+        1023.014,
+        983.761,
+        951.777,
+        919.793,
+        814.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            1
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 1117.5108695652175,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            1,
+            3
+          ],
+          "silent": false,
+          "base_char_indices": [
+            1
+          ],
+          "center": 1105.8804347826087,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            3,
+            5
+          ],
+          "silent": false,
+          "base_char_indices": [
+            3
+          ],
+          "center": 1073.8967391304348,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            5,
+            7
+          ],
+          "silent": false,
+          "base_char_indices": [
+            5
+          ],
+          "center": 1039.0054347826087,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            7,
+            9
+          ],
+          "silent": false,
+          "base_char_indices": [
+            7
+          ],
+          "center": 1007.0217391304348,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            9,
+            11
+          ],
+          "silent": false,
+          "base_char_indices": [
+            9
+          ],
+          "center": 960.5,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            11,
+            12
+          ],
+          "silent": false,
+          "base_char_indices": [
+            11
+          ],
+          "center": 943.054347826087,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            12,
+            14
+          ],
+          "silent": false,
+          "base_char_indices": [
+            12
+          ],
+          "center": 896.5326086956522,
+          "frames": 2
+        }
+      ]
+    },
+    {
+      "wid": "21.12.0",
+      "page": 323,
+      "tids": [
+        "21.12.0@r0",
+        "21.12.0@r2",
+        "21.12.0@r4"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          1327.315,
+          1365.0
+        ],
+        [
+          1286.493,
+          1327.315
+        ],
+        [
+          1215.0,
+          1286.493
+        ]
+      ],
+      "x": [
+        1365.0,
+        1327.315,
+        1286.493,
+        1215.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            2
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 1339.5616438356165,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            2,
+            4
+          ],
+          "silent": false,
+          "base_char_indices": [
+            2
+          ],
+          "center": 1315.0684931506848,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            4,
+            9
+          ],
+          "silent": false,
+          "base_char_indices": [
+            4,
+            7
+          ],
+          "center": 1257.917808219178,
+          "frames": 3
+        }
+      ]
+    },
+    {
+      "wid": "21.15.7",
+      "page": 323,
+      "tids": [
+        "21.15.7@r0",
+        "21.15.7@r3",
+        "21.15.7@r5",
+        "21.15.7@r7",
+        "21.15.7@r8"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          771.902,
+          838.0
+        ],
+        [
+          719.512,
+          771.902
+        ],
+        [
+          673.671,
+          719.512
+        ],
+        [
+          638.744,
+          673.671
+        ],
+        [
+          587.0,
+          638.744
+        ]
+      ],
+      "x": [
+        838.0,
+        771.902,
+        719.512,
+        673.671,
+        638.744,
+        587.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            3
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 798.0975609756099,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            3,
+            5
+          ],
+          "silent": false,
+          "base_char_indices": [
+            3
+          ],
+          "center": 745.7073170731708,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            5,
+            7
+          ],
+          "silent": false,
+          "base_char_indices": [
+            5
+          ],
+          "center": 693.3170731707316,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            7,
+            8
+          ],
+          "silent": false,
+          "base_char_indices": [
+            7
+          ],
+          "center": 654.0243902439024,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            8,
+            10
+          ],
+          "silent": false,
+          "base_char_indices": [
+            8
+          ],
+          "center": 623.4634146341464,
+          "frames": 1
+        }
+      ]
+    },
+    {
+      "wid": "21.22.4",
+      "page": 323,
+      "tids": [
+        "21.22.4@r0",
+        "21.22.4@r2"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          1129.02,
+          1157.0
+        ],
+        [
+          1064.0,
+          1129.02
+        ]
+      ],
+      "x": [
+        1157.0,
+        1129.02,
+        1064.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            2
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 1161.423645320197,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            2,
+            6
+          ],
+          "silent": false,
+          "base_char_indices": [
+            2,
+            5
+          ],
+          "center": 1096.615763546798,
+          "frames": 3
+        }
+      ]
+    },
+    {
+      "wid": "3.167.19",
+      "page": 72,
+      "tids": [
+        "3.167.19@r0",
+        "3.167.19@r2",
+        "3.167.19@r4",
+        "3.167.19@r6",
+        "3.167.19@r8"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          1811.708,
+          1828.0
+        ],
+        [
+          1779.123,
+          1811.708
+        ],
+        [
+          1738.392,
+          1779.123
+        ],
+        [
+          1689.514,
+          1738.392
+        ],
+        [
+          1629.0,
+          1689.514
+        ]
+      ],
+      "x": [
+        1828.0,
+        1811.708,
+        1779.123,
+        1738.392,
+        1689.514,
+        1629.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            2
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 1823.926886792453,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            2,
+            4
+          ],
+          "silent": false,
+          "base_char_indices": [
+            2
+          ],
+          "center": 1799.4882075471698,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            4,
+            6
+          ],
+          "silent": false,
+          "base_char_indices": [
+            4
+          ],
+          "center": 1758.757075471698,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            6,
+            8
+          ],
+          "silent": false,
+          "base_char_indices": [
+            6
+          ],
+          "center": 1718.0259433962265,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            8,
+            10
+          ],
+          "silent": false,
+          "base_char_indices": [
+            8
+          ],
+          "center": 1661.002358490566,
+          "frames": 1
+        }
+      ]
+    },
+    {
+      "wid": "3.169.10",
+      "page": 72,
+      "tids": [
+        "3.169.10@r0",
+        "3.169.10@r2",
+        "3.169.10@r3"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          983.563,
+          1032.0
+        ],
+        [
+          944.046,
+          983.563
+        ],
+        [
+          899.0,
+          944.046
+        ]
+      ],
+      "x": [
+        1032.0,
+        983.563,
+        944.046,
+        899.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            2
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 1018.6903553299492,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            2,
+            3
+          ],
+          "silent": false,
+          "base_char_indices": [
+            2
+          ],
+          "center": 948.4365482233502,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            3,
+            5
+          ],
+          "silent": false,
+          "base_char_indices": [
+            3
+          ],
+          "center": 939.6548223350253,
+          "frames": 1
+        }
+      ]
+    },
+    {
+      "wid": "3.173.11",
+      "page": 72,
+      "tids": [
+        "3.173.11@r0",
+        "3.173.11@r2",
+        "3.173.11@r3",
+        "3.173.11@r6"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          1537.159,
+          1549.0
+        ],
+        [
+          1505.457,
+          1537.159
+        ],
+        [
+          1433.247,
+          1505.457
+        ],
+        [
+          1364.0,
+          1433.247
+        ]
+      ],
+      "x": [
+        1549.0,
+        1537.159,
+        1505.457,
+        1433.247,
+        1364.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            2
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 1547.726530612245,
+          "frames": 3
+        },
+        {
+          "unit_range": [
+            2,
+            3
+          ],
+          "silent": false,
+          "base_char_indices": [
+            2
+          ],
+          "center": 1526.591836734694,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            3,
+            6
+          ],
+          "silent": false,
+          "base_char_indices": [
+            3
+          ],
+          "center": 1484.3224489795919,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            6,
+            9
+          ],
+          "silent": false,
+          "base_char_indices": [
+            6,
+            8
+          ],
+          "center": 1382.1714285714286,
+          "frames": 4
+        }
+      ]
+    },
+    {
+      "wid": "33.37.41",
+      "page": 423,
+      "tids": [
+        "33.37.41@r0",
+        "33.37.41@r2",
+        "33.37.41@r4"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          1218.805,
+          1250.0
+        ],
+        [
+          1154.081,
+          1218.805
+        ],
+        [
+          1077.0,
+          1154.081
+        ]
+      ],
+      "x": [
+        1250.0,
+        1218.805,
+        1154.081,
+        1077.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            2
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 1243.076923076923,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            2,
+            4
+          ],
+          "silent": false,
+          "base_char_indices": [
+            2
+          ],
+          "center": 1194.5339366515836,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            4,
+            8
+          ],
+          "silent": false,
+          "base_char_indices": [
+            4,
+            6
+          ],
+          "center": 1113.6289592760181,
+          "frames": 4
+        }
+      ]
+    },
+    {
+      "wid": "33.38.11",
+      "page": 423,
+      "tids": [
+        "33.38.11@r0",
+        "33.38.11@r1",
+        "33.38.11@r5"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          226.87,
+          244.0
+        ],
+        [
+          193.653,
+          226.87
+        ],
+        [
+          144.0,
+          193.653
+        ]
+      ],
+      "x": [
+        244.0,
+        226.87,
+        193.653,
+        144.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            1
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 235.7279411764705,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            1,
+            5
+          ],
+          "silent": false,
+          "base_char_indices": [
+            1,
+            2
+          ],
+          "center": 218.0122549019609,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            5,
+            7
+          ],
+          "silent": false,
+          "base_char_indices": [
+            5
+          ],
+          "center": 169.29411764705878,
+          "frames": 2
+        }
+      ]
+    },
+    {
+      "wid": "33.39.8",
+      "page": 423,
+      "tids": [
+        "33.39.8@r0",
+        "33.39.8@r2"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          399.824,
+          430.0
+        ],
+        [
+          344.0,
+          399.824
+        ]
+      ],
+      "x": [
+        430.0,
+        399.824,
+        344.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            2
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 429.3152709359606,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            2,
+            6
+          ],
+          "silent": false,
+          "base_char_indices": [
+            2,
+            5
+          ],
+          "center": 370.3333333333335,
+          "frames": 3
+        }
+      ]
+    },
+    {
+      "wid": "40.27.0",
+      "page": 470,
+      "tids": [
+        "40.27.0@r0",
+        "40.27.0@r2",
+        "40.27.0@r5"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          1780.672,
+          1821.0
+        ],
+        [
+          1731.854,
+          1780.672
+        ],
+        [
+          1662.0,
+          1731.854
+        ]
+      ],
+      "x": [
+        1821.0,
+        1780.672,
+        1731.854,
+        1662.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            2
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 1812.509900990099,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            2,
+            5
+          ],
+          "silent": false,
+          "base_char_indices": [
+            2,
+            4
+          ],
+          "center": 1748.8341584158416,
+          "frames": 3
+        },
+        {
+          "unit_range": [
+            5,
+            7
+          ],
+          "silent": false,
+          "base_char_indices": [
+            5
+          ],
+          "center": 1714.8737623762377,
+          "frames": 1
+        }
+      ]
+    },
+    {
+      "wid": "40.27.4",
+      "page": 470,
+      "tids": [
+        "40.27.4@r0",
+        "40.27.4@r2",
+        "40.27.4@r4",
+        "40.27.4@r7"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          1056.891,
+          1072.0
+        ],
+        [
+          1027.176,
+          1056.891
+        ],
+        [
+          991.093,
+          1027.176
+        ],
+        [
+          947.0,
+          991.093
+        ]
+      ],
+      "x": [
+        1072.0,
+        1056.891,
+        1027.176,
+        991.093,
+        947.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            2
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 1069.6262376237623,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            2,
+            4
+          ],
+          "silent": false,
+          "base_char_indices": [
+            2
+          ],
+          "center": 1044.1559405940593,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            4,
+            7
+          ],
+          "silent": false,
+          "base_char_indices": [
+            4
+          ],
+          "center": 1010.1955445544555,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            7,
+            8
+          ],
+          "silent": false,
+          "base_char_indices": [
+            7
+          ],
+          "center": 971.990099009901,
+          "frames": 2
+        }
+      ]
+    },
+    {
+      "wid": "40.31.4",
+      "page": 470,
+      "tids": [
+        "40.31.4@r0",
+        "40.31.4@r2",
+        "40.31.4@r5"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          1786.81,
+          1824.0
+        ],
+        [
+          1737.224,
+          1786.81
+        ],
+        [
+          1681.0,
+          1737.224
+        ]
+      ],
+      "x": [
+        1824.0,
+        1786.81,
+        1737.224,
+        1681.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            2
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 1819.8677884615386,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            2,
+            5
+          ],
+          "silent": false,
+          "base_char_indices": [
+            2,
+            4
+          ],
+          "center": 1753.7524038461538,
+          "frames": 3
+        },
+        {
+          "unit_range": [
+            5,
+            7
+          ],
+          "silent": false,
+          "base_char_indices": [
+            5
+          ],
+          "center": 1720.6947115384614,
+          "frames": 1
+        }
+      ]
+    },
+    {
+      "wid": "45.14.8",
+      "page": 500,
+      "tids": [
+        "45.14.8@r0",
+        "45.14.8@r1",
+        "45.14.8@r5"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          411.456,
+          428.0
+        ],
+        [
+          378.772,
+          411.456
+        ],
+        [
+          333.0,
+          378.772
+        ]
+      ],
+      "x": [
+        428.0,
+        411.456,
+        378.772,
+        333.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            1
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 419.14601769911496,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            1,
+            5
+          ],
+          "silent": false,
+          "base_char_indices": [
+            1,
+            2
+          ],
+          "center": 403.7654867256638,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            5,
+            7
+          ],
+          "silent": false,
+          "base_char_indices": [
+            5
+          ],
+          "center": 353.77876106194685,
+          "frames": 2
+        }
+      ]
+    },
+    {
+      "wid": "45.15.4",
+      "page": 500,
+      "tids": [
+        "45.15.4@r0",
+        "45.15.4@r2",
+        "45.15.4@r4"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          1805.712,
+          1834.0
+        ],
+        [
+          1758.565,
+          1805.712
+        ],
+        [
+          1695.0,
+          1758.565
+        ]
+      ],
+      "x": [
+        1834.0,
+        1805.712,
+        1758.565,
+        1695.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            2
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 1829.2853260869565,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            2,
+            4
+          ],
+          "silent": false,
+          "base_char_indices": [
+            2
+          ],
+          "center": 1782.1385869565217,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            4,
+            6
+          ],
+          "silent": false,
+          "base_char_indices": [
+            4
+          ],
+          "center": 1734.991847826087,
+          "frames": 1
+        }
+      ]
+    },
+    {
+      "wid": "45.18.12",
+      "page": 500,
+      "tids": [
+        "45.18.12@r0",
+        "45.18.12@r2",
+        "45.18.12@r4",
+        "45.18.12@r6",
+        "45.18.12@r8",
+        "45.18.12@r9"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          1363.342,
+          1391.0
+        ],
+        [
+          1322.332,
+          1363.342
+        ],
+        [
+          1277.222,
+          1322.332
+        ],
+        [
+          1240.313,
+          1277.222
+        ],
+        [
+          1203.405,
+          1240.313
+        ],
+        [
+          1140.0,
+          1203.405
+        ]
+      ],
+      "x": [
+        1391.0,
+        1363.342,
+        1322.332,
+        1277.222,
+        1240.313,
+        1203.405,
+        1140.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            2
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 1381.7957746478874,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            2,
+            4
+          ],
+          "silent": false,
+          "base_char_indices": [
+            2
+          ],
+          "center": 1344.887323943662,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            4,
+            6
+          ],
+          "silent": false,
+          "base_char_indices": [
+            4
+          ],
+          "center": 1299.7769953051643,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            6,
+            8
+          ],
+          "silent": false,
+          "base_char_indices": [
+            6
+          ],
+          "center": 1254.6666666666667,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            8,
+            9
+          ],
+          "silent": false,
+          "base_char_indices": [
+            8
+          ],
+          "center": 1225.9600938967137,
+          "frames": 3
+        },
+        {
+          "unit_range": [
+            9,
+            11
+          ],
+          "silent": false,
+          "base_char_indices": [
+            9
+          ],
+          "center": 1180.849765258216,
+          "frames": 2
+        }
+      ]
+    },
+    {
+      "wid": "6.53.13",
+      "page": 134,
+      "tids": [
+        "6.53.13@r0",
+        "6.53.13@r2",
+        "6.53.13@r4",
+        "6.53.13@r6",
+        "6.53.13@r8"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          999.088,
+          1023.0
+        ],
+        [
+          957.808,
+          999.088
+        ],
+        [
+          922.72,
+          957.808
+        ],
+        [
+          889.697,
+          922.72
+        ],
+        [
+          839.0,
+          889.697
+        ]
+      ],
+      "x": [
+        1023.0,
+        999.088,
+        957.808,
+        922.72,
+        889.697,
+        839.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            2
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 1021.7914691943129,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            2,
+            4
+          ],
+          "silent": false,
+          "base_char_indices": [
+            2
+          ],
+          "center": 976.3838862559242,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            4,
+            6
+          ],
+          "silent": false,
+          "base_char_indices": [
+            4
+          ],
+          "center": 939.2322274881516,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            6,
+            8
+          ],
+          "silent": false,
+          "base_char_indices": [
+            6
+          ],
+          "center": 906.2085308056871,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            8,
+            10
+          ],
+          "silent": false,
+          "base_char_indices": [
+            8
+          ],
+          "center": 873.1848341232228,
+          "frames": 1
+        }
+      ]
+    },
+    {
+      "wid": "6.59.15",
+      "page": 134,
+      "tids": [
+        "6.59.15@r0",
+        "6.59.15@r2",
+        "6.59.15@r4",
+        "6.59.15@r6"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          945.748,
+          969.0
+        ],
+        [
+          901.773,
+          945.748
+        ],
+        [
+          828.481,
+          901.773
+        ],
+        [
+          753.0,
+          828.481
+        ]
+      ],
+      "x": [
+        969.0,
+        945.748,
+        901.773,
+        828.481,
+        753.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            2
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 966.6880952380952,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            2,
+            4
+          ],
+          "silent": false,
+          "base_char_indices": [
+            2
+          ],
+          "center": 924.8071428571428,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            4,
+            6
+          ],
+          "silent": false,
+          "base_char_indices": [
+            4
+          ],
+          "center": 878.7380952380952,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            6,
+            8
+          ],
+          "silent": false,
+          "base_char_indices": [
+            6
+          ],
+          "center": 778.2238095238097,
+          "frames": 2
+        }
+      ]
+    },
+    {
+      "wid": "6.59.16",
+      "page": 134,
+      "tids": [
+        "6.59.16@r0",
+        "6.59.16@r2"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          695.16,
+          726.0
+        ],
+        [
+          632.0,
+          695.16
+        ]
+      ],
+      "x": [
+        726.0,
+        695.16,
+        632.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            2
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 727.9666666666667,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            2,
+            6
+          ],
+          "silent": false,
+          "base_char_indices": [
+            2,
+            5
+          ],
+          "center": 662.3531746031745,
+          "frames": 3
+        }
+      ]
+    },
+    {
+      "wid": "7.197.7",
+      "page": 176,
+      "tids": [
+        "7.197.7@r0",
+        "7.197.7@r2"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          168.0,
+          201.0
+        ],
+        [
+          96.0,
+          168.0
+        ]
+      ],
+      "x": [
+        201.0,
+        168.0,
+        96.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            2
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 196.0,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            2,
+            6
+          ],
+          "silent": false,
+          "base_char_indices": [
+            2,
+            4
+          ],
+          "center": 140.0,
+          "frames": 3
+        }
+      ]
+    },
+    {
+      "wid": "7.203.9",
+      "page": 176,
+      "tids": [
+        "7.203.9@r0",
+        "7.203.9@r2",
+        "7.203.9@r5",
+        "7.203.9@r7"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          1567.56,
+          1585.0
+        ],
+        [
+          1538.309,
+          1567.56
+        ],
+        [
+          1504.879,
+          1538.309
+        ],
+        [
+          1459.0,
+          1504.879
+        ]
+      ],
+      "x": [
+        1585.0,
+        1567.56,
+        1538.309,
+        1504.879,
+        1459.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            2
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 1580.0966183574878,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            2,
+            5
+          ],
+          "silent": false,
+          "base_char_indices": [
+            2
+          ],
+          "center": 1555.0241545893718,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            5,
+            7
+          ],
+          "silent": false,
+          "base_char_indices": [
+            5
+          ],
+          "center": 1521.5942028985507,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            7,
+            9
+          ],
+          "silent": false,
+          "base_char_indices": [
+            7
+          ],
+          "center": 1488.1642512077294,
+          "frames": 1
+        }
+      ]
+    },
+    {
+      "wid": "7.205.8",
+      "page": 176,
+      "tids": [
+        "7.205.8@r0",
+        "7.205.8@r2"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          560.552,
+          608.0
+        ],
+        [
+          501.0,
+          560.552
+        ]
+      ],
+      "x": [
+        608.0,
+        560.552,
+        501.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            2
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 583.0188679245282,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            2,
+            4
+          ],
+          "silent": false,
+          "base_char_indices": [
+            2
+          ],
+          "center": 538.0849056603774,
+          "frames": 1
+        }
+      ]
+    },
+    {
+      "wid": "9.27.3",
+      "page": 191,
+      "tids": [
+        "9.27.3@r0",
+        "9.27.3@r2"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          1372.678,
+          1404.0
+        ],
+        [
+          1316.0,
+          1372.678
+        ]
+      ],
+      "x": [
+        1404.0,
+        1372.678,
+        1316.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            2
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 1397.648979591837,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            2,
+            4
+          ],
+          "silent": false,
+          "base_char_indices": [
+            2
+          ],
+          "center": 1347.7061224489796,
+          "frames": 2
+        }
+      ]
+    },
+    {
+      "wid": "9.30.10",
+      "page": 191,
+      "tids": [
+        "9.30.10@r0",
+        "9.30.10@r3",
+        "9.30.10@r5"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          1063.333,
+          1099.0
+        ],
+        [
+          997.311,
+          1063.333
+        ],
+        [
+          829.0,
+          997.311
+        ]
+      ],
+      "x": [
+        1099.0,
+        1063.333,
+        997.311,
+        829.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            3
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 1085.340909090909,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            3,
+            5
+          ],
+          "silent": false,
+          "base_char_indices": [
+            3
+          ],
+          "center": 1041.3257575757575,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            5,
+            7
+          ],
+          "silent": false,
+          "base_char_indices": [
+            5
+          ],
+          "center": 953.2954545454545,
+          "frames": 1
+        }
+      ]
+    },
+    {
+      "wid": "9.30.22",
+      "page": 191,
+      "tids": [
+        "9.30.22@r0",
+        "9.30.22@r2",
+        "9.30.22@r4",
+        "9.30.22@r6",
+        "9.30.22@r8",
+        "9.30.22@r9"
+      ],
+      "confidence": "low",
+      "method": "w2-raw-unicode-crnn-ctc-v1",
+      "bars": [
+        [
+          1500.916,
+          1520.0
+        ],
+        [
+          1463.831,
+          1500.916
+        ],
+        [
+          1361.847,
+          1463.831
+        ],
+        [
+          1243.638,
+          1361.847
+        ],
+        [
+          1178.739,
+          1243.638
+        ],
+        [
+          1011.0,
+          1178.739
+        ]
+      ],
+      "x": [
+        1520.0,
+        1500.916,
+        1463.831,
+        1361.847,
+        1243.638,
+        1178.739,
+        1011.0
+      ],
+      "diagnostics": [
+        {
+          "unit_range": [
+            0,
+            2
+          ],
+          "silent": false,
+          "base_char_indices": [
+            0
+          ],
+          "center": 1517.1409574468084,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            2,
+            4
+          ],
+          "silent": false,
+          "base_char_indices": [
+            2
+          ],
+          "center": 1484.6914893617022,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            4,
+            6
+          ],
+          "silent": false,
+          "base_char_indices": [
+            4
+          ],
+          "center": 1442.970744680851,
+          "frames": 1
+        },
+        {
+          "unit_range": [
+            6,
+            8
+          ],
+          "silent": false,
+          "base_char_indices": [
+            6
+          ],
+          "center": 1280.723404255319,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            8,
+            9
+          ],
+          "silent": false,
+          "base_char_indices": [
+            8
+          ],
+          "center": 1206.5531914893618,
+          "frames": 2
+        },
+        {
+          "unit_range": [
+            9,
+            11
+          ],
+          "silent": false,
+          "base_char_indices": [
+            9
+          ],
+          "center": 1150.9255319148936,
+          "frames": 2
+        }
+      ]
+    }
+  ]
+}

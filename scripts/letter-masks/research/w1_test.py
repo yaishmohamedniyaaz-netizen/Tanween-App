@@ -12,6 +12,11 @@ class RendererTests(unittest.TestCase):
     def test_unassigned_interval_is_not_invented(self):
         a,m,d=render_unit_masks('بسم',[(0,1,'a'),(2,3,'c')],FONTS['amiri'])
         self.assertTrue(d['ambiguous_clusters']);self.assertTrue((a&~m.any(0)).any())
+    def test_composed_multi_unit_cluster_abstains(self):
+        # Deliberately split a decomposed alef/hamza to test true cluster merging.
+        for path in FONTS.values():
+            a,m,d=render_unit_masks('أ',[(0,1,'a'),(1,2,'b')],path)
+            self.assertTrue(d['ambiguous_clusters']);self.assertFalse(m.any());self.assertTrue(a.any())
     def test_missing_font_character_is_recorded(self):
         _,_,d=render_unit_masks('\U0001f600',[(0,1,'a')],FONTS['amiri']);self.assertTrue(d['missing_glyph_clusters'])
     def test_identical_registration(self):

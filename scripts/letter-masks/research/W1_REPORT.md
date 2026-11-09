@@ -6,7 +6,7 @@
 
 This is a faithful behavioral reconstruction from retained source/tool history, **not recovered original files**. Newly executed development results match all retained prior aggregate metrics. Original prediction digest strings were not available, so equality with missing original files is not claimed. Two new runs have byte-identical prediction files. Refactoring into a shared `predict()` helper avoids duplicated numerical logic.
 
-Confidence: practicality **78/100** for research/synthetic data; architecture/data safety **97/100**; visual certainty **55/100** for artwork ownership. Protected scripture, runtime, artwork, page geometry, target units and approvals are unchanged. The W1 worker does not commit or push.
+Confidence: practicality **78/100** for research/synthetic data; architecture/data safety **97/100**; visual certainty **55/100** for artwork ownership. Protected scripture, runtime, artwork, page geometry, target units and approvals are unchanged. This workstream does not install app-facing predictions.
 
 ## Sources and licences freshly checked before rendering
 
@@ -27,7 +27,7 @@ Runtime: uharfbuzz 0.57.0, freetype-py 2.5.1, FreeType 2.13.2, scikit-image 0.26
 4. Fit genuine 2-D TV-L1 optical flow: Gaussian sigma 1, attachment 12, tightness .3, 5 warps, 10 iterations, tolerance .0001, prefilter true. Warp every mask using precisely the same backward field. No intersection with artwork is used to inflate overlap.
 5. Full support interval is the x-range of the bottom 40% of each transported unit's ink pixels. Clip to immutable body geometry and abstain if empty. The shared scorer independently computes the centred 40% short bar.
 
-`w1_render.render_unit_masks(text, units, font_path, px=64)` returns bool `ink[H,W]`, `masks[N,H,W]`, and diagnostics. These are exact rasterized **font glyph identities**, not exact artwork ground truth. The W3 worker received this API and missing/ambiguous/overlap precautions. None of these 190 renderings had a detected multi-target cluster; that is dataset-specific, not a guarantee about all Arabic shaping.
+`w1_render.render_unit_masks(text, units, font_path, px=64)` returns bool `ink[H,W]`, `masks[N,H,W]`, and diagnostics. These are exact rasterized **font glyph identities**, not exact artwork ground truth. W3 uses this API with missing/ambiguous/overlap precautions. None of these 190 renderings had a detected multi-target cluster; that is dataset-specific, not a guarantee about all Arabic shaping.
 
 ## Newly measured development results
 
@@ -74,12 +74,16 @@ Images: [01](../contact/w1_compare50_01.png), [02](../contact/w1_compare50_02.pn
 
 ## Reproduction, validation and cost
 
-From repository root: `bash scripts/letter-masks/research/w1_reproduce.sh`. Then `tmp/letter-positions/.venv-w1/bin/python scripts/letter-masks/research/w1_test.py`.
+From repository root: `bash scripts/letter-masks/research/w1_reproduce.sh`. Then `tmp/letter-positions/.venv-w2/bin/python scripts/letter-masks/research/w1_test.py`.
 
-New runs: **190 registrations each**, 34.86s and 37.01s, excluding installation and shared crop-cache preparation. Both prediction JSON SHA-256 checks matched between new runs. Four tests pass: repeatable masks/union, explicitly unassigned clusters, missing-character detection, identity registration on tightly cropped ink. New results match the retained earlier aggregate values; this is not evidence of recovered original bytes.
+New runs: **190 registrations each**, 34.86s and 37.01s, excluding installation and shared crop-cache preparation. Both prediction JSON SHA-256 checks matched between new runs. Five tests pass: repeatable masks/union, explicitly unassigned clusters, missing-character detection, true composed multi-unit cluster rejection, identity registration on tightly cropped ink. New results match the retained earlier aggregate values; this is not evidence of recovered original bytes.
 
 Next: retain OFL fonts for synthetic initialization, collect actual 2-D stack/ligature labels, and test topology-preserving/semantically anchored registration and justification alternatives. Stop at checkpoint 1; do not turn high image overlap into high confidence or scale into production.
 
 ## Top 100 demonstration
 
-The rebuilt runner selects one representative from the largest eligible family per spelling, preserving family IDs and rank. It excludes 32 historical missing-body IDs **and all 125 existing approvals**, as directed during rebuilding. This latter exclusion can change representatives from the early source history. Each run re-extracts selected page crops from source rather than trusting unchecked pickle caches; runtime is kept outside prediction JSON. No family-wide correctness or production coverage is implied. New top100 run results are recorded below once complete.
+The rebuilt runner selects one representative from the largest eligible family per spelling, preserving family IDs and rank. It excludes 32 historical missing-body IDs **and all 125 existing approvals**, as directed during rebuilding. This latter exclusion can change representatives from the early source history. Each run re-extracts selected page crops from source rather than trusting unchecked pickle caches; runtime is kept outside prediction JSON. No family-wide correctness or production coverage is implied. Completed new top100 run results are recorded below.
+
+New top100 results: **100/100 emitted, all low**, with zero approved-ID overlap, zero withheld-ID overlap, and zero structural errors. Fresh-source runs took **45.42s** and **42.08s**; the entire prediction JSON matched SHA-256 between runs. The additional approval exclusion happened not to change these selected representatives compared with the earlier retained selection rule. These are unapproved review proposals, not measured correctness on new words.
+
+`w1_validation.json` records all three newly generated prediction checksums and validated counts. Run `tmp/letter-positions/.venv-w2/bin/python scripts/letter-masks/research/w1_validate.py` to repeat artifact checks against fresh source geometry and app IDs. The top100 command is `OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 tmp/letter-positions/.venv-w2/bin/python scripts/letter-masks/research/w1_top100.py` after the setup/development command. It requires the pinned visual-reference extraction supplied by the checkpoint coordinator.

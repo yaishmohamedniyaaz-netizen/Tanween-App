@@ -1,0 +1,81 @@
+Looking in indexes: https://download.pytorch.org/whl/cpu
+Requirement already satisfied: torch==2.15.0+cpu in ./tmp/letter-positions/.venv-w2/lib/python3.12/site-packages (2.15.0+cpu)
+Requirement already satisfied: filelock in ./tmp/letter-positions/.venv-w2/lib/python3.12/site-packages (from torch==2.15.0+cpu) (4.2.4)
+Requirement already satisfied: typing-extensions>=4.13.0 in ./tmp/letter-positions/.venv-w2/lib/python3.12/site-packages (from torch==2.15.0+cpu) (4.16.0)
+Requirement already satisfied: setuptools>=77.0.3 in ./tmp/letter-positions/.venv-w2/lib/python3.12/site-packages (from torch==2.15.0+cpu) (78.1.0)
+Requirement already satisfied: sympy>=1.13.3 in ./tmp/letter-positions/.venv-w2/lib/python3.12/site-packages (from torch==2.15.0+cpu) (1.14.0)
+Requirement already satisfied: networkx>=2.5.1 in ./tmp/letter-positions/.venv-w2/lib/python3.12/site-packages (from torch==2.15.0+cpu) (3.7)
+Requirement already satisfied: jinja2 in ./tmp/letter-positions/.venv-w2/lib/python3.12/site-packages (from torch==2.15.0+cpu) (3.1.6)
+Requirement already satisfied: fsspec>=0.8.5 in ./tmp/letter-positions/.venv-w2/lib/python3.12/site-packages (from torch==2.15.0+cpu) (2026.9.0)
+Requirement already satisfied: mpmath<1.4,>=1.1.0 in ./tmp/letter-positions/.venv-w2/lib/python3.12/site-packages (from sympy>=1.13.3->torch==2.15.0+cpu) (1.3.0)
+Requirement already satisfied: MarkupSafe>=2.0 in ./tmp/letter-positions/.venv-w2/lib/python3.12/site-packages (from jinja2->torch==2.15.0+cpu) (3.0.3)
+
+[notice] A new release of pip is available: 25.0.1 -> 26.3
+[notice] To update, run: python -m pip install --upgrade pip
+Requirement already satisfied: numpy==2.3.5 in ./tmp/letter-positions/.venv-w2/lib/python3.12/site-packages (from -r scripts/letter-masks/research/requirements.txt (line 1)) (2.3.5)
+Requirement already satisfied: Pillow==13.0.0 in ./tmp/letter-positions/.venv-w2/lib/python3.12/site-packages (from -r scripts/letter-masks/research/requirements.txt (line 2)) (13.0.0)
+Requirement already satisfied: scipy==1.17.0 in ./tmp/letter-positions/.venv-w2/lib/python3.12/site-packages (from -r scripts/letter-masks/research/requirements.txt (line 3)) (1.17.0)
+Requirement already satisfied: uharfbuzz==0.57.0 in ./tmp/letter-positions/.venv-w2/lib/python3.12/site-packages (from -r scripts/letter-masks/research/requirements.txt (line 4)) (0.57.0)
+Requirement already satisfied: freetype-py==2.5.1 in ./tmp/letter-positions/.venv-w2/lib/python3.12/site-packages (from -r scripts/letter-masks/research/requirements.txt (line 5)) (2.5.1)
+Requirement already satisfied: scikit-image==0.26.0 in ./tmp/letter-positions/.venv-w2/lib/python3.12/site-packages (from -r scripts/letter-masks/research/requirements.txt (line 6)) (0.26.0)
+Requirement already satisfied: brotli==1.2.1 in ./tmp/letter-positions/.venv-w2/lib/python3.12/site-packages (from -r scripts/letter-masks/research/requirements.txt (line 7)) (1.2.1)
+Requirement already satisfied: fonttools==4.61.1 in ./tmp/letter-positions/.venv-w2/lib/python3.12/site-packages (from -r scripts/letter-masks/research/requirements.txt (line 8)) (4.61.1)
+Requirement already satisfied: networkx>=3.0 in ./tmp/letter-positions/.venv-w2/lib/python3.12/site-packages (from scikit-image==0.26.0->-r scripts/letter-masks/research/requirements.txt (line 6)) (3.7)
+Requirement already satisfied: imageio!=2.35.0,>=2.33 in ./tmp/letter-positions/.venv-w2/lib/python3.12/site-packages (from scikit-image==0.26.0->-r scripts/letter-masks/research/requirements.txt (line 6)) (2.38.1)
+Requirement already satisfied: tifffile>=2022.8.12 in ./tmp/letter-positions/.venv-w2/lib/python3.12/site-packages (from scikit-image==0.26.0->-r scripts/letter-masks/research/requirements.txt (line 6)) (2026.11.8)
+Requirement already satisfied: packaging>=21 in ./tmp/letter-positions/.venv-w2/lib/python3.12/site-packages (from scikit-image==0.26.0->-r scripts/letter-masks/research/requirements.txt (line 6)) (26.3)
+Requirement already satisfied: lazy-loader>=0.4 in ./tmp/letter-positions/.venv-w2/lib/python3.12/site-packages (from scikit-image==0.26.0->-r scripts/letter-masks/research/requirements.txt (line 6)) (0.6)
+
+[notice] A new release of pip is available: 25.0.1 -> 26.3
+[notice] To update, run: python -m pip install --upgrade pip
+3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]
+2.15.0+cpu 2.3.5 13.0.0 1.17.0
+95 development words, 77881 semantic word units
+{'status': 'agreement audit complete', 'eligibleWords': 91, 'thresholdArtworkPx': 8.108108108108107, 'agreementWords': 10, 'agreements': [{'wid': '1.1.1', 'maxSupportEndpointDifferenceArtworkPx': 5.0090000000000146}, {'wid': '1.2.1', 'maxSupportEndpointDifferenceArtworkPx': 6.923000000000002}, {'wid': '1.4.1', 'maxSupportEndpointDifferenceArtworkPx': 7.9640000000000555}, {'wid': '1.7.4', 'maxSupportEndpointDifferenceArtworkPx': 6.277000000000044}, {'wid': '19.26.14', 'maxSupportEndpointDifferenceArtworkPx': 5.0}, {'wid': '2.196.40', 'maxSupportEndpointDifferenceArtworkPx': 7.2000000000000455}, {'wid': '2.4.10', 'maxSupportEndpointDifferenceArtworkPx': 4.0}, {'wid': '2.4.7', 'maxSupportEndpointDifferenceArtworkPx': 3.0}, {'wid': '45.14.8', 'maxSupportEndpointDifferenceArtworkPx': 5.771999999999991}, {'wid': '9.27.3', 'maxSupportEndpointDifferenceArtworkPx': 5.678000000000111}], 'trainedPseudoWords': 0, 'reason': 'Endpoint agreement is not independently verified 2-D ownership; low-confidence errors may correlate.'}
+{'artworkWords': 77433, 'semanticUnitRecords': 77881, 'top100Words': 22648, 'families': 6068, 'approvedPilotExcluded': 39, 'withheld': 32, 'proposals': 22577, 'new2dProposals': 100, 'historicalProposals': 22477, 'new2dAbstentions': 0, 'highWords': 0, 'highCorpusCoverage': 0, 'freshHeldoutWords': 0, 'randomReviewWords': 200}
+first-guess-reference 0.7712082262210797 0.92
+method-A-reference 0.8431876606683805 0.94
+W1-oldmadina 0.7792553191489362 0.8494623655913979
+W1-Amiri 0.7917737789203085 0.87
+W2-CTC 0.8431876606683805 0.9
+W3-geometry 0.35475578406169667 0.47
+W3-sequence 0.519280205655527 0.53
+W3-synthetic-sequence 0.4755784061696658 0.5
+Staged 0 trusted words; preserved 77308 legacy public guesses
+PASS: wrong IDs/page, escaped/nonfinite/empty bars and invalid cuts rejected before scoring; denominators retained
+PASS: repeated-label CTC path, corpus inventory, BMP ranges, 95 app mappings, 11 silent targets, frozen historical allowlist
+{
+  "reconstructed": true,
+  "originalFileEquality": "not established; original digests unavailable",
+  "development": {
+    "oldmadina": {
+      "words": 95,
+      "emitted": 91,
+      "sha256": "53d3a5b6fce6a567c019ed5a049ba6ea6f3eb791ea9925faa6265df382e79104"
+    },
+    "amiri": {
+      "words": 95,
+      "emitted": 95,
+      "sha256": "d5f974e7bcb5f17fe15f351d8dd6aa411be27245fee703d43177fe908a91255c"
+    }
+  },
+  "top100": {
+    "words": 100,
+    "emitted": 100,
+    "sha256": "05a1ea14410c1f23a2d4a262717efc1fbaeb7966dbfd70e6ad84fea6553b3af9",
+    "approvedOverlap": 0,
+    "withheldOverlap": 0,
+    "structureErrors": 0
+  }
+}
+.....
+----------------------------------------------------------------------
+Ran 5 tests in 1.538s
+
+OK
+......
+----------------------------------------------------------------------
+Ran 6 tests in 0.009s
+
+OK
+{'status': 'passed', 'reconstructed': True, 'artworkWords': 77433, 'semanticUnitRecords': 77881, 'proposals': 22577, 'targets': 59005, 'families': 6068, 'new2d': 100, 'historical': 22477, 'approvedPilotExcluded': 39, 'withheld': 32, 'contactImagesChecked': 15, 'rootActualViewsChecked': 15, 'freshHeldoutWords': 0, 'stagedTrustedWords': 0, 'publicGuessFilesPreserved': True, 'protectedPathsChanged': 0, 'independentCurrentAppDumpEqual': True}

@@ -1,0 +1,65 @@
+{
+  "status": "passed",
+  "date": "2026-11-09",
+  "command": "bash scripts/letter-masks/research/reproduce.sh",
+  "exitCode": 0,
+  "reconstructed": true,
+  "scope": "Third fresh bounded experiment run, integrated end to end; no Checkpoint 2",
+  "samePredictionHashesAsDuplicateRuns": {
+    "w1_oldmadina_predictions.json": "53d3a5b6fce6a567c019ed5a049ba6ea6f3eb791ea9925faa6265df382e79104",
+    "w1_amiri_predictions.json": "d5f974e7bcb5f17fe15f351d8dd6aa411be27245fee703d43177fe908a91255c",
+    "w1_top100_predictions.json": "05a1ea14410c1f23a2d4a262717efc1fbaeb7966dbfd70e6ad84fea6553b3af9",
+    "w2_predictions.json": "b93d5045617db3b92906d1bffcd37f30a9f2a0436ebb763790f8807e9981fdc3"
+  },
+  "w3MatchingArtifacts": 15,
+  "w3DifferentArtifacts": [],
+  "runtime": {
+    "python": "3.12.14",
+    "nodeFullAppTests": "22.18.0",
+    "nodeResearchDataDump": "v24.22.1",
+    "isolatedPythonEnvironment": true
+  },
+  "trainingSeconds": {
+    "w1Development190": 37.818740367889404,
+    "w1Top100": 41.50689697265625,
+    "w2": 407.0464655600001,
+    "w3WeakPair": 116.56,
+    "w3Synthetic": 62.71
+  },
+  "researchTests": {
+    "sharedStructuralChecks": "passed",
+    "w1RendererTests": 5,
+    "w1ArtifactValidation": "passed",
+    "w2CTCAndCorpusChecks": "passed",
+    "w3ArtifactTests": 5,
+    "futureBatchSplitFixtureTests": 6,
+    "independentExportVerification": "passed"
+  },
+  "applicationTests": {
+    "command": "npm test",
+    "node": "22.18.0",
+    "passed": 497,
+    "failed": 0,
+    "skipped": 1,
+    "reasonForSkip": "local Tilawa release assets are not installed"
+  },
+  "build": {
+    "command": "npm run build",
+    "node": "22.18.0",
+    "status": "passed",
+    "warning": "existing chunks larger than 500 kB"
+  },
+  "logSha256": {
+    "npm-build-node22.log": "fec7411fb87160244e52b7e945a8941b343047f0a1edb240bc3f87cd157d2b0f",
+    "reproduce-full.log": "e82a17dbf973c1acff3981e84652f1909d434704fe6c89c3adedbd0810327664",
+    "reproduce-reuse.log": "602dd89e21fcee95ac7caa6ba84611838e1b357e5bd45627bf9ff81a527a5d79",
+    "npm-test-node22.log": "554c343d20a54b9db09938a4f1723107bf86ab575bfdbf8f88c681c5004eb7d8",
+    "npm-ci.log": "b6918d14b4e4a2f38227f098ab48d6017ec3a13d20ff7fadb0cce547e540d996"
+  },
+  "reuseCommand": {
+    "command": "bash scripts/letter-masks/research/reproduce.sh --reuse-results",
+    "status": "passed",
+    "exitCode": 0
+  },
+  "finalReproduceScriptSha256": "29ab83837d42cda6b39b2ed5bdf9ae2564b4ff64bcc4ae56acbfc2cfaee5f28a"
+}

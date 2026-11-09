@@ -1,0 +1,24 @@
+{
+  "reconstructed": true,
+  "originalFileEquality": "not established; original digests unavailable",
+  "development": {
+    "oldmadina": {
+      "words": 95,
+      "emitted": 91,
+      "sha256": "53d3a5b6fce6a567c019ed5a049ba6ea6f3eb791ea9925faa6265df382e79104"
+    },
+    "amiri": {
+      "words": 95,
+      "emitted": 95,
+      "sha256": "d5f974e7bcb5f17fe15f351d8dd6aa411be27245fee703d43177fe908a91255c"
+    }
+  },
+  "top100": {
+    "words": 100,
+    "emitted": 100,
+    "sha256": "05a1ea14410c1f23a2d4a262717efc1fbaeb7966dbfd70e6ad84fea6553b3af9",
+    "approvedOverlap": 0,
+    "withheldOverlap": 0,
+    "structureErrors": 0
+  }
+}
