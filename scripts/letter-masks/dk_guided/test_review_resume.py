@@ -8,7 +8,7 @@ class ResumeTests(unittest.TestCase):
  def setUp(self):
   self.tmp=tempfile.TemporaryDirectory();self.root=Path(self.tmp.name);self.here=self.root/'visual';self.here.mkdir();(self.here/'rand48.json').write_text(json.dumps([[3,'w3']]));self.bars=self.root/'bars';self.bars.mkdir()
   (self.bars/'index.json').write_text(json.dumps({'pages':list(range(1,605))}))
-  for p in range(1,605):(self.bars/f'p{p}.json').write_text(json.dumps({'words':{f'w{p}':{'status':'ok'}}}))
+  for p in range(1,605):(self.bars/f'p{p}.json').write_text(json.dumps({'words':{f'w{p}':{'status':'review' if p<=10 else 'ok'}}}))
   self.patches=[patch.object(C,'HERE',self.here),patch.object(C,'BARS',self.bars),patch.object(C.G,'REPO',self.root),patch.object(C,'tile',lambda p,wid:Image.new('RGB',(8,8),(p%255,10,20)))]
   for item in self.patches:item.start()
  def tearDown(self):
@@ -22,7 +22,8 @@ class ResumeTests(unittest.TestCase):
   self.assertTrue(all(page>2 and wid!='w3' for page,wid in eligible))
  def test_partial_sheet_run_reuses_identical_images(self):
   C.main();path=self.here/'review/random-ok-001.png';before=path.stat().st_mtime_ns
-  (self.here/'review/manifest.json').unlink();C.main()
+  (self.here/'review/manifest.json').unlink()
+  (self.here/'review/decisions.jsonl').write_text(json.dumps({'wid':'w1'})+'\n');C.main()
   self.assertEqual(path.stat().st_mtime_ns,before)
  def test_existing_evidence_tampering_is_rejected(self):
   C.main();path=self.here/'review/random-ok-001.png';path.write_bytes(b'tampered')

@@ -1,0 +1,35 @@
+{
+  "observer": "cloud-root-dk-20261109",
+  "recordedAt": "2026-11-09T14:41:24.483908+00:00",
+  "phase": "existing-pilot-study",
+  "image": "scripts/letter-masks/dk_guided/pilot-sheets/s1g.jpg",
+  "sha256": "bd33afc6305f29221a21a9838150a5d748d2bc11dc213a1d738e54b29ca6444c",
+  "actualImageViewed": true,
+  "words": [
+    [
+      14,
+      "2.93.20"
+    ],
+    [
+      9,
+      "2.58.16"
+    ],
+    [
+      52,
+      "3.16.2"
+    ],
+    [
+      141,
+      "6.109.8"
+    ],
+    [
+      588,
+      "83.25.1"
+    ],
+    [
+      3,
+      "2.7.2"
+    ]
+  ],
+  "note": "The task describes nine hard words; the saved s1g sheet visibly contains six. These known training IDs and rand48 are excluded from the later accuracy draw. No new candidate verdicts recorded from the pilot sheet."
+}

@@ -264,3 +264,19 @@ missing-bar/coverage/error guards, and the existing atomic export checks. All
 77,433 artwork word target lists match the current app target inventory. Full
 batch generation resumed without colour output, skipping completed pages. There
 is one batch runner and one continuation monitor. Checkpoint 1 remains in progress.
+
+The revised-check diagnostic review is complete for 198 additional words on
+pages 1–50, alongside 96 earlier diagnostic words and 72 calibration words:
+**366 unique canonical verdicts**, each linked to an actually inspected image
+and the saved prediction. These counts do not include the future 300-word sample
+or the remaining fit-only failures. Historical colour-based audit digests remain
+verifiable from commit `d240628` without restoring colour exports to the tree.
+
+The future accuracy population excludes pages 1–2, recorded calibration/review
+cases, the four owner-reported examples, `rand48.json`, and the six hard-case IDs
+visible on `s1g.jpg`. The task describes nine hard cases, but only six are shown
+on that saved sheet; no extra IDs were invented. The eligible list, pre-review
+index and 300 predictions will be frozen with the single seed-20261110 draw.
+Existing word evidence is reused only when prediction identity matches; reviewed
+words will not be needlessly rendered again for the flagged-word group. All
+required words remain in its completeness inventory.

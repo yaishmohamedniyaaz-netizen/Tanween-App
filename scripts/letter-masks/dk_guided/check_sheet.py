@@ -44,12 +44,14 @@ def main():
  if sample_path.exists():samples=json.loads(sample_path.read_text())
  else:
   atomic(sample_path,samples)
+  atomic(target/'reviewed-at-sampling.json',sorted(reviewed_ids))
   atomic(target/'eligible-status-ok.json',eligible)
   atomic(target/'frozen-index.json',idx)
   frozen={}
   for page,wid in samples['random-ok']:frozen[wid]=dict(page=page,**json.loads((BARS/f'p{page}.json').read_text())['words'][wid])
   atomic(target/'frozen-status-ok-sample.json',frozen)
   atomic(target/'sample-provenance.json',dict(seed=20261110,indexSha256=hashlib.sha256((BARS/'index.json').read_bytes()).hexdigest(),excludedIds=sorted(excluded),eligibleWords=len(eligible)))
+ reviewed_ids=set(json.loads((target/'reviewed-at-sampling.json').read_text()))
  if (target/'manifest.json').exists():
   for e in json.loads((target/'manifest.json').read_text()):assert hashlib.sha256((G.REPO/e['image']).read_bytes()).hexdigest()==e['sha256']
   print('Reused existing frozen sample and verified sheets');return
