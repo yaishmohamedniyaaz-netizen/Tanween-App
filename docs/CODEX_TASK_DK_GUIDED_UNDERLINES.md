@@ -416,3 +416,68 @@ Checkpoint 1b is not yet complete. Exact token telemetry remains unavailable. No
 Review-contract clarification found during 1b preparation: `mergeMaddAlifs` in the unchanged app target rules merges a bare madd-support alif into its preceding target. Two older **diagnostic** notes (`2.249.29`, `2.250.0`) incorrectly expected a separate final alif. Their verdicts and image evidence are preserved, and this limitation is documented in `checkpoint1b/target-contract-caveat.json`; no historical accuracy score is silently revised. V2 sheets include colour-keyed full target glyph groups from the app dumper so the independent review follows actual tids, not a count of written characters. Bar placement is judged separately from body-colour errors; remaining body-label errors are tagged `label-wrong`, including when the bar itself is right. Three renderer preflights were actually opened, with separate hash/provenance audits; they are not accuracy verdicts.
 
 Before any 1b accuracy draw, prior review IDs were also collected read-only from `codex/letter-borders-visual` at `8d58d3ec37a89012ed641687b0ac34a4e84ffc19`: **22,673** valid artwork word IDs conservatively mentioned by 210 canonical annotation/audit files. `checkpoint1b/prior-visual-reviewed-ids.json` records source blob hashes and IDs only; no border answers are imported and that branch is not modified or merged. Its frozen prediction checksum remains `766e716327f6ee1b0e2823ad8786b5b2181954b27c3939aa5aaa0954b969e046`. These IDs are excluded along with the DK/pilot/owner/approved/Claude examples before seed 20261112 is drawn. The fresh population therefore differs materially from the historical 300; do not present their accuracy difference as a paired or same-population estimate. The 89 recheck remains diagnostic reuse.
+
+## Checkpoint 1b final report — 9 November 2026
+
+**Checkpoint 1b is complete. The fresh sample scored 91.67%, below the 97% quality target. Stop for owner review.**
+
+The requested merge is preserved at `1a9a2b1fea92d4719ce97fe0853c7ea3cd7622fb`, including both the original Checkpoint 1 report and Claude's complete 1b section. All **604 pages / 77,433 words** were recomputed using the supplied, unchanged `bars_v2.py`, method `dk-guided-v2`. The runner and preparation monitor exited successfully. No worker remains active. No Checkpoint 2, source-label fix, app wiring, deployment or main push/merge was performed.
+
+### Acceptance rates and saved outputs
+
+| Same corpus; automatic gates versus reviewed withholding | ok | review | ok rate |
+| --- | ---: | ---: | ---: |
+| V1 calibrated automatic | 68,197 | 9,236 | 88.07% |
+| V2 automatic | 68,623 | 8,810 | 88.62% |
+| V2 final, after withholding the 39 observed wrong/unsure words | 68,584 | 8,849 | 88.57% |
+
+These are **acceptance rates, not accuracy**. V2 accepts 426 more words automatically (+0.55 percentage points), with order dropped as requested. The original final v1 count, after its own visual withholding, remains 68,079 / 9,354 (87.92%); its wider diagnostic review is not repeated in this narrower 1b scope. V2 is not a claim that all remaining accepted words are visually verified.
+
+Final checks: fit **7,744**, coverage **1,061**, narrow-bar **83**, geometry/error **100**, visual-v2-wrong **32**, visual-v2-unsure **7**. Counts overlap. The 100 errors are the supplied v2 function's spans colliding or reversing after minimum-width expansion. They are withheld with empty bar arrays and their source-span diagnostics saved in [error-diagnostic.json](../scripts/letter-masks/dk_guided/checkpoint1b/error-diagnostic.json); no unseen error image is claimed reviewed. Every stored nonempty bar array passes the non-overlap and immutable crop-bound checks.
+
+Fit remains **4.988753931003663**, the 90th percentile of all 77,433 words; coverage ≥97% and width ≥3px remain. Size and empty-letter body-area gates remain disabled by the owner's prior calibration, and order is disabled for 1b. No threshold or method was tuned on this fresh sample. Labels were recomputed because v1 did not persist them: all six saved alignment metrics match v1 for **every word**, including independently recomputed diagnostics for the 100 geometry errors. Label-source and supplied-bar-source hashes are unchanged.
+
+### The 89 diagnostic rechecks and fresh 300
+
+| Group | Right | Wrong | Unsure | Fully right |
+| --- | ---: | ---: | ---: | ---: |
+| Earlier 89 wrong/unsure words, rechecked with v2 | 75 | 9 | 5 | 84.27% |
+| Fresh first 100, early-stop gate | 94 | 5 | 1 | 94.00% |
+| Full fresh 300, seed 20261112 | 275 | 23 | 2 | **91.67%** |
+
+Of the earlier 53 wrong words, **41 became right, 7 stayed wrong and 5 became unsure**. Of the earlier 36 unsure words, **34 became right and 2 became wrong**. This is diagnostic reuse, not an unbiased test. [The comparison packet](../scripts/letter-masks/dk_guided/checkpoint1b/recheck89-comparison.json) pairs every old prediction/verdict/image with its frozen v2 prediction, new verdict and actually viewed image. Historical v1 evidence and the original 211/53/36 accuracy result are unchanged.
+
+The new draw was frozen before viewing, from **47,028 eligible status-ok words**, excluding **23,815** previously exposed word IDs. It excludes the conservative earlier visual-border review union as well as recorded DK, pilot, owner, approval and Claude-example IDs. The first 100 passed the ≥90-right gate, so all remaining 200 were checked once. No replacement draw was made. The v1 and v2 accuracy populations differ materially; **70.33% versus 91.67% is not a paired or same-population estimate of improvement**.
+
+Actual review: **389 words / 18 sheets opened**, plus three separately audited renderer preflights. All verdicts link to observer, timestamp, exact image SHA256, word IDs, frozen prediction digest and recomputed label digest. Dots/harakat are ignored; a separately targeted hamza is treated as body ink. Merged madd-support alifs follow the unchanged target contract. Bars are judged independently of tint: `label-wrong` appears on **51** reviewed words: fresh **21 wrong + 8 right**; recheck **9 wrong + 5 unsure + 8 right**. These are observed tags, not a separate exhaustive label-accuracy measurement. Two letter-name wording corrections are recorded in [review-note-errata.json](../scripts/letter-masks/dk_guided/checkpoint1b/review-note-errata.json), preserving the original notes and verdicts.
+
+### Remaining failure patterns
+
+Counts below are reproduced from manual exception-note tags, with intersecting categories; they are not whole-corpus frequencies. See [failure-patterns.json](../scripts/letter-masks/dk_guided/checkpoint1b/failure-patterns.json).
+
+| Pattern | All 389 / fresh 300 tagged exceptions | Example actually reviewed sheet |
+| --- | ---: | --- |
+| Short body span or endpoint bar | 20 / 15 | [9.29.9 — jim](../scripts/letter-masks/dk_guided/checkpoint1b/fresh-rest-002.png) |
+| Displaced bar | 7 / 3 | [19.34.4 — waw](../scripts/letter-masks/dk_guided/checkpoint1b/fresh-first100-001.png) |
+| Unresolved lam/carrier ink boundary | 5 / 0 | [14.48.4](../scripts/letter-masks/dk_guided/checkpoint1b/recheck-001.png) |
+| Bar extends across a neighbouring body | 3 / 3 | [36.78.7](../scripts/letter-masks/dk_guided/checkpoint1b/fresh-first100-001.png) |
+| Bar lies beneath a neighbouring target | 3 / 3 | [3.19.22 — carrier](../scripts/letter-masks/dk_guided/checkpoint1b/fresh-rest-008.png) |
+| Remaining uncertainty about a printed body boundary | 2 / 1 | [11.20.15 — lam/ha](../scripts/letter-masks/dk_guided/checkpoint1b/fresh-rest-001.png) |
+
+The qualitative improvement is clearest on the 75 recovered diagnostic cases: full-body spans restore many upright and above-join letters. Remaining cases show that making bars disjoint cannot resolve shifted body labels. Stacked jim/ha/kha forms, lam/carrier allocation, final ya bowls and detached-ink-driven spans still fail. Uncertainty concerns the actual intended body boundary, not the removed excuse of colliding bar extents.
+
+**Proposals only, not implemented:** guard or repair minimum-width expansion in a separately reviewed bar-rule change; investigate body-label ownership in stacked forms and stem pairs; distinguish real isolated bodies from detached marks before span derivation; use the now-exposed 1b failures only as development data and freeze another untouched sample before the next accuracy claim. No Checkpoint 2 work has started.
+
+### Size, time and validation
+
+Public underline JSON totals **11,685,160 bytes (11.69 MB decimal)**, **2,759,801 bytes** summed deterministic gzip size across 605 files including the index. `public/letter-ink-dk/` is absent, **0 bytes**, and remains ignored. The 21 PNGs in the 1b evidence directory total **19,728,668 bytes**; these selected review images are development evidence, not public colour exports.
+
+Generation ran **16:53:07–19:05:04 UTC**, approximately 2h12m wall time, with exit code 0 and last successful output p604. Actual verdict-event timestamps span **19:08:57–19:24:16 UTC**. Neither window measures active human/model review time. Exact token telemetry and the requested measured per-100-word rate are unavailable and remain `null`.
+
+**21 scoped regression tests pass.** Full 1b saved-output/review validation passes: 604 exact page inventories and 77,433 app target lists; crop bounds, integer geometry and non-overlapping saved bars; complete 389 verdicts and 18 matching actual-view audit events; seed reproduction, all exclusions, frozen prediction identity, supplied bar-source identity, unchanged label source and 77,433 matching alignment metrics. All 85 historical v1 evidence hashes remain intact. Protected product/artwork/page/approved-border paths are unchanged from the v1 checkpoint. The earlier branch's frozen prediction SHA256 was verified read-only during exclusion preparation; its answers/evaluator were not used. `git diff --check` passes.
+
+Reproduce summaries with `.venv-letter-borders-visual/bin/python scripts/letter-masks/dk_guided/report_v2.py`; validate with the same interpreter and `scripts/letter-masks/dk_guided/validate_v2_checkpoint.py --complete`; run scoped tests with `-m unittest discover -s scripts/letter-masks/dk_guided -p 'test_*.py' -q`. To regenerate from v1, use `run_v2.py`, then `--finalize`, preserve the frozen sample, and render only matching predictions; `validate_v2_checkpoint.py --finish` applies observed withholding without changing any bar/tid array. Do not rerun the v1 report/finalizer against v2 data.
+
+Confidence: **practicality 95/100**, **architecture/data safety 99/100**, **visual certainty 75/100** for the candidate beyond the reviewed words. The fresh result is useful evidence but fails the required 97%; single-observer judgments and unresolved label/body allocation limit readiness. This is an owner-review candidate, not production approval.
+
+[Results](../scripts/letter-masks/dk_guided/checkpoint1b/results.json) · [validation](../scripts/letter-masks/dk_guided/checkpoint1b/validation.json) · [sample provenance](../scripts/letter-masks/dk_guided/checkpoint1b/sample-provenance.json) · [decisions](../scripts/letter-masks/dk_guided/checkpoint1b/decisions.jsonl) · [actual-view audits](../scripts/letter-masks/dk_guided/checkpoint1b/audit.jsonl).

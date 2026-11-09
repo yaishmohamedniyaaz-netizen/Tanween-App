@@ -9,6 +9,8 @@ import review_v2_checkpoint as C
 def main(complete=False,finish=False):
  OUT=R.OUT;ROOT=R.ROOT;read=C.read;index=read(R.BARS/'index.json');assert index['method']==R.METHOD
  assert R.sha(R.HERE/'bars_v2.py')==index['barsRuleSha256']
+ supplied_source=subprocess.check_output(['git','show','b5fd836cfd0245702337f3c20d37a195330c1aee:scripts/letter-masks/dk_guided/bars_v2.py'],cwd=ROOT)
+ assert hashlib.sha256(supplied_source).hexdigest()==index['barsRuleSha256'],'Supplied bar rule changed'
  preserved=read(OUT/'v1-evidence-sha256.json')
  for p,sha in preserved['sha256'].items():assert R.sha(ROOT/p)==sha,('v1 evidence changed',p)
  counts=Counter();failures=Counter();total=0;label_changed=[];metrics_verified=0
@@ -66,12 +68,18 @@ def main(complete=False,finish=False):
     assert e['labelDigests'][wid]==read(R.RAW/f'p{p}.json')['words'][wid].get('labelSha256');coverage.add(wid)
     assert ds[wid]['verdict'] in ('ok','wrong','unsure') and ds[wid]['page']==p
     assert ds[wid]['verdict']=='ok' or ds[wid].get('note')
+  assert sum(len(e['words']) for e in events)==len(ds),'Duplicate visual evidence ownership'
+  manifest=read(OUT/'manifest.json')
+  for e in events:
+   entry=next(m for m in manifest if m['image']==e['image'])
+   assert entry['words']==e['words'] and entry['phase']==e['phase'] and entry['sha256']==e['sha256']
   assert coverage==set(ds)
   result.update(reviewedWords=len(ds),actualViewEvents=len(events),frozenSeedVerified=True)
   if complete or finish:
    assert all(w in ds for _,w in sample['recheck89']+sample['fresh300'][:100]),'Required review not complete'
    first=Counter(ds[w]['verdict'] for _,w in sample['fresh300'][:100]);early=first['ok']<90
    target=sample['fresh300'][:100] if early else sample['fresh300']
+   assert set(ds)=={w for _,w in sample['recheck89']+target},'Unexpected or missing review IDs'
    assert all(w in ds for _,w in target),'Complete the remaining fresh 300'
    assert early or len(target)==300
    if early:assert all(w not in ds for _,w in sample['fresh300'][100:]),'Early-stop gate was crossed'

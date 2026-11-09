@@ -1,0 +1,18 @@
+{
+  "recordedAt": "2026-11-09T19:28:05.798689+00:00",
+  "branch": "codex/dk-guided-underlines",
+  "fullValidation": "validation.json",
+  "validationSha256": "d39df3d7068515d5682c6d6efee6fbd08ec9e10a60fa1490a052125bea427901",
+  "scopedTests": {
+    "command": ".venv-letter-borders-visual/bin/python -m unittest discover -s scripts/letter-masks/dk_guided -p 'test_*.py' -q",
+    "tests": 21,
+    "exitCode": 0,
+    "note": "Observed successful execution in this task; exact active time/token telemetry unavailable."
+  },
+  "gitDiffCheck": true,
+  "bothTaskSectionsPreservedVerbatim": true,
+  "mergedClaudeCommit": "b5fd836cfd0245702337f3c20d37a195330c1aee",
+  "activeGeneratorsOrMonitors": [],
+  "historicalBlindPredictionSha256": "766e716327f6ee1b0e2823ad8786b5b2181954b27c3939aa5aaa0954b969e046",
+  "tokensUsed": null
+}

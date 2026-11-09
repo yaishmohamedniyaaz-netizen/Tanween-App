@@ -1,0 +1,7 @@
+{
+  "scope": "Letter-name wording only; original decisions, timestamps, image evidence and verdicts remain unchanged.",
+  "corrections": [
+    {"wid": "8.24.9", "image": "fresh-rest-003.png", "originalWord": "kha", "correctWord": "ha (ح)", "reason": "The word is يُحْيِيكُمْ; the cited upper-body short-bar observation refers to ح, without a dot."},
+    {"wid": "20.97.14", "image": "fresh-rest-003.png", "originalWord": "initial tha", "correctWord": "initial ta (ت)", "reason": "The initial letter in تُخْلَفَهُ is ت; the cited neighbouring kha-body allocation and verdict are unchanged."}
+  ]
+}
