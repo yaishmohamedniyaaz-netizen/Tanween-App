@@ -33,5 +33,7 @@ def main(require_complete=False):
  if require_complete:
   sample=json.loads((HERE/'review/sample.json').read_text());required={wid for group in sample.values() for _,wid in group};assert required<=set(ds),'Incomplete actual visual review'
   assert len(sample['random-ok'])==300
+  eligible=json.loads((HERE/'review/eligible-status-ok.json').read_text())
+  assert __import__('random').Random(20261110).sample(eligible,300)==sample['random-ok'],'Frozen random sample differs from declared seed/population'
  print(len(ds),'unique reviewed words; 72 calibration reviews; hashes and current prediction identities verified')
 if __name__=='__main__':main('--complete' in __import__('sys').argv)

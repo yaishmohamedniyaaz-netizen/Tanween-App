@@ -6,7 +6,7 @@ from PIL import Image
 import check_sheet as C
 class ResumeTests(unittest.TestCase):
  def setUp(self):
-  self.tmp=tempfile.TemporaryDirectory();self.root=Path(self.tmp.name);self.here=self.root/'visual';self.here.mkdir();self.bars=self.root/'bars';self.bars.mkdir()
+  self.tmp=tempfile.TemporaryDirectory();self.root=Path(self.tmp.name);self.here=self.root/'visual';self.here.mkdir();(self.here/'rand48.json').write_text(json.dumps([[3,'w3']]));self.bars=self.root/'bars';self.bars.mkdir()
   (self.bars/'index.json').write_text(json.dumps({'pages':list(range(1,605))}))
   for p in range(1,605):(self.bars/f'p{p}.json').write_text(json.dumps({'words':{f'w{p}':{'status':'ok'}}}))
   self.patches=[patch.object(C,'HERE',self.here),patch.object(C,'BARS',self.bars),patch.object(C.G,'REPO',self.root),patch.object(C,'tile',lambda p,wid:Image.new('RGB',(8,8),(p%255,10,20)))]
@@ -18,6 +18,8 @@ class ResumeTests(unittest.TestCase):
   C.main();sample=(self.here/'review/sample.json').read_bytes();first=json.loads(sample)['random-ok'][0][1]
   (self.here/'review/decisions.jsonl').write_text(json.dumps({'wid':first})+'\n');C.main()
   self.assertEqual((self.here/'review/sample.json').read_bytes(),sample)
+  eligible=json.loads((self.here/'review/eligible-status-ok.json').read_text())
+  self.assertTrue(all(page>2 and wid!='w3' for page,wid in eligible))
  def test_partial_sheet_run_reuses_identical_images(self):
   C.main();path=self.here/'review/random-ok-001.png';before=path.stat().st_mtime_ns
   (self.here/'review/manifest.json').unlink();C.main()

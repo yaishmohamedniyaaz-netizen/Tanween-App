@@ -26,14 +26,17 @@ def tile(p,wid):
 def main():
  idx=json.loads((BARS/'index.json').read_text());assert idx['pages']==list(range(1,605))
  eligible=[];flagged=[]
- excluded={'2.112.16','2.89.12','2.174.20','2.107.0'}
+ excluded={'2.112.16','2.89.12','2.174.20','2.107.0',
+           '2.93.20','2.58.16','3.16.2','6.109.8','83.25.1','2.7.2'}
+ excluded.update(wid for _,wid in json.loads((HERE/'rand48.json').read_text()))
  for sample in (HERE/'calibration').glob('*-sample.json'):
   excluded.update(wid for _,wid in json.loads(sample.read_text())['words'])
  reviewed=HERE/'review/decisions.jsonl'
- if reviewed.exists():excluded.update(json.loads(line)['wid'] for line in reviewed.read_text().splitlines())
+ reviewed_ids={json.loads(line)['wid'] for line in reviewed.read_text().splitlines()} if reviewed.exists() else set()
+ excluded.update(reviewed_ids)
  for p in range(1,605):
   for wid,w in sorted(json.loads((BARS/f'p{p}.json').read_text())['words'].items()):
-   if w['status']=='ok' and wid not in excluded:eligible.append([p,wid])
+   if w['status']=='ok' and p>2 and wid not in excluded:eligible.append([p,wid])
    elif w['status']=='review' and p<=50:flagged.append([p,wid])
  samples={'random-ok':random.Random(20261110).sample(eligible,300),'review-p001-050':flagged}
  target=HERE/'review';target.mkdir(exist_ok=True)
@@ -41,6 +44,8 @@ def main():
  if sample_path.exists():samples=json.loads(sample_path.read_text())
  else:
   atomic(sample_path,samples)
+  atomic(target/'eligible-status-ok.json',eligible)
+  atomic(target/'frozen-index.json',idx)
   frozen={}
   for page,wid in samples['random-ok']:frozen[wid]=dict(page=page,**json.loads((BARS/f'p{page}.json').read_text())['words'][wid])
   atomic(target/'frozen-status-ok-sample.json',frozen)
@@ -50,6 +55,7 @@ def main():
   print('Reused existing frozen sample and verified sheets');return
  manifest=[]
  for phase,items in samples.items():
+  if phase!='random-ok':items=[case for case in items if case[1] not in reviewed_ids]
   for start in range(0,len(items),24):
    batch=items[start:start+24];tiles=[]
    for page,wid in batch:
