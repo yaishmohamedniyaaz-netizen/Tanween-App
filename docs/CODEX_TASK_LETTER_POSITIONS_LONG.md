@@ -31,6 +31,21 @@ The owner has many Codex tokens for this and wants a **long-horizon** effort.
    - The bar for a letter is then derived from its own mask, for example the x-range of its lower part. This copes with stacked letters.
    - Overlapping bars are allowed in the output (see Output). The app can be changed to draw them.
 
+## Update (9 November 2026): colour the letter itself, and DigitalKhatt first
+
+**The owner now prefers colouring the mistaken letter's own ink**, like a tajweed Mushaf, instead of an underline. So the main output becomes a **per-letter ink mask**. Bars stay as a fallback.
+
+Claude checked DigitalKhatt (`git clone https://github.com/DigitalKhatt/oldmadinafont`; font licence SIL OFL 1.1):
+- **Its sample PDF page 4 has the same line breaks as our page 3** (2:6–16). It uses closely matching letter shapes.
+- It already **colours single letters** (tajweed).
+
+So W1 with this font is the most promising route. **Start there.**
+- Map the PDF pages to our pages: PDF page n+1 = Mushaf page n. Check this for all pages.
+- Get each letter's outline. Use the font with its justification-aware shaping (the DigitalKhatt HarfBuzz fork, or their web or TypeScript renderer), or parse the PDF's glyph runs.
+- Register each word onto the artwork with 2-D warping, then carry each letter's region to the artwork ink.
+- Output per-letter ink masks: `public/letter-masks-guess/p{N}.json`, with run-length encoded masks per letter in artwork px.
+- QUL also lists a layout "Digital Khatt (QPC v1 1405 layout)" (<https://qul.tarteel.ai/mushaf_layouts/22>). Check whether its data can be downloaded and used.
+
 ## Workstreams
 
 Try each one. Begin with a **small feasibility test on the development words** (pages 1–2 and the 95 training approvals). Give each a short written verdict before you scale it up. Run them in parallel where you can.
