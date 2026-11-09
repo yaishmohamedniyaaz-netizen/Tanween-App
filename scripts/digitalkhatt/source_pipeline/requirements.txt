@@ -1,0 +1,7 @@
+# Existing audit dependencies are imported only for pure text normalization.
+-r ../requirements-parity.txt
+fonttools==4.61.1
+Brotli==1.2.1
+# Local review-sheet packaging only; not application dependencies.
+Pillow==13.0.0
+reportlab==4.4.9

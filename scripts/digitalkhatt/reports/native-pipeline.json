@@ -1,0 +1,359 @@
+{
+  "schema": "digitalkhatt-source-pipeline-research-v1",
+  "researchOnly": true,
+  "samplePdfRead": false,
+  "inputs": {
+    "fontCommit": "adc60f3865b507684bda856d59940a7f3602be32",
+    "engineCommit": "220658be8bad76cfe628ddf0e903c5a86e454e4f",
+    "harfbuzzCommit": "38258fac64114c8a9ffcc778224598c475571866",
+    "websiteCommit": "4213fab9892774f74f7164c70a70dd84a14f0215",
+    "websiteTextSha256": "08972d48c6c250fda4ce9c58a2f23be52c17b0cf097ac093a040e3c392b79f07",
+    "sourceDatabaseSha256": "f5846940c5f904e37ed0bd72cd87d420b5f7867b5f19a36bf781542cd3a9860b",
+    "appPagesSha256": "fa39aeb5e6effea289f88e222d50f15000837477df13a80be0fc4e0a81cc997b"
+  },
+  "sourceLicenseEvidence": {
+    "font": "SIL OFL 1.1",
+    "engine": "AGPL v3; one scratch Linux loader patch; build-time-only experiment",
+    "website": "MIT root grant; separate third-party notices still apply",
+    "samplePdf": "No distribution grant established; not a source input"
+  },
+  "build": {
+    "compiler": "GCC14.2.0",
+    "cmake": "4.4.4",
+    "ninja": "1.13.2",
+    "flex": "2.6.4",
+    "bison": "3.8.2",
+    "m4": "1.4.19",
+    "sqliteHeaders": "3.50.4",
+    "patch": "OtLayout.cpp dlopen mode0 -> RTLD_LAZY",
+    "warningPolicy": [
+      "-Wno-error=narrowing",
+      "HB_NO_PRAGMA_GCC_DIAGNOSTIC_ERROR on digitalkhatt_justify"
+    ],
+    "dependencyCommits": {
+      "pdfhummus": "3242205aae73d27f5f83b435dd680ec43c7bb734",
+      "clipper2": "ef88ee97c0e759792e43a2b2d8072def6c9244e8",
+      "pcre2": "f454e231fe5006dd7ff8f4693fd2b8eb94333429",
+      "glaze": "8b60d82c66311c145c4d03be3b556b555a9cb111"
+    },
+    "generatorSha256": "9d1ff63f16dd39e267bde7558d03e70f18bccf091e2273acac756268d2781767",
+    "python": "3.12.14",
+    "adapterSqlite": "3.53.1"
+  },
+  "candidateProfile": {
+    "layout": "qpc_v1_layout",
+    "justifier": "decl-policy",
+    "style": "font-size-xscale",
+    "shrink": "standard",
+    "lineSpacing": 1800,
+    "textWidth": 16400,
+    "emScale": 1,
+    "force": false,
+    "tajweed": false,
+    "notice": false,
+    "report": false,
+    "pdf": false,
+    "firstPage": 1,
+    "lastPage": 604
+  },
+  "candidateOutputs": {
+    "binarySha256": "78800d93d3864398062dfa9d13310a06311da096b8f59a56e68f245d25b7ede8",
+    "sidecarSha256": "a88ec463bf0d8df24082b01d29cda4678559ba647887ca04b13e14b434cb09fd",
+    "placementsSha256": "51babdf89874160043e39033ba69a401875f2c1a8c524f1fe439b414b36c78b0"
+  },
+  "coverage": {
+    "pages": 604,
+    "allLines": 9046,
+    "bodyLines": 8820,
+    "appWords": 77433,
+    "perLineWordCountMismatches": 0,
+    "strictNotationDifferences": 293,
+    "hamzaDiagnosticRemaining": 0,
+    "nonheadingPlacements": 854159,
+    "placementScope": "Includes spaces, ayah markers and basmala glyphs, not only judged letters",
+    "marks": 435360,
+    "wholeGlyphVariants": 4306,
+    "missingOutlineReferences": 0,
+    "emptyContourPlacements": {
+      "space": 81245
+    },
+    "emptyContourScope": "One space variant only; all non-space variants have contours",
+    "validSourceClusters": true,
+    "page213BodyLineCount": 15,
+    "nativeUnitMappingStatus": "Separate fitted native mapping report verified all298431 units have nonempty glyphs,0 unresolved; see NATIVE_MAPPING.md"
+  },
+  "nativeFrame": {
+    "width": 17000,
+    "height": 27400,
+    "advanceOverflows": [],
+    "inkBounds": {
+      "method": "Exact cubic extrema from decoded float32 paths, then upstream line horizontalScale/offset transforms; fixed 17000x27400 native frame, 0.001 tolerance; no crop fitting.",
+      "checked_nonempty_placements": 772914,
+      "nonunit_scale_lines": 7443,
+      "outside_frame": [
+        {
+          "page": 26,
+          "line": 15,
+          "wid": "2.176.12",
+          "cluster": 74,
+          "variant": 129,
+          "name": "smalllowmeem",
+          "box": [
+            3302.243881225586,
+            26982.93489797227,
+            3488.2603278064635,
+            27412.96319580078
+          ]
+        },
+        {
+          "page": 294,
+          "line": 15,
+          "wid": "18.15.9",
+          "cluster": 11,
+          "variant": 129,
+          "name": "smalllowmeem",
+          "box": [
+            14854.812271118164,
+            27059.43521840684,
+            15040.828717699042,
+            27489.46351623535
+          ]
+        },
+        {
+          "page": 378,
+          "line": 15,
+          "wid": "27.22.11",
+          "cluster": 62,
+          "variant": 129,
+          "name": "smalllowmeem",
+          "box": [
+            4605.0,
+            27051.405395507812,
+            4787.368301391602,
+            27473.0
+          ]
+        },
+        {
+          "page": 407,
+          "line": 15,
+          "wid": "30.32.7",
+          "cluster": 42,
+          "variant": 129,
+          "name": "smalllowmeem",
+          "box": [
+            7327.180740356445,
+            27024.75507314317,
+            7513.197186937323,
+            27454.78337097168
+          ]
+        },
+        {
+          "page": 589,
+          "line": 15,
+          "wid": "84.25.8",
+          "cluster": 90,
+          "variant": 129,
+          "name": "smalllowmeem",
+          "box": [
+            1572.7859497070312,
+            27008.095726417378,
+            1751.5061059093568,
+            27421.256637573242
+          ]
+        },
+        {
+          "page": 601,
+          "line": 15,
+          "wid": "105.5.2",
+          "cluster": 64,
+          "variant": 129,
+          "name": "smalllowmeem",
+          "box": [
+            1600.7604370117188,
+            26988.416026817635,
+            1782.0629568567965,
+            27407.546783447266
+          ]
+        }
+      ]
+    }
+  },
+  "sizes": {
+    "compression": {
+      "brotli": "1.2.1",
+      "python": "3.12.14"
+    },
+    "binary": {
+      "bytes": 9758305,
+      "gzip9": 4335075,
+      "brotli9": 2415830
+    },
+    "textSidecar": {
+      "bytes": 1797218,
+      "gzip9": 314934,
+      "brotli9": 245333
+    },
+    "sharedSvgAtlas": {
+      "bytes": 13363543,
+      "gzip9": 1590007,
+      "brotli9": 988061
+    },
+    "sharedSvgAll604Placements": {
+      "bytes": 103367853,
+      "gzip9": 13060653,
+      "brotli9": 11737856
+    },
+    "sharedSvgPerPageStats": {
+      "bytes": {
+        "min": 46227,
+        "median": 177971.5,
+        "max": 231519
+      },
+      "gzip9": {
+        "min": 6658,
+        "median": 23374.5,
+        "max": 30537
+      },
+      "brotli9": {
+        "min": 6170,
+        "median": 20846.0,
+        "max": 26793
+      }
+    },
+    "nineInlineSvgPages": [
+      {
+        "page": 1,
+        "lines": 8,
+        "placements": 356,
+        "variants": 122,
+        "svg_bytes": 345778,
+        "gzip9": 65337,
+        "brotli9": 58643
+      },
+      {
+        "page": 2,
+        "lines": 8,
+        "placements": 472,
+        "variants": 139,
+        "svg_bytes": 345090,
+        "gzip9": 73024,
+        "brotli9": 66054
+      },
+      {
+        "page": 3,
+        "lines": 15,
+        "placements": 1405,
+        "variants": 229,
+        "svg_bytes": 722580,
+        "gzip9": 124454,
+        "brotli9": 106784
+      },
+      {
+        "page": 50,
+        "lines": 15,
+        "placements": 1455,
+        "variants": 239,
+        "svg_bytes": 703367,
+        "gzip9": 132442,
+        "brotli9": 114435
+      },
+      {
+        "page": 187,
+        "lines": 15,
+        "placements": 1396,
+        "variants": 192,
+        "svg_bytes": 580164,
+        "gzip9": 113515,
+        "brotli9": 98972
+      },
+      {
+        "page": 293,
+        "lines": 15,
+        "placements": 1428,
+        "variants": 289,
+        "svg_bytes": 743098,
+        "gzip9": 135725,
+        "brotli9": 117970
+      },
+      {
+        "page": 582,
+        "lines": 15,
+        "placements": 1310,
+        "variants": 257,
+        "svg_bytes": 1107880,
+        "gzip9": 138111,
+        "brotli9": 110749
+      },
+      {
+        "page": 600,
+        "lines": 15,
+        "placements": 917,
+        "variants": 207,
+        "svg_bytes": 624422,
+        "gzip9": 108304,
+        "brotli9": 94282
+      },
+      {
+        "page": 604,
+        "lines": 15,
+        "placements": 662,
+        "variants": 179,
+        "svg_bytes": 466985,
+        "gzip9": 91858,
+        "brotli9": 80983
+      }
+    ],
+    "exclusions": [
+      "Decorative surah headers",
+      "App wid/tid ownership metadata",
+      "Runtime renderer/bundle",
+      "Offline cache packaging"
+    ]
+  },
+  "reproducibility": {
+    "fittedGenerationSeconds": [
+      32.134101501,
+      32.805372894
+    ],
+    "binaryByteIdentical": true,
+    "sidecarByteIdentical": true,
+    "placementsByteIdentical": true,
+    "comparisonExitCode": 0,
+    "excludedFromByteComparison": [
+      "run manifest contains elapsed time; path/environment fingerprints are recorded separately"
+    ],
+    "sourceProbeAndDatabaseRepeated": true,
+    "scriptedFittedGenerationSeconds": 28.930620282,
+    "scriptedGenerationMatchesAllThreeOutputHashes": true
+  },
+  "rejectedDefaultProfile": {
+    "justifier": "harfbuzz",
+    "style": "same-size-by-page",
+    "shrink": "none",
+    "reason": "p582 line3 advance18113 into16400 target; visible left clipping",
+    "binarySha256": "3a9dda3d052865495f8e75c471ae3d05b485c554bb85ca044e40230822c328fb",
+    "sameTextSidecar": true
+  },
+  "openGates": [
+    "Original27400-unit frame has six smalllowmeem clips; separate uniform120-unit padding candidate has0 clipped, not selected for production",
+    "Decorative headings and any omitted ornaments need licensed implementation",
+    "Browser/Safari/tablet timing and offline behavior unmeasured",
+    "Owner visual approval and runtime integration not completed"
+  ],
+  "browserMeasurements": {
+    "firstPaint": null,
+    "reason": "Browser launch in this executor was blocked by IPC socket restrictions; no timing invented"
+  },
+  "productionWinnerSelected": false,
+  "paddedFrameResearchCandidate": {
+    "bottom_padding": 120,
+    "height": 27520,
+    "glyph_coordinates_unchanged": true,
+    "outside_frame": [],
+    "production_choice": false,
+    "original_frame_failures_retained": 6,
+    "sample9_outline_and_transform_sections_byte_identical": true,
+    "original_height": 27400,
+    "default_height_source": "https://github.com/DigitalKhatt/visualmetafont/blob/220658be8bad76cfe628ddf0e903c5a86e454e4f/lib/digitalkhatt/include/digitalkhatt/core/PageLayout.h"
+  }
+}

@@ -1,0 +1,127 @@
+{
+  "schema": "digitalkhatt-svg-research-v1",
+  "input_pdf_sha256": "86809d64b7b4c7d3699c19bdde21b3056dd0736a8422d2d221998b2f772389f9",
+  "source_status": "Local research only. PDF redistribution grant unresolved.",
+  "scope": "Nine checkpoint pages only; not an all-page size, atlas or first-paint measurement.",
+  "alignment_limit": "Origin sequence checked within 0.01 PDF units. Not proof of every outline or letter ownership.",
+  "pdftocairo_version": "pdftocairo version 25.03.0",
+  "pages": [
+    {
+      "page": 1,
+      "inline_svg_bytes": 1328110,
+      "gzip_9_bytes": 168969,
+      "brotli_11_bytes": 81643,
+      "sha256": "d610d2439f50f70a931cded3228f47e6fbfee5e0d755f52d5ab6293b28768242",
+      "trace_shows": 356,
+      "svg_glyph_uses": 355,
+      "omitted_zero_ink_spaces": [
+        {
+          "trace_index_zero_based": 129,
+          "name": "space",
+          "origin": [
+            99.0,
+            147.75
+          ]
+        }
+      ],
+      "svg_image_elements": 0
+    },
+    {
+      "page": 2,
+      "inline_svg_bytes": 1344856,
+      "gzip_9_bytes": 179022,
+      "brotli_11_bytes": 85375,
+      "sha256": "d6f0ff03b6fc0e1de802aef7fce9a4c1f3d27a1548bbf5046f872d124b388b09",
+      "trace_shows": 472,
+      "svg_glyph_uses": 472,
+      "omitted_zero_ink_spaces": [],
+      "svg_image_elements": 0
+    },
+    {
+      "page": 3,
+      "inline_svg_bytes": 404065,
+      "gzip_9_bytes": 54807,
+      "brotli_11_bytes": 41751,
+      "sha256": "7ec5fc5e8d51a4639e50c7b9093fd0505f15fe183829bc07bfc05378d9d13cba",
+      "trace_shows": 1392,
+      "svg_glyph_uses": 1392,
+      "omitted_zero_ink_spaces": [],
+      "svg_image_elements": 0
+    },
+    {
+      "page": 50,
+      "inline_svg_bytes": 1586177,
+      "gzip_9_bytes": 211207,
+      "brotli_11_bytes": 109382,
+      "sha256": "e26d65adb5253bd29fea6a12bf053fe1e9d26578570485350ee5acda77e70331",
+      "trace_shows": 1443,
+      "svg_glyph_uses": 1443,
+      "omitted_zero_ink_spaces": [],
+      "svg_image_elements": 0
+    },
+    {
+      "page": 187,
+      "inline_svg_bytes": 1488564,
+      "gzip_9_bytes": 192624,
+      "brotli_11_bytes": 100046,
+      "sha256": "51d047acd111899654679591c42f81db9f4da75f2b4abfba079a87098ef32246",
+      "trace_shows": 1385,
+      "svg_glyph_uses": 1384,
+      "omitted_zero_ink_spaces": [
+        {
+          "trace_index_zero_based": 65,
+          "name": "space",
+          "origin": [
+            117.0,
+            48.75
+          ]
+        }
+      ],
+      "svg_image_elements": 0
+    },
+    {
+      "page": 293,
+      "inline_svg_bytes": 1656499,
+      "gzip_9_bytes": 217398,
+      "brotli_11_bytes": 115079,
+      "sha256": "28238308563c00079c47222b3400d877ceee938e638583fb0b6b5d06917561f7",
+      "trace_shows": 1426,
+      "svg_glyph_uses": 1426,
+      "omitted_zero_ink_spaces": [],
+      "svg_image_elements": 0
+    },
+    {
+      "page": 582,
+      "inline_svg_bytes": 1776857,
+      "gzip_9_bytes": 216554,
+      "brotli_11_bytes": 110072,
+      "sha256": "655767235a57a5347ff4cad897867a16a6065f7b35291311641cd47223c11dec",
+      "trace_shows": 1304,
+      "svg_glyph_uses": 1304,
+      "omitted_zero_ink_spaces": [],
+      "svg_image_elements": 0
+    },
+    {
+      "page": 600,
+      "inline_svg_bytes": 2595716,
+      "gzip_9_bytes": 323941,
+      "brotli_11_bytes": 103494,
+      "sha256": "9f111819f2997ce03927a9b5d663d5de544ed47e9d8649f6af4d512884719b77",
+      "trace_shows": 919,
+      "svg_glyph_uses": 919,
+      "omitted_zero_ink_spaces": [],
+      "svg_image_elements": 0
+    },
+    {
+      "page": 604,
+      "inline_svg_bytes": 3620912,
+      "gzip_9_bytes": 451380,
+      "brotli_11_bytes": 103344,
+      "sha256": "02e33a5a5eaaa8eccf14b4f4e7165e24958b1bd0a9d7f93c4b9cc7b9bed30964",
+      "trace_shows": 665,
+      "svg_glyph_uses": 665,
+      "omitted_zero_ink_spaces": [],
+      "svg_image_elements": 0
+    }
+  ]
+}

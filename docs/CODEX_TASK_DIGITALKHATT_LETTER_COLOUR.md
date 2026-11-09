@@ -216,3 +216,260 @@ Find all of them (search for where marks are drawn on words) and make each follo
   - the licence findings;
   - honest cost counts (time, tokens if known).
 - Then Claude reviews the branch, shows the owner the preview and sheets, and asks for approval.
+
+---
+
+## Codex hand-back, 9 November 2026: Phase 0 early stop
+
+Base inspected: `5d08cfa3028dc711852c6f1aaa9082f4ed5e5972` on
+`claude/criterion-bar`. Work is on `codex/digitalkhatt-pages`.
+**The Phase 0 stop condition has been reached. Checkpoint 1 is not complete.**
+No later checkpoint, app switch or runtime change has been attempted.
+
+### Results
+
+Measure | Result
+--- | ---
+Pages audited | 604/604
+App / DigitalKhatt corpus words | 77,433 / 77,433
+Physical corpus lines and per-line word counts | Equal on all 604 pages
+Strict skeleton equality | 77,140/77,433 words; 382 complete pages
+Strict notation differences | 293 words on 222 pages; all equal under an explicitly separate hamza-notation diagnostic
+Whole-frame geometry | 1,851 of 77,433 word boxes have zero overlap, across 537 pages
+Pages 1 / 2 | All 29 / 36 words fail the required literal-frame overlap check
+Full strict text-and-position pass | 41/604 pages
+Phase 2 unit mapping / unmapped units | Not run; no zero-unmapped claim
+A: SVG/atlas size and first paint | Not measured; stopped before Phase 1
+B: source engine size and first paint | Official route identified, not built or measured
+C: positioned font text / Safari correctness | Not measured
+Tablet performance / contact and colour sheets | Not run; no visual approval claimed
+
+Reports: [short parity report](../scripts/digitalkhatt/reports/PARITY.md),
+[all-page table and every exact text difference](../scripts/digitalkhatt/reports/PARITY_DETAILS.md),
+[machine-readable report with every zero-overlap word and its boxes](../scripts/digitalkhatt/reports/parity.json),
+[licensing](../scripts/digitalkhatt/reports/LICENSING.md), and
+[validation and cost record](../scripts/digitalkhatt/reports/VALIDATION.md).
+
+### What this does and does not establish
+
+The line breaks and number of words per line match everywhere. The PDF has
+explicit `/ActualText`, so the comparison does not infer Arabic from the
+prototype's approximate shape labels. All 848,524 glyph shows were checked by
+font and code against PyMuPDF traces. This is extraction proof, not yet proof of
+each glyph's visible letter identity or ownership by an app letter unit.
+
+The 293 strict text differences are notation variants such as app
+`ٱلۡأٓخِرِ` versus PDF `ٱلْـٔ͏َاخِرِ`, and below-seat versus above-seat hamza.
+The audit lists them rather than silently changing the religious text or
+judging rules. A separate documented diagnostic compares all these cases equal.
+It is not an approved mapping policy and is not evidence of different recited
+words.
+
+Position was tested exactly as requested: scale the full 256×410 PDF frame to
+1920×3106, without crop fitting, warping or artwork registration. Bounds are
+the declared Type3 d1 bounds, not raster-measured tight ink. On most affected
+later pages only a few words fail; “537 pages” does **not** mean every word on
+those pages fails. Pages 1–2 have large vertical-layout differences. The required
+overlap condition still fails on far more than a few pages, so work stops here.
+
+### Questions for the owner
+
+1. May the DigitalKhatt mode use its own geometry despite these literal-frame
+   differences, with dedicated handling or artwork fallback for pages 1–2?
+   Otherwise, should pages failing this gate remain in artwork mode? No fallback
+   or fitting policy has been chosen automatically.
+2. May the documented hamza-notation equivalences be used for the future
+   glyph-to-app-text alignment, while preserving every app `wid`, `tid` and the
+   unchanged `qpc-hafs-v1-targets-4.0.0` rules?
+
+### Licence findings
+
+The font is explicitly SIL OFL 1.1, credited to DigitalKhatt and sponsored by
+Tarteel. The sample PDF's independent reuse grant remains unclear; the OFL does
+not automatically cover the entire PDF. No PDF, extracted outlines, rendered
+sheets or PDF-derived production assets are shipped by this audit.
+
+An official PDF-independent generator and whole-glyph layout export exist in
+VisualMetaFont. Its root licence is AGPL v3, separate from the font OFL. The
+generator, its source/layout inputs and settings need their own review before
+selecting Phase 1 option B. Exact regeneration of this June 2026 sample has not
+been demonstrated. `medinamushafanalyzer` was not used.
+
+### Validation, confidence and cost
+
+- 14 focused Python tests passed with the pinned PDF.
+- A separate 604-page rerun produced byte-identical reports in 57.668 seconds.
+- Node 22.18.0: `npm test` passed 497 tests with one existing optional
+  Tilawa-assets skip; TypeScript and production build passed.
+- Protected artwork, page data, approved borders, judging-unit rules and all
+  runtime source files are unchanged. The prior research branch is untouched.
+- Confidence for this audit: practicality **95/100**, architecture/data safety
+  **98/100**, visual certainty **88/100** for the demonstrated frame mismatch,
+  not an approval of all-page rendering.
+- Four complete audit executions, one early aborted development pass, focused
+  probes and two read-only reviews. Total end-to-end time and token counts were
+  not instrumented; no precise total is claimed.
+
+The branch contains an audit, not a new DigitalKhatt UI preview. Do not proceed
+to the pipeline, switch or Checkpoint 2 without the owner's gate decision.
+
+---
+
+## Codex continuation, 9 November 2026: word/unit proof and native pipeline
+
+After the owner approved continuing with page/line/reading-order correspondence
+and DigitalKhatt's own geometry, the investigation continued on
+`codex/digitalkhatt-pages`. The owner also approved parallel work and asked to
+proceed at full speed. The original Phase 0 findings above remain unchanged.
+
+**The mapping and PDF-independent pipeline milestones are complete. The full
+Checkpoint 1 is not complete: there is no app drawing switch or new UI preview.**
+No runtime code, protected artwork, approved borders, judging-unit rules, saved
+IDs or scoring contracts were changed. No main push or deployment is part of
+this handback.
+
+### Correspondence and ownership
+
+Measure | Verified result
+--- | ---
+Pages / unique app words | 604 / 77,433
+Same physical lines and words per line | All pages, both PDF audit and independent native source
+Strict skeleton pairs / explicit notation cases | 77,140 / 293
+Notation classes | 277 long initial hamza; 13 below-yeh; 1 below-waw; 2 exact singleton cases
+PDF source-span target coverage | 298,431/298,431; zero unmapped/shared/unresolved
+PDF owned glyphs / decorative waqf | 757,512 / 4,358
+Independent fitted native target coverage | 298,431/298,431 with nonempty outlines; zero unmapped/shared/unresolved
+Native visible owned glyphs | 757,526
+Native no-target word-internal glyphs | 4,358 waqf signs and 5,860 empty space placeholders
+Native supplementary singleton overrides needed | Zero in the fitted profile
+
+Word pairing uses the existing app `wid`, physical line and reading-order slot,
+never artwork overlap or approximate shape labels. The 293 exceptions are exact,
+logged, directional classifications, not blanket hamza normalization. Raw source
+and app texts remain unchanged. The app's own Node function generates every
+`tid`; its hashes and rule version are checked.
+
+Native ownership was audited independently from its own UTF-16 clusters,
+glyph names, line/word bounds and nonempty contours. PDF glyph indices were not
+transferred. A coarser default native profile needed a narrowly reviewed singleton
+rule; the final fitted profile has finer clusters and does not need it. Geometric
+mark attachment is not treated as semantic letter ownership.
+
+Reports: [word correspondence](../scripts/digitalkhatt/reports/WORD_MAPPING.md),
+[PDF-source unit mapping](../scripts/digitalkhatt/reports/MAPPING.md),
+[native unit mapping](../scripts/digitalkhatt/reports/NATIVE_MAPPING.md),
+[independent mapping review](../scripts/digitalkhatt/reports/INDEPENDENT_REVIEW.md),
+and [native review](../scripts/digitalkhatt/reports/NATIVE_REVIEW.md).
+
+### Source generation, size measurements and geometry
+
+The official MIT website corpus contains the complete old-Madina text. A new
+source-only SQLite adapter feeds the official native engine and the OFL font,
+without reading the sample PDF. The engine was built in isolated research
+scratch, with one documented Linux `dlopen` portability patch and explicit
+compiler warning adjustments. No engine binary or third-party runtime code is
+included in the app.
+
+Measure | Verified result
+--- | ---
+Native corpus generation | All 604 pages, 9,046 lines, 854,159 nonheading glyph placements
+Direct outline variants | 4,306; no missing non-space contours
+Fitted native generation time | 32.13 s, 32.81 s, 28.93 s in three research runs
+Native binary | 9,758,305 bytes raw; 4,335,075 gzip; 2,415,830 Brotli 9
+Text sidecar | 1,797,218 bytes raw; 245,333 Brotli 9
+Shared SVG atlas + all page placements | 988,061 + 11,737,856 bytes Brotli 9
+Original native-frame ink audit | Six low-meem marks extend below the bottom; no horizontal advance overflow
+Separate uniform bottom-padding candidate | +120 source units; zero clipped ink on all 604 pages; all glyph coordinates unchanged
+Browser first paint / tablet / Safari | Not measured: Chromium IPC socket creation blocked in this executor
+
+The native default policy was rejected because it left visibly overfull lines.
+The candidate instead uses the engine's own `decl-policy`, `font-size-xscale`,
+`standard` shrink settings. This is source layout, not registration or warping
+onto the artwork. The native binary, sidecar and placement stream reproduced
+byte-for-byte across all three fitted runs.
+
+The six original-frame cases are p26 `2.176.12`, p294 `18.15.9`, p378 `27.22.11`,
+p407 `30.32.7`, p589 `84.25.8`, and p601 `105.5.2`. The largest overshoot is
+89.46 source units. The original failures remain recorded; the separate padded
+candidate changes only the canvas height, uniformly across all pages. It has
+not been silently selected as the production frame.
+
+Nine source-generated checkpoint pages were rendered and sampled visually.
+Decorative surah headings are deliberately omitted pending a licensed treatment.
+Sizes exclude those decorations, app ownership metadata, the runtime renderer
+and offline packaging. Option C, positioned static font text, does not yet have
+proof of exact native parameterized glyph reproduction. No production delivery
+winner or browser performance result is claimed.
+
+### Source-only review deliverables
+
+- A nine-page A3 comparison PDF places unchanged artwork beside the fitted,
+  padded native body. Every page explicitly labels omitted decorative headings
+  and the unapproved frame candidate. All nine PDF pages were rendered and
+  inspected; no image cropping or layout overlap was found. The PDF repeats
+  byte-for-byte (6,814,728 bytes, SHA256
+  `6bb95a9a61ea836307876d04fc847cb7de3d06c82d84a8d4de7937bc0bf5b15c`).
+- Fourteen source-native color sheets cover 200 seeded random words, 40
+  text-selected lam-alif/stack candidates, five exact hard cases and nine
+  checkpoint-page word examples: 254 distinct words in total. Every nonempty
+  binary/placement occurrence was linked by line, cluster, glyph identity,
+  final offsets and advance before coloring. All 29 output files reproduced
+  byte-for-byte. Eleven focused color-proof tests pass.
+- Actual hard-case, first random and first special-sheet pixels were inspected.
+  Letter bodies, dots and assigned marks are colored together; waqf stays black.
+  This is sampled visual evidence. The 40 special words are transparently
+  selected by text, not a claim of 40 independently approved stacked shapes.
+  The nine color examples are word crops, not complete colored page views.
+
+These artifacts are delivered separately for review, not committed as production
+assets. [COLOUR_PROOF.md](../scripts/digitalkhatt/reports/COLOUR_PROOF.md) records
+selection, linkage, exact cases and remaining visual limits. The source pipeline
+README includes the reproducible color and contact-sheet commands.
+
+Details and reproducible commands: [source pipeline](../scripts/digitalkhatt/reports/PIPELINE_FEASIBILITY.md),
+[machine measurements](../scripts/digitalkhatt/reports/native-pipeline.json),
+[build instructions](../scripts/digitalkhatt/source_pipeline/BUILD_NATIVE.md),
+and [local SVG measurements](../scripts/digitalkhatt/reports/SVG_RESEARCH.md).
+
+### Licensing and remaining checkpoint work
+
+The source route uses the OFL font, MIT website text and an AGPL build-time
+generator, each with its own notices and pinned provenance. It avoids the sample
+PDF's unresolved redistribution grant. A future app package must retain the
+required notices and the DigitalKhatt / OFL 1.1 / sponsored-by-Tarteel credit.
+Neither PDF-derived assets nor new native production assets are shipped here.
+
+Before claiming Checkpoint 1:
+
+1. Review the native frame and the source-generated visual proofs. Adopt an
+   explicit no-clipping frame policy and licensed heading/ornament treatment.
+2. Build the nine-page settings switch, renderer, word geometry and tray using
+   the verified native IDs; keep artwork default and preserve all saved marks.
+3. Test the actual browser/app, switching, color ownership, offline behavior and
+   tablet/Safari rendering. Source-span coverage is not complete outline or
+   interaction correctness.
+4. Complete the required visual review and choose delivery based on measured
+   app performance, then stop for owner approval before Checkpoint 2.
+
+### Validation, confidence and cost
+
+The PDF research aggregate ran twice and all nine reports were byte-identical.
+The original parity files are unchanged. The 39 focused Python tests passed.
+Four source-output safety tests and 14 native mapping tests passed, with a
+separate all-page native mapping rerun producing identical reports. Node
+22.18.0 passed 497 app tests with one existing optional skip; TypeScript and the
+production build passed. The browser harness could not launch, including an
+approved elevated attempt; no restriction was bypassed and no result invented.
+The final source-pipeline suite, including the 11 color-proof tests, passed all
+29 tests; together with the 39 core research tests, 68 focused tests passed.
+
+Confidence: practicality **95/100** for the proved mapping/native pipeline;
+architecture/data safety **96/100** with protected app contracts unchanged;
+visual certainty **75/100** for sampled source glyph ownership, not production
+approval. Browser behavior, full colored review and omitted headings remain
+explicit limits.
+
+Parallel work covered word exceptions, glyph ownership, source generation and
+independent reviews. Multiple development probes and full-corpus runs were
+performed. Native generation timings are measured above; total wall time and
+token counts were not instrumented. No precise total cost is claimed.
