@@ -1,10 +1,11 @@
 """Validate review provenance and prediction identity; never infer verdicts."""
-import json,hashlib
+import json,hashlib,subprocess
 from collections import Counter
 from run_all import HERE,ROOT,BARS,encode
 
 def main(require_complete=False):
  rows=[json.loads(l) for l in (HERE/'review/decisions.jsonl').read_text().splitlines()];ds={r['wid']:r for r in rows};assert len(ds)==len(rows)
+ legacy_cache={}
  events=[json.loads(l) for l in (HERE/'review/audit.jsonl').read_text().splitlines()];coverage=set()
  for e in events:
   assert e['event']=='actually-viewed' and e['observer'] and e['at']
@@ -14,7 +15,13 @@ def main(require_complete=False):
    assert r['verdict']=='ok' or r['note'];coverage.add(wid)
    w=json.loads((BARS/f'p{p}.json').read_text())['words'][wid]
    current=hashlib.sha256(encode(dict(tids=w['tids'],bars=w['bars'],renderMethod='deterministic-label-print-on-demand'))).hexdigest()
-   if e['image'].find('/early/')<0:assert e['predictionDigests'][wid]==current,(wid,'prediction changed')
+   if '/early/' in e['image']:
+    # Historical review digests include colour bytes removed from the current tree.
+    # Read the preserved old commit only; never write colour exports again.
+    if p not in legacy_cache:
+     legacy_cache[p]=json.loads(subprocess.check_output(['git','show',f'd240628:public/letter-ink-dk/p{p}.json'],cwd=ROOT))
+    current=hashlib.sha256(encode(dict(tids=w['tids'],bars=w['bars'],letters=legacy_cache[p][wid]['letters']))).hexdigest()
+   assert e['predictionDigests'][wid]==current,(wid,'prediction changed')
  assert coverage==set(ds)
  for check in ['size','order','empty-letter']:
   r=json.loads((HERE/f'calibration/{check}-review.json').read_text());assert r['actualImageViewed'] and len(r['decisions'])==24

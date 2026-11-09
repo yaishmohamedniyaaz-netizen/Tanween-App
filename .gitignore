@@ -29,3 +29,7 @@ TAHQEEQ_BUILD_TRANSCRIPT.md
 
 # DK checkpoint owner correction: rebuild colour labels on demand, never export.
 /public/letter-ink-dk/
+/.venv-letter-borders-visual/
+# Preserve superseded generated diagnostic sheets locally; explicitly add viewed evidence.
+/scripts/letter-masks/dk_guided/review/early/sheet-*.png
+/scripts/letter-masks/dk_guided/review/early/manifest.json

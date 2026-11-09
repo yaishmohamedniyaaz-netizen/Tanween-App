@@ -37,6 +37,17 @@ def main():
    elif w['status']=='review' and p<=50:flagged.append([p,wid])
  samples={'random-ok':random.Random(20261110).sample(eligible,300),'review-p001-050':flagged}
  target=HERE/'review';target.mkdir(exist_ok=True)
+ sample_path=target/'sample.json'
+ if sample_path.exists():samples=json.loads(sample_path.read_text())
+ else:
+  atomic(sample_path,samples)
+  frozen={}
+  for page,wid in samples['random-ok']:frozen[wid]=dict(page=page,**json.loads((BARS/f'p{page}.json').read_text())['words'][wid])
+  atomic(target/'frozen-status-ok-sample.json',frozen)
+  atomic(target/'sample-provenance.json',dict(seed=20261110,indexSha256=hashlib.sha256((BARS/'index.json').read_bytes()).hexdigest(),excludedIds=sorted(excluded),eligibleWords=len(eligible)))
+ if (target/'manifest.json').exists():
+  for e in json.loads((target/'manifest.json').read_text()):assert hashlib.sha256((G.REPO/e['image']).read_bytes()).hexdigest()==e['sha256']
+  print('Reused existing frozen sample and verified sheets');return
  manifest=[]
  for phase,items in samples.items():
   for start in range(0,len(items),24):
@@ -51,7 +62,8 @@ def main():
    out=Image.new('RGB',(cw*4,ch*6),'white')
    for j,t in enumerate(tiles):out.paste(t,((j%4)*cw,(j//4)*ch))
    path=target/f'{phase}-{start//24+1:03}.png'
-   if path.exists():raise RuntimeError('Preserve existing sheet '+str(path))
-   out.save(path);manifest.append(dict(phase=phase,image=str(path.relative_to(G.REPO)),words=batch,sha256=hashlib.sha256(path.read_bytes()).hexdigest()))
+   if path.exists():
+    with Image.open(path) as saved:assert saved.size==out.size and saved.convert('RGB').tobytes()==out.tobytes(),'Existing sheet differs; stop rather than overwrite'
+   else:out.save(path);manifest.append(dict(phase=phase,image=str(path.relative_to(G.REPO)),words=batch,sha256=hashlib.sha256(path.read_bytes()).hexdigest()))
  atomic(target/'manifest.json',manifest);atomic(target/'sample.json',samples)
 if __name__=='__main__':main()
