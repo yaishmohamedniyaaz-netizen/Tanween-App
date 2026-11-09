@@ -11,7 +11,9 @@ def main(complete=False,finish=False):
  assert R.sha(R.HERE/'bars_v2.py')==index['barsRuleSha256']
  preserved=read(OUT/'v1-evidence-sha256.json')
  for p,sha in preserved['sha256'].items():assert R.sha(ROOT/p)==sha,('v1 evidence changed',p)
- counts=Counter();failures=Counter();total=0;label_changed=[]
+ counts=Counter();failures=Counter();total=0;label_changed=[];metrics_verified=0
+ original_source=subprocess.check_output(['git','show',f'{R.BASE}:scripts/letter-masks/dk_guided/dkguide.py'],cwd=ROOT)
+ assert hashlib.sha256(original_source).hexdigest()==R.sha(R.HERE/'dkguide.py'),'Label source changed'
  with tempfile.TemporaryDirectory() as tmp:
   for first in range(1,605,25):
    pages=list(range(first,min(605,first+25)));dump=Path(tmp)/'units.json'
@@ -29,8 +31,10 @@ def main(complete=False,finish=False):
      error=any(c.startswith('error:') for c in w['checks'])
      if not error:
       assert len(w['bars'])==len(w['tids'])
+     if not error or 'labelSha256' in m:
       for key in ('fit','coverage','bodyAreas','areaRatios','centres','box'):assert m[key]==old[wid][key],(p,wid,key)
       assert len(m['labelSha256'])==64
+      metrics_verified+=1
      elif any('alignment changed' in c for c in w['checks']):label_changed.append([p,wid])
      box=m.get('box');defined=[bar for bar in w['bars'] if bar]
      assert all(len(bar)==2 and all(type(x)==int for x in bar) and box[0]<=bar[0]<bar[1]<=box[2] for bar in defined)
@@ -42,7 +46,8 @@ def main(complete=False,finish=False):
  assert not R.V1.INK.exists()
  protected=['src','public/mushaf','public/pages','public/mushaf-dk','public/letter-borders']
  assert not subprocess.check_output(['git','diff','--name-only',R.BASE,'--',*protected],cwd=ROOT)
- result=dict(pages=604,words=total,counts=dict(counts),failedChecks=dict(failures),exactAppTargets=True,savedCropBounds=True,noOverlappingBars=True,v1EvidenceUnchanged=True,alignmentMetricsUnchanged=True,colourFolderAbsent=True,protectedPathsUnchanged=True)
+ if complete or finish:assert metrics_verified==total,'Run check_v2_errors.py before complete review validation'
+ result=dict(pages=604,words=total,counts=dict(counts),failedChecks=dict(failures),exactAppTargets=True,savedCropBounds=True,noOverlappingBars=True,v1EvidenceUnchanged=True,alignmentMetricsVerifiedWords=metrics_verified,labelSourceUnchanged=True,colourFolderAbsent=True,protectedPathsUnchanged=True)
  if (OUT/'sample.json').exists():
   sample=read(OUT/'sample.json');eligible=read(OUT/'eligible.json');excluded=set(read(OUT/'excluded.json'));frozen=read(OUT/'frozen-predictions.json')
   assert __import__('random').Random(20261112).sample(eligible,300)==sample['fresh300'];assert all(w not in excluded for _,w in sample['fresh300'])
@@ -67,7 +72,9 @@ def main(complete=False,finish=False):
    assert all(w in ds for _,w in target),'Complete the remaining fresh 300'
    assert early or len(target)==300
    if early:assert all(w not in ds for _,w in sample['fresh300'][100:]),'Early-stop gate was crossed'
-   result.update(checkpoint='1b',complete=True,earlyStopped=early,recheck89=dict(Counter(ds[w]['verdict'] for _,w in sample['recheck89'])),fresh=dict(words=len(target),counts=dict(Counter(ds[w]['verdict'] for _,w in target)),fullyRightPercent=100*sum(ds[w]['verdict']=='ok' for _,w in target)/len(target),seed=20261112),labelWrongWords=sum('label-wrong' in r.get('note','') for r in rows))
+   old89=read(OUT/'recheck89-source.json')
+   transitions={old:dict(Counter(ds[r['wid']]['verdict'] for r in old89 if r['oldVerdict']==old)) for old in ('wrong','unsure')}
+   result.update(checkpoint='1b',complete=True,earlyStopped=early,first100=dict(first),earlyStopThresholdRight=90,recheck89=dict(Counter(ds[w]['verdict'] for _,w in sample['recheck89'])),recheckTransitions=transitions,fresh=dict(words=len(target),counts=dict(Counter(ds[w]['verdict'] for _,w in target)),fullyRightPercent=100*sum(ds[w]['verdict']=='ok' for _,w in target)/len(target),seed=20261112),labelWrongWords=sum('label-wrong' in r.get('note','') for r in rows))
    if finish:
     for p in range(1,605):
      path=R.BARS/f'p{p}.json';b=read(path)

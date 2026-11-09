@@ -40,12 +40,14 @@ def prepare():
  for p in range(1,605):
   for wid,w in sorted(read(BARS/f'p{p}.json')['words'].items()):
    if p>2 and w['status']=='ok' and wid not in excluded:eligible.append([p,wid])
- sample=dict(recheck89=recheck,fresh300=random.Random(20261112).sample(eligible,300));atomic(target,sample)
+ sample=dict(recheck89=recheck,fresh300=random.Random(20261112).sample(eligible,300))
  atomic(OUT/'eligible.json',eligible);atomic(OUT/'excluded.json',sorted(excluded));atomic(OUT/'frozen-index.json',index)
  snapshots={}
  for p,wid in recheck+sample['fresh300']:snapshots[wid]=dict(page=p,**read(BARS/f'p{p}.json')['words'][wid])
  atomic(OUT/'frozen-predictions.json',snapshots)
- atomic(OUT/'sample-provenance.json',dict(seed=20261112,eligibleWords=len(eligible),excludedWords=len(excluded),v1Commit=R.BASE,barsRuleSha256=R.sha(HERE/'bars_v2.py'),labelSourceSha256=R.sha(HERE/'dkguide.py'),sampleSha256=R.sha(target),samplingNote='Fresh excludes all earlier recorded reviews, prior pilot/owner/approved exclusions and Claude review-v2 examples. The 89 are diagnostic reuse, never fresh accuracy.'))
+ atomic(OUT/'sample-provenance.json',dict(seed=20261112,eligibleWords=len(eligible),excludedWords=len(excluded),v1Commit=R.BASE,barsRuleSha256=R.sha(HERE/'bars_v2.py'),labelSourceSha256=R.sha(HERE/'dkguide.py'),sampleSha256=hashlib.sha256(R.V1.encode(sample)).hexdigest(),samplingNote='Fresh excludes all earlier recorded reviews, prior pilot/owner/approved exclusions and Claude review-v2 examples. The 89 are diagnostic reuse, never fresh accuracy.'))
+ # The sample file is the completion marker for this atomic-file bundle.
+ atomic(target,sample)
  return sample
 
 def sheets(phase):
