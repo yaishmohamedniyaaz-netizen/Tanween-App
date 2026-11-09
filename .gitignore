@@ -26,3 +26,6 @@ TAHQEEQ_BUILD_TRANSCRIPT.md
 
 # outputs/ contains tracked Mushaf source inputs. Keep it available and stage
 # only explicitly reviewed files from that directory.
+
+# DK checkpoint owner correction: rebuild colour labels on demand, never export.
+/public/letter-ink-dk/

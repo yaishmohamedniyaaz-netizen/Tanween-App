@@ -220,3 +220,47 @@ Current confidence: practicality 85/100 (runner tested, full run pending), data
 safety 95/100 (isolated outputs; protected source assets untouched), visual
 certainty 78/100 for reproducing the pilot only. Full-run accuracy is unmeasured.
 **Checkpoint 1 is not yet complete.** No Checkpoint 2 work or deployment authorized.
+
+### Owner corrections and calibration — 9 November 2026
+
+The owner's later instruction supersedes colour export and the earlier restriction
+on calibration to pages 1–2: stop exporting `public/letter-ink-dk/`, remove it from
+this branch, and inspect 24 random exclusive failures of each requested check
+before drawing the 300-word sample. Colour labels are rebuilt only when rendering
+selected review words. Existing colour exports were moved out of the checkout
+and the tracked copies removed; the generator no longer creates colour files.
+Compact alignment/check metrics remain available for check-only reruns.
+
+[Calibration evidence](../scripts/letter-masks/dk_guided/calibration/) contains
+three frozen 24-word samples, three sheets actually opened, their hashes,
+per-word verdicts, saved prediction snapshots, and policy decisions. Seeds are
+`20261111-size`, `20261111-order`, and `20261111-empty-letter`. The global fit
+cutoff is not yet available, so "exclusive" means exclusive among non-fit checks.
+
+| Check | Right | Wrong | Unsure | Decision |
+|---|---:|---:|---:|---|
+| size | 15 | 4 | 5 | Disable as acceptance gate; keep ratios diagnostically. |
+| order | 0 | 11 | 13 | Retain actual inversions among defined centres. |
+| empty-letter | 22 | 1 | 1 | Disable body-mask gate; missing/sub-3px bars remain rejected. |
+
+The original completed-page pool had seven order-only failures and zero
+empty-letter-only failures: undefined centres were also called order failures,
+and missing body areas also failed size. After the size calibration, size was
+disabled and the undefined-centre order dependency corrected. The order and empty
+samples were then drawn from exclusive failures under that intermediate policy;
+they are **not claimed to be exclusive under the original buggy combination**.
+Each frozen sample records its exact eligible pool and completed pages.
+
+A check-only rerun over the same **98 pages / 12,412 words** changed the preliminary
+non-fit acceptance count from **8,061 (64.94%)** to **12,037 (96.98%)**. These are
+acceptance rates, not accuracy, and exclude the pending global fit cutoff. All
+exported words stay `review` with `fit-pending` until full-run finalization. Final
+old/new rates will be reported over the complete corpus after the fit threshold.
+Calibration and previously reviewed words are excluded from the later seeded
+300-word accuracy sample. The four owner-reported examples are also excluded.
+
+Twelve regression tests pass, including defined-centre ordering, retention of
+missing-bar/coverage/error guards, and the existing atomic export checks. All
+77,433 artwork word target lists match the current app target inventory. Full
+batch generation resumed without colour output, skipping completed pages. There
+is one batch runner and one continuation monitor. Checkpoint 1 remains in progress.
