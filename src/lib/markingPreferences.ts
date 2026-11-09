@@ -15,6 +15,12 @@ export type MarkOrder = "criterion-first" | "drag-hold" | "word-first";
 /** "auto" keeps the bar on the side away from the scorecard. */
 export type BarSide = "auto" | "left" | "right";
 export type BarSize = "standard" | "large";
+/**
+ * How the page is drawn. "print": the scanned 1405 artwork (default).
+ * "digitalkhatt": the DigitalKhatt old Madina font, with every letter its own
+ * shape, so the mistaken letter itself can be coloured (prototype).
+ */
+export type PageDrawing = "print" | "digitalkhatt";
 
 /**
  * Look of the criterion island. These are test switches for choosing a final
@@ -67,6 +73,7 @@ export interface MarkingPreferences {
   trayCriteria: boolean;
   /** Prototype: underlines on words without approved borders, from learned guesses. */
   guessedUnderlines: "off" | "high" | "short" | "full";
+  pageDrawing: PageDrawing;
   look: IslandLook;
 }
 
@@ -80,6 +87,7 @@ export const DEFAULT_MARKING_PREFERENCES: MarkingPreferences = {
   barSize: "standard",
   trayCriteria: false,
   guessedUnderlines: "off",
+  pageDrawing: "print",
   look: DEFAULT_ISLAND_LOOK,
 };
 
@@ -120,6 +128,7 @@ export function normalizeMarkingPreferences(
     barSize: oneOf(v.barSize, ["standard", "large"] as const, fallback.barSize),
     trayCriteria: bool(v.trayCriteria, fallback.trayCriteria),
     guessedUnderlines: oneOf(v.guessedUnderlines, ["off", "high", "short", "full"] as const, fallback.guessedUnderlines),
+    pageDrawing: oneOf(v.pageDrawing, ["print", "digitalkhatt"] as const, fallback.pageDrawing),
     look: normalizeIslandLook(v.look, fallback.look),
   };
 }

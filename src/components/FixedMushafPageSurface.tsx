@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef, useState, type CSSProperties } from "react";
+import { useLayoutEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 import type { MushafPageSurfaceProps } from "./MushafPageSurface.tsx";
 import type { FixedPageGeometry } from "../lib/fixedMushafGeometry.ts";
 import { MUSHAF_REFERENCE_WIDTH } from "../lib/mushafGeometry.ts";
@@ -7,6 +7,8 @@ import { useCompactMushafPaper, useCalibratedPaperWidth } from './MushafViewport
 import { fixedPaperPresentation } from '../lib/mobileMushafPresentation';
 import { calibratedMobilePaper } from '../lib/mobileCalibration';
 import { printedBasmalaWords } from '../lib/printedBasmala';
+import { dkPageGeometry, useDkPage, usePageDrawing } from '../lib/digitalKhattPages';
+import { DkHeaderStrips, DkMarkedLetters, DkPageInk } from './DigitalKhattPage';
 
 const INSET = 12, TOP = 16, BOTTOM = 12;
 const ART_SCALE = (MUSHAF_REFERENCE_WIDTH - INSET * 2) / 1920;
@@ -16,8 +18,16 @@ export const FIXED_PAGE_ASPECT_RATIO = MUSHAF_REFERENCE_WIDTH / FIXED_PAGE_HEIGH
 /** Image and semantic regions share one immutable reference-space transform. */
 export function FixedMushafPageSurface({
   fixed, data, pageRef, beforeLines, afterLines, renderWord, lineClassName,
-  onGeometryChange, qcfReady: _qcfReady, className = "", ...props
+  onGeometryChange, qcfReady: _qcfReady, className = "", letterMarks, ...props
 }: MushafPageSurfaceProps & { fixed: FixedPageGeometry }) {
+  // DigitalKhatt drawing (prototype): same words and ids, own boxes and ink.
+  // The printed artwork stays until the page's DigitalKhatt data has loaded.
+  const drawing = usePageDrawing();
+  const dk = useDkPage(drawing === "digitalkhatt" ? data.page : null);
+  const dkGeometry = useMemo(() => {
+    if (!dk) return null;
+    try { return dkPageGeometry(fixed, data, dk); } catch { return null; }
+  }, [dk, fixed, data]);
   const compact = useCompactMushafPaper();
   const calibratedWidth = useCalibratedPaperWidth();
   const paper = calibratedWidth ? calibratedMobilePaper(calibratedWidth, data.page) : fixedPaperPresentation(compact);
@@ -37,10 +47,11 @@ export function FixedMushafPageSurface({
     observer.observe(element);
     return () => observer.disconnect();
   }, [paper.width, calibratedWidth]);
-  useLayoutEffect(() => { if (renderedScale) onGeometryChange?.(); }, [renderedScale, data, onGeometryChange]);
+  useLayoutEffect(() => { if (renderedScale) onGeometryChange?.(); }, [renderedScale, data, dkGeometry, onGeometryChange]);
   const lines = new Map(data.lines.map(line => [line.n, line]));
-  const words = [...fixed.words, ...printedBasmalaWords(data)].sort((a, b) => a.line - b.line || b.region[0] - a.region[0]);
-  const openingOffset = data.page <= 2 && fixed.contentBounds
+  const words = dkGeometry ? dkGeometry.words
+    : [...fixed.words, ...printedBasmalaWords(data)].sort((a, b) => a.line - b.line || b.region[0] - a.region[0]);
+  const openingOffset = !dkGeometry && data.page <= 2 && fixed.contentBounds
     ? (fixed.height - fixed.contentBounds[1] - fixed.contentBounds[3]) / 2 * ART_SCALE : 0;
   // Ornament emphasis follows its surah's opening, including ornaments on
   // the preceding page. Printed Basmalas now have ordinary selectable rows.
@@ -64,12 +75,16 @@ export function FixedMushafPageSurface({
     style={{ aspectRatio: paper.aspectRatio }}>
     <div {...props} ref={pageRef} className={`page page-fixed-mushaf ${className}`}
       data-page={data.page} data-font-ready="true" data-fixed-page="true"
+      data-page-drawing={dkGeometry ? "digitalkhatt" : "print"}
       data-reference-width={paper.width}
       style={{ ...props.style, width: paper.width, height: paper.height,
         transform: `scale(${renderedScale || 1})`, visibility: renderedScale ? undefined : "hidden",
         "--mark-wash-pad-top": "0px", "--mark-wash-pad-bottom": "0px" } as CSSProperties}>
-      <img src={fixed.image} alt={`Mushaf page ${data.page}`} draggable={false}
-        style={{ left: INSET, top: TOP + openingOffset, width: 1920 * ART_SCALE, height: 3106 * ART_SCALE }} />
+      {dk && dkGeometry ? <>
+        <DkPageInk dk={dk} place={{ left: INSET, top: TOP, scale: ART_SCALE }} />
+        <DkHeaderStrips dk={dk} place={{ left: INSET, top: TOP, scale: ART_SCALE }} image={fixed.image} />
+      </> : <img src={fixed.image} alt={`Mushaf page ${data.page}`} draggable={false}
+        style={{ left: INSET, top: TOP + openingOffset, width: 1920 * ART_SCALE, height: 3106 * ART_SCALE }} />}
       <div className="mushaf-lines">
         {contextGaps.map(([top, bottom]) => <div key={top}
           className="fixed-artwork-context" aria-hidden="true"
@@ -92,6 +107,8 @@ export function FixedMushafPageSurface({
         })}
       </div>
       {afterLines}
+      {dk && dkGeometry && letterMarks && letterMarks.size > 0 &&
+        <DkMarkedLetters dk={dk} place={{ left: INSET, top: TOP, scale: ART_SCALE }} marks={letterMarks} />}
     </div>
   </div>;
 }

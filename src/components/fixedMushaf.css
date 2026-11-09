@@ -150,3 +150,48 @@
     inset: 4px 2px;
   }
 }
+
+/* ---- DigitalKhatt drawing (prototype) ----
+   The page ink replaces the artwork image at the same place in the stack:
+   word washes (z 3) sit under the ink, question fades (z 5) cover it, and the
+   marked letters are drawn again above the fade (z 6) so they stay bright. */
+.page-fixed-mushaf .dk-page-ink,
+.page-fixed-mushaf .dk-marked-letters {
+  position: absolute; pointer-events: none; user-select: none; overflow: visible;
+}
+.page-fixed-mushaf .dk-page-ink { z-index: 4; color: var(--mushaf-ink); fill: currentColor; }
+[data-theme="dark"] .page-fixed-mushaf .dk-page-ink { color: #e6e6e6; }
+.page-fixed-mushaf .dk-marked-letters { z-index: 6; }
+.page-fixed-mushaf .dk-header-strip {
+  position: absolute; z-index: 4; overflow: hidden; pointer-events: none;
+}
+.page-fixed-mushaf .dk-header-strip > img { position: absolute; max-width: none; user-select: none; }
+[data-theme="dark"] .page-fixed-mushaf .dk-header-strip > img { filter: invert(1) brightness(0.9); }
+
+/* The mistaken letter's own ink, in the criterion's strong colour. */
+.dk-mark.cat-jali { fill: #ca244d; }
+.dk-mark.cat-khafi { fill: #d58e3a; }
+.dk-mark.cat-fasaha { fill: #3358d4; }
+.dk-mark.cat-adu-raagu { fill: #377b60; }
+[data-theme="dark"] .dk-mark.cat-jali { fill: #f07685; }
+[data-theme="dark"] .dk-mark.cat-khafi { fill: #de8d18; }
+[data-theme="dark"] .dk-mark.cat-fasaha { fill: #779cff; }
+[data-theme="dark"] .dk-mark.cat-adu-raagu { fill: #49b98f; }
+
+/* The tray's big word. The chosen letter is drawn in the focus colour. */
+/* A card joined to the letter row, on the side away from the word. */
+.selector-word-art {
+  position: relative; z-index: 1; display: flex; justify-content: center;
+  width: 100%; padding: 10px 12px 6px; pointer-events: none;
+  background: var(--surface); border: 1px solid var(--line-2);
+}
+.drag-menu.up .selector-word-art { border-bottom: 0; border-radius: 12px 12px 0 0; }
+.drag-menu.down .selector-word-art { border-top: 0; border-radius: 0 0 12px 12px; }
+.drag-menu.up .unit-picker-row:has(+ .selector-word-art) { border-top-left-radius: 0; border-top-right-radius: 0; }
+.drag-menu.down .unit-picker-row:has(+ .selector-word-art) { border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
+.selector-word-art .dk-word-art {
+  display: block; height: 64px; max-width: 100%; width: auto;
+  color: var(--mushaf-ink); fill: currentColor; overflow: visible;
+}
+[data-theme="dark"] .selector-word-art .dk-word-art { color: #e6e6e6; }
+.dk-word-art .dk-selected { fill: var(--ring); }

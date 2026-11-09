@@ -27,6 +27,7 @@ import { SettingsWorkspace } from "./components/SettingsWorkspace";
 import { QuestionPreparationWorkspace } from "./components/QuestionPreparationWorkspace";
 import { CompetitionIdlePanel } from "./components/CompetitionIdlePanel";
 import { FinishDialog } from "./components/FinishDialog";
+import { publishPageDrawing } from "./lib/digitalKhattPages";
 import { useSessionSaveStatus } from "./components/SessionStorageBoundary";
 import { JudgeRoleStrip } from "./components/JudgeRoleStrip";
 import { PreparedSidebar } from "./components/PreparedSidebar";
@@ -124,6 +125,8 @@ export function App() {
   const [preferences, setPreferences] = useState<DevicePreferencesV5>(() =>
     readDevicePreferences(undefined, fixedReview && window.matchMedia(MOBILE_MUSHAF_QUERY).matches ? MOBILE_MUSHAF_DEFAULT_ZOOM : 100),
   );
+  // Every page surface (judging, replay, results) reads the drawing choice from one store.
+  useLayoutEffect(() => publishPageDrawing(preferences.marking.pageDrawing), [preferences.marking.pageDrawing]);
   const [mobilePortrait, setMobilePortrait] = useState(() => window.matchMedia(MOBILE_MUSHAF_QUERY).matches);
   const [zoomConstrained, setZoomConstrained] = useState(false);
   useEffect(() => {

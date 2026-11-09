@@ -1,0 +1,14 @@
+DigitalKhatt page drawing (Tanween prototype)
+
+Glyph outlines and page layout in this folder were generated at build time from:
+- DigitalKhatt old Madina font (fonts/hb/oldmadina.otf in the digitalkhatt.org repository),
+  Copyright (c) DigitalKhatt contributors, SIL Open Font License 1.1 (oldmadina-OFL.txt).
+  The project is sponsored by Tarteel AI. https://github.com/DigitalKhatt/oldmadinafont
+- DigitalKhatt website text and justification code, digitalkhatt.org repository at
+  commit 4213fab9892774f74f7164c70a70dd84a14f0215, MIT licence (digitalkhatt-website-MIT.txt).
+  https://github.com/DigitalKhatt/digitalkhatt.org
+- HarfBuzz with DigitalKhatt justification changes (assets/hb.wasm of that repository),
+  "Old MIT" licence (harfbuzz-COPYING.txt).
+
+Word ids and letter units are Tanween's own (rule qpc-hafs-v1-targets-4.0.0).
+Build scripts: scripts/digitalkhatt/app_pages/README.md

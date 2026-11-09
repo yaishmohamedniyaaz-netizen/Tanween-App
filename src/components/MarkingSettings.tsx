@@ -84,6 +84,11 @@ export function MarkingSettings({ value, onChange, penCategories }: {
   const bar = value.order !== "word-first";
   return (
     <div className="marking-settings">
+      <Options legend="Page drawing" value={value.pageDrawing} onChange={(pageDrawing) => onChange({ pageDrawing })}
+        note={value.pageDrawing === "digitalkhatt"
+          ? "Pages drawn with the DigitalKhatt old Madina font. A marked letter is coloured itself. Surah headers come from the print."
+          : "The scanned 1405 print. Marks show as a word highlight and underlines."}
+        choices={[{ value: "print", label: "Print" }, { value: "digitalkhatt", label: "DigitalKhatt" }]} />
       <Options legend="How you mark" value={value.order} onChange={(order) => onChange({ order })}
         note={ORDER_NOTE[value.order]}
         choices={[
@@ -111,7 +116,7 @@ export function MarkingSettings({ value, onChange, penCategories }: {
           choices={[{ value: "standard", label: "Standard" }, { value: "large", label: "Large" }]} />
         </>}
       </>}
-      <Options legend="Underlines on words you have not approved" value={value.guessedUnderlines}
+      {value.pageDrawing === "print" && <Options legend="Underlines on words you have not approved" value={value.guessedUnderlines}
         onChange={(guessedUnderlines) => onChange({ guessedUnderlines })}
         note={{
           off: "Only words you approved get an underline; others keep the word highlight.",
@@ -119,7 +124,7 @@ export function MarkingSettings({ value, onChange, penCategories }: {
           short: "Every word, from learned guesses, with a short bar in the middle of the letter. Unchecked: about 1 in 6 may sit under the wrong letter.",
           full: "Every word, from learned guesses, with the full bar. Unchecked: about 1 in 3 borders are more than 2 px off.",
         }[value.guessedUnderlines]}
-        choices={[{ value: "off", label: "Off" }, { value: "high", label: "Most certain" }, { value: "short", label: "All, short" }, { value: "full", label: "All, full" }]} />
+        choices={[{ value: "off", label: "Off" }, { value: "high", label: "Most certain" }, { value: "short", label: "All, short" }, { value: "full", label: "All, full" }]} />}
       <Options legend="Pen tap and double tap" value={value.penDoubleTap} onChange={(penDoubleTap) => onChange({ penDoubleTap })}
         note={`With a pen, in the letter tray: tap a letter = ${first}, double tap = ${second}.`}
         choices={[{ value: true, label: "On" }, { value: false, label: "Off" }]} />
