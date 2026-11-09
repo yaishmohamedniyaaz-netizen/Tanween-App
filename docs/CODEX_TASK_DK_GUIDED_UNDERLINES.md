@@ -401,3 +401,14 @@ the first 100 words and report, to save tokens.
 
 **Do not** fix label errors (wrong colours) in this round; just tag them `label-wrong`
 in the note, so we know how many remain.
+
+
+### Checkpoint 1b execution — in progress
+
+Merged `claude/criterion-bar` at `b5fd836cfd0245702337f3c20d37a195330c1aee` into the task branch. Both the complete Checkpoint 1 report and the new Checkpoint 1b instructions are preserved. The v1 baseline remains commit `7f676c36261d5e826bcc128394d7bbe2b64649ce`; 85 historical evidence files have a saved SHA256 manifest in `checkpoint1b/v1-evidence-sha256.json`.
+
+`run_v2.py` reruns all pages with the supplied, unmodified `bars_v2.py`. The original labels were not persisted, so deterministic alignment is recomputed and its fit, coverage, body areas, ratios, centres and crop are checked against the saved v1 metrics. No label rule is changed. Public colour exports stay disabled. Size, empty-letter and order gates are disabled; narrow-bar, coverage, fit and errors remain. The full-run fit percentile is finalized only after all pages exist. Additional geometry validation withholds source-v2 outputs that still overlap after minimum-width expansion or leave the saved crop; it does not repair their bars.
+
+There is one v2 runner and one lock-protected continuation monitor. They atomically save/resume completed pages. The monitor can finalize, validate and prepare sheets; it cannot invent visual verdicts. `review_v2_checkpoint.py` freezes the 89 diagnostic cases and the fresh seed-20261112 draw after full generation. It renders only the first 100 fresh cases initially; the remaining 200 are guarded by the explicit ≥90-right-of-100 gate. Every earlier recorded review, pilot/owner/approved exclusion and Claude review-v2 example is excluded. No sample is yet scored. Twenty scoped tests pass, including evidence reuse, missing-bar/geometry rejection and the early-stop gate.
+
+Checkpoint 1b is not yet complete. Exact token telemetry remains unavailable. No Checkpoint 2, main push, app wiring or deployment is performed.
