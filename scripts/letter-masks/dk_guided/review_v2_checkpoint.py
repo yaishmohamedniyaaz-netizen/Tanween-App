@@ -1,5 +1,5 @@
 """Independent Checkpoint 1b sampling, image evidence and explicit verdicts."""
-import json,hashlib,random,argparse,subprocess
+import json,hashlib,random,argparse,subprocess,tempfile
 from datetime import datetime,timezone
 from collections import Counter
 from pathlib import Path
@@ -9,6 +9,17 @@ import run_v2 as R
 from sheet import PAL
 G=R.G;ROOT=R.ROOT;HERE=R.HERE;OUT=R.OUT;BARS=R.BARS;atomic=R.atomic
 FONT=ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf',16)
+ARABIC_FONT=ImageFont.truetype('/usr/share/fonts/truetype/noto/NotoNaskhArabic-Regular.ttf',18)
+def metadata(items):
+ path=OUT/'target-metadata.json';saved=read(path) if path.exists() else {};wanted={w for _,w in items}
+ if not wanted<=set(saved):
+  with tempfile.TemporaryDirectory() as tmp:
+   dest=Path(tmp)/'units.json'
+   subprocess.run(['node','--experimental-strip-types','scripts/letter-masks/dump_units.mts',*map(str,sorted({p for p,w in items if w not in saved})),'--out',str(dest)],cwd=ROOT,check=True,capture_output=True)
+   for wid,w in read(dest).items():
+    if wid in wanted:saved[wid]=w
+  atomic(path,saved)
+ return saved
 def read(path):return json.loads(path.read_text())
 def digest(w):return hashlib.sha256(R.V1.encode(dict(method=R.METHOD,tids=w['tids'],bars=w['bars']))).hexdigest()
 def decisions():return [json.loads(l) for l in (OUT/'decisions.jsonl').read_text().splitlines()] if (OUT/'decisions.jsonl').exists() else []
@@ -26,7 +37,19 @@ def tile(p,wid):
  canvas=Image.new('RGB',(W,H+18),'white');canvas.paste(Image.fromarray(im.astype('uint8')));d=ImageDraw.Draw(canvas)
  for k,b in enumerate(data['bars']):
   if b:d.line((b[0]-box[0],H+8,b[1]-box[0]-1,H+8),fill=PAL[k%len(PAL)],width=3)
- canvas=canvas.resize((W*3,(H+18)*3));out=Image.new('RGB',(max(canvas.width,400),canvas.height+30),'white');out.paste(canvas,(0,30));ImageDraw.Draw(out).text((3,3),f'p{p} {wid} {w["text"]}',font=FONT,fill='black');return out
+ canvas=canvas.resize((W*3,(H+18)*3));units=metadata([[p,wid]])[wid]['units'];assert [u['tid'] for u in units]==data['tids']
+ legend=[f'{i+1}: {u["show"]}' for i,u in enumerate(units)];width=max(canvas.width,400)
+ positions=[];x=3;y=27
+ for i,label in enumerate(legend):
+  span=max(60,int(ARABIC_FONT.getlength(label))+18)
+  if x+span>width:x=3;y+=22
+  positions.append((x,y,i,label));x+=span
+ top=y+25;out=Image.new('RGB',(width,canvas.height+top),'white');out.paste(canvas,(0,top));draw=ImageDraw.Draw(out)
+ prefix=f'p{p} {wid} '
+ draw.text((3,3),prefix,font=FONT,fill='black');draw.text((5+int(FONT.getlength(prefix)),0),w['text'],font=ARABIC_FONT,fill='black')
+ for x,y,i,label in positions:
+  draw.rectangle((x,y+4,x+8,y+12),fill=PAL[i%len(PAL)]);draw.text((x+11,y),label,font=ARABIC_FONT,fill='black')
+ return out
 
 def prepare():
  index=read(BARS/'index.json');assert index['method']==R.METHOD and index['pages']==list(range(1,605))
@@ -58,6 +81,7 @@ def sheets(phase):
   assert sum(ds[w]['verdict']=='ok' for _,w in allitems[:100])>=90,'Early stop: first 100 below 90%'
   items=allitems[100:];offset=100
  else:items=allitems;offset=0
+ metadata(items)
  manifest=read(OUT/'manifest.json') if (OUT/'manifest.json').exists() else []
  for start in range(0,len(items),24):
   batch=items[start:start+24];path=OUT/f'{phase}-{start//24+1:03}.png';known=next((e for e in manifest if e['image']==str(path.relative_to(ROOT))),None)

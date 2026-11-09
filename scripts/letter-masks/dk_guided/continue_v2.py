@@ -1,5 +1,5 @@
 """One guarded v2 continuation monitor; generation/preparation only, no verdicts."""
-import json,time,fcntl
+import json,time,fcntl,importlib
 from pathlib import Path
 from datetime import datetime,timezone
 import run_v2 as R
@@ -21,6 +21,8 @@ def main():
   print(now,len(pages),'/604; latest page',last[1] if last else None,flush=True)
   if len(pages)==604:break
   time.sleep(50)
+ # Preparation may be hardened while the unchanged computer-only runner works.
+ importlib.reload(C);importlib.reload(V)
  R.finalize();V.main();C.prepare();C.sheets('recheck');C.sheets('fresh-first100')
  print('READY FOR ACTUAL REVIEW: 89 diagnostic words, then first 100 fresh words. No verdicts inferred.',flush=True)
 if __name__=='__main__':main()

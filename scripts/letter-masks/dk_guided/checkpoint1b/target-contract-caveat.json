@@ -1,0 +1,90 @@
+[
+  {
+    "wid": "2.249.29",
+    "historicalVerdict": {
+      "page": 41,
+      "wid": "2.249.29",
+      "verdict": "wrong",
+      "note": "Final alif merged into mim with no independent underline."
+    },
+    "actualTargetMetadata": {
+      "text": "فَلَمَّا",
+      "mergedTids": [
+        "2.249.29@r0",
+        "2.249.29@r2",
+        "2.249.29@r4"
+      ],
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "ف",
+          "show": "فَ",
+          "silent": false,
+          "tid": "2.249.29@r0"
+        },
+        {
+          "start": 2,
+          "end": 4,
+          "primary": "ل",
+          "show": "لَ",
+          "silent": false,
+          "tid": "2.249.29@r2"
+        },
+        {
+          "start": 4,
+          "end": 8,
+          "primary": "م",
+          "show": "مَّا",
+          "silent": false,
+          "tid": "2.249.29@r4"
+        }
+      ]
+    },
+    "finding": "Historical diagnostic note incorrectly expected an independent final alif. The app merges it into the preceding madd-host target. Historical evidence is preserved, not silently regraded."
+  },
+  {
+    "wid": "2.250.0",
+    "historicalVerdict": {
+      "page": 41,
+      "wid": "2.250.0",
+      "verdict": "wrong",
+      "note": "Final alif merged into mim without an independent underline."
+    },
+    "actualTargetMetadata": {
+      "text": "وَلَمَّا",
+      "mergedTids": [
+        "2.250.0@r0",
+        "2.250.0@r2",
+        "2.250.0@r4"
+      ],
+      "units": [
+        {
+          "start": 0,
+          "end": 2,
+          "primary": "و",
+          "show": "وَ",
+          "silent": false,
+          "tid": "2.250.0@r0"
+        },
+        {
+          "start": 2,
+          "end": 4,
+          "primary": "ل",
+          "show": "لَ",
+          "silent": false,
+          "tid": "2.250.0@r2"
+        },
+        {
+          "start": 4,
+          "end": 8,
+          "primary": "م",
+          "show": "مَّا",
+          "silent": false,
+          "tid": "2.250.0@r4"
+        }
+      ]
+    },
+    "finding": "Historical diagnostic note incorrectly expected an independent final alif. The app merges it into the preceding madd-host target. Historical evidence is preserved, not silently regraded."
+  }
+]
