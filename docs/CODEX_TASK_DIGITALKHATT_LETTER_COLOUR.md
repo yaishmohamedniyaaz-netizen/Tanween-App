@@ -53,6 +53,11 @@ Why: the underline method has a ceiling. Two rounds (pixel rules and looking at 
 
 All **560 letters on page 3** were tappable and colourable in the prototype.
 
+**Learned from the research round** (`codex/letter-positions-research`, `scripts/letter-masks/research/CHECKPOINT_1.md`):
+- Rendering the old Madina font with *stock* HarfBuzz and **warping it onto the artwork** reached only **78%** (CTC recogniser 84%). **Do not register onto the artwork again.** This task draws the page *from* DigitalKhatt, so no warping is needed.
+- Licences checked there: the font is **OFL 1.1**; DigitalKhatt's justification HarfBuzz (`justification` branch of <https://github.com/DigitalKhatt/harfbuzz>) is **Old MIT**, with separate notices in some subfolders. The OFL does **not** automatically cover the sample PDF. `medinamushafanalyzer` has no licence: do not use it.
+- HarfBuzz clusters are not always single letters (ligatures, shared marks). Map from glyph sequence to letter units explicitly (Phase 2).
+
 **Sizes (one page):**
 
 | Asset | Raw | Gzip |
