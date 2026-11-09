@@ -245,7 +245,22 @@ def label_print(p, wid, flow=True):
     # waqf signs keep no letter
     if '__none__' in tids:
         out[out == tids.index('__none__') + 1] = 0
-    return {'wid': wid, 'page': p, 'tids': tids, 'labels': out, 'ink': ink, 'box': abox, 'fit': fit, 'word': w}
+    # Expose existing body/mark classification for batch self-checks without changing labels.
+    print_marks = np.isin(comps, small)
+    dk_body_areas = []
+    for t in tids:
+        dc, dn = ndi.label(masks[t])
+        body = np.zeros(shape, bool)
+        for c in range(1, dn + 1):
+            m = dc == c
+            if not is_mark(m, dband[:2], dband[2]): body |= m
+        dk_body_areas.append(int(body.sum()))
+    a0, b0 = fmap(0, 0)
+    a1, b1 = fmap(1, 1)
+    scale_area = float((a1 - a0) * (b1 - b0))
+    return {'wid': wid, 'page': p, 'tids': tids, 'labels': out, 'ink': ink,
+            'box': abox, 'fit': fit, 'word': w, 'marks': print_marks,
+            'dk_body_areas': dk_body_areas, 'scale_area': scale_area}
 
 
 def bars(res, base_frac=0.45):

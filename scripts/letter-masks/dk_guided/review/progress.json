@@ -1,0 +1,12 @@
+{
+  "phase": "batch-running",
+  "checkpoint1Complete": false,
+  "pagesDone": [
+    1,
+    2
+  ],
+  "wordsChecked": 0,
+  "tokensUsed": null,
+  "tokenMeasurement": "Exact token telemetry is not exposed by this session; never report estimates as measured usage.",
+  "updatedAt": "2026-11-09T13:25:26.563265+00:00"
+}

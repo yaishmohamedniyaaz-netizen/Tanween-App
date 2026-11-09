@@ -1,0 +1,45 @@
+{
+  "observer": "cloud-root-dk-20261109",
+  "recordedAt": "2026-11-09T13:24:44.651234+00:00",
+  "phase": "setup-smoke",
+  "words": [
+    [
+      189,
+      "9.17.12"
+    ],
+    [
+      50,
+      "3.7.32"
+    ],
+    [
+      498,
+      "44.56.7"
+    ],
+    [
+      297,
+      "18.29.24"
+    ],
+    [
+      142,
+      "6.111.7"
+    ],
+    [
+      432,
+      "34.33.28"
+    ],
+    [
+      378,
+      "27.19.23"
+    ],
+    [
+      187,
+      "9.6.16"
+    ]
+  ],
+  "verdict": "visual match to pilot in letter bodies and bars; typography/PNG size differs",
+  "images": {
+    "scripts/letter-masks/dk_guided/setup-evidence/check.png": "dd63411df441202deafdab6deb0211e5a0eafeece887c5903a074cbd86448c03",
+    "scripts/letter-masks/dk_guided/pilot-sheets/r0.jpg": "cdffb13aa5f50599497fb0cd577efae6ceaae82ecb787d9434cd8d9113f2ddac"
+  },
+  "note": "Both images actually opened. Current PNG also inspected normalized to reference width. No random-check decisions made."
+}
