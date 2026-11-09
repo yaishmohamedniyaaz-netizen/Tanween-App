@@ -15910,6 +15910,35 @@ html:has(.finish-dialog[open]) {
   .criterion-bar.is-nudged { animation: criterion-dim 300ms ease; }
 }
 @keyframes criterion-dim { 50% { opacity: 0.45; } }
+/* Phone: the bottom criterion chips are the criterion buttons (the scorecard
+   rows are hidden). At rest they look as before; the chosen chip takes colour. */
+.mobile-criterion-strip.is-picker .cat-jali { --isl-strong: #ca244d; --isl-container: #fedadc; --isl-on: #7b2434; }
+.mobile-criterion-strip.is-picker .cat-khafi { --isl-strong: #d58e3a; --isl-container: #f7e0c9; --isl-on: #663d00; }
+.mobile-criterion-strip.is-picker[data-khafi="deep"] .cat-khafi { --isl-strong: #a16300; }
+.mobile-criterion-strip.is-picker .cat-fasaha { --isl-strong: #3358d4; --isl-container: #d9e5ff; --isl-on: #2b4288; }
+.mobile-criterion-strip.is-picker .cat-adu-raagu { --isl-strong: #377b60; --isl-container: #cdeede; --isl-on: #0a553d; }
+[data-theme="dark"] .mobile-criterion-strip.is-picker .cat-jali { --isl-strong: #f07685; --isl-container: #49282b; --isl-on: #f7cbcd; }
+[data-theme="dark"] .mobile-criterion-strip.is-picker .cat-khafi { --isl-strong: #de8d18; --isl-container: #442e15; --isl-on: #eed2b5; }
+[data-theme="dark"] .mobile-criterion-strip.is-picker .cat-fasaha { --isl-strong: #779cff; --isl-container: #27324d; --isl-on: #c9d7fa; }
+.mobile-criterion-strip .mobile-criterion-pick {
+  border: 0; margin: 0; font: inherit; color: inherit; cursor: pointer;
+  touch-action: none; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none;
+  transition: background-color 120ms ease, color 120ms ease;
+}
+.mobile-criterion-strip .mobile-criterion-pick:active { background: color-mix(in srgb, var(--ink) 8%, var(--surface)); }
+.mobile-criterion-strip[data-chosen-look="solid"] .mobile-criterion-pick.is-on { background: var(--isl-strong); color: #ffffff; }
+[data-theme="dark"] .mobile-criterion-strip[data-chosen-look="solid"] .mobile-criterion-pick.is-on { color: #1e1a14; }
+.mobile-criterion-strip[data-chosen-look="soft"] .mobile-criterion-pick.is-on { background: var(--isl-container); color: var(--isl-on); box-shadow: inset 0 0 0 2px var(--isl-strong); }
+.mobile-criterion-pick.is-on .mobile-criterion-label,
+.mobile-criterion-pick.is-on .mobile-criterion-value { color: inherit; font-weight: 650; }
+.mobile-criterion-strip[data-chosen-look="solid"] .mobile-criterion-pick.is-on .mobile-criterion-label i { background: currentColor; }
+.mobile-criterion-strip.is-nudged { animation: criterion-nudge 380ms ease; }
+@media (prefers-reduced-motion: reduce) { .mobile-criterion-strip.is-nudged { animation: criterion-dim 300ms ease; } }
+/* Phone: keep the marking settings button above the bottom bar, not over Finish. */
+.app[data-mobile-judge-deck="true"] ~ .criterion-corner,
+body:has(.app[data-mobile-judge-deck="true"] .mobile-judge-deck) .criterion-corner {
+  bottom: calc(var(--mobile-deck-clear, 112px) + var(--mobile-judge-safe-bottom, 0px));
+}
 /* Scorecard as the picker: the pinpoint rows are the criterion buttons.
    At rest they look as before; only the chosen row takes colour. */
 .sc-rows.is-picker .sc-row-pick,

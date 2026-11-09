@@ -22,6 +22,8 @@ import { MistakeLog } from "./MistakeLog";
 import { NotesBox } from "./NotesBox";
 import { ScorePanel } from "./ScorePanel";
 import { MistakeExpiryLine } from './MistakeExpiryLine';
+import { CriterionPressable } from "./CriterionPressable";
+import { criterionChoiceHandlers, useCriterionChoice } from "../lib/criterionChoice";
 
 type MobileSheet = "score" | "mistakes" | null;
 
@@ -61,6 +63,20 @@ export function MobileJudgeDeck({
     byCategory,
     missingImpressions,
   );
+  // On a phone the scorecard rows are hidden, so these chips are the criterion
+  // buttons (criterion first / drag and hold): choose one, then tap the word.
+  const choice = useCriterionChoice();
+  const picking = choice.active && choice.look !== null;
+  const [shake, setShake] = useState(false);
+  const seenNudge = useRef(choice.nudge);
+  useEffect(() => {
+    if (!picking || choice.nudge === seenNudge.current) return;
+    seenNudge.current = choice.nudge;
+    setShake(false);
+    const frame = window.requestAnimationFrame(() => setShake(true));
+    const timer = window.setTimeout(() => setShake(false), 420);
+    return () => { window.cancelAnimationFrame(frame); window.clearTimeout(timer); };
+  }, [choice.nudge, picking]);
   const latestAction = latestMobileMistakeAction(state.events, state.mistakes);
   const actionKey = latestAction
     ? `${latestAction.mistake.id}:${latestAction.at}`
@@ -196,23 +212,41 @@ export function MobileJudgeDeck({
             </div>
           ) : null}
             <div
-              className="mobile-criterion-strip"
+              className={`mobile-criterion-strip ${picking ? "is-picker" : ""} ${shake ? "is-nudged" : ""}`}
+              data-chosen-look={choice.look?.chosen}
+              data-khafi={choice.look?.khafi}
               data-feedback-covered={showLastAction ? 'true' : undefined}
               aria-hidden={showLastAction || undefined}
               style={{ gridTemplateColumns: `repeat(${Math.max(1, chips.length)}, minmax(0, 1fr))` }}
             >
-              {chips.map((chip) => (
-                <div
-                  key={chip.category}
-                  className={`mobile-criterion-chip cat-${chip.category}`}
-                >
+              {chips.map((chip) => {
+                const content = <>
                   <span className="mobile-criterion-label">
                     <i aria-hidden="true" />
                     {chip.label}
                   </span>
                   <span className="mobile-criterion-value t-num">{chip.value}</span>
-                </div>
-              ))}
+                </>;
+                if (!picking || !choice.look || !choice.categories.includes(chip.category)) {
+                  return <div key={chip.category} className={`mobile-criterion-chip cat-${chip.category}`}>{content}</div>;
+                }
+                const on = choice.preselect?.category === chip.category;
+                return (
+                  <CriterionPressable
+                    key={chip.category}
+                    category={chip.category}
+                    mode={choice.mode}
+                    handlers={criterionChoiceHandlers}
+                    trayOpen={choice.trayOpen}
+                    khafi={choice.look.khafi}
+                    className={`mobile-criterion-chip mobile-criterion-pick cat-${chip.category} ${on ? "is-on" : ""} ${on && choice.preselect?.held ? "is-held" : ""}`}
+                    aria-pressed={choice.mode === "criterion-first" ? on : undefined}
+                    aria-label={`${chip.label}: choose for the next mark`}
+                  >
+                    {content}
+                  </CriterionPressable>
+                );
+              })}
             </div>
           </div>
 

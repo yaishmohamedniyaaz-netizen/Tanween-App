@@ -72,3 +72,9 @@ test("a word whose marked letters all have underlines drops its count circle", (
   assert.match(mushaf, /summary\?\.marker && !dkMode && !lettersUnderlined\(box\)/);
   assert.match(mushaf, /marked\.every\(\(unit\) => underlineFor\(box, unit\.tid\) !== null\)/);
 });
+
+test("phone: the bottom criterion chips are the criterion buttons when the scorecard rows are hidden", () => {
+  const deck = readFileSync("src/components/MobileJudgeDeck.tsx", "utf8");
+  assert.match(deck, /const picking = choice\.active && choice\.look !== null;/);
+  assert.match(deck, /<CriterionPressable[\s\S]*mobile-criterion-pick/);
+});
