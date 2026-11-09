@@ -20,15 +20,15 @@ def run():
     preds=[]
     for p,wids in sorted(pages.items()):
         cache=CACHE/f'page-{p}-selected.pkl'
-        if cache.exists():words=pickle.load(open(cache,'rb'))
-        else:
-            words={w['wid']:w for w in old.page_words(p,units) if w['wid'] in wids};pickle.dump(words,open(cache,'wb'))
+        # Re-extract from immutable source on each run; never trust unchecked old crops.
+        words={w['wid']:w for w in old.page_words(p,units) if w['wid'] in wids};pickle.dump(words,open(cache,'wb'))
         for wid in sorted(wids):
             try:rec,_=predict(words[wid],units[wid]['units'],FONTS['amiri'],'amiri')
             except Exception as e:rec={'wid':wid,'page':p,'tids':[u['tid'] for u in units[wid]['units']],'method':'w1-amiri-tvl1-2d','confidence':'low','reason':str(e)}
             rec.update(selected[wid]);preds.append(rec)
         print('page',p,'complete',len(preds),'/100',flush=True)
-    output={'method':'w1-amiri-tvl1-2d','scope':'100 representative words, not 6068 families; all unapproved','seconds':time.time()-start,'predictions':sorted(preds,key=lambda p:p['spellingRank'])}
+    output={'method':'w1-amiri-tvl1-2d','scope':'100 representative words, not 6068 families; all unapproved','predictions':sorted(preds,key=lambda p:p['spellingRank'])}
     (HERE/'w1_top100_predictions.json').write_text(json.dumps(output,ensure_ascii=False,indent=2)+'\n')
+    (CACHE/'top100_runtime.json').write_text(json.dumps({'seconds':time.time()-start})+'\n')
     print('DONE',len(preds),'emitted',sum('bars'in p for p in preds),'seconds',time.time()-start)
 if __name__=='__main__':run()

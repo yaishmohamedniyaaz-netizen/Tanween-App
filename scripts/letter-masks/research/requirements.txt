@@ -1,0 +1,8 @@
+numpy==2.3.5
+Pillow==13.0.0
+scipy==1.17.0
+uharfbuzz==0.57.0
+freetype-py==2.5.1
+scikit-image==0.26.0
+brotli==1.2.1
+fonttools==4.61.1
