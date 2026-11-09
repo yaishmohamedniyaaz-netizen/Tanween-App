@@ -280,3 +280,92 @@ index and 300 predictions will be frozen with the single seed-20261110 draw.
 Existing word evidence is reused only when prediction identity matches; reviewed
 words will not be needlessly rendered again for the flagged-word group. All
 required words remain in its completeness inventory.
+
+## Checkpoint 1 final report — 9 November 2026
+
+**Checkpoint 1 is complete; the quality target failed. Stop here for owner review.**
+
+All **604 pages / 77,433 words** finished. The single runner and continuation monitor exited successfully; no worker or monitor remains active. The saved final page was p604. The labeling and bar algorithm was not tuned on the accuracy sample. No Checkpoint 2 work, app wiring, main push, merge, deployment, or live prototype change was performed.
+
+### Owner corrections and acceptance rates
+
+`public/letter-ink-dk/` is absent from the branch tip, exports are disabled and the path is ignored. Colour labels are rebuilt deterministically only for selected review images. The original first-34-page commit remains in history so old image evidence stays verifiable; history was not rewritten. Only `public/letter-bars-dk/` is retained as the new public output.
+
+The three 24-word calibration sheets and their counts are recorded above. Size and empty-letter body-area checks were disabled as acceptance gates because most rejected words were visually right. Their original metrics remain saved. Actual centre inversions, missing/sub-3px bars, coverage, fit and errors remain guards. Saved metrics allowed check-only re-evaluation without realignment.
+
+| Same full corpus and fit threshold | ok | review | ok rate |
+|---|---:|---:|---:|
+| Original automatic checks | 46,646 | 30,787 | 60.24% |
+| Calibrated automatic checks | 68,197 | 9,236 | 88.07% |
+| Final, after withholding observed wrong/unsure cases | 68,079 | 9,354 | 87.92% |
+
+These are **acceptance rates, not accuracy**. The earlier 98-page 64.95% → 96.98% comparison excluded the still-pending fit gate and must not be compared directly with this final full-corpus table. Final thresholds: fit ≤ **4.988753931003663** (full-run 90th percentile), coverage ≥97%, bar width ≥3px, right-to-left order among defined adjacent centres. Size 0.35–2.8 and body-area 12px are preserved diagnostic values, disabled as gates.
+
+| Final failed check | Words |
+|---|---:|
+| coverage | 1,064 |
+| fit | 7,744 |
+| narrow-bar | 79 |
+| order | 645 |
+| visual-unsure | 260 |
+| visual-wrong | 268 |
+
+Checks overlap, so their counts do not sum to the review count. Known visual failures and uncertainty were only withheld; no reviewed failure was promoted and no bar/tid array was edited.
+
+### Actual visual review and accuracy
+
+The **single frozen 300-word status-ok sample**, seed **20261110**, has **211 ok / 53 wrong / 36 unsure**: **70.33% fully right**, below the **97%** requirement. Uncertainty is included in the denominator. These are the predictions at sampling; the 89 wrong/unsure sample cases were subsequently withheld without changing their geometry. The original frozen index, eligible population, sample and prediction snapshots remain intact. No resampling or threshold tuning followed these results.
+
+The accuracy population excludes pages 1–2, earlier reviews/calibration, the four owner examples, the original 48-word pilot, six visible hard-case IDs, and all 125 previously exposed approved word IDs. Those 125 approvals are not a fresh holdout. The result estimates this eligible status-ok population only. No new claim of generalization is made from old approval answers.
+
+All **926 status-review words on pages 1–50** in the frozen inventory were actually checked: **505 ok / 206 wrong / 215 unsure**. Of these, 255 had matching earlier review evidence and 671 were reviewed on 28 new sheets. This diagnostic group is not an accuracy sample.
+
+Canonical evidence totals **1,337 unique reviewed words**, **57 actual-view image/audit events** (4 early, 9 diagnostic, 3 calibration, 13 random, 28 flagged). [Decisions](../scripts/letter-masks/dk_guided/review/decisions.jsonl), [audits](../scripts/letter-masks/dk_guided/review/audit.jsonl), and [sheet manifest](../scripts/letter-masks/dk_guided/review/manifest.json) preserve observer, image path/SHA256, word IDs, review time and exact prediction digests. Setup-image viewing has its separate evidence. Generated but unseen early images are not claimed as reviewed.
+
+### Ten most frequently tagged exception patterns
+
+The following ranks count matching **manual exception-note tags**, not an exhaustive independent anatomical classification. Categories overlap; generic notes and uncertainty limit ranking precision. Counts combine diagnostics, calibration and the random sample and must not be interpreted as population frequencies. `report_patterns.py` reproduces the tags from existing verdicts without making new visual judgments.
+
+| Pattern | Tagged words | Example word / actually reviewed sheet |
+|---|---:|---|
+
+| Overlapping or stacked extents cannot be resolved | 258 | [1.1.2](../scripts/letter-masks/dk_guided/review/early/sheet-001.png) |
+
+| Alif stem merged, displaced or without a separate bar | 68 | [2.2.1](../scripts/letter-masks/dk_guided/review/early/sheet-001.png) |
+
+| Lam stem or body absorbed; underline becomes an endpoint | 64 | [1.6.1](../scripts/letter-masks/dk_guided/review/early/sheet-001.png) |
+
+| Initial connected tooth reduced to an endpoint | 63 | [2.167.20](../scripts/letter-masks/dk_guided/review/definite-after-calibration/sheet-003.png) |
+
+| Wrong body receives a displaced span | 50 | [2.148.3](../scripts/letter-masks/dk_guided/review/definite-after-calibration/sheet-003.png) |
+
+| A curve is truncated or absorbed into another target | 30 | [2.5.7](../scripts/letter-masks/dk_guided/review/early/sheet-002.png) |
+
+| Mim loses its separate body span | 28 | [24.31.52](../scripts/letter-masks/dk_guided/review/random-ok-001.png) |
+
+| Waw ownership or bar fails | 26 | [2.5.7](../scripts/letter-masks/dk_guided/review/early/sheet-002.png) |
+
+| Ra ownership or bar fails | 25 | [1.6.1](../scripts/letter-masks/dk_guided/review/early/sheet-001.png) |
+
+| Unspecified initial target missing or displaced | 22 | [2.257.4](../scripts/letter-masks/dk_guided/review/definite-after-calibration/sheet-007.png) |
+
+
+Detached-ink-only targets and disconnected-gap bridges also occur (20 and 4 note tags respectively). Cropped or neighbour ink and ambiguous stacked lower strokes are retained as uncertainty where a clear per-letter extent cannot be established; no missing body was invented and no artwork was changed.
+
+### Output sizes, time and token accounting
+
+Underlines: **14,761,981 bytes** (14.76 MB decimal), **2,898,128 bytes** summed deterministic gzip size of all 605 JSON files including the index. Colour folder: **0 bytes / absent**. Review PNGs and compact alignment metrics are evidence/development assets, not public colour exports.
+
+The recorded review-event window is **13:39:48–16:04:30 UTC on 9 November 2026**. This includes generation/waiting and is **not measured active review time**. Exact token telemetry and a measured per-100-word checking rate are unavailable; both remain `null`, not zero or an invented estimate.
+
+### Validation and next decision
+
+All **15 scoped regression tests pass**. Full saved-output validation passes for every page and all 77,433 exact app target lists, integer page coordinates, saved print-crop bounds, minimum widths on accepted words, finalized fit and index totals. Complete review validation passes for all required IDs, SHA256 image evidence, current prediction identity, calibration snapshots and seed reproduction. Protected product/artwork/page/approved-border paths are unchanged from the task base. Older task documents present on this base are unchanged, and the separate visual-border branch was not modified. Its frozen blind prediction file is absent from this task base, so that separate-branch checksum was not reverified here. No old answers or evaluator were used. `git diff --check` passes.
+
+Useful commands (same virtualenv): `python -m unittest discover -s scripts/letter-masks/dk_guided -p "test_*.py" -q`; `python scripts/letter-masks/dk_guided/validate_review.py --complete`; `python scripts/letter-masks/dk_guided/validate_batch.py`; `python scripts/letter-masks/dk_guided/report_patterns.py`. `finalize_review.py` applies only reviewed withholding and regenerates the result/progress summaries.
+
+**Proposed future work, not implemented:** use a body-only lower contour when deriving bars so detached ink cannot drive a span; explicitly anchor vertical stems and connected joins before allocating overlapping bodies; show overlapping bar outlines in review sheets; calibrate confidence on a separately declared development set and establish a genuinely untouched holdout before claiming new accuracy. Retain the current 300 results as a failed baseline. These need owner approval as Checkpoint 2 work; do not wire this candidate into the live app based on automatic acceptance alone.
+
+Confidence: **practicality 95/100** for the resumable pipeline and evidence packet; **architecture/data safety 99/100** for isolated outputs and verified protected paths; **visual certainty 60/100** for treating the remaining automatically accepted corpus as correct. The unresolved risk is systematic stem/join ownership and hidden overlapping extents. This candidate is not production-ready.
+
+[Machine-readable results](../scripts/letter-masks/dk_guided/checkpoint1-results.json) · [full-run acceptance comparison](../scripts/letter-masks/dk_guided/calibration/acceptance-full-fit.json) · [failure-pattern tags](../scripts/letter-masks/dk_guided/failure-patterns.json).

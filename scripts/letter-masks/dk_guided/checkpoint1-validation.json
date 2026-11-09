@@ -1,0 +1,50 @@
+{
+  "base": "a957b63061d935166ee5eb061cdb8639c8e31bd0",
+  "branch": "codex/dk-guided-underlines",
+  "scopedTests": {
+    "command": ".venv-letter-borders-visual/bin/python -m unittest discover -s scripts/letter-masks/dk_guided -p 'test_*.py' -q",
+    "passed": 15,
+    "failed": 0
+  },
+  "reviewValidation": "1337 unique words; complete required inventory; 72 calibration snapshots; image SHA256/current prediction identities and frozen sample seed verified",
+  "batchValidation": {
+    "colourExport": false,
+    "counts": {
+      "ok": 68079,
+      "review": 9354
+    },
+    "exactAppTargets": true,
+    "pages": 604,
+    "savedCropBounds": true,
+    "words": 77433
+  },
+  "finalWithholding": {
+    "barsAndTidsUnchangedFrom": "07e8d7d8d63beff27f69dffd43d2a45605f1e3f6",
+    "onlyVisualWithholdingWords": 364
+  },
+  "protectedPaths": [
+    "src",
+    "public/mushaf",
+    "public/pages",
+    "public/mushaf-dk",
+    "public/letter-borders"
+  ],
+  "protectedDiffEmpty": true,
+  "olderTaskFilesUnchanged": true,
+  "colourTrackedFiles": 0,
+  "colourFolderExists": false,
+  "diffWhitespaceCheck": "passed",
+  "sha256": {
+    "review/sample.json": "965bad9ae5fd8bf7755ec2aaa61e99a824848c3a8c132006f3a5564ea994f185",
+    "review/eligible-status-ok.json": "0b1c929afbe53740a808ff94c65e0b8cc0beab395dab103703c89d25a0f77235",
+    "review/frozen-index.json": "dd180b089da9eac7ace1f90f36e515410df03803c5ef8b19309c26abb427ba28",
+    "review/frozen-status-ok-sample.json": "8ea4c8d4d2bbcccbe58a1dad48d4e21398f7854274e1c0b210af7e94eb7c4b2c",
+    "review/sample-provenance.json": "f9599e6f9401fdf084695578473407b3101d84751b725931a4c457ee6e23c17d",
+    "review/manifest.json": "63c476c67527034bace56435ff5e801d9d84be0b37bdae6b453147626a9daeeb",
+    "review/decisions.jsonl": "73dc2da9711d00cb843d8386c71a30811a303c7604d63d83903515dabdb17e23",
+    "review/audit.jsonl": "e23f2642066c73620f827061f381fe470bf3e1e94f8b3827bd8c4e1cdbdda313",
+    "checkpoint1-results.json": "c214042582b467677ef52d51a2189352065dbcf54820b005d8add5d16f7bcb06",
+    "failure-patterns.json": "add06086508843ba8d9a615c8ea4413d7de39bd19991660be9b6cc4750138024",
+    "calibration/acceptance-full-fit.json": "bb17ae1b2ccfcac2e52de236b77001c621631c73bf2953a8290cfb532e87e797"
+  }
+}

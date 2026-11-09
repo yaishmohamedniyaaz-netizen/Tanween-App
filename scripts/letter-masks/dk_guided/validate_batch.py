@@ -1,4 +1,4 @@
-"""Validate every emitted word against exact app targets and colour coordinates."""
+"""Validate every emitted word against exact app targets and saved crop bounds."""
 import json,subprocess,tempfile,hashlib
 from collections import Counter
 from pathlib import Path
@@ -25,10 +25,13 @@ def main():
      assert ('fit-pending' not in w.get('checks',[]))
      if not any(c.startswith('error:') for c in w.get('checks',[])):assert len(w['bars'])==len(w['tids'])
      for bar in w['bars']:
-      if bar is not None:assert len(bar)==2 and all(type(x)==int for x in bar) and 0<=bar[0]<bar[1]<=page_width
+      if bar is not None:
+       assert len(bar)==2 and all(type(x)==int for x in bar) and 0<=bar[0]<bar[1]<=page_width
+       box=meta['words'][wid]['box']
+       assert box[0]<=bar[0]<bar[1]<=box[2],(p,wid,'bar outside saved print crop')
      if w['status']=='ok':assert not w['checks'] and len(w['bars'])==len(w['tids']) and all(b is not None and b[1]-b[0]>=3 for b in w['bars'])
      counts[w['status']]+=1;total+=1
  assert dict(counts)==index['counts']
- atomic(HERE/'batch-validation.json',dict(words=total,counts=dict(counts),pages=604,exactAppTargets=True,colourExport=False))
+ atomic(HERE/'batch-validation.json',dict(words=total,counts=dict(counts),pages=604,exactAppTargets=True,savedCropBounds=True,colourExport=False))
  print(total,dict(counts))
 if __name__=='__main__':main()
