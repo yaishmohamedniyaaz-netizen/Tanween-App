@@ -108,6 +108,49 @@ class V3CheckpointTests(unittest.TestCase):
         np.testing.assert_array_equal(got['labels'], dlab)
         np.testing.assert_array_equal(r['labels'], old)
 
+    def stacked_word(self, text='يج'):
+        # tid 'a@r0' = rider: thin stroke over columns 20-39 with a dense tooth at 34-39.
+        # tid 'b@r1' = carrier: broad body over columns 10-41, under the whole rider.
+        lab = np.zeros((30, 50), np.int32)
+        lab[18:26, 10:42] = 2
+        lab[8:10, 20:40] = 1
+        lab[2:14, 34:40] = 1
+        return dict(labels=lab, ink=lab > 0, marks=np.zeros_like(lab, dtype=bool),
+                    tids=['a@r0', 'b@r1'], word={'text': text})
+
+    def test_stacked2_gives_carrier_the_body_and_rider_its_tooth(self):
+        r = self.stacked_word()
+        old = bars_v2(r)
+        self.assertLess(old['b@r1'][1] - old['b@r1'][0], 0.45 * 32)   # v2: short end-point stub
+        new = B.bars_v3(r, fix_stacked2=True)
+        self.assertEqual(new['a@r0'], (34, 40))                       # rider: its dense tooth only
+        self.assertEqual(new['b@r1'], (10, 34))                       # carrier: the rest of its body
+        self.assertTrue(B.valid(new, 50))
+
+    def test_stacked2_leaves_other_letters_exactly_v2(self):
+        r = self.stacked_word(text='يب')                               # carrier is not jim/ha/kha
+        self.assertEqual(B.bars_v3(r, fix_stacked2=True), bars_v2(r))
+        rng = np.random.default_rng(20261114)
+        for _ in range(50):
+            x = result(rng.integers(0, 3, size=(15, 30)))
+            self.assertEqual(B.bars_v3(x, fix_stacked2=True), bars_v2(x))
+
+    def test_bowl2_only_adds_word_final_ya_carriers(self):
+        r = self.stacked_word(text='لى')
+        self.assertEqual(B.bars_v3(r, fix_stacked2=True), bars_v2(r))
+        new = B.bars_v3(r, fix_stacked2=True, fix_bowl2=True)
+        self.assertEqual((new['a@r0'], new['b@r1']), ((34, 40), (10, 34)))
+        jim = self.stacked_word()
+        self.assertEqual(B.bars_v3(jim, fix_stacked2=True, fix_bowl2=True), B.bars_v3(jim, fix_stacked2=True))
+
+    def test_stacked2_rider_already_squeezed_falls_back_to_v2(self):
+        # Three letters: the first squeezes the second to nothing before the jim pair is reached.
+        lab = np.zeros((30, 50), np.int32)
+        lab[2:14, 20:40] = 1; lab[14:16, 22:38] = 2; lab[18:26, 10:42] = 3
+        r = dict(labels=lab, ink=lab > 0, marks=np.zeros_like(lab, dtype=bool),
+                 tids=['a@r0', 'b@r1', 'c@r2'], word={'text': 'بيج'})
+        B.bars_v3(r, fix_stacked2=True)                                # must not raise
+
 
 if __name__ == '__main__':
     unittest.main()

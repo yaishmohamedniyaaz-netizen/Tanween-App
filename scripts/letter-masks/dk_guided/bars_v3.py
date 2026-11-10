@@ -116,7 +116,7 @@ def _base_char(res, tid):
         return ''
 
 
-def bars_stacked(res, stack_share=0.5, col_share=0.15, short_share=0.45, core_share=0.6):
+def bars_stacked(res, stack_share=0.5, col_share=0.15, short_share=0.45, core_share=0.6, carriers=JIM_FAMILY, final_carriers=''):
     """bars_v2 with one changed case (Checkpoint 2, pattern 1, revision 2).
 
     Case: a broad jim/ha/kha body (the carrier) lies under the whole of the
@@ -163,17 +163,20 @@ def bars_stacked(res, stack_share=0.5, col_share=0.15, short_share=0.45, core_sh
             continue
         if rb[0] <= ra[0] and rb[1] >= ra[1] - 0.1 * (ra[1] - ra[0]):
             bwidth = rb[1] - rb[0]
-            if (_base_char(res, res['tids'][b]) in JIM_FAMILY and ra[0] - rb[0] < short_share * bwidth):
+            ch = _base_char(res, res['tids'][b])
+            if ((carriers is None or (ch and ch in carriers) or (b == order[-1] and ch and ch in final_carriers))
+                    and ra[0] - rb[0] < short_share * bwidth):
                 cols = colink[a][int(ra[0]):int(ra[1])]
-                peak = int(np.argmax(cols)); left = peak
-                while left > 0 and cols[left - 1] >= core_share * cols.max():
-                    left -= 1
-                cut = ra[0] + left
-                cut = max(cut, ra[1] - bwidth / 3)      # rider: at most a third of the carrier body
-                cut = min(cut, ra[1] - 3)               # rider: at least 3 px
-                if cut - rb[0] >= 3 and cut > ra[0]:
-                    ra[0] = cut; rb[1] = cut; changed = True
-                    continue
+                if cols.size and cols.max() > 0:        # a rider already squeezed to nothing keeps the v2 rule
+                    peak = int(np.argmax(cols)); left = peak
+                    while left > 0 and cols[left - 1] >= core_share * cols.max():
+                        left -= 1
+                    cut = ra[0] + left
+                    cut = max(cut, ra[1] - bwidth / 3)  # rider: at most a third of the carrier body
+                    cut = min(cut, ra[1] - 3)           # rider: at least 3 px
+                    if cut - rb[0] >= 3 and cut > ra[0]:
+                        ra[0] = cut; rb[1] = cut; changed = True
+                        continue
             rb[1] = ra[0]
         elif ra[0] <= rb[0] and ra[1] >= rb[1]:
             ra[0] = rb[1]
@@ -190,8 +193,13 @@ def bars_stacked(res, stack_share=0.5, col_share=0.15, short_share=0.45, core_sh
     return out
 
 
-def bars_v3(res, *, fix_colliding=False, fix_bowl=False, fix_stacked2=False):
-    spans = bars_stacked(res) if fix_stacked2 else bars_v2(res)
+def bars_v3(res, *, fix_colliding=False, fix_bowl=False, fix_stacked2=False, fix_bowl2=False):
+    # bowl2 (pattern 3, revision 2) applies the stacked2 rule to a word-final ya/alif-maqsura
+    # whose bowl returns under the letter before it; it is only tried on top of stacked2.
+    if fix_bowl2:
+        spans = bars_stacked(res, final_carriers='يى')
+    else:
+        spans = bars_stacked(res) if fix_stacked2 else bars_v2(res)
     if fix_bowl:
         spans = fix_final_bowl(res, spans)
     if fix_colliding:

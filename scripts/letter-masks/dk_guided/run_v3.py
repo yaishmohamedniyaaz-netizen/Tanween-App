@@ -29,7 +29,7 @@ OUT = HERE / 'checkpoint2'
 RAW = OUT / 'batch'
 METHOD = 'dk-guided-v3'
 MERGE_HEAD = 'e3efc58'
-ORDER = ('collisions', 'detached', 'stems', 'stacked', 'bowl')
+ORDER = ('collisions', 'detached', 'stems', 'stacked', 'bowl', 'stacked2', 'bowl2')
 PROTECTED = ['src', 'public/mushaf', 'public/pages', 'public/mushaf-dk', 'public/letter-borders']
 atomic, sha = V1.atomic, V2.sha
 
@@ -76,7 +76,7 @@ def apply(r, flags):
     for key, fn in [('detached', L.fix_detached), ('stems', L.fix_stems), ('stacked', L.fix_stacked)]:
         if key in flags:
             r = fn(r)
-    return r, bars_v3(r, fix_colliding='collisions' in flags, fix_bowl='bowl' in flags)
+    return r, bars_v3(r, fix_colliding='collisions' in flags, fix_bowl='bowl' in flags, fix_stacked2='stacked2' in flags, fix_bowl2='bowl2' in flags)
 
 
 def metrics_for(r, tids):
