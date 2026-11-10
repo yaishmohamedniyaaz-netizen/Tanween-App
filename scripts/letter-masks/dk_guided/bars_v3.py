@@ -105,8 +105,93 @@ def fix_final_bowl(res, spans):
     return out if valid(out, lab.shape[1]) else spans
 
 
-def bars_v3(res, *, fix_colliding=False, fix_bowl=False):
-    spans = bars_v2(res)
+JIM_FAMILY = 'جحخ'
+
+
+def _base_char(res, tid):
+    """Base letter of a target: tids end in @r<index into the word text>."""
+    try:
+        return res['word']['text'][int(tid.rsplit('@r', 1)[1])]
+    except (KeyError, IndexError, ValueError):
+        return ''
+
+
+def bars_stacked(res, stack_share=0.5, col_share=0.15, short_share=0.45, core_share=0.6):
+    """bars_v2 with one changed case (Checkpoint 2, pattern 1, revision 2).
+
+    Case: a broad jim/ha/kha body (the carrier) lies under the whole of the
+    letter before it (the rider: an initial ya/ta/lam tooth or stem written on
+    top), and v2 would leave the carrier less than `short_share` of its own
+    body width. v2 gives the rider its full span and the carrier a short
+    end-point stub. Here the rider keeps only its own dense core at its right
+    side (never more than a third of the carrier body), and the carrier gets
+    everything left of that. Every other word is bit-for-bit v2.
+    """
+    lab, ink = res['labels'], res['ink']
+    comps, n = ndi.label(ink)
+    sizes = ndi.sum(ink, comps, range(1, n + 1)) if n else []
+    biggest = max(sizes) if n else 1
+    total = ink.sum() or 1
+    cum = np.cumsum(ink.sum(1)) / total
+    lo, hi = int(np.searchsorted(cum, 0.2)), int(np.searchsorted(cum, 0.8))
+    markmask = np.zeros_like(ink)
+    for c in range(1, n + 1):
+        m = comps == c
+        if sizes[c - 1] >= 0.35 * biggest:
+            continue
+        ys = np.nonzero(m)[0]
+        inside = ((ys >= lo) & (ys <= hi)).mean()
+        if sizes[c - 1] < 0.025 * total or inside < 0.15:
+            markmask |= m
+    spans, colink = [], []
+    for k, t in enumerate(res['tids']):
+        if t == '__none__':
+            spans.append(None); colink.append(None); continue
+        body = (lab == k + 1) & ~markmask
+        if body.sum() < 6:
+            body = lab == k + 1
+        if not body.any():
+            spans.append(None); colink.append(None); continue
+        cols = body.sum(0)
+        keep = np.nonzero(cols >= max(1, col_share * cols.max()))[0]
+        spans.append([float(keep.min()), float(keep.max()) + 1]); colink.append(cols)
+    changed = False
+    order = [i for i, sp in enumerate(spans) if sp]
+    for a, b in zip(order, order[1:]):
+        ra, rb = spans[a], spans[b]
+        if rb[1] <= ra[0]:
+            continue
+        if rb[0] <= ra[0] and rb[1] >= ra[1] - 0.1 * (ra[1] - ra[0]):
+            bwidth = rb[1] - rb[0]
+            if (_base_char(res, res['tids'][b]) in JIM_FAMILY and ra[0] - rb[0] < short_share * bwidth):
+                cols = colink[a][int(ra[0]):int(ra[1])]
+                peak = int(np.argmax(cols)); left = peak
+                while left > 0 and cols[left - 1] >= core_share * cols.max():
+                    left -= 1
+                cut = ra[0] + left
+                cut = max(cut, ra[1] - bwidth / 3)      # rider: at most a third of the carrier body
+                cut = min(cut, ra[1] - 3)               # rider: at least 3 px
+                if cut - rb[0] >= 3 and cut > ra[0]:
+                    ra[0] = cut; rb[1] = cut; changed = True
+                    continue
+            rb[1] = ra[0]
+        elif ra[0] <= rb[0] and ra[1] >= rb[1]:
+            ra[0] = rb[1]
+        else:
+            mid = (ra[0] + rb[1]) / 2
+            ra[0] = mid; rb[1] = mid
+    for i in order:
+        sp = spans[i]
+        if sp[1] - sp[0] < 3:
+            c = (sp[0] + sp[1]) / 2; sp[0], sp[1] = c - 1.5, c + 1.5
+    out = {t: (None if sp is None else (int(round(sp[0])), int(round(sp[1])))) for t, sp in zip(res['tids'], spans)}
+    if not changed:
+        assert out == bars_v2(res), 'unchanged words must equal v2 exactly'
+    return out
+
+
+def bars_v3(res, *, fix_colliding=False, fix_bowl=False, fix_stacked2=False):
+    spans = bars_stacked(res) if fix_stacked2 else bars_v2(res)
     if fix_bowl:
         spans = fix_final_bowl(res, spans)
     if fix_colliding:

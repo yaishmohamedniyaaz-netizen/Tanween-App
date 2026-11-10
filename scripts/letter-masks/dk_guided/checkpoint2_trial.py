@@ -12,7 +12,8 @@ import review_v2_checkpoint as REVIEW
 from sheet import PAL
 OUT=R.HERE/'checkpoint2';CACHE=OUT/'cache';CACHE.mkdir(exist_ok=True)
 read=REVIEW.read;atomic=R.atomic
-FLAGS={5:'collisions',4:'detached',2:'stems',1:'stacked',3:'bowl'}
+FLAGS={5:'collisions',4:'detached',2:'stems',1:'stacked',3:'bowl','1r2':'stacked2'}
+DEVPATTERN={'1r2':1}  # a revision reuses its pattern's dev cases, in its own folder
 
 def base(p,w):
  path=CACHE/f'{p}-{w}.pickle'
@@ -31,7 +32,7 @@ def base(p,w):
 def apply(r,flags):
  for key,fn in [('detached',L.fix_detached),('stems',L.fix_stems),('stacked',L.fix_stacked)]:
   if key in flags:r=fn(r)
- b=bars_v3(r,fix_colliding='collisions' in flags,fix_bowl='bowl' in flags)
+ b=bars_v3(r,fix_colliding='collisions' in flags,fix_bowl='bowl' in flags,fix_stacked2='stacked2' in flags)
  return r,b
 
 def job(arg):
@@ -82,7 +83,7 @@ def tile(row,flags):
 
 def trial(pattern):
  flags=read(OUT/'kept.json') if (OUT/'kept.json').exists() else []
- dev=[r for r in read(OUT/'dev-failures.json') if pattern in r['patterns']]
+ dev=[r for r in read(OUT/'dev-failures.json') if DEVPATTERN.get(pattern,pattern) in r['patterns']]
  reg=read(OUT/'regression120.json');ids={r['wid'] for r in reg}
  args=[(r['page'],r['wid'],flags,FLAGS[pattern],'regression') for r in reg]
  args +=[(r['page'],r['wid'],flags,FLAGS[pattern],'dev') for r in dev if r['wid'] not in ids]
@@ -115,4 +116,4 @@ def trial(pattern):
  print(json.dumps(dict(pattern=pattern,run=len(rows),changed=len(changed),changedRegression=nr,sheets=len(manifest),selected=[(r['wid'],r['role']) for r in selected])))
 
 if __name__=='__main__':
- a=argparse.ArgumentParser();a.add_argument('pattern',type=int);trial(a.parse_args().pattern)
+ a=argparse.ArgumentParser();a.add_argument('pattern');x=a.parse_args().pattern;trial(int(x) if x.isdigit() else x)
