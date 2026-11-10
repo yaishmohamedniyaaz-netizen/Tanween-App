@@ -1,0 +1,22 @@
+{
+  "completedPatterns": [
+    5,
+    4,
+    2
+  ],
+  "fullRuns": 0,
+  "kept": [],
+  "phase": "paused-for-fable-handoff",
+  "sheetLimit": 50,
+  "sheetsViewed": 3,
+  "testDrawn": false,
+  "tokensUsed": null,
+  "nextPattern": 1,
+  "pendingReview": "pattern-1/changed-001.png",
+  "pendingReviewActuallyViewed": false,
+  "pattern3Started": false,
+  "fullRunStarted": false,
+  "freshTestFrozen": false,
+  "remainingSheetBudget": 47,
+  "pauseReason": "Owner requested stop and hand off remaining work to Fable."
+}

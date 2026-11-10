@@ -105,3 +105,20 @@ For each pattern, in this order: **5 → 4 → 2 → 1 → 3**.
 - Old vs new: 1b (91.67% words) vs Checkpoint 2, clearly marked as **different samples**.
 - Sheets looked at, run time; token use if you can measure it, else `null`.
 - Push `codex/dk-guided-underlines`. **Not main.** Say the commit id. **Stop.**
+
+## Progress handoff to Fable
+
+The owner requested stopping this session and handing off the remainder.
+Merged `origin/claude/criterion-bar` at `3e9dd02` into the task branch with merge
+`e3efc58`. Development/exclusion inputs and the opt-in experiments are saved.
+Patterns 5, 4 and 2 were dropped after their guarded trials; no fix is kept.
+Pattern 1 has a computer comparison and an **unviewed** changed-word sheet;
+pattern 3 has not been run. Three sheets have been viewed, leaving 47 of 50.
+No full v3 run or fresh seed-20261114 sample has started. Existing public bars
+and protected app/artwork paths are unchanged. Ten focused tests and the draft
+runner's isolated self-check pass; this is not completed CP2 validation.
+
+See [the complete Fable handoff](FABLE_HANDOFF_DK_GUIDED_CP2.md) and
+`checkpoint2/progress.json` for the exact next step, evidence, commands and
+remaining acceptance gates. CP1b's 91.67% remains the latest completed fresh
+measurement. No new accuracy or production-readiness claim is made.

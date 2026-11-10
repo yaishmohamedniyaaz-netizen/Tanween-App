@@ -1,0 +1,116 @@
+{
+  "artifacts": {
+    "dev-failures.json": "5d08faa9e805ce487f8c345343c8561f8df619bf52d4e0385d012b122b4fc7d5",
+    "excluded.json": "0608a91c53748d8f05e9c5ec44be0f6dccf1626df648366737976b37bad57be2",
+    "regression120.json": "a2e7fa02145db2993c073ea62bf0be3a4de9a8e391b927b90f8738eb95eabd31"
+  },
+  "checkpoint": 2,
+  "devFailureWords": 656,
+  "diagnosticCases": 100,
+  "excludedWords": 24202,
+  "freshTest": {
+    "drawn": false,
+    "instruction": "Draw only after final full run; extend exclusions for all new development exposure first.",
+    "seed": 20261114
+  },
+  "historicalQualifyingRecords": 607,
+  "patternCounts": {
+    "1": 29,
+    "2": 126,
+    "3": 5,
+    "4": 11,
+    "5": 345,
+    "other": 171
+  },
+  "regressionOrder": "page numeric then wid lexical; Python random.Random string seed",
+  "regressionPolicy": {
+    "maxNewlyBroken": 0,
+    "requireDevImprovement": true,
+    "source": "Latest user instruction overrides document allowance of one break"
+  },
+  "regressionPool": 350,
+  "regressionSeed": "20261113-reg",
+  "sources": {
+    "checkpoint1b/audit.jsonl": {
+      "ids": 389,
+      "sha256": "46ef75cf5419eda72d351df171c6d2989f84675e78a862ed1967fca541dfc5fd"
+    },
+    "checkpoint1b/decisions.jsonl": {
+      "ids": 389,
+      "sha256": "27e0dfa5b48408a8f117945f83d5785fec8078a7c90f1337d2751bb947f7d5de"
+    },
+    "checkpoint1b/error-diagnostic.json": {
+      "ids": 100,
+      "sha256": "c4fb7092640a4940c00737ef17f002923145bd1a9ba1293fd23631246c2e0e7c"
+    },
+    "checkpoint1b/excluded.json": {
+      "ids": 23815,
+      "sha256": "1cc34da55d4ddba85a843cc6710852a8429aa4a65104593fc13d0fa9ae72a5d9"
+    },
+    "checkpoint1b/manifest.json": {
+      "ids": 389,
+      "sha256": "7975a1206faa149cf606d0906e5fc90536eace00171816f594b59d465fdfd9df"
+    },
+    "checkpoint1b/prior-visual-reviewed-ids.json": {
+      "ids": 22673,
+      "sha256": "c7bfd9a1128d568a1ef2ee0f0d6b48147b4be28d4c233c0f4ba79a5bf34e7ee0"
+    },
+    "checkpoint1b/renderer-smoke-arabic-audit.json": {
+      "ids": 1,
+      "sha256": "05ca2ee81bb781770d04179685bb7d04734c60eddf9f0527d68b80979705f8f6"
+    },
+    "checkpoint1b/renderer-smoke-audit.json": {
+      "ids": 1,
+      "sha256": "29093bbf6e939eddf11d3402e7564b483cca8adbe4207873a4357301e1132dae"
+    },
+    "checkpoint1b/renderer-smoke-units-audit.json": {
+      "ids": 1,
+      "sha256": "60d1172712a08995cb63a34a58cf02c7afe9cd5ab4674939c54c6a766d3b3a7d"
+    },
+    "checkpoint1b/sample.json": {
+      "ids": 389,
+      "sha256": "a872a56ed45f1904acf4faff0246383fa9ed41edfe4b3e3539137b1a1652b299"
+    },
+    "review-v2/earlier-right-12.json": {
+      "ids": 12,
+      "sha256": "de79dea8b821ca3e4bfaf8e2dedef3c86b3160097ab870bf04a626883c56fe15"
+    },
+    "review-v2/failed-01-12.json": {
+      "ids": 12,
+      "sha256": "adf0022883c30d60060426446485ec22b1479ca853c9dea6c87a0e3b4529d4f4"
+    },
+    "review-v2/failed-13-24.json": {
+      "ids": 12,
+      "sha256": "5c8611702d946bfe917ef4cc72e5d6a140ff5e68c75ea6e6fe35bf92d4734422"
+    },
+    "review/audit.jsonl": {
+      "ids": 1337,
+      "sha256": "e23f2642066c73620f827061f381fe470bf3e1e94f8b3827bd8c4e1cdbdda313"
+    },
+    "review/decisions.jsonl": {
+      "ids": 1337,
+      "sha256": "73dc2da9711d00cb843d8386c71a30811a303c7604d63d83903515dabdb17e23"
+    },
+    "review/definite-after-calibration/manifest.json": {
+      "ids": 198,
+      "sha256": "fc5ab056be2082c9cc01a23ef4004d463355619648da3b2f57806d074e5ba552"
+    },
+    "review/early/reviewed-manifest.json": {
+      "ids": 96,
+      "sha256": "558c12ae1b02f6d55e718ac024eff08ddd780fd4817ea3b140c86a56a891f7a8"
+    },
+    "review/manifest.json": {
+      "ids": 971,
+      "sha256": "63c476c67527034bace56435ff5e801d9d84be0b37bdae6b453147626a9daeeb"
+    },
+    "review/sample-provenance.json": {
+      "ids": 514,
+      "sha256": "f9599e6f9401fdf084695578473407b3101d84751b725931a4c457ee6e23c17d"
+    },
+    "review/sample.json": {
+      "ids": 1226,
+      "sha256": "965bad9ae5fd8bf7755ec2aaa61e99a824848c3a8c132006f3a5564ea994f185"
+    }
+  },
+  "tagging": "Candidate patterns inferred conservatively from historical notes; not new visual verdicts. Preserve all qualifying history even if later right."
+}

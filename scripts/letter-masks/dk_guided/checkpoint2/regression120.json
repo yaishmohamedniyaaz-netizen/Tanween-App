@@ -1,0 +1,842 @@
+[
+  {
+    "note": "",
+    "page": 168,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "7.148.18"
+  },
+  {
+    "note": "",
+    "page": 478,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "41.16.18"
+  },
+  {
+    "note": "",
+    "page": 309,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "19.64.13"
+  },
+  {
+    "note": "",
+    "page": 152,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "7.18.6"
+  },
+  {
+    "note": "",
+    "page": 508,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "47.12.21"
+  },
+  {
+    "note": "",
+    "page": 328,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "21.80.1"
+  },
+  {
+    "note": "",
+    "page": 453,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "38.10.7"
+  },
+  {
+    "note": "",
+    "page": 528,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "53.55.3"
+  },
+  {
+    "note": "label-wrong: initial ba/alif body tint is merged; bars remain beneath intended bodies.",
+    "page": 590,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "85.7.4"
+  },
+  {
+    "note": "",
+    "page": 297,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "18.28.5"
+  },
+  {
+    "note": "",
+    "page": 353,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "24.31.52"
+  },
+  {
+    "note": "",
+    "page": 416,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "32.17.4"
+  },
+  {
+    "note": "",
+    "page": 414,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "31.32.2"
+  },
+  {
+    "note": "",
+    "page": 96,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "4.110.4"
+  },
+  {
+    "note": "",
+    "page": 527,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "53.39.1"
+  },
+  {
+    "note": "",
+    "page": 381,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "27.45.11"
+  },
+  {
+    "note": "",
+    "page": 11,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "2.75.7"
+  },
+  {
+    "note": "",
+    "page": 566,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "69.7.0"
+  },
+  {
+    "note": "",
+    "page": 378,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "27.21.0"
+  },
+  {
+    "note": "",
+    "page": 225,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "11.30.7"
+  },
+  {
+    "note": "",
+    "page": 600,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "101.8.3"
+  },
+  {
+    "note": "",
+    "page": 145,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "6.133.5"
+  },
+  {
+    "note": "",
+    "page": 414,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "31.33.14"
+  },
+  {
+    "note": "",
+    "page": 356,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "24.45.3"
+  },
+  {
+    "note": "",
+    "page": 248,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "12.110.17"
+  },
+  {
+    "note": "",
+    "page": 226,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "11.41.8"
+  },
+  {
+    "note": "",
+    "page": 454,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "38.24.28"
+  },
+  {
+    "note": "",
+    "page": 543,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "58.11.24"
+  },
+  {
+    "note": "",
+    "page": 368,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "26.35.0"
+  },
+  {
+    "note": "",
+    "page": 233,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "11.108.2"
+  },
+  {
+    "note": "",
+    "page": 73,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "3.174.14"
+  },
+  {
+    "note": "",
+    "page": 192,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "9.34.6"
+  },
+  {
+    "note": "",
+    "page": 548,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "59.24.11"
+  },
+  {
+    "note": "",
+    "page": 138,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "6.83.0"
+  },
+  {
+    "note": "",
+    "page": 300,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "18.54.1"
+  },
+  {
+    "note": "",
+    "page": 234,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "11.116.18"
+  },
+  {
+    "note": "",
+    "page": 55,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "3.43.5"
+  },
+  {
+    "note": "",
+    "page": 236,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "12.8.14"
+  },
+  {
+    "note": "",
+    "page": 463,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "39.41.11"
+  },
+  {
+    "note": "",
+    "page": 419,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "33.7.8"
+  },
+  {
+    "note": "",
+    "page": 435,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "35.10.16"
+  },
+  {
+    "note": "",
+    "page": 187,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "9.6.8"
+  },
+  {
+    "note": "",
+    "page": 280,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "16.116.3"
+  },
+  {
+    "note": "",
+    "page": 532,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "55.25.1"
+  },
+  {
+    "note": "",
+    "page": 106,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "4.176.37"
+  },
+  {
+    "note": "",
+    "page": 131,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "6.34.9"
+  },
+  {
+    "note": "",
+    "page": 257,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "14.18.10"
+  },
+  {
+    "note": "",
+    "page": 362,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "25.25.1"
+  },
+  {
+    "note": "",
+    "page": 461,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "39.23.33"
+  },
+  {
+    "note": "",
+    "page": 323,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "21.15.6"
+  },
+  {
+    "note": "",
+    "page": 306,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "19.23.4"
+  },
+  {
+    "note": "",
+    "page": 26,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "2.174.16"
+  },
+  {
+    "note": "label-wrong; alif stem carries the sad body tint, while the narrow alif bar remains beneath its actual stem.",
+    "page": 23,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "2.153.5"
+  },
+  {
+    "note": "",
+    "page": 585,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "80.25.2"
+  },
+  {
+    "note": "",
+    "page": 604,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "113.2.1"
+  },
+  {
+    "note": "label-wrong: initial ba/alif body tint is merged; separate bars are beneath the intended targets.",
+    "page": 566,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "68.51.5"
+  },
+  {
+    "note": "",
+    "page": 510,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "47.33.8"
+  },
+  {
+    "note": "",
+    "page": 463,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "39.46.7"
+  },
+  {
+    "note": "",
+    "page": 353,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "24.28.6"
+  },
+  {
+    "note": "",
+    "page": 583,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "78.40.3"
+  },
+  {
+    "note": "label-wrong: initial alif body is tinted as lam; its v2 bar is beneath the alif.",
+    "page": 197,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "9.67.0"
+  },
+  {
+    "note": "",
+    "page": 78,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "4.8.4"
+  },
+  {
+    "note": "",
+    "page": 58,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "3.64.26"
+  },
+  {
+    "note": "",
+    "page": 576,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "74.31.42"
+  },
+  {
+    "note": "",
+    "page": 392,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "28.57.0"
+  },
+  {
+    "note": "",
+    "page": 208,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "10.2.3"
+  },
+  {
+    "note": "",
+    "page": 455,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "38.34.6"
+  },
+  {
+    "note": "",
+    "page": 40,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "2.246.1"
+  },
+  {
+    "note": "",
+    "page": 499,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "45.12.6"
+  },
+  {
+    "note": "",
+    "page": 37,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "2.233.26"
+  },
+  {
+    "note": "",
+    "page": 386,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "28.7.17"
+  },
+  {
+    "note": "label-wrong: initial alif body is tinted as ra; the red v2 bar is beneath the initial upright.",
+    "page": 118,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "5.63.2"
+  },
+  {
+    "note": "",
+    "page": 202,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "9.99.22"
+  },
+  {
+    "note": "",
+    "page": 514,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "48.25.17"
+  },
+  {
+    "note": "",
+    "page": 219,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "10.93.20"
+  },
+  {
+    "note": "",
+    "page": 449,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "37.86.0"
+  },
+  {
+    "note": "",
+    "page": 289,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "17.69.21"
+  },
+  {
+    "note": "",
+    "page": 323,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "21.15.0"
+  },
+  {
+    "note": "",
+    "page": 85,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "4.44.7"
+  },
+  {
+    "note": "",
+    "page": 370,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "26.70.2"
+  },
+  {
+    "note": "",
+    "page": 294,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "18.7.8"
+  },
+  {
+    "note": "",
+    "page": 30,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "2.191.17"
+  },
+  {
+    "note": "",
+    "page": 107,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "5.5.35"
+  },
+  {
+    "note": "",
+    "page": 409,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "30.48.24"
+  },
+  {
+    "note": "",
+    "page": 448,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "37.62.5"
+  },
+  {
+    "note": "",
+    "page": 505,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "46.23.2"
+  },
+  {
+    "note": "",
+    "page": 391,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "28.48.6"
+  },
+  {
+    "note": "",
+    "page": 154,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "7.37.20"
+  },
+  {
+    "note": "",
+    "page": 142,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "6.113.10"
+  },
+  {
+    "note": "",
+    "page": 571,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "71.27.3"
+  },
+  {
+    "note": "",
+    "page": 82,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "4.25.35"
+  },
+  {
+    "note": "",
+    "page": 278,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "16.98.5"
+  },
+  {
+    "note": "",
+    "page": 471,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "40.39.10"
+  },
+  {
+    "note": "",
+    "page": 362,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "25.31.1"
+  },
+  {
+    "note": "",
+    "page": 17,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "2.109.18"
+  },
+  {
+    "note": "",
+    "page": 535,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "56.29.1"
+  },
+  {
+    "note": "",
+    "page": 90,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "4.78.12"
+  },
+  {
+    "note": "",
+    "page": 415,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "32.5.7"
+  },
+  {
+    "note": "",
+    "page": 232,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "11.94.14"
+  },
+  {
+    "note": "",
+    "page": 556,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "64.4.11"
+  },
+  {
+    "note": "label-wrong: initial waw/alif body colours are merged; separate bars lie beneath the intended bodies.",
+    "page": 7,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "2.43.0"
+  },
+  {
+    "note": "",
+    "page": 333,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "22.14.5"
+  },
+  {
+    "note": "",
+    "page": 596,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "93.6.2"
+  },
+  {
+    "note": "",
+    "page": 300,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "18.55.18"
+  },
+  {
+    "note": "",
+    "page": 525,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "52.33.1"
+  },
+  {
+    "note": "",
+    "page": 295,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "18.19.6"
+  },
+  {
+    "note": "",
+    "page": 166,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "7.133.4"
+  },
+  {
+    "note": "",
+    "page": 223,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "11.17.21"
+  },
+  {
+    "note": "",
+    "page": 351,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "24.11.26"
+  },
+  {
+    "note": "",
+    "page": 328,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "21.80.4"
+  },
+  {
+    "note": "",
+    "page": 573,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "72.28.4"
+  },
+  {
+    "note": "",
+    "page": 254,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "13.38.14"
+  },
+  {
+    "note": "",
+    "page": 12,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "2.83.12"
+  },
+  {
+    "note": "",
+    "page": 183,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "8.48.1"
+  },
+  {
+    "note": "",
+    "page": 362,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "25.23.6"
+  },
+  {
+    "note": "",
+    "page": 430,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "34.16.12"
+  },
+  {
+    "note": "",
+    "page": 92,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "4.90.4"
+  },
+  {
+    "note": "",
+    "page": 593,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "89.11.2"
+  },
+  {
+    "note": "",
+    "page": 578,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "75.37.1"
+  },
+  {
+    "note": "",
+    "page": 218,
+    "source": "checkpoint1b/decisions.jsonl",
+    "verdict": "ok",
+    "wid": "10.88.13"
+  }
+]
