@@ -3,7 +3,7 @@ import json,argparse
 from datetime import datetime,timezone
 import checkpoint2_trial as T
 
-def record(pattern, verdicts, reason):
+def record(pattern, verdicts, reason, observer='cp2-engineering-review'):
  folder=T.OUT/f'pattern-{pattern}';man=T.read(folder/'manifest.json');comp=T.read(folder/'comparison.json')
  seen=[]
  for m in man:seen += m['rows']
@@ -13,7 +13,7 @@ def record(pattern, verdicts, reason):
  assert not any(a.get('pattern')==pattern for a in audit)
  for m in man:
   assert T.R.sha(T.R.ROOT/m['image'])==m['sha256']
-  audit.append(dict(pattern=pattern,observer='cp2-engineering-review',at=datetime.now(timezone.utc).isoformat(),image=m['image'],sha256=m['sha256'],words=[r['wid'] for r in m['rows']],actuallyViewed=True))
+  audit.append(dict(pattern=pattern,observer=observer,at=datetime.now(timezone.utc).isoformat(),image=m['image'],sha256=m['sha256'],words=[r['wid'] for r in m['rows']],actuallyViewed=True))
  fixed=sum(r['role']=='dev' and verdicts[r['wid']]=='ok' and not r['beforeValid'] for r in seen)
  # For valid baseline dev failures only count actual previous wrong/unsure, not
  # historical v1 failures that v2 already repaired.
