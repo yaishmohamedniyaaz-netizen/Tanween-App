@@ -122,3 +122,91 @@ See [the complete Fable handoff](FABLE_HANDOFF_DK_GUIDED_CP2.md) and
 `checkpoint2/progress.json` for the exact next step, evidence, commands and
 remaining acceptance gates. CP1b's 91.67% remains the latest completed fresh
 measurement. No new accuracy or production-readiness claim is made.
+
+---
+
+## Checkpoint 2 report (Fable, 10–11 November 2026)
+
+Status: **complete**. Method `dk-guided-v3`, kept fixes `stacked2` + `bowl2`.
+Machine-readable copy: `scripts/letter-masks/dk_guided/checkpoint2/results.json`.
+
+### Result
+
+| Measure | Target | Checkpoint 2 |
+| --- | --- | --- |
+| Words fully right (fresh 300, seed 20261114) | ≥ 97% | **97.67%** (293 of 300; 3 wrong, 4 unsure) |
+| Letters right | report; expected ≥ 99% | **99.13%** (1259 of 1270; 7 wrong, 4 unsure) |
+| Words with bars, automatic checks | ≥ 85% | **88.65%** (68,643 of 77,433) |
+| Words with bars after withholding seen errors | — | 88.60% (68,609; 36 words withheld by eye) |
+
+- Early-stop gate: 95 of the first 100 were fully right. The gate is "at least 95", so it
+  passed **with no margin**. One more doubtful word would have stopped the test.
+- **Old vs new, different samples:** Checkpoint 1b scored 91.67% on its own fresh 300
+  (seed 20261112). Checkpoint 2 scored 97.67% on another fresh 300 (seed 20261114).
+  The two numbers come from different words and different reviewers, so the 6-point
+  difference is not a clean measurement of the gain.
+- With 300 words, the 95% range for 97.67% is roughly 95.3% to 98.9% (Wilson interval).
+  The result meets the target but does not prove the true rate is above 97%.
+
+### Limits of this measurement (read before relying on it)
+
+1. **The same model wrote the two kept fixes and judged the test.** An independent
+   review of the 14 test sheets is advisable before the bars are shown to judges.
+2. Sheets were judged at reduced size. Edges closer than about 10–15 px could not be
+   checked. Where I could not confirm a bar, I recorded `unsure`, not `ok`.
+3. Judgement calls recorded as `ok` (bars under the right letters, but one bar runs
+   partly under a neighbour): الشيطن ×3 (37, 140, 264: ي bar runs under part of the ط
+   loop), الطرف (247: lam bar runs under part of the ط loop), ههنا (49), ألحقنا (296).
+   A stricter reviewer could mark some of these `unsure`; six such changes would put the
+   score at 95.67%.
+
+### Per fix
+
+| Pattern | Change | Fixed | Still wrong | Newly broken | Kept |
+| --- | --- | --- | --- | --- | --- |
+| 5 colliding bars | integer allocation inside own columns | 0 | 24 | 0 | dropped |
+| 4 detached ink | same-count component matching | 0 | 0 | 2 | dropped |
+| 2 stems | upright-run matching | 0 | 16 | 1 | dropped |
+| 1 stacked ج ح خ (labels) | connected-ink growth | 0 | 9 | 0 | dropped |
+| 3 final ي bowl (Codex version) | body detection | 0 | not viewed | — | dropped on computer evidence |
+| **1r2 `stacked2`** | bar rule: the letter sitting on a ج/ح/خ keeps its dense core at its right side; the ج/ح/خ gets the rest | 10 (+2 stayed right) | 4 | 0 | **kept** |
+| **3r2 `bowl2`** | same rule for a word-final ي/ى whose bowl returns under the letter before it | 10 | 3 | 0 | **kept** |
+
+Details and word IDs are in `checkpoint2/fix-log.json`. The owner's rule of zero newly
+broken regression words was applied (stricter than "at most 1" above).
+
+### Full run
+
+- 604 pages, 77,433 words, 0 page errors. Run time about 2 h 40 min on 2 cores
+  (two background sessions; the run resumed from saved pages).
+- Labels and targets are identical to v2 for all 77,433 words. Bars changed in 2,322
+  words (3.0%); 22 words gained bars and 2 lost them.
+- Fit threshold re-finalised on this run: 4.9888 (90th percentile).
+- Failed automatic checks: fit 7,744; coverage 1,064; narrow-bar 92; overlap 73;
+  invalid geometry 73.
+- Protected paths (`src/`, artwork, page data, `public/mushaf-dk/`, approved borders)
+  are unchanged. Nothing was wired into the app, deployed, or exported as colour files.
+
+### Failure patterns left (7 of 300 test words)
+
+- **Lam and its neighbour, label wrong (5 words):** 6.69.8 and 7.38.7 (lam before a
+  swash kaf: the lam stem or the kaf knot is given to the wrong letter), 6.66.4 (lam
+  stem given to the alif in ٱلحق), 33.19.29 and 20.68.5 (lam bar may not sit under the stem).
+- **Heh body given to the ي before it (1 word):** 25.42.8 عليها.
+- **Very narrow ي bar before a final ن (1 word):** 22.53.5.
+- Still open from the development set: a lam stem standing in the middle of a ج/ح/خ
+  body, detached ink, and the 73 words with colliding bars. All remaining patterns are
+  label errors, not bar-rule errors. Pattern 2 (stems) is the most useful next target.
+
+### Evidence and counts
+
+- Sheets viewed: **20 of 50** (3 by Codex, 3 pattern trials by Fable, 14 test sheets).
+  Each sheet was viewed once.
+- Test sample frozen at 2026-11-10T22:51:06Z, before any test sheet was viewed.
+  46,726 eligible words; 24,204 word IDs excluded (all earlier reviews and exposures).
+- Evidence: `checkpoint2/test/` (sample, frozen predictions, sheets, `audit.jsonl`,
+  `decisions.jsonl`), `checkpoint2/validation.json`, `checkpoint2/results.json`.
+- Tests: 14 focused tests pass. `validate_cp2.py --finish` passes.
+- Token use: `null` (not measurable in this session).
+- Commit id: see the commit that adds this report on `codex/dk-guided-underlines`
+  (stated in the hand-back message). **Not pushed to main.**
