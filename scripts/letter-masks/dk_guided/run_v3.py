@@ -143,9 +143,12 @@ def page_job(arg):
                 return p, 'skipped'
         except (ValueError, KeyError, TypeError):
             pass
-    targets = app_units([p])
+    app = app_units([p])
     expected = {w['wid'] for w in G.art_page(p)['words'] if w.get('role') == 'letter'}
-    assert set(targets) == expected, ('app/art inventory', p)
+    # The app also lists basmala words (ids like 2.b.0); the artwork gives them another role
+    # and v1/v2 never exported them. Export exactly the artwork's letter words, as before.
+    assert expected <= set(app), ('app/art inventory', p, sorted(expected - set(app))[:5])
+    targets = {wid: tids for wid, tids in app.items() if wid in expected}
     words, metrics = {}, {}
     for wid, tids in targets.items():
         r = None

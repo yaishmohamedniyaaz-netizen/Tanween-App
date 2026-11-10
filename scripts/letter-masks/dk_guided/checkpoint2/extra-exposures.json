@@ -1,0 +1,18 @@
+{
+ "note": "Words whose v3 predictions (text and bar widths, not images) were inspected while checking the runner on pages 3-4, before the fresh test was drawn. Excluded from the test like every other Checkpoint 2 exposure.",
+ "words": [
+  "2.11.9",
+  "2.14.14",
+  "2.14.8",
+  "2.16.6",
+  "2.16.7",
+  "2.7.2",
+  "2.7.6",
+  "2.9.0",
+  "2.9.5",
+  "2.19.17",
+  "2.19.8",
+  "2.22.18",
+  "2.24.10"
+ ]
+}
