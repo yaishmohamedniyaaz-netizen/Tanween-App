@@ -65,6 +65,86 @@ def fix_lamkaf(res, reach=2.5):
     return dict(res, labels=lab) if changed else res
 
 
+def tall_strokes(res):
+    """Print strokes that stand like an alif or lam: long, upright, and rising well above the
+    row band that holds most of the word's ink (tails of mim or ya hang below it and do not count)."""
+    body = res['ink'] & ~res['marks']
+    rows = body.sum(1)
+    if not rows.sum(): return body, []
+    cum = np.cumsum(rows) / rows.sum()
+    lo, hi = int(np.searchsorted(cum, .2)), int(np.searchsorted(cum, .8))
+    out = []
+    for _, _, m in _stems(body):
+        ys, xs = np.nonzero(m)
+        if ys.min() <= lo - 0.8 * max(1, hi - lo) and ys.max() + 1 - ys.min() >= 45:
+            out.append((int(xs.min()), int(xs.max()) + 1, m))
+    return body, sorted(out, key=lambda s: -s[0])
+
+
+def fix_strokes(res):
+    """Give a tall upright stroke back to the alif or lam it belongs to.
+
+    Changed case only: a tall stroke is held by a letter that has no upright stroke of its own
+    (for example the lam stroke held by ba, ha or ain, or an alif stroke held by fa). The
+    stroke sits at that letter's left or right end; the neighbour on that side receives it when
+    that neighbour is an alif or lam with no tall stroke yet. Ink the old owner held beyond the
+    stroke, and ink the receiving letter held far beyond it, pass on to the next letter.
+    Words where every tall stroke already has a stem letter are returned unchanged."""
+    units, idx = _units(res); text = res['word']['text']
+    real = [k for k, i in enumerate(idx) if i is not None]
+    if len(real) < 2: return res
+    def stemmed(k): return any(c in STEMMED for c in units[k]) or (text[idx[k]] == 'ك' and k == real[-1])
+    def upright(k): return text[idx[k]] in UPRIGHT
+    body, strokes = tall_strokes(res)
+    if not strokes: return res
+    lab = res['labels'].copy()
+    owners = []
+    for x0, x1, m in strokes:
+        ids, c = np.unique(lab[m], return_counts=True)
+        top = int(ids[np.argmax(c)]) - 1
+        owners.append(top if c.max() >= .6 * c.sum() and top in real else None)
+    has = {k for k in owners if k is not None and stemmed(k)}
+    changed = False
+    for (x0, x1, m), o in zip(strokes, owners):
+        if o is None or stemmed(o): continue
+        cols = np.nonzero(((lab == o + 1) & body).any(0))[0]
+        if not len(cols): continue
+        mid = (cols.min() + cols.max() + 1) / 2; sw = x1 - x0; n = real.index(o)
+        to_next = (x0 + x1) / 2 < mid
+        if to_next and n + 1 < len(real): t = real[n + 1]
+        elif not to_next and n: t = real[n - 1]
+        else: continue
+        if not upright(t) or t in has or any(c in ALIFS for c in units[t][1:]): continue
+        after = real[real.index(t) + 1] if real.index(t) + 1 < len(real) else None
+        lab[m] = t + 1; has.add(t); changed = True
+        joins_left = text[idx[t]] == 'ل'
+        if to_next:
+            left = body & (lab == o + 1); left[:, x0:] = False        # old owner's ink beyond the stroke
+            if joins_left:
+                foot = left.copy(); foot[:, :max(0, x0 - sw)] = False
+                lab[foot] = t + 1; left &= ~foot
+            if after is not None: lab[left] = after + 1
+            elif joins_left: lab[left] = t + 1
+            far = body & (lab == t + 1); far[:, max(0, x0 - (3 if joins_left else 1) * sw):] = False
+            if after is not None: lab[far] = after + 1                # the receiver's old ink far left of its stroke
+        else:
+            right = body & (lab == o + 1); right[:, :x1] = False
+            lab[right] = t + 1
+    # A lam that has its stroke but whose ink runs far left of it has taken part of a small next
+    # letter (owner review: the ain of la'allakum lost its right half). Not before a kaf, which
+    # is wide and where the shared join reads as balanced.
+    for (x0, x1, m), o in zip(strokes, owners):
+        if o is None or text[idx[o]] != 'ل' or any(c in ALIFS for c in units[o][1:]): continue
+        n = real.index(o)
+        if n + 1 >= len(real) or text[idx[real[n + 1]]] == 'ك': continue
+        sw = x1 - x0; lam = body & (lab == o + 1)
+        cols = np.nonzero(lam.any(0))[0]
+        if not len(cols) or x0 - cols.min() <= 2.5 * sw: continue
+        lam[:, int(round(x0 - 1.5 * sw)):] = False
+        lab[lam] = real[n + 1] + 1; changed = True
+    return dict(res, labels=lab) if changed else res
+
+
 def widen_upright(res, spans, minimum=20, sep=2, keep=2.0):
     """Minimum bar width for alif and lam (owner review, 11 Nov 2026: a bar the width of the
     stroke is too small to see). A narrow alif or lam bar first grows into the empty space

@@ -31,7 +31,7 @@ def base(p,w):
  return r
 
 def apply(r,flags):
- for key,fn in [('detached',L.fix_detached),('stems',L.fix_stems),('stacked',L.fix_stacked),('lamkaf',K.fix_lamkaf)]:
+ for key,fn in [('detached',L.fix_detached),('stems',L.fix_stems),('stacked',L.fix_stacked),('lamkaf',K.fix_strokes)]:
   if key in flags:r=fn(r)
  b=bars_v3(r,fix_colliding='collisions' in flags,fix_bowl='bowl' in flags,fix_stacked2='stacked2' in flags,fix_bowl2='bowl2' in flags)
  return r,b
