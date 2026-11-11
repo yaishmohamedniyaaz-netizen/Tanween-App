@@ -35,11 +35,11 @@ function Options<T extends string | number | boolean>({ legend, value, choices, 
 const ORDER_NOTE: Record<MarkingPreferences["order"], string> = {
   "criterion-first": "Choose a criterion, then tap the word and the letter. After the mark nothing is chosen.",
   "drag-hold": "Drag from a criterion onto the word, slide to the letter and lift. Lift on the word to keep the tray open.",
-  "word-first": "No island. Tap the word, then the letter and criterion in the tray.",
+  "word-first": "Tap the word, then the letter and criterion in the tray.",
 };
 
 
-/** Marking choices for this device: criterion island, keys and pen. */
+/** Marking choices for this device: how you mark, keys and pen. */
 export function MarkingSettings({ value, onChange, penCategories }: {
   value: MarkingPreferences;
   onChange: (patch: Partial<MarkingPreferences>) => void;
@@ -90,7 +90,7 @@ export function MarkingSettings({ value, onChange, penCategories }: {
         note={`With a pen, in the letter tray: tap a letter = ${first}, double tap = ${second}.`}
         choices={[{ value: true, label: "On" }, { value: false, label: "Off" }]} />
       <Options legend="Pen only" value={value.penOnly} onChange={(penOnly) => onChange({ penOnly })}
-        note="Fingers and palm cannot mark the page. The island still works with a finger."
+        note="Fingers and palm cannot mark the page. The scorecard still works with a finger."
         choices={[{ value: true, label: "On" }, { value: false, label: "Off" }]} />
     </div>
   );
