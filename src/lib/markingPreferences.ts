@@ -15,18 +15,12 @@ export type MarkOrder = "criterion-first" | "drag-hold" | "word-first";
 /** "auto" keeps the bar on the side away from the scorecard. */
 export type BarSide = "auto" | "left" | "right";
 export type BarSize = "standard" | "large";
-/**
- * How the page is drawn. "print": the scanned 1405 artwork (default).
- * "digitalkhatt": the DigitalKhatt old Madina font, with every letter its own
- * shape, so the mistaken letter itself can be coloured (prototype).
- */
-export type PageDrawing = "print" | "digitalkhatt";
 /** The Basmala at the start of a surah: Al-Fatiha 1:1 in the same print ("regular"), or the printed stretched one. */
 export type BasmalaStyle = "regular" | "printed";
 
 /**
- * Look of the criterion island. These are test switches for choosing a final
- * design (docs/CRITERION_ISLAND_RESEARCH.md); one set will be kept.
+ * Look of the criterion choice. It was chosen with test switches
+ * (docs/CRITERION_ISLAND_RESEARCH.md); the kept set is DEFAULT_ISLAND_LOOK.
  */
 export interface IslandLook {
   /** Where the criteria are chosen: the scorecard rows, or an island beside the pages. */
@@ -75,13 +69,12 @@ export interface MarkingPreferences {
   trayCriteria: boolean;
   /** Prototype: underlines on words without approved borders, from learned guesses. */
   guessedUnderlines: "off" | "high" | "short" | "full";
-  pageDrawing: PageDrawing;
   basmala: BasmalaStyle;
   look: IslandLook;
 }
 
 export const DEFAULT_MARKING_PREFERENCES: MarkingPreferences = {
-  order: "criterion-first",
+  order: "word-first",
   holdToKeep: true,
   keys: true,
   penDoubleTap: false,
@@ -90,7 +83,6 @@ export const DEFAULT_MARKING_PREFERENCES: MarkingPreferences = {
   barSize: "standard",
   trayCriteria: false,
   guessedUnderlines: "off",
-  pageDrawing: "print",
   basmala: "regular",
   look: DEFAULT_ISLAND_LOOK,
 };
@@ -99,21 +91,6 @@ const oneOf = <T extends string | number>(value: unknown, options: readonly T[],
   (options as readonly unknown[]).includes(value) ? value as T : fallback;
 const bool = (value: unknown, fallback: boolean) => typeof value === "boolean" ? value : fallback;
 const record = (value: unknown) => value && typeof value === "object" ? value as Record<string, unknown> : {};
-
-export function normalizeIslandLook(value: unknown, fallback: IslandLook = DEFAULT_ISLAND_LOOK): IslandLook {
-  const v = record(value);
-  return {
-    place: oneOf(v.place, ["scorecard", "island"] as const, fallback.place),
-    chosen: oneOf(v.chosen, ["solid", "soft"] as const, fallback.chosen),
-    khafi: oneOf(v.khafi, ["current", "deep"] as const, fallback.khafi),
-    radius: oneOf(v.radius, [12, 16, 20] as const, fallback.radius),
-    shape: oneOf(v.shape, ["squares", "rows"] as const, fallback.shape),
-    gap: oneOf(v.gap, [8, 12] as const, fallback.gap),
-    rest: oneOf(v.rest, ["paper", "tinted"] as const, fallback.rest),
-    frame: oneOf(v.frame, ["strong", "thin", "off"] as const, fallback.frame),
-    focus: oneOf(v.focus, ["neutral", "blue"] as const, fallback.focus),
-  };
-}
 
 export function normalizeMarkingPreferences(
   value: unknown,
@@ -132,9 +109,9 @@ export function normalizeMarkingPreferences(
     barSize: oneOf(v.barSize, ["standard", "large"] as const, fallback.barSize),
     trayCriteria: bool(v.trayCriteria, fallback.trayCriteria),
     guessedUnderlines: oneOf(v.guessedUnderlines, ["off", "high", "short", "full"] as const, fallback.guessedUnderlines),
-    pageDrawing: oneOf(v.pageDrawing, ["print", "digitalkhatt"] as const, fallback.pageDrawing),
     basmala: oneOf(v.basmala, ["regular", "printed"] as const, fallback.basmala),
-    look: normalizeIslandLook(v.look, fallback.look),
+    // The look was chosen with test switches; the kept set is fixed now.
+    look: DEFAULT_ISLAND_LOOK,
   };
 }
 

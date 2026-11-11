@@ -180,6 +180,6 @@ function borderLoader(folder: string, convert: (data: never) => LetterBorderPage
 export const loadLetterBorders = borderLoader("letter-borders");
 /**
  * Unapproved bars for one page (prototype only): the DigitalKhatt-guided run,
- * which replaced the learned guesses of public/letter-borders-guess.
+ * which replaced the old learned guesses (removed before release).
  */
 export const loadLetterBorderGuesses = borderLoader("letter-bars-dk", fromDkBars);

@@ -11,6 +11,9 @@ const serverDir = resolve(root, "dist", "server");
 // development. Production serves the same pinned files through the Worker, so
 // do not copy the 116 MB local asset set into the Sites archive or precache.
 await rm(resolve(distDir, "tilawa"), { recursive: true, force: true });
+// The DigitalKhatt page data is input for the letter-bar scripts only
+// (scripts/letter-masks/dk_guided); the app does not draw with it.
+await rm(resolve(distDir, "mushaf-dk"), { recursive: true, force: true });
 
 // Vite knows the final hashed asset names only after it builds. Bind those
 // exact files to the service worker before Sites relocates the client output.

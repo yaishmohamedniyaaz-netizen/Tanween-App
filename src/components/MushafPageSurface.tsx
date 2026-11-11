@@ -1,4 +1,3 @@
-import type { CategoryId } from "../types";
 import type {
   CSSProperties,
   HTMLAttributes,
@@ -110,8 +109,6 @@ export interface MushafPageSurfaceProps extends Omit<
   lineClassName?: (line: PageLine) => string;
   renderWord: (word: PageWord, line: PageLine) => ReactNode;
   onGeometryChange?: () => void;
-  /** DigitalKhatt drawing only: marked letter units (tid) and their criterion. */
-  letterMarks?: ReadonlyMap<string, CategoryId>;
 }
 
 /**
@@ -128,7 +125,6 @@ export function MushafPageSurface({
   lineClassName,
   renderWord,
   onGeometryChange,
-  letterMarks: _letterMarks,
   ...pageProps
 }: MushafPageSurfaceProps) {
   const frameRef = useRef<HTMLDivElement>(null);

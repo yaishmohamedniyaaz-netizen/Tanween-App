@@ -81,8 +81,6 @@ import {
 import { MushafPageSurface, MushafWord } from "./MushafPageSurface.tsx";
 import { FixedMushafPageSurface } from "./FixedMushafPageSurface.tsx";
 import { printedBasmalaWords, useBasmalaStyle } from "../lib/printedBasmala.ts";
-import { DkWordArt } from "./DigitalKhattPage.tsx";
-import { cachedDkPage, usePageDrawing } from "../lib/digitalKhattPages.ts";
 import { assertFixedPageMatches, type FixedPageGeometry } from "../lib/fixedMushafGeometry.ts";
 import { WORD_TOTAL_FONT_PX, wordTotalCircle, wordFindingCounts, type MarkerRect } from "../lib/wordFindingSummary";
 import { invalidateMushafMetrics, measureMushafGlyph, mushafPageScale, pickMushafWord } from "../lib/mushafGeometry.ts";
@@ -349,9 +347,7 @@ export function Mushaf(props: MushafProps) {
     });
     return () => { cancelled = true; };
   }, [borderPagesKey, guessesWanted]);
-  // DigitalKhatt drawing: the mistaken letter itself is coloured, so no underline and no count circle.
-  const dkMode = usePageDrawing() === "digitalkhatt" && Boolean(fixedPages);
-  const underlineFor = (box: WordHitbox, tid: string) => dkMode ? null : box.wid.includes(".b.")
+  const underlineFor = (box: WordHitbox, tid: string) => box.wid.includes(".b.")
     // Surah Basmalas: bars for the chosen Basmala, always shown (owner-reviewed).
     ? underlineGeometry(basmalaBarPage(box.page, basmalaStyle), null, "off", box.wid, tid, box.region)
     : underlineGeometry(letterBorders.get(box.page), borderGuesses.get(box.page), marking.guessedUnderlines, box.wid, tid, box.region);
@@ -1242,17 +1238,6 @@ export function Mushaf(props: MushafProps) {
     }
     return best?.tid ?? null;
   }
-  /** Marked letter units and their strongest criterion, for colouring letters. */
-  const letterMarksFor = (pageBoxes: readonly WordHitbox[]) => {
-    const marks = new Map<string, CategoryId>();
-    for (const box of pageBoxes) {
-      for (const unit of box.units) {
-        const unitMistakes = mistakesForUnit(unit);
-        if (unitMistakes.length) marks.set(unit.tid, dominant(unitMistakes));
-      }
-    }
-    return marks;
-  };
   const mistakesForWord = (box: WordHitbox): Mistake[] => {
     const seen = new Set<string>();
     const matches: Mistake[] = [];
@@ -1350,7 +1335,6 @@ export function Mushaf(props: MushafProps) {
     const pageClientLeft = pageRect && layerRect ? local(layerRect.left - pageRect.left) : 1;
     const pageClientTop = pageRect && layerRect ? local(layerRect.top - pageRect.top) : 1;
     const questionDisplay = questionDisplays?.get(data.page) ?? null;
-    const letterMarks = dkMode ? letterMarksFor(visibleBoxes) : undefined;
     const lineClass = (lineState: RangeLineState | undefined) =>
       lineState === "context"
         ? "question-context-line"
@@ -1380,7 +1364,6 @@ export function Mushaf(props: MushafProps) {
         fixed={fixed!}
         key={data.page}
         data={data}
-        letterMarks={letterMarks}
         qcfReady={qcfReady}
         onGeometryChange={geometryChanged}
         pageRef={(node) => {
@@ -1491,7 +1474,7 @@ export function Mushaf(props: MushafProps) {
                       })}
                     </div>
                   )}
-                  {summary?.marker && !dkMode && !lettersUnderlined(box) && (
+                  {summary?.marker && !lettersUnderlined(box) && (
                     <span
                       className="word-total-marker"
                       data-word-total={box.wid}
@@ -1593,12 +1576,6 @@ export function Mushaf(props: MushafProps) {
 
       {judgingEnabled && active && (
         <DragMenu
-          wordArt={(() => {
-            const dk = dkMode ? cachedDkPage(active.meta.page) : null;
-            if (!dk) return undefined;
-            return <DkWordArt dk={dk} wid={active.meta.wid} selectedTid={active.tid}
-              marks={letterMarksFor([active.meta])} preview={hovered ?? armed} />;
-          })()}
           showTashkeel={selectorTashkeel}
           keepClear={barEnabled ? trayClearance() : undefined}
           hideCategories={hideTrayCriteria}

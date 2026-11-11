@@ -301,25 +301,24 @@ test("slim score preference defaults off and preserves other device settings", (
   assert.equal(restored.theme, "dark");
 });
 
-test("marking preferences: owner defaults, invalid values fall back, the old mixed order becomes criterion first", () => {
+test("marking preferences: owner defaults (word first), invalid values fall back, the old mixed order becomes criterion first", () => {
   assert.deepEqual(DEFAULT_DEVICE_PREFERENCES.marking, {
-    order: "criterion-first", holdToKeep: true, keys: true,
-    penDoubleTap: false, penOnly: false, barSide: "auto", barSize: "standard", trayCriteria: false, guessedUnderlines: "off", pageDrawing: "print", basmala: "regular",
+    order: "word-first", holdToKeep: true, keys: true,
+    penDoubleTap: false, penOnly: false, barSide: "auto", barSize: "standard", trayCriteria: false, guessedUnderlines: "off", basmala: "regular",
     look: { place: "scorecard", chosen: "solid", khafi: "current", radius: 20, shape: "squares", gap: 12, rest: "paper", frame: "strong", focus: "neutral" },
   });
   assert.deepEqual(normalizeMarkingPreferences({ order: "sideways", keys: "yes", penOnly: true, barSide: "right" }), {
     ...DEFAULT_MARKING_PREFERENCES, penOnly: true, barSide: "right",
   });
   assert.equal(normalizeMarkingPreferences({ order: "both", barTap: "next" }).order, "criterion-first");
-  // Page drawing: the print stays the default; only the two known values are kept.
-  assert.equal(normalizeMarkingPreferences({ pageDrawing: "digitalkhatt" }).pageDrawing, "digitalkhatt");
-  assert.equal(normalizeMarkingPreferences({ pageDrawing: "vector" }).pageDrawing, "print");
+  // The DigitalKhatt drawing switch is gone: a saved choice is dropped.
+  assert.equal("pageDrawing" in normalizeMarkingPreferences({ pageDrawing: "digitalkhatt" }), false);
   assert.equal(normalizeMarkingPreferences({ basmala: "printed" }).basmala, "printed");
   assert.equal(normalizeMarkingPreferences({ basmala: "stretched" }).basmala, "regular");
   assert.equal("barTap" in normalizeMarkingPreferences({ barTap: "next" }), false);
-  assert.deepEqual(normalizeMarkingPreferences({ look: { radius: 16, gap: 9, khafi: "deep", chosen: "glow" } }).look, {
-    ...DEFAULT_MARKING_PREFERENCES.look, radius: 16, khafi: "deep",
-  });
+  // The look test switches are gone: a look saved with them falls back to the kept one.
+  assert.deepEqual(normalizeMarkingPreferences({ look: { radius: 16, gap: 9, khafi: "deep", chosen: "glow" } }).look,
+    DEFAULT_MARKING_PREFERENCES.look);
   const storage = memoryStorage();
   writeDevicePreferences({ ...DEFAULT_DEVICE_PREFERENCES, marking: { ...DEFAULT_MARKING_PREFERENCES, order: "drag-hold" } }, storage);
   assert.equal(readDevicePreferences(storage).marking.order, "drag-hold");

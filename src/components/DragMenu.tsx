@@ -1,4 +1,3 @@
-import type { ReactNode } from "react";
 import { createPortal } from "react-dom";
 import {
   useEffect,
@@ -31,8 +30,6 @@ export interface MenuAnchor {
 interface Props {
   anchor: MenuAnchor;
   glyph: string;
-  /** The word drawn large above the letters (DigitalKhatt drawing). */
-  wordArt?: ReactNode;
   units: Array<{
     tid: string;
     primaryGlyph: string;
@@ -73,7 +70,6 @@ type SelectorStyle = CSSProperties & {
 export function DragMenu({
   anchor,
   glyph,
-  wordArt,
   units,
   targetSelected,
   hovered,
@@ -332,9 +328,6 @@ export function DragMenu({
           </button>
         ))}
       </div>
-      {/* After the letters in the code: the picker is reversed when the tray opens
-          upward, so the word always sits on the side away from the page word. */}
-      {wordArt && <div className="selector-word-art">{wordArt}</div>}
     </div>
   );
   const categoryStack = (
