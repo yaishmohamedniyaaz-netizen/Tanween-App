@@ -89,6 +89,12 @@ export function MarkingSettings({ value, onChange, penCategories }: {
           ? "Pages drawn with the DigitalKhatt old Madina font. A marked letter is coloured itself. Surah headers come from the print."
           : "The scanned 1405 print. Marks show as a word highlight and underlines."}
         choices={[{ value: "print", label: "Print" }, { value: "digitalkhatt", label: "DigitalKhatt" }]} />
+      {value.pageDrawing === "print" && <Options legend="Basmala at the start of a surah" value={value.basmala}
+        onChange={(basmala) => onChange({ basmala })}
+        note={value.basmala === "regular"
+          ? "Al-Fatiha 1:1 from the same print, in place of the stretched one. Easier to see each letter."
+          : "As printed in the Mushaf, with the long stretched line."}
+        choices={[{ value: "regular", label: "Regular" }, { value: "printed", label: "Printed" }]} />}
       <Options legend="How you mark" value={value.order} onChange={(order) => onChange({ order })}
         note={ORDER_NOTE[value.order]}
         choices={[

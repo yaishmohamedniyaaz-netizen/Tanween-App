@@ -6,7 +6,7 @@ import "./fixedMushaf.css";
 import { useCompactMushafPaper, useCalibratedPaperWidth } from './MushafViewport';
 import { fixedPaperPresentation } from '../lib/mobileMushafPresentation';
 import { calibratedMobilePaper } from '../lib/mobileCalibration';
-import { printedBasmalaWords } from '../lib/printedBasmala';
+import { printedBasmalaWords, regularBasmalaPlacements, useBasmalaStyle } from '../lib/printedBasmala';
 import { dkPageGeometry, useDkPage, usePageDrawing } from '../lib/digitalKhattPages';
 import { DkHeaderStrips, DkMarkedLetters, DkPageInk } from './DigitalKhattPage';
 
@@ -23,6 +23,7 @@ export function FixedMushafPageSurface({
   // DigitalKhatt drawing (prototype): same words and ids, own boxes and ink.
   // The printed artwork stays until the page's DigitalKhatt data has loaded.
   const drawing = usePageDrawing();
+  const basmala = useBasmalaStyle();
   const dk = useDkPage(drawing === "digitalkhatt" ? data.page : null);
   const dkGeometry = useMemo(() => {
     if (!dk) return null;
@@ -47,10 +48,10 @@ export function FixedMushafPageSurface({
     observer.observe(element);
     return () => observer.disconnect();
   }, [paper.width, calibratedWidth]);
-  useLayoutEffect(() => { if (renderedScale) onGeometryChange?.(); }, [renderedScale, data, dkGeometry, onGeometryChange]);
+  useLayoutEffect(() => { if (renderedScale) onGeometryChange?.(); }, [renderedScale, data, dkGeometry, basmala, onGeometryChange]);
   const lines = new Map(data.lines.map(line => [line.n, line]));
   const words = dkGeometry ? dkGeometry.words
-    : [...fixed.words, ...printedBasmalaWords(data)].sort((a, b) => a.line - b.line || b.region[0] - a.region[0]);
+    : [...fixed.words, ...printedBasmalaWords(data, basmala)].sort((a, b) => a.line - b.line || b.region[0] - a.region[0]);
   const openingOffset = !dkGeometry && data.page <= 2 && fixed.contentBounds
     ? (fixed.height - fixed.contentBounds[1] - fixed.contentBounds[3]) / 2 * ART_SCALE : 0;
   // Ornament emphasis follows its surah's opening, including ornaments on
@@ -83,8 +84,16 @@ export function FixedMushafPageSurface({
       {dk && dkGeometry ? <>
         <DkPageInk dk={dk} place={{ left: INSET, top: TOP, scale: ART_SCALE }} />
         <DkHeaderStrips dk={dk} place={{ left: INSET, top: TOP, scale: ART_SCALE }} image={fixed.image} />
-      </> : <img src={fixed.image} alt={`Mushaf page ${data.page}`} draggable={false}
-        style={{ left: INSET, top: TOP + openingOffset, width: 1920 * ART_SCALE, height: 3106 * ART_SCALE }} />}
+      </> : <>
+        <img src={fixed.image} alt={`Mushaf page ${data.page}`} draggable={false}
+          style={{ left: INSET, top: TOP + openingOffset, width: 1920 * ART_SCALE, height: 3106 * ART_SCALE,
+            clipPath: basmalaHoles(regularBasmalaPlacements(data.page, basmala).map(place => place.row), ART_SCALE) }} />
+        {/* The regular Basmala (Al-Fatiha 1:1 of the same print) over each cut-out stamp row. */}
+        {regularBasmalaPlacements(data.page, basmala).map(place => <img key={place.top} src={place.image} alt=""
+          aria-hidden="true" draggable={false} data-regular-basmala="true"
+          style={{ left: INSET + place.left * ART_SCALE, top: TOP + openingOffset + place.top * ART_SCALE,
+            width: place.width * ART_SCALE, height: place.height * ART_SCALE }} />)}
+      </>}
       <div className="mushaf-lines">
         {contextGaps.map(([top, bottom]) => <div key={top}
           className="fixed-artwork-context" aria-hidden="true"
@@ -111,4 +120,17 @@ export function FixedMushafPageSurface({
         <DkMarkedLetters dk={dk} place={{ left: INSET, top: TOP, scale: ART_SCALE }} marks={letterMarks} />}
     </div>
   </div>;
+}
+
+/**
+ * Clip the page artwork so the printed Basmala stamp rows are cut out; the
+ * regular Basmala is drawn there instead. Each hole is the stamp row with a
+ * small margin (no other ink is that close to a stamp).
+ */
+function basmalaHoles(rows: readonly (readonly number[])[], scale: number): string | undefined {
+  if (!rows.length) return undefined;
+  const W = 1920 * scale, H = 3106 * scale, pad = 6;
+  const hole = ([x0, y0, x1, y1]: readonly number[]) =>
+    `M${(x0 - pad) * scale} ${(y0 - pad) * scale}H${(x1 + pad) * scale}V${(y1 + pad) * scale}H${(x0 - pad) * scale}Z`;
+  return `path(evenodd, "M0 0H${W}V${H}H0Z${rows.map(hole).join("")}")`;
 }

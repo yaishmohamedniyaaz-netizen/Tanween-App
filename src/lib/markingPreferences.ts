@@ -21,6 +21,8 @@ export type BarSize = "standard" | "large";
  * shape, so the mistaken letter itself can be coloured (prototype).
  */
 export type PageDrawing = "print" | "digitalkhatt";
+/** The Basmala at the start of a surah: Al-Fatiha 1:1 in the same print ("regular"), or the printed stretched one. */
+export type BasmalaStyle = "regular" | "printed";
 
 /**
  * Look of the criterion island. These are test switches for choosing a final
@@ -74,6 +76,7 @@ export interface MarkingPreferences {
   /** Prototype: underlines on words without approved borders, from learned guesses. */
   guessedUnderlines: "off" | "high" | "short" | "full";
   pageDrawing: PageDrawing;
+  basmala: BasmalaStyle;
   look: IslandLook;
 }
 
@@ -88,6 +91,7 @@ export const DEFAULT_MARKING_PREFERENCES: MarkingPreferences = {
   trayCriteria: false,
   guessedUnderlines: "off",
   pageDrawing: "print",
+  basmala: "regular",
   look: DEFAULT_ISLAND_LOOK,
 };
 
@@ -129,6 +133,7 @@ export function normalizeMarkingPreferences(
     trayCriteria: bool(v.trayCriteria, fallback.trayCriteria),
     guessedUnderlines: oneOf(v.guessedUnderlines, ["off", "high", "short", "full"] as const, fallback.guessedUnderlines),
     pageDrawing: oneOf(v.pageDrawing, ["print", "digitalkhatt"] as const, fallback.pageDrawing),
+    basmala: oneOf(v.basmala, ["regular", "printed"] as const, fallback.basmala),
     look: normalizeIslandLook(v.look, fallback.look),
   };
 }

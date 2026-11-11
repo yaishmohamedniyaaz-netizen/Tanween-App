@@ -27,7 +27,7 @@ import {
   preloadPage,
 } from "../lib/page";
 import { nextRecitedWords } from "../lib/recitedNeighbours.ts";
-import { loadLetterBorderGuesses, loadLetterBorders, underlineGeometry, type LetterBorderPage } from "../lib/letterBorders.ts";
+import { basmalaBarPage, loadLetterBorderGuesses, loadLetterBorders, underlineGeometry, type LetterBorderPage } from "../lib/letterBorders.ts";
 import type { MushafPage, PageWord } from "../lib/page";
 import {
   loadQcfPageFont,
@@ -80,7 +80,7 @@ import {
 } from "../lib/recitationRangeLayout.ts";
 import { MushafPageSurface, MushafWord } from "./MushafPageSurface.tsx";
 import { FixedMushafPageSurface } from "./FixedMushafPageSurface.tsx";
-import { printedBasmalaWords } from "../lib/printedBasmala.ts";
+import { printedBasmalaWords, useBasmalaStyle } from "../lib/printedBasmala.ts";
 import { DkWordArt } from "./DigitalKhattPage.tsx";
 import { cachedDkPage, usePageDrawing } from "../lib/digitalKhattPages.ts";
 import { assertFixedPageMatches, type FixedPageGeometry } from "../lib/fixedMushafGeometry.ts";
@@ -251,6 +251,7 @@ export function Mushaf(props: MushafProps) {
   const [boxesKey, setBoxesKey] = useState("");
   const [letterBorders, setLetterBorders] = useState<ReadonlyMap<number, LetterBorderPage>>(new Map());
   const [borderGuesses, setBorderGuesses] = useState<ReadonlyMap<number, LetterBorderPage>>(new Map());
+  const basmalaStyle = useBasmalaStyle();
   const [measureEpoch, setMeasureEpoch] = useState(0);
   const [flashTid, setFlashTid] = useState<string | null>(null);
   const [pendingFlash, setPendingFlash] = useState<{ tid: string; page: number } | null>(null);
@@ -350,8 +351,10 @@ export function Mushaf(props: MushafProps) {
   }, [borderPagesKey, guessesWanted]);
   // DigitalKhatt drawing: the mistaken letter itself is coloured, so no underline and no count circle.
   const dkMode = usePageDrawing() === "digitalkhatt" && Boolean(fixedPages);
-  const underlineFor = (box: WordHitbox, tid: string) => dkMode ? null : underlineGeometry(
-    letterBorders.get(box.page), borderGuesses.get(box.page), marking.guessedUnderlines, box.wid, tid, box.region);
+  const underlineFor = (box: WordHitbox, tid: string) => dkMode ? null : box.wid.includes(".b.")
+    // Surah Basmalas: bars for the chosen Basmala, always shown (owner-reviewed).
+    ? underlineGeometry(basmalaBarPage(box.page, basmalaStyle), null, "off", box.wid, tid, box.region)
+    : underlineGeometry(letterBorders.get(box.page), borderGuesses.get(box.page), marking.guessedUnderlines, box.wid, tid, box.region);
 
   // Every requested page and its page-specific font become visible in one
   // commit. The previous complete view remains intact during navigation.
@@ -494,7 +497,7 @@ export function Mushaf(props: MushafProps) {
           hw: ink.w + (fixedPages ? 0 : HIT_PAD_X * 2),
           hh: ink.h + (fixedPages ? 0 : HIT_PAD_Y * 2),
           region: fixedPages?.get(page.page)?.words.find((word) => word.wid === wid)?.region
-            ?? (fixedPages && wid.includes(".b.") ? printedBasmalaWords(page).find((word) => word.wid === wid)?.region : undefined),
+            ?? (fixedPages && wid.includes(".b.") ? printedBasmalaWords(page, basmalaStyle).find((word) => word.wid === wid)?.region : undefined),
         });
       });
 
@@ -541,7 +544,7 @@ export function Mushaf(props: MushafProps) {
     setBoxes(next);
     setShadeBoxes(nextShadeBoxes);
     setBoxesKey(pageData.map(({ page }) => page).join(":"));
-  }, [pageData, questionDisplays, questionFocusMode, fixedPages]);
+  }, [pageData, questionDisplays, questionFocusMode, fixedPages, basmalaStyle]);
 
   // Wait until every page in the spread has applied its layout before reading
   // the shared stage. Otherwise the first page can retain pre-fit coordinates.

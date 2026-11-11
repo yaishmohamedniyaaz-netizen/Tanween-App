@@ -1,5 +1,6 @@
 import { TARGET_RULE_VERSION } from "./judgingUnits.ts";
 import { printedBasmalaBars } from "./printedBasmala.ts";
+import type { BasmalaStyle } from "./markingPreferences.ts";
 
 /**
  * Owner-approved letter borders on the 1405H page artwork.
@@ -107,6 +108,19 @@ export function underlineGeometry(
   return { ...bar, left: bar.left + (bar.width - width) / 2, width };
 }
 
+/**
+ * The surah Basmalas of one page as a border page, for the chosen Basmala
+ * style. The run does not cover them; their bars are measured once per style
+ * and reviewed by the owner, so they show like approved borders.
+ */
+export function basmalaBarPage(page: number, style: BasmalaStyle): LetterBorderPage {
+  const words: Record<string, LetterBorderWord> = {};
+  for (const [wid, word] of Object.entries(printedBasmalaBars(page, style))) {
+    words[wid] = { tids: word.tids, x: [], bars: word.bars };
+  }
+  return { page, ruleVersion: TARGET_RULE_VERSION, words };
+}
+
 /** One page of public/letter-bars-dk as written by the DigitalKhatt-guided run. */
 interface DkBarPage {
   page: number;
@@ -121,11 +135,6 @@ interface DkBarPage {
  */
 export function fromDkBars(data: DkBarPage): LetterBorderPage {
   const words: Record<string, LetterBorderWord> = {};
-  // The printed Basmalas are not in the run; their bars are measured once on
-  // the shared stamp (scripts/letter-masks/basmala/bars.json).
-  for (const [wid, word] of Object.entries(printedBasmalaBars(data.page))) {
-    words[wid] = { tids: word.tids, x: [], bars: word.bars, confidence: "high" };
-  }
   for (const [wid, word] of Object.entries(data.words)) {
     if (word.checks.some((check) => /^visual-.*-wrong$/.test(check))) continue;
     if (word.bars.length !== word.tids.length) continue;

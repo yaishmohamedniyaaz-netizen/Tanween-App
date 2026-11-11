@@ -1,0 +1,152 @@
+{
+ "note": "Al-Fatiha 1:1 from page 1 of the same 1405 print, scaled to normal text size and centred in each printed Basmala row (the 1054 x 141 stamp). x is in artwork px from the row left edge. Bars: words 0-1 from the DigitalKhatt-guided run (the alif of Allah and the meem of bism separated at the gap), words 2-3 corrected by hand; owner review pending.",
+ "image": "/basmala/regular-fatiha-1.png",
+ "source": {
+  "page": 1,
+  "crop": [
+   750,
+   330,
+   1302,
+   456
+  ],
+  "scale": 1.19
+ },
+ "place": [
+  189.0,
+  -5.1,
+  657,
+  150
+ ],
+ "words": [
+  {
+   "tids": [
+    "r0",
+    "r2",
+    "r4"
+   ],
+   "region": [
+    643.0,
+    842.4
+   ],
+   "bars": [
+    [
+     824.5,
+     840.0
+    ],
+    [
+     716.2,
+     824.5
+    ],
+    [
+     643.6,
+     716.2
+    ]
+   ]
+  },
+  {
+   "tids": [
+    "r0",
+    "r1",
+    "r5"
+   ],
+   "region": [
+    558.0,
+    643.0
+   ],
+   "bars": [
+    [
+     625.8,
+     642.4
+    ],
+    [
+     591.3,
+     624.6
+    ],
+    [
+     562.7,
+     590.1
+    ]
+   ]
+  },
+  {
+   "tids": [
+    "r0",
+    "r1",
+    "r2",
+    "r5",
+    "r7",
+    "r10"
+   ],
+   "region": [
+    391.4,
+    558.0
+   ],
+   "bars": [
+    [
+     535.3,
+     553.2
+    ],
+    [
+     518.7,
+     533.0
+    ],
+    [
+     502.0,
+     517.5
+    ],
+    [
+     474.7,
+     500.8
+    ],
+    [
+     439.0,
+     473.5
+    ],
+    [
+     397.3,
+     437.8
+    ]
+   ]
+  },
+  {
+   "tids": [
+    "r0",
+    "r1",
+    "r2",
+    "r5",
+    "r7",
+    "r8"
+   ],
+   "region": [
+    208.1,
+    391.4
+   ],
+   "bars": [
+    [
+     366.4,
+     385.4
+    ],
+    [
+     352.1,
+     365.2
+    ],
+    [
+     325.9,
+     350.9
+    ],
+    [
+     292.6,
+     324.7
+    ],
+    [
+     274.7,
+     291.4
+    ],
+    [
+     211.7,
+     273.5
+    ]
+   ]
+  }
+ ]
+}

@@ -111,14 +111,15 @@ test("the shipped DigitalKhatt-guided bars match the app's current letters", () 
   assert.ok(high > 68000, `${high} checked words`);
 });
 
-test("printed Basmala bars: the app's letters, inside each word, never overlapping", async () => {
-  const { printedBasmalaBars, printedBasmalaWords } = await import("../src/lib/printedBasmala.ts");
+for (const style of ["printed", "regular"]) test(`${style} Basmala bars: the app's letters, inside each word, never overlapping`, async () => {
+  const { printedBasmalaBars, printedBasmalaWords, regularBasmalaPlacements } = await import("../src/lib/printedBasmala.ts");
+  const { basmalaBarPage } = await import("../src/lib/letterBorders.ts");
   let rows = 0;
   for (let p = 1; p <= 604; p += 1) {
-    const bars = printedBasmalaBars(p);
+    const bars = printedBasmalaBars(p, style);
     if (!Object.keys(bars).length) continue;
     const text = JSON.parse(fs.readFileSync(`public/pages/p${p}.json`, "utf8"));
-    const regions = new Map(printedBasmalaWords(text).map((word) => [word.wid, word]));
+    const regions = new Map(printedBasmalaWords(text, style).map((word) => [word.wid, word]));
     for (const [wid, word] of Object.entries(bars)) {
       const source = regions.get(wid);
       assert.ok(source, `${wid} is a printed Basmala word`);
@@ -127,12 +128,17 @@ test("printed Basmala bars: the app's letters, inside each word, never overlappi
       word.bars.forEach(([left, right], i) => {
         assert.ok(right > left && left >= source.region[0] - 1 && right <= source.region[2] + 1, `${wid} bar ${i} inside its word`);
         if (i) assert.ok(right <= word.bars[i - 1][0], `${wid} bars go right to left without overlap`);
+        const bar = underlineGeometry(basmalaBarPage(p, style), null, "off", wid, tids[i], source.region);
+        assert.ok(bar && bar.width > 0, `${wid} bar ${i} is drawn`);
       });
     }
+    // The regular image sits inside its row, one per stamp row.
+    const places = regularBasmalaPlacements(p, style);
+    assert.equal(places.length, style === "regular" ? Object.keys(bars).length / 4 : 0);
+    for (const place of places) {
+      assert.ok(place.left >= place.row[0] && place.left + place.width <= place.row[2], "regular Basmala fits its row width");
+    }
     rows += Object.keys(bars).length / 4;
-    // The guesses loader adds them to every page's bars.
-    const guesses = fromDkBars(JSON.parse(fs.readFileSync(`public/letter-bars-dk/p${p}.json`, "utf8")));
-    assert.ok(Object.keys(bars).every((wid) => guesses.words[wid]?.confidence === "high"));
   }
   assert.equal(rows, 111);
 });

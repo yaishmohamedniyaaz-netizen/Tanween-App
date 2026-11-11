@@ -28,6 +28,7 @@ import { QuestionPreparationWorkspace } from "./components/QuestionPreparationWo
 import { CompetitionIdlePanel } from "./components/CompetitionIdlePanel";
 import { FinishDialog } from "./components/FinishDialog";
 import { publishPageDrawing } from "./lib/digitalKhattPages";
+import { publishBasmalaStyle } from "./lib/printedBasmala";
 import { useSessionSaveStatus } from "./components/SessionStorageBoundary";
 import { JudgeRoleStrip } from "./components/JudgeRoleStrip";
 import { PreparedSidebar } from "./components/PreparedSidebar";
@@ -127,6 +128,7 @@ export function App() {
   );
   // Every page surface (judging, replay, results) reads the drawing choice from one store.
   useLayoutEffect(() => publishPageDrawing(preferences.marking.pageDrawing), [preferences.marking.pageDrawing]);
+  useLayoutEffect(() => publishBasmalaStyle(preferences.marking.basmala), [preferences.marking.basmala]);
   const [mobilePortrait, setMobilePortrait] = useState(() => window.matchMedia(MOBILE_MUSHAF_QUERY).matches);
   const [zoomConstrained, setZoomConstrained] = useState(false);
   useEffect(() => {
