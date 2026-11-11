@@ -13,8 +13,14 @@ export interface LetterBorderWord {
   tids: string[];
   /** Borders in artwork px (1920-wide page), right to left: letter i spans x[i+1]..x[i]. */
   x: number[];
-  /** Guesses only (public/letter-borders-guess): never present on approved words. */
+  /** Guesses only: never present on approved words. */
   confidence?: "high" | "medium" | "low";
+  /**
+   * DigitalKhatt-guided bars only: each letter's own span [left, right] in
+   * artwork px, in reading order. Used instead of `x`, so gaps between
+   * letters stay gaps.
+   */
+  bars?: [number, number][];
 }
 
 /**
@@ -56,11 +62,19 @@ export function letterBarGeometry(
 ): LetterBarGeometry | null {
   if (!page || page.ruleVersion !== TARGET_RULE_VERSION || !region) return null;
   const word = page.words[wid];
-  if (!word || word.x.length !== word.tids.length + 1) return null;
+  if (!word) return null;
   const index = word.tids.indexOf(tid);
   if (index < 0) return null;
-  const right = word.x[index];
-  const left = word.x[index + 1];
+  let right: number;
+  let left: number;
+  if (word.bars) {
+    if (word.bars.length !== word.tids.length) return null;
+    [left, right] = word.bars[index];
+  } else {
+    if (word.x.length !== word.tids.length + 1) return null;
+    right = word.x[index];
+    left = word.x[index + 1];
+  }
   const regionWidth = region[2] - region[0];
   if (!(right > left) || !(regionWidth > 0)) return null;
   return {
@@ -92,7 +106,35 @@ export function underlineGeometry(
   return { ...bar, left: bar.left + (bar.width - width) / 2, width };
 }
 
-function borderLoader(folder: string) {
+/** One page of public/letter-bars-dk as written by the DigitalKhatt-guided run. */
+interface DkBarPage {
+  page: number;
+  ruleVersion: string;
+  words: Record<string, { tids: string[]; bars: ([number, number] | null)[]; status: "ok" | "review"; checks: string[] }>;
+}
+
+/**
+ * DigitalKhatt-guided bars as guesses. Words that passed the automatic checks
+ * are "high"; other words are "low". Words judged wrong when viewed, and words
+ * without one valid bar per letter, are left out (they keep the word highlight).
+ */
+export function fromDkBars(data: DkBarPage): LetterBorderPage {
+  const words: Record<string, LetterBorderWord> = {};
+  for (const [wid, word] of Object.entries(data.words)) {
+    if (word.checks.some((check) => /^visual-.*-wrong$/.test(check))) continue;
+    if (word.bars.length !== word.tids.length) continue;
+    if (!word.bars.every((bar) => bar && bar[1] > bar[0])) continue;
+    words[wid] = {
+      tids: word.tids,
+      x: [],
+      bars: word.bars as [number, number][],
+      confidence: word.status === "ok" ? "high" : "low",
+    };
+  }
+  return { page: data.page, ruleVersion: data.ruleVersion, words };
+}
+
+function borderLoader(folder: string, convert: (data: never) => LetterBorderPage = (data) => data) {
   let indexPromise: Promise<Set<number>> | null = null;
   const pagePromises = new Map<number, Promise<LetterBorderPage | null>>();
   return (page: number): Promise<LetterBorderPage | null> => {
@@ -109,7 +151,7 @@ function borderLoader(folder: string) {
       if (!pages.has(page)) return null;
       const response = await fetch(`/${folder}/p${page}.json`);
       if (!response.ok) return null;
-      const data = (await response.json()) as LetterBorderPage;
+      const data = convert((await response.json()) as never);
       return data.page === page ? data : null;
     }).catch(() => null);
     pagePromises.set(page, promise);
@@ -121,5 +163,8 @@ function borderLoader(folder: string) {
 
 /** Approved borders for one page, or null when that page has none (or offline). */
 export const loadLetterBorders = borderLoader("letter-borders");
-/** Learned, unapproved guesses for one page (prototype only). */
-export const loadLetterBorderGuesses = borderLoader("letter-borders-guess");
+/**
+ * Unapproved bars for one page (prototype only): the DigitalKhatt-guided run,
+ * which replaced the learned guesses of public/letter-borders-guess.
+ */
+export const loadLetterBorderGuesses = borderLoader("letter-bars-dk", fromDkBars);

@@ -3,7 +3,7 @@ import fs from "node:fs";
 import test from "node:test";
 import { judgingTargetsOf, TARGET_RULE_VERSION } from "../src/lib/judgingUnits.ts";
 import { nextRecitedWords } from "../src/lib/recitedNeighbours.ts";
-import { letterBarGeometry, LETTER_BAR_ARTWORK_PX, underlineGeometry } from "../src/lib/letterBorders.ts";
+import { fromDkBars, letterBarGeometry, LETTER_BAR_ARTWORK_PX, underlineGeometry } from "../src/lib/letterBorders.ts";
 
 const page = (words, ruleVersion = TARGET_RULE_VERSION) => ({ page: 2, ruleVersion, words });
 const MIN = { tids: ["2.5.3@r0", "2.5.3@r3"], x: [966, 931, 891] };
@@ -66,4 +66,47 @@ test("guessed underlines: approved first, then guesses by the prototype switch",
   assert.deepEqual([full.left, full.width], [0.11, 0.4]);
   const short = underlineGeometry(approved, guess, "short", "2.6.0", "2.6.0@r3", REGION);
   assert.ok(Math.abs(short.width - 0.16) < 1e-9 && Math.abs(short.left - 0.23) < 1e-9);
+});
+
+test("DigitalKhatt-guided bars: checked words are high confidence, others low, known-wrong and broken words dropped", () => {
+  const raw = page({
+    "2.6.0": { tids: ["2.6.0@r0", "2.6.0@r3"], bars: [[935, 966], [891, 931]], status: "ok", checks: [] },
+    "2.6.1": { tids: ["2.6.1@r0"], bars: [[900, 950]], status: "review", checks: ["fit"] },
+    "2.6.2": { tids: ["2.6.2@r0"], bars: [[900, 950]], status: "review", checks: ["visual-v3-wrong"] },
+    "2.6.3": { tids: ["2.6.3@r0", "2.6.3@r1"], bars: [[900, 950]], status: "review", checks: ["error: invalid bar geometry"] },
+    "2.6.4": { tids: ["2.6.4@r0"], bars: [null], status: "review", checks: ["coverage"] },
+    "2.6.5": { tids: ["2.6.5@r0"], bars: [[950, 900]], status: "review", checks: ["overlap"] },
+  });
+  const guesses = fromDkBars(raw);
+  assert.deepEqual(Object.keys(guesses.words), ["2.6.0", "2.6.1"]);
+  assert.equal(guesses.words["2.6.0"].confidence, "high");
+  assert.equal(guesses.words["2.6.1"].confidence, "low");
+  // A bar is the letter's own span, so gaps between letters stay gaps.
+  const nun = underlineGeometry(null, guesses, "full", "2.6.0", "2.6.0@r3", REGION);
+  assert.deepEqual([nun.left, nun.width], [0.11, 0.4]);
+  const meem = underlineGeometry(null, guesses, "full", "2.6.0", "2.6.0@r0", REGION);
+  assert.deepEqual([meem.left, meem.width], [0.55, 0.31]);
+  assert.equal(underlineGeometry(null, guesses, "high", "2.6.1", "2.6.1@r0", REGION), null);
+  assert.ok(underlineGeometry(null, guesses, "full", "2.6.1", "2.6.1@r0", REGION));
+});
+
+test("the shipped DigitalKhatt-guided bars match the app's current letters", () => {
+  const index = JSON.parse(fs.readFileSync("public/letter-bars-dk/index.json", "utf8"));
+  assert.equal(index.ruleVersion, TARGET_RULE_VERSION);
+  assert.equal(index.pages.length, 604);
+  let high = 0;
+  for (const p of index.pages) {
+    const data = fromDkBars(JSON.parse(fs.readFileSync(`public/letter-bars-dk/p${p}.json`, "utf8")));
+    assert.equal(data.page, p);
+    const text = JSON.parse(fs.readFileSync(`public/pages/p${p}.json`, "utf8"));
+    const next = nextRecitedWords(text);
+    const semantic = new Map(text.lines.flatMap((line) => line.words ?? []).map((word) => [word.wid, word]));
+    for (const [wid, word] of Object.entries(data.words)) {
+      const source = semantic.get(wid);
+      const tids = judgingTargetsOf(source.text, source.role, wid, { nextWord: next.get(wid) }).map((t) => t.tid);
+      assert.deepEqual(word.tids, tids, `${wid} letters`);
+      if (word.confidence === "high") high += 1;
+    }
+  }
+  assert.ok(high > 68000, `${high} checked words`);
 });
