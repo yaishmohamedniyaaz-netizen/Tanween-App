@@ -210,3 +210,39 @@ broken regression words was applied (stricter than "at most 1" above).
 - Token use: `null` (not measurable in this session).
 - Commit id: see the commit that adds this report on `codex/dk-guided-underlines`
   (stated in the hand-back message). **Not pushed to main.**
+
+### After the report: look at the 7 failed test words (11 November 2026, no fix kept)
+
+The owner asked for a fix for the remaining errors. The 7 failed test words were drawn
+again at double size next to the DigitalKhatt reference letters (they are development
+data now; the recorded test result is unchanged).
+
+**What the closer look shows**
+
+- 3 of the 7 are in fact right: 33.19.29, 20.68.5 and 22.53.5 (recorded `unsure` only
+  because the test sheet was too small to see the lam stem or the ي tooth).
+- 4 are real errors, with three different causes:
+  1. **Swash kaf (6.69.8, 7.38.7):** the print uses the long S-shaped kaf, the
+     DigitalKhatt reference uses the plain kaf. The shapes cannot be laid on each other,
+     so the lam stem or the kaf knot goes to the neighbour letter.
+  2. **Lam joined into ح (6.66.4):** alif and lam stand closer in print than in the
+     reference; the lam stem is split between the alif and the ح.
+  3. **Stretched join (25.42.8):** the print has a long join line between ه and ا that
+     the reference does not have, so the ه body is matched to the ي. The long fatha
+     above is also counted as letter body.
+- Optical flow hides these cases: after the flow step every print pixel lies on some
+  reference ink, so the stored `fit` value does not show the wrong match.
+
+**Three quick attempts, all dropped (computer evidence only, nothing viewed as a sheet)**
+
+| Attempt | Result |
+| --- | --- |
+| Column matching (dynamic time warping of column profiles) before the flow step | Repaired the ه of 25.42.8 only. Did not repair 6.66.4 or 7.38.7. Moved labels in 33.19.29, which was right. |
+| Treat pieces already matched as marks as non-body when sizing bars | Changed bars in many of the 120 regression words (up to 26 px). Too broad to keep under the zero-break rule. |
+| Withhold words where a tall stroke is split between letters or owned by a letter without a stem | Flagged 42 of the 120 right regression words (tails of م and ي count as tall strokes). Not usable as a check. |
+
+**Suggested next step for whoever continues:** treat the causes one at a time. The swash
+kaf is the clearest: detect it in print (kaf with a long upper arm and a knot beside the
+previous letter) and label the knot and arm as kaf by rule, not by the reference shape.
+Each kept fix needs the full run (about 2 h 40 min) and a new fresh sample, because the
+seed-20261114 sample is now used.
