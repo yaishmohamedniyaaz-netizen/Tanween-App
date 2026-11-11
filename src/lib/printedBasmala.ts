@@ -1,4 +1,5 @@
 import regions from '../data/printedBasmalaRegions.json' with { type: 'json' };
+import stamp from '../data/printedBasmalaBars.json' with { type: 'json' };
 import descriptor from '../data/fixedMushafPackage.json' with { type: 'json' };
 import type { FixedRect, FixedWordRegion } from './fixedMushafGeometry';
 import type { MushafPage } from './page';
@@ -17,4 +18,26 @@ export function printedBasmalaWords(data: MushafPage): FixedWordRegion[] {
       return { ...word, line: line.n, body: region, band: region, region };
     });
   });
+}
+
+/**
+ * Letter bars for the printed Basmalas of one page, in artwork px. Every
+ * Basmala row of the stamp width is the same image at the same scale, so one
+ * set of bars (measured from the row's left edge) serves all of them. Rows of
+ * another width (page 2) get none and keep the word highlight.
+ */
+export function printedBasmalaBars(page: number): Record<string, { tids: string[]; bars: [number, number][] }> {
+  if (regions.packageVersion !== descriptor.version) return {};
+  const words: Record<string, { tids: string[]; bars: [number, number][] }> = {};
+  for (const row of regions.rows) {
+    if (row.page !== page || row.bounds[2] - row.bounds[0] !== stamp.stampWidth) continue;
+    stamp.words.forEach((word, i) => {
+      const wid = `${row.surah}.b.${i}`;
+      words[wid] = {
+        tids: word.tids.map(tid => `${wid}@${tid}`),
+        bars: word.bars.map(([left, right]) => [row.bounds[0] + left, row.bounds[0] + right] as [number, number]),
+      };
+    });
+  }
+  return words;
 }

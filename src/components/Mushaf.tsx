@@ -80,6 +80,7 @@ import {
 } from "../lib/recitationRangeLayout.ts";
 import { MushafPageSurface, MushafWord } from "./MushafPageSurface.tsx";
 import { FixedMushafPageSurface } from "./FixedMushafPageSurface.tsx";
+import { printedBasmalaWords } from "../lib/printedBasmala.ts";
 import { DkWordArt } from "./DigitalKhattPage.tsx";
 import { cachedDkPage, usePageDrawing } from "../lib/digitalKhattPages.ts";
 import { assertFixedPageMatches, type FixedPageGeometry } from "../lib/fixedMushafGeometry.ts";
@@ -492,7 +493,8 @@ export function Mushaf(props: MushafProps) {
           hy: ink.y - (fixedPages ? 0 : HIT_PAD_Y),
           hw: ink.w + (fixedPages ? 0 : HIT_PAD_X * 2),
           hh: ink.h + (fixedPages ? 0 : HIT_PAD_Y * 2),
-          region: fixedPages?.get(page.page)?.words.find((word) => word.wid === wid)?.region,
+          region: fixedPages?.get(page.page)?.words.find((word) => word.wid === wid)?.region
+            ?? (fixedPages && wid.includes(".b.") ? printedBasmalaWords(page).find((word) => word.wid === wid)?.region : undefined),
         });
       });
 

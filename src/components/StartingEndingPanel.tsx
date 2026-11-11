@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState, type PointerEvent as ReactPointerEvent } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState, type PointerEvent as ReactPointerEvent } from "react";
 import { createPortal, flushSync } from "react-dom";
 import { DragMenu, type MenuAnchor } from "./DragMenu";
 import { judgingTargetsOf } from "../lib/judgingUnits";
@@ -212,8 +212,7 @@ export function StartingEndingPanel({ config, categories, showTashkeel, request,
                   onLostPointerCapture={() => { if (gesture.current) cancelSelection(); }}
                   onContextMenu={event => event.preventDefault()}
                   onClick={event => { if (event.detail === 0) chooseWord(phraseIndex, wordIndex, event.currentTarget); }}>
-                  <span className="phrase-word-ink">{word}</span>
-                  {summary.total >= 2 && <span className="phrase-word-count" aria-hidden="true">{summary.total}</span>}
+                  <PhraseWordInk word={word} wordKey={key} marks={marks} categories={categories} total={summary.total} />
                 </button>;
               })}</div>
             </div>)}
@@ -230,5 +229,57 @@ export function StartingEndingPanel({ config, categories, showTashkeel, request,
           cancelSelection();
         }} />}
     </section>, document.body)}
+  </>;
+}
+
+type Bar = { tid: string; category: CategoryId; left: number; width: number };
+
+/**
+ * The word as text, with a bar under each marked letter. The bar spans the
+ * letter's characters as the browser lays them out (a text range), so it
+ * follows the font: no stored borders are needed for these phrases.
+ */
+function PhraseWordInk({ word, wordKey, marks, categories, total }: {
+  word: string; wordKey: string; marks: PhraseFinding[]; categories: CategoryId[]; total: number;
+}) {
+  const ink = useRef<HTMLSpanElement | null>(null);
+  const [bars, setBars] = useState<Bar[]>([]);
+  const marked = marks.filter(mark => mark.wordKey === wordKey && categories.includes(mark.category));
+  const markedKey = marked.map(mark => mark.targetId + "=" + mark.category).join("|");
+  useLayoutEffect(() => {
+    const node = ink.current;
+    const text = node?.firstChild;
+    if (!node || !text || text.nodeType !== Node.TEXT_NODE || !marked.length) { setBars([]); return; }
+    const units = judgingTargetsOf(word, "letter", "phrase:recitation:" + wordKey);
+    const measure = () => {
+      const box = node.getBoundingClientRect();
+      const next: Bar[] = [];
+      for (const mark of marked) {
+        const unit = units.find(item => item.tid === mark.targetId);
+        if (!unit) continue;
+        const range = document.createRange();
+        range.setStart(text, unit.start);
+        range.setEnd(text, Math.min(unit.end, text.textContent?.length ?? unit.end));
+        const rects = [...range.getClientRects()].filter(rect => rect.width > 0);
+        if (!rects.length) continue;
+        const left = Math.min(...rects.map(rect => rect.left));
+        const right = Math.max(...rects.map(rect => rect.right));
+        next.push({ tid: unit.tid, category: mark.category, left: left - box.left, width: right - left });
+      }
+      setBars(next);
+    };
+    measure();
+    let live = true;
+    document.fonts?.ready.then(() => { if (live) measure(); });
+    return () => { live = false; };
+    // markedKey stands for the marked letters and their mistake types.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [word, wordKey, markedKey]);
+  // As on the page: when every marked letter has its bar, the count is not needed.
+  return <>
+    <span className="phrase-word-ink" ref={ink}>{word}{bars.map(bar =>
+      <span key={bar.tid} className={"phrase-letter-bar cat-" + bar.category} data-letter-bar={bar.tid} aria-hidden="true"
+        style={{ left: bar.left, width: bar.width }} />)}</span>
+    {total >= 2 && bars.length < marked.length && <span className="phrase-word-count" aria-hidden="true">{total}</span>}
   </>;
 }

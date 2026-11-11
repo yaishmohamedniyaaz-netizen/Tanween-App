@@ -57,3 +57,8 @@
 @media (max-width:360px) {
   .app-header.has-phrases .mobile-question-return .question-return-arrow { display:none; }
 }
+/* Letter bar under a marked letter of a phrase word (same look as the page's letter bar). */
+.phrase-letter-bar { position: absolute; bottom: 4%; height: 3px; border-radius: 1px; background: var(--c-bar, var(--c)); pointer-events: none; }
+[data-theme="dark"] .phrase-letter-bar.cat-jali { --c-bar: #d86b83; }
+[data-theme="dark"] .phrase-letter-bar.cat-khafi { --c-bar: #dda869; }
+[data-theme="dark"] .phrase-letter-bar.cat-fasaha { --c-bar: #738bde; }

@@ -30,7 +30,9 @@ try {
    await word.click();await page.locator('[data-unit-tid]').nth(index).click();await page.locator('[data-pill="jali"]').click();
   }
   assert.equal(await word.getAttribute('aria-label'),'أَعُوذُ, 2 findings');
-  assert.equal(await page.locator('.phrase-word-count').textContent(),'2');
+  // Each marked letter has its own bar, so the count is not shown (as on the page).
+  assert.equal(await word.locator('.phrase-letter-bar').count(),2);
+  assert.equal(await page.locator('.phrase-word-count').count(),0);
   assert.equal(await page.evaluate(()=>window.qaMicrophoneCalls),microphoneCalls,'Opening/marking must not acquire another microphone stream');
   assert.equal(await page.evaluate(()=>localStorage.getItem('tahqeeq.session.v1')),official,'UI proof must not write official evidence');
   await page.getByRole('button',{name:/Pause recording at/}).click();

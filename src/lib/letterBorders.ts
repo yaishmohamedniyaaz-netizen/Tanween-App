@@ -1,4 +1,5 @@
 import { TARGET_RULE_VERSION } from "./judgingUnits.ts";
+import { printedBasmalaBars } from "./printedBasmala.ts";
 
 /**
  * Owner-approved letter borders on the 1405H page artwork.
@@ -120,6 +121,11 @@ interface DkBarPage {
  */
 export function fromDkBars(data: DkBarPage): LetterBorderPage {
   const words: Record<string, LetterBorderWord> = {};
+  // The printed Basmalas are not in the run; their bars are measured once on
+  // the shared stamp (scripts/letter-masks/basmala/bars.json).
+  for (const [wid, word] of Object.entries(printedBasmalaBars(data.page))) {
+    words[wid] = { tids: word.tids, x: [], bars: word.bars, confidence: "high" };
+  }
   for (const [wid, word] of Object.entries(data.words)) {
     if (word.checks.some((check) => /^visual-.*-wrong$/.test(check))) continue;
     if (word.bars.length !== word.tids.length) continue;
