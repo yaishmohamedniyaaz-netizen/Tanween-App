@@ -7,6 +7,7 @@ from unittest.mock import patch
 import numpy as np
 import bars_v3 as B
 import labels_v3 as L
+import lamkaf_v3 as K
 from bars_v2 import bars_v2
 
 
@@ -150,6 +151,42 @@ class V3CheckpointTests(unittest.TestCase):
         r = dict(labels=lab, ink=lab > 0, marks=np.zeros_like(lab, dtype=bool),
                  tids=['a@r0', 'b@r1', 'c@r2'], word={'text': 'بيج'})
         B.bars_v3(r, fix_stacked2=True)                                # must not raise
+
+    # --- lam before a non-final kaf (fix_lamkaf) ---
+    @staticmethod
+    def _lamkaf_word(stem_owner, text='بلكم', lam_left=30):
+        """80 px high, 100 px wide: ba at the right, a tall stroke at x 60-66, kaf body, mim at the left."""
+        lab = np.zeros((80, 100), np.int32)
+        lab[60:66, 75:95] = 1            # ba body
+        lab[60:66, 66:75] = 1            # join between ba and the stroke
+        lab[10:66, 60:66] = stem_owner   # the lam's upright stroke
+        lab[60:66, lam_left:60] = 2      # ink labelled lam left of the stroke
+        lab[60:66, 15:lam_left] = 3      # kaf body
+        lab[55:70, 3:15] = 4             # mim
+        tids = [f'w@r{i}' for i in range(len(text))]
+        return dict(labels=lab, ink=lab > 0, marks=np.zeros_like(lab, dtype=bool), tids=tids, word={'text': text})
+
+    def test_lamkaf_returns_the_stroke_to_the_lam(self):
+        r = self._lamkaf_word(stem_owner=1); old = r['labels'].copy()
+        out = K.fix_lamkaf(r)
+        np.testing.assert_array_equal(r['labels'], old)                      # input not mutated
+        self.assertTrue((out['labels'][10:60, 60:66] == 2).all())            # stroke is lam
+        self.assertTrue((out['labels'][60:66, 15:45] == 3).all())            # ink far left of it is kaf
+        self.assertTrue((out['labels'][60:66, 75:95] == 1).all())            # ba keeps its own body
+        self.assertTrue((out['labels'][55:70, 3:15] == 4).all())             # mim untouched
+
+    def test_lamkaf_trims_a_lam_that_runs_far_left_of_its_stroke(self):
+        out = K.fix_lamkaf(self._lamkaf_word(stem_owner=2))
+        self.assertTrue((out['labels'][60:66, 30:45] == 3).all())                # beyond 1.5 stroke widths
+        self.assertTrue((out['labels'][10:60, 60:66] == 2).all())
+
+    def test_lamkaf_leaves_right_words_and_other_words_alone(self):
+        ok = self._lamkaf_word(stem_owner=2, lam_left=52)                    # lam only a little left of its stroke
+        self.assertIs(K.fix_lamkaf(ok), ok)
+        final = self._lamkaf_word(stem_owner=1, text='ذبلك')                  # word-final kaf: out of scope
+        self.assertIs(K.fix_lamkaf(final), final)
+        other = self._lamkaf_word(stem_owner=1, text='بلنم')                  # no lam-kaf pair
+        self.assertIs(K.fix_lamkaf(other), other)
 
 
 if __name__ == '__main__':

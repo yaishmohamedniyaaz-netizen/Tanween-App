@@ -6,14 +6,15 @@ from pathlib import Path
 import numpy as np
 from PIL import Image, ImageDraw
 import labels_v3 as L
+import lamkaf_v3 as K
 from bars_v3 import bars_v3, valid
 import run_v2 as R
 import review_v2_checkpoint as REVIEW
 from sheet import PAL
 OUT=R.HERE/'checkpoint2';CACHE=OUT/'cache';CACHE.mkdir(exist_ok=True)
 read=REVIEW.read;atomic=R.atomic
-FLAGS={5:'collisions',4:'detached',2:'stems',1:'stacked',3:'bowl','1r2':'stacked2','3r2':'bowl2'}
-DEVPATTERN={'1r2':1,'3r2':None}  # None: run every dev case (the rule is general; only changed words are shown)  # a revision reuses its pattern's dev cases, in its own folder
+FLAGS={5:'collisions',4:'detached',2:'stems',1:'stacked',3:'bowl','1r2':'stacked2','3r2':'bowl2','2r2':'lamkaf'}
+DEVPATTERN={'1r2':1,'3r2':None,'2r2':None}  # None: run every dev case (the rule is general; only changed words are shown)  # a revision reuses its pattern's dev cases, in its own folder
 
 def base(p,w):
  path=CACHE/f'{p}-{w}.pickle'
@@ -30,7 +31,7 @@ def base(p,w):
  return r
 
 def apply(r,flags):
- for key,fn in [('detached',L.fix_detached),('stems',L.fix_stems),('stacked',L.fix_stacked)]:
+ for key,fn in [('detached',L.fix_detached),('stems',L.fix_stems),('stacked',L.fix_stacked),('lamkaf',K.fix_lamkaf)]:
   if key in flags:r=fn(r)
  b=bars_v3(r,fix_colliding='collisions' in flags,fix_bowl='bowl' in flags,fix_stacked2='stacked2' in flags,fix_bowl2='bowl2' in flags)
  return r,b
