@@ -17,10 +17,12 @@ import run_v3 as R
 OUT, TEST, BARS, ROOT, read, atomic = R.OUT, C.TEST, R.BARS, R.ROOT, R.read, R.atomic
 V2_COMMIT = '9f3eab5858a1dcef227ed4954565ab01a12d4dfe'   # handoff commit: still holds the final v2 export
 KEPT_SHEETS = ('pattern-1r2', 'pattern-3r2')             # sheets judged under the final kept flags
+CP2_COMMIT = '0f29c2c54013989aefb0616cb274f5850b37d25b'  # Checkpoint 2 final export (before the stroke fix)
+ROUND = C.ROUND
 
 
-def git_json(path):
-    return json.loads(subprocess.check_output(['git', 'show', f'{V2_COMMIT}:{path}'], cwd=ROOT))
+def git_json(path, commit=V2_COMMIT):
+    return json.loads(subprocess.check_output(['git', 'show', f'{commit}:{path}'], cwd=ROOT))
 
 
 def automatic():
@@ -34,15 +36,21 @@ def automatic():
     words = changed = same_labels = 0
     status, v2_status, gained, lost, changed_ok = Counter(), Counter(), 0, 0, 0
     prior_visual = {}
+    labels_changed = changed_since_cp2 = 0
+    cp2_bars = {}
     for p in range(1, 605):
         bars, raw = read(BARS / f'p{p}.json'), read(R.RAW / f'p{p}.json')
         assert R.reusable(raw, bars, p, config_sha, R.page_signature(p, config_sha)), ('stale page', p)
         old = git_json(f'public/letter-bars-dk/p{p}.json')
+        mid = git_json(f'public/letter-bars-dk/p{p}.json', CP2_COMMIT)['words'] if ROUND > 1 else {}
         old_raw = read(R.V2.RAW / f'p{p}.json')['words']
         assert old['method'] == 'dk-guided-v2' and set(old['words']) == set(bars['words']), ('word inventory', p)
         for wid, w in bars['words'].items():
             o = old['words'][wid]
             words += 1
+            if ROUND > 1:
+                cp2_bars[wid] = mid[wid]['bars']
+                changed_since_cp2 += w['bars'] != mid[wid]['bars']
             assert w['tids'] == o['tids'], ('targets changed', wid)
             auto = [c for c in w['checks'] if not c.startswith('visual-')]
             status['ok' if not auto else 'review'] += 1
@@ -52,8 +60,11 @@ def automatic():
                 if c.startswith('visual-'):
                     prior_visual[wid] = dict(page=p, check=c, sameBars=w['bars'] == o['bars'])
             if 'labelSha256' in old_raw[wid]:
-                assert raw['words'][wid]['labelSha256'] == old_raw[wid]['labelSha256'], ('labels changed', wid)
-                same_labels += 1
+                if raw['words'][wid]['labelSha256'] == old_raw[wid]['labelSha256']:
+                    same_labels += 1
+                else:
+                    assert ROUND > 1, ('labels changed', wid)   # only the stroke fix (round 2) may change labels
+                    labels_changed += 1
             if w['bars'] != o['bars']:
                 changed += 1
                 gained += bool(oauto) and not auto
@@ -69,11 +80,12 @@ def automatic():
                   automaticCounts=dict(status), automaticCoveragePercent=round(100 * status['ok'] / words, 2),
                   v2AutomaticCounts=dict(v2_status), v2AutomaticCoveragePercent=round(100 * v2_status['ok'] / words, 2),
                   wordsWithChangedBars=changed, changedBarsWithAutomaticOk=changed_ok,
-                  gainedBars=gained, lostBars=lost, labelsIdenticalToV2=same_labels, targetsIdenticalToV2=words,
+                  gainedBars=gained, lostBars=lost, labelsIdenticalToV2=same_labels, labelsChangedFromV2=labels_changed,
+                  wordsWithBarsChangedSinceCheckpoint2=changed_since_cp2 if ROUND > 1 else None, round=ROUND, targetsIdenticalToV2=words,
                   fitThreshold=index['thresholds']['fit'], failedChecks=index.get('automaticFailedChecks', index['failedChecks']),
                   protectedPathsUnchanged=True, v2Commit=V2_COMMIT)
     assert result['automaticCoveragePercent'] >= 85, 'automatic coverage below 85%'
-    return result, prior_visual
+    return result, prior_visual, cp2_bars
 
 
 def kept_sheet_verdicts():
@@ -114,7 +126,7 @@ def review():
     early = first_ok < C.GATE
     target = sample[:100] if early else sample
     assert set(ds) == {w for _, w in target}, 'unexpected or missing review ids'
-    sheets_total = len(read(OUT / 'audit.json')) + len(events)
+    sheets_total = len(read(OUT / 'audit.json')) + C.earlier_test_sheets() + len(events)
     assert sheets_total <= C.SHEET_LIMIT
     rows = [ds[w] for _, w in target]
     letters = sum(r['letters'] for r in rows)
@@ -124,12 +136,12 @@ def review():
                               fullyRightPercent=round(100 * sum(r['verdict'] == 'ok' for r in rows) / len(rows), 2),
                               letters=letters, lettersRight=right, lettersWrong=sum(len(r['wrongLetters']) for r in rows),
                               lettersUnsure=sum(len(r['unsureLetters']) for r in rows), lettersRightPercent=round(100 * right / letters, 2)),
-                    sheetsViewed=dict(patternTrials=len(read(OUT / 'audit.json')), test=len(events), total=sheets_total, limit=C.SHEET_LIMIT),
+                    sheetsViewed=dict(patternTrials=len(read(OUT / 'audit.json')), earlierTest=C.earlier_test_sheets(), test=len(events), total=sheets_total, limit=C.SHEET_LIMIT),
                     seed=C.SEED, eligibleWords=prov['eligibleWords'], excludedWords=prov['excludedWords'])
 
 
 def main(finish):
-    result, prior_visual = automatic()
+    result, prior_visual, cp2_bars = automatic()
     if finish:
         ds, reviewed = review()
         result.update(reviewed)
@@ -143,6 +155,16 @@ def main(finish):
         for wid, verdict in kept_verdicts.items():
             if verdict in ('wrong', 'unsure'):
                 flags[wid] = 'visual-v3-' + verdict
+        if ROUND > 1:
+            # Round-1 test words seen wrong or unsure stay withheld while their bars are still the same.
+            import json as _json
+            for line in (OUT / 'test' / 'decisions.jsonl').read_text().splitlines():
+                row = _json.loads(line)
+                if row['verdict'] in ('wrong', 'unsure'):
+                    now = read(BARS / f'p{row["page"]}.json')['words'][row['wid']]['bars']
+                    if now == cp2_bars[row['wid']]:
+                        flags[row['wid']] = 'visual-v3-' + row['verdict']
+            # A kept-sheet or v2-era verdict describes the old bars; it is carried only if the bars did not change.
         for wid, row in ds.items():
             if row['verdict'] in ('wrong', 'unsure'):
                 flags[wid] = 'visual-v3-' + row['verdict']

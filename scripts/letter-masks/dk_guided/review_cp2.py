@@ -17,16 +17,29 @@ from datetime import datetime, timezone
 import numpy as np
 from PIL import Image, ImageDraw
 import labels_v3 as L
+import os
 import review_v2_checkpoint as REVIEW
 import run_v2 as V2
 import run_v3 as R
 from sheet import PAL
 
 OUT = R.OUT
-TEST = OUT / 'test'
+# Round 1 is the Checkpoint 2 test (seed 20261114, folder test/). Round 2 (CP2_ROUND=2) is the
+# test after the stroke fix and the alif/lam minimum width: a new seed, a new folder, and every
+# round-1 test word and every word viewed since is excluded.
+ROUND = int(os.environ.get('CP2_ROUND', '1'))
+TEST = OUT / ('test' if ROUND == 1 else f'test{ROUND}')
 ROOT, BARS, atomic, read, sha = R.ROOT, R.BARS, R.atomic, R.read, R.sha
-SEED, SIZE, GATE, SHEET_LIMIT = 20261114, 300, 95, 50
-OBSERVER = 'cp2-fable-review'
+SEED, SIZE, GATE, SHEET_LIMIT = (20261114 if ROUND == 1 else 20261113 + ROUND), 300, 95, 50
+PER_SHEET, COLS = (24, 4) if ROUND == 1 else (12, 3)       # round 2: larger tiles, easier to judge
+OBSERVER = 'cp2-fable-review' if ROUND == 1 else f'cp2-round{ROUND}-fable-review'
+
+
+def earlier_test_sheets():
+    if ROUND == 1:
+        return 0
+    path = OUT / 'test' / 'audit.jsonl'
+    return len(path.read_text().splitlines()) if path.exists() else 0
 
 
 def decisions():
@@ -50,6 +63,9 @@ def exposures():
     extra = OUT / 'extra-exposures.json'
     if extra.exists():
         ids.update(read(extra)['words'])
+    if ROUND > 1:
+        ids.update(w for _, w in read(OUT / 'test' / 'sample.json'))
+        ids.update(r['wid'] for r in read(OUT / 'extra-exposures-2.json'))
     return ids
 
 
@@ -154,9 +170,9 @@ def sheets(phase):
         items, offset = sample[100:], 100
     REVIEW.metadata(items)
     manifest = read(TEST / 'manifest.json') if (TEST / 'manifest.json').exists() else []
-    for start in range(0, len(items), 24):
-        batch = items[start:start + 24]
-        path = TEST / f'{phase}-{start // 24 + 1:03}.png'
+    for start in range(0, len(items), PER_SHEET):
+        batch = items[start:start + PER_SHEET]
+        path = TEST / f'{phase}-{start // PER_SHEET + 1:03}.png'
         rel = str(path.relative_to(ROOT))
         known = next((e for e in manifest if e['image'] == rel), None)
         if known:
@@ -164,9 +180,9 @@ def sheets(phase):
             continue
         tiles = [tile(p, wid, offset + start + j + 1) for j, (p, wid) in enumerate(batch)]
         cw, ch = max(t.width for t in tiles), max(t.height for t in tiles)
-        out = Image.new('RGB', (cw * 4, ch * ((len(tiles) + 3) // 4)), 'white')
+        out = Image.new('RGB', (cw * COLS, ch * ((len(tiles) + COLS - 1) // COLS)), 'white')
         for j, t in enumerate(tiles):
-            out.paste(t, ((j % 4) * cw, (j // 4) * ch))
+            out.paste(t, ((j % COLS) * cw, (j // COLS) * ch))
         out.save(path)
         manifest.append(dict(phase=phase, start=offset + start, image=rel, words=batch, sha256=sha(path)))
         atomic(TEST / 'manifest.json', manifest)
@@ -180,7 +196,7 @@ def record(image, rows):
     assert [[r['page'], r['wid']] for r in rows] == entry['words']
     assert sha(ROOT / image) == entry['sha256']
     assert not any(a['image'] == image for a in audits()), 'sheet already recorded'
-    pattern_sheets = len(read(OUT / 'audit.json'))
+    pattern_sheets = len(read(OUT / 'audit.json')) + earlier_test_sheets()
     assert pattern_sheets + len(audits()) + 1 <= SHEET_LIMIT, 'sheet limit reached'
     frozen = read(TEST / 'frozen-predictions.json')
     old = {r['wid'] for r in decisions()}
@@ -227,7 +243,7 @@ def summary():
                     lettersRight=sum(r['lettersRight'] for r in rows),
                     lettersWrong=sum(len(r['wrongLetters']) for r in rows), lettersUnsure=sum(len(r['unsureLetters']) for r in rows))
     return dict(first100=part(first), all=part(ds), reviewed=len(ds), of=len(sample),
-                sheetsViewedTest=len(audits()), sheetsViewedTotal=len(read(OUT / 'audit.json')) + len(audits()))
+                sheetsViewedTest=len(audits()), sheetsViewedTotal=len(read(OUT / 'audit.json')) + earlier_test_sheets() + len(audits()))
 
 
 if __name__ == '__main__':
