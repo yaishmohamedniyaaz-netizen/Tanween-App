@@ -164,7 +164,7 @@ def main(finish):
                     now = read(BARS / f'p{row["page"]}.json')['words'][row['wid']]['bars']
                     if now == cp2_bars[row['wid']]:
                         flags[row['wid']] = 'visual-v3-' + row['verdict']
-            # A kept-sheet or v2-era verdict describes the old bars; it is carried only if the bars did not change.
+            # Only round-1 test verdicts are carried, and only where the bars did not change since Checkpoint 2.
         for wid, row in ds.items():
             if row['verdict'] in ('wrong', 'unsure'):
                 flags[wid] = 'visual-v3-' + row['verdict']

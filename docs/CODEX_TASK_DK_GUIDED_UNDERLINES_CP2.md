@@ -246,3 +246,95 @@ kaf is the clearest: detect it in print (kaf with a long upper arm and a knot be
 previous letter) and label the knot and arm as kaf by rule, not by the reference shape.
 Each kept fix needs the full run (about 2 h 40 min) and a new fresh sample, because the
 seed-20261114 sample is now used.
+
+---
+
+## Phase 2b report (11 November 2026): stroke rules and minimum width
+
+**Short result.** The new rules are in the full run and pushed. On a new fresh sample the
+score is **94.33% of words fully right (283 of 300)** and **97.34% of letters**. This is
+lower than the Checkpoint 2 score (97.67%), but it is a different sample, and the new
+rules did not cause the misses: in all 9 words judged wrong, the letters judged wrong
+have exactly the same bars as at Checkpoint 2 (details below).
+
+### What changed
+
+| Rule | File | What it does |
+| --- | --- | --- |
+| `strokes` | `lamkaf_v3.py`, `fix_strokes` | A tall upright stroke owned by a letter that has no upright goes to the alif or lam beside it. A lam that runs far left over a small next letter is trimmed (not before kaf). |
+| `minwidth` | `lamkaf_v3.py`, `widen_upright` | An alif or lam bar narrower than 20 px grows into free space first, then takes from a touching neighbour that stays at least 40 px wide. |
+
+`kept.json` is now `["stacked2","bowl2","strokes","minwidth"]`. The Checkpoint 2 result
+files are kept unchanged in `checkpoint2/cp2-final/`.
+
+### Owner review before the run
+
+The owner looked at three rounds of before/after sheets (about 50 words) and gave
+feedback each time. Round 1: the first version changed words that were already balanced,
+and lam or alif bars were too small. Round 2: a small ع was lost to the lam, and one
+lam was merged with ه. Round 3 (the version in this run) was approved for the full run.
+
+### Trial numbers (computer evidence)
+
+- Development and regression set: 78 of 741 words change; 3 regression words change by
+  5 to 11 px and are still right. Zero newly broken regression words.
+- Random 2,500 ok words: 128 change from `strokes`; 926 change with `minwidth` added;
+  0 become invalid.
+
+### Full run
+
+- 604 pages, 77,433 words, 0 page errors. Run time about 3 h 8 min in two sessions
+  (the first was stopped by the 2-hour limit of the tool and resumed from saved pages).
+- Words with bars: 68,646 (88.65%), the same share as Checkpoint 2. Target was 85%.
+- 28,232 words have bars that differ from Checkpoint 2 (mostly wider alif and lam bars).
+- Protected paths unchanged. No colour export. Tokens: `null` (not measured).
+
+### Fresh test, round 2
+
+- Seed 20261115, 300 words, frozen and committed before any viewing. The round-1
+  sample (300 words) and 251 words seen during the fix work were excluded.
+- First 100 words: 97 right (gate 95): passed.
+- All 300: 283 right, 9 wrong, 8 unsure. Letters: 1,243 of 1,277 right (97.34%).
+- 49 words in total are withheld from the published bars after viewing (this round and
+  earlier rounds). Published coverage after this: 88.59%.
+- Sheets viewed in total: 46 of 50.
+
+| | Checkpoint 2 (seed 20261114) | Phase 2b (seed 20261115) |
+| --- | --- | --- |
+| Words fully right | 293 of 300 (97.67%) | 283 of 300 (94.33%) |
+| Letters right | 99.13% | 97.34% |
+| Words with bars | 88.65% | 88.65% |
+
+The two columns are different samples. They are not a before/after comparison of the
+same words.
+
+### Did the new rules cause the misses?
+
+No, by this check: 115 of the 300 sample words have bars that changed since
+Checkpoint 2. Of these, 108 are right. Of the 17 flagged words, 10 did not change at
+all. In the other 7 the change is on alif, lam or a letter beside them, and every letter
+judged wrong has an unchanged bar. Two letters that I marked `unsure` did change: the
+alif of 5.19.1 is 9 px wider, and the ن of 2.259.36 is 16 px longer. So the misses were
+already in the Checkpoint 2 output; this sample happened to contain more of them, and I
+recorded `unsure` more often than in round 1 (8 against 4).
+
+### The 17 words, by cause
+
+| Cause | Words |
+| --- | --- |
+| Alif of a letter+alif unit given to the next unit after a long join | 3.79.13, 25.69.7 |
+| Labels shifted by one letter (a join line, a loop or a long fatha given to the neighbour) | 29.51.5, 11.69.4, 5.29.5, 2.259.36, 5.18.2 |
+| A stroke of the next word inside the word image, or a stroke missing | 39.5.21 (unsure), 10.101.8, 5.19.1 |
+| Lam bar partly beside its stroke or over the next letter (unsure) | 34.33.23, 6.58.12, 5.55.3 |
+| Long kaf corner given to the next letter (unsure) | 28.28.14 |
+| Boundary doubt, or the sheet was too small to decide (unsure) | 12.88.20, 24.21.9, 35.4.1 |
+
+### Limits of this result
+
+- I wrote the rules and I judged the test. An independent check is still needed.
+- With 283 of 300, the 95% confidence interval for the true share of fully right words
+  is about 91% to 96% (Wilson interval). The Checkpoint 2 sample gives about 95% to 99%.
+  The two intervals overlap, so the samples do not show a real drop or a real gain.
+- Not fixed: the stretched-join case (25.42.8), the unit-alif case above, and words whose
+  image contains a stroke of the next word. A check that compares the same word across
+  the book ("learn from solved words") was explained to the owner but not built.
