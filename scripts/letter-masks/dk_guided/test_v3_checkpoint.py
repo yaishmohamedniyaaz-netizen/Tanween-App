@@ -171,23 +171,56 @@ class V3CheckpointTests(unittest.TestCase):
         out = K.fix_lamkaf(r)
         np.testing.assert_array_equal(r['labels'], old)                      # input not mutated
         self.assertTrue((out['labels'][10:60, 60:66] == 2).all())            # stroke is lam
-        self.assertTrue((out['labels'][60:66, 15:45] == 3).all())            # ink far left of it is kaf
+        self.assertTrue((out['labels'][60:66, 40:60] == 2).all())            # lam keeps ink near its stroke
+        self.assertTrue((out['labels'][60:66, 15:34] == 3).all())            # ink far left of it is kaf
         self.assertTrue((out['labels'][60:66, 75:95] == 1).all())            # ba keeps its own body
         self.assertTrue((out['labels'][55:70, 3:15] == 4).all())             # mim untouched
 
-    def test_lamkaf_trims_a_lam_that_runs_far_left_of_its_stroke(self):
-        out = K.fix_lamkaf(self._lamkaf_word(stem_owner=2))
-        self.assertTrue((out['labels'][60:66, 30:45] == 3).all())                # beyond 1.5 stroke widths
-        self.assertTrue((out['labels'][10:60, 60:66] == 2).all())
-
     def test_lamkaf_leaves_right_words_and_other_words_alone(self):
-        ok = self._lamkaf_word(stem_owner=2, lam_left=52)                    # lam only a little left of its stroke
-        self.assertIs(K.fix_lamkaf(ok), ok)
+        for left in (30, 52):                                                # lam owns its stroke: never trimmed
+            ok = self._lamkaf_word(stem_owner=2, lam_left=left)
+            self.assertIs(K.fix_lamkaf(ok), ok)
         final = self._lamkaf_word(stem_owner=1, text='ذبلك')                  # word-final kaf: out of scope
         self.assertIs(K.fix_lamkaf(final), final)
         other = self._lamkaf_word(stem_owner=1, text='بلنم')                  # no lam-kaf pair
         self.assertIs(K.fix_lamkaf(other), other)
 
+    # --- minimum width for alif and lam bars (widen_upright) ---
+    @staticmethod
+    def _spans_word(text, bars, width=200):
+        tids = [f'w@r{i}' for i in range(len(text))]
+        return dict(ink=np.zeros((10, width), bool), tids=tids, word={'text': text}), dict(zip(tids, bars))
+
+    def test_widen_uses_empty_space_first(self):
+        r, sp = self._spans_word('ابن', [(180, 188), (100, 150), (10, 100)])   # alif alone, gap on its left
+        out = K.widen_upright(r, sp)
+        self.assertEqual(out['w@r0'][1] - out['w@r0'][0], 20)
+        self.assertEqual((out['w@r1'], out['w@r2']), ((100, 150), (10, 100)))  # neighbours untouched
+        self.assertLessEqual(out['w@r0'][1], 200); self.assertGreaterEqual(out['w@r0'][0], 152)
+
+    def test_widen_takes_from_a_wide_neighbour_only(self):
+        r, sp = self._spans_word('بلك', [(160, 190), (152, 160), (20, 152)])   # lam squeezed between ba and a wide kaf
+        out = K.widen_upright(r, sp)
+        self.assertEqual(out['w@r1'], (140, 160)); self.assertEqual(out['w@r2'], (20, 140)); self.assertEqual(out['w@r0'], (160, 190))
+        r, sp = self._spans_word('بلن', [(160, 190), (152, 160), (120, 152)])  # tight: both neighbours narrow
+        self.assertEqual(K.widen_upright(r, sp), sp)
+
+    def test_widen_never_overlaps_and_skips_other_letters_and_invalid_words(self):
+        rng = np.random.default_rng(7)
+        for _ in range(300):
+            n = int(rng.integers(2, 7)); cuts = np.sort(rng.choice(np.arange(3, 197), size=2 * n, replace=False))[::-1]
+            bars = [(int(cuts[2 * i + 1]), int(cuts[2 * i])) for i in range(n)]
+            text = ''.join(rng.choice(list('البنكم'), size=n))
+            r, sp = self._spans_word(text, bars); out = K.widen_upright(r, sp)
+            bs = [out[t] for t in r['tids']]
+            self.assertTrue(all(0 <= b[0] < b[1] <= 200 for b in bs)); self.assertTrue(all(l[1] <= rr[0] for rr, l in zip(bs, bs[1:])))
+            for t, c in zip(r['tids'], text):
+                if c not in 'ال':
+                    self.assertLessEqual(sp[t][0], out[t][0]); self.assertGreaterEqual(sp[t][1], out[t][1])  # others only ever give
+                else:
+                    self.assertGreaterEqual(out[t][1] - out[t][0], min(sp[t][1] - sp[t][0], 40))   # a wide one may give, never below 2 x minimum
+        r, sp = self._spans_word('ال', [(100, 108), (104, 130)])              # overlapping input: untouched
+        self.assertEqual(K.widen_upright(r, sp), sp)
 
 if __name__ == '__main__':
     unittest.main()
