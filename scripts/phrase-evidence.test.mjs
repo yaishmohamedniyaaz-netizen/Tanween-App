@@ -1,10 +1,9 @@
 import test, { after } from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtempSync, unlinkSync, rmdirSync } from 'node:fs';
+import { mkdtempSync, readFileSync, unlinkSync, rmdirSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { createRequire } from 'node:module';
-import { execFileSync } from 'node:child_process';
 import { buildSync } from 'esbuild';
 import { phraseFixture, savedPhraseFixture, phraseTestCompetition, phraseStateFixture as stateFixture } from './qa/phrase-evidence-fixtures.ts';
 import { RECITATION_PHRASES } from '../src/lib/recitationPhrases.ts';
@@ -25,7 +24,9 @@ buildSync({entryPoints:['scripts/qa/phrase-evidence-entry.ts'],outfile:compiled,
   platform:'node',format:'cjs',jsx:'automatic',loader:{'.css':'empty'},logLevel:'silent'});
 const {normalizeSavedSession,normalizeImportedSavedSession,buildSessionPayload} = createRequire(import.meta.url)(compiled);
 // Execute the actual pre-change reader, not an imitation of its schema check.
-buildSync({stdin:{contents:execFileSync('git',['show','ca19494071c03eacab364067eb88e9a567cea83a:src/lib/resultPackages.ts'],{encoding:'utf8'}),loader:'ts',resolveDir:process.cwd()},
+// The fixture is src/lib/resultPackages.ts exactly as at commit ca19494 (kept
+// in the repo so the test also runs on a shallow checkout, as in CI).
+buildSync({stdin:{contents:readFileSync('scripts/fixtures/resultPackages-ca19494.ts','utf8'),loader:'ts',resolveDir:process.cwd()},
   outfile:oldCompiled,bundle:true,platform:'node',format:'cjs',logLevel:'silent'});
 const oldReader=createRequire(import.meta.url)(oldCompiled);
 after(()=>{unlinkSync(compiled);unlinkSync(oldCompiled);rmdirSync(temporary);});
