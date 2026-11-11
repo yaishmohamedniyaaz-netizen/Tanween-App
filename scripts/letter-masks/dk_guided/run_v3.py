@@ -20,6 +20,7 @@ from collections import Counter
 from pathlib import Path
 import numpy as np
 import labels_v3 as L
+import lamkaf_v3 as K
 from bars_v3 import bars_v3
 import run_v2 as V2
 
@@ -29,7 +30,7 @@ OUT = HERE / 'checkpoint2'
 RAW = OUT / 'batch'
 METHOD = 'dk-guided-v3'
 MERGE_HEAD = 'e3efc58'
-ORDER = ('collisions', 'detached', 'stems', 'stacked', 'bowl', 'stacked2', 'bowl2')
+ORDER = ('collisions', 'detached', 'stems', 'stacked', 'bowl', 'stacked2', 'bowl2', 'strokes', 'minwidth')
 PROTECTED = ['src', 'public/mushaf', 'public/pages', 'public/mushaf-dk', 'public/letter-borders']
 atomic, sha = V1.atomic, V2.sha
 
@@ -47,7 +48,7 @@ def configuration():
     assert isinstance(flags, list) and all(isinstance(f, str) for f in flags)
     assert len(flags) == len(set(flags)) and set(flags) <= set(ORDER), flags
     flags = [f for f in ORDER if f in flags]
-    sources = [HERE / name for name in ('run_v3.py', 'run_v2.py', 'run_all.py', 'dkguide.py', 'labels_v3.py', 'bars_v2.py', 'bars_v3.py')]
+    sources = [HERE / name for name in ('run_v3.py', 'run_v2.py', 'run_all.py', 'dkguide.py', 'labels_v3.py', 'lamkaf_v3.py', 'bars_v2.py', 'bars_v3.py')]
     sources += [HERE.parent / 'dump_units.mts'] + sorted((ROOT / 'src/lib').rglob('*.ts'))
     versions = {n: importlib.metadata.version(n) for n in ('numpy', 'scipy', 'scikit-image', 'Pillow', 'CairoSVG')}
     versions.update(python=platform.python_version(), node=subprocess.check_output(['node', '--version'], text=True).strip())
@@ -76,7 +77,12 @@ def apply(r, flags):
     for key, fn in [('detached', L.fix_detached), ('stems', L.fix_stems), ('stacked', L.fix_stacked)]:
         if key in flags:
             r = fn(r)
-    return r, bars_v3(r, fix_colliding='collisions' in flags, fix_bowl='bowl' in flags, fix_stacked2='stacked2' in flags, fix_bowl2='bowl2' in flags)
+    if 'strokes' in flags:
+        r = K.fix_strokes(r)
+    spans = bars_v3(r, fix_colliding='collisions' in flags, fix_bowl='bowl' in flags, fix_stacked2='stacked2' in flags, fix_bowl2='bowl2' in flags)
+    if 'minwidth' in flags:
+        spans = K.widen_upright(r, spans)
+    return r, spans
 
 
 def metrics_for(r, tids):
