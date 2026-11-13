@@ -11,6 +11,7 @@ import { preloadPage } from "../lib/page";
 import { Icon } from "./Icon";
 import { preloadQcfPageFont } from "../lib/qcfFont";
 import { pageFinderItems, SURAH_LATIN, surahOfPage, type PageFinderItem } from "../lib/pageFinder";
+import { usePageScrubber } from "./PageScrubber";
 
 interface PageNavProps {
   page: number;
@@ -22,6 +23,8 @@ interface PageNavProps {
   calibrated?: boolean;
   /** The selected question's page, offered first while the field is empty. */
   questionPage?: number | null;
+  /** The reciter's assigned pages, shaded on the page-number scrub strip. */
+  assignedPages?: readonly [number, number] | null;
 }
 
 export function PageNav({
@@ -33,6 +36,7 @@ export function PageNav({
   prefetchFonts = true,
   calibrated = false,
   questionPage = null,
+  assignedPages = null,
 }: PageNavProps) {
   const [popoverOpen, setPopoverOpen] = useState(false);
   useEffect(() => {
@@ -184,6 +188,15 @@ export function PageNav({
     return `${name}, surah ${item.surah}, page ${item.page}${openSurahs.has(item.surah) ? ", open now" : ""}`;
   };
 
+  // Phone: hold or slide on the page number to scrub through the Quran (from the reader app).
+  const scrubber = usePageScrubber({
+    enabled: calibrated,
+    page,
+    assigned: assignedPages,
+    onPeek: (target) => { if (target !== page) onChange(target); },
+    onCommit: (target) => { setPopoverOpen(false); onChange(target); },
+  });
+
   const goForward = useCallback(
     () => onChange(moveMushafView(page, layout, 1, compact)),
     [compact, layout, onChange, page],
@@ -228,7 +241,11 @@ export function PageNav({
           aria-label={`Pages ${rangeLabel}. Go to a page or surah.`}
           aria-expanded={popoverOpen}
           aria-haspopup="dialog"
+          data-scrubbing={scrubber.scrubbing || undefined}
+          {...scrubber.handlers}
+          onContextMenu={calibrated ? (event) => event.preventDefault() : undefined}
           onClick={() => {
+            if (scrubber.swallowClick()) return;
             if (!popoverOpen) openMushafSurface("pages");
             setPopoverOpen((current) => !current);
             setJumpInput("");
@@ -238,6 +255,7 @@ export function PageNav({
           <span className="page-nav-ink">{rangeLabel.replace("\u2013", " - ")}</span>
         </button>
 
+        {scrubber.strip}
         {popoverOpen && renderPopover(
           <div ref={menuRef} className={`page-nav-popover page-finder${calibrated ? ' page-nav-popover-calibrated' : ''}`}
             role="dialog" aria-label="Go to a page or surah" style={calibrated ? popupStyle : undefined}>

@@ -456,6 +456,9 @@ export function App() {
                       compact={compact}
                       onChange={handlePageChange}
                       questionPage={openingPage}
+                      assignedPages={visibleQuestionRange
+                        ? [visibleQuestionRange.startPage, visibleQuestionRange.endPage]
+                        : null}
                     />
                     {openingPage !== null &&
                       questionIsVisibleOnPages(visibleQuestion, visiblePages) === false && (

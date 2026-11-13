@@ -54,3 +54,13 @@ test('drag and hold: the resting word fills from its middle, timed to the dwell'
   assert.match(source, /\.hit-layer\[data-drag-fill\] \.hit::before \{\n  transform: scale\(0\);/);
   assert.match(source, /\.hit-layer\[data-drag-fill\] \.hit\.dwell::before \{\n  background: var\(--hold-wash-strong\);\n  transform: none;/);
 });
+
+test('phone page number: scrub strip from the reader, with cancel and assigned pages', () => {
+  const scrub = readFileSync('src/components/PageScrubber.tsx', 'utf8');
+  assert.match(scrub, /const N = 604, GAP = 8, UP = 48, DOWN = 44, HOLD_MS = 200, SLIDE_PX = 6, PEEK_MS = 90;/);
+  assert.match(scrub, /latest\.current\.onCommit\(commit && !s\.cancel \? s\.p : s\.p0\)/);
+  const nav = readFileSync('src/components/PageNav.tsx', 'utf8');
+  assert.match(nav, /enabled: calibrated,/);
+  assert.match(nav, /if \(scrubber\.swallowClick\(\)\) return;/);
+  assert.match(readFileSync('src/App.tsx', 'utf8'), /assignedPages=\{visibleQuestionRange/);
+});
