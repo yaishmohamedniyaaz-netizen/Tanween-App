@@ -1,0 +1,45 @@
+# Netlify hosting (mirrors worker/index.js, which Cloudflare uses).
+[build]
+  command = "npm run build"
+  publish = "dist/client"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# Tilawa model files are fetched from their pinned upstream releases, not stored here.
+[[redirects]]
+  from = "/tilawa/fastconformer_full_mixed.onnx"
+  to = "https://github.com/yazinsai/tilawa/releases/download/v0.2.0/fastconformer_full_mixed.onnx"
+  status = 200
+[[redirects]]
+  from = "/tilawa/vocab.json"
+  to = "https://github.com/yazinsai/tilawa/releases/download/v0.2.0/vocab.json"
+  status = 200
+[[redirects]]
+  from = "/tilawa/quran_ctc_tokens.json"
+  to = "https://github.com/yazinsai/tilawa/releases/download/v0.2.0/quran_ctc_tokens.json"
+  status = 200
+[[redirects]]
+  from = "/tilawa/quran.json"
+  to = "https://github.com/yazinsai/tilawa/releases/download/v0.2.0/quran.json"
+  status = 200
+[[redirects]]
+  from = "/tilawa/ort-wasm-simd-threaded.wasm"
+  to = "https://cdn.jsdelivr.net/npm/onnxruntime-web@1.24.2/dist/ort-wasm-simd-threaded.wasm"
+  status = 200
+
+# Client-side app: unknown routes get the app shell (existing files are served first).
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# The PWA checks its HTML against the build hash: never transform or long-cache it.
+[[headers]]
+  for = "/index.html"
+  [headers.values]
+    Cache-Control = "no-cache, no-transform"
+[[headers]]
+  for = "/sw.js"
+  [headers.values]
+    Cache-Control = "no-cache"
