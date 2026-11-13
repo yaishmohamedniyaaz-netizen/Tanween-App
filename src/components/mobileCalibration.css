@@ -120,3 +120,14 @@
   .page-nav-popover.page-nav-popover-calibrated,
   .app[data-mobile-calibration="true"] .page-nav-popover { animation: none; }
 }
+
+/* Phone judging: no page arrows (swipe turns the page). The page number stays
+   in its place; a tap on it still opens the page finder. */
+@media (max-width: 600px) and (orientation: portrait) {
+  .app[data-mobile-calibration="true"].view-judge .mushaf-shell[data-mobile-paper="true"] .mushaf-scroll.has-fixed-pages .mushaf-shared-nav > .page-nav {
+    grid-template-columns: 52px; width: 52px;
+  }
+  .app[data-mobile-calibration="true"].view-judge .mushaf-shell[data-mobile-paper="true"] .page-nav .page-nav-btn {
+    display: none;
+  }
+}
