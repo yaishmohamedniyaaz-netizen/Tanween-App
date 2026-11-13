@@ -51,6 +51,7 @@ export function useMushafPageGesture(options: Options) {
       }
       layer?.querySelector('[data-swipe-current]')?.replaceChildren();
       latest.current.composition.current?.style.removeProperty('visibility');
+      delete host.dataset.swipeLayer;
       offset.current = rawOffset.current = 0;
     };
     const cancel = () => {
@@ -87,6 +88,8 @@ export function useMushafPageGesture(options: Options) {
       if (host.dataset.pageSwipeState === 'dragging') {
         layer.style.visibility = 'visible';
         latest.current.composition.current?.style.setProperty('visibility', 'hidden');
+        // The moving copies carry their own page numbers; the still one steps aside.
+        host.dataset.swipeLayer = 'shown';
       }
     };
     refreshRef.current = () => { updatePanMode(); if (controller.active()) draw(); };
@@ -176,6 +179,7 @@ export function useMushafPageGesture(options: Options) {
         if (!preview) {
           latest.current.preview.current?.style.setProperty('visibility', 'hidden');
           latest.current.composition.current?.style.removeProperty('visibility');
+          delete host.dataset.swipeLayer;
         }
         setState('waiting'); latest.current.navigate(target.page);
       });

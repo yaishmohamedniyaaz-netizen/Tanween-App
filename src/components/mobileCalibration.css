@@ -162,3 +162,17 @@
     color: inherit; font-size: inherit; font-weight: inherit; line-height: inherit;
   }
 }
+
+/* Swipe: the page number belongs to its page card, so it travels with it. The
+   moving copies show their numbers (still, not pressable); the real one steps
+   aside while they are on screen. Elsewhere the copies keep numbers hidden. */
+@media (max-width: 600px) and (orientation: portrait) {
+  .app[data-mobile-calibration="true"].view-judge .mushaf-shell[data-mobile-paper="true"] .mushaf-swipe-layer .mushaf-shared-nav {
+    visibility: inherit !important;
+  }
+  .app[data-mobile-calibration="true"].view-judge .mushaf-shell[data-mobile-paper="true"][data-swipe-layer="shown"] > .mushaf-scroll > .mushaf-shared-nav {
+    visibility: hidden;
+  }
+}
+.page-nav-static { pointer-events: none; }
+.mushaf-shell:not([data-mobile-paper="true"]) .page-nav-static { display: none; }

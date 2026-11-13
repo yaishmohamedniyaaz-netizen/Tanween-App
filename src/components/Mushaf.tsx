@@ -69,6 +69,7 @@ import type {
 } from "../lib/devicePreferences";
 import {
   moveMushafView,
+  mushafPageRangeLabel,
   pageIsVisible,
   visibleMushafPages,
 } from "../lib/mushafSpread";
@@ -1528,6 +1529,18 @@ export function Mushaf(props: MushafProps) {
       className={`mushaf-scroll ${fixedPages ? "has-fixed-pages" : ""} ${renderedPages.length > 1 ? "is-spread" : "is-single"}`}>
       <div className="mushaf-shared-nav">
         {!presentationOnly && headerControls(renderedPageNumbers, compact)}
+        {/* A swipe preview shows its own page number, still and not pressable,
+            so the number travels with its page. Shown only where the page
+            number sits inside the page card (calibrated phone). */}
+        {presentationOnly && (
+          <div className="page-nav page-nav-static" aria-hidden="true">
+            <div className="page-nav-center">
+              <span className="page-nav-page"><span className="page-nav-ink">
+                {mushafPageRangeLabel(renderedPageNumbers).replace("\u2013", " - ")}
+              </span></span>
+            </div>
+          </div>
+        )}
       </div>
       <div
         ref={compositionRef}
