@@ -121,13 +121,44 @@
   .app[data-mobile-calibration="true"] .page-nav-popover { animation: none; }
 }
 
-/* Phone judging: no page arrows (swipe turns the page). The page number stays
-   in its place; a tap on it still opens the page finder. */
+/* Phone judging: the page number belongs to the page card, like a printed
+   folio. No arrows (swipe turns the page); a tap on the number still opens the
+   page finder. The card runs on below the number with the same 8px inside
+   margin as its top. The number is 14px, muted, 17px under the last line. Its
+   44px tap area reaches only downward, never over the last line's words. */
 @media (max-width: 600px) and (orientation: portrait) {
+  .app[data-mobile-calibration="true"].view-judge .mushaf-shell[data-mobile-paper="true"] {
+    --folio-gap: 9px; /* + the page's own 8px under its ink = 17px under the last line */
+    --folio-size: 14px;
+    --folio-row: calc(var(--folio-gap) + var(--folio-size) * .72 + 10px);
+  }
+  .app[data-mobile-calibration="true"].view-judge .mushaf-shell[data-mobile-paper="true"] .page-fixed-mushaf {
+    border-bottom-left-radius: 0; border-bottom-right-radius: 0;
+  }
+  .app[data-mobile-calibration="true"].view-judge .mushaf-shell[data-stage-fit="ready"][data-mobile-paper="true"] .mushaf-scroll.has-fixed-pages:is(.is-single,.is-spread) > .mushaf-shared-nav {
+    position: relative; display: block;
+    height: var(--folio-row) !important; min-height: var(--folio-row) !important; margin-top: 0;
+    border-radius: 0 0 12px 12px; background: var(--page-paper);
+  }
   .app[data-mobile-calibration="true"].view-judge .mushaf-shell[data-mobile-paper="true"] .mushaf-scroll.has-fixed-pages .mushaf-shared-nav > .page-nav {
-    grid-template-columns: 52px; width: 52px;
+    position: absolute; top: 0; left: 0; right: 0; margin: 0 auto;
+    display: block; width: 64px; height: 44px; min-height: 44px; transform: none;
   }
   .app[data-mobile-calibration="true"].view-judge .mushaf-shell[data-mobile-paper="true"] .page-nav .page-nav-btn {
     display: none;
+  }
+  .app[data-mobile-calibration="true"].view-judge .mushaf-shell[data-mobile-paper="true"] .page-nav-center {
+    display: block; height: 44px;
+  }
+  .app[data-mobile-calibration="true"].view-judge .mushaf-shell[data-mobile-paper="true"] .page-nav .page-nav-page {
+    /* A button centres its label; flex puts the label at the top instead. */
+    display: flex; align-items: flex-start; justify-content: center;
+    width: 100%; height: 44px; min-height: 44px;
+    padding: calc(var(--folio-gap) - var(--folio-size) * .14) 0 0;
+    color: var(--ink-3); font-size: var(--folio-size); font-weight: 400;
+    line-height: 1; text-align: center; font-variant-numeric: tabular-nums;
+  }
+  .app[data-mobile-calibration="true"].view-judge .mushaf-shell[data-mobile-paper="true"] .page-nav .page-nav-page * {
+    color: inherit; font-size: inherit; font-weight: inherit; line-height: inherit;
   }
 }
