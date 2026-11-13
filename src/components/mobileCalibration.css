@@ -120,38 +120,3 @@
   .page-nav-popover.page-nav-popover-calibrated,
   .app[data-mobile-calibration="true"] .page-nav-popover { animation: none; }
 }
-
-/* One page, like a printed Mushaf (and the Quran reader app): the paper fills
-   the whole screen behind the page, with no card, edge or grey around it. The
-   page number sits under the text like a printed folio, sized from the page's
-   own width so it scales with the Mushaf. No arrows: swipe turns the page; a tap
-   on the number still opens the page finder. */
-@media (max-width: 600px) and (orientation: portrait) {
-  .app[data-mobile-calibration="true"].view-judge:has(.mushaf-shell[data-mobile-paper="true"]) {
-    background: var(--page-paper);
-  }
-  .app[data-mobile-calibration="true"].view-judge:has(.mushaf-shell[data-mobile-paper="true"]) :is(.workspace, .stage, .mobile-judge-deck) {
-    background: var(--page-paper);
-  }
-  .app[data-mobile-calibration="true"].view-judge .mushaf-shell[data-mobile-paper="true"] .page-fixed-mushaf {
-    border: 0; border-radius: 0; box-shadow: none; background: var(--page-paper);
-  }
-  .app[data-mobile-calibration="true"].view-judge .mushaf-shell[data-stage-fit="ready"][data-mobile-paper="true"] .mushaf-scroll.has-fixed-pages:is(.is-single,.is-spread) > .mushaf-shared-nav {
-    margin-top: 0; align-items: flex-start;
-  }
-  .app[data-mobile-calibration="true"].view-judge .mushaf-shell[data-mobile-paper="true"] .mushaf-scroll.has-fixed-pages .mushaf-shared-nav > .page-nav {
-    display: flex; justify-content: center; width: auto; gap: 0;
-  }
-  .app[data-mobile-calibration="true"].view-judge .mushaf-shell[data-mobile-paper="true"] .page-nav .page-nav-btn {
-    display: none;
-  }
-  .app[data-mobile-calibration="true"].view-judge .mushaf-shell[data-mobile-paper="true"] .page-nav .page-nav-page {
-    width: auto; min-width: 44px; padding: 0 10px;
-    color: var(--ink-3, var(--muted));
-    font-size: clamp(12px, calc(var(--mushaf-render-inline-size, 385px) * .034), 20px);
-    font-weight: 400; font-variant-numeric: tabular-nums;
-  }
-  .app[data-mobile-calibration="true"].view-judge .mushaf-shell[data-mobile-paper="true"] .page-nav .page-nav-page * {
-    color: inherit; font-size: inherit; font-weight: inherit; line-height: 1;
-  }
-}
