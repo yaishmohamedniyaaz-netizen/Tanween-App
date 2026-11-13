@@ -256,6 +256,33 @@ body {
   font-weight: 500;
   line-height: 1.4;
 }
+/* App behavior, not web-page behavior: the screen never rubber-bands and the
+   browser never zooms the interface (Mushaf size is the in-app control).
+   Scrollable panels still scroll; they contain their own overscroll. */
+html,
+body {
+  overscroll-behavior: none;
+  touch-action: pan-x pan-y;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+/* On touch screens a long press must not select labels or open the system
+   Copy / Translate menu. Fields stay selectable so typing and editing work. */
+@media (pointer: coarse) {
+  body {
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+  }
+  input,
+  textarea,
+  select,
+  [contenteditable]:not([contenteditable="false"]) {
+    -webkit-user-select: text;
+    user-select: text;
+    -webkit-touch-callout: default;
+  }
+}
 html,
 body,
 .app,
@@ -5254,8 +5281,8 @@ textarea:focus-visible {
   user-select: none;
   -webkit-user-select: none;
   -webkit-touch-callout: none;
-  /* Keep tap-to-mark, but let phones scroll and pinch-zoom naturally. */
-  touch-action: pan-y pinch-zoom;
+  /* Keep tap-to-mark and scrolling; browser pinch-zoom is off app-wide. */
+  touch-action: pan-y;
 }
 .page-special {
   max-width: min(
@@ -10010,6 +10037,12 @@ html:has(.dialog-backdrop) {
   .app.view-judge {
     display: grid;
     grid-template-rows: auto minmax(0, 1fr);
+    /* Pinned to the viewport: Safari 26 draws a solid top bar behind a fixed
+       or sticky box at the edge, instead of blurring over the header. */
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
     height: 100svh;
     min-height: 0;
     overflow: hidden;
@@ -10062,7 +10095,7 @@ html:has(.dialog-backdrop) {
     height: 100%;
     min-height: 0;
     overflow: auto;
-    overscroll-behavior: contain;
+    overscroll-behavior: none;
   }
   .app.view-judge .mushaf-shell[data-stage-fit="ready"][data-fit-mode="true"] {
     overflow: hidden;
@@ -13860,6 +13893,12 @@ html:has(.finish-dialog[open]) {
     --mobile-judge-dock-space: calc(114px + var(--mobile-judge-safe-bottom));
     display: grid;
     grid-template-rows: auto minmax(0, 1fr);
+    /* Pinned to the viewport: Safari 26 draws a solid top bar behind a fixed
+       or sticky box at the edge, instead of blurring over the header. */
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
     height: 100svh;
     min-height: 0;
     overflow: hidden;

@@ -57,7 +57,7 @@ test('touch ownership, rotation cancellation and fitted disclosure are explicit'
   assert.match(css, /padding: 14px 0 0; gap: 0/);
   assert.match(css, /--mobile-judge-dock-space: calc\(94px \+ var\(--mobile-judge-safe-bottom\)\)/);
   const mushaf = readFileSync('src/components/Mushaf.tsx','utf8');
-  assert.match(css,/\.app\.view-judge \.page-fixed-mushaf \.hit \{ touch-action: pinch-zoom; \}/);
+  assert.match(css,/\.app\.view-judge \.page-fixed-mushaf \.hit \{ touch-action: none; \}/);
   assert.match(mushaf,/window\.addEventListener\('resize', closeAll\)/);
   assert.match(mushaf,/onPointerCancel=\{judgingEnabled \? closeAll/);
   assert.match(readFileSync('src/components/MushafSizeControl.tsx','utf8'),/Fit to screen, \$\{value\} percent requested/);

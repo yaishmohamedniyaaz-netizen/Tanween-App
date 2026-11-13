@@ -11,11 +11,11 @@
   width: 100% !important; height: 100% !important; min-height: 0 !important;
 }
 /* Background gestures only. Word touch policy remains owned by marking. */
-.mushaf-shell[data-page-swipe-mode="swipe"] { touch-action: pan-y pinch-zoom; }
+.mushaf-shell[data-page-swipe-mode="swipe"] { touch-action: pan-y; }
 .app.view-judge .mushaf-shell[data-page-swipe-mode="swipe"] { overflow-x: hidden; }
-.mushaf-shell[data-page-swipe-mode="pan"] { touch-action: pan-x pan-y pinch-zoom; }
+.mushaf-shell[data-page-swipe-mode="pan"] { touch-action: pan-x pan-y; }
 .app.view-judge .mushaf-shell[data-page-swipe-mode="pan"] .page-fixed-mushaf {
-  touch-action: pan-x pan-y pinch-zoom;
+  touch-action: pan-x pan-y;
 }
 /* Fit needs an external frame size at breakpoints without the desktop or phone
    shell. Measuring the rendered page itself feeds its size back into Fit. */
@@ -87,9 +87,12 @@
 .fixed-page-frame .page-fixed-mushaf .glyph-ink.marked::before { inset-inline: 1.5px; border-radius: 3px; }
 .page-fixed-mushaf, .page-fixed-mushaf .hit { touch-action: pan-y; }
 /* Declare ownership before pointerdown. Changing touch-action after a hold is too late.
-   Non-word margins can still pan in landscape; a second touch cancels selection. */
-.app.view-judge .page-fixed-mushaf .hit { touch-action: pinch-zoom; }
-.app.view-judge .page-fixed-mushaf { touch-action: pan-y pinch-zoom; }
+   Non-word margins can still pan in landscape; a second touch cancels selection.
+   No browser pinch-zoom: it magnifies the whole app. Mushaf size is the in-app control. */
+.app.view-judge .page-fixed-mushaf .hit { touch-action: none; }
+.app.view-judge .page-fixed-mushaf { touch-action: pan-y; }
+/* A vertical swipe on a page that already fits must not drag or bounce the screen. */
+.app.view-judge .mushaf-shell { overscroll-behavior: none; }
 .app.view-judge .mushaf-shell .mushaf-scroll.has-fixed-pages {
   display: flex; flex-direction: column; justify-content: flex-end; align-items: center; gap: 8px;
 }
