@@ -5883,6 +5883,33 @@ textarea:focus-visible {
 [data-theme="dark"] .hit.armed.cat-fasaha::before {
   background: color-mix(in srgb, var(--c) 14%, transparent);
 }
+/* Drag and hold: the word under a resting finger fills from its middle out to
+   its edges (the Quran reader app's hold). It is full when the tray opens; a
+   finger that moves on lets it shrink back. Tap marking is unchanged. */
+.hit-layer[data-drag-fill] .hit::before {
+  transform: scale(0);
+  transition: background-color var(--t-fast) var(--ease-out), transform 140ms ease-in;
+}
+.hit-layer[data-drag-fill] .hit:hover::before,
+.hit-layer[data-drag-fill] .hit.armed::before {
+  transform: none;
+  transition: background-color var(--t-fast) var(--ease-out);
+}
+.hit-layer[data-drag-fill] .hit.dwell::before {
+  background: var(--hold-wash-strong);
+  transform: none;
+  transition: transform var(--drag-fill, 170ms) cubic-bezier(.3, .1, .2, 1) var(--drag-fill-wait, 50ms);
+}
+/* Reduce Motion: nothing grows; the word fades in over the same time. */
+@media (prefers-reduced-motion: reduce) {
+  .hit-layer[data-drag-fill] .hit::before {
+    transform: none;
+    transition: background-color var(--t-fast) var(--ease-out);
+  }
+  .hit-layer[data-drag-fill] .hit.dwell::before {
+    transition: background-color var(--drag-fill, 170ms) linear var(--drag-fill-wait, 50ms);
+  }
+}
 .glyph-ink {
   position: absolute;
   pointer-events: none;

@@ -44,3 +44,13 @@ test('Safari pinch gesture events are cancelled and can be removed', () => {
   target.dispatchEvent(after);
   assert.equal(after.defaultPrevented, false);
 });
+
+test('drag and hold: the resting word fills from its middle, timed to the dwell', () => {
+  const mushaf = readFileSync('src/components/Mushaf.tsx', 'utf8');
+  assert.match(mushaf, /const DRAG_FILL_MS = DRAG_DWELL_MS - DRAG_FILL_WAIT_MS;/);
+  assert.match(mushaf, /data-drag-fill=\{marking\.order === "drag-hold" \? "" : undefined\}/);
+  assert.match(mushaf, /\$\{isDwell \? " dwell" : ""\}/);
+  const source = css('src/styles/global.css');
+  assert.match(source, /\.hit-layer\[data-drag-fill\] \.hit::before \{\n  transform: scale\(0\);/);
+  assert.match(source, /\.hit-layer\[data-drag-fill\] \.hit\.dwell::before \{\n  background: var\(--hold-wash-strong\);\n  transform: none;/);
+});

@@ -121,6 +121,13 @@ interface WordHitbox {
 
 /** Drag and hold: how long the finger rests on another word before the tray moves to it. */
 const DRAG_DWELL_MS = 220;
+/**
+ * While the finger rests, the word fills from its middle (as in the Quran reader app).
+ * A short wait first, so words merely passed over on the way do not flash.
+ * Wait + fill = the dwell: the word is full exactly when its tray opens.
+ */
+const DRAG_FILL_WAIT_MS = 50;
+const DRAG_FILL_MS = DRAG_DWELL_MS - DRAG_FILL_WAIT_MS;
 
 interface ActiveDrag {
   /** No target is implied by opening the tray. */
@@ -276,6 +283,8 @@ export function Mushaf(props: MushafProps) {
   const activeRef = useRef<ActiveDrag | null>(null);
   activeRef.current = active;
   const [hovered, setHovered] = useState<CategoryId | null>(null);
+  /** Drag and hold: the word the finger rests on, filling until its tray opens ("page:wid"). */
+  const [dwellKey, setDwellKey] = useState<string | null>(null);
   const [pinned, setPinned] = useState(false);
   // Category first: a slide that ends on a category before any letter keeps the
   // tray open with that category chosen; one tap on a letter then marks it.
@@ -1106,6 +1115,7 @@ export function Mushaf(props: MushafProps) {
   const clearDwell = () => {
     if (dragDwell.current) window.clearTimeout(dragDwell.current.timer);
     dragDwell.current = null;
+    setDwellKey(null);
   };
   const dragMove = (x: number, y: number) => {
     const category = dragCategory.current;
@@ -1126,10 +1136,12 @@ export function Mushaf(props: MushafProps) {
     const key = `${box.page}:${box.wid}`;
     if (dragDwell.current?.key === key) return;
     clearDwell();
+    setDwellKey(key);
     dragDwell.current = {
       key,
       timer: window.setTimeout(() => {
         dragDwell.current = null;
+        setDwellKey(null);
         if (dragCategory.current) openForDrag(box, dragCategory.current);
       }, DRAG_DWELL_MS),
     };
@@ -1397,7 +1409,14 @@ export function Mushaf(props: MushafProps) {
             />
           ))}
         afterLines={showAnnotations ? (
-          <div className="hit-layer">
+          <div
+            className="hit-layer"
+            data-drag-fill={marking.order === "drag-hold" ? "" : undefined}
+            style={marking.order === "drag-hold" ? {
+              "--drag-fill-wait": `${DRAG_FILL_WAIT_MS}ms`,
+              "--drag-fill": `${DRAG_FILL_MS}ms`,
+            } as CSSProperties : undefined}
+          >
             {visibleBoxes.map((box) => {
               const localLeft = (value: number) => local(value) - pageClientLeft;
               const localTop = (value: number) => local(value) - pageClientTop;
@@ -1405,6 +1424,7 @@ export function Mushaf(props: MushafProps) {
               const summary = wordSummaries.get(`${box.page}:${box.wid}`);
               const category = mistakes.length ? dominant(mistakes) : null;
               const isActive = active?.meta.page === box.page && active.meta.wid === box.wid;
+              const isDwell = !isActive && dwellKey === `${box.page}:${box.wid}`;
               const isFlashing = Boolean(
                 flashTid && box.units.some(
                   (unit) => unit.tid === flashTid || unit.legacyTids.includes(flashTid),
@@ -1421,7 +1441,7 @@ export function Mushaf(props: MushafProps) {
                 <Fragment key={`${box.page}:${box.wid}`}>
                   {!presentationOnly && <div
                     data-word-hit={box.wid}
-                    className={`hit word-hit ${isActive ? `armed ${hovered || (armed && !barEnabled) ? `cat-${hovered ?? armed}` : ""}` : ""}`}
+                    className={`hit word-hit ${isActive ? `armed ${hovered || (armed && !barEnabled) ? `cat-${hovered ?? armed}` : ""}` : ""}${isDwell ? " dwell" : ""}`}
                     style={
                       {
                         left: localLeft(box.x),
