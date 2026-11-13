@@ -5898,7 +5898,7 @@ textarea:focus-visible {
 .hit-layer[data-drag-fill] .hit.dwell::before {
   background: var(--hold-wash-strong);
   transform: none;
-  transition: transform var(--drag-fill, 170ms) cubic-bezier(.3, .1, .2, 1) var(--drag-fill-wait, 50ms);
+  transition: transform var(--drag-fill, 290ms) cubic-bezier(.3, .1, .2, 1) var(--drag-fill-wait, 110ms);
 }
 /* Reduce Motion: nothing grows; the word fades in over the same time. */
 @media (prefers-reduced-motion: reduce) {
@@ -5907,7 +5907,7 @@ textarea:focus-visible {
     transition: background-color var(--t-fast) var(--ease-out);
   }
   .hit-layer[data-drag-fill] .hit.dwell::before {
-    transition: background-color var(--drag-fill, 170ms) linear var(--drag-fill-wait, 50ms);
+    transition: background-color var(--drag-fill, 290ms) linear var(--drag-fill-wait, 110ms);
   }
 }
 .glyph-ink {

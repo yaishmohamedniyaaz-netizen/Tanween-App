@@ -119,14 +119,17 @@ interface WordHitbox {
   region?: readonly number[];
 }
 
-/** Drag and hold: how long the finger rests on another word before the tray moves to it. */
-const DRAG_DWELL_MS = 220;
+/**
+ * Drag and hold: how long the finger rests on another word before the tray moves to it.
+ * Same timing as the Quran reader app's hold: 110 ms wait, then a 290 ms fill (400 ms).
+ */
+const DRAG_DWELL_MS = 400;
 /**
  * While the finger rests, the word fills from its middle (as in the Quran reader app).
  * A short wait first, so words merely passed over on the way do not flash.
  * Wait + fill = the dwell: the word is full exactly when its tray opens.
  */
-const DRAG_FILL_WAIT_MS = 50;
+const DRAG_FILL_WAIT_MS = 110;
 const DRAG_FILL_MS = DRAG_DWELL_MS - DRAG_FILL_WAIT_MS;
 
 interface ActiveDrag {
